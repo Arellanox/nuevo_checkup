@@ -4,16 +4,19 @@ include "miscelaneus.php";
 
 class Clientes extends Miscelaneus{
     public $id;
-    public $segmento_id;
     public $nombre_comercial;
     public $razon_social;
     public $nombre_sistema;
     public $rfc;
     public $curp;
-    public $direccion_fiscal;
-    public $direccion_entrega_servicios;
-    public $direccion;
     public $abreviatura;
+    public $limite_credito;
+    public $temporalidad_credito;
+    public $cuenta_contable;
+    public $pagina_web;
+    public $facebook;
+    public $twitter;
+    public $instagram;
     public $activo;
     public $tabla;
     public $mis;
@@ -29,14 +32,6 @@ class Clientes extends Miscelaneus{
 
     function getId(){
         return $this->id;
-    }
-
-    function setSegmentoId($segmento){
-        $this->segmento_id = $segmento;
-    }
-
-    function getSegmentoId(){
-        return $this->segmento_id;
     }
 
     function setNombreComercial($nombre){
@@ -79,36 +74,68 @@ class Clientes extends Miscelaneus{
         return $this->curp;
     }
 
-    function setDireccionFiscal($direccion){
-        $this->direccion_fiscal = $direccion;
-    }
-
-    function getDireccionFiscal(){
-        return $this->direccion_fiscal;
-    }
-
-    function setDireccionEntregaServicios($direccion){
-        $this->direccion_entrega_servicios = $direccion;
-    }
-
-    function getDireccionEntregaServicios(){
-        return $this->direccion_entrega_servicios;
-    }
-
-    function setDireccion($direccion){
-        $this->direccion = $direccion;
-    }
-
-    function getDireccion(){
-        return $this->direccion;
-    }
-
     function setAbreviatura($ab){
         $this->abreviatura = $ab;
     }
 
     function getAbreviatura(){
         return $this->abreviatura;
+    }
+
+    function setLimiteCredito($limite){
+        $this->limite_credito = $limite;
+    }
+
+    function getLimiteCredito(){
+        return $this->limite_credito;
+    }
+
+    function setTemporalidadCredito($temp){
+        $this->temporalidad_credito = $temp;
+    }
+
+    function getTemporalidadCredito(){
+        return $this->temporalidad_credito;
+    }
+
+    function setCuentaContable($cuenta){
+        $this->cuenta_contable = $cuenta;
+    }
+
+    function getCuentaContable(){
+        return $this->cuenta_contable;
+    }
+
+    function setPaginaWeb($pagina){
+        $this->pagina_web = $pagina;
+    }
+
+    function getPaginaWeb(){
+        return $this->pagina_web;
+    }
+
+    function setFacebook($fb){
+        $this->facebook = $fb;
+    }
+
+    function getFacebook(){
+        return $this->facebook;
+    }
+
+    function setTwitter($twitter){
+        $this->twitter = $twitter;
+    }
+
+    function getTwitter(){
+        return $this->twitter;
+    }
+
+    function setInstagram($insta){
+        $this->instagram = $insta;
+    }
+
+    function getInstagram(){
+        return $this->instagram;
     }
 
     function setActivo($activo){
@@ -119,24 +146,27 @@ class Clientes extends Miscelaneus{
         return $this->activo;
     }
 
-    function setter($id,$segmento,$nombre_comercial,$razon,$nombre_sistema,$rfc,$curp,$direccion_fiscal,
-    $direccion_entrega_servicios,$direccion,$abreviatura){
+    function setter($id,$nombre_comercial,$razon,$nombre_sistema,$rfc,$curp,$abreviatura,$limite,$temporalidad,$cuenta,
+                    $pagina,$facebook,$twitter,$instagram){
         $this->setId($id);
-        $this->setSegmentoId($segmento);
         $this->setNombreComercial($nombre_comercial);
         $this->setRazonSocial($razon_social);
         $this->setNombreSistema($nombre_sistema);
         $this->setRfc($rfc);
         $this->setCurp($curp);
-        $this->setDireccionFiscal($direccion_fiscal);
-        $this->setDireccionEntregaServicios($direccion_entrega_servicios);
-        $this-setDireccion($direccion);
         $this->setAbreviatura($abreviatura);
+        $this->setLimiteCredito($limite);
+        $this->setTemporalidadCredito($temporalidad);
+        $this->setCuentaContable($cuenta);
+        $this->setPaginaWeb($pagina);
+        $this->setFacebook($facebook);
+        $this->setTwitter($twitter);
+        $this->setInstagram($instagram);
     }
 
     function validarTipoDato($datos){
-        $intergers = array(0);
-        $strings = array(1,2,3,4,5,6,7,8,9);
+        $intergers = array(6,7,8);
+        $strings = array(0,1,2,3,4,5,9,10,11,12);
         $errors = array();
 
         $count = 0;
@@ -159,27 +189,31 @@ class Clientes extends Miscelaneus{
     }
 
 
-    function insert($segmento_input,$nombre_comercial_input,$razon_social_input,$nombre_sistema_input,
-                    $rfc_input,$curp_input,$direccion_fiscal_input,$direccion_entrega_servicios_input,$direccion_input,
-                    $abreviatura_input){
+    function insert($nombre_comercial_input,$razon_social_input,$nombre_sistema_input,
+                    $rfc_input,$curp_input,$abreviatura_input,$limite_input,$temporalidad_input,$cuenta_input,$pagina_input,
+                    $facebook_input,$twitter_input,$instagram_input){
         global $conexion;
         //blindar la consulta contra SQL INJECTION
-        $stmt = $conexion->prepare("INSERT INTO $this->tabla (segmento_id,nombre_comercial,razon_social,nombre_sistema,rfc,curp,direccion_fiscal,
-                    direccion_entrega_servicios,direccion,abreviatura) VALUES (?,?,?,?,?,?,?,?,?,?)");
-        $stmt->bind_param("isssssssss", $segmento, $nombre_comercial, $razon_social, $nombre_sistema, $rfc, 
-        $curp, $direccion_fiscal, $direccion_entrega_servicios, $direccion, $abreviatura);
+        $stmt = $conexion->prepare("INSERT INTO $this->tabla (nombre_comercial,razon_social,nombre_sistema,rfc,curp,abreviatura,
+                                limite_credito,temporalidad_de_credito,cuenta_contable,pagina_web,facebook,twitter,
+                                instagram) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $stmt->bind_param("ssssssiiissss", $nombre_comercial, $razon_social, $nombre_sistema, $rfc, 
+        $curp, $abreviatura,$limite,$temporalidad,$cuenta,$pagina,$facebook,$twitter,$instagram);
 
         $datos_array = array();
-        $datos_array[0] = $segmento_input; //este dato es un entero por lo que no debe ir dentro del arreglo para escapar cadenas
-        $datos_array[1] = $nombre_comercial_input;
-        $datos_array[2] = $razon_social_input;
-        $datos_array[3] = $nombre_sistema_input;
-        $datos_array[4] = $rfc_input;
-        $datos_array[5] = $curp_input;
-        $datos_array[6] = $direccion_fiscal_input;
-        $datos_array[7] = $direccion_entrega_servicios_input;
-        $datos_array[8] = $direccion_input;
-        $datos_array[9] = $abreviatura_input;
+        $datos_array[0] = $nombre_comercial_input;
+        $datos_array[1] = $razon_social_input;
+        $datos_array[2] = $nombre_sistema_input;
+        $datos_array[3] = $rfc_input;
+        $datos_array[4] = $curp_input;
+        $datos_array[5] = $abreviatura_input;
+        $datos_array[6] = $limite_input;
+        $datos_array[7] = $temporalidad_input;
+        $datos_array[8] = $cuenta_input;
+        $datos_array[9] = $pagina_input;
+        $datos_array[10] = $facebook_input;
+        $datos_array[11] = $twitter_input;
+        $datos_array[12] = $instagram_input;
 
         $datos_escapados = $this->mis->escaparDatos($datos_array);
         $error_tipo_dato = $this->validarTipoDato($datos_escapados);
@@ -190,17 +224,20 @@ class Clientes extends Miscelaneus{
             return $error_msj;
         }
 
-        
-        $segmento =                     $datos_escapados[0];
-        $nombre_comercial =             $datos_escapados[1];
-        $razon_social =                 $datos_escapados[2];
-        $nombre_sistema =               $datos_escapados[3];
-        $rfc =                          $datos_escapados[4];
-        $curp =                         $datos_escapados[5];
-        $direccion_fiscal =             $datos_escapados[6];
-        $direccion_entrega_servicios =  $datos_escapados[7];
-        $direccion =                    $datos_escapados[8];
-        $abreviatura =                  $datos_escapados[9];
+        //reemplazamos los datos de la consulta con los ya escapados
+        $nombre_comercial =             $datos_escapados[0];
+        $razon_social =                 $datos_escapados[1];
+        $nombre_sistema =               $datos_escapados[2];
+        $rfc =                          $datos_escapados[3];
+        $curp =                         $datos_escapados[4];
+        $abreviatura =                  $datos_escapados[5];
+        $limite =                       $datos_escapados[6];
+        $temporalidad =                 $datos_escapados[7];
+        $cuenta =                       $datos_escapados[8];
+        $pagina =                       $datos_escapados[9];
+        $facebook =                     $datos_escapados[10];
+        $twitter =                      $datos_escapados[11];
+        $instagram =                    $datos_escapados[12];
 
         if (!$result = $stmt->execute()){
             $error = "Ha ocurrido un error(".$stmt->errno."). ".$stmt->error;
@@ -212,7 +249,7 @@ class Clientes extends Miscelaneus{
         $last_id = $conexion->insert_id;    
         $this->setter($last_id,$datos_escapados[0],$datos_escapados[1],$datos_escapados[2],$datos_escapados[3],
                         $datos_escapados[4],$datos_escapados[5],$datos_escapados[6],$datos_escapados[7],
-                        $datos_escapados[8],$datos_escapados[9]);
+                        $datos_escapados[8],$datos_escapados[9],$datos_escapados[10],$datos_escapados[11],$datos_escapados[12]);
         return $afectados;
     }
 
@@ -260,30 +297,32 @@ class Clientes extends Miscelaneus{
 
     }
 
-    function update($id_input,$segmento_input,$nombre_comercial_input,$razon_social_input,$nombre_sistema_input,
-                    $rfc_input,$curp_input,$direccion_fiscal_input,$direccion_entrega_servicios_input,$direccion_input,
-                    $abreviatura_input){
-        
+    function update($id_input,$nombre_comercial_input,$razon_social_input,$nombre_sistema_input,
+                    $rfc_input,$curp_input,$abreviatura_input,$limite_input,$temporalidad_input,$cuenta_input,$pagina_input,
+                    $facebook_input,$twitter_input,$instagram_input){
         global $conexion;
         
-        $stmt = $conexion->prepare("UPDATE $this->tabla SET segmento_id=?,nombre_comercial=?,razon_social=?,nombre_sistema=?,
-                                    rfc=?,curp=?,direccion_fiscal=?,direccion_entrega_servicios=?,direccion=?,
-                                    abreviatura=? WHERE id_cliente = ?");
-        $stmt->bind_param("isssssssssi", $segmento, $nombre_comercial, $razon_social, $nombre_sistema, $rfc, 
-        $curp, $direccion_fiscal, $direccion_entrega_servicios, $direccion, $abreviatura,$id);
+        $stmt = $conexion->prepare("UPDATE $this->tabla SET nombre_comercial=?,razon_social=?,nombre_sistema=?,
+                                    rfc=?,curp=?,abreviatura=?,limite_credito=?,temporalidad_de_credito=?,cuenta_contable=?
+                                    pagina_web=?,facebook=?,twitter=?,instagram=? WHERE id_cliente = ?");
+        $stmt->bind_param("ssssssiiissssi", $nombre_comercial, $razon_social, $nombre_sistema, $rfc, 
+        $curp, $abreviatura,$limite,$temporalidad,$cuenta,$pagina,$facebook,$twitter,$instagram,$id);
 
         $datos_array = array();
-        $datos_array[0] = $segmento_input; //este dato es un entero por lo que no debe ir dentro del arreglo para escapar cadenas
-        $datos_array[1] = $nombre_comercial_input;
-        $datos_array[2] = $razon_social_input;
-        $datos_array[3] = $nombre_sistema_input;
-        $datos_array[4] = $rfc_input;
-        $datos_array[5] = $curp_input;
-        $datos_array[6] = $direccion_fiscal_input;
-        $datos_array[7] = $direccion_entrega_servicios_input;
-        $datos_array[8] = $direccion_input;
-        $datos_array[9] = $abreviatura_input;
-        $datos_array[10]= $id_input;
+        $datos_array[0] = $nombre_comercial_input;
+        $datos_array[1] = $razon_social_input;
+        $datos_array[2] = $nombre_sistema_input;
+        $datos_array[3] = $rfc_input;
+        $datos_array[4] = $curp_input;
+        $datos_array[5] = $abreviatura_input;
+        $datos_array[6]= $limite_input;
+        $datos_array[7]= $temporalidad_input;
+        $datos_array[8]= $cuenta_input;
+        $datos_array[9]= $pagina_input;
+        $datos_array[10]= $facebook_input;
+        $datos_array[11]= $twitter_input;
+        $datos_array[12]= $instagram_input;
+        $datos_array[13]= $id_input;
 
         $datos_escapados = $this->mis->escaparDatos($datos_array);
         $error_tipo_dato = $this->validarTipoDato($datos_escapados);
@@ -295,17 +334,20 @@ class Clientes extends Miscelaneus{
         }
 
         
-        $segmento =                     $datos_escapados[0];
-        $nombre_comercial =             $datos_escapados[1];
-        $razon_social =                 $datos_escapados[2];
-        $nombre_sistema =               $datos_escapados[3];
-        $rfc =                          $datos_escapados[4];
-        $curp =                         $datos_escapados[5];
-        $direccion_fiscal =             $datos_escapados[6];
-        $direccion_entrega_servicios =  $datos_escapados[7];
-        $direccion =                    $datos_escapados[8];
-        $abreviatura =                  $datos_escapados[9];
-        $id =                           $datos_escapados[10];
+        $nombre_comercial =             $datos_escapados[0];
+        $razon_social =                 $datos_escapados[1];
+        $nombre_sistema =               $datos_escapados[2];
+        $rfc =                          $datos_escapados[3];
+        $curp =                         $datos_escapados[4];
+        $abreviatura =                  $datos_escapados[5];
+        $limite =                       $datos_escapados[6];
+        $temporalidad =                 $datos_escapados[7];
+        $cuenta =                       $datos_escapados[8];
+        $pagina =                       $datos_escapados[9];
+        $facebook =                     $datos_escapados[10];
+        $twitter =                      $datos_escapados[11];
+        $instagram =                    $datos_escapados[12];
+        $id =                           $datos_escapados[13];
 
         if (!$result = $stmt->execute()){
             $error = "Ha ocurrido un error(".$stmt->errno."). ".$stmt->error;
@@ -315,9 +357,9 @@ class Clientes extends Miscelaneus{
         $afectados = $stmt->affected_rows;
         
         $stmt->close();    
-        $this->setter($datos_escapados[10],$datos_escapados[0],$datos_escapados[1],$datos_escapados[2],$datos_escapados[3],
+        $this->setter($datos_escapados[13],$datos_escapados[0],$datos_escapados[1],$datos_escapados[2],$datos_escapados[3],
                         $datos_escapados[4],$datos_escapados[5],$datos_escapados[6],$datos_escapados[7],
-                        $datos_escapados[8],$datos_escapados[9]);
+                        $datos_escapados[8],$datos_escapados[9],$datos_escapados[10],$datos_escapados[11],$datos_escapados[12]);
         return $afectados;
     }
 
