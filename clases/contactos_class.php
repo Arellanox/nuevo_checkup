@@ -147,6 +147,44 @@ class Contactos extends Miscelaneus{
         global $conexion;
     }
 
+    function getbyId($id_input){
+        global $conexion;
+
+        $stmt = $conexion->prepare("SELECT * FROM $this->tabla WHERE activo=? and id_contacto=?");
+        $stmt->bind_param("ii",$activo,$id);
+
+        $datos = array();
+        $datos[0] = 1;
+        $datos[1] = $id_input;
+
+        $datos_escapados = $this->mis->escaparDatos($datos);
+
+        $intergers = array(0,1);
+
+        $error_tipo_dato = $this->mis->validarDatos($datos_escapados,$intergers,array(),array());
+
+        if(count($error_tipo_dato)>0){
+            $posiciones = implode(",",$error_tipo_dato);
+            $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
+            return $error_msj;
+        }
+
+        $activo =   $datos_escapados[0];
+        $id =       $datos_escapados[1];
+
+        if(!$stmt->execute()){
+            $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
+            return $error;
+        }
+
+        $result = $stmt->get_result();
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $stmt->close();
+        return $row;
+
+
+    }
+
     function getAllByClient($id_cliente_input){
         global $conexion;
 
