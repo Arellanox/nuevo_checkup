@@ -1,0 +1,61 @@
+.modal-header{
+  background-color: rgb(000, 078, 089);
+  color: white;
+}
+
+.modal-body{
+  background-color: #f6fdff;
+  color: rgb(000, 078, 089);
+}
+
+.modal-body label{
+  background-color: #f6fdff;
+  color: black;
+  font-weight: 500;
+}
+
+.input-form{
+  width: 100%;
+  padding: 7px 15px;
+  margin: 0px 0px 10px 0px;
+  display: inline-block;
+  border-bottom: 2px solid #000;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: rgb(216 223 225 / 38%);
+  color: rgb(0 78 89);
+  /* font-weight: bold; */
+}
+
+.modal-footer{
+  background-color: rgb(216 223 225);
+}
+
+.btn-cancelar{
+  background-color: rgb(204 211 213);
+  border-left: 2px solid #0000002b;
+  border-right: 2px solid #0000002b;
+  border-top: 1px solid #0000002b;
+  border-bottom: 2px solid #0000002b;
+  border-radius: 4px;
+}
+.btn-cancelar:hover{
+  background-color: rgb(181 189 193);
+  color: white;
+}
+
+.btn-confirmar{
+  background-color: rgb(204 211 213);
+  border-left: 2px solid #0000002b;
+  border-right: 2px solid #0000002b;
+  border-top: 1px solid #0000002b;
+  border-bottom: 2px solid #0000002b;
+  border-radius: 4px;
+}
+
+.btn-borrar{
+
+}

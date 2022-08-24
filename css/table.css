@@ -1,0 +1,24 @@
+
+table thead{
+  background-color: rgb(000, 078, 089);
+  color: white;
+}
+
+
+.btn-table{
+  /* padding-left: 8px;
+  padding-right: 8px; */
+  padding-bottom: 2px;
+  padding-top: 2px;
+  text-decoration: none;
+  color: black;
+}
+
+.btn-table:hover{
+  color: rgb(000, 175, 170);
+}
+
+table tr{
+  /* padding-bottom: 50px;
+  padding-top: 10px; */
+}
