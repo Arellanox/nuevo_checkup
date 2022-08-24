@@ -29,5 +29,36 @@ class Miscelaneus{
         return $array_escaped;
 
     }
+
+    //$datos = datos a comprobar
+    //$intergers = posiciones del arreglo $datos que deben ser enteros
+    //$strings = posiciones del arreglo $datos que deben ser cadenas de texto
+    //$doubles = posiciones del arreglo $datos que deben ser numeros con decimales
+    function validarDatos($datos,$intergers,$strings,$doubles){
+        $errors = array();
+
+        foreach($datos as $dato){
+            if(in_array($count,$intergers)){
+                if(!is_numeric($dato)){
+                    $errors[] = $count;
+                }
+            }
+
+            if(in_array($count,$strings)){
+                if(!is_string($dato)){
+                    $errors[] = $count;
+                }
+            }
+
+            if(in_array($count,$doubles)){
+                if(!is_float($dato)){
+                    $errors[] = $count;
+                }
+            }
+            $count = $count + 1;
+        }
+
+        return $errors;
+    }
 }
 ?>
