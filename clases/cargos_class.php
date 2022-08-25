@@ -38,14 +38,21 @@ class Cargos extends Master {
         return $array;
     }
 
+    //esta funcion recibe un arreglo de datos
     function insert($values){
-        print_r($values);
         $return = $this->master->insert($this->tabla,$this->getAttributes(),$values,$this->validator,$this->intergers,$this->strings,$this->doubles);
         return $return;
     }
 
-    function getAll(){
 
+    function getAll(){
+        $return = $this->master->getAll($this->tabla);
+        return $return;
+    }
+
+    // esta funcion recibe solo el id del cargo (int)
+    function getById($id){
+        
     }
 }
 ?>

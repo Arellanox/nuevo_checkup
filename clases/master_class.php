@@ -29,7 +29,7 @@ class Master extends Miscelaneus{
         $columns = $this->concatAttributesToInsert($attributes,count($attributes));
         $sql.= "($columns VALUES (";
         $sql = $this->concatQuestionMarkToInsert($sql,count($attributes));
-        echo $sql;
+        //echo $sql;
         try{
             $stmt = $conn->prepare($sql);
             if(!$stmt){
@@ -60,7 +60,6 @@ class Master extends Miscelaneus{
             $array_columns[$i] = $datos_escapados[$i];
         }
         
-
         // echo "No tiene errores";
         // echo "<br>";
 
@@ -68,13 +67,55 @@ class Master extends Miscelaneus{
             $error = "Ha ocurrido un error(".$stmt->errno."). ".$stmt->error;
             return $error;
         }
-        echo "despues de comprobar los datos";
+        //echo "despues de comprobar los datos";
         $afectados = $stmt->affected_rows;
       
         $stmt->close();
         $last_id = $conexion->insert_id;  
 
         return $afectados;
+        
+    }
+
+    function getAll($tabla){
+        $conn = $this->connection();
+
+        $stmt = $conn->prepare("SELECT * FROM $tabla WHERE activo=?");
+        $stmt->bind_param("i",$activo);
+
+        $datos = array();
+        $datos[0] = 1;
+
+        $datos_escapados = $this->mis->escaparDatos($datos,$conn);
+        $error_tipo_dato = $this->mis->validarDatos($datos_escapados,array(0),array(),array());
+
+        if(count($error_tipo_dato)>0){
+            $posiciones = implode(",",$error_tipo_dato);
+            $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
+            return $error_msj;
+        }
+
+        $activo = $datos_escapados[0];
+
+        if(!$stmt->execute()){
+            $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
+            return $error;
+        }
+
+        $result = $stmt->get_result();
+        $resultset = array();
+        
+        while($row = $result->fetch_array(MYSQLI_ASSOC)){
+            $resultset[] = $row;
+        }
+
+        return $resultset;
+
+
+    }
+
+    function getById($tabla,$id){
+        $conn = $this->connection();
         
     }
 
