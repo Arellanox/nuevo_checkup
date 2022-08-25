@@ -35,7 +35,7 @@
 }
 
 .btn-cancelar{
-  background-color: rgb(204 211 213);
+  background-color: rgb(194 204 209);
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
   border-top: 1px solid #0000002b;
@@ -43,19 +43,33 @@
   border-radius: 4px;
 }
 .btn-cancelar:hover{
-  background-color: rgb(181 189 193);
-  color: white;
+  background-color: rgb(194 204 209 / 30%);
+  color: black;
 }
 
 .btn-confirmar{
-  background-color: rgb(204 211 213);
+  background-color: rgb(247 190 0);
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
   border-top: 1px solid #0000002b;
   border-bottom: 2px solid #0000002b;
   border-radius: 4px;
 }
+.btn-confirmar:hover{
+  background-color: rgb(247 190 0 / 50%);
+  color: black;
+}
 
 .btn-borrar{
-
+  background-color: rgb(247 0 0);
+  border-left: 2px solid #0000002b;
+  border-right: 2px solid #0000002b;
+  border-top: 1px solid #0000002b;
+  border-bottom: 2px solid #0000002b;
+  border-radius: 4px;
+  color: white;
+}
+.btn-borrar:hover{
+  background-color: rgb(247 0 0 / 50%);
+  color: black;
 }
