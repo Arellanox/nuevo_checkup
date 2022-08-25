@@ -37,6 +37,7 @@ class Miscelaneus{
     function validarDatos($datos,$intergers,$strings,$doubles){
         $errors = array();
 
+        $count = 0;
         foreach($datos as $dato){
             if(in_array($count,$intergers)){
                 if(!is_numeric($dato)){
@@ -59,6 +60,10 @@ class Miscelaneus{
         }
 
         return $errors;
+    }
+
+    function sayHello(){
+        echo "Hello World!";
     }
 }
 ?>
