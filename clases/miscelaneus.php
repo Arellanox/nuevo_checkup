@@ -12,8 +12,8 @@ class Miscelaneus{
         return $form;
     }
 
-    function escaparDatos($datos){
-        global $conexion;
+    function escaparDatos($datos,$conexion){
+        //global $conexion;
 
         $array_escaped = array();
 
