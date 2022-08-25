@@ -1,5 +1,5 @@
 <?php
-require_once "../conexion.php";
+include "../conexion.php";
 include "miscelaneus.php";
 
 class Clientes extends Miscelaneus{
