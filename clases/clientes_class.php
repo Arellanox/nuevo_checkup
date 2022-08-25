@@ -374,6 +374,15 @@ class Clientes extends Miscelaneus{
         $datos[1] = $id_input;
 
         $datos_escapados = $this->mis->escaparDatos($datos);
+
+        $intergers = array(0,1);
+        $error_tipo_dato = $this->mis->validarTipoDato($datos_escapados,$intergers,array(),array());
+
+        if(count($error_tipo_dato)>0){
+            $posiciones = implode(",",$error_tipo_dato);
+            $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
+            return $error_msj;
+        }
         
         $activo = $datos_escapados[0];
         $id =     $datos_escapados[1];
