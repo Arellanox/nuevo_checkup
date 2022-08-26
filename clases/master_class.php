@@ -95,13 +95,10 @@ class Master extends Miscelaneus{
     function getAll($tabla){
         $conn = $this->connectDb();
 
+        $activo = 1;
+
         $stmt = $conn->prepare("SELECT * FROM $tabla WHERE activo=?");
-        $stmt->bind_param("i",$activo);
 
-        $datos = array();
-        $datos[0] = 1;
-
-        $datos_escapados = $this->mis->escaparDatos($datos,$conn);
         $error_tipo_dato = $this->mis->validarDatos($datos_escapados,array(0),array(),array());
 
         if(count($error_tipo_dato)>0){
@@ -110,54 +107,39 @@ class Master extends Miscelaneus{
             return $error_msj;
         }
 
-        $activo = $datos_escapados[0];
+        $stmt->bindParam(1,$activo);
 
         if(!$stmt->execute()){
             $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
             return $error;
         }
 
-        $result = $stmt->get_result();
-        $resultset = array();
-        
-        while($row = $result->fetch_array(MYSQLI_ASSOC)){
-            $resultset[] = $row;
-        }
+        $resultset = $stmt->fetchAll();
 
         return $resultset;
     }
 
     function getById($tabla,$id_input,$attributes){
-        $conn = $this->connection();
+        $conn = $this->connectDb();
         
         $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=?");
-        $stmt->bind_param("i",$id);
+        $stmt->bindParam(1,$id_input);
 
-        $datos = array();
-        $datos[0] = $id_input;
+        $error_tipo_dato = $this->mis->validarDatos(array($id_input),array(0),array(),array());
 
-        $datos_escapados = $this->mis->escaparDatos($datos,$conn);
-        $error_tipo_dato = $this->mis->validarDatos($datos_escapados,array(0),array(),array());
         if(count($error_tipo_dato)>0){
             $posiciones = implode(",",$error_tipo_dato);
             $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
             return $error_msj;
         }
 
-        $id = $datos_escapados[0];
-
         if(!$stmt->execute()){
             $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
             return $error;
         }
 
-        $result = $stmt->get_result();
-        $resultset = array();
-        
-        while($row = $result->fetch_array(MYSQLI_ASSOC)){
-            $resultset[] = $row;
-        }
-
+        $resultset = $stmt->fetchAll();
+    
         return $resultset;
     }
 
@@ -166,7 +148,6 @@ class Master extends Miscelaneus{
         
         $conn = $this->connectDb();
        
-        $array_columns = array();
         $sql = "UPDATE $table SET ";
         $sql.= $this->concatAttributesToUpdate($attributes);
         
@@ -199,6 +180,12 @@ class Master extends Miscelaneus{
         }
 
         return $stmt->rowCount();
+        
+    }
+
+    function delete($tabla,$attributes,$id_input){
+        $conn = $this->connectDb();
+
         
     }
 
