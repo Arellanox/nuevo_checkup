@@ -20,16 +20,34 @@ class Master extends Miscelaneus{
         return $conexion;
     }
 
-    function insert($tabla,$attributes,$values,$validator,$intergers,$strings,$doubles){       
-        $conn = $this->connection();
-        
-        $array_columns = array();
+    function connectDb(){
+        //require_once 'pdoconfig.php';
+        $host = "localhost";
+        $dbname = "checkup";
+        $username = "root";
+        $password = "bimo2022";
+        try {
+            $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            //echo "Connected to $dbname at $host successfully.";
+        } catch (PDOException $pe) {
+            die("Could not connect to the database $dbname :" . $pe->getMessage());
+        }
 
+        return $conn;
+    }
+
+    function insert($tabla,$attributes,$values,$intergers,$strings,$doubles){
+        //crea la conexion a la base de datos usando PDO       
+        $conn = $this->connectDb();
+
+        //construye el codigo sql para insertar dependiendo la tabla y sus atributos
+        //reemplazando los atributos por signos de interrogacion (?)
         $sql = "INSERT INTO $tabla ";
         $columns = $this->concatAttributesToInsert($attributes,count($attributes));
         $sql.= "($columns VALUES (";
         $sql = $this->concatQuestionMarkToInsert($sql,count($attributes));
-        //echo $sql;
+        
+        //Prepara la consulta para enviar SQl injection
         try{
             $stmt = $conn->prepare($sql);
             if(!$stmt){
@@ -39,46 +57,43 @@ class Master extends Miscelaneus{
             echo $e->getMessage();
         }
 
-        for ($i=0; $i < strlen($validator); $i++) { 
-            $stmt->bind_param($validator[$i],$array_columns[$i]);
-        }
-        
-        // $stmt->bind_param($validator,$array_columns);
-        
-        
-        $datos_escapados = $this->mis->escaparDatos($values,$conn);
-        $error_tipo_dato = $this->mis->validarDatos($datos_escapados,$intergers,$strings,$doubles);
+        //verifica que los tipos de datos proporcionados por el usuario sean correctos
+        //devuelve un arreglo con las posiciones en que los datos no coinciden
+        //con el tipo de dato
+        $error_tipo_dato = $this->mis->validarDatos($values,$intergers,$strings,$doubles);
 
+        //si el arreglo $error_tipo_dato contiene valores, devuelve un error al usuario
         if(count($error_tipo_dato)>0){
             $posiciones = implode(",",$error_tipo_dato);
             $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
             return $error_msj;
         }
-        
 
-        for ($i=0; $i < count($datos_escapados); $i++) { 
-            $array_columns[$i] = $datos_escapados[$i];
+        //reemplaza los signos de interrogacion (?) en el codigo SQL por los valores
+        //proporcionados por el usuario
+        for ($i=0; $i < count($values); $i++) { 
+            $stmt->bindParam(($i+1),$values[$i]);
         }
-        
-        // echo "No tiene errores";
-        // echo "<br>";
 
+        // Ejecuta la consulta
         if (!$result = $stmt->execute()){
             $error = "Ha ocurrido un error(".$stmt->errno."). ".$stmt->error;
             return $error;
         }
-        //echo "despues de comprobar los datos";
-        $afectados = $stmt->affected_rows;
-      
-        $stmt->close();
-        $last_id = $conexion->insert_id;  
 
+        // Recupera el número de filas afectadas
+        $afectados = $stmt->rowCount();
+      
+        // Recupera el último ID insertado
+        $last_id = $conn->lastInsertId();  
+
+        // Devuelve el número de filas afectadas;
         return $afectados;
         
     }
 
     function getAll($tabla){
-        $conn = $this->connection();
+        $conn = $this->connectDb();
 
         $stmt = $conn->prepare("SELECT * FROM $tabla WHERE activo=?");
         $stmt->bind_param("i",$activo);
@@ -110,13 +125,100 @@ class Master extends Miscelaneus{
         }
 
         return $resultset;
-
-
     }
 
-    function getById($tabla,$id){
+    function getById($tabla,$id_input,$attributes){
         $conn = $this->connection();
         
+        $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=?");
+        $stmt->bind_param("i",$id);
+
+        $datos = array();
+        $datos[0] = $id_input;
+
+        $datos_escapados = $this->mis->escaparDatos($datos,$conn);
+        $error_tipo_dato = $this->mis->validarDatos($datos_escapados,array(0),array(),array());
+        if(count($error_tipo_dato)>0){
+            $posiciones = implode(",",$error_tipo_dato);
+            $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
+            return $error_msj;
+        }
+
+        $id = $datos_escapados[0];
+
+        if(!$stmt->execute()){
+            $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
+            return $error;
+        }
+
+        $result = $stmt->get_result();
+        $resultset = array();
+        
+        while($row = $result->fetch_array(MYSQLI_ASSOC)){
+            $resultset[] = $row;
+        }
+
+        return $resultset;
+    }
+
+    //para actualizar, mandar en el arreglo de $values el id al final
+    function update($table,$attributes,$values,$intergers,$strings,$doubles){
+        
+        $conn = $this->connectDb();
+       
+        $array_columns = array();
+        $sql = "UPDATE $table SET ";
+        $sql.= $this->concatAttributesToUpdate($attributes);
+        
+        try{
+            $stmt = $conn->prepare($sql);
+            if(!$stmt){
+                echo "error al preparar consulta";
+            }
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+
+        //$datos_escapados = $this->mis->escaparDatos($values,$conn);
+        $error_tipo_dato = $this->mis->validarDatos($values,$intergers,$strings,$doubles);
+
+        if(count($error_tipo_dato)>0){
+            $posiciones = implode(",",$error_tipo_dato);
+            $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
+            return $error_msj;
+        }
+
+        for ($i=0; $i < count($values); $i++) { 
+            if(!$stmt->bindParam(($i+1),$values[$i])){
+                return "Error al bindiar";
+            }
+        }
+        
+        if(!$stmt->execute()){
+            return "Error al ejecutar sentencia";
+        }
+
+        return $stmt->rowCount();
+        
+    }
+
+    function concatAttributesToUpdate($attributes){
+        $string = "";
+        $where = "";
+        for ($i=0; $i < count($attributes); $i++) { 
+            if($i==0){
+                $where = "WHERE ".$attributes[$i]."=?";
+            }else if($i==count($attributes)-1){
+                //lo ignoramos puesto que se traba del atributo activo
+            }else if($i==count($attributes)-2){
+                $string.="".$attributes[$i]."=? ";
+            }else{
+                $string.="".$attributes[$i]."=?, ";
+            }
+        }
+
+        return $string.$where;
+
     }
 
     function concatAttributesToInsert($attributes,$count){
