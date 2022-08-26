@@ -215,7 +215,7 @@ class Clientes extends Miscelaneus{
         $datos_array[11] = $twitter_input;
         $datos_array[12] = $instagram_input;
 
-        $datos_escapados = $this->mis->escaparDatos($datos_array);
+        $datos_escapados = $this->mis->escaparDatos($datos_array,$conexion);
         $error_tipo_dato = $this->validarTipoDato($datos_escapados);
 
         if(count($error_tipo_dato)>0){
@@ -324,7 +324,7 @@ class Clientes extends Miscelaneus{
         $datos_array[12]= $instagram_input;
         $datos_array[13]= $id_input;
 
-        $datos_escapados = $this->mis->escaparDatos($datos_array);
+        $datos_escapados = $this->mis->escaparDatos($datos_array,$conexion);
         $error_tipo_dato = $this->validarTipoDato($datos_escapados);
 
         if(count($error_tipo_dato)>0){
@@ -373,7 +373,7 @@ class Clientes extends Miscelaneus{
         $datos[0] = 0;
         $datos[1] = $id_input;
 
-        $datos_escapados = $this->mis->escaparDatos($datos);
+        $datos_escapados = $this->mis->escaparDatos($datos,$conexion);
 
         $intergers = array(0,1);
         $error_tipo_dato = $this->mis->validarTipoDato($datos_escapados,$intergers,array(),array());
