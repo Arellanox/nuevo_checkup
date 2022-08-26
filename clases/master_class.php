@@ -186,6 +186,25 @@ class Master extends Miscelaneus{
     function delete($tabla,$attributes,$id_input){
         $conn = $this->connectDb();
 
+        $stmt = $conn->prepare("UPDATE $tabla SET activo=? WHERE ".$attributes[0]."=?");
+        $activo = 0;
+
+        $error_tipo_dato = $this->mis->validarDatos(array($activo),array(0),array(),array());
+
+        if(count($error_tipo_dato)>0){
+            $posiciones = implode(",",$error_tipo_dato);
+            $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
+            return $error_msj;
+        }
+
+        $stmt->bindParam(1,$activo);
+        $stmt->bindParam(2,$id_input);
+
+        if(!$stmt->execute()){
+            return "Error al ejecutar sentencia";
+        }
+
+        return $stmt->rowCount();        
         
     }
 
