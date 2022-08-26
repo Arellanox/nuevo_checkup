@@ -1,8 +1,8 @@
 
 // ObtenerTabla o cambiar
-obtenerTabla("recepcion.php");
-function obtenerTabla(tabla){
-  $.post("tablas/"+tabla, function(html){
+obtenerContenido("recepcion.php");
+function obtenerContenido(tabla){
+  $.post("contenido/"+tabla, function(html){
      $("#body-js").html(html);
 
      // Datatable
