@@ -2,7 +2,7 @@
 //Variables dinamicas;
 
 include "../variables.php";
-$menu = "Registro";
+$menu = "Preregistro";
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -10,7 +10,10 @@ $menu = "Registro";
    <?php include "../include/head.php"; ?>
    <title><?php echo $menu; ?> | Bimo</title>
  </head>
- <div class="" id="body-controlador"> </div>
+ <body class="" id="body-controlador"> </body>
+ <style media="screen">
+
+ </style>
  <script type="text/javascript">
     vista('<?php echo $menu; ?>', '<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>')
      function vista(menu, url){

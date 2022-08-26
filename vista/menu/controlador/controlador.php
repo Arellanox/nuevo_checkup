@@ -4,7 +4,7 @@ $menu = $_POST['menu'];
 
 <!-- HTML -->
 <header id="header-js"></header>
-<body> <div class="container-fluid" id="body-js"> </div> </body>
+<div class="container-fluid" id="body-js"> </div>
 <div class="" id="modals-js"> <!-- Aqui podrán incluir los modals --> </div>
 
 <script type="text/javascript">
@@ -15,8 +15,9 @@ $menu = $_POST['menu'];
     });
   }
 
-  // <!-- Aqui controlar e incluir las tablas -->
+  // <!-- Aqui controlar e incluir las modals -->
   $.getScript('modals/controlador.js');
-  // <!-- Aqui controlar e incluir los modals -->
-  $.getScript('tablas/controlador.js');
+
+  // <!-- Aqui controlar e incluir los tablas -->
+  $.getScript('contenido/controlador.js');
 </script>
