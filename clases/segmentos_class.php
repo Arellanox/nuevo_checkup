@@ -90,8 +90,8 @@ class Segmentos extends Master{
         $stmt->bindParam(2,$son);
         
         $stmt->execute();
-        echo $this->globalCounter;
-        echo "<br>";
+        // echo $this->globalCounter;
+        // echo "<br>";
         $x = 0;
         if($stmt->rowCount()>0){
             
