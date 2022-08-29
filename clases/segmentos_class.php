@@ -1,7 +1,7 @@
 <?php
-include "master_class.php";
+include_once "master_class.php";
 
-class Segmentos extends Master{
+class Segmentos extends Master implements iPacientes{
     public $id_segmento;
     public $padre;
     public $descripcion;

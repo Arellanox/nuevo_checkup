@@ -1,7 +1,7 @@
 <?php
 include "master_class.php";
 
-class Pacientes extends Master{
+class Pacientes extends Master implements iPacientes{
     public $id_paciente;//22
     public $segmento_id; //0
     public $nombre;//1
