@@ -2,7 +2,7 @@
 include "master_class.php";
 
 class Pacientes extends Master{
-    public $id_paciente;//23
+    public $id_paciente;//22
     public $segmento_id; //0
     public $nombre;//1
     public $paterno;//2
@@ -25,7 +25,7 @@ class Pacientes extends Master{
     public $otravacuna;//19
     public $dosis;//20
     public $foto;//21
-    public $activo;//22
+    public $activo;
     private $tabla;
     private $master;
     private $public_attributes;
@@ -46,7 +46,7 @@ class Pacientes extends Master{
         $this->intergers = array(0,4,7,10,11,13,17,22); 
         $this->strings = array(1,2,3,5,6,8,9,12,14,15,16,18,19,20,21);
         $this->double = array();
-        $this->intergers_update = array(0,4,7,10,11,13,17,22,23);
+        $this->intergers_update = array(0,4,7,10,11,13,17,22);
         $this->nulls = array(0,11,14,21);
     }
 
@@ -70,7 +70,23 @@ class Pacientes extends Master{
     }
 
     function getAll(){
-        
+        $return = $this->master->getAll($this->tabla);
+        return $return;
+    }
+
+    function getById($id){
+        $return = $this->master->getById($this->tabla,$id,$this->getAttributes());
+        return $return;
+    }
+
+    function update($values){
+        $return = $this->master->update($this->tabla,$this->getAttributes(),$values,$this->intergers_update,$this->strings,$this->doubles,$this->nulls);
+        return $return;
+    }
+
+    function delete($id){
+        $return = $this->master->delete($this->tabla,$this->getAttributes(),$id);
+        return $return;
     }
 }
 ?>
