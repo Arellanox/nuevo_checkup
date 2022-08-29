@@ -74,7 +74,7 @@ class Master extends Miscelaneus{
         for ($i=0; $i < count($values); $i++) { 
             $stmt->bindParam(($i+1),$values[$i]);
         }
-        echo $sql;
+        //echo $sql;
         // Ejecuta la consulta
         if (!$result = $stmt->execute()){
             $error = "Ha ocurrido un error(".$stmt->errno."). ".$stmt->error;
