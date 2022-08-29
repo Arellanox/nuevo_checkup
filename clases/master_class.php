@@ -36,7 +36,7 @@ class Master extends Miscelaneus{
         return $conn;
     }
 
-    function insert($tabla,$attributes,$values,$intergers,$strings,$doubles){
+    function insert($tabla,$attributes,$values,$intergers,$strings,$doubles,$nulls=array()){
         //crea la conexion a la base de datos usando PDO       
         $conn = $this->connectDb();
 
@@ -60,7 +60,7 @@ class Master extends Miscelaneus{
         //verifica que los tipos de datos proporcionados por el usuario sean correctos
         //devuelve un arreglo con las posiciones en que los datos no coinciden
         //con el tipo de dato
-        $error_tipo_dato = $this->mis->validarDatos($values,$intergers,$strings,$doubles);
+        $error_tipo_dato = $this->mis->validarDatos($values,$intergers,$strings,$doubles,$nulls);
 
         //si el arreglo $error_tipo_dato contiene valores, devuelve un error al usuario
         if(count($error_tipo_dato)>0){
@@ -74,7 +74,7 @@ class Master extends Miscelaneus{
         for ($i=0; $i < count($values); $i++) { 
             $stmt->bindParam(($i+1),$values[$i]);
         }
-
+        echo $sql;
         // Ejecuta la consulta
         if (!$result = $stmt->execute()){
             $error = "Ha ocurrido un error(".$stmt->errno."). ".$stmt->error;
@@ -144,7 +144,7 @@ class Master extends Miscelaneus{
     }
 
     //para actualizar, mandar en el arreglo de $values el id al final
-    function update($table,$attributes,$values,$intergers,$strings,$doubles){
+    function update($table,$attributes,$values,$intergers,$strings,$doubles,$nulls=array()){
         
         $conn = $this->connectDb();
        
@@ -161,7 +161,7 @@ class Master extends Miscelaneus{
         }
 
         //$datos_escapados = $this->mis->escaparDatos($values,$conn);
-        $error_tipo_dato = $this->mis->validarDatos($values,$intergers,$strings,$doubles);
+        $error_tipo_dato = $this->mis->validarDatos($values,$intergers,$strings,$doubles,$nulls);
 
         if(count($error_tipo_dato)>0){
             $posiciones = implode(",",$error_tipo_dato);
