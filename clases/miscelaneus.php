@@ -34,33 +34,56 @@ class Miscelaneus{
     //$intergers = posiciones del arreglo $datos que deben ser enteros
     //$strings = posiciones del arreglo $datos que deben ser cadenas de texto
     //$doubles = posiciones del arreglo $datos que deben ser numeros con decimales
-    function validarDatos($datos,$intergers,$strings,$doubles){
+    function validarDatos($datos,$intergers,$strings,$doubles,$nulls=array()){
         $errors = array();
 
         $count = 0;
         foreach($datos as $dato){
             if(in_array($count,$intergers)){
+                // echo "este es el dato: ".$dato." esta en interger";
+                // echo "<br>";
                 if(!is_numeric($dato)){
-                    $errors[] = $count;
+                    if(in_array($count,$nulls)){
+                        //si esta dentro de los nulls
+                        // no es un error, por tanto no hace nada
+                    }else{
+                        $errors[] = $count;
+                    }
                 }
             }
-
+    
             if(in_array($count,$strings)){
+                // echo "este es el dato: ".$dato." esta en string";
+                // echo "<br>";
                 if(!is_string($dato)){
-                    $errors[] = $count;
+                    if(in_array($count,$nulls)){
+                        //si esta dentro de los nulls
+                        // no es un error, por tanto no hace nada
+                    }else{
+                        $errors[] = $count;
+                    }
                 }
             }
-
+    
             if(in_array($count,$doubles)){
+                // echo "este es el dato: ".$dato." esta en doubles";
+                // echo "<br>";
                 if(!is_float($dato)){
-                    $errors[] = $count;
+                    if(in_array($count,$nulls)){
+                        //si esta dentro de los nulls
+                        // no es un error, por tanto no hace nada
+                    }else{
+                        $errors[] = $count;
+                    }
                 }
             }
+            
             $count = $count + 1;
         }
 
         return $errors;
     }
+
 
     function sayHello(){
         echo "Hello World!";
