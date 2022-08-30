@@ -9,23 +9,10 @@
         <p class="text-center">Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
         <form id="formRegistrarPrueba">
           <div class="row">
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-4">
                 <label for="procedencia" class="form-label">CURP</label>
-                <select class="" name="curp" id="selectCURPPaciente" style="width:100%;">
-
-                      <option value="1" >Ninguno...</opcion>
-                      <option value="PFIZER">PFIZER</opcion>
-                      <option value="ASTRA ZENECA" >ASTRA ZENECA</opcion>
-                      <option value="SPUTNIK V" >SPUTNIK V</opcion>
-                      <option value="SINOVAC" >SINOVAC</opcion>
-                      <option value="CANSINO" >CANSINO</opcion>
-                      <option value="MODERNA" >MODERNA</opcion>
-                      <option value="COVAX" >COVAX</opcion>
-                      <option value="JOHNSON & JOHNSON" >JOHNSON & JOHNSON</opcion>
-                      <option value="SINOPHARM" >SINOPHARM</opcion>
-                      <option value="OTRA">OTRA (ESPECIFIQUE)</opcion>
-                </select>
-              </div>
+                <input type="text" name="curp" value="" class="form-control input-form" id="curp-paciente" required>
+            </div>
             <div class="col-12 col-lg-4" style="margin-bottom: 10px;">
                 <label for="selectpaciente" class="form-label">Buscar paciente</label>
                 <div class="row">
@@ -420,13 +407,6 @@
   </div>
 </div>
 <script type="text/javascript">
-
-const modalRegistrarPrueba = document.getElementById('ModalRegistrarPrueba')
-modalRegistrarPrueba.addEventListener('show.bs.modal', event => {
-// Colocar ajax
-})
-
-
 //Formulario de registro de pruebas
 $('#formDIV *').prop('disabled',true);
 $('#btnFormRegistrarPruba').prop('disabled',true);
@@ -455,12 +435,11 @@ $('#actualizarForm').click(function(){
             timer: 2000
           });
           document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
-                                                           'CURP aceptada, concluya el registro seleccionando el estudio a realizar.'+
+                                                           'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
                                                         '</div>';
           document.getElementById("paciente-registro").innerHTML = "Paciente";
           document.getElementById("cupr-registro").innerHTML = "CURP";
           document.getElementById("sexo-registro").innerHTML = "sexo";
-
           $('#formDIV *').prop('disabled',false);
           $('#btnFormRegistrarPruba').prop('disabled',false);
         break;
@@ -542,9 +521,4 @@ $("#formRegistrarPrueba").submit(function(event){
      })
 })
  // $("#formDIV").addClass("disable-div");
-
- $('#selectCURPPaciente').select2({
-   dropdownParent: $('#ModalRegistrarPrueba'),
-   tags: true
- });
 </script>

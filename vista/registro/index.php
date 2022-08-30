@@ -11,9 +11,6 @@ $menu = "Preregistro";
    <title><?php echo $menu; ?> | Bimo</title>
  </head>
  <body class="" id="body-controlador"> </body>
- <style media="screen">
-
- </style>
  <script type="text/javascript">
     vista('<?php echo $menu; ?>', '<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>')
      function vista(menu, url){

@@ -1,154 +1,194 @@
 <div class="modal fade" id="ModalConsultarResultado" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true" data-bs-backdrop="static">
-  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
         <h5 class="modal-title">Crear registro de laboratorio</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="text-center" >Asegurese que toda su información este correcta. <br /> Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
-        <form class="row" id="formRegistrarPaciente">
-          <div class="row">
-            <div class="col-12 col-lg-4">
-                <label for="procedencia" class="form-label">Procedencia</label>
-                <input type="text" readonly name="procedencia" value="SLCHUMBERGER" class="input-form">
-            </div>
-            <div class="col-12 col-lg-4">
-              <label for="segmento" class="form-label">Segmentos</label>
-              <select name="segmento" id="segmentos_procedencias" class="input-form" autocomplete="off" required>
-                <option value="4">WCE-GAVSA</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-12 col-lg-4">
-            <label for="nombre" class="form-label">Nombres</label>
-            <input type="text" name="nombre" value="" class="input-form">
-          </div>
-          <div class="col-6 col-lg-4">
-            <label for="paterno" class="form-label">Apellido paterno</label>
-            <input type="text" name="paterno" value="" class="input-form">
-          </div>
-          <div class="col-6 col-lg-4">
-            <label for="materno" class="form-label">Apellido materno</label>
-            <input type="text" name="materno" value="" class="input-form">
-          </div>
-          <div class="col-6 col-lg-2">
-            <label for="edad" class="form-label">Edad</label>
-            <div class="input-group">
-              <input type="number" class="form-control input-form" name="edad" placeholder="" autocomplete="off" >
-              <span class="input-span">años</span>
-            </div>
-          </div>
-          <div class="col-6 col-lg-3">
-            <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
-            <input type="date" class="form-control input-form" name="nacimiento" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-7 col-lg-4">
-            <label for="curp" class="form-label">CURP</label>
-            <input type="text" class="form-control input-form" name="curp" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-5 col-lg-3">
-            <label for="telefono" class="form-label">Télefono</label>
-            <input type="number" class="form-control input-form" name="telefono" placeholder="" autocomplete="off" >
-          </div>
-
-          <div class="col-6 col-lg-2">
-            <label for="postal" class="form-label">Código postal</label>
-            <input type="number" class="form-control input-form" name="postal" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-6 col-lg-3">
-            <label for="estado" class="form-label">Estado</label>
-            <input type="text" class="form-control input-form" name="estado" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-6 col-lg-3">
-            <label for="municipio" class="form-label">Municipio</label>
-            <input type="text" class="form-control input-form" name="municipio" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-6 col-lg-4">
-            <label for="colonia" class="form-label">Colonia</label>
-            <input type="text" class="form-control input-form" name="colonia" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-6 col-lg-3">
-            <label for="exterior" class="form-label">No. Exterior</label>
-            <div class="input-group">
-            <span class="input-span">No.</span>
-              <input type="text" class="form-control input-form" name="exterior" placeholder="" autocomplete="off" >
-            </div>
-          </div>
-          <div class="col-6 col-lg-3">
-            <label for="interior" class="form-label">No. Interior</label>
-            <div class="input-group">
-              <span class="input-span">No.</span>
-              <input type="text" class="form-control input-form" name="interior" placeholder="" autocomplete="off" >
-            </div>
-          </div>
-          <div class="col-6">
-            <label for="calle" class="form-label">Calle</label>
-            <input type="text" class="form-control input-form" name="calle" placeholder="" autocomplete="off" >
-          </div>
-
-          <div class="col-6 col-lg-4">
-            <label for="nacionalidad" class="form-label">Nacionalidad</label>
-            <input type="text" class="form-control input-form" name="nacionalidad" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-6 col-lg-4">
-            <label for="pasaporte" class="form-label">PASAPORTE</label>
-            <input type="text" class="form-control input-form" name="pasaporte" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-6 col-lg-4">
-            <label for="rfc" class="form-label">RFC</label>
-            <input type="text" class="form-control input-form" name="rfc" placeholder="" autocomplete="off" >
-          </div>
-          <div class="col-6 col-lg-3">
-            <label for="vacuna" class="form-label">Vacuna</label>
-            <select class="input-form" name="vacuna" id="inputVacuna">
-                <option value="1" >Ninguno...</opcion>
-                <option value="PFIZER">PFIZER</opcion>
-                <option value="ASTRA ZENECA" >ASTRA ZENECA</opcion>
-                <option value="SPUTNIK V" >SPUTNIK V</opcion>
-                <option value="SINOVAC" >SINOVAC</opcion>
-                <option value="CANSINO" >CANSINO</opcion>
-                <option value="MODERNA" >MODERNA</opcion>
-                <option value="COVAX" >COVAX</opcion>
-                <option value="JOHNSON & JOHNSON" >JOHNSON & JOHNSON</opcion>
-                <option value="SINOPHARM" >SINOPHARM</opcion>
-                <option value="OTRA">OTRA (ESPECIFIQUE)</opcion>
-            </select>
-          </div>
-          <div class="col-6 col-lg-3">
-            <label for="dosis" class="form-label">Dosis</label>
-            <select class="input-form" name="inputTipoPDF" id="inputDosis" >
-                <option value="1RA" >1RA DOSIS</opcion>
-                <option value="2DA">2DA DOSIS</opcion>
-                <option value="3RA" >3RA DOSIS</opcion>
-                <option value="REFUERZO" >REFUERZO</opcion>
-            </select>
-          </div>
-          <div class="col-12 col-lg-6" style="margin-top: 30px;margin-bottom: 15px;">
-              <div class="container">
-                <div class="row"style="zoom:110%;">
-                  <div class="col-md-auto">
-                    <label for="" >Genero: </label>
-                  </div>
-                  <div class="col">
-                      <input type="radio" id="mascuCues" name="genero" value="MASCULINO">
-                      <label for="mascuCues">Masculino</label>
-                  </div>
-                  <div class="col">
-                      <input type="radio"  id="FemeCues" name="genero" value="FEMENINO" >
-                      <label for="FemeCues" >Femenino</label>
-                  </div>
+        <p class="text-center" >Utilice su <strong>PREFOLIO</strong>, <strong>CURP</strong> y seleccione la prueba a consultar.</p>
+        <form id="formObtenerResultado">
+            <div class="row">
+                <div class="col-12">
+                    <label for="procedencia" class="form-label">PREFOLIO</label>
+                    <input type="text" name="prefolio" value="" class="form-control input-form" id="prefolio-consulta" required>
                 </div>
-              </div>
-          </div>
+                <div class="col-12">
+                    <label for="procedencia" class="form-label">CURP</label>
+                    <input type="text" name="curp" value="" class="form-control input-form" id="curp-consulta" required>
+                </div>
+                <div class="col-12">
+                  <label for="segmento" class="form-label">Estudio</label>
+                  <select name="segmento" id="estudio-consulta" class="input-form" required>
+                    <option>Seleccione...</option>
+                    <option value="">PSA</option>
+                  </select>
+                </div>
+            </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarPaciente" class="btn btn-confirmar">
-          <i class="bi bi-send-plus"></i> Registrar
+        <button type="submit" form="formObtenerResultado" class="btn btn-confirmar">
+          <i class="bi bi-binoculars"></i> Consultar
         </button>
       </div>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+// Consulta de resultado
+$("#formObtenerResultado").submit(function(event){
+   event.preventDefault();
+   /*DATOS Y VALIDACION DEL REGISTRO*/
+   var form = document.getElementById("formObtenerResultado");
+   var formData = new FormData(form);
+   formData.set('api', 3);
+   console.log(formData);
+
+   $.ajax({
+     data: formData,
+     url: "??",
+     type: "POST",
+     processData: false,
+     contentType: false,
+     success: function(data) {
+       data = jQuery.parseJSON(data);
+       switch (data['codigo'] == 1) {
+         case 1:
+            // if(array['Resultado'] == "Negativo"){ resultado= "Negative"}else{resultado = "Positive"};
+            if(array['Sexo'] == "MASCULINO" || array['Sexo'] == "Masculino"){ sexo= "Male"}else{sexo = "Female"};
+            Swal.fire({
+             html:
+             '<div class="row">'+
+               '<div class="col-12 d-flex justify-content-center">'+
+                 '<img src="http://bimo-lab.com/archivos/sistema/bimo.png"  id="logo_empresa" style="width=100%"><img src="http://bimo-lab.com/archivos/sistema/hnsg.jpg"  id="logo_empresa" style="width=100%">'+
+               '</div>'+
+               '<div class="col-12  d-flex justify-content-center" style="margin-top: 10px">'+
+                 '<img src="http://bimo-lab.com/archivos/sistema/check.png" alt="" width="15%">'+
+               '</div>'+
+
+               '<div class="col-12">'+
+                 '<div class="row">'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     '<strong>¡El resultado de su prueba está listo!</strong>'+
+                   '</div>'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     'Test result'+
+                   '</div>'+
+                 '</div>'+
+               '</div>'+
+
+               '<div class="col-12" style="margin-top: 5px">'+
+                 '<div class="row">'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     '<strong>Nombre/ </strong>Name:'+
+                   '</div>'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     array['Nombre']+
+                   '</div>'+
+                 '</div>'+
+               '</div>'+
+
+               '<div class="col-12" style="margin-top: 5px">'+
+                 '<div class="row">'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     '<strong>Fecha de nacimiento/ </strong>Birth date:'+
+                   '</div>'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     array['Nacimiento']+
+                   '</div>'+
+                 '</div>'+
+               '</div>'+
+
+               '<div class="col-12" style="margin-top: 5px">'+
+                 '<div class="row">'+
+                   '<div class="col-6 ">'+
+                     '<div class="row">'+
+                       '<div class="col-12 d-flex justify-content-center">'+
+                         '<strong>Edad/</strong>Age'+
+                       '</div>'+
+                       '<div class="col-12 d-flex justify-content-center">'+
+                         array['Edad']+' años/ age'+
+                       '</div>'+
+                     '</div>'+
+                   '</div>'+
+                   '<div class="col-6 ">'+
+                     '<div class="row ">'+
+                       '<div class="col-12 d-flex justify-content-center">'+
+                         '<strong>Sexo/ </strong>Gender:'+
+                       '</div>'+
+                       '<div class="col-12 d-flex justify-content-center">'+
+                         array['Sexo']+'/ '+sexo+
+                       '</div>'+
+                     '</div>'+
+                   '</div>'+
+                 '</div>'+
+               '</div>'+
+
+               '<div class="col-12" style="margin-top: 5px">'+
+                 '<div class="row">'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     '<strong>Estudio realizado/ </strong>Test:'+
+                   '</div>'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     array['Estudio']+
+                   '</div>'+
+                 '</div>'+
+               '</div>'+
+
+               '<div class="col-12" style="margin-top: 5px">'+
+                 '<div class="row" style="background-color: #B9B9B9;">'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     '<strong>Resultado/ </strong>Result:'+
+                   '</div>'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     '<strong>'+array['Resultado']+'/ </strong>' + resultado+
+                   '</div>'+
+                 '</div>'+
+               '</div>'+
+
+               '<div class="col-12" style="margin-top: 15px">'+
+                 '<div class="row">'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     '<strong>Fecha de toma de muestra/ </strong>Collected:'+
+                   '</div>'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     array['Tomado']+
+                   '</div>'+
+                 '</div>'+
+               '</div>'+
+
+               '<div class="col-12" style="margin-top: 15px">'+
+                 '<div class="row">'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     '<strong>Fecha de resultado/ </strong>Reported:'+
+                   '</div>'+
+                   '<div class="col-12 d-flex justify-content-center">'+
+                     array['FResultado']+
+                   '</div>'+
+                 '</div>'+
+               '</div>'+
+
+               '<div class="col-12" style="margin-top: 20px;margin-bottom: 20px">'+
+                   '<div class="d-grid gap-2 col-6 mx-auto">'+
+                     array['PDF']+
+                   '</div>'+
+               '</div>'+
+             '</div>',
+             showCloseButton: true,
+           });
+         break;
+         default:
+           Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Hubo un problema!',
+              footer: 'Reporte este error con el personal :)'
+           })
+       }
+     },
+   });
+   event.preventDefault();
+ });
+</script>

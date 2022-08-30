@@ -6,7 +6,10 @@
 .modal-body{
   background-color: #f6fdff;
   color: rgb(000, 078, 089);
+  padding-left: 30px;
+  padding-right: 30px;
 }
+
 
 .modal-body label{
   background-color: #f6fdff;
@@ -29,6 +32,17 @@
   color: rgb(0 78 89);
   /* font-weight: bold; */
 }
+
+/* .select2-selection--single{
+  margin: 0px 0px 10px 0px;
+  border-bottom: 2px solid #000;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  border-radius: 4px;
+  background-color: rgb(216 223 225 / 38%);
+  color: rgb(0 78 89);
+} */
 
 .input-span{
   display: flex;

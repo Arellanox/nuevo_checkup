@@ -1,5 +1,6 @@
 <?php
 $menu = $_POST['menu'];
+include "funciones.php";
 ?>
 
 <!-- HTML -->
@@ -14,10 +15,10 @@ $menu = $_POST['menu'];
        $("#header-js").html(html);
     });
   }
-
   // <!-- Aqui controlar e incluir las modals -->
   $.getScript('modals/controlador.js');
 
   // <!-- Aqui controlar e incluir los tablas -->
   $.getScript('contenido/controlador.js');
+
 </script>

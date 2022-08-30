@@ -3,14 +3,14 @@
 <!-- RECEPCIÓN -->
 <?php if ($menu == "Recepción"): ?>
   <li class="nav-item">
-    <a href="" data-bs-toggle="modal" data-bs-target="#">
+    <a href="" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">
       Nuevo Paciente
     </a>
   </li>
 <?php endif; ?>
 <?php if ($menu == "Recepción"): ?>
   <li class="nav-item">
-    <a href="" data-bs-toggle="modal" data-bs-target="#">
+    <a href="" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPrueba">
       Nuevo Registro
     </a>
   </li>

@@ -9,14 +9,13 @@
         <p class="text-center" >Asegurese que toda su información este correcta. <br /> Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
         <form class="row" id="formRegistrarPaciente">
           <div class="row">
-            <div class="col-12 col-lg-5">
+            <div class="col-12 col-lg-4">
                 <label for="procedencia" class="form-label">Procedencia</label>
-                <select class="input-form" name="procedencia" id="listPorcedencia" >
-                </select>
+                <input type="text" readonly name="procedencia" value="SLCHUMBERGER" class="input-form">
             </div>
             <div class="col-12 col-lg-4">
               <label for="segmento" class="form-label">Segmentos</label>
-              <select name="segmento" id="segmentos_procedencias" class="input-form" required >
+              <select name="segmento" id="segmentos_procedencias" class="input-form" required>
                 <option value="4">WCE-GAVSA</option>
               </select>
             </div>
@@ -159,11 +158,6 @@
   </div>
 </div>
 <script type="text/javascript">
-
-const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
-modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
-// Colocar ajax
-})
 //Formulario de Preregistro
 $("#formRegistrarPaciente").submit(function(event){
    event.preventDefault();

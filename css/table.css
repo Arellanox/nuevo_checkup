@@ -12,6 +12,8 @@ table thead{
   padding-top: 2px;
   text-decoration: none;
   color: black;
+  border: 0px;
+  background-color: rgb(255 255 255 / 0%);
 }
 
 .btn-table:hover{
