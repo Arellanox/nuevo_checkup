@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="<?php echo 'http://'.$url.'\nuevo_checkup\css\master.css?v='.uniqid();?>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="icon" href="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 <!-- Frameworks -->
 <script src="<?php echo 'http://'.$url.'\nuevo_checkup\js\framework\sweetalert2.all.min.js';?>"></script>

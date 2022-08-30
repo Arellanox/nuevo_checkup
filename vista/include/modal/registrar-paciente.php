@@ -162,8 +162,72 @@
 
 const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
 modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
-// Colocar ajax
+  // Colocar ajax
+  var select = document.getElementById("listPorcedencia"),
+      length = select.options.length;
+  while(length--){
+    select.remove(length);
+  }
+  // If necessary, you could initiate an AJAX request here
+  $.ajax({
+    url: "https://bimo-lab.com/includeHTML/formularios/php/consulta-paciente-ingreso.php",
+    type: "POST",
+    success: function(data) {
+      var data = jQuery.parseJSON(data);
+      //Equipo Utilizado
+      // console.log(data);
+      var select = document.getElementById("listPorcedencia");
+      for (var i = 0; i < data.length; i++) {
+        var content = data[i]['procedencia'];
+        var value = data[i]['id'];
+        var el = document.createElement("option");
+        el.textContent = content;
+        el.value = value;
+        select.appendChild(el);
+      }
+    },
+    fail: function(){
+      Toast.fire({
+        icon: 'error',
+        title: 'Ha ocurrido un problema con las procedencias...',
+        timer: 2000
+      });
+    }
+  })
 })
+// Lista de segmentos dinamico
+$('#listPorcedencia').on('change', function() {
+  var procedencia = $("#listPorcedencia option:selected").val();
+  $.ajax({
+    url: "??",
+      type: "POST",
+      data:{
+        procedencia:procedencia
+      },
+    success: function(data) {
+      var selectsegmentos = document.getElementById("segmentos_procedencias");
+      for (var i = 0; i < data.length; i++) {
+        var content = data[i]['procedencia'];
+        var value = data[i]['id'];
+        var el = document.createElement("option");
+        el.textContent = content;
+        el.value = value;
+        selectsegmentos.appendChild(el);
+      }
+      // $("#segmentos_procedencias").html(data);
+    },
+    fail: function(){
+      Toast.fire({
+        icon: 'error',
+        title: 'Ha ocurrido un problema con los segmentos...',
+        timer: 2000
+      });
+    }
+    // data: { municipios : estado }
+  });
+});
+
+
 //Formulario de Preregistro
 $("#formRegistrarPaciente").submit(function(event){
    event.preventDefault();

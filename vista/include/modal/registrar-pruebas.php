@@ -423,7 +423,31 @@
 
 const modalRegistrarPrueba = document.getElementById('ModalRegistrarPrueba')
 modalRegistrarPrueba.addEventListener('show.bs.modal', event => {
-// Colocar ajax
+  // Colocar ajax
+  var select = document.getElementById("selectCURPPaciente"),
+      length = select.options.length;
+  while(length--){
+    select.remove(length);
+  }
+  // If necessary, you could initiate an AJAX request here
+  $.ajax({
+    url: "https://bimo-lab.com/includeHTML/formularios/php/consulta-paciente-ingreso.php",
+    type: "POST",
+    success: function(data) {
+      var data = jQuery.parseJSON(data);
+      //Equipo Utilizado
+      console.log(data);
+      var select = document.getElementById("selectCURPPaciente");
+      for (var i = 0; i < data.length; i++) {
+        var content = data[i]['nombre']+" - "+ data[i]['curp']+" - "+data[i]['prefolio'];
+        var value = data[i]['id_paciente'];
+        var el = document.createElement("option");
+        el.textContent = content;
+        el.value = value;
+        select.appendChild(el);
+      }
+    }
+  })
 })
 
 
@@ -438,7 +462,7 @@ $('#actualizarForm').click(function(){
                                                 '</div>';
   $('#formDIV *').prop('disabled',false);
   $('#btnFormRegistrarPruba').prop('disabled',false);
-  curp = document.getElementById("curp-paciente").value;
+  curp = document.getElementById("selectCURPPaciente").value;
   $.ajax({
     data: {curp:curp},
     url: "??",
