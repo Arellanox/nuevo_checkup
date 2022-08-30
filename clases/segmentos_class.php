@@ -90,16 +90,16 @@ class Segmentos extends Master implements iMetodos{
         $stmt->bindParam(2,$son);
         
         $stmt->execute();
-        // echo $this->globalCounter;
-        // echo "<br>";
+        
         $x = 0;
+        
         if($stmt->rowCount()>0){
             
             $stmt->bindColumn(1,$padre);
             $stmt->bindColumn(2,$descripcion);
 
             while($row = $stmt->fetch(PDO::FETCH_BOUND)){
-                //echo "id: $padre, Descripcion: $descripcion";
+                // echo "id: $padre, Descripcion: $descripcion";
                 $x = $padre;
                 if($this->globalCounter==0){
                     $this->segmento = $descripcion;
@@ -110,6 +110,7 @@ class Segmentos extends Master implements iMetodos{
             
             $this->globalCounter = $this->globalCounter + 1;
             $this->setSegmento($x);
+            
         }
     }
 
