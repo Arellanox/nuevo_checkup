@@ -1,18 +1,19 @@
 <?php
+include "../interfaces/iMetodos.php";
 include "../clases/clientes_class.php";
-//include "../clases/miscelaneus.php";
+include "../clases/contactos_class.php";
 
 $client = new Clientes();
-$form = $client->mis->getFormValues($_POST);
-$api = 5;//$form['api'];
+//$form = $client->mis->getFormValues($_POST);
+$api = 2;//$form['api'];
 
 switch($api){
     //insertar un nuevo cliente
     case 1:
-        $form = $client->mis->getFormValues($_POST);
-        $return = $client->insert($form['segmento'],$form['nombre_comercial'],$form['razon_social'],
-                                    $form['nombre_sistema'],$form['rfc'],$form['curp'],$form['direccion_fiscal'],
-                                    $form['direccion_entrega_servicios'],$form['direccion'],$form['abreviatura']);
+        echo "caso 1";
+        //$form = $client->mis->getFormValues($_POST);
+        $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
+        $return = $client->insert($newClient);
         
         if($return>=1){
             echo json_encode(array("response"=>array("code"=>1,"msj"=>"¡Cliente agregado!")));
@@ -23,20 +24,35 @@ switch($api){
     //recuperar la lista de los clientes activos
     case 2:
         $return = $client->getAll();
+        $newSet = array();
 
         if(is_array($return)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$return)));
+            foreach($return as $cliente){
+                $contact = new Contactos();
+                $contactos = $contact->getByCliente($cliente['ID_CLIENTE']);
+                $cliente['CONTACTOS'] = $contactos;
+                $cliente[] = $contactos;
+                $newSet[] = $cliente;
+            }
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$newSet)));
         }else{
            echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
         }
         break;
     //recuperar los datos de un cliente especifico
     case 3:
-        $form = $client->mis->getFormValues($_POST);
-        $return = $client->getById($form['id']);
+        $return = $client->getById(3);
+        $newSet = array();
 
         if(is_array($return)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$return)));
+            foreach($return as $cliente){
+                $contact = new Contactos();
+                $contactos = $contact->getByCliente($cliente['ID_CLIENTE']);
+                $cliente['CONTACTOS'] = $contactos;
+                $cliente[] = $contactos;
+                $newSet[] = $cliente;
+            }
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$newSet)));
         }else{
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
         }
@@ -44,9 +60,7 @@ switch($api){
     //actualiza la informacion de un cliente
     case 4:
         $form = $client->mis->getFormValues($_POST);
-        $return = $client->update($form['id'],$form['segmento'],$form['nombre_comercial'],$form['razon_social'],
-                                    $form['nombre_sistema'],$form['rfc'],$form['curp'],$form['direccion_fiscal'],
-                                    $form['direccion_entrega_servicios'],$form['direccion'],$form['abreviatura']);
+        $return = $client->update($values);
         
         if($return>=1){
             echo json_encode(array("response"=>array("code"=>1,"msj"=>"Información del cliente actualizada.")));
@@ -55,8 +69,7 @@ switch($api){
         }
         break;
     case 5:
-        $form = $client->mis->getFormValues($_POST);
-        $return = $client->delete($form['id']);
+        $return = $client->delete(3);
         if($return>0){
             echo json_encode(array("response"=>array("code"=>1,"msj"=>"Cliente eliminado.")));
         }else{
