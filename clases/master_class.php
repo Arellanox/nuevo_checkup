@@ -87,8 +87,8 @@ class Master extends Miscelaneus{
         // Recupera el último ID insertado
         $last_id = $conn->lastInsertId();  
 
-        // Devuelve el número de filas afectadas;
-        return $afectados;
+        // Devuelve el último id;
+        return $last_id;
         
     }
 
