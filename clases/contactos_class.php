@@ -27,7 +27,7 @@ class Contactos extends Master implements iMetodos{
         $this->strings = array(1,2,5);
         $this->doubles = array();
         $this->intergers_update = array(0,3,4,6);
-        $this->nulls = array();
+        $this->nulls = array(4);
     }
 
     function getAttributes(){
@@ -65,7 +65,7 @@ class Contactos extends Master implements iMetodos{
     }
 
     function delete($id){
-        $return = $this->master->delete($this->table,$this->getAttributes(),$id);
+        $return = $this->master->delete($this->tabla,$this->getAttributes(),$id);
         return $return;
     }
 
