@@ -23,7 +23,7 @@ class Clientes extends Master implements iMetodos{
     public $intergers;
     public $strings;
     public $doubles;
-    private $nulls;
+    public $nulls;
     public $intergers_update;
 
     function Clientes(){
@@ -52,7 +52,7 @@ class Clientes extends Master implements iMetodos{
     }
 
     function insert($values){
-        $return = $this->master->insert($this->tabla,$this->getAttributtes(),$values,$this->intergers,$this->strings,$this->doubles,$this->nulls);
+        $return = $this->master->insert($this->tabla,$this->getAttributes(),$values,$this->intergers,$this->strings,$this->doubles,$this->nulls);
         return $return;
     }
 

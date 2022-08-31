@@ -121,9 +121,10 @@ class Master extends Miscelaneus{
 
     function getById($tabla,$id_input,$attributes){
         $conn = $this->connectDb();
-        
-        $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=?");
+        $activo = 1;
+        $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=? and activo=?");
         $stmt->bindParam(1,$id_input);
+        $stmt->bindParam(2,$activo);
 
         $error_tipo_dato = $this->mis->validarDatos(array($id_input),array(0),array(),array());
 
