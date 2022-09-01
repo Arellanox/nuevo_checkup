@@ -28,4 +28,62 @@ const Toast = Swal.mixin({
     toast.addEventListener('mouseleave', Swal.resumeTimer)
   }
 });
+
+
+// Obtener segmentos por procedencia en select
+function getSegmentoByProcedencia(id, select){
+  $.ajax({
+    url: "",
+      type: "POST",
+      data:{
+        procedencia:id
+      },
+    success: function(data) {
+      var selectoption = document.getElementById(select);
+      for (var i = 0; i < data.length; i++) {
+        var content = data[i]['procedencia'];
+        var value = data[i]['id'];
+        var el = document.createElement("option");
+        el.textContent = content;
+        el.value = value;
+        selectoption.appendChild(el);
+      }
+    }
+  });
+}
+
+// Obtener procedencias en select
+function getProcedencias(select){
+  $.ajax({
+    url: "https://bimo-lab.com/antigeno/php/consulta_segmentos.php",
+    type: "POST",
+    success: function(data) {
+      var data = jQuery.parseJSON(data);
+      //Equipo Utilizado
+      // console.log(data);
+      var selectoption = document.getElementById(select);
+      for (var i = 0; i < data.length; i++) {
+        var content = data[i]['procedencia'];
+        var value = data[i]['id'];
+        var el = document.createElement("option");
+        el.textContent = content;
+        el.value = value;
+        selectoption.appendChild(el);
+      }
+    }
+  })
+}
+
+
+$( window ).on( 'hashchange', function( e ) {
+    var hash = window.location.hash.substring(1);
+    switch (hash) {
+      case "Usuarios": obtenerContenidoUsuarios('administracion.php', 'Administración | Usuarios'); break;
+      case "Clientes": obtenerContenidoClientes('clientes.php', 'Clientes'); break;
+      case "Servicios": obtenerContenidoServicios('servicios.php', 'Servicios'); break;
+      default: obtenerContenido('administracion.php', 'Administración | Usuarios'); break;
+    }
+} );
+
+
 </script>

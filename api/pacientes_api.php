@@ -5,13 +5,13 @@ include "../clases/segmentos_class.php";
 
 $paciente = new Pacientes();
 
-$api = 5;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
         # insertar un nuevo paciente
         $form = $paciente->master->mis->getFormValues($_POST);
-        $result = $paciente->insert($form);
+        $result = $paciente->insert($_POST);
 
         if(is_numeric($result)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$result)));
@@ -78,7 +78,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$result)));
         }
         break;
-        
+
     default:
         # code...
         break;

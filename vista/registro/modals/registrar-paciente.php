@@ -32,57 +32,64 @@
             <label for="materno" class="form-label">Apellido materno</label>
             <input type="text" name="materno" value="" class="form-control input-form">
           </div>
-          <div class="col-6 col-lg-2">
+          <div class="col-6 col-lg-3 col-xl-2">
             <label for="edad" class="form-label">Edad</label>
             <div class="input-group">
               <input type="number" class="form-control input-form" name="edad" placeholder="" required>
               <span class="input-span">años</span>
             </div>
           </div>
-          <div class="col-6 col-lg-3">
+          <div class="col-6 col-lg-4 col-xl-2">
             <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
             <input type="date" class="form-control input-form" name="nacimiento" placeholder="" required>
           </div>
-          <div class="col-7 col-lg-4">
+          <div class="col-7 col-lg-5 col-xl-4">
             <label for="curp" class="form-label">CURP</label>
             <input type="text" class="form-control input-form" name="curp" placeholder="" required>
           </div>
-          <div class="col-5 col-lg-3">
+          <div class="col-5 col-lg-4 col-xl-4">
             <label for="telefono" class="form-label">Télefono</label>
-            <input type="number" class="form-control input-form" name="telefono" placeholder="" >
+            <input type="number" class="form-control input-form" name="celular" placeholder="" >
+          </div>
+          <div class="col-7 col-lg-5">
+            <label for="telefono" class="form-label">Correo</label>
+            <div class="input-group">
+              <input type="email" class="form-control input-form" name="correo" placeholder="" >
+              <span class="input-span">@</span>
+            </div>
           </div>
 
-          <div class="col-6 col-lg-2">
+          <div class="col-5 col-lg-3">
             <label for="postal" class="form-label">Código postal</label>
             <input type="number" class="form-control input-form" name="postal" placeholder="" >
           </div>
-          <div class="col-6 col-lg-3">
+          <div class="col-6 col-lg-4 col-xl-4">
             <label for="estado" class="form-label">Estado</label>
             <input type="text" class="form-control input-form" name="estado" placeholder="" >
           </div>
-          <div class="col-6 col-lg-3">
+          <div class="col-6 col-lg-4 col-xl-4">
             <label for="municipio" class="form-label">Municipio</label>
             <input type="text" class="form-control input-form" name="municipio" placeholder="" >
           </div>
-          <div class="col-6 col-lg-4">
+          <div class="col-6 col-lg-4 col-xl-4">
             <label for="colonia" class="form-label">Colonia</label>
             <input type="text" class="form-control input-form" name="colonia" placeholder="" >
           </div>
-          <div class="col-6 col-lg-3">
+          <div class="col-6 col-lg-3 col-xl-2">
             <label for="exterior" class="form-label">No. Exterior</label>
             <div class="input-group">
             <span class="input-span">No.</span>
-              <input type="text" class="form-control input-form" name="exterior" placeholder="" >
+              <input type="number" class="form-control input-form" name="exterior" placeholder="" >
             </div>
           </div>
-          <div class="col-6 col-lg-3">
+          <div class="col-6 col-lg-3 col-xl-2">
             <label for="interior" class="form-label">No. Interior</label>
             <div class="input-group">
               <span class="input-span">No.</span>
-              <input type="text" class="form-control input-form" name="interior" placeholder="" >
+              <input type="number" class="form-control input-form" name="interior" placeholder="" >
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-6 col-xl-4">
             <label for="calle" class="form-label">Calle</label>
             <input type="text" class="form-control input-form" name="calle" placeholder="" >
           </div>
@@ -95,7 +102,7 @@
             <label for="pasaporte" class="form-label">PASAPORTE</label>
             <input type="text" class="form-control input-form" name="pasaporte" placeholder="" >
           </div>
-          <div class="col-6 col-lg-4">
+          <div class="col-6 col-lg-4 col-xl-3">
             <label for="rfc" class="form-label">RFC</label>
             <input type="text" class="form-control input-form" name="rfc" placeholder="" >
           </div>
@@ -157,76 +164,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-//Formulario de Preregistro
-$("#formRegistrarPaciente").submit(function(event){
-   event.preventDefault();
-   /*DATOS Y VALIDACION DEL REGISTRO*/
-   var form = document.getElementById("formRegistrarPaciente");
-   var formData = new FormData(form);
-   formData.set('api', 3);
-   console.log(formData);
-
-   Swal.fire({
-      title: '¿Está seguro que todos sus datos estén correctos?',
-      text: "¡No podrá editar o volverse a registrar!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, registrame',
-      cancelButtonText: "Cancelar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $("#btn-registrarse").prop('disabled', true);
-
-        // Esto va dentro del AJAX
-        $.ajax({
-          data: formData,
-          url: "??",
-          type: "POST",
-          processData: false,
-          contentType: false,
-          success: function(data) {
-            data = jQuery.parseJSON(data);
-            switch (data['codigo'] == 1) {
-              case 1:
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Su información a sido registrada :)',
-                  timer: 2000
-                });
-                document.getElementById("formRegistrarPaciente").reset();
-                $("#ModalRegistrarPaciente").modal('hide');
-              break;
-              case "repetido":
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: '¡Usted ya está registrado!',
-                   footer: 'Utilice su CURP para registrarse en una nueva prueba'
-                })
-              break;
-              default:
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: 'Hubo un problema!',
-                   footer: 'Reporte este error con el personal :)'
-                })
-            }
-          },
-        });
-      }
-    })
-   event.preventDefault();
- });
-
-deshabilitarVacunaExtra($("#inputVacuna").val(), 'vacunaExtra');
-$("#inputVacuna").change(function(){
- //alert($(this).val());
- deshabilitarVacunaExtra($(this).val(), 'vacunaExtra');
-});
-
-
-</script>

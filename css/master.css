@@ -1,14 +1,24 @@
-@import "navbar.css";
+@import "navbar.css?v=3";
 @import "imagen-navbar.css";
 @import "table.css?v=2";
 @import "modal.css";
 @import "botones-registro.css";
+@import "loader.css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
 body {
     background-image: url();
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    /* font-family: 'Montserrat', sans-serif; */
+    /* font-family: 'Roboto', sans-serif; */
+    /* font-family: 'Open Sans', sans-serif; */
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 *{
@@ -30,9 +40,9 @@ body{
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
-  margin-left: 0.5em;
-  display: inline-block;
-  width: 350px;
+  margin-left: 0.5em !important;
+  display: inline-block !important;
+  width: 300px !important;
 }
 
 .bg-acordion{

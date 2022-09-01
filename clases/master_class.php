@@ -25,7 +25,8 @@ class Master extends Miscelaneus{
         $host = "localhost";
         $dbname = "checkup";
         $username = "root";
-        $password = "bimo2022";
+        // $password = "bimo2022";
+        $password = "123456789";
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
@@ -37,7 +38,7 @@ class Master extends Miscelaneus{
     }
 
     function insert($tabla,$attributes,$values,$intergers,$strings,$doubles,$nulls=array()){
-        //crea la conexion a la base de datos usando PDO       
+        //crea la conexion a la base de datos usando PDO
         $conn = $this->connectDb();
 
         //construye el codigo sql para insertar dependiendo la tabla y sus atributos
@@ -46,7 +47,7 @@ class Master extends Miscelaneus{
         $columns = $this->concatAttributesToInsert($attributes,count($attributes));
         $sql.= "($columns VALUES (";
         $sql = $this->concatQuestionMarkToInsert($sql,count($attributes));
-        
+
         //Prepara la consulta para enviar SQl injection
         try{
             $stmt = $conn->prepare($sql);
@@ -71,7 +72,7 @@ class Master extends Miscelaneus{
 
         //reemplaza los signos de interrogacion (?) en el codigo SQL por los valores
         //proporcionados por el usuario
-        for ($i=0; $i < count($values); $i++) { 
+        for ($i=0; $i < count($values); $i++) {
             $stmt->bindParam(($i+1),$values[$i]);
         }
         //echo $sql;
@@ -83,13 +84,19 @@ class Master extends Miscelaneus{
 
         // Recupera el número de filas afectadas
         $afectados = $stmt->rowCount();
-      
-        // Recupera el último ID insertado
-        $last_id = $conn->lastInsertId();  
 
+        // Recupera el último ID insertado
+        $last_id = $conn->lastInsertId();
+
+<<<<<<< Updated upstream
         // Devuelve el último id;
         return $last_id;
         
+=======
+        // Devuelve el número de filas afectadas;
+        return $afectados;
+
+>>>>>>> Stashed changes
     }
 
     function getAll($tabla){
@@ -121,8 +128,13 @@ class Master extends Miscelaneus{
 
     function getById($tabla,$id_input,$attributes){
         $conn = $this->connectDb();
+<<<<<<< Updated upstream
         $activo = 1;
         $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=? and activo=?");
+=======
+
+        $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=?");
+>>>>>>> Stashed changes
         $stmt->bindParam(1,$id_input);
         $stmt->bindParam(2,$activo);
 
@@ -140,18 +152,18 @@ class Master extends Miscelaneus{
         }
 
         $resultset = $stmt->fetchAll();
-    
+
         return $resultset;
     }
 
     //para actualizar, mandar en el arreglo de $values el id al final
     function update($table,$attributes,$values,$intergers,$strings,$doubles,$nulls=array()){
-        
+
         $conn = $this->connectDb();
-       
+
         $sql = "UPDATE $table SET ";
         $sql.= $this->concatAttributesToUpdate($attributes);
-        
+
         try{
             $stmt = $conn->prepare($sql);
             if(!$stmt){
@@ -170,18 +182,18 @@ class Master extends Miscelaneus{
             return $error_msj;
         }
 
-        for ($i=0; $i < count($values); $i++) { 
+        for ($i=0; $i < count($values); $i++) {
             if(!$stmt->bindParam(($i+1),$values[$i])){
                 return "Error al bindiar";
             }
         }
-        
+
         if(!$stmt->execute()){
             return "Error al ejecutar sentencia";
         }
 
         return $stmt->rowCount();
-        
+
     }
 
     function delete($tabla,$attributes,$id_input){
@@ -205,14 +217,14 @@ class Master extends Miscelaneus{
             return "Error al ejecutar sentencia";
         }
 
-        return $stmt->rowCount();        
-        
+        return $stmt->rowCount();
+
     }
 
     function concatAttributesToUpdate($attributes){
         $string = "";
         $where = "";
-        for ($i=0; $i < count($attributes); $i++) { 
+        for ($i=0; $i < count($attributes); $i++) {
             if($i==0){
                 $where = "WHERE ".$attributes[$i]."=?";
             }else if($i==count($attributes)-1){
@@ -230,7 +242,7 @@ class Master extends Miscelaneus{
 
     function concatAttributesToInsert($attributes,$count){
         $string = "";
-        for ($i=0; $i < count($attributes); $i++) { 
+        for ($i=0; $i < count($attributes); $i++) {
             if($i==0){
                 //Ignora el id ya que este es auto_incremente en la base de datos
             }else if($i==$count-1){

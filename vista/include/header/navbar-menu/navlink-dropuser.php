@@ -1,0 +1,12 @@
+<?php if (true): ?>
+  <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-admin" aria-expanded="false">
+    <i class="bi bi-person-check"></i> Adminitración
+  </a>
+  <div class="collapse" id="board-admin">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <li><a href="<?php echo $https.$url.'/nuevo_checkup/vista/menu/administracion/'; ?>" class="dropdown-a"><i class="bi bi-dot"></i> Usuario</a></li>
+    </ul>
+  </div>
+<?php endif; ?>
+<li><hr class="dropdown-divider"></li>
+<a href="#" class="dropdown-a"><i class="bi bi-box-arrow-up"></i> Cerrar Sesión</a>

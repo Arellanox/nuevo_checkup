@@ -9,13 +9,14 @@
         <p class="text-center" >Actualice la información requerida, no podrá regresar estos cambios</p>
         <form class="row" id="formEditarPaciente">
           <div class="row">
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-5">
                 <label for="procedencia" class="form-label">Procedencia</label>
-                <input type="text" readonly name="procedencia" value="SLCHUMBERGER" class="input-form" id="procedencia">
+                <select class="input-form" name="procedencia" id="listProcedencia-edit" >
+                </select>
             </div>
             <div class="col-12 col-lg-4">
               <label for="segmento" class="form-label">Segmentos</label>
-              <select name="segmento" class="input-form" required id="segmentos_procedencias">
+              <select name="segmento" id="segmentos_procedencias-edit" class="input-form" required >
                 <option value="4">WCE-GAVSA</option>
               </select>
             </div>
@@ -158,12 +159,65 @@
   </div>
 </div>
 <script type="text/javascript">
+const ModalEditarPaciente = document.getElementById('ModalEditarPaciente')
+ModalEditarPaciente.addEventListener('show.bs.modal', event => {
+  // Colocar ajax
+  var select = document.getElementById("listProcedencia-edit"),
+      length = select.options.length;
+  while(length--){
+    select.remove(length);
+  }
+  // If necessary, you could initiate an AJAX request here
+  getProcedencias("listProcedencia-edit");
+  getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
+  $.ajax({
+    url: "??",
+    type: "POST",
+    data:{id:array_paciente['DT_RowId']},
+    success: function(data) {
+      $('#listProcedencia-edit').val("data")
+      $('#segmentos_procedencias-edit').val("data")
+      $('#editar-nombre').val("data")
+      $('#editar-paterno').val("data")
+      $('#editar-materno').val("data")
+      $('#editar-edad').val("data")
+      $('#editar-nacimiento').val("data")
+      $('#editar-curp').val("data")
+      $('#editar-telefono').val("data")
+      $('#editar-postal').val("data")
+      $('#editar-estado').val("data")
+      $('#editar-municipio').val("data")
+      $('#editar-colonia').val("data")
+      $('#editar-exterior').val("data")
+      $('#editar-interior').val("data")
+      $('#editar-calle').val("data")
+      $('#editar-nacionalidad').val("data")
+      $('#editar-pasaporte').val("data")
+      $('#editar-rfc').val("data")
+      $('#editar-vacuna').val("data")
+      $('#editar-vacunaextra').val("data")
+      $('#editar-inputDosis').val("data")
+
+
+    }
+  })
+})
+// Lista de segmentos dinamico
+$('#listProcedencia-edit').on('change', function() {
+  var procedencia = $("#listProcedencia-edit option:selected").val();
+  getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
+});
+
+
+
+
 //Formulario de Preregistro
 $("#formEditarPaciente").submit(function(event){
    event.preventDefault();
    /*DATOS Y VALIDACION DEL REGISTRO*/
    var form = document.getElementById("formEditarPaciente");
    var formData = new FormData(form);
+   formData.set('id', array_paciente['DT_RowId']);
    formData.set('api', 3);
    console.log(formData);
 
@@ -222,10 +276,10 @@ $("#formEditarPaciente").submit(function(event){
    event.preventDefault();
  });
 
-deshabilitarVacunaExtra($("#editar-vacuna").val(), 'editar-extra');
+deshabilitarVacunaExtra($("#editar-vacuna").val(), "editar-extra");
 $("#editar-vacuna").change(function(){
  //alert($(this).val());
- deshabilitarVacunaExtra($(this).val(), 'editar-extra');
+ deshabilitarVacunaExtra($(this).val(), "editar-extra");
 });
 
 </script>

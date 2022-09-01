@@ -12,19 +12,21 @@ class Pacientes extends Master implements iMetodos{
     public $curp;//6
     public $celular;//7
     public $correo;//8
-    public $calle;//9
-    public $exterior;//10
-    public $interior;//11
+    public $postal;//9
+    public $estado;//10
+    public $municipio;//11
     public $colonia;//12
-    public $postal;//13
-    public $rfc;//14
-    public $nacionalidad;//15
-    public $pasaporte;//16
-    public $genero;//17
-    public $vacuna;//18
-    public $otravacuna;//19
-    public $dosis;//20
-    public $foto;//21
+    public $exterior;//13
+    public $interior;//14
+    public $calle;//15
+    public $nacionalidad;//16
+    public $pasaporte;//17
+    public $rfc;//18
+    public $vacuna;//19
+    public $otravacuna;//20
+    public $dosis;//21
+    public $genero;//22
+    public $foto;//23
     public $activo;
     private $tabla;
     private $master;
@@ -43,7 +45,7 @@ class Pacientes extends Master implements iMetodos{
         $this->tabla = "pacientes";
         //guarda la POSICIONES en el arreglo de clase de los attributos que sean enteros;
         //para insertar ignora el id, es decir, la posicion [0] es segmento_id
-        $this->intergers = array(0,4,7,10,11,13,17,22); 
+        $this->intergers = array(0,4,7,10,11,13,17,22);
         $this->strings = array(1,2,3,5,6,8,9,12,14,15,16,18,19,20,21);
         $this->double = array();
         $this->intergers_update = array(0,4,7,10,11,13,17,22);

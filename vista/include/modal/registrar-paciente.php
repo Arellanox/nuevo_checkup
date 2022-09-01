@@ -1,4 +1,4 @@
-<div class="modal fade" id="ModalRegistrarPaciente" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true" data-bs-backdrop="static">
+<div class="modal fade" id="ModalRegistrarPaciente" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-12 col-lg-5">
                 <label for="procedencia" class="form-label">Procedencia</label>
-                <select class="input-form" name="procedencia" id="listPorcedencia" >
+                <select class="input-form" name="procedencia" id="listProcedencia" >
                 </select>
             </div>
             <div class="col-12 col-lg-4">
@@ -159,74 +159,24 @@
   </div>
 </div>
 <script type="text/javascript">
-
 const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
 modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
   // Colocar ajax
-  var select = document.getElementById("listPorcedencia"),
+  var select = document.getElementById("listProcedencia"),
       length = select.options.length;
   while(length--){
     select.remove(length);
   }
+
   // If necessary, you could initiate an AJAX request here
-  $.ajax({
-    url: "https://bimo-lab.com/includeHTML/formularios/php/consulta-paciente-ingreso.php",
-    type: "POST",
-    success: function(data) {
-      var data = jQuery.parseJSON(data);
-      //Equipo Utilizado
-      // console.log(data);
-      var select = document.getElementById("listPorcedencia");
-      for (var i = 0; i < data.length; i++) {
-        var content = data[i]['procedencia'];
-        var value = data[i]['id'];
-        var el = document.createElement("option");
-        el.textContent = content;
-        el.value = value;
-        select.appendChild(el);
-      }
-    },
-    fail: function(){
-      Toast.fire({
-        icon: 'error',
-        title: 'Ha ocurrido un problema con las procedencias...',
-        timer: 2000
-      });
-    }
-  })
+  getProcedencias("listProcedencia");
+  getSegmentoByProcedencia(procedencia, "segmentos_procedencias");
 })
 // Lista de segmentos dinamico
-$('#listPorcedencia').on('change', function() {
-  var procedencia = $("#listPorcedencia option:selected").val();
-  $.ajax({
-    url: "??",
-      type: "POST",
-      data:{
-        procedencia:procedencia
-      },
-    success: function(data) {
-      var selectsegmentos = document.getElementById("segmentos_procedencias");
-      for (var i = 0; i < data.length; i++) {
-        var content = data[i]['procedencia'];
-        var value = data[i]['id'];
-        var el = document.createElement("option");
-        el.textContent = content;
-        el.value = value;
-        selectsegmentos.appendChild(el);
-      }
-      // $("#segmentos_procedencias").html(data);
-    },
-    fail: function(){
-      Toast.fire({
-        icon: 'error',
-        title: 'Ha ocurrido un problema con los segmentos...',
-        timer: 2000
-      });
-    }
-    // data: { municipios : estado }
-  });
+$('#listProcedencia').on('change', function() {
+  var procedencia = $("#listProcedencia option:selected").val();
+  getSegmentoByProcedencia(procedencia, "segmentos_procedencias");
 });
-
 
 //Formulario de Preregistro
 $("#formRegistrarPaciente").submit(function(event){

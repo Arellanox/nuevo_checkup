@@ -47,28 +47,12 @@
   </div>
 </div>
 <script type="text/javascript">
-var url_paciente;
 // Obtener datos del paciente seleccionado
+var url_paciente = null;
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
-  //alert(paciente_aceptar);
-  // $.ajax({
-  //   url: "??",
-  //   type: "POST",
-  //   data:{
-  //     id:paciente_aceptar
-  //   },
-  //   success: function(data) {
-  //     document.getElementById("title-paciente_aceptar").innerHTML = data['']
-  //     // Colocar los estudios seleccionados
-  //     var html_list;
-  //     while (data['pruebas'].length) {
-  //       html_list += '<li class="list-group-item">''</li>';
-  //     }
-  //     document.getElementById("list-estudiosPaciente").innerHTML = html_list
-  //
-  //   },
-  // });
+  document.getElementById("title-paciente_aceptar").innerHTML = array_paciente[1];
+  document.getElementById("btn-confirmar-paciente").disabled = true;
 })
 
 $("#btn-obtenerID").click(function(){
@@ -79,25 +63,33 @@ $("#btn-obtenerID").click(function(){
     data:{api:1},
     success: function (data) {
       data = jQuery.parseJSON(data);
-      alert("si");
-      console.log(data);
       img = "identificacion/"+data[2];
       $("#image-perfil").attr("src",img);
       url_paciente = "https:bimo-lab.com/nuevo_checkup/vista/menu/recepcion/identificacion/"+data[2];
+      document.getElementById("btn-confirmar-paciente").disabled = false;
     }
   });
 })
 
 $("#btn-confirmar-paciente").click(function(){
+document.getElementById("btn-confirmar-paciente").disabled = true;
   $.ajax({
     url: "??",
     type: "POST",
     data:{
-      id:paciente_aceptar,
+      id: array_paciente['DT_RowId'],
       url: url_paciente
     },
     success: function(data) {
-
+      if (true) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Turno: @Turno',
+          text: 'Generando credencial...',
+          showCloseButton: false,
+        })
+      }
     },
   });
 })

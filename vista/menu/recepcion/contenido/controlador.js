@@ -1,10 +1,11 @@
 
 // Variables globales
-var paciente_aceptar;
+var array_paciente;
 
 // ObtenerTabla o cambiar
-obtenerContenido("recepcion.php");
-function obtenerContenido(tabla){
+obtenerContenidoRecepcion("recepcion.php");
+function obtenerContenidoRecepcion(tabla){
+  obtenerTitulo('Recepción'); //Aqui mandar el nombre de la area
   $.post("contenido/"+tabla, function(html){
     var idrow;
      $("#body-js").html(html);
@@ -25,17 +26,18 @@ function obtenerContenido(tabla){
         // alert( 'Clicked row id '+idrow );
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
-            idrow = null;
+            array_paciente = null;
         } else {
             tablaPrincipal.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
-            idrow = tablaPrincipal.row( this ).id();
+            array_paciente = tablaPrincipal.row( this ).data();
+
         }
     });
 
+
     $("#btn-aceptar").click(function(){
-      if (idrow !=null) {
-        paciente_aceptar = idrow;
+      if (array_paciente !=null) {
         $("#modalPacienteAceptar").modal('show');
       }else{
         alertRecepcion();
@@ -43,24 +45,24 @@ function obtenerContenido(tabla){
     })
 
     $("#btn-rechazar").click(function(){
-      if (idrow !=null) {
-        recepciónPaciente('rechazar',idrow);
+      if (array_paciente !=null) {
+        $("#modalPacienteRechazar").modal('show');
       }else{
         alertRecepcion();
       }
     })
 
     $("#btn-editar").click(function(){
-      if (idrow !=null) {
-        alert("A seleccionado la fila "+idrow);
+      if (array_paciente !=null) {
+        $("#ModalEditarPaciente").modal('show');
       }else{
         alertRecepcion();
       }
     })
 
     $("#btn-perfil").click(function(){
-      if (idrow !=null) {
-        alert("A seleccionado la fila "+idrow);
+      if (array_paciente !=null) {
+        $("#modalPacientePerfil").modal('show');
       }else{
         alertRecepcion();
       }
