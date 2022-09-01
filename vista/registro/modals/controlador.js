@@ -1,5 +1,9 @@
 $.post("modals/registro.php", function(html){
    $("#modals-js").html(html);
+
+
+
+   
    //Formulario de Preregistro
    $("#formRegistrarPaciente").submit(function(event){
       event.preventDefault();
