@@ -37,7 +37,7 @@ $.post("modals/registro.php", function(html){
              success: function(data) {
                data = jQuery.parseJSON(data);
                console.log(data);
-               switch (data['codigo'] == 1) {
+               switch (data['response']['code'] == 1) {
                  case 1:
                    Toast.fire({
                      icon: 'success',
@@ -46,6 +46,14 @@ $.post("modals/registro.php", function(html){
                    });
                    document.getElementById("formRegistrarPaciente").reset();
                    $("#ModalRegistrarPaciente").modal('hide');
+                 break;
+                 case 2:
+                   Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: '¡Ha ocurrido un error!',
+                      footer: 'Codigo: '+data['response']['msj']
+                   })
                  break;
                  case "repetido":
                    Swal.fire({

@@ -84,6 +84,39 @@ class Miscelaneus{
         return $errors;
     }
 
+    function splitArray($source,$split){
+        $splitted = array();
+        $counter = 0;
+        $position = 0;
+        $aux = 0;
+        $position_split = 0;
+        
+        $splitted[$position] = array();
+
+        foreach ($source as  $value) {
+
+            if(isset($split[$position_split])){
+                if(count($splitted[$position])<$split[$position_split]){
+                    $splitted[$position][] = $source[$counter];
+                } else {
+                    $position_split = $position_split + 1;
+                    if(isset($split[$position_split])){
+                        $position = $position + 1;
+                        $splitted[$position] = array();
+                        $splitted[$position][] = $source[$counter];
+                    } else {
+                        $splitted[$position][] = $source[$counter];
+                    }
+                }
+            } else {
+                $splitted[$position][] = $source[$counter];
+            }
+            
+            $counter = $counter +1;
+        }
+
+        return $splitted;
+    }
 
     function sayHello(){
         echo "Hello World!";

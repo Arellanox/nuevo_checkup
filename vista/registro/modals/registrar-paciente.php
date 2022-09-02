@@ -10,8 +10,8 @@
         <form class="row" id="formRegistrarPaciente">
           <div class="row">
             <div class="col-12 col-lg-4">
-                <label for="procedencia" class="form-label">Procedencia</label>
-                <input type="text" readonly name="procedencia" value="SLCHUMBERGER" class="input-form">
+                <label  class="form-label">Procedencia</label>
+                <input type="text" readonly value="SLCHUMBERGER" class="input-form">
             </div>
             <div class="col-12 col-lg-4">
               <label for="segmento" class="form-label">Segmentos</label>
@@ -143,11 +143,11 @@
                     <label for="" >Genero: </label>
                   </div>
                   <div class="col">
-                      <input type="radio" id="mascuCues" name="genero" value="MASCULINO" required>
+                      <input type="radio" id="mascuCues" name="genero" value="1" required>
                       <label for="mascuCues">Masculino</label>
                   </div>
                   <div class="col">
-                      <input type="radio"  id="FemeCues" name="genero" value="FEMENINO" required>
+                      <input type="radio"  id="FemeCues" name="genero" value="2" required>
                       <label for="FemeCues" >Femenino</label>
                   </div>
                 </div>
