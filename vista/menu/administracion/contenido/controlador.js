@@ -55,19 +55,3 @@ function obtenerContenidoServicios(tabla, titulo){
      loader("Out")
   });
 }
-
-function loader(fade){
-  if (fade == 'Out') {
-    $("#ContenidoHTML").fadeToggle(1);
-    $("#loader").removeClass("noloader");
-    $("#loader").addClass("loader");
-    $("#preloader").removeClass("preloader");
-    $("#preloader").addClass("preloader");
-  }else if (fade == 'In') {
-    $("#loader").removeClass("loader");
-    $("#loader").addClass("noloader");
-    $("#preloader").addClass("preloader");
-    $("#preloader").removeClass("preloader");
-    $("#ContenidoHTML").fadeToggle(100);
-  }
-}

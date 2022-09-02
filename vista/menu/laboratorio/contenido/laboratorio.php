@@ -8,16 +8,15 @@
     </button>
   </div>
 
-  <table class="table display responsive" id="TablaEjemplo" style="width: 100%">
+  <table class="table display responsive" id="TablaLaboratorio" style="width: 100%">
     <thead class="">
       <tr>
         <th scope="col d-flex justify-content-center" class="all">#</th>
         <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-        <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
-        <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>
-        <th scope="col d-flex justify-content-center" class="desktop">Segmento</th>
+        <th scope="col d-flex justify-content-center" class="min-tablet">Numero de kit</th>
+        <th scope="col d-flex justify-content-center" class="min-tablet">Fecha de ingreso</th>
+        <th scope="col d-flex justify-content-center" class="desktop">FOLIO de kit</th>
         <th scope="col d-flex justify-content-center" class="min-tablet">Ingreso</th>
-        <th scope="col d-flex justify-content-center" class="none">Sexo</th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +28,6 @@
             <td>SLCHUMBERGER</td>
             <td></td>
             <td>2022-04-01</td>
-            <td>EJEMPLO</td>
         </tr>
       <?php } ?>
     </tbody>

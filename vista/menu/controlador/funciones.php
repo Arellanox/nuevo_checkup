@@ -81,9 +81,25 @@ $( window ).on( 'hashchange', function( e ) {
       case "Usuarios": obtenerContenidoUsuarios('administracion.php', 'Administración | Usuarios'); break;
       case "Clientes": obtenerContenidoClientes('clientes.php', 'Clientes'); break;
       case "Servicios": obtenerContenidoServicios('servicios.php', 'Servicios'); break;
+      case "Segmentos": obtenerContenidoSegmentos('servicios.php', 'Servicios'); break;
       default: obtenerContenido('administracion.php', 'Administración | Usuarios'); break;
     }
 } );
 
+function loader(fade){
+  if (fade == 'Out') {
+    $("#ContenidoHTML").fadeToggle(1);
+    $("#loader").removeClass("noloader");
+    $("#loader").addClass("loader");
+    $("#preloader").removeClass("preloader");
+    $("#preloader").addClass("preloader");
+  }else if (fade == 'In') {
+    $("#loader").removeClass("loader");
+    $("#loader").addClass("noloader");
+    $("#preloader").addClass("preloader");
+    $("#preloader").removeClass("preloader");
+    $("#ContenidoHTML").fadeToggle(100);
+  }
+}
 
 </script>

@@ -2,17 +2,16 @@
 include "../interfaces/iMetodos.php";
 include "../clases/dependencias_class.php";
 
-# Cambiar a los valores reales 
+# Cambiar a los valores reales
 # dinamicos
 
 $dependencia = new Dependencias();
 $api = 5;
-
 switch ($api) {
     case 1:
         $new = array(1,5);
         $response =  $dependencia->insert($new);
-        
+
         if ($response>0) {
             echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
         } else {
@@ -47,7 +46,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
-    
+
     case 5:
         $response = $dependencia->delete(1);
 
@@ -57,7 +56,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
-    
+
     default:
         # code...
         break;

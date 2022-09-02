@@ -37,3 +37,10 @@
     </a>
   </li>
 <?php endif; ?>
+<?php if ($menu == "Laboratorio"): ?>
+  <li class="nav-item">
+    <a href="#Usuarios" data-bs-dismiss="offcanvas">
+      <i class="bi bi-arrow-up-right"></i> Prueba
+    </a>
+  </li>
+<?php endif; ?>

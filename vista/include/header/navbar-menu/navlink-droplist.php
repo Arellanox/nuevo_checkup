@@ -1,4 +1,4 @@
-<?php if ($menu == "Recepción" || $menu == "Consultorio" || $menu == "Administración | Usuarios"): ?>
+<?php if ($menu == "Recepción" || $menu == "Consultorio" || $menu == "Administración | Usuarios" || $menu == "Laboratorio"): ?>
   <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>

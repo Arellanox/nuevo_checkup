@@ -21,7 +21,6 @@ function obtenerContenidoRecepcion(tabla){
 
      })
 
-
      $('#TablaEjemplo tbody').on('click', 'tr', function () {
         // alert( 'Clicked row id '+idrow );
         if ($(this).hasClass('selected')) {
@@ -31,7 +30,6 @@ function obtenerContenidoRecepcion(tabla){
             tablaPrincipal.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
             array_paciente = tablaPrincipal.row( this ).data();
-
         }
     });
 

@@ -124,11 +124,11 @@
           </div>
           <div class="col-6 col-lg-3" id="vacunaExtra">
             <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
-            <input type="text" class="form-control input-form" id="vacunaextra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+            <input type="text" class="form-control input-form" name="vacunaextra" id="vacunaextra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
           </div>
           <div class="col-6 col-lg-3">
             <label for="dosis" class="form-label">Dosis</label>
-            <select class="input-form" name="inputTipoPDF" id="inputDosis" >
+            <select class="input-form" name="dosis" id="inputDosis" >
                 <option value="1" >Ninguno...</opcion>
                 <option value="1RA" >1RA DOSIS</opcion>
                 <option value="2DA">2DA DOSIS</opcion>

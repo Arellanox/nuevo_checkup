@@ -1,5 +1,5 @@
 <?php $menu = $_POST['menu']; ?>
-<?php if ($menu == "Recepción"): ?>
+<?php if ($menu == "Recepción" || $menu == "Laboratorio"): ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
     <i class="bi bi-pencil-square"></i> Editar paciente
   </button>
