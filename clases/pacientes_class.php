@@ -45,11 +45,11 @@ class Pacientes extends Master implements iMetodos{
         $this->tabla = "pacientes";
         //guarda la POSICIONES en el arreglo de clase de los attributos que sean enteros;
         //para insertar ignora el id, es decir, la posicion [0] es segmento_id
-        $this->intergers = array(0,4,7,10,11,13,17,22);
-        $this->strings = array(1,2,3,5,6,8,9,12,14,15,16,18,19,20,21);
+        $this->intergers = array(0,4,7,9,11,13,14,17,22);
+        $this->strings = array(1,2,3,5,6,8,10,12,15,16,18,19,20,21,23);
         $this->double = array();
         $this->intergers_update = array(0,4,7,10,11,13,17,22);
-        $this->nulls = array(0,11,14,21);
+        $this->nulls = array(0,11,14,21,23);
     }
 
     function getAttributes(){
@@ -89,6 +89,33 @@ class Pacientes extends Master implements iMetodos{
     function delete($id){
         $return = $this->master->delete($this->tabla,$this->getAttributes(),$id);
         return $return;
+    }
+
+    function getByCurp($curp){
+        $conn = $this->master->connectDb();
+        $activo = 1;
+        $sql = "SELECT * FROM $this->tabla WHERE activo=? and curp=?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1,$activo);
+        $stmt->bindParam(2,$curp);
+
+        $error_tipo_dato = $this->master->mis->validarDatos(array($curp),array(),array(0),array());
+
+        if(count($error_tipo_dato)>0){
+            $posiciones = implode(",",$error_tipo_dato);
+            $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
+            return $error_msj;
+        }
+
+        if(!$stmt->execute()){
+            $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
+            return $error;
+        }
+
+        $resultset = $stmt->fetchAll();
+
+        return $resultset;
     }
 }
 ?>

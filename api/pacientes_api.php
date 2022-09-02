@@ -5,7 +5,7 @@ include "../clases/segmentos_class.php";
 
 $paciente = new Pacientes();
 
-$api = $_POST['api'];
+$api = 6;
 
 switch ($api) {
     case 1:
@@ -76,6 +76,16 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$result)));
         } else {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$result)));
+        }
+        break;
+
+    case 6:
+        $response = $paciente->getByCurp("CUAJ920703HTCRRS09");
+
+        if(is_array($response)){
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        } else {
+            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
 
