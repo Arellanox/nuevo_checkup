@@ -25,7 +25,7 @@ $.post("modals/registro.php", function(html){
          cancelButtonText: "Cancelar"
        }).then((result) => {
          if (result.isConfirmed) {
-           $("#btn-registrarse").prop('disabled', true);
+           //$("#btn-registrarse").prop('disabled', true);
 
            // Esto va dentro del AJAX
            $.ajax({
@@ -36,11 +36,12 @@ $.post("modals/registro.php", function(html){
              contentType: false,
              success: function(data) {
                data = jQuery.parseJSON(data);
+               console.log(data);
                switch (data['codigo'] == 1) {
                  case 1:
                    Toast.fire({
                      icon: 'success',
-                     title: 'Su información a sido registrada :)',
+                     title: 'Su información ha sido registrada :)',
                      timer: 2000
                    });
                    document.getElementById("formRegistrarPaciente").reset();

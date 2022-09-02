@@ -25,8 +25,8 @@ class Master extends Miscelaneus{
         $host = "localhost";
         $dbname = "checkup";
         $username = "root";
-        // $password = "bimo2022";
-        $password = "123456789";
+        $password = "bimo2022";
+        //$password = "123456789";
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
@@ -88,15 +88,12 @@ class Master extends Miscelaneus{
         // Recupera el último ID insertado
         $last_id = $conn->lastInsertId();
 
-<<<<<<< Updated upstream
         // Devuelve el último id;
         return $last_id;
         
-=======
         // Devuelve el número de filas afectadas;
         return $afectados;
 
->>>>>>> Stashed changes
     }
 
     function getAll($tabla){
@@ -106,7 +103,7 @@ class Master extends Miscelaneus{
 
         $stmt = $conn->prepare("SELECT * FROM $tabla WHERE activo=?");
 
-        $error_tipo_dato = $this->mis->validarDatos($datos_escapados,array(0),array(),array());
+        $error_tipo_dato = $this->mis->validarDatos(array($activo),array(0),array(),array());
 
         if(count($error_tipo_dato)>0){
             $posiciones = implode(",",$error_tipo_dato);
@@ -128,13 +125,12 @@ class Master extends Miscelaneus{
 
     function getById($tabla,$id_input,$attributes){
         $conn = $this->connectDb();
-<<<<<<< Updated upstream
+
         $activo = 1;
         $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=? and activo=?");
-=======
 
         $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=?");
->>>>>>> Stashed changes
+
         $stmt->bindParam(1,$id_input);
         $stmt->bindParam(2,$activo);
 
