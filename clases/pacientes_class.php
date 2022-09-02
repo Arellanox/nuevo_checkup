@@ -2,7 +2,7 @@
 include "master_class.php";
 
 class Pacientes extends Master implements iMetodos{
-    public $id_paciente;//22
+    public $id_paciente;//24
     public $segmento_id; //0
     public $nombre;//1
     public $paterno;//2
@@ -29,7 +29,7 @@ class Pacientes extends Master implements iMetodos{
     public $foto;//23
     public $activo;
     private $tabla;
-    private $master;
+    public $master;
     private $public_attributes;
     private $intergers;
     private $strings;
@@ -40,16 +40,16 @@ class Pacientes extends Master implements iMetodos{
     private $nulls;
 
     function Pacientes(){
-        $this->public_attributes = 24;
+        $this->public_attributes = 26;
         $this->master = new Master();
         $this->tabla = "pacientes";
         //guarda la POSICIONES en el arreglo de clase de los attributos que sean enteros;
         //para insertar ignora el id, es decir, la posicion [0] es segmento_id
         $this->intergers = array(0,4,7,9,11,13,14,17,22);
-        $this->strings = array(1,2,3,5,6,8,10,12,15,16,18,19,20,21);
+        $this->strings = array(1,2,3,5,6,8,10,12,15,16,18,19,20,21,23);
         $this->double = array();
-        $this->intergers_update = array(0,4,7,10,11,13,17,22,23);
-        $this->nulls = array(0,11,14,21,23);
+        $this->intergers_update = array(0,4,7,10,11,13,17,22,24);
+        $this->nulls = array(0,11,14,20,21,23);
     }
 
     function getAttributes(){

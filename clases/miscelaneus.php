@@ -6,7 +6,7 @@ class Miscelaneus{
     function getFormValues($values){
         $form = array();
         foreach($values as $clave=>$valor){
-            $form[$clave] = $valor;
+            $form[] = $valor;
         }
 
         return $form;
@@ -116,6 +116,20 @@ class Miscelaneus{
         }
 
         return $splitted;
+    }
+
+    function initValueNull($values){
+        $initedArray = array();
+        
+        foreach($values as $value){
+            if(!isset($value)){
+                $initedArray[] = null;
+            } else {
+                $initedArray[] = $value;
+            }
+        }
+
+        return $initedArray;
     }
 
     function sayHello(){
