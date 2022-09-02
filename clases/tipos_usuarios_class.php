@@ -1,5 +1,5 @@
 <?php
-include "master_class.php";
+include_once "master_class.php";
 
 class TiposUsuarios extends Master implements iMetodos{
     public $id_tipo; # 1
@@ -22,6 +22,7 @@ class TiposUsuarios extends Master implements iMetodos{
         $this->strings = array(0);
         $this->doubles = array();
         $this->nulls = array();
+        $this->master = new Master();
     }
 
     function getAttributes(){
