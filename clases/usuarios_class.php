@@ -48,6 +48,7 @@ class Usuarios extends Master implements iMetodos{
     }
 
     function insert($values){
+        $values[6] = password_hash($values[6]);
         $response = $this->master->insert($this->tabla,$this->getAttributes(),$values,$this->intergers,$this->strings,$this->doubles,$this->nulls);
         return $response;
     }
@@ -70,6 +71,42 @@ class Usuarios extends Master implements iMetodos{
     function delete($id){
         $response = $this->master->delete($this->tabla,$this->getAttributes(),$id);
         return $response;
+    }
+
+    function startSession($user,$password){
+        $conn = $this->master->connectDb();
+
+        $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE usuario = ?");
+        
+        $error_tipo_dato = $this->master->mis->validarDatos(array($user),array(),$array(0),array(),array());
+
+        if(count($error_tipo_dato)>0){
+            return "Error en el tipo de datos de usuario.";
+        }
+
+        $stmt->bindParam(1,$user);
+
+        if(!$stmt->execute()){
+            $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
+            return $error;
+        }
+
+        $result = $stmt->fetchAll();
+
+        if(count($result)>0){
+            if(password_verify($pass,$row['PASSWORD'])){
+                session_start();
+                $_SESSION['id'] = $row['ID'];
+                $_SESSION['nombre'] = $row['NOMBRE'];
+                $_SESSION['apellidos'] = $row['APELLIDOS'];
+                $_SESSION['perfil'] = $row['ID_TIPO'];
+                return $_SESSION;
+            } else {
+                return "Oops! Tu contraseña es incorrecta.";
+            }
+        } else {
+            return "Usuario y/o contraseña incorrectos.";
+        }     
     }
 }
 ?>

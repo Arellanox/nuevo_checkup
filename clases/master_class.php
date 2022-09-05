@@ -129,7 +129,7 @@ class Master extends Miscelaneus{
         $activo = 1;
         $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=? and activo=?");
 
-        $stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=?");
+        //$stmt = $conn->prepare("SELECT * FROM $tabla WHERE ".$attributes[0]."=?");
 
         $stmt->bindParam(1,$id_input);
         $stmt->bindParam(2,$activo);
