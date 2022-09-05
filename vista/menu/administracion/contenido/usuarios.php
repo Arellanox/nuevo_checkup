@@ -3,16 +3,16 @@
 </div>
 <div class="table-responsive " id="ContenidoHTML">
   <div class="text-center" style="margin-top:4px;zoom:95%">
-    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar">
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-usuario-vista">
       <i class="bi bi-eye"></i> Vistas
     </button>
-    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-rechazar">
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-usuario-permisos">
       <i class="bi bi-list-check"></i> Permisos
     </button>
-    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-rechazar">
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-usuario-editar">
       <i class="bi bi-pencil"></i> Editar
     </button>
-    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-rechazar">
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-usuario-estado">
       <i class="bi bi-person-badge"></i> Estado
     </button>
   </div>

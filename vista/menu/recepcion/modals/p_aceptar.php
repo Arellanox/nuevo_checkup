@@ -46,7 +46,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-$.getScript('modals/js/p_aceptar.js');
-
-</script>
