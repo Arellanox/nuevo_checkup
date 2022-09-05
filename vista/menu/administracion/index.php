@@ -2,13 +2,13 @@
 //Variables dinamicas;
 
 include "../../variables.php";
-$menu = "Administración | Usuarios";
+$menu = "Usuarios";
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
  <head>
    <?php include "../../include/head.php"; ?>
-   <title><?php echo $menu; ?> | Bimo</title>
+   <title>Administración | Bimo</title>
  </head>
  <body class="" id="body-controlador"> </body>
  <script type="text/javascript">

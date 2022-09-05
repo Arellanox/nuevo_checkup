@@ -3,68 +3,16 @@
 var array_paciente;
 
 // ObtenerTabla o cambiar
-obtenerContenidoRecepcion("recepcion.php");
+obtenerContenidoRecepcion();
 function obtenerContenidoRecepcion(tabla){
   obtenerTitulo('Recepción'); //Aqui mandar el nombre de la area
-  $.post("contenido/"+tabla, function(html){
+  $.post("contenido/recepcion.php", function(html){
     var idrow;
      $("#body-js").html(html);
      // Datatable
-     var tablaPrincipal = $('#TablaEjemplo').DataTable({
-       language: {
-         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-       },
-       lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
-       columnDefs: [
-         { "width": "5px", "targets": 0 },
-       ],
-
-     })
-
-     $('#TablaEjemplo tbody').on('click', 'tr', function () {
-        // alert( 'Clicked row id '+idrow );
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-            array_paciente = null;
-        } else {
-            tablaPrincipal.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-            array_paciente = tablaPrincipal.row( this ).data();
-        }
-    });
-
-
-    $("#btn-aceptar").click(function(){
-      if (array_paciente !=null) {
-        $("#modalPacienteAceptar").modal('show');
-      }else{
-        alertRecepcion();
-      }
-    })
-
-    $("#btn-rechazar").click(function(){
-      if (array_paciente !=null) {
-        $("#modalPacienteRechazar").modal('show');
-      }else{
-        alertRecepcion();
-      }
-    })
-
-    $("#btn-editar").click(function(){
-      if (array_paciente !=null) {
-        $("#ModalEditarPaciente").modal('show');
-      }else{
-        alertRecepcion();
-      }
-    })
-
-    $("#btn-perfil").click(function(){
-      if (array_paciente !=null) {
-        $("#modalPacientePerfil").modal('show');
-      }else{
-        alertRecepcion();
-      }
-    })
+     $.getScript("contenido/js/recepcion-tabla.js");
+     // Botones
+     $.getScript("contenido/js/recepcion-botones.js");
   });
 }
 
@@ -102,12 +50,4 @@ function recepciónPaciente(estatus, id){
       }
     }
   })
-}
-
-function alertRecepcion(){
-    Toast.fire({
-      icon: 'error',
-      title: 'No ha seleccionado ningún paciente',
-      timer: 4000
-    });
 }

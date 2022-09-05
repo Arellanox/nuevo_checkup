@@ -15,32 +15,32 @@
     </a>
   </li>
 <?php endif; ?>
-<?php if ($menu == "Administración | Usuarios"): ?>
+<?php if ($menu == "Usuarios"): ?>
   <li class="nav-item">
     <a href="<?php echo $https.$url.'/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
       <i class="bi bi-people-fill"></i> Recepción
     </a>
   </li>
+<?php endif; ?>
+<?php if ($menu == "Usuarios"): ?>
+  <li class="nav-item">
+    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarCargo">
+      <i class="bi bi-briefcase"></i> Nuevo cargo
+    </a>
+  </li>
+    <!-- <li class="nav-item">
+      <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#ModalRegistrarTipoUser">
+        <i class="bi bi-person-lines-fill"></i> Nuevo tipo usuario
+      </a>
+    </li> -->
   <li class="nav-item">
     <a href="#Usuarios" data-bs-dismiss="offcanvas">
       <i class="bi bi-person-lines-fill"></i> Usuarios
     </a>
   </li>
   <li class="nav-item">
-    <a href="#Clientes" data-bs-dismiss="offcanvas">
-      <i class="bi bi-person-lines-fill"></i> Clientes
-    </a>
-  </li>
-  <li class="nav-item">
     <a href="#Servicios" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Servicios
-    </a>
-  </li>
-<?php endif; ?>
-<?php if ($menu == "Laboratorio"): ?>
-  <li class="nav-item">
-    <a href="#Usuarios" data-bs-dismiss="offcanvas">
-      <i class="bi bi-arrow-up-right"></i> Prueba
     </a>
   </li>
 <?php endif; ?>

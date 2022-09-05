@@ -74,17 +74,52 @@ function getProcedencias(select){
   })
 }
 
+// Obtener cargo y tipos de usuarios
+function rellenarSelectUsuarios(){
+  var select = document.getElementById("usuario-cargos"),
+      length = select.options.length;
+  while(length--){
+    select.remove(length);
+  }
+  ajaxSelectUsuario(select);
+  var select = document.getElementById("usuario-tipo"),
+      length = select.options.length;
+  while(length--){
+    select.remove(length);
+  }
+  ajaxSelectUsuario(select);
 
-$( window ).on( 'hashchange', function( e ) {
-    var hash = window.location.hash.substring(1);
-    switch (hash) {
-      case "Usuarios": obtenerContenidoUsuarios('administracion.php', 'Administración | Usuarios'); break;
-      case "Clientes": obtenerContenidoClientes('clientes.php', 'Clientes'); break;
-      case "Servicios": obtenerContenidoServicios('servicios.php', 'Servicios'); break;
-      case "Segmentos": obtenerContenidoSegmentos('servicios.php', 'Servicios'); break;
-      default: obtenerContenido('administracion.php', 'Administración | Usuarios'); break;
+}
+
+function ajaxSelectUsuario(select){
+  $.ajax({
+    url: "",
+    data:{api: 1},
+    type: "POST",
+    success: function(data) {
+      var data = jQuery.parseJSON(data);
+      //Equipo Utilizado
+      // console.log(data);
+      var selectoption = document.getElementById(select);
+      for (var i = 0; i < data.length; i++) {
+        var content = data[i]['descripcion'];
+        var value = data[i]['id'];
+        var el = document.createElement("option");
+        el.textContent = content;
+        el.value = value;
+        selectoption.appendChild(el);
+      }
     }
-} );
+  })
+}
+
+
+// $( window ).on( 'hashchange', function( e ) {
+//     var hash = window.location.hash.substring(1);
+//     switch (hash) {
+//       default:  break;
+//     }
+// } );
 
 function loader(fade){
   if (fade == 'Out') {
@@ -100,6 +135,14 @@ function loader(fade){
     $("#preloader").removeClass("preloader");
     $("#ContenidoHTML").fadeToggle(100);
   }
+}
+
+function alertSelectTable(){
+    Toast.fire({
+      icon: 'error',
+      title: 'No ha seleccionado ningún paciente',
+      timer: 4000
+    });
 }
 
 </script>

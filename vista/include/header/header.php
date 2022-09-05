@@ -17,7 +17,7 @@
     </div>
   </div>
 <?php }else{ ?>
-  <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar">
+  <nav class="navbar navbar-expand-sm border-3 border-bottom border-dark bg-navbar">
       <div class="container-fluid">
           <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png"  id="logo_empresa" /> </a>
           <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"> <!-- onclick="openNav()" -->

@@ -2,6 +2,7 @@
 table thead{
   background-color: rgb(000, 078, 089);
   color: white;
+  border-color:#797D7F;
 }
 
 
@@ -24,3 +25,26 @@ table tr{
   /* padding-bottom: 50px;
   padding-top: 10px; */
 }
+
+div.dataTables_wrapper div.dataTables_filter input {
+  margin-left: 0.5em !important;
+  display: inline-block !important;
+  width: 300px !important;
+}
+
+
+table{
+  border-collapse: collapse;
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+
+table tbody tr.selected {
+    color: white;
+    box-shadow: inset 0 0 0 9999px rgb(0 130 148) !important;
+}
+
+/* table.dataTable tbody tr.selected{
+  box-shadow: inset 0 0 0 9999px rgb(0 130 148) !important;
+  color: white;
+} */

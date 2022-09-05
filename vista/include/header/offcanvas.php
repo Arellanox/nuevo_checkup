@@ -20,7 +20,7 @@
     <div class="dropdown">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-person-circle" style="zoom:110%; margin-right:30px;"></i>
-        <strong>mdo</strong>
+        <strong>Perfil</strong>
       </a>
       <ul class="dropdown-menu text-small shadow bg-navbar-drop" aria-labelledby="dropdownUser1">
         <?php include "navbar-menu/navlink-dropuser.php"; ?>
