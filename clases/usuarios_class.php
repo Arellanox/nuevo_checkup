@@ -101,12 +101,12 @@ class Usuarios extends Master implements iMetodos{
         $result = $stmt->fetchAll();
 
         if(count($result)>0){
-            if(password_verify($pass,$row['PASSWORD'])){
+            if(password_verify($password,$result[0]['CONTRASENIA'])){
                 session_start();
-                $_SESSION['id'] = $row['ID'];
-                $_SESSION['nombre'] = $row['NOMBRE'];
-                $_SESSION['apellidos'] = $row['APELLIDOS'];
-                $_SESSION['perfil'] = $row['ID_TIPO'];
+                $_SESSION['id'] = $result[0]['ID_USUARIO'];
+                $_SESSION['nombre'] = $result[0]['NOMBRE'];
+                $_SESSION['apellidos'] = $result[0]['PATERNO']." ".$result[0]['MATERNO'];
+                $_SESSION['perfil'] = $result[0]['TIPO_ID'];
                 return $_SESSION;
             } else {
                 return "Oops! Tu contraseña es incorrecta.";
