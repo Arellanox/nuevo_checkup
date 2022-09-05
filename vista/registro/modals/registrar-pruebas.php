@@ -10,17 +10,17 @@
         <form id="formRegistrarPrueba">
           <div class="row">
             <div class="col-12 col-lg-4">
-                <label for="procedencia" class="form-label">CURP</label>
+                <label for="curp" class="form-label">CURP</label>
                 <input type="text" name="curp" value="" class="form-control input-form" id="curp-paciente" required>
             </div>
             <div class="col-12 col-lg-4" style="margin-bottom: 10px;">
                 <label for="selectpaciente" class="form-label">Buscar paciente</label>
                 <div class="row">
                   <div class="col-auto">
-                    <button class="btn btn-sm btn-confirmar" type="button"  id="actualizarForm"><i class="bi bi-binoculars"></i> Consultar</button>
+                    <button class="btn btn-sm btn-confirmar" type="button" id="actualizarForm"><i class="bi bi-binoculars"></i> Consultar</button>
                   </div>
                   <div class="col-auto">
-                    <button class="btn btn-sm btn-borrar" type="button"><i class="bi bi-eraser"></i> Limpiar</button>
+                    <button class="btn btn-sm btn-borrar" type="button" id="eliminarForm" ><i class="bi bi-eraser"></i> Limpiar</button>
                   </div>
                 </div>
               </div>
@@ -49,7 +49,7 @@
                     Historia Clinica Laboral
                   </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionEstudios">
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionEstudios">
                   <div class="accordion-body">
                         <div class="row">
                           <div class="col-auto">

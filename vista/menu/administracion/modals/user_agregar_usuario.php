@@ -16,7 +16,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
         <button type="submit" form="formRegistrarUsuario" class="btn btn-confirmar">
-          <i class="bi bi-list-columns-reverse"></i> filtrar
+          <i class="bi bi-person-plus"></i> Crear
         </button>
       </div>
     </div>

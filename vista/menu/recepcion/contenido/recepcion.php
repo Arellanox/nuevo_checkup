@@ -8,7 +8,7 @@
     </button>
   </div>
 
-  <table class="table display responsive" id="TablaEjemplo" style="width: 100%">
+  <table class="table table-hover display responsive" id="TablaEjemplo" style="width: 100%">
     <thead class="">
       <tr>
         <th scope="col d-flex justify-content-center" class="all">#</th>
