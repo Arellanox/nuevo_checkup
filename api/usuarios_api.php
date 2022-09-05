@@ -1,10 +1,12 @@
 <?php
 include "..interfaces/iMetodos.php";
 include "../clases/usuarios_class.php";
+include "../clases/cargos_class.php";
+include "../clases/tipos_usuarios_class.php";
 
 $usuario = new usuarios_class();
 
-$api = 1;
+$api = 2;
 
 switch ($api) {
     case 1:
@@ -21,7 +23,20 @@ switch ($api) {
         $response = $usuario->getAll();
 
         if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+            $completedUser = array();
+            
+            foreach($response as $user){
+                $cargo = new Cargos();
+                $tipo = new Tipos ();
+                $labelCargo = $cargo->getById($user["CARGO_ID"]);
+                $labelTipo = $tipo->getById($user['TIPO_ID']);
+                
+                $user[] = $labelCargo;
+                $user[] = $labelTipo;
+
+                $completedUser[] = $user;
+            }
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$completedUser)));
         } else {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }

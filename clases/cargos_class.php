@@ -1,8 +1,7 @@
 <?php
-include "../conexion.php";
-include "master_class.php";
+include_once "master_class.php";
 
-class Cargos extends Master {
+class Cargos extends Master implements iMetodos{
     public $id_cargo;
     public $descripcion;
     public $activo;
