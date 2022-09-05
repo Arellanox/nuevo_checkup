@@ -5,18 +5,23 @@ include "../clases/segmentos_class.php";
 
 $paciente = new Pacientes();
 
-$api = 6;
+$api = $_POST['api'];
+
 
 switch ($api) {
     case 1:
         # insertar un nuevo paciente
-        $form = $paciente->master->mis->getFormValues($_POST);
-        $result = $paciente->insert($_POST);
+        $array_slice = array_slice($_POST,0,24);
+        $a = $paciente->master->mis->getFormValues($array_slice);
+       echo "esto es el arreglo";
+       print_r($a);
+       #$a =array(4, "asf","asfd","asdf",13,"1992-12-12","6CUAJ920703",14124131241,"arellanox0392@gmail.com",12341234,"tabasco","Centro","tierra", 1 ,1 ,"mango"," mexicana"," 1234567890", "agagadfg","OTRA",NULL," 1RA" , 1,null );
+        $result = $paciente->insert($a);
 
         if(is_numeric($result)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$result)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$result)));
+            echo json_encode(array("response"=>array("code"=>0,"msj"=>$a)));
         }
         break;
     case 2:
