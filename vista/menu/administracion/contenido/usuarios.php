@@ -17,7 +17,7 @@
     </button>
   </div>
 
-  <table class="table display responsive" id="TablaUsuariosAdmin" style="width: 100%">
+  <table class="table display responsive tableContenido" id="TablaUsuariosAdmin" style="width: 100%">
     <thead class="">
       <tr>
         <th scope="col d-flex justify-content-center" class="all">#</th>

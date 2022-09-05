@@ -114,15 +114,12 @@ function ajaxSelectUsuario(select){
 }
 
 
-$( window ).on( 'hashchange', function( e ) {
-    var hash = window.location.hash.substring(1);
-    switch (hash) {
-      case "Usuarios": obtenerContenidoUsuarios('usuario.php', 'Usuarios'); break;
-      case "Servicios": obtenerContenidoServicios('servicios.php', 'Servicios'); break;
-      case "Segmentos": obtenerContenidoSegmentos('servicios.php', 'Servicios'); break;
-      default:  break;
-    }
-} );
+// $( window ).on( 'hashchange', function( e ) {
+//     var hash = window.location.hash.substring(1);
+//     switch (hash) {
+//       default:  break;
+//     }
+// } );
 
 function loader(fade){
   if (fade == 'Out') {

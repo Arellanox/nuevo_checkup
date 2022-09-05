@@ -1,9 +1,11 @@
 //Menu predeterminado
-// window.location.hash = 'Usuarios';
+hasLocation()
+$( window ).on( 'hashchange', function( e ) {
+  hasLocation();
+});
 // Variables globales
 var array_paciente;
 // ObtenerTabla o cambiar
-obtenerContenidoUsuarios();
 function obtenerContenidoUsuarios(){
   obtenerTitulo("Usuarios"); //Aqui mandar el nombre de la area
   obtenerTablaUsuarios()
@@ -35,4 +37,14 @@ function obtenerTablaServicios(){
      // Botones
 
   });
+}
+
+function hasLocation(){
+  var hash = window.location.hash.substring(1);
+  switch (hash) {
+    case "Usuarios": obtenerContenidoUsuarios('usuario.php', 'Usuarios'); break;
+    case "Servicios": obtenerContenidoServicios('servicios.php', 'Servicios'); break;
+    case "Segmentos": obtenerContenidoSegmentos('servicios.php', 'Servicios'); break;
+    default: obtenerContenidoUsuarios('usuario.php', 'Usuarios'); break;
+  }
 }
