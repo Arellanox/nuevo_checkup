@@ -21,6 +21,8 @@ class Usuarios extends Master implements iMetodos{
     private $intergers_update;
     private $nulls;
 
+
+
     function Usuarios(){
         $this->tabla = "usuarios";
         $this->public_attributes = 10;
@@ -28,7 +30,7 @@ class Usuarios extends Master implements iMetodos{
         $this->intergers = array(0,1);
         $this->strings = array(2,3,4,5,6,7);
         $this->doubles = array();
-        $this->intergers_update(0,1,8);
+        $this->intergers_update = array(0,1,8);
         $this->nulls = array(7);
 
     }
@@ -48,10 +50,15 @@ class Usuarios extends Master implements iMetodos{
     }
 
     function insert($values){
-        $values[6] = password_hash($values[6]);
+        $opciones = [
+            'cost' => 12,
+        ];
+        $values[6] = password_hash($values[6],PASSWORD_BCRYPT, $opciones);
+        
         $response = $this->master->insert($this->tabla,$this->getAttributes(),$values,$this->intergers,$this->strings,$this->doubles,$this->nulls);
         return $response;
     }
+
 
     function getAll(){
         $response = $this->master->getAll($this->tabla);
@@ -78,7 +85,7 @@ class Usuarios extends Master implements iMetodos{
 
         $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE usuario = ?");
         
-        $error_tipo_dato = $this->master->mis->validarDatos(array($user),array(),$array(0),array(),array());
+        $error_tipo_dato = $this->master->mis->validarDatos(array($user),array(),array(0),array(),array());
 
         if(count($error_tipo_dato)>0){
             return "Error en el tipo de datos de usuario.";

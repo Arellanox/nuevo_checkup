@@ -3,7 +3,7 @@ include "../interfaces/iMetodos.php";
 include "../clases/tipos_usuarios_class.php";
 
 $tipo = new TiposUsuarios();
-$api = 5;
+$api = 2;
 
 switch ($api) {
     case 1:

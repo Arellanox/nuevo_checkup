@@ -1,22 +1,23 @@
 <?php
-include "..interfaces/iMetodos.php";
+include "../interfaces/iMetodos.php";
 include "../clases/usuarios_class.php";
 include "../clases/cargos_class.php";
 include "../clases/tipos_usuarios_class.php";
 
-$usuario = new usuarios_class();
+$usuario = new Usuarios();
 
-$api = 2;
+$api = 3;
 
 switch ($api) {
     case 1:
-        $form  = $usuario->master->mis->getFormValues($_POST);
-        $response = $usuario->insert($form);
+        // $form  = $usuario->master->mis->getFormValues($_POST);
+        $newRecord = array(4,1,"Josue","De la Cruz","Arellano","Arellanox","arditas","Ingeniero en TI");
+        $response = $usuario->insert($newRecord);
 
         if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"lastId"=>$responase)));
+            echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$responase)));
+            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
     case 2:
@@ -27,7 +28,7 @@ switch ($api) {
             
             foreach($response as $user){
                 $cargo = new Cargos();
-                $tipo = new Tipos ();
+                $tipo = new TiposUsuarios();
                 $labelCargo = $cargo->getById($user["CARGO_ID"]);
                 $labelTipo = $tipo->getById($user['TIPO_ID']);
                 
@@ -45,7 +46,20 @@ switch ($api) {
     case 3:
         $response  = $usuario->getById(1);
         if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+            $completedUser = array();
+            
+            foreach($response as $user){
+                $cargo = new Cargos();
+                $tipo = new TiposUsuarios();
+                $labelCargo = $cargo->getById($user["CARGO_ID"]);
+                $labelTipo = $tipo->getById($user['TIPO_ID']);
+                
+                $user[] = $labelCargo;
+                $user[] = $labelTipo;
+
+                $completedUser[] = $user;
+            }
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$completedUser)));
         } else {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
