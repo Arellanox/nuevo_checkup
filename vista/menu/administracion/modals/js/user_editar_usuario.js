@@ -1,6 +1,6 @@
 const modalEditarRegistroUsuario = document.getElementById('ModalEditarRegistroUsuario')
 modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
-  $("#Input-Constraseña-Edit").fadeToggle(1);
+  $("#Input-Constraseña-Edit").hide();
   $("#edit-usuario-contraseña").removeAttr( "name" );
   rellenarSelectUsuarios();
   // Colocar ajax
@@ -15,8 +15,6 @@ modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
       $('#edit-usuario-paterno').val("data")
       $('#edit-usuario-materno').val("data")
       $('#edit-usuario-usuario').val("data")
-      $("#edit-usuario-contraseña").style.display = "none";
-      $("#edit-usuario-contraseña").removeAttr( "name" );
       // $('#edit-usuario-contraseña').val("data")
       $('#edit-usuario-Profesión').val("data")
       $('#edit-usuario-cedula').val("data")

@@ -5,8 +5,8 @@ require_once "funciones.php";
 
 <!-- HTML -->
 <header id="header-js"></header>
-<div id="titulo-js"></div>
-<div class="container-fluid" id="body-js"> </div>
+<div  id="titulo-js"></div>
+<div class="container-fluid " id="body-js"> </div>
 <div class="" id="modals-js"> <!-- Aqui podrán incluir los modals --> </div>
 
 <script type="text/javascript">

@@ -1,13 +1,21 @@
 //Formulario de registro de pruebas
 $('#formDIV *').prop('disabled',true);
+$("#formDIV").fadeToggle(400);
 $('#btnFormRegistrarPruba').prop('disabled',true);
+$('#eliminarForm').prop('disabled',true);
+$('#curp-paciente').prop('readonly', false);
 
 $('#actualizarForm').click(function(){
   //Solicitar si la curp existe
+  window.location.hash = "formDIV";
+  $('#curp-paciente').prop('readonly', true);
+  $('#eliminarForm').prop('disabled',false);
+  $('#actualizarForm').prop('disabled',true);
   document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
                                                    'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
                                                 '</div>';
   $('#formDIV *').prop('disabled',false);
+  $("#formDIV").fadeToggle(400);
   $('#btnFormRegistrarPruba').prop('disabled',false);
   curp = document.getElementById("curp-paciente").value;
   $.ajax({
@@ -47,6 +55,16 @@ $('#actualizarForm').click(function(){
       }
     },
   });
+})
+
+$('#eliminarForm').click(function(){
+  $('#curp-paciente').prop('readonly', false);
+  $('#eliminarForm').prop('disabled',true);
+  $('#actualizarForm').prop('disabled',false);
+  $('#formDIV *').prop('disabled',true);
+  $("#formDIV").fadeToggle(400);
+  $('#btnFormRegistrarPruba').prop('disabled',true);
+  window.location.hash = "curp-paciente";
 })
 
 $("#formRegistrarPrueba").submit(function(event){

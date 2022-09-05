@@ -1,5 +1,7 @@
 const modalRegistrarUsuario = document.getElementById('ModalRegistrarUsuario')
 modalRegistrarUsuario.addEventListener('show.bs.modal', event => {
+  $("#Input-Constraseña-Edit").show();
+  $("#edit-usuario-contraseña").attr( "name", "contraseña");
   rellenarSelectUsuarios();
 })
 

@@ -40,6 +40,7 @@ document.getElementById("btn-confirmar-paciente").disabled = true;
           text: 'Generando credencial...',
           showCloseButton: false,
         })
+        
       }
     },
   });

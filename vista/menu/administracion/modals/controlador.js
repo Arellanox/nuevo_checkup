@@ -4,4 +4,6 @@ $.post("modals/a_modals.php", function(html){
    $.getScript('modals/js/user_agregar_usuario.js');
    // Modal para registrar usuario
    $.getScript('modals/js/user_editar_usuario.js');
+   // Modal para registrar cargo
+   $.getScript('modals/js/cargo_crear.js');
 });

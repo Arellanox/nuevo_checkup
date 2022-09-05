@@ -16,7 +16,7 @@ switch ($api) {
         } else {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
-        
+
         break;
     case 2:
         $response = $cargo->getAll();
@@ -37,7 +37,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
-    
+
     case 4:
         $response = $cargo->update(array("Nuevo Cargo Actualizado",9));
 
@@ -57,7 +57,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
-    
+
     default:
         # code...
         break;

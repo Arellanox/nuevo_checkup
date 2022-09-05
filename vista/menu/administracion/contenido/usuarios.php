@@ -16,13 +16,12 @@
       <i class="bi bi-person-badge"></i> Estado
     </button>
   </div>
-
-  <table class="table display responsive tableContenido" id="TablaUsuariosAdmin" style="width: 100%">
+  <table class="table table-hover display responsive tableContenido" id="TablaUsuariosAdmin" style="width: 100%">
     <thead class="">
       <tr>
         <th scope="col d-flex justify-content-center" class="all">#</th>
         <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-        <th scope="col d-flex justify-content-center" class="all">Usuario</th>
+        <th scope="col d-flex justify-content-center" class="min-tablet">Usuario</th>
         <th scope="col d-flex justify-content-center" class="min-tablet">Cargo</th>
         <th scope="col d-flex justify-content-center" class="desktop">Tipo</th>
         <th scope="col d-flex justify-content-center" class="min-tablet">Estado</th>
@@ -31,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php  for ($i=1; $i <= 11; $i++) { ?>
+      <?php  for ($i=1; $i <= 171; $i++) { ?>
         <tr id="<?php echo "row_".$i; ?>">
             <th><?php echo $i ?></th>
             <td> CUEVAS GONZÁLEZ LUIS GERARDO </td>
@@ -45,4 +44,5 @@
       <?php } ?>
     </tbody>
   </table>
+
 </div>
