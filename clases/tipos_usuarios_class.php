@@ -6,7 +6,7 @@ class TiposUsuarios extends Master implements iMetodos{
     public $descripcion; # 0
     public $activo;
     private $public_attributes;
-    private $master;
+    public $master;
     private $tabla;
     public $intergers;
     public $intergers_update;

@@ -59,7 +59,7 @@ class Usuarios extends Master implements iMetodos{
     }
 
     function getById($id){
-        $response = $this->master->getById($this-tabla,$id,$this->getAttributes());
+        $response = $this->master->getById($this->tabla,$id,$this->getAttributes());
         return $response;
     }
 

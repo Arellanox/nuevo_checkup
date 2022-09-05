@@ -6,7 +6,7 @@ class Cargos extends Master implements iMetodos{
     public $descripcion;
     public $activo;
     private $tabla;
-    private $master;
+    public $master;
     private $public_attributes;
     public $validator;
     public $intergers;
