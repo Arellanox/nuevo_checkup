@@ -1,5 +1,5 @@
 <?php
-include_once "master_class";
+include_once "master_class.php";
 
 class Areas extends Master implements iMetodos{
     public $id_area;#4
@@ -20,8 +20,8 @@ class Areas extends Master implements iMetodos{
     function Areas(){
         $this->master = new Master();
         $this->tabla = "areas";
-        $this->public_attributes = 5;
-        $this->interger = array(0,2,3);
+        $this->public_attributes = 6;
+        $this->intergers = array(0,2,3);
         $this->strings = array(1);
         $this->doubles = array();
         $this->intergers_update = array(0,2,3,4);
