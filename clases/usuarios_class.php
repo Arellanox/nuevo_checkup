@@ -144,6 +144,16 @@ class Usuarios extends Master implements iMetodos{
 
         $sql = "UPDATE $this->tabla SET contrasenia=? WHERE id_usuario=?";
         $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(1,$newPassword);
+        $stmt->bindParam(2,$id);
+
+        if(!$stmt->execute()){
+            $error = "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
+            return $error;
+        }
+
+        return $stmt->rowCount();
     }
 }
 ?>
