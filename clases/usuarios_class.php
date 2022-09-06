@@ -15,7 +15,7 @@ class Usuarios extends Master implements iMetodos{
     public $activo;
     private $tabla;
     private $public_attributes;
-    public $master; 
+    public $master;
     private $intergers;
     private $strings;
     private $doubles;
@@ -26,7 +26,7 @@ class Usuarios extends Master implements iMetodos{
 
     function Usuarios(){
         $this->tabla = "usuarios";
-        $this->public_attributes = 10;
+        $this->public_attributes = 11;
         $this->master = new Master();
         $this->intergers = array(0,1);
         $this->strings = array(2,3,4,5,6,7,8);
@@ -55,7 +55,7 @@ class Usuarios extends Master implements iMetodos{
             'cost' => 12,
         ];
         $values[6] = password_hash($values[6],PASSWORD_BCRYPT, $opciones);
-        
+
         $response = $this->master->insert($this->tabla,$this->getAttributes(),$values,$this->intergers,$this->strings,$this->doubles,$this->nulls);
         return $response;
     }
@@ -85,7 +85,7 @@ class Usuarios extends Master implements iMetodos{
         $conn = $this->master->connectDb();
 
         $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE usuario = ?");
-        
+
         $error_tipo_dato = $this->master->mis->validarDatos(array($user),array(),array(0),array(),array());
 
         if(count($error_tipo_dato)>0){
@@ -114,7 +114,7 @@ class Usuarios extends Master implements iMetodos{
             }
         } else {
             return "Usuario y/o contraseña incorrectos.";
-        }     
+        }
     }
 }
 ?>

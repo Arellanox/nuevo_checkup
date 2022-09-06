@@ -17,7 +17,7 @@
     </button>
   </div>
   <table class="table table-hover display responsive tableContenido" id="TablaUsuariosAdmin" style="width: 100%">
-    <thead class="">
+    <thead class="" style="width: 100%">
       <tr>
         <th scope="col d-flex justify-content-center" class="all">#</th>
         <th scope="col d-flex justify-content-center" class="all">Nombre</th>
@@ -30,18 +30,6 @@
       </tr>
     </thead>
     <tbody>
-      <?php  for ($i=1; $i <= 171; $i++) { ?>
-        <tr id="<?php echo "row_".$i; ?>">
-            <th><?php echo $i ?></th>
-            <td> CUEVAS GONZÁLEZ LUIS GERARDO </td>
-            <td>Ger</td>
-            <td>Programador</td>
-            <td>Administrador</td>
-            <td>ACTIVO</td>
-            <td>EJEMPLO</td>
-            <td>EJEMPLO</td>
-        </tr>
-      <?php } ?>
     </tbody>
   </table>
 

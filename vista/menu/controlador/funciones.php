@@ -95,8 +95,8 @@ function ajaxSelect(select, api, num){
       //Equipo Utilizado
       // console.log(data);
       for (var i = 0; i < data['response']['data'].length; i++) {
-        var content = data['response']['data'][i]['DESCRIPCION'];
-        var value = data['response']['data'][i]['DESCRIPCION'];
+        var content = data['response']['data'][i]['1'];
+        var value = data['response']['data'][i]['0'];
         var el = document.createElement("option");
         el.textContent = content;
         el.value = value;

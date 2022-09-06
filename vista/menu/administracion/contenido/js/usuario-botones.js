@@ -1,13 +1,13 @@
 $("#btn-usuario-vista").click(function(){
-  if (array_paciente !=null) {
+  if (array_selected !=null) {
     $("#modalEditarVistaUsuario").modal('show');
   }else{
-  
+
   }
 })
 
 $("#btn-usuario-permisos").click(function(){
-  if (array_paciente !=null) {
+  if (array_selected !=null) {
     $("#modalEditarPermisosUsuario").modal('show');
   }else{
     alertSelectTable();
@@ -15,7 +15,7 @@ $("#btn-usuario-permisos").click(function(){
 })
 
 $("#btn-usuario-editar").click(function(){
-  if (array_paciente !=null) {
+  if (array_selected !=null) {
     $("#ModalEditarRegistroUsuario").modal('show');
   }else{
     alertSelectTable();
@@ -23,8 +23,8 @@ $("#btn-usuario-editar").click(function(){
 })
 
 $("#btn-usuario-estado").click(function(){
-  if (array_paciente !=null) {
-    estadoUsuarioAlert(array_paciente[5]);
+  if (array_selected !=null) {
+    estadoUsuarioAlert(array_selected[5]);
   }else{
     alertSelectTable();
   }

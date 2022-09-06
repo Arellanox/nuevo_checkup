@@ -7,6 +7,27 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
   scrollY: "60vh",
   scrollCollapse: true,
   lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
+  ajax: {
+      dataType: 'json',
+      data: {api: 2},
+      method: 'POST',
+      url: '../../../api/usuarios_api.php',
+      complete: function(){
+        // loader("In")
+      },
+      dataSrc:''
+  },
+  columns:[
+      {data: 'count'},
+      {data: 'nombrecompleto'},
+      {data: 'USUARIO'},
+      {data: '11.0.DESCRIPCION'},
+      {data: '12.0.DESCRIPCION'},
+      {data: 'ACTIVO'},
+      {data: 'PROFESION'},
+      {data: 'CEDULA'},
+      // {defaultContent: 'En progreso...'}
+  ],
   columnDefs: [
     { "width": "3px", "targets": 0 },
   ],
@@ -18,10 +39,11 @@ $('#TablaUsuariosAdmin tbody').on('click', 'tr', function () {
    // alert( 'Clicked row id '+idrow );
    if ($(this).hasClass('selected')) {
        $(this).removeClass('selected');
-       array_paciente = null;
+       array_selected = null;
    } else {
        tablaUsuarios.$('tr.selected').removeClass('selected');
        $(this).addClass('selected');
-       array_paciente = tablaUsuarios.row( this ).data();
+       array_selected = tablaUsuarios.row( this ).data();
+       console.log(array_selected)
    }
 });

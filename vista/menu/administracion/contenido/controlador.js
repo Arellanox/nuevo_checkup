@@ -4,7 +4,7 @@ $( window ).on( 'hashchange', function( e ) {
   hasLocation();
 });
 // Variables globales
-var array_paciente;
+var array_selected;
 // ObtenerTabla o cambiar
 function obtenerContenidoUsuarios(){
   obtenerTitulo("Usuarios"); //Aqui mandar el nombre de la area
