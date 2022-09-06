@@ -2,7 +2,7 @@
 include_once "master_class.php";
 
 class Usuarios extends Master implements iMetodos{
-    public $id_usuario;#8
+    public $id_usuario;#9
     public $cargo_id;#0
     public $tipo_id;#1
     public $nombre;#2
@@ -11,6 +11,7 @@ class Usuarios extends Master implements iMetodos{
     public $usuario;#5
     public $contrasenia;#6
     public $profesion;#7
+    public $cedula;#8
     public $activo;
     private $tabla;
     private $public_attributes;
@@ -28,9 +29,9 @@ class Usuarios extends Master implements iMetodos{
         $this->public_attributes = 10;
         $this->master = new Master();
         $this->intergers = array(0,1);
-        $this->strings = array(2,3,4,5,6,7);
+        $this->strings = array(2,3,4,5,6,7,8);
         $this->doubles = array();
-        $this->intergers_update = array(0,1,8);
+        $this->intergers_update = array(0,1,9);
         $this->nulls = array(7);
 
     }

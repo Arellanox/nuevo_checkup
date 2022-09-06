@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     20/08/2022 10:57:49 a. m.                    */
+/* Created on:     06/09/2022 10:54:12 a. m.                    */
 /*==============================================================*/
 
 
@@ -74,7 +74,7 @@ create table CLIENTES
    NOMBRE_COMERCIAL     varchar(200),
    RAZON_SOCIAL         varchar(200),
    NOMBRE_SISTEMA       varchar(200),
-   RFC                  varchar(100) unique,
+   RFC                  varchar(100),
    CURP                 varchar(100),
    ABREVIATURA          varchar(50),
    LIMITE_CREDITO       float,
@@ -148,21 +148,23 @@ create table PACIENTES
    MATERNO              varchar(100),
    EDAD                 int,
    NACIMIENTO           date,
-   CURP                 varchar(50) unique,
+   CURP                 varchar(50),
    CELULAR              bigint,
    CORREO               varchar(100),
-   CALLE                varchar(200),
+   POSTAL               int,
+   ESTADO               varchar(100),
+   MUNICIPIO            varchar(100),
+   COLONIA              varchar(200),
    EXTERIOR             int,
    INTERIOR             int,
-   COLONIA              varchar(200),
-   POSTAL               int,
-   RFC                  varchar(50),
+   CALLE                varchar(200),
    NACIONALIDAD         varchar(50),
    PASAPORTE            varchar(100),
-   GENERO               varchar(50),
+   RFC                  varchar(50),
    VACUNA               varchar(100),
    OTRAVACUNA           varchar(100),
    DOSIS                varchar(50),
+   GENERO               varchar(50),
    FOTO                 blob,
    ACTIVO               boolean default 1,
    primary key (ID_PACIENTE)
@@ -233,7 +235,7 @@ create table SEGMENTOS
 (
    ID_SEGMENTO          int not null auto_increment,
    PADRE                int,
-   DESCCRIPCION         varchar(100),
+   DESCRIPCION          varchar(100),
    ACTIVO               boolean default 1,
    primary key (ID_SEGMENTO)
 );
@@ -298,6 +300,7 @@ create table USUARIOS
    USUARIO              varchar(100),
    CONTRASENIA          varchar(100),
    PROFESION            varchar(100),
+   CEDULA               varchar(50),
    ACTIVO               boolean default 1,
    primary key (ID_USUARIO)
 );
