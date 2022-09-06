@@ -10,13 +10,13 @@
           <p class="text-center">Registre un nuevo <strong>usuario</strong> para acceder al sistema</p>
           <div class="row">
             <div class="col-6 col-md-6">
-              <label for="segmento" class="form-label">Cargo</label>
-              <select name="segmento" id="usuario-cargos"  class="input-form">
+              <label for="cargo" class="form-label">Cargo</label>
+              <select name="cargo" id="usuario-cargos"  class="input-form">
               </select>
             </div>
             <div class="col-6 col-md-6">
-              <label for="segmento" class="form-label">Tipo</label>
-              <select name="segmento" id="usuario-tipo" class="input-form" required>
+              <label for="tipo" class="form-label">Tipo</label>
+              <select name="tipo" id="usuario-tipo" class="input-form" required>
               </select>
             </div>
             <div class="col-6">
@@ -40,8 +40,8 @@
               <input type="text" name="contraseña"  class="form-control input-form">
             </div>
             <div class="col-6">
-              <label for="prefisión" class="form-label">Profesión</label>
-              <input type="text" name="prefisión"  class="form-control input-form">
+              <label for="profesion" class="form-label">Profesión</label>
+              <input type="text" name="profesion"  class="form-control input-form">
             </div>
             <div class="col-6">
               <label for="cedula" class="form-label">Cédula</label>

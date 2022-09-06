@@ -6,19 +6,19 @@ include "../clases/tipos_usuarios_class.php";
 
 $usuario = new Usuarios();
 
-$api = 6;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
         $array_slice = array_slice($_POST,0,9);
-        $a = $cargo->master->mis->getFormValues($array_slice);
+        $a = $usuario->master->mis->getFormValues($array_slice);
         // $newRecord = array(4,1,"Josue","De la Cruz","Arellano","Arellanox","arditas","Ingeniero en TI");
         $response = $usuario->insert($a);
 
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
     case 2:
@@ -26,7 +26,7 @@ switch ($api) {
 
         if(is_array($response)){
             $completedUser = array();
-
+            $i = 1;
             foreach($response as $user){
                 $cargo = new Cargos();
                 $tipo = new TiposUsuarios();
@@ -35,12 +35,14 @@ switch ($api) {
 
                 $user[] = $labelCargo;
                 $user[] = $labelTipo;
-
+                $user['nombrecompleto'] = $user['NOMBRE']." ".$user['PATERNO']." ".$user['MATERNO'];
+                $user['count'] = $i;
+                $i++;
                 $completedUser[] = $user;
             }
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$completedUser)));
+            echo json_encode($completedUser);
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
 
@@ -62,7 +64,7 @@ switch ($api) {
             }
             echo json_encode(array("response"=>array("code"=>1,"data"=>$completedUser)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
 
@@ -73,7 +75,7 @@ switch ($api) {
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
     case 5:
@@ -81,7 +83,7 @@ switch ($api) {
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
     case 6:
@@ -91,7 +93,7 @@ switch ($api) {
         if(is_array($response)){
             echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
 
