@@ -2,7 +2,8 @@ const modalRegistrarUsuario = document.getElementById('ModalRegistrarUsuario')
 modalRegistrarUsuario.addEventListener('show.bs.modal', event => {
   $("#Input-Constraseña-Edit").show();
   $("#edit-usuario-contraseña").attr( "name", "contraseña");
-  rellenarSelectUsuarios();
+  rellenarSelect('usuario-cargos','../../../api/cargos_api.php', 2);
+  rellenarSelect('usuario-tipo','../../../api/tipos_usuarios_api.php', 2);
 })
 
 //Formulario de Preregistro
@@ -36,7 +37,7 @@ $("#formRegistrarUsuario").submit(function(event){
           success: function(data) {
             data = jQuery.parseJSON(data);
             console.log(data);
-            switch (data['response']['code'] == 1) {
+            switch (data['response']['code']) {
               case 1:
                 Toast.fire({
                   icon: 'success',
@@ -45,6 +46,7 @@ $("#formRegistrarUsuario").submit(function(event){
                 });
                 document.getElementById("formRegistrarUsuario").reset();
                 $("#ModalRegistrarUsuario").modal('hide');
+                tablaUsuarios.ajax.load()
               break;
               case 2:
                 Swal.fire({

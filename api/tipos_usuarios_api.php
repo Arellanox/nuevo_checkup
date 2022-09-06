@@ -3,8 +3,7 @@ include "../interfaces/iMetodos.php";
 include "../clases/tipos_usuarios_class.php";
 
 $tipo = new TiposUsuarios();
-$api = 2;
-
+$api = $_POST['api'];
 switch ($api) {
     case 1:
         $new = array("Tipo 1");
@@ -15,11 +14,11 @@ switch ($api) {
         } else {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
-        
+
         break;
     case 2:
-        $response = $tipo->getAll();
 
+        $response = $tipo->getAll();
         if(is_array($response)){
             echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
         } else {
@@ -45,7 +44,7 @@ switch ($api) {
         } else {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
-        
+
         break;
 
     case 5:

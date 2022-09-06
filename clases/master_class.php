@@ -9,7 +9,7 @@ class Master extends Miscelaneus{
     }
 
     function connection(){
-        $conexion = new mysqli("localhost","root","bimo2022","checkup");
+        $conexion = new mysqli("localhost","root","12345678","checkup");
 
         if($conexion->connect_errno){
             echo "La conexion falló. ".$conexion->connect_error;
@@ -25,8 +25,8 @@ class Master extends Miscelaneus{
         $host = "localhost";
         $dbname = "checkup";
         $username = "root";
-        $password = "bimo2022";
-        //$password = "123456789";
+        // $password = "bimo2022";
+        $password = "12345678";
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
@@ -90,7 +90,7 @@ class Master extends Miscelaneus{
 
         // Devuelve el último id;
         return $last_id;
-        
+
         // Devuelve el número de filas afectadas;
         return $afectados;
 

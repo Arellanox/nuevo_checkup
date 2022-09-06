@@ -2,15 +2,16 @@ const modalEditarRegistroUsuario = document.getElementById('ModalEditarRegistroU
 modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
   $("#Input-Constraseña-Edit").hide();
   $("#edit-usuario-contraseña").removeAttr( "name" );
-  rellenarSelectUsuarios();
+  rellenarSelect('usuario-cargos-edit','../../../api/cargos_api.php', 2);
+  rellenarSelect('usuario-tipo-edit','../../../api/tipos_usuarios_api.php', 2);
   // Colocar ajax
   $.ajax({
     url: "??",
     type: "POST",
     data:{id:array_paciente['DT_RowId']},
     success: function(data) {
-      $('#usuario-cargos').val("data")
-      $('#usuario-tipo').val("data")
+      $('#usuario-cargos-edit').val("data")
+      $('#usuario-tipo-edit').val("data")
       $('#edit-usuario-nombre').val("data")
       $('#edit-usuario-paterno').val("data")
       $('#edit-usuario-materno').val("data")

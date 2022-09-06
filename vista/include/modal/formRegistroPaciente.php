@@ -1,85 +1,85 @@
 <div class="col-12 col-lg-4">
   <label for="nombre" class="form-label">Nombres</label>
-  <input type="text" name="nombre" value="" class="form-control input-form" required id="editar-nombre">
+  <input type="text" name="nombre" value="" class="form-control input-form" required >
 </div>
 <div class="col-6 col-lg-4">
   <label for="paterno" class="form-label">Apellido paterno</label>
-  <input type="text" name="paterno" value="" class="form-control input-form" id="editar-paterno">
+  <input type="text" name="paterno" value="" class="form-control input-form" >
 </div>
 <div class="col-6 col-lg-4">
   <label for="materno" class="form-label">Apellido materno</label>
-  <input type="text" name="materno" value="" class="form-control input-form" id="editar-materno">
+  <input type="text" name="materno" value="" class="form-control input-form" >
 </div>
 <div class="col-6 col-lg-2">
   <label for="edad" class="form-label">Edad</label>
   <div class="input-group">
-    <input type="number" class="form-control input-form" name="edad" placeholder="" required id="editar-edad">
+    <input type="number" class="form-control input-form" name="edad" placeholder="" required >
     <span class="input-span">años</span>
   </div>
 </div>
 <div class="col-6 col-lg-3">
   <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
-  <input type="date" class="form-control input-form" name="nacimiento" placeholder="" required id="editar-nacimiento">
+  <input type="date" class="form-control input-form" name="nacimiento" placeholder="" required >
 </div>
 <div class="col-7 col-lg-4">
   <label for="curp" class="form-label">CURP</label>
-  <input type="text" class="form-control input-form" name="curp" placeholder="" required id="editar-curp">
+  <input type="text" class="form-control input-form" name="curp" placeholder="" required >
 </div>
 <div class="col-5 col-lg-3">
   <label for="telefono" class="form-label">Télefono</label>
-  <input type="number" class="form-control input-form" name="telefono" placeholder="" id="editar-telefono">
+  <input type="number" class="form-control input-form" name="telefono" placeholder="" >
 </div>
 
 <div class="col-6 col-lg-2">
   <label for="postal" class="form-label">Código postal</label>
-  <input type="number" class="form-control input-form" name="postal" placeholder="" id="editar-posta">
+  <input type="number" class="form-control input-form" name="postal" placeholder="" >
 </div>
 <div class="col-6 col-lg-3">
   <label for="estado" class="form-label">Estado</label>
-  <input type="text" class="form-control input-form" name="estado" placeholder="" id="editar-estado">
+  <input type="text" class="form-control input-form" name="estado" placeholder="" >
 </div>
 <div class="col-6 col-lg-3">
   <label for="municipio" class="form-label">Municipio</label>
-  <input type="text" class="form-control input-form" name="municipio" placeholder="" id="editar-municipio">
+  <input type="text" class="form-control input-form" name="municipio" placeholder="" >
 </div>
 <div class="col-6 col-lg-4">
   <label for="colonia" class="form-label">Colonia</label>
-  <input type="text" class="form-control input-form" name="colonia" placeholder="" id="editar-colonia">
+  <input type="text" class="form-control input-form" name="colonia" placeholder="" >
 </div>
 <div class="col-6 col-lg-3">
   <label for="exterior" class="form-label">No. Exterior</label>
   <div class="input-group">
   <span class="input-span">No.</span>
-    <input type="text" class="form-control input-form" name="exterior" placeholder="" id="editar-exterior">
+    <input type="text" class="form-control input-form" name="exterior" placeholder="" >
   </div>
 </div>
 <div class="col-6 col-lg-3">
   <label for="interior" class="form-label">No. Interior</label>
   <div class="input-group">
     <span class="input-span">No.</span>
-    <input type="text" class="form-control input-form" name="interior" placeholder="" id="editar-interior">
+    <input type="text" class="form-control input-form" name="interior" placeholder="" >
   </div>
 </div>
 <div class="col-6">
   <label for="calle" class="form-label">Calle</label>
-  <input type="text" class="form-control input-form" name="calle" placeholder="" id="editar-calle">
+  <input type="text" class="form-control input-form" name="calle" placeholder="" >
 </div>
 
 <div class="col-6 col-lg-4">
   <label for="nacionalidad" class="form-label">Nacionalidad</label>
-  <input type="text" class="form-control input-form" name="nacionalidad" placeholder="" id="editar-nacionalidad">
+  <input type="text" class="form-control input-form" name="nacionalidad" placeholder="" >
 </div>
 <div class="col-6 col-lg-4">
   <label for="pasaporte" class="form-label">Pasaporte</label>
-  <input type="text" class="form-control input-form" name="pasaporte" placeholder="" id="editar-pasaporte">
+  <input type="text" class="form-control input-form" name="pasaporte" placeholder="" >
 </div>
 <div class="col-6 col-lg-4">
   <label for="rfc" class="form-label">RFC</label>
-  <input type="text" class="form-control input-form" name="rfc" placeholder="" id="editar-rfc">
+  <input type="text" class="form-control input-form" name="rfc" placeholder="" >
 </div>
 <div class="col-6 col-lg-3">
   <label for="vacuna" class="form-label">Vacuna</label>
-  <select class="input-form" name="vacuna" id="editar-vacuna">
+  <select class="input-form" name="vacuna" >
       <option value="1" >Ninguno...</opcion>
       <option value="PFIZER">PFIZER</opcion>
       <option value="ASTRA ZENECA" >ASTRA ZENECA</opcion>
@@ -93,9 +93,9 @@
       <option value="OTRA">OTRA (ESPECIFIQUE)</opcion>
   </select>
 </div>
-<div class="col-6 col-lg-3" id="editar-extra">
+<div class="col-6 col-lg-3" >
   <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
-  <input type="text" class="form-control input-form" id="editar-vacunaextra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+  <input type="text" class="form-control input-form" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
 </div>
 <div class="col-6 col-lg-3">
   <label for="dosis" class="form-label">Dosis</label>

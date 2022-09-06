@@ -6,16 +6,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row bg-acordion" id="formEditarUsuario">
+        <form class="bg-acordion" id="formEditarUsuario">
           <p class="text-center">Actualice la información del usuario</p>
-            <div class="col-auto">
-              <div class="input-group mb-3">
-                <div class="input-group-text">
-                  <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="1" aria-label="Checkbox for following text input" id="checkClinica">
-                  <label class="d-flex justify-content-center" for="checkClinica">Historia Clinica Laboral</label>
-                </div>
-              </div>
-            </div>
+          <div class="row" id="checkboxPermisos">
+
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -27,3 +22,6 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+
+</script>

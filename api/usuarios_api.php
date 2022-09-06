@@ -10,9 +10,10 @@ $api = 6;
 
 switch ($api) {
     case 1:
-        // $form  = $usuario->master->mis->getFormValues($_POST);
-        $newRecord = array(4,1,"Josue","De la Cruz","Arellano","Arellanox","arditas","Ingeniero en TI");
-        $response = $usuario->insert($newRecord);
+        $array_slice = array_slice($_POST,0,9);
+        $a = $cargo->master->mis->getFormValues($array_slice);
+        // $newRecord = array(4,1,"Josue","De la Cruz","Arellano","Arellanox","arditas","Ingeniero en TI");
+        $response = $usuario->insert($a);
 
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
@@ -25,13 +26,13 @@ switch ($api) {
 
         if(is_array($response)){
             $completedUser = array();
-            
+
             foreach($response as $user){
                 $cargo = new Cargos();
                 $tipo = new TiposUsuarios();
                 $labelCargo = $cargo->getById($user["CARGO_ID"]);
                 $labelTipo = $tipo->getById($user['TIPO_ID']);
-                
+
                 $user[] = $labelCargo;
                 $user[] = $labelTipo;
 
@@ -47,13 +48,13 @@ switch ($api) {
         $response  = $usuario->getById(1);
         if(is_array($response)){
             $completedUser = array();
-            
+
             foreach($response as $user){
                 $cargo = new Cargos();
                 $tipo = new TiposUsuarios();
                 $labelCargo = $cargo->getById($user["CARGO_ID"]);
                 $labelTipo = $tipo->getById($user['TIPO_ID']);
-                
+
                 $user[] = $labelCargo;
                 $user[] = $labelTipo;
 
@@ -93,7 +94,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
-    
+
     default:
         # code...
         break;

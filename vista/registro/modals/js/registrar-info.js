@@ -31,7 +31,7 @@ $("#formRegistrarPaciente").submit(function(event){
           success: function(data) {
             data = jQuery.parseJSON(data);
             console.log(data);
-            switch (data['response']['code'] == 1) {
+            switch (data['response']['code']) {
               case 1:
                 Toast.fire({
                   icon: 'success',
