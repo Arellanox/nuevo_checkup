@@ -1,5 +1,5 @@
 <?php
-include "master_class";
+include_once "master_class";
 
 class Areas extends Master implements iMetodos{
     public $id_area;#4
