@@ -25,8 +25,8 @@ class Master extends Miscelaneus{
         $host = "localhost";
         $dbname = "checkup";
         $username = "root";
-        // $password = "bimo2022";
-        $password = "12345678";
+        $password = "bimo2022";
+        //$password = "12345678";
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
@@ -78,7 +78,7 @@ class Master extends Miscelaneus{
         //echo $sql;
         // Ejecuta la consulta
         if (!$result = $stmt->execute()){
-            $error = "Ha ocurrido un error(".$stmt->errno."). ".$stmt->error;
+            $error = "Ha ocurrido un error(".$stmt->errorCode()."). ".$stmt->errorInfo();
             return $error;
         }
 
@@ -114,7 +114,7 @@ class Master extends Miscelaneus{
         $stmt->bindParam(1,$activo);
 
         if(!$stmt->execute()){
-            $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
+            $error = "Ha ocurrido un error (".$stmt->errorCode()."). ".$stmt->errorInfo();
             return $error;
         }
 
@@ -144,7 +144,7 @@ class Master extends Miscelaneus{
         }
 
         if(!$stmt->execute()){
-            $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
+            $error = "Ha ocurrido un error (".$stmt->errorCode()."). ".$stmt->errorInfo();
             return $error;
         }
 
