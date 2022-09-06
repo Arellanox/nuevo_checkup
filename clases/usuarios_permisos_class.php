@@ -87,5 +87,21 @@ class PermisosUsuarios extends Master implements iMetodos{
         // $response = $this->master->delete($this->tabla,$this->getAttributes(),$id);
         return 1;
     }
+
+    function getPermisosByUsuario($usuario){
+        $conn = $this->master->connectDb();
+        $sql = "SELECT * FROM $this->tabla WHERE activo=? and usuario_id=?";
+        $activo = 1;
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1,$activo);
+        $stmt->bindParam(2,$usuario);
+
+        if(!$stmt->execute()){
+            return "Error al recuperar los permisos del usuario.";
+        }
+
+        return $stmt->fetchAll();
+    }
 }
 ?>

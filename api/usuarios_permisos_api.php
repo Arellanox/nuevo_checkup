@@ -88,6 +88,16 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
         }
         break;
+    case 6:
+        #Recuperar todos los permisos que tiene un usuario
+        $response = $permission->getPermisosByUsuario(1);
+
+        if (is_array($response)) {
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        } else {
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+        }
+        
 
     default:
         # code...
