@@ -72,8 +72,28 @@ class Usuarios extends Master implements iMetodos{
     }
 
     function update($values){
-        $response = $this->master->update($this->tabla,$this->getAttributes(),$values,$this->intergers_update,$this->strings,$this->doubles,$this->nulls);
-        return $response;
+        $conn = $this->master->connectDb();
+        
+        $sql = "UPDATE $this->tabla SET cargo_id=?,tipo_id=?,nombre=?,paterno=?,materno=?,usuario=?,profesion=?,cedula=?,telefono=?,correo=? WHERE id_usuario=?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1,$values[0]);
+        $stmt->bindParam(2,$values[1]);
+        $stmt->bindParam(3,$values[2]);
+        $stmt->bindParam(4,$values[3]);
+        $stmt->bindParam(5,$values[4]);
+        $stmt->bindParam(6,$values[5]);
+        $stmt->bindParam(7,$values[6]);
+        $stmt->bindParam(8,$values[7]);
+        $stmt->bindParam(9,$values[8]);
+        $stmt->bindParam(10,$values[9]);
+        $stmt->bindParam(11,$values[10]);
+
+        if(!$stmt->execute()){
+            return "Error al actualizar datos. (".$stmt->errno."). ".$stmt->error;
+        }
+
+        return $stmt->rowCount();
     }
 
     function delete($id){
@@ -83,8 +103,8 @@ class Usuarios extends Master implements iMetodos{
 
     function startSession($user,$password){
         $conn = $this->master->connectDb();
-
-        $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE usuario = ?");
+        $activo = 1;
+        $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE usuario = ? and activo = ?");
 
         $error_tipo_dato = $this->master->mis->validarDatos(array($user),array(),array(0),array(),array());
 
@@ -93,6 +113,7 @@ class Usuarios extends Master implements iMetodos{
         }
 
         $stmt->bindParam(1,$user);
+        $stmt->bindParam(2,$activo);
 
         if(!$stmt->execute()){
             $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
@@ -115,6 +136,13 @@ class Usuarios extends Master implements iMetodos{
         } else {
             return "Usuario y/o contraseña incorrectos.";
         }
+    }
+
+    function changePassword($newPassword,$id){
+        $conn = $this->master->connectDb();
+
+        $sql = "UPDATE $this->tabla SET contrasenia=? WHERE id_usuario=?";
+        $stmt = $conn->prepare($sql);
     }
 }
 ?>
