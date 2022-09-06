@@ -22,6 +22,8 @@ class PermisosUsuarios extends Master implements iMetodos{
         $this->doubles = array();
         $this->nulls = array();
         $this->intergers_update = array(0,1,2);
+        $this->master = new Master();
+        $this->public_attributes = 4;
     }
 
     function getAttributes(){
