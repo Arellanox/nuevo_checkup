@@ -4,12 +4,14 @@ include "../clases/cargos_class.php";
 
 $cargo = new Cargos();
 
-$api = 5;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
-        $new = array("Nuevo Cargo");
-        $response = $cargo->insert($new);
+        // $new = array("Nuevo Cargo");
+        $array_slice = array_slice($_POST,0,1);
+        $a = $cargo->master->mis->getFormValues($array_slice);
+        $response = $cargo->insert($a);
 
         if (is_numeric($response)) {
             echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));

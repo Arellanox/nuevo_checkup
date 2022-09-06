@@ -13,9 +13,6 @@ switch ($api) {
         # insertar un nuevo paciente
         $array_slice = array_slice($_POST,0,24);
         $a = $paciente->master->mis->getFormValues($array_slice);
-       echo "esto es el arreglo";
-       print_r($a);
-       #$a =array(4, "asf","asfd","asdf",13,"1992-12-12","6CUAJ920703",14124131241,"arellanox0392@gmail.com",12341234,"tabasco","Centro","tierra", 1 ,1 ,"mango"," mexicana"," 1234567890", "agagadfg","OTRA",NULL," 1RA" , 1,null );
         $result = $paciente->insert($a);
 
         if(is_numeric($result)){

@@ -1,4 +1,8 @@
 <?php
+
+
+
+
 $menu = $_POST['menu'];
 require_once "funciones.php";
 ?>

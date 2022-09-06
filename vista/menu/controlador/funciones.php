@@ -75,39 +75,32 @@ function getProcedencias(select){
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelectUsuarios(){
-  var select = document.getElementById("usuario-cargos"),
+function rellenarSelect(select, api, num){
+  var select = document.getElementById(select),
       length = select.options.length;
   while(length--){
     select.remove(length);
   }
-  ajaxSelectUsuario(select);
-  var select = document.getElementById("usuario-tipo"),
-      length = select.options.length;
-  while(length--){
-    select.remove(length);
-  }
-  ajaxSelectUsuario(select);
+  ajaxSelect(select, api, num);
 
 }
 
-function ajaxSelectUsuario(select){
+function ajaxSelect(select, api, num){
   $.ajax({
-    url: "",
-    data:{api: 1},
+    url: api,
+    data:{api: num},
     type: "POST",
     success: function(data) {
       var data = jQuery.parseJSON(data);
       //Equipo Utilizado
       // console.log(data);
-      var selectoption = document.getElementById(select);
-      for (var i = 0; i < data.length; i++) {
-        var content = data[i]['descripcion'];
-        var value = data[i]['id'];
+      for (var i = 0; i < data['response']['data'].length; i++) {
+        var content = data['response']['data'][i]['DESCRIPCION'];
+        var value = data['response']['data'][i]['DESCRIPCION'];
         var el = document.createElement("option");
         el.textContent = content;
         el.value = value;
-        selectoption.appendChild(el);
+        select.append(el);
       }
     }
   })

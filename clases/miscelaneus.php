@@ -1,6 +1,4 @@
 <?php
-include "../conexion.php";
-
 class Miscelaneus{
 
     function getFormValues($values){
@@ -51,7 +49,7 @@ class Miscelaneus{
                     }
                 }
             }
-    
+
             if(in_array($count,$strings)){
                 // echo "este es el dato: ".$dato." esta en string";
                 // echo "<br>";
@@ -64,7 +62,7 @@ class Miscelaneus{
                     }
                 }
             }
-    
+
             if(in_array($count,$doubles)){
                 // echo "este es el dato: ".$dato." esta en doubles";
                 // echo "<br>";
@@ -77,7 +75,7 @@ class Miscelaneus{
                     }
                 }
             }
-            
+
             $count = $count + 1;
         }
 
@@ -90,7 +88,7 @@ class Miscelaneus{
         $position = 0;
         $aux = 0;
         $position_split = 0;
-        
+
         $splitted[$position] = array();
 
         foreach ($source as  $value) {
@@ -111,7 +109,7 @@ class Miscelaneus{
             } else {
                 $splitted[$position][] = $source[$counter];
             }
-            
+
             $counter = $counter +1;
         }
 
@@ -120,7 +118,7 @@ class Miscelaneus{
 
     function initValueNull($values){
         $initedArray = array();
-        
+
         foreach($values as $value){
             if(!isset($value)){
                 $initedArray[] = null;
