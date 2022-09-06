@@ -78,7 +78,7 @@ class Master extends Miscelaneus{
         //echo $sql;
         // Ejecuta la consulta
         if (!$result = $stmt->execute()){
-            $error = "Ha ocurrido un error(".$stmt->errorCode()."). ".$stmt->errorInfo();
+            $error = "Ha ocurrido un error(".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
             return $error;
         }
 
@@ -114,7 +114,7 @@ class Master extends Miscelaneus{
         $stmt->bindParam(1,$activo);
 
         if(!$stmt->execute()){
-            $error = "Ha ocurrido un error (".$stmt->errorCode()."). ".$stmt->errorInfo();
+            $error = "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
             return $error;
         }
 
@@ -144,7 +144,7 @@ class Master extends Miscelaneus{
         }
 
         if(!$stmt->execute()){
-            $error = "Ha ocurrido un error (".$stmt->errorCode()."). ".$stmt->errorInfo();
+            $error = "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
             return $error;
         }
 
@@ -186,7 +186,7 @@ class Master extends Miscelaneus{
         }
 
         if(!$stmt->execute()){
-            return "Error al ejecutar sentencia";
+            return "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
         }
 
         return $stmt->rowCount();
