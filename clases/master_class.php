@@ -119,6 +119,7 @@ class Master extends Miscelaneus{
         }
 
         $resultset = $stmt->fetchAll();
+        $resultset[] = count($resultset);
 
         return $resultset;
     }
