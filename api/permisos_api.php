@@ -3,12 +3,13 @@ include "../interfaces/iMetodos.php";
 include "../clases/permisos_class.php";
 
 $permiso = new Permisos();
-$api = 1;
+$api = 2;
 
 switch ($api) {
     case 1:
-        $form = $permiso->master->getFormValues($_POST);
-        $response = $permiso->insert($form);
+        // $form = $permiso->master->getFormValues($_POST);
+        $newRecord = array("Agregar usuarios al sismtea");
+        $response = $permiso->insert($newRecord);
 
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
@@ -26,7 +27,7 @@ switch ($api) {
         }
         break;
     case 3:
-        $response = $permiso->getById($id);
+        $response = $permiso->getById(1);
         if(is_array($response)){
             echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
         } else {
@@ -34,7 +35,8 @@ switch ($api) {
         }
         break;
     case 4:
-        $response = $permiso->update($values);
+        $updatingRecord = array("Agregar usuarios al sistema",1);
+        $response = $permiso->update($updatingRecord);
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
         } else {
