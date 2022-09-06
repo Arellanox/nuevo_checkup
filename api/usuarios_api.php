@@ -47,7 +47,7 @@ switch ($api) {
         break;
 
     case 3:
-        $response  = $usuario->getById(1);
+        $response  = $usuario->getById($_POST['id']);
         if(is_array($response)){
             $completedUser = array();
 
@@ -69,8 +69,9 @@ switch ($api) {
         break;
 
     case 4:
-        $form = $usuario->master->mis->getFormValues($values);
-        $response = $usuario->update($form);
+        $array_slice = array_slice($_POST,0,9);
+        $a = $usuario->master->mis->getFormValues($array_slice);
+        $response = $usuario->update($a);
 
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));

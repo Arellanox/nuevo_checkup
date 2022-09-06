@@ -116,17 +116,11 @@ function ajaxSelect(select, api, num){
 
 function loader(fade){
   if (fade == 'Out') {
-    $("#ContenidoHTML").fadeToggle(1);
-    $("#loader").removeClass("noloader");
-    $("#loader").addClass("loader");
-    $("#preloader").removeClass("preloader");
-    $("#preloader").addClass("preloader");
+    $("#loader").fadeOut(100);
+    // alert("salir");
   }else if (fade == 'In') {
-    $("#loader").removeClass("loader");
-    $("#loader").addClass("noloader");
-    $("#preloader").addClass("preloader");
-    $("#preloader").removeClass("preloader");
-    $("#ContenidoHTML").fadeToggle(100);
+    $("#loader").fadeIn(100);
+    // alert("entrar");
   }
 }
 

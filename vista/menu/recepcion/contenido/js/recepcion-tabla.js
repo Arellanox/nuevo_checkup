@@ -1,3 +1,4 @@
+loader("In")
 var tablaPrincipal = $('#TablaEjemplo').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -10,7 +11,7 @@ var tablaPrincipal = $('#TablaEjemplo').DataTable({
   ],
 
 })
-
+setTimeout(function(){loader("Out")}, 500);
 $('#TablaEjemplo tbody').on('click', 'tr', function () {
    // alert( 'Clicked row id '+idrow );
    if ($(this).hasClass('selected')) {

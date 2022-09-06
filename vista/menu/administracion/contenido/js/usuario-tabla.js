@@ -1,5 +1,5 @@
-// loader("Out")
-resolucion = screen.height-450;
+loader("In")
+
 var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -13,7 +13,7 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
       method: 'POST',
       url: '../../../api/usuarios_api.php',
       complete: function(){
-        // loader("In")
+        loader("Out")
       },
       dataSrc:''
   },
