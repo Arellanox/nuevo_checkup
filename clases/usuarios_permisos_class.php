@@ -41,7 +41,21 @@ class PermisosUsuarios extends Master implements iMetodos{
     }
 
     function insert($values){
-        $response = $this->master->insert($this->tabla,$this->getAttributes(),$values,$this->intergers,$this->strings,$this->doubles,$this->nulls);
+        $conn = $this->master->connectDb();
+        $sql = "SELECT * FROM $this->tabla WHERE USUARIO_ID = ? AND PERMISO_ID = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt ->bindParam(1, $values[0]);
+        $stmt ->bindParam(2, $values[1]);
+        if (!$stmt->execute()) {
+          return "Ha ocurrido un error: La verificación del permiso no ha sido ejecutada";
+        }
+        $i = $stmt -> fetchAll();
+        if (count($i)>0) {
+          $values[] = 1;
+          $response = $this ->delete($values);
+        }else{
+          $response = $this->master->insert($this->tabla,$this->getAttributes(),$values,$this->intergers,$this->strings,$this->doubles,$this->nulls);
+        }
         return $response;
     }
 
@@ -60,9 +74,18 @@ class PermisosUsuarios extends Master implements iMetodos{
         return $response;
     }
 
-    function delete($id){
-        $response = $this->master->delete($this->tabla,$this->getAttributes(),$id);
-        return $response;
+    function delete($values){
+        $conn = $this->master->connectDb();
+        $sql = "UPDATE $this->tabla SET activo = ? WHERE USUARIO_ID = ? AND PERMISO_ID = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt ->bindParam(1, $values[2]);
+        $stmt ->bindParam(2, $values[0]);
+        $stmt ->bindParam(3, $values[1]);
+        if (!$stmt->execute()) {
+          return "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
+        }
+        // $response = $this->master->delete($this->tabla,$this->getAttributes(),$id);
+        return 1;
     }
 }
 ?>

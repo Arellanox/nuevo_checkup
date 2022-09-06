@@ -1,5 +1,3 @@
-<script type="text/javascript">
-
 
 //Para el campo de preregistro
 function deshabilitarVacunaExtra(vacuna, div){
@@ -127,9 +125,43 @@ function loader(fade){
 function alertSelectTable(){
     Toast.fire({
       icon: 'error',
-      title: 'No ha seleccionado ningún paciente',
+      title: 'No ha seleccionado ningún registro',
       timer: 4000
     });
 }
 
-</script>
+function mensajeAjax(data){
+  switch (data['response']['code']) {
+    case 1:
+      return 1;
+    break;
+    case 2:
+      Swal.fire({
+         icon: 'error',
+         title: 'Oops...',
+         text: '¡Ha ocurrido un error!',
+         footer: 'Codigo: '+data['response']['msj']
+      })
+    break;
+    default:
+      Swal.fire({
+         icon: 'error',
+         title: 'Oops...',
+         text: 'Hubo un problema!',
+         footer: 'Reporte este error con el personal :)'
+      })
+  }
+}
+
+function selectDatatable(tablename, datatable){
+  $('#'+tablename+' tbody').on('click', 'tr', function () {
+     if ($(this).hasClass('selected')) {
+         $(this).removeClass('selected');
+         array_selected = null;
+     } else {
+         datatable.$('tr.selected').removeClass('selected');
+         $(this).addClass('selected');
+         array_selected = datatable.row( this ).data();
+     }
+  });
+}

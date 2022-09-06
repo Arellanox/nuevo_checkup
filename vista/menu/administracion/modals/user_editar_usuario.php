@@ -10,13 +10,13 @@
           <p class="text-center">Actualice la información del usuario</p>
           <div class="row">
             <div class="col-6 col-md-6">
-              <label for="segmento" class="form-label">Cargo</label>
-              <select name="segmento" id="usuario-cargos-edit" class="input-form">
+              <label for="cargo" class="form-label">Cargo</label>
+              <select name="cargo" id="usuario-cargos-edit" class="input-form">
               </select>
             </div>
             <div class="col-6 col-md-6">
-              <label for="segmento" class="form-label">Tipo</label>
-              <select name="segmento" id="usuario-tipo-edit" class="input-form" required>
+              <label for="tipo" class="form-label">Tipo</label>
+              <select name="tipo" id="usuario-tipo-edit" class="input-form" required>
               </select>
             </div>
             <div class="col-6">
@@ -40,12 +40,20 @@
               <input type="text" name="contraseña" id="edit-usuario-contraseña" class="form-control input-form">
             </div>
             <div class="col-6">
-              <label for="prefisión" class="form-label">Profesión</label>
-              <input type="text" name="prefisión" id="edit-usuario-Profesión" class="form-control input-form">
+              <label for="profesion" class="form-label">Profesión</label>
+              <input type="text" name="profesion" id="edit-usuario-Profesión" class="form-control input-form">
             </div>
             <div class="col-6">
               <label for="cedula" class="form-label">Cédula</label>
               <input type="text" name="cedula" id="edit-usuario-cedula" class="form-control input-form">
+            </div>
+            <div class="col-6">
+              <label for="telefono" class="form-label">Telefono</label>
+              <input type="number" name="telefono" id="edit-usuario-telefono" class="form-control input-form">
+            </div>
+            <div class="col-6">
+              <label for="correo" class="form-label">Correo</label>
+              <input type="text" name="correo" id="edit-usuario-correo" class="form-control input-form">
             </div>
           </div>
         </form>

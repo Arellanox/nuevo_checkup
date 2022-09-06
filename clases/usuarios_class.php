@@ -2,7 +2,7 @@
 include_once "master_class.php";
 
 class Usuarios extends Master implements iMetodos{
-    public $id_usuario;#9
+    public $id_usuario;#11
     public $cargo_id;#0
     public $tipo_id;#1
     public $nombre;#2
@@ -12,6 +12,8 @@ class Usuarios extends Master implements iMetodos{
     public $contrasenia;#6
     public $profesion;#7
     public $cedula;#8
+    public $telefono;#9
+    public $correo;#10
     public $activo;
     private $tabla;
     private $public_attributes;
@@ -26,12 +28,12 @@ class Usuarios extends Master implements iMetodos{
 
     function Usuarios(){
         $this->tabla = "usuarios";
-        $this->public_attributes = 11;
+        $this->public_attributes = 13;
         $this->master = new Master();
-        $this->intergers = array(0,1);
-        $this->strings = array(2,3,4,5,6,7,8);
+        $this->intergers = array(0,1,9);
+        $this->strings = array(2,3,4,5,6,7,8,10);
         $this->doubles = array();
-        $this->intergers_update = array(0,1,9);
+        $this->intergers_update = array(0,1,11);
         $this->nulls = array(7);
 
     }
@@ -73,7 +75,6 @@ class Usuarios extends Master implements iMetodos{
 
     function update($values){
         $conn = $this->master->connectDb();
-        
         $sql = "UPDATE $this->tabla SET cargo_id=?,tipo_id=?,nombre=?,paterno=?,materno=?,usuario=?,profesion=?,cedula=?,telefono=?,correo=? WHERE id_usuario=?";
 
         $stmt = $conn->prepare($sql);

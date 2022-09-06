@@ -47,6 +47,14 @@
               <label for="cedula" class="form-label">Cédula</label>
               <input type="text" name="cedula" class="form-control input-form">
             </div>
+            <div class="col-6">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="number" name="telefono"  class="form-control input-form">
+            </div>
+            <div class="col-6">
+              <label for="correo" class="form-label">Correo</label>
+              <input type="text" name="correo" class="form-control input-form">
+            </div>
           </div>
         </form>
       </div>

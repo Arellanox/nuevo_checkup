@@ -1,5 +1,3 @@
-loader("In")
-
 var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -12,20 +10,21 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
       data: {api: 2},
       method: 'POST',
       url: '../../../api/usuarios_api.php',
-      complete: function(){
-        loader("Out")
-      },
+      beforeSend: function() { loader("In") },
+      complete: function(){ loader("Out") },
       dataSrc:''
   },
   columns:[
       {data: 'count'},
       {data: 'nombrecompleto'},
       {data: 'USUARIO'},
-      {data: '11.0.DESCRIPCION'},
-      {data: '12.0.DESCRIPCION'},
+      {data: '13.0.DESCRIPCION'},
+      {data: '14.0.DESCRIPCION'},
       {data: 'ACTIVO'},
       {data: 'PROFESION'},
       {data: 'CEDULA'},
+      {data: 'TELEFONO'},
+      {data: 'CORREO'},
       // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
@@ -34,16 +33,4 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
 
 })
 // setTimeout(function(){loader("In")}, 500);
-
-$('#TablaUsuariosAdmin tbody').on('click', 'tr', function () {
-   // alert( 'Clicked row id '+idrow );
-   if ($(this).hasClass('selected')) {
-       $(this).removeClass('selected');
-       array_selected = null;
-   } else {
-       tablaUsuarios.$('tr.selected').removeClass('selected');
-       $(this).addClass('selected');
-       array_selected = tablaUsuarios.row( this ).data();
-       console.log(array_selected)
-   }
-});
+selectDatatable("TablaUsuariosAdmin", tablaUsuarios)

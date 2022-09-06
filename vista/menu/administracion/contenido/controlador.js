@@ -3,15 +3,9 @@ hasLocation()
 $( window ).on( 'hashchange', function( e ) {
   hasLocation();
 });
-// Variables globales
-var array_selected;
 // ObtenerTabla o cambiar
 function obtenerContenidoUsuarios(){
   obtenerTitulo("Usuarios"); //Aqui mandar el nombre de la area
-  obtenerTablaUsuarios()
-}
-
-function obtenerTablaUsuarios(){
   $.post("contenido/usuarios.php", function(html){
     var idrow;
      $("#body-js").html(html);
@@ -23,12 +17,9 @@ function obtenerTablaUsuarios(){
   });
 }
 
+
 function obtenerContenidoServicios(tabla, titulo){
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
-  obtenerTablaServicios()
-}
-
-function obtenerTablaServicios(){
   $.post("contenido/servicios.php", function(html){
     var idrow;
      $("#body-js").html(html);
@@ -38,6 +29,7 @@ function obtenerTablaServicios(){
 
   });
 }
+
 
 function hasLocation(){
   var hash = window.location.hash.substring(1);

@@ -2,7 +2,7 @@ $("#btn-usuario-vista").click(function(){
   if (array_selected !=null) {
     $("#modalEditarVistaUsuario").modal('show');
   }else{
-
+    alertSelectTable();
   }
 })
 
@@ -66,31 +66,13 @@ function estadoUsuarioAlert(modo){
         type: "POST",
         success: function(data) {
           data = jQuery.parseJSON(data);
-          switch (data['response']['code'] == 1) {
-            case 1:
-              Swal.fire(
-                alertActivo,
-                alertText,
-                alertIcon
-              )
-            break;
-            case 2:
-              Swal.fire({
-                 icon: 'error',
-                 title: 'Oops...',
-                 text: '¡Ha ocurrido un error!',
-                 footer: 'Codigo: '+data['response']['msj']
-              })
-            break;
-            default:
-              Swal.fire({
-                 icon: 'error',
-                 title: 'Oops...',
-                 text: 'Hubo un problema!',
-                 footer: 'Reporte este error con el personal :)'
-              })
+          if (mensajeAjax(data)) {
+            Swal.fire(
+              alertActivo,
+              alertText,
+              alertIcon
+            )
           }
-
         },
       });
     }

@@ -4,13 +4,15 @@ include "../clases/usuarios_permisos_class.php";
 include "../clases/usuarios_class.php";
 include "../clases/permisos_class.php";
 
+
 $permission = new PermisosUsuarios();
-$api = 5;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
-        $newRecord = array(1,1);
-        $response = $permission->insert($newRecord);
+        $array_slice = array_slice($_POST,0,2);
+        $a = $permission->master->mis->getFormValues($array_slice);
+        $response = $permission->insert($a);
 
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
@@ -20,7 +22,7 @@ switch ($api) {
         break;
     case 2:
         $response = $permission->getAll();
-        
+
         if(is_array($response)){
             $dataset = array();
 
@@ -53,7 +55,7 @@ switch ($api) {
                 $permiso = new Permisos();
                 $usuarioLabel = $usuario->getById($value['USUARIO_ID']);
                 $permisoLabel = $permiso->getById($value['PERMISO_ID']);
-                
+
                 $value['USUARIO'] = $usuarioLabel;
                 $value[] = $usuarioLabel;
                 $value['PERMISO'] = $permisoLabel;
@@ -76,15 +78,17 @@ switch ($api) {
         }
         break;
     case 5:
-        $response = $permission->delete(1);
-        
+        $array_slice = array_slice($_POST,0,3);
+        $a = $permission->master->mis->getFormValues($array_slice);
+        $response = $permission->delete($a);
+
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
         } else {
-
+            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
         }
         break;
-    
+
     default:
         # code...
         break;

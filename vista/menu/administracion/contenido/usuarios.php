@@ -27,6 +27,8 @@
         <th scope="col d-flex justify-content-center" class="min-tablet">Estado</th>
         <th scope="col d-flex justify-content-center" class="none">Profesión</th>
         <th scope="col d-flex justify-content-center" class="none">Cédula</th>
+        <th scope="col d-flex justify-content-center" class="none">Teléfono</th>
+        <th scope="col d-flex justify-content-center" class="none">Correo</th>
       </tr>
     </thead>
     <tbody>

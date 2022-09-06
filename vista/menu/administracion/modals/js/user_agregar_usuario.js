@@ -37,8 +37,7 @@ $("#formRegistrarUsuario").submit(function(event){
           success: function(data) {
             data = jQuery.parseJSON(data);
             console.log(data);
-            switch (data['response']['code']) {
-              case 1:
+            if (mensajeAjax(data)) {
                 Toast.fire({
                   icon: 'success',
                   title: '¡Usuario registrado!',
@@ -46,23 +45,7 @@ $("#formRegistrarUsuario").submit(function(event){
                 });
                 document.getElementById("formRegistrarUsuario").reset();
                 $("#ModalRegistrarUsuario").modal('hide');
-                tablaUsuarios.ajax.load()
-              break;
-              case 2:
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: '¡Ha ocurrido un error!',
-                   footer: 'Codigo: '+data['response']['msj']
-                })
-              break;
-              default:
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: 'Hubo un problema!',
-                   footer: 'Reporte este error con el personal :)'
-                })
+                tablaUsuarios.ajax.reload()
             }
           },
         });

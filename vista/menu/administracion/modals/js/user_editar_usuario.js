@@ -1,5 +1,6 @@
 const modalEditarRegistroUsuario = document.getElementById('ModalEditarRegistroUsuario')
 modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
+  document.getElementById("formEditarUsuario").reset();
   $("#Input-Constraseña-Edit").hide();
   $("#edit-usuario-contraseña").removeAttr( "name" );
   rellenarSelect('usuario-cargos-edit','../../../api/cargos_api.php', 2);
@@ -12,33 +13,18 @@ modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
     success: function(data) {
       data = jQuery.parseJSON(data);
       console.log(data);
-      switch (data['response']['code']) {
-        case 1:
-          $('#usuario-cargos-edit').val(data['response']['data'][0]['CARGO_ID'])
-          $('#usuario-tipo-edit').val(data['response']['data'][0]['TIPO_ID'])
-          $('#edit-usuario-nombre').val(data['response']['data'][0]['NOMBRE'])
-          $('#edit-usuario-paterno').val(data['response']['data'][0]['PATERNO'])
-          $('#edit-usuario-materno').val(data['response']['data'][0]['MATERNO'])
-          $('#edit-usuario-usuario').val(data['response']['data'][0]['USUARIO'])
-          // $('#edit-usuario-contraseña').val("data")
-          $('#edit-usuario-Profesión').val(data['response']['data'][0]['PROFESION'])
-          $('#edit-usuario-cedula').val(data['response']['data'][0]['CEDULA'])
-        break;
-        case 2:
-          Swal.fire({
-             icon: 'error',
-             title: 'Oops...',
-             text: '¡Ha ocurrido un error!',
-             footer: 'Codigo: '+data['response']['msj']
-          })
-        break;
-        default:
-          Swal.fire({
-             icon: 'error',
-             title: 'Oops...',
-             text: 'Hubo un problema!',
-             footer: 'Reporte este error con el personal :)'
-          })
+      if (mensajeAjax(data)) {
+        $('#usuario-cargos-edit').val(data['response']['data'][0]['CARGO_ID'])
+        $('#usuario-tipo-edit').val(data['response']['data'][0]['TIPO_ID'])
+        $('#edit-usuario-nombre').val(data['response']['data'][0]['NOMBRE'])
+        $('#edit-usuario-paterno').val(data['response']['data'][0]['PATERNO'])
+        $('#edit-usuario-materno').val(data['response']['data'][0]['MATERNO'])
+        $('#edit-usuario-usuario').val(data['response']['data'][0]['USUARIO'])
+        // $('#edit-usuario-contraseña').val("data")
+        $('#edit-usuario-Profesión').val(data['response']['data'][0]['PROFESION'])
+        $('#edit-usuario-cedula').val(data['response']['data'][0]['CEDULA'])
+        $('#edit-usuario-telefono').val(data['response']['data'][0]['TELEFONO'])
+        $('#edit-usuario-correo').val(data['response']['data'][0]['CORREO'])
       }
     }
   })
@@ -62,31 +48,15 @@ $("#formEditarUsuario").submit(function(event){
      success: function(data) {
        data = jQuery.parseJSON(data);
        console.log(data);
-       switch (data['response']['code']) {
-         case 1:
-           Toast.fire({
-             icon: 'success',
-             title: '¡Usuario actualizado!',
-             timer: 2000
-           });
-           document.getElementById("formEditarUsuario").reset();
-           $("#ModalEditarRegistroUsuario").modal('hide');
-         break;
-         case 2:
-           Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: '¡Ha ocurrido un error!',
-              footer: 'Codigo: '+data['response']['msj']
-           })
-         break;
-         default:
-           Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Hubo un problema!',
-              footer: 'Reporte este error con el personal :)'
-           })
+       if (mensajeAjax(data)) {
+         Toast.fire({
+           icon: 'success',
+           title: '¡Usuario actualizado!',
+           timer: 2000
+         });
+         document.getElementById("formEditarUsuario").reset();
+         $("#ModalEditarRegistroUsuario").modal('hide');
+         tablaUsuarios.ajax.reload()
        }
      },
    });

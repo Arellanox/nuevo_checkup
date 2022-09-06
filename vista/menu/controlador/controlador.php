@@ -1,10 +1,5 @@
 <?php
-
-
-
-
 $menu = $_POST['menu'];
-require_once "funciones.php";
 ?>
 
 <!-- HTML -->
@@ -14,6 +9,11 @@ require_once "funciones.php";
 <div class="" id="modals-js"> <!-- Aqui podrán incluir los modals --> </div>
 
 <script type="text/javascript">
+  //Variable global para datatable
+  var array_selected;
+  // <!-- Aqui controlar e incluir las modals -->
+  $.getScript('http://localhost/nuevo_checkup/vista/menu/controlador/funciones.js');
+
   obtenerHeader('<?php echo $menu ?>');
   function obtenerHeader(menu){
     $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/header.php';?>", {menu: menu}, function(html){

@@ -10,7 +10,7 @@ $api = $_POST['api'];
 
 switch ($api) {
     case 1:
-        $array_slice = array_slice($_POST,0,9);
+        $array_slice = array_slice($_POST,0,11);
         $a = $usuario->master->mis->getFormValues($array_slice);
         // $newRecord = array(4,1,"Josue","De la Cruz","Arellano","Arellanox","arditas","Ingeniero en TI");
         $response = $usuario->insert($a);
@@ -69,7 +69,7 @@ switch ($api) {
         break;
 
     case 4:
-        $array_slice = array_slice($_POST,0,9);
+        $array_slice = array_slice($_POST,0,11);
         $a = $usuario->master->mis->getFormValues($array_slice);
         $response = $usuario->update($a);
 

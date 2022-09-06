@@ -25,8 +25,8 @@ class Master extends Miscelaneus{
         $host = "localhost";
         $dbname = "checkup";
         $username = "root";
-        $password = "bimo2022";
-        //$password = "12345678";
+        // $password = "bimo2022";
+        $password = "12345678";
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
