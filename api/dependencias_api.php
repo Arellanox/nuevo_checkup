@@ -1,6 +1,7 @@
 <?php
 include "../interfaces/iMetodos.php";
 include "../clases/dependencias_class.php";
+include "../clases/segmentos_class.php";
 
 # Cambiar a los valores reales
 # dinamicos
@@ -52,6 +53,24 @@ switch ($api) {
 
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
+        } else {
+            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+        }
+        break;
+    case 6:
+        $response = $dependencia->getByCliente($cliente);
+
+        if(is_array($response)){
+            $dataset = array();
+            foreach ($variable as $key => $value) {
+                $segmento = new Segmentos();
+                $label = $segmento->getById($value['SEGMENTO_ID']);
+                $value['SEGMENTO'] = $label;
+                $value[] = $label;
+                $dataset[] = $value;
+            }
+
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$dataset)));
         } else {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
