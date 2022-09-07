@@ -8,7 +8,6 @@ function deshabilitarVacunaExtra(vacuna, div){
   }
 }
 
-
 // Notifiació  movil
 if (window.innerWidth <= 768) {
   position = 'top';
@@ -80,7 +79,6 @@ function rellenarSelect(select, api, num){
     select.remove(length);
   }
   ajaxSelect(select, api, num);
-
 }
 
 function ajaxSelect(select, api, num){

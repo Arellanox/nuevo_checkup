@@ -24,7 +24,44 @@ $("#btn-usuario-editar").click(function(){
 
 $("#btn-usuario-estado").click(function(){
   if (array_selected !=null) {
-    estadoUsuarioAlert(array_selected[5]);
+    estadoUsuarioAlert(array_selected['ACTIVO']);
+  }else{
+    alertSelectTable();
+  }
+})
+
+$("#btn-eliminar-usuario").click(function(){
+  if (array_selected !=null) {
+    Swal.fire({
+      title: "¿Está seguro que desea eliminar este usuario?",
+      text: "¡Este usuario no podrá recuperarse!",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'ELIMINAR',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          data: {id: array_selected['ID_USUARIO'], api: 5},
+          url: "../../../api/usuarios_api.php",
+          type: "POST",
+          success: function(data) {
+            data = jQuery.parseJSON(data);
+            if (mensajeAjax(data)) {
+              Toast.fire({
+                icon: 'success',
+                title: '¡Usuario Eliminado!',
+                timer: 2000
+              });
+              $("#ModalEditarRegistroUsuario").modal('hide');
+              tablaUsuarios.ajax.reload()
+            }
+          },
+        });
+      }
+    })
   }else{
     alertSelectTable();
   }
@@ -36,7 +73,7 @@ function estadoUsuarioAlert(modo){
     title = "¿Desea desactivar este usuario?";
     text = "¡El usuario no podrá iniciar sesión la proxima vez!";
     confirmButtonText = "Si, desactivalo!";
-    ajaxData = 0;
+    estado = 1;
     alertActivo = "Desactivado!";
     alertText = "Ya no tendrá acceso este usuario!";
     alertIcon = "success";
@@ -44,7 +81,7 @@ function estadoUsuarioAlert(modo){
     title = "¿Desea activar este usuario?";
     text = "¡El usuario podrá entrar al sistema!";
     confirmButtonText = "Si, activalo!";
-    ajaxData = 1;
+    estado = 0;
     alertActivo = "Activado!";
     alertText = "Tiene acceso al sistema nuevamente!";
     alertIcon = "warning";
@@ -61,17 +98,18 @@ function estadoUsuarioAlert(modo){
   }).then((result) => {
     if (result.isConfirmed) {
       $.ajax({
-        data: ajaxData,
-        url: "../../../api/??.php",
+        data: {id: array_selected['ID_USUARIO'], estado: estado, api: 7},
+        url: "../../../api/usuarios_api.php",
         type: "POST",
         success: function(data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
-            Swal.fire(
-              alertActivo,
-              alertText,
-              alertIcon
-            )
+            Swal.fire({
+               icon: alertIcon,
+               title: alertActivo,
+               text: alertText
+            })
+            tablaUsuarios.ajax.reload()
           }
         },
       });

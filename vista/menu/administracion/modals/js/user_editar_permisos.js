@@ -11,8 +11,8 @@ modalEditarPermisosUsuario.addEventListener('show.bs.modal', event => {
         for (var i = 0; i < data['response']['data'].length; i++) {
           // alert();
           checkboxPermisos += '<div class="col-auto"> <div class="input-group mb-3"> <div class="input-group-text">'+
-                                      '<input class="form-check-input mt-0 permisosUsuario" value="'+data['response']['data'][i]['ID_PERMISO']+'" type="checkbox" aria-label="Checkbox for following text input" id="checkClinica'+i+'">'+
-                                      '<label class="d-flex justify-content-center" for="checkClinica'+i+'">'+data['response']['data'][i]['DESCRIPCION']+'</label>'+
+                                      '<input class="form-check-input mt-0 permisosUsuario" value="'+data['response']['data'][i]['ID_PERMISO']+'" type="checkbox" aria-label="Checkbox for following text input" id="checkPermisoUsuario'+data['response']['data'][i]['ID_PERMISO']+'">'+
+                                      '<label class="d-flex justify-content-center" for="checkPermisoUsuario'+data['response']['data'][i]['ID_PERMISO']+'">'+data['response']['data'][i]['DESCRIPCION']+'</label>'+
                               '</div></div></div>';
         }
         // // console.log(checkboxPermisos);
@@ -20,14 +20,19 @@ modalEditarPermisosUsuario.addEventListener('show.bs.modal', event => {
       }
     }
   })
+
+  $('.permisosUsuario').prop('checked', false);
   $.ajax({
-    url: "../../../api/permisos_api.php",
+    url: "../../../api/usuarios_permisos_api.php",
     type: "POST",
-    data:{api:2},
+    data:{id: array_selected['ID_USUARIO'],api:6},
     success: function(data) {
       data = jQuery.parseJSON(data);
       if (mensajeAjax(data)) {
-        
+        for (var i = 0; i < data['response']['data'].length; i++) {
+          $('#checkPermisoUsuario'+data['response']['data'][i]['PERMISO_ID']).prop('checked', true);
+          // document.getElementById("checkPermisoUsuario"").checked = true;
+        }
       }
     }
   })
@@ -57,7 +62,7 @@ let val = $(this).val();
       success: function(data) {
         data = jQuery.parseJSON(data);
         if (mensajeAjax(data)) {
-
+          
         }
       }
     })

@@ -12,7 +12,6 @@ modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
     data:{id:array_selected['ID_USUARIO'], api: 3},
     success: function(data) {
       data = jQuery.parseJSON(data);
-      console.log(data);
       if (mensajeAjax(data)) {
         $('#usuario-cargos-edit').val(data['response']['data'][0]['CARGO_ID'])
         $('#usuario-tipo-edit').val(data['response']['data'][0]['TIPO_ID'])

@@ -59,6 +59,9 @@
         </form>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-borrar" id="btn-eliminar-usuario">
+          <i class="bi bi-person-x"></i> Eliminar
+        </button>
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
         <button type="submit" form="formEditarUsuario" class="btn btn-confirmar">
           <i class="bi bi-person-check"></i> Actualizar

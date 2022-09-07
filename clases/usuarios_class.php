@@ -14,6 +14,7 @@ class Usuarios extends Master implements iMetodos{
     public $cedula;#8
     public $telefono;#9
     public $correo;#10
+    // public $bloqueado;
     public $activo;
     private $tabla;
     private $public_attributes;
@@ -33,7 +34,7 @@ class Usuarios extends Master implements iMetodos{
         $this->intergers = array(0,1,9);
         $this->strings = array(2,3,4,5,6,7,8,10);
         $this->doubles = array();
-        $this->intergers_update = array(0,1,11);
+        $this->intergers_update = array(0,1,9,11);
         $this->nulls = array(7);
 
     }
@@ -105,7 +106,8 @@ class Usuarios extends Master implements iMetodos{
     function startSession($user,$password){
         $conn = $this->master->connectDb();
         $activo = 1;
-        $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE usuario = ? and activo = ?");
+        $bloqueado = 0;
+        $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE usuario = ? and activo = ? and bloqueado = ?");
 
         $error_tipo_dato = $this->master->mis->validarDatos(array($user),array(),array(0),array(),array());
 
@@ -115,6 +117,7 @@ class Usuarios extends Master implements iMetodos{
 
         $stmt->bindParam(1,$user);
         $stmt->bindParam(2,$activo);
+        $stmt->bindParam(3,$bloqueado);
 
         if(!$stmt->execute()){
             $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
@@ -154,6 +157,19 @@ class Usuarios extends Master implements iMetodos{
         }
 
         return $stmt->rowCount();
+    }
+
+    function estadoUsuario($id, $estado){
+          $conn = $this->master->connectDb();
+          $sql = "UPDATE $this->tabla SET BLOQUEADO = ? WHERE ID_USUARIO = ?";
+          $stmt = $conn -> prepare($sql);
+          $stmt ->bindParam(1, $estado);
+          $stmt ->bindParam(2, $id);
+          if (!$stmt->execute()) {
+            return "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
+          }
+          // $response = $this->master->delete($this->tabla,$this->getAttributes(),$id);
+          return 1;
     }
 }
 ?>

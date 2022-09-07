@@ -37,6 +37,7 @@ switch ($api) {
                 $user[] = $labelTipo;
                 $user['nombrecompleto'] = $user['NOMBRE']." ".$user['PATERNO']." ".$user['MATERNO'];
                 $user['count'] = $i;
+                $user['ACTIVO'] = $user['BLOQUEADO']?"INACTIVO":"ACTIVO";
                 $i++;
                 $completedUser[] = $user;
             }
@@ -80,7 +81,7 @@ switch ($api) {
         }
         break;
     case 5:
-        $response = $usuario->delete(1);
+        $response = $usuario->delete($_POST['id']);
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
         } else {
@@ -97,6 +98,14 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
+    case 7:
+        //Actualizar estado del usuario
+        $response = $usuario->estadoUsuario($_POST['id'], $_POST['estado']);
+        if (is_numeric($response)) {
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        } else {
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+        }
 
     default:
         # code...
