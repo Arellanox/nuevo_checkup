@@ -12,14 +12,5 @@ var tablaPrincipal = $('#TablaEjemplo').DataTable({
 
 })
 setTimeout(function(){loader("Out")}, 500);
-$('#TablaEjemplo tbody').on('click', 'tr', function () {
-   // alert( 'Clicked row id '+idrow );
-   if ($(this).hasClass('selected')) {
-       $(this).removeClass('selected');
-       array_paciente = null;
-   } else {
-       tablaPrincipal.$('tr.selected').removeClass('selected');
-       $(this).addClass('selected');
-       array_paciente = tablaPrincipal.row( this ).data();
-   }
-});
+
+selectDatatable("TablaEjemplo", tablaPrincipal)

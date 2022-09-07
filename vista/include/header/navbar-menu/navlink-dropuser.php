@@ -10,4 +10,4 @@
   </div>
 <?php endif; ?>
 <li><hr class="dropdown-divider"></li>
-<a href="#" class="dropdown-a"><i class="bi bi-box-arrow-up"></i> Cerrar Sesión</a>
+<a href="#LogOut" class="dropdown-a"><i class="bi bi-box-arrow-up"></i> Cerrar Sesión</a>

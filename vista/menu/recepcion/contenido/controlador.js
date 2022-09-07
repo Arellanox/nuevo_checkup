@@ -1,7 +1,5 @@
 
-// Variables globales
-var array_paciente;
-
+$.getScript('http://localhost/nuevo_checkup/vista/include/modal/js/registrar-paciente.js');
 // ObtenerTabla o cambiar
 obtenerContenidoRecepcion();
 function obtenerContenidoRecepcion(tabla){

@@ -23,21 +23,14 @@ $("#formPerfilPaciente").submit(function(event){
      contentType: false,
      success: function(data) {
        data = jQuery.parseJSON(data);
-       if (data['codigo'] == 1) {
+       if (mensajeAjax(data)) {
          Toast.fire({
            icon: 'success',
            title: 'Imagen guardada con exito :)',
            timer: 2000
          });
          $('#modalPacientePerfil').modal('hide');
-        }else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Hubo un error, comunique el error al encargado',
-            showCloseButton: true,
-          });
-        }
+       }
      }
    });
    event.preventDefault();

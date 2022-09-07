@@ -29,21 +29,36 @@ const Toast = Swal.mixin({
 
 // Obtener segmentos por procedencia en select
 function getSegmentoByProcedencia(id, select){
+  var select = document.getElementById(select),
+      length = select.options.length;
+  while(length--){
+    select.remove(length);
+  }
   $.ajax({
-    url: "",
+    url: "http://localhost/nuevo_checkup/api/dependencias_api.php",
       type: "POST",
-      data:{
-        procedencia:id
-      },
+      data:{id: id,api:6},
     success: function(data) {
-      var selectoption = document.getElementById(select);
-      for (var i = 0; i < data.length; i++) {
-        var content = data[i]['procedencia'];
-        var value = data[i]['id'];
-        var el = document.createElement("option");
-        el.textContent = content;
-        el.value = value;
-        selectoption.appendChild(el);
+      var data = jQuery.parseJSON(data);
+      console.log(data);
+      if (mensajeAjax(data)) {
+        if (data['response']['data'].length >0) {
+          for (var i = 0; i < data.length; i++) {
+            var content = data['response']['data'][i]['DESCRIPCION'];
+            var value = data['response']['data'][i][1];
+            var el = document.createElement("option");
+            el.textContent = content;
+            el.value = value;
+            select.appendChild(el);
+          }
+        }else{
+          var content = "No contiene segmentos";
+          var value = "";
+          var el = document.createElement("option");
+          el.textContent = content;
+          el.value = value;
+          select.appendChild(el);
+        }
       }
     }
   });
@@ -51,17 +66,19 @@ function getSegmentoByProcedencia(id, select){
 
 // Obtener procedencias en select
 function getProcedencias(select){
+  var select = document.getElementById(select),
+      length = select.options.length;
+  while(length--){
+    select.remove(length);
+  }
   $.ajax({
-    url: "https://bimo-lab.com/antigeno/php/consulta_segmentos.php",
+    url: "http://localhost/nuevo_checkup/api/clientes_api.php",
     type: "POST",
     success: function(data) {
       var data = jQuery.parseJSON(data);
-      //Equipo Utilizado
-      // console.log(data);
-      var selectoption = document.getElementById(select);
       for (var i = 0; i < data.length; i++) {
-        var content = data[i]['procedencia'];
-        var value = data[i]['id'];
+        var content = data['response']['data'][i]['NOMBRE_COMERCIAL'];
+        var value = data['response']['data'][i][1];
         var el = document.createElement("option");
         el.textContent = content;
         el.value = value;
@@ -103,12 +120,15 @@ function ajaxSelect(select, api, num){
 }
 
 
-// $( window ).on( 'hashchange', function( e ) {
-//     var hash = window.location.hash.substring(1);
-//     switch (hash) {
-//       default:  break;
-//     }
-// } );
+$( window ).on( 'hashchange', function( e ) {
+    var hash = window.location.hash.substring(1);
+    switch (hash) {
+      case 'LogOut':
+        window.location.href = 'http://localhost/nuevo_checkup/vista/login/';
+      break;
+      default:  break;
+    }
+} );
 
 function loader(fade){
   if (fade == 'Out') {
@@ -139,6 +159,21 @@ function mensajeAjax(data){
          title: 'Oops...',
          text: '¡Ha ocurrido un error!',
          footer: 'Codigo: '+data['response']['msj']
+      })
+    break;
+    case "repetido":
+      Swal.fire({
+         icon: 'error',
+         title: 'Oops...',
+         text: '¡Usted ya está registrado!',
+         footer: 'Utilice su CURP para registrarse en una nueva prueba'
+      })
+    break;
+    case "login":
+      Swal.fire({
+         icon: 'error',
+         title: 'Oops...',
+         text: 'Codigo: '+data['response']['msj']
       })
     break;
     default:

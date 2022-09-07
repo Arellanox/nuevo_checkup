@@ -85,16 +85,16 @@ class Segmentos extends Master implements iMetodos{
 
         $sql = "SELECT padre,descripcion FROM $this->tabla WHERE activo=? and id_segmento=?";
         $stmt = $conn->prepare($sql);
-        
+
         $stmt->bindParam(1,$activo);
         $stmt->bindParam(2,$son);
-        
+
         $stmt->execute();
-        
+
         $x = 0;
-        
+
         if($stmt->rowCount()>0){
-            
+
             $stmt->bindColumn(1,$padre);
             $stmt->bindColumn(2,$descripcion);
 
@@ -103,14 +103,14 @@ class Segmentos extends Master implements iMetodos{
                 $x = $padre;
                 if($this->globalCounter==0){
                     $this->segmento = $descripcion;
-                } else {    
+                } else {
                     $this->segmento = $descripcion." - ".$this->segmento;
                 }
             }
-            
+
             $this->globalCounter = $this->globalCounter + 1;
             $this->setSegmento($x);
-            
+
         }
     }
 

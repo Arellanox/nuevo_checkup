@@ -7,7 +7,7 @@ include "../clases/segmentos_class.php";
 # dinamicos
 
 $dependencia = new Dependencias();
-$api = 5;
+$api = $_POST['api'];
 switch ($api) {
     case 1:
         $new = array(1,5);

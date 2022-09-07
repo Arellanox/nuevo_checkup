@@ -14,14 +14,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formEditarUsuario" class="btn btn-confirmar">
-          <i class="bi bi-person-check"></i> Actualizar
-        </button>
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
       </div>
     </div>
   </div>
 </div>
-<script type="text/javascript">
-
-</script>

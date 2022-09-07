@@ -1,5 +1,7 @@
 <?php
 $menu = $_POST['menu'];
+
+
 ?>
 
 <!-- HTML -->
@@ -11,6 +13,7 @@ $menu = $_POST['menu'];
 <script type="text/javascript">
   //Variable global para datatable
   var array_selected;
+  var array_user;
   // <!-- Aqui controlar e incluir las modals -->
   $.getScript('http://localhost/nuevo_checkup/vista/menu/controlador/funciones.js');
 
@@ -30,5 +33,7 @@ $menu = $_POST['menu'];
 
   // <!-- Aqui controlar e incluir los tablas -->
   $.getScript('contenido/controlador.js');
+
+  array_user = '<?php print_r($_SESSION[]); ?>';
 
 </script>

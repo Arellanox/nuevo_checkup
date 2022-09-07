@@ -75,5 +75,18 @@ class Clientes extends Master implements iMetodos{
         $return = $this->master->delete($this->tabla,$this->getAttributes(),$id);
         return $return;
     }
+
+    function getByCodigo($id){
+      $activo = 1;
+      $conn = $this->master->connectDb();
+      $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE CODIGO = ? and activo = ?");
+
+      $stmt->bindParam(1,$id);
+      $stmt->bindParam(2,$activo);
+      if(!$stmt->execute()){
+          $error = "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
+      }
+      return $stmt->fetchAll();
+    }
 }
 ?>

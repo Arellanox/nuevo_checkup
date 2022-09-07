@@ -1,8 +1,7 @@
 <?php
 //Variables dinamicas;
-$codigo = $_GET['cod']?$_GET['cod']:"473nakidsjbd";
 include "../variables.php";
-$menu = "Preregistro";
+$menu = "Login";
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -21,17 +20,5 @@ $menu = "Preregistro";
 
      	 });
      }
-
-     $.ajax({
-       data: {id: '<?php echo $codigo; ?>', api: 6},
-       url: "../../api/clientes_api.php",
-       type: "POST",
-       success: function(data) {
-         array_selected = jQuery.parseJSON(data);
-         setTimeout(function(){
-           $("#procedencia-preregistro").val(array_selected['response']['data'][0]['NOMBRE_SISTEMA']);
-         }, 1000)
-       },
-     });
  </script>
 </html>

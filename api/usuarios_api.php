@@ -90,12 +90,12 @@ switch ($api) {
         break;
     case 6:
         // Iniciar sesión
-        $response = $usuario->startSession("Arellanox","arditas");
+        $response = $usuario->startSession($_POST['user'],$_POST['pass']);
 
         if(is_array($response)){
             echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+            echo json_encode(array("response"=>array("code"=>'login',"msj"=>$response)));
         }
         break;
     case 7:

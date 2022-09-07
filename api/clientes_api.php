@@ -5,7 +5,7 @@ include "../clases/contactos_class.php";
 
 $client = new Clientes();
 //$form = $client->mis->getFormValues($_POST);
-$api = 2;//$form['api'];
+$api = $_POST['api'];//$form['api'];
 
 switch($api){
     //insertar un nuevo cliente
@@ -14,7 +14,7 @@ switch($api){
         //$form = $client->mis->getFormValues($_POST);
         $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
         $return = $client->insert($newClient);
-        
+
         if($return>=1){
             echo json_encode(array("response"=>array("code"=>1,"msj"=>"¡Cliente agregado!")));
         }else{
@@ -61,7 +61,7 @@ switch($api){
     case 4:
         $form = $client->mis->getFormValues($_POST);
         $return = $client->update($values);
-        
+
         if($return>=1){
             echo json_encode(array("response"=>array("code"=>1,"msj"=>"Información del cliente actualizada.")));
         }else{
@@ -76,6 +76,16 @@ switch($api){
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
         }
         break;
+    case 6:
+        //Obtener cliente por codigo
+        $response = $client->getByCodigo($_POST['id']);
+        if(is_array($response)){
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        }else{
+            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+        }
+
+    break;
 }
 
 ?>

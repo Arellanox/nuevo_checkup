@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-12 col-lg-4">
                 <label  class="form-label">Procedencia</label>
-                <input type="text" readonly value="SLCHUMBERGER" class="input-form">
+                <input type="text" readonly value="Cargando..." class="input-form" id="procedencia-preregistro">
             </div>
             <div class="col-12 col-lg-4">
               <label for="segmento" class="form-label">Segmentos</label>

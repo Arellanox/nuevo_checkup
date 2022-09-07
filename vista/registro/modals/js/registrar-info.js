@@ -1,3 +1,9 @@
+const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
+modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
+  getSegmentoByProcedencia(array_selected['response']['data'][0]['ID_CLIENTE'], "segmentos_procedencias");
+})
+
+
 //Formulario de Preregistro
 $("#formRegistrarPaciente").submit(function(event){
    event.preventDefault();
@@ -6,7 +12,7 @@ $("#formRegistrarPaciente").submit(function(event){
    var formData = new FormData(form);
    formData.set('foto', null);
    formData.set('api', 1);
-   console.log(formData);
+   // console.log(formData);
 
    Swal.fire({
       title: '¿Está seguro que todos sus datos estén correctos?',
@@ -31,39 +37,14 @@ $("#formRegistrarPaciente").submit(function(event){
           success: function(data) {
             data = jQuery.parseJSON(data);
             console.log(data);
-            switch (data['response']['code']) {
-              case 1:
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Su información ha sido registrada :)',
-                  timer: 2000
-                });
-                document.getElementById("formRegistrarPaciente").reset();
-                $("#ModalRegistrarPaciente").modal('hide');
-              break;
-              case 2:
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: '¡Ha ocurrido un error!',
-                   footer: 'Codigo: '+data['response']['msj']
-                })
-              break;
-              case "repetido":
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: '¡Usted ya está registrado!',
-                   footer: 'Utilice su CURP para registrarse en una nueva prueba'
-                })
-              break;
-              default:
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: 'Hubo un problema!',
-                   footer: 'Reporte este error con el personal :)'
-                })
+            if (mensajeAjax(data)) {
+              Toast.fire({
+                icon: 'success',
+                title: 'Su información ha sido registrada :)',
+                timer: 2000
+              });
+              document.getElementById("formRegistrarPaciente").reset();
+              $("#ModalRegistrarPaciente").modal('hide');
             }
           },
         });

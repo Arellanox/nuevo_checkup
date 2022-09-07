@@ -107,8 +107,7 @@ class Usuarios extends Master implements iMetodos{
         $conn = $this->master->connectDb();
         $activo = 1;
         $bloqueado = 0;
-        $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE usuario = ? and activo = ? and bloqueado = ?");
-
+        $stmt = $conn->prepare("SELECT * FROM $this->tabla WHERE BINARY usuario = ? and activo = ? and bloqueado = ?");
         $error_tipo_dato = $this->master->mis->validarDatos(array($user),array(),array(0),array(),array());
 
         if(count($error_tipo_dato)>0){
@@ -125,7 +124,7 @@ class Usuarios extends Master implements iMetodos{
         }
 
         $result = $stmt->fetchAll();
-
+        // print_r($user);
         if(count($result)>0){
             if(password_verify($password,$result[0]['CONTRASENIA'])){
                 session_start();
