@@ -22,7 +22,22 @@ switch ($api) {
         $response = $precio->getAll();
 
         if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+            $dataset = array();
+            foreach($response as $data){
+                $cliente = new Clientes();
+                $servicio = new Servicios();
+
+                $labelCliente = $cliente->getById($data['CLIENTE_ID']);
+                $labelServicio = $servicio->getById($data['SERVICIO_ID']);
+
+                $data['CLIENTE'] = $labelCliente;
+                $data[] = $labelCliente;
+                $data['SERVICIO'] = $labelServicio;
+                $data[] = $labelServicio;
+
+                $dataset[] = $data;
+            }
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$dataset)));
         } else {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
@@ -30,7 +45,22 @@ switch ($api) {
     case 3:
         $response = $precio->getById(1);
         if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+            $dataset = array();
+            foreach($response as $data){
+                $cliente = new Clientes();
+                $servicio = new Servicios();
+
+                $labelCliente = $cliente->getById($data['CLIENTE_ID']);
+                $labelServicio = $servicio->getById($data['SERVICIO_ID']);
+
+                $data['CLIENTE'] = $labelCliente;
+                $data[] = $labelCliente;
+                $data['SERVICIO'] = $labelServicio;
+                $data[] = $labelServicio;
+
+                $dataset[] = $data;
+            }
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$dataset)));
         } else {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
