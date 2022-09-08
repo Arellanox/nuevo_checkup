@@ -34,6 +34,6 @@ $menu = $_POST['menu'];
   // <!-- Aqui controlar e incluir los tablas -->
   $.getScript('contenido/controlador.js');
 
-  array_user = '<?php print_r($_SESSION[]); ?>';
+
 
 </script>
