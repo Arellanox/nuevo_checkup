@@ -2,6 +2,9 @@
 //Variables dinamicas;
 include "../variables.php";
 $menu = "Login";
+session_start();
+session_unset();
+session_destroy();
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -15,9 +18,6 @@ $menu = "Login";
      function vista(menu, url){
        $.post(url, {menu: menu}, function(html){
           $("#body-controlador").html(html);
-
-
-
      	 });
      }
  </script>

@@ -1,4 +1,9 @@
 
+// login
+// verificarLogin(session['id']);
+
+
+
 //Para el campo de preregistro
 function deshabilitarVacunaExtra(vacuna, div){
   if(vacuna!="OTRA"){
@@ -35,7 +40,7 @@ function getSegmentoByProcedencia(id, select){
     select.remove(length);
   }
   $.ajax({
-    url: "http://localhost/nuevo_checkup/api/dependencias_api.php",
+    url: "http://localhost/nuevo_checkup/api/segmentos_api.php",
       type: "POST",
       data:{id: id,api:6},
     success: function(data) {
@@ -43,9 +48,9 @@ function getSegmentoByProcedencia(id, select){
       console.log(data);
       if (mensajeAjax(data)) {
         if (data['response']['data'].length >0) {
-          for (var i = 0; i < data.length; i++) {
+          for (var i = 0; i < data['response']['data'].length; i++) {
             var content = data['response']['data'][i]['DESCRIPCION'];
-            var value = data['response']['data'][i][1];
+            var value = data['response']['data'][i]['ID_SEGMENTOS'];
             var el = document.createElement("option");
             el.textContent = content;
             el.value = value;
@@ -74,15 +79,16 @@ function getProcedencias(select){
   $.ajax({
     url: "http://localhost/nuevo_checkup/api/clientes_api.php",
     type: "POST",
+    data:{api:2},
     success: function(data) {
       var data = jQuery.parseJSON(data);
-      for (var i = 0; i < data.length; i++) {
+      for (var i = 0; i < data['response']['data'].length; i++) {
         var content = data['response']['data'][i]['NOMBRE_COMERCIAL'];
-        var value = data['response']['data'][i][1];
+        var value = data['response']['data'][i]['ID_CLIENTE'];
         var el = document.createElement("option");
         el.textContent = content;
         el.value = value;
-        selectoption.appendChild(el);
+        select.appendChild(el);
       }
     }
   })
@@ -124,11 +130,20 @@ $( window ).on( 'hashchange', function( e ) {
     var hash = window.location.hash.substring(1);
     switch (hash) {
       case 'LogOut':
-        window.location.href = 'http://localhost/nuevo_checkup/vista/login/';
+        window.location.hash = '';
+        window.location.href = 'http://localhost/nuevo_checkup/vista/login/?page='+window.location;
       break;
       default:  break;
     }
 } );
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 
 function loader(fade){
   if (fade == 'Out') {

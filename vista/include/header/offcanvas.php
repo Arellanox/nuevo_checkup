@@ -8,7 +8,7 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <hr>
-    <span class="fs-4 text-center">Bienvenido | @Nombre</span>
+    <span class="fs-4 text-center" id="bienvenida-user">Bienvenido | <?php echo $_SESSION['nombre'] ?></span>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto dropdown-lu">
       <?php // navlink-normales
@@ -20,7 +20,7 @@
     <div class="dropdown">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-person-circle" style="zoom:110%; margin-right:30px;"></i>
-        <strong>Perfil</strong>
+        <strong><?php echo $_SESSION['user'] ?></strong>
       </a>
       <ul class="dropdown-menu text-small shadow bg-navbar-drop" aria-labelledby="dropdownUser1">
         <?php include "navbar-menu/navlink-dropuser.php"; ?>

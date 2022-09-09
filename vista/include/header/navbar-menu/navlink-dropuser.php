@@ -1,4 +1,4 @@
-<?php if (true): ?>
+<?php if ($_SESSION['perfil'] == 1): ?>
   <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-admin" aria-expanded="false">
     <i class="bi bi-person-check"></i> Adminitración
   </a>
@@ -8,6 +8,6 @@
       <li><a href="<?php echo $https.$url.'/nuevo_checkup/vista/menu/administracion/#Servicios'; ?>" class="dropdown-a"><i class="bi bi-dot"></i> Servicios</a></li>
     </ul>
   </div>
+  <li><hr class="dropdown-divider"></li>
 <?php endif; ?>
-<li><hr class="dropdown-divider"></li>
 <a href="#LogOut" class="dropdown-a"><i class="bi bi-box-arrow-up"></i> Cerrar Sesión</a>

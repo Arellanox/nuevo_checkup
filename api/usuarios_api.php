@@ -106,6 +106,14 @@ switch ($api) {
         } else {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
+        break;
+    case 8:
+        $response = $usuario->validarUsuario($_POST['id']);
+        if ($response != 0) {
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        } else {
+            echo json_encode(array("response"=>array("code"=>2,"data"=>$response)));
+        }
 
     default:
         # code...

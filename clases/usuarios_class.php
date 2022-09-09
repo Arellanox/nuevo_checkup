@@ -131,7 +131,40 @@ class Usuarios extends Master implements iMetodos{
                 $_SESSION['id'] = $result[0]['ID_USUARIO'];
                 $_SESSION['nombre'] = $result[0]['NOMBRE'];
                 $_SESSION['apellidos'] = $result[0]['PATERNO']." ".$result[0]['MATERNO'];
+                $_SESSION['user'] = $result[0]['USUARIO'];
                 $_SESSION['perfil'] = $result[0]['TIPO_ID'];
+
+                //Permisos
+                $sql = "SELECT pertip.DESCRIPCION, permisos.activo
+                        FROM usuarios_permisos as permisos
+                        LEFT JOIN permisos as pertip ON pertip.ID_PERMISO = permisos.PERMISO_ID
+                        WHERE permisos.USUARIO_ID = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(1,$_SESSION['id']);
+                $stmt->execute();
+                $permisos = array();
+                $result = $stmt->fetchAll();
+                for ($i=0; $i < count($result); $i++) {
+                  $permisos[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+                }
+                $_SESSION['permisos'] = $permisos;
+
+                // Areas
+                $sql = "SELECT areatip.DESCRIPCION, area.activo
+                        FROM usuarios_areas as area
+                        LEFT JOIN areas as areatip ON areatip.ID_AREA = area.AREA_ID
+                        WHERE area.USUARIO_ID = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(1,$_SESSION['id']);
+                $stmt->execute();
+                $vista = array();
+                $result = $stmt->fetchAll();
+                for ($i=0; $i < count($result); $i++) {
+                  $vista[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+                }
+                $_SESSION['vista'] = $vista;
+
+
                 return $_SESSION;
             } else {
                 return "Oops! Tu contraseña es incorrecta.";
@@ -169,6 +202,25 @@ class Usuarios extends Master implements iMetodos{
           }
           // $response = $this->master->delete($this->tabla,$this->getAttributes(),$id);
           return 1;
+    }
+
+    function validarUsuario($id){
+          $conn = $this->master->connectDb();
+          $sql = "SELECT TIPO_ID FROM $this->tabla WHERE ID_USUARIO = ?";
+          $stmt = $conn -> prepare ($sql);
+          $stmt ->bindParam(1, $id);
+          if (!$stmt->execute()) {
+            return "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
+          }
+          $result = $stmt->fetchAll();
+          if (count($result)>0) {
+            return $result[0]['TIPO_ID'];
+          }else{
+            session_start();
+            session_unset();
+            session_destroy();
+            return 0;
+          }
     }
 }
 ?>

@@ -33,3 +33,6 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $.getScript('http://localhost/nuevo_checkup/vista/include/modal/js/registrar-paciente.js');
+</script>

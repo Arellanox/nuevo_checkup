@@ -124,7 +124,7 @@ class Segmentos extends Master implements iMetodos{
         $stmt->bindParam(1,$cliente);
 
         if (!$stmt->execute()) {
-            return "Error al recuperar los segmentos.";
+            return "Ha ocurrido un error(".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
         }
 
         return $stmt->fetchAll();

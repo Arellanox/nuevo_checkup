@@ -10,7 +10,6 @@ $api = $_POST['api'];//$form['api'];
 switch($api){
     //insertar un nuevo cliente
     case 1:
-        echo "caso 1";
         //$form = $client->mis->getFormValues($_POST);
         $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
         $return = $client->insert($newClient);

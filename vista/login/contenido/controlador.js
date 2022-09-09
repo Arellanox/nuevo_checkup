@@ -21,7 +21,14 @@ function obtenerContenido(tabla){
             data = jQuery.parseJSON(data);
             console.log(data);
             if (mensajeAjax(data)) {
-              window.location.href = '../menu/recepcion/index.php';
+              const queryString = window.location.search;
+              const urlParams = new URLSearchParams(queryString);
+              const page = urlParams.get('page')
+              if (page) {
+                $(location).attr('href', page);
+              }else{
+                $(location).attr('href', 'http://localhost/nuevo_checkup/vista/menu/recepcion/');
+              }
             }
           },
         });

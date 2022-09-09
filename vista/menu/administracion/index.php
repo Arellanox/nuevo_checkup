@@ -1,6 +1,7 @@
 <?php
 //Variables dinamicas;
 
+session_start();
 include "../../variables.php";
 $menu = "Usuarios";
  ?>
@@ -18,5 +19,9 @@ $menu = "Usuarios";
           $("#body-controlador").html(html);
      	 });
      }
+     // Verificar logeo :)
+     $.getScript('<?php echo $https.$url.'/nuevo_checkup/vista/login/contenido/verificar.js';?>' ).done(function(){
+       logginAdmin();
+     });
  </script>
 </html>

@@ -1,6 +1,6 @@
 <?php
 $menu = $_POST['menu'];
-
+session_start();
 
 ?>
 
@@ -16,6 +16,7 @@ $menu = $_POST['menu'];
   var array_user;
   // <!-- Aqui controlar e incluir las modals -->
   $.getScript('http://localhost/nuevo_checkup/vista/menu/controlador/funciones.js');
+
 
   obtenerHeader('<?php echo $menu ?>');
   function obtenerHeader(menu){
@@ -34,6 +35,7 @@ $menu = $_POST['menu'];
   // <!-- Aqui controlar e incluir los tablas -->
   $.getScript('contenido/controlador.js');
 
-
-
+  session = <?php echo json_encode($_SESSION); ?>;
+  console.log(session);
+  // console.log(session);
 </script>

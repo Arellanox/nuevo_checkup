@@ -1,4 +1,5 @@
 <?php $menu = $_POST['menu'];
+session_start();
 ?>
 <?php switch ($menu) {
   case 'Preregistro':

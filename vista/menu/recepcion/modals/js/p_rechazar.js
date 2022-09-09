@@ -25,6 +25,7 @@ $("#formRechazarPaciente").submit(function(event){
        if (mensajeAjax(data)) {
          // Mensaje
        }
+     }
    });
    event.preventDefault();
  });

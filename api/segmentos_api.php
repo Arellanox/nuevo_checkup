@@ -64,7 +64,7 @@ switch($api){
     case 6:
         # Llenar el select de los segmentos que le pertenecen al cliente seleccionado
 
-        $response = $segmento->fillSelect(2); #2 es el id del cliente
+        $response = $segmento->fillSelect($_POST['id']); #2 es el id del cliente
 
         if(is_array($response)){
             echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
