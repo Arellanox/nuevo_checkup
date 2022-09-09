@@ -6,7 +6,7 @@ include "../clases/segmentos_class.php";
 // Creamos un objeto de segmentos para trabajar con él.
 $segmento = new Segmentos();
 
-$api = 5;
+$api = 6;
 
 switch($api){
     // Insertar segmentos
@@ -59,6 +59,17 @@ switch($api){
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$deleted)));
         } else {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$deleted)));
+        }
+        break;
+    case 6:
+        # Llenar el select de los segmentos que le pertenecen al cliente seleccionado
+
+        $response = $segmento->fillSelect(2); #2 es el id del cliente
+
+        if(is_array($response)){
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        } else {
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
 }

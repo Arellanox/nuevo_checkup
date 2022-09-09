@@ -118,21 +118,7 @@ class Segmentos extends Master implements iMetodos{
         $conn = $this->master->connectDb();
         $newArray = array();
         $activo = 1;
-        $sql = 'with recursive segmentos_path(id,segmento,path,seleccionable,cliente) as
-        (
-            select s.id_segmento, s.DESCRIPCION, cast(s.id_segmento as char(200)), "0" as seleccionable,d.CLIENTE_ID
-            from segmentos as s
-            left join dependencias_segmentos as d on d.segmento_id=s.id_segmento
-            where s.padre is null and s.ACTIVO=1 and d.ACTIVO=1
-            union all
-            select e.id_segmento,concat(p.segmento,"-",e.descripcion),concat(p.path,",",e.id_segmento), 
-            if((select count(*) from segmentos where activo=1 and padre=e.id_segmento)>0, 0,1), d.CLIENTE_ID
-            from segmentos_path as p
-            join segmentos as e on e.padre=p.id
-            left join dependencias_segmentos as d on d.SEGMENTO_ID=p.id
-            where d.ACTIVO=1
-        )
-        select * from segmentos_path where seleccionable=1 and cliente=?';
+        $sql = 'call fillSelect_segmentos(?)';
 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(1,$cliente);
