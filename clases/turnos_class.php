@@ -24,11 +24,11 @@ class Turnos extends Master implements iMetodos{
     function Turnos(){
         $this->master = new Master();
         $this->tabla = "turnos";
-        $this->public_attributes = 9;
+        $this->public_attributes = 10;
         $this->intergers = array(0,4);
         $this->strings = array(1,2,3,5,6);
         $this->doubles = array(7);
-        $this->nulls = array(3);
+        $this->nulls = array(3,5);
         $this->intergers_update = array(0,4,8);
     }
 

@@ -1,5 +1,5 @@
 <?php
-include "master_class.php";
+include_once "master_class.php";
 
 class Pacientes extends Master implements iMetodos{
     public $id_paciente;//24
