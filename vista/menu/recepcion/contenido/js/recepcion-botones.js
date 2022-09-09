@@ -1,5 +1,5 @@
 $("#btn-aceptar").click(function(){
-  if (array_paciente !=null) {
+  if (array_selected !=null) {
     $("#modalPacienteAceptar").modal('show');
   }else{
     alertSelectTable();
@@ -7,7 +7,7 @@ $("#btn-aceptar").click(function(){
 })
 
 $("#btn-rechazar").click(function(){
-  if (array_paciente !=null) {
+  if (array_selected !=null) {
     $("#modalPacienteRechazar").modal('show');
   }else{
     alertSelectTable();
@@ -15,7 +15,7 @@ $("#btn-rechazar").click(function(){
 })
 
 $("#btn-editar").click(function(){
-  if (array_paciente !=null) {
+  if (array_selected !=null) {
     $("#ModalEditarPaciente").modal('show');
   }else{
     alertSelectTable();
@@ -23,7 +23,7 @@ $("#btn-editar").click(function(){
 })
 
 $("#btn-perfil").click(function(){
-  if (array_paciente !=null) {
+  if (array_selected !=null) {
     $("#modalPacientePerfil").modal('show');
   }else{
     alertSelectTable();

@@ -46,7 +46,7 @@ $("#formEditarUsuario").submit(function(event){
      contentType: false,
      success: function(data) {
        data = jQuery.parseJSON(data);
-       console.log(data);
+       // console.log(data);
        if (mensajeAjax(data)) {
          Toast.fire({
            icon: 'success',
