@@ -56,8 +56,8 @@ class UsuariosAreas extends Master implements iMetodos{
             $response = $this->delete($values);
         } else {
             $response = $this->master->insert($this->tabla,$this->getAttributes(),$values,$this->intergers,$this->strings,$this->doubles,$this->nulls);
-        }
-
+        }          
+        
         return $response;
     }
 
@@ -79,7 +79,7 @@ class UsuariosAreas extends Master implements iMetodos{
     function delete($values){
         $conn = $this->master->connectDb();
         $sql = "UPDATE $this->tabla SET activo=? WHERE usuario_id=? and area_id=?";
-        $stmt = $conn->prepare($sql);
+        $stmt = $conn->prepare($stmt);
         $stmt->bindParam(1,$values[2]);
         $stmt->bindParam(2,$values[0]);
         $stmt->bindParam(3,$values[1]);
@@ -93,7 +93,7 @@ class UsuariosAreas extends Master implements iMetodos{
         $conn = $this->master->connectDb();
         $sql = "SELECT * FROM $this->tabla WHERE usuario_id=? and activo=?";
         $activo = 1;
-
+        
         $stmt = $conn->prepare($sql);
 
         $stmt->bindParam(1,$usuario);

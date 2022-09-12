@@ -1,13 +1,12 @@
 const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
 modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
   getProcedencias("listProcedencia");
-    var procedencia = $("#listProcedencia option:selected").val();
-  getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
+  // getSegmentoByProcedencia(procedencia, "segmentos_procedencias");
 })
 // Lista de segmentos dinamico
 $('#listProcedencia').on('change', function() {
   var procedencia = $("#listProcedencia option:selected").val();
-  getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
+  getSegmentoByProcedencia(procedencia, "segmentos_procedencias");
 });
 
 //Formulario de Preregistro

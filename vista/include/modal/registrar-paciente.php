@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 col-lg-4">
               <label for="segmento" class="form-label">Segmentos</label>
-              <select name="segmento" id="segmentos_procedencias-menu" class="input-form" required >
+              <select name="segmento" id="segmentos_procedencias" class="input-form" required >
                 <!-- <option value="4">WCE-GAVSA</option> -->
               </select>
             </div>

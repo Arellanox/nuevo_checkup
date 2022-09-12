@@ -22,7 +22,7 @@
     </a>
   </li>
 <?php endif; ?>
-<?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1): ?>
+<?php if ($menu == "Usuarios" || $_SESSION['perfil'] == 1): ?>
   <li class="nav-item">
     <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarCargo">
       <i class="bi bi-briefcase"></i> Nuevo cargo
