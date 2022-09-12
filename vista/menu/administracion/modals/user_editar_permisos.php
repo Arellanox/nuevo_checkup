@@ -8,6 +8,7 @@
       <div class="modal-body">
         <form class="bg-acordion" id="formEditarUsuario">
           <p class="text-center">Actualice la información del usuario</p>
+          <p class="text-center">Seleccione la casilla que desee <strong>activar</strong> o <strong>desactivar</strong> de forma automatica</p>
           <div class="row" id="checkboxPermisos">
 
           </div>

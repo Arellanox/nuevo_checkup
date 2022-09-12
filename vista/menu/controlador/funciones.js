@@ -45,12 +45,12 @@ function getSegmentoByProcedencia(id, select){
       data:{id: id,api:6},
     success: function(data) {
       var data = jQuery.parseJSON(data);
-      console.log(data);
+      // console.log(data);
       if (mensajeAjax(data)) {
         if (data['response']['data'].length >0) {
           for (var i = 0; i < data['response']['data'].length; i++) {
-            var content = data['response']['data'][i]['DESCRIPCION'];
-            var value = data['response']['data'][i]['ID_SEGMENTOS'];
+            var content = data['response']['data'][i]['segmento'];
+            var value = data['response']['data'][i]['id'];
             var el = document.createElement("option");
             el.textContent = content;
             el.value = value;
@@ -67,6 +67,8 @@ function getSegmentoByProcedencia(id, select){
       }
     }
   });
+
+  return 1;
 }
 
 // Obtener procedencias en select

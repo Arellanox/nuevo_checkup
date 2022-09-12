@@ -3,12 +3,13 @@ include "../interfaces/iMetodos.php";
 include "../clases/usuarios_areas_class.php";
 
 $areas = new UsuariosAreas();
-$api = 3;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
-        $newRecord = array(1,1);
-        $response = $areas->insert($newRecord);
+        $array_slice = array_slice($_POST,0,2);
+        $a = $areas->master->mis->getFormValues($array_slice);
+        $response = $areas->insert($a);
 
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
@@ -44,6 +45,8 @@ switch ($api) {
         }
         break;
     case 5:
+        $array_slice = array_slice($_POST,0,3);
+        $values = $areas->master->mis->getFormValues($array_slice);
         $response = $areas->delete($values);
 
         if(is_numeric($response)){
@@ -54,15 +57,15 @@ switch ($api) {
         break;
     case 6:
         # Recuperar las áreas asignadas a al usuario seleccionado.
-        $response = $areas->getAreasByUsuario($usuario);
-        
+        $response = $areas->getAreasByUsuario($_POST['id']);
+
         if(is_array($response)){
             echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
         } else {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
-    
+
     default:
         # code...
         break;

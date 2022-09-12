@@ -24,7 +24,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php  for ($i=1; $i <= 11; $i++) { ?>
+      <?php  for ($i=1; $i <= 40; $i++) { ?>
         <tr id="<?php echo "row_".$i; ?>">
             <th><?php echo $i ?></th>
             <td> CUEVAS GONZÁLEZ LUIS GERARDO </td>
