@@ -97,6 +97,7 @@ switch ($api) {
         } else {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
+        break;
 
 
     default:

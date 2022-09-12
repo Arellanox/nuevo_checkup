@@ -36,6 +36,5 @@ session_start();
   $.getScript('contenido/controlador.js');
 
   session = <?php echo json_encode($_SESSION); ?>;
-  console.log(session);
   // console.log(session);
 </script>

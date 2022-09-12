@@ -4,7 +4,7 @@ include "../clases/areas_class.php";
 include "../clases/usuarios_class.php";
 
 $area = new Areas();
-$api = 5;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
@@ -67,7 +67,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
-    
+
     default:
         # code...
         break;
