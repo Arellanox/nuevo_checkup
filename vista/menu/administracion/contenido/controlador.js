@@ -8,15 +8,15 @@ function obtenerContenidoUsuarios() {
   obtenerTitulo("Usuarios"); //Aqui mandar el nombre de la area
   $.post("contenido/usuarios.php", function (html) {
     var idrow;
-    $("#body-js").html(html);
-    // Datatable
-    $.getScript("contenido/js/usuario-tabla.js");
-    // Botones
-    $.getScript("contenido/js/usuario-botones.js");
+     $("#body-js").html(html);
+     // Datatable
+     $.getScript("contenido/js/usuario-tabla.js");
+     // Botones
+     $.getScript("contenido/js/usuario-botones.js");
   });
 }
 
-function obtenerContenidoServicios(tabla, titulo) {
+function obtenerContenidoServicios(tabla, titulo){
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/servicios.php", function (html) {
     var idrow;

@@ -1,7 +1,7 @@
 const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
 modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
   getProcedencias("listProcedencia");
-    var procedencia = $("#listProcedencia option:selected").val();
+  var procedencia = $("#listProcedencia option:selected").val();
   getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
 })
 // Lista de segmentos dinamico
@@ -41,31 +41,14 @@ $("#formRegistrarPaciente").submit(function(event){
           contentType: false,
           success: function(data) {
             data = jQuery.parseJSON(data);
-            switch (data['codigo'] == 1) {
-              case 1:
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Su información a sido registrada :)',
-                  timer: 2000
-                });
-                document.getElementById("formRegistrarPaciente").reset();
-                $("#ModalRegistrarPaciente").modal('hide');
-              break;
-              case "repetido":
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: '¡Usted ya está registrado!',
-                   footer: 'Utilice su CURP para registrarse en una nueva prueba'
-                })
-              break;
-              default:
-                Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: 'Hubo un problema!',
-                   footer: 'Reporte este error con el personal :)'
-                })
+            if (mensajeAjax(data)) {
+              Toast.fire({
+                icon: 'success',
+                title: 'Su información a sido registrada :)',
+                timer: 2000
+              });
+              document.getElementById("formRegistrarPaciente").reset();
+              $("#ModalRegistrarPaciente").modal('hide');
             }
           },
         });

@@ -130,5 +130,9 @@ class Segmentos extends Master implements iMetodos{
         return $stmt->fetchAll();
     }
 
+
+    function insertArraySegmento($values){
+      
+    }
 }
 ?>

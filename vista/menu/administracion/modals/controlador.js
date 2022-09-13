@@ -11,25 +11,3 @@ $.post("modals/a_modals.php", function(html){
    // Modal para registrar cargo
    $.getScript('modals/js/cargo_crear.js');
 });
-
-
-
-
-// $('input[type=checkbox]').click(function() {
-//   if (!$(this).is(':checked')) {
-//     return confirm("Are you sure?");
-//   }
-// });
-
-function cambioPermisos(id, permiso){
-  alert(id);
-  // $.ajax({
-  //   url: '../../../api/??',
-  //   data:{api: 0},
-  //   type: "POST",
-  //   success: function(data) {
-  //
-  //     }
-  //   }
-  // })
-}

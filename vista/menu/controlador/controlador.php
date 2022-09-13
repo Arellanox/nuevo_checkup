@@ -14,6 +14,8 @@ session_start();
   //Variable global para datatable
   var array_selected;
   var array_user;
+  let http = "http://";
+  let servidor = "localhost";
   // <!-- Aqui controlar e incluir las modals -->
   $.getScript('http://localhost/nuevo_checkup/vista/menu/controlador/funciones.js');
 

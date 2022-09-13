@@ -79,7 +79,7 @@ function getProcedencias(select){
     select.remove(length);
   }
   $.ajax({
-    url: "http://localhost/nuevo_checkup/api/clientes_api.php",
+    url: http+servidor+"/nuevo_checkup/api/clientes_api.php",
     type: "POST",
     data:{api:2},
     success: function(data) {
@@ -104,6 +104,7 @@ function rellenarSelect(select, api, num){
     select.remove(length);
   }
   ajaxSelect(select, api, num);
+  return 1;
 }
 
 function ajaxSelect(select, api, num){
@@ -125,6 +126,7 @@ function ajaxSelect(select, api, num){
       }
     }
   })
+  return 1;
 }
 
 
@@ -201,6 +203,7 @@ function mensajeAjax(data){
          footer: 'Reporte este error con el personal :)'
       })
   }
+  return 0;
 }
 
 function selectDatatable(tablename, datatable){

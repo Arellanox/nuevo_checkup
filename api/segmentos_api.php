@@ -6,8 +6,6 @@ include "../clases/dependencias_class.php";
 // CAMBIAR LOS PARAMETROS DE LAS FUNCIONES PORQUE ESTAN FIJOS Y NO DINAMICOS
 // Creamos un objeto de segmentos para trabajar con él.
 $segmento = new Segmentos();
-$clientes = new Clientes();
-$dependencias = new Dependencias();
 
 $api = $_POST['api'];
 
@@ -29,21 +27,23 @@ switch ($api) {
             $completeSgm = array();
             $i = 1;
             foreach ($segmentos as $sgm) {
+                $clientes = new Clientes();
+                $dependencias = new Dependencias();
                 //$sgmPadre = $segmento->getById($segmento["PADRE"]);
                 //$smgDes = $segmento->getById($segmento["DESCRIPCION"]);
-                //$jsondependecias = $dependencias->getById($sgm["ID_SEGMENTO"]);
-                // $jsoncliente = $clientes->getById($jsondependecias[0]["CLIENTES_ID"]);
+                $jsondependecias = $dependencias->getById($sgm["ID_SEGMENTO"]);
+                // print_r($jsondependecias);
+                // $jsoncliente = $clientes->getById($jsondependecias[0]["CLIENTE_ID"]);
                 if ($sgm['PADRE'] != null) {
-
                     $array = $segmento->getById($sgm['PADRE']);
                 } else {
                     $array = array(array('DESCRIPCION' => ''));
                 }
-                if ($jsondependecias[0]['CLIENTES_ID'] != null) {
-
-                    $jsoncliente = $clientes->getById($jsondependecias[0]["CLIENTES_ID"]);
+                echo count($jsondependecias);
+                if (count($jsondependecias)>0) {
+                    $jsoncliente = $clientes->getById($jsondependecias[0]["CLIENTE_ID"]);
                 } else {
-                    $jsoncliente = array(array('CLIENTES_ID' => ''));
+                    $jsoncliente = array(array('NOMBRE_COMERCIAL' => ''));
                 }
                 $sgm[] = $array;
                 $sgm[] = $jsoncliente;

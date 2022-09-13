@@ -32,5 +32,4 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
   ],
 
 })
-// setTimeout(function(){loader("In")}, 500);
 selectDatatable("TablaUsuariosAdmin", tablaUsuarios)

@@ -25,7 +25,7 @@ var tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
     { data: "count" },
     { data: "DESCRIPCION" },
     { data: "4.0.DESCRIPCION" },
-    { data: "ACTIVO" },
+    { data: "5.0.NOMBRE_COMERCIAL" },
 
     // {defaultContent: 'En progreso...'}
   ],

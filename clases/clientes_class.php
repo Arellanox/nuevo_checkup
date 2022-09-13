@@ -18,7 +18,7 @@ class Clientes extends Master implements iMetodos{
     public $instagram;//12
     public $activo;
     private $tabla;
-    private $master;
+    public $master;
     private $public_attributes;
     public $intergers;
     public $strings;

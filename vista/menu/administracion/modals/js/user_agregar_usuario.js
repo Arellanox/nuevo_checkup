@@ -13,7 +13,6 @@ $("#formRegistrarUsuario").submit(function(event){
    var form = document.getElementById("formRegistrarUsuario");
    var formData = new FormData(form);
    formData.set('api', 1);
-   console.log(formData);
 
    Swal.fire({
       title: '¿Está seguro que todos los datos están correctos?',

@@ -8,7 +8,7 @@ class Dependencias extends Master implements iMetodos{
     public $activo;
     private $tabla;
     private $public_attributes;
-    private $master;
+    public $master;
     private $intergers;
     private $intergers_update;
 

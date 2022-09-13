@@ -46,7 +46,7 @@
               <div class="accordion-item bg-acordion">
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Historia Clinica Laboral
+                    Historia clínica laboral
                   </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionEstudios">
@@ -56,7 +56,7 @@
                             <div class="input-group mb-3">
                               <div class="input-group-text">
                                 <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="1" aria-label="Checkbox for following text input" id="checkClinica">
-                                <label class="d-flex justify-content-center" for="checkClinica">Historia Clinica Laboral</label>
+                                <label class="d-flex justify-content-center" for="checkClinica">Consultorio</label>
                               </div>
                             </div>
                           </div>
@@ -64,7 +64,7 @@
                             <div class="input-group mb-3">
                               <div class="input-group-text">
                                 <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="2" aria-label="Checkbox for following text input" id="checkMesometria">
-                                <label class="d-flex justify-content-center" for="checkMesometria">Mesometria</label>
+                                <label class="d-flex justify-content-center" for="checkMesometria">Mesometría</label>
                               </div>
                             </div>
                           </div>
@@ -77,7 +77,7 @@
               <div class="accordion-item bg-acordion">
                 <h2 class="accordion-header" id="headingTwo">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Vision
+                    Visión
                   </button>
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionEstudios">
@@ -108,7 +108,7 @@
               <div class="accordion-item bg-acordion">
                 <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    AUDICION
+                    Audición
                   </button>
                 </h2>
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionEstudios">
