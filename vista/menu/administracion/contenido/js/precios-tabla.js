@@ -1,11 +1,15 @@
-loader("In")
-var tablaServicio = $('#TablaServicioAdmin').DataTable({
+
+var tablaPrecio = $('#TablaPreciosServicios').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
   },
-  scrollY: "60vh",
+  searching: false,
+  lengthChange:false,
+  info: false,
+  scrollY: "50vh",
   scrollCollapse: true,
-  lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
+  lengthMenu: [[15, 20, 25, 30, 35, 40, 45, 50, -1], [15, 20, 25, 30, 35, 40, 45, 50, "All"]],
+
   // ajax: {
   //     dataType: 'json',
   //     data: {api: 2},
@@ -33,5 +37,5 @@ var tablaServicio = $('#TablaServicioAdmin').DataTable({
   ],
 
 })
-loader("Out")
-selectDatatable("TablaServicioAdmin", tablaServicio)
+
+selectDatatable("TablaPreciosServicios", tablaPrecio)

@@ -7,6 +7,8 @@
     <i class="bi bi-image"></i> Subir imagen
   </button>
 <?php endif; ?>
+
+
 <?php if ($menu == "Usuarios") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarUsuario">
     <i class="bi bi-person-plus-fill"></i> Agregar nuevo
@@ -15,11 +17,21 @@
     <i class="bi bi-list-nested"></i> Permisos y Cargos
   </button>
 <?php endif; ?>
+
+
 <?php if ($menu == "Preregistro") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">
     <i class="bi bi-person-plus-fill"></i> Registrar mi información
   </button>
 <?php endif; ?>
+
+
+<?php if ($menu == "Servicios") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarServicio">
+    <i class="bi bi-plus-square"></i> Agregar nuevo servicio
+  </button>
+<?php endif; ?>
+
 
 <?php if ($menu == "Segmentos") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarSegmentos">

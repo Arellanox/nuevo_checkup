@@ -23,7 +23,9 @@ function obtenerContenidoServicios(tabla, titulo){
     $("#body-js").html(html);
     // Datatable
     $.getScript("contenido/js/servicios-tabla.js");
+    $.getScript("contenido/js/precios-tabla.js");
     // Botones
+    $.getScript("contenido/js/servicios-botones.js");
   });
 }
 

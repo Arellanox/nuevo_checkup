@@ -26,9 +26,9 @@ switch ($api) {
         if (is_array($segmentos)) {
             $completeSgm = array();
             $i = 1;
+            $clientes = new Clientes();
+            $dependencias = new Dependencias();
             foreach ($segmentos as $sgm) {
-                $clientes = new Clientes();
-                $dependencias = new Dependencias();
                 //$sgmPadre = $segmento->getById($segmento["PADRE"]);
                 //$smgDes = $segmento->getById($segmento["DESCRIPCION"]);
                 $jsondependecias = $dependencias->getById($sgm["ID_SEGMENTO"]);
@@ -39,11 +39,11 @@ switch ($api) {
                 } else {
                     $array = array(array('DESCRIPCION' => ''));
                 }
-                echo count($jsondependecias);
+                 count($jsondependecias);
                 if (count($jsondependecias)>0) {
                     $jsoncliente = $clientes->getById($jsondependecias[0]["CLIENTE_ID"]);
                 } else {
-                    $jsoncliente = array(array('NOMBRE_COMERCIAL' => ''));
+                    $jsoncliente = array(array('NOMBRE_COMERCIAL' => "<span class='badge bg-danger'><stronge>Sin cliente</stronge></span>"));
                 }
                 $sgm[] = $array;
                 $sgm[] = $jsoncliente;
