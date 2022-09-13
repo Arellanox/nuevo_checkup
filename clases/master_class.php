@@ -26,7 +26,7 @@ class Master extends Miscelaneus{
         $dbname = "checkup";
         $username = "root";
         // $password = "bimo2022";
-        $password = "12345678";
+        $password = "Codito@123";
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
@@ -270,4 +270,3 @@ class Master extends Miscelaneus{
         return $string;
     }
 }
-?>

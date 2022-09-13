@@ -1,42 +1,57 @@
 //Menu predeterminado
-hasLocation()
-$( window ).on( 'hashchange', function( e ) {
+hasLocation();
+$(window).on("hashchange", function (e) {
   hasLocation();
 });
 // ObtenerTabla o cambiar
-function obtenerContenidoUsuarios(){
+function obtenerContenidoUsuarios() {
   obtenerTitulo("Usuarios"); //Aqui mandar el nombre de la area
-  $.post("contenido/usuarios.php", function(html){
+  $.post("contenido/usuarios.php", function (html) {
     var idrow;
-     $("#body-js").html(html);
-     // Datatable
-     $.getScript("contenido/js/usuario-tabla.js");
-     // Botones
-     $.getScript("contenido/js/usuario-botones.js");
-
+    $("#body-js").html(html);
+    // Datatable
+    $.getScript("contenido/js/usuario-tabla.js");
+    // Botones
+    $.getScript("contenido/js/usuario-botones.js");
   });
 }
 
-
-function obtenerContenidoServicios(tabla, titulo){
+function obtenerContenidoServicios(tabla, titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
-  $.post("contenido/servicios.php", function(html){
+  $.post("contenido/servicios.php", function (html) {
     var idrow;
-     $("#body-js").html(html);
-     // Datatable
-     $.getScript("contenido/js/servicios-tabla.js");
-     // Botones
-
+    $("#body-js").html(html);
+    // Datatable
+    $.getScript("contenido/js/servicios-tabla.js");
+    // Botones
   });
 }
 
+function obtenerContenidoSegmentos(titulo) {
+  obtenerTitulo(titulo); //Aqui mandar el nombre de la area
+  $.post("contenido/segmentos.php", function (html) {
+    var idrow;
+    $("#body-js").html(html);
+    // Datatable
+    $.getScript("contenido/js/segmentos-tabla.js");
+    // Botones
+  });
+}
 
-function hasLocation(){
+function hasLocation() {
   var hash = window.location.hash.substring(1);
   switch (hash) {
-    case "Usuarios": obtenerContenidoUsuarios('usuario.php', 'Usuarios'); break;
-    case "Servicios": obtenerContenidoServicios('servicios.php', 'Servicios'); break;
-    case "Segmentos": obtenerContenidoSegmentos('servicios.php', 'Servicios'); break;
-    default: obtenerContenidoUsuarios('usuario.php', 'Usuarios'); break;
+    case "Usuarios":
+      obtenerContenidoUsuarios("usuario.php", "Usuarios");
+      break;
+    case "Servicios":
+      obtenerContenidoServicios("servicios.php", "Servicios");
+      break;
+    case "Segmentos":
+      obtenerContenidoSegmentos("Segmentos");
+      break;
+    default:
+      obtenerContenidoUsuarios("usuario.php", "Usuarios");
+      break;
   }
 }

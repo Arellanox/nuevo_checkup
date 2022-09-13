@@ -1,5 +1,5 @@
 <?php $menu = $_POST['menu']; ?>
-<?php if ($menu == "Recepción" || $menu == "Laboratorio"): ?>
+<?php if ($menu == "Recepción" || $menu == "Laboratorio") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
     <i class="bi bi-pencil-square"></i> Editar paciente
   </button>
@@ -7,16 +7,22 @@
     <i class="bi bi-image"></i> Subir imagen
   </button>
 <?php endif; ?>
-<?php if ($menu == "Usuarios"): ?>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarUsuario" >
+<?php if ($menu == "Usuarios") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarUsuario">
     <i class="bi bi-person-plus-fill"></i> Agregar nuevo
   </button>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalMostrarPermisosCargos" >
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalMostrarPermisosCargos">
     <i class="bi bi-list-nested"></i> Permisos y Cargos
   </button>
 <?php endif; ?>
-<?php if ($menu == "Preregistro"): ?>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente" >
+<?php if ($menu == "Preregistro") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">
     <i class="bi bi-person-plus-fill"></i> Registrar mi información
+  </button>
+<?php endif; ?>
+
+<?php if ($menu == "Segmentos") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarSegmentos">
+    <i class="bi bi-plus-square"></i> Agregar nuevo segmento
   </button>
 <?php endif; ?>

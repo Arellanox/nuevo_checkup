@@ -1,4 +1,4 @@
-<?php if ($menu == "Recepción"): ?>
+<?php if ($menu == "Recepción") : ?>
   <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente" data-bs-dismiss="offcanvas">
       <i class="bi bi-person-plus"></i> Nuevo Paciente
@@ -15,20 +15,20 @@
     </a>
   </li>
 <?php endif; ?>
-<?php if ($menu == "Usuarios"): ?>
+<?php if ($menu == "Usuarios") : ?>
   <li class="nav-item">
-    <a href="<?php echo $https.$url.'/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
+    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
       <i class="bi bi-people-fill"></i> Recepción
     </a>
   </li>
 <?php endif; ?>
-<?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1): ?>
+<?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1) : ?>
   <li class="nav-item">
     <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarCargo">
       <i class="bi bi-briefcase"></i> Nuevo cargo
     </a>
   </li>
-    <!-- <li class="nav-item">
+  <!-- <li class="nav-item">
       <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#ModalRegistrarTipoUser">
         <i class="bi bi-person-lines-fill"></i> Nuevo tipo usuario
       </a>
@@ -43,4 +43,10 @@
       <i class="bi bi-box"></i> Servicios
     </a>
   </li>
+  <li class="nav-item">
+    <a href="#Segmentos" data-bs-dismiss="offcanvas">
+      <i class="bi bi-box"></i> Segmentos
+    </a>
+  </li>
+
 <?php endif; ?>
