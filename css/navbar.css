@@ -34,6 +34,10 @@
   color: rgb(247, 190, 000);
 }
 
+.bg-navbar .navlinkactive{
+  color: rgb(247, 190, 000);
+}
+
 .bg-navbar-active-a{
   color: rgb(247, 190, 000);
 }

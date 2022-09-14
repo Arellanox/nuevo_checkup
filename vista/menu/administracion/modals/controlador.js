@@ -10,4 +10,6 @@ $.post("modals/a_modals.php", function(html){
    $.getScript('modals/js/user_editar_permisos.js');
    // Modal para registrar cargo
    $.getScript('modals/js/cargo_crear.js');
+   // Modal para registrar cargo
+   $.getScript('modals/js/ser_agregar_servicio.js');
 });

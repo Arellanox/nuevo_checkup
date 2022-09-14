@@ -1,9 +1,3 @@
-
-// login
-// verificarLogin(session['id']);
-
-
-
 //Para el campo de preregistro
 function deshabilitarVacunaExtra(vacuna, div){
   if(vacuna!="OTRA"){
@@ -97,17 +91,17 @@ function getProcedencias(select){
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select, api, num){
+function rellenarSelect(select, api, num,v,c){
   var select = document.getElementById(select),
       length = select.options.length;
   while(length--){
     select.remove(length);
   }
-  ajaxSelect(select, api, num);
+  ajaxSelect(select, api, num,v,c);
   return 1;
 }
 
-function ajaxSelect(select, api, num){
+function ajaxSelect(select, api, num,v,c){
   $.ajax({
     url: api,
     data:{api: num},
@@ -117,8 +111,8 @@ function ajaxSelect(select, api, num){
       //Equipo Utilizado
       // console.log(data);
       for (var i = 0; i < data['response']['data'].length; i++) {
-        var content = data['response']['data'][i]['1'];
-        var value = data['response']['data'][i]['0'];
+        var content = data['response']['data'][i][c];
+        var value = data['response']['data'][i][v];
         var el = document.createElement("option");
         el.textContent = content;
         el.value = value;
@@ -127,6 +121,17 @@ function ajaxSelect(select, api, num){
     }
   })
   return 1;
+}
+
+function optionElement(select,value,content){
+  var select = document.getElementById(select);
+  var content = content;
+  var value = value;
+  var el = document.createElement("option");
+  el.textContent = content;
+  el.value = value;
+  el.setAttribute('selected', 'selected');
+  select.append(el);
 }
 
 
@@ -216,5 +221,13 @@ function selectDatatable(tablename, datatable){
          $(this).addClass('selected');
          array_selected = datatable.row( this ).data();
      }
+  });
+}
+
+function select2(select, modal){
+  $('#'+select).select2({
+    dropdownParent: $('#'+modal),
+    // tags: true,
+    width:'100%'
   });
 }

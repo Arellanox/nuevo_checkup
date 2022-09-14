@@ -13,17 +13,6 @@
                 <label for="procedencia" class="form-label">CURP</label>
                 <select class="" name="curp" id="selectCURPPaciente" style="width:100%;">
 
-                      <option value="1" >Ninguno...</opcion>
-                      <option value="PFIZER">PFIZER</opcion>
-                      <option value="ASTRA ZENECA" >ASTRA ZENECA</opcion>
-                      <option value="SPUTNIK V" >SPUTNIK V</opcion>
-                      <option value="SINOVAC" >SINOVAC</opcion>
-                      <option value="CANSINO" >CANSINO</opcion>
-                      <option value="MODERNA" >MODERNA</opcion>
-                      <option value="COVAX" >COVAX</opcion>
-                      <option value="JOHNSON & JOHNSON" >JOHNSON & JOHNSON</opcion>
-                      <option value="SINOPHARM" >SINOPHARM</opcion>
-                      <option value="OTRA">OTRA (ESPECIFIQUE)</opcion>
                 </select>
               </div>
             <div class="col-12 col-lg-4" style="margin-bottom: 10px;">

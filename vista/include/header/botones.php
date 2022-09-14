@@ -13,9 +13,9 @@
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarUsuario">
     <i class="bi bi-person-plus-fill"></i> Agregar nuevo
   </button>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalMostrarPermisosCargos">
+  <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalMostrarPermisosCargos">
     <i class="bi bi-list-nested"></i> Permisos y Cargos
-  </button>
+  </button> -->
 <?php endif; ?>
 
 
