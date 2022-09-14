@@ -68,3 +68,9 @@ p{
 .card{
   background-color: #f6fdff;
 }
+
+
+.imagen-perfil{
+  width: 100%;
+  border-radius: 50%;
+}

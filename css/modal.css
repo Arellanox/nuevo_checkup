@@ -10,6 +10,10 @@
   padding-right: 30px;
 }
 
+.modal-body p{
+  color: white;
+}
+
 
 .modal-body label{
   background-color: #f6fdff;
