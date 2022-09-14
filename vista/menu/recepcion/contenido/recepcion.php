@@ -1,13 +1,13 @@
  
 <div class="row">
-  <div class="col-12 col-lg-3">
+  <div class="col-12 col-lg-3 info-detalle">
     <div class="row" style="margin-top: 43px">
       <div class="col-3">
         <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil">
       </div>
       <div class="col-9">
         <p id="nombre-persona">Nombre completo del paciente</p>
-        <p id="nacimiento-persona" style="margin-top:-10px">08/12/2000 | X años</p>
+        <p id="nacimiento-persona">08/12/2000 | <strong style="color:rgb(247, 190, 000)">X</strong> años</p>
       </div>
     </div>
   </div>

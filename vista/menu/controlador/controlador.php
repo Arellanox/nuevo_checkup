@@ -31,11 +31,13 @@ session_start();
        $("#titulo-js").html(html);
     });
   }
-  // <!-- Aqui controlar e incluir las modals -->
-  $.getScript('modals/controlador.js');
+  $(function(){
+    // <!-- Aqui controlar e incluir las modals -->
+    $.getScript('modals/controlador.js');
 
-  // <!-- Aqui controlar e incluir los tablas -->
-  $.getScript('contenido/controlador.js');
+    // <!-- Aqui controlar e incluir los tablas -->
+    $.getScript('contenido/controlador.js');
+  })
 
   session = <?php echo json_encode($_SESSION); ?>;
   // console.log(session);
