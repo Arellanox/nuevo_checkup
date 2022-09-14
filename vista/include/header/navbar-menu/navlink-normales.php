@@ -34,7 +34,7 @@
       </a>
     </li> -->
   <li class="nav-item">
-    <a href="#Usuarios" data-bs-dismiss="offcanvas">
+    <a href="#Usuarios" data-bs-dismiss="offcanvas" class="">
       <i class="bi bi-person-lines-fill"></i> Usuarios
     </a>
   </li>

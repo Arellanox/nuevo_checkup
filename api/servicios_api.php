@@ -3,11 +3,11 @@ include "../interfaces/iMetodos.php";
 include "../clases/servicios_class.php";
 
 $servicio = new Servicios();
-$api = 1;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
-        $new = array(null,1,"PERFIL HEPATICO",1,0,1,3);
+
         $response = $servicio->insert($new);
 
         if(is_numeric($response)){
@@ -53,7 +53,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
-    
+
     default:
         # code...
         break;

@@ -10,15 +10,17 @@
   padding-right: 30px;
 }
 
-.modal-body p{
-  color: white;
-}
-
 
 .modal-body label{
   background-color: #f6fdff;
   color: black;
   font-weight: 500;
+}
+
+.modal-body p{
+  color: rgb(000, 175, 170);
+  font-weight:normal;
+  letter-spacing: 1px;
 }
 
 .input-form{
@@ -37,16 +39,22 @@
   /* font-weight: bold; */
 }
 
-/* .select2-selection--single{
+
+
+.select2-container .select2-selection--single{
+  padding: 7px 15px;
   margin: 0px 0px 10px 0px;
+  /* display: inline-block; */
   border-bottom: 2px solid #000;
   border-left: 0px;
   border-right: 0px;
   border-top: 0px;
   border-radius: 4px;
+  box-sizing: border-box;
   background-color: rgb(216 223 225 / 38%);
   color: rgb(0 78 89);
-} */
+  height: 39px;
+}
 
 .input-span{
   display: flex;
