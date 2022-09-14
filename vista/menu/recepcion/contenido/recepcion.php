@@ -1,6 +1,4 @@
-<div class="col-12 loader" id="loader" style="">
-  <div class="preloader" id="preloader"> </div>
-</div>
+ 
 <div class="row">
   <div class="col-12 col-lg-3">
     <div class="row" style="margin-top: 43px">
@@ -24,7 +22,7 @@
         </button>
       </div>
 
-      <table class="table table-hover display responsive" id="TablaEjemplo" style="width: 100%">
+      <table class="table table-hover display responsive" id="TablaRecepcionPacientes" style="width: 100%">
         <thead class="">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
@@ -37,19 +35,11 @@
           </tr>
         </thead>
         <tbody>
-          <?php  for ($i=1; $i <= 40; $i++) { ?>
-            <tr id="<?php echo "row_".$i; ?>">
-                <th><?php echo $i ?></th>
-                <td> CUEVAS GONZÁLEZ LUIS GERARDO </td>
-                <td>2022SJ29AJ20</td>
-                <td>SLCHUMBERGER</td>
-                <td></td>
-                <td>2022-04-01</td>
-                <td>EJEMPLO</td>
-            </tr>
-          <?php } ?>
+          
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+  
