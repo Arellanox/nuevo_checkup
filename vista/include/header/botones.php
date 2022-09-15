@@ -42,6 +42,6 @@
 
 <?php if ($menu == "Mesometría") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarSegmentos">
-    <i class="bi bi-plus-square"></i> Agregar nuevo segmento
+    <i class="bi bi-save"></i> Guardar resultados
   </button>
 <?php endif; ?>

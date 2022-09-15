@@ -6,13 +6,13 @@
     </a>
   </li>
 <?php endif; ?>
-<?php if ($menu == "Mesometria"): ?>
+<!-- <?php if ($menu == "Mesometria"): ?>
   <li class="nav-item">
     <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>" data-bs-dismiss="offcanvas">
       <i class="bi bi-clipboard"></i> Consultorio
     </a>
   </li>
-<?php endif; ?>
+<?php endif; ?> -->
 
 
 <?php if ($menu == "Recepción") : ?>
