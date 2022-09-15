@@ -41,11 +41,11 @@ session_start();
               <div id="navbarCollapse" class="collapse navbar-collapse">
                   <ul class="nav navbar-nav" id="navbar-js">
                       <?php include "navbar-menu/navlink-normales.php"; ?>
-                      <?php if ($menu == "Recepción" || $menu == "Adminitración | Usuarios" || $menu == "Laboratorio"): ?>
+                      <?php if ($menu == "Recepción" || $menu == "Adminitración | Usuarios" || $menu == "Laboratorio" || $menu == "Mesometria"): ?>
                         <li class="nav-item Recepción">
                           <div class="dropdown ">
                             <a class="dropdown-toggle" href="#" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="bi bi-plus"></i> Más..
+                              <i class="bi bi-plus"></i> Areas
                             </a>
                             <!-- Estos botones se cargan en el servidor desde el archivo del include -->
                             <ul class="dropdown-menu bg-navbar-drop" aria-labelledby="dropadmin">

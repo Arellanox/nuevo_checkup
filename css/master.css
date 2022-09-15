@@ -5,6 +5,7 @@
 @import "botones-registro.css";
 @import "loader.css";
 @import "framework/datatables.min.css";
+@import "list-group.css";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
@@ -57,14 +58,29 @@ h3{color: rgb(000, 078, 089);}
 
 h4{color: rgb(000, 078, 089);}
 
-h5{color: rgb(000, 175, 170);}
-
 p{
   color: rgb(000, 175, 170);
   font-weight:600;
   letter-spacing: 2px;
+  margin-bottom: 0;
 }
 
 .card{
   background-color: #f6fdff;
+}
+
+
+.imagen-perfil{
+  width: 100%;
+  border-radius: 50%;
+}
+
+
+.info-detalle p{
+  color: rgb(000, 078, 089);
+  margin: 0;
+}
+
+.info-detalle a{
+  text-decoration: underline !important;
 }

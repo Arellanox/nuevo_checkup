@@ -1,3 +1,20 @@
+
+<?php if ($menu == "Usuarios" || $menu == "Mesometria"): ?>
+  <li class="nav-item">
+    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
+      <i class="bi bi-people-fill"></i> Recepción
+    </a>
+  </li>
+<?php endif; ?>
+<!-- <?php if ($menu == "Mesometria"): ?>
+  <li class="nav-item">
+    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>" data-bs-dismiss="offcanvas">
+      <i class="bi bi-clipboard"></i> Consultorio
+    </a>
+  </li>
+<?php endif; ?> -->
+
+
 <?php if ($menu == "Recepción") : ?>
   <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente" data-bs-dismiss="offcanvas">
@@ -15,13 +32,7 @@
     </a>
   </li>
 <?php endif; ?>
-<?php if ($menu == "Usuarios") : ?>
-  <li class="nav-item">
-    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
-      <i class="bi bi-people-fill"></i> Recepción
-    </a>
-  </li>
-<?php endif; ?>
+
 <?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1) : ?>
   <li class="nav-item">
     <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarCargo">
@@ -34,7 +45,7 @@
       </a>
     </li> -->
   <li class="nav-item">
-    <a href="#Usuarios" data-bs-dismiss="offcanvas">
+    <a href="#Usuarios" data-bs-dismiss="offcanvas" class="">
       <i class="bi bi-person-lines-fill"></i> Usuarios
     </a>
   </li>
@@ -48,5 +59,4 @@
       <i class="bi bi-box"></i> Segmentos
     </a>
   </li>
-
 <?php endif; ?>
