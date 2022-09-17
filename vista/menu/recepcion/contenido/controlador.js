@@ -49,3 +49,4 @@ function recepciónPaciente(estatus, id){
     }
   })
 }
+obtenerPanelInfoPaciente()

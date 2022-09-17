@@ -1,3 +1,9 @@
+function formatoFecha(texto){
+  return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+}
+
+
+
 //Para el campo de preregistro
 function deshabilitarVacunaExtra(vacuna, div){
   if(vacuna!="OTRA"){
@@ -34,7 +40,7 @@ function getSegmentoByProcedencia(id, select){
     select.remove(length);
   }
   $.ajax({
-    url: "http://localhost/nuevo_checkup/api/segmentos_api.php",
+    url: http+servidor+"/nuevo_checkup/api/segmentos_api.php",
       type: "POST",
       data:{id: id,api:6},
     success: function(data) {
@@ -103,7 +109,7 @@ function rellenarSelect(select, api, num,v,c){
 
 function ajaxSelect(select, api, num,v,c){
   $.ajax({
-    url: api,
+    url: http+servidor+"/nuevo_checkup/api/"+api+".php",
     data:{api: num},
     type: "POST",
     success: function(data) {
@@ -140,7 +146,7 @@ $( window ).on( 'hashchange', function( e ) {
     switch (hash) {
       case 'LogOut':
         window.location.hash = '';
-        window.location.href = 'http://localhost/nuevo_checkup/vista/login/?page='+window.location;
+        window.location.href = http+servidor+'/nuevo_checkup/vista/login/?page='+window.location;
       break;
       default:  break;
     }
@@ -211,15 +217,20 @@ function mensajeAjax(data){
   return 0;
 }
 
-function selectDatatable(tablename, datatable){
+function selectDatatable(tablename, datatable, panel = null, api = null){
   $('#'+tablename+' tbody').on('click', 'tr', function () {
      if ($(this).hasClass('selected')) {
          $(this).removeClass('selected');
          array_selected = null;
+           obtenerPanelInfoPaciente()
      } else {
          datatable.$('tr.selected').removeClass('selected');
          $(this).addClass('selected');
          array_selected = datatable.row( this ).data();
+         console.log(panel)
+         if (panel) {
+           obtenerPanelInfoPaciente(array_selected[1], api)
+         }
      }
   });
 }
@@ -229,5 +240,41 @@ function select2(select, modal){
     dropdownParent: $('#'+modal),
     // tags: true,
     width:'100%'
+  });
+}
+
+function obtenerPanelInfoPaciente(id = null, api = null){
+  console.log("ikjhabsidai")
+  $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-paciente.php", function(html){
+     $("#panel-informacion").html(html);
+  }).done(function(){
+    if (id) {
+      $.ajax({
+        url: http+servidor+"/nuevo_checkup/api/"+api+".php",
+        data:{id: array_selected[0],api: 3},
+        // beforeSend: function() { $('#info-php').fadeOut(800) },
+        complete: function(){ $('#info-php').fadeIn(800) },
+        type: "POST",
+        success: function(data) {
+          var data = jQuery.parseJSON(data);
+          data = data['response']['data'];
+          $('#nombre-persona').html(data[0]['NOMBRE']+" "+data[0]['PATERNO']+" "+data[0]['MATERNO']);
+          $('#nacimiento-persona').html(formatoFecha(data[0]['NACIMIENTO'])+" | <span class='span-info'>"+data[0]['EDAD']+"</span> años")
+          $('#info-paci-curp').html(data[0]['CURP']);
+          $('#info-paci-telefono').html(data[0]['CELULAR']);
+          $('#info-paci-correo').html(data[0]['CORREO']);
+          $('#info-paci-sexo').html(data[0]['SEXO']);
+          if (data[0]['TURNO']) {
+            $('#info-paci-turno').html(data[0]['TURNO']);
+          }else{
+            $('#info-paci-turno').html('Sin generar');
+          }
+          $('#info-paci-directorio').html(data[0]['CALLE']+", "+data[0]['COLONIA']+", "+
+          data[0]['MUNICIPIO']+", "+data[0]['ESTADO']);
+        }
+      })
+    }else{
+      $('#info-php').fadeOut(100);
+    }
   });
 }

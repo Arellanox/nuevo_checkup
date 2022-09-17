@@ -2,8 +2,8 @@ const modalRegistrarUsuario = document.getElementById('ModalRegistrarUsuario')
 modalRegistrarUsuario.addEventListener('show.bs.modal', event => {
   $("#Input-Constraseña-Edit").show();
   $("#edit-usuario-contraseña").attr( "name", "contraseña");
-  rellenarSelect('usuario-cargos','../../../api/cargos_api.php', 2,0,1);
-  rellenarSelect('usuario-tipo','../../../api/tipos_usuarios_api.php', 2,0,1);
+  rellenarSelect('usuario-cargos','cargos_api', 2,0,1);
+  rellenarSelect('usuario-tipo','tipos_usuarios_api', 2,0,1);
 })
 
 //Formulario de Preregistro

@@ -32,7 +32,7 @@ switch ($api) {
                 $set['PROCEDENCIA']  = 'NO IMPLEMENTADO';
                 $set['INGRESO']  = 'NO IMPLEMENTADO';
                 $set['NOMBRE_COMPLETO'] = $set['NOMBRE'] . " " . $set['PATERNO'] . " " . $set['MATERNO'];
-                $set['COUNT'] = ++$i; 
+                $set['COUNT'] = ++$i;
                 $segmento = new Segmentos();
                 $segmento->setSegmento($set["SEGMENTO_ID"]);
                 $seg = $segmento->getSegmento();
@@ -47,7 +47,7 @@ switch ($api) {
     case 3:
         # recuperar solo un registro
         # $form = $paciente->master->mis->getFormValues($_POST);
-        $resultset = $paciente->getById(3);
+        $resultset = $paciente->getById($_POST['id']);
         $newSet = array();
         if (is_array($resultset)) {
             foreach ($resultset as $set) {
@@ -58,7 +58,7 @@ switch ($api) {
                 $set[] = $seg;
                 $newSet[] = $set;
             }
-            echo json_encode(array("response" => array("code" => 1, "pacientes" => $newSet)));
+            echo json_encode(array("response" => array("code" => 1, "data" => $newSet)));
         } else {
             echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }

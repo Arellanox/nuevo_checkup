@@ -65,6 +65,17 @@ p{
   margin-bottom: 0;
 }
 
+.span-info{
+  color: rgb(247, 190, 000);
+}
+
+.none-p{
+  color: black;
+  font-weight:normal;
+  letter-spacing: normal;
+  margin-bottom: 0;
+}
+
 .card{
   background-color: #f6fdff;
 }

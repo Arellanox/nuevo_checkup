@@ -43,15 +43,7 @@ function obtenerContenidoSegmentos(titulo) {
 function hasLocation() {
   var hash = window.location.hash.substring(1);
   $('a').removeClass('navlinkactive');
-  $(function(){
-    $('nav li a').each(function(){
-        var $this = $(this);
-        // if the current path is like this link, make it active
-        if($this.attr('href').indexOf(hash) !== -1){
-            $this.addClass('navlinkactive');
-        }
-    })
-  })
+  $("nav li a[href='#" + hash + "']").addClass('navlinkactive');
   switch (hash) {
     case "Usuarios":
       obtenerContenidoUsuarios("usuario.php", "Usuarios");

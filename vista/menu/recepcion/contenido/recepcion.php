@@ -1,17 +1,11 @@
- 
+<div class="col-12 loader" id="loader" style="">
+  <div class="preloader" id="preloader"> </div>
+</div>
 <div class="row">
-  <div class="col-12 col-lg-3 info-detalle">
-    <div class="row" style="margin-top: 43px">
-      <div class="col-3">
-        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil">
-      </div>
-      <div class="col-9">
-        <p id="nombre-persona">Nombre completo del paciente</p>
-        <p id="nacimiento-persona">08/12/2000 | <strong style="color:rgb(247, 190, 000)">X</strong> años</p>
-      </div>
-    </div>
+  <div class="col-12 col-lg-3 info-detalle card pt-5" id="panel-informacion">
+
   </div>
-  <div class="col-12 col-lg-9">
+  <div class="col-12 col-lg-9 card">
     <div class="table-responsive">
       <div class="text-center" style="margin-top:4px;">
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar">
@@ -35,11 +29,9 @@
           </tr>
         </thead>
         <tbody>
-          
+
         </tbody>
       </table>
     </div>
   </div>
 </div>
-
-  

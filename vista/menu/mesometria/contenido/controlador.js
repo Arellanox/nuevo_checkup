@@ -12,3 +12,4 @@ function obtenerContenidoMeso(tabla){
      // $.getScript("contenido/js/recepcion-botones.js");
   });
 }
+obtenerPanelInfoPaciente(1, "pacientes_api")

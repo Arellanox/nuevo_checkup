@@ -1,8 +1,8 @@
 const modalRegistrarServicio = document.getElementById('ModalRegistrarServicio')
 modalRegistrarServicio.addEventListener('show.bs.modal', event => {
-  rellenarSelect('select-servicio-derivada','../../../api/servicios_api.php', 2,0,'DESCRIPCION');
+  rellenarSelect('select-servicio-derivada','servicios_api', 2,0,'DESCRIPCION');
   // optionElement('select-servicio-derivada', null, "Servicio independiente");
-  rellenarSelect('select-area-derivada','../../../api/areas_api.php', 2,0,2);
+  rellenarSelect('select-area-derivada','areas_api', 2,0,2);
 })
 
 //Formulario de Preregistro
