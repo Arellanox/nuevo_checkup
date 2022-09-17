@@ -26,7 +26,11 @@ class Master extends Miscelaneus{
         $dbname = "u808450138_checkup";
         $username = "u808450138_bimo";
         $password = "uJbr*Z7e";
-        //$password = "12345678";
+        // $host = "localhost";
+        // $dbname = "chekup";
+        // $username = "root";
+        // $password = "12345678";
+
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
@@ -35,6 +39,67 @@ class Master extends Miscelaneus{
         }
 
         return $conn;
+    }
+
+    function getByProcedure($nombreProcedimiento, $parametros){
+        try{
+            $conexion= $this->connectDb();
+            $sp="call ".$nombreProcedimiento. $this->prepararParametros($parametros);
+            $sentencia=$conexion->prepare($sp);        
+            $sentencia->execute();
+            $resultSet = $sentencia->fetchAll();
+            $sentencia->closeCursor();
+            return $resultSet;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+    function updateByProcedure($nombreProcedimiento, $parametros){
+        $identity=null;
+        $conexion= $this->connectDb();
+        $sp="call ".$nombreProcedimiento. $this->prepararParametros($parametros);
+        $sentencia=$conexion->prepare($sp);        
+         IF ($sentencia->execute()){
+            $identity = $conexion->lastInsertId();
+         }
+        $sentencia->closeCursor(); 
+        return $identity;
+    }
+    
+    function insertByProcedure($nombreProcedimiento, $parametros){       
+        array_push($parametros, null);
+        $identity= $this->updateByProcedure($nombreProcedimiento, $parametros);
+        return $identity;       
+    }
+
+ 
+
+    function prepararParametros($parametros){ 
+        $parametrosFormateados="";
+        foreach($parametros as $valor){
+            switch (strtoupper (gettype($valor))) {
+                case 'STRING':
+                case 'DATE':
+                case 'DATETIME':
+                    $parametrosFormateados .="'". $valor . "',";
+                    break;
+                case 'INTEGER':
+                case 'FLOAT':
+                case 'DOUBLE': 
+                    $parametrosFormateados .= $valor."," ;
+                    break;
+                case 'BOOLEAN':
+                    $parametrosFormateados .= ($valor?1:0)."," ;
+                    break;
+                case 'NULL': 
+                    $parametrosFormateados .= "NULL," ;
+                    break;
+                default:
+                    $parametrosFormateados .="'". $valor . "',";
+                    break;
+            }
+        }  
+       return $parametrosFormateados = "(".trim($parametrosFormateados,",").");";
     }
 
     function insert($tabla,$attributes,$values,$intergers,$strings,$doubles,$nulls=array()){

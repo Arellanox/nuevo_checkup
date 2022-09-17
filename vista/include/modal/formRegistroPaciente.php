@@ -13,7 +13,7 @@
 <div class="col-6 col-lg-2">
   <label for="edad" class="form-label">Edad</label>
   <div class="input-group">
-    <input type="number" class="form-control input-form" name="edad" placeholder="" required >
+    <input type="number" class="form-control input-form" name="edad" placeholder="" min="0" max="150" required >
     <span class="input-span">años</span>
   </div>
 </div>
@@ -23,16 +23,22 @@
 </div>
 <div class="col-7 col-lg-4">
   <label for="curp" class="form-label">CURP</label>
-  <input type="text" class="form-control input-form" name="curp" placeholder="" required >
+  <input type="text" class="form-control input-form" name="curp"  pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" placeholder="" required >
 </div>
 <div class="col-5 col-lg-3">
   <label for="telefono" class="form-label">Télefono</label>
-  <input type="number" class="form-control input-form" name="telefono" placeholder="" >
+  <input type="tel" class="form-control input-form" pattern="[0-9]{10}" name="telefono" placeholder="" >
 </div>
+
+<div class="col-6 col-lg-4">
+  <label for="correo" class="form-label">Correo</label>
+  <input type="email" class="form-control input-form" name="correo" placeholder="" >
+</div>
+
 
 <div class="col-6 col-lg-2">
   <label for="postal" class="form-label">Código postal</label>
-  <input type="number" class="form-control input-form" name="postal" placeholder="" >
+  <input type="number" class="form-control input-form" name="postal" pattern="[0-9]{5}" placeholder=""  >
 </div>
 <div class="col-6 col-lg-3">
   <label for="estado" class="form-label">Estado</label>
@@ -46,14 +52,14 @@
   <label for="colonia" class="form-label">Colonia</label>
   <input type="text" class="form-control input-form" name="colonia" placeholder="" >
 </div>
-<div class="col-6 col-lg-3">
+<div class="col-6 col-lg-4">
   <label for="exterior" class="form-label">No. Exterior</label>
   <div class="input-group">
   <span class="input-span">No.</span>
     <input type="text" class="form-control input-form" name="exterior" placeholder="" >
   </div>
 </div>
-<div class="col-6 col-lg-3">
+<div class="col-6 col-lg-4">
   <label for="interior" class="form-label">No. Interior</label>
   <div class="input-group">
     <span class="input-span">No.</span>
@@ -65,21 +71,21 @@
   <input type="text" class="form-control input-form" name="calle" placeholder="" >
 </div>
 
-<div class="col-6 col-lg-4">
+<div class="col-6 col-lg-3">
   <label for="nacionalidad" class="form-label">Nacionalidad</label>
   <input type="text" class="form-control input-form" name="nacionalidad" placeholder="" >
 </div>
-<div class="col-6 col-lg-4">
+<div class="col-6 col-lg-3">
   <label for="pasaporte" class="form-label">Pasaporte</label>
   <input type="text" class="form-control input-form" name="pasaporte" placeholder="" >
 </div>
-<div class="col-6 col-lg-4">
+<div class="col-6 col-lg-3">
   <label for="rfc" class="form-label">RFC</label>
   <input type="text" class="form-control input-form" name="rfc" placeholder="" >
 </div>
 <div class="col-6 col-lg-3">
   <label for="vacuna" class="form-label">Vacuna</label>
-  <select class="input-form" name="vacuna" >
+  <select class="input-form" name="vacuna" id="vacuna">
       <option value="1" >Ninguno...</opcion>
       <option value="PFIZER">PFIZER</opcion>
       <option value="ASTRA ZENECA" >ASTRA ZENECA</opcion>
@@ -95,7 +101,7 @@
 </div>
 <div class="col-6 col-lg-3" >
   <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
-  <input type="text" class="form-control input-form" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+  <input type="text" class="form-control input-form" placeholder="" style="text-transform:uppercase;" name="vacunaExtra" id="vacunaExtra" onkeyup="javascript:this.value=this.value.toUpperCase();" readonly>
 </div>
 <div class="col-6 col-lg-3">
   <label for="dosis" class="form-label">Dosis</label>

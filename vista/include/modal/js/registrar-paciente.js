@@ -16,9 +16,13 @@ $("#formRegistrarPaciente").submit(function(event){
    /*DATOS Y VALIDACION DEL REGISTRO*/
    var form = document.getElementById("formRegistrarPaciente");
    var formData = new FormData(form);
-   formData.set('api', 3);
+   formData.set('api', 1);
    console.log(formData);
-
+   $i=0;
+   formData.forEach(element => {
+    console.log($i + element);
+    $i++;
+  });
    Swal.fire({
       title: '¿Está seguro que todos sus datos estén correctos?',
       text: "¡No podrá editar o volverse a registrar!",
@@ -35,7 +39,7 @@ $("#formRegistrarPaciente").submit(function(event){
         // Esto va dentro del AJAX
         $.ajax({
           data: formData,
-          url: "??",
+          url: "../../../api/pacientes_api.php",
           type: "POST",
           processData: false,
           contentType: false,
@@ -46,6 +50,8 @@ $("#formRegistrarPaciente").submit(function(event){
                 icon: 'success',
                 title: 'Su información a sido registrada :)',
                 timer: 2000
+
+
               });
               document.getElementById("formRegistrarPaciente").reset();
               $("#ModalRegistrarPaciente").modal('hide');
@@ -57,8 +63,13 @@ $("#formRegistrarPaciente").submit(function(event){
    event.preventDefault();
  });
 
-deshabilitarVacunaExtra($("#inputVacuna").val(), 'vacunaExtra');
-$("#inputVacuna").change(function(){
- //alert($(this).val());
- deshabilitarVacunaExtra($(this).val(), 'vacunaExtra');
+$("#vacuna").change(function(){  
+  var seleccion =$("#vacuna").val(); 
+  if (seleccion.toUpperCase() =='OTRA'){
+    $("#vacunaExtra").prop('readonly', false);
+  }else{
+
+    $("#vacunaExtra").prop('readonly', true);
+    $("#vacunaExtra").prop('value', "NA");
+    } 
 });

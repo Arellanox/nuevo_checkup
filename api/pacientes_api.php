@@ -5,45 +5,76 @@ include "../clases/segmentos_class.php";
 
 $paciente = new Pacientes();
 
-$api = $_POST['api'];
+$slice_update=24;
+$slice_insert=$slice_update-1;
 
+$api = $_POST['api'];
+$id_paciente = $_POST['id'];
+$curp = $_POST['curp'];
+
+
+
+//procedure de busqueda sp_pacientes_b (_id_paciente,_curp)
+//procedure de delete
+/*procedure de insert sp_pacientes_g (
+  
+    IN _segmento_id int(11),
+    IN _nombre varchar(100),
+    IN _paterno varchar(100),
+    IN _materno varchar(100),
+    IN _edad int(11),
+    IN _nacimiento date,
+    IN _curp varchar(50),
+    IN _celular bigint(20),
+    IN _correo varchar(100),
+
+    IN _postal int(11),
+    IN _estado varchar(100),
+    IN _municipio varchar(100),
+    IN _colonia varchar(200),
+
+    IN _exterior int(11),
+    IN _interior int(11),
+    IN _calle varchar(200),
+    IN _nacionalidad varchar(50),
+
+    IN _pasaporte varchar(100),
+    IN _rfc varchar(50),
+    IN _vacuna varchar(100),
+
+    IN _otravacuna varchar(100),
+    IN _dosis varchar(50),
+    
+    IN _genero varchar(50),
+    
+    estos no se aplican
+    IN _foto blob,
+    IN _activo tinyint(1),
+    OUT _INSERT_UPDATE
+*/ 
 
 switch ($api) {
     case 1:
         # insertar un nuevo paciente
-        $array_slice = array_slice($_POST, 0, 24);
-        $a = $paciente->master->mis->getFormValues($array_slice);
-        $result = $paciente->insert($a);
-
-        if (is_numeric($result)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
+        $array_slice = array_slice($_POST, 0, $slice_insert);
+        $parametros = $paciente->master->mis->getFormValues($array_slice);    
+        $response = $paciente->insertByProcedure("sp_pacientes_g",$parametros);
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
         } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $a)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
         }
         break;
     case 2:
-        # recuperar todos los pacientes
-        $resultset = $paciente->getAll();
+        # recuperar todos los pacientes 
+        $resultset = $paciente->getByProcedure("sp_pacientes_b",[$id_paciente,$curp]);
         if (is_array($resultset)) {
-            $newSet = array();
-            $i = 0;
-            foreach ($resultset as $set) {
-                $set['PREFOLIO'] = 'NO IMPLEMENTADO';
-                $set['PROCEDENCIA']  = 'NO IMPLEMENTADO';
-                $set['INGRESO']  = 'NO IMPLEMENTADO';
-                $set['NOMBRE_COMPLETO'] = $set['NOMBRE'] . " " . $set['PATERNO'] . " " . $set['MATERNO'];
-                $set['COUNT'] = ++$i;
-                $segmento = new Segmentos();
-                $segmento->setSegmento($set["SEGMENTO_ID"]);
-                $seg = $segmento->getSegmento();
-                $set["SEGMENTO"] = $seg;
-                $newSet[] = $set;
-            }
-            echo json_encode($newSet);
+            echo json_encode($resultset);
         } else {
             echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }
         break;
+
     case 3:
         # recuperar solo un registro
         # $form = $paciente->master->mis->getFormValues($_POST);
@@ -63,20 +94,19 @@ switch ($api) {
             echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }
         break;
-
     case 4:
-        # actualizar pacientes
+       /* # actualizar pacientes
         ## Enviar el id del paciente al final del arreglo
-        $form = $paciente->master->mis->getFormValues($_POST);
-        $result = $paciente->update($form);
-
-        if (is_numeric($result)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
+*/
+        $array_slice = array_slice($_POST, 0, $slice_update);
+        $parametros = $paciente->master->mis->getFormValues($array_slice);    
+        $response = $paciente->updateByProcedure("sp_pacientes_g",$parametros);
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
         } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $result)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
         }
         break;
-
     case 5:
         $result = $paciente->delete(3);
 
