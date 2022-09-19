@@ -63,18 +63,23 @@
 
 <?php if ($menu == "Servicios"): ?>
   <li class="nav-item">
+    <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
+      <i class="bi bi-person-lines-fill"></i> Metodos
+    </a>
+  </li>
+  <li class="nav-item">
     <a href="#Estudio" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Estudios
     </a>
   </li>
   <li class="nav-item">
-    <a href="#Paquetes" data-bs-dismiss="offcanvas">
-      <i class="bi bi-box"></i> Paquetes
+    <a href="#Grupos" data-bs-dismiss="offcanvas">
+      <i class="bi bi-collection"></i> Grupos de examenes
     </a>
   </li>
   <li class="nav-item">
-    <a href="#Precios" data-bs-dismiss="offcanvas">
-      <i class="bi bi-box"></i> Precios
+    <a href="#Equipos" data-bs-dismiss="offcanvas">
+      <i class="bi bi-thunderbolt"></i> Equipos
     </a>
   </li>
 <?php endif; ?>

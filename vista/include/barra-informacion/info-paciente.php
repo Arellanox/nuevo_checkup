@@ -16,7 +16,6 @@
     <div class="col-8" id="info-paci-curp">
       Cargando...
     </div>
-
     <div class="col-4 text-end info-detalle">
       <p>Teléfono:</p>
     </div>
@@ -29,14 +28,12 @@
     <div class="col-8">
       <a href="#" id="info-paci-correo">Cargando...</a>
     </div>
-
     <div class="col-4 text-end info-detalle">
       <p>Sexo:</p>
     </div>
     <div class="col-8" id="info-paci-sexo">
       Cargando...
     </div>
-
     <div class="col-4 text-end info-detalle">
       <p>Turno:</p>
     </div>

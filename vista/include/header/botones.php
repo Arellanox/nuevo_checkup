@@ -26,9 +26,9 @@
 <?php endif; ?>
 
 
-<?php if ($menu == "Estudio") : ?>
+<?php if ($menu == "Estudios") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarServicio">
-    <i class="bi bi-plus-square"></i> Agregar nuevo servicio
+    <i class="bi bi-plus-square"></i> Agregar nuevo estudio
   </button>
 <?php endif; ?>
 
