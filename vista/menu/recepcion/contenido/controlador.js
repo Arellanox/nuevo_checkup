@@ -50,4 +50,4 @@ function recepciónPaciente(estatus, id){
   })
 }
 
-  obtenerPanelInformacion(0, 0, 0)
+obtenerPanelInformacion(0, 0, 0)

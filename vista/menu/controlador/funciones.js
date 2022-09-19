@@ -222,12 +222,11 @@ function selectDatatable(tablename, datatable, panel = null, api = null, tipPane
      if ($(this).hasClass('selected')) {
          $(this).removeClass('selected');
          array_selected = null;
-           obtenerPanelInformacion(0, api, tipPanel)
+          obtenerPanelInformacion(0, api, tipPanel)
      } else {
          datatable.$('tr.selected').removeClass('selected');
          $(this).addClass('selected');
          array_selected = datatable.row( this ).data();
-         console.log(panel)
          if (panel) {
            obtenerPanelInformacion(array_selected[0], api, tipPanel)
          }
@@ -278,8 +277,9 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
                 data[0]['MUNICIPIO']+", "+data[0]['ESTADO']);
             break;
             case 'estudio':
-              
+
             break;
+
             default:
 
           }
