@@ -229,7 +229,7 @@ function selectDatatable(tablename, datatable, panel = null, api = null){
          array_selected = datatable.row( this ).data();
          console.log(panel)
          if (panel) {
-           obtenerPanelInfoPaciente(array_selected[1], api)
+           obtenerPanelInfoPaciente(array_selected[0], api)
          }
      }
   });
@@ -251,7 +251,7 @@ function obtenerPanelInfoPaciente(id = null, api = null){
     if (id) {
       $.ajax({
         url: http+servidor+"/nuevo_checkup/api/"+api+".php",
-        data:{id: array_selected[0],api: 3},
+        data:{id: id,api: 3},
         // beforeSend: function() { $('#info-php').fadeOut(800) },
         complete: function(){ $('#info-php').fadeIn(800) },
         type: "POST",
@@ -263,7 +263,7 @@ function obtenerPanelInfoPaciente(id = null, api = null){
           $('#info-paci-curp').html(data[0]['CURP']);
           $('#info-paci-telefono').html(data[0]['CELULAR']);
           $('#info-paci-correo').html(data[0]['CORREO']);
-          $('#info-paci-sexo').html(data[0]['SEXO']);
+          $('#info-paci-sexo').html(data[0]['GENERO']);
           if (data[0]['TURNO']) {
             $('#info-paci-turno').html(data[0]['TURNO']);
           }else{

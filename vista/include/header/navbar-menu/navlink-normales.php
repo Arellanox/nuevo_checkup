@@ -1,5 +1,5 @@
 
-<?php if ($menu == "Usuarios" || $menu == "Mesometria"): ?>
+<?php if ($menu == "Usuarios" || $menu == "Mesometria" || $menu == "Servicios"): ?>
   <li class="nav-item">
     <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
       <i class="bi bi-people-fill"></i> Recepción
@@ -49,14 +49,32 @@
       <i class="bi bi-person-lines-fill"></i> Usuarios
     </a>
   </li>
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a href="#Servicios" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Servicios
     </a>
-  </li>
+  </li> -->
   <li class="nav-item">
     <a href="#Segmentos" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Segmentos
+    </a>
+  </li>
+<?php endif; ?>
+
+<?php if ($menu == "Servicios"): ?>
+  <li class="nav-item">
+    <a href="#Estudio" data-bs-dismiss="offcanvas">
+      <i class="bi bi-box"></i> Estudios
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="#Paquetes" data-bs-dismiss="offcanvas">
+      <i class="bi bi-box"></i> Paquetes
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="#Precios" data-bs-dismiss="offcanvas">
+      <i class="bi bi-box"></i> Precios
     </a>
   </li>
 <?php endif; ?>

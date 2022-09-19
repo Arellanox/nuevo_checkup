@@ -121,10 +121,10 @@
           </div>
           <div class="col-6 col-lg-3" id="editar-extra">
             <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
-            <input type="text" class="form-control input-form" Name="vacunaExtra" id="editar-vacunaExtra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"  readonly> 
+            <input type="text" class="form-control input-form" name="vacunaExtra" id="editar-vacunaExtra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"  readonly> 
           </div>
 
-                   
+
           <div class="col-6 col-lg-3">
             <label for="inputDosis" class="form-label">Dosis</label>
             <select class="input-form" name="inputDosis" id="editar-inputDosis">
@@ -170,28 +170,28 @@
   const ModalEditarPaciente = document.getElementById('ModalEditarPaciente')
   ModalEditarPaciente.addEventListener('show.bs.modal', event => {
     // Colocar ajax
-     
-     id_paciente_edit=array_selected['ID_PACIENTE']; 
-    
+
+     id_paciente_edit=array_selected['ID_PACIENTE'];
+
     var select = document.getElementById("listProcedencia-edit"),
         length = select.options.length;
     while(length--){
       select.remove(length);
     }
-     
+
     // If necessary, you could initiate an AJAX request here
-    getProcedencias("listProcedencia-edit");     
+    getProcedencias("listProcedencia-edit");
     var procedencia = $("#listProcedencia-edit option:selected").val();
-    getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit"); 
-    
-    //  console.log(array_selected['ID_PACIENTE']); 
+    getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
+
+    //  console.log(array_selected['ID_PACIENTE']);
     $.ajax({
       url: "../../../api/pacientes_api.php",
       type: "POST",
       data:{id:id_paciente_edit,api:2},
       success: function(data) {
         var arrayPaciente = JSON.parse(data);
-        paciente=arrayPaciente[0]; 
+        paciente=arrayPaciente[0];
         $('#listProcedencia-edit').val(paciente['PROCEDENCIA']);
         $('#segmentos_procedencias-edit').val(paciente['SEGMENTO']);
         $('#editar-nombre').val(paciente['NOMBRE']);
@@ -217,7 +217,7 @@
         $('#editar-inputDosis').val(paciente['DOSIS']);
         var genero=paciente['GENERO'];
         genero=genero.toUpperCase();
-        if(genero.toUpperCase() =='MASCULINO'){           
+        if(genero.toUpperCase() =='MASCULINO'){
           $('#edit-mascuCues').attr('checked', true);
         }  else{
           $('#edit-femenCues').attr('checked', true);
@@ -240,7 +240,7 @@
    /*DATOS Y VALIDACION DEL REGISTRO*/
    var form = document.getElementById("formEditarPaciente");
    var formData = new FormData(form);
-   formData.set('id', id_paciente_edit); 
+   formData.set('id', id_paciente_edit);
    formData.set('api', 4);
    $i=0;
    formData.forEach(element => {
@@ -303,15 +303,15 @@
    event.preventDefault();
  });
 
- 
-$("#editar-vacuna").change(function(){  
-  var seleccion =$("#editar-vacuna").val(); 
+
+$("#editar-vacuna").change(function(){
+  var seleccion =$("#editar-vacuna").val();
   if (seleccion.toUpperCase() =='OTRA'){
     $("#editar-vacunaExtra").prop('readonly', false);
   }else{
 
     $("#editar-vacunaExtra").prop('readonly', true);
     $("#editar-vacunaExtra").prop('value', "NA");
-    } 
+    }
 });
 </script>
