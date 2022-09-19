@@ -217,19 +217,19 @@ function mensajeAjax(data){
   return 0;
 }
 
-function selectDatatable(tablename, datatable, panel = null, api = null){
+function selectDatatable(tablename, datatable, panel = null, api = null, tipPanel = null){
   $('#'+tablename+' tbody').on('click', 'tr', function () {
      if ($(this).hasClass('selected')) {
          $(this).removeClass('selected');
          array_selected = null;
-           obtenerPanelInfoPaciente()
+           obtenerPanelInformacion(0, api, tipPanel)
      } else {
          datatable.$('tr.selected').removeClass('selected');
          $(this).addClass('selected');
          array_selected = datatable.row( this ).data();
          console.log(panel)
          if (panel) {
-           obtenerPanelInfoPaciente(array_selected[0], api)
+           obtenerPanelInformacion(array_selected[0], api, tipPanel)
          }
      }
   });
@@ -243,12 +243,15 @@ function select2(select, modal){
   });
 }
 
-function obtenerPanelInfoPaciente(id = null, api = null){
-  console.log("ikjhabsidai")
-  $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-paciente.php", function(html){
+function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
+  $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-paciente.php",
+  {
+    tip: tipPanel
+  },
+  function(html){
      $("#panel-informacion").html(html);
   }).done(function(){
-    if (id) {
+    if (id > 0) {
       $.ajax({
         url: http+servidor+"/nuevo_checkup/api/"+api+".php",
         data:{id: id,api: 3},
@@ -257,20 +260,29 @@ function obtenerPanelInfoPaciente(id = null, api = null){
         type: "POST",
         success: function(data) {
           var data = jQuery.parseJSON(data);
-          data = data['response']['data'];
-          $('#nombre-persona').html(data[0]['NOMBRE']+" "+data[0]['PATERNO']+" "+data[0]['MATERNO']);
-          $('#nacimiento-persona').html(formatoFecha(data[0]['NACIMIENTO'])+" | <span class='span-info'>"+data[0]['EDAD']+"</span> años")
-          $('#info-paci-curp').html(data[0]['CURP']);
-          $('#info-paci-telefono').html(data[0]['CELULAR']);
-          $('#info-paci-correo').html(data[0]['CORREO']);
-          $('#info-paci-sexo').html(data[0]['GENERO']);
-          if (data[0]['TURNO']) {
-            $('#info-paci-turno').html(data[0]['TURNO']);
-          }else{
-            $('#info-paci-turno').html('Sin generar');
+          switch (tipPanel) {
+            case 'paciente':
+                data = data['response']['data'];
+                $('#nombre-persona').html(data[0]['NOMBRE']+" "+data[0]['PATERNO']+" "+data[0]['MATERNO']);
+                $('#nacimiento-persona').html(formatoFecha(data[0]['NACIMIENTO'])+" | <span class='span-info'>"+data[0]['EDAD']+"</span> años")
+                $('#info-paci-curp').html(data[0]['CURP']);
+                $('#info-paci-telefono').html(data[0]['CELULAR']);
+                $('#info-paci-correo').html(data[0]['CORREO']);
+                $('#info-paci-sexo').html(data[0]['GENERO']);
+                if (data[0]['TURNO']) {
+                  $('#info-paci-turno').html(data[0]['TURNO']);
+                }else{
+                  $('#info-paci-turno').html('Sin generar');
+                }
+                $('#info-paci-directorio').html(data[0]['CALLE']+", "+data[0]['COLONIA']+", "+
+                data[0]['MUNICIPIO']+", "+data[0]['ESTADO']);
+            break;
+            case 'estudio':
+              
+            break;
+            default:
+
           }
-          $('#info-paci-directorio').html(data[0]['CALLE']+", "+data[0]['COLONIA']+", "+
-          data[0]['MUNICIPIO']+", "+data[0]['ESTADO']);
         }
       })
     }else{

@@ -49,4 +49,5 @@ function recepciónPaciente(estatus, id){
     }
   })
 }
-obtenerPanelInfoPaciente()
+
+  obtenerPanelInformacion(0, 0, 0)

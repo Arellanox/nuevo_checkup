@@ -29,4 +29,4 @@ var TablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   ],
 
 })
-selectDatatable("TablaRecepcionPacientes", TablaRecepcionPacientes, 1, "pacientes_api")
+selectDatatable("TablaRecepcionPacientes", TablaRecepcionPacientes, 1, "pacientes_api", 'paciente')

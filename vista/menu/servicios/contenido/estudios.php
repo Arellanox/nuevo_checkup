@@ -2,7 +2,7 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 <div class="row">
-  <div class="card col-12 col-lg-4">
+  <div class="card col-12 col-lg-4" id="panel-informacion">
 
   </div>
   <div class="card col-12 col-lg-8" style="margin-bottom:5px">
@@ -16,9 +16,9 @@
         <tr>
           <th scope="col d-flex justify-content-center" class="all">#</th>
           <th scope="col d-flex justify-content-center" class="all">Servicio</th>
+          <th scope="col d-flex justify-content-center" class="min-tablet">Clasificacion</th>
           <th scope="col d-flex justify-content-center" class="min-tablet">Area</th>
-          <th scope="col d-flex justify-content-center" class="min-tablet">Derivado</th>
-          <th scope="col d-flex justify-content-center" class="min-tablet">Tipo</th>
+          <th scope="col d-flex justify-content-center" class="min-tablet">Estatus</th>
         </tr>
       </thead>
       <tbody>
@@ -32,5 +32,5 @@
       </tbody>
     </table>
   </div>
-  
+
 </div>
