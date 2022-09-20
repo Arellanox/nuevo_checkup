@@ -31,6 +31,26 @@
               </select>
             </div>
             <div class="col-6 col-md-6">
+              <label for="metodo" class="form-label">Metodo</label>
+              <select name="metodo" id="metodo" class="input-form">
+                <option value="1">Opcion 1</option>
+                <option value="2">Opcion 2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-6">
+              <label for="medida" class="form-label">Medida</label>
+              <select name="medida" id="medida" class="input-form">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-6">
+              <label for="entrega" class="form-label">Dia de Entrega</label>
+              <input type="date" name="entrega" class="input-form" id="entrega" placeholder="Dia-Mes-Año" value="" min="2022-09-20" max="2030-12-31">
+            </div>
+            <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto Facturacion</label>
               <select name="confac" class="input-form">
                 <option value="1">DESCRIPCION</option>
@@ -40,22 +60,21 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="indicaciones" class="form-label">Indicaciones</label>
-              <select name="indicaciones" class="input-form">
-                <option value="1">Ayuno de $nhroas</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
+              <br />
+              <textarea class="md-textarea form-control" name="indicaciones" class="input-form" id="indicaciones" cols="45" rows="2">
+
+              </textarea>
             </div>
             <div class="row" style="zoom:100%;">
               <div class="col-md-auto">
-                <label for="">¿Mostrar valor normal en el reporte? </label>
+                <label for="">¿Mostrar valores de Referencia? </label>
               </div>
               <div class="col">
-                <input type="radio" id="varepo" name="varepo" value="1" required="" checked="checked">
+                <input type="radio" id="vareposi" name="varepo" value="1" required="" checked="checked">
                 <label for="varepo">Si</label>
               </div>
               <div class="col">
-                <input type="radio" id="varepo" name="varepo" value="0" required="">
+                <input type="radio" id="varepono" name="varepo" value="0" required="">
                 <label for="varepo">No</label>
               </div>
             </div>
