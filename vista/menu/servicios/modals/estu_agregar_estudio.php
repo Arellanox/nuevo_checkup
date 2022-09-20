@@ -2,42 +2,78 @@
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
-        <h5 class="modal-title" id="filtrador">Registrar nuevo servicio</h5>
+        <h5 class="modal-title" id="filtrador">Agregar Nuevo Estudio</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form class="" id="formRegistrarServicio">
-          <p class="text-center">Cree un nuevo <strong>servicio</strong>  </p>
+          <p class="text-center">Agrege un nuevo <strong>Estudio</strong> </p>
           <div class="row">
+
+            <div class="col-6">
+              <label for="nombre_estudio" class="form-label">Nombre del Estudio</label>
+              <input type="text" name="nombre_estudio" class="form-control input-form" required>
+            </div>
             <div class="col-6 col-md-6">
-              <label for="cargo" class="form-label">Servicio derivada</label>
-              <div class="input-group">
-                <select name="cargo" id="select-servicio-derivada" class="input-form">
-                  
-                </select>
+              <label for="clasificacion" class="form-label">Clasificacion</label>
+              <select name="clasificacion" class="input-form">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-6">
+              <label for="tomaclasificacion" class="form-label">Toma Clasificacion</label>
+              <select name="tomaclasificacion" class="input-form">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-6">
+              <label for="confac" class="form-label">Concepto Facturacion</label>
+              <select name="confac" class="input-form">
+                <option value="1">DESCRIPCION</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-6">
+              <label for="indicaciones" class="form-label">Indicaciones</label>
+              <select name="indicaciones" class="input-form">
+                <option value="1">Ayuno de $nhroas</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="row" style="zoom:100%;">
+              <div class="col-md-auto">
+                <label for="">¿Mostrar valor normal en el reporte? </label>
+              </div>
+              <div class="col">
+                <input type="radio" id="varepo" name="varepo" value="1" required="" checked="checked">
+                <label for="varepo">Si</label>
+              </div>
+              <div class="col">
+                <input type="radio" id="varepo" name="varepo" value="0" required="">
+                <label for="varepo">No</label>
               </div>
             </div>
-            <div class="col-6 col-md-6">
-              <label for="cargo" class="form-label">Area del servicio</label>
-              <select name="cargo" id="select-area-derivada" class="input-form">
-              </select>
+            <div class="row" style="zoom:100%;">
+              <div class="col-md-auto">
+                <label for="">Se Subroga?: </label>
+              </div>
+              <div class="col">
+                <input type="radio" id="agre-subroga" name="subroga" value="1" required="" checked="checked">
+                <label for="agre-subroga">Si</label>
+              </div>
+              <div class="col">
+                <input type="radio" id="agre-subroga" name="subroga" value="0" required="">
+                <label for="agre-subroga">No</label>
+              </div>
             </div>
-            <div class="col-12">
-              <label for="nombre" class="form-label">Nombre del servicio</label>
-              <input type="text" name="nombre"  class="form-control input-form" required>
-            </div>
-            <div class="col-6">
-              <label for="nombre" class="form-label">Tipo de servicio</label>
-              <input type="text" name="nombre"  class="form-control input-form" required>
-            </div>
-            <div class="col-6 col-md-6">
-              <label for="cargo" class="form-label">Dirigido a</label>
-              <select name="cargo" class="input-form">
-                <option value="1">Público general</option>
-                <option value="2">Público femenino</option>
-                <option value="3">Público masculino</option>
-              </select>
-            </div>
+
+
           </div>
         </form>
       </div>
