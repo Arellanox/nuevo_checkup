@@ -8,11 +8,11 @@ function obtenerContenidoUsuarios() {
   obtenerTitulo("Usuarios"); //Aqui mandar el nombre de la area
   $.post("contenido/usuarios.php", function (html) {
     var idrow;
-     $("#body-js").html(html);
-     // Datatable
-     $.getScript("contenido/js/usuario-tabla.js");
-     // Botones
-     $.getScript("contenido/js/usuario-botones.js");
+    $("#body-js").html(html);
+    // Datatable
+    $.getScript("contenido/js/usuario-tabla.js");
+    // Botones
+    $.getScript("contenido/js/usuario-botones.js");
   });
 }
 
@@ -37,13 +37,14 @@ function obtenerContenidoSegmentos(titulo) {
     // Datatable
     $.getScript("contenido/js/segmentos-tabla.js");
     // Botones
+    $.getScript("contenido/js/botones-segmento.js");
   });
 }
 
 function hasLocation() {
   var hash = window.location.hash.substring(1);
-  $('a').removeClass('navlinkactive');
-  $("nav li a[href='#" + hash + "']").addClass('navlinkactive');
+  $("a").removeClass("navlinkactive");
+  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {
     case "Usuarios":
       obtenerContenidoUsuarios("usuario.php", "Usuarios");
