@@ -2,16 +2,25 @@
 
 // ObtenerTabla o cambiar
 obtenerContenidoRecepcion();
-function obtenerContenidoRecepcion(tabla){
+
+
+function obtenerContenidoRecepcion(){
   obtenerTitulo('Recepción'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion.php", function(html){
-    var idrow;
      $("#body-js").html(html);
      // Datatable
-     $.getScript("contenido/js/recepcion-tabla.js");
+     actualizarTablaPacientesRecepcion();
      // Botones
      $.getScript("contenido/js/recepcion-botones.js");
   });
+}
+
+
+function actualizarTablaPacientesRecepcion(){
+  $.post("contenido/recepcion.php", function(html){
+    $("#body-js").html(html);
+    $.getScript("contenido/js/recepcion-tabla.js");
+ });
 }
 
 function recepciónPaciente(estatus, id){

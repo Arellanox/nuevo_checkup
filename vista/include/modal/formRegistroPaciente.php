@@ -101,7 +101,7 @@
 </div>
 <div class="col-6 col-lg-3" >
   <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
-  <input type="text" class="form-control input-form" placeholder="" style="text-transform:uppercase;" name="vacunaExtra" id="vacunaExtra" onkeyup="javascript:this.value=this.value.toUpperCase();" readonly>
+  <input type="text" class="form-control input-form" placeholder="" style="text-transform:uppercase;" value="NA" name="vacunaExtra" id="vacunaExtra" onkeyup="javascript:this.value=this.value.toUpperCase();" readonly>
 </div>
 <div class="col-6 col-lg-3">
   <label for="dosis" class="form-label">Dosis</label>

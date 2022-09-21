@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-12 col-lg-5">
                 <label for="procedencia" class="form-label">Procedencia</label>
-                <select class="input-form"  id="listProcedencia-edit" >
+                <select class="input-form"  id="listProcedencia-editar" >
                 </select>
             </div>
             <div class="col-12 col-lg-4">
@@ -121,10 +121,10 @@
           </div>
           <div class="col-6 col-lg-3" id="editar-extra">
             <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
-            <input type="text" class="form-control input-form" name="vacunaExtra" id="editar-vacunaExtra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"  readonly> 
+            <input type="text" class="form-control input-form" Name="vacunaExtra" id="editar-vacunaExtra" placeholder=""  style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"  readonly> 
           </div>
 
-
+                   
           <div class="col-6 col-lg-3">
             <label for="inputDosis" class="form-label">Dosis</label>
             <select class="input-form" name="inputDosis" id="editar-inputDosis">
@@ -159,6 +159,7 @@
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
         <button type="submit" form="formEditarPaciente" class="btn btn-confirmar" id="btn-actualizar">
           <i class="bi bi-send-plus"></i> Actualizar
+          <a href="../../menu/recepcion/contenido/js/recepcion-tabla.js">
         </button>
       </div>
     </div>
@@ -166,34 +167,35 @@
 </div>
 
 <script type="text/javascript">
-  let id_paciente_edit=null;
-  const ModalEditarPaciente = document.getElementById('ModalEditarPaciente')
+  let idPacienteEdit=null; 
+  let edited =false;
+  const ModalEditarPaciente = document.getElementById('ModalEditarPaciente');
+
+  ModalEditarPaciente.addEventListener('hide.bs.modal', event => {
+    if (edited){
+      edited=false;
+      actualizarTablaPacientesRecepcion();
+    }
+  });
+
   ModalEditarPaciente.addEventListener('show.bs.modal', event => {
     // Colocar ajax
-
-     id_paciente_edit=array_selected['ID_PACIENTE'];
-
-    var select = document.getElementById("listProcedencia-edit"),
-        length = select.options.length;
-    while(length--){
-      select.remove(length);
-    }
-
-    // If necessary, you could initiate an AJAX request here
-    getProcedencias("listProcedencia-edit");
-    var procedencia = $("#listProcedencia-edit option:selected").val();
-    getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
-
-    //  console.log(array_selected['ID_PACIENTE']);
+     
+     idPacienteEdit=array_selected['ID_PACIENTE']; 
+     
     $.ajax({
+      
       url: "../../../api/pacientes_api.php",
       type: "POST",
-      data:{id:id_paciente_edit,api:2},
-      success: function(data) {
+      data:{id:idPacienteEdit,api:2},
+      success: function(data) {        
+        $("#btn-actualizar").prop('disabled', false);
         var arrayPaciente = JSON.parse(data);
-        paciente=arrayPaciente[0];
-        $('#listProcedencia-edit').val(paciente['PROCEDENCIA']);
-        $('#segmentos_procedencias-edit').val(paciente['SEGMENTO']);
+        paciente=arrayPaciente[0]; 
+        if(setProcedenciaOption("listProcedencia-editar",paciente['ID_CLIENTE'])){
+          setSegmentoOption("segmentos_procedencias-edit",paciente['ID_CLIENTE'],paciente['ID_SEGMENTO']);
+        };  
+        $('#editar-nombre').val(paciente['NOMBRE']);
         $('#editar-nombre').val(paciente['NOMBRE']);
         $('#editar-paterno').val(paciente['PATERNO']);
         $('#editar-materno').val(paciente['MATERNO']);
@@ -217,21 +219,23 @@
         $('#editar-inputDosis').val(paciente['DOSIS']);
         var genero=paciente['GENERO'];
         genero=genero.toUpperCase();
-        if(genero.toUpperCase() =='MASCULINO'){
+        if(genero.toUpperCase() =='MASCULINO'){           
           $('#edit-mascuCues').attr('checked', true);
         }  else{
           $('#edit-femenCues').attr('checked', true);
         }
       }
+
     })
   });
+  
   // Lista de segmentos dinamico
-  $('#listProcedencia-edit').on('change', function() {
-    var procedencia = $("#listProcedencia-edit option:selected").val();
+  $('#listProcedencia-editar').on('change', function() {    
+    var procedencia = $("#listProcedencia-editar option:selected").val();
     getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
   });
 
-
+ 
 
 
   //Formulario de Preregistro
@@ -240,13 +244,13 @@
    /*DATOS Y VALIDACION DEL REGISTRO*/
    var form = document.getElementById("formEditarPaciente");
    var formData = new FormData(form);
-   formData.set('id', id_paciente_edit);
+   formData.set('id', idPacienteEdit); 
    formData.set('api', 4);
-   $i=0;
-   formData.forEach(element => {
-    console.log($i+' ' + element);
-    $i++;
-  });
+  //  $i=0;
+  //  formData.forEach(element => {
+  //   console.log($i+' ' + element);
+  //   $i++;
+  // });
    Swal.fire({
       title: '¿Está seguro que todos sus datos estén correctos?',
       text: "¡No podrá revertir los cambios!",
@@ -268,6 +272,7 @@
           processData: false,
           contentType: false,
           success: function(data) {
+            edited=true;
             data = jQuery.parseJSON(data);
             console.log(data['response']['code']);
             switch (data['response']['code']) {
@@ -303,15 +308,15 @@
    event.preventDefault();
  });
 
-
-$("#editar-vacuna").change(function(){
-  var seleccion =$("#editar-vacuna").val();
+ 
+$("#editar-vacuna").change(function(){  
+  var seleccion =$("#editar-vacuna").val(); 
   if (seleccion.toUpperCase() =='OTRA'){
     $("#editar-vacunaExtra").prop('readonly', false);
   }else{
 
     $("#editar-vacunaExtra").prop('readonly', true);
     $("#editar-vacunaExtra").prop('value', "NA");
-    }
+    } 
 });
 </script>

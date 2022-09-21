@@ -1,4 +1,5 @@
 const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
+let edited = false;
 modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
   getProcedencias("listProcedencia");
   var procedencia = $("#listProcedencia option:selected").val();
@@ -34,6 +35,7 @@ $("#formRegistrarPaciente").submit(function(event){
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
+        edited=true;
         $("#btn-registrarse").prop('disabled', true);
 
         // Esto va dentro del AJAX
@@ -55,6 +57,7 @@ $("#formRegistrarPaciente").submit(function(event){
               });
               document.getElementById("formRegistrarPaciente").reset();
               $("#ModalRegistrarPaciente").modal('hide');
+              
             }
           },
         });
@@ -62,6 +65,16 @@ $("#formRegistrarPaciente").submit(function(event){
     })
    event.preventDefault();
  });
+
+ const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente');
+
+ ModalRegistrarPaciente.addEventListener('hide.bs.modal', event => {
+  if (edited){
+    edited=false;
+    actualizarTablaPacientesRecepcion();
+  }
+ });
+
 
 $("#vacuna").change(function(){  
   var seleccion =$("#vacuna").val(); 
