@@ -58,7 +58,7 @@ $('#TablaMetodos tbody').on('dblclick', 'tr', function () {
        TablaMetodos.$('tr.selected').removeClass('selected');
         $(this).addClass('selected');
         array_metodo = TablaMetodos.row( this ).data();
-        console.log(array_metodo);
+        // console.log(array_metodo);
         document.getElementById("edit-metodo-descripcion").value = array_metodo[1];
          var data = TablaMetodos.row( this ).data();
          cambiarFormMetodo(1);

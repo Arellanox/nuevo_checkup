@@ -11,7 +11,7 @@
         <i class="bi bi-pencil-square"></i> Editar estudio
       </button>
     </div>
-    <table class="table table-hover display responsive tableContenido" id="TablaServicioAdmin" style="width: 100%">
+    <table class="table table-hover display responsive tableContenido" id="TablaEstudioServicio" style="width: 100%">
       <thead class="" style="width: 100%">
         <tr>
           <th scope="col d-flex justify-content-center" class="all">#</th>

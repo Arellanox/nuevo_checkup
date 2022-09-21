@@ -243,7 +243,7 @@ function select2(select, modal){
 }
 
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
-  $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-paciente.php",
+  $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-barra.php",
   {
     tip: tipPanel
   },
@@ -279,6 +279,13 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
             case 'estudio':
 
             break;
+            case 'equipo':
+              $('#nombre-equipo').html(data[0]['CURP']);
+              $('#equipo-equipo').html(data[0]['CELULAR']);
+              $('#equipo-ingreso').html(data[0]['CORREO']);
+              $('#equipo-inicio').html(data[0]['GENERO']);
+              $('#equipo-valor').html(data[0]['CORREO']);
+            break;
 
             default:
 
@@ -289,4 +296,20 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
       $('#info-php').fadeOut(100);
     }
   });
+}
+
+function selectedTrTable(text, column = 1, table){
+  filter = text.toUpperCase();
+  tablesearch = document.getElementById(table);
+  tr = tablesearch.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[column];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].classList.add("selected");
+        return tr[i];
+      }
+    }
+  }
 }

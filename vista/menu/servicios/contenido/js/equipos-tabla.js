@@ -1,5 +1,5 @@
 loader("In")
-var tablaServicio = $('#TablaEstudioServicio').DataTable({
+var tablaEquipo = $('#TablaEquipoServicio').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
   },
@@ -29,4 +29,4 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
 
 })
 loader("Out")
-selectDatatable("TablaEstudioServicio", tablaServicio, 1, 'estudios_api', 'estudio')
+selectDatatable("TablaEquipoServicio", tablaEquipo, 1, 'equipo_api', 'equipo')

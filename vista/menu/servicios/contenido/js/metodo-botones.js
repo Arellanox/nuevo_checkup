@@ -5,28 +5,17 @@ $("#Buscarmetodo").click(function(){
   if (idMetodo != "") {
     TablaMetodos.$('tr.selected').removeClass('selected');
     document.getElementById("edit-metodo-descripcion").value = text;
-
-    filter = text.toUpperCase();
-    tablesearch = document.getElementById("TablaMetodos");
-    tr = tablesearch.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[1];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].classList.add("selected");
-        }
-      }
-    }
-
-
+    var tr = selectedTrTable(text, 1, 'TablaMetodos')
+    array_metodo = TablaMetodos.row( tr ).data();
     cambiarFormMetodo(1);
   }else{
+    array_metodo = null;
     cambiarFormMetodo(0);
   }
 })
 
 $("#Limpiarmetodo").click(function(){
   TablaMetodos.$('tr.selected').removeClass('selected');
+  array_metodo = null;
   cambiarFormMetodo(0)
 })

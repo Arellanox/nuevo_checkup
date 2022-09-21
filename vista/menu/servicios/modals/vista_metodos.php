@@ -69,7 +69,7 @@
                 <input type="text" name="metodo" value="" class="form-control input-form" >
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarUsuario">
+                <button type="submit" class="btn btn-hover me-2" style="margin-bottom:4px">
                   <i class="bi bi-send-plus"></i> Guardar metodo
                 </button>
               </div>
@@ -83,11 +83,11 @@
                 <input type="text" name="metodo" id="edit-metodo-descripcion" class="form-control input-form" >
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarUsuario">
-                  <i class="bi bi-pencil-square"></i> Actualizar metodo
+                <button type="submit" class="btn btn-hover me-2" style="margin-bottom:4px">
+                  <i class="bi bi-pencil-square"></i> Actualizar
                 </button>
-                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarUsuario">
-                  <i class="bi bi-collection"></i> Desactivar metodo
+                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="desactivar-metodo">
+                  <i class="bi bi-collection"></i> Desactivar
                 </button>
               </div>
             </form>
@@ -95,7 +95,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
         <!-- <button type="submit" class="btn btn-confirmar">
           <i class="bi bi-person-plus"></i> Crear
         </button> -->
