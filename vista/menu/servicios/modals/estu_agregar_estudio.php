@@ -61,9 +61,7 @@
             <div class="col-6 col-md-6">
               <label for="indicaciones" class="form-label">Indicaciones</label>
               <br />
-              <textarea class="md-textarea form-control" name="indicaciones" class="input-form" id="indicaciones" cols="45" rows="2">
-
-              </textarea>
+              <textarea class="md-textarea input-form" name="indicaciones" id="indicaciones" cols="45" rows="2" placeholder=""></textarea>
             </div>
             <div class="row" style="zoom:100%;">
               <div class="col-md-auto">
