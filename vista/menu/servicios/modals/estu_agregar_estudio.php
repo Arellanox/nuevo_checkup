@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="" id="formRegistrarServicio">
+        <form class="" id="formRegistrarEstudio">
           <p class="text-center">Agrege un nuevo <strong>Estudio</strong> </p>
           <div class="row">
 
@@ -98,7 +98,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarServicio" class="btn btn-confirmar">
+        <button type="submit" form="formRegistrarEstudio" class="btn btn-confirmar">
           <i class="bi bi-person-plus"></i> Crear
         </button>
       </div>
