@@ -4,6 +4,10 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
+// Variable de seleccion de metodo
+var array_metodo;
+var idMetodo = null;
+
 function obtenerContenidoEstudios(titulo){
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/estudios.php", function (html) {
@@ -11,7 +15,6 @@ function obtenerContenidoEstudios(titulo){
     $("#body-js").html(html);
     // Datatable
     $.getScript("contenido/js/estudio-tabla.js");
-    $.getScript("contenido/js/precios-tabla.js");
     // Botones
     $.getScript("contenido/js/estudio-botones.js");
   });
@@ -42,8 +45,10 @@ function obtenerContenidoEquipos(titulo){
 }
 
 
-
-
+// Datatable Metodo
+$.getScript("contenido/js/metodo-tabla.js");
+// Metodo botones
+$.getScript("contenido/js/metodo-botones.js");
 
 function hasLocation() {
   var hash = window.location.hash.substring(1);

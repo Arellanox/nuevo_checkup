@@ -64,7 +64,7 @@
 <?php if ($menu == "Servicios"): ?>
   <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
-      <i class="bi bi-person-lines-fill"></i> Metodos
+      <i class="bi bi-box"></i> Metodos
     </a>
   </li>
   <li class="nav-item">

@@ -558,6 +558,7 @@ $("#formRegistrarPrueba").submit(function(event){
 
  $('#selectCURPPaciente').select2({
    dropdownParent: $('#ModalRegistrarPrueba'),
-   tags: true
+   tags: false,
+   placeholder: 'Selecciona un paciente'
  });
 </script>

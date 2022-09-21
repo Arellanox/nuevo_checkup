@@ -10,7 +10,7 @@ var tablaServicio = $('#TablaServicioAdmin').DataTable({
   //     dataType: 'json',
   //     data: {api: 2},
   //     method: 'POST',
-  //     url: '../../../api/usuarios_api.php',
+  //     url: '../../../api/estudios_api.php',
   //     beforeSend: function() { loader("In") },
   //     complete: function(){ loader("Out") },
   //     dataSrc:''
@@ -21,11 +21,6 @@ var tablaServicio = $('#TablaServicioAdmin').DataTable({
   //     {data: 'USUARIO'},
   //     {data: '15.0.DESCRIPCION'},
   //     {data: '16.0.DESCRIPCION'},
-  //     {data: 'ACTIVO'},
-  //     {data: 'PROFESION'},
-  //     {data: 'CEDULA'},
-  //     {data: 'TELEFONO'},
-  //     {data: 'CORREO'},
   //     // {defaultContent: 'En progreso...'}
   // ],
   columnDefs: [
@@ -34,4 +29,4 @@ var tablaServicio = $('#TablaServicioAdmin').DataTable({
 
 })
 loader("Out")
-selectDatatable("TablaServicioAdmin", tablaServicio)
+selectDatatable("TablaServicioAdmin", tablaServicio, 1, 'estudios_api', 'estudio')

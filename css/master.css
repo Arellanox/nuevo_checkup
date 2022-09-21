@@ -70,10 +70,10 @@ p{
 }
 
 .none-p{
-  color: black;
-  font-weight:normal;
-  letter-spacing: normal;
-  margin-bottom: 0;
+  color: black !important;
+  font-weight:normal !important;
+  letter-spacing: normal !important;
+  margin-bottom: 0 !important;
 }
 
 .card{
