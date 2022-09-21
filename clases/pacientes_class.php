@@ -117,5 +117,10 @@ class Pacientes extends Master implements iMetodos{
 
         return $resultset;
     }
+
+    function insertByProcedure($sp,$values){
+        $response = $this->master->insertByProcedure($sp,$values);
+        return $response;
+    }
 }
 ?>
