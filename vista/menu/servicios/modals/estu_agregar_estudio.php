@@ -38,7 +38,7 @@
                 <option value="3">3</option>
               </select>
             </div>
-            <div class="col-6 col-md-6">
+            <div class="col-3 col-md-3">
               <label for="medida" class="form-label">Medida</label>
               <select name="medida" id="medida" class="input-form">
                 <option value="1">1</option>
@@ -46,9 +46,9 @@
                 <option value="3">3</option>
               </select>
             </div>
-            <div class="col-6 col-md-6">
+            <div class="col-3 col-md-3">
               <label for="entrega" class="form-label">Dia de Entrega</label>
-              <input type="date" name="entrega" class="input-form" id="entrega" placeholder="Dia-Mes-Año" value="" min="2022-09-20" max="2030-12-31">
+              <input type="number" name="entrega" class="input-form" id="entrega" value="">
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto Facturacion</label>
