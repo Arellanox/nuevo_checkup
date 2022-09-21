@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="" id="formRegistrarServicio">
+        <form class="" id="formRegistrarEstudio">
           <p class="text-center">Agrege un nuevo <strong>Estudio</strong> </p>
           <div class="row">
 
@@ -38,7 +38,7 @@
                 <option value="3">3</option>
               </select>
             </div>
-            <div class="col-6 col-md-6">
+            <div class="col-3 col-md-3">
               <label for="medida" class="form-label">Medida</label>
               <select name="medida" id="medida" class="input-form">
                 <option value="1">1</option>
@@ -46,9 +46,9 @@
                 <option value="3">3</option>
               </select>
             </div>
-            <div class="col-6 col-md-6">
+            <div class="col-3 col-md-3">
               <label for="entrega" class="form-label">Dia de Entrega</label>
-              <input type="date" name="entrega" class="input-form" id="entrega" placeholder="Dia-Mes-Año" value="" min="2022-09-20" max="2030-12-31">
+              <input type="number" name="entrega" class="input-form" id="entrega" value="">
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto Facturacion</label>
@@ -61,9 +61,7 @@
             <div class="col-6 col-md-6">
               <label for="indicaciones" class="form-label">Indicaciones</label>
               <br />
-              <textarea class="md-textarea form-control" name="indicaciones" class="input-form" id="indicaciones" cols="45" rows="2">
-
-              </textarea>
+              <textarea class="md-textarea input-form" name="indicaciones" id="indicaciones" cols="45" rows="2" placeholder=""></textarea>
             </div>
             <div class="row" style="zoom:100%;">
               <div class="col-md-auto">
@@ -98,7 +96,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarServicio" class="btn btn-confirmar">
+        <button type="submit" form="formRegistrarEstudio" class="btn btn-confirmar">
           <i class="bi bi-person-plus"></i> Crear
         </button>
       </div>
