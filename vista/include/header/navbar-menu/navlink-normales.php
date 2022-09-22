@@ -68,7 +68,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a href="#Estudio" data-bs-dismiss="offcanvas">
+    <a href="#Estudios" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Estudios
     </a>
   </li>

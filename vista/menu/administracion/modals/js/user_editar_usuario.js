@@ -3,8 +3,8 @@ modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
   document.getElementById("formEditarUsuario").reset();
   $("#Input-Constraseña-Edit").hide();
   $("#edit-usuario-contraseña").removeAttr( "name" );
-  rellenarSelect('usuario-cargos-edit','../../../api/cargos_api.php', 2);
-  rellenarSelect('usuario-tipo-edit','../../../api/tipos_usuarios_api.php', 2);
+  rellenarSelect('#usuario-cargos-edit','tipos_usuarios_api', 2,0,1);
+  rellenarSelect('#usuario-tipo-edit','tipos_usuarios_api', 2,0,1);
   // Colocar ajax
   $.ajax({
     url: "../../../api/usuarios_api.php",
