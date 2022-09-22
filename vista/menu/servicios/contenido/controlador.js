@@ -8,7 +8,7 @@ $(window).on("hashchange", function (e) {
 var array_metodo;
 var idMetodo = null;
 
-function obtenerContenidoEstudios(titulo){
+function obtenerContenidoEstudios(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/estudios.php", function (html) {
     var idrow;
@@ -20,7 +20,7 @@ function obtenerContenidoEstudios(titulo){
   });
 }
 
-function obtenerContenidoGrupos(titulo){
+function obtenerContenidoGrupos(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/grupos.php", function (html) {
     var idrow;
@@ -32,7 +32,7 @@ function obtenerContenidoGrupos(titulo){
   });
 }
 
-function obtenerContenidoEquipos(titulo){
+function obtenerContenidoEquipos(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/equipos.php", function (html) {
     var idrow;
@@ -44,7 +44,6 @@ function obtenerContenidoEquipos(titulo){
   });
 }
 
-
 // Datatable Metodo
 $.getScript("contenido/js/metodo-tabla.js");
 // Metodo botones
@@ -52,8 +51,8 @@ $.getScript("contenido/js/metodo-botones.js");
 
 function hasLocation() {
   var hash = window.location.hash.substring(1);
-  $('a').removeClass('navlinkactive');
-  $("nav li a[href='#" + hash + "']").addClass('navlinkactive');
+  $("a").removeClass("navlinkactive");
+  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {
     case "Estudios":
       obtenerContenidoEstudios("Estudios");

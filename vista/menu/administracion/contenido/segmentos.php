@@ -3,11 +3,11 @@
     <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-editar">
       <i class="bi bi-pencil"></i> Editar
     </button>
-    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-estado">
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-relacion">
       <i class="bi bi-person-badge"></i> Relacion
     </button>
     <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-eliminiar">
-      <i class="bi bi-pencil"></i> Eliminar
+      <i class="bi bi-trash"></i> Eliminar
     </button>
   </div>
   <table class="table table-hover display responsive tableContenido" id="TablaSegmentosAdmin" style="width: 100%">

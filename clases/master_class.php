@@ -334,4 +334,11 @@ class Master extends Miscelaneus{
 
         return $string;
     }
+
+    function checkStartedSession(){
+        if(!isset($_SESSION['id'])){
+            return false;
+        }
+        return true;
+    }
 }
