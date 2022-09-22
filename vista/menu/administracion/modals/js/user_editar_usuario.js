@@ -36,7 +36,6 @@ $("#formEditarUsuario").submit(function(event){
    var formData = new FormData(form);
    formData.set('id', array_selected['ID_USUARIO']);
    formData.set('api', 4);
-   console.log(formData);
 
    $.ajax({
      data: formData,

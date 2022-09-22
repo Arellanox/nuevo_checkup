@@ -1,5 +1,3 @@
-$.getScript(http+servidor+"/nuevo_checkup/api/usuarios_class.js")
-
 
 //Menu predeterminado
 hasLocation();
