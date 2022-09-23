@@ -7,8 +7,67 @@ $api = $_POST['api'];
 
 switch ($api) {
     case 1:
+        #insert
         $response = $master->insertByProcedure("sp_servicios_g",$values);
 
+        if (is_numeric($response)) {
+            echo json_encode(array(
+                'response'=> array(
+                    'code'=> 1,
+                    'lastId'=>$response
+                )
+                ));
+        } else {
+            echo json_encode(array(
+                'response'=>array(
+                    'code'=>2,
+                    'msj'=> $response
+                )
+            ));
+        }
+        break;
+    case 2:
+        #getall
+        $response = $master->getByProcedure('sp_servicios_b',array());
+        if (is_array($response)) {
+            echo json_encode(array(
+                'response'=> array(
+                    'code'=> 1,
+                    'data'=>$response
+                )
+                ));
+        } else {
+            echo json_encode(array(
+                'response'=>array(
+                    'code'=>2,
+                    'msj'=> $response
+                )
+            ));
+        }
+        break;
+    case 3:
+        #getbyid
+        $response = $master->getByProcedure('sp_servicios_b',array($id));
+        if (is_array($response)) {
+            echo json_encode(array(
+                'response'=> array(
+                    'code'=> 1,
+                    'data'=>$response
+                )
+                ));
+        } else {
+            echo json_encode(array(
+                'response'=>array(
+                    'code'=>2,
+                    'msj'=> $response
+                )
+            ));
+        }
+        break;
+
+    case 4:
+        #update
+        $response = $master->updateByProcedure('sp_servicios_g',$values);
         if (is_numeric($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -25,7 +84,25 @@ switch ($api) {
             ));
         }
         break;
-    
+    case 5:
+        #delete
+        $response = $master->deleteByProcedure('sp_servicios_e',array($id));
+        if (is_numeric($response)) {
+            echo json_encode(array(
+                'response'=> array(
+                    'code'=> 1,
+                    'affected'=>$response
+                )
+                ));
+        } else {
+            echo json_encode(array(
+                'response'=>array(
+                    'code'=>2,
+                    'msj'=> $response
+                )
+            ));
+        }
+        break;
     
     default:
         # code...
