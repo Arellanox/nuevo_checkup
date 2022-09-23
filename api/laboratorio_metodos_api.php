@@ -2,6 +2,9 @@
 include "../clases/master_class.php";
 
 $master = new Master();
+
+# Revisa el metodo por el que recibe la variable api.
+# En caso de que no se envie nada, toma la api 2 por default.
 $api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api'] : 2);
 
 
@@ -28,8 +31,8 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_laboratorio_metodos_b',array('hola'));
-        echo $api;
+        $response = $master->getByProcedure('sp_laboratorio_metodos_b',array(null));
+
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
