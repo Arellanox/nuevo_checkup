@@ -69,7 +69,7 @@ class Master extends Miscelaneus
             return $resultSet;
 
         } catch (Exception $e) {
-            
+
             echo $e->getMessage();
         }
     }
@@ -78,26 +78,29 @@ class Master extends Miscelaneus
         $retorno = "";
         $conexion = $this->connectDb();
         $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
-        echo $sp;
+
         $sentencia = $conexion->prepare($sp);
 
         $sentencia = $this->bindParams($sentencia,$parametros);
 
-        if ($sentencia->execute()) {
-            $fila = $sentencia->fetchAll();
-            if (count($fila)>0) {
-                $retorno = $fila[0][0];
-            } else {
-                $retorno = "Alerta: la consulta no devolvió resultado";
-            }
-        } else {
-            $error_msj = "Ha ocurrido un error(" . $stmt->errorCode() . "). " . implode(" ", $stmt->errorInfo());
-            $this->mis->setLog($error_msj,$nombreProcedimiento);
-            # return "ERROR. No se pudieron recuperar los datos.";
-            $retorno = "Alerta: la consulta al servidor no se realizó correctamente";
+        try {
+          $sentencia->execute();
+          $fila = $sentencia->fetchAll();
+          if (count($fila)>0) {
+              $retorno = $fila[0][0];
+          } else {
+              $retorno = "Alerta: la consulta no devolvió resultado";
+          }
+        } catch (Exception $e) {
+          $retorno = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
+          $this->mis->setLog($error_msj,$nombreProcedimiento);
+
+          # return "ERROR. No se pudieron recuperar los datos.";
+          // $retorno2 = "Alerta: la consulta al servidor no se realizó correctamente";
         }
 
-
+        $retorno = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
+        $this->mis->setLog($error_msj,$nombreProcedimiento);
         $sentencia->closeCursor();
         return $retorno;
     }
@@ -105,11 +108,11 @@ class Master extends Miscelaneus
     public function insertByProcedure($nombreProcedimiento, $parametros)
     {
         array_push($parametros, null);
-        print_r($parametros);
+
         $retorno = $this->updateByProcedure($nombreProcedimiento, $parametros);
         return $retorno;
     }
-    
+
     public function deleteByProcedure($nombreProcedimiento, $parametros)
     {
         $retorno = $this->updateByProcedure($nombreProcedimiento, $parametros);
@@ -118,7 +121,7 @@ class Master extends Miscelaneus
 
     private function concatQuestionMark($length){
         $questionMarks = "(";
-        for ($i=0; $i < $length; $i++) { 
+        for ($i=0; $i < $length; $i++) {
             if ($i==$length-1) {
                 $questionMarks.="?";
             } else {
@@ -131,7 +134,7 @@ class Master extends Miscelaneus
     }
 
     private function bindParams($object, $params){
-        for ($i=0; $i < count($params); $i++) { 
+        for ($i=0; $i < count($params); $i++) {
             $object->bindParam(($i+1),$params[$i]);
         }
         return $object;
