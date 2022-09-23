@@ -45,7 +45,7 @@ class Master extends Miscelaneus
         return $conn;
     }
 
-    public function getByProcedure($nombreProcedimiento, $parametros)
+    function getByProcedure($nombreProcedimiento, $parametros)
     {
         try {
             $conexion = $this->connectDb();
