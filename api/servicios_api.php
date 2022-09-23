@@ -1,10 +1,38 @@
 <?php
-include "../interfaces/iMetodos.php";
-include "../clases/servicios_class.php";
+#include "../interfaces/iMetodos.php";
+include "../clases/master_class.php";
 
-$servicio = new Servicios();
+$master = new Master();
 $api = $_POST['api'];
 
+switch ($api) {
+    case 1:
+        $response = $master->insertByProcedure("sp_servicios_g",$values);
+
+        if (is_numeric($response)) {
+            echo json_encode(array(
+                'response'=> array(
+                    'code'=> 1,
+                    'affected'=>$response
+                )
+                ));
+        } else {
+            echo json_encode(array(
+                'response'=>array(
+                    'code'=>2,
+                    'msj'=> $response
+                )
+            ));
+        }
+        break;
+    
+    
+    default:
+        # code...
+        break;
+}
+
+/* 
 switch ($api) {
     case 1:
 
@@ -57,5 +85,5 @@ switch ($api) {
     default:
         # code...
         break;
-}
+} */
 ?>
