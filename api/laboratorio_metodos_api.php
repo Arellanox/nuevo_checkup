@@ -27,7 +27,7 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_laboratorio_metodos_b',array());
+        $response = $master->getByProcedure('sp_laboratorio_metodos_b',array(null));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
