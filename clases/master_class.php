@@ -68,7 +68,7 @@ class Master extends Miscelaneus
             return $resultSet;
 
         } catch (Exception $e) {
-            
+
             echo $e->getMessage();
         }
     }
@@ -80,7 +80,7 @@ class Master extends Miscelaneus
         $sentencia = $conexion->prepare($sp);
 
         $sentencia = $this->bindParams($sentencia,$parametros);
-
+        echo $sp;
         if ($sentencia->execute()) {
             $fila = $sentencia->fetchAll();
             if (count($fila)>0) {
@@ -106,7 +106,7 @@ class Master extends Miscelaneus
         $retorno = $this->updateByProcedure($nombreProcedimiento, $parametros);
         return $retorno;
     }
-    
+
     public function deleteByProcedure($nombreProcedimiento, $parametros)
     {
         $retorno = $this->updateByProcedure($nombreProcedimiento, $parametros);
@@ -115,7 +115,7 @@ class Master extends Miscelaneus
 
     private function concatQuestionMark($length){
         $questionMarks = "(";
-        for ($i=0; $i < $length; $i++) { 
+        for ($i=0; $i < $length; $i++) {
             if ($i<=$length-1) {
                 $questionMarks.="?";
             } else {
@@ -128,7 +128,7 @@ class Master extends Miscelaneus
     }
 
     private function bindParams($object, $params){
-        for ($i=0; $i < count($params); $i++) { 
+        for ($i=0; $i < count($params); $i++) {
             $object->bindParam(($i+1),$params[$i]);
         }
         return $object;

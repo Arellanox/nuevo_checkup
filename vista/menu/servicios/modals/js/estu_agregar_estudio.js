@@ -1,6 +1,6 @@
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
-  // rellenarSelect('#registrar-clasificacion-examen','Api', 2,0,1);
+  rellenarSelect('#registrar-clasificacion-examen','laboratorio_clasificacion_api', 2,0,1);
   rellenarSelect('#registrar-metodos-examen','laboratorio_metodos_api', 2,0,1);
   // rellenarSelect('#registrar-medidas-examen','Api', 2,0,1);
   // rellenarSelect('#registrar-concepto-facturacion','Api', 2,0,1);
@@ -12,6 +12,9 @@ $("#formRegistrarEstudio").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarEstudio");
   var formData = new FormData(form);
+  var padre = formData.get('grupo');
+  formData.delete('grupo');
+  formData.set("padre", padre);
   formData.set("grupos", 0);
   formData.set("producto", 1);
   formData.set("seleccionable", null);

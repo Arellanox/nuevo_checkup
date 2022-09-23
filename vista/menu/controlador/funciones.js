@@ -178,7 +178,6 @@ function rellenarSelect(select, api, num,v,c){
       type: "POST",
       success: function (data) {
         var data = jQuery.parseJSON(data);
-        console.log(data);
         for (var i = 0; i < data['response']['data'].length; i++) {
           var o = new Option("option text", data['response']['data'][i][v]);
           $(o).html(data['response']['data'][i][c]);
