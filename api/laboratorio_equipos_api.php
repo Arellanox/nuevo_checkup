@@ -10,7 +10,7 @@ if(!$equipo->master->checkStartedSession()){
 }else {
     switch ($api) {
         case 1:
-            $values=$equipo->master->getFormValues($_POST);
+            $values=$equipo->master->mis->getFormValues($_POST);
             $response = $equipo->insert($values);
             if(is_numeric($response)){
                 echo json_encode(array("response"=>array(
