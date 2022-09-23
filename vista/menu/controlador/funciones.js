@@ -42,7 +42,7 @@ const Toast = Swal.mixin({
 
 
 // Obtener segmentos por procedencia en select
-function getSegmentoByProcedencia(id, select, callback){
+function getSegmentoByProcedencia(id, select){
   $('#'+select).find('option').remove().end()
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/segmentos_api.php",
@@ -64,7 +64,7 @@ function getSegmentoByProcedencia(id, select, callback){
         }
       }
     },
-    complete: function(){ callback(); }
+    complete: function(){ return 1; }
   });
 }
 
@@ -112,7 +112,7 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
 
 
 // Obtener procedencias en select
-function getProcedencias(select, callback){
+function getProcedencias(select){
   $('#'+select).find('option').remove().end()
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/clientes_api.php",
@@ -126,7 +126,7 @@ function getProcedencias(select, callback){
         $('#'+select).append(o);
       }
     },
-    complete: function(){ callback(); }
+    complete: function(){ return 1; }
   })
 }
 

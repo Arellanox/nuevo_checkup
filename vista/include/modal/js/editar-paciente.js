@@ -5,52 +5,58 @@ ModalEditarPaciente.addEventListener('show.bs.modal', event => {
 
    id_paciente_edit=array_selected['ID_PACIENTE'];
 
+   const cargarDatos = async () => {
+     await getProcedencias("listProcedencia-editar");
+     var procedencia = $("#listProcedencia-edit option:selected").val();
+     await getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
+
+     $.ajax({
+       url: "../../../api/pacientes_api.php",
+       type: "POST",
+       data:{id:id_paciente_edit,api:2},
+       success: function(data) {
+         var arrayPaciente = JSON.parse(data);
+         paciente=arrayPaciente[0];
+         $('#listProcedencia-edit').val(paciente['PROCEDENCIA']);
+         $('#segmentos_procedencias-edit').val(paciente['SEGMENTO']);
+         $('#editar-nombre').val(paciente['NOMBRE']);
+         $('#editar-paterno').val(paciente['PATERNO']);
+         $('#editar-materno').val(paciente['MATERNO']);
+         $('#editar-edad').val(paciente['EDAD']);
+         $('#editar-nacimiento').val(paciente['NACIMIENTO']);
+         $('#editar-curp').val(paciente['CURP']);
+         $('#editar-telefono').val(paciente['CELULAR']);
+         $('#editar-postal').val(paciente['POSTAL']);
+         $('#editar-correo').val(paciente['CORREO']);
+         $('#editar-estado').val(paciente['ESTADO']);
+         $('#editar-municipio').val(paciente['MUNICIPIO']);
+         $('#editar-colonia').val(paciente['COLONIA']);
+         $('#editar-exterior').val(paciente['EXTERIOR']);
+         $('#editar-interior').val(paciente['INTERIOR']);
+         $('#editar-calle').val(paciente['CALLE']);
+         $('#editar-nacionalidad').val(paciente['NACIONALIDAD']);
+         $('#editar-pasaporte').val(paciente['PASAPORTE']);
+         $('#editar-rfc').val(paciente['RFC']);
+         $('#editar-vacuna').val(paciente['VACUNA']);
+         $('#editar-vacunaExtra').val(paciente['OTRAVACUNA']);
+         $('#editar-inputDosis').val(paciente['DOSIS']);
+         var genero=paciente['GENERO'];
+         genero=genero.toUpperCase();
+         if(genero.toUpperCase() =='MASCULINO'){
+           $('#edit-mascuCues').attr('checked', true);
+         }  else{
+           $('#edit-femenCues').attr('checked', true);
+         }
+       }
+     })
+   }
+
+
   // If necessary, you could initiate an AJAX request here
-  getProcedencias("listProcedencia-edit", function(){
-    var procedencia = $("#listProcedencia-edit option:selected").val();
-    getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit", function(){
-      //  console.log(array_selected['ID_PACIENTE']);
-      $.ajax({
-        url: "../../../api/pacientes_api.php",
-        type: "POST",
-        data:{id:id_paciente_edit,api:2},
-        success: function(data) {
-          var arrayPaciente = JSON.parse(data);
-          paciente=arrayPaciente[0];
-          $('#listProcedencia-edit').val(paciente['PROCEDENCIA']);
-          $('#segmentos_procedencias-edit').val(paciente['SEGMENTO']);
-          $('#editar-nombre').val(paciente['NOMBRE']);
-          $('#editar-paterno').val(paciente['PATERNO']);
-          $('#editar-materno').val(paciente['MATERNO']);
-          $('#editar-edad').val(paciente['EDAD']);
-          $('#editar-nacimiento').val(paciente['NACIMIENTO']);
-          $('#editar-curp').val(paciente['CURP']);
-          $('#editar-telefono').val(paciente['CELULAR']);
-          $('#editar-postal').val(paciente['POSTAL']);
-          $('#editar-correo').val(paciente['CORREO']);
-          $('#editar-estado').val(paciente['ESTADO']);
-          $('#editar-municipio').val(paciente['MUNICIPIO']);
-          $('#editar-colonia').val(paciente['COLONIA']);
-          $('#editar-exterior').val(paciente['EXTERIOR']);
-          $('#editar-interior').val(paciente['INTERIOR']);
-          $('#editar-calle').val(paciente['CALLE']);
-          $('#editar-nacionalidad').val(paciente['NACIONALIDAD']);
-          $('#editar-pasaporte').val(paciente['PASAPORTE']);
-          $('#editar-rfc').val(paciente['RFC']);
-          $('#editar-vacuna').val(paciente['VACUNA']);
-          $('#editar-vacunaExtra').val(paciente['OTRAVACUNA']);
-          $('#editar-inputDosis').val(paciente['DOSIS']);
-          var genero=paciente['GENERO'];
-          genero=genero.toUpperCase();
-          if(genero.toUpperCase() =='MASCULINO'){
-            $('#edit-mascuCues').attr('checked', true);
-          }  else{
-            $('#edit-femenCues').attr('checked', true);
-          }
-        }
-      })
-    });
-  });
+
+
+
+
 
 
 
