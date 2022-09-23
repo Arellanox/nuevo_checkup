@@ -1,7 +1,7 @@
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
   // rellenarSelect('#registrar-clasificacion-examen','Api', 2,0,1);
-  // rellenarSelect('#registrar-metodos-examen','laboratorio_metodos_api', 2,0,1);
+  rellenarSelect('#registrar-metodos-examen','laboratorio_metodos_api', 2,0,1);
   // rellenarSelect('#registrar-medidas-examen','Api', 2,0,1);
   // rellenarSelect('#registrar-concepto-facturacion','Api', 2,0,1);
 });

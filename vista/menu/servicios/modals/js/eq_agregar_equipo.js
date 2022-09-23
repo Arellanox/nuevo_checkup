@@ -51,9 +51,9 @@ $("#formAgregarEquipo").submit(function (event) {
   event.preventDefault();
 });
 
-select2("#registrar-clasificacion-examen", "ModalRegistrarEquipo");
-select2("#registrar-metodos-examen", "ModalRegistrarEquipo");
-select2("#registrar-medidas-examen", "ModalRegistrarEquipo");
-select2("#registrar-concepto-facturacion", "ModalRegistrarEquipo");
-select2("#registrar-grupo-examen", "ModalRegistrarEquipo");
-select2("#registrar-area-estudio", "ModalRegistrarEquipo");
+// select2("#registrar-clasificacion-examen", "ModalRegistrarEquipo");
+// select2("#registrar-metodos-examen", "ModalRegistrarEquipo");
+// select2("#registrar-medidas-examen", "ModalRegistrarEquipo");
+// select2("#registrar-concepto-facturacion", "ModalRegistrarEquipo");
+// select2("#registrar-grupo-examen", "ModalRegistrarEquipo");
+// select2("#registrar-area-estudio", "ModalRegistrarEquipo");
