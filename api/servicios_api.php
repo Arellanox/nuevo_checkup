@@ -8,6 +8,9 @@ $api = $_POST['api'];
 switch ($api) {
     case 1:
         #insert
+        $array_slice = array_slice($_POST, 0, 19);
+        $values = $master->mis->getFormValues($array_slice);
+
         $response = $master->insertByProcedure("sp_servicios_g",$values);
 
         if (is_numeric($response)) {
@@ -103,13 +106,13 @@ switch ($api) {
             ));
         }
         break;
-    
+
     default:
         # code...
         break;
 }
 
-/* 
+/*
 switch ($api) {
     case 1:
 

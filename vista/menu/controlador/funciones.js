@@ -42,42 +42,30 @@ const Toast = Swal.mixin({
 
 
 // Obtener segmentos por procedencia en select
-function getSegmentoByProcedencia(id, select) {
-  var select = document.getElementById(select),
-    length = select.options.length;
-  while (length--) {
-    select.remove(length);
-  }
+function getSegmentoByProcedencia(id, select, callback){
+  $('#'+select).find('option').remove().end()
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/segmentos_api.php",
     type: "POST",
     data: { id: id, api: 6 },
     success: function (data) {
       var data = jQuery.parseJSON(data);
-      // console.log(data);
       if (mensajeAjax(data)) {
         if (data['response']['data'].length > 0) {
           for (var i = 0; i < data['response']['data'].length; i++) {
-            var content = data['response']['data'][i]['segmento'];
-            var value = data['response']['data'][i]['id'];
-            var el = document.createElement("option");
-            el.textContent = content;
-            el.value = value;
-            select.appendChild(el);
+            var o = new Option("option text", data['response']['data'][i]['id']);
+            $(o).html(data['response']['data'][i]['segmento']);
+            $('#'+select).append(o);
           }
-        } else {
-          var content = "No contiene segmentos";
-          var value = "";
-          var el = document.createElement("option");
-          el.textContent = content;
-          el.value = value;
-          select.appendChild(el);
+        }else{
+          var o = new Option("option text", null);
+          $(o).html('No contiene segmentos');
+          $('#'+select).append(o);
         }
       }
-    }
+    },
+    complete: function(){ callback(); }
   });
-
-  return 1;
 }
 
 function setSegmentoOption(select, idProcedencia, idSegmento) {
@@ -111,8 +99,8 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
           var value = "";
           var el = document.createElement("option");
           el.textContent = content;
-          el.value = value;          
-       
+          el.value = value;
+
           select.appendChild(el);
         }
       }
@@ -124,12 +112,8 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
 
 
 // Obtener procedencias en select
-function getProcedencias(select) {
-  var select = document.getElementById(select),
-    length = select.options.length;
-  while (length--) {
-    select.remove(length);
-  }
+function getProcedencias(select, callback){
+  $('#'+select).find('option').remove().end()
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/clientes_api.php",
     type: "POST",
@@ -137,14 +121,12 @@ function getProcedencias(select) {
     success: function (data) {
       var data = jQuery.parseJSON(data);
       for (var i = 0; i < data['response']['data'].length; i++) {
-        var content = data['response']['data'][i]['NOMBRE_COMERCIAL'];
-        var value = data['response']['data'][i]['ID_CLIENTE'];
-        var el = document.createElement("option");
-        el.textContent = content;
-        el.value = value;
-        select.appendChild(el);
+        var o = new Option("option text", data['response']['data'][i]['ID_CLIENTE']);
+        $(o).html(data['response']['data'][i]['NOMBRE_COMERCIAL']);
+        $('#'+select).append(o);
       }
-    }
+    },
+    complete: function(){ callback(); }
   })
 }
 
@@ -180,7 +162,6 @@ function setProcedenciaOption(select, idProcedencia){
 
 // Obtener cargo y tipos de usuarios
 function rellenarSelect(select, api, num,v,c){
-  console.log("Si");
   $(select).find('option').remove().end()
   ajaxSelect(select, api, num,v,c);
   return 1;
@@ -193,6 +174,7 @@ function ajaxSelect(select, api, num, v, c) {
     type: "POST",
     success: function (data) {
       var data = jQuery.parseJSON(data);
+      console.log(data);
       for (var i = 0; i < data['response']['data'].length; i++) {
         var o = new Option("option text", data['response']['data'][i][v]);
         $(o).html(data['response']['data'][i][c]);
@@ -322,47 +304,39 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
      $("#panel-informacion").html(html);
   }).done(function(){
     if (id > 0) {
-      $.ajax({
-        url: http+servidor+"/nuevo_checkup/api/"+api+".php",
-        data:{id: id,api: 3},
-        // beforeSend: function() { $('#info-php').fadeOut(800) },
-        complete: function(){ $('#info-php').fadeIn(800) },
-        type: "POST",
-        success: function(data) {
-          var data = jQuery.parseJSON(data);
-          switch (tipPanel) {
-            case 'paciente':
-                data = data['response']['data'];
-                $('#nombre-persona').html(data[0]['NOMBRE']+" "+data[0]['PATERNO']+" "+data[0]['MATERNO']);
-                $('#nacimiento-persona').html(formatoFecha(data[0]['NACIMIENTO'])+" | <span class='span-info'>"+data[0]['EDAD']+"</span> años")
-                $('#info-paci-curp').html(data[0]['CURP']);
-                $('#info-paci-telefono').html(data[0]['CELULAR']);
-                $('#info-paci-correo').html(data[0]['CORREO']);
-                $('#info-paci-sexo').html(data[0]['GENERO']);
-                if (data[0]['TURNO']) {
-                  $('#info-paci-turno').html(data[0]['TURNO']);
-                }else{
-                  $('#info-paci-turno').html('Sin generar');
-                }
-                $('#info-paci-directorio').html(data[0]['CALLE']+", "+data[0]['COLONIA']+", "+
-                data[0]['MUNICIPIO']+", "+data[0]['ESTADO']);
-            break;
-            case 'estudio':
+      row = array_selected;
+      switch (tipPanel) {
+        case 'paciente':
+            if (array_selected != null) {
+              $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+              $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
+              $('#info-paci-curp').html(row.CURP);
+              $('#info-paci-telefono').html(row.CELULAR);
+              $('#info-paci-correo').html(row.CORREO);
+              $('#info-paci-sexo').html(row.GENERO);
+              if (row.TURNO) {
+                $('#info-paci-turno').html(row.TURNO);
+              }else{
+                $('#info-paci-turno').html('Sin generar');
+              }
+              $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
+              row.MUNICIPIO+", "+row.ESTADO);
+            }
+        break;
+        case 'estudio':
 
-            break;
-            case 'equipo':
-              $('#nombre-equipo').html(data[0]['CURP']);
-              $('#equipo-equipo').html(data[0]['CELULAR']);
-              $('#equipo-ingreso').html(data[0]['CORREO']);
-              $('#equipo-inicio').html(data[0]['GENERO']);
-              $('#equipo-valor').html(data[0]['CORREO']);
-            break;
+        break;
+        case 'equipo':
+          $('#nombre-equipo').html(data[0]['CURP']);
+          $('#equipo-equipo').html(data[0]['CELULAR']);
+          $('#equipo-ingreso').html(data[0]['CORREO']);
+          $('#equipo-inicio').html(data[0]['GENERO']);
+          $('#equipo-valor').html(data[0]['CORREO']);
+        break;
 
-            default:
+        default:
 
-          }
-        }
-      })
+      }
     }else{
       $('#info-php').fadeOut(100);
     }

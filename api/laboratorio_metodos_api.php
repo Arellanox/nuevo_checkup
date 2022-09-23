@@ -1,8 +1,9 @@
-<?php 
+<?php
 include "../clases/master_class.php";
 
 $master = new Master();
 $api = $_POST['api'];
+$api = 2;
 
 switch ($api) {
     case 1:
@@ -87,7 +88,7 @@ switch ($api) {
     case 5:
         #delete
         $response = $master->deleteByProcedure('sp_laboratorio_metodos_e',array($id));
-        
+
         if (is_numeric($response)) {
             echo json_encode(array(
                 'response'=> array(

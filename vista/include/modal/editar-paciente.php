@@ -121,10 +121,10 @@
           </div>
           <div class="col-6 col-lg-3" id="editar-extra">
             <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
-            <input type="text" class="form-control input-form" Name="vacunaExtra" id="editar-vacunaExtra" placeholder=""  style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"  readonly> 
+            <input type="text" class="form-control input-form" name="vacunaExtra" id="editar-vacunaExtra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"  readonly>
           </div>
 
-                   
+
           <div class="col-6 col-lg-3">
             <label for="inputDosis" class="form-label">Dosis</label>
             <select class="input-form" name="inputDosis" id="editar-inputDosis">
@@ -165,149 +165,6 @@
     </div>
   </div>
 </div>
-
 <script type="text/javascript">
-  var idPacienteEdit=null; 
-  var edited =false;
-  const ModalEditarPaciente = document.getElementById('ModalEditarPaciente');
-
-  ModalEditarPaciente.addEventListener('hide.bs.modal', event => {
-    if (edited){
-      edited=false;
-      actualizarTablaPacientesRecepcion();
-    }
-  });
-
-  ModalEditarPaciente.addEventListener('show.bs.modal', event => {
-    // Colocar ajax
-     
-     idPacienteEdit=array_selected['ID_PACIENTE']; 
-     
-    $.ajax({
-      
-      url: "../../../api/pacientes_api.php",
-      type: "POST",
-      data:{id:idPacienteEdit,api:2},
-      success: function(data) {        
-        $("#btn-actualizar").prop('disabled', false);
-        var arrayPaciente = JSON.parse(data);
-        paciente=arrayPaciente[0]; 
-        if(setProcedenciaOption("listProcedencia-editar",paciente['ID_CLIENTE'])){
-          setSegmentoOption("segmentos_procedencias-edit",paciente['ID_CLIENTE'],paciente['ID_SEGMENTO']);
-        };  
-        $('#editar-nombre').val(paciente['NOMBRE']);
-        $('#editar-paterno').val(paciente['PATERNO']);
-        $('#editar-materno').val(paciente['MATERNO']);
-        $('#editar-edad').val(paciente['EDAD']);
-        $('#editar-nacimiento').val(paciente['NACIMIENTO']);
-        $('#editar-curp').val(paciente['CURP']);
-        $('#editar-telefono').val(paciente['CELULAR']);
-        $('#editar-postal').val(paciente['POSTAL']);
-        $('#editar-correo').val(paciente['CORREO']);
-        $('#editar-estado').val(paciente['ESTADO']);
-        $('#editar-municipio').val(paciente['MUNICIPIO']);
-        $('#editar-colonia').val(paciente['COLONIA']);
-        $('#editar-exterior').val(paciente['EXTERIOR']);
-        $('#editar-interior').val(paciente['INTERIOR']);
-        $('#editar-calle').val(paciente['CALLE']);
-        $('#editar-nacionalidad').val(paciente['NACIONALIDAD']);
-        $('#editar-pasaporte').val(paciente['PASAPORTE']);
-        $('#editar-rfc').val(paciente['RFC']);
-        $('#editar-vacuna').val(paciente['VACUNA']);
-        $('#editar-vacunaExtra').val(paciente['OTRAVACUNA']);
-        $('#editar-inputDosis').val(paciente['DOSIS']);
-        var genero=paciente['GENERO'];
-        genero=genero.toUpperCase();
-        if(genero.toUpperCase() =='MASCULINO'){           
-          $('#edit-mascuCues').attr('checked', true);
-        }  else{
-          $('#edit-femenCues').attr('checked', true);
-        }
-      }
-
-    })
-  });
-  
-  // Lista de segmentos dinamico
-  $('#listProcedencia-editar').on('change', function() {    
-    var procedencia = $("#listProcedencia-editar option:selected").val();
-    getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
-  });
-
- 
-
-
-  //Formulario de Preregistro
-  $("#formEditarPaciente").submit(function(event){
-   event.preventDefault();
-   /*DATOS Y VALIDACION DEL REGISTRO*/
-   var form = document.getElementById("formEditarPaciente");
-   var formData = new FormData(form);
-   formData.set('id', idPacienteEdit); 
-   formData.set('api', 3);
-   Swal.fire({
-      title: '¿Está seguro que todos sus datos estén correctos?',
-      text: "¡No podrá revertir los cambios!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: "Cancelar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $("#btn-actualizar").prop('disabled', true);
-
-        // Esto va dentro del AJAX
-        $.ajax({
-          data:formData,
-          url: "../../../api/pacientes_api.php",
-          type: "POST",
-          processData: false,
-          contentType: false,
-          success: function(data) {
-            edited=true;
-            data = jQuery.parseJSON(data); 
-            codigoConsulta=data['response']['code'];
-            mensajeConsulta=data['response']['msj'];
-
-            if (codigoConsulta==1){
-              Toast.fire({
-                icon: 'success',
-                title: 'Información actualizada :)',
-                timer: 2000
-              });
-            }else if(mensajeConsulta.startsWith("Alerta")){
-              Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: mensajeConsulta,
-                   footer:  'No cumple la validación'
-                });
-            } else {
-              Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: 'Hubo un problema!',
-                   footer: 'Reporte este error con el personal :)'
-                });
-            }
-          },
-        });
-      }
-    })
-   event.preventDefault();
- });
-
- 
-$("#editar-vacuna").change(function(){  
-  var seleccion =$("#editar-vacuna").val(); 
-  if (seleccion.toUpperCase() =='OTRA'){
-    $("#editar-vacunaExtra").prop('readonly', false);
-  }else{
-
-    $("#editar-vacunaExtra").prop('readonly', true);
-    $("#editar-vacunaExtra").prop('value', "NA");
-    } 
-});
+    $.getScript('http://localhost/nuevo_checkup/vista/include/modal/js/editar-paciente.js');
 </script>

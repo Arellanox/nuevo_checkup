@@ -9,7 +9,7 @@
         <div class="row mb-3">
           <div class="col-12 col-lg-5">
               <label for="metodo-buscar" class="form-label">Métodos</label>
-              <select class="" name="curp" id="select_metodos" style="width:100%;">
+              <select class="" name="curp" id="select_metodos">
                 <option></option>
                 <option value="1">Metodo 1</option>
                 <option value="2">Metodo 2</option>
