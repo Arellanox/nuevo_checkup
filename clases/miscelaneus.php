@@ -137,6 +137,28 @@ class Miscelaneus{
         fwrite($fp,$log);
         fclose($fp);
     }
+
+    function returnApi($response){
+        
+        if (is_array($response) || is_numeric($response)) {
+            $json = json_encode(
+                array("response"=>array(
+                    'code'=>1,
+                    'data'=>$response
+                ))
+                );
+        } else {
+            $json = json_encode(
+                array("response"=>array(
+                    'code'=>2,
+                    'msj'=>$response
+                ))
+                );
+        }
+
+        return $json;
+    }
+
     function sayHello(){
         echo "Hello World!";
     }
