@@ -11,4 +11,8 @@ $.post("modals/a_modals.php", function (html) {
   $.getScript("modals/js/eq_editar_equipo.js");
   // Modal para vista de metodos
   $.getScript("modals/js/metodo_modal.js");
+
+  // Modal para vista de grupos de exameness
+  $.getScript("modals/js/gp_agregar_grupo.js");
+  $.getScript("modals/js/gp_editar_grupo.js");
 });

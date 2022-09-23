@@ -11,3 +11,9 @@ include "vista_metodos.php";
 //Modales de Equipo
 include "eq_agregar_equipo.php";
 include "eq_editar_equipo.php";
+
+
+//Modales de Grupo de Examenes
+
+include "gp_agregar_grupo.php";
+include "gp_editar_grupo.php";
