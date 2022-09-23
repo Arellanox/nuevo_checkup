@@ -9,11 +9,10 @@ switch ($api) {
     case 1:
         #insert
 
-        $record = array('nuevo servicio',null,1,1,1,1,10,null,'tomar una al dia',0,1,1,0,1,3,10.90,10.90,20.90);
         $array_slice = array_slice($_POST, 0, 18);
-        $values = $master->mis->getFormValues($record);
+        $values = $master->mis->getFormValues($array_slice);
 
-        $response = $master->insertByProcedure("sp_servicios_g",$record);
+        $response = $master->insertByProcedure("sp_servicios_g",$values);
 
         if (is_numeric($response)) {
             echo json_encode(array(

@@ -96,11 +96,10 @@ class Master extends Miscelaneus
           $this->mis->setLog($error_msj,$nombreProcedimiento);
 
           # return "ERROR. No se pudieron recuperar los datos.";
-          // $retorno2 = "Alerta: la consulta al servidor no se realizó correctamente";
+          $retorno2 = "Alerta: la consulta al servidor no se realizó correctamente";
         }
 
-        $retorno = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
-        $this->mis->setLog($error_msj,$nombreProcedimiento);
+
         $sentencia->closeCursor();
         return $retorno;
     }
