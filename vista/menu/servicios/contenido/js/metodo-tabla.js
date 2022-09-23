@@ -80,9 +80,3 @@ function cambiarFormMetodo(fade){
     }, 400);
   }
 }
-
-$('#select_metodos').select2({
-  dropdownParent: $('#ModalVistaMetodos'),
-  tags: false,
-  placeholder: 'Selecciona un metodo',
-});

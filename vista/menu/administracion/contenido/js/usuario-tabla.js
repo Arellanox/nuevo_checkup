@@ -11,7 +11,10 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
       method: 'POST',
       url: '../../../api/usuarios_api.php',
       beforeSend: function() { loader("In") },
-      complete: function(){ loader("Out") },
+      complete: function(){
+        loader("Out");
+        classUsuarios(tablaUsuarios.data().toArray());
+      },
       dataSrc:''
   },
   columns:[

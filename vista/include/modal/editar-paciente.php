@@ -167,8 +167,8 @@
 </div>
 
 <script type="text/javascript">
-  let idPacienteEdit=null; 
-  let edited =false;
+  var idPacienteEdit=null; 
+  var edited =false;
   const ModalEditarPaciente = document.getElementById('ModalEditarPaciente');
 
   ModalEditarPaciente.addEventListener('hide.bs.modal', event => {
@@ -195,7 +195,6 @@
         if(setProcedenciaOption("listProcedencia-editar",paciente['ID_CLIENTE'])){
           setSegmentoOption("segmentos_procedencias-edit",paciente['ID_CLIENTE'],paciente['ID_SEGMENTO']);
         };  
-        $('#editar-nombre').val(paciente['NOMBRE']);
         $('#editar-nombre').val(paciente['NOMBRE']);
         $('#editar-paterno').val(paciente['PATERNO']);
         $('#editar-materno').val(paciente['MATERNO']);
@@ -245,12 +244,7 @@
    var form = document.getElementById("formEditarPaciente");
    var formData = new FormData(form);
    formData.set('id', idPacienteEdit); 
-   formData.set('api', 4);
-  //  $i=0;
-  //  formData.forEach(element => {
-  //   console.log($i+' ' + element);
-  //   $i++;
-  // });
+   formData.set('api', 3);
    Swal.fire({
       title: '¿Está seguro que todos sus datos estén correctos?',
       text: "¡No podrá revertir los cambios!",
@@ -273,33 +267,30 @@
           contentType: false,
           success: function(data) {
             edited=true;
-            data = jQuery.parseJSON(data);
-            console.log(data['response']['code']);
-            switch (data['response']['code']) {
-              case 1:
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Información actualizada :)',
-                  timer: 2000
-                });
-                document.getElementById("formEditarPaciente").reset();
-                $("#ModalEditarPaciente").modal('hide');
-              break;
-              case "repetido":
-                Swal.fire({
+            data = jQuery.parseJSON(data); 
+            codigoConsulta=data['response']['code'];
+            mensajeConsulta=data['response']['msj'];
+
+            if (codigoConsulta==1){
+              Toast.fire({
+                icon: 'success',
+                title: 'Información actualizada :)',
+                timer: 2000
+              });
+            }else if(mensajeConsulta.startsWith("Alerta")){
+              Swal.fire({
                    icon: 'error',
                    title: 'Oops...',
-                   text: '¡CURP duplicada!',
-                   footer: 'Está CURP ya existe'
-                })
-              break;
-              default:
-                Swal.fire({
+                   text: mensajeConsulta,
+                   footer:  'No cumple la validación'
+                });
+            } else {
+              Swal.fire({
                    icon: 'error',
                    title: 'Oops...',
                    text: 'Hubo un problema!',
                    footer: 'Reporte este error con el personal :)'
-                })
+                });
             }
           },
         });

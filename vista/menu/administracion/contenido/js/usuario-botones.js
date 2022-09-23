@@ -1,3 +1,4 @@
+
 $("#btn-usuario-vista").click(function(){
   if (array_selected !=null) {
     $("#modalEditarVistaUsuario").modal('show');

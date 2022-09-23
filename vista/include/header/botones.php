@@ -32,6 +32,12 @@
   </button>
 <?php endif; ?>
 
+<?php if ($menu == "Grupos de examenes"): ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarEquipo">
+    <i class="bi bi-plus-square"></i> Agregar nuevo grupo
+  </button>
+<?php endif; ?>
+
 <?php if ($menu == "Equipos") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarEquipo">
     <i class="bi bi-plus-square"></i> Agregar nuevo equipo

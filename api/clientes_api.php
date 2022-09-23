@@ -6,7 +6,7 @@ include "../clases/contactos_class.php";
 $client = new Clientes();
 //$form = $client->mis->getFormValues($_POST);
 $api = $_POST['api'];//$form['api'];
-
+$id=$_POST['id'];
 switch($api){
     //insertar un nuevo cliente
     case 1:
@@ -85,6 +85,24 @@ switch($api){
         }
 
     break;
+    case 10:
+        $master = new Master();
+        $return = $master->getByProcedure("sp_clientes_b",[]);
+        $newSet = array();
+
+        if(is_array($return)){
+            foreach($return as $cliente){
+                $contact = new Contactos();
+                $contactos = $contact->getByCliente($cliente['ID_CLIENTE']);
+                $cliente['CONTACTOS'] = $contactos;
+                $cliente[] = $contactos;
+                $newSet[] = $cliente;
+            }
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$newSet)));
+        }else{
+           echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
+        }
+        break;
 }
 
 ?>

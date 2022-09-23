@@ -13,6 +13,15 @@ function deshabilitarVacunaExtra(vacuna, div) {
   }
 }
 
+function desactivarCampo(div, fade){
+  if (fade == 1) {
+    $(div).fadeIn(400);
+  }else{
+    $(div +": input").val("");
+    $(div).fadeOut(400);
+  }
+}
+
 // Notifiació  movil
 if (window.innerWidth <= 768) {
   position = 'top';
@@ -169,16 +178,11 @@ function setProcedenciaOption(select, idProcedencia){
   return true;
 }
 
-
-
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select, api, num, v, c) {
-  var select = document.getElementById(select),
-    length = select.options.length;
-  while (length--) {
-    select.remove(length);
-  }
-  ajaxSelect(select, api, num, v, c);
+function rellenarSelect(select, api, num,v,c){
+  console.log("Si");
+  $(select).find('option').remove().end()
+  ajaxSelect(select, api, num,v,c);
   return 1;
 }
 
@@ -189,30 +193,21 @@ function ajaxSelect(select, api, num, v, c) {
     type: "POST",
     success: function (data) {
       var data = jQuery.parseJSON(data);
-      //Equipo Utilizado
-      // console.log(data);
       for (var i = 0; i < data['response']['data'].length; i++) {
-        var content = data['response']['data'][i][c];
-        var value = data['response']['data'][i][v];
-        var el = document.createElement("option");
-        el.textContent = content;
-        el.value = value;
-        select.append(el);
+        var o = new Option("option text", data['response']['data'][i][v]);
+        $(o).html(data['response']['data'][i][c]);
+        $(select).append(o);
       }
     }
   })
   return 1;
 }
 
-function optionElement(select, value, content) {
-  var select = document.getElementById(select);
-  var content = content;
-  var value = value;
-  var el = document.createElement("option");
-  el.textContent = content;
-  el.value = value;
+function optionElement(select,value,content){
+  var o = new Option("option text", value);
+  $(o).html(content);
+  $(select).append(o);
   el.setAttribute('selected', 'selected');
-  select.append(el);
 }
 
 
@@ -292,28 +287,30 @@ function mensajeAjax(data) {
   return 0;
 }
 
-function selectDatatable(tablename, datatable, panel = null, api = null, tipPanel = null) {
-  $('#' + tablename + ' tbody').on('click', 'tr', function () {
-    if ($(this).hasClass('selected')) {
-      $(this).removeClass('selected');
-      array_selected = null;
-      obtenerPanelInformacion(0, api, tipPanel)
-    } else {
-      datatable.$('tr.selected').removeClass('selected');
-      $(this).addClass('selected');
-      array_selected = datatable.row(this).data();
-      if (panel) {
-        obtenerPanelInformacion(array_selected[0], api, tipPanel)
-      }
-    }
+function selectDatatable(tablename, datatable, panel = null, api = null, tipPanel = null){
+  $('#'+tablename+' tbody').on('click', 'tr', function () {
+     if ($(this).hasClass('selected')) {
+         $(this).removeClass('selected');
+         array_selected = null;
+         obtenerPanelInformacion(0, api, tipPanel)
+     } else {
+         datatable.$('tr.selected').removeClass('selected');
+         $(this).addClass('selected');
+         array_selected = datatable.row( this ).data();
+         if (panel) {
+           obtenerPanelInformacion(array_selected[0], api, tipPanel)
+         }
+
+     }
   });
 }
 
-function select2(select, modal) {
-  $('#' + select).select2({
-    dropdownParent: $('#' + modal),
-    // tags: true,
-    width: '100%'
+function select2(select, modal){
+  $(select).select2({
+    dropdownParent: $('#'+modal),
+    tags: false,
+    width:'100%',
+    placeholder: 'Selecciona un registro',
   });
 }
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null){

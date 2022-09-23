@@ -1,5 +1,5 @@
 const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
-let edited = false;
+var edited = false;
 modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
   getProcedencias("listProcedencia");
   var procedencia = $("#listProcedencia option:selected").val();

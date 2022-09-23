@@ -15,15 +15,7 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="clasificacion" class="form-label">Clasificacion</label>
-              <select name="clasificacion" class="input-form">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-            </div>
-            <div class="col-6 col-md-6">
-              <label for="tomaclasificacion" class="form-label">Toma Clasificacion</label>
-              <select name="tomaclasificacion" class="input-form">
+              <select name="clasificacion" class="input-form clasificacionExamenes">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -31,7 +23,7 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="metodo" class="form-label">Metodo</label>
-              <select name="metodo" id="metodo" class="input-form">
+              <select name="metodo" id="metodo" class="input-form metodoExamenes">
                 <option value="1">Opcion 1</option>
                 <option value="2">Opcion 2</option>
                 <option value="3">3</option>
@@ -39,7 +31,7 @@
             </div>
             <div class="col-3 col-md-3">
               <label for="medida" class="form-label">Medida</label>
-              <select name="medida" id="medida" class="input-form">
+              <select name="medida" id="medida" class="input-form medidasExamenes">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -51,7 +43,7 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto Facturacion</label>
-              <select name="confac" class="input-form">
+              <select name="confac" class="input-form conceptoFactu">
                 <option value="1">DESCRIPCION</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -60,7 +52,7 @@
             <div class="col-6 col-md-6">
               <label for="indicaciones" class="form-label">Indicaciones</label>
               <br />
-              <textarea class="md-textarea form-control" name="indicaciones" class="input-form" id="indicaciones" cols="45" rows="2">
+              <textarea class="md-textarea input-form" name="indicaciones" id="indicaciones" cols="45" rows="2">
 
               </textarea>
             </div>

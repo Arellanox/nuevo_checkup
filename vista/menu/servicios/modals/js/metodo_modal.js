@@ -1,6 +1,6 @@
 const ModalVistaMetodos = document.getElementById('ModalVistaMetodos')
 ModalVistaMetodos.addEventListener('show.bs.modal', event => {
-
+  
 })
 
 //Formulario de Preregistro
@@ -29,3 +29,6 @@ $("#formRegistrarServicio").submit(function(event){
     })
    event.preventDefault();
  });
+
+
+select2('select_metodos', 'ModalVistaMetodos')

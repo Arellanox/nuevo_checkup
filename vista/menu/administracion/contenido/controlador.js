@@ -1,3 +1,4 @@
+
 //Menu predeterminado
 hasLocation();
 $(window).on("hashchange", function (e) {

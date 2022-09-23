@@ -38,7 +38,7 @@ session_start();
     // <!-- Aqui controlar e incluir los tablas -->
     $.getScript('contenido/controlador.js');
   })
-
   session = <?php echo json_encode($_SESSION); ?>;
   // console.log(session);
+
 </script>

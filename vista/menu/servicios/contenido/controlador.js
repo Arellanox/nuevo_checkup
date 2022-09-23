@@ -26,9 +26,9 @@ function obtenerContenidoGrupos(titulo) {
     var idrow;
     $("#body-js").html(html);
     // Datatable
-    $.getScript("contenido/js/grupo-tabla.js");
+    $.getScript("contenido/js/grupos-tabla.js");
     // Botones
-    $.getScript("contenido/js/grupo-botones.js");
+    $.getScript("contenido/js/grupos-botones.js");
   });
 }
 
@@ -58,7 +58,7 @@ function hasLocation() {
       obtenerContenidoEstudios("Estudios");
       break;
     case "Grupos":
-      obtenerContenidoGrupos("Grupos");
+      obtenerContenidoGrupos("Grupos de examenes");
       break;
     case "Equipos":
       obtenerContenidoEquipos("Equipos");
