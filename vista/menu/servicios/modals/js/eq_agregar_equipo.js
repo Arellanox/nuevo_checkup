@@ -1,5 +1,5 @@
-const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
-ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
+const ModalRegistrarEquipo = document.getElementById("ModalRegistrarEquipo");
+ModalRegistrarEquipo.addEventListener("show.bs.modal", (event) => {
   // rellenarSelect('#registrar-clasificacion-examen','Api', 2,0,1);
   // rellenarSelect('#registrar-metodos-examen','laboratorio_metodos_api', 2,0,1);
   // rellenarSelect('#registrar-medidas-examen','Api', 2,0,1);
@@ -7,23 +7,15 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
 });
 
 //Formulario de Preregistro
-$("#formRegistrarEstudio").submit(function (event) {
+$("#formAgregarEquipo").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
-  var form = document.getElementById("formRegistrarEstudio");
+  var form = document.getElementById("formAgregarEquipo");
   var formData = new FormData(form);
-  formData.set("grupos", 0);
-  formData.set("producto", 1);
-  formData.set("seleccionable", null);
-  formData.set("para", 3);
-  formData.set("costos", null);
-  formData.set("utilidad", null);
-  formData.set("venta", null);
-  formData.set("api", 1);
 
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
-    text: "Verifique la Informacion antes de Continuar!",
+    text: "¡Verifique las Caracteristicas antes de Continuar!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -36,7 +28,7 @@ $("#formRegistrarEstudio").submit(function (event) {
       // Esto va dentro del AJAX
       $.ajax({
         data: formData,
-        url: "../../../api/servicios_api.php",
+        url: "?",
         type: "POST",
         processData: false,
         contentType: false,
@@ -45,11 +37,11 @@ $("#formRegistrarEstudio").submit(function (event) {
           if (mensajeAjax(data)) {
             Toast.fire({
               icon: "success",
-              title: "¡Estudio registrado!",
+              title: "Equipo registrado!",
               timer: 2000,
             });
-            document.getElementById("formRegistrarEstudio").reset();
-            $("#ModalRegistrarEstudio").modal("hide");
+            document.getElementById("formAgregarEquipo").reset();
+            $("#ModalRegistrarEquipo").modal("hide");
             tablaServicio.ajax.reload();
           }
         },
@@ -59,9 +51,9 @@ $("#formRegistrarEstudio").submit(function (event) {
   event.preventDefault();
 });
 
-select2("#registrar-clasificacion-examen", "ModalRegistrarEstudio");
-select2("#registrar-metodos-examen", "ModalRegistrarEstudio");
-select2("#registrar-medidas-examen", "ModalRegistrarEstudio");
-select2("#registrar-concepto-facturacion", "ModalRegistrarEstudio");
-select2("#registrar-grupo-examen", "ModalRegistrarEstudio");
-select2("#registrar-area-estudio", "ModalRegistrarEstudio");
+select2("#registrar-clasificacion-examen", "ModalRegistrarEquipo");
+select2("#registrar-metodos-examen", "ModalRegistrarEquipo");
+select2("#registrar-medidas-examen", "ModalRegistrarEquipo");
+select2("#registrar-concepto-facturacion", "ModalRegistrarEquipo");
+select2("#registrar-grupo-examen", "ModalRegistrarEquipo");
+select2("#registrar-area-estudio", "ModalRegistrarEquipo");

@@ -1,6 +1,6 @@
 $("#btn-estudio-editar").click(function(){
   if (array_selected !=null) {
-    $("#modalEditarServicio").modal('show');
+    $("#modalEditarEstudio").modal('show');
   }else{
     alertSelectTable();
   }
