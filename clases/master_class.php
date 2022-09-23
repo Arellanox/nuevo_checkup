@@ -57,7 +57,7 @@ class Master extends Miscelaneus
             $sentencia = $this->bindParams($sentencia,$parametros);
 
             if(!$sentencia->execute()){
-                $error_msj = "Ha ocurrido un error(" . $stmt->errorCode() . "). " . implode(" ", $stmt->errorInfo());
+                $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
                 $this->mis->setLog($error_msj,$nombreProcedimiento);
                 return "ERROR. No se pudieron recuperar los datos.";
             }
