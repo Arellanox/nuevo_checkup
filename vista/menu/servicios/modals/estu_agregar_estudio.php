@@ -9,7 +9,6 @@
         <form class="" id="formRegistrarEstudio">
           <p class="text-center">Agrege un nuevo <strong>Estudio</strong> </p>
           <div class="row">
-
             <div class="col-6">
               <label for="nombre_estudio" class="form-label">Nombre del Estudio</label>
               <input type="text" name="nombre_estudio" class="form-control input-form" required>
@@ -97,8 +96,6 @@
                 <label for="agre-subroga">No</label>
               </div>
             </div>
-
-
           </div>
         </form>
       </div>

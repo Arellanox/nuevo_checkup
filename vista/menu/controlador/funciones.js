@@ -170,28 +170,28 @@ function setProcedenciaOption(select, idProcedencia){
 
 // Obtener cargo y tipos de usuarios
 function rellenarSelect(select, api, num,v,c){
-  $(select).find('option').remove().end()
-  ajaxSelect(select, api, num,v,c);
-  return 1;
+  return new Promise(resolve => {
+    $(select).find('option').remove().end()
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/" + api + ".php",
+      data: { api: num },
+      type: "POST",
+      success: function (data) {
+        var data = jQuery.parseJSON(data);
+        console.log(data);
+        for (var i = 0; i < data['response']['data'].length; i++) {
+          var o = new Option("option text", data['response']['data'][i][v]);
+          $(o).html(data['response']['data'][i][c]);
+          $(select).append(o);
+        }
+      },
+      complete: function(){
+        resolve(1);
+      }
+    })
+  });
 }
 
-function ajaxSelect(select, api, num, v, c) {
-  $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/" + api + ".php",
-    data: { api: num },
-    type: "POST",
-    success: function (data) {
-      var data = jQuery.parseJSON(data);
-      console.log(data);
-      for (var i = 0; i < data['response']['data'].length; i++) {
-        var o = new Option("option text", data['response']['data'][i][v]);
-        $(o).html(data['response']['data'][i][c]);
-        $(select).append(o);
-      }
-    }
-  })
-  return 1;
-}
 
 function optionElement(select,value,content){
   var o = new Option("option text", value);
