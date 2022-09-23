@@ -1,15 +1,4 @@
 <?php
-include "clases/pacientes.php";
-
-$mis = new Miscelaneus();
-
-$a  = array("1"=>6,"2"=>,"3"=>"alog");
-
-$b = $mis->splitArray($a,array(2));
-
-print_r($b);
-
-
 
 // $array = array(5,"JOSH","DE LA CRUZ","ARELLANO",30,"1992-07-03","CUAJ920703HTCRRS09",9932243652,
 // "arellanox0392@gmail.com","cerrada del mango",0,null,"JOSE MARIA PINO SUAREZ",86029,NULL,"mexicana","añlsdkfj0293",1,"PIZER",

@@ -1,15 +1,15 @@
 const modalEditarEstudio = document.getElementById("modalEditarEstudio");
 modalEditarEstudio.addEventListener("show.bs.modal", (event) => {
-  //cargarDatosEstuEdit();
+  cargarDatosEstuEdit();
 });
 
 async function cargarDatosEstuEdit() {
-  await rellenarSelect("#edit-clasificacion-estudio", "Api", 2, 0, 1);
-  await rellenarSelect("#edit-metodos-estudio", "Api", 2, 0, 1);
-  await rellenarSelect("#edit-medidas-estudio", "Api", 2, 0, 1);
-  await rellenarSelect("#edit-concepto-facturacion", "Api", 2, 0, 1);
-  await rellenarSelect("#edit-grupo-estudio", "Api", 2, 0, 1);
-  if (await rellenarSelect("#edit-area-estudio", "Api", 2, 0, 1)) {
+  await rellenarSelect('#edit-clasificacion-estudio','laboratorio_clasificacion_api', 2,0,1);
+  // await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1);
+  // await rellenarSelect("#edit-medidas-estudio", "Api", 2, 0, 1);
+  // await rellenarSelect("#edit-concepto-facturacion", "Api", 2, 0, 1);
+  // await rellenarSelect("#edit-grupo-estudio", "Api", 2, 0, 1);
+  if (await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1)) {
     console.log(array_selected);
     // $('#edit-nombre-estudio').val(array_selected['NOMBRE']);
     // $('#edit-grupo-estudio').val(array_selected['NOMBRE']);
@@ -46,11 +46,12 @@ $("#formEditarEstudio").submit(function (event) {
   formData.set("costos", null);
   formData.set("utilidad", null);
   formData.set("venta", null);
+  formData.set("id", array_selected['ID_SERVICIO']);
   formData.set("api", 1);
 
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
-    text: "Verifique la nueva información antes de Continuae",
+    text: "Verifique la nueva información antes de actualizar",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -66,9 +67,9 @@ $("#formEditarEstudio").submit(function (event) {
   event.preventDefault();
 });
 
-select2("#edit-clasificacion-estudio", "ModalRegistrarEstudio");
-select2("#edit-metodos-estudio", "ModalRegistrarEstudio");
-select2("#edit-medidas-estudio", "ModalRegistrarEstudio");
-select2("#edit-concepto-facturacion", "ModalRegistrarEstudio");
-select2("#edit-grupo-estudio", "ModalRegistrarEstudio");
-select2("#edit-area-estudio", "ModalRegistrarEstudio");
+select2("#edit-clasificacion-estudio", "modalEditarEstudio");
+select2("#edit-metodos-estudio", "modalEditarEstudio");
+select2("#edit-medidas-estudio", "modalEditarEstudio");
+select2("#edit-concepto-facturacion", "modalEditarEstudio");
+select2("#edit-grupo-estudio", "modalEditarEstudio");
+select2("#edit-area-estudio", "modalEditarEstudio");

@@ -3,16 +3,18 @@
 include "../clases/master_class.php";
 
 $master = new Master();
-$api = $_POST['api'];
-
+$api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api'] : 2);
+$api = 1;
 switch ($api) {
     case 1:
         #insert
-        $array_slice = array_slice($_POST, 0, 19);
-        $values = $master->mis->getFormValues($array_slice);
-
-        $response = $master->insertByProcedure("sp_servicios_g",$values);
-
+        
+        $record = array('nuevo servicio',null,1,1,1,1,10,null,'tomar una al dia',0,1,1,0,1,3,10.90,10.90,20.90);
+        $array_slice = array_slice($_POST, 0, 18);
+        $values = $master->mis->getFormValues($record);
+        
+        $response = $master->insertByProcedure("sp_servicios_g",$record);
+        echo $api;
         if (is_numeric($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -31,7 +33,7 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_servicios_b',array());
+        $response = $master->getByProcedure('sp_servicios_b',array(null));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(

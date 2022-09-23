@@ -131,7 +131,7 @@ class Miscelaneus{
     }
     
     function setLog($message,$sp){
-        $file = "../log.txt";
+        $file = "log.txt";
         $fp = fopen($file,'a');
         $log = date("d/m/y H:i:s")." ".$sp." ".$message."\n";
         fwrite($fp,$log);
