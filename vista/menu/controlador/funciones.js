@@ -43,28 +43,32 @@ const Toast = Swal.mixin({
 
 // Obtener segmentos por procedencia en select
 function getSegmentoByProcedencia(id, select){
-  $('#'+select).find('option').remove().end()
-  $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/segmentos_api.php",
-    type: "POST",
-    data: { id: id, api: 6 },
-    success: function (data) {
-      var data = jQuery.parseJSON(data);
-      if (mensajeAjax(data)) {
-        if (data['response']['data'].length > 0) {
-          for (var i = 0; i < data['response']['data'].length; i++) {
-            var o = new Option("option text", data['response']['data'][i]['id']);
-            $(o).html(data['response']['data'][i]['segmento']);
+  return new Promise(resolve => {
+    $('#'+select).find('option').remove().end()
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/segmentos_api.php",
+      type: "POST",
+      data: { id: id, api: 6 },
+      success: function (data) {
+        var data = jQuery.parseJSON(data);
+        if (mensajeAjax(data)) {
+          if (data['response']['data'].length > 0) {
+            for (var i = 0; i < data['response']['data'].length; i++) {
+              var o = new Option("option text", data['response']['data'][i]['id']);
+              $(o).html(data['response']['data'][i]['segmento']);
+              $('#'+select).append(o);
+            }
+          }else{
+            var o = new Option("option text", null);
+            $(o).html('No contiene segmentos');
             $('#'+select).append(o);
           }
-        }else{
-          var o = new Option("option text", null);
-          $(o).html('No contiene segmentos');
-          $('#'+select).append(o);
         }
+      },
+      complete: function(){
+        resolve(1);
       }
-    },
-    complete: function(){ return 1; }
+    });
   });
 }
 
@@ -113,21 +117,25 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
 
 // Obtener procedencias en select
 function getProcedencias(select){
-  $('#'+select).find('option').remove().end()
-  $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/clientes_api.php",
-    type: "POST",
-    data: { api: 2 },
-    success: function (data) {
-      var data = jQuery.parseJSON(data);
-      for (var i = 0; i < data['response']['data'].length; i++) {
-        var o = new Option("option text", data['response']['data'][i]['ID_CLIENTE']);
-        $(o).html(data['response']['data'][i]['NOMBRE_COMERCIAL']);
-        $('#'+select).append(o);
+  return new Promise(resolve => {
+    $('#'+select).find('option').remove().end()
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/clientes_api.php",
+      type: "POST",
+      data: { api: 2 },
+      success: function (data) {
+        var data = jQuery.parseJSON(data);
+        for (var i = 0; i < data['response']['data'].length; i++) {
+          var o = new Option("option text", data['response']['data'][i]['ID_CLIENTE']);
+          $(o).html(data['response']['data'][i]['NOMBRE_COMERCIAL']);
+          $('#'+select).append(o);
+        }
+      },
+      complete: function(){
+        resolve(1);
       }
-    },
-    complete: function(){ return 1; }
-  })
+    })
+  });
 }
 
 

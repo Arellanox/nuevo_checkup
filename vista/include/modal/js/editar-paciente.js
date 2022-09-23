@@ -1,69 +1,55 @@
-let id_paciente_edit=null;
 const ModalEditarPaciente = document.getElementById('ModalEditarPaciente')
 ModalEditarPaciente.addEventListener('show.bs.modal', event => {
-  // Colocar ajax
-
-   id_paciente_edit=array_selected['ID_PACIENTE'];
-
-   const cargarDatos = async () => {
-     await getProcedencias("listProcedencia-editar");
-     var procedencia = $("#listProcedencia-edit option:selected").val();
-     await getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
-
-     $.ajax({
-       url: "../../../api/pacientes_api.php",
-       type: "POST",
-       data:{id:id_paciente_edit,api:2},
-       success: function(data) {
-         var arrayPaciente = JSON.parse(data);
-         paciente=arrayPaciente[0];
-         $('#listProcedencia-edit').val(paciente['PROCEDENCIA']);
-         $('#segmentos_procedencias-edit').val(paciente['SEGMENTO']);
-         $('#editar-nombre').val(paciente['NOMBRE']);
-         $('#editar-paterno').val(paciente['PATERNO']);
-         $('#editar-materno').val(paciente['MATERNO']);
-         $('#editar-edad').val(paciente['EDAD']);
-         $('#editar-nacimiento').val(paciente['NACIMIENTO']);
-         $('#editar-curp').val(paciente['CURP']);
-         $('#editar-telefono').val(paciente['CELULAR']);
-         $('#editar-postal').val(paciente['POSTAL']);
-         $('#editar-correo').val(paciente['CORREO']);
-         $('#editar-estado').val(paciente['ESTADO']);
-         $('#editar-municipio').val(paciente['MUNICIPIO']);
-         $('#editar-colonia').val(paciente['COLONIA']);
-         $('#editar-exterior').val(paciente['EXTERIOR']);
-         $('#editar-interior').val(paciente['INTERIOR']);
-         $('#editar-calle').val(paciente['CALLE']);
-         $('#editar-nacionalidad').val(paciente['NACIONALIDAD']);
-         $('#editar-pasaporte').val(paciente['PASAPORTE']);
-         $('#editar-rfc').val(paciente['RFC']);
-         $('#editar-vacuna').val(paciente['VACUNA']);
-         $('#editar-vacunaExtra').val(paciente['OTRAVACUNA']);
-         $('#editar-inputDosis').val(paciente['DOSIS']);
-         var genero=paciente['GENERO'];
+   async function cargarDatosPaci (){
+     const resultPro = await getProcedencias("listProcedencia-editar");
+       console.log(resultPro);
+     if (resultPro) {
+       var procedencia = $("#listProcedencia-editar option:selected").val();
+       const resultSeg = await getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
+       console.log(resultSeg);
+       if (resultSeg) {
+         $('#editar-nombre').val(array_selected['NOMBRE']);
+         $('#editar-paterno').val(array_selected['PATERNO']);
+         $('#editar-materno').val(array_selected['MATERNO']);
+         $('#editar-edad').val(array_selected['EDAD']);
+         $('#editar-nacimiento').val(array_selected['NACIMIENTO']);
+         $('#editar-curp').val(array_selected['CURP']);
+         $('#editar-telefono').val(array_selected['CELULAR']);
+         $('#editar-postal').val(array_selected['POSTAL']);
+         $('#editar-correo').val(array_selected['CORREO']);
+         $('#editar-estado').val(array_selected['ESTADO']);
+         $('#editar-municipio').val(array_selected['MUNICIPIO']);
+         $('#editar-colonia').val(array_selected['COLONIA']);
+         $('#editar-exterior').val(array_selected['EXTERIOR']);
+         $('#editar-interior').val(array_selected['INTERIOR']);
+         $('#editar-calle').val(array_selected['CALLE']);
+         $('#editar-nacionalidad').val(array_selected['NACIONALIDAD']);
+         $('#editar-pasaporte').val(array_selected['PASAPORTE']);
+         $('#editar-rfc').val(array_selected['RFC']);
+         $('#editar-vacuna').val(array_selected['VACUNA']);
+         $('#editar-vacunaExtra').val(array_selected['OTRAVACUNA']);
+         $('#editar-inputDosis').val(array_selected['DOSIS']);
+         var genero=array_selected['GENERO'];
          genero=genero.toUpperCase();
          if(genero.toUpperCase() =='MASCULINO'){
            $('#edit-mascuCues').attr('checked', true);
          }  else{
            $('#edit-femenCues').attr('checked', true);
          }
+         document.getElementById("listProcedencia-editar").value = array_selected['ID_CLIENTE'];
+         const resultSeg = await getSegmentoByProcedencia(array_selected['ID_CLIENTE'], "segmentos_procedencias-edit");
+         document.getElementById("segmentos_procedencias-edit").value = array_selected['ID_SEGMENTO'];
+         // $('#listProcedencia-edit').val(array_selected['ID_CLIENTE']);
+         // console.log(array_selected['ID_SEGMENTO']);
+         // $('#').val(array_selected['']);
        }
-     })
+     }
    }
-
-
-  // If necessary, you could initiate an AJAX request here
-
-
-
-
-
-
-
+cargarDatosPaci()
 });
 // Lista de segmentos dinamico
-$('#listProcedencia-edit').on('change', function() {
-  var procedencia = $("#listProcedencia-edit option:selected").val();
+$('#listProcedencia-editar').on('change', function() {
+  var procedencia = $("#listProcedencia-editar option:selected").val();
   getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
 });
 
