@@ -39,6 +39,7 @@ class Master extends Miscelaneus
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
         } catch (PDOException $pe) {
+            $this->mis->setLog("Could not connect to the database $dbname :" . $pe->getMessage(),'fn_connect_db');
             die("Could not connect to the database $dbname :" . $pe->getMessage());
         }
 
@@ -77,6 +78,7 @@ class Master extends Miscelaneus
         $retorno = "";
         $conexion = $this->connectDb();
         $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
+        echo $sp;
         $sentencia = $conexion->prepare($sp);
 
         $sentencia = $this->bindParams($sentencia,$parametros);
@@ -103,6 +105,7 @@ class Master extends Miscelaneus
     public function insertByProcedure($nombreProcedimiento, $parametros)
     {
         array_push($parametros, null);
+        print_r($parametros);
         $retorno = $this->updateByProcedure($nombreProcedimiento, $parametros);
         return $retorno;
     }
@@ -116,7 +119,7 @@ class Master extends Miscelaneus
     private function concatQuestionMark($length){
         $questionMarks = "(";
         for ($i=0; $i < $length; $i++) { 
-            if ($i<=$length-1) {
+            if ($i==$length-1) {
                 $questionMarks.="?";
             } else {
                 $questionMarks.="?,";
