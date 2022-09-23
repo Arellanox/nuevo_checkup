@@ -83,20 +83,18 @@ class Master extends Miscelaneus
 
         $sentencia = $this->bindParams($sentencia,$parametros);
 
-        try {
-          $sentencia->execute();
-          $fila = $sentencia->fetchAll();
-          if (count($fila)>0) {
-              $retorno = $fila[0][0];
-          } else {
-              $retorno = "Alerta: la consulta no devolvió resultado";
-          }
-        } catch (Exception $e) {
-          $retorno = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
-          $this->mis->setLog($error_msj,$nombreProcedimiento);
-
-          # return "ERROR. No se pudieron recuperar los datos.";
-          $retorno2 = "Alerta: la consulta al servidor no se realizó correctamente";
+        if ($sentencia->execute()) {
+            $fila = $sentencia->fetchAll();
+            if (count($fila)>0) {
+                $retorno = $fila[0][0];
+            } else {
+                $retorno = "Alerta: la consulta no devolvió resultado";
+            }
+        } else {
+            $error_msj = "Ha ocurrido un error(" . $stmt->errorCode() . "). " . implode(" ", $stmt->errorInfo());
+            $this->mis->setLog($error_msj,$nombreProcedimiento);
+            # return "ERROR. No se pudieron recuperar los datos.";
+            $retorno = "Alerta: la consulta al servidor no se realizó correctamente";
         }
 
 
