@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
 <div class="modal fade" id="modalEditarEstudio" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-=======
-<div class="modal fade" id="ModalEditarEstudio" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
->>>>>>> Stashed changes
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">

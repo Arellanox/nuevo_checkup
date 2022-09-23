@@ -303,6 +303,7 @@ function select2(select, modal){
     placeholder: 'Selecciona un registro',
   });
 }
+
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
   $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-barra.php",
   {
