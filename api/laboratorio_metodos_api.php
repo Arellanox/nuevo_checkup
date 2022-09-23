@@ -2,8 +2,8 @@
 include "../clases/master_class.php";
 
 $master = new Master();
-$api = $_POST['api'];
-$api = 2;
+$api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api'] : 2);
+
 
 switch ($api) {
     case 1:
@@ -28,7 +28,8 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_laboratorio_metodos_b',array(null));
+        $response = $master->getByProcedure('sp_laboratorio_metodos_b',array('hola'));
+        echo $api;
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -106,7 +107,7 @@ switch ($api) {
         }
         break;
     default:
-        # code...
+        echo json_enconde($api);
         break;
 }
 ?>
