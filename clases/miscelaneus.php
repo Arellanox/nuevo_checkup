@@ -129,7 +129,14 @@ class Miscelaneus{
 
         return $initedArray;
     }
-
+    
+    function setLog($message,$sp){
+        $file = "../log.txt";
+        $fp = fopen($file,'a');
+        $log = date("d/m/y H:i:s")." ".$sp." ".$message."\n";
+        fwrite($fp,$log);
+        fclose($fp);
+    }
     function sayHello(){
         echo "Hello World!";
     }
