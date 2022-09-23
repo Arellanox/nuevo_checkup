@@ -1,5 +1,5 @@
-const ModalRegistrarGrupo = document.getElementById("ModalRegistrarGrupo");
-ModalRegistrarGrupo.addEventListener("show.bs.modal", (event) => {
+const ModalEditarGrupo = document.getElementById("ModalEditarGrupo");
+ModalEditarGrupo.addEventListener("show.bs.modal", (event) => {
   // rellenarSelect('#registrar-clasificacion-grupo','Api', 2,0,1);
   // rellenarSelect('#registrar-metodos-grupo','laboratorio_metodos_api', 2,0,1);
   // rellenarSelect('#registrar-medidas-grupo','Api', 2,0,1);
@@ -7,10 +7,10 @@ ModalRegistrarGrupo.addEventListener("show.bs.modal", (event) => {
 });
 
 //Formulario de Preregistro
-$("#formRegistrarGrupo").submit(function (event) {
+$("#formEditarGrupo").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
-  var form = document.getElementById("formRegistrarGrupo");
+  var form = document.getElementById("formEditarGrupo");
   var formData = new FormData(form);
   formData.set("grupos", 0);
   formData.set("producto", 1);
@@ -48,8 +48,8 @@ $("#formRegistrarGrupo").submit(function (event) {
               title: "¡Estudio registrado!",
               timer: 2000,
             });
-            document.getElementById("formRegistrarGrupo").reset();
-            $("#ModalRegistrarGrupo").modal("hide");
+            document.getElementById("formEditarGrupo").reset();
+            $("#ModalEditarGrupo").modal("hide");
             tablaServicio.ajax.reload();
           }
         },
@@ -59,9 +59,9 @@ $("#formRegistrarGrupo").submit(function (event) {
   event.preventDefault();
 });
 
-select2("#registrar-area-grupo", "ModalRegistrarGrupo");
-select2("#registrar-metodos-grupo", "ModalRegistrarGrupo");
-select2("#registrar-medidas-grupo", "ModalRegistrarGrupo");
-select2("#registrar-concepto-facturacion-grupo", "ModalRegistrarGrupo");
-select2("#registrar-clasificacion-grupo", "ModalRegistrarGrupo");
-select2("#registrar-area-estudio", "ModalRegistrarGrupo");
+select2("#edit-area-grupo", "ModalEditarGrupo");
+select2("#edit-metodos-grupo", "ModalEditarGrupo");
+select2("#edit-medidas-grupo", "ModalEditarGrupo");
+select2("#edit-concepto-facturacion-grupo", "ModalEditarGrupo");
+select2("#edit-clasificacion-grupo", "ModalEditarGrupo");
+select2("#edit-area-estudio", "ModalEditarGrupo");

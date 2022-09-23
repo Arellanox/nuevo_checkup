@@ -1,12 +1,12 @@
-<div class="modal fade" id="ModalRegistrarGrupo" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+<div class="modal fade" id="ModalEditarGrupo" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
-        <h5 class="modal-title" id="filtrador">Agregar Nuevo Grupo</h5>formRegistrarGrupo
+        <h5 class="modal-title" id="filtrador">Agregar Nuevo Grupo</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="" id="">
+        <form class="" id="formEditarGrupo">
           <p class="text-center">Agrege un nuevo <strong>Estudio</strong> </p>
           <div class="row">
             <div class="col-6">
@@ -15,7 +15,7 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="area" class="form-label">Área</label>
-              <select name="area" id="registrar-area-grupo">
+              <select name="area" id="edit-area-grupo">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="clasificacion" class="form-label">Clasificación de exámen</label>
-              <select name="clasificacion" id="registrar-clasificacion-grupo">
+              <select name="clasificacion" id="edit-clasificacion-grupo">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -31,7 +31,7 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="metodo" class="form-label">Método</label>
-              <select name="metodo" id="registrar-metodos-grupo">
+              <select name="metodo" id="edit-metodos-grupo">
                 <option value="1">Opcion 1</option>
                 <option value="2">Opcion 2</option>
                 <option value="3">3</option>
@@ -39,7 +39,7 @@
             </div>
             <div class="col-3 col-md-3">
               <label for="medida" class="form-label">Medida</label>
-              <select name="medida" id="registrar-medidas-grupo">
+              <select name="medida" id="edit-medidas-grupo">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto facturación</label>
-              <select name="confac" id="registrar-concepto-facturacion-grupo">
+              <select name="confac" id="edit-concepto-facturacion-grupo">
                 <option value="1">DESCRIPCION</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -93,7 +93,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarGrupo" class="btn btn-confirmar" id="submit-registrarGrupo">
+        <button type="submit" form="formEditarGrupo" class="btn btn-confirmar" id="submit-editarGrupo">
           <i class="bi bi-person-plus"></i> Crear
         </button>
       </div>
