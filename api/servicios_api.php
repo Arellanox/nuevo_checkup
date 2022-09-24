@@ -129,6 +129,26 @@ switch ($api) {
             ));
         }
         break;
+    case 7:
+        #recuperar todos los servicicos que sean padres
+        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre));
+
+        if(is_array($response)){
+            echo json_encode(array(
+                'response'=>array(
+                    'code'=>1,
+                    'data'=>$response
+                )
+                ));
+        } else {
+            echo json_encode(array(
+                'response'=>array(
+                    'code'=>1,
+                    'data'=>$response
+                )
+                ));
+        }
+        break;
 
     default:
         # code...
