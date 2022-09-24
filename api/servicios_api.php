@@ -51,7 +51,8 @@ switch ($api) {
         break;
     case 3:
         #getbyid
-        $response = $master->getByProcedure('sp_servicios_b',array($id));
+        $id = $master->mis->getFormValues(array_slice($_POST,0,1));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -96,6 +97,27 @@ switch ($api) {
                 'response'=> array(
                     'code'=> 1,
                     'affected'=>$response
+                )
+                ));
+        } else {
+            echo json_encode(array(
+                'response'=>array(
+                    'code'=>2,
+                    'msj'=> $response
+                )
+            ));
+        }
+        break;
+    case 6:
+        #recuperar todos los hijos de un padre
+        $padre = $master->mis->getFormValues(array_slice($_POST,0,1));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre));
+
+        if (is_array($response)) {
+            echo json_encode(array(
+                'response'=> array(
+                    'code'=> 1,
+                    'data'=>$response
                 )
                 ));
         } else {
