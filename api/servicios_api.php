@@ -4,7 +4,7 @@ include "../clases/master_class.php";
 
 $master = new Master();
 $api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api'] : 2);
-$api = 1;
+
 switch ($api) {
     case 1:
         #insert
