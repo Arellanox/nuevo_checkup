@@ -1,5 +1,5 @@
 
-<?php if ($menu == "Usuarios" || $menu == "Mesometria" || $menu == "Servicios"): ?>
+<?php if ($menu == "Usuarios" || $menu == "Mesometria" || $menu == "Servicios" || $menu == "ListaPrecios"): ?>
   <li class="nav-item">
     <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
       <i class="bi bi-people-fill"></i> Recepción
