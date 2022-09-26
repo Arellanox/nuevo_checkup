@@ -15,24 +15,25 @@ async function cargarDatosEstuEdit() {
     console.log(array_selected)
     $('#edit-clasificacion-estudio').val(null).trigger('change');
     $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
-    $('#edit-grupo-estudio').val(array_selected['']);
-    $('#edit-area-estudio').val(array_selected['DESCRIPCION_AREA']);
+    $('#edit-grupo-estudio').val(array_selected['PADRE']).trigger('change');
+    $('#edit-area-estudio').val(array_selected['ID_AREA']).trigger('change');
     $('#edit-clasificacion-estudio').val(array_selected['ID_CLASIFICACION']).trigger('change');
-    
-    $('#edit-medidas-estudio').val(array_selected['NOMBRE']);
-    $('#edit-concepto-estudio').val(array_selected['NOMBRE']);
-    $('#edit-indicaciones-estudio').val(array_selected['NOMBRE']);
+    $('#edit-medidas-estudio').val(array_selected['ID_MEDIDA']).trigger('change');
+    $('#edit-dias-estudio').val(array_selected['DIAS_DE_ENTREGA']);
+    $('#edit-concepto-estudio').val(array_selected['ID_CONCEPTO']).trigger('change');
+      $('#edit-indicaciones-estudio').val(array_selected['INDICACIONES']);
+
     // Check Valor referencia
-     if(array_selected['NOMBRE'] =='Si'){
+     if(array_selected['MUESTRA_VALORES_REFERENCIA'] ==  1){
        $('#edit-checkValSi-estudio').attr('checked', true);
      }  else{
        $('#edit-checkValNo-estudio').attr('checked', true);
      }
     // Check Subroga
-     if(array_selected['NOMBRE'] =='Si'){
-       $('#edit-checkRogaSi-estudio').attr('checked', true);
+     if(array_selected['LOCAL'] == 1){
+       $('#edit-checkRogSi-estudio').attr('checked', true);
      }  else{
-       $('#edit-checkRogaNo-estudio').attr('checked', true);
+       $('#edit-checkRogNo-estudio').attr('checked', true);
      }
   }
 }
