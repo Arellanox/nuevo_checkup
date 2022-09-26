@@ -32,7 +32,7 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_servicios_b',array(null,null));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,null, null));
         if (is_array($response)) {
             echo json_encode($response);
         } else {
@@ -47,7 +47,7 @@ switch ($api) {
     case 3:
         #getbyid
         $id = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre, null));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -106,7 +106,7 @@ switch ($api) {
     case 6:
         #recuperar todos los hijos de un padre
         $padre = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre,null));
 
         if (is_array($response)) {
             echo json_encode(array(
@@ -126,7 +126,7 @@ switch ($api) {
         break;
     case 7:
         #recuperar todos los servicicos que sean padres
-        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,null,1));
 
         if(is_array($response)){
             echo json_encode(array(
