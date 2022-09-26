@@ -31,7 +31,7 @@ switch ($api) {
         break;
     
     default:
-        # code...
+        echo 'What the hell are you trying to do?';
         break;
 }
 ?>
