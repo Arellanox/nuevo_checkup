@@ -1,12 +1,13 @@
-<?php 
+<?php
 session_start();
 include "../clases/laboratorio_equipos_class.php";
 
 $equipo = new LaboratorioEquipos();
-$api = 1;
+$api = $_POST['api'];
 
 if(!$equipo->master->checkStartedSession()){
     echo "NO TIENES UNA SESION INICIADA";
+
 }else {
     switch ($api) {
         case 1:
@@ -38,7 +39,7 @@ if(!$equipo->master->checkStartedSession()){
                     "msj" => $response
                 )));
             }
-            
+
             break;
         case 3:
             $response = $equipo->getById($id);
@@ -84,7 +85,6 @@ if(!$equipo->master->checkStartedSession()){
             }
             break;
         default:
-            # code...
             break;
     }
 }

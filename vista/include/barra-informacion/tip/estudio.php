@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 info-detalle text-center">
-    <p id="nombre-estudio">Cargando...</p>
-    <p id="clasificacion-estudio" class="none-p">Cargando...</p>
+    <p id="nombre-estudio"> </p>
+    <p id="clasificacion-estudio" class="none-p"> </p>
   </div>
 </div>
 <div class="row mt-3">

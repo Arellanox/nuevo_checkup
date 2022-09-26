@@ -21,11 +21,11 @@
           <th scope="col d-flex justify-content-center" class="min-tablet">Serie</th>
           <th scope="col d-flex justify-content-center" class="none">Mantenimiento</th>
           <th scope="col d-flex justify-content-center" class="none">Calibración</th>
-          <th scope="col d-flex justify-content-center" class="min-tablet">Status</th>
+          <th scope="col d-flex justify-content-center" class="min-tablet">Estatus</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <!-- <tr>
           <td>#1</td>
           <td>Descripcion</td>
           <td>Marca</td>
@@ -34,7 +34,7 @@
           <td>Mantenimiento</td>
           <td>Calibración</td>
           <td>Status</td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </div>

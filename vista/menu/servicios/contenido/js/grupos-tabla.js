@@ -27,4 +27,4 @@ var tablaGrupos = $('#TablaGruposServicios').DataTable({
   ],
 
 })
-selectDatatable("TablaGruposServicios", tablaGrupos, 1, 'grupos_api', 'grupos')
+selectDatatable("TablaGruposServicios", tablaGrupos, 1, 'servicios_api', 'estudio')
