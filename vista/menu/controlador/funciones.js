@@ -332,7 +332,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
             }
         break;
         case 'estudio':
-
+          $('#nombre-equipo').html(data[0]['CURP']);
         break;
         case 'equipo':
           $('#nombre-equipo').html(data[0]['CURP']);
