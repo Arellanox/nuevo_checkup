@@ -8,7 +8,6 @@ async function cargarDatosEstuEdit() {
   await rellenarSelect("#edit-area-estudio", "areas_api", 2,0,2);
   await rellenarSelect('#edit-clasificacion-estudio','laboratorio_clasificacion_api', 2,0,1);
   await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1)
-
   //await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1);
   //await rellenarSelect("#edit-concepto-facturacion", "Api", 2, 0, 1);
   if (  await rellenarSelect("#edit-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1) ) {
@@ -17,7 +16,8 @@ async function cargarDatosEstuEdit() {
     $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
     $('#edit-grupo-estudio').val(array_selected['']);
     $('#edit-area-estudio').val(array_selected['DESCRIPCION_AREA']);
-    $('#edit-clasificacion-estudio').val(array_selected['CLASIFICACION_EXAMEN']);
+    $("#edit-clasificacion-estudio").select2(array_selected['CLASIFICACION_EXAMEN'], array_selected['CLASIFICACION_EXAMEN']);
+    //$('#edit-clasificacion-estudio').select2('data', {id: array_selected['ID_CLASIFICACION'], a_key: 'CLASIFICACION_EXAMEN'});
     $('#edit-medidas-estudio').val(array_selected['NOMBRE']);
     $('#edit-concepto-estudio').val(array_selected['NOMBRE']);
     $('#edit-indicaciones-estudio').val(array_selected['NOMBRE']);
