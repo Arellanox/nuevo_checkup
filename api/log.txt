@@ -1,22 +1,23 @@
 23/09/22 21:22:39 sp_servicios_g 
-23/09/22 21:28:59 sp_servicios_g 
-23/09/22 21:30:07 sp_servicios_g 
+23/09/22 21:28:59 sp_servicios_g
+23/09/22 21:30:07 sp_servicios_g
 26/09/22 01:28:23 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 2, got 1
 26/09/22 01:28:37 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 2, got 1
 26/09/22 01:29:18 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 2, got 1
 26/09/22 01:32:02 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.ID_SERVICIO' in 'order clause'
 26/09/22 01:46:53 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 2, got 1
-26/09/22 15:29:53 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+26/09/22 15:29:53 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexiï¿½n ya que la parte conectada no respondiï¿½ adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexiï¿½n establecida ya que el host conectado no ha podido responder.
 
-26/09/22 15:30:15 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+26/09/22 15:30:15 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexiï¿½n ya que la parte conectada no respondiï¿½ adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexiï¿½n establecida ya que el host conectado no ha podido responder.
 
-26/09/22 15:30:29 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+26/09/22 15:30:29 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexiï¿½n ya que la parte conectada no respondiï¿½ adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexiï¿½n establecida ya que el host conectado no ha podido responder.
 
-26/09/22 15:30:32 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+26/09/22 15:30:32 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexiï¿½n ya que la parte conectada no respondiï¿½ adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexiï¿½n establecida ya que el host conectado no ha podido responder.
 
-26/09/22 15:32:24 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+26/09/22 15:32:24 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexiï¿½n ya que la parte conectada no respondiï¿½ adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexiï¿½n establecida ya que el host conectado no ha podido responder.
 
-26/09/22 15:36:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+26/09/22 15:36:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexiï¿½n ya que la parte conectada no respondiï¿½ adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexiï¿½n establecida ya que el host conectado no ha podido responder.
 
-26/09/22 15:36:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+26/09/22 15:36:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexiï¿½n ya que la parte conectada no respondiï¿½ adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexiï¿½n establecida ya que el host conectado no ha podido responder.
 
+26/09/22 17:08:47 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 3, got 2
