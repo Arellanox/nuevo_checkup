@@ -1,10 +1,12 @@
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
-  rellenarSelect('#registrar-clasificacion-examen','laboratorio_clasificacion_api', 2,0,1);
-  rellenarSelect('#registrar-metodos-examen','laboratorio_metodos_api', 2,0,1);
-  // rellenarSelect('#registrar-medidas-examen','Api', 2,0,1);
-  // rellenarSelect('#registrar-concepto-facturacion','Api', 2,0,1);
-});
+  rellenarSelect("#registrar-clasificacion-estudio","laboratorio_clasificacion_api",2,0,1);
+  rellenarSelect("#registrar-metodos-estudio","laboratorio_metodos_api",2,0,1);
+  rellenarSelect("#registrar-medidas-estudio","laboratorio_medidas_api",2,0,1);
+  rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 2);
+  rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
+  //rellenarSelect('#registrar-concepto-facturacion','Api', 2,0,1);s
+})
 
 //Formulario de Preregistro
 $("#formRegistrarEstudio").submit(function (event) {
@@ -12,8 +14,8 @@ $("#formRegistrarEstudio").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarEstudio");
   var formData = new FormData(form);
-  var padre = formData.get('grupo');
-  formData.delete('grupo');
+  var padre = formData.get("grupo");
+  formData.delete("grupo");
   formData.set("padre", padre);
   formData.set("grupos", 0);
   formData.set("producto", 1);
@@ -62,9 +64,9 @@ $("#formRegistrarEstudio").submit(function (event) {
   event.preventDefault();
 });
 
-select2("#registrar-clasificacion-examen", "ModalRegistrarEstudio");
-select2("#registrar-metodos-examen", "ModalRegistrarEstudio");
-select2("#registrar-medidas-examen", "ModalRegistrarEstudio");
+select2("#registrar-clasificacion-estudio", "ModalRegistrarEstudio");
+select2("#registrar-metodos-estudio", "ModalRegistrarEstudio");
+select2("#registrar-medidas-estudio", "ModalRegistrarEstudio");
 select2("#registrar-concepto-facturacion", "ModalRegistrarEstudio");
-select2("#registrar-grupo-examen", "ModalRegistrarEstudio");
+select2("#registrar-grupo-estudio", "ModalRegistrarEstudio");
 select2("#registrar-area-estudio", "ModalRegistrarEstudio");
