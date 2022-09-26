@@ -18,7 +18,7 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
       {data: 'COUNT'},
       {data: 'DESCRIPCION'},
       {data: 'CLASIFICACION_EXAMEN'},
-      {data: 'MEDIDA'},
+      {data: 'DESCRIPCION_AREA'},
       {data: 'ACTIVO'},
       // {defaultContent: 'En progreso...'}
   ],
