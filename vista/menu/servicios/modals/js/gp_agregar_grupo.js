@@ -65,4 +65,4 @@ select2("#registrar-metodos-grupo", "ModalRegistrarGrupo");
 select2("#registrar-medidas-grupo", "ModalRegistrarGrupo");
 select2("#registrar-concepto-facturacion-grupo", "ModalRegistrarGrupo");
 select2("#registrar-clasificacion-grupo", "ModalRegistrarGrupo");
-select2("#registrar-area-estudio", "ModalRegistrarGrupo");
+select2("#registrar-area-grupo", "ModalRegistrarGrupo");

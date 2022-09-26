@@ -10,8 +10,8 @@ async function cargarDatosEstuEdit() {
   // await rellenarSelect("#edit-concepto-facturacion", "Api", 2, 0, 1);
   // await rellenarSelect("#edit-grupo-estudio", "Api", 2, 0, 1);
   if (await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1)) {
-    console.log(array_selected);
-    // $('#edit-nombre-estudio').val(array_selected['NOMBRE']);
+
+    $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
     // $('#edit-grupo-estudio').val(array_selected['NOMBRE']);
     // $('#edit-area-estudio').val(array_selected['NOMBRE']);
     // $('#edit-clasificacion-estudio').val(array_selected['NOMBRE']);

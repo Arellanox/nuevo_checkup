@@ -32,14 +32,9 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_servicios_b',array(null));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,null));
         if (is_array($response)) {
-            echo json_encode(array(
-                'response'=> array(
-                    'code'=> 1,
-                    'data'=>$response
-                )
-                ));
+            echo json_encode($response);
         } else {
             echo json_encode(array(
                 'response'=>array(
