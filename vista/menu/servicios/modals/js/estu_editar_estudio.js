@@ -13,11 +13,12 @@ async function cargarDatosEstuEdit() {
   if (  await rellenarSelect("#edit-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1) ) {
 
     console.log(array_selected)
+    $('#edit-clasificacion-estudio').val(null).trigger('change');
     $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
     $('#edit-grupo-estudio').val(array_selected['']);
     $('#edit-area-estudio').val(array_selected['DESCRIPCION_AREA']);
-    $("#edit-clasificacion-estudio").select2(array_selected['CLASIFICACION_EXAMEN'], array_selected['CLASIFICACION_EXAMEN']);
-    //$('#edit-clasificacion-estudio').select2('data', {id: array_selected['ID_CLASIFICACION'], a_key: 'CLASIFICACION_EXAMEN'});
+    $('#edit-clasificacion-estudio').val(array_selected['ID_CLASIFICACION']).trigger('change');
+    
     $('#edit-medidas-estudio').val(array_selected['NOMBRE']);
     $('#edit-concepto-estudio').val(array_selected['NOMBRE']);
     $('#edit-indicaciones-estudio').val(array_selected['NOMBRE']);
