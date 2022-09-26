@@ -17,7 +17,7 @@ switch ($api) {
     case 3:
         #getById
         $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->updateByProcedure('sp_sat_grupos_g',$values));
+        echo $master->mis->returnApi($master->getByProcedure('sp_sat_grupos_b',$values));
         break;
     case 4:
         #update
