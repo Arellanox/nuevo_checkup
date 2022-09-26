@@ -22,11 +22,17 @@ switch ($api) {
 
         if(is_array($response)){
             $dataset = array();
+            $encargado = new Usuarios();
             foreach($response as $value){
-                $encargado = new Usuarios();
-                $label = $encargado->getById($value['ENCARGADO_ID']);
-                $value['ENCARGADO'] = $label;
-                $value[] = $label;
+                if(!is_null($values['ENCARGADO_ID'])){
+                    $label = $encargado->getById($value['ENCARGADO_ID']);
+                    $value['ENCARGADO'] = $label;
+                    $value[] = $label;
+                } else {
+                    $value['ENCARGADO'] = 'Sin Encargado';
+                    $value[] = 'Sin Encargado';
+                }
+                
                 $dataset[] = $value;
             }
             echo json_encode(array("response"=>array("code"=>1,"data"=>$dataset)));
