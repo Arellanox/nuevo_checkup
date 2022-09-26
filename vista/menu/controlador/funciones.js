@@ -334,7 +334,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
         case 'estudio':
         console.log(row)
           $('#nombre-estudio').html(row.DESCRIPCION);
-          $('#clasificacion-estudio').html(row.DESCRIPCION);
+          $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
           $('#estudio-metodo').html(row.METODO);
           $('#estudio-medida').html(row.MEDIDA);
           $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
