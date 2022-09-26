@@ -61,7 +61,7 @@
                 <label for="registrar-varepoSi">Si</label>
               </div>
               <div class="col-3">
-                <input type="radio" name="varepo" id="edit-checkValSi-estudio" value="0" required>
+                <input type="radio" name="varepo" id="edit-checkValNo-estudio" value="0" required>
                 <label for="registrar-varepoNo">No</label>
               </div>
             </div>
@@ -70,11 +70,11 @@
                 <label for="">Se Subroga?: </label>
               </div>
               <div class="col-3">
-                <input type="radio" name="subroga" id="registrar-subrogaSi" value="1" required id="edit-checkRogSi-estudio">
+                <input type="radio" name="subroga" value="1" required id="edit-checkRogSi-estudio">
                 <label for="registrar-subrogaSi">Si</label>
               </div>
               <div class="col-3">
-                <input type="radio" name="subroga" id="registrar-subrogaNo" value="0" required id="edit-checkRogNo-estudio">
+                <input type="radio" name="subroga" value="0" required id="edit-checkRogNo-estudio">
                 <label for="registrar-subrogaNo">No</label>
               </div>
             </div>
