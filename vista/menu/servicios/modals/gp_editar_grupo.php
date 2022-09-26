@@ -2,12 +2,12 @@
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
-        <h5 class="modal-title" id="filtrador">Agregar Nuevo Grupo</h5>
+        <h5 class="modal-title" id="filtrador">Editar</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form class="" id="formEditarGrupo">
-          <p class="text-center">Agrege un nuevo <strong>Estudio</strong> </p>
+          <p class="text-center">Editar Estudio Registrado <strong>Actualmente</strong> </p>
           <div class="row">
             <div class="col-6">
               <label for="nombre_estudio" class="form-label">Nombre del Estudio</label>

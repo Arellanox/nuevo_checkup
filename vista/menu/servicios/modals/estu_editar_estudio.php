@@ -71,29 +71,29 @@
               <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder="" id="edit-indicaciones-estudio"></textarea>
             </div>
             <div class="row" style="zoom:100%;">
-              <div class="col-md-auto">
+              <div class="col-6">
                 <label for="">¿Mostrar valores de referencia? </label>
               </div>
-              <div class="col">
-                <input type="radio" name="varepo" value="1" required id="edit-checkValSi-estudio">
-                <label for="varepo">Si</label>
+              <div class="col-3">
+                <input type="radio" name="varepo" id="edit-checkValSi-estudio" value="1" required>
+                <label for="registrar-varepoSi">Si</label>
               </div>
-              <div class="col">
-                <input type="radio" name="varepo" value="0" required id="edit-checkValNo-estudio">
-                <label for="varepo">No</label>
+              <div class="col-3">
+                <input type="radio" name="varepo" id="edit-checkValSi-estudio" value="0" required>
+                <label for="registrar-varepoNo">No</label>
               </div>
             </div>
             <div class="row" style="zoom:100%;">
-              <div class="col-md-auto">
+              <div class="col-6">
                 <label for="">Se Subroga?: </label>
               </div>
-              <div class="col">
-                <input type="radio" name="subroga" value="1" required id="edit-checkRogaSi-estudio">
-                <label for="agre-subroga">Si</label>
+              <div class="col-3">
+                <input type="radio" name="subroga" id="registrar-subrogaSi" value="1" required id="edit-checkRogSi-estudio">
+                <label for="registrar-subrogaSi">Si</label>
               </div>
-              <div class="col">
-                <input type="radio" name="subroga" value="0" required id="edit-checkRogaNo-estudio">
-                <label for="agre-subroga">No</label>
+              <div class="col-3">
+                <input type="radio" name="subroga" id="registrar-subrogaNo" value="0" required id="edit-checkRogNo-estudio">
+                <label for="registrar-subrogaNo">No</label>
               </div>
             </div>
           </div>
