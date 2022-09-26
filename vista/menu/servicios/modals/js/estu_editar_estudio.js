@@ -7,10 +7,9 @@ async function cargarDatosEstuEdit() {
   await rellenarSelect("#edit-grupo-estudio", 'servicios_api',7,0,2);
   await rellenarSelect("#edit-area-estudio", "areas_api", 2,0,2);
   await rellenarSelect('#edit-clasificacion-estudio','laboratorio_clasificacion_api', 2,0,1);
-  await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1)
-  //await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1);
-  //await rellenarSelect("#edit-concepto-facturacion", "Api", 2, 0, 1);
-  if (  await rellenarSelect("#edit-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1) ) {
+  await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1);
+  await rellenarSelect("#edit-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1);
+  if (   await rellenarSelect("#edit-concepto-facturacion", "sat_catalogo_api", 2, 0, 'COMPLETO')  ) {
 
     console.log(array_selected)
     $('#edit-clasificacion-estudio').val(null).trigger('change');
@@ -20,7 +19,7 @@ async function cargarDatosEstuEdit() {
     $('#edit-clasificacion-estudio').val(array_selected['ID_CLASIFICACION']).trigger('change');
     $('#edit-medidas-estudio').val(array_selected['ID_MEDIDA']).trigger('change');
     $('#edit-dias-estudio').val(array_selected['DIAS_DE_ENTREGA']);
-    $('#edit-concepto-estudio').val(array_selected['ID_CONCEPTO']).trigger('change');
+    $('#edit-concepto-facturacion').val(array_selected['ID_CONCEPTO']).trigger('change');
       $('#edit-indicaciones-estudio').val(array_selected['INDICACIONES']);
 
     // Check Valor referencia

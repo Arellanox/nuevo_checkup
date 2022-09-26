@@ -16,10 +16,10 @@ var tablaEquipo = $('#TablaEquipoServicio').DataTable({
   },
   columns:[
       {data: 'COUNT'},
-      {data: 'DESCRIPCION'},
       {data: 'MARCA'},
       {data: 'MODELO'},
       {data: 'NUMERO_SERIE'},
+      {data: 'CVE_INVENTARIO'},
       {data: 'FRECUENCIA_MANTENIMIENTO'},
       {data: 'CALIBRACION'},
       {data: 'STATUS'},

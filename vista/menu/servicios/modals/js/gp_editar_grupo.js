@@ -1,10 +1,10 @@
 const ModalEditarGrupo = document.getElementById("ModalEditarGrupo");
 ModalEditarGrupo.addEventListener("show.bs.modal", (event) => {
-rellenarSelect('#registrar-clasificacion-grupo','Api', 2,0,1);
+rellenarSelect('#registrar-clasificacion-grupo','laboratorio_clasificacion_api', 2,0,1);
 rellenarSelect('#registrar-metodos-grupo','laboratorio_metodos_api', 2,0,1);
 rellenarSelect('#registrar-medidas-grupo','laboratorio_medidas_api', 2,0,1);
 rellenarSelect('#registrar-area-grupo','areas_api',2,0,2);
-//('#registrar-concepto-facturacion','Api', 2,0,1);
+rellenarSelect('#registrar-concepto-facturacion-grupo','sat_catalogo_api', 2,0,'COMPLETO');
 });
 
 //Formulario de Preregistro

@@ -52,9 +52,6 @@
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto facturación</label>
               <select name="confac" id="registrar-concepto-facturacion-grupo">
-                <option value="1">DESCRIPCION</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-6 col-md-6">

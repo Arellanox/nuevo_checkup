@@ -332,7 +332,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
             }
         break;
         case 'estudio':
-        console.log(row)
           $('#nombre-estudio').html(row.DESCRIPCION);
           $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
           $('#estudio-metodo').html(row.METODO);
@@ -353,7 +352,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
           $('#estudio-venta').html(row.PRECIO_VENTA);
         break;
         case 'equipo':
-          $('#nombre-equipo').html(data[0]['CURP']);
+        console.log(row)
+          $('#nombre-equipo').html(row);
           $('#equipo-equipo').html(data[0]['CELULAR']);
           $('#equipo-ingreso').html(data[0]['CORREO']);
           $('#equipo-inicio').html(data[0]['GENERO']);

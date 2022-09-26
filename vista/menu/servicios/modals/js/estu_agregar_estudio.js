@@ -5,7 +5,7 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
   rellenarSelect("#registrar-medidas-estudio","laboratorio_medidas_api",2,0,1);
   rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 2);
   rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
-  //rellenarSelect('#registrar-concepto-facturacion','Api', 2,0,1);s
+  rellenarSelect('#registrar-concepto-facturacion','sat_catalogo_api', 2,0,'COMPLETO');
 })
 
 //Formulario de Preregistro
