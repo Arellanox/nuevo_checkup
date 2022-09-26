@@ -15,27 +15,27 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="grupo" class="form-label">Grupo de exámen</label>
-              <select name="grupo" id="registrar-grupo-estudio">
+              <select name="grupo" id="registrar-grupo-estudio" required>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="area" class="form-label">Área</label>
-              <select name="area" id="registrar-area-estudio">
+              <select name="area" id="registrar-area-estudio" required>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="clasificacion" class="form-label">Clasificación de exámen</label>
-              <select name="clasificacion" id="registrar-clasificacion-estudio">
+              <select name="clasificacion" id="registrar-clasificacion-estudio" required>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="metodo" class="form-label">Método</label>
-              <select name="metodo" id="registrar-metodos-estudio">
+              <select name="metodo" id="registrar-metodos-estudio" required>
               </select>
             </div>
             <div class="col-3 col-md-3">
               <label for="medida" class="form-label">Medida</label>
-              <select name="medida" id="registrar-medidas-estudio">
+              <select name="medida" id="registrar-medidas-estudio" required>
               </select>
             </div>
             <div class="col-3 col-md-3">
@@ -44,15 +44,11 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto facturación</label>
-              <select name="confac" id="registrar-concepto-facturacion">
-                <option value="1">DESCRIPCION</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+              <select name="confac" id="registrar-concepto-facturacion" required>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="indicaciones" class="form-label">Indicaciones</label>
-              <br />
               <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder=""></textarea>
             </div>
             <div class="row" style="zoom:100%;">

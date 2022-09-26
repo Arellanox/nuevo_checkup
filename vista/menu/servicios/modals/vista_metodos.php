@@ -10,11 +10,6 @@
           <div class="col-12 col-lg-5">
               <label for="metodo-buscar" class="form-label">Métodos</label>
               <select class="" name="curp" id="select_metodos">
-                <option></option>
-                <option value="1">Metodo 1</option>
-                <option value="2">Metodo 2</option>
-                <option value="3">Metodo 3</option>
-                <option value="4">Metodo 4</option>
               </select>
               <!-- <input type="text" name="metodo-buscar" value="" class="form-control input-form" id="select_metodos" required> -->
           </div>
@@ -34,30 +29,16 @@
         <p class="none-p">Doble click para editar <i class="bi bi-pencil"></i></p>
         <div class="row mt-3">
           <div class="col-6">
-            <table class="table table-hover display responsive tableContenido" id="TablaMetodos" style="width:100%">
-              <thead class="" style="width: 100%">
+            <table class="table table-hover tableContenido" id="TablaMetodos" style="width:100%">
+              <thead class="" id="tr-metodos">
                 <tr>
-                  <th scope="col d-flex justify-content-center" class="all">#</th>
-                  <th scope="col d-flex justify-content-center" class="min-tablet">Método</th>
+                  <th scope="col d-flex justify-content-center">#</th>
+                  <th scope="col d-flex justify-content-center">Método</th>
+                  <th scope="col d-flex justify-content-center"><i class="bi bi-collection"></i></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Metodo 1</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Metodo 2</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Metodo 3</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Metodo 4</td>
-                </tr>
+
               </tbody>
             </table>
           </div>

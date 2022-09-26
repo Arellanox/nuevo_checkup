@@ -65,6 +65,8 @@ switch ($api) {
 
     case 4:
         #update
+        $array_slice = array_slice($_POST, 0, 19);
+        $values = $master->mis->getFormValues($array_slice);
         $response = $master->updateByProcedure('sp_servicios_g',$values);
         if (is_numeric($response)) {
             echo json_encode(array(

@@ -15,27 +15,27 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="grupo" class="form-label">Grupo de exámen</label>
-              <select name="grupo" id="edit-grupo-estudio">
+              <select name="grupo" id="edit-grupo-estudio" required>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="area" class="form-label">Área</label>
-              <select name="area" id="edit-area-estudio">
+              <select name="area" id="edit-area-estudio" required>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="clasificacion" class="form-label">Clasificación de exámen</label>
-              <select name="clasificacion" id="edit-clasificacion-estudio">
+              <select name="clasificacion" id="edit-clasificacion-estudio" required>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="metodo" class="form-label">Método</label>
-              <select name="metodo" id="edit-metodos-estudio">
+              <select name="metodo" id="edit-metodos-estudio" required>
               </select>
             </div>
             <div class="col-3 col-md-3">
               <label for="medida" class="form-label">Medida</label>
-              <select name="medida" id="edit-medidas-estudio">
+              <select name="medida" id="edit-medidas-estudio" required>
               </select>
             </div>
             <div class="col-3 col-md-3">
@@ -44,7 +44,7 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto facturación</label>
-              <select name="confac" id="edit-concepto-facturacion">
+              <select name="confac" id="edit-concepto-facturacion" required>
               </select>
             </div>
             <div class="col-6 col-md-6">

@@ -3,34 +3,29 @@ var TablaMetodos = $('#TablaMetodos').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
   },
+  lengthMenu: [[5, 10, -1], [5, 10, "All"]],
   autoWidth: false,
   searching: false,
   lengthChange:false,
   info: false,
   paging:false,
-  lengthMenu: [[5, 10, -1], [5, 10, "All"]],
-  // ajax: {
-  //     dataType: 'json',
-  //     data: {api: 2},
-  //     method: 'POST',
-  //     url: '../../../api/usuarios_api.php',
-  //     beforeSend: function() { loader("In") },
-  //     complete: function(){ loader("Out") },
-  //     dataSrc:''
-  // },
-  // columns:[
-  //     {data: 'count'},
-  //     {data: 'nombrecompleto'},
-  //     {data: 'USUARIO'},
-  //     {data: '15.0.DESCRIPCION'},
-  //     {data: '16.0.DESCRIPCION'},
-  //     {data: 'ACTIVO'},
-  //     {data: 'PROFESION'},
-  //     {data: 'CEDULA'},
-  //     {data: 'TELEFONO'},
-  //     {data: 'CORREO'},
-  //     // {defaultContent: 'En progreso...'}
-  // ],
+  scrollY: "30vh",
+  scrollCollapse: true,
+  ajax: {
+      dataType: 'json',
+      data: {api: 2},
+      method: 'POST',
+      url: '../../../api/laboratorio_metodos_api.php',
+      beforeSend: function() { loader("In") },
+      complete: function(){ loader("Out") },
+      dataSrc:'response.data'
+  },
+  columns:[
+      {data: 'COUNT'},
+      {data: 'DESCRIPCION'},
+      {data: 'ACTIVO'},
+      // {defaultContent: 'En progreso...'}
+  ],
   columnDefs: [
     { "width": "3px", "targets": 0 },
   ],

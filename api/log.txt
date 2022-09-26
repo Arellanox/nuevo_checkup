@@ -29,3 +29,6 @@
 26/09/22 17:21:28 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'are.AREA_ID' in 'field list'
 =======
 >>>>>>> Stashed changes
+26/09/22 21:22:37 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'cat.CODGIO' in 'field list'
+26/09/22 21:23:55 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'cat.CODGIO' in 'field list'
+26/09/22 21:23:58 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'cat.CODGIO' in 'field list'

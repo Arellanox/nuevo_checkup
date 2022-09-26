@@ -19,7 +19,7 @@ async function cargarDatosEstuEdit() {
     $('#edit-clasificacion-estudio').val(array_selected['ID_CLASIFICACION']).trigger('change');
     $('#edit-medidas-estudio').val(array_selected['ID_MEDIDA']).trigger('change');
     $('#edit-dias-estudio').val(array_selected['DIAS_DE_ENTREGA']);
-    $('#edit-concepto-facturacion').val(array_selected['ID_CONCEPTO']).trigger('change');
+    $('#edit-concepto-facturacion').val(array_selected['SAT_ID_CODIGO']).trigger('change');
       $('#edit-indicaciones-estudio').val(array_selected['INDICACIONES']);
 
     // Check Valor referencia
@@ -43,6 +43,9 @@ $("#formEditarEstudio").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formEditarEstudio");
   var formData = new FormData(form);
+  var padre = formData.get("grupo");
+  formData.delete("grupo");
+  formData.set("padre", padre);
   formData.set("grupos", 0);
   formData.set("producto", 1);
   formData.set("seleccionable", null);
@@ -51,7 +54,7 @@ $("#formEditarEstudio").submit(function (event) {
   formData.set("utilidad", null);
   formData.set("venta", null);
   formData.set("id", array_selected['ID_SERVICIO']);
-  formData.set("api", 1);
+  formData.set("api", 4);
 
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
@@ -65,7 +68,26 @@ $("#formEditarEstudio").submit(function (event) {
   }).then((result) => {
     if (result.isConfirmed) {
       //$("#btn-registrarse").prop('disabled', true);
-      // Esto va dentro del AJAX
+      $.ajax({
+        data: formData,
+        url: "../../../api/servicios_api.php",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          data = jQuery.parseJSON(data);
+          if (mensajeAjax(data)) {
+            Toast.fire({
+              icon: "success",
+              title: "¡Estudio registrado!",
+              timer: 2000,
+            });
+            document.getElementById("formEditarEstudio").reset();
+            $("#modalEditarEstudio").modal("hide");
+            tablaServicio.ajax.reload();
+          }
+        },
+      });
     }
   });
   event.preventDefault();
