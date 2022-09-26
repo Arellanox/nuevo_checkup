@@ -1,39 +1,47 @@
 <div class="row">
-  <div class="col-12 info-detalle">
+  <div class="col-12 info-detalle text-center">
     <p id="nombre-estudio">Cargando...</p>
     <p id="clasificacion-estudio" class="none-p">Cargando...</p>
   </div>
 </div>
 <div class="row mt-3">
-  <div class="col-4 text-end info-detalle">
+  <div class="col-6 text-end info-detalle">
+    <p>Método:</p>
+  </div>
+  <div class="col-6" id="estudio-metodo"> </div>
+  <div class="col-6 text-end info-detalle">
+    <p>Medida:</p>
+  </div>
+  <div class="col-6" id="estudio-medida"> </div>
+  <div class="col-6 text-end info-detalle">
+    <p>Entrega:</p>
+  </div>
+  <div class="col-6" id="estudio-entrega"> </div>
+  <div class="col-6 text-end info-detalle">
     <p>Subroga:</p>
   </div>
-  <div class="col-8" id="estudio-subroga">
-    Cargando...
-  </div>
-  <div class="col-4 text-end info-detalle">
+  <div class="col-6" id="estudio-subroga"> </div>
+  <div class="col-6 text-end info-detalle">
     <p>Vista de valor:</p>
   </div>
-  <div class="col-8" id="estudio-valorvista">
-    Cargando...
-  </div>
-  <div class="col-4 text-end info-detalle">
+  <div class="col-6" id="estudio-valorvista"> </div>
+  <div class="col-6 text-end info-detalle">
     <p>Indicaciones:</p>
   </div>
-  <div class="col-8" id="estudio-indicaciones">
-    Cargando...
-  </div>
+  <div class="col-8" id="estudio-indicaciones"> </div>
 </div>
-<!-- <div class="row mt-2">
+<div class="row mt-2">
   <a class="btn btn-hover" data-bs-toggle="collapse" data-bs-target="#barra-informacion" aria-expanded="false">
     Mas información <i class="bi bi-arrow-down-short"></i>
   </a>
   <div class="collapse row overflow-auto" id="barra-informacion">
-    <div class="col-5 text-end info-detalle">
-      <p>Directorio:</p>
+    <div class="col-6 text-end info-detalle">
+      <p>Concepto de facturación:</p>
     </div>
-    <div class="col-7" id="estudio-">
-      Cargando....
+    <div class="col-6" id="estudio-codigo-sat"> </div>
+    <div class="col-6 text-end info-detalle">
+      <p>Precio de venta:</p>
     </div>
+    <div class="col-6" id="estudio-venta"> </div>
   </div>
-</div> -->
+</div>

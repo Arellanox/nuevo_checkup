@@ -332,7 +332,25 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
             }
         break;
         case 'estudio':
-          $('#nombre-equipo').html(data[0]['CURP']);
+        console.log(row)
+          $('#nombre-estudio').html(row.DESCRIPCION);
+          $('#clasificacion-estudio').html(row.DESCRIPCION);
+          $('#estudio-metodo').html(row.METODO);
+          $('#estudio-medida').html(row.MEDIDA);
+          $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
+          if (row.LOCAL == 1) {
+            $('#estudio-subroga').html('Si');
+          }else{
+            $('#estudio-subroga').html('No');
+          }
+          if (row.MUESTRA_VALORES_REFERENCIA == 1) {
+            $('#estudio-valorvista').html('Si');
+          }else{
+            $('#estudio-valorvista').html('No');
+          }
+          $('#estudio-indicaciones').html(row.INDICACIONES);
+          $('#estudio-codigo-sat').html(row.DIAS_DE_ENTREGA);
+          $('#estudio-venta').html(row.PRECIO_VENTA);
         break;
         case 'equipo':
           $('#nombre-equipo').html(data[0]['CURP']);
