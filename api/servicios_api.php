@@ -3,7 +3,7 @@
 include "../clases/master_class.php";
 
 $master = new Master();
-$api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api'] : 2);
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
@@ -11,9 +11,7 @@ switch ($api) {
 
         $array_slice = array_slice($_POST, 0, 18);
         $values = $master->mis->getFormValues($array_slice);
-
         $response = $master->insertByProcedure("sp_servicios_g",$values);
-
         if (is_numeric($response)) {
             echo json_encode(array(
                 'response'=> array(
