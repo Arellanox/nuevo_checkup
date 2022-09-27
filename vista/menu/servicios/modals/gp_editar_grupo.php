@@ -11,80 +11,65 @@
           <div class="row">
             <div class="col-6">
               <label for="nombre_estudio" class="form-label">Nombre del Estudio</label>
-              <input type="text" name="nombre_estudio" class="form-control input-form" required>
+              <input type="text" name="nombre_estudio" id="edit-nombre-grupo" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="area" class="form-label">Área</label>
               <select name="area" id="edit-area-grupo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="clasificacion" class="form-label">Clasificación de exámen</label>
               <select name="clasificacion" id="edit-clasificacion-grupo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="metodo" class="form-label">Método</label>
               <select name="metodo" id="edit-metodos-grupo">
-                <option value="1">Opcion 1</option>
-                <option value="2">Opcion 2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-3 col-md-3">
               <label for="medida" class="form-label">Medida</label>
               <select name="medida" id="edit-medidas-grupo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-3 col-md-3">
               <label for="entrega" class="form-label">Día de entrega</label>
-              <input type="number" name="entrega" class="input-form" value="" required>
+              <input type="number" name="entrega" class="input-form" value="" id="edit-dias-grupo" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Concepto facturación</label>
               <select name="confac" id="edit-concepto-facturacion-grupo">
-                <option value="1">DESCRIPCION</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="indicaciones" class="form-label">Indicaciones</label>
               <br />
-              <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder=""></textarea>
+              <textarea class="md-textarea input-form" id="edit-indicaciones-grupo" name="indicaciones" cols="45" rows="2" placeholder=""></textarea>
             </div>
             <div class="row" style="zoom:100%;">
-              <div class="col-md-auto">
+              <div class="col-6">
                 <label for="">¿Mostrar valores de referencia? </label>
               </div>
-              <div class="col">
-                <input type="radio" name="varepo" value="1" required>
+              <div class="col-3">
+                <input type="radio" name="varepo" value="1" id="edit-checkValSi-grupo" required>
                 <label for="varepo">Si</label>
               </div>
-              <div class="col">
-                <input type="radio" name="varepo" value="0" required>
+              <div class="col-3">
+                <input type="radio" name="varepo" value="0" id="edit-checkValNo-grupo" required>
                 <label for="varepo">No</label>
               </div>
             </div>
             <div class="row" style="zoom:100%;">
-              <div class="col-md-auto">
+              <div class="col-6">
                 <label for="">Se Subroga?: </label>
               </div>
-              <div class="col">
-                <input type="radio" name="subroga" value="1" required>
+              <div class="col-3">
+                <input type="radio" name="subroga" value="1" required id="edit-checkRogSi-grupo">
                 <label for="agre-subroga">Si</label>
               </div>
-              <div class="col">
-                <input type="radio" name="subroga" value="0" required>
+              <div class="col-3">
+                <input type="radio" name="subroga" value="0" required id="edit-checkRogNo-grupo">
                 <label for="agre-subroga">No</label>
               </div>
             </div>

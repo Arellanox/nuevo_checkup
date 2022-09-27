@@ -16,33 +16,21 @@
             <div class="col-6 col-md-6">
               <label for="area" class="form-label">Área</label>
               <select name="area" id="registrar-area-grupo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="clasificacion" class="form-label">Clasificación de exámen</label>
               <select name="clasificacion" id="registrar-clasificacion-grupo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="metodo" class="form-label">Método</label>
               <select name="metodo" id="registrar-metodos-grupo">
-                <option value="1">Opcion 1</option>
-                <option value="2">Opcion 2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-3 col-md-3">
               <label for="medida" class="form-label">Medida</label>
               <select name="medida" id="registrar-medidas-grupo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
               </select>
             </div>
             <div class="col-3 col-md-3">
@@ -96,4 +84,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

@@ -7,6 +7,9 @@ ModalRegistrarGrupo.addEventListener("show.bs.modal", (event) => {
   rellenarSelect("#registrar-area-grupo", "areas_api", 2, 0, 2);
 });
 
+
+
+
 //Formulario de Preregistro
 $("#formRegistrarGrupo").submit(function (event) {
   event.preventDefault();
@@ -25,7 +28,7 @@ $("#formRegistrarGrupo").submit(function (event) {
 
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
-    text: "¡Guarde o recuerde la contraseña!",
+    text: "Verifique los datos antes de continuar!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
