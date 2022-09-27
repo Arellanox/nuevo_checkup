@@ -32,3 +32,4 @@
 26/09/22 21:22:37 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'cat.CODGIO' in 'field list'
 26/09/22 21:23:55 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'cat.CODGIO' in 'field list'
 26/09/22 21:23:58 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'cat.CODGIO' in 'field list'
+27/09/22 20:35:14 sp_servicios_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`servicios`, CONSTRAINT `FK_REFERENCE_13` FOREIGN KEY (`PADRE`) REFERENCES `servicios` (`ID_SERVICIO`))

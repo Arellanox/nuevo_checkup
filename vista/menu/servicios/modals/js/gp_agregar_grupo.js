@@ -16,7 +16,7 @@ $("#formRegistrarGrupo").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarGrupo");
   var formData = new FormData(form);
-  formData.set("padre", 1);
+  formData.set("padre", null);
   formData.set("grupos", 1);
   formData.set("producto", 1);
   formData.set("seleccionable", null);

@@ -44,7 +44,7 @@ $("#formEditarGrupo").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formEditarGrupo");
   var formData = new FormData(form);
-  formData.set("padre", 1);
+  formData.set("padre", null);
   formData.set("grupos", 0);
   formData.set("producto", 1);
   formData.set("seleccionable", null);
@@ -52,7 +52,8 @@ $("#formEditarGrupo").submit(function (event) {
   formData.set("costos", null);
   formData.set("utilidad", null);
   formData.set("venta", null);
-  formData.set("api", 7);
+  formData.set("id", array_selected[0]);
+  formData.set("api", 4);
 
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
