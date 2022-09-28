@@ -45,7 +45,7 @@ $("#formEditarGrupo").submit(function (event) {
   var form = document.getElementById("formEditarGrupo");
   var formData = new FormData(form);
   formData.set("padre", null);
-  formData.set("grupos", 0);
+  formData.set("grupos", 1);
   formData.set("producto", 1);
   formData.set("seleccionable", null);
   formData.set("para", 3);
