@@ -3,8 +3,24 @@ class Miscelaneus{
 
     function getFormValues($values){
         $form = array();
+       
         foreach($values as $clave=>$valor){
-            $form[] = $valor;
+            
+            # Convierte el valor null tomado como string en un valor booleano
+            if(is_string($valor)){
+                if (strtoupper($valor)=="NULL") {
+    
+                    $form[] = null;
+        
+                } else {
+                    
+                    $form[] = $valor;
+                }
+            }else {
+               
+                $form[] = $valor;
+            }          
+            
         }
 
         return $form;
