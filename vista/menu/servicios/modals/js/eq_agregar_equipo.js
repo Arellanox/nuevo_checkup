@@ -11,6 +11,7 @@ $("#formAgregarEquipo").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formAgregarEquipo");
+  formData.set('api', 1);
   var formData = new FormData(form);
 
   Swal.fire({
