@@ -82,7 +82,7 @@ class Master extends Miscelaneus
         $sentencia = $conexion->prepare($sp);
 
         $sentencia = $this->bindParams($sentencia,$parametros);
-       
+
 
         if ($sentencia->execute()) {
             $fila = $sentencia->fetchAll();
@@ -412,5 +412,33 @@ class Master extends Miscelaneus
             return false;
         }
         return true;
+    }
+
+    function procesarImagen($file, $carpeta, $area, $nombre, $elemento){
+      if (!empty($file['fileComprobante']['name'])) {
+        $ruta = "archivos/".$carpeta."/".$area;
+        $extension = pathinfo($file[$elemento]['name'], PATHINFO_EXTENSION);
+        $move = "../".$ruta;
+        if ($file[$elemento]['size'] > 0 && $file[$elemento]['error']== 0) {
+          if (!is_dir($move)) {
+            mkdir($move);
+          }
+          try {
+            $move = $move."/".$nombre;
+            move_uploaded_file($file[$elemento]['tmp_name'], $move);
+            return $return = array('code' => 1, 'data' => $move);
+          } catch (\Exception $e) {
+            $msj = "Error: archivo no se ha podido mover el archivo";
+            $return = array('code' => 2, 'msj' => $msj);
+          }
+        }else{
+          $msj = "Error: Archivo dañado";
+          $return = array('code' => 2, 'msj' => $msj);
+        }
+      }else{
+        return array('code' => 1, 'data' => null);
+      }
+      $this->mis->setLog($msj, 'Imagen cargada de'+$area+', en la carpeta: '+$carpeta);
+      return $return;
     }
 }
