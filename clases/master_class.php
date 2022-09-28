@@ -82,6 +82,7 @@ class Master extends Miscelaneus
         $sentencia = $conexion->prepare($sp);
 
         $sentencia = $this->bindParams($sentencia,$parametros);
+       
 
         if ($sentencia->execute()) {
             $fila = $sentencia->fetchAll();
@@ -91,7 +92,7 @@ class Master extends Miscelaneus
                 $retorno = "Alerta: la consulta no devolvió resultado";
             }
         } else {
-            $error_msj = "Ha ocurrido un error(" . $stmt->errorCode() . "). " . implode(" ", $stmt->errorInfo());
+            $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
             $this->mis->setLog($error_msj,$nombreProcedimiento);
             # return "ERROR. No se pudieron recuperar los datos.";
             $retorno = "Alerta: la consulta al servidor no se realizó correctamente";
