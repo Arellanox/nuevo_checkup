@@ -1,6 +1,5 @@
 const ModalEditarGrupo = document.getElementById("ModalEditarGrupo");
 ModalEditarGrupo.addEventListener("show.bs.modal", (event) => {
-
   cargarDatosGrupoEdit();
 });
 

@@ -1,20 +1,23 @@
 const ModalEditarEquipo = document.getElementById("ModalEditarEquipo");
 ModalEditarEquipo.addEventListener("show.bs.modal", (event) => {
-  $("#edit-claveInv-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-uso-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-serie-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-freMante-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-npruebasMante-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-cali-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-npruebasCali-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-fechaIngreso-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-fechaInicio-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-valorEquipo-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-descripcion-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-marca-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-modelo-equipo").val(array_selected["NOMBRE"]);
+
+  console.log(array_selected);
+
+  $("#edit-claveInv-equipo").val(array_selected["CVE_INVENTARIO"]);
+  $("#edit-uso-equipo").val(array_selected["USO"]);
+  $("#edit-serie-equipo").val(array_selected["NUMERO_SERIE"]);
+  $("#edit-freMante-equipo").val(array_selected["FRECUENCIA_MANTENIMIENTO"]);
+  $("#edit-npruebasMante-equipo").val(array_selected["NUMERO_PRUEBAS"]);
+  $("#edit-cali-equipo").val(array_selected["CALUBRACION"]);
+  $("#edit-npruebasCali-equipo").val(array_selected["NUMERO_PRUEBAS_CALIBRACION"]);
+  $("#edit-fechaIngreso-equipo").val(array_selected["FECHA_INGRESO_EQUIPO"]);
+  $("#edit-fechaInicio-equipo").val(array_selected["FECHA_INICIO_USO"]);
+  $("#edit-valorEquipo-equipo").val(array_selected["VALOR_DEL_EQUIPO"]);
+  $("#edit-descripcion-equipo").val(array_selected["DESCRIPCION"]);
+  $("#edit-marca-equipo").val(array_selected["MARCA"]);
+  $("#edit-modelo-equipo").val(array_selected["MODELO"]);
   $("#edit-foto-equipo").val(array_selected["NOMBRE"]);
-  $("#edit-estatus-equipo").val(array_selected["NOMBRE"]);
+  $("#edit-estatus-equipo").val(array_selected["STATUS"]);
 });
 
 //Formulario de Preregistro
