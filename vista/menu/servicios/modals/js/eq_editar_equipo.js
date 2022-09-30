@@ -1,8 +1,6 @@
 const ModalEditarEquipo = document.getElementById("ModalEditarEquipo");
 ModalEditarEquipo.addEventListener("show.bs.modal", (event) => {
 
-  console.log(array_selected);
-
   $("#edit-claveInv-equipo").val(array_selected["CVE_INVENTARIO"]);
   $("#edit-uso-equipo").val(array_selected["USO"]);
   $("#edit-serie-equipo").val(array_selected["NUMERO_SERIE"]);

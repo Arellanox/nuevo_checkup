@@ -60,7 +60,8 @@ if(!$equipo->master->checkStartedSession()){
             }
             break;
         case 4:
-            $values = $equipo->master->getFormValues($_POST);
+            $array_slice = array_slice($_POST, 0, 16);
+            $values=$equipo->master->mis->getFormValues($array_slice);
             $response = $equipo->update($values);
             if (is_numeric($response)) {
                 echo json_encode(array("response"=>array(

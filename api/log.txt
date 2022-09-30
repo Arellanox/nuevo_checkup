@@ -40,3 +40,13 @@
 28/09/22 19:54:28 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
 29/09/22 01:25:59 sp_servicios_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_g; expected 20, got 19
 29/09/22 01:28:08 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 16:58:17 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:00:03 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:01:37 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:03:13 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:06:06 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:06:16 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:07:44 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:08:01 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:08:04 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+30/09/22 17:11:11 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
