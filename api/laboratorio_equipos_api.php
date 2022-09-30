@@ -1,26 +1,24 @@
 <?php
 session_start();
-include "../clases/laboratorio_equipos_class.php";
+include "../clases/master_class.php";
 
-$equipo = new LaboratorioEquipos();
+$master = new Master();
 $api = $_POST['api'];
 
-if(!$equipo->master->checkStartedSession()){
+/* if(!$master->checkStartedSession()){
     echo "NO TIENES UNA SESION INICIADA";
 
-}else {
+}else { */
     switch ($api) {
         case 1:
             $array_slice = array_slice($_POST, 0, 15);
-            $values=$equipo->master->mis->getFormValues($array_slice);
+            $values = $master->mis->getFormValues($array_slice);
 
-
-
-            $response = $equipo->insert($values);
+            $response = $master->insertByProcedure('sp_laboratorio_equipos_g',$values);
             if(is_numeric($response)){
                 echo json_encode(array("response"=>array(
                     "code"=>1,
-                    "affected"=>$response
+                    "lastId"=>$response
                 )));
             } else {
                 echo json_encode(array("response"=>array(
@@ -91,5 +89,5 @@ if(!$equipo->master->checkStartedSession()){
         default:
             break;
     }
-}
+#}
 ?>
