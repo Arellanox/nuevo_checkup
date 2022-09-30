@@ -2,12 +2,12 @@
   <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
-        <h5 class="modal-title" id="filtrador">Agregar Nuevo Equipo</h5>
+        <h5 class="modal-title" id="filtrador">Editar Informacion de Dispositivo</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form class="" id="formEditarEquipo">
-          <p class="text-center">Actualizar informacion del<strong>Equipo</strong> </p>
+          <p class="text-center">Actualizar informacion de <strong>Equipo</strong> </p>
           <div class="row">
             <div class="col-6">
               <label for="cve_inventario">Clave de Inventario</label>
@@ -70,14 +70,6 @@
             <div class="col-6">
               <label for="foto" id="aviso-foto-equipo">Subir foto</label>
               <input type="file" name="foto" id="edit-foto-equipo" class="form-control input-form">
-            </div>
-            <div class="col-6">
-              <label for="status">Estado del Equipo</label>
-              <select name="status" id="edit-estatus-equipo" class="form-control input-form">
-                <option value="0">Fuera de Servicio</option>
-                <option value="1" selected>En Operacion</option>
-                <option value="2">Manteminiento</option>
-              </select>
             </div>
           </div>
         </form>

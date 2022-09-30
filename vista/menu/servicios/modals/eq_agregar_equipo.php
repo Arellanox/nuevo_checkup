@@ -25,9 +25,9 @@
               <label for="frecuenta_mto">Frecuencia de Mantenimiento</label>
               <select name="frecuencia_mto" id="frecuencia_mto" class="form-control input-form">
                 <option value="0">Mensual</option>
-                <option value="2">Bimestral</option>
-                <option value="3">Trimestral</option>
-                <option value="4">Por Numero de Pruebas</option>
+                <option value="1">Bimestral</option>
+                <option value="2">Trimestral</option>
+                <option value="3">Por Numero de Pruebas</option>
               </select>
             </div>
             <div class="col-3">
@@ -57,7 +57,7 @@
             </div>
             <div class="col-6">
               <label for="Descripcion">Descripcion</label>
-              <textarea name="descripcion" class="md-textarea input-form" cols="45" rows="1"></textarea>
+              <textarea name="descripcion" class="md-textarea input-form" cols="45" rows="1" id="descripcion"></textarea>
             </div>
             <div class="col-6">
               <label for="Marca">Marca</label>
@@ -71,14 +71,7 @@
               <label for="foto">Subir foto</label>
               <input type="file" name="foto" id="foto" class="form-control input-form">
             </div>
-            <div class="col-6">
-              <label for="status">Estado del Equipo</label>
-              <select name="status" id="status" class="form-control input-form">
-                <option value="0">Fuera de Servicio</option>
-                <option value="1" selected>En Operacion</option>
-                <option value="2">Manteminiento</option>
-              </select>
-            </div>
+
           </div>
         </form>
 

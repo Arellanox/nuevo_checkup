@@ -1,9 +1,6 @@
 const ModalRegistrarEquipo = document.getElementById("ModalRegistrarEquipo");
 ModalRegistrarEquipo.addEventListener("show.bs.modal", (event) => {
-  // rellenarSelect('#registrar-clasificacion-examen','Api', 2,0,1);
-  // rellenarSelect('#registrar-metodos-examen','laboratorio_metodos_api', 2,0,1);
-  // rellenarSelect('#registrar-medidas-examen','Api', 2,0,1);
-  // rellenarSelect('#registrar-concepto-facturacion','Api', 2,0,1);
+
 });
 
 //Formulario de Preregistro
@@ -11,9 +8,9 @@ $("#formAgregarEquipo").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formAgregarEquipo");
-  formData.set('api', 1);
   var formData = new FormData(form);
-
+  formData.set('status',null)
+    formData.set('api', 1);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
     text: "¡Verifique las Caracteristicas antes de Continuar!",
@@ -22,14 +19,14 @@ $("#formAgregarEquipo").submit(function (event) {
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
       // $('#submit-registrarEstudio').prop('disabled', true);
       // Esto va dentro del AJAX
+
       $.ajax({
         data: formData,
-        url: "?",
+        url: "../../../api/laboratorio_equipos_api.php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -51,10 +48,3 @@ $("#formAgregarEquipo").submit(function (event) {
   });
   event.preventDefault();
 });
-
-// select2("#registrar-clasificacion-examen", "ModalRegistrarEquipo");
-// select2("#registrar-metodos-examen", "ModalRegistrarEquipo");
-// select2("#registrar-medidas-examen", "ModalRegistrarEquipo");
-// select2("#registrar-concepto-facturacion", "ModalRegistrarEquipo");
-// select2("#registrar-grupo-examen", "ModalRegistrarEquipo");
-// select2("#registrar-area-estudio", "ModalRegistrarEquipo");
