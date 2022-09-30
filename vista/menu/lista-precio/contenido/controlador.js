@@ -1,50 +1,40 @@
-//Menu predeterminado
-hasLocation();
-$(window).on("hashchange", function (e) {
-  hasLocation();
-});
 
-// Variable de seleccion de metodo
-var array_metodo;
-var idMetodo = null;
 
-function obtenerContenidoPaquetes() {
-  obtenerTitulo("Paquetes"); //Aqui mandar el nombre de la area
-  $.post("contenido/paquetes.php", function (html) {
+obtenerContenidoPrecios("listaprecios.php");
+function obtenerContenidoPrecios(tabla){
+  obtenerTitulo("ListaPrecios"); //Aqui mandar el nombre de la area
+  $.post("contenido/"+tabla, function(html){
     var idrow;
-    $("#body-js").html(html);
-    // Datatable
-    $.getScript("contenido/js/estudio-tabla.js");
-    // Botones
-    $.getScript("contenido/js/estudio-botones.js");
-  });
-}
+     $("#body-js").html(html);
 
-function obtenerContenidoPrecios() {
-  obtenerTitulo("Lista de precios"); //Aqui mandar el nombre de la area
-  $.post("contenido/precios.php", function (html) {
-    var idrow;
-    $("#body-js").html(html);
-    // Datatable
-    $.getScript("contenido/js/grupos-tabla.js");
-    // Botones
-    $.getScript("contenido/js/grupos-botones.js");
-  });
-}
+     var tablaUsuarios = $('#TablaListaPrecios').DataTable({
+       language: {
+         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+       },
+       lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
+       columnDefs: [
+         { "width": "5px", "targets": 0 },
+       ],
 
-function hasLocation() {
-  var hash = window.location.hash.substring(1);
-  $("a").removeClass("navlinkactive");
-  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-  switch (hash) {
-    case "Paquetes":
-      obtenerContenidoPaquetes();
-      break;
-    case "ListaPrecios":
-      obtenerContenidoPrecios();
-      break;
-    default:
-      obtenerContenidoPrecios();
-      break;
-  }
+     })
+
+     $('#TablaListaPrecios tbody').on('click', 'tr', function () {
+        // alert( 'Clicked row id '+idrow );
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            array_paciente = null;
+        } else {
+            tablaUsuarios.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            array_paciente = tablaPrecios.row( this ).data();
+
+        }
+    });
+
+    $("#btn-perfil").click(function(){
+      alert()
+    })
+
+
+  });
 }

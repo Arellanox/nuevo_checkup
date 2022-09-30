@@ -71,14 +71,6 @@
               <label for="foto" id="aviso-foto-equipo">Subir foto</label>
               <input type="file" name="foto" id="edit-foto-equipo" class="form-control input-form">
             </div>
-            <div class="col-6">
-              <label for="status">Estado del Equipo</label>
-              <select name="status" id="edit-estatus-equipo" class="form-control input-form">
-                <option value="0">Fuera de Servicio</option>
-                <option value="1" selected>En Operacion</option>
-                <option value="2">Manteminiento</option>
-              </select>
-            </div>
           </div>
         </form>
 

@@ -8,11 +8,9 @@ $("#formAgregarEquipo").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formAgregarEquipo");
-  var formData = new FormData(form);
   formData.set('status',null)
-  formData.set('api', 1);
-
-
+    formData.set('api', 1);
+  var formData = new FormData(form);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
     text: "¡Verifique las Caracteristicas antes de Continuar!",
@@ -20,12 +18,12 @@ $("#formAgregarEquipo").submit(function (event) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar",
+    confirmButtonText: "Aceptar",n
   }).then((result) => {
     if (result.isConfirmed) {
       // $('#submit-registrarEstudio').prop('disabled', true);
       // Esto va dentro del AJAX
+
       $.ajax({
         data: formData,
         url: "../../../api/laboratorio_equipos_api.php",
