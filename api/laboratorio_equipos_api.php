@@ -28,7 +28,7 @@ $api = $_POST['api'];
             }
             break;
         case 2:
-            $response = $equipo->getAll();
+            $response = $master->getByProcedure('sp_laboratorio_equipos_b',array(null));
 
             if (is_array($response)) {
                 echo json_encode(array("response"=>array(
@@ -44,7 +44,8 @@ $api = $_POST['api'];
 
             break;
         case 3:
-            $response = $equipo->getById($id);
+            $values = $master->mis->getFormValues(array_slice($_POST,0,1));
+            $response = $master->getByProcedure('sp_laboratorio_equipos_b',$values);
             if (is_array($response)) {
                 echo json_encode(array("response"=>array(
                     "code"=>1,
@@ -58,9 +59,8 @@ $api = $_POST['api'];
             }
             break;
         case 4:
-            $array_slice = array_slice($_POST, 0, 16);
-            $values=$equipo->master->mis->getFormValues($array_slice);
-            $response = $equipo->update($values);
+            $values = $master->mis->getFormValues(array_slice($_POST,0,16));
+            $response = $master->updateByProcedure('sp_laboratorio_equipos_g',$values);
             if (is_numeric($response)) {
                 echo json_encode(array("response"=>array(
                     "code"=>1,
@@ -74,7 +74,8 @@ $api = $_POST['api'];
             }
             break;
         case 5:
-            $response = $equipo->delete($id);
+            $values = $master->mis->getFormValues(array_slice($_POST,0,1));
+            $response = $master->deleteByProcedure('sp_laboratorio_equipos_e',$values);
             if (is_numeric($response)) {
                 echo json_encode(array("response"=>array(
                     "code"=>1,
