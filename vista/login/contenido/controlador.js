@@ -10,10 +10,10 @@ function obtenerContenido(tabla){
         /*DATOS Y VALIDACION DEL REGISTRO*/
         var form = document.getElementById("formIniciarSesion");
         var formData = new FormData(form);
-        formData.set('api', 6);
+        formData.set('api', 1);
         $.ajax({
           data: formData,
-          url: "../../api/usuarios_api.php",
+          url: "../../api/login_api.php",
           type: "POST",
           processData: false,
           contentType: false,

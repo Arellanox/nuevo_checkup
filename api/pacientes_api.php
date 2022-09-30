@@ -1,8 +1,13 @@
 <?php
 include "../interfaces/iMetodos.php";
 include "../clases/segmentos_class.php";
+include "../clases/token_auth.php";
 
-//$paciente = new Pacientes();
+$tokenVerification = new TokenVerificacion($_SESSION['id'],$_SESSION['token']);
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+}
 
 $slice_update=24;
 $slice_insert=$slice_update-1;
