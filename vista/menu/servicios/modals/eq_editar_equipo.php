@@ -23,11 +23,11 @@
             </div>
             <div class="col-3">
               <label for="frecuenta_mto">Frecuencia de Mantenimiento</label>
-              <input name="frecuencia_mto" id="edit-freMante-equipo" class="form-control input-form" required>
-              <!--option value="1">Bimestral</!--option>
-              <option value="2">Trimestral</option>
-              <option-- value="3">Anual</option-->
-              </input>
+              <select name="frecuencia_mto" id="edit-freMante-equipo" class="form-control input-form" required>
+                <option value="1">ANUAL</option>
+                <option value="2">SEMESTRAL</option>
+                <option value="3">NUMERO DE PRUEBAS</option>
+              </select>
             </div>
             <div class="col-3">
               <label for="n_pruebas">Numero de Pruebas</label>
@@ -35,11 +35,11 @@
             </div>
             <div class="col-3">
               <label for="calibracion">Calibracion</label>
-              <input type="text" name="calibracion" id="edit-cali-equipo" class="form-control input-form" required>
-              <!--option value="1">Bimestral</!--option>
-              <option value="2">Trimestral</option>
-              <option-- value="3">Por Numero de Pruebas</option-->
-              </input>
+              <select type="text" name="calibracion" id="edit-cali-equipo" class="form-control input-form" required>
+                <option value="1">ANUAL</option>
+                <option value="2">SEMESTRAL</option>
+                <option value="3">NUMERO DE PRUEBAS</option>
+              </select>
             </div>
             <div class="col-3">
               <label for="n_pruebas_cal">Numero de Pruebas Calibracion</label>
@@ -56,7 +56,7 @@
             </div>
             <div class="col-3">
               <label for="valor_equipo">Valor del Equipo</label>
-              <input type="text" name="valor_equipo" id="edit-valorEquipo-equipo" class="form-control input-form" value="$" required>
+              <input type="text" name="valor_equipo" id="edit-valorEquipo-equipo" class="form-control input-form" value="" required>
             </div>
             <div class="col-6">
               <label for="Descripcion">Descripcion</label>

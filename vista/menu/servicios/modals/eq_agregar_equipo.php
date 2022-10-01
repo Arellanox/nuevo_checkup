@@ -24,10 +24,9 @@
             <div class="col-3">
               <label for="frecuenta_mto">Frecuencia de Mantenimiento</label>
               <select name="frecuencia_mto" id="frecuencia_mto" class="form-control input-form" required>
-                <option value="0">Mensual</-option>
-                <option value="1">Bimestral</option>
-                <option value="2">Trimestral</option>
-                <option value="3">Por Numero de Pruebas</option>
+                <option value="1">ANUAL</option>
+                <option value="2">SEMESTRAL</option>
+                <option value="3">NUMERO DE PRUEBAS</option>
               </select>
             </div>
             <div class="col-3">
@@ -37,9 +36,9 @@
             <div class="col-3">
               <label for="calibracion">Calibracion</label>
               <select name="calibracion" id="calibracion" class="form-control input-form" required>
-                <option value="1">Bimestral</option>
-                <option value="2">Trimestral</option>
-                <option value="3">Por Numero de Pruebas</option>
+                <option value="1">ANUAL</option>
+                <option value="2">SEMESTRAL</option>
+                <option value="3">NUMERO DE PRUEBAS</option>
               </select>
             </div>
             <div class="col-3">
@@ -57,7 +56,7 @@
             </div>
             <div class="col-3">
               <label for="valor_equipo">Valor del Equipo</label>
-              <input type="text" name="valor_equipo" id="valor_equipo" class="form-control input-form" value="$" required>
+              <input type="text" name="valor_equipo" id="valor_equipo" class="form-control input-form" value="" required>
             </div>
             <div class="col-6">
               <label for="Descripcion">Descripcion</label>

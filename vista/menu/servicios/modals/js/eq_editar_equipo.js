@@ -27,7 +27,7 @@ $("#formEditarEquipo").submit(function (event) {
   var formData = new FormData(form);
   formData.set('status',array_selected["STATUS"]);
   formData.set('id', array_selected['ID_EQUIPO']);
-  formData.set("api", 1);
+  formData.set("api", 4);
 
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
