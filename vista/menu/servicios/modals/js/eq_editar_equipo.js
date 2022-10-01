@@ -6,9 +6,30 @@ console.log(array_selected)
   $("#edit-claveInv-equipo").val(array_selected["CVE_INVENTARIO"]);
   $("#edit-uso-equipo").val(array_selected["USO"]);
   $("#edit-serie-equipo").val(array_selected["NUMERO_SERIE"]);
-  $("#edit-freMante-equipo").val(array_selected["FRECUENCIA_MANTENIMIENTO"]);
+  switch(array_selected["FRECUENCIA_MANTENIMIENTO"] ) {
+  case 'ANUAL':  // if (x === 'valor1')
+  $("#edit-freMante-equipo").val(1).trigger('change');; break;
+  case 'SEMESTRAL':  // if (x === 'valor2')
+    $("#edit-freMante-equipo").val(2).trigger('change'); break;
+  case 'NUMERO DE PRUEBAS':  // if (x === 'valor2')
+    $("#edit-freMante-equipo").val('3').trigger('change'); break;
+  default:
+    break;
+}
+  //$("#edit-freMante-equipo").val(array_selected["FRECUENCIA_MANTENIMIENTO"]);
   $("#edit-npruebasMante-equipo").val(array_selected["NUMERO_PRUEBAS"]);
-  $("#edit-cali-equipo").val(array_selected["CALIBRACION"]);
+
+    switch(array_selected["CALIBRACION"]){
+  case 'ANUAL':  // if (x === 'valor1')
+  $("#edit-cali-equipo").val(1).trigger('change');; break;
+  case 'SEMESTRAL':  // if (x === 'valor2')
+    $("#edit-cali-equipo").val(2).trigger('change'); break;
+  case 'NUMERO DE PRUEBAS':  // if (x === 'valor2')
+    $("#edit-cali-equipo").val('3').trigger('change'); break;
+  default:
+    break;
+}
+ // $("#edit-cali-equipo").val(array_selected["CALIBRACION"]);
   $("#edit-npruebasCali-equipo").val(array_selected["NUMERO_PRUEBAS_CALIBRACION"]);
   $("#edit-fechaIngreso-equipo").val(array_selected["FECHA_INGRESO_EQUIPO"]);
   $("#edit-fechaInicio-equipo").val(array_selected["FECHA_INICIO_USO"]);
