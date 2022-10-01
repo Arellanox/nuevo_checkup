@@ -1,12 +1,14 @@
 const ModalEditarEquipo = document.getElementById("ModalEditarEquipo");
 ModalEditarEquipo.addEventListener("show.bs.modal", (event) => {
 
+console.log(array_selected)
+
   $("#edit-claveInv-equipo").val(array_selected["CVE_INVENTARIO"]);
   $("#edit-uso-equipo").val(array_selected["USO"]);
   $("#edit-serie-equipo").val(array_selected["NUMERO_SERIE"]);
   $("#edit-freMante-equipo").val(array_selected["FRECUENCIA_MANTENIMIENTO"]);
   $("#edit-npruebasMante-equipo").val(array_selected["NUMERO_PRUEBAS"]);
-  $("#edit-cali-equipo").val(array_selected["CALUBRACION"]);
+  $("#edit-cali-equipo").val(array_selected["CALIBRACION"]);
   $("#edit-npruebasCali-equipo").val(array_selected["NUMERO_PRUEBAS_CALIBRACION"]);
   $("#edit-fechaIngreso-equipo").val(array_selected["FECHA_INGRESO_EQUIPO"]);
   $("#edit-fechaInicio-equipo").val(array_selected["FECHA_INICIO_USO"]);

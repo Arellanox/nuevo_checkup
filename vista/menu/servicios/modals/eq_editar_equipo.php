@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-6">
               <label for="cve_inventario">Clave de Inventario</label>
-              <input type="text" name="cve_inventario" id="edit-claveInv-equipo" class="form-control input-form">
+              <input type="text" name="cve_inventario" id="edit-claveInv-equipo" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="uso">Uso</label>
@@ -19,57 +19,60 @@
             </div>
             <div class="col-3">
               <label for="numero_serie">Numero de Serie</label>
-              <input type="text" id="edit-serie-equipo" name="numero_serie" class="form-control input-form">
+              <input type="text" id="edit-serie-equipo" name="numero_serie" class="form-control input-form" required>
             </div>
             <div class="col-3">
               <label for="frecuenta_mto">Frecuencia de Mantenimiento</label>
-              <select name="frecuencia_mto" id="edit-freMante-equipo" class="form-control input-form">
-                <option value="0">Mensual</option>
-                <option value="2">Bimestral</option>
-                <option value="3">Trimestral</option>
-                <option value="4">Por Numero de Pruebas</option>
-              </select>
+              <input name="frecuencia_mto" id="edit-freMante-equipo" class="form-control input-form" required>
+              <!--option value="1">Bimestral</!--option>
+              <option value="2">Trimestral</option>
+              <option-- value="3">Anual</option-->
+              </input>
             </div>
             <div class="col-3">
               <label for="n_pruebas">Numero de Pruebas</label>
-              <input type="number" name="n_pruebas" id="edit-npruebasMante-equipo" class="form-control input-form">
+              <input type="number" name="n_pruebas" id="edit-npruebasMante-equipo" class="form-control input-form" required>
             </div>
             <div class="col-3">
               <label for="calibracion">Calibracion</label>
-              <input type="number" name="calibracion" id="edit-cali-equipo" class="form-control input-form">
+              <input type="text" name="calibracion" id="edit-cali-equipo" class="form-control input-form" required>
+              <!--option value="1">Bimestral</!--option>
+              <option value="2">Trimestral</option>
+              <option-- value="3">Por Numero de Pruebas</option-->
+              </input>
             </div>
             <div class="col-3">
               <label for="n_pruebas_cal">Numero de Pruebas Calibracion</label>
-              <input type="number" name="n_pruebas_cal" id="edit-npruebasCali-equipo" class="form-control input-form">
+              <input type="number" name="n_pruebas_cal" id="edit-npruebasCali-equipo" class="form-control input-form" required>
             </div>
 
             <div class="col-3">
               <label for="fecha_ingreso">Fecha de Ingreso del Equipo</label>
-              <input type="date" name="fecha_ingreso" id="edit-fechaIngreso-equipo" min="2000-01-01" class="form-control input-form">
+              <input type="date" name="fecha_ingreso" id="edit-fechaIngreso-equipo" min="2000-01-01" class="form-control input-form" required>
             </div>
             <div class="col-3">
               <label for="fecha_inicio_funcion">Fecha de Inicio de Operacion</label>
-              <input type="date" name="fecha_inicio_funcion" id="edit-fechaInicio-equipo" min="2000-01-01" class="form-control input-form">
+              <input type="date" name="fecha_inicio_funcion" id="edit-fechaInicio-equipo" min="2000-01-01" class="form-control input-form" required>
             </div>
             <div class="col-3">
               <label for="valor_equipo">Valor del Equipo</label>
-              <input type="text" name="valor_equipo" id="edit-valorEquipo-equipo" class="form-control input-form" value="$">
+              <input type="text" name="valor_equipo" id="edit-valorEquipo-equipo" class="form-control input-form" value="$" required>
             </div>
             <div class="col-6">
               <label for="Descripcion">Descripcion</label>
-              <textarea name="descripcion" class="md-textarea input-form" cols="45" rows="1" id="edit-descripcion-equipo"></textarea>
+              <textarea name="descripcion" class="md-textarea input-form" cols="45" rows="1" id="edit-descripcion-equipo" required></textarea>
             </div>
             <div class="col-6">
               <label for="Marca">Marca</label>
-              <input type="text" class="form-control input-form" name="marca" id="edit-marca-equipo">
+              <input type="text" class="form-control input-form" name="marca" id="edit-marca-equipo" required>
             </div>
             <div class="col-6">
               <label for="modelo">modelo</label>
-              <input type="text" name="modelo" class="form-control input-form" id="edit-modelo-equipo">
+              <input type="text" name="modelo" class="form-control input-form" id="edit-modelo-equipo" required>
             </div>
             <div class="col-6">
               <label for="foto" id="aviso-foto-equipo">Subir foto</label>
-              <input type="file" name="foto" id="edit-foto-equipo" class="form-control input-form">
+              <input type="file" name="foto" id="edit-foto-equipo" class="form-control input-form" required>
             </div>
           </div>
         </form>

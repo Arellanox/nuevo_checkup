@@ -24,11 +24,11 @@
             <div class="col-3">
               <label for="frecuenta_mto">Frecuencia de Mantenimiento</label>
               <select name="frecuencia_mto" id="frecuencia_mto" class="form-control input-form">
-                <option value="0">Mensual</option>
+                <option value="0">Mensual</-option>
                 <option value="1">Bimestral</option>
                 <option value="2">Trimestral</option>
                 <option value="3">Por Numero de Pruebas</option>
-              </select>
+                </input>
             </div>
             <div class="col-3">
               <label for="n_pruebas">Numero de Pruebas</label>
@@ -36,7 +36,11 @@
             </div>
             <div class="col-3">
               <label for="calibracion">Calibracion</label>
-              <input type="number" name="calibracion" id="calibracion" class="form-control input-form">
+              <select name="calibracion" id="calibracion" class="form-control input-form" required>
+                <option value="1">Bimestral</option>
+                <option value="2">Trimestral</option>
+                <option value="3">Por Numero de Pruebas</option>
+              </select>
             </div>
             <div class="col-3">
               <label for="n_pruebas">Numero de Pruebas Calibracion</label>
