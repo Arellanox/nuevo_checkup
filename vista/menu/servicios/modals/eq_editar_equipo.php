@@ -72,7 +72,7 @@
             </div>
             <div class="col-6">
               <label for="foto" id="aviso-foto-equipo">Subir foto</label>
-              <input type="file" name="foto" id="edit-foto-equipo" class="form-control input-form" required>
+              <input type="file" name="foto" id="edit-foto-equipo" class="form-control input-form">
             </div>
           </div>
         </form>

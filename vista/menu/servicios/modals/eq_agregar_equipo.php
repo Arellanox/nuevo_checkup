@@ -11,28 +11,28 @@
           <div class="row">
             <div class="col-6">
               <label for="cve_inventario">Clave de Inventario</label>
-              <input type="text" name="cve_inventario" id="cve_inventario" class="form-control input-form">
+              <input type="text" name="cve_inventario" id="cve_inventario" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="uso">Uso</label>
-              <textarea name="uso" id="uso" class="md-textarea input-form" cols="45" rows="1"></textarea>
+              <textarea name="uso" id="uso" class="md-textarea input-form" cols="45" rows="1" required></textarea>
             </div>
             <div class="col-3">
               <label for="numero_serie">Numero de Serie</label>
-              <input type="text" id="numero_serie" name="numero_serie" class="form-control input-form">
+              <input type="text" id="numero_serie" name="numero_serie" class="form-control input-form" required>
             </div>
             <div class="col-3">
               <label for="frecuenta_mto">Frecuencia de Mantenimiento</label>
-              <select name="frecuencia_mto" id="frecuencia_mto" class="form-control input-form">
+              <select name="frecuencia_mto" id="frecuencia_mto" class="form-control input-form" required>
                 <option value="0">Mensual</-option>
                 <option value="1">Bimestral</option>
                 <option value="2">Trimestral</option>
                 <option value="3">Por Numero de Pruebas</option>
-                </input>
+              </select>
             </div>
             <div class="col-3">
               <label for="n_pruebas">Numero de Pruebas</label>
-              <input type="number" name="n_pruebas" id="n_pruebas" class="form-control input-form">
+              <input type="number" name="n_pruebas" id="n_pruebas" class="form-control input-form" required>
             </div>
             <div class="col-3">
               <label for="calibracion">Calibracion</label>
@@ -44,32 +44,32 @@
             </div>
             <div class="col-3">
               <label for="n_pruebas">Numero de Pruebas Calibracion</label>
-              <input type="number" name="n_pruebas_cal" id="n_pruebas_cal" class="form-control input-form">
+              <input type="number" name="n_pruebas_cal" id="n_pruebas_cal" class="form-control input-form" required>
             </div>
 
             <div class="col-3">
               <label for="fecha_ingreso">Fecha de Ingreso del Equipo</label>
-              <input type="date" name="fecha_ingreso" id="fecha_ingreso" min="2000-01-01" class="form-control input-form">
+              <input type="date" name="fecha_ingreso" id="fecha_ingreso" min="2000-01-01" class="form-control input-form" required>
             </div>
             <div class="col-3">
               <label for="fecha_inicio_funcion">Fecha de Inicio de Operacion</label>
-              <input type="date" name="fecha_inicio_funcion" id="fecha_inicio_funcion" min="2000-01-01" class="form-control input-form">
+              <input type="date" name="fecha_inicio_funcion" id="fecha_inicio_funcion" min="2000-01-01" class="form-control input-form" required>
             </div>
             <div class="col-3">
               <label for="valor_equipo">Valor del Equipo</label>
-              <input type="text" name="valor_equipo" id="valor_equipo" class="form-control input-form" value="$">
+              <input type="text" name="valor_equipo" id="valor_equipo" class="form-control input-form" value="$" required>
             </div>
             <div class="col-6">
               <label for="Descripcion">Descripcion</label>
-              <textarea name="descripcion" class="md-textarea input-form" cols="45" rows="1" id="descripcion"></textarea>
+              <textarea name="descripcion" class="md-textarea input-form" cols="45" rows="1" id="descripcion" required></textarea>
             </div>
             <div class="col-6">
               <label for="Marca">Marca</label>
-              <input type="text" class="form-control input-form" name="marca">
+              <input type="text" class="form-control input-form" name="marca" required>
             </div>
             <div class="col-6">
               <label for="modelo">modelo</label>
-              <input type="text" name="modelo" class="form-control input-form">
+              <input type="text" name="modelo" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="foto">Subir foto</label>
