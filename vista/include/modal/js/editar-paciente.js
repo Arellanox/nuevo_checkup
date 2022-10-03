@@ -61,7 +61,7 @@ $("#formEditarPaciente").submit(function(event){
  /*DATOS Y VALIDACION DEL REGISTRO*/
  var form = document.getElementById("formEditarPaciente");
  var formData = new FormData(form);
- formData.set('id', id_paciente_edit);
+ formData.set('id', array_selected['ID_PACIENTE']);
  formData.set('api', 4);
  $i=0;
  formData.forEach(element => {

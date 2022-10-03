@@ -40,7 +40,7 @@ $("#formAgregarEquipo").submit(function (event) {
             });
             document.getElementById("formAgregarEquipo").reset();
             $("#ModalRegistrarEquipo").modal("hide");
-            tablaServicio.ajax.reload();
+            tablaEquipo.ajax.reload();
           }
         },
       });

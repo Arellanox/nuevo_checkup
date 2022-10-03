@@ -55,7 +55,7 @@ $("#formRegistrarGrupo").submit(function (event) {
             });
             document.getElementById("formRegistrarGrupo").reset();
             $("#ModalRegistrarGrupo").modal("hide");
-            tablaServicio.ajax.reload();
+            tablaGrupos.ajax.reload();
           }
         },
       });

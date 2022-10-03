@@ -83,7 +83,7 @@ $("#formEditarGrupo").submit(function (event) {
             });
             document.getElementById("formEditarGrupo").reset();
             $("#ModalEditarGrupo").modal("hide");
-            tablaServicio.ajax.reload();
+            tablaGrupos.ajax.reload();
           }
         },
       });

@@ -50,3 +50,9 @@
 30/09/22 17:08:01 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
 30/09/22 17:08:04 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
 30/09/22 17:11:11 sp_laboratorio_equipos_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+01/10/22 15:35:42 sp_servicios_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_g; expected 21, got 19
+01/10/22 15:38:19 sp_servicios_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_g; expected 20, got 19
+01/10/22 15:41:11 sp_servicios_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_abreviatura' in 'where clause'
+01/10/22 15:45:33 sp_servicios_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_abreviatura' in 'where clause'
+01/10/22 15:54:49 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1
+01/10/22 15:55:42 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1

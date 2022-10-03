@@ -2,7 +2,7 @@
 var url_paciente = null;
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
-  document.getElementById("title-paciente_aceptar").innerHTML = array_paciente[1];
+  document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
   document.getElementById("btn-confirmar-paciente").disabled = true;
 })
 
@@ -28,7 +28,7 @@ document.getElementById("btn-confirmar-paciente").disabled = true;
     url: "??",
     type: "POST",
     data:{
-      id: array_paciente['DT_RowId'],
+      id: array_selected['id_paciente'],
       url: url_paciente
     },
     success: function(data) {
@@ -40,7 +40,7 @@ document.getElementById("btn-confirmar-paciente").disabled = true;
           text: 'Generando credencial...',
           showCloseButton: false,
         })
-        
+
       }
     },
   });

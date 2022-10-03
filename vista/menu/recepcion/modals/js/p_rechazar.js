@@ -1,7 +1,7 @@
 // Obtener datos del paciente seleccionado
 const modalPacienteRechazar = document.getElementById('modalPacienteRechazar')
 modalPacienteRechazar.addEventListener('show.bs.modal', event => {
-  document.getElementById("title-paciente_rechazar").innerHTML = "Rechazar al paciente:<br />"+array_paciente[1];
+  document.getElementById("title-paciente_rechazar").innerHTML = "Rechazar al paciente:<br />"+array_selected[1];
 
 })
 

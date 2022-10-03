@@ -76,7 +76,7 @@ $("#formEditarEquipo").submit(function (event) {
               timer: 2000,
             });
             document.getElementById("formEditarEquipo").reset();
-            $("#modalEditarEquipo").modal("hide");
+            $("#ModalEditarEquipo").modal("hide");
             tablaServicio.ajax.reload();
           }
         },
