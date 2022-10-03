@@ -1,15 +1,14 @@
 <?php
 session_start();
-include "../interfaces/iMetodos.php";
-include "../clases/usuarios_class.php";
-$usuario = new Usuarios();
-$api = $_POST['api'];
-
+include "../clases/master_class.php";  
+$api = 1;//$_POST['api'];
 switch ($api) {
     case 1:
-        $response = $usuario->startSession($_POST['user'], $_POST['pass']);
+        $_SESSION=array();
+        $response =login($_POST['user'], $_POST['pass']);        
         if (is_array($response)) {
             $token = generarToken($_SESSION['id']);
+            // echo json_encode([$token]);
             if (! is_null($token)) {
                 echo json_encode(array("response" => array("code" => 1, "data" => $response, "token" => $token)));
             } else {
@@ -18,7 +17,7 @@ switch ($api) {
         } else {
             echo json_encode(array("response" => array("code" => 'login', "msj" => $response)));
         }
-        break;
+    break;
 }
 
 
@@ -47,5 +46,60 @@ function guardarUserToken($token, $id_usuario)
         return true;
     } else {
         return false;
+    }
+}
+
+
+function login($user,$password){ 
+    $master = new Master();
+    $activo = 1;
+    $bloqueado = 0;
+    $parametros = [$user,$activo,$bloqueado]; 
+    $result = $master->getByProcedure("sp_usuarios_login_b",$parametros); 
+
+    if(count($result)>0){
+        if(password_verify($password,$result[0]['CONTRASENIA'])){
+            $conn = $master->connectDb();
+            $_SESSION['id'] = $result[0]['ID_USUARIO'];
+            $_SESSION['nombre'] = $result[0]['NOMBRE'];
+            $_SESSION['apellidos'] = $result[0]['PATERNO']." ".$result[0]['MATERNO'];
+            $_SESSION['user'] = $result[0]['USUARIO'];
+            $_SESSION['perfil'] = $result[0]['TIPO_ID'];
+
+            //Permisos
+            $sql = "SELECT pertip.DESCRIPCION, permisos.activo
+                    FROM usuarios_permisos as permisos
+                    LEFT JOIN permisos as pertip ON pertip.ID_PERMISO = permisos.PERMISO_ID
+                    WHERE permisos.USUARIO_ID = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(1,$_SESSION['id']);
+            $stmt->execute();
+            $permisos = array();
+            $result = $stmt->fetchAll();
+            for ($i=0; $i < count($result); $i++) {
+              $permisos[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+            }
+            $_SESSION['permisos'] = $permisos;
+
+            // Areas
+            $sql = "SELECT areatip.DESCRIPCION, area.activo
+                    FROM usuarios_areas as area
+                    LEFT JOIN areas as areatip ON areatip.ID_AREA = area.AREA_ID
+                    WHERE area.USUARIO_ID = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(1,$_SESSION['id']);
+            $stmt->execute();
+            $vista = array();
+            $result = $stmt->fetchAll();
+            for ($i=0; $i < count($result); $i++) {
+              $vista[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+            }
+            $_SESSION['vista'] = $vista;
+            return $_SESSION;
+        } else {
+            return "Oops! Tu contraseña es incorrecta.";
+        }
+    } else {
+        return "Usuario y/o contraseña incorrectos.";
     }
 }

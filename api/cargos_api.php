@@ -2,6 +2,13 @@
 include "../interfaces/iMetodos.php";
 include "../clases/cargos_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $cargo = new Cargos();
 
 $api = $_POST['api'];

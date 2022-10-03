@@ -140,34 +140,6 @@ class Master extends Miscelaneus
 
 
 
-    function prepararParametros($parametros)
-    {
-        $parametrosFormateados = "";
-        foreach ($parametros as $valor) {
-            switch (strtoupper(gettype($valor))) {
-                case 'STRING':
-                case 'DATE':
-                case 'DATETIME':
-                    $parametrosFormateados .= "'" . $valor . "',";
-                    break;
-                case 'INTEGER':
-                case 'FLOAT':
-                case 'DOUBLE':
-                    $parametrosFormateados .= $valor . ",";
-                    break;
-                case 'BOOLEAN':
-                    $parametrosFormateados .= ($valor ? 1 : 0) . ",";
-                    break;
-                case 'NULL':
-                    $parametrosFormateados .= "NULL,";
-                    break;
-                default:
-                    $parametrosFormateados .= "'" . $valor . "',";
-                    break;
-            }
-        }
-        return $parametrosFormateados = "(" . trim($parametrosFormateados, ",") . ");";
-    }
 
     function insert($tabla, $attributes, $values, $intergers, $strings, $doubles, $nulls = array())
     {

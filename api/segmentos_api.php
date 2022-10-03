@@ -3,6 +3,14 @@ include "../interfaces/iMetodos.php";
 include "../clases/segmentos_class.php";
 include "../clases/clientes_class.php";
 include "../clases/dependencias_class.php";
+
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 // CAMBIAR LOS PARAMETROS DE LAS FUNCIONES PORQUE ESTAN FIJOS Y NO DINAMICOS
 // Creamos un objeto de segmentos para trabajar con él.
 $segmento = new Segmentos();

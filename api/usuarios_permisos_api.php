@@ -4,6 +4,13 @@ include "../clases/usuarios_permisos_class.php";
 include "../clases/usuarios_class.php";
 include "../clases/permisos_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 
 $permission = new PermisosUsuarios();
 $api = $_POST['api'];

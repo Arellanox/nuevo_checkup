@@ -2,6 +2,13 @@
 #include "../interfaces/iMetodos.php";
 include "../clases/master_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $master = new Master();
 $api = $_POST['api'];
 

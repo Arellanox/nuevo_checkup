@@ -3,6 +3,13 @@ include "../interfaces/iMetodos.php";
 include "../clases/clientes_class.php";
 include "../clases/contactos_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $client = new Clientes();
 //$form = $client->mis->getFormValues($_POST);
 $api = $_POST['api'];//$form['api'];

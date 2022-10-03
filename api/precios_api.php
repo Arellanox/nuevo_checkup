@@ -4,6 +4,13 @@ include "../clases/precios_class.php";
 include "../clases/clientes_class.php";
 include "../clases/servicios_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $precio = new Precios();
 $api = 1;
 

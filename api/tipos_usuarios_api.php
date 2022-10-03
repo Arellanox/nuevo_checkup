@@ -2,6 +2,13 @@
 include "../interfaces/iMetodos.php";
 include "../clases/tipos_usuarios_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $tipo = new TiposUsuarios();
 $api = $_POST['api'];
 switch ($api) {

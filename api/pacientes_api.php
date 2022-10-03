@@ -3,10 +3,11 @@ include "../interfaces/iMetodos.php";
 include "../clases/segmentos_class.php";
 include "../clases/token_auth.php";
 
-$tokenVerification = new TokenVerificacion($_SESSION['id'],$_SESSION['token']);
+$tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (! $tokenValido){
     $tokenVerification->logout();
+    exit;
 }
 
 $slice_update=24;

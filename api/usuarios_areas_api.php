@@ -2,6 +2,13 @@
 include "../interfaces/iMetodos.php";
 include "../clases/usuarios_areas_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $areas = new UsuariosAreas();
 $api = $_POST['api'];
 

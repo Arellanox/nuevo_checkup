@@ -4,6 +4,13 @@ include "../clases/usuarios_class.php";
 include "../clases/cargos_class.php";
 include "../clases/tipos_usuarios_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $usuario = new Usuarios();
 
 $api = $_POST['api'];

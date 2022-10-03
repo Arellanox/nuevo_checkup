@@ -2,6 +2,13 @@
 include "../interfaces/iMetodos.php";
 include "../clases/permisos_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $permiso = new Permisos();
 $api = 2;
 

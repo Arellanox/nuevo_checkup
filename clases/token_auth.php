@@ -3,17 +3,14 @@ session_start();
 class TokenVerificacion
 {
 
-    private $_id_usuario;
-    private $_token;
-    function TokenVerificacion($id_usuario,$token){
-        $this->_id_usuario = $id_usuario;
-        $this->_token = $token;
-    }
+ 
     function verificar()
     {
         try {
             $master = new Master();
-            $parametros = [ $this->_id_usuario, $this->_token];
+            $id_user =  $_SESSION['id'];
+            $token_session =  $_SESSION['token'];
+            $parametros = [$id_user, $token_session];
             $conexion = $master->connectDb();
             $sp = "call sp_usuarios_token_b". $this->concatQuestionMark(count($parametros));
             $sentencia = $conexion->prepare($sp);
@@ -51,7 +48,7 @@ class TokenVerificacion
         return $object;
     }
     public function logout(){
-        // jason con orden de logout
+        echo json_encode(array("response" => array("code" => 0, "msj" => "Token no autorizado, inicio de sesión requerido")));
     }
 
 }

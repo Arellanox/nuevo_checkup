@@ -3,6 +3,13 @@ include "../interfaces/iMetodos.php";
 include "../clases/turnos_class.php";
 include "../clases/pacientes_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $turno = new Turnos();
 $api = 3;
 

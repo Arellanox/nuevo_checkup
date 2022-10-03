@@ -3,6 +3,13 @@ include "../interfaces/iMetodos.php";
 include "../clases/direcciones_class.php";
 include "../clases/clientes_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $direccion = new Direcciones();
 
 $api = 5;

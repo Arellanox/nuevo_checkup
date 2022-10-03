@@ -2,6 +2,13 @@
 include "../interfaces/iMetodos.php";
 include "../clases/contactos_class.php";
 
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (! $tokenValido){
+    $tokenVerification->logout();
+    exit;
+}
+
 $contact = new Contactos();
 $api = 2;
 
