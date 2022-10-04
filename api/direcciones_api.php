@@ -1,5 +1,6 @@
 <?php
 include "../interfaces/iMetodos.php";
+require_once "../clases/token_auth.php";
 include "../clases/direcciones_class.php";
 include "../clases/clientes_class.php";
 

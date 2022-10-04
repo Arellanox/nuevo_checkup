@@ -1,7 +1,7 @@
 <?php
 include "../interfaces/iMetodos.php";
+require_once "../clases/token_auth.php";
 include "../clases/segmentos_class.php";
-include "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
