@@ -33,7 +33,7 @@ switch ($api) {
     case 4:
         #update
         $values = $master->mis->getFormValues($_POST);
-        echo $master->mis->returnApi($master->updateByProcedure('sp_laboratorio_clasificacion_examen_b',$values));
+        echo $master->mis->returnApi($master->updateByProcedure('sp_laboratorio_clasificacion_examen_g',$values));
         break;
     case 5:
         echo $master->mis->returnApi($master->deleteByProcedure('sp_laboratorio_clasificacion_examen_e',array($id)));
