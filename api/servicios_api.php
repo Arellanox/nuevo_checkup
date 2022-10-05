@@ -12,6 +12,8 @@ if (! $tokenValido){
 
 $master = new Master();
 $api = $_POST['api'];
+$id_area = $_POST['id_area'];
+
 
 switch ($api) {
     case 1:
@@ -37,7 +39,7 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_servicios_b',array(null,null, null));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,null, null,$id_area));
         if (is_array($response)) {
             echo json_encode($response);
         } else {
@@ -52,7 +54,7 @@ switch ($api) {
     case 3:
         #getbyid
         $id = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre, null));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,null, null,$id_area));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -113,7 +115,7 @@ switch ($api) {
     case 6:
         #recuperar todos los hijos de un padre
         $padre = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre,null));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre,null,$id_area));
 
         if (is_array($response)) {
             echo json_encode(array(
@@ -133,7 +135,7 @@ switch ($api) {
         break;
     case 7:
         #recuperar todos los servicicos que sean padres
-        $response = $master->getByProcedure('sp_servicios_b',array(null,null,1));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,null,1,$id_area));
 
         if(is_array($response)){
             echo json_encode(array(
