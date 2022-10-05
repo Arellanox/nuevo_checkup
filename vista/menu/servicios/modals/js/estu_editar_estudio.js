@@ -14,6 +14,7 @@ async function cargarDatosEstuEdit() {
     console.log(array_selected)
     $('#edit-clasificacion-estudio').val(null).trigger('change');
     $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
+    $('#edit-cve-estudio').val(array_selected['ABREVIATURA']);
     $('#edit-grupo-estudio').val(array_selected['PADRE']).trigger('change');
     $('#edit-area-estudio').val(array_selected['ID_AREA']).trigger('change');
     $('#edit-clasificacion-estudio').val(array_selected['ID_CLASIFICACION']).trigger('change');

@@ -9,9 +9,13 @@
         <form class="" id="formEditarGrupo">
           <p class="text-center">Editar Estudio Registrado <strong>Actualmente</strong> </p>
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <label for="nombre_estudio" class="form-label">Nombre del Estudio</label>
               <input type="text" name="nombre_estudio" id="edit-nombre-grupo" class="form-control input-form" required>
+            </div>
+            <div class="col-2">
+              <label for="cve_estudio" class="form-label">CVE</label>
+              <input type="text" name="cve_estudio" id="edit-cve-grupo" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="area" class="form-label">Área</label>

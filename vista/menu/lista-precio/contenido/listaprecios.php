@@ -19,7 +19,11 @@
       <tbody>
         <tr>
           <td>1</td>
-          <td>PCR</td>
+          <td>  <div class="input-group">
+              <span class="input-span">$</span>
+              <input type="text" class="form-control input-form" name="interior" placeholder="" >
+              <span class="input-span">.00</span>
+            </div></td>
           <td>$400</td>
           <td>10%</td>
           <td>Botonesw</td>

@@ -15,6 +15,7 @@ console.log(array_selected)
 
   $('#edit-clasificacion-grupo').val(null).trigger('change');
     $('#edit-nombre-grupo').val(array_selected['DESCRIPCION']);
+    $('#edit-cve-grupo').val(array_selected['ABREVIATURA']);
     $('#edit-grupo-grupo').val(array_selected['PADRE']).trigger('change');
     $('#edit-area-grupo').val(array_selected['ID_AREA']).trigger('change');
     $('#edit-clasificacion-grupo').val(array_selected['ID_CLASIFICACION']).trigger('change');

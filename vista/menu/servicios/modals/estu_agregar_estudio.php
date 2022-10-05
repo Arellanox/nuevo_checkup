@@ -9,9 +9,13 @@
         <form class="" id="formRegistrarEstudio">
           <p class="text-center">Agrege un nuevo <strong>Estudio</strong> </p>
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <label for="nombre_estudio" class="form-label">Nombre del Estudio</label>
               <input type="text" name="nombre_estudio" class="form-control input-form" required>
+            </div>
+            <div class="col-2">
+              <label for="cve_estudio" class="form-label">CVE</label>
+              <input type="text" name="cve_estudio" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="grupo" class="form-label">Grupo de exámen</label>
@@ -66,7 +70,7 @@
             </div>
             <div class="row" style="zoom:100%;">
               <div class="col-6">
-                <label for="">Se Subroga?: </label>
+                <label for="">¿Se Subroga?: </label>
               </div>
               <div class="col-3">
                 <input type="radio" name="subroga" id="registrar-subrogaSi" value="1" required>

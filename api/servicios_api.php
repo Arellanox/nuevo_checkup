@@ -16,8 +16,7 @@ $api = $_POST['api'];
 switch ($api) {
     case 1:
         #insert
-
-        $array_slice = array_slice($_POST, 0, 18);
+        $array_slice = array_slice($_POST, 0, 19);
         $values = $master->mis->getFormValues($array_slice);
         $response = $master->insertByProcedure("sp_servicios_g",$values);
         if (is_numeric($response)) {
@@ -73,7 +72,7 @@ switch ($api) {
 
     case 4:
         #update
-        $array_slice = array_slice($_POST, 0, 19);
+        $array_slice = array_slice($_POST, 0, 20);
         $values = $master->mis->getFormValues($array_slice);
         $response = $master->updateByProcedure('sp_servicios_g',$values);
         if (is_numeric($response)) {
