@@ -56,3 +56,5 @@
 01/10/22 15:45:33 sp_servicios_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_abreviatura' in 'where clause'
 01/10/22 15:54:49 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1
 01/10/22 15:55:42 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1
+05/10/22 14:45:11 sp_pacientes_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_g; expected 24, got 2
+05/10/22 14:45:50 sp_pacientes_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_g; expected 24, got 2

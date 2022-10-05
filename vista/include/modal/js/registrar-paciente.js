@@ -36,7 +36,7 @@ $("#formRegistrarPaciente").submit(function(event){
     }).then((result) => {
       if (result.isConfirmed) {
         edited=true;
-        $("#btn-registrarse").prop('disabled', true);
+        // $("#btn-registrarse").prop('disabled', true);
 
         // Esto va dentro del AJAX
         $.ajax({
@@ -57,7 +57,7 @@ $("#formRegistrarPaciente").submit(function(event){
               });
               document.getElementById("formRegistrarPaciente").reset();
               $("#ModalRegistrarPaciente").modal('hide');
-              
+
             }
           },
         });
@@ -76,13 +76,13 @@ $("#formRegistrarPaciente").submit(function(event){
  });
 
 
-$("#vacuna").change(function(){  
-  var seleccion =$("#vacuna").val(); 
+$("#vacuna").change(function(){
+  var seleccion =$("#vacuna").val();
   if (seleccion.toUpperCase() =='OTRA'){
     $("#vacunaExtra").prop('readonly', false);
   }else{
 
     $("#vacunaExtra").prop('readonly', true);
     $("#vacunaExtra").prop('value', "NA");
-    } 
+    }
 });

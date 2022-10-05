@@ -44,7 +44,7 @@
               </div>
             </div>
 
-            <div class="accordion accordion-flush" id="accordionEstudios">
+            <!-- <div class="accordion accordion-flush" id="accordionEstudios">
               <div class="accordion-item bg-acordion">
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -395,7 +395,7 @@
                 </div>
               </div>
 
-            </div>
+            </div> -->
           </div>
         </form>
       </div>

@@ -14,3 +14,21 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
     { width: "24%", targets: 4 },
   ],
 });
+
+$('#TablaListaPrecios tbody').on('click', 'tr', function () {
+   if ($(this).hasClass('selected')) {
+       $(this).removeClass('selected');
+       array_selected = null;
+   } else {
+       tablaPrecio.$('tr.selected').removeClass('selected');
+       $(this).addClass('selected');
+       array_selected = tablaPrecio.row( this ).data();
+       console.log(array_selected);
+   }
+});
+
+
+$('#TablaListaPrecios tbody').on('click', 'tr', function () {
+  costo = $(this+':input[name=costo]').value;
+  console.log(costo);
+});

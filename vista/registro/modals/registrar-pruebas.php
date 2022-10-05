@@ -41,359 +41,99 @@
                 <p id="sexo-registro">MASCULINO</p>
               </div>
             </div>
-
-            <div class="accordion accordion-flush" id="accordionEstudios">
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Historia clínica laboral
-                  </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                        <div class="row">
-                          <div class="col-auto">
-                            <div class="input-group mb-3">
-                              <div class="input-group-text">
-                                <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="1" aria-label="Checkbox for following text input" id="checkClinica">
-                                <label class="d-flex justify-content-center" for="checkClinica">Consultorio</label>
+            <div class="card ">
+              <h4 class="m-3">Antecedentes</h4>
+              <hr class="dropdown-divider">
+              <div class="accordion" id="accordionEstudios">
+                <div class="accordion-item bg-acordion">
+                  <h2 class="accordion-header" id="collapalergias">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAlergiasTarget" aria-expanded="true" aria-controls="accordionEstudios">
+                      <i class="bi bi-plus-circle-fill"></i>&nbsp;&nbsp;&nbsp; Alergias
+                    </button>
+                  </h2>
+                  <div id="collapseAlergiasTarget" class="accordion-collapse collapse show" aria-labelledby="collapalergias">
+                    <div class="accordion-body">
+                      <div class="text-center">
+                        <label for="inputBuscarTableListaNuevos">Ingrese la alergia:</label>
+                        <input type="text" class="form-control input-form" name="inputBuscarTableListaNuevos" value="" style="display: unset !important;width:auto !important" >
+                      </div>
+                      <div class="d-flex justify-content-center align-items-center mt-3" >
+                        <div class="card" style="width: 70%">
+                          <ul class="list-group" >
+                            <li class="list-group-item">
+                              <div class="row">
+                                <div class="col-10 d-flex justify-content-start align-items-center">
+                                  A second item
+                                </div>
+                                <div class="col-2 d-flex justify-content-end">
+                                  <a href="#"><i class="bi bi-trash3" style="zoom:140%"></i></a>
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                          <div class="col-auto">
-                            <div class="input-group mb-3">
-                              <div class="input-group-text">
-                                <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="2" aria-label="Checkbox for following text input" id="checkMesometria">
-                                <label class="d-flex justify-content-center" for="checkMesometria">Mesometría</label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="headingTwo">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Visión
-                  </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="3" aria-label="Checkbox for following text input" id="checkVision">
-                              <label class="d-flex justify-content-center" for="checkVision">Agudeza visual y<br />Visión a colores</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="4" aria-label="Checkbox for following text input" id="checkTonometria">
-                              <label class="d-flex justify-content-center" for="checkTonometria">Tonometría</label>
-                            </div>
-                          </div>
+                            </li>
+                          </ul>
                         </div>
                       </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+
+                <div class="accordion-item bg-acordion">
+                  <h2 class="accordion-header" id="collappatologicos">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePatologicosTarget" aria-expanded="false" aria-controls="accordionEstudios">
+                      <i class="bi bi-plus-circle-fill"></i>&nbsp;&nbsp;&nbsp; Antecedentes patológicos
+                    </button>
+                  </h2>
+                  <div id="collapsePatologicosTarget" class="accordion-collapse collapse" aria-labelledby="collappatologicos">
+                    <div class="accordion-body">
+                      <?php
+                        $Antecedentes = array(array('name' => "Hospitalización previa", 'id' => 'HP'),
+                                              array('name' => "Cirugias previas", 'id' => 'CR'),
+                                              array('name' => "Diabetes", 'id' => 'Dia')
+                                              array('name' => "Enfermedades toroideas", 'id' => 'ET'));
 
 
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="headingThree">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Audición
-                  </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="5" aria-label="Checkbox for following text input" id="checkAudiometria">
-                              <label class="d-flex justify-content-center" for="checkAudiometria">Audiometría</label>
-                            </div>
-                          </div>
+
+                       ?>
+                      <div class="row"style="zoom:110%;margin-left:5%;width: 70%">
+                        <div class="col-6">
+                          <label for="" >Hospitalización previa: </label>
+                        </div>
+                        <div class="col-3">
+                          <input type="radio" id="pato-HP" name="Pato-HP" value="1" required  onclick="collapse('#CollapsePato-HP', true)">
+                          <label for="pato-HP">Si</label>
+                        </div>
+                        <div class="col-3">
+                          <input type="radio"  id="pato-HP" name="Pato-HP" value="0" required onclick="collapse('#CollapsePato-HP', false)">
+                          <label for="pato-HP" >No</label>
+                        </div>
+                        <div class="collapse" id="CollapsePato-HP">
+                          <textarea name="name" class="form-control input-form" rows="2" cols="2" placeholder="Comentario..."></textarea>
                         </div>
                       </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="heading4">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                    Examenes de sangre
-                  </button>
-                </h2>
-                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="6" aria-label="Checkbox for following text input" id="checkGrupoRH">
-                              <label class="d-flex justify-content-center" for="checkGrupoRH">Grupo y RH</label>
-                            </div>
-                          </div>
+                      <div class="row"style="zoom:110%;margin-left:5%;width: 70%">
+                        <div class="col-6">
+                          <label for="" >CIRUGIAS PREVIAS: </label>
                         </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="7" aria-label="Checkbox for following text input" id="checkBiometria">
-                              <label class="d-flex justify-content-center" for="checkBiometria">Biometría</label>
-                            </div>
-                          </div>
+                        <div class="col-3">
+                          <input type="radio" id="pato-CR" name="Pato-CR" value="1" required  onclick="collapse('#CollapsePato-CR', true)">
+                          <label for="pato-CR">Si</label>
                         </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="8" aria-label="Checkbox for following text input" id="checkGlobular">
-                              <label class="d-flex justify-content-center" for="checkGlobular">Sedimentación globular</label>
-                            </div>
-                          </div>
+                        <div class="col-3">
+                          <input type="radio"  id="pato-CR" name="Pato-CR" value="0" required onclick="collapse('#CollapsePato-CR', false)">
+                          <label for="pato-CR" >No</label>
                         </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="9" aria-label="Checkbox for following text input" id="checkHepatica">
-                              <label class="d-flex justify-content-center" for="checkHepatica">Función hepática</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="10" aria-label="Checkbox for following text input" id="checklipidos">
-                              <label class="d-flex justify-content-center" for="checklipidos">Perfil de lípidos</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="11" aria-label="Checkbox for following text input" id="checkGlucosa">
-                              <label class="d-flex justify-content-center" for="checkGlucosa">Glucosa</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="12" aria-label="Checkbox for following text input" id="checkUrea">
-                              <label class="d-flex justify-content-center" for="checkUrea">Urea</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="13" aria-label="Checkbox for following text input" id="checkCreatinina">
-                              <label class="d-flex justify-content-center" for="checkCreatinina">Creatinina</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="14" aria-label="Checkbox for following text input" id="checkAcidoUrico">
-                              <label class="d-flex justify-content-center" for="checkAcidoUrico">Ácido Úrico</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="15" aria-label="Checkbox for following text input" id="checkCEA">
-                              <label class="d-flex justify-content-center" for="checkCEA">CEA</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="16" aria-label="Checkbox for following text input" id="checkTSH">
-                              <label class="d-flex justify-content-center" for="checkTSH">TSH</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="17" aria-label="Checkbox for following text input" id="checkAlcalina">
-                              <label class="d-flex justify-content-center" for="checkAlcalina">Fosfatasa alcalina</label>
-                            </div>
-                          </div>
+                        <div class="collapse" id="CollapsePato-CR">
+                          <textarea name="name" class="form-control input-form" rows="2" cols="2" placeholder="Comentario..."></textarea>
                         </div>
                       </div>
+                    </div>
                   </div>
                 </div>
+
               </div>
-
-
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="heading5">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                    Orina
-                  </button>
-                </h2>
-                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="18" aria-label="Checkbox for following text input" id="checkGeneral">
-                              <label class="d-flex justify-content-center" for="checkGeneral">Examen General</label>
-                            </div>
-                          </div>
-                        </div>
-                          <div class="col-auto">
-                            <div class="input-group mb-3">
-                              <div class="input-group-text">
-                                <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="19" aria-label="Checkbox for following text input" id="checkToxicológico">
-                                <label class="d-flex justify-content-center" for="checkToxicológico">Perfil toxicológico</label>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="heading6">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
-                    Aparato digestivo
-                  </button>
-                </h2>
-                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="20" aria-label="Checkbox for following text input" id="checkCoproparasitoscopico">
-                              <label class="d-flex justify-content-center" for="checkCoproparasitoscopico">Coproparasitoscópico</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="21" aria-label="Checkbox for following text input" id="checkSangreHeces">
-                              <label class="d-flex justify-content-center" for="checkSangreHeces">Sangre en heces</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="22" aria-label="Checkbox for following text input" id="checkUltrasonido">
-                              <label class="d-flex justify-content-center" for="checkUltrasonido">Ultrasonido abdominal y pélvico</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="heading7">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
-                    Pulmonar
-                  </button>
-                </h2>
-                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="23" aria-label="Checkbox for following text input" id="checkRadiografia">
-                              <label class="d-flex justify-content-center" for="checkRadiografia">Radiografía de tórax</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="24" aria-label="Checkbox for following text input" id="checkEspirometria">
-                              <label class="d-flex justify-content-center" for="checkEspirometria">Espirometría</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="headin8">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
-                    Cardiaco
-                  </button>
-                </h2>
-                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="headin8" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="25" aria-label="Checkbox for following text input" id="checkElectrocardiograma">
-                              <label class="d-flex justify-content-center" for="checkElectrocardiograma">Electrocardiograma en reposo</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="26" aria-label="Checkbox for following text input" id="checkPruebaEsfuerzo">
-                              <label class="d-flex justify-content-center" for="checkPruebaEsfuerzo">Prueba de esfuerzo</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="accordion-item bg-acordion">
-                <h2 class="accordion-header" id="heading9">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
-                    Estudio adicional para hombre
-                  </button>
-                </h2>
-                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9" data-bs-parent="#accordionEstudios">
-                  <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="input-group mb-3">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" name="estudiosLab[]" value="27" aria-label="Checkbox for following text input" id="checkPSA">
-                              <label class="d-flex justify-content-center" for="checkPSA">PSA</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
+
+
           </div>
         </form>
       </div>
@@ -406,3 +146,12 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  function collapse(collapID, valor){
+    if (valor == true) {
+      $(collapID).collapse("show")
+    }else{
+      $(collapID).collapse("hide")
+    }
+  }
+</script>

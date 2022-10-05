@@ -316,6 +316,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
       switch (tipPanel) {
         case 'paciente':
             if (array_selected != null) {
+              console.log(array_selected)
               $('#nombre-persona').html(row.NOMBRE_COMPLETO);
               $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
               $('#info-paci-curp').html(row.CURP);
@@ -329,6 +330,31 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
               }
               $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
               row.MUNICIPIO+", "+row.ESTADO);
+            }else{
+              $.ajax({
+                url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                data: { api: 2, id: id },
+                type: "POST",
+                datatype: 'json',
+                success: function (data) {
+                  data = jQuery.parseJSON(data);
+                  row = data[0];
+                  console.log(row);
+                  $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                  $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                  $('#info-paci-curp').html(row.CURP);
+                  $('#info-paci-telefono').html(row.CELULAR);
+                  $('#info-paci-correo').html(row.CORREO);
+                  $('#info-paci-sexo').html(row.GENERO);
+                  if (row.TURNO) {
+                    $('#info-paci-turno').html(row.TURNO);
+                  }else{
+                    $('#info-paci-turno').html('Sin generar');
+                  }
+                  $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
+                  row.MUNICIPIO+", "+row.ESTADO);
+                }
+              })
             }
         break;
         case 'estudio':
@@ -348,16 +374,20 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
             $('#estudio-valorvista').html('No');
           }
           $('#estudio-indicaciones').html(row.INDICACIONES);
-          $('#estudio-codigo-sat').html(row.DIAS_DE_ENTREGA);
+          $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
           $('#estudio-venta').html(row.PRECIO_VENTA);
         break;
         case 'equipo':
         console.log(row)
-          $('#nombre-equipo').html(row);
-          $('#equipo-equipo').html(data[0]['CELULAR']);
-          $('#equipo-ingreso').html(data[0]['CORREO']);
-          $('#equipo-inicio').html(data[0]['GENERO']);
-          $('#equipo-valor').html(data[0]['CORREO']);
+          $('#nombre-equipo').html(row.MARCA + "-"+row.MODELO);
+          // $('#equipo-equipo').html(row.);
+          $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
+          $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
+          $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
+          $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO +" "+row.NUMERO_PRUEBAS);
+          $('#equipo-calibracion').html(row.CALIBRACION +" "+ row.NUMERO_PRUEBAS_CALIBRACION);
+          $('#equipo-uso').html(row.USO);
+          $('#equipo-descripcion').html(row.DESCRIPCION);
         break;
 
         default:

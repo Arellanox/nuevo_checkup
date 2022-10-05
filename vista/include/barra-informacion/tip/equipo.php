@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 info-detalle text-center">
-    <p id="nombre-equipo">Cargando...</p>
-    <p id="equipo-equipo" class="none-p">Cargando...</p>
+    <p id="nombre-equipo"></p>
+    <!-- <p id="equipo-equipo" class="none-p"></p> -->
   </div>
 </div>
 <div class="row mt-2">
@@ -13,43 +13,43 @@
       <p>Ingreso del equipo:</p>
     </div>
     <div class="col-6" id="equipo-ingreso">
-      Cargando...
+
     </div>
     <div class="col-6 text-end info-detalle">
       <p>Fecha de uso:</p>
     </div>
     <div class="col-6" id="equipo-inicio">
-      Cargando...
+
     </div>
     <div class="col-6 text-end info-detalle">
       <p>Valor del equipo:</p>
     </div>
     <div class="col-6" id="equipo-valor">
-      Cargando...
+
     </div>
     <div class="col-6 text-end info-detalle">
       <p>Mantenimiento:</p>
     </div>
     <div class="col-6" id="equipo-mantenimiento">
-      Cargando...
+
     </div>
     <div class="col-6 text-end info-detalle">
       <p>Calibración:</p>
     </div>
     <div class="col-6" id="equipo-calibracion">
-      Cargando...
+
     </div>
     <div class="col-6 text-end info-detalle">
       <p>Uso:</p>
     </div>
-    <div class="col-6" id="equipo-calibracion">
-      Cargando...
+    <div class="col-6" id="equipo-uso">
+
     </div>
     <div class="col-6 text-end info-detalle">
       <p>Descripcion:</p>
     </div>
-    <div class="col-6" id="equipo-calibracion">
-      Cargando...
+    <div class="col-6" id="equipo-descripcion">
+
     </div>
   </div>
 </div>

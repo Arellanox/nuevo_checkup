@@ -18,12 +18,12 @@
 <?php if ($menu == "Recepción") : ?>
   <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente" data-bs-dismiss="offcanvas">
-      <i class="bi bi-person-plus"></i> Nuevo Paciente
+      <i class="bi bi-person-plus"></i> Registrar paciente
     </a>
   </li>
   <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPrueba" data-bs-dismiss="offcanvas">
-      <i class="bi bi-person-lines-fill"></i> Nuevo Registro
+      <i class="bi bi-person-lines-fill"></i> Agendar registro
     </a>
   </li>
   <li class="nav-item">

@@ -16,7 +16,7 @@
             </button>
           </div>
         </div>
-        <p style="margin-top:20px"> <strong>Verifiqué los siguientes datos</strong> </p>
+        <p style="margin-top:20px"> <strong>Verifique los siguientes datos</strong> </p>
         <div class="row">
           <div class="col-12 col-lg-6">
             <p class="text-center" >Estudios del paciente</p>

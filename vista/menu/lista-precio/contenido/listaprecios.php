@@ -38,14 +38,14 @@
             <td>
               <div class="input-group">
                 <span class="input-span">$</span>
-                <input type="number" class="form-control input-form" name="costo" placeholder="">
+                <input type="number" class="form-control input-form" name="costo" placeholder="" value="">
                 <span class="input-span">.00</span>
               </div>
             </td>
             <td>
               <div class="input-group">
                 <span class="input-span">%</span>
-                <input type="number" class="form-control input-form" name="margen" placeholder="">
+                <input type="number" class="form-control input-form" name="margen" placeholder="" value="">
               </div>
             </td>
             <td>

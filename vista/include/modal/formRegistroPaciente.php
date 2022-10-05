@@ -83,7 +83,7 @@
   <label for="rfc" class="form-label">RFC</label>
   <input type="text" class="form-control input-form" name="rfc" placeholder="" >
 </div>
-<div class="col-6 col-lg-3">
+<!-- <div class="col-6 col-lg-3">
   <label for="vacuna" class="form-label">Vacuna</label>
   <select class="input-form" name="vacuna" id="vacuna">
       <option value="1" >Ninguno...</opcion>
@@ -112,7 +112,7 @@
       <option value="3RA" >3RA DOSIS</opcion>
       <option value="REFUERZO" >REFUERZO</opcion>
   </select>
-</div>
+</div> -->
 <div class="col-12 col-lg-6" style="margin-top: 30px;margin-bottom: 15px;">
     <div class="container">
       <div class="row"style="zoom:110%;">
