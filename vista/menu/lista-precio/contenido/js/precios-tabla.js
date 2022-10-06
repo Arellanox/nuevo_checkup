@@ -13,6 +13,38 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
     { width: "24%", targets: 3 },
     { width: "24%", targets: 4 },
   ],
+  ajax: {
+      dataType: 'json',
+      data: {api: 2},
+      method: 'POST',
+      url: '../../../api/servicios_api.php',
+      beforeSend: function() { loader("In") },
+      complete: function(){ loader("Out") },
+      dataSrc:''
+  },
+  columns:[
+      {data: 'COUNT'},
+      {data: 'DESCRIPCION'},
+      {
+        data: 'COSTO',
+        render:
+          function (data, type, full, meta) {
+            if (type === 'display') {
+              if (data == null || data == 0) {
+                value = 0;
+              }else{
+                value = data;
+              }
+              rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form costo" name="costo" placeholder="" value="'+value+'"></div>';
+
+              return rturn;
+            }
+          },
+      },
+      {data: 'UTILIDAD'},
+      {data: 'PRECIO_VENTA'},
+      // {defaultContent: 'En progreso...'}
+  ],
 });
 
 
@@ -56,12 +88,6 @@ $('#btn-estudio-editar').click(function () {
           const arrayFor = [tableData[i][0], parseFloat(arraycosto[i]), parseFloat(arraymargen[i]), total];
           tablaPrecios.push(arrayFor);
         }
-
-
-
-        // tablaPrecios.push(id, costo, margen)
-
-
 
         console.log(tablaPrecios);
         return false;

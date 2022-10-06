@@ -85,15 +85,15 @@
                   </h2>
                   <div id="collapsePatologicosTarget" class="accordion-collapse collapse" aria-labelledby="collappatologicos">
                     <div class="accordion-body">
-                      <?php
-                        $Antecedentes = array(array('name' => "Hospitalización previa", 'id' => 'HP'),
-                                              array('name' => "Cirugias previas", 'id' => 'CR'),
-                                              array('name' => "Diabetes", 'id' => 'Dia')
-                                              array('name' => "Enfermedades toroideas", 'id' => 'ET'));
+                      <!-- <?php
+                        // $Antecedentes = array(array('name' => "Hospitalización previa", 'id' => 'HP'),
+                                              // array('name' => "Cirugias previas", 'id' => 'CR'),
+                                              // array('name' => "Diabetes", 'id' => 'Dia')
+                                              // array('name' => "Enfermedades toroideas", 'id' => 'ET'));
 
 
 
-                       ?>
+                       ?> -->
                       <div class="row"style="zoom:110%;margin-left:5%;width: 70%">
                         <div class="col-6">
                           <label for="" >Hospitalización previa: </label>

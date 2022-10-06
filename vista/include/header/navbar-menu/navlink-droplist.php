@@ -26,8 +26,8 @@
   </a>
   <div class="collapse" id="board-listaprecios">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#Paquetes'; ?>"><i class="bi bi-dot"></i> Paquetes</a></li>
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#ListaPrecios'; ?>"><i class="bi bi-dot"></i> Precios de estudio</a></li>
+      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#PaquetesClientes'; ?>"><i class="bi bi-dot"></i> Paquetes</a></li>
+      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#PreciosEstudios'; ?>"><i class="bi bi-dot"></i> Precios de estudio</a></li>
     </ul>
   </div>
 <?php endif; ?>

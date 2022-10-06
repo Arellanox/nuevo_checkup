@@ -1,7 +1,12 @@
-obtenerContenidoPrecios("listaprecios.php");
-function obtenerContenidoPrecios(tabla) {
-  obtenerTitulo("ListaPrecios"); //Aqui mandar el nombre de la area
-  $.post("contenido/" + tabla, function (html) {
+hasLocation();
+$(window).on("hashchange", function (e) {
+  hasLocation();
+});
+
+
+function obtenerContenidoPrecios() {
+  obtenerTitulo("Lista de precios"); //Aqui mandar el nombre de la area
+  $.post("contenido/listaprecios.php", function (html) {
     var idrow;
     $("#body-js").html(html);
 
@@ -13,12 +18,9 @@ function obtenerContenidoPrecios(tabla) {
 }
 
 
-
-
-obtenerContenidoPaquetes("paquetes.php");
 function obtenerContenidoPaquetes(tabla) {
-  obtenerTitulo("Paquetes"); //Aqui mandar el nombre de la area
-  $.post("contenido/" + tabla, function (html) {
+  obtenerTitulo("Paquetes de clientes"); //Aqui mandar el nombre de la area
+  $.post("contenido/paquetes.php", function (html) {
     var idrow;
     $("#body-js").html(html);
 
@@ -27,4 +29,21 @@ function obtenerContenidoPaquetes(tabla) {
     // Botones
     $.getScript("contenido/js/paquete-botones.js");
   });
+}
+
+function hasLocation() {
+  var hash = window.location.hash.substring(1);
+  $("a").removeClass("navlinkactive");
+  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+  switch (hash) {
+    case "PreciosEstudios":
+      obtenerContenidoPrecios();
+      break;
+    case "PaquetesClientes":
+      obtenerContenidoPaquetes();
+      break;
+    default:
+      obtenerContenidoPrecios();
+      break;
+  }
 }

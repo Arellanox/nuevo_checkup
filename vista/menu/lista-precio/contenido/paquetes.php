@@ -1,23 +1,13 @@
-<div class="row ">
-  <div class="card col-12 pt-3" style="margin-bottom:5px;">
-    <div class="text-start" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-estudio-editar">
-        <i class="bi bi-list"></i> Rayos X, Imagenologia
-      </button>
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-estudio-editar">
-        <i class="bi bi-list"></i> Laboratorio
-      </button>
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-estudio-editar">
-        <i class="bi bi-list"></i>Otros Servicios
-      </button>
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-estudio-editar">
-        <i class="bi bi-list"></i> Paquetes
-      </button>
-
-      <label for="inputBuscarTableListaNuevos">Seleccione Cliente:</label>
-      <select name="metodo" id="seleccion-cliente" required>
-      </select>
+<div class="row">
+  <div class="col-5 row">
+    <div class="col-12 card">
+      form
     </div>
+    <div class="col-12 card">
+      info
+    </div>
+  </div>
+  <div class="card col-7 pt-3" style="margin-bottom:5px;">
     <div>
       <table class="table table-hover display responsive " id="TablaListaPrecios" style="width: 100%">
         <thead style="width: 100%">
@@ -78,5 +68,4 @@
       </table>
     </div>
   </div>
-
 </div>

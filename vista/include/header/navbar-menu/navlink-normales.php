@@ -83,3 +83,16 @@
     </a>
   </li>
 <?php endif; ?>
+
+<?php if ($menu == "ListaPrecios"): ?>
+  <li class="nav-item">
+    <a href="#PreciosEstudios" data-bs-dismiss="offcanvas">
+      <i class="bi bi-thunderbolt"></i> Precios Estudio
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="#PaquetesClientes" data-bs-dismiss="offcanvas">
+      <i class="bi bi-thunderbolt"></i> Paquetes Estudios
+    </a>
+  </li>
+<?php endif; ?>
