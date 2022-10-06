@@ -38,18 +38,40 @@
             <td>
               <div class="input-group">
                 <span class="input-span">$</span>
-                <input type="number" class="form-control input-form" name="costo" placeholder="" value="">
+                <input type="number" class="form-control input-form costo" name="costo" placeholder="" value="">
                 <span class="input-span">.00</span>
               </div>
             </td>
             <td>
               <div class="input-group">
                 <span class="input-span">%</span>
-                <input type="number" class="form-control input-form" name="margen" placeholder="" value="">
+                <input type="number" class="form-control input-form margen" name="margen" placeholder="" value="">
+              </div>
+            </td>
+            <td class="total">
+              $00
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              Nombre Estudio 2
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-span">$</span>
+                <input type="number" class="form-control input-form costo" name="costo" placeholder="" value="">
+                <span class="input-span">.00</span>
               </div>
             </td>
             <td>
-              Total
+              <div class="input-group">
+                <span class="input-span">%</span>
+                <input type="number" class="form-control input-form margen" name="margen" placeholder="" value="">
+              </div>
+            </td>
+            <td>
+              <p  class="total">00</p>
             </td>
           </tr>
         </tbody>

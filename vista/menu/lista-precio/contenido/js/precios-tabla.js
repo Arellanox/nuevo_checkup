@@ -15,20 +15,54 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
   ],
 });
 
-$('#TablaListaPrecios tbody').on('click', 'tr', function () {
-   if ($(this).hasClass('selected')) {
-       $(this).removeClass('selected');
-       array_selected = null;
-   } else {
-       tablaPrecio.$('tr.selected').removeClass('selected');
-       $(this).addClass('selected');
-       array_selected = tablaPrecio.row( this ).data();
-       console.log(array_selected);
-   }
+
+jQuery(document).on("change ,  keyup" , "input[name='costo'] , input[name='margen']" ,function(){
+     var parent_element = jQuery(this).closest("tr");
+     var costo = parseFloat(jQuery(parent_element).find("input[name='costo']").val());
+     var margen = parseFloat(jQuery(parent_element).find("input[name='margen']").val());
+     if( costo > 0 && margen > 0)
+      {
+        total = costo + (costo*margen/100);
+        jQuery(parent_element).find(".total").html( total.toFixed(2) );
+      }
+      else
+      {
+        jQuery(parent_element).find(".total").html("");
+      }
 });
 
+let tablaPrecios = new Array();
 
-$('#TablaListaPrecios tbody').on('click', 'tr', function () {
-  costo = $(this+':input[name=costo]').value;
-  console.log(costo);
+$('#btn-estudio-editar').click(function () {
+        // var form_data  = tablaPrecio.rows().data();
+        var costo = tablaPrecio.$("input[name='costo']").serialize();
+        var margen = tablaPrecio.$("input[name='margen']").serialize();
+
+        costo2 = costo.slice(6);
+        console.log(costo2);
+
+        let arraycosto = costo2.split('&costo=');
+
+        margen2 = margen.slice(7);
+        console.log(margen2);
+
+        let arraymargen = margen2.split('&margen=');
+
+        console.log(arraymargen);
+        var tableData = tablaPrecio.rows().data().toArray();
+        console.log(tableData);
+        for (var i = 0; i < tableData.length; i++) {
+          total = parseFloat(arraycosto[i]) + (parseFloat(arraycosto[i])*parseFloat(arraymargen[i])/100);
+          const arrayFor = [tableData[i][0], parseFloat(arraycosto[i]), parseFloat(arraymargen[i]), total];
+          tablaPrecios.push(arrayFor);
+        }
+
+
+
+        // tablaPrecios.push(id, costo, margen)
+
+
+
+        console.log(tablaPrecios);
+        return false;
 });
