@@ -10,15 +10,15 @@
           <p class="text-center">Registre un nuevo <strong>Paquete</strong> </p>
           <br>
           <div class="row">
-            <div class="col-4">
+            <div class="col-12">
               <label for="nombre_paquete" class="form-label">Nombre</label>
               <input type="text" name="nombre_paquete" id="nombre_paquete" class="form-control input-form" required>
             </div>
-            <div class="col-4">
+            <div class="col-12">
               <label for="tipo_paquete" class="form-label">Tipo de Paquete</label>
               <input type="text" name="tipo_paquete" id="tipo_paquete" class="form-control input-form" required>
             </div>
-            <div class="col-4 col-md-4">
+            <div class="col-12">
               <label for="facturacion_paquete" class="form-label">Concepto de Facturacion</label>
               <select name="paquete" id="facturacion-paquete" class="input-form" required>
 

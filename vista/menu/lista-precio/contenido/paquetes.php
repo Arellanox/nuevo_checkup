@@ -1,8 +1,16 @@
 <div class="row">
+
   <div class="col-5 row">
-    <div class="col-12 card">
+
+    <div class="col-12 card form-control ">
       form
+      <label for="inputBuscarPaquetes">Seleccione Paquetes:</label>
+      <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required>
+      </select>
+
+      <div></div>
     </div>
+
     <div class="col-12 card">
       info
     </div>
