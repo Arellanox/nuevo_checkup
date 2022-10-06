@@ -57,3 +57,9 @@
     <i class="bi bi-save"></i> Guardar resultados
   </button>
 <?php endif; ?>
+
+<?php if ($menu == "Paquetes de clientes") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaquete">
+    <i class="bi bi-save"></i> Crear Nuevo Paquete
+  </button>
+<?php endif; ?>
