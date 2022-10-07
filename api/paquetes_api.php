@@ -55,7 +55,7 @@ switch ($api) {
         # buscar
         $resultset = $master->getByProcedure("sp_paquetes_b",[$id_paquete,$id_cliente]);
         if (is_array($resultset)) {
-            echo json_encode(array("response" => array("data" => 1, "data" => $resultset));
+            echo json_encode(array("response" => array("data" => 1, "data" => $resultset)));
         } else {
             echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }
