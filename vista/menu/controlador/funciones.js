@@ -172,6 +172,14 @@ function setProcedenciaOption(select, idProcedencia){
 function rellenarSelect(select, api, num,v,c, values = {}){
   return new Promise(resolve => {
     values.api = num;
+    
+    let htmlContent;
+    // Crear arreglo de contenido
+    if (!Number.isInteger(c)) {
+      htmlContent = c.split('.');
+      console.log(htmlContent);
+    }
+
     $(select).find('option').remove().end()
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/" + api + ".php",
@@ -180,8 +188,24 @@ function rellenarSelect(select, api, num,v,c, values = {}){
       success: function (data) {
         var data = jQuery.parseJSON(data);
         for (var i = 0; i < data['response']['data'].length; i++) {
+
+          // Crear el contenido del select por numero o arreglo
+          if (Array.isArray(htmlContent)) {
+            datao = "";
+            for (var a = 0; a < htmlContent.length; a++) {
+              if (a == 0) {
+                datao += data['response']['data'][i][htmlContent[a]];
+              }else{
+                datao += " - " + data['response']['data'][i][htmlContent[a]];
+              }
+            }
+          }else{
+            datao = data['response']['data'][i][c];
+          }
+
+          // Rellenar select con Jquery
           var o = new Option("option text", data['response']['data'][i][v]);
-          $(o).html(data['response']['data'][i][c]);
+          $(o).html(datao);
           $(select).append(o);
         }
       },
