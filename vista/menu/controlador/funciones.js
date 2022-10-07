@@ -294,22 +294,26 @@ function selectDatatable(tablename, datatable, panel = null, api = null, tipPane
   });
 }
 
-function select2(select, modal){
+function select2(select, modal = null){
   $(select).select2({
     dropdownParent: $('#'+modal),
     tags: false,
     width:'100%',
-    placeholder: 'Selecciona un registro',
+    placeholder: 'Selecciona una opcion',
   });
 }
 
-function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
+function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion'){
+  console.log("llamado");
+  var html = "";
   $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-barra.php",
   {
     tip: tipPanel
   },
   function(html){
-     $("#panel-informacion").html(html);
+     setTimeout(function () {
+       $(panel).html(html);
+     }, 100);
   }).done(function(){
     if (id > 0) {
       row = array_selected;
@@ -388,6 +392,9 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null){
           $('#equipo-calibracion').html(row.CALIBRACION +" "+ row.NUMERO_PRUEBAS_CALIBRACION);
           $('#equipo-uso').html(row.USO);
           $('#equipo-descripcion').html(row.DESCRIPCION);
+        break;
+        case 'signos-vitales':
+
         break;
 
         default:

@@ -1,0 +1,49 @@
+.form-textarea-content{
+  margin: 10px 20px 15px 20px;
+  background-color: transparent;
+  font-size: 18px;
+  height: 103px;
+  border: 0px;
+}
+
+.form-input-content{
+  background-color: transparent;
+  border: 0px;
+}
+
+.form-input-content:focus{
+  background-color: transparent;
+  border: 0px;
+}
+
+/* .form-input-content:focus-visible{
+  z-index: 0 !important;
+  border-color: transparent !important;
+  box-shadow: unset !important;
+} */
+
+.form-textarea-content:focus-visible{
+    outline: 3px solid #00000012;
+}
+
+.accordion-button:focus {
+    z-index: 0 !important;
+    border-color: transparent !important;
+    box-shadow: unset !important;
+}
+
+.line-left{
+  border-left: 1px solid #00000021;
+}
+
+.line-right{
+  border-right: 1px solid #00000021;
+}
+
+.line-top{
+  border-top: 1px solid #00000021;
+}
+
+.line-bottom{
+  border-bottom: 1px solid #00000021;
+}

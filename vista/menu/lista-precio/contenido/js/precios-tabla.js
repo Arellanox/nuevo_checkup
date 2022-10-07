@@ -26,23 +26,39 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
       {data: 'COUNT'},
       {data: 'DESCRIPCION'},
       {
-        data: 'COSTO',
-        render:
-          function (data, type, full, meta) {
-            if (type === 'display') {
-              if (data == null || data == 0) {
-                value = 0;
-              }else{
-                value = data;
-              }
-              rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form costo" name="costo" placeholder="" value="'+value+'"></div>';
-
-              return rturn;
+        data: 'COSTO', render: function (data, type, full, meta) {
+            if (data == null || data == 0) {
+              value = 0;
+            }else{
+              value = data;
             }
+            rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form costo" name="costo" placeholder="" value="'+value+'"></div>';
+
+            return rturn;
           },
       },
-      {data: 'UTILIDAD'},
-      {data: 'PRECIO_VENTA'},
+      {
+        data: 'UTILIDAD', render: function (data, type, full, meta) {
+            if (data == null || data == 0) {
+              value = 0;
+            }else{
+              value = data;
+            }
+            rturn = '<div class="input-group"><input type="number" class="form-control input-form margen" name="margen" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
+
+            return rturn;
+          },
+      },
+      {data: 'PRECIO_VENTA', render: function (data, type, full, meta) {
+          if (data == null || data == 0) {
+            value = 0;
+          }else{
+            value = data;
+          }
+          rturn = '<div class="total">$'+value+'</div>';
+
+          return rturn;
+        },},
       // {defaultContent: 'En progreso...'}
   ],
 });
@@ -55,11 +71,11 @@ jQuery(document).on("change ,  keyup" , "input[name='costo'] , input[name='marge
      if( costo > 0 && margen > 0)
       {
         total = costo + (costo*margen/100);
-        jQuery(parent_element).find(".total").html( total.toFixed(2) );
+        jQuery(parent_element).find(".total").html('<div class="total">$'+ total.toFixed(2) +'</div>');
       }
       else
       {
-        jQuery(parent_element).find(".total").html("");
+        jQuery(parent_element).find(".total").html('<div class="total">$0</div>');
       }
 });
 
