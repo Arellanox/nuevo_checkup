@@ -172,7 +172,7 @@ function setProcedenciaOption(select, idProcedencia){
 function rellenarSelect(select, api, num,v,c, values = {}){
   return new Promise(resolve => {
     values.api = num;
-    
+
     let htmlContent;
     // Crear arreglo de contenido
     if (!Number.isInteger(c)) {
@@ -186,25 +186,33 @@ function rellenarSelect(select, api, num,v,c, values = {}){
       data: values,
       type: "POST",
       success: function (data) {
-        var data = jQuery.parseJSON(data);
-        for (var i = 0; i < data['response']['data'].length; i++) {
+
+        if (typeof data == "string" && data.indexOf('response') > -1) {
+          data = JSON.parse(data);
+          data  = data['response']['data'];
+          // data = data['data'];
+        }else{
+          data = JSON.parse(data);
+        }
+
+        for (var i = 0; i < data.length; i++) {
 
           // Crear el contenido del select por numero o arreglo
           if (Array.isArray(htmlContent)) {
             datao = "";
             for (var a = 0; a < htmlContent.length; a++) {
               if (a == 0) {
-                datao += data['response']['data'][i][htmlContent[a]];
+                datao += data[i][htmlContent[a]];
               }else{
-                datao += " - " + data['response']['data'][i][htmlContent[a]];
+                datao += " - " + data[i][htmlContent[a]];
               }
             }
           }else{
-            datao = data['response']['data'][i][c];
+            datao = data[i][c];
           }
 
           // Rellenar select con Jquery
-          var o = new Option("option text", data['response']['data'][i][v]);
+          var o = new Option("option text", data[i][v]);
           $(o).html(datao);
           $(select).append(o);
         }

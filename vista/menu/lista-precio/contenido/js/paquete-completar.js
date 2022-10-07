@@ -3,7 +3,7 @@
 $('input[type=radio][name=selectChecko]').change(function() {
 
 
-  // rellenarSelect("#seleccion-estudio", "servicios_api", 2, 0, 'DESCRIPCION', {'ID_SERVICIO' : '1'});
+  rellenarSelect("#seleccion-estudio", "servicios_api", 2, 0, 'ABREVIATURA.DESCRIPCION', {'ID_SERVICIO' : this.value});
 
 });
 
