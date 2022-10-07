@@ -28,6 +28,9 @@ function obtenerContenidoPaquetes(tabla) {
     $.getScript("contenido/js/paquete-tabla.js");
     // Botones
     $.getScript("contenido/js/paquete-botones.js");
+    //Formulario
+    $.getScript("contenido/js/paquete-completar.js");
+
   });
 }
 

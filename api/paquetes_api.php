@@ -4,7 +4,7 @@ require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
@@ -44,7 +44,7 @@ $master = new Master();
 switch ($api) {
     case 1:
         # insertar
-        $response = $master->insertByProcedure("sp_paquetes_g",$parametros);
+        $response = $master->insertByProcedure("sp_paquetes_g", $parametros);
         if (is_numeric($response)) {
             echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
         } else {
@@ -53,9 +53,9 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $resultset = $master->getByProcedure("sp_paquetes_b",[$id_paquete,$id_cliente]);
+        $resultset = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $id_cliente]);
         if (is_array($resultset)) {
-            echo json_encode(array("response" => array("data" => 1, "data" => $resultset));
+            echo json_encode(array("response" => array("data" => 1, "data" => $resultset)));
         } else {
             echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }
@@ -63,7 +63,7 @@ switch ($api) {
 
     case 3:
         # actualizar
-        $response = $master->updateByProcedure("sp_paquetes_g",$parametros);
+        $response = $master->updateByProcedure("sp_paquetes_g", $parametros);
         if (is_numeric($response)) {
             echo json_encode(array("response" => array("code" => 1, "affected" => $response, "msj" => "Envío exitoso")));
         } else {
@@ -72,7 +72,7 @@ switch ($api) {
         break;
     case 4:
         # desactivr paciente
-        $result = $master->deleteByProcedure("sp_paquetes_g",[$id_paciente]);
+        $result = $master->deleteByProcedure("sp_paquetes_g", [$id_paciente]);
         if (is_numeric($result)) {
             echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
         } else {
@@ -81,6 +81,6 @@ switch ($api) {
         break;
 
     default:
-            echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => "api no reconocida")));
+        echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => "api no reconocida")));
         break;
 }
