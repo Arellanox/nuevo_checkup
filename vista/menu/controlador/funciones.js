@@ -169,12 +169,13 @@ function setProcedenciaOption(select, idProcedencia){
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select, api, num,v,c){
+function rellenarSelect(select, api, num,v,c, values = {}){
   return new Promise(resolve => {
+    values.api = num;
     $(select).find('option').remove().end()
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/" + api + ".php",
-      data: { api: num },
+      data: values,
       type: "POST",
       success: function (data) {
         var data = jQuery.parseJSON(data);
