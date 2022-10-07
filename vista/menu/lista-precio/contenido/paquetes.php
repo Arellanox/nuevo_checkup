@@ -17,13 +17,13 @@
               opacity: 50%;
             }
           </style>
-          <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="1" autocomplete="off">
+          <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="img" autocomplete="off">
           <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Rayos X, Imagennología</label>
 
-          <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="2" autocomplete="off">
+          <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="14" autocomplete="off">
           <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
 
-          <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="3" autocomplete="off">
+          <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="otr" autocomplete="off">
           <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
 
         </div>
