@@ -9,7 +9,7 @@ if (! $tokenValido){
     exit;
 }
 
-#api 
+#api
 
 $api = $_POST['api'];
 #buscar
@@ -43,7 +43,7 @@ $parametros = array(
 $master = new Master();
 switch ($api) {
     case 1:
-        # insertar 
+        # insertar
         $response = $master->insertByProcedure("sp_paquetes_g",$parametros);
         if (is_numeric($response)) {
             echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
@@ -52,10 +52,10 @@ switch ($api) {
         }
         break;
     case 2:
-        # buscar 
+        # buscar
         $resultset = $master->getByProcedure("sp_paquetes_b",[$id_paquete,$id_cliente]);
         if (is_array($resultset)) {
-            echo json_encode($resultset);
+            echo json_encode(array("response" => array("data" => 1, "data" => $resultset));
         } else {
             echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }
