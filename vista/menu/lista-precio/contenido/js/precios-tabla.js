@@ -1,3 +1,6 @@
+// var data = 12;
+var data ={api:2};
+var apiurl = '../../../api/servicios_api.php';
 var tablaPrecio = $("#TablaListaPrecios").DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -15,11 +18,13 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
   ],
   ajax: {
       dataType: 'json',
-      data: {api: 2},
+      data: function ( d ) {
+         return  $.extend(d, data);
+      },
       method: 'POST',
-      url: '../../../api/servicios_api.php',
+      url: apiurl,
       beforeSend: function() { loader("In") },
-      complete: function(){ loader("Out") },
+      complete: function(){ loader("Out"), tablaPrecio.processing( false ); },
       dataSrc:''
   },
   columns:[
@@ -107,4 +112,20 @@ $('#btn-estudio-editar').click(function () {
 
         console.log(tablaPrecios);
         return false;
+});
+
+$('input[type=radio][name=selectChecko]').change(function() {
+    if (this.value == 4) {
+      tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
+      data.api = 2;
+      data.id_cliente = 1;
+    }else{
+      tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
+      data.id_area = 12;
+    }
+    tablaPrecio.processing( true );
+    tablaPrecio.ajax.reload();
+    console.log(this.value);
+
+
 });

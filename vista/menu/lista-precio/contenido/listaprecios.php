@@ -1,18 +1,25 @@
 <div class="row ">
   <div class="card col-12 pt-3" style="margin-bottom:5px;">
     <div class="text-start" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-estudio-editar">
-        <i class="bi bi-list"></i> Rayos X, Imagenologia
-      </button>
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-estudio-editar">
-        <i class="bi bi-list"></i> Laboratorio
-      </button>
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-estudio-editar">
-        <i class="bi bi-list"></i>Otros Servicios
-      </button>
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-estudio-editar">
-        <i class="bi bi-list"></i> Paquetes
-      </button>
+      <style media="screen">
+        .btn-outline-success{
+          border-color: transparent;
+        }
+        .btn-outline-success:hover{
+          opacity: 50%;
+        }
+      </style>
+      <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="1" autocomplete="off">
+      <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Rayos X, Imagennología</label>
+
+      <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="2" autocomplete="off">
+      <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
+
+      <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="3" autocomplete="off">
+      <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
+
+      <input type="radio" class="btn-check" name="selectChecko" id="check-paquetes" value="4" autocomplete="off">
+      <label class="btn btn-outline-success" for="check-paquetes"><i class="bi bi-list"></i> Paquetes</label>
 
       <label for="inputBuscarTableListaNuevos">Seleccione Cliente:</label>
       <select name="metodo" id="seleccion-cliente" required>

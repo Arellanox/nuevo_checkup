@@ -39,8 +39,8 @@
     Cargando...
   </div>
 </div>
-<div class="row mt-2">
-  <a class="btn btn-hover" data-bs-toggle="collapse" data-bs-target="#barra-informacion" aria-expanded="false">
+<div class="row mt-2 d-flex justify-content-center">
+  <a class="btn btn-hover" style="width:95%" data-bs-toggle="collapse" data-bs-target="#barra-informacion" aria-expanded="false">
     Mas información <i class="bi bi-arrow-down-short"></i>
   </a>
   <div class="collapse row" id="barra-informacion">
