@@ -63,3 +63,10 @@
     <i class="bi bi-save"></i> Crear Nuevo Paquete
   </button>
 <?php endif; ?>
+
+
+<?php if ($menu == "Clientes") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarCliente">
+    <i class="bi bi-people"></i> Agregar Nuevo Cliente
+  </button>
+<?php endif; ?>
