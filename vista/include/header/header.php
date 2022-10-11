@@ -45,7 +45,7 @@ session_start();
           <?php if ($menu != null) : ?>
             <li class="nav-item Recepción">
               <div class="dropdown ">
-                <a class="dropdown-toggle" href="#" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="bi bi-plus"></i> Areas
                 </a>
                 <!-- Estos botones se cargan en el servidor desde el archivo del include -->
@@ -58,7 +58,7 @@ session_start();
         </ul>
         <ul class="nav navbar-nav ms-auto">
           <li class="nav-item dropdown">
-            <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a>
+            <a data-bs-toggle="dropdown" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a>
             <ul class="dropdown-menu dropdown-menu-lg-end bg-navbar-drop">
               <?php include "navbar-menu/navlink-dropuser.php"; ?>
             </ul>

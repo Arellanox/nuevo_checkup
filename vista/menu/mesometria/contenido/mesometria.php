@@ -2,9 +2,7 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 <div class="row">
-  <div class="card col-12 col-lg-3 pt-3" id="panel-informacion">
-
-  </div>
+  <div class="card col-12 col-lg-3 pt-3" id="panel-informacion"> </div>
   <div class="card col-12 col-lg-9">
     <ul class="list-group m-4 overflow-auto hover-list info-detalle" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
       <li class="list-group-item ">

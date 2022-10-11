@@ -4,7 +4,7 @@ modalEditarEstudio.addEventListener("show.bs.modal", (event) => {
 });
 
 async function cargarDatosEstuEdit() {
-  await rellenarSelect("#edit-grupo-estudio", 'servicios_api',7,0,2);
+  await rellenarSelect("#edit-grupo-estudio", 'servicios_api',7,0,'DESCRIPCION');
   await rellenarSelect("#edit-area-estudio", "areas_api", 2,0,2);
   await rellenarSelect('#edit-clasificacion-estudio','laboratorio_clasificacion_api', 2,0,1);
   await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1);

@@ -78,6 +78,10 @@ p{
   margin-bottom: 0 !important;
 }
 
+.info-title-p{
+  font-size: 25px;
+}
+
 .card{
   background-color: #f6fdff;
 }
@@ -89,9 +93,8 @@ p{
 }
 
 
-.info-detalle p{
+.info-detalle-p{
   color: rgb(000, 078, 089);
-  margin: 0;
 }
 
 .info-detalle a{
