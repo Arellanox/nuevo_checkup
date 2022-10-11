@@ -1,0 +1,33 @@
+<div class="modal fade" id="modalMotivoConsulta" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header header-modal">
+        <h5 class="modal-title" id="filtrador">Motivo de la consulta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="" id="formMotivoConsulta">
+          <!-- <p class="text-center">Agrege un nuevo <strong>Grupo</strong> </p> -->
+          <div class="row">
+            <div class="col-12">
+              <label for="motivo-consulta" class="form-label">¿Cuál es el motivo de la consulta?</label>
+              <input type="text" name="motivo-consulta" class="form-control input-form" required>
+            </div>
+            <div class="col-12">
+              <label for="cita-subsecuente" class="form-label">Elegir cita subsecuente (si la tiene)</label>
+              <select name="cita-subsecuente" id="select-cita-subsecuente">
+
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+        <button type="submit" form="formMotivoConsulta" class="btn btn-confirmar">
+          <i class="bi bi-person-plus"></i> Iniciar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

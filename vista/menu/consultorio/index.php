@@ -13,7 +13,7 @@ $menu = "Consultorio";
   <title>Consultorio | Bimo</title>
 </head>
 
-<body class="" id="body-controlador"> </body>
+<div class="" id="body-controlador"> </div>
 <script type="text/javascript">
   vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>')
 

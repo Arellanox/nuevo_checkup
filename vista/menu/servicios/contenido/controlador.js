@@ -64,7 +64,8 @@ function hasLocation() {
       obtenerContenidoEquipos("Equipos");
       break;
     default:
-      obtenerContenidoEstudios("Estudios");
+      window.location.hash = 'Estudios';
+      // obtenerContenidoEstudios("Estudios");
       break;
   }
 }
