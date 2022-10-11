@@ -9,17 +9,17 @@
         <form class="" id="formEditarEstudio">
           <p class="text-center">Modificar <strong>Estudio</strong> </p>
           <div class="row">
-            <div class="col-4">
+            <div class="col-8">
               <label for="nombre_estudio" class="form-label">Nombre del Estudio</label>
               <input type="text" name="nombre_estudio" class="form-control input-form" required id="edit-nombre-estudio">
             </div>
-            <div class="col-2">
+            <div class="col-4">
               <label for="cve_estudio" class="form-label">CVE</label>
               <input type="text" name="cve_estudio" class="form-control input-form" required id="edit-cve-estudio">
             </div>
-            <div class="col-6 col-md-6">
+            <div class="col-12 col-md-12">
               <label for="grupo" class="form-label">Grupo de exámen</label>
-              <select name="grupo" id="edit-grupo-estudio" required>
+              <select name="grupo[]" multiple="multiple" id="edit-grupo-estudio" required>
               </select>
             </div>
             <div class="col-6 col-md-6">
