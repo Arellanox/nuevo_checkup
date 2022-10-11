@@ -1,3 +1,11 @@
+//Menu predeterminado
+hasLocation();
+$(window).on("hashchange", function (e) {
+  hasLocation();
+});
+
+
+
 function obtenerContenidoSegmentos(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/segmentos.php", function (html) {
@@ -15,11 +23,16 @@ function hasLocation() {
   $("a").removeClass("navlinkactive");
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {
+    case "Clientes":
+
+      obtenerContenidoCliente("Clientes");
+
+    break;
     case "Segmentos":
       obtenerContenidoSegmentos("Segmentos");
       break;
     default:
-      obtenerContenidoCliente("clientes.php", "Clientes");
+      obtenerContenidoCliente("Clientes");
       break;
   }
 }

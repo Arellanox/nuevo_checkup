@@ -1,4 +1,4 @@
-<?php if ($menu != null): ?>
+<?php if ($menu != null) : ?>
   <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
@@ -28,6 +28,17 @@
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
       <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#PaquetesClientes'; ?>"><i class="bi bi-dot"></i> Paquetes</a></li>
       <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#PreciosEstudios'; ?>"><i class="bi bi-dot"></i> Precios de estudio</a></li>
+    </ul>
+  </div>
+
+
+  <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-clientes" aria-expanded="false">
+    <i class="bi bi-people"></i> Clientes
+  </a>
+  <div class="collapse" id="board-clientes">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
+      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/#Segmentos'; ?>"><i class="bi bi-dot"></i> Segmentos</a></li>
+      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/#Clientes'; ?>"><i class="bi bi-dot"></i> Clientes</a></li>
     </ul>
   </div>
 <?php endif; ?>
