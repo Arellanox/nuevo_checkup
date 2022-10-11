@@ -6,8 +6,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (! $tokenValido){
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 $master = new Master();
@@ -40,8 +40,20 @@ switch ($api) {
     case 2:
         #getall
         $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area));
+
         if (is_array($response)) {
-            echo json_encode($response);
+            $newResponse = array();
+            foreach($response as $test){
+                $groups = $master->getByProcedure('sp_detalle_grupo_b',array(null,$test['ID_SERVICIO']));
+                if(count($groups)>0){
+                    $test['DETALLE_GRUPOS'] = $groups;
+                } else {
+                    $test['DETALLE_GRUPOS'] = 'NO PERTENECE A NINGUN GRUPO';
+                }
+               
+                $newResponse[] = $test;
+            }
+            echo json_encode($newResponse);
         } else {
             echo json_encode(array(
                 'response'=>array(
@@ -138,10 +150,21 @@ switch ($api) {
         $response = $master->getByProcedure('sp_servicios_b',array(null,1,$id_area));
 
         if(is_array($response)){
+            $newResponse = array();
+            foreach ($response as $group) {
+                $tests = $master->getByProcedure('sp_detalle_grupo_b',array($group['ID_SERVICIO'],null));
+                if (sizeof($tests)>0) {
+                    $group['DETALLE_ESTUDIOS'] = $tests;
+                } else {
+                    $group['DETALLE_ESTUDIOS'] = 'NO TIENE ESTUDIOS ASOCIADOS';
+                }
+                
+                $newResponse[] = $group;
+            }
             echo json_encode(array(
                 'response'=>array(
                     'code'=>1,
-                    'data'=>$response
+                    'data'=>$newResponse
                 )
                 ));
         } else {
