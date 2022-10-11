@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid sticky-top" style="z-index:5">
   <div class="row" id="menu-consultorio">
     <div class="col-8 row">
       <div class="col-6">
@@ -70,7 +70,6 @@
 </div>
 
 <div class="container content scrollspy-example" id="container-consulta" data-bs-spy="scroll" data-bs-target="#navbar-menu-consultorio" data-bs-offset="0" tabindex="0">
-
   <div id="notas-padecimiento" class="card mt-3">
     <h4 class="m-3">Notas de padecimiento</h4>
     <hr class="dropdown-divider m-2">
@@ -181,48 +180,11 @@
 
 </div>
 
-<script>
-window.onscroll = function() {myFunction()};
-
-var navbar = document.getElementById("menu-consultorio");
-var content = document.getElementById("container-consulta");
-var sticky = navbar.offsetTop;
-
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-    // content.classList.add("content-top")
-  } else {
-    navbar.classList.remove("sticky");
-    // content.classList.remove("content-top")
-  }
-}
-</script>
-
 <style>
 
 
 #menu-consultorio {
-  overflow: hidden;
   background-color: rgb(246, 253, 255);
-}
-
-
-.content {
-  padding: 16px;
   z-index: 5
-}
-
-.sticky {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 5
-}
-
-
-
-.content-top{
-  margin-top:180px
 }
 </style>
