@@ -3,7 +3,7 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
   rellenarSelect("#registrar-clasificacion-estudio","laboratorio_clasificacion_api",2,0,1);
   rellenarSelect("#registrar-metodos-estudio","laboratorio_metodos_api",2,0,1);
   rellenarSelect("#registrar-medidas-estudio","laboratorio_medidas_api",2,0,1);
-  rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 2);
+  rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 'DESCRIPCION');
   rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
   rellenarSelect('#registrar-concepto-facturacion','sat_catalogo_api', 2,0,'COMPLETO');
 })

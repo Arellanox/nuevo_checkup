@@ -84,7 +84,6 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
     data: { id: idProcedencia, api: 6 },
     success: function (data) {
       var data = jQuery.parseJSON(data);
-      // console.log(data);
       if (mensajeAjax(data)) {
         if (data['response']['data'].length > 0) {
           for (var i = 0; i < data['response']['data'].length; i++) {
@@ -177,7 +176,6 @@ function rellenarSelect(select, api, num,v,c, values = {}){
     // Crear arreglo de contenido
     if (!Number.isInteger(c)) {
       htmlContent = c.split('.');
-      console.log(htmlContent);
     }
 
     $(select).find('option').remove().end()
@@ -337,7 +335,7 @@ function select2(select, modal = null){
 }
 
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion'){
-  console.log("llamado");
+
   var html = "";
   $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-barra.php",
   {
@@ -353,7 +351,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
       switch (tipPanel) {
         case 'paciente':
             if (array_selected != null) {
-              console.log(array_selected)
               $('#nombre-persona').html(row.NOMBRE_COMPLETO);
               $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
               $('#info-paci-curp').html(row.CURP);
@@ -376,7 +373,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 success: function (data) {
                   data = jQuery.parseJSON(data);
                   row = data[0];
-                  console.log(row);
                   $('#nombre-persona').html(row.NOMBRE_COMPLETO);
                   $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                   $('#info-paci-curp').html(row.CURP);
@@ -415,7 +411,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
           $('#estudio-venta').html(row.PRECIO_VENTA);
         break;
         case 'equipo':
-        console.log(row)
           $('#nombre-equipo').html(row.MARCA + "-"+row.MODELO);
           // $('#equipo-equipo').html(row.);
           $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
