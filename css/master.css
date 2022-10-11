@@ -25,8 +25,8 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-*{
-    scroll-behavior: smooth;
+:root{
+  scroll-behavior: smooth;
 }
 
 #ventana {
@@ -100,3 +100,5 @@ p{
 .info-detalle a{
   text-decoration: underline !important;
 }
+
+--

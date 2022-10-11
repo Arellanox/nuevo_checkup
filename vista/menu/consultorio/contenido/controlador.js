@@ -16,6 +16,8 @@ function obtenerContenidoConsulta(titulo) {
     // Botones
     // $.getScript("contenido/js/estudio-botones.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
+  }).done(function(){
+    // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   })
 }
 
