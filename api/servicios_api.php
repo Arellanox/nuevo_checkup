@@ -134,8 +134,8 @@ switch ($api) {
         }
         break;
     case 7:
-        #recuperar todos los servicicos que sean padres
-        $response = $master->getByProcedure('sp_servicios_b',array(null,null,1,$id_area));
+        #recuperar todos los servicicos que sean grupos
+        $response = $master->getByProcedure('sp_servicios_b',array(null,1,$id_area));
 
         if(is_array($response)){
             echo json_encode(array(
