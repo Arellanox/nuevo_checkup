@@ -52,25 +52,25 @@
         <p>Pagina web:</p>
       </div>
       <div class="col-7">
-        <a href="#" id="info-cliente-pagweb"></a>
+        <a href="#" target="_blank" id="info-cliente-pagweb"></a>
       </div>
       <div class="col-5 text-end pt-2 info-detalle">
         <p>Facebook:</p>
       </div>
       <div class="col-7">
-        <a href="#" id="info-cliente-face"></a>
+        <a href="#" target="_blank" id="info-cliente-face"></a>
       </div>
       <div class="col-5 text-end pt-2 info-detalle">
         <p>Twitter:</p>
       </div>
       <div class="col-7">
-        <a href="#" id="info-cliente-twitter"></a>
+        <a href="#" target="_blank" id="info-cliente-twitter"></a>
       </div>
       <div class="col-5 text-end pt-2 info-detalle">
         <p>Instagram:</p>
       </div>
       <div class="col-7">
-        <a href="#" id="info-cliente-instragram"></a>
+        <a href="#" target="_blank" id="info-cliente-instragram"></a>
       </div>
     </div>
   </div>

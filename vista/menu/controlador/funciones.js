@@ -436,8 +436,14 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
               $('#info-cliente-credito').html(row.LIMITE_CREDITO);
               $('#info-cliente-tempcredito').html(row.TEMPORALIDAD_DE_CREDITO);
               $('#info-cliente-cuentaContable').html(row.CUENTA_CONTABLE);
-              $('#info-cliente-pagweb').attr("href").replace(row.PAGINA_WEB);
+              $('#info-cliente-pagweb').attr("href", row.PAGINA_WEB);
               $('#info-cliente-pagweb').text(row.PAGINA_WEB);
+              $('#info-cliente-face').attr("href", row.FACEBOOK);
+              $('#info-cliente-face').text(row.FACEBOOK);
+              $('#info-cliente-twitter').attr("href", row.TWITTER);
+              $('#info-cliente-twitter').text(row.TWITTER);
+              $('#info-cliente-instragram').attr("href", row.INSTAGRAM);
+              $('#info-cliente-instragram').text(row.INSTAGRAM);
             break;
             case 'contacto':
             console.log(selectContacto)
