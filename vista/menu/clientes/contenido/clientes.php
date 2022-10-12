@@ -36,8 +36,8 @@
   </div>
   <div class="col-lg-3 card">
     <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-cliente-editar">
-        <i class="bi bi-pencil-square"></i> Editar Cliente
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-contacto-editar">
+        <i class="bi bi-pencil-square"></i> Editar Contacto
       </button>
     </div>
     <div class="" id=" panel-informacion">
@@ -66,7 +66,7 @@
 
 
 <style media="screen">
-  #TablaContacto_filter{
+  #TablaContacto_filter {
     display: none;
   }
 </style>

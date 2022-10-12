@@ -1,20 +1,20 @@
-<div class="modal fade" id="ModalRegistrarCliente" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+<div class="modal fade" id="ModalActualizarCliente" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
-        <h5 class="modal-title" id="filtrador">Añadir Nuevo Cliente</h5>
+        <h5 class="modal-title" id="filtrador">Editar Datos de Cliente</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="" id="formRegistrarCliente">
-          <p class="text-center">Agrege un nuevo <strong>Cliente</strong> </p>
+        <form class="" id="formActualizarCliente">
+          <p class="text-center">Actualizar datos de <strong>Cliente</strong> </p>
           <div class="row">
             <div class="col-6">
-              <label for="nombre_estudio" class="form-label">Nombre</label>
+              <label for="nombre_cliente" class="form-label">Nombre</label>
               <input type="text" name="nombre_comercial" class="form-control input-form" required>
             </div>
             <div class="col-6">
-              <label for="cve_estudio" class="form-label">Razon Social</label>
+              <label for="cve_cliente" class="form-label">Razon Social</label>
               <input type="text" name="razon_social" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
@@ -74,8 +74,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarCliente" class="btn btn-confirmar" id="submit-registrarEstudio">
-          <i class="bi bi-person-plus"></i> Crear
+        <button type="submit" form="formActualizarCliente" class="btn btn-confirmar" id="submit-actualizarcliente">
+          <i class="bi bi-person-plus"></i> Actualizar
         </button>
       </div>
     </div>
