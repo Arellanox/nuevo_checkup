@@ -52,12 +52,6 @@ $cliente_array = array(
 switch($api){
     //insertar un nuevo cliente
     case 1:
-<<<<<<< Updated upstream
-        $array_slice = array_slice($_POST, 0, 14);
-        $values = $master->mis->getFormValues($array_slice);
-        // $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
-        $return = $client->insert($values);
-=======
 
         $response = $master->insertByProcedure('sp_clientes_g',$cliente_array);
         echo $master->mis->returnApi($response);
@@ -65,14 +59,14 @@ switch($api){
         //$form = $client->mis->getFormValues($_POST);
         // $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
         // $return = $client->insert($newClient);
->>>>>>> Stashed changes
+
 
         // if($return>=1){
         //     echo json_encode(array("response"=>array("code"=>1,"msj"=>"¡Cliente agregado!")));
         // }else{
         //     echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
         // }
-        // break;
+         break;
     //recuperar la lista de los clientes activos
     case 2:
         $response = $master->getByProcedure("sp_clientes_b",array(null));
