@@ -30,14 +30,13 @@
     </table>
   </div>
   <div class="col-lg-3">
-    <div style="" class="card pt-4" id=" panel-informacion">
+    <div class="card pt-4" id=" panel-informacion">
       <div>Lista de Contactos</div>
       <table class="table table-hover display responsive " id="TablaContacto">
         <thead class="" style="width: 40%">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-
         </thead>
         <tbody>
           <tr>
