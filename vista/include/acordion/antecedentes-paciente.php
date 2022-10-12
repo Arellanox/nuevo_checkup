@@ -2185,55 +2185,55 @@
   // }
 
 
-  jQuery(document).on("change ,  keyup" , "input[type='radio']" ,function(){
-       var parent_element = jQuery(this).closest("div[class='row']");
-      if (this.value == true) {
-          var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
-          $('#'+collapID).collapse("show")
-          $('#'+collapID).find(':input').prop('required', true);
-      }else{
-          var collapID = jQuery(parent_element).children("div[class='collapse show']").attr("id");
-          $('#'+collapID).collapse("hide")
-          $('#'+collapID).find(':input').val('')
-          $('#'+collapID).find(':input').prop('required', false);
-      }
-  });
+  // jQuery(document).on("change ,  keyup" , "input[type='radio']" ,function(){
+  //      var parent_element = jQuery(this).closest("div[class='row']");
+  //     if (this.value == true) {
+  //         var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
+  //         $('#'+collapID).collapse("show")
+  //         $('#'+collapID).find(':input').prop('required', true);
+  //     }else{
+  //         var collapID = jQuery(parent_element).children("div[class='collapse show']").attr("id");
+  //         $('#'+collapID).collapse("hide")
+  //         $('#'+collapID).find(':input').val('')
+  //         $('#'+collapID).find(':input').prop('required', false);
+  //     }
+  // });
 
-  $("#iniciar-consulta").on('click', function(){
-    if ($('input[type="radio"]:not(:checked)').length > 125) {
-      alert($('input[type="radio"]:not(:checked)').length)
-      console.log($('input[type="radio"]:not(:checked)'))
-      $('input[type="radio"]').prop("checked", true);
-    }else{
-      alert("todo bien");
-    }
-  })
+  // $("#iniciar-consulta").on('click', function(){
+  //   if ($('input[type="radio"]:not(:checked)').length > 125) {
+  //     alert($('input[type="radio"]:not(:checked)').length)
+  //     console.log($('input[type="radio"]:not(:checked)'))
+  //     $('input[type="radio"]').prop("checked", true);
+  //   }else{
+  //     alert("todo bien");
+  //   }
+  // })
 
-  $("#formAntecedentes-paciente").submit(function (event) {
-    event.preventDefault();
-    var form = document.getElementById("formAntecedentes-paciente");
-    var formData = new FormData(form);
-    console.log(formData)
-    $.ajax({
-      data: formData,
-      url: http + servidor + "/nuevo_checkup/api/usuarios_api.php",
-      type: "POST",
-      processData: false,
-      contentType: false,
-      success: function (data) {
-        data = jQuery.parseJSON(data);
-        if (mensajeAjax(data)) {
-          Toast.fire({
-            icon: "success",
-            title: "Equipo registrado!",
-            timer: 2000,
-          });
-          document.getElementById("formAgregarEquipo").reset();
-          $("#ModalRegistrarEquipo").modal("hide");
-          tablaEquipo.ajax.reload();
-        }
-      },
-    });
-    event.preventDefault();
-  });
+  // $("#formAntecedentes-paciente").submit(function (event) {
+  //   event.preventDefault();
+  //   var form = document.getElementById("formAntecedentes-paciente");
+  //   var formData = new FormData(form);
+  //   console.log(formData)
+  //   $.ajax({
+  //     data: formData,
+  //     url: http + servidor + "/nuevo_checkup/api/usuarios_api.php",
+  //     type: "POST",
+  //     processData: false,
+  //     contentType: false,
+  //     success: function (data) {
+  //       data = jQuery.parseJSON(data);
+  //       if (mensajeAjax(data)) {
+  //         Toast.fire({
+  //           icon: "success",
+  //           title: "Equipo registrado!",
+  //           timer: 2000,
+  //         });
+  //         document.getElementById("formAgregarEquipo").reset();
+  //         $("#ModalRegistrarEquipo").modal("hide");
+  //         tablaEquipo.ajax.reload();
+  //       }
+  //     },
+  //   });
+  //   event.preventDefault();
+  // });
 </script>

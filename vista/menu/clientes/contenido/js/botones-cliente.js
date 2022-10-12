@@ -23,5 +23,3 @@ $("#btn-contacto-agregar").click(function () {
   }
 
 });
-
-

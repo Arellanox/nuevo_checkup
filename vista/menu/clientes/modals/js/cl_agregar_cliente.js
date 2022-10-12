@@ -1,16 +1,11 @@
-const ModalEditarContacto = document.getElementById("ModalEditarContacto");
-ModalEditarContacto.addEventListener("show.bs.modal", (event) => {
-
-});
 
 //Formulario de Preregistro
-$("#formActualizarContacto").submit(function (event) {
+$("#formRegistrarCliente").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
-  var form = document.getElementById("formActualizarContacto");
+  var form = document.getElementById("formRegistrarCliente");
   var formData = new FormData(form);
-    formData.set('id_cliente',array_selected['ID_CLIENTE'])
-    formData.set('api', 3);
+  formData.set('api', 1);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
     text: "¡Verifique los Nuevos datos antes de continuar!",
@@ -26,7 +21,7 @@ $("#formActualizarContacto").submit(function (event) {
 
       $.ajax({
         data: formData,
-        url: "../../../api/contactos_api.php",
+        url: "../../../api/clientes_api.php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -35,12 +30,12 @@ $("#formActualizarContacto").submit(function (event) {
           if (mensajeAjax(data)) {
             Toast.fire({
               icon: "success",
-              title: "DatosActualizados Correctamente!",
+              title: "Cliente agregado Correctamente!",
               timer: 2000,
             });
-            document.getElementById("formActualizarContacto").reset();
-            $("#ModalActualizarContacto").modal("hide");
-            tablaEquipo.ajax.reload();
+            document.getElementById("formRegistrarCliente").reset();
+            $("#ModalRegistrarCliente").modal("hide");
+            tablaClientes.ajax.reload();
           }
         },
       });

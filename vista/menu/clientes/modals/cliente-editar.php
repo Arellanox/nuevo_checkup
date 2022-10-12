@@ -27,11 +27,11 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="curp" class="form-label">CURP</label>
-              <input name="curp" id="curp" class="form-control input-form" required>
+              <input type="text" name="curp" id="curp" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="abreviatura" class="form-label">Abreviatura</label>
-              <input name="abreviatura" id="abreviatura" class="form-control input-form" required>
+              <input type="text" name="abreviatura" id="abreviatura" class="form-control input-form" required>
               </inp>
             </div>
             <div class="col-6 col-md-6">

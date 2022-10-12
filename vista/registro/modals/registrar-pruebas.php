@@ -54,7 +54,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarPrueba" class="btn btn-confirmar" id="btnFormRegistrarPruba">
+        <button type="button" class="btn btn-confirmar" id="btnFormRegistrarPruba">
           <i class="bi bi-send-plus"></i> Registrar
         </button>
       </div>

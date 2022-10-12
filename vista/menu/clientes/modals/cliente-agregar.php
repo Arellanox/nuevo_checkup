@@ -19,34 +19,34 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="grupo" class="form-label">Nombre del Sistema</label>
-              <input name="nombre_sistema" id="nombre_sistema" class="form-control input-form" required>
+              <input name="nombre_sistema" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="rfc" class="form-label">RFC</label>
-              <input type="text" name="rfc" id="rfc" class="form-control input-form" required>
+              <input type="text" name="rfc" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="curp" class="form-label">CURP</label>
-              <input name="curp" id="curp" class="form-control input-form" required>
+              <input type="text" name="curp" id="curp" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="abreviatura" class="form-label">Abreviatura</label>
-              <input name="abreviatura" id="abreviatura" class="form-control input-form" required>
+              <input type="text" name="abreviatura" id="abreviatura" class="form-control input-form" required>
               </inp>
             </div>
             <div class="col-6 col-md-6">
               <label for="limite" class="form-label">Limite de Credito</label>
-              <input name="limite" type="text" id="limite_credito" class="form-control input-form" required>
+              <input name="limite" type="number" id="limite_credito" class="form-control input-form" required>
 
             </div>
             <div class="col-3 col-md-3">
               <label for="tiempo_credito" class="form-label">Temporalidad de Credito</label>
-              <input type="text" name="tiempo_credito" class="form-control input-form" id="tiempo_credito" required>
+              <input type="number" name="tiempo_credito" class="form-control input-form" id="tiempo_credito" required>
 
             </div>
             <div class="col-3 col-md-3">
               <label for="cuenta_contable" class="form-label">Cuenta Contable</label>
-              <input type="text" name="cuenta_contable" class="form-control input-form" required>
+              <input type="number" name="cuenta_contable" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Pagina Web</label>

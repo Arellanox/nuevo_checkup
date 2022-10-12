@@ -21,9 +21,10 @@ $id=$_POST['id'];
 switch($api){
     //insertar un nuevo cliente
     case 1:
-        //$form = $client->mis->getFormValues($_POST);
-        $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
-        $return = $client->insert($newClient);
+        $array_slice = array_slice($_POST, 0, 14);
+        $values = $master->mis->getFormValues($array_slice);
+        // $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
+        $return = $client->insert($values);
 
         if($return>=1){
             echo json_encode(array("response"=>array("code"=>1,"msj"=>"¡Cliente agregado!")));
