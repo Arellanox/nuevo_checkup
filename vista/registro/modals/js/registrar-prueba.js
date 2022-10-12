@@ -55,6 +55,8 @@ $('#actualizarForm').click(function(){
       }
     },
   });
+
+  obtenerSignosVitales('#antecedentes-registro')
 })
 
 $('#eliminarForm').click(function(){
@@ -65,12 +67,13 @@ $('#eliminarForm').click(function(){
   $("#formDIV").fadeToggle(400);
   $('#btnFormRegistrarPruba').prop('disabled',true);
   window.location.hash = "curp-paciente";
+  $('##antecedentes-registro').html('')
 })
 
-$("#formRegistrarPrueba").submit(function(event){
+$("#formAntecedentes-paciente").submit(function(event){
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
-    var form = document.getElementById("formRegistrarPrueba");
+    var form = document.getElementById("formAntecedentes-paciente");
     var formData = new FormData(form);
     console.log(formData.get('estudiosLab[]'))
     if (formData.get('estudiosLab[]') == null) {
@@ -113,7 +116,7 @@ $("#formRegistrarPrueba").submit(function(event){
                  });
                  // Autocompletar el campo de prefolio y CURP en consulta de resultado
 
-                 document.getElementById("formRegistrarPrueba").reset();
+                 document.getElementById("formAntecedentes-paciente").reset();
                  $("#ModalRegistrarPrueba").modal('hide');
                break;
                default:

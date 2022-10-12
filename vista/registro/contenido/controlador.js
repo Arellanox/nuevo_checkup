@@ -5,3 +5,12 @@ function obtenerContenido(tabla){
      $("#body-js").html(html);
   });
 }
+
+function obtenerSignosVitales(div){
+  $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
+    setTimeout(function () {
+      $(div).html(html);
+    }, 100);
+
+  });
+}
