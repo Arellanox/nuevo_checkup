@@ -15,4 +15,8 @@ $("#btn-contacto-editar").click(function () {
   }
 });
 
+$("#btn-contacto-agregar").click(function () {
+  $("#ModalAgregarContacto").modal("show");
+});
+
 

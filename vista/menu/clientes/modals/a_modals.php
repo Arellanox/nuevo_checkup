@@ -7,3 +7,4 @@ include "segmento-agregar.php";
 include "cliente-agregar.php";
 include "cliente-editar.php";
 include "contacto-editar.php";
+include "contacto-agregar.php";
