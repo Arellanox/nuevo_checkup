@@ -11,23 +11,23 @@
           <div class="row">
             <div class="col-6">
               <label for="nombre_contacto" class="form-label">Nombre</label>
-              <input type="text" name="nombre_contacto" class="form-control input-form" required>
+              <input type="text" id="nombre_contacto" name="nombre_contacto" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="apellidos_contacto" class="form-label">Apellidos</label>
-              <input type="text" name="apellidos_contacto" class="form-control input-form" required>
+              <input type="text" id="apellidos_contacto" name="apellidos_contacto" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="telefono1_contacto" class="form-label">Telefono 1</label>
-              <input type="text" name="telefono1_contacto" class="form-control input-form" required>
+              <input type="text" id="telefono1_contacto" name="telefono1_contacto" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="telefono2_contacto" class="form-label">Telefono 2</label>
-              <input type="text" name="telefono2_contacto" class="form-control input-form" required>
+              <input type="text" id="telefono2_contacto" name="telefono2_contacto" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="email_contacto" class="form-label">Correo Electronico</label>
-              <input type="email" name="email_contacto" class="form-control input-form" required>
+              <input type="email" id="email_contacto" name="email_contacto" class="form-control input-form" required>
             </div>
           </div>
         </form>

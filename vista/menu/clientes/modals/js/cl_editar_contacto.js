@@ -1,6 +1,19 @@
 const ModalActualizarContacto = document.getElementById("ModalActualizarContacto");
 ModalActualizarContacto.addEventListener("show.bs.modal", (event) => {
 
+
+
+$("#nombre_contacto").val(selectContacto["NOMBRE"]);
+$("#apellidos_contacto").val(selectContacto["APELLIDOS"]);
+$("#telefono1_contacto").val(selectContacto["TELEFONO1"]);
+$("#telefono2_contacto").val(selectContacto["TELEFONO2"]);
+$("#email_contacto").val(selectContacto["EMAIL"]);
+
+
+
+
+
+
 });
 
 //Formulario de Preregistro
@@ -9,8 +22,8 @@ $("#formActualizarContacto").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formActualizarContacto");
   var formData = new FormData(form);
-  formData.set('status',null)
-    formData.set('api', 3);
+  formData.set('id',selectContacto['ID_CONTACTO']);
+    formData.set('api', 4);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
     text: "¡Verifique los Nuevos datos antes de continuar!",
@@ -40,7 +53,7 @@ $("#formActualizarContacto").submit(function (event) {
             });
             document.getElementById("formActualizarContacto").reset();
             $("#ModalActualizarContacto").modal("hide");
-            tablaEquipo.ajax.reload();
+            tablaContacto.ajax.reload();
           }
         },
       });
