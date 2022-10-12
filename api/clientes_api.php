@@ -18,20 +18,55 @@ $client = new Clientes();
 //$form = $client->mis->getFormValues($_POST);
 $api = $_POST['api'];//$form['api'];
 $id=$_POST['id'];
+$nombre_comercial = $_POST['nombre_comercial'];
+$razon_social = $_POST['razon_social'];
+$rfc = $_POST['rfc'];
+$curp = $_POST['curp'];
+$abreviatura = $_POST['abreviatura'];
+$limite_credito = $_POST['limite_credito'];
+$temporalidad_credito = $_POST['temporalidad_credito'];
+$cuenta_contable = $_POST['cuenta_contable'];
+$pagina_web = $_POST['pagina_web'];
+$facebook = $_POST['facebook'];
+$twitter = $_POST['twitter'];
+$instagram = $_POST['instagram'];
+$codigo = $_POST['codigo'];
+
+$cliente_array = array(
+    $nombre_comercial,
+    $razon_social,
+    $nombre_sistema,
+    $rfc,
+    $curp,
+    $abreviatura,
+    $limite_credito,
+    $temporalidad_credito,
+    $cuenta_contable,
+    $pagina_web,
+    $facebook,
+    $twitter,
+    $instagram,
+    $codigo,
+    $id
+);
 switch($api){
     //insertar un nuevo cliente
     case 1:
-        $array_slice = array_slice($_POST, 0, 14);
-        $values = $master->mis->getFormValues($array_slice);
-        // $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
-        $return = $client->insert($values);
 
-        if($return>=1){
-            echo json_encode(array("response"=>array("code"=>1,"msj"=>"¡Cliente agregado!")));
-        }else{
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
-        }
-        break;
+        $response = $master->insertByProcedure('sp_clientes_g',$cliente_array);
+        echo $master->mis->returnApi($response);
+        
+        //$form = $client->mis->getFormValues($_POST);
+        // $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
+        // $return = $client->insert($newClient);
+
+
+        // if($return>=1){
+        //     echo json_encode(array("response"=>array("code"=>1,"msj"=>"¡Cliente agregado!")));
+        // }else{
+        //     echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
+        // }
+         break;
     //recuperar la lista de los clientes activos
     case 2:
         $response = $master->getByProcedure("sp_clientes_b",array(null));
