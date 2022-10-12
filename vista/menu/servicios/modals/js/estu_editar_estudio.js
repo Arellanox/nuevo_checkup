@@ -4,6 +4,7 @@ modalEditarEstudio.addEventListener("show.bs.modal", (event) => {
 });
 
 async function cargarDatosEstuEdit() {
+  $('#formEditarEstudio').trigger("reset");
   await rellenarSelect("#edit-grupo-estudio", 'servicios_api',7,0,'DESCRIPCION');
   await rellenarSelect("#edit-area-estudio", "areas_api", 2,0,2);
   await rellenarSelect('#edit-clasificacion-estudio','laboratorio_clasificacion_api', 2,0,1);
@@ -11,11 +12,17 @@ async function cargarDatosEstuEdit() {
   await rellenarSelect("#edit-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1);
   if (   await rellenarSelect("#edit-concepto-facturacion", "sat_catalogo_api", 2, 0, 'COMPLETO')  ) {
 
-    console.log(array_selected)
-    $('#edit-clasificacion-estudio').val(null).trigger('change');
+    // $('#edit-clasificacion-estudio').val(null).trigger('change');
     $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
     $('#edit-cve-estudio').val(array_selected['ABREVIATURA']);
-    $('#edit-grupo-estudio').val(array_selected['PADRE']).trigger('change');
+    // $('#').val(array_selected['PADRE']).trigger('change');
+    for (var i = 0; i < array_selected['DETALLE_GRUPOS'].length; i++) {
+      padre = new Array()
+      padre[i] = array_selected['DETALLE_GRUPOS'][i]['ID_SERVICIO']
+    }
+
+    $("#edit-grupo-estudio").val(padre).trigger('change');
+
     $('#edit-area-estudio').val(array_selected['ID_AREA']).trigger('change');
     $('#edit-clasificacion-estudio').val(array_selected['ID_CLASIFICACION']).trigger('change');
     $('#edit-medidas-estudio').val(array_selected['ID_MEDIDA']).trigger('change');

@@ -346,35 +346,15 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
        $(panel).html(html);
      }, 100);
   }).done(function(){
-    if (id > 0) {
-      row = array_selected;
-      switch (tipPanel) {
-        case 'paciente':
-            if (array_selected != null) {
-              $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-              $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
-              $('#info-paci-curp').html(row.CURP);
-              $('#info-paci-telefono').html(row.CELULAR);
-              $('#info-paci-correo').html(row.CORREO);
-              $('#info-paci-sexo').html(row.GENERO);
-              if (row.TURNO) {
-                $('#info-paci-turno').html(row.TURNO);
-              }else{
-                $('#info-paci-turno').html('Sin generar');
-              }
-              $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
-              row.MUNICIPIO+", "+row.ESTADO);
-            }else{
-              $.ajax({
-                url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-                data: { api: 2, id: id },
-                type: "POST",
-                datatype: 'json',
-                success: function (data) {
-                  data = jQuery.parseJSON(data);
-                  row = data[0];
+     setTimeout(function () {
+        // $(panel).fadeOut(0);
+        if (id > 0) {
+          row = array_selected;
+          switch (tipPanel) {
+            case 'paciente':
+                if (array_selected != null) {
                   $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                  $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                  $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
                   $('#info-paci-curp').html(row.CURP);
                   $('#info-paci-telefono').html(row.CELULAR);
                   $('#info-paci-correo').html(row.CORREO);
@@ -386,51 +366,92 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   }
                   $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
                   row.MUNICIPIO+", "+row.ESTADO);
+                }else{
+                  $.ajax({
+                    url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                    data: { api: 2, id: id },
+                    type: "POST",
+                    datatype: 'json',
+                    success: function (data) {
+                      data = jQuery.parseJSON(data);
+                      row = data[0];
+                      $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                      $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                      $('#info-paci-curp').html(row.CURP);
+                      $('#info-paci-telefono').html(row.CELULAR);
+                      $('#info-paci-correo').html(row.CORREO);
+                      $('#info-paci-sexo').html(row.GENERO);
+                      if (row.TURNO) {
+                        $('#info-paci-turno').html(row.TURNO);
+                      }else{
+                        $('#info-paci-turno').html('Sin generar');
+                      }
+                      $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
+                      row.MUNICIPIO+", "+row.ESTADO);
+                    }
+                  })
                 }
-              })
-            }
-        break;
-        case 'estudio':
-          $('#nombre-estudio').html(row.DESCRIPCION);
-          $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
-          $('#estudio-metodo').html(row.METODO);
-          $('#estudio-medida').html(row.MEDIDA);
-          $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
-          if (row.LOCAL == 1) {
-            $('#estudio-subroga').html('Si');
-          }else{
-            $('#estudio-subroga').html('No');
+            break;
+            case 'estudio':
+              $('#nombre-estudio').html(row['DESCRIPCION']);
+              $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
+              $('#estudio-metodo').html(row.METODO);
+              $('#estudio-medida').html(row.MEDIDA);
+              $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
+              if (row.LOCAL == 1) {
+                $('#estudio-subroga').html('Si');
+              }else{
+                $('#estudio-subroga').html('No');
+              }
+              if (row.MUESTRA_VALORES_REFERENCIA == 1) {
+                $('#estudio-valorvista').html('Si');
+              }else{
+                $('#estudio-valorvista').html('No');
+              }
+              $('#estudio-indicaciones').html(row.INDICACIONES);
+              $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
+              $('#estudio-venta').html(row.PRECIO_VENTA);
+            break;
+            case 'equipo':
+              $('#nombre-equipo').html(row.MARCA + "-"+row.MODELO);
+              // $('#equipo-equipo').html(row.);
+              $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
+              $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
+              $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
+              $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO +" "+row.NUMERO_PRUEBAS);
+              $('#equipo-calibracion').html(row.CALIBRACION +" "+ row.NUMERO_PRUEBAS_CALIBRACION);
+              $('#equipo-uso').html(row.USO);
+              $('#equipo-descripcion').html(row.DESCRIPCION);
+            break;
+            case 'signos-vitales':
+
+            break;
+            case 'cliente':
+            console.log(row)
+              $('#nombreComercial-cliente').html(row.NOMBRE_COMERCIAL);
+              $('#nombreSistema-cliente').html(row.NOMBRE_SISTEMA);
+              $('#info-cliente-RFC').html(row.RFC);
+              $('#info-cliente-CURP').html(row.CURP);
+              $('#info-cliente-codigo').html(row.CODIGO);
+              $('#info-cliente-credito').html(row.LIMITE_CREDITO);
+              $('#info-cliente-tempcredito').html(row.TEMPORALIDAD_DE_CREDITO);
+              $('#info-cliente-cuentaContable').html(row.CUENTA_CONTABLE);
+              $('#info-cliente-pagweb').attr("href").replace(row.PAGINA_WEB);
+              $('#info-cliente-pagweb').text(row.PAGINA_WEB);
+            break;
+            case 'contacto':
+            console.log(selectContacto)
+
+            break;
+
+            default:
+
           }
-          if (row.MUESTRA_VALORES_REFERENCIA == 1) {
-            $('#estudio-valorvista').html('Si');
-          }else{
-            $('#estudio-valorvista').html('No');
-          }
-          $('#estudio-indicaciones').html(row.INDICACIONES);
-          $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
-          $('#estudio-venta').html(row.PRECIO_VENTA);
-        break;
-        case 'equipo':
-          $('#nombre-equipo').html(row.MARCA + "-"+row.MODELO);
-          // $('#equipo-equipo').html(row.);
-          $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
-          $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
-          $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
-          $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO +" "+row.NUMERO_PRUEBAS);
-          $('#equipo-calibracion').html(row.CALIBRACION +" "+ row.NUMERO_PRUEBAS_CALIBRACION);
-          $('#equipo-uso').html(row.USO);
-          $('#equipo-descripcion').html(row.DESCRIPCION);
-        break;
-        case 'signos-vitales':
-
-        break;
-
-        default:
-
-      }
-    }else{
-      $('#info-php').fadeOut(100);
-    }
+          $(panel).fadeIn(100);
+        }else{
+          $(panel).fadeOut(100);
+        }
+     }, 110);
   });
 }
 

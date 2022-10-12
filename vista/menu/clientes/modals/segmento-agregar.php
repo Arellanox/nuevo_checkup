@@ -1,4 +1,4 @@
-+<div class="modal fade" id="ModalRegistrarSegmentos" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+<div class="modal fade" id="ModalRegistrarSegmentos" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">

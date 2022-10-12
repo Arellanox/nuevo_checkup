@@ -11,7 +11,7 @@ if (! $tokenValido){
 }
 
 $contact = new Contactos();
-$api = 2;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
@@ -23,7 +23,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
-    
+
     case 2:
         $response = $contact->getAll();
 
@@ -34,7 +34,7 @@ switch ($api) {
         }
         break;
     case 3:
-        $response = $contact->getById(1);
+        $response = $contact->getById($_POST[]);
         if(is_array($response)){
             echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
         } else {
@@ -51,7 +51,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
         }
         break;
-    
+
     case 5:
         $response = $contact->delete(1);
 
@@ -60,9 +60,9 @@ switch ($api) {
         } else {
             echo json_encode(array("response"=>array("code"=>1,"msj"=>$response)));
         }
-        
+
         break;
-    
+
     default:
         # code...
         break;

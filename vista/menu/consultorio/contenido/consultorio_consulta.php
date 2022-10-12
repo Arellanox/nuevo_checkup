@@ -174,26 +174,26 @@
       <div class="row" style="margin:0">
         <div class="col-5">
           <label for="metodo" class="form-label"></label>
-          <select name="metodo" id="registrar-metodos-estudio" class="form-select input-form" required>
-            <option value="">Habito Constitucionales</option>
-            <option value="">Cabeza</option>
-            <option value="">Cavidad Bucal</option>
-            <option value="">Cuello</option>
-            <option value="">Tórax</option>
-            <option value="">Aparato Respiratorio</option>
-            <option value="">Cardiovascular</option>
-            <option value="">Abdomen y pélvis</option>
-            <option value="">Ingles</option>
-            <option value="">Aparato Genito-urinario</option>
-            <option value="">Gineco-obstetrico</option>
-            <option value="">Piel y faneras</option>
-            <option value="">Sistema Hemolinfopoyético</option>
-            <option value="">Aparato Osteomuscular</option>
-            <option value="">Sistema Nervioso Central</option>
+          <select name="metodo" id="select-exploracion-clinica" class="form-select input-form" required>
+            <option value="1">Habito Constitucionales</option>
+            <option value="2">Cabeza</option>
+            <option value="3">Cavidad Bucal</option>
+            <option value="4">Cuello</option>
+            <option value="5">Tórax</option>
+            <option value="6">Aparato Respiratorio</option>
+            <option value="7">Cardiovascular</option>
+            <option value="8">Abdomen y pélvis</option>
+            <option value="9">Ingles</option>
+            <option value="10">Aparato Genito-urinario</option>
+            <option value="11">Gineco-obstetrico</option>
+            <option value="12">Piel y faneras</option>
+            <option value="13">Sistema Hemolinfopoyético</option>
+            <option value="14">Aparato Osteomuscular</option>
+            <option value="15">Sistema Nervioso Central</option>
           </select>
-          <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas" style="width:95%"></textarea>
+          <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas" style="width:95%" id="text-exploracion-clinica"></textarea>
           <div class=" d-flex justify-content-end">
-            <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarUsuario">
+            <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-agregar-exploracion-clinina">
               <i class="bi bi-clipboard-plus"></i> Agregar
             </button>
           </div>

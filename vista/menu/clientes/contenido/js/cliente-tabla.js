@@ -1,4 +1,4 @@
-var tablaClientes = $("#TablaSegmentosAdmin").DataTable({
+var tablaClientes = $("#TablaClientes").DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
@@ -19,17 +19,38 @@ var tablaClientes = $("#TablaSegmentosAdmin").DataTable({
     complete: function () {
       loader("Out");
     },
-    dataSrc: "",
+    dataSrc: "response.data",
   },
   columns: [
-    { data: [0] },
-    { data: [1] },
-    { data: [2] },
-    { data: [3]},
+    { data: 'COUNT' },
+    { data: 'NOMBRE_COMERCIAL' },
+    { data: 'RAZON_SOCIAL' },
+    { data: 'ABREVIATURA'},
 
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [{ width: "3px", targets: 0 }],
 });
 // setTimeout(function(){loader("In")}, 500);
-selectDatatable("TablaClientes", tablaClientes);
+// selectDatatable("TablaClientes", tablaClientes);
+
+$('#TablaClientes tbody').on('click', 'tr', function () {
+   if ($(this).hasClass('selected')) {
+       $(this).removeClass('selected');
+       array_selected = null;
+       // datacontactos.api = 2;
+       datacontactos.id = 1;
+       tablaContacto.ajax.reload();
+       obtenerPanelInformacion(0, 0, 'cliente')
+   } else {
+       tablaClientes.$('tr.selected').removeClass('selected');
+       $(this).addClass('selected');
+       array_selected = tablaClientes.row( this ).data();
+       // datacontactos.api = 2;
+       datacontactos.id = array_selected['ID_CLIENTE'];
+       tablaContacto.ajax.reload();
+
+       obtenerPanelInformacion(1, 0, 'cliente')
+
+   }
+});

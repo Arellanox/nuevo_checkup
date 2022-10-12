@@ -33,7 +33,6 @@ switch($api){
         break;
     //recuperar la lista de los clientes activos
     case 2:
-        echo "hol";
         $response = $master->getByProcedure("sp_clientes_b",array(null));
 
         if(is_array($response)){

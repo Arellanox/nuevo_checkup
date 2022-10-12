@@ -1,6 +1,11 @@
 <div class="row">
-  <div class="card col-12 col-lg-3 pt-4" id="panel-informacion">
+  <div class="card col-3 col-lg-3 pt-4">
+    <div class="" id="panel-informacion">
 
+    </div>
+    <div class="" id="contacto-informacion">
+
+    </div>
   </div>
   <div class="card col-6 col-lg-6" style="margin-bottom:5px">
     <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
@@ -29,9 +34,18 @@
       </tbody>
     </table>
   </div>
-  <div class="col-lg-3">
-    <div class="card pt-4" id=" panel-informacion">
-      <div>Lista de Contactos</div>
+  <div class="col-lg-3 card">
+    <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-cliente-editar">
+        <i class="bi bi-pencil-square"></i> Editar Cliente
+      </button>
+    </div>
+    <div class="" id=" panel-informacion">
+      <h5>Lista de contactos</h5>
+      <div class="text-center">
+        <label for="inputBuscarTableListaNuevos">Buscar:</label>
+        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" id="BuscarTablaContactos">
+      </div>
       <table class="table table-hover display responsive " id="TablaContacto">
         <thead class="" style="width: 40%">
           <tr>
@@ -49,3 +63,10 @@
     </div>
   </div>
 </div>
+
+
+<style media="screen">
+  #TablaContacto_filter{
+    display: none;
+  }
+</style>

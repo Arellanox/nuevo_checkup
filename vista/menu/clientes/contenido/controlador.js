@@ -5,6 +5,9 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
+var datacontactos ={api:2,id:1};
+var tablaContacto;
+var selectContacto;
 
 function obtenerContenidoSegmentos(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
@@ -44,7 +47,11 @@ function obtenerContenidoCliente(titulo) {
     $("#body-js").html(html);
     // Datatable
     $.getScript("contenido/js/cliente-tabla.js");
+    // Datatable
+    $.getScript("contenido/js/contactos-tabla.js");
     // Botones
     $.getScript("contenido/js/botones-cliente.js");
+    // Botones
+    $.getScript("contenido/js/botones-contactos.js");
   });
 }
