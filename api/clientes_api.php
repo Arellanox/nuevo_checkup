@@ -3,6 +3,7 @@ include "../interfaces/iMetodos.php";
 require_once "../clases/token_auth.php";
 include "../clases/clientes_class.php";
 include "../clases/contactos_class.php";
+include_once "../clases/master_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -10,6 +11,8 @@ if (! $tokenValido){
     $tokenVerification->logout();
     exit;
 }
+
+$master = new Master();
 
 $client = new Clientes();
 //$form = $client->mis->getFormValues($_POST);
@@ -30,7 +33,15 @@ switch($api){
         break;
     //recuperar la lista de los clientes activos
     case 2:
-        $return = $client->getAll();
+        echo "hol";
+        $response = $master->getByProcedure("sp_clientes_b",array(null));
+
+        if(is_array($response)){
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        }else {
+            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+        }
+       /*  $return = $client->getAll();
         $newSet = array();
 
         if(is_array($return)){
@@ -44,7 +55,7 @@ switch($api){
             echo json_encode(array("response"=>array("code"=>1,"data"=>$newSet)));
         }else{
            echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
-        }
+        } */
         break;
     //recuperar los datos de un cliente especifico
     case 3:
