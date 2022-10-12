@@ -8,7 +8,7 @@ $("#btn-cliente-editar").click(function () {
 
 
 $("#btn-contacto-editar").click(function () {
-  if (array_selected != null) {
+  if (selectContacto != null) {
     $("#ModalActualizarContacto").modal("show");
   } else {
     alertSelectTable();
@@ -16,7 +16,12 @@ $("#btn-contacto-editar").click(function () {
 });
 
 $("#btn-contacto-agregar").click(function () {
-  $("#ModalAgregarContacto").modal("show");
+    if (array_selected != null) {
+    $("#ModalAgregarContacto").modal("show");
+  } else {
+    alertSelectTable();
+  }
+
 });
 
 

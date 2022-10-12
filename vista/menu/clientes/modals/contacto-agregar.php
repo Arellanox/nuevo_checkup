@@ -31,12 +31,13 @@
             </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formAgregarContacto" class="btn btn-confirmar" id="submit-agregar-contacto">
-          <i class="bi bi-person-plus"></i> Agregar
-        </button>
-      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+      <button type="submit" form="formAgregarContacto" class="btn btn-confirmar" id="submit-agregar-contacto">
+        <i class="bi bi-person-plus"></i> Agregar
+      </button>
     </div>
   </div>
+</div>
 </div>

@@ -29,6 +29,7 @@
               <label for="email_contacto" class="form-label">Correo Electronico</label>
               <input type="email" name="email_contacto" class="form-control input-form" required>
             </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
