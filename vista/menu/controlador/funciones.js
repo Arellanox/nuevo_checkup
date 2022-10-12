@@ -447,6 +447,10 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
             break;
             case 'contacto':
             console.log(selectContacto)
+              $('#nombre-contacto').html(selectContacto.NOMBRE+' '+selectContacto.APELLIDOS);
+              $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
+              $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
+              $('#info-contacto-email').html(selectContacto.EMAIL);
 
             break;
 
