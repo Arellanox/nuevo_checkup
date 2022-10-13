@@ -1,4 +1,3 @@
-alert("js agregado")
 //Formulario de Preregistro
 $("#formAgregarContacto").submit(function (event) {
   event.preventDefault();

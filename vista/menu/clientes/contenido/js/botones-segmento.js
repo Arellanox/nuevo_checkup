@@ -1,3 +1,11 @@
+$("#btn-segmentos-aregar").click(function () {
+  if (array_selected != null) {
+    $("#ModalAgregarSegmento").modal("show");
+  } else {
+    alertSelectTable();
+  }
+});
+
 $("#btn-segmentos-editar").click(function () {
   if (array_selected != null) {
     $("#ModalEditarSegmento").modal("show");
@@ -29,3 +37,4 @@ $("#btn-segmentos-eliminiar").click(function () {
     alertSelectTable();
   }
 });
+

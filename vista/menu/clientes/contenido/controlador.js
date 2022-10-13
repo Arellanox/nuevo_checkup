@@ -1,4 +1,3 @@
-
 obtenerContenidoCliente("Clientes");
 // $(window).on("hashchange", function (e) {
 //   hasLocation();
@@ -9,6 +8,7 @@ var tablaContacto;
 var selectContacto;
 
 
+var dataSegmento = {api:2,id_cliente:0}, tablaSegmentos,selectSegmento;
 
 function obtenerContenidoCliente(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
