@@ -2,7 +2,7 @@
 
 //Segmento
 include "segmento-agregar.php";
-
+include "segmento-editar.php";
 //Cliente
 include "cliente-agregar.php";
 include "cliente-editar.php";

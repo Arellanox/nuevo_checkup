@@ -18,6 +18,9 @@ $.post("modals/a_modals.php", function(html){
    //Modal para Registrar Segmentos
    $.getScript('modals/js/sg_agregar_segmento.js');
 
+   //Modal para Actualizar Segmentos
+   $.getScript('modals/js/sg_editar_segmento.js');
+
 
 
    //$.getScript('modals/js/p_rechazar.js');

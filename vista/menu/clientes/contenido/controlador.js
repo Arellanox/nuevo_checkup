@@ -8,7 +8,7 @@ var tablaContacto;
 var selectContacto;
 
 
-var dataSegmento = {api:2,id_cliente:0}, tablaSegmentos,selectSegmento;
+var dataSegmento = {api:2, cliente_id:0}, tablaSegmentos,selectSegmento;
 
 function obtenerContenidoCliente(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
@@ -42,7 +42,7 @@ function obtenerListaContactos(){
     // Datatable
     $.getScript("contenido/js/contactos-tabla.js");
     // Botones
-    $.getScript("contenido/js/botones-contactos.js");
+
   })
 }
 

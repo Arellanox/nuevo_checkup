@@ -8,7 +8,7 @@ $("#btn-segmentos-agregar").click(function () {
 
 $("#btn-segmentos-editar").click(function () {
   if (array_selected != null) {
-    $("#ModalEditarSegmento").modal("show");
+    $("#ModalEditarSegmentos").modal("show");
   } else {
     alertSelectTable();
   }

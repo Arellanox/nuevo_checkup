@@ -27,7 +27,7 @@ $("#formActualizarCliente").submit(function (event) {
   var form = document.getElementById("formActualizarCliente");
   var formData = new FormData(form);
   formData.set('id',array_selected['ID_CLIENTE']);
-    formData.set('api', 4);
+    formData.set('api', 3);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
     text: "¡Verifique los Nuevos datos antes de continuar!",

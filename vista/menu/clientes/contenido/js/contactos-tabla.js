@@ -17,7 +17,6 @@ tablaContacto = $("#TablaContacto").DataTable({
   // ],
   ajax: {
     dataType: "json",
-    data: { api: 2 },
     data: function (d) {
       return $.extend(d, datacontactos);
     },
