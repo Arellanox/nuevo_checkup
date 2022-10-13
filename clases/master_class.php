@@ -25,7 +25,7 @@ class Master extends Miscelaneus
 
     function connectDb()
     {
-        require_once 'pdoconfig.php';
+        // require_once 'pdoconfig.php';
         $host = "212.1.208.201";
         $dbname = "u808450138_checkup";
         $username = "u808450138_bimo";
