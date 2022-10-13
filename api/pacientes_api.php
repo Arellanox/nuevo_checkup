@@ -1,7 +1,6 @@
 <?php
-include "../interfaces/iMetodos.php";
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
-include "../clases/segmentos_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
