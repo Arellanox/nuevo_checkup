@@ -2,8 +2,8 @@ const ModalEditarSegmentos = document.getElementById("ModalEditarSegmentos");
 ModalEditarSegmentos.addEventListener("show.bs.modal", (event) => {
 
 
-$("#nombre_cliente").val(selectSegmento["CLIENTE_ID"]);
-$("#razon_social").val(selectSegmento["DESCRIPCION"]);
+$("#descripcion_segmento").val(selectSegmento["CLIENTE_ID"]);
+$("#descripcion_segmento").val(selectSegmento["DESCRIPCION"]);
 
 
 

@@ -8,8 +8,7 @@ $("#btn-segmentos-agregar").click(function () {
 });
 
 $("#btn-segmentos-editar").click(function () {
-  alert('aijshdihj')
-  if (array_selected != null) {
+  if (selectSegmento != null) {
     $("#ModalEditarSegmentos").modal("show");
   } else {
     alertSelectTable('No ha seleccionado un segmento');
