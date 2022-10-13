@@ -1,6 +1,9 @@
 var tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
+  processing: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    loadingRecords: '&nbsp;',
+    processing: '<div class="spinner"></div>'
   },
   lengthChange: false,
   info: false,
@@ -12,12 +15,12 @@ var tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
     data: { api: 2 },
     method: "POST",
     url: "../../../api/segmentos_api.php",
-    beforeSend: function () {
-      loader("In");
-    },
-    complete: function () {
-      loader("Out");
-    },
+    // beforeSend: function () {
+    //   loader("In");
+    // },
+    // complete: function () {
+    //   loader("Out");
+    // },
     dataSrc: "",
   },
   columns: [

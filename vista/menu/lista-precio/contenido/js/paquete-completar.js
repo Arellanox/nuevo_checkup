@@ -8,7 +8,7 @@ $('input[type=radio][name=selectChecko]').change(function() {
 });
 
 
-rellenarSelect("#seleccion-paquete", "paquetes_api", 2, 0, 'COUNT.DESCRIPCION', {'ID_SERVICIO' : '1'});
+rellenarSelect("#seleccion-paquete", "paquetes_api", 2, 0, 'COUNT.DESCRIPCION', {'VACIOS' : '1'});
 
 
 

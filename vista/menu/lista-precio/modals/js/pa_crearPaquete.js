@@ -46,7 +46,7 @@ $("#formRegistrarPaquete").submit(function (event) {
             });
             document.getElementById("formRegistrarPaquete").reset();
             $("#ModalRegistrarPaquete").modal("hide");
-            tablaEquipo.ajax.reload();
+            // tablaEquipo.ajax.reload();
           }
         },
       });

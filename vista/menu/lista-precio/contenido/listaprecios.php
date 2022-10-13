@@ -1,6 +1,7 @@
 <div class="row ">
-  <div class="card col-12 pt-3" style="margin-bottom:5px;">
-    <div class="text-start" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
+  <div class="card col-4 p-4" style="margin-bottom:5px;">
+    <div class="text-start row" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
+      <h4>Seleccione una area</h4>
       <style media="screen">
         .btn-outline-success{
           border-color: transparent;
@@ -9,23 +10,34 @@
           opacity: 50%;
         }
       </style>
-      <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="1" autocomplete="off">
-      <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Rayos X, Imagennología</label>
-
-      <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="2" autocomplete="off">
-      <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
-
-      <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="3" autocomplete="off">
-      <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
-
-      <input type="radio" class="btn-check" name="selectChecko" id="check-paquetes" value="4" autocomplete="off">
-      <label class="btn btn-outline-success" for="check-paquetes"><i class="bi bi-list"></i> Paquetes</label>
-
-      <label for="inputBuscarTableListaNuevos">Seleccione Cliente:</label>
-      <select name="metodo" id="seleccion-cliente" required>
-      </select>
+      <div class="col-auto m-1">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagennología</label>
+      </div>
+      <div class="col-auto m-1">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
+      </div>
+      <div class="col-auto m-1">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
+      </div>
+      <div class="col-auto m-1">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-paquetes" value="Paq" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-paquetes"><i class="bi bi-list"></i> Paquetes</label>
+        <label for="inputBuscarTableListaNuevos">Seleccione Cliente:</label>
+        <select name="metodo" id="seleccion-cliente" required>
+        </select>
+      </div>
     </div>
-    <div>
+  </div>
+  <div class="col-8 card">
+    <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-precios-guardar">
+        <i class="bi bi-save"></i> Guardar
+      </button>
+    </div>
+    <div class="" style="margin-left: 30px; margin-right: 30px;">
       <table class="table table-hover display responsive " id="TablaListaPrecios" style="width: 100%">
         <thead style="width: 100%">
           <tr>
@@ -37,53 +49,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>
-              Nombre Estudio
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-span">$</span>
-                <input type="number" class="form-control input-form costo" name="costo" placeholder="" value="">
-                <span class="input-span">.00</span>
-              </div>
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-span">%</span>
-                <input type="number" class="form-control input-form margen" name="margen" placeholder="" value="">
-              </div>
-            </td>
-            <td class="total">
-              $00
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>
-              Nombre Estudio 2
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-span">$</span>
-                <input type="number" class="form-control input-form costo" name="costo" placeholder="" value="">
-                <span class="input-span">.00</span>
-              </div>
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-span">%</span>
-                <input type="number" class="form-control input-form margen" name="margen" placeholder="" value="">
-              </div>
-            </td>
-            <td>
-              <p  class="total">00</p>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
   </div>
-
 </div>

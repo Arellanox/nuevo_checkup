@@ -2,8 +2,11 @@
 var data ={api:2};
 var apiurl = '../../../api/servicios_api.php';
 var tablaPrecio = $("#TablaListaPrecios").DataTable({
+  processing: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    loadingRecords: '&nbsp;',
+    processing: '<div class="spinner"></div>'
   },
   lengthMenu: [
     [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
@@ -86,7 +89,7 @@ jQuery(document).on("change ,  keyup" , "input[name='costo'] , input[name='marge
 
 let tablaPrecios = new Array();
 
-$('#btn-estudio-editar').click(function () {
+$('#btn-precios-guardar').click(function () {
         // var form_data  = tablaPrecio.rows().data();
         var costo = tablaPrecio.$("input[name='costo']").serialize();
         var margen = tablaPrecio.$("input[name='margen']").serialize();
@@ -115,17 +118,20 @@ $('#btn-estudio-editar').click(function () {
 });
 
 $('input[type=radio][name=selectChecko]').change(function() {
-    if (this.value == 4) {
-      tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
-      data.api = 2;
-      data.id_cliente = 1;
-    }else{
+    if (this.value != 'Paq') {
       tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
       data.id_area = 12;
+    }else{
+      tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
+      data.api = 2;
+      data.cliente_id = $('#seleccion-cliente').val();
     }
-    tablaPrecio.processing( true );
     tablaPrecio.ajax.reload();
-    console.log(this.value);
-
-
 });
+
+$('#seleccion-cliente').on('change', function(){
+  // tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
+  // data.api = 2;
+  data.cliente_id = $(this).val();
+  tablaPrecio.ajax.reload();
+})
