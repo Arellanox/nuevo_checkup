@@ -54,7 +54,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $resultset = $master->getByProcedure("sp_direcciones_b", [$id]);
+        $resultset = $master->getByProcedure("sp_direcciones_b", [$id,$cliente_id]);
         if (is_array($resultset)) {
             echo json_encode(array("response" => array("code" => 1, "data" => $resultset)));
         } else {
