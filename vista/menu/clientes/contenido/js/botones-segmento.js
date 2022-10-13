@@ -1,5 +1,5 @@
 $("#btn-segmentos-agregar").click(function () {
-  alert('aijshdihj')
+
   if (array_selected != null) {
     $("#ModalRegistrarSegmentos").modal("show");
   } else {
