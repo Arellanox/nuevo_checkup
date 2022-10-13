@@ -145,3 +145,55 @@
 13/10/22 17:25:40 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 13/10/22 17:25:41 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 13/10/22 17:26:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:11:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:11:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:11:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:11:49 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:11:58 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:11:59 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:11:59 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:11:59 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:05 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:06 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:11 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:11 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:13 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:14 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:25 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:25 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:26 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 19:34:26 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:33:55 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:21 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:21 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:22 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:22 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:38 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:39 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:40 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:41 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:53 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:53 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:53 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:37:54 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:38:08 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:38:08 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:38:09 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:38:10 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+13/10/22 20:44:35 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+13/10/22 20:44:35 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+13/10/22 20:44:35 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+13/10/22 20:44:38 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+13/10/22 20:44:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+13/10/22 20:44:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+13/10/22 20:44:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+13/10/22 20:44:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+

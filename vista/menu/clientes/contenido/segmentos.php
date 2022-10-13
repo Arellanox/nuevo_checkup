@@ -1,7 +1,7 @@
 <h5 class="m-2">Lista de segmentos</h5>
 <div class="table-responsive " id="ContenidoHTML">
   <div class="text-center" style="margin-top:4px;zoom:95%">
-    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-relacion">
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-agregar">
       <i class="bi bi-person-badge"></i> Agregar
     </button>
     <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-editar">

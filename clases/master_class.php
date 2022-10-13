@@ -39,7 +39,7 @@ class Master extends Miscelaneus
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             //echo "Connected to $dbname at $host successfully.";
         } catch (PDOException $pe) {
-            $this->mis->setLog("Could not connect to the database $dbname :" . $pe->getMessage(),'fn_connect_db');
+            $this->mis->setLog("Could not connect to the database $dbname :" . $pe->getMessage(), 'fn_connect_db');
             die("Could not connect to the database $dbname :" . $pe->getMessage());
         }
 
@@ -54,11 +54,11 @@ class Master extends Miscelaneus
             $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
             $sentencia = $conexion->prepare($sp);
 
-            $sentencia = $this->bindParams($sentencia,$parametros);
+            $sentencia = $this->bindParams($sentencia, $parametros);
 
-            if(!$sentencia->execute()){
+            if (!$sentencia->execute()) {
                 $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
-                $this->mis->setLog($error_msj,$nombreProcedimiento);
+                $this->mis->setLog($error_msj, $nombreProcedimiento);
                 return "ERROR. No se pudieron recuperar los datos.";
             }
 
@@ -67,7 +67,6 @@ class Master extends Miscelaneus
             $sentencia->closeCursor();
 
             return $resultSet;
-
         } catch (Exception $e) {
 
             echo $e->getMessage();
@@ -81,19 +80,19 @@ class Master extends Miscelaneus
 
         $sentencia = $conexion->prepare($sp);
 
-        $sentencia = $this->bindParams($sentencia,$parametros);
+        $sentencia = $this->bindParams($sentencia, $parametros);
 
 
         if ($sentencia->execute()) {
             $fila = $sentencia->fetchAll();
-            if (count($fila)>0) {
+            if (count($fila) > 0) {
                 $retorno = $fila[0][0];
             } else {
                 $retorno = "Alerta: la consulta no devolvió resultado";
             }
         } else {
             $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
-            $this->mis->setLog($error_msj,$nombreProcedimiento);
+            $this->mis->setLog($error_msj, $nombreProcedimiento);
             # return "ERROR. No se pudieron recuperar los datos.";
             $retorno = "Alerta: la consulta al servidor no se realizó correctamente";
         }
@@ -115,23 +114,25 @@ class Master extends Miscelaneus
         return $retorno;
     }
 
-    private function concatQuestionMark($length){
+    private function concatQuestionMark($length)
+    {
         $questionMarks = "(";
-        for ($i=0; $i < $length; $i++) {
-            if ($i==$length-1) {
-                $questionMarks.="?";
+        for ($i = 0; $i < $length; $i++) {
+            if ($i == $length - 1) {
+                $questionMarks .= "?";
             } else {
-                $questionMarks.="?,";
+                $questionMarks .= "?,";
             }
         }
 
-        $questionMarks.=");";
+        $questionMarks .= ");";
         return $questionMarks;
     }
 
-    private function bindParams($object, $params){
-        for ($i=0; $i < count($params); $i++) {
-            $object->bindParam(($i+1),$params[$i]);
+    private function bindParams($object, $params)
+    {
+        for ($i = 0; $i < count($params); $i++) {
+            $object->bindParam(($i + 1), $params[$i]);
         }
         return $object;
     }
@@ -384,31 +385,32 @@ class Master extends Miscelaneus
         return true;
     }
 
-    function procesarImagen($file, $carpeta, $area, $nombre, $elemento){
-      if (!empty($file['fileComprobante']['name'])) {
-        $ruta = "archivos/".$carpeta."/".$area;
-        $extension = pathinfo($file[$elemento]['name'], PATHINFO_EXTENSION);
-        $move = "../".$ruta;
-        if ($file[$elemento]['size'] > 0 && $file[$elemento]['error']== 0) {
-          if (!is_dir($move)) {
-            mkdir($move);
-          }
-          try {
-            $move = $move."/".$nombre;
-            move_uploaded_file($file[$elemento]['tmp_name'], $move);
-            return $return = array('code' => 1, 'data' => $move);
-          } catch (\Exception $e) {
-            $msj = "Error: archivo no se ha podido mover el archivo";
-            $return = array('code' => 2, 'msj' => $msj);
-          }
-        }else{
-          $msj = "Error: Archivo dañado";
-          $return = array('code' => 2, 'msj' => $msj);
+    function procesarImagen($file, $carpeta, $area, $nombre, $elemento)
+    {
+        if (!empty($file['fileComprobante']['name'])) {
+            $ruta = "archivos/" . $carpeta . "/" . $area;
+            $extension = pathinfo($file[$elemento]['name'], PATHINFO_EXTENSION);
+            $move = "../" . $ruta;
+            if ($file[$elemento]['size'] > 0 && $file[$elemento]['error'] == 0) {
+                if (!is_dir($move)) {
+                    mkdir($move);
+                }
+                try {
+                    $move = $move . "/" . $nombre;
+                    move_uploaded_file($file[$elemento]['tmp_name'], $move);
+                    return $return = array('code' => 1, 'data' => $move);
+                } catch (\Exception $e) {
+                    $msj = "Error: archivo no se ha podido mover el archivo";
+                    $return = array('code' => 2, 'msj' => $msj);
+                }
+            } else {
+                $msj = "Error: Archivo dañado";
+                $return = array('code' => 2, 'msj' => $msj);
+            }
+        } else {
+            return array('code' => 1, 'data' => null);
         }
-      }else{
-        return array('code' => 1, 'data' => null);
-      }
-      $this->mis->setLog($msj, 'Imagen cargada de'+$area+', en la carpeta: '+$carpeta);
-      return $return;
+        $this->mis->setLog($msj, 'Imagen cargada de' + $area + ', en la carpeta: ' + $carpeta);
+        return $return;
     }
 }

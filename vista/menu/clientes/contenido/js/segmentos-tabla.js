@@ -30,4 +30,25 @@ var tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
   columnDefs: [{ width: "3px", targets: 0 }],
 });
 // setTimeout(function(){loader("In")}, 500);
-selectDatatable("TablaSegmentosAdmin", tablaSegmentos);
+
+
+
+$('#TablaSegmentosAdmin tbody').on('click', 'tr', function () {
+   if ($(this).hasClass('selected')) {
+       $(this).removeClass('selected');
+       array_selected = null;
+
+       dataSegmento.id_cliente = 1;
+       tablaSegmentos.ajax.reload();
+   } else {
+       tablaSegmentos.$('tr.selected').removeClass('selected');
+       $(this).addClass('selected');
+       array_selected = tablaSegmentos.row( this ).data();
+
+       dataSegmento.id_cliente = array_selected['ID_CLIENTE'];
+       tablaSegmentos.ajax.reload();
+
+   }
+});
+
+

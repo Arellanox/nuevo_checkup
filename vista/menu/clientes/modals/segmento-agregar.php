@@ -11,11 +11,11 @@
           <div class="row">
             <div class="col-6 col-md-6">
               <label for="nombre_segmento" class="form-label">Nombre</label>
-              <input type="text" name="nombre_segmento" id="nombre_segmento" class="input-form">
+              <input type="text" name="nombre_segmento" id="nombre_segmento" class="input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="descripcion" class="form-label">Descripcion</label>
-              <input type="text" name="descripcion" id="descripcion" class="input-form">
+              <input type="text" name="descripcion" id="descripcion" class="input-form" required>
             </div>
           </div>
         </form>
