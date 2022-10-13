@@ -1,4 +1,5 @@
 var tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
+  processing: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     loadingRecords: '&nbsp;',
@@ -22,7 +23,7 @@ var tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
     complete: function () {
       loader("Out");
     },
-    dataSrc: "",
+    dataSrc: "response.data",
   },
   columns: [
     { data: "COUNT" },

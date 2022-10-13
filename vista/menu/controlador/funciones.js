@@ -260,10 +260,10 @@ function loader(fade) {
   }
 }
 
-function alertSelectTable() {
+function alertSelectTable(msj = 'No ha seleccionado ningún registro') {
   Toast.fire({
     icon: 'error',
-    title: 'No ha seleccionado ningún registro',
+    title: msj,
     timer: 4000
   });
 }

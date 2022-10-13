@@ -14,12 +14,11 @@ function obtenerContenidoCliente(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/clientes.php", function (html) {
     $("#body-js").html(html);
+  }).done(function(){
     // Datatable
     $.getScript("contenido/js/cliente-tabla.js");
     // Botones
     $.getScript("contenido/js/botones-cliente.js");
-
-
     obtenerListaContactos();
     obtenerContenidoSegmentos("Segmentos");
   })
@@ -29,6 +28,7 @@ function obtenerContenidoSegmentos(titulo) {
   // obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/segmentos.php", function (html) {
     $('#informacion-cliente').html(html);
+  }).done(function(){
     // Datatable
     $.getScript("contenido/js/segmentos-tabla.js");
     // Botones
@@ -38,7 +38,8 @@ function obtenerContenidoSegmentos(titulo) {
 
 function obtenerListaContactos(){
   $.post("contenido/contactos.php", function(html){
-  $('#informacion-segmento').html(html);
+    $('#informacion-segmento').html(html);
+  }).done(function(){
     // Datatable
     $.getScript("contenido/js/contactos-tabla.js");
     // Botones

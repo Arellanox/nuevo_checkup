@@ -1,20 +1,23 @@
 $("#btn-segmentos-agregar").click(function () {
+  alert('aijshdihj')
   if (array_selected != null) {
     $("#ModalRegistrarSegmentos").modal("show");
   } else {
-    alertSelectTable();
+    alertSelectTable('No ha seleccionado un cliente');
   }
 });
 
 $("#btn-segmentos-editar").click(function () {
+  alert('aijshdihj')
   if (array_selected != null) {
     $("#ModalEditarSegmentos").modal("show");
   } else {
-    alertSelectTable();
+    alertSelectTable('No ha seleccionado un segmento');
   }
 });
 
 $("#btn-segmentos-relacion").click(function () {
+  alert('aijshdihj')
   if (array_selected != null) {
   } else {
     alertSelectTable();
@@ -34,7 +37,6 @@ $("#btn-segmentos-eliminiar").click(function () {
       cancelButtonText: "Cancelar",
     }).then((result) => {});
   } else {
-    alertSelectTable();
+    alertSelectTable('No ha seleccionado un cliente');
   }
 });
-
