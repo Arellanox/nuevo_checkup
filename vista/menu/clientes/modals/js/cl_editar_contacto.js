@@ -22,8 +22,8 @@ $("#formActualizarContacto").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formActualizarContacto");
   var formData = new FormData(form);
-  formData.set('id',selectContacto['ID_CONTACTO']);
-    formData.set('api', 4);
+  formData.set('id_contacto',selectContacto['ID_CONTACTO']);
+    formData.set('api', 3);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
     text: "¡Verifique los Nuevos datos antes de continuar!",
@@ -61,3 +61,41 @@ $("#formActualizarContacto").submit(function (event) {
   });
   event.preventDefault();
 });
+
+$('#btn-eliminar-contacto').on('click', function(){
+  event.preventDefault();
+  Swal.fire({
+    title: "¿Está seguro que desea eliminar este contacto?",
+    text: "¡Este contacto no podrá recuperarse!",
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonColor: '#3085d6',
+    confirmButtonColor: '#d33',
+    confirmButtonText: 'ELIMINAR',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // $('#submit-registrarEstudio').prop('disabled', true);
+      // Esto va dentro del AJAX
+
+      $.ajax({
+        data: {id: selectContacto['ID_CONTACTO'], api: 4},
+        url: "../../../api/contactos_api.php",
+        type: "POST",
+        success: function (data) {
+          data = jQuery.parseJSON(data);
+          if (mensajeAjax(data)) {
+            Toast.fire({
+              icon: "success",
+              title: "DatosActualizados Correctamente!",
+              timer: 2000,
+            });
+            document.getElementById("formActualizarContacto").reset();
+            $("#ModalActualizarContacto").modal("hide");
+            tablaContacto.ajax.reload();
+          }
+        },
+      });
+    }
+  });
+})

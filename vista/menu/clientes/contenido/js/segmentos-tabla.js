@@ -2,12 +2,11 @@ var tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  scrollY: "60vh",
+  lengthChange:false,
+  info: false,
+  paging:false,
+  scrollY: "55vh",
   scrollCollapse: true,
-  lengthMenu: [
-    [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
-    [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"],
-  ],
   ajax: {
     dataType: "json",
     data: { api: 2 },
@@ -25,7 +24,6 @@ var tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
     { data: "count" },
     { data: "DESCRIPCION" },
     { data: "4.0.DESCRIPCION" },
-    { data: "5.0.NOMBRE_COMERCIAL"},
 
     // {defaultContent: 'En progreso...'}
   ],

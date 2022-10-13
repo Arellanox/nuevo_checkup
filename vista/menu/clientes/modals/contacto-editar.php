@@ -33,6 +33,9 @@
         </form>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-borrar" id="btn-eliminar-contacto">
+          <i class="bi bi-person-x"></i> Eliminar
+        </button>
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
         <button type="submit" form="formActualizarContacto" class="btn btn-confirmar" id="submit-actualizarcontacto">
           <i class="bi bi-person-plus"></i> Actualizar

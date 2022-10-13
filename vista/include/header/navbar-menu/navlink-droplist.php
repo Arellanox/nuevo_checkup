@@ -1,5 +1,5 @@
 <?php if ($menu != null) : ?>
-  <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
+  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
   <div class="collapse" id="board-consultorio">
@@ -9,7 +9,7 @@
     </ul>
   </div>
 
-  <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
+  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
     <i class="bi bi-clipboard-heart"></i> Servicios
   </a>
   <div class="collapse" id="board-servicios">
@@ -21,7 +21,7 @@
   </div>
 
 
-  <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
+  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
     <i class="bi bi-tag"></i> Lista de precios
   </a>
   <div class="collapse" id="board-listaprecios">
@@ -32,13 +32,7 @@
   </div>
 
 
-  <a class="dropdown-a align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-clientes" aria-expanded="false">
-    <i class="bi bi-people"></i> Clientes
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/'; ?>">
+    <i class="bi bi-briefcase"></i> Clientes</a>
   </a>
-  <div class="collapse" id="board-clientes">
-    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/#Segmentos'; ?>"><i class="bi bi-dot"></i> Segmentos</a></li>
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/#Clientes'; ?>"><i class="bi bi-dot"></i> Clientes</a></li>
-    </ul>
-  </div>
 <?php endif; ?>

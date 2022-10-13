@@ -10,6 +10,8 @@ $.post("modals/a_modals.php", function(html){
 
    // Moda para agregar clientes
    $.getScript('modals/js/cl_agregar_cliente.js');
+   // Modal para agregar contacto
+   $.getScript('modals/js/cl_agregar_contacto.js');
 
    //$.getScript('modals/js/p_rechazar.js');
    // Modal para rechazar

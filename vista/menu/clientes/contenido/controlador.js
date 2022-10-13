@@ -1,19 +1,34 @@
 
+obtenerContenidoCliente("Clientes");
+// $(window).on("hashchange", function (e) {
+//   hasLocation();
+// });
 
-hasLocation();
-$(window).on("hashchange", function (e) {
-  hasLocation();
-});
-
-var datacontactos ={api:2,id_cliente:1};
+var datacontactos ={api:2,id_cliente:0};
 var tablaContacto;
 var selectContacto;
 
-function obtenerContenidoSegmentos(titulo) {
+
+
+function obtenerContenidoCliente(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
-  $.post("contenido/segmentos.php", function (html) {
-    var idrow;
+  $.post("contenido/clientes.php", function (html) {
     $("#body-js").html(html);
+    // Datatable
+    $.getScript("contenido/js/cliente-tabla.js");
+    // Botones
+    $.getScript("contenido/js/botones-cliente.js");
+
+
+    obtenerListaContactos();
+    obtenerContenidoSegmentos("Segmentos");
+  })
+}
+
+function obtenerContenidoSegmentos(titulo) {
+  // obtenerTitulo(titulo); //Aqui mandar el nombre de la area
+  $.post("contenido/segmentos.php", function (html) {
+    $('#informacion-cliente').html(html);
     // Datatable
     $.getScript("contenido/js/segmentos-tabla.js");
     // Botones
@@ -21,37 +36,30 @@ function obtenerContenidoSegmentos(titulo) {
   });
 }
 
-function hasLocation() {
-  var hash = window.location.hash.substring(1);
-  $("a").removeClass("navlinkactive");
-  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-  switch (hash) {
-    case "Clientes":
-
-      obtenerContenidoCliente("Clientes");
-
-    break;
-    case "Segmentos":
-      obtenerContenidoSegmentos("Segmentos");
-      break;
-    default:
-      obtenerContenidoCliente("Clientes");
-      break;
-  }
-}
-
-function obtenerContenidoCliente(titulo) {
-  obtenerTitulo(titulo); //Aqui mandar el nombre de la area
-  $.post("contenido/clientes.php", function (html) {
-    var idrow;
-    $("#body-js").html(html);
-    // Datatable
-    $.getScript("contenido/js/cliente-tabla.js");
+function obtenerListaContactos(){
+  $.post("contenido/contactos.php", function(html){
+  $('#informacion-segmento').html(html);
     // Datatable
     $.getScript("contenido/js/contactos-tabla.js");
     // Botones
-    $.getScript("contenido/js/botones-cliente.js");
-    // Botones
     $.getScript("contenido/js/botones-contactos.js");
-  });
+  })
 }
+
+// function hasLocation() {
+//   var hash = window.location.hash.substring(1);
+//   $("a").removeClass("navlinkactive");
+//   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+//   switch (hash) {
+//     case "Contactos":
+//       obtenerListaContactos();
+//       console.log('Llamar funcion contactos')
+//     break;
+//     case "Segmentos":
+//       obtenerContenidoSegmentos("Segmentos");
+//     break;
+//     default:
+//       obtenerContenidoCliente("Clientes");
+//       break;
+//   }
+// }

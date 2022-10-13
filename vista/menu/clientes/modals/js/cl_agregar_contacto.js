@@ -1,13 +1,9 @@
-const ModalEditarContacto = document.getElementById("ModalEditarContacto");
-ModalEditarContacto.addEventListener("show.bs.modal", (event) => {
-
-});
-
+alert("js agregado")
 //Formulario de Preregistro
-$("#formActualizarContacto").submit(function (event) {
+$("#formAgregarContacto").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
-  var form = document.getElementById("formActualizarContacto");
+  var form = document.getElementById("formAgregarContacto");
   var formData = new FormData(form);
     formData.set('id_cliente',array_selected['ID_CLIENTE'])
     formData.set('api', 3);
@@ -35,12 +31,12 @@ $("#formActualizarContacto").submit(function (event) {
           if (mensajeAjax(data)) {
             Toast.fire({
               icon: "success",
-              title: "DatosActualizados Correctamente!",
+              title: "¡Contacto agregado correctamente!",
               timer: 2000,
             });
-            document.getElementById("formActualizarContacto").reset();
-            $("#ModalActualizarContacto").modal("hide");
-            tablaEquipo.ajax.reload();
+            document.getElementById("formAgregarContacto").reset();
+            $("#ModalAgregarContacto").modal("hide");
+            tablaContacto.ajax.reload();
           }
         },
       });
