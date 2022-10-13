@@ -1,6 +1,6 @@
-$("#btn-segmentos-aregar").click(function () {
+$("#btn-segmentos-agregar").click(function () {
   if (array_selected != null) {
-    $("#ModalAgregarSegmento").modal("show");
+    $("#ModalRegistrarSegmentos").modal("show");
   } else {
     alertSelectTable();
   }

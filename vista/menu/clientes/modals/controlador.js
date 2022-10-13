@@ -13,6 +13,13 @@ $.post("modals/a_modals.php", function(html){
    // Modal para agregar contacto
    $.getScript('modals/js/cl_agregar_contacto.js');
 
+   $.getScript('modals/js/cl_agregar_contacto.js');
+
+   //Modal para Registrar Segmentos
+   $.getScript('modals/js/sg_agregar_segmento.js');
+
+
+
    //$.getScript('modals/js/p_rechazar.js');
    // Modal para rechazar
   // $.getScript('modals/js/subir-perfil.js');
