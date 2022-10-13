@@ -1,7 +1,8 @@
-<div class="card p-3">
+<h4>Información del Cliente:</h4>
+<div class="p-3">
   <div class="row">
     <div class="col-12 info-detalle text-center">
-      <p id="nombreComercial-cliente">Nombre cliente</p>
+      <p class="none-p">Cliente: <strong id="nombreComercial-cliente">Nombre cliente</strong></p>
       <p id="nombreSistema-cliente" class="none-p"></p>
     </div>
   </div>
@@ -42,36 +43,29 @@
     <div class="col-6" id="info-cliente-cuentaContable">
 
     </div>
-  </div>
-  <div class="row mt-2 d-flex justify-content-center">
-    <a class="btn btn-hover" style="width:95%" data-bs-toggle="collapse" data-bs-target="#barra-informacion-cliente" aria-expanded="false">
-      Mas información <i class="bi bi-arrow-down-short"></i>
-    </a>
-    <div class="collapse row" id="barra-informacion-cliente">
-      <div class="col-5 text-end pt-2 info-detalle">
-        <p>Pagina web:</p>
-      </div>
-      <div class="col-7">
-        <a href="#" target="_blank" id="info-cliente-pagweb"></a>
-      </div>
-      <div class="col-5 text-end pt-2 info-detalle">
-        <p>Facebook:</p>
-      </div>
-      <div class="col-7">
-        <a href="#" target="_blank" id="info-cliente-face"></a>
-      </div>
-      <div class="col-5 text-end pt-2 info-detalle">
-        <p>Twitter:</p>
-      </div>
-      <div class="col-7">
-        <a href="#" target="_blank" id="info-cliente-twitter"></a>
-      </div>
-      <div class="col-5 text-end pt-2 info-detalle">
-        <p>Instagram:</p>
-      </div>
-      <div class="col-7">
-        <a href="#" target="_blank" id="info-cliente-instragram"></a>
-      </div>
+    <div class="col-5 text-end pt-2 info-detalle">
+      <p>Pagina web:</p>
+    </div>
+    <div class="col-7">
+      <a href="#" target="_blank" id="info-cliente-pagweb"></a>
+    </div>
+    <div class="col-5 text-end pt-2 info-detalle">
+      <p>Facebook:</p>
+    </div>
+    <div class="col-7">
+      <a href="#" target="_blank" id="info-cliente-face"></a>
+    </div>
+    <div class="col-5 text-end pt-2 info-detalle">
+      <p>Twitter:</p>
+    </div>
+    <div class="col-7">
+      <a href="#" target="_blank" id="info-cliente-twitter"></a>
+    </div>
+    <div class="col-5 text-end pt-2 info-detalle">
+      <p>Instagram:</p>
+    </div>
+    <div class="col-7">
+      <a href="#" target="_blank" id="info-cliente-instragram"></a>
     </div>
   </div>
 </div>

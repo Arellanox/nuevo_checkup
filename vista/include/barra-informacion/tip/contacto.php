@@ -1,7 +1,8 @@
-<div class="card p-3">
+<h4>Información de contacto</h4>
+<div class="p-3">
   <div class="row">
     <div class="col-12 info-detalle text-center">
-      <p id="nombre-contacto">Nombre contacto</p>
+      <p class="none-p">Cliente: <strong id="nombre-contacto"></strong></p>
     </div>
   </div>
   <div class="row mt-3">

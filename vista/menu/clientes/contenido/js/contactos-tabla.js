@@ -44,11 +44,17 @@ $('#TablaContacto tbody').on('click', 'tr', function () {
    if ($(this).hasClass('selected')) {
        $(this).removeClass('selected');
        selectContacto = null;
-       obtenerPanelInformacion(0, 0, 'contacto', '#contacto-informacion')
    } else {
        tablaContacto.$('tr.selected').removeClass('selected');
        $(this).addClass('selected');
        selectContacto = tablaContacto.row( this ).data();
-       obtenerPanelInformacion(1, 0, 'contacto', '#contacto-informacion')
    }
+});
+
+$('#TablaContacto tbody').on('dblclick', 'tr', function () {
+    selectContacto = tablaContacto.row( this ).data();
+    if (selectContacto != null) {
+      obtenerPanelInformacion(1, 0, 'contacto', '#contacto-informacion')
+      $("#modalInfoContacto").modal("show");
+    }
 });

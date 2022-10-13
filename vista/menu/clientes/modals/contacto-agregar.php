@@ -29,15 +29,15 @@
               <label for="email_contacto" class="form-label">Correo Electronico</label>
               <input type="email" name="email_contacto" class="form-control input-form" required>
             </div>
-        </form>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+        <button type="submit" form="formAgregarContacto" class="btn btn-confirmar">
+          <i class="bi bi-person-plus"></i> Agregar
+        </button>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-      <button type="submit" form="formAgregarContacto" class="btn btn-confirmar">
-        <i class="bi bi-person-plus"></i> Agregar
-      </button>
-    </div>
   </div>
-</div>
 </div>
