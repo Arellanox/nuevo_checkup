@@ -5,7 +5,7 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
-var datacontactos ={api:2,id:1};
+var datacontactos ={api:2,id_cliente:1};
 var tablaContacto;
 var selectContacto;
 

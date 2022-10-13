@@ -54,20 +54,20 @@
 
             </div>
             <div class="col-6 col-md-6">
-              <label for="indicaciones" class="form-label">Facebook</label>
-              <input class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder=""></input>
+              <label for="Facebook" class="form-label">Facebook</label>
+              <input class="md-textarea input-form" name="Facebook" cols="45" rows="2" placeholder=""></input>
             </div>
             <div class="col-6 col-md-6">
-              <label for="indicaciones" class="form-label">Twitter</label>
-              <input class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder=""></input>
+              <label for="Twitter" class="form-label">Twitter</label>
+              <input class="md-textarea input-form" name="Twitter" cols="45" rows="2" placeholder=""></input>
             </div>
             <div class="col-6 col-md-6">
-              <label for="indicaciones" class="form-label">Instagram</label>
-              <input class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder=""></input>
+              <label for="Instagram" class="form-label">Instagram</label>
+              <input class="md-textarea input-form" name="Instagram" cols="45" rows="2" placeholder=""></input>
             </div>
             <div class="col-6 col-md-6">
-              <label for="indicaciones" class="form-label">Codigo</label>
-              <input class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder=""></input>
+              <label for="Codigo" class="form-label">Codigo</label>
+              <input class="md-textarea input-form" name="Codigo" cols="45" rows="2" placeholder=""></input>
             </div>
           </div>
         </form>

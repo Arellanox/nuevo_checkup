@@ -116,3 +116,8 @@
 13/10/22 14:39:37 sp_pacientes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`pacientes`, CONSTRAINT `FK_REFERENCE_5` FOREIGN KEY (`SEGMENTO_ID`) REFERENCES `segmentos` (`ID_SEGMENTO`) ON DELETE CASCADE ON UPDATE CASCADE)
 13/10/22 14:40:48 sp_pacientes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`pacientes`, CONSTRAINT `FK_REFERENCE_5` FOREIGN KEY (`SEGMENTO_ID`) REFERENCES `segmentos` (`ID_SEGMENTO`) ON DELETE CASCADE ON UPDATE CASCADE)
 13/10/22 14:41:26 sp_pacientes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`pacientes`, CONSTRAINT `FK_REFERENCE_5` FOREIGN KEY (`SEGMENTO_ID`) REFERENCES `segmentos` (`ID_SEGMENTO`) ON DELETE CASCADE ON UPDATE CASCADE)
+13/10/22 16:28:41 sp_contactos_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'con.NOMBNRE' in 'field list'
+13/10/22 16:28:48 sp_contactos_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'con.NOMBNRE' in 'field list'
+13/10/22 16:28:54 sp_contactos_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'con.NOMBNRE' in 'field list'
+13/10/22 16:29:04 sp_contactos_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'con.NOMBNRE' in 'field list'
+13/10/22 16:29:05 sp_contactos_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'con.NOMBNRE' in 'field list'

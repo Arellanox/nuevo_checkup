@@ -24,14 +24,14 @@ $nombre_sistema = $_POST['nombre_sistema'];
 $rfc = $_POST['rfc'];
 $curp = $_POST['curp'];
 $abreviatura = $_POST['abreviatura'];
-$limite_credito = $_POST['limite_credito'];
-$temporalidad_de_credito = $_POST['temporalidad_de_credito'];
+$limite_credito = $_POST['limite'];
+$temporalidad_de_credito = $_POST['tiempo_credito'];
 $cuenta_contable = $_POST['cuenta_contable'];
-$pagina_web = $_POST['pagina_web'];
-$facebook = $_POST['facebook'];
-$twitter = $_POST['twitter'];
-$instagram = $_POST['instagram'];
-$codigo = $_POST['codigo'];
+$pagina_web = $_POST['confac'];
+$facebook = $_POST['Facebook'];
+$twitter = $_POST['Twitter'];
+$instagram = $_POST['Instagram'];
+$codigo = $_POST['Codigo'];
 
 $parametros = array(
     $id_cliente,

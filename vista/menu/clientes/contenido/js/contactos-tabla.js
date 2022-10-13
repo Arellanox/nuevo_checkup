@@ -19,7 +19,7 @@ tablaContacto = $("#TablaContacto").DataTable({
        return  $.extend(d, datacontactos);
     },
     method: "POST",
-    url: "../../../api/clientes_api.php",
+    url: "../../../api/contactos_api.php",
     beforeSend: function () {
       loader("In");
     },
@@ -30,7 +30,7 @@ tablaContacto = $("#TablaContacto").DataTable({
   },
   columns: [
     { data: 'COUNT' },
-    { data: 'NOMBRE_COMERCIAL' },
+    { data: 'NOMBRE_COMPLETO' },
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [{ width: "3px", targets: 0 }],

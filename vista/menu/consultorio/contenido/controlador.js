@@ -4,6 +4,7 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
+$.getScript('contenido/js/form-antecedentes.js')
 
 obtenerContenidoConsulta()
 function obtenerContenidoConsulta(titulo) {
@@ -45,6 +46,7 @@ function obtenerSignosVitales(div){
   $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
     setTimeout(function () {
       $(div).html(html);
+      setValues(1)
     }, 100);
 
   });

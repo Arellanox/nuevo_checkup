@@ -39,7 +39,7 @@ $('#TablaClientes tbody').on('click', 'tr', function () {
        $(this).removeClass('selected');
        array_selected = null;
        // datacontactos.api = 2;
-       datacontactos.id = 1;
+       datacontactos.id_cliente = 1;
        tablaContacto.ajax.reload();
        obtenerPanelInformacion(0, 0, 'cliente')
    } else {
@@ -47,7 +47,7 @@ $('#TablaClientes tbody').on('click', 'tr', function () {
        $(this).addClass('selected');
        array_selected = tablaClientes.row( this ).data();
        // datacontactos.api = 2;
-       datacontactos.id = array_selected['ID_CLIENTE'];
+       datacontactos.id_cliente = array_selected['ID_CLIENTE'];
        tablaContacto.ajax.reload();
 
        obtenerPanelInformacion(1, 0, 'cliente')
