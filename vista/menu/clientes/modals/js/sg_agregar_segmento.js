@@ -1,12 +1,11 @@
-
 //Formulario de Preregistro
 $("#formRegistrarSegmento").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarSegmento");
   var formData = new FormData(form);
-      formData.set('id_cliente',array_selected['ID_CLIENTE'])
-  formData.set('api', 3);
+  formData.set("cliente_id", array_selected["ID_CLIENTE"]);
+  formData.set("api", 1);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
     text: "¡Verifique los Datos Antes de Continuar!",

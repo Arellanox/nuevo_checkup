@@ -1,12 +1,11 @@
-
 tablaContacto = $("#TablaContacto").DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
   // searching: false,
-  lengthChange:false,
+  lengthChange: false,
   info: false,
-  paging:false,
+  paging: false,
   scrollY: "30vh",
   scrollCollapse: true,
   // lengthMenu: [
@@ -15,8 +14,9 @@ tablaContacto = $("#TablaContacto").DataTable({
   // ],
   ajax: {
     dataType: "json",
-    data:  function ( d ) {
-       return  $.extend(d, datacontactos);
+    data: { api: 2 },
+    data: function (d) {
+      return $.extend(d, datacontactos);
     },
     method: "POST",
     url: "../../../api/contactos_api.php",
@@ -29,33 +29,33 @@ tablaContacto = $("#TablaContacto").DataTable({
     dataSrc: "response.data",
   },
   columns: [
-    { data: 'COUNT' },
-    { data: 'NOMBRE_COMPLETO' },
+    { data: "COUNT" },
+    { data: "NOMBRE_COMPLETO" },
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [{ width: "3px", targets: 0 }],
 });
 
-$('#BuscarTablaContactos').keyup(function(){
-      tablaContacto.search($(this).val()).draw() ;
-})
-
-$('#TablaContacto tbody').on('click', 'tr', function () {
-   if ($(this).hasClass('selected')) {
-       $(this).removeClass('selected');
-       selectContacto = null;
-   } else {
-       tablaContacto.$('tr.selected').removeClass('selected');
-       $(this).addClass('selected');
-       selectContacto = tablaContacto.row( this ).data();
-   }
+$("#BuscarTablaContactos").keyup(function () {
+  tablaContacto.search($(this).val()).draw();
 });
 
-$('#TablaContacto tbody').on('dblclick', 'tr', function () {
-    selectContacto = tablaContacto.row( this ).data();
-    $(this).addClass('selected');
-    if (selectContacto != null) {
-      obtenerPanelInformacion(1, 0, 'contacto', '#contacto-informacion')
-      $("#modalInfoContacto").modal("show");
-    }
+$("#TablaContacto tbody").on("click", "tr", function () {
+  if ($(this).hasClass("selected")) {
+    $(this).removeClass("selected");
+    selectContacto = null;
+  } else {
+    tablaContacto.$("tr.selected").removeClass("selected");
+    $(this).addClass("selected");
+    selectContacto = tablaContacto.row(this).data();
+  }
+});
+
+$("#TablaContacto tbody").on("dblclick", "tr", function () {
+  selectContacto = tablaContacto.row(this).data();
+  $(this).addClass("selected");
+  if (selectContacto != null) {
+    obtenerPanelInformacion(1, 0, "contacto", "#contacto-informacion");
+    $("#modalInfoContacto").modal("show");
+  }
 });
