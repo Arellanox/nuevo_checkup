@@ -58,7 +58,7 @@ session_start();
         </ul>
         <ul class="nav navbar-nav ms-auto">
           <li class="nav-item dropdown">
-            <a data-bs-toggle="dropdown" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a>
+            <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a>
             <ul class="dropdown-menu dropdown-menu-lg-end bg-navbar-drop">
               <?php include "navbar-menu/navlink-dropuser.php"; ?>
             </ul>

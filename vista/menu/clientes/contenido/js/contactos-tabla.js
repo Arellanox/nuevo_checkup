@@ -53,6 +53,7 @@ $('#TablaContacto tbody').on('click', 'tr', function () {
 
 $('#TablaContacto tbody').on('dblclick', 'tr', function () {
     selectContacto = tablaContacto.row( this ).data();
+    $(this).addClass('selected');
     if (selectContacto != null) {
       obtenerPanelInformacion(1, 0, 'contacto', '#contacto-informacion')
       $("#modalInfoContacto").modal("show");

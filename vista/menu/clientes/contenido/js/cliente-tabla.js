@@ -54,6 +54,7 @@ $('#TablaClientes tbody').on('click', 'tr', function () {
 
 $('#TablaClientes tbody').on('dblclick', 'tr', function () {
     array_selected = tablaClientes.row( this ).data();
+    $(this).addClass('selected');
     if (array_selected != null) {
       obtenerPanelInformacion(1, 0, 'cliente')
       $("#modalInfoCliente").modal("show");
