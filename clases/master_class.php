@@ -25,15 +25,15 @@ class Master extends Miscelaneus
 
     function connectDb()
     {
-        //require_once 'pdoconfig.php';
-        // $host = "212.1.208.201";
-        // $dbname = "u808450138_checkup";
-        // $username = "u808450138_bimo";
-        // $password = "uJbr*Z7e";
-        $host = "localhost";
+        require_once 'pdoconfig.php';
+        $host = "212.1.208.201";
         $dbname = "u808450138_checkup";
-        $username = "root";
-        $password = "12345678";
+        $username = "u808450138_bimo";
+        $password = "uJbr*Z7e";
+        // $host = "localhost";
+        // $dbname = "u808450138_checkup";
+        // $username = "root";
+        // $password = "12345678";
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -105,8 +105,6 @@ class Master extends Miscelaneus
 
     public function insertByProcedure($nombreProcedimiento, $parametros)
     {
-        array_push($parametros, null);
-
         $retorno = $this->updateByProcedure($nombreProcedimiento, $parametros);
         return $retorno;
     }
