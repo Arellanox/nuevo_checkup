@@ -1,30 +1,31 @@
 <?php
-include "../interfaces/iMetodos.php";
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
-include "../clases/clientes_class.php";
-include "../clases/contactos_class.php";
-include_once "../clases/master_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
 
-$master = new Master();
+#api
+$api = $_POST['api'];
 
-$client = new Clientes();
-//$form = $client->mis->getFormValues($_POST);
-$api = $_POST['api'];//$form['api'];
-$id=$_POST['id'];
+#buscar
+$id = $_POST['id'];
+$codigo = $_POST['codigo'];
+
+#insertar
+$id_cliente = $_POST['id_cliente'];
 $nombre_comercial = $_POST['nombre_comercial'];
 $razon_social = $_POST['razon_social'];
+$nombre_sistema = $_POST['nombre_sistema'];
 $rfc = $_POST['rfc'];
 $curp = $_POST['curp'];
 $abreviatura = $_POST['abreviatura'];
 $limite_credito = $_POST['limite_credito'];
-$temporalidad_credito = $_POST['temporalidad_credito'];
+$temporalidad_de_credito = $_POST['temporalidad_de_credito'];
 $cuenta_contable = $_POST['cuenta_contable'];
 $pagina_web = $_POST['pagina_web'];
 $facebook = $_POST['facebook'];
@@ -32,7 +33,8 @@ $twitter = $_POST['twitter'];
 $instagram = $_POST['instagram'];
 $codigo = $_POST['codigo'];
 
-$cliente_array = array(
+$parametros = array(
+    $id_cliente,
     $nombre_comercial,
     $razon_social,
     $nombre_sistema,
@@ -40,123 +42,54 @@ $cliente_array = array(
     $curp,
     $abreviatura,
     $limite_credito,
-    $temporalidad_credito,
+    $temporalidad_de_credito,
     $cuenta_contable,
     $pagina_web,
     $facebook,
     $twitter,
     $instagram,
-    $codigo,
-    $id
+    $codigo
 );
-switch($api){
-    //insertar un nuevo cliente
+
+$master = new Master();
+switch ($api) {
     case 1:
-
-        $response = $master->insertByProcedure('sp_clientes_g',$cliente_array);
-        echo $master->mis->returnApi($response);
-        
-        //$form = $client->mis->getFormValues($_POST);
-        // $newClient = array("Quimax","QUIMAX",null,"ZXCV","ZXCV",null,round(456,2),20,887766,null,null,null,null);
-        // $return = $client->insert($newClient);
-
-
-        // if($return>=1){
-        //     echo json_encode(array("response"=>array("code"=>1,"msj"=>"¡Cliente agregado!")));
-        // }else{
-        //     echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
-        // }
-         break;
-    //recuperar la lista de los clientes activos
+        $response = $master->insertByProcedure("sp_clientes_g", $parametros);
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
+        } else {
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
+        }
+        break;
     case 2:
-        $response = $master->getByProcedure("sp_clientes_b",array(null));
-
-        if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
-        }else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+        # buscar
+        $resultset = $master->getByProcedure("sp_clientes_b", [$id,$codigo]);
+        if (is_array($resultset)) {
+            echo json_encode(array("response" => array("code" => 1, "data" => $resultset)));
+        } else {
+            echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }
-       /*  $return = $client->getAll();
-        $newSet = array();
-
-        if(is_array($return)){
-            foreach($return as $cliente){
-                $contact = new Contactos();
-                $contactos = $contact->getByCliente($cliente['ID_CLIENTE']);
-                $cliente['CONTACTOS'] = $contactos;
-                $cliente[] = $contactos;
-                $newSet[] = $cliente;
-            }
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$newSet)));
-        }else{
-           echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
-        } */
         break;
-    //recuperar los datos de un cliente especifico
     case 3:
-        $return = $client->getById(3);
-        $newSet = array();
-
-        if(is_array($return)){
-            foreach($return as $cliente){
-                $contact = new Contactos();
-                $contactos = $contact->getByCliente($cliente['ID_CLIENTE']);
-                $cliente['CONTACTOS'] = $contactos;
-                $cliente[] = $contactos;
-                $newSet[] = $cliente;
-            }
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$newSet)));
-        }else{
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
+        # actualizar
+        $response = $master->updateByProcedure("sp_clientes_g", $parametros);
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response, "msj" => "Envío exitoso")));
+        } else {
+            echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => $response)));
         }
         break;
-    //actualiza la informacion de un cliente
     case 4:
-        $form = $client->mis->getFormValues($_POST);
-        $return = $client->update($values);
-
-        if($return>=1){
-            echo json_encode(array("response"=>array("code"=>1,"msj"=>"Información del cliente actualizada.")));
-        }else{
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
+        # desactivar
+        $result = $master->deleteByProcedure("sp_clientes_e", [$id]);
+        if (is_numeric($result)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
+        } else {
+            echo json_encode(array("response" => array("code" => 0, "msj" => $result)));
         }
         break;
-    case 5:
-        $return = $client->delete(3);
-        if($return>0){
-            echo json_encode(array("response"=>array("code"=>1,"msj"=>"Cliente eliminado.")));
-        }else{
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
-        }
-        break;
-    case 6:
-        //Obtener cliente por codigo
-        $response = $client->getByCodigo($_POST['id']);
-        if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
-        }else{
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
-        }
 
-    break;
-    case 10:
-        $master = new Master();
-        $return = $master->getByProcedure("sp_clientes_b",[]);
-        $newSet = array();
-
-        if(is_array($return)){
-            foreach($return as $cliente){
-                $contact = new Contactos();
-                $contactos = $contact->getByCliente($cliente['ID_CLIENTE']);
-                $cliente['CONTACTOS'] = $contactos;
-                $cliente[] = $contactos;
-                $newSet[] = $cliente;
-            }
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$newSet)));
-        }else{
-           echo json_encode(array("response"=>array("code"=>0,"msj"=>$return)));
-        }
+    default:
+        echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => "api no reconocida")));
         break;
 }
-
-?>

@@ -1,75 +1,69 @@
 <?php
-include "../interfaces/iMetodos.php";
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
-include "../clases/cargos_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
 
-$cargo = new Cargos();
-
+#api
 $api = $_POST['api'];
 
+#buscar
+$id = $_POST['id'];
+
+#insertar
+$id_cargo = $_POST['id_cargo'];
+$descripcion = $_POST['descripcion'];
+
+$parametros = array(
+    $id_cargo,
+    $descripcion
+);
+
+$master = new Master();
 switch ($api) {
     case 1:
-        // $new = array("Nuevo Cargo");
-        $array_slice = array_slice($_POST,0,1);
-        $a = $cargo->master->mis->getFormValues($array_slice);
-        $response = $cargo->insert($a);
-
+        $response = $master->insertByProcedure("sp_cargos_g", $parametros);
         if (is_numeric($response)) {
-            echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
         }
-
         break;
     case 2:
-        $response = $cargo->getAll();
-
-        if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        # buscar
+        $resultset = $master->getByProcedure("sp_cargos_b", [$id]);
+        if (is_array($resultset)) {            
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$resultset)));        
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }
         break;
-
     case 3:
-        $response = $cargo->getById(9);
-
-        if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        # actualizar
+        $response = $master->updateByProcedure("sp_cargos_g", $parametros);
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response, "msj" => "Envío exitoso")));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => $response)));
         }
         break;
-
     case 4:
-        $response = $cargo->update(array("Nuevo Cargo Actualizado",9));
-
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
+        # desactivar
+        $result = $master->deleteByProcedure("sp_cargos_e", [$id]);
+        if (is_numeric($result)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
-        }
-        break;
-
-    case 5:
-        $response = $cargo->delete(9);
-
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
-        } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $result)));
         }
         break;
 
     default:
-        # code...
+        echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => "api no reconocida")));
         break;
 }
 ?>

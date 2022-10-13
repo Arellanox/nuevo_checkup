@@ -106,3 +106,13 @@
 11/10/22 17:51:20 sp_servicios_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'serv.PADRE' in 'field list'
 11/10/22 19:16:09 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
 
+13/10/22 00:37:49 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1
+13/10/22 02:23:42 sp_clientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_clientes_b; expected 2, got 1
+13/10/22 02:34:33 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1
+13/10/22 03:08:14 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1
+13/10/22 03:09:29 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1
+13/10/22 03:11:17 sp_pacientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_pacientes_b; expected 2, got 1
+13/10/22 03:14:18 sp_pacientes_e Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_pacientes_e does not exist
+13/10/22 14:39:37 sp_pacientes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`pacientes`, CONSTRAINT `FK_REFERENCE_5` FOREIGN KEY (`SEGMENTO_ID`) REFERENCES `segmentos` (`ID_SEGMENTO`) ON DELETE CASCADE ON UPDATE CASCADE)
+13/10/22 14:40:48 sp_pacientes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`pacientes`, CONSTRAINT `FK_REFERENCE_5` FOREIGN KEY (`SEGMENTO_ID`) REFERENCES `segmentos` (`ID_SEGMENTO`) ON DELETE CASCADE ON UPDATE CASCADE)
+13/10/22 14:41:26 sp_pacientes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`pacientes`, CONSTRAINT `FK_REFERENCE_5` FOREIGN KEY (`SEGMENTO_ID`) REFERENCES `segmentos` (`ID_SEGMENTO`) ON DELETE CASCADE ON UPDATE CASCADE)

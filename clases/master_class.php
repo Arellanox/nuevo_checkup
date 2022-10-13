@@ -26,14 +26,14 @@ class Master extends Miscelaneus
     function connectDb()
     {
         //require_once 'pdoconfig.php';
-        $host = "212.1.208.201";
+        // $host = "212.1.208.201";
+        // $dbname = "u808450138_checkup";
+        // $username = "u808450138_bimo";
+        // $password = "uJbr*Z7e";
+        $host = "localhost";
         $dbname = "u808450138_checkup";
-        $username = "u808450138_bimo";
-        $password = "uJbr*Z7e";
-        // $host = "localhost";
-        // $dbname = "checkup";
-        // $username = "root";
-        // $password = "12345678";
+        $username = "root";
+        $password = "12345678";
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

@@ -71,8 +71,8 @@ switch ($api) {
         }
         break;
     case 4:
-        # desactivr paciente
-        $result = $master->deleteByProcedure("sp_paquetes_g", [$id_paciente]);
+        # desactivar
+        $result = $master->deleteByProcedure("sp_paquetes_e", [$id_paquete]);
         if (is_numeric($result)) {
             echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
         } else {

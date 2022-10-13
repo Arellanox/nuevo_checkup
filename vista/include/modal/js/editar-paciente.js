@@ -62,7 +62,7 @@ $("#formEditarPaciente").submit(function(event){
  var form = document.getElementById("formEditarPaciente");
  var formData = new FormData(form);
  formData.set('id', array_selected['ID_PACIENTE']);
- formData.set('api', 4);
+ formData.set('api', 3); 
  $i=0;
  formData.forEach(element => {
   console.log($i+' ' + element);
@@ -79,8 +79,7 @@ $("#formEditarPaciente").submit(function(event){
     cancelButtonText: "Cancelar"
   }).then((result) => {
     if (result.isConfirmed) {
-      $("#btn-actualizar").prop('disabled', true);
-
+      $("#btn-actualizar").prop('disabled', true);      
       // Esto va dentro del AJAX
       $.ajax({
         data:formData,
