@@ -11,13 +11,6 @@ if (! $tokenValido){
     exit;
 }
 
-$tokenVerification = new TokenVerificacion();
-$tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
-    $tokenVerification->logout();
-    exit;
-}
-
 # Cambiar a los valores reales
 # dinamicos
 
