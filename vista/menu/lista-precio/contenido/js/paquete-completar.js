@@ -8,11 +8,9 @@ $('input[type=radio][name=selectChecko]').change(function() {
 });
 
 
-$('#form-select-paquetes').addClass("disable-div");
 
 $('input[type="radio"][name="selectPaquete"]').change(function(){
 
-  $('#form-select-paquetes').removeClass("disable-div");
   switch ($(this).val()) {
     case 1:
 
@@ -24,3 +22,6 @@ $('input[type="radio"][name="selectPaquete"]').change(function(){
 
   }
 })
+
+select2('#seleccion-paquete', 'form-select-paquetes')
+select2('#seleccion-estudio','form-select-paquetes')

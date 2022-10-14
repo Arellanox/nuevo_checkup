@@ -40,20 +40,20 @@ switch ($api) {
         break;
     case 2:
         #getall
-       
+
         $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area));
-        
+
         if (is_array($response)) {
             $newResponse = array();
             // foreach($response as $test){
             //     $groups = $master->getByProcedure('sp_detalle_grupo_b',array(null,$test['ID_SERVICIO']));
-
+            //
             //     if(count($groups)>0){
             //         $test['DETALLE_GRUPOS'] = $groups;
             //     } else {
             //         $test['DETALLE_GRUPOS'] = 'NO PERTENECE A NINGUN GRUPO';
             //     }
-               
+            //
             //     $newResponse[] = $test;
             // }
 
@@ -162,7 +162,7 @@ switch ($api) {
                 } else {
                     $group['DETALLE_ESTUDIOS'] = 'NO TIENE ESTUDIOS ASOCIADOS';
                 }
-                
+
                 $newResponse[] = $group;
             }
             echo json_encode(array(

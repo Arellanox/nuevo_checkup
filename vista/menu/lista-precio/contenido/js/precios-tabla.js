@@ -1,5 +1,5 @@
 // var data = 12;
-var data ={api:2};
+var data ={api:2, id_area: 0};
 var apiurl = '../../../api/servicios_api.php';
 var tablaPrecio = $("#TablaListaPrecios").DataTable({
   processing: true,
@@ -118,20 +118,23 @@ $('#btn-precios-guardar').click(function () {
 });
 
 $('input[type=radio][name=selectChecko]').change(function() {
-    if (this.value != 'Paq') {
+    if ($(this).val() != 'Paq') {
       tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
-      data.id_area = 12;
+      data.id_area = $(this).val();
+      data.cliente_id = null;
     }else{
-      tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
-      data.api = 2;
-      data.cliente_id = $('#seleccion-cliente').val();
+        cargarpaquetes()
     }
     tablaPrecio.ajax.reload();
 });
 
 $('#seleccion-cliente').on('change', function(){
-  // tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
-  // data.api = 2;
-  data.cliente_id = $(this).val();
-  tablaPrecio.ajax.reload();
+  cargarpaquetes()
 })
+
+function cargarpaquetes(){
+  tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
+  data.api = 2;
+  data.cliente_id = $('#seleccion-cliente').val();
+  tablaPrecio.ajax.reload();
+}

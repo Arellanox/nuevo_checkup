@@ -1,6 +1,10 @@
 // // var data = 12;
 // var data ={api:2};
 // var apiurl = '../../../api/servicios_api.php';
+dataSet = {
+
+
+}
 
 let  dataSet = [
     ['Tiger Nixon', 'System Architect', 'Edinburgh', '5421', '2011/04/25', '$320,800'],
@@ -66,3 +70,8 @@ $("#juanitoalcachofa").click(function () {
     tablaPaquete.draw();
 });
 
+
+$('#TablaListaPaquetes tbody').on('dblclick', 'tr', function () {
+    datadbl = tablaClientes.row( this ).data();
+    datadbl['COUNT']
+});
