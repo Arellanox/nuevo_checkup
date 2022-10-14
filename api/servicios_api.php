@@ -6,13 +6,13 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (! $tokenValido){
-    $tokenVerification->logout();
-    exit;
+   // $tokenVerification->logout();
+    //exit;
 }
 
 $master = new Master();
 $api = $_POST['api'];
-$id_area = $_POST['id_area'];
+$id_area = isset($_POST['id_area']) ? $_POST['id_area'] : "TODOS";
 $otros_servicios = $_POST['otros_servicios']; #activar con valor 1
 
 
@@ -40,12 +40,16 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area,$otros_servicios));
-
+       
+        $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area));
+        
         if (is_array($response)) {
             $newResponse = array();
             foreach($response as $test){
                 $groups = $master->getByProcedure('sp_detalle_grupo_b',array(null,$test['ID_SERVICIO']));
+                if(!is_array($groups)){
+                    echo $groups;
+                }
                 if(count($groups)>0){
                     $test['DETALLE_GRUPOS'] = $groups;
                 } else {
@@ -54,6 +58,7 @@ switch ($api) {
                
                 $newResponse[] = $test;
             }
+            echo $id_area;
             echo json_encode($newResponse);
         } else {
             echo json_encode(array(
@@ -67,7 +72,7 @@ switch ($api) {
     case 3:
         #getbyid
         $id = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,null, null,$id_area,$otros_servicios));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,null, null,$id_area));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -148,7 +153,7 @@ switch ($api) {
         break;
     case 7:
         #recuperar todos los servicicos que sean grupos
-        $response = $master->getByProcedure('sp_servicios_b',array(null,1,$id_area,$otros_servicios));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,1,$id_area));
 
         if(is_array($response)){
             $newResponse = array();
