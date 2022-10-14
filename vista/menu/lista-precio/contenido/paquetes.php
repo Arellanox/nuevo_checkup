@@ -24,9 +24,10 @@
             .btn-outline-success:hover {
               opacity: 50%;
             }
+
             .disable-div {
-                pointer-events: none;
-                background: rgb(0 0 0 / 8%);
+              pointer-events: none;
+              background: rgb(0 0 0 / 8%);
             }
           </style>
           <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="img" autocomplete="off">
@@ -58,7 +59,7 @@
       <label for="inputBuscarAreaEstudio">Buscar Estudio:</label>
       <select name="estudio" id="seleccion-estudio" class="input-form" required>
       </select>
-      <button type="submit" form="formCompletarPaquete" class="btn btn-confirmar" id="submit-completarPaquete">
+      <button type="submit" form="formCompletarPaquete" class="btn btn-confirmar" id="juanitoalcachofa">
         <i class="bi bi-clipboard-plus"> </i> Agregar Estudio
       </button>
     </div>
@@ -69,7 +70,7 @@
   </div>
   <div class="card col-7 pt-3" style="margin-bottom:5px;">
     <div>
-      <table class="table table-hover display responsive " id="TablaListaPrecios" style="width: 100%">
+      <table class="table table-hover display responsive " id="TablaListaPaquetes" style="width: 100%">
         <thead style="width: 100%">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>

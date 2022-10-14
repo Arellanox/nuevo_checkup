@@ -24,14 +24,16 @@ function obtenerContenidoPaquetes(tabla) {
     var idrow;
     $("#body-js").html(html);
 
-    // Datatable
+  }).done(function () {
+       // Datatable
     $.getScript("contenido/js/paquete-tabla.js");
     // Botones
     $.getScript("contenido/js/paquete-botones.js");
     //Formulario
     $.getScript("contenido/js/paquete-completar.js");
+  }
+  );
 
-  });
 }
 
 function hasLocation() {
