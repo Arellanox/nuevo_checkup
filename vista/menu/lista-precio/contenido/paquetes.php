@@ -1,12 +1,20 @@
 <div class="row" id="paq">
 
   <div class="col-5 row">
-
     <div class="col-auto card form-control ">
-      <div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-auto">
+          <input type="radio" class="btn-check" name="selectPaquete" id="check-agregar" value="1" autocomplete="off">
+          <label class="btn btn-outline-success" for="check-agregar"><i class="bi bi-list"></i> Agregar contenido</label>
+        </div>
+        <div class="col-auto d-flex align-items-center d-flex justify-content-center">
+          <input type="radio" class="btn-check" name="selectPaquete" id="check-editar" value="2" autocomplete="off">
+          <label class="btn btn-outline-success" for="check-editar"><i class="bi bi-list"></i> Editar paquete</label>
+        </div>
+      </div>
+      <div class="p-3" id="form-select-paquetes">
         <label for="inputBuscarPaquetes">Seleccione Paquetes:</label>
-        <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required>
-        </select>
+        <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required> </select>
         <div class="text-start" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
           <style media="screen">
             .btn-outline-success {
@@ -15,6 +23,10 @@
 
             .btn-outline-success:hover {
               opacity: 50%;
+            }
+            .disable-div {
+                pointer-events: none;
+                background: rgb(0 0 0 / 8%);
             }
           </style>
           <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="img" autocomplete="off">
@@ -26,6 +38,21 @@
           <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="otr" autocomplete="off">
           <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
 
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <label for="inputBuscarAreaEstudio">Buscar Estudio:</label>
+            <select name="estudio" id="seleccion-estudio" class="input-form" required>
+            </select>
+          </div>
+          <div class="col-4 d-flex align-items-center d-flex justify-content-center">
+            <button type="submit" form="formCompletarPaquete" class="btn btn-confirmar m-1" id="submit-completarPaquete">
+              <i class="bi bi-plus"></i> Agregar
+            </button>
+            <button type="submit" form="formCompletarPaquete" class="btn btn-borrar m-1" id="submit-completarPaquete" style="display:none">
+              <i class="bi bi-plus"></i> Cancelar
+            </button>
+          </div>
         </div>
       </div>
       <label for="inputBuscarAreaEstudio">Buscar Estudio:</label>
