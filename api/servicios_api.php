@@ -45,19 +45,19 @@ switch ($api) {
         
         if (is_array($response)) {
             $newResponse = array();
-            foreach($response as $test){
-                $groups = $master->getByProcedure('sp_detalle_grupo_b',array(null,$test['ID_SERVICIO']));
+            // foreach($response as $test){
+            //     $groups = $master->getByProcedure('sp_detalle_grupo_b',array(null,$test['ID_SERVICIO']));
 
-                if(count($groups)>0){
-                    $test['DETALLE_GRUPOS'] = $groups;
-                } else {
-                    $test['DETALLE_GRUPOS'] = 'NO PERTENECE A NINGUN GRUPO';
-                }
+            //     if(count($groups)>0){
+            //         $test['DETALLE_GRUPOS'] = $groups;
+            //     } else {
+            //         $test['DETALLE_GRUPOS'] = 'NO PERTENECE A NINGUN GRUPO';
+            //     }
                
-                $newResponse[] = $test;
-            }
-            
-            echo json_encode($newResponse);
+            //     $newResponse[] = $test;
+            // }
+
+            echo json_encode($response);
         } else {
             echo json_encode(array(
                 'response'=>array(
