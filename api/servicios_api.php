@@ -69,8 +69,8 @@ switch ($api) {
         break;
     case 3:
         #getbyid
-        $id = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,null, null,$id_area));
+        $id = $_POST['id'];
+        $response = $master->getByProcedure('sp_servicios_b',array($id,null,$id_area));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
