@@ -14,13 +14,13 @@ $("#btn-segmentos-editar").click(function () {
   }
 });
 
-$("#btn-segmentos-relacion").click(function () {
-  alert('aijshdihj')
-  if (array_selected != null) {
-  } else {
-    alertSelectTable();
-  }
-});
+// $("#btn-segmentos-relacion").click(function () {
+//   alert('aijshdihj')
+//   if (array_selected != null) {
+//   } else {
+//     alertSelectTable();
+//   }
+// });
 
 $("#btn-segmentos-eliminiar").click(function () {
   if (array_selected != null) {

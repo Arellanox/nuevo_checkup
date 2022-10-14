@@ -48,7 +48,7 @@ $("#formActualizarContacto").submit(function (event) {
           if (mensajeAjax(data)) {
             Toast.fire({
               icon: "success",
-              title: "DatosActualizados Correctamente!",
+              title: "Datos Actualizados Correctamente!",
               timer: 2000,
             });
             document.getElementById("formActualizarContacto").reset();

@@ -21,7 +21,6 @@
             <div class="col-12">
               <label for="concepto_id" class="form-label">Concepto de Facturacion</label>
               <select name="concepto_id" id="facturacion-paquete" class="input-form" required>
-
               </select>
             </div>
           </div>

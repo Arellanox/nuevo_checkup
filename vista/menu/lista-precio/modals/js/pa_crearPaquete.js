@@ -4,6 +4,7 @@ ModalRegistrarPaquete.addEventListener("show.bs.modal", (event) => {
   rellenarSelect('#facturacion-paquete','sat_catalogo_api', 2,0,'COMPLETO');
 });
 
+select2("#facturacion-paquete", 'ModalRegistrarPaquete')
 
 
 
@@ -15,7 +16,6 @@ $("#formRegistrarPaquete").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarPaquete");
   var formData = new FormData(form);
-  formData.set('status',null)
     formData.set('api', 1);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",

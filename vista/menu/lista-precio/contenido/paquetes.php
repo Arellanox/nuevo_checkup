@@ -32,7 +32,7 @@
       <select name="estudio" id="seleccion-estudio" class="input-form" required>
       </select>
       <button type="submit" form="formCompletarPaquete" class="btn btn-confirmar" id="submit-completarPaquete">
-        <i class="bi bi-clipboard-plus"> </i> Finalizar
+        <i class="bi bi-clipboard-plus"> </i> Agregar Estudio
       </button>
     </div>
 

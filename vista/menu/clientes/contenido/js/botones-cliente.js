@@ -15,6 +15,7 @@ $("#btn-contacto-editar").click(function () {
   }
 });
 
+
 $("#btn-contacto-agregar").click(function () {
   if (array_selected != null) {
     $("#ModalAgregarContacto").modal("show");
