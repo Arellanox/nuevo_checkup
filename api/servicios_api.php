@@ -13,6 +13,7 @@ if (! $tokenValido){
 $master = new Master();
 $api = $_POST['api'];
 $id_area = $_POST['id_area'];
+$otros_servicios = $_POST['otros_servicios']; #activar con valor 1
 
 
 switch ($api) {
@@ -39,7 +40,7 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area,$otros_servicios));
 
         if (is_array($response)) {
             $newResponse = array();
