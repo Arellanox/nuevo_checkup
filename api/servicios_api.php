@@ -67,7 +67,7 @@ switch ($api) {
     case 3:
         #getbyid
         $id = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,null, null,$id_area));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,null, null,$id_area,$otros_servicios));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -148,7 +148,7 @@ switch ($api) {
         break;
     case 7:
         #recuperar todos los servicicos que sean grupos
-        $response = $master->getByProcedure('sp_servicios_b',array(null,1,$id_area));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,1,$id_area,$otros_servicios));
 
         if(is_array($response)){
             $newResponse = array();
