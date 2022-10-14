@@ -46,57 +46,15 @@
         <thead style="width: 100%">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
-            <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Costo</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Margen</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Total</th>
+            <th scope="col d-flex justify-content-center" class="all">Descripcin</th>
+            <th scope="col d-flex justify-content-center" class="min-tablet">Cantidad</th>
+            <th scope="col d-flex justify-content-center" class="min-tablet">Costo Total</th>
+            <th scope="col d-flex justify-content-center" class="min-tablet">Precio Venta</th>
+            <th scope="col d-flex justify-content-center" class="min-tablet">Subtotal</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>
-              Nombre Estudio
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-span">$</span>
-                <input type="number" class="form-control input-form costo" name="costo" placeholder="" value="">
-                <span class="input-span">.00</span>
-              </div>
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-span">%</span>
-                <input type="number" class="form-control input-form margen" name="margen" placeholder="" value="">
-              </div>
-            </td>
-            <td class="total">
-              $00
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>
-              Nombre Estudio 2
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-span">$</span>
-                <input type="number" class="form-control input-form costo" name="costo" placeholder="" value="">
-                <span class="input-span">.00</span>
-              </div>
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-span">%</span>
-                <input type="number" class="form-control input-form margen" name="margen" placeholder="" value="">
-              </div>
-            </td>
-            <td>
-              <p class="total">00</p>
-            </td>
-          </tr>
+
         </tbody>
       </table>
     </div>

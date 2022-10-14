@@ -1,3 +1,6 @@
+<div class="col-12 loader" id="loader" style="">
+  <div class="preloader" id="preloader"> </div>
+</div>
 <div class="row d-flex justify-content-center">
   <div class="col-3 col-lg-3" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="informacion-segmento">
@@ -23,12 +26,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#1</td>
-            <td>Kevin Gabriel Rodriguez</td>
-            <td>UNRECOVERY-DZ S. RL de CV</td>
-            <td>URCDZ</td>
-          </tr>
         </tbody>
       </table>
     </div>

@@ -1,5 +1,5 @@
 <?php $menu = $_POST['menu']; ?>
-<?php if ($menu == "Recepción" || $menu == "Laboratorio") : ?>
+<?php if ($menu == "Recepción") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
     <i class="bi bi-pencil-square"></i> Editar paciente
   </button>
@@ -69,4 +69,15 @@
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarCliente">
     <i class="bi bi-people"></i> Agregar Nuevo Cliente
   </button>
+<?php endif; ?>
+
+<?php if ($menu == 'Resultados de laboratorio'): ?>
+  <div class="row">
+    <div class="col-auto">
+      <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>
+    </div>
+    <div class="col-auto">
+      <input type="date" class="form-control input-form" name="fechaListadoLaboratorio" value="<?php echo date('Y-m-d') ?>" required id="fechaListadoLaboratorio">
+    </div>
+  </div>
 <?php endif; ?>

@@ -2,10 +2,10 @@
 <div class="table-responsive " id="ContenidoHTML">
   <div class="text-center" style="margin-top:4px;zoom:95%">
     <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-agregar">
-      <i class="bi bi-person-badge"></i> Agregar
+      <i class="bi bi-plus-square"></i> Agregar
     </button>
     <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-segmentos-editar">
-      <i class="bi bi-pencil"></i> Editar
+      <i class="bi bi-pencil-square"></i> Editar
     </button>
   </div>
   <div class="text-center">
@@ -20,9 +20,9 @@
         <th scope="col d-flex justify-content-center" class="all">Derivado</th>
       </tr>
     </thead>
-    <tbody>
-
-    </tbody>
+    <tbody id="contenido-segmento"> </tbody>
   </table>
-
+  <div class="d-flex justify-content-center" >
+    <div class="preloader" id="loader-tabla-segmento"></div>
+  </div>
 </div>

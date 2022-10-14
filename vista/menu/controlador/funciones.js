@@ -260,6 +260,29 @@ function loader(fade) {
   }
 }
 
+function loaderDiv(fade, div = null, loader, loaderDiv = null){
+  if (fade == 'Out') {
+    if (div != null) {
+      $(div).fadeIn(100);
+    }
+    
+    if (loaderDiv != null) {
+      $(loaderDiv).fadeOut(100);
+    }
+    $(loader).fadeOut(100);
+    // alert("salir");
+  } else if (fade == 'In') {
+    if (div != null) {
+      $(div).fadeOut(100);
+    }
+    if (loaderDiv != null) {
+      $(loaderDiv).fadeIn(100);
+    }
+    $(loader).fadeIn(100);
+    // alert("entrar");
+  }
+}
+
 function alertSelectTable(msj = 'No ha seleccionado ningún registro') {
   Toast.fire({
     icon: 'error',
@@ -320,7 +343,6 @@ function selectDatatable(tablename, datatable, panel = null, api = null, tipPane
          if (panel) {
            obtenerPanelInformacion(array_selected[0], api, tipPanel)
          }
-
      }
   });
 }
@@ -354,6 +376,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
             case 'paciente':
                 if (array_selected != null) {
                   $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                  $('#edad-persona').html(formatoFecha(row.EDAD))
                   $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
                   $('#info-paci-curp').html(row.CURP);
                   $('#info-paci-telefono').html(row.CELULAR);

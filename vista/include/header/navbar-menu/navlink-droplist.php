@@ -35,4 +35,7 @@
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/'; ?>">
     <i class="bi bi-briefcase"></i> Clientes</a>
   </a>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
+    <i class="bi bi-briefcase"></i> Laboratorio</a>
+  </a>
 <?php endif; ?>

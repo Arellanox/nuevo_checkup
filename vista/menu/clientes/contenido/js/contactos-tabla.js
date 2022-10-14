@@ -1,9 +1,6 @@
 tablaContacto = $("#TablaContacto").DataTable({
-  processing: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-    loadingRecords: '&nbsp;',
-    processing: '<div class="spinner"></div>'
   },
   // searching: false,
   lengthChange: false,
@@ -22,12 +19,12 @@ tablaContacto = $("#TablaContacto").DataTable({
     },
     method: "POST",
     url: "../../../api/contactos_api.php",
-    // beforeSend: function () {
-    //   loader("In");
-    // },
-    // complete: function () {
-    //   loader("Out");
-    // },
+    beforeSend: function () {
+      loaderDiv("In", "#contenido-contacto", "#loader-tabla-contacto");
+    },
+    complete: function () {
+      loaderDiv("Out",  "#contenido-contacto", "#loader-tabla-contacto");
+    },
     dataSrc: "response.data",
   },
   columns: [

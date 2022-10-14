@@ -7,7 +7,8 @@
     <i class="bi bi-pencil-square"></i> Editar
   </button>
 </div>
-<div class="" >
+
+<div class="">
   <div class="text-center">
     <label for="inputBuscarTableListaNuevos">Buscar:</label>
     <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" id="BuscarTablaContactos">
@@ -18,12 +19,9 @@
         <th scope="col d-flex justify-content-center" class="all">#</th>
         <th scope="col d-flex justify-content-center" class="all">Nombre</th>
     </thead>
-    <tbody>
-      <tr>
-        <td>#1</td>
-        <td>Kevin Gabriel Rodriguez</td>
-
-      </tr>
-    </tbody>
+    <tbody id="contenido-contacto"> </tbody>
   </table>
+  <div class="d-flex justify-content-center" >
+    <div class="preloader" id="loader-tabla-contacto"></div>
+  </div>
 </div>
