@@ -30,13 +30,13 @@
               background: rgb(0 0 0 / 8%);
             }
           </style>
-          <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="img" autocomplete="off">
+          <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off">
           <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Rayos X, Imagennología</label>
 
-          <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="14" autocomplete="off">
+          <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
           <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
 
-          <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="otr" autocomplete="off">
+          <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
           <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
 
         </div>

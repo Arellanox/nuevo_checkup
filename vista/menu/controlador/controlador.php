@@ -30,7 +30,7 @@ session_start();
     });
   }
 
-  $.getScript('http://localhost/nuevo_checkup/vista/menu/controlador/funciones.js').done(function() {
+  $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
     $(function(){
       // <!-- Aqui controlar e incluir las modals -->
       $.getScript('modals/controlador.js');
