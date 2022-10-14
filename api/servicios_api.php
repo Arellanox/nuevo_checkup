@@ -47,9 +47,7 @@ switch ($api) {
             $newResponse = array();
             foreach($response as $test){
                 $groups = $master->getByProcedure('sp_detalle_grupo_b',array(null,$test['ID_SERVICIO']));
-                if(!is_array($groups)){
-                    echo $groups;
-                }
+
                 if(count($groups)>0){
                     $test['DETALLE_GRUPOS'] = $groups;
                 } else {
@@ -58,7 +56,7 @@ switch ($api) {
                
                 $newResponse[] = $test;
             }
-            echo $id_area;
+            
             echo json_encode($newResponse);
         } else {
             echo json_encode(array(
