@@ -44,6 +44,7 @@ $master = new Master();
 switch ($api) {
     case 1:
         # insertar
+        // print_r($parametros);
         $response = $master->insertByProcedure("sp_paquetes_g", $parametros);
         if (is_numeric($response)) {
             echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
