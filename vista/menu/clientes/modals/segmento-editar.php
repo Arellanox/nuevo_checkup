@@ -7,11 +7,11 @@
       </div>
       <div class="modal-body">
         <form class="" id="formEditarSegmento">
-          <p class="text-center">Editar <strong>Segmento</strong></p>
+          <p class="text-center">Actualizar datos del <strong>Segmento</strong></p>
           <div class="row">
             <div class="col-6 col-md-6">
               <label for="nombre_segmento" class="form-label">Nombre</label>
-              <input type="text" name="nombre_segmento" id="nombre_segmento" class="input-form" required>
+              <input type="text" name="nombre_segmento" id="nombre_segmento_editar" class="input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="descripcion" class="form-label">Descripcion</label>
@@ -23,7 +23,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
         <button type="submit" form="formEditarSegmento" class="btn btn-confirmar">
-          <i class="bi bi-person-plus"></i> Registrar
+          <i class="bi bi-person-plus"></i> Actualizar
         </button>
       </div>
     </div>

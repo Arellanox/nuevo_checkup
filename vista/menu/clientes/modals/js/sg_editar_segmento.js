@@ -1,9 +1,10 @@
 const ModalEditarSegmentos = document.getElementById("ModalEditarSegmentos");
 ModalEditarSegmentos.addEventListener("show.bs.modal", (event) => {
 
+  console.log(selectSegmento)
 
-$("#descripcion_segmento").val(selectSegmento["CLIENTE_ID"]);
-$("#descripcion_segmento").val(selectSegmento["DESCRIPCION"]);
+  $("#descripcion_segmento").val(selectSegmento["DESCRIPCION"]);
+  $("#nombre_segmento_editar").val(selectSegmento["ID_SEGMENTO"]);
 
 
 
@@ -15,7 +16,7 @@ $("#formEditarSegmento").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formEditarSegmento");
   var formData = new FormData(form);
-  formData.set('id',array_selected['ID_CLIENTE']);
+  formData.set('id',selectSegmento['ID_SEGMENTO']);
     formData.set('api', 3);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
@@ -32,7 +33,7 @@ $("#formEditarSegmento").submit(function (event) {
 
       $.ajax({
         data: formData,
-        url: "../../../api/clientes_api.php",
+        url: "../../../api/segmentos_api.php",
         type: "POST",
         processData: false,
         contentType: false,
