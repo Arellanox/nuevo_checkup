@@ -3,7 +3,7 @@ ModalCrearRelacion.addEventListener("show.bs.modal", (event) => {
 
 
   rellenarSelect('#relacion-cliente','clientes_api', 2,0,'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
-    rellenarSelect('#relacion-paquete','paquetes_api', 2,0,'DESCRIPCION');
+    rellenarSelect('#relacion-paquete','paquetes_api', 5,0,'DESCRIPCION');
 
 });
 
