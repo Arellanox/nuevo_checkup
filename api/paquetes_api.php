@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    //$tokenVerification->logout();
+    //exit;
 }
 
 #api
@@ -82,7 +82,9 @@ switch ($api) {
         break;
 
     case 5:
-        #insertar el detalle del paquete
+        # encontrar los paquetes que no han sido asigandos a algun cliente.
+        $response = $master->getByProcedure('sp_paquetes_sin_clientes',array());
+        echo $master->mis->returnApi($response);
         
         break;
 
