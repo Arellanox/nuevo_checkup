@@ -4,6 +4,7 @@ require_once "../clases/token_auth.php";
 include "../clases/usuarios_class.php";
 include "../clases/cargos_class.php";
 include "../clases/tipos_usuarios_class.php";
+include_once "../clases/master_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -13,6 +14,7 @@ if (! $tokenValido){
 }
 
 $usuario = new Usuarios();
+$master = new Master();
 
 $api = $_POST['api'];
 
@@ -122,6 +124,29 @@ switch ($api) {
         } else {
             echo json_encode(array("response" => array("code" => 2, "data" => $response)));
         }
+
+    case 9:
+        # confirmar con contrasenia los resultados de laboratorio
+        $activo = 1;
+        $bloqueado = 0;
+        $user = $_SESSION['user'];
+        $parametros = [$user,$activo,$bloqueado]; 
+        $result = $master->getByProcedure("sp_usuarios_login_b",$parametros); 
+        $password = $_GET['password'];
+
+        if(count($result)>0){
+            if(password_verify($password,$result[0]['CONTRASENIA'])){
+                echo json_encode(array("status"=>1));
+            } else {
+                echo json_encode(array("status"=>0));
+            }
+        } else {
+            echo json_encode(array("status"=>'No se encuentra el usuario.'));
+        }
+        
+
+        
+        break;
 
     default:
         # code...
