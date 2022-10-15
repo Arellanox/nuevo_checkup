@@ -56,7 +56,7 @@ switch ($api) {
         # buscar
         $resultset = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $id_cliente]);
         if (is_array($resultset)) {
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$resultset)));
         } else {
             echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
         }
@@ -79,6 +79,11 @@ switch ($api) {
         } else {
             echo json_encode(array("response" => array("code" => 0, "msj" => $result)));
         }
+        break;
+
+    case 5:
+        #insertar el detalle del paquete
+        
         break;
 
     default:
