@@ -16,7 +16,7 @@ if (! $tokenValido){
 $usuario = new Usuarios();
 $master = new Master();
 
-$api = $_POST['api'];
+$api = isset($_POST['api']) ? $_POST['api'] : $_GET['api'];
 
 switch ($api) {
     case 1:
