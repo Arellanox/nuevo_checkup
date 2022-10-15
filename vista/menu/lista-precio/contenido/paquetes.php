@@ -54,7 +54,7 @@
               <button type="submit" form="formCompletarPaquete" class="btn btn-confirmar m-1" id="submit-completarPaquete">
                 <i class="bi bi-plus"></i> Agregar
               </button>
-              <button type="submit" form="formCompletarPaquete" class="btn btn-borrar m-1" id="submit-completarPaquete" style="display:none">
+              <button type="submit" form="formCompletarPaquete" class="btn btn-borrar m-1" id="submit-cancelarPaquete" style="display:none">
                 <i class="bi bi-plus"></i> Cancelar
               </button>
             </div>
@@ -92,7 +92,8 @@
         <thead style="width: 100%">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
-            <th scope="col d-flex justify-content-center" class="all">Descripcin</th>
+            <th scope="col d-flex justify-content-center" class="all">Descripcion</th>
+            <th scope="col d-flex justify-content-center" class="all">CVE</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Cantidad</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Costo Total</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Precio Venta</th>
