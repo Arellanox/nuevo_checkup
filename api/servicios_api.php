@@ -12,7 +12,7 @@ if (! $tokenValido){
 
 $master = new Master();
 $api = $_POST['api'];
-$id_area = isset($_POST['id_area']) ? $_POST['id_area'] : "TODOS";
+$id_area = $_POST['id_area'];
 $otros_servicios = $_POST['otros_servicios']; #activar con valor 1
 
 
@@ -179,6 +179,10 @@ switch ($api) {
                 )
                 ));
         }
+        break;
+    case 8:
+        $response = $master->getByProcedure('sp_servicios_b',array(null,null,$id_area));
+        echo $master->mis->returnApi($response);
         break;
 
     default:
