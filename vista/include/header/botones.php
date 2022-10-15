@@ -58,11 +58,18 @@
   </button>
 <?php endif; ?>
 
+
+
 <?php if ($menu == "Paquetes de clientes") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaquete">
     <i class="bi bi-save"></i> Crear Nuevo Paquete
   </button>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalCrearRelacion">
+    <i class="bi bi-arrow-down-up"></i> Relacionar Paquete-Cliente
+  </button>
 <?php endif; ?>
+
+
 
 
 <?php if ($menu == "Clientes") : ?>
@@ -71,7 +78,7 @@
   </button>
 <?php endif; ?>
 
-<?php if ($menu == 'Resultados de laboratorio'): ?>
+<?php if ($menu == 'Resultados de laboratorio') : ?>
   <div class="row">
     <div class="col-auto">
       <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>

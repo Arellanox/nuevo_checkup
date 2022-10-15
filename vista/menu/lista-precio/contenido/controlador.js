@@ -28,7 +28,7 @@ function obtenerContenidoPaquetes(tabla) {
        // Datatable
     $.getScript("contenido/js/paquete-tabla.js");
     // Botones
-    $.getScript("contenido/js/paquete-botones.js");
+    //$.getScript("contenido/js/paquete-botones.js");
     //Formulario
     $.getScript("contenido/js/paquete-completar.js");
   }
