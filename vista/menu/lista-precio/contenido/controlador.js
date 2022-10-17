@@ -3,6 +3,7 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
+var idsEstudios, data ={api:2, id_area: 7}, apiurl = '../../../api/servicios_api.php', tablaPrecio;
 
 function obtenerContenidoPrecios() {
   obtenerTitulo("Lista de precios"); //Aqui mandar el nombre de la area

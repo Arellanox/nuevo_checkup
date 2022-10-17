@@ -18,12 +18,12 @@ $("#formRegistrarPaciente").submit(function(event){
    var form = document.getElementById("formRegistrarPaciente");
    var formData = new FormData(form);
    formData.set('api', 1);
-   console.log(formData);
-   $i=0;
-   formData.forEach(element => {
-    console.log($i + element);
-    $i++;
-  });
+   // console.log(formData);
+   // $i=0;
+  //  formData.forEach(element => {
+  //   console.log($i + element);
+  //   $i++;
+  // });
    Swal.fire({
       title: '¿Está seguro que todos sus datos estén correctos?',
       text: "¡No podrá editar o volverse a registrar!",

@@ -13,17 +13,21 @@ if (! $tokenValido){
 }
 
 $precio = new Precios();
-$api = 1;
+$api = $_POST['api'];
 
 switch ($api) {
     case 1:
         $new = array(1,1,350.0,100.0,450.0);
-        $response = $precio->insert($new);
+        $precios = $_POST['precios'];
+        for ($i=0; $i < count($precios); $i++) {
+          $new = $precios[$i];
+          $response = $precio->insert($new);
 
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
-        } else {
-            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+          if(is_numeric($response)){
+              echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
+          } else {
+              echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+          }
         }
         break;
     case 2:
@@ -91,7 +95,7 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
-    
+
     default:
         # code...
         break;

@@ -1,17 +1,16 @@
 // var data = 12;
-var data ={api:2, id_area: 0};
-var apiurl = '../../../api/servicios_api.php';
-var tablaPrecio = $("#TablaListaPrecios").DataTable({
-  processing: true,
+tablaPrecio = $("#TablaListaPrecios").DataTable({
+  // processing: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-    loadingRecords: '&nbsp;',
-    processing: '<div class="spinner"></div>'
+    // loadingRecords: '&nbsp;&nbsp;&nbsp;',
+    // processing: '<div class="spinner"></div>'
   },
-  lengthMenu: [
-    [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
-    [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"],
-  ],
+  lengthChange: false,
+  info: false,
+  paging: false,
+  scrollY: "63vh",
+  scrollCollapse: true,
   columnDefs: [
     { width: "4%", targets: 0 },
     { width: "24%", targets: 1 },
@@ -26,15 +25,20 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
       },
       method: 'POST',
       url: apiurl,
-      beforeSend: function() { loader("In") },
-      complete: function(){ loader("Out"), tablaPrecio.processing( false ); },
+      beforeSend: function () {
+        loaderDiv("In", "#contenido-lista-precios", "#loader-tabla-precios");
+      },
+      complete: function () {
+        loaderDiv("Out",  "#contenido-lista-precios", "#loader-tabla-precios");
+      },
       dataSrc:''
   },
   columns:[
       {data: 'COUNT'},
       {data: 'DESCRIPCION'},
       {
-        data: 'COSTO', render: function (data, type, full, meta) {
+        data: 'COSTO',
+        render: function (data, type, full, meta) {
             if (data == null || data == 0) {
               value = 0;
             }else{
@@ -46,7 +50,8 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
           },
       },
       {
-        data: 'UTILIDAD', render: function (data, type, full, meta) {
+        data: 'UTILIDAD',
+        render: function (data, type, full, meta) {
             if (data == null || data == 0) {
               value = 0;
             }else{
@@ -57,7 +62,9 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
             return rturn;
           },
       },
-      {data: 'PRECIO_VENTA', render: function (data, type, full, meta) {
+      {
+        data: 'PRECIO_VENTA',
+        render: function (data, type, full, meta) {
           if (data == null || data == 0) {
             value = 0;
           }else{
@@ -66,7 +73,8 @@ var tablaPrecio = $("#TablaListaPrecios").DataTable({
           rturn = '<div class="total">$'+value+'</div>';
 
           return rturn;
-        },},
+        },
+      },
       // {defaultContent: 'En progreso...'}
   ],
 });
@@ -90,31 +98,54 @@ jQuery(document).on("change ,  keyup" , "input[name='costo'] , input[name='marge
 let tablaPrecios = new Array();
 
 $('#btn-precios-guardar').click(function () {
-        // var form_data  = tablaPrecio.rows().data();
-        var costo = tablaPrecio.$("input[name='costo']").serialize();
-        var margen = tablaPrecio.$("input[name='margen']").serialize();
+        let url, api;
+        tablaPrecio.search('').draw();
+        setTimeout(function(){
+          // var form_data  = tablaPrecio.rows().data();
+          var costo = tablaPrecio.$("input[name='costo']").serialize();
+          var margen = tablaPrecio.$("input[name='margen']").serialize();
 
-        costo2 = costo.slice(6);
-        console.log(costo2);
+          costo2 = costo.slice(6);
+          // console.log(costo2);
 
-        let arraycosto = costo2.split('&costo=');
+          let arraycosto = costo2.split('&costo=');
 
-        margen2 = margen.slice(7);
-        console.log(margen2);
+          margen2 = margen.slice(7);
+          // console.log(margen2);
 
-        let arraymargen = margen2.split('&margen=');
+          let arraymargen = margen2.split('&margen=');
 
-        console.log(arraymargen);
-        var tableData = tablaPrecio.rows().data().toArray();
-        console.log(tableData);
-        for (var i = 0; i < tableData.length; i++) {
-          total = parseFloat(arraycosto[i]) + (parseFloat(arraycosto[i])*parseFloat(arraymargen[i])/100);
-          const arrayFor = [tableData[i][0], parseFloat(arraycosto[i]), parseFloat(arraymargen[i]), total];
-          tablaPrecios.push(arrayFor);
-        }
+          // console.log(arraymargen);
+          var tableData = tablaPrecio.rows().data().toArray();
+          // console.log(tableData);
+          for (var i = 0; i < tableData.length; i++) {
+            total = parseFloat(arraycosto[i]) + (parseFloat(arraycosto[i])*parseFloat(arraymargen[i])/100);
+            const arrayFor = [tableData[i]['ID_SERVICIO'], parseFloat(arraycosto[i]), parseFloat(arraymargen[i]), total];
+            tablaPrecios.push(arrayFor);
+          }
 
-        console.log(tablaPrecios);
-        return false;
+          if ($('input[type=radio][name=selectChecko]').val() != 'Paq') {
+            api = 1; url = 'precios_api';
+          }else{
+
+          }
+
+          $.ajax({
+            url: http + servidor + "/nuevo_checkup/api/"+url+".php",
+            data: { api: api, precios: tablaPrecios },
+            type: "POST",
+            datatype: 'json',
+            success: function (data) {
+
+            }
+          })
+
+
+          // console.log()
+
+          // console.log(tablaPrecios);
+          return false;
+        }, 50)
 });
 
 $('input[type=radio][name=selectChecko]').change(function() {
@@ -136,5 +167,6 @@ function cargarpaquetes(){
   tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
   data.api = 2;
   data.cliente_id = $('#seleccion-cliente').val();
+  data.id_area = null;
   tablaPrecio.ajax.reload();
 }

@@ -11,7 +11,7 @@
         }
       </style>
       <div class="col-auto m-1">
-        <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off" checked>
         <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagennología</label>
       </div>
       <div class="col-auto m-1">
@@ -22,7 +22,7 @@
         <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
         <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
       </div>
-      <div class="col-auto m-1">
+      <div class="col-12 m-1">
         <input type="radio" class="btn-check" name="selectChecko" id="check-paquetes" value="Paq" autocomplete="off">
         <label class="btn btn-outline-success" for="check-paquetes"><i class="bi bi-list"></i> Paquetes</label>
         <label for="inputBuscarTableListaNuevos">Seleccione Cliente:</label>
@@ -48,9 +48,11 @@
             <th scope="col d-flex justify-content-center" class="min-tablet">Total</th>
           </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody id="contenido-lista-precios"> </tbody>
       </table>
+      <div class="d-flex justify-content-center" >
+        <div class="preloader" id="loader-tabla-precios"></div>
+      </div>
     </div>
   </div>
 </div>

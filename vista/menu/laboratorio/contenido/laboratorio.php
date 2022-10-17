@@ -29,48 +29,6 @@
     <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
       <div class="accordion" id="accordionResultadosAnteriores">
-        <div class="accordion-item bg-acordion">
-          <h2 class="accordion-header" id="collap-historial-estudios2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio2-Target" aria-expanded="false" aria-controls="accordionEstudios">
-              <div class="row">
-                <div class="col-12">
-                  <i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>xx/xx/2000</strong> <strong>12:00</strong>
-                </div>
-                <div class="col-12">
-                  <i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>@Usuario que confirmó</strong>
-                </div>
-              </div>
-            </button>
-          </h2>
-          <div id="collapse-estudio2-Target" class="accordion-collapse collapse" aria-labelledby="collap-historial-estudios2">
-            <div class="accordion-body">
-              <div class="row">
-                <div class="col-6 text-end info-detalle">
-                  <p>Estudio 1:</p>
-                </div>
-                <div class="col-6">*Resultado*</div>
-                <div class="col-6 text-end info-detalle">
-                  <p>Estudio 2:</p>
-                </div>
-                <div class="col-6">*Resultado*</div>
-                <div class="col-6 text-end info-detalle">
-                  <p>Estudio 3:</p>
-                </div>
-                <div class="col-6">
-                  <a href="#">*Resultado*</a>
-                </div>
-                <div class="col-6 text-end info-detalle">
-                  <p>Estudio 4:</p>
-                </div>
-                <div class="col-6">*Resultado*</div>
-                <div class="col-6 text-end info-detalle">
-                  <p>Estudio 5:</p>
-                </div>
-                <div class="col-6">*Resultado*</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -82,26 +40,19 @@
           <p class="none-p">Estudios a subir</p>
         </div>
         <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
-          <button type="button" class="btn btn-hover" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarCliente">
+          <button type="submit" form="formAnalisisLaboratorio" data-attribute="guardar" class="btn btn-hover" style="margin-bottom:4px">
             <i class="bi bi-clipboard2-pulse"></i> Guardar
           </button>
-          <button type="button" class="btn btn-hover" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarCliente">
+          <button type="submit" form="formAnalisisLaboratorio" data-attribute="confirmar" class="btn btn-hover" style="margin-bottom:4px">
             <i class="bi bi-clipboard2-pulse"></i> Confirmar
           </button>
         </div>
       </div>
-      <ul class="list-group m-4 overflow-auto hover-list info-detalle" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
-        <li class="list-group-item" id="formulario-estudios-pacientes">
-          <div class="row d-flex align-items-center">
-            <div class="col-auto col-lg-6">
-              <p><i class="bi bi-box-arrow-in-right" style=""></i> Estudio</p>
-            </div>
-            <div class="col-auto col-lg-6 d-flex justify-content-end align-items-center">
-              <input type="text" class="form-control input-form" name="estudio1" placeholder="'Medida del estudio'" required>
-            </div>
-          </div>
-        </li>
-      </ul>
+      <form class="" id="formAnalisisLaboratorio">
+        <ul class="list-group m-4 overflow-auto hover-list info-detalle" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;" id="list-group-form-resultado-laboro">
+
+        </ul>
+      </form>
     </div>
   </div>
   <style media="screen">

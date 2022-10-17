@@ -260,25 +260,25 @@ function loader(fade) {
   }
 }
 
-function loaderDiv(fade, div = null, loader, loaderDiv = null){
+function loaderDiv(fade, div = null, loader, loaderDiv = null, seconds = 50){
   if (fade == 'Out') {
     if (div != null) {
-      $(div).fadeIn(100);
+      $(div).fadeIn(seconds);
     }
-    
+
     if (loaderDiv != null) {
-      $(loaderDiv).fadeOut(100);
+      $(loaderDiv).fadeOut(seconds);
     }
-    $(loader).fadeOut(100);
+    $(loader).fadeOut(seconds);
     // alert("salir");
   } else if (fade == 'In') {
     if (div != null) {
-      $(div).fadeOut(100);
+      $(div).fadeOut(seconds);
     }
     if (loaderDiv != null) {
-      $(loaderDiv).fadeIn(100);
+      $(loaderDiv).fadeIn(seconds);
     }
-    $(loader).fadeIn(100);
+    $(loader).fadeIn(seconds);
     // alert("entrar");
   }
 }

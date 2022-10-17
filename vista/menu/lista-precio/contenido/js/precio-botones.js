@@ -4,7 +4,7 @@ $("#btn-perfil").click(function () {
 
 $("#seleccion-cliente").select2({
   tags: false,
-  width: "auto",
+  width: "50%",
   placeholder: "Selecciona un cliente",
 });
 rellenarSelect("#seleccion-cliente", "clientes_api", 2, 0, 1);
