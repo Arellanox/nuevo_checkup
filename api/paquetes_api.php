@@ -15,7 +15,7 @@ $api = $_POST['api'];
 #buscar
 
 
-$id_cliente = $_POST['id_cliente'];
+//$id_cliente = $_POST['id_cliente'];
 #insertar
 
 $id_paquete = $_POST['id'];
@@ -54,7 +54,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $resultset = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $id_cliente]);
+        $resultset = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id]);
         if (is_array($resultset)) {
             echo json_encode(array("response"=>array("code"=>1,"data"=>$resultset)));
         } else {
@@ -89,7 +89,7 @@ switch ($api) {
         break;
     case 6:
         #detalles de un paquete
-        $response = $master->getByProcedure('sp_detalles_paquetes_b',[$id_paquete, $id_cliente]);
+        $response = $master->getByProcedure('sp_detalles_paquetes_b',[$id_paquete, $cliente_id]);
         echo $master->returnApi($response);
         
     default:
