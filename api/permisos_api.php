@@ -5,10 +5,14 @@ include "../clases/permisos_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
+
+$response = "";
+$response = "api no reconocida";
+echo $master->returnApi($response);
 
 $permiso = new Permisos();
 $api = 2;
@@ -19,50 +23,51 @@ switch ($api) {
         $newRecord = array("Agregar usuarios al sismtea");
         $response = $permiso->insert($newRecord);
 
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "lastId" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
         }
         break;
     case 2:
         $response = $permiso->getAll();
 
-        if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        if (is_array($response)) {
+            echo json_encode(array("response" => array("code" => 1, "data" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
         }
         break;
     case 3:
         $response = $permiso->getById(1);
-        if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
+        if (is_array($response)) {
+            echo json_encode(array("response" => array("code" => 1, "data" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
         }
         break;
     case 4:
-        $updatingRecord = array("Agregar usuarios al sistema",1);
+        $updatingRecord = array("Agregar usuarios al sistema", 1);
         $response = $permiso->update($updatingRecord);
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
         }
         break;
     case 5:
         $response = $permiso->delete(1);
 
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
         }
         break;
-    
+
     default:
-        # code...
+        $response = "api no reconocida";
         break;
 }
-?>
+
+echo $master->returnApi($response);

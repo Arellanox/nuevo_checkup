@@ -35,45 +35,28 @@ $parametros = array(
     $email
 );
 
+$response=""; 
 $master = new Master();
 switch ($api) {
     case 1:
-        $response = $master->insertByProcedure("sp_contactos_g", $parametros);
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
-        }
+        $response = $master->insertByProcedure("sp_contactos_g", $parametros); 
         break;
     case 2:
         # buscar
-        $resultset = $master->getByProcedure("sp_contactos_b", [$id, $cliente]);
-        if (is_array($resultset)) {
-            echo json_encode(array("response" => array("code" => 1, "data" => $resultset)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
-        }
+        $response = $master->getByProcedure("sp_contactos_b", [$id, $cliente]); 
         break;
     case 3:
         # actualizar
-        $response = $master->updateByProcedure("sp_contactos_g", $parametros);
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $response, "msj" => "Envío exitoso")));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => $response)));
-        }
+        $response = $master->updateByProcedure("sp_contactos_g", $parametros); 
         break;
     case 4:
         # desactivar
-        $result = $master->deleteByProcedure("sp_contactos_e", [$id]);
-        if (is_numeric($result)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $result)));
-        }
+        $response = $master->deleteByProcedure("sp_contactos_e", [$id]); 
         break;
 
     default:
-        echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => "api no reconocida")));
+    $response = "api no reconocida";
         break;
 }
+
+echo $master->returnApi($response);

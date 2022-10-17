@@ -92,11 +92,7 @@ switch ($api) {
     case 3:
         # actualizar pacientes
         $response = $master->updateByProcedure("sp_pacientes_g", $parametros);
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $response, "msj" => "Envío exitoso")));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => $response)));
-        }
+        echo $master->returnApi($response);
         break;
     case 4:
         # desactivr paciente

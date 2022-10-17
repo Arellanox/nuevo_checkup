@@ -1,10 +1,10 @@
-<?php 
+<?php
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
@@ -26,30 +26,31 @@ $parametros = array(
     $id_clasificacion,
     $descripcion
 );
+
+
+$response = "";
+
 $master = new Master();
 switch ($api) {
     case 1:
         #insert
-        $values = $master->mis->getFormValues($_POST);
-        echo $master->mis->returnApi($master->insertByProcedure('sp_laboratorio_clasificacion_examen_g',$values));
-        
+        $response = $master->insertByProcedure('sp_laboratorio_clasificacion_examen_g', $parametros);
         break;
     case 2:
         #getall
-        echo $master->mis->returnApi($master->getByProcedure('sp_laboratorio_clasificacion_examen_b',array($id)));
+        $response = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', array($id));
         break;
     case 3:
         #update
-        $values = $master->mis->getFormValues($_POST);
-        echo $master->mis->returnApi($master->updateByProcedure('sp_laboratorio_clasificacion_examen_g',$values));
+        $response = $master->updateByProcedure('sp_laboratorio_clasificacion_examen_g', $parametros);
         break;
     case 4:
         #eliminar
-        echo $master->mis->returnApi($master->deleteByProcedure('sp_laboratorio_clasificacion_examen_e',array($id)));
-        break;    
+        $response = $master->deleteByProcedure('sp_laboratorio_clasificacion_examen_e', array($id));
+        break;
     default:
-        echo json_encode('OPCION DEFAULT. API '.$api);
+        $response = "api no reconocida";
         break;
 }
 
-?>
+echo $master->returnApi($response);
