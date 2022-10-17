@@ -87,7 +87,11 @@ switch ($api) {
         echo $master->mis->returnApi($response);
         
         break;
-
+    case 6:
+        #detalles de un paquete
+        $response = $master->getByProcedure('sp_detalles_paquetes_b',[$id_paquete, $id_cliente]);
+        echo $master->mis->returnApi($response);
+        
     default:
         echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => "api no reconocida")));
         break;
