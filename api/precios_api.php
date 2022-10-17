@@ -4,6 +4,7 @@ require_once "../clases/token_auth.php";
 include "../clases/precios_class.php";
 include "../clases/clientes_class.php";
 include "../clases/servicios_class.php";
+include_once "../clases/master_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -12,16 +13,16 @@ if (! $tokenValido){
     exit;
 }
 
-$precio = new Precios();
+
+$master = new Master();
 $api = $_POST['api'];
 
 switch ($api) {
     case 1:
-        $new = array(1,1,350.0,100.0,450.0);
         $precios = $_POST['precios'];
         for ($i=0; $i < count($precios); $i++) {
           $new = $precios[$i];
-          $response = $precio->insert($new);
+          $response = $master->updateByProcedure('sp_servicios_lista_de_precios_g',$new);
 
           if(is_numeric($response)){
               echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
