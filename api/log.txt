@@ -247,3 +247,11 @@
 14/10/22 21:31:42 sp_paquetes_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
 14/10/22 21:32:31 sp_paquetes_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
 14/10/22 21:33:05 sp_paquetes_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '0' for key 'PRIMARY'
+17/10/22 17:16:12 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+17/10/22 17:16:29 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+17/10/22 17:16:50 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+17/10/22 17:17:39 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+17/10/22 17:18:04 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+17/10/22 17:18:10 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+17/10/22 17:55:55 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 4, got 3
+17/10/22 18:06:17 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 4, got 3

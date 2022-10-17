@@ -1,81 +1,110 @@
-// // var data = 12;
-// var data ={api:2};
-// var apiurl = '../../../api/servicios_api.php';
-
-let dataSet = [{
-    'COUNT':  0,
-    'DESCRIPCION': 0,
-    'CVE':0,
-    'CANTIDAD':1,
-    'COSTO_TOTAL': 0,
-    'PRECIO_VENTA':0,
-    'SUBTOTAL': 0,
-  }];
-
-var tablaPaquete = $("#TablaListaPaquetes").DataTable({
-  processing: true,
+tablaPaquete = $("#TablaListaPaquetes").DataTable({
+  lengthChange: false,
+  info: false,
+  paging: false,
+  scrollY: "63vh",
+  scrollCollapse: true,
+  columnDefs: [
+    { width: "213.266px", targets: 0},
+    { width: "80.75px", targets: 1},
+    { width: "90.516px", targets: 2 },
+    { width: "80.8438px", targets: 3 },
+    { width: "102.484px", targets: 4 },
+    { width: "99.344px", targets: 5 },
+    { width: "64.75px", targets: 6 },
+  ],
   data : dataSet,
   columns:[
-    {data: 'COUNT'},
     {data: 'DESCRIPCION'},
     {data: 'CVE'},
-    {data: 'CANTIDAD'},
-    {data: 'COSTO_TOTAL'},
-    {data: 'PRECIO_VENTA'},
-    {data: 'SUBTOTAL'}
+    {
+      data: 'CANTIDAD',
+      render: function (data, type, full, meta) {
+          if (data == null || data == 0) {
+            value = 0;
+          }else{
+            value = data;
+          }
+          rturn = '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="'+value+'" style="margin: 0;padding: 0;height: 35px;">';
+
+          return rturn;
+        },
+    },
+    {
+      data: 'COSTO',
+      render: function (data, type, full, meta) {
+        if (data == null || data == 0) {
+          value = 0;
+        }else{
+          value = data;
+        }
+        rturn = '<div class="costo-paquete text-center">$3</div>';
+
+        return rturn;
+      },
+    },
+    {
+      data: 'COSTO_TOTAL',
+      render: function (data, type, full, meta) {
+        if (data == null || data == 0) {
+          value = 0;
+        }else{
+          value = data;
+        }
+        rturn = '<div class="costototal-paquete text-center">$'+value+'</div>';
+
+        return rturn;
+      },
+    },
+    {
+      data: 'PRECIO_VENTA',
+      render: function (data, type, full, meta) {
+        if (data == null || data == 0) {
+          value = 0;
+        }else{
+          value = data;
+        }
+        rturn = '<div class="precioventa-paquete text-center">$2</div>';
+
+        return rturn;
+      },
+    },
+    {
+      data: 'SUBTOTAL',
+      render: function (data, type, full, meta) {
+        if (data == null || data == 0) {
+          value = 0;
+        }else{
+          value = data;
+        }
+        rturn = '<div class="subtotal-paquete text-center">$'+value+'</div>';
+
+        return rturn;
+      },
+    }
   ],
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-    loadingRecords: '&nbsp;',
-    processing: '<div class="spinner"></div>'
   },
-  lengthMenu: [
-    [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
-    [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"],
-  // ],
-
-  ]
 });
-
-
 
 $('#TablaListaPaquetes tbody').on('dblclick', 'tr', function () {
-    datadbl = tablaClientes.row( this ).data();
-    datadbl['COUNT']
+    if (!$("input[name='cantidad-paquete']").is(":focus")) {
+
+      let datadbl = tablaPaquete.row( this ).data();
+
+      // console.log(datadbl)
+      if (dataSet.indexOf(datadbl['LIST'])) {
+        console.log(datadbl);
+        dataSet = dataSet.filter(item => item.LIST != datadbl['LIST'])
+        cargarTabla(dataSet);
+        // alert('Eliminado '+datadbl['DESCRIPCION'])
+      }
+    }
 });
 
-function meterDato (DESCRIPCION,CVE,COSTO_TOTAL,PRECIO_VENTA){
-let longitud = dataSet.length+1;
-  dataSet.push({
-    'COUNT':  longitud,
-    'DESCRIPCION': DESCRIPCION,
-    'CVE':CVE,
-    'CANTIDAD':1,
-    'COSTO_TOTAL': COSTO_TOTAL,
-    'PRECIO_VENTA':PRECIO_VENTA,
-    'SUBTOTAL': 0,
-  })
 
-    tablaPaquete.clear();
-    tablaPaquete.rows.add(dataSet);
-    tablaPaquete.draw();
-
-}
-
-
-$('#submit-completarPaquete').click(function() {
-
-
-  $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
-    type: "POST",
-      dataType: 'json',
-      data: { id: $('#seleccion-estudio').val(),api: 3 },
-      success: function (data) {
-            console.log(data);
-            data = data.response.data[0];
-            meterDato(data.DESCRIPCION, data.ABREVIATURA, data.COSTO, data.PRECIO_VENTA);
-        }
-      }
-    );
-})
+$(document).on("change ,  keyup" , "input[name='cantidad-paquete']" ,function(){
+    let parent_element = $(this).closest("tr");
+    caluloFila(parent_element)
+});
