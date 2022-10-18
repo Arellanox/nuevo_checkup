@@ -71,18 +71,20 @@ switch ($api) {
     case 6:
         #detalles de un paquete
         $detalle = $_POST['paquete_detalle'];
+        //print_r($detalle);
         # obtiene el arreglo del final
         $info_paquete = array_slice($detalle,count($detalle)-1,1);
         #quita la informacion del paquete, solo deja los detalles
-        $detalle = array_pop($detalle);
+        $detalle_final = array_pop($detalle);
         #variables para verificar si se insertaron todos los detalles del paquete,
         $len_detalle = count($detalle);
         $oks = 0;
-
+        //print_r($detalle);
+        //print_r($info_paquete);
         foreach($detalle as $det){
             $newDet = array(
                 null,
-                $info_paquete['id_paquete'],
+                $info_paquete[0]['id_paquete'],
                 $det['id'],
                 $det['cantidad'],
                 $det['costo'],
@@ -91,17 +93,23 @@ switch ($api) {
                 $det['subtotal']
             );
             $response =  $master->returnApi($master->insertByProcedure('sp_detalle_paquete_g',$newDet));
-            
-            if($resonse['response']['code']==1){
+
+            $response = json_decode($response,true);
+        
+            if($response['response']['code']==1){
+                # agrega un insertado con exito al mensaje
                 $oks++;
+                //echo $response['response']['code'];
             }
         }
-
+        
         if($oks==$len_detalle){
             echo json_encode(array('response'=>array('code'=>1,'msj'=>"Se insertaron todos los servicios.")));
         } else {
             echo json_encode(array('response'=>array('code'=>2,'msj'=>"Es posible que se hayn omitido algunos servicios..")));
         }
+
+        return;
         break;
 
     default:
