@@ -61,11 +61,27 @@ function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREV
 // Calular toda la tabla y filas
 function calcularFilasTR(){
   subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;
+  var paqueteEstudios = new Array();
   $('#TablaListaPaquetes tbody tr').each(function() {
+      var arregloEstudios = new Array();
       let calculo = caluloFila(this)
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
+      tabledata = tablaPaquete.row( this ).data();
+
+
+      arregloEstudios = {
+        'id': tabledata[7],
+        'cantidad': calculo[2],
+        'costo': calculo[3],
+        'costototal': calculo[0],
+        'precioventa': calculo[4],
+        'subtotal': calculo[1]
+      }
+
+      paqueteEstudios.push(arregloEstudios)
   });
+  // console.log(paqueteEstudios);
   iva = (subtotalPrecioventa * 16)/100;
   total = subtotalPrecioventa + iva;
 
@@ -75,6 +91,14 @@ function calcularFilasTR(){
   $('#subtotal-costo-paquete').html('$'+subtotalCosto);
   $('#subtotal-precioventa-paquete').html('$'+subtotalPrecioventa);
   $('#total-paquete').html('$'+total);
+  paqueteEstudios.push({
+    'total': total,
+    'subtotal-costo': subtotalCosto,
+    'subtotal.precioventa':subtotalPrecioventa,
+    'iva': iva,
+    'id_paquete': $('#seleccion-paquete').val()
+  })
+  return paqueteEstudios
 }
 
 function caluloFila(parent_element){
@@ -95,7 +119,7 @@ function caluloFila(parent_element){
   }else{
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$0')
   }
-  return data = [costoTotal, subtotal]
+  return data = [costoTotal, subtotal, cantidad, costo, precioventa]
 }
 
 // Precargar listado

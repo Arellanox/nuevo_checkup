@@ -291,6 +291,15 @@ function alertSelectTable(msj = 'No ha seleccionado ningún registro') {
   });
 }
 
+function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos completados', footer = null) {
+  Swal.fire({
+    icon: icon,
+    title: title,
+    text: text,
+    footer: footer
+  })
+}
+
 function mensajeAjax(data) {
   switch (data['response']['code']) {
     case 1:

@@ -88,6 +88,12 @@ tablaPaquete = $("#TablaListaPaquetes").DataTable({
   },
 });
 
+// Get the column API object
+var column = tablaPaquete.column(7);
+
+// Toggle the visibility
+column.visible(!column.visible());
+
 $('#TablaListaPaquetes tbody').on('dblclick', 'tr', function () {
     if (!$("input[name='cantidad-paquete']").is(":focus")) {
 
@@ -106,8 +112,4 @@ $('#TablaListaPaquetes tbody').on('dblclick', 'tr', function () {
        .draw();
       calcularFilasTR()
     }
-});
-
-$(document).on("change ,  keyup" , "input[name='cantidad-paquete']" ,function(){
-    calcularFilasTR()
 });

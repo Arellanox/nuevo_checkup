@@ -107,7 +107,7 @@
             <th scope="col d-flex justify-content-center" class="min-tablet">Costo Total</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Precio Venta</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Subtotal</th>
-            <th scope="col d-flex justify-content-center" class="none" style="display:none">ID</th>
+            <th scope="col d-flex justify-content-center" class="all" style="display:none">ID</th>
           </tr>
         </thead>
         <tbody>
