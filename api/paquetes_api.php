@@ -70,12 +70,43 @@ switch ($api) {
         break;
     case 6:
         #detalles de un paquete
-        $response = $master->getByProcedure('sp_detalles_paquetes_b',[$id_paquete, $cliente_id]);
-        echo $master->returnApi($response);
+        $detalle = $_POST['paquete_detalle'];
+        # obtiene el arreglo del final
+        $info_paquete = array_slice($detalle,count($detalle)-1,1);
+        #quita la informacion del paquete, solo deja los detalles
+        $detalle = array_pop($detalle);
+        #variables para verificar si se insertaron todos los detalles del paquete,
+        $len_detalle = count($detalle);
+        $oks = 0;
+
+        foreach($detalle as $det){
+            $newDet = array(
+                null,
+                $info_paquete['id_paquete'],
+                $det['id'],
+                $det['cantidad'],
+                $det['costo'],
+                $det['costototal'],
+                $det['precioventa'],
+                $det['subtotal']
+            );
+            $response =  $master->returnApi($master->insertByProcedure('sp_detalle_paquete_g',$newDet));
+            
+            if($resonse['response']['code']==1){
+                $oks++;
+            }
+        }
+
+        if($oks==$len_detalle){
+            echo json_encode(array('response'=>array('code'=>1,'msj'=>"Se insertaron todos los servicios.")));
+        } else {
+            echo json_encode(array('response'=>array('code'=>2,'msj'=>"Es posible que se hayn omitido algunos servicios..")));
+        }
         break;
 
     default:
-        $response = "api no reconocida";
+        print_r($_POST);        
+        $response = "api no reconocida ".$api;
         break;
 }
 
