@@ -52,11 +52,6 @@ switch ($api) {
     case 2:
         # buscar
         $resultset = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id]);
-        if (is_array($resultset)) {
-            echo json_encode($resultset);
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
-        }
         break;
 
     case 3:
@@ -71,7 +66,6 @@ switch ($api) {
     case 5:
         # encontrar los paquetes que no han sido asigandos a algun cliente.
         $response = $master->getByProcedure('sp_paquetes_sin_clientes',array());
-        echo $master->mis->returnApi($response);
 
         break;
     case 6:
