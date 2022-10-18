@@ -51,7 +51,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $resultset = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id]);
+        $response = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id]);
         break;
 
     case 3:
@@ -72,6 +72,7 @@ switch ($api) {
         #detalles de un paquete
         $response = $master->getByProcedure('sp_detalles_paquetes_b',[$id_paquete, $cliente_id]);
         echo $master->returnApi($response);
+        break;
 
     default:
         $response = "api no reconocida";
