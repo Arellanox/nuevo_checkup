@@ -14,7 +14,7 @@ $api = $_POST['api'];
 
 #buscar
 $id = $_POST['id'];
-$id = $_POST['id_cliente'];
+$id_cliente = $_POST['cliente_id'];
 
 #insertar
 $id_segmento = $_POST['id_segmento'];
@@ -37,7 +37,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_segmentos_b", [$id]);
+        $response = $master->getByProcedure("sp_segmentos_b", [$id_cliente,$id]);
         break;
     case 3:
         # actualizar
