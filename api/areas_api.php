@@ -11,16 +11,17 @@ if (!$tokenValido) {
 
 #api
 $api = $_POST['api'];
-#buscar
 
-$id = 1; #TESTER_TEMP $_POST['id'];
+#buscar
+$id = $_POST['id'];
+$encargado_id = $_POST['encargado_id'];
+
 #insertar
 $id_area = $_POST['id'];
 $encargado_id = $_POST['encargado_id'];
 $descripcion = $_POST['descripcion'];
 $esta_libre = $_POST['esta_libre'];
 $prioridad = $_POST['prioridad'];
-$activo = $_POST['activo'];
 
 $parametros = array(
     $id_area,
@@ -38,7 +39,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_areas_b", [$id]);
+        $response = $master->getByProcedure("sp_areas_b", [$id,$encargado_id]);
         break;
     case 3:
         # actualizar

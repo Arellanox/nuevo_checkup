@@ -40,17 +40,14 @@ $parametros = array(
     $iva
 );
 
+$response = "";
+
 $master = new Master();
 switch ($api) {
     case 1:
         # insertar
         // print_r($parametros);
         $response = $master->insertByProcedure("sp_paquetes_g", $parametros);
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
-        }
         break;
     case 2:
         # buscar
@@ -65,20 +62,10 @@ switch ($api) {
     case 3:
         # actualizar
         $response = $master->updateByProcedure("sp_paquetes_g", $parametros);
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $response, "msj" => "Envío exitoso")));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => $response)));
-        }
         break;
     case 4:
         # desactivar
-        $result = $master->deleteByProcedure("sp_paquetes_e", [$id_paquete]);
-        if (is_numeric($result)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $result)));
-        }
+        $response = $master->updateByProcedure("sp_paquetes_e", $parametros);
         break;
 
     case 5:
@@ -93,6 +80,8 @@ switch ($api) {
         echo $master->returnApi($response);
 
     default:
-        echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => "api no reconocida")));
+        $response = "api no reconocida";
         break;
 }
+
+echo $master->returnApi($response);

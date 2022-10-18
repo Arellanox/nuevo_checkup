@@ -1,44 +1,57 @@
 <?php
-include "../clases/master_class.php";
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
 
-$master = new Master();
 
-# Revisa el metodo por el que recibe la variable api.
-# En caso de que no se envie nada, toma la api 2 por default.
 $api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api'] : 0);
 
+#buscar
+$id = $_POST['id'];
 
+#insertar
+$sat_id_codigo = $_POST['sat_id_codigo'];
+$sat_id_clase = $_POST['sat_id_clase'];
+$codigo = $_POST['codigo'];
+$descripcion = $_POST['descripcion'];
+
+$parametros = array(
+    $sat_id_codigo,
+    $sat_id_clase,
+    $codigo,
+    $descripcion
+);
+
+
+$response = "";
+
+$master = new Master();
 switch ($api) {
     case 1:
-        $values = $master->mis->getFormValues(array_slice($_POST,0,3));
-        echo $master->mis->returnApi($master->insertByProcedure('sp_catalogo_g',$values));
+        #insert
+        $response = $master->insertByProcedure('sp_catalogo_g', $parametros);
         break;
     case 2:
-        echo $master->mis->returnApi($master->getByProcedure('sp_catalogo_b',array(null)));
+        #getall
+        $response = $master->getByProcedure('sp_catalogo_b', array($id));
         break;
     case 3:
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->getByProcedure('sp_catalogo_b',$values));
+        #update
+        $response = $master->updateByProcedure('sp_catalogo_g', $parametros);
         break;
     case 4:
-        $values = $master->mis->getFormValues(array_slice($_POST,0,4));
-        echo $master->mis->returnApi($master->updateByProcedure('sp_catalogo_g',$values));
+        #eliminar
+        $response = $master->deleteByProcedure('sp_catalogo_e', array($id));
         break;
-    case 5:
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->deleteByProcedure('sp_catalogo_e',$values));
-        break;
-
     default:
-        echo "What the hell are you trying to do?";
+        $response = "api no reconocida";
         break;
 }
-?>
+
+echo $master->returnApi($response);

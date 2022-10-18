@@ -68,46 +68,32 @@ $parametros = array(
     $dosis,
     $genero
 );
+
+$response = "";
+
 $master = new Master();
 switch ($api) {
     case 1:
         # insertar un nuevo paciente
         $response = $master->insertByProcedure("sp_pacientes_g", $parametros);
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
-        }
         break;
     case 2:
         # buscar pacientes
-        $resultset = $master->getByProcedure("sp_pacientes_b", [$id, $curp]);
-        if (is_array($resultset)) {
-            echo json_encode($resultset);
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $resultset)));
-        }
+        $response = $master->getByProcedure("sp_pacientes_b", [$id, $curp]);
         break;
 
     case 3:
         # actualizar pacientes
         $response = $master->updateByProcedure("sp_pacientes_g", $parametros);
-        echo $master->returnApi($response);
         break;
     case 4:
         # desactivr paciente
 
-        $result = $master->deleteByProcedure("sp_pacientes_e", [$id]);
-        if (is_numeric($result)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $result)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $result)));
-        }
+        $response = $master->deleteByProcedure("sp_pacientes_e", [$id]);
         break;
-    // case -1:
-    //     echo json_encode(array("response" => array("code" => 1, "affected" => $_POST)));
-    //     break;
     default:
-        echo json_encode(array("response" => array("code" => 0, "affected" => -1, "msj" => "api no reconocida")));
+        $response = "api no reconocida";
         break;
 }
+
+echo $master->returnApi($response);

@@ -1,44 +1,54 @@
-<?php 
-include "../clases/master_class.php";
+<?php
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
 
-$master = new Master();
+#api
 $api = $_POST['api'];
+#buscar
 
+$id = $_POST['id'];
+#insertar
+$id_sat_clase = $_POST['id_sat_clase'];
+$sat_grupo_id = $_POST['sat_grupo_id'];
+$codigo = $_POST['codigo'];
+$descripcion = $_POST['descripcion'];
+
+$parametros = array(
+    $id_sat_clase,
+    $sat_grupo_id,
+    $codigo,
+    $descripcion
+);
+
+$response="";
+
+$master = new Master();
 switch ($api) {
     case 1:
-        #insert
-        $values = $master->mis->getFormValues(array_slice($_POST,0,3));
-        echo $master->mis->returnApi($master->insertByProcedure('sp_sat_clases_g',$values));
+        $response = $master->insertByProcedure("sp_sat_clases_g", $parametros);
         break;
     case 2:
-        #getall
-        echo $master->mis->returnApi($master->getByProcedure('sp_sat_clases_b',array(null)));
+        # buscar
+        $response = $master->getByProcedure("sp_sat_clases_b", [$id]);
         break;
     case 3:
-        #getbyid
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->getByProcedure('sp_sat_clases_b',$values));
+        # actualizar
+        $response = $master->updateByProcedure("sp_sat_clases_g", $parametros);
         break;
     case 4:
-        #update
-        $values = $master->mis->getFormValues(array_slice($_POST,0,4));
-        echo $master->mis->returnApi($master->updateByProcedure('sp_sat_clases_g',$values));
-        break;
-    case 5:
-        #delete
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->getByProcedure('sp_sat_clases_e',$values));
+        # desactivar
+        $response = $master->deleteByProcedure("sp_sat_clases_e", [$id]);
         break;
     default:
-        echo 'What the hell are you trying to do?';
+        $response = "api no reconocida";
         break;
 }
-?>
+
+echo $master->returnApi($response);

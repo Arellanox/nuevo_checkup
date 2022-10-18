@@ -1,71 +1,50 @@
 <?php
-include "../interfaces/iMetodos.php";
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
-include "../clases/tipos_usuarios_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
 
-$tipo = new TiposUsuarios();
+#api
 $api = $_POST['api'];
+
+#buscar
+$id = $_POST['id'];
+
+#insertar
+$id_tipo = $_POST['id_tipo'];
+$descripcion = $_POST['descripcion'];
+
+$parametros = array(
+    $id_tipo,
+    $descripcion
+);
+$response="";
+
+$master = new Master();
 switch ($api) {
     case 1:
-        $new = array("Tipo 1");
-        $response = $tipo->insert($new);
-
-        if (is_numeric($response)) {
-            echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
-        } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
-        }
-
+        $response = $master->insertByProcedure("sp_tipos_usuarios_g", $parametros);
         break;
     case 2:
-
-        $response = $tipo->getAll();
-        if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
-        } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
-        }
+        # buscar
+        $response = $master->getByProcedure("sp_tipos_usuarios_b", [$id]);
         break;
-
     case 3:
-        $response = $tipo->getById(1);
-
-        if(is_array($response)){
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$response)));
-        } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
-        }
+        # actualizar
+        $response = $master->updateByProcedure("sp_tipos_usuarios_g", $parametros);
         break;
-
     case 4:
-        $response = $tipo->update(array("Tipo 1 actualizado",1));
-
-        if (is_numeric($response)) {
-            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
-        } else {
-            echo json_encode(array("response"=>array("code"=>0,"msj"=>$response)));
-        }
-
-        break;
-
-    case 5:
-        $response = $tipo->delete(1);
-
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
-        } else {
-            echo json_encode(array("response"=>array()));
-        }
+        # desactivar
+        $response = $master->deleteByProcedure("sp_tipos_usuarios_e", [$id]);
         break;
     default:
-        # code...
+        $response = "api no reconocida";
         break;
 }
-?>
+
+echo $master->returnApi($response);

@@ -1,47 +1,52 @@
-<?php 
-include "../clases/master_class.php";
+<?php
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
 
-$master = new Master();
+#api
 $api = $_POST['api'];
 
+#buscar
+$id = $_POST['id'];
+
+#insertar
+$id_sat_division = $_POST['id_sat_division'];
+$sat_tipo_id = $_POST['sat_tipo_id'];
+$descripcion = $_POST['descripcion'];
+
+$parametros = array(
+    $id_sat_division,
+    $sat_tipo_id,
+    $descripcion
+);
+$response="";
+
+$master = new Master();
 switch ($api) {
     case 1:
-        #insert 
-        
-        $values = $master->mis->getFormValues(array_slice($_POST,0,2));
-      
-        echo $master->mis->returnApi($master->insertByProcedure('sp_sat_divisiones_g',$values));
+        $response = $master->insertByProcedure("sp_sat_divisiones_g", $parametros);
         break;
     case 2:
-        #getall
-        echo $master->mis->returnApi($master->getByProcedure('sp_sat_divisiones_b',array(null)));
+        # buscar
+        $response = $master->getByProcedure("sp_sat_divisiones_b", [$id]);
         break;
     case 3:
-        #getbyid
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->getByProcedure('sp_sat_divisiones_b',$values));
+        # actualizar
+        $response = $master->updateByProcedure("sp_sat_divisiones_g", $parametros);
         break;
     case 4:
-        #update
-        $values = $master->mis->getFormValues(array_slice($_POST,0,3));
-        echo $master->mis->returnApi($master->updateByProcedure('sp_sat_divisiones_g',$values));
+        # desactivar
+        $response = $master->deleteByProcedure("sp_sat_divisiones_e", [$id]);
         break;
-    case 5:
-        #delete
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->deleteByProcedure('sp_sat_divisiones_e',$values));
-        break;
-    
     default:
-        # code...
+        $response = "api no reconocida";
         break;
 }
-?>
+
+echo $master->returnApi($response);

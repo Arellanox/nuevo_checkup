@@ -1,7 +1,6 @@
 <?php
-include "../interfaces/iMetodos.php";
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
-include "../clases/permisos_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -10,61 +9,41 @@ if (!$tokenValido) {
     exit;
 }
 
-$response = "";
-$response = "api no reconocida";
-echo $master->returnApi($response);
+#api
+$api = $_POST['api'];
+#buscar
 
-$permiso = new Permisos();
-$api = 2;
+$id = $_POST['id'];
+#insertar
+$id_permiso = $_POST['id_permiso'];
+$permiso = $_POST['permiso'];
+$descripcion = $_POST['descripcion'];
 
+
+$parametros = array(
+    $id_permiso,
+    $permiso,
+    $descripcion
+);
+$response="";
+
+$master = new Master();
 switch ($api) {
     case 1:
-        // $form = $permiso->master->getFormValues($_POST);
-        $newRecord = array("Agregar usuarios al sismtea");
-        $response = $permiso->insert($newRecord);
-
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "lastId" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
-        }
+        $response = $master->insertByProcedure("sp_permisos_g", $parametros);
         break;
     case 2:
-        $response = $permiso->getAll();
-
-        if (is_array($response)) {
-            echo json_encode(array("response" => array("code" => 1, "data" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
-        }
+        # buscar
+        $response = $master->getByProcedure("sp_permisos_b", [$id]);
         break;
     case 3:
-        $response = $permiso->getById(1);
-        if (is_array($response)) {
-            echo json_encode(array("response" => array("code" => 1, "data" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
-        }
+        # actualizar
+        $response = $master->updateByProcedure("sp_permisos_g", $parametros);
         break;
     case 4:
-        $updatingRecord = array("Agregar usuarios al sistema", 1);
-        $response = $permiso->update($updatingRecord);
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
-        }
+        # desactivar
+        $response = $master->deleteByProcedure("sp_permisos_e", [$id]);
         break;
-    case 5:
-        $response = $permiso->delete(1);
-
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 0, "msj" => $response)));
-        }
-        break;
-
     default:
         $response = "api no reconocida";
         break;

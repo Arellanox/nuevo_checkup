@@ -1,41 +1,50 @@
-<?php 
-include "../clases/master_class.php";
+<?php
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
 
-$master = new Master();
-
+#api
 $api = $_POST['api'];
 
+#buscar
+$id = $_POST['id'];
+
+#insertar
+$id_sat_tipo = $_POST['id_sat_tipo'];
+$descripcion = $_POST['descripcion'];
+
+$parametros = array(
+    $id_sat_tipo,
+    $descripcion
+);
+$response="";
+
+$master = new Master();
 switch ($api) {
     case 1:
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->insertByProcedure('sp_sat_tipos_g',$values));
+        $response = $master->insertByProcedure("sp_sat_tipos_g", $parametros);
         break;
     case 2:
-        echo $master->mis->returnApi($master->getByProcedure('sp_sat_tipos_b',array(null)));
+        # buscar
+        $response = $master->getByProcedure("sp_sat_tipos_b", [$id]);
         break;
     case 3:
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->getByProcedure('sp_sat_tipos_b',$values));
+        # actualizar
+        $response = $master->updateByProcedure("sp_sat_tipos_g", $parametros);
         break;
     case 4:
-        $values = $master->mis->getFormValues(array_slice($_POST,0,2));
-        echo $master->mis->returnApi($master->updateByProcedure('sp_sat_tipos_g',$values));
+        # desactivar
+        $response = $master->deleteByProcedure("sp_sat_tipos_e", [$id]);
         break;
-    case 5:
-        $values = $master->mis->getFormValues(array_slice($_POST,0,1));
-        echo $master->mis->returnApi($master->deleteByProcedure('sp_sat_tipos_e',$values));
-        break;
-    
     default:
-        echo "Default";
+        $response = "api no reconocida";
         break;
 }
-?>
+
+echo $master->returnApi($response);
