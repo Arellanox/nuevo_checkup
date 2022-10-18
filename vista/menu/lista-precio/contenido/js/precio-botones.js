@@ -64,9 +64,14 @@ $('#btn-precios-guardar').click(function () {
 
 $('input[type=radio][name=selectChecko]').change(function() {
     if ($(this).val() != 'Paq') {
-      tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
-      data.id_area = $(this).val();
-      data.cliente_id = null;
+      if ($(this).val() != 0) {
+        tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
+        data = {api:8, id_area: $(this).val()};
+      }else{
+        tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
+        data = {api:8, otros_servicios: 1};
+      }
+
     }else{
         cargarpaquetes()
     }

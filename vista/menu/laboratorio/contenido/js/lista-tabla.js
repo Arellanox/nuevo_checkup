@@ -16,7 +16,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
       url: '../../../api/pacientes_api.php',
       beforeSend: function() { loader("In") },
       complete: function(){ loader("Out") },
-      dataSrc:''
+      dataSrc:'response.data'
   },
   columns:[
       {data: 'COUNT'},

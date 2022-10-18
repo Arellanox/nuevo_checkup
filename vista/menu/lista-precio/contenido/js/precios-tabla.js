@@ -30,7 +30,7 @@ tablaPrecio = $("#TablaListaPrecios").DataTable({
       complete: function () {
         loaderDiv("Out",  "#contenido-lista-precios", "#loader-tabla-precios");
       },
-      dataSrc:''
+      dataSrc:'response.data'
   },
   columns:[
       {data: 'COUNT'},
