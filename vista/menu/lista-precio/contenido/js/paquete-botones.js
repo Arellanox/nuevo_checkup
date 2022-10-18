@@ -65,8 +65,8 @@ $('#guardar-contenido-paquete').on('click', function(){
      if (result.isConfirmed) {
        if (result.value.status == 1) {
          $.ajax({
-           url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-           data: { api: 2, data: dataAjax },
+           url: http + servidor + "/nuevo_checkup/api/paquetes_api.php",
+           data: { api: 6, paquete_detalle: dataAjax },
            type: "POST",
            datatype: 'json',
            success: function (data) {
