@@ -83,9 +83,9 @@ function login($user,$password){
 
             // Areas
             $sql = "SELECT areatip.DESCRIPCION, area.activo
-                    FROM usuarios_areas as area
-                    LEFT JOIN areas as areatip ON areatip.ID_AREA = area.AREA_ID
-                    WHERE area.USUARIO_ID = ?";
+                    FROM usuarios_modulos as modulo
+                    LEFT JOIN modulos  as areatip ON areatip.ID_AREA = modulo.AREA_ID
+                    WHERE modulo.USUARIO_ID = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(1,$_SESSION['id']);
             $stmt->execute();
