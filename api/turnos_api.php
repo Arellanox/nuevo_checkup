@@ -100,7 +100,7 @@ switch ($api) {
 
     case 9:
         # subir resultados
-        $response = $master->insertByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
+        $response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
         break;
     default:
         $response = "api no reconocida";
