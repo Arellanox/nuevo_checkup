@@ -12,38 +12,32 @@ $.post("contenido/contenido.php", function (html) {
    $.getScript("contenido/js/vista-tabla.js").done(function(){
      async function obtenerContenidoImg() {
        await obtenerTitulo('Resultados de Imagenología')
-       areaActiva = 6;
-       dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: 6}
-       console.log(dataListaPaciente)
-       tablaContenido.ajax.reload();
+       areaActiva = 7;
+       recargartabla()
 
      }
      async function obtenerContenidoRX() {
        await obtenerTitulo('Resultados de Rayos X');
        areaActiva = 8;
-       dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: 8}
-       tablaContenido.ajax.reload();
+       recargartabla()
 
      }
      async function obtenerContenidoEspiro() {
        await obtenerTitulo('Resultados de Espirometría');
        areaActiva = 5;
-       dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: 5}
-       tablaContenido.ajax.reload();
+       recargartabla()
 
      }
      async function obtenerContenidoAudio() {
        await obtenerTitulo('Resultados de Audiometría');
        areaActiva = 4;
-       dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: 4}
-       tablaContenido.ajax.reload();
+       recargartabla()
 
      }
      async function obtenerContenidoOftal() {
        await obtenerTitulo('Resultados de Oftalmología');
        areaActiva = 3;
-       dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: 3}
-       tablaContenido.ajax.reload();
+       recargartabla()
 
      }
 
@@ -52,29 +46,29 @@ $.post("contenido/contenido.php", function (html) {
        // $("a").removeClass("navlinkactive");
        // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
             if (sessionVista(hash) == true){
- switch (hash) {
-         case "IMAGENOLOGIA":
+              switch (hash) {
+               case "IMAGENOLOGIA":
 
-           obtenerContenidoImg();
-         break;
-         case "RX":
-           obtenerContenidoRX();
-         break;
-         case "ESPIROMETRIA":
-           obtenerContenidoEspiro();
-         break;
-         case "AUDIOMETRIA":
-           obtenerContenidoAudio();
-         break;
-         case "OFTALMOLOGIA":
-           obtenerContenidoOftal();
-         break;
-         default:
-           obtenerContenidoCliente();
-           break;
-       }
+                 obtenerContenidoImg();
+               break;
+               case "RX":
+                 obtenerContenidoRX();
+               break;
+               case "ESPIROMETRIA":
+                 obtenerContenidoEspiro();
+               break;
+               case "AUDIOMETRIA":
+                 obtenerContenidoAudio();
+               break;
+               case "OFTALMOLOGIA":
+                 obtenerContenidoOftal();
+               break;
+               default:
+                 obtenerContenidoCliente();
+                 break;
+             }
             }else{
-            window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
+              window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
             }
 
 
@@ -89,10 +83,16 @@ $.post("contenido/contenido.php", function (html) {
 
 // obtenerContenidoRX()
 function sessionVista(areaVista) {
+  let vista = session.vista;
+  return vista[areaVista] == 1 ? true:false;
+}
 
-let vista = session.vista;
-console.log(vista)
-// alert('ACCESSO A AREA NO PERMITIDA');
-// return vista.areaVista == 1 ? true:false;
-return true;
+function recargartabla(){
+  $('#fechaListadoAreaMaster').change(function(){
+    console.log($('#fechaListadoAreaMaster').val())
+    recargartabla()
+  })
+  dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
+  tablaContenido.ajax.reload();
+  return 1;
 }

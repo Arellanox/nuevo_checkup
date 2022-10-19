@@ -39,24 +39,9 @@
       <i class="bi bi-briefcase"></i> Nuevo cargo
     </a>
   </li>
-  <!-- <li class="nav-item">
-      <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#ModalRegistrarTipoUser">
-        <i class="bi bi-person-lines-fill"></i> Nuevo tipo usuario
-      </a>
-    </li> -->
   <li class="nav-item">
     <a href="#Usuarios" data-bs-dismiss="offcanvas" class="">
       <i class="bi bi-person-lines-fill"></i> Usuarios
-    </a>
-  </li>
-  <!-- <li class="nav-item">
-    <a href="#Servicios" data-bs-dismiss="offcanvas">
-      <i class="bi bi-box"></i> Servicios
-    </a>
-  </li> -->
-  <li class="nav-item">
-    <a href="#Segmentos" data-bs-dismiss="offcanvas">
-      <i class="bi bi-box"></i> Segmentos
     </a>
   </li>
 <?php endif; ?>
