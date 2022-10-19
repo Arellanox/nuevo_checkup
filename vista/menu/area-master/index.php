@@ -2,7 +2,7 @@
 //Variables dinamicas;
 session_start();
 include "../../variables.php";
-$menu = "Panel General";
+$menu = "AreaMaster";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

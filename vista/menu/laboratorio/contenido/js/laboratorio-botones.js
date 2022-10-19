@@ -46,6 +46,6 @@ $('#formAnalisisLaboratorio').submit(function(event){
 
 // cambiar fecha de la Lista
 $('#fechaListadoLaboratorio').change(function(){
-  dataListaPaciente.fecha = $(this).val();
+  dataListaPaciente = {api:5, fecha_busqueda: $(this).val(), area_id: 6}
   tablaListaPaciente.ajax.reload();
 })

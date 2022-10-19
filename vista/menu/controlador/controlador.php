@@ -26,8 +26,12 @@ session_start();
     });
   }
   function obtenerTitulo(menu){
-    $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/titulo.php';?>", {menu: menu}, function(html){
-       $("#titulo-js").html(html);
+    return new Promise(resolve => {
+      $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/titulo.php';?>", {menu: menu}, function(html){
+         $("#titulo-js").html(html);
+      }).done(function(){
+        resolve(1);
+      });
     });
   }
 

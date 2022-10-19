@@ -43,7 +43,7 @@
     <i class="bi bi-person-video"></i> Imagenologia</a>
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; ?>">
-    <i class="bi bi-activity"></i> RX</a>
+    <i class="bi bi-activity"></i> Rayos X</a>
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#Espiro'; ?>">
     <i class="bi bi-activity"></i> Espirometría</a>
