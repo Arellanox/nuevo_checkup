@@ -15,6 +15,7 @@ $api = $_POST['api'];
 #buscar
 $id = $_POST['id'];
 $id_paciente = $_POST['id_paciente'];
+$id_area = $_POST['id_area'];
 $fecha_agenda = $_POST['fecha_busqueda'];
 
 #insertar
@@ -75,7 +76,7 @@ switch ($api) {
         $response = $master->returnApi($master->getByProcedure('sp_lista_de_trabajo',array($fecha,$area)));
     case 6:
         #historial de servicios
-        $response = $master->getByProcedure("sp_historial_servicios_paciente", [$id,$id_paciente,$fecha_agenda]);
+        $response = $master->getByProcedure("sp_historial_servicios_paciente", [$id,$id_paciente,$id_area,$fecha_agenda]);
         break;
     default:
         $response = "api no reconocida";
