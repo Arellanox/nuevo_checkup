@@ -113,7 +113,7 @@ switch ($api) {
         break;
 
     default:
-        print_r($_POST);        
+        print_r($_GET);        
         $response = "api no reconocida ".$api;
         break;
 }
