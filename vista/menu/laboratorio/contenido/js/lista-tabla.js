@@ -19,7 +19,11 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
       dataSrc:'response.data'
   },
   columns:[
-      {data: 'COUNT'},
+      {
+        data: 'ID_PACIENTE', render: function(data){
+          return '';
+        }
+      },
       {data: 'NOMBRE_COMPLETO'},
       {data: 'PREFOLIO', render: function (data, type, full, meta) {
           return "20221014JMC412";
@@ -38,13 +42,13 @@ loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 $('#TablaLaboratorio tbody').on('click', 'tr', function () {
    if ($(this).hasClass('selected')) {
        $(this).removeClass('selected');
-       array_selected = null;
+       selectListaLab = null;
        getPanelLab('Out', 0)
    } else {
        tablaListaPaciente.$('tr.selected').removeClass('selected');
        $(this).addClass('selected');
-       array_selected = tablaListaPaciente.row( this ).data();
-       getPanelLab('In', array_selected[0])
+       selectListaLab = tablaListaPaciente.row( this ).data();
+       getPanelLab('In', selectListaLab[0])
    }
 });
 
@@ -70,7 +74,7 @@ async function getPanelLab(fade, id){
     case 'In':
         $('.informacion-labo').fadeOut(0)
         loaderDiv("In", null, "#loader-Lab", '#loaderDivLab', 0);
-        obtenerPanelInformacion(id, 'pacientes_api', 'paciente')
+        await obtenerPanelInformacion(id, 'pacientes_api', 'paciente')
         await generarHistorialResultados(id)
         await generarFormularioPaciente(id)
         $('.informacion-labo').fadeIn(100)
@@ -84,11 +88,14 @@ async function getPanelLab(fade, id){
 function generarHistorialResultados(id){ return new Promise(resolve => {
     // $('#accordionResultadosAnteriores').html('')
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/servicio_api.php",
+      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
       type: "POST",
       dataType: 'json',
-      data: { id: id, api: 6 },
+      data: { id_paciente: id, api: 8, area_id: 6 },
       success: function (data) {
+        row = data.response.data;
+        console.log("Haciendo el historial de resultados")
+        console.log(row)
         let itemStart = '<div class="accordion-item bg-acordion">';
         let itemEnd = '</div>';
 

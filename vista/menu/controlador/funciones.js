@@ -366,134 +366,150 @@ function select2(select, modal = null){
 }
 
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion'){
-
-  var html = "";
-  $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-barra.php",
-  {
-    tip: tipPanel
-  },
-  function(html){
-     setTimeout(function () {
-       $(panel).html(html);
-     }, 100);
-  }).done(function(){
-     setTimeout(function () {
-        // $(panel).fadeOut(0);
-        if (id > 0) {
-          row = array_selected;
-          switch (tipPanel) {
-            case 'paciente':
-                if (array_selected != null) {
-                  $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                  $('#edad-persona').html(formatoFecha(row.EDAD))
-                  $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
-                  $('#info-paci-curp').html(row.CURP);
-                  $('#info-paci-telefono').html(row.CELULAR);
-                  $('#info-paci-correo').html(row.CORREO);
-                  $('#info-paci-sexo').html(row.GENERO);
-                  if (row.TURNO) {
-                    $('#info-paci-turno').html(row.TURNO);
-                  }else{
-                    $('#info-paci-turno').html('Sin generar');
-                  }
-                  $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
-                  row.MUNICIPIO+", "+row.ESTADO);
-                }else{
-                  $.ajax({
-                    url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-                    data: { api: 2, id: id },
-                    type: "POST",
-                    datatype: 'json',
-                    success: function (data) {
-                      data = jQuery.parseJSON(data);
-                      row = data['response']['data'][0];
-                      $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
-                      $('#info-paci-curp').html(row.CURP);
-                      $('#info-paci-telefono').html(row.CELULAR);
-                      $('#info-paci-correo').html(row.CORREO);
-                      $('#info-paci-sexo').html(row.GENERO);
-                      if (row.TURNO) {
-                        $('#info-paci-turno').html(row.TURNO);
-                      }else{
-                        $('#info-paci-turno').html('Sin generar');
-                      }
-                      $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
-                      row.MUNICIPIO+", "+row.ESTADO);
+  return new Promise(resolve => {
+    var html = "";
+    $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-barra.php",
+    {
+      tip: tipPanel
+    },
+    function(html){
+       setTimeout(function () {
+         $(panel).html(html);
+       }, 100);
+    }).done(function(){
+       setTimeout(function () {
+          // $(panel).fadeOut(0);
+          if (id > 0) {
+            row = array_selected;
+            switch (tipPanel) {
+              case 'paciente':
+                  if (array_selected != null) {
+                    $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                    $('#edad-persona').html(formatoFecha(row.EDAD))
+                    $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
+                    $('#info-paci-curp').html(row.CURP);
+                    $('#info-paci-telefono').html(row.CELULAR);
+                    $('#info-paci-correo').html(row.CORREO);
+                    $('#info-paci-sexo').html(row.GENERO);
+                    if (row.TURNO) {
+                      $('#info-paci-turno').html(row.TURNO);
+                    }else{
+                      $('#info-paci-turno').html('Sin generar');
                     }
-                  })
+                    $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
+                    row.MUNICIPIO+", "+row.ESTADO);
+                    $(panel).fadeIn(100);
+                    resolve(1);
+                  }else{
+                    $.ajax({
+                      url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                      data: { api: 2, id: id },
+                      type: "POST",
+                      datatype: 'json',
+                      success: function (data) {
+                        data = jQuery.parseJSON(data);
+                        row = data['response']['data'][0];
+                        $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                        $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                        $('#info-paci-curp').html(row.CURP);
+                        $('#info-paci-telefono').html(row.CELULAR);
+                        $('#info-paci-correo').html(row.CORREO);
+                        $('#info-paci-sexo').html(row.GENERO);
+                        if (row.TURNO) {
+                          $('#info-paci-turno').html(row.TURNO);
+                        }else{
+                          $('#info-paci-turno').html('Sin generar');
+                        }
+                        $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
+                        row.MUNICIPIO+", "+row.ESTADO);
+                      },
+                      complete: function(){
+                        $(panel).fadeIn(100);
+                        resolve(1);
+                      }
+                    })
+                  }
+              break;
+              case 'estudio':
+                $('#nombre-estudio').html(row['DESCRIPCION']);
+                $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
+                $('#estudio-metodo').html(row.METODO);
+                $('#estudio-medida').html(row.MEDIDA);
+                $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
+                if (row.LOCAL == 1) {
+                  $('#estudio-subroga').html('Si');
+                }else{
+                  $('#estudio-subroga').html('No');
                 }
-            break;
-            case 'estudio':
-              $('#nombre-estudio').html(row['DESCRIPCION']);
-              $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
-              $('#estudio-metodo').html(row.METODO);
-              $('#estudio-medida').html(row.MEDIDA);
-              $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
-              if (row.LOCAL == 1) {
-                $('#estudio-subroga').html('Si');
-              }else{
-                $('#estudio-subroga').html('No');
-              }
-              if (row.MUESTRA_VALORES_REFERENCIA == 1) {
-                $('#estudio-valorvista').html('Si');
-              }else{
-                $('#estudio-valorvista').html('No');
-              }
-              $('#estudio-indicaciones').html(row.INDICACIONES);
-              $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
-              $('#estudio-venta').html(row.PRECIO_VENTA);
-            break;
-            case 'equipo':
-              $('#nombre-equipo').html(row.MARCA + "-"+row.MODELO);
-              // $('#equipo-equipo').html(row.);
-              $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
-              $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
-              $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
-              $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO +" "+row.NUMERO_PRUEBAS);
-              $('#equipo-calibracion').html(row.CALIBRACION +" "+ row.NUMERO_PRUEBAS_CALIBRACION);
-              $('#equipo-uso').html(row.USO);
-              $('#equipo-descripcion').html(row.DESCRIPCION);
-            break;
-            case 'signos-vitales':
+                if (row.MUESTRA_VALORES_REFERENCIA == 1) {
+                  $('#estudio-valorvista').html('Si');
+                }else{
+                  $('#estudio-valorvista').html('No');
+                }
+                $('#estudio-indicaciones').html(row.INDICACIONES);
+                $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
+                $('#estudio-venta').html(row.PRECIO_VENTA);
+                $(panel).fadeIn(100);
+                resolve(1);
+              break;
+              case 'equipo':
+                $('#nombre-equipo').html(row.MARCA + "-"+row.MODELO);
+                // $('#equipo-equipo').html(row.);
+                $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
+                $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
+                $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
+                $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO +" "+row.NUMERO_PRUEBAS);
+                $('#equipo-calibracion').html(row.CALIBRACION +" "+ row.NUMERO_PRUEBAS_CALIBRACION);
+                $('#equipo-uso').html(row.USO);
+                $('#equipo-descripcion').html(row.DESCRIPCION);
+                $(panel).fadeIn(100);
+                resolve(1);
+              break;
+              case 'signos-vitales':
+              $(panel).fadeIn(100);
+                resolve(1);
+              break;
+              case 'cliente':
+              // console.log(row)
+                $('#nombreComercial-cliente').html(row.NOMBRE_COMERCIAL);
+                $('#nombreSistema-cliente').html(row.NOMBRE_SISTEMA);
+                $('#info-cliente-RFC').html(row.RFC);
+                $('#info-cliente-CURP').html(row.CURP);
+                $('#info-cliente-codigo').html(row.CODIGO);
+                $('#info-cliente-credito').html(row.LIMITE_CREDITO);
+                $('#info-cliente-tempcredito').html(row.TEMPORALIDAD_DE_CREDITO);
+                $('#info-cliente-cuentaContable').html(row.CUENTA_CONTABLE);
+                $('#info-cliente-pagweb').attr("href", row.PAGINA_WEB);
+                $('#info-cliente-pagweb').text(row.PAGINA_WEB);
+                $('#info-cliente-face').attr("href", row.FACEBOOK);
+                $('#info-cliente-face').text(row.FACEBOOK);
+                $('#info-cliente-twitter').attr("href", row.TWITTER);
+                $('#info-cliente-twitter').text(row.TWITTER);
+                $('#info-cliente-instragram').attr("href", row.INSTAGRAM);
+                $('#info-cliente-instragram').text(row.INSTAGRAM);
+                $(panel).fadeIn(100);
+                resolve(1);
+              break;
+              case 'contacto':
+              console.log(selectContacto)
+                $('#nombre-contacto').html(selectContacto.NOMBRE+' '+selectContacto.APELLIDOS);
+                $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
+                $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
+                $('#info-contacto-email').html(selectContacto.EMAIL);
+                $(panel).fadeIn(100);
+                resolve(1);
+              break;
 
-            break;
-            case 'cliente':
-            console.log(row)
-              $('#nombreComercial-cliente').html(row.NOMBRE_COMERCIAL);
-              $('#nombreSistema-cliente').html(row.NOMBRE_SISTEMA);
-              $('#info-cliente-RFC').html(row.RFC);
-              $('#info-cliente-CURP').html(row.CURP);
-              $('#info-cliente-codigo').html(row.CODIGO);
-              $('#info-cliente-credito').html(row.LIMITE_CREDITO);
-              $('#info-cliente-tempcredito').html(row.TEMPORALIDAD_DE_CREDITO);
-              $('#info-cliente-cuentaContable').html(row.CUENTA_CONTABLE);
-              $('#info-cliente-pagweb').attr("href", row.PAGINA_WEB);
-              $('#info-cliente-pagweb').text(row.PAGINA_WEB);
-              $('#info-cliente-face').attr("href", row.FACEBOOK);
-              $('#info-cliente-face').text(row.FACEBOOK);
-              $('#info-cliente-twitter').attr("href", row.TWITTER);
-              $('#info-cliente-twitter').text(row.TWITTER);
-              $('#info-cliente-instragram').attr("href", row.INSTAGRAM);
-              $('#info-cliente-instragram').text(row.INSTAGRAM);
-            break;
-            case 'contacto':
-            console.log(selectContacto)
-              $('#nombre-contacto').html(selectContacto.NOMBRE+' '+selectContacto.APELLIDOS);
-              $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
-              $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
-              $('#info-contacto-email').html(selectContacto.EMAIL);
-
-            break;
-
-            default:
-
+              default:
+            }
+          }else{
+            setTimeout(function(){
+              $(panel).fadeOut(100);
+            }, 100);
           }
-          $(panel).fadeIn(100);
-        }else{
-          $(panel).fadeOut(100);
-        }
-     }, 110);
+       }, 110);
+    });
+    // resolve(0);
   });
 }
 

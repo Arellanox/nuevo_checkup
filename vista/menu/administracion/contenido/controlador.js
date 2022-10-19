@@ -30,17 +30,17 @@ function obtenerContenidoUsuarios() {
 //   });
 // }
 
-function obtenerContenidoSegmentos(titulo) {
-  obtenerTitulo(titulo); //Aqui mandar el nombre de la area
-  $.post("contenido/segmentos.php", function (html) {
-    var idrow;
-    $("#body-js").html(html);
-    // Datatable
-    $.getScript("contenido/js/segmentos-tabla.js");
-    // Botones
-    $.getScript("contenido/js/botones-segmento.js");
-  });
-}
+// function obtenerContenidoSegmentos(titulo) {
+//   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
+//   $.post("contenido/segmentos.php", function (html) {
+//     var idrow;
+//     $("#body-js").html(html);
+//     // Datatable
+//     $.getScript("contenido/js/segmentos-tabla.js");
+//     // Botones
+//     $.getScript("contenido/js/botones-segmento.js");
+//   });
+// }
 
 function hasLocation() {
   var hash = window.location.hash.substring(1);
@@ -53,9 +53,9 @@ function hasLocation() {
     // case "Servicios":
     //   obtenerContenidoServicios("servicios.php", "Servicios");
     //   break;
-    case "Segmentos":
-      obtenerContenidoSegmentos("Segmentos");
-      break;
+    // case "Segmentos":
+    //   obtenerContenidoSegmentos("Segmentos");
+    //   break;
     default:
       obtenerContenidoUsuarios("usuario.php", "Usuarios");
       break;
