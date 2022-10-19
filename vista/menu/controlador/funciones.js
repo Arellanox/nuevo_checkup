@@ -283,11 +283,11 @@ function loaderDiv(fade, div = null, loader, loaderDiv = null, seconds = 50){
   }
 }
 
-function alertSelectTable(msj = 'No ha seleccionado ningún registro') {
+function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 400) {
   Toast.fire({
-    icon: 'error',
+    icon: icon,
     title: msj,
-    timer: 4000
+    timer: timer
   });
 }
 
@@ -406,7 +406,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     datatype: 'json',
                     success: function (data) {
                       data = jQuery.parseJSON(data);
-                      row = data[0];
+                      row = data['response']['data'][0];
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                       $('#info-paci-curp').html(row.CURP);

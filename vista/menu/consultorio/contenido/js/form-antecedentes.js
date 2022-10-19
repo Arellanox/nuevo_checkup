@@ -1,59 +1,59 @@
 
 function setValues(id){
+  return new Promise(resolve => {
+    var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row']")
 
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/pacientes.php",
+      data: {id: 1},
+      type: "POST",
+      success: function (data) {
+        checkbox = data;
+        for (var i = 0; i < checkbox.length; i++) {
+          setValuesAntecedentesMetodo(divPatologicos, checkbox[i])
+        }
+      },
+      complete: function(){
+        resolve(1);
+      }
+    })
+  });
+  // $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
+  //   console.log($(this).find("input[value='1']").val())
+  // })
+}
 
-  $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
-    console.log($(this).find("input[value='1']").val())
-  })
+function setValuesAntecedentesMetodo(DIV, array){
+  if (DIV.length == array.length) {
+    for (var i = 0; i < DIV.length; i++) {
+      // console.log(i)
+      // console.log('CHECK: '+array[i][0])
+      switch (array[i][0]) {
+        case 1:
+          $(DIV[i]).find("input[value='1']").prop("checked", true);
+          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
+          // console.log(collapID)
+          $('#'+collapID).collapse("show")
+        break;
+        case 2:
+          $(DIV[i]).find("input[value='2']").prop("checked", true);
+          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
+          $('#'+collapID).collapse("hide")
+        break;
+        default:
+      }
+      // console.log($(DIV[i]).find("input[value='1']").val());
+      // console.log('textarea: '+array[i][1])
+      // console.log($(DIV[i]).find("textarea[class='form-control input-form']"))
+      if ($(DIV[i]).find("textarea[class='form-control input-form']").length) {
+        $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
+      }else{
+        // $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
+      }
 
-  let frutas = [[2, "asdasd"]]
-
-  for (var i = 0; i < 16; i++) {
-
-    frutas.push([1, 'ajsndj'])
-  }
-  console.log(frutas)
-
-  var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row']")
-  for (var i = 0; i < divPatologicos.length; i++) {
-    console.log(i)
-    console.log('CHECK: '+frutas[i][0])
-    switch (frutas[i][0]) {
-      case 1:
-        $(divPatologicos[i]).find("input[value='1']").prop("checked", true);
-        var collapID = $(divPatologicos[i]).find("div[class='collapse']").attr("id");
-        console.log(collapID)
-        $('#'+collapID).collapse("show")
-      break;
-
-      case 2:
-        $(divPatologicos[i]).find("input[value='2']").prop("checked", true);
-        var collapID = $(divPatologicos[i]).find("div[class='collapse']").attr("id");
-        $('#'+collapID).collapse("hide")
-      break;
-      default:
+      // console.log(DIV[i].find("input[value='1']").val())
     }
-    // console.log($(divPatologicos[i]).find("input[value='1']").val());
-
-    console.log('textarea: '+frutas[i][1])
-    console.log($(divPatologicos[i]).find("textarea[class='form-control input-form']"))
-    $(divPatologicos[i]).find("textarea[class='form-control input-form']").val(frutas[i][1])
-
-    // console.log(divPatologicos[i].find("input[value='1']").val())
+  }else{
+    alertSelectTable('No se pudo recuperar algunos datos...')
   }
-  // console.log(patologicos);
-
-
-  // $("form#formID :input").each(function(){
-  //  var input = $(this); // This is the jquery object of the input, do what you will
-  //
-  // });
-  //
-  // for (var i = 0; i < array.length; i++) {
-  //   if (Number.isInteger(array[i])) {
-  //
-  //   }else{
-  //
-  //   }
-  // }
 }

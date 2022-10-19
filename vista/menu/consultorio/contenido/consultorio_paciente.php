@@ -1,3 +1,6 @@
+<div class="col-12 loader" id="loader" style="">
+  <div class="preloader" id="preloader"> </div>
+</div>
 <div class="row mt-2">
   <div class="col-12 col-lg-3 col-xxl-3">
     <div class="info-detalle card" id="panel-informacion">
@@ -14,9 +17,17 @@
     <div id="crear-notas" class="card mt-3">
       <h4 class="m-3">Notas de historial clinica</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas" id="nota-historial-paciente"></textarea>
+      <div class="d-flex justify-content-end p-2">
+        <button type="button" class="btn btn-confirmar m-1" id="agregar-nota-historial">
+          <i class="bi bi-plus"></i> Agregar
+        </button>
+      </div>
     </div>
-    <div id="notas-historial" class="card mt-3">
+    <div id="notas-historial">
+
+    </div>
+    <div  class="card mt-3">
       <h4 class="m-3">@Usuario actual <p style="font-size: 14px;margin-left: 5px;">xx:xx Septiembre dia, año</p></h4>
       <div style="margin: -1px 30px 20px 30px;">
         <p class="none-p">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
