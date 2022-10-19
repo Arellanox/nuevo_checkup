@@ -124,6 +124,7 @@ switch ($api) {
         } else {
             echo json_encode(array("response" => array("code" => 2, "data" => $response)));
         }
+        break;
 
     case 9:
         # confirmar con contrasenia los resultados de laboratorio
