@@ -83,6 +83,12 @@ switch ($api) {
         echo json_encode(array("response"=>array("code"=>1,"data"=>array())));
         exit;
         break;
+
+    case 8:
+        $area = $_POST['area_id'];
+        $fecha = $_POST['fecha_busqueda'];
+        $response = $master->getByProcedure('sp_cargar_estudios',[$area,$fecha]);
+        break;
     default:
         $response = "api no reconocida";
         break;
