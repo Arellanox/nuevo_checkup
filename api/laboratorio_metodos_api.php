@@ -31,20 +31,20 @@ $master = new Master();
 switch ($api) {
     case 1:
         # insertar
-        $response = $master->insertByProcedure("sp_laboratorio_medidas_g", $parametros);
+        $response = $master->insertByProcedure("sp_laboratorio_metodos_g", $parametros);
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_laboratorio_medidas_b", [$id]);
+        $response = $master->getByProcedure("sp_laboratorio_metodos_b", [$id]);
         break;
 
     case 3:
         # actualizar
-        $response = $master->updateByProcedure("sp_laboratorio_medidas_g", $parametros);
+        $response = $master->updateByProcedure("sp_laboratorio_metodos_g", $parametros);
         break;
     case 4:
         # desactivar
-        $response = $master->deleteByProcedure("sp_laboratorio_medidas_e", [$id]);
+        $response = $master->deleteByProcedure("sp_laboratorio_metodos_e", [$id]);
         break;
     default:
         $response = "api no reconocida";
