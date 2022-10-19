@@ -1,5 +1,13 @@
 <?php 
 include_once "../clases/master_class.php";
+require_once "../clases/token_auth.php";
+
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (!$tokenValido) {
+    $tokenVerification->logout();
+    exit;
+}
 
 $api = $_POST['api'];
 $master = new Master();
