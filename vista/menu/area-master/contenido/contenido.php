@@ -3,7 +3,7 @@
 </div>
 <div class="row">
   <div class="card col-12 col-lg-3 pt-4">
-    <div class=""  id="panel-informacion">
+    <div class="" id="panel-informacion">
 
     </div>
   </div>
@@ -13,9 +13,6 @@
         <i class="bi bi-clipboard2-plus"></i> Subir resultados
       </button>
 
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-analisis-img">
-        <i class="bi bi-camera"></i> Subir resultados Imagenes
-      </button>
     </div>
     <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
       <thead class="" style="width: 100%">

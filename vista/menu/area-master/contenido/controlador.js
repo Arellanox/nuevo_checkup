@@ -1,5 +1,3 @@
-
-
 var tablaContenido, areaActiva = 1;
 var dataListaPaciente = {api:7};
 

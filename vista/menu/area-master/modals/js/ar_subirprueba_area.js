@@ -1,14 +1,14 @@
-
-//Formulario Para agregar interpretacion
-$("#formRegistrarCliente").submit(function (event) {
+//Formulario Para Subir Interpretacion
+$("#formSubirInterpretacion").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
-  var form = document.getElementById("formRegistrarCliente");
+  var form = document.getElementById("formSubirInterpretacion");
   var formData = new FormData(form);
-  formData.set('api', 1);
+    formData.set('id_cliente',array_selected['ID_CLIENTE'])
+    formData.set('api', 3);
   Swal.fire({
-    title: "¿Está seguro que todos los datos están correctos?",
-    text: "¡Verifique los Nuevos datos antes de continuar!",
+    title: "¿Está seguro de Subir estos Estudios?",
+    text: "¡Verifique los archivos antes de Continuar!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -21,7 +21,8 @@ $("#formRegistrarCliente").submit(function (event) {
 
       $.ajax({
         data: formData,
-        url: "../../../api/clientes_api.php",
+        url: '??',
+        // url: "../../../api/contactos_api.php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -30,12 +31,12 @@ $("#formRegistrarCliente").submit(function (event) {
           if (mensajeAjax(data)) {
             Toast.fire({
               icon: "success",
-              title: "Cliente agregado Correctamente!",
+              title: "¡Contacto agregado correctamente!",
               timer: 2000,
             });
-            document.getElementById("formRegistrarCliente").reset();
-            $("#ModalRegistrarCliente").modal("hide");
-            tablaClientes.ajax.reload();
+            document.getElementById("formAgregarContacto").reset();
+            $("#ModalAgregarContacto").modal("hide");
+            tablaContacto.ajax.reload();
           }
         },
       });
