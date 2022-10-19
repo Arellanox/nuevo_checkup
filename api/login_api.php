@@ -82,7 +82,7 @@ function login($user,$password){
             $_SESSION['permisos'] = $permisos;
 
             // Areas
-            $sql = "SELECT areatip.DESCRIPCION, area.activo
+            $sql = "SELECT areatip.DESCRIPCION, modulo.activo
                     FROM usuarios_modulos as modulo
                     LEFT JOIN modulos  as areatip ON areatip.ID_AREA = modulo.AREA_ID
                     WHERE modulo.USUARIO_ID = ?";

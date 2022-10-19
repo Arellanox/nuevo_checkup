@@ -44,6 +44,10 @@ switch($api){
         #eliminar una relacion usuario modulo
         $response = $master->deleteByProcedure('sp_usuarios_modulos_e',[$id_modulo,$usuario]);
         break;
+    case 7:
+        #recuperear los modulos de un usuarios
+        $response = $master->getByProcedure('sp_usuarios_modulos_b',array($usuario));
+        break;
     default:
         break;
 }
