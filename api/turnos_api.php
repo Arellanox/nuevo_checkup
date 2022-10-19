@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    //$tokenVerification->logout();
+    //exit;
 }
 
 #api
@@ -73,6 +73,7 @@ switch ($api) {
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
         $response = $master->getByProcedure('sp_lista_de_trabajo',array($fecha,$area));
+        break;
     case 6:
         #historial de servicios
         $response = $master->getByProcedure("sp_historial_servicios_paciente", [$id,$id_paciente,$fecha_agenda]);
