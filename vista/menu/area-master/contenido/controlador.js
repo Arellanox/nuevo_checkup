@@ -51,26 +51,34 @@ $.post("contenido/contenido.php", function (html) {
        var hash = window.location.hash.substring(1);
        // $("a").removeClass("navlinkactive");
        // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-       switch (hash) {
-         case "Img":
+            if (sessionVista(hash) == true){
+ switch (hash) {
+         case "IMAGENOLOGIA":
+
            obtenerContenidoImg();
          break;
          case "RX":
            obtenerContenidoRX();
          break;
-         case "Espiro":
+         case "ESPIROMETRIA":
            obtenerContenidoEspiro();
          break;
-         case "Audio":
+         case "AUDIOMETRIA":
            obtenerContenidoAudio();
          break;
-         case "Oftal":
+         case "OFTALMOLOGIA":
            obtenerContenidoOftal();
          break;
          default:
            obtenerContenidoCliente();
            break;
        }
+            }else{
+            window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
+            }
+
+
+
      }
      hasLocation();
      $(window).on("hashchange", function (e) {
@@ -80,3 +88,11 @@ $.post("contenido/contenido.php", function (html) {
 });
 
 // obtenerContenidoRX()
+function sessionVista(areaVista) {
+
+let vista = session.vista;
+console.log(vista)
+// alert('ACCESSO A AREA NO PERMITIDA');
+// return vista.areaVista == 1 ? true:false;
+return true;
+}
