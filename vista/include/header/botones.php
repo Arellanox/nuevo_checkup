@@ -88,3 +88,14 @@
     </div>
   </div>
 <?php endif; ?>
+
+<?php if ($menu == 'Resultados de Imagenología' || $menu == 'Resultados de Rayos X' || $menu == 'Resultados de Espirometría' || $menu == 'Resultados de Audiometría' || $menu == 'Resultados de Oftalmología') : ?>
+  <div class="row">
+    <div class="col-auto">
+      <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>
+    </div>
+    <div class="col-auto">
+      <input type="date" class="form-control input-form" name="fechaListadoLaboratorio" value="<?php echo date('Y-m-d') ?>" required id="fechaListadoAreaMaster">
+    </div>
+  </div>
+<?php endif; ?>

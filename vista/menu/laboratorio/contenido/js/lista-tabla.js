@@ -13,7 +13,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
         return $.extend(d, dataListaPaciente);
       },
       method: 'POST',
-      url: '../../../api/pacientes_api.php',
+      url: '../../../api/turnos_api.php',
       beforeSend: function() { loader("In") },
       complete: function(){ loader("Out") },
       dataSrc:'response.data'
