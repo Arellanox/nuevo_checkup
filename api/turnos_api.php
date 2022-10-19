@@ -93,13 +93,22 @@ switch ($api) {
 
     case 8:
         # cargar los resultados
+      
        
         $response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
         break;
 
     case 9:
         # subir resultados
-        $response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
+        $setResultados = $_POST;
+        $id_turno = array_slice($setResultados,count($setResultados)-3,1);
+        foreach ($setResultados as $servicio_id => $resultado) {
+            # code...
+            $response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
+        }
+        echo json_encode(array("response"=>array("code"=>1,"msj"=>"Termina la carga de datos.")));
+        exit;
+        //$response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
         break;
     default:
         $response = "api no reconocida";
