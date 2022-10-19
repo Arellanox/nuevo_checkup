@@ -89,10 +89,6 @@ $.post("contenido/contenido.php", function (html) {
 
 // obtenerContenidoRX()
 function sessionVista(areaVista) {
-
 let vista = session.vista;
-console.log(vista)
-// alert('ACCESSO A AREA NO PERMITIDA');
-// return vista.areaVista == 1 ? true:false;
-return true;
+return vista[areaVista] == 1 ? true:false;
 }

@@ -14,6 +14,7 @@ tablaContenido = $('#TablaEstudiosContenido').DataTable({
         return $.extend(d, dataListaPaciente);
       },
       method: 'POST',
+
       url: '../../../api/turnos_api.php',
       beforeSend: function() { loader("In") },
       complete: function(){ loader("Out") },
