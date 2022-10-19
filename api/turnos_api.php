@@ -72,10 +72,16 @@ switch ($api) {
         # recuperar la lista de trabajo por area
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->returnApi($master->getByProcedure('sp_lista_de_trabajo',array($fecha,$area)));
+        $response = $master->getByProcedure('sp_lista_de_trabajo',array($fecha,$area));
     case 6:
         #historial de servicios
         $response = $master->getByProcedure("sp_historial_servicios_paciente", [$id,$id_paciente,$fecha_agenda]);
+        break;
+
+    case 7:
+        # api falsa
+        echo json_encode(array("response"=>array("code"=>1,"data"=>array())));
+        exit;
         break;
     default:
         $response = "api no reconocida";
