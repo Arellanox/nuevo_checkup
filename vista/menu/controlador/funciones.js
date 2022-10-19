@@ -283,7 +283,7 @@ function loaderDiv(fade, div = null, loader, loaderDiv = null, seconds = 50){
   }
 }
 
-function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 400) {
+function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
   Toast.fire({
     icon: icon,
     title: msj,
