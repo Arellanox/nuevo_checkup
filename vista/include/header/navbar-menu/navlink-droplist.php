@@ -36,6 +36,22 @@
     <i class="bi bi-briefcase"></i> Clientes</a>
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
-    <i class="bi bi-briefcase"></i> Laboratorio</a>
+    <i class="bi bi-heart-pulse"></i> Laboratorio</a>
+  </a>
+
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#Img'; ?>">
+    <i class="bi bi-person-video"></i> Imagenologia</a>
+  </a>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; ?>">
+    <i class="bi bi-activity"></i> RX</a>
+  </a>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#Espiro'; ?>">
+    <i class="bi bi-activity"></i> Espirometría</a>
+  </a>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#Audio'; ?>">
+    <i class="bi bi-ear"></i> Audiometría</a>
+  </a>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#Oftal'; ?>">
+    <i class="bi bi-eye"></i> Oftalmología</a>
   </a>
 <?php endif; ?>
