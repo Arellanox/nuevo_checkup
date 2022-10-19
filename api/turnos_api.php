@@ -18,6 +18,11 @@ $id_paciente = $_POST['id_paciente'];
 $id_area = $_POST['id_area'];
 $fecha_agenda = $_POST['fecha_busqueda'];
 
+#subir resultaddos
+$servicio_id = $_POST['servicio_id'];
+$resultado = $_POST['resultado'];
+$observaciones = $_POST['observaciones'];
+
 #insertar
 $id_turno = $_POST['id_turno'];
 $paciente_id = $_POST['paciente_id'];
@@ -87,9 +92,15 @@ switch ($api) {
         break;
 
     case 8:
+        # cargar los resultados
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_cargar_estudios',[$area,$fecha]);
+        $response = $master->getByProcedure('sp_cargar_estudios',[$area,$id_turno]);
+        break;
+
+    case 9:
+        # subir resultados
+        $response = $master->insertByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
         break;
     default:
         $response = "api no reconocida";
