@@ -27,8 +27,13 @@
     </a>
   </li>
   <li class="nav-item">
-    <a href="" data-bs-toggle="modal" data-bs-target="#modalExample" data-bs-dismiss="offcanvas">
+    <a href="#rechazados" type="button" data-bs-dismiss="offcanvas">
       <i class="bi bi-person-x-fill"></i> Pacientes Rechazados
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="ingresados" type="button" data-bs-dismiss="offcanvas">
+      <i class="bi bi-person-x-fill"></i> Pacientes Ingresados
     </a>
   </li>
 <?php endif; ?>

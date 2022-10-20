@@ -1,6 +1,6 @@
 var tablaContenido, areaActiva = 1;
 var dataListaPaciente = {api:7};
-var selectListaLab;
+var selectListaLab, hash;
 
 $.post("contenido/contenido.php", function (html) {
   $("#body-js").html(html);
@@ -40,8 +40,10 @@ $.post("contenido/contenido.php", function (html) {
 
      }
 
+
+
      function hasLocation() {
-       var hash = window.location.hash.substring(1);
+       hash = window.location.hash.substring(1);
        // $("a").removeClass("navlinkactive");
        // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
             if (sessionVista(hash) == true){
@@ -87,10 +89,6 @@ function sessionVista(areaVista) {
 }
 
 function recargartabla(){
-  $('#fechaListadoAreaMaster').change(function(){
-    console.log($('#fechaListadoAreaMaster').val())
-    recargartabla()
-  })
   dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
   tablaContenido.ajax.reload();
   return 1;

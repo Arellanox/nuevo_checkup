@@ -1,3 +1,11 @@
+
+const ModalSubirInterpretacion = document.getElementById('ModalSubirInterpretacion')
+ModalSubirInterpretacion.addEventListener('show.bs.modal', event => {
+  // console.log(selectListaLab)
+  $('#Area-estudio').html(hash)
+  $('#nombre-paciente-interpretacion').val(selectListaLab['NOMBRE_COMPLETO'])
+})
+
 //Formulario Para Subir Interpretacion
 $("#formSubirInterpretacion").submit(function (event) {
   event.preventDefault();
@@ -7,8 +15,8 @@ $("#formSubirInterpretacion").submit(function (event) {
     formData.set('id_cliente',array_selected['ID_CLIENTE'])
     formData.set('api', 3);
   Swal.fire({
-    title: "¿Está seguro de Subir estos Estudios?",
-    text: "¡Verifique los archivos antes de Continuar!",
+    title: "¿Está seguro de subir la interpretación?",
+    text: "¡No podrá cambiar el resultado!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -22,7 +30,7 @@ $("#formSubirInterpretacion").submit(function (event) {
       $.ajax({
         data: formData,
         url: '??',
-        // url: "../../../api/contactos_api.php",
+        url: "../../../api/turnos_api.php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -31,12 +39,12 @@ $("#formSubirInterpretacion").submit(function (event) {
           if (mensajeAjax(data)) {
             Toast.fire({
               icon: "success",
-              title: "¡Contacto agregado correctamente!",
+              title: "¡Interpretación guardada!",
               timer: 2000,
             });
-            document.getElementById("formAgregarContacto").reset();
-            $("#ModalAgregarContacto").modal("hide");
-            tablaContacto.ajax.reload();
+            document.getElementById("formSubirInterpretacion").reset();
+            $("#ModalSubirInterpretacion").modal("hide");
+            // tablaContacto.ajax.reload();
           }
         },
       });
