@@ -33,7 +33,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
           return "20221014JMC412";
         },
       },
-      {data: 'PROCEDENCIA'},
+      {data: 'EDAD'},
       {data: 'EDAD'},
       // {defaultContent: 'En progreso...'}
   ],
@@ -52,7 +52,7 @@ $('#TablaLaboratorio tbody').on('click', 'tr', function () {
        tablaListaPaciente.$('tr.selected').removeClass('selected');
        $(this).addClass('selected');
        selectListaLab = tablaListaPaciente.row( this ).data();
-       getPanelLab('In', selectListaLab['ID_TURNO'])
+       getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
    }
 });
 
@@ -60,7 +60,7 @@ $("#BuscarTablaListaLaboratorio").keyup(function () {
   tablaListaPaciente.search($(this).val()).draw();
 });
 
-async function getPanelLab(fade, id){
+async function getPanelLab(fade, id, id_paciente){
   switch (fade) {
     case 'Out':
         if ($('.informacion-labo').is(':visible')) {
@@ -80,7 +80,7 @@ async function getPanelLab(fade, id){
     case 'In':
         $('.informacion-labo').fadeOut(0)
         loaderDiv("In", null, "#loader-Lab", '#loaderDivLab', 0);
-        await obtenerPanelInformacion(id, 'pacientes_api', 'paciente')
+        await obtenerPanelInformacion(id_paciente, 'pacientes_api', 'paciente_lab')
         await generarHistorialResultados(id)
         await generarFormularioPaciente(id)
         $('.informacion-labo').fadeIn(100)
@@ -120,7 +120,7 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
                           '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>'+row[i]['FECHA_RESULTADO']+'</strong> '+ //<strong>12:00 '+i+'</strong>
                         '</div>'+
                         '<div class="col-12">'+
-                          '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado '+i+': <strong>@Usuario que confirmó '+i+'</strong>'+
+                          '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>@Usuario que confirmó '+i+'</strong>'+
                         '</div>'+
                       '</div>'+
                     '</button>'+
@@ -167,9 +167,9 @@ function generarFormularioPaciente(id){ return new Promise(resolve => {
           html += colreStart;
           html += '<div class="input-group">';
           if (data[i]['RESULTADO'] == null) {
-            html += '<input type="text" class="form-control input-form" name="'+data[i]['ID_SERVICIO']+'" required>';
+            html += '<input type="text" class="form-control input-form" name="'+data[i]['ID_SERVICIO']+'" required autocomplete="off">';
           }else{
-            html += '<input type="text" class="form-control input-form" name="'+data[i]['ID_SERVICIO']+'" required value="'+data[i]['RESULTADO']+'">';
+            html += '<input type="text" class="form-control input-form" name="'+data[i]['ID_SERVICIO']+'" required value="'+data[i]['RESULTADO']+'" autocomplete="off">';
           }
           html += '<span class="input-span">'+data[i]['DESCRIPCION_MEDIDA']+'</span>';
           html += '</div>';

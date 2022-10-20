@@ -385,32 +385,41 @@ class Master extends Miscelaneus
         return true;
     }
 
-    function procesarImagen($file, $carpeta, $area, $nombre, $elemento)
-    {
-        if (!empty($file['fileComprobante']['name'])) {
-            $ruta = "archivos/" . $carpeta . "/" . $area;
-            $extension = pathinfo($file[$elemento]['name'], PATHINFO_EXTENSION);
-            $move = "../" . $ruta;
-            if ($file[$elemento]['size'] > 0 && $file[$elemento]['error'] == 0) {
-                if (!is_dir($move)) {
-                    mkdir($move);
-                }
-                try {
-                    $move = $move . "/" . $nombre;
-                    move_uploaded_file($file[$elemento]['tmp_name'], $move);
-                    return $return = array('code' => 1, 'data' => $move);
-                } catch (\Exception $e) {
-                    $msj = "Error: archivo no se ha podido mover el archivo";
-                    $return = array('code' => 2, 'msj' => $msj);
-                }
-            } else {
-                $msj = "Error: Archivo dañado";
-                $return = array('code' => 2, 'msj' => $msj);
-            }
-        } else {
-            return array('code' => 1, 'data' => null);
-        }
-        $this->mis->setLog($msj, 'Imagen cargada de' + $area + ', en la carpeta: ' + $carpeta);
-        return $return;
-    }
+    // function procesarImagen($files, $carpeta, $area, $nombre){
+    //   $ruta = "archivos/" . $carpeta . "/" . $area;
+    //   $move = "../" . $ruta;
+    //   $cont = 0;
+    //   foreach ($files as $key => $value) {
+    //       if (!empty($files['name'][$key])) {
+    //           $extension = pathinfo($files['name'][$key], PATHINFO_EXTENSION);
+    //           if ($files['size'][$key] > 0 && $files['error'][$key] == 0) {
+    //               $filerenombrar = sha1($_FILES['name'][$key]).$cont.time();
+    //               $name
+    //               if (!is_dir($move)) {
+    //                   mkdir($move);
+    //               }
+    //               try {
+    //                   $move = $move . "/" . $nombre;
+    //                   move_uploaded_file($files['tmp_name'][$key], $move);
+    //                   return $return = array('code' => 1, 'data' => $move);
+    //               } catch (\Exception $e) {
+    //                   $msj = "Error: archivo no se ha podido mover el archivo";
+    //                   $return = array('code' => 2, 'msj' => $msj);
+    //               }
+    //           } else {
+    //               $msj = "Error: Archivo dañado";
+    //               $return = array('code' => 2, 'msj' => $msj);
+    //           }
+    //       } else {
+    //           return array('code' => 1, 'data' => null);
+    //       }
+    //       $cont++;
+    //
+    //   }
+    //
+    //
+    //
+    //     $this->mis->setLog($msj, 'Imagen cargada de' + $area + ', en la carpeta: ' + $carpeta);
+    //     return $return;
+    // }
 }

@@ -430,6 +430,38 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     })
                   }
               break;
+              case 'paciente_lab':
+                $.ajax({
+                  url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                  data: { api: 2, id: id },
+                  type: "POST",
+                  datatype: 'json',
+                  success: function (data) {
+                    data = jQuery.parseJSON(data);
+                    row = data['response']['data'][0];
+                    $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                    $('#edad-persona').html(formatoFecha(row.EDAD))
+                    $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                    $('#info-paci-curp').html(row.CURP);
+                    $('#info-paci-telefono').html(row.CELULAR);
+                    $('#info-paci-correo').html(row.CORREO);
+                    $('#info-paci-sexo').html(row.GENERO);
+                    if (row.TURNO) {
+                      $('#info-paci-turno').html(row.TURNO);
+                    }else{
+                      $('#info-paci-turno').html('Sin generar');
+                    }
+                    $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
+                    row.MUNICIPIO+", "+row.ESTADO);
+                    $('#info-paci-procedencia').html(row.PROCEDENCIA);
+                    $('#info-paci-prefolio').html(row.PREFOLIO)
+                  },
+                  complete: function(){
+                    $(panel).fadeIn(100);
+                    resolve(1);
+                  }
+                })
+              break;
               case 'estudio':
                 $('#nombre-estudio').html(row['DESCRIPCION']);
                 $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);

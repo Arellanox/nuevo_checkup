@@ -7,7 +7,7 @@
       <h4>Lista de pacientes</h4>
       <div class="text-center">
         <label for="inputBuscarTableListaNuevos">Buscar:</label>
-        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" id="BuscarTablaListaLaboratorio">
+        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaLaboratorio">
       </div>
       <table class="table display responsive" id="TablaLaboratorio" style="width: 100%">
         <thead class="">
@@ -24,6 +24,8 @@
       </table>
     </div>
   </div>
+  
+
   <div class="col-3 col-lg-3 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card m-3" id="panel-informacion"> </div>
     <div class="card m-3 p-4">
@@ -40,10 +42,10 @@
           <p class="none-p">Estudios a subir</p>
         </div>
         <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
-          <button type="submit" form="formAnalisisLaboratorio" data-attribute="guardar" class="btn btn-hover" style="margin-bottom:4px">
+          <button type="submit" form="formAnalisisLaboratorio" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
             <i class="bi bi-clipboard2-pulse"></i> Guardar
           </button>
-          <button type="submit" form="formAnalisisLaboratorio" data-attribute="confirmar" class="btn btn-hover" style="margin-bottom:4px">
+          <button type="submit" form="formAnalisisLaboratorio" data-attribute="confirmar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
             <i class="bi bi-clipboard2-pulse"></i> Confirmar
           </button>
         </div>

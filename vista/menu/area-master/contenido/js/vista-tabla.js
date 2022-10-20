@@ -20,18 +20,18 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
       dataSrc:'response.data'
   },
   columns:[
-      {
-        data: 'EDAD', render: function(){
-          return '';
-        }
-      },
+      // {
+      //   data: 'EDAD', render: function(){
+      //     return '';
+      //   }
+      // },
       {data: 'NOMBRE_COMPLETO'},
       {data: 'PREFOLIO', render: function (data, type, full, meta) {
           return "20221014JMC412";
         },
       },
-      {data: 'PROCEDENCIA'},
       {data: 'EDAD'},
+      {data: 'GENERO'},
       {data: 'EDAD'},
       // {defaultContent: 'En progreso...'}
   ],
