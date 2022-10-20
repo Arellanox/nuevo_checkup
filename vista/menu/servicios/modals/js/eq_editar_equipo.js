@@ -61,7 +61,7 @@ $("#formEditarEquipo").submit(function (event) {
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-          $.ajax({
+      $.ajax({
         data: formData,
          url: "../../../api/laboratorio_equipos_api.php",
         type: "POST",

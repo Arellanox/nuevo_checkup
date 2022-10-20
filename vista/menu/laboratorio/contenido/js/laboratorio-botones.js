@@ -2,8 +2,9 @@ $('#formAnalisisLaboratorio').submit(function(event){
    event.preventDefault();
    var form = document.getElementById("formAnalisisLaboratorio");
    var formData = new FormData(form);
-   formData.set('EstudiosID', idsEstudios);
-   formData.set('api', 1);
+   formData.set('id_turno', selectListaLab['ID_TURNO']);
+   formData.set('id_area', 6)
+   formData.set('api', 9);
    console.log(formData);
 
    Swal.fire({
@@ -35,9 +36,24 @@ $('#formAnalisisLaboratorio').submit(function(event){
   }).then((result) => {
     if (result.isConfirmed) {
       if (result.value.status == 1) {
-        alert('si')
+        $.ajax({
+          data: formData,
+           url: "../../../api/turnos_api.php",
+          type: "POST",
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            data = jQuery.parseJSON(data);
+            if (mensajeAjax(data)) {
+              alertSelectTable('¡Resultado confirmado!', 'success')
+              // dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: 6}
+              tablaListaPaciente.ajax.reload();
+              getPanelLab('Out', 0)
+            }
+          },
+        });
       }else{
-        alert('No')
+        alertSelectTable('¡Contraseña incorrecta!', 'error')
       }
     }
   })
@@ -48,4 +64,5 @@ $('#formAnalisisLaboratorio').submit(function(event){
 $('#fechaListadoLaboratorio').change(function(){
   dataListaPaciente = {api:5, fecha_busqueda: $(this).val(), area_id: 6}
   tablaListaPaciente.ajax.reload();
+  getPanelLab('Out', 0)
 })

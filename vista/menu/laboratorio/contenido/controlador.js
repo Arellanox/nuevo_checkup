@@ -1,5 +1,6 @@
 
 var tablaListaPaciente, dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: 6};
+var idsEstudios;
 obtenerContenidoLaboratorio();
 function obtenerContenidoLaboratorio(){
   obtenerTitulo("Resultados de laboratorio"); //Aqui mandar el nombre de la area

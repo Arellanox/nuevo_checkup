@@ -15,7 +15,11 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
       method: 'POST',
       url: '../../../api/turnos_api.php',
       beforeSend: function() { loader("In") },
-      complete: function(){ loader("Out") },
+      complete: function(){
+        loader("Out")
+        loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);
+        $('.informacion-labo').fadeOut()
+      },
       dataSrc:'response.data'
   },
   columns:[
@@ -48,7 +52,7 @@ $('#TablaLaboratorio tbody').on('click', 'tr', function () {
        tablaListaPaciente.$('tr.selected').removeClass('selected');
        $(this).addClass('selected');
        selectListaLab = tablaListaPaciente.row( this ).data();
-       getPanelLab('In', selectListaLab[0])
+       getPanelLab('In', selectListaLab['ID_TURNO'])
    }
 });
 
@@ -60,9 +64,11 @@ async function getPanelLab(fade, id){
   switch (fade) {
     case 'Out':
         if ($('.informacion-labo').is(':visible')) {
-          loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);
-          $('.informacion-labo').fadeOut()
-          // console.log('Invisible!')
+          if (selectListaLab == null) {
+            loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);
+            $('.informacion-labo').fadeOut()
+            // console.log('Invisible!')
+          }
         }else{
           // console.log('Todavia visible!')
           setTimeout(function(){
@@ -91,7 +97,7 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
       url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
       type: "POST",
       dataType: 'json',
-      data: { id_paciente: id, api: 8, area_id: 6 },
+      data: { id_paciente: id, api: 6, id_area: 6 },
       success: function (data) {
         row = data.response.data;
         console.log("Haciendo el historial de resultados")
@@ -105,13 +111,13 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
                         '</div>';
         let html = '';
 
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < row.length; i++) {
           html += itemStart;
           html += '<h2 class="accordion-header" id="collap-historial-estudios'+i+'">'+
                     '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio'+i+'-Target" aria-expanded="false" aria-controls="accordionEstudios">'+
                       '<div class="row">'+
                         '<div class="col-12">'+
-                          '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha'+i+': <strong>xx/xx/2000 '+i+'</strong> <strong>12:00 '+i+'</strong>'+
+                          '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>'+row[i]['FECHA_RESULTADO']+'</strong> '+ //<strong>12:00 '+i+'</strong>
                         '</div>'+
                         '<div class="col-12">'+
                           '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado '+i+': <strong>@Usuario que confirmó '+i+'</strong>'+
@@ -121,8 +127,8 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
                   '</h2>'+
                   '<div id="collapse-estudio'+i+'-Target" class="accordion-collapse collapse" aria-labelledby="collap-historial-estudios'+i+'">';
           html += bodyStart;
-          for (var e = 0; e < 5; e++) {
-            html += '<div class="col-6 text-end info-detalle"><p>Estudio '+e+':</p></div><div class="col-6">*Resultado '+e+'*</div>';
+          for (var e = 0; e < 1; e++) {
+            html += '<div class="col-6 text-end info-detalle"><p>'+row[i]['DESCRIPCION']+':</p></div><div class="col-6">'+row[i]['RESULTADO']+'</div>';
           }
           html += bodyEnd + '</div>';
           html += itemEnd;
@@ -140,35 +146,39 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
 function generarFormularioPaciente(id){ return new Promise(resolve => {
     // $('#accordionResultadosAnteriores').html('')
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/servicio_api.php",
+      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
       type: "POST",
       dataType: 'json',
-      data: { id: id, api: 0 },
+      data: { id_turno: id, api: 8, id_area: 6},
       success: function (data) {
+        data = data.response.data;
+
         let colStart = '<div class="col-auto col-lg-6">';
         let endDiv = '</div>';
         let colreStart = '<div class="col-auto col-lg-6 d-flex justify-content-end align-items-center">';
         let html = '';
 
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < data.length; i++) {
           html += '<li class="list-group-item">';
           html += '<div class="row d-flex align-items-center">';
           html += colStart;
-          html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> Estudio</p>';
+          html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> '+data[i]['DESCRIPCION_SERVICIO']+'</p>';
           html += endDiv;
           html += colreStart;
           html += '<div class="input-group">';
-          html += '<input type="text" class="form-control input-form" name="estudio'+i+'" placeholder="valor de resultado" required>';
-          html += '<span class="input-span">Medida</span>';
+          if (data[i]['RESULTADO'] == null) {
+            html += '<input type="text" class="form-control input-form" name="'+data[i]['ID_SERVICIO']+'" required>';
+          }else{
+            html += '<input type="text" class="form-control input-form" name="'+data[i]['ID_SERVICIO']+'" required value="'+data[i]['RESULTADO']+'">';
+          }
+          html += '<span class="input-span">'+data[i]['DESCRIPCION_MEDIDA']+'</span>';
           html += '</div>';
           html += endDiv;
           html += endDiv;
           html += '</li>';
+          // idsEstudios.push[data[i]['ID_SERVICIO']]
         }
         $('#list-group-form-resultado-laboro').html(html);
-
-
-        idsEstudios = [1,2,3,4,5];
       },
       complete: function(){
         loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);

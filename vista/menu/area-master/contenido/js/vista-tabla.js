@@ -46,7 +46,7 @@ $('#TablaContenidoResultados tbody').on('click', 'tr', function () {
        $(this).removeClass('selected');
        selectListaLab = null;
        obtenerPanelInformacion(0, 'pacientes_api', 'paciente')
-       getPanelLab('Out', 0)
+       // getPanelLab('Out', 0)
    } else {
        tablaContenido.$('tr.selected').removeClass('selected');
        $(this).addClass('selected');

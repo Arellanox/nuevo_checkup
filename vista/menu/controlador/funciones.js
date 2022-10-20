@@ -378,7 +378,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
        }, 100);
     }).done(function(){
        setTimeout(function () {
-          // $(panel).fadeOut(0);
+          $(panel).fadeOut(0);
           if (id > 0) {
             row = array_selected;
             switch (tipPanel) {
