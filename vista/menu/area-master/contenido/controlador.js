@@ -1,10 +1,11 @@
 var tablaContenido, areaActiva = 1;
 var dataListaPaciente = {api:7};
+var selectListaLab;
 
 $.post("contenido/contenido.php", function (html) {
   $("#body-js").html(html);
   // // Botones
-  // $.getScript("contenido/js/estudio-botones.js");
+  $.getScript("contenido/js/area-botones.js");
 }).done(function(){
   // // Datatable
    $.getScript("contenido/js/vista-tabla.js").done(function(){
