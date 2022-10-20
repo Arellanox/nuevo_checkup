@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-   // $tokenVerification->logout();
-   // exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 #api
@@ -93,12 +93,31 @@ switch ($api) {
 
     case 8:
         # cargar los resultados
-        #$response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
-        $response = $master->getByProcedure('sp_turnos_b', [$id, $id_paciente, $fecha_agenda]);
-        $hijo = $master->getByProcedure('sp_turnos_resultados', [$id, $id_paciente, $area, $fecha]);
+        $response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
+        break;
+
+    case 9:
+        # subir resultados
+        $setResultados = $_POST;
+        $id_turno = array_slice($setResultados, count($setResultados) - 3, 1);
+        //print_r($id_turno);
+        foreach ($setResultados as $servicio_id => $resultado) {
+            # code...
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno['id_turno'], $servicio_id, $resultado, $observaciones));
+            //print_r($response);
+        }
+        echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
+        exit;
+        //$response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
+        break;
+
+    case 10:
+        #servicios por turno
+        $response = $master->getByProcedure('sp_turnos_historial', [$id, $id_paciente]);
+        $hijo = $master->getByProcedure('sp_turnos_historial_detalle', [$id, $id_paciente, $area]);
         for ($i = 0; $i < count($response) - 1; $i++) {
             $id_turno_padre = $response[$i]['ID_TURNO'];
-            $servicios = array_filter($fila, function ($obj) use ($id_turno_padre )  {
+            $servicios = array_filter($fila, function ($obj) use ($id_turno_padre) {
                 $r = $obj['ID_TURNO'] == $id_turno_padre;
                 return $r;
             });
@@ -106,20 +125,6 @@ switch ($api) {
         }
         break;
 
-    case 9:
-        # subir resultados
-        $setResultados = $_POST;
-        $id_turno = array_slice($setResultados,count($setResultados)-3,1);
-        //print_r($id_turno);
-        foreach ($setResultados as $servicio_id => $resultado) {
-            # code...
-            $response = $master->updateByProcedure('sp_subir_resultados',array($id_turno['id_turno'],$servicio_id,$resultado,$observaciones));
-            //print_r($response);
-        }
-        echo json_encode(array("response"=>array("code"=>1,"msj"=>"Termina la carga de datos.")));
-        exit;
-        //$response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
-        break;
     default:
         $response = "api no reconocida";
         break;
