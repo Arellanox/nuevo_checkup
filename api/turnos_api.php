@@ -54,7 +54,7 @@ $parametros = array(
     $total,
     $completado
 );
-$response="";
+$response = "";
 
 $master = new Master();
 switch ($api) {
@@ -74,26 +74,36 @@ switch ($api) {
         $response = $master->deleteByProcedure("sp_turnos_e", [$id]);
         break;
 
-   case 5:
+    case 5:
         # recuperar la lista de trabajo por area
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo',array($fecha,$area));
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area));
         break;
     case 6:
         #historial de servicios
-        $response = $master->getByProcedure("sp_historial_servicios_paciente", [$id,$id_paciente,$id_area,$fecha_agenda]);
+        $response = $master->getByProcedure("sp_historial_servicios_paciente", [$id, $id_paciente, $id_area, $fecha_agenda]);
         break;
 
     case 7:
         # api falsa
-        echo json_encode(array("response"=>array("code"=>1,"data"=>array())));
+        echo json_encode(array("response" => array("code" => 1, "data" => array())));
         exit;
         break;
 
     case 8:
         # cargar los resultados
-        $response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
+        #$response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
+        $response = $master->getByProcedure('sp_turnos_b', [$id, $id_paciente, $fecha_agenda]);
+        $hijo = $master->getByProcedure('sp_turnos_resultados', [$id, $id_paciente, $area, $fecha]);
+        for ($i = 0; $i < count($response) - 1; $i++) {
+            $id_turno_padre = $response[$i]['ID_TURNO'];
+            $servicios = array_filter($fila, function ($obj) use ($id_turno_padre )  {
+                $r = $obj['ID_TURNO'] == $id_turno_padre;
+                return $r;
+            });
+            $response[$i]['servicios'] = $servicios;
+        }
         break;
 
     case 9:
