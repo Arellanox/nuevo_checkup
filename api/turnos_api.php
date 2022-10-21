@@ -45,7 +45,7 @@ $parametros = array(
     $paquete_id,
     $prefolio,
     $folio,
-    $fecha_registro,
+    //$fecha_registro,
     $fecha_agenda,
     $fecha_recepcion,
     $turno,
