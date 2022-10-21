@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once "../clases/master_class.php";
 
 $master = new Master();
@@ -52,12 +52,12 @@ switch($api){
             $total,
             $completado
         );
-        
+
         #insertar antecedentes
         $lastId = $master->insertByProcedure('sp_turnos_g',$preTurno);
-        
+
         if(is_numeric($lastId)){
-           #si el turno se inserto correctamente, se procede a insertar los antecedentes a ese turno 
+           #si el turno se inserto correctamente, se procede a insertar los antecedentes a ese turno
            foreach($antecedentes as $ante){
                 if(count($ante)==3){
                     # si el arreglo tiene 3
@@ -103,7 +103,7 @@ switch($api){
         }
         $pacienteId = $paciente[0]['ID_PACIENTE'];
 
-        
+
 
 
         break;

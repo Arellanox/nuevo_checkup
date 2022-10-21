@@ -46,12 +46,12 @@
               </div>
               <div class="col-6">
                   <label for="segmento" class="form-label">Seleccionar segmento</label>
-                  <select class="form-control input-form" name="segmento" id="inputDosis">
+                  <select class="form-control input-form" id="inputDosis">
                   </select>
               </div>
               <div class="col-6">
                   <label for="curp" class="form-label">Fecha de agenda</label>
-                  <input type="date" name="agenda" value="" class="form-control input-form" required>
+                  <input type="date" name="fechaAgenda" value="" class="form-control input-form" required>
               </div>
             </div>
             <br>

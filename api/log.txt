@@ -284,3 +284,10 @@
 
 21/10/22 20:40:27 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
 
+21/10/22 21:26:46 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
+21/10/22 21:27:58 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
+21/10/22 21:29:24 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
+21/10/22 21:32:22 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
+21/10/22 21:32:41 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
+21/10/22 21:39:30 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
+21/10/22 21:41:52 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13

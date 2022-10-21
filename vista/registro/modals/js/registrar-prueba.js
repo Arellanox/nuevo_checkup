@@ -70,7 +70,7 @@ $("#formRegistrarAgenda").submit(function(event){
     event.preventDefault();
     alert("form formAntecedentes-paciente")
     /*DATOS Y VALIDACION DEL REGISTRO*/
-    var form = document.getElementById("formAntecedentes-paciente");
+    var form = document.getElementById("formRegistrarAgenda");
     var formData = new FormData(form);
     // console.log(formData.get('estudiosLab[]'))
     // if (formData.get('estudiosLab[]') == null) {
@@ -81,7 +81,7 @@ $("#formRegistrarAgenda").submit(function(event){
     //   })
     //   return
     // }
-    formData.set('api', 7);
+    formData.set('api', 1);
     // console.log(formData);
     Swal.fire({
        title: '¿Está seguro de haber seleccionado todo?',
