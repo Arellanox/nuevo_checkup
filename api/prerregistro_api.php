@@ -73,13 +73,24 @@ switch($api){
                 } else {
                     #si el arreglo tiene 2 elementos
                     # quiere decir que tiene id, antecedente y observaciones [sin el id de respuesta]
-                    $ant = array(
-                        null, #id_consultortio_antecedente
-                        $lastId, #turno_id,
-                        $ante[0], #antecedente_subtipo_id
-                        null, # antecedentes_respuesta_id
-                        $ante[2] #notas
-                    );
+                    if (is_numeric($ante[1])){
+                        $ant = array(
+                            null, #id_consultortio_antecedente
+                            $lastId, #turno_id,
+                            $ante[0], #antecedente_subtipo_id
+                            $ante[1], # antecedentes_respuesta_id
+                            null #notas
+                        );
+                    } else {
+                        $ant = array(
+                            null, #id_consultortio_antecedente
+                            $lastId, #turno_id,
+                            $ante[0], #antecedente_subtipo_id
+                            null, # antecedentes_respuesta_id
+                            $ante[1] #notas
+                        );
+                    }
+                   
                     $response = $master->insertByProcedure('sp_consultorio_antecedentes_g',$ant);
                 }
            }
