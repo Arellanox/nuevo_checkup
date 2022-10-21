@@ -2080,7 +2080,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Dolores osteo-articular: </label>
-                      <input type="hide" name="check-aparatoLocomot-DolorOsteoArticu[]" value="117">
+                      <input type="hide" name="check-aparatoLocomot-DolorOsteoArticu[]" value="118">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoLocomot-DolorOsteoArticu" name="check-aparatoLocomot-DolorOsteoArticu[]" value="1" required >
@@ -2097,7 +2097,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Reumatismo: </label>
-                      <input type="hide" name="check-aparatoLocomot-Reumatismo[]" value="118">
+                      <input type="hide" name="check-aparatoLocomot-Reumatismo[]" value="119">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoLocomot-Reumatismo" name="check-aparatoLocomot-Reumatismo[]" value="1" required >
@@ -2131,7 +2131,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Deformidades: </label>
-                      <input type="hide" name="check-aparatoLocomot-Deformidades[]" value="120">
+                      <input type="hide" name="check-aparatoLocomot-Deformidades[]" value="121">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoLocomot-Deformidades" name="check-aparatoLocomot-Deformidades[]" value="1" required >
@@ -2160,7 +2160,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Fiebre: </label>
-                      <input type="hide" name="check-Termoregulacin-Fiebre[]" value="121">
+                      <input type="hide" name="check-Termoregulacin-Fiebre[]" value="122">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-Fiebre" name="check-Termoregulacin-Fiebre[]" value="1" required >
@@ -2177,6 +2177,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Escalofríos: </label>
+                      <input type="hide" name="check-Termoregulacin-Escalofríos[]" value="123">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-Escalofríos" name="check-Termoregulacin-Escalofríos[]" value="1" required >
@@ -2193,6 +2194,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Sudoración: </label>
+                      <input type="hide" name="check-Termoregulacin-Sudoración[]" value="124">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-Sudoración" name="check-Termoregulacin-Sudoración[]" value="1" required >
@@ -2206,9 +2208,10 @@
                       <textarea name="check-Termoregulacin-Sudoración[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Transtornos: </label>
+                      <input type="hide" name="check-Termoregulacin-Transtornos[]" value="124">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-Transtornos" name="check-Termoregulacin-Transtornos[]" value="1" required >
@@ -2221,10 +2224,11 @@
                     <div class="collapse" id="collapse-Termoregulacin-Transtornos">
                       <textarea name="check-Termoregulacin-Transtornos[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
-                      <label>Congénitos de metabolismo: </label>
+                      <label>Transtornos congénitos de metabolismo: </label>
+                      <input type="hide" name="check-Termoregulacin-congenMetabolism[]" value="125">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-congenMetabolism" name="check-Termoregulacin-congenMetabolism[]" value="1" required >
@@ -2253,6 +2257,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Cambios de coloración "manchas": </label>
+                      <input type="hide" name="check-piel-CambiosColoracion[]" value="126">
                     </div>
                     <div class="" id="collapse-piel-CambiosColoracion">
                       <textarea name="check-piel-CambiosColoracion[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2261,6 +2266,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Prurito: </label>
+                      <input type="hide" name="check-piel-prurito[]" value="127">
                     </div>
                     <div class="" id="collapse-piel-prurito">
                       <textarea name="check-piel-prurito[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2269,6 +2275,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Frialdad: </label>
+                      <input type="hide" name="check-piel-frialdad[]" value="128">
                     </div>
                     <div class="" id="collapse-piel-frialdad">
                       <textarea name="check-piel-frialdad[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2277,6 +2284,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Dematosis: </label>
+                      <input type="hide" name="check-piel-dematosis[]" value="129">
                     </div>
                     <div class="" id="collapse-piel-dematosis">
                       <textarea name="check-piel-dematosis[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>

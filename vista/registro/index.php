@@ -1,6 +1,7 @@
 <?php
 //Variables dinamicas;
-$codigo = $_GET['cod']?$_GET['cod']:"473nakidsjbd";
+$codigo = $_POST['code']?$_POST['code']:null;
+$token = $_POST['token']?$_POST['token']:null;
 include "../variables.php";
 $menu = "Preregistro";
  ?>
@@ -21,8 +22,11 @@ $menu = "Preregistro";
      	 });
      }
 
+
+
+
      // $.ajax({
-     //   data: {id: '<?php echo $codigo; ?>', api: 6},
+     //   data: {token: '<?php echo $codigo; ?>', api: 6},
      //   url: "../../api/clientes_api.php",
      //   type: "POST",
      //   success: function(data) {
