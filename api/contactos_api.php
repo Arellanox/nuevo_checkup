@@ -24,10 +24,12 @@ $apellidos = $_POST['apellidos_contacto'];
 $telefono1 = $_POST['telefono1_contacto'];
 $telefono2 = $_POST['telefono2_contacto'];
 $email = $_POST['email_contacto'];
+$tipo_contacto = $_POST['tipo_contacto'];
 
 $parametros = array(
     $id_contacto,
     $id_cliente,
+    $tipo_contacto,
     $nombre,
     $apellidos,
     $telefono1,
