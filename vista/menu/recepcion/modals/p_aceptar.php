@@ -39,7 +39,163 @@
               <img src="https://mdbootstrap.com/img/Others/documentation/img%20(131)-mini.jpg" class="img-fluid" alt="Responsive image" id="image-perfil">
             </div>
           </div>
-
+          <div class="col-12">
+            <h4>Añade mas estudios</h4>
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Estudios de laboratorio
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-12">
+                            <select class="" name="paquete" id="select-lab">
+                            </select>
+                          </div>
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-confirmar" id="btn-obtenerID">
+                              <i class="bi bi-person-badge"></i> Agregar
+                            </button>
+                          </div>
+                          <div class="col-12 mt-3">
+                            <label for="paquete" class="form-label">Orden médica de laboratorio (Particular = requerido):</label>
+                            <input type="file" name="orden-medica-laboratorio" id="file-laboratorio" class="form-control input-form" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <ul class="list-group" id="list-estudios-laboratorio">
+                          <li class="list-group-item">An item</li>
+                          <li class="list-group-item">A second item</li>
+                          <li class="list-group-item">A third item</li>
+                          <li class="list-group-item">A fourth item</li>
+                          <li class="list-group-item">And a fifth one</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Estudios de Rayos X
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-12">
+                            <select class="" name="paquete" id="select-rx">
+                            </select>
+                          </div>
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-confirmar" id="btn-obtenerID">
+                              <i class="bi bi-person-badge"></i> Agregar
+                            </button>
+                          </div>
+                          <div class="col-12 mt-3">
+                            <label for="paquete" class="form-label">Orden médica de Rayos X (Particular = requerido):</label>
+                            <input type="file" name="orden-medica-rx" id="file-r-x" class="form-control input-form" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <ul class="list-group" id="list-estudios-rx">
+                          <li class="list-group-item">An item</li>
+                          <li class="list-group-item">A second item</li>
+                          <li class="list-group-item">A third item</li>
+                          <li class="list-group-item">A fourth item</li>
+                          <li class="list-group-item">And a fifth one</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Estudios de Ultra Sonido
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-12">
+                            <select class="" name="paquete" id="select-us">
+                            </select>
+                          </div>
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-confirmar" id="btn-obtenerID">
+                              <i class="bi bi-person-badge"></i> Agregar
+                            </button>
+                          </div>
+                          <div class="col-12 mt-3">
+                            <label for="paquete" class="form-label">Orden médica de Ultra Sonido (Particular = requerido):</label>
+                            <input type="file" name="orden-medica-us" id="file-ultra-sonido" class="form-control input-form">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <ul class="list-group" id="list-estudios-ultrasonido">
+                          <li class="list-group-item">An item</li>
+                          <li class="list-group-item">A second item</li>
+                          <li class="list-group-item">A third item</li>
+                          <li class="list-group-item">A fourth item</li>
+                          <li class="list-group-item">And a fifth one</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Otros estudios
+                  </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-12">
+                            <select class="" name="paquete" id="select-otros">
+                            </select>
+                          </div>
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-confirmar" id="btn-obtenerID">
+                              <i class="bi bi-person-badge"></i> Agregar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <ul class="list-group" id="list-estudios-otros">
+                          <li class="list-group-item">An item</li>
+                          <li class="list-group-item">A second item</li>
+                          <li class="list-group-item">A third item</li>
+                          <li class="list-group-item">A fourth item</li>
+                          <li class="list-group-item">And a fifth one</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

@@ -356,12 +356,12 @@ function selectDatatable(tablename, datatable, panel = null, api = null, tipPane
   });
 }
 
-function select2(select, modal = null){
+function select2(select, modal = null, placeholder = 'Selecciona una opcion'){
   $(select).select2({
     dropdownParent: $('#'+modal),
     tags: false,
     width:'100%',
-    placeholder: 'Selecciona una opcion',
+    placeholder: placeholder
   });
 }
 

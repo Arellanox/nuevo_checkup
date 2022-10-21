@@ -1990,7 +1990,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Apetito: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-Apetito[]" value="111">
+                      <input type="hide" name="check-EndrocrinoloMetabolism-Apetito[]" value="112">
                     </div>
                     <div class="" id="collapse-EndrocrinoloMetabolism-Apetito">
                       <textarea name="check-EndrocrinoloMetabolism-Apetito[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1999,7 +1999,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Hábitos nutricionales: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-habitoNutrici[]" value="112">
+                      <input type="hide" name="check-EndrocrinoloMetabolism-habitoNutrici[]" value="113">
                     </div>
                     <div class="" id="collapse-EndrocrinoloMetabolism-habitoNutrici">
                       <textarea name="check-EndrocrinoloMetabolism-habitoNutrici[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2008,7 +2008,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Patrón alimentario: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-patroAliment[]" value="113">
+                      <input type="hide" name="check-EndrocrinoloMetabolism-patroAliment[]" value="114">
                     </div>
                     <div class="" id="collapse-EndrocrinoloMetabolism-patroAliment">
                       <textarea name="check-EndrocrinoloMetabolism-patroAliment[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2017,7 +2017,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Obesidad: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-Obesidad[]" value="114">
+                      <input type="hide" name="check-EndrocrinoloMetabolism-Obesidad[]" value="115">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-EndrocrinoloMetabolism-Obesidad" name="check-EndrocrinoloMetabolism-Obesidad[]" value="1" required >
@@ -2034,7 +2034,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Delgadez: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-Delgadez[]" value="115">
+                      <input type="hide" name="check-EndrocrinoloMetabolism-Delgadez[]" value="116">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-EndrocrinoloMetabolism-Delgadez" name="check-EndrocrinoloMetabolism-Delgadez[]" value="1" required >
@@ -2051,7 +2051,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Ganacia o pérdida de peso: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-gananperdiPeso[]" value="116">
+                      <input type="hide" name="check-EndrocrinoloMetabolism-gananperdiPeso[]" value="117">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-EndrocrinoloMetabolism-gananperdiPeso" name="check-EndrocrinoloMetabolism-gananperdiPeso[]" value="1" required >
@@ -2114,7 +2114,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Inflamación articular: </label>
-                      <input type="hide" name="check-aparatoLocomot-inflamaciArticu[]" value="119">
+                      <input type="hide" name="check-aparatoLocomot-inflamaciArticu[]" value="120">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoLocomot-inflamaciArticu" name="check-aparatoLocomot-inflamaciArticu[]" value="1" required >

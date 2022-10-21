@@ -47,4 +47,8 @@ document.getElementById("btn-confirmar-paciente").disabled = true;
     },
   });
 })
-select2("#select-paquetes", "modalPacienteAceptar");
+select2("#select-paquetes", "modalPacienteAceptar", 'Seleccione un paquete');
+select2("#select-lab", "modalPacienteAceptar", 'Seleccione un estudio');
+select2("#select-rx", "modalPacienteAceptar", 'Seleccione un estudio');
+select2("#select-us", "modalPacienteAceptar", 'Seleccione un estudio');
+select2("#select-otros", "modalPacienteAceptar", 'Seleccione un estudio');

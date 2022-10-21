@@ -19,31 +19,35 @@ $('#actualizarForm').click(function(){
   // $('#btnFormRegistrarPruba').prop('disabled',false);
   curp = document.getElementById("curp-paciente").value;
   $.ajax({
-    data: {curp:curp, api:2, id: 1},
+    data: {curp:curp, api:2},
     url: "../../api/pacientes_api.php",
     type: "POST",
     success: function(data) {
       data = jQuery.parseJSON(data);
       if (mensajeAjax(data)) {
-        Toast.fire({
-          icon: 'success',
-          title: 'CURP valida...',
-          timer: 2000
-        });
-        $("#formDIV").fadeToggle(400);
-        $('#curp-paciente').prop('readonly', true);
-        $('#eliminarForm').prop('disabled',false);
-        $('#actualizarForm').prop('disabled',true);
-        document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
-                                                         'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
-                                                      '</div>';
-        $('#paciente-registro').html(data.response.data[0].NOMBRE_COMPLETO);
-        $('#curp-registro').html(data.response.data[0].CURP);
-        $('#sexo-registro').html(data.response.data[0].GENERO);
-        $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
-        $('#formDIV *').prop('disabled',false);
-        $('#btnFormRegistrarPruba').prop('disabled',false);
-        obtenerSignosVitales('#antecedentes-registro')
+        if (data.response.data != null) {
+          Toast.fire({
+            icon: 'success',
+            title: 'CURP valida...',
+            timer: 2000
+          });
+          $("#formDIV").fadeToggle(400);
+          $('#curp-paciente').prop('readonly', true);
+          $('#eliminarForm').prop('disabled',false);
+          $('#actualizarForm').prop('disabled',true);
+          document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
+                                                           'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
+                                                        '</div>';
+          $('#paciente-registro').html(data.response.data[0].NOMBRE_COMPLETO);
+          $('#curp-registro').html(data.response.data[0].CURP);
+          $('#sexo-registro').html(data.response.data[0].GENERO);
+          $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
+          $('#formDIV *').prop('disabled',false);
+          $('#btnFormRegistrarPruba').prop('disabled',false);
+          obtenerSignosVitales('#antecedentes-registro')
+        }else{
+          alertMensaje('error', 'Identificador invalido', 'Asegurese que que este usando correctamente su CURP o pasaporte');
+        }
       }
     },
   });
