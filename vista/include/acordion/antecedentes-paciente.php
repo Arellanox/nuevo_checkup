@@ -15,7 +15,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Alergia: </label>
-                <input type="hide" name="check-aler[]" value="1">
+                <input type="hidden" name="check-aler[]" value="1">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-aler" name="check-aler[]" value="1" required >
@@ -32,7 +32,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Fracturas: </label>
-                <input type="hide" name="check-frac[]" value="2">
+                <input type="hidden" name="check-frac[]" value="2">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-frac" name="check-frac[]" value="1" required >
@@ -49,7 +49,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Diabetes Mellitus: </label>
-                <input type="hide" name="check-DiaMelli[]" value="3">
+                <input type="hidden" name="check-DiaMelli[]" value="3">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-DiaMelli" name="check-DiaMelli[]" value="1" required >
@@ -66,7 +66,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Hispertensión Arterial: </label>
-                <input type="hide" name="check-hiArt[]" value="4">
+                <input type="hidden" name="check-hiArt[]" value="4">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hiArt" name="check-hiArt[]" value="1" required >
@@ -83,7 +83,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Dislipidemia: </label>
-                <input type="hide" name="check-disli[]" value="5">
+                <input type="hidden" name="check-disli[]" value="5">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-disli" name="check-disli[]" value="1" required >
@@ -100,7 +100,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Enfermedad Tiroidea: </label>
-                <input type="hide" name="check-enTiro[]" value="6">
+                <input type="hidden" name="check-enTiro[]" value="6">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-enTiro" name="check-enTiro[]" value="1" required >
@@ -117,7 +117,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Cardiopatías: </label>
-                <input type="hide" name="check-cardi[]" value="7">
+                <input type="hidden" name="check-cardi[]" value="7">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-cardi" name="check-cardi[]" value="1" required >
@@ -134,7 +134,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Cáncer: </label>
-                <input type="hide" name="check-cancr[]" value="8">
+                <input type="hidden" name="check-cancr[]" value="8">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-cancr" name="check-cancr[]" value="1" required >
@@ -151,7 +151,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Transfusiones: </label>
-                <input type="hide" name="check-trans[]" value="9">
+                <input type="hidden" name="check-trans[]" value="9">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-trans" name="check-trans[]" value="1" required >
@@ -168,7 +168,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Enfermedad Respiratoria: </label>
-                <input type="hide" name="check-enfRespi[]" value="10">
+                <input type="hidden" name="check-enfRespi[]" value="10">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-enfRespi" name="check-enfRespi[]" value="1" required >
@@ -185,7 +185,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Enfermedad Gastrointestinal: </label>
-                <input type="hide" name="check-enfGastro[]" value="11">
+                <input type="hidden" name="check-enfGastro[]" value="11">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-enfGastro" name="check-enfGastro[]" value="1" required >
@@ -202,7 +202,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Enfermedad psicológica-psiquiátrica: </label>
-                <input type="hide" name="check-enfPsiciPsiq[]" value="12">
+                <input type="hidden" name="check-enfPsiciPsiq[]" value="12">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-enfPsiciPsiq" name="check-enfPsiciPsiq[]" value="1" required >
@@ -219,7 +219,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Tuberclosis: </label>
-                <input type="hide" name="check-Turberclo[]" value="13">
+                <input type="hidden" name="check-Turberclo[]" value="13">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-Turberclo" name="check-Turberclo[]" value="1" required >
@@ -236,7 +236,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Traumatismos: </label>
-                <input type="hide" name="check-Trauma[]" value="14">
+                <input type="hidden" name="check-Trauma[]" value="14">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-Trauma" name="check-Trauma[]" value="1" required >
@@ -253,7 +253,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Enfermedad de transmisión sexual: </label>
-                <input type="hide" name="check-enfTransSex[]" value="15">
+                <input type="hidden" name="check-enfTransSex[]" value="15">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-enfTransSex" name="check-enfTransSex[]" value="1" required >
@@ -270,7 +270,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Hospitalización previa: </label>
-                <input type="hide" name="check-hospitaPrevia[]" value="16">
+                <input type="hidden" name="check-hospitaPrevia[]" value="16">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hospitaPrevia" name="check-hospitaPrevia[]" value="1" required >
@@ -287,7 +287,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Cirugía previa: </label>
-                <input type="hide" name="check-ciruPrev[]" value="17">
+                <input type="hidden" name="check-ciruPrev[]" value="17">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-ciruPrev" name="check-ciruPrev[]" value="1" required >
@@ -316,7 +316,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Tabaquismo: </label>
-                <input type="hide" name="check-tabaq[]" value="18">
+                <input type="hidden" name="check-tabaq[]" value="18">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-tabaq" name="check-tabaq[]" value="1" required >
@@ -333,7 +333,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Alcoholismo: </label>
-                <input type="hide" name="check-alcoh[]" value="19">
+                <input type="hidden" name="check-alcoh[]" value="19">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-alcoh" name="check-alcoh[]" value="1" required >
@@ -350,7 +350,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Uso de drogas: </label>
-                <input type="hide" name="check-usDrog[]" value="20">
+                <input type="hidden" name="check-usDrog[]" value="20">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-usDrog" name="check-usDrog[]" value="1" required >
@@ -367,7 +367,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Actividad física: </label>
-                <input type="hide" name="check-actFisica[]" value="21">
+                <input type="hidden" name="check-actFisica[]" value="21">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-actFisica" name="check-actFisica[]" value="1" required >
@@ -384,7 +384,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Vivienda con servicios de urbanización: </label>
-                <input type="hide" name="check-viviSerUrba[]" value="22">
+                <input type="hidden" name="check-viviSerUrba[]" value="22">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-viviSerUrba" name="check-viviSerUrba[]" value="1" required >
@@ -401,7 +401,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Actividad Sexual: </label>
-                <input type="hide" name="check-actSex[]" value="23">
+                <input type="hidden" name="check-actSex[]" value="23">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-actSex" name="check-actSex[]" value="1" required >
@@ -418,7 +418,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Vacuna o inmunización reciente: </label>
-                <input type="hide" name="check-vacReci[]" value="24">
+                <input type="hidden" name="check-vacReci[]" value="24">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-vacReci" name="check-vacReci[]" value="1" required >
@@ -447,7 +447,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Padre: </label>
-                <input type="hide" name="check-hero-padre[]" value="26">
+                <input type="hidden" name="check-hero-padre[]" value="26">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hero-padre" name="check-hero-padre[]" value="1" required >
@@ -464,7 +464,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Diabetes Mellitus: </label>
-                <input type="hide" name="check-diabe-padre[]" value="27">
+                <input type="hidden" name="check-diabe-padre[]" value="27">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-diabe-padre" name="check-diabe-padre[]" value="1" required >
@@ -481,7 +481,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Hispertensión Arterial: </label>
-                <input type="hide" name="check-hisperArt-padre[]" value="28">
+                <input type="hidden" name="check-hisperArt-padre[]" value="28">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hisperArt-padre" name="check-hisperArt-padre[]" value="1" required >
@@ -498,7 +498,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Cáncer: </label>
-                <input type="hide" name="check-canc-padre[]" value="29">
+                <input type="hidden" name="check-canc-padre[]" value="29">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-canc-padre" name="check-canc-padre[]" value="1" required >
@@ -515,7 +515,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Otras: </label>
-                <input type="hide" name="check-otra-padre[]" value="30">
+                <input type="hidden" name="check-otra-padre[]" value="30">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-otra-padre" name="check-otra-padre[]" value="1" required >
@@ -533,7 +533,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Madre: </label>
-                <input type="hide" name="check-hero-madre[]" value="31">
+                <input type="hidden" name="check-hero-madre[]" value="31">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hero-madre" name="check-hero-madre[]" value="1" required >
@@ -550,7 +550,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Diabetes Mellitus: </label>
-                <input type="hide" name="check-diabe-madre[]" value="32">
+                <input type="hidden" name="check-diabe-madre[]" value="32">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-diabe-madre" name="check-diabe-madre[]" value="1" required >
@@ -567,7 +567,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Hispertensión Arterial: </label>
-                <input type="hide" name="check-hisperArt-madre[]" value="33">
+                <input type="hidden" name="check-hisperArt-madre[]" value="33">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hisperArt-madre" name="check-hisperArt-madre[]" value="1" required >
@@ -584,7 +584,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Cáncer: </label>
-                <input type="hide" name="check-canc-madre[]" value="34">
+                <input type="hidden" name="check-canc-madre[]" value="34">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-canc-madre" name="check-canc-madre[]" value="1" required >
@@ -601,7 +601,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Otras: </label>
-                <input type="hide" name="check-otra-madre[]" value="35">
+                <input type="hidden" name="check-otra-madre[]" value="35">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-otra-madre" name="check-otra-madre[]" value="1" required >
@@ -630,7 +630,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Padeces alguna enfermedad psicológica o psiquiátrica: </label>
-                <input type="hide" name="check-enfpsicopsiq[]" value="36">
+                <input type="hidden" name="check-enfpsicopsiq[]" value="36">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-enfpsicopsiq" name="check-enfpsicopsiq[]" value="1" required >
@@ -647,7 +647,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Qué área de tu vida han sido afectadas por la enfermedad?: </label>
-                <input type="hide" name="check-enfAfect[]" value="37">
+                <input type="hidden" name="check-enfAfect[]" value="37">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -675,7 +675,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Con qué frecuencia te sientes feliz?: </label>
-                <input type="hide" name="check-frecFeliz[]" value="38">
+                <input type="hidden" name="check-frecFeliz[]" value="38">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -695,7 +695,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>¿Te sientes realizado?: </label>
-                <input type="hide" name="check-sienRealiz[]" value="39">
+                <input type="hidden" name="check-sienRealiz[]" value="39">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-sienRealiz" name="check-sienRealiz[]" value="1" required >
@@ -712,7 +712,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Con qué frecuencia te sientes solo?: </label>
-                <input type="hide" name="check-frecSolo[]" value="40">
+                <input type="hidden" name="check-frecSolo[]" value="40">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -732,7 +732,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Con qué frecuencia te sientes triste?: </label>
-                <input type="hide" name="check-frectris[]" value="41">
+                <input type="hidden" name="check-frectris[]" value="41">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -752,7 +752,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Constantemente te sientes frustado ante situaciones cotidianas?: </label>
-                <input type="hide" name="check-situaciCotidia[]" value="42">
+                <input type="hidden" name="check-situaciCotidia[]" value="42">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -784,7 +784,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Desayuno: </label>
-                <input type="hide" name="check-Desayuno[]" value="43">
+                <input type="hidden" name="check-Desayuno[]" value="43">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-Desayuno" name="check-Desayuno[]" value="1" required >
@@ -801,7 +801,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Colación en la mañana: </label>
-                <input type="hide" name="check-colaMana[]" value="44">
+                <input type="hidden" name="check-colaMana[]" value="44">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-colaMana" name="check-colaMana[]" value="1" required >
@@ -818,7 +818,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Comida: </label>
-                <input type="hide" name="check-Comida[]" value="45">
+                <input type="hidden" name="check-Comida[]" value="45">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-Comida" name="check-Comida[]" value="1" required >
@@ -835,7 +835,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Colación en la tarde: </label>
-                <input type="hide" name="check-colaTarde[]" value="46">
+                <input type="hidden" name="check-colaTarde[]" value="46">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-colaTarde" name="check-colaTarde[]" value="1" required >
@@ -852,7 +852,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>¿Consumes alimentos preparados en casa?: </label>
-                <input type="hide" name="check-alimePrepa[]" value="47">
+                <input type="hidden" name="check-alimePrepa[]" value="47">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-alimePrepa" name="check-alimePrepa[]" value="1" required >
@@ -869,7 +869,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Con qué frecuencia consumes alimentos preparados en la calle?: </label>
-                <input type="hide" name="check-frecAlimprepa[]" value="48">
+                <input type="hidden" name="check-frecAlimprepa[]" value="48">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -889,7 +889,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Cuál es tu nivel de apetito?: </label>
-                <input type="hide" name="check-nivelApeti[]" value="49">
+                <input type="hidden" name="check-nivelApeti[]" value="49">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -909,7 +909,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Cuál es tu nivel de saciedad?: </label>
-                <input type="hide" name="check-nivelSacied[]" value="50">
+                <input type="hidden" name="check-nivelSacied[]" value="50">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -929,7 +929,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
               <div class="col-5">
                 <label>¿Cuántos vasos de agua consumes al día?: </label>
-                <input type="hide" name="check-vasosAguaConsuem[]" value="51">
+                <input type="hidden" name="check-vasosAguaConsuem[]" value="51">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -949,7 +949,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>¿Padeces alguna enfermedad relacionada a los alimentos: </label>
-                <input type="hide" name="check-PadeceEnfeAlime[]" value="52">
+                <input type="hidden" name="check-PadeceEnfeAlime[]" value="52">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checksi-enferRelaciAlime" name="check-PadeceEnfeAlime[]" value="1" required >
@@ -966,7 +966,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Consumes suplementos alimenticios: </label>
-                <input type="hide" name="check-ConssupleAli[]" value="53">
+                <input type="hidden" name="check-ConssupleAli[]" value="53">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-ConssupleAli" name="check-ConssupleAli[]" value="1" required >
@@ -995,7 +995,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Incapacidades por accidentes: </label>
-                <input type="hide" name="check-incapaAccid[]" value="54">
+                <input type="hidden" name="check-incapaAccid[]" value="54">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-incapaAccid" name="check-incapaAccid[]" value="1" required >
@@ -1012,7 +1012,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Incapacidad por enfermedad: </label>
-                <input type="hide" name="check-incapaEnfer[]" value="55">
+                <input type="hidden" name="check-incapaEnfer[]" value="55">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-incapaEnfer" name="check-incapaEnfer[]" value="1" required >
@@ -1029,7 +1029,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Condiciones de la piel por contacto con materiales: </label>
-                <input type="hide" name="check-condiPielMateri[]" value="56">
+                <input type="hidden" name="check-condiPielMateri[]" value="56">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-condiPielMateri" name="check-condiPielMateri[]" value="1" required >
@@ -1046,7 +1046,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Fracturas o lesiones por trabajo: </label>
-                <input type="hide" name="check-fracLesiTrab[]" value="57">
+                <input type="hidden" name="check-fracLesiTrab[]" value="57">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-fracLesiTrab" name="check-fracLesiTrab[]" value="1" required >
@@ -1063,7 +1063,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Antecedentes enfermedades por trabajo: </label>
-                <input type="hide" name="check-anteEnferTrabajo[]" value="58">
+                <input type="hidden" name="check-anteEnferTrabajo[]" value="58">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-anteEnferTrabajo" name="check-anteEnferTrabajo[]" value="1" required >
@@ -1080,7 +1080,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición con material polvoso: </label>
-                <input type="hide" name="check-expoMatpolvo[]" value="59">
+                <input type="hidden" name="check-expoMatpolvo[]" value="59">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-expoMatpolvo" name="check-expoMatpolvo[]" value="1" required >
@@ -1097,7 +1097,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a ruidos fuertes: </label>
-                <input type="hide" name="check-exposiRuidFuertes[]" value="60">
+                <input type="hidden" name="check-exposiRuidFuertes[]" value="60">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-exposiRuidFuertes" name="check-exposiRuidFuertes[]" value="1" required >
@@ -1114,7 +1114,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a sustancias químicas: </label>
-                <input type="hide" name="check-expoSustQuimi[]" value="61">
+                <input type="hidden" name="check-expoSustQuimi[]" value="61">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-expoSustQuimi" name="check-expoSustQuimi[]" value="1" required >
@@ -1131,7 +1131,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a gases: </label>
-                <input type="hide" name="check-exposGases[]" value="62">
+                <input type="hidden" name="check-exposGases[]" value="62">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-exposGases" name="check-exposGases[]" value="1" required >
@@ -1148,7 +1148,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a líquidos inflamables: </label>
-                <input type="hide" name="check-expoLiquinfla[]" value="63">
+                <input type="hidden" name="check-expoLiquinfla[]" value="63">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-expoLiquinfla" name="check-expoLiquinfla[]" value="1" required >
@@ -1165,7 +1165,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a sólidos inflamables: </label>
-                <input type="hide" name="check-exposoliInflamables[]" value="64">
+                <input type="hidden" name="check-exposoliInflamables[]" value="64">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-exposoliInflamables" name="check-exposoliInflamables[]" value="1" required >
@@ -1182,7 +1182,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a explosivos: </label>
-                <input type="hide" name="check-expoExplosi[]" value="65">
+                <input type="hidden" name="check-expoExplosi[]" value="65">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-expoExplosi" name="check-expoExplosi[]" value="1" required >
@@ -1199,7 +1199,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a materiales radioactivos: </label>
-                <input type="hide" name="check-ExposimateRadio[]" value="66">
+                <input type="hidden" name="check-ExposimateRadio[]" value="66">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-ExposimateRadio" name="check-ExposimateRadio[]" value="1" required >
@@ -1216,7 +1216,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a sustancias corrosivas: </label>
-                <input type="hide" name="check-exposiSusCorro[]" value="67">
+                <input type="hidden" name="check-exposiSusCorro[]" value="67">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-exposiSusCorro" name="check-exposiSusCorro[]" value="1" required >
@@ -1233,7 +1233,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
               <div class="col-6">
                 <label>Exposición a sustancias venenosas e infecciosas: </label>
-                <input type="hide" name="check-exposSusVeneInfe[]" value="68">
+                <input type="hidden" name="check-exposSusVeneInfe[]" value="68">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-exposSusVeneInfe" name="check-exposSusVeneInfe[]" value="1" required >
@@ -1272,7 +1272,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Disnea: </label>
-                      <input type="hide" name="check-disnea[]" value="69">
+                      <input type="hidden" name="check-disnea[]" value="69">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-disnea" name="check-disnea[]" value="1" required >
@@ -1289,7 +1289,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Frialdad de extremidades: </label>
-                      <input type="hide" name="check-frialExtremida[]" value="70">
+                      <input type="hidden" name="check-frialExtremida[]" value="70">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-frialExtremida" name="check-frialExtremida[]" value="1" required >
@@ -1306,7 +1306,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Dolor torácico: </label>
-                      <input type="hide" name="check-dolorToraci[]" value="71">
+                      <input type="hidden" name="check-dolorToraci[]" value="71">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-dolorToraci" name="check-dolorToraci[]" value="1" required >
@@ -1323,7 +1323,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Palpitaciones: </label>
-                      <input type="hide" name="check-palpita[]" value="72">
+                      <input type="hidden" name="check-palpita[]" value="72">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-palpita" name="check-palpita[]" value="1" required >
@@ -1340,7 +1340,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Edema: </label>
-                      <input type="hide" name="check-edema[]" value="73">
+                      <input type="hidden" name="check-edema[]" value="73">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-edema" name="check-edema[]" value="1" required >
@@ -1357,7 +1357,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Úlceras cutáneas: </label>
-                      <input type="hide" name="check-ulceCutane[]" value="74">
+                      <input type="hidden" name="check-ulceCutane[]" value="74">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-ulceCutane" name="check-ulceCutane[]" value="1" required >
@@ -1374,7 +1374,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Claudicación a la deambulación: </label>
-                      <input type="hide" name="check-claudiDeambula[]" value="75">
+                      <input type="hidden" name="check-claudiDeambula[]" value="75">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-claudiDeambula" name="check-claudiDeambula[]" value="1" required >
@@ -1391,7 +1391,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Cianosis: </label>
-                      <input type="hide" name="check-cianosis[]" value="76">
+                      <input type="hidden" name="check-cianosis[]" value="76">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-cianosis" name="check-cianosis[]" value="1" required >
@@ -1420,7 +1420,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Disnea: </label>
-                      <input type="hide" name="check-aparaRespir-disnea[]" value="77">
+                      <input type="hidden" name="check-aparaRespir-disnea[]" value="77">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparaRespir-disnea" name="check-aparaRespir-disnea[]" value="1" required >
@@ -1437,7 +1437,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Tos: </label>
-                      <input type="hide" name="check-aparaRespir-tos[]" value="78">
+                      <input type="hidden" name="check-aparaRespir-tos[]" value="78">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparaRespir-tos" name="check-aparaRespir-tos[]" value="1" required >
@@ -1454,7 +1454,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Expectoración: </label>
-                      <input type="hide" name="check-aparaRespir-expectoracion[]" value="79">
+                      <input type="hidden" name="check-aparaRespir-expectoracion[]" value="79">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparaRespir-expectoracion" name="check-aparaRespir-expectoracion[]" value="1" required >
@@ -1471,7 +1471,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Dolor: </label>
-                      <input type="hide" name="check-aparaRespir-dolor[]" value="80">
+                      <input type="hidden" name="check-aparaRespir-dolor[]" value="80">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparaRespir-dolor" name="check-aparaRespir-dolor[]" value="1" required >
@@ -1488,7 +1488,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Asma: </label>
-                      <input type="hide" name="check-aparaRespir-asma[]" value="81">
+                      <input type="hidden" name="check-aparaRespir-asma[]" value="81">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparaRespir-asma" name="check-aparaRespir-asma[]" value="1" required >
@@ -1505,7 +1505,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Cianosis: </label>
-                      <input type="hide" name="check-aparaRespir-cianosis[]" value="82">
+                      <input type="hidden" name="check-aparaRespir-cianosis[]" value="82">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparaRespir-cianosis" name="check-aparaRespir-cianosis[]" value="1" required >
@@ -1522,7 +1522,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Roncador: </label>
-                      <input type="hide" name="check-aparaRespir-roncador[]" value="83">
+                      <input type="hidden" name="check-aparaRespir-roncador[]" value="83">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparaRespir-roncador" name="check-aparaRespir-roncador[]" value="1" required >
@@ -1539,7 +1539,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Infecciones respiratorias: </label>
-                      <input type="hide" name="check-aparaRespir-infeccRespira[]" value="84">
+                      <input type="hidden" name="check-aparaRespir-infeccRespira[]" value="84">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparaRespir-infeccRespira" name="check-aparaRespir-infeccRespira[]" value="1" required >
@@ -1568,7 +1568,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Digestión: </label>
-                      <input type="hide" name="check-aparatoDigestivo-roncador[]" value="85">
+                      <input type="hidden" name="check-aparatoDigestivo-roncador[]" value="85">
                     </div>
                     <div class="" id="collapse-aparatoDigestivo-roncador">
                       <textarea name="check-aparatoDigestivo-roncador[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1577,7 +1577,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Flatulencias: </label>
-                      <input type="hide" name="check-aparatoDigestivo-flatulencias[]" value="86">
+                      <input type="hidden" name="check-aparatoDigestivo-flatulencias[]" value="86">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoDigestivo-flatulencias" name="check-aparatoDigestivo-flatulencias[]" value="1" required >
@@ -1594,7 +1594,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Meteorismo: </label>
-                      <input type="hide" name="check-aparatoDigestivo-meteorismo[]" value="87">
+                      <input type="hidden" name="check-aparatoDigestivo-meteorismo[]" value="87">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoDigestivo-meteorismo" name="check-aparatoDigestivo-meteorismo[]" value="1" required >
@@ -1611,7 +1611,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Pirosis: </label>
-                      <input type="hide" name="check-aparatoDigestivo-pirosis[]" value="88">
+                      <input type="hidden" name="check-aparatoDigestivo-pirosis[]" value="88">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoDigestivo-pirosis" name="check-aparatoDigestivo-pirosis[]" value="1" required >
@@ -1628,7 +1628,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Disfagia: </label>
-                      <input type="hide" name="check-aparatoDigestivo-disfagia[]" value="89">
+                      <input type="hidden" name="check-aparatoDigestivo-disfagia[]" value="89">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoDigestivo-disfagia" name="check-aparatoDigestivo-disfagia[]" value="1" required >
@@ -1645,7 +1645,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Odinofagia: </label>
-                      <input type="hide" name="check-aparatoDigestivo-odinofagia[]" value="90">
+                      <input type="hidden" name="check-aparatoDigestivo-odinofagia[]" value="90">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoDigestivo-odinofagia" name="check-aparatoDigestivo-odinofagia[]" value="1" required >
@@ -1662,7 +1662,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Reflujo: </label>
-                      <input type="hide" name="check-aparatoDigestivo-reflujo[]" value="91">
+                      <input type="hidden" name="check-aparatoDigestivo-reflujo[]" value="91">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoDigestivo-reflujo" name="check-aparatoDigestivo-reflujo[]" value="1" required >
@@ -1679,7 +1679,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Nauseas: </label>
-                      <input type="hide" name="check-aparatoDigestivo-Nauseas[]" value="92">
+                      <input type="hidden" name="check-aparatoDigestivo-Nauseas[]" value="92">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoDigestivo-Nauseas" name="check-aparatoDigestivo-Nauseas[]" value="1" required >
@@ -1696,7 +1696,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Vómitos: </label>
-                      <input type="hide" name="check-aparatoDigestivo-Vómitos[]" value="93">
+                      <input type="hidden" name="check-aparatoDigestivo-Vómitos[]" value="93">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoDigestivo-Vómitos" name="check-aparatoDigestivo-Vómitos[]" value="1" required >
@@ -1713,7 +1713,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Ritmo intestinal: </label>
-                      <input type="hide" name="check-aparatoDigestivo-ritmaIntestinal[]" value="94">
+                      <input type="hidden" name="check-aparatoDigestivo-ritmaIntestinal[]" value="94">
                     </div>
                     <div class="" id="collapse-aparatoDigestivo-ritmaIntestinal">
                       <textarea name="check-aparatoDigestivo-ritmaIntestinal[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1722,7 +1722,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Heces (Color, consistencia): </label>
-                      <input type="hide" name="check-aparatoDigestivo-hecesColroConsis[]" value="95">
+                      <input type="hidden" name="check-aparatoDigestivo-hecesColroConsis[]" value="95">
                     </div>
                     <div class="" id="collapse-aparatoDigestivo-hecesColroConsis">
                       <textarea name="check-aparatoDigestivo-hecesColroConsis[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1743,7 +1743,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Cantidad de orina al día: </label>
-                      <input type="hide" name="check-aparatoGenitourina-cantidadOrinaDia[]" value="96">
+                      <input type="hidden" name="check-aparatoGenitourina-cantidadOrinaDia[]" value="96">
                     </div>
                     <div class="" id="collapse-aparatoGenitourina-cantidadOrinaDia">
                       <textarea name="check-aparatoGenitourina-cantidadOrinaDia[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1752,7 +1752,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Color de orina: </label>
-                      <input type="hide" name="check-aparatoGenitourina-colorOrina[]" value="97">
+                      <input type="hidden" name="check-aparatoGenitourina-colorOrina[]" value="97">
                     </div>
                     <div class="" id="collapse-aparatoGenitourina-colorOrina">
                       <textarea name="check-aparatoGenitourina-colorOrina[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1761,7 +1761,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Hematuria: </label>
-                      <input type="hide" name="check-aparatoGenitourina-colorOrina[]" value="98">
+                      <input type="hidden" name="check-aparatoGenitourina-colorOrina[]" value="98">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoGenitourina-Hematuria" name="check-aparatoGenitourina-Hematuria[]" value="1" required >
@@ -1778,7 +1778,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Disuria: </label>
-                      <input type="hide" name="check-aparatoGenitourina-disuria[]" value="99">
+                      <input type="hidden" name="check-aparatoGenitourina-disuria[]" value="99">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoGenitourina-disuria" name="check-aparatoGenitourina-disuria[]" value="1" required >
@@ -1795,7 +1795,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Poliaquiuria: </label>
-                      <input type="hide" name="check-aparatoGenitourina-poliaquiur[]" value="100">
+                      <input type="hidden" name="check-aparatoGenitourina-poliaquiur[]" value="100">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoGenitourina-poliaquiur" name="check-aparatoGenitourina-poliaquiur[]" value="1" required >
@@ -1812,7 +1812,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Tenesmo: </label>
-                      <input type="hide" name="check-aparatoGenitourina-tenesm[]" value="101">
+                      <input type="hidden" name="check-aparatoGenitourina-tenesm[]" value="101">
                     </divtenesm
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoGenitourina-tenesm" name="check-aparatoGenitourina-tenesm[]" value="1" required >
@@ -1829,7 +1829,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Micción imperiosa: </label>
-                      <input type="hide" name="check-aparatoGenitourina-micciImperi[]" value="102">
+                      <input type="hidden" name="check-aparatoGenitourina-micciImperi[]" value="102">
                     </div>
                     <div class="" id="collapse-aparatoGenitourina-micciImperi">
                       <textarea name="check-aparatoGenitourina-micciImperi[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1838,7 +1838,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Expulsión de arenilla: </label>
-                      <input type="hide" name="check-aparatoGenitourina-expulsiArenilla[]" value="103">
+                      <input type="hidden" name="check-aparatoGenitourina-expulsiArenilla[]" value="103">
                     </div>
                     <div class="" id="collapse-aparatoGenitourina-expulsiArenilla">
                       <textarea name="check-aparatoGenitourina-expulsiArenilla[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1859,7 +1859,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Cefalea: </label>
-                      <input type="hide" name="check-sistemNervios-Cefalea[]" value="104">
+                      <input type="hidden" name="check-sistemNervios-Cefalea[]" value="104">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-sistemNervios-Cefalea" name="check-sistemNervios-Cefalea[]" value="1" required >
@@ -1876,7 +1876,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Parestesias: </label>
-                      <input type="hide" name="check-sistemNervios-Parestesias[]" value="105">
+                      <input type="hidden" name="check-sistemNervios-Parestesias[]" value="105">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-sistemNervios-Parestesias" name="check-sistemNervios-Parestesias[]" value="1" required >
@@ -1893,7 +1893,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Pérdida de fuerza: </label>
-                      <input type="hide" name="check-sistemNervios-perdidFuerza[]" value="106">
+                      <input type="hidden" name="check-sistemNervios-perdidFuerza[]" value="106">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-sistemNervios-perdidFuerza" name="check-sistemNervios-perdidFuerza[]" value="1" required >
@@ -1910,7 +1910,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Alteraciones en la marcha: </label>
-                      <input type="hide" name="check-sistemNervios-alterMarcha[]" value="107">
+                      <input type="hidden" name="check-sistemNervios-alterMarcha[]" value="107">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-sistemNervios-alterMarcha" name="check-sistemNervios-alterMarcha[]" value="1" required >
@@ -1927,7 +1927,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Alteraciones visuales: </label>
-                      <input type="hide" name="check-sistemNervios-alteracioVisuales[]" value="108">
+                      <input type="hidden" name="check-sistemNervios-alteracioVisuales[]" value="108">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-sistemNervios-alteracioVisuales" name="check-sistemNervios-alteracioVisuales[]" value="1" required >
@@ -1944,7 +1944,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Temblor: </label>
-                      <input type="hide" name="check-sistemNervios-temblor[]" value="109">
+                      <input type="hidden" name="check-sistemNervios-temblor[]" value="109">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-sistemNervios-temblor" name="check-sistemNervios-temblor[]" value="1" required >
@@ -1961,7 +1961,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Calambres: </label>
-                      <input type="hide" name="check-sistemNervios-Calambres[]" value="110">
+                      <input type="hidden" name="check-sistemNervios-Calambres[]" value="110">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-sistemNervios-Calambres" name="check-sistemNervios-Calambres[]" value="1" required >
@@ -1990,7 +1990,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Apetito: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-Apetito[]" value="112">
+                      <input type="hidden" name="check-EndrocrinoloMetabolism-Apetito[]" value="112">
                     </div>
                     <div class="" id="collapse-EndrocrinoloMetabolism-Apetito">
                       <textarea name="check-EndrocrinoloMetabolism-Apetito[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -1999,7 +1999,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Hábitos nutricionales: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-habitoNutrici[]" value="113">
+                      <input type="hidden" name="check-EndrocrinoloMetabolism-habitoNutrici[]" value="113">
                     </div>
                     <div class="" id="collapse-EndrocrinoloMetabolism-habitoNutrici">
                       <textarea name="check-EndrocrinoloMetabolism-habitoNutrici[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2008,7 +2008,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Patrón alimentario: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-patroAliment[]" value="114">
+                      <input type="hidden" name="check-EndrocrinoloMetabolism-patroAliment[]" value="114">
                     </div>
                     <div class="" id="collapse-EndrocrinoloMetabolism-patroAliment">
                       <textarea name="check-EndrocrinoloMetabolism-patroAliment[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2017,7 +2017,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Obesidad: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-Obesidad[]" value="115">
+                      <input type="hidden" name="check-EndrocrinoloMetabolism-Obesidad[]" value="115">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-EndrocrinoloMetabolism-Obesidad" name="check-EndrocrinoloMetabolism-Obesidad[]" value="1" required >
@@ -2034,7 +2034,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Delgadez: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-Delgadez[]" value="116">
+                      <input type="hidden" name="check-EndrocrinoloMetabolism-Delgadez[]" value="116">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-EndrocrinoloMetabolism-Delgadez" name="check-EndrocrinoloMetabolism-Delgadez[]" value="1" required >
@@ -2051,7 +2051,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Ganacia o pérdida de peso: </label>
-                      <input type="hide" name="check-EndrocrinoloMetabolism-gananperdiPeso[]" value="117">
+                      <input type="hidden" name="check-EndrocrinoloMetabolism-gananperdiPeso[]" value="117">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-EndrocrinoloMetabolism-gananperdiPeso" name="check-EndrocrinoloMetabolism-gananperdiPeso[]" value="1" required >
@@ -2080,7 +2080,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Dolores osteo-articular: </label>
-                      <input type="hide" name="check-aparatoLocomot-DolorOsteoArticu[]" value="118">
+                      <input type="hidden" name="check-aparatoLocomot-DolorOsteoArticu[]" value="118">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoLocomot-DolorOsteoArticu" name="check-aparatoLocomot-DolorOsteoArticu[]" value="1" required >
@@ -2097,7 +2097,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Reumatismo: </label>
-                      <input type="hide" name="check-aparatoLocomot-Reumatismo[]" value="119">
+                      <input type="hidden" name="check-aparatoLocomot-Reumatismo[]" value="119">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoLocomot-Reumatismo" name="check-aparatoLocomot-Reumatismo[]" value="1" required >
@@ -2114,7 +2114,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Inflamación articular: </label>
-                      <input type="hide" name="check-aparatoLocomot-inflamaciArticu[]" value="120">
+                      <input type="hidden" name="check-aparatoLocomot-inflamaciArticu[]" value="120">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoLocomot-inflamaciArticu" name="check-aparatoLocomot-inflamaciArticu[]" value="1" required >
@@ -2131,7 +2131,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Deformidades: </label>
-                      <input type="hide" name="check-aparatoLocomot-Deformidades[]" value="121">
+                      <input type="hidden" name="check-aparatoLocomot-Deformidades[]" value="121">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-aparatoLocomot-Deformidades" name="check-aparatoLocomot-Deformidades[]" value="1" required >
@@ -2160,7 +2160,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Fiebre: </label>
-                      <input type="hide" name="check-Termoregulacin-Fiebre[]" value="122">
+                      <input type="hidden" name="check-Termoregulacin-Fiebre[]" value="122">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-Fiebre" name="check-Termoregulacin-Fiebre[]" value="1" required >
@@ -2177,7 +2177,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Escalofríos: </label>
-                      <input type="hide" name="check-Termoregulacin-Escalofríos[]" value="123">
+                      <input type="hidden" name="check-Termoregulacin-Escalofríos[]" value="123">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-Escalofríos" name="check-Termoregulacin-Escalofríos[]" value="1" required >
@@ -2194,7 +2194,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Sudoración: </label>
-                      <input type="hide" name="check-Termoregulacin-Sudoración[]" value="124">
+                      <input type="hidden" name="check-Termoregulacin-Sudoración[]" value="124">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-Sudoración" name="check-Termoregulacin-Sudoración[]" value="1" required >
@@ -2211,7 +2211,7 @@
                   <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Transtornos: </label>
-                      <input type="hide" name="check-Termoregulacin-Transtornos[]" value="124">
+                      <input type="hidden" name="check-Termoregulacin-Transtornos[]" value="124">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-Transtornos" name="check-Termoregulacin-Transtornos[]" value="1" required >
@@ -2228,7 +2228,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Transtornos congénitos de metabolismo: </label>
-                      <input type="hide" name="check-Termoregulacin-congenMetabolism[]" value="125">
+                      <input type="hidden" name="check-Termoregulacin-congenMetabolism[]" value="125">
                     </div>
                     <div class="col-3">
                       <input type="radio" required id="checkSi-Termoregulacin-congenMetabolism" name="check-Termoregulacin-congenMetabolism[]" value="1" required >
@@ -2257,7 +2257,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Cambios de coloración "manchas": </label>
-                      <input type="hide" name="check-piel-CambiosColoracion[]" value="126">
+                      <input type="hidden" name="check-piel-CambiosColoracion[]" value="126">
                     </div>
                     <div class="" id="collapse-piel-CambiosColoracion">
                       <textarea name="check-piel-CambiosColoracion[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2266,7 +2266,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Prurito: </label>
-                      <input type="hide" name="check-piel-prurito[]" value="127">
+                      <input type="hidden" name="check-piel-prurito[]" value="127">
                     </div>
                     <div class="" id="collapse-piel-prurito">
                       <textarea name="check-piel-prurito[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2275,7 +2275,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Frialdad: </label>
-                      <input type="hide" name="check-piel-frialdad[]" value="128">
+                      <input type="hidden" name="check-piel-frialdad[]" value="128">
                     </div>
                     <div class="" id="collapse-piel-frialdad">
                       <textarea name="check-piel-frialdad[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2284,7 +2284,7 @@
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
                     <div class="col-6">
                       <label>Dematosis: </label>
-                      <input type="hide" name="check-piel-dematosis[]" value="129">
+                      <input type="hidden" name="check-piel-dematosis[]" value="129">
                     </div>
                     <div class="" id="collapse-piel-dematosis">
                       <textarea name="check-piel-dematosis[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
@@ -2307,7 +2307,7 @@
   //   if (valor == true) {
   //     $(collapID).collapse("show")
   //   }else{
-  //     $(collapID).collapse("hide")
+  //     $(collapID).collapse("hidden")
   //     $(collapID).find(':input').val('')
   //   }
   // }
@@ -2358,7 +2358,7 @@
   //           timer: 2000,
   //         });
   //         document.getElementById("formAgregarEquipo").reset();
-  //         $("#ModalRegistrarEquipo").modal("hide");
+  //         $("#ModalRegistrarEquipo").modal("hidden");
   //         tablaEquipo.ajax.reload();
   //       }
   //     },
