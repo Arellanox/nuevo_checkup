@@ -98,7 +98,7 @@ $("#formRegistrarAgenda").submit(function(event){
 
          $.ajax({
            data: formData,
-           url: "../../api/turnos_api.php",
+           url: "../../api/prerregistro_api.php",
            type: "POST",
            processData: false,
            contentType: false,

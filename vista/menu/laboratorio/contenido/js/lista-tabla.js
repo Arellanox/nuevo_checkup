@@ -97,7 +97,7 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
       url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
       type: "POST",
       dataType: 'json',
-      data: { id_paciente: id, api: 6, id_area: 6 },
+      data: { id_paciente: id, api: 10, id_area: 6 },
       success: function (data) {
         row = data.response.data;
         console.log("Haciendo el historial de resultados")
