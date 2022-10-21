@@ -55,11 +55,11 @@ $('#eliminarForm').click(function(){
   $('#curp-paciente').prop('readonly', false);
   $('#eliminarForm').prop('disabled',true);
   $('#actualizarForm').prop('disabled',false);
-  $('#formDIV *').prop('disabled',true);
+  // $('#formDIV *').prop('disabled',true);
   $("#formDIV").fadeToggle(400);
   $('#btnFormRegistrarPruba').prop('disabled',true);
-  window.location.hash = "curp-paciente";
-  $('##antecedentes-registro').html('')
+  // window.location.hash = "curp-paciente";
+  // $('##antecedentes-registro').html('')
 })
 
 $("#formRegistrarAgenda").submit(function(event){
