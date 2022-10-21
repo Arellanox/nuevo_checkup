@@ -23,7 +23,8 @@
 </div>
 <div class="col-7 col-lg-4">
   <label for="curp" class="form-label">CURP</label>
-  <input type="text" class="form-control input-form" name="curp"  pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" placeholder="" required >
+  <input type="text" class="form-control input-form" name="curp"   placeholder="" required >
+  <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
 </div>
 <div class="col-5 col-lg-3">
   <label for="telefono" class="form-label">Télefono</label>

@@ -9,56 +9,46 @@ var tipoPaciente = "0"; //Particular por defecto
 
 $('#actualizarForm').click(function(){
   //Solicitar si la curp existe
-  window.location.hash = "formDIV";
-  $('#curp-paciente').prop('readonly', true);
-  $('#eliminarForm').prop('disabled',false);
-  $('#actualizarForm').prop('disabled',true);
-  document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
-                                                   'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
-                                                '</div>';
-  $('#formDIV *').prop('disabled',false);
-  $("#formDIV").fadeToggle(400);
-  $('#btnFormRegistrarPruba').prop('disabled',false);
-  curp = document.getElementById("curp-paciente").value;
-  // $.ajax({
-  //   data: {curp:curp},
-  //   url: "??",
-  //   type: "POST",
-  //   processData: false,
-  //   contentType: false,
-  //   success: function(data) {
-  //     data = jQuery.parseJSON(data);
-  //     switch (data['codigo'] == 1) {
-  //       case 1:
-  //         Toast.fire({
-  //           icon: 'success',
-  //           title: 'CURP valida...',
-  //           timer: 2000
-  //         });
-  //         document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
-  //                                                          'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
-  //                                                       '</div>';
-  //         document.getElementById("paciente-registro").innerHTML = "Paciente";
-  //         document.getElementById("cupr-registro").innerHTML = "CURP";
-  //         document.getElementById("sexo-registro").innerHTML = "sexo";
-  //         $('#formDIV *').prop('disabled',false);
-  //         $('#btnFormRegistrarPruba').prop('disabled',false);
-  //       break;
-  //       case "error":
-  //        document.getElementById("mensaje").innerHTML = data['error']; //Mensaje desde api o funcion
-  //       break
-  //       default:
-  //         Swal.fire({
-  //            icon: 'error',
-  //            title: 'Oops...',
-  //            text: 'Hubo un problema!',
-  //            footer: 'Reporte este error con el personal :)'
-  //         })
-  //     }
-  //   },
-  // });
+  // window.location.hash = "formDIV";
 
-  obtenerSignosVitales('#antecedentes-registro')
+  // document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
+                                                //    'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
+                                                // '</div>';
+  // $('#formDIV *').prop('disabled',false);
+
+  // $('#btnFormRegistrarPruba').prop('disabled',false);
+  curp = document.getElementById("curp-paciente").value;
+  $.ajax({
+    data: {curp:curp, api:2, id: 1},
+    url: "../../api/pacientes_api.php",
+    type: "POST",
+    success: function(data) {
+      data = jQuery.parseJSON(data);
+      if (mensajeAjax(data)) {
+        Toast.fire({
+          icon: 'success',
+          title: 'CURP valida...',
+          timer: 2000
+        });
+        $("#formDIV").fadeToggle(400);
+        $('#curp-paciente').prop('readonly', true);
+        $('#eliminarForm').prop('disabled',false);
+        $('#actualizarForm').prop('disabled',true);
+        document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
+                                                         'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
+                                                      '</div>';
+        $('#paciente-registro').html(data.response.data[0].NOMBRE_COMPLETO);
+        $('#curp-registro').html(data.response.data[0].CURP);
+        $('#sexo-registro').html(data.response.data[0].GENERO);
+        $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
+        $('#formDIV *').prop('disabled',false);
+        $('#btnFormRegistrarPruba').prop('disabled',false);
+        obtenerSignosVitales('#antecedentes-registro')
+      }
+    },
+  });
+
+  // obtenerSignosVitales('#antecedentes-registro')
 })
 
 $('#eliminarForm').click(function(){
@@ -72,22 +62,22 @@ $('#eliminarForm').click(function(){
   $('##antecedentes-registro').html('')
 })
 
-$("#formAntecedentes-paciente2").submit(function(event){
+$("#formRegistrarAgenda").submit(function(event){
     event.preventDefault();
     alert("form formAntecedentes-paciente")
     /*DATOS Y VALIDACION DEL REGISTRO*/
     var form = document.getElementById("formAntecedentes-paciente");
     var formData = new FormData(form);
-    console.log(formData.get('estudiosLab[]'))
-    if (formData.get('estudiosLab[]') == null) {
-      Swal.fire({
-         icon: 'error',
-         title: 'Oops...',
-         text: 'No ha seleccionado ninguna prueba!',
-      })
-      return
-    }
-    formData.set('api', 3);
+    // console.log(formData.get('estudiosLab[]'))
+    // if (formData.get('estudiosLab[]') == null) {
+    //   Swal.fire({
+    //      icon: 'error',
+    //      title: 'Oops...',
+    //      text: 'No ha seleccionado ninguna prueba!',
+    //   })
+    //   return
+    // }
+    formData.set('api', 7);
     // console.log(formData);
     Swal.fire({
        title: '¿Está seguro de haber seleccionado todo?',
@@ -104,7 +94,7 @@ $("#formAntecedentes-paciente2").submit(function(event){
 
          $.ajax({
            data: formData,
-           url: "??",
+           url: "../../api/turnos_api.php",
            type: "POST",
            processData: false,
            contentType: false,

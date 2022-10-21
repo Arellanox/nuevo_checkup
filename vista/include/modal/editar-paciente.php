@@ -159,7 +159,6 @@
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
         <button type="submit" form="formEditarPaciente" class="btn btn-confirmar" id="btn-actualizar">
           <i class="bi bi-send-plus"></i> Actualizar
-          <a href="../../menu/recepcion/contenido/js/recepcion-tabla.js">
         </button>
       </div>
     </div>

@@ -8,7 +8,7 @@
       <div class="modal-body">
         <p class="text-center" >Asegurese que toda su información este correcta. <br /> Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
         <form class="row" id="formRegistrarPaciente">
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-12 col-lg-4">
                 <label  class="form-label">Procedencia</label>
                 <input type="text" readonly value="Cargando..." class="input-form" id="procedencia-preregistro">
@@ -19,7 +19,7 @@
                 <option value="4">WCE-GAVSA</option>
               </select>
             </div>
-          </div>
+          </div> -->
           <?php include "../../include/modal/formRegistroPaciente.php"; ?>
         </form>
       </div>

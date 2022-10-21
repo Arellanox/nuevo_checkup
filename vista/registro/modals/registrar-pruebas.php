@@ -6,8 +6,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="text-center">Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
-
+        <form class="" id="formRegistrarAgenda">
+          <p class="text-center">Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
           <div class="row">
             <div class="col-12 col-lg-4">
                 <label for="curp" class="form-label">CURP</label>
@@ -30,19 +30,28 @@
             <div class="row">
               <div class="col-6">
                 <p>Paciente:</p>
-                <p id="paciente-registro">Luis Gerardo Cuevas González</p>
+                <p id="paciente-registro"></p>
+              </div>
+              <div class="col-6">
+                <p>CURP:</p>
+                <p id="curp-registro"></p>
+              </div>
+              <div class="col-6">
+                <p>Sexo:</p>
+                <p id="sexo-registro"></p>
+              </div>
+              <div class="col-6">
+                <p>Procedencia</p>
+                <p id="procedencia-registro">PARTICULAR</p>
+              </div>
+              <div class="col-6">
+                  <label for="segmento" class="form-label">Seleccionar segmento</label>
+                  <select class="form-control input-form" name="segmento" id="inputDosis">
+                  </select>
               </div>
               <div class="col-6">
                   <label for="curp" class="form-label">Fecha de agenda</label>
                   <input type="date" name="agenda" value="" class="form-control input-form" required>
-              </div>
-              <div class="col-6">
-                <p>CURP:</p>
-                <p id="cupr-registro">GLSUB2928NA28AN</p>
-              </div>
-              <div class="col-6">
-                <p>Sexo</p>
-                <p id="sexo-registro">MASCULINO</p>
               </div>
             </div>
             <br>
@@ -51,10 +60,11 @@
 
             </div>
           </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="button" class="btn btn-confirmar" id="btnFormRegistrarPruba">
+        <button type="submit" form="formRegistrarAgenda" class="btn btn-confirmar" id="btnFormRegistrarPruba">
           <i class="bi bi-send-plus"></i> Registrar
         </button>
       </div>

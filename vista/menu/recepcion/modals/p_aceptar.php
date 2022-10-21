@@ -20,13 +20,18 @@
         <div class="row">
           <div class="col-12 col-lg-6">
             <p class="text-center" >Estudios del paciente</p>
-            <div class="overflow-auto" style="max-width: 100%; max-height: 220px;margin-bottom:10px;">
+            <div class="col-12">
+                <label for="paquete" class="form-label">Seleccionar un paquete</label>
+                <select class="" name="paquete" id="select-paquetes">
+                </select>
+            </div>
+            <!-- <div class="overflow-auto" style="max-width: 100%; max-height: 220px;margin-bottom:10px;">
               <ul class="list-group" id="list-estudiosPaciente">
                 <li class="list-group-item">An item</li>
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
               </ul>
-            </div>
+            </div> -->
           </div>
           <div class="col-12 col-lg-6">
             <p class="text-center" >Identificación</p>

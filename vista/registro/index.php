@@ -18,21 +18,19 @@ $menu = "Preregistro";
        $.post(url, {menu: menu}, function(html){
           $("#body-controlador").html(html);
 
-
-
      	 });
      }
 
-     $.ajax({
-       data: {id: '<?php echo $codigo; ?>', api: 6},
-       url: "../../api/clientes_api.php",
-       type: "POST",
-       success: function(data) {
-         array_selected = jQuery.parseJSON(data);
-         setTimeout(function(){
-           $("#procedencia-preregistro").val(array_selected['response']['data'][0]['NOMBRE_SISTEMA']);
-         }, 1000)
-       },
-     });
+     // $.ajax({
+     //   data: {id: '<?php echo $codigo; ?>', api: 6},
+     //   url: "../../api/clientes_api.php",
+     //   type: "POST",
+     //   success: function(data) {
+     //     array_selected = jQuery.parseJSON(data);
+     //     setTimeout(function(){
+     //       $("#procedencia-preregistro").val(array_selected['response']['data'][0]['NOMBRE_SISTEMA']);
+     //     }, 1000)
+     //   },
+     // });
  </script>
 </html>

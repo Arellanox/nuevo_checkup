@@ -1,6 +1,6 @@
 const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
 modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
-  getSegmentoByProcedencia(array_selected['response']['data'][0]['ID_CLIENTE'], "segmentos_procedencias");
+  // getSegmentoByProcedencia(array_selected['response']['data'][0]['ID_CLIENTE'], "segmentos_procedencias");
 })
 
 
@@ -53,8 +53,8 @@ $("#formRegistrarPaciente").submit(function(event){
    event.preventDefault();
  });
 
-deshabilitarVacunaExtra($("#inputVacuna").val(), 'vacunaExtra');
-$("#inputVacuna").change(function(){
- //alert($(this).val());
- deshabilitarVacunaExtra($(this).val(), 'vacunaExtra');
-});
+// deshabilitarVacunaExtra($("#inputVacuna").val(), 'vacunaExtra');
+// $("#inputVacuna").change(function(){
+//  //alert($(this).val());
+//  deshabilitarVacunaExtra($(this).val(), 'vacunaExtra');
+// });

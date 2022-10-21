@@ -1,26 +1,66 @@
 
 
 // ObtenerTabla o cambiar
-obtenerContenidoRecepcion();
+// obtenerContenidoRecepcion();
+var tablaRecepcionPacientes, dataRecepcion = {api: 2, tipo: 1};
 
 
-function obtenerContenidoRecepcion(){
+function obtenerContenidoEspera(){
   obtenerTitulo('Recepción'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion.php", function(html){
      $("#body-js").html(html);
      // Datatable
-     actualizarTablaPacientesRecepcion();
+     $.getScript("contenido/js/recepcion-tabla.js");
      // Botones
      $.getScript("contenido/js/recepcion-botones.js");
   });
 }
 
+function obtenerContenidoAceptados(){
+  obtenerTitulo('Recepción - Pacientes ingresados'); //Aqui mandar el nombre de la area
+  $.post("contenido/recepcion-ingresados.php", function(html){
+     $("#body-js").html(html);
+     // Datatable
+     $.getScript("contenido/js/recepcion-tabla.js");
+     // Botones
+     $.getScript("contenido/js/recepcion-botones.js");
+  });
+}
 
-function actualizarTablaPacientesRecepcion(){
-  $.post("contenido/recepcion.php", function(html){
-    $("#body-js").html(html);
-    $.getScript("contenido/js/recepcion-tabla.js");
- });
+function obtenerContenidoRechazados(){
+  obtenerTitulo('Recepción'); //Aqui mandar el nombre de la area
+  $.post("contenido/recepcion-rechazados.php", function(html){
+     $("#body-js").html(html);
+     // Datatable
+     $.getScript("contenido/js/recepcion-tabla.js");
+     // Botones
+     $.getScript("contenido/js/recepcion-botones.js");
+  });
+}
+
+hasLocation()
+$(window).on("hashchange", function (e) {
+  hasLocation();
+});
+
+function hasLocation() {
+  var hash = window.location.hash.substring(1);
+  $("a").removeClass("navlinkactive");
+  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+  switch (hash) {
+    case "rechazados":
+      obtenerContenidoRechazados();
+    break;
+    case "ingresados":
+      obtenerContenidoAceptados();
+    break;
+    case "pendientes":
+      obtenerContenidoEspera();
+    break;
+    default:
+      obtenerContenidoEspera();
+      break;
+  }
 }
 
 function recepciónPaciente(estatus, id){

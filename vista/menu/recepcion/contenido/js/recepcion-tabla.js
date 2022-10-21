@@ -1,4 +1,4 @@
-var TablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
+tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   processing: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -10,12 +10,14 @@ var TablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
       dataType: 'json',
-      data: {api: 2},
+      data: function (d) {
+        return $.extend(d, dataRecepcion);
+      },
       method: 'POST',
       url: '../../../api/pacientes_api.php',
       beforeSend: function() { loader("In") },
       complete: function(){ loader("Out") },
-      dataSrc:''
+      dataSrc:'response.data'
   },
   columns:[
       {data: 'COUNT'},
@@ -32,4 +34,7 @@ var TablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   ],
 
 })
-selectDatatable("TablaRecepcionPacientes", TablaRecepcionPacientes, 1, "pacientes_api", 'paciente')
+
+
+
+selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente')

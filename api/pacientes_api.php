@@ -81,14 +81,12 @@ switch ($api) {
         # buscar pacientes
         $response = $master->getByProcedure("sp_pacientes_b", [$id, $curp]);
         break;
-
     case 3:
         # actualizar pacientes
         $response = $master->updateByProcedure("sp_pacientes_g", $parametros);
         break;
     case 4:
         # desactivr paciente
-
         $response = $master->deleteByProcedure("sp_pacientes_e", [$id]);
         break;
     default:

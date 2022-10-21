@@ -4,6 +4,8 @@ const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
   document.getElementById("btn-confirmar-paciente").disabled = true;
+
+  rellenarSelect('#select-paquetes','paquetes_api', 2,0,'DESCRIPCION')
 })
 
 $("#btn-obtenerID").click(function(){
@@ -45,3 +47,4 @@ document.getElementById("btn-confirmar-paciente").disabled = true;
     },
   });
 })
+select2("#select-paquetes", "modalPacienteAceptar");
