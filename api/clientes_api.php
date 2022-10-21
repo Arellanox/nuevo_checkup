@@ -33,10 +33,12 @@ $twitter = $_POST['Twitter'];
 $instagram = $_POST['Instagram'];
 $codigo = $_POST['Codigo'];
 $regimen = $_POST['regimen'];
+$convenio = $_POST['convenio'];
 
 $parametros = array(
     $id_cliente,
     $regimen,
+    $convenio,
     $nombre_comercial,
     $razon_social,
     $nombre_sistema,
