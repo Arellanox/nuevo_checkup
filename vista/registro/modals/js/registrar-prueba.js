@@ -74,11 +74,6 @@ $("#formRegistrarAgenda").submit(function(event){
     var formData = new FormData(form);
     var formAntecedentes = document.getElementById('formAntecedentes');
     var formDataAntecedentes = new FormData(formAntecedentes)
-    var object = {};
-    formDataAntecedentes.forEach(function(value, key){
-        object[key] = value;
-    });
-    var json = JSON.stringify(object);
     // console.log(formData.get('estudiosLab[]'))
     // if (formData.get('estudiosLab[]') == null) {
     //   Swal.fire({
@@ -88,8 +83,12 @@ $("#formRegistrarAgenda").submit(function(event){
     //   })
     //   return
     // }
-    formData.set('antecedentes', json);
-    formData.set('api', 1);
+    // formData.set('antecedentes', json);
+    formDataAntecedentes.set('curp', $('#curp-paciente').val())
+    formDataAntecedentes.set('procedencia', 'Particular')
+    formDataAntecedentes.set('segmento', $('#selectSegmentos').val())
+    formDataAntecedentes.set('fechaAgenda', $('#fecha-agenda').val())
+    formDataAntecedentes.set('api', 1);
     // console.log(formData);
     Swal.fire({
        title: '¿Está seguro de haber seleccionado todo?',
@@ -105,7 +104,7 @@ $("#formRegistrarAgenda").submit(function(event){
          $("#btn-registrarse").prop('disabled', true);
 
          $.ajax({
-           data: formData,
+           data: formDataAntecedentes,
            url: "../../api/prerregistro_api.php",
            type: "POST",
            processData: false,
