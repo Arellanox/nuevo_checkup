@@ -72,6 +72,13 @@ $("#formRegistrarAgenda").submit(function(event){
     /*DATOS Y VALIDACION DEL REGISTRO*/
     var form = document.getElementById("formRegistrarAgenda");
     var formData = new FormData(form);
+    var formAntecedentes = document.getElementById('formAntecedentes');
+    var formDataAntecedentes = new FormData(formAntecedentes)
+    var object = {};
+    formDataAntecedentes.forEach(function(value, key){
+        object[key] = value;
+    });
+    var json = JSON.stringify(object);
     // console.log(formData.get('estudiosLab[]'))
     // if (formData.get('estudiosLab[]') == null) {
     //   Swal.fire({
@@ -81,6 +88,7 @@ $("#formRegistrarAgenda").submit(function(event){
     //   })
     //   return
     // }
+    formData.set('antecedentes', json);
     formData.set('api', 1);
     // console.log(formData);
     Swal.fire({

@@ -5,7 +5,6 @@ $(window).on("hashchange", function (e) {
 });
 
 // Obtener id del pacientes
-
 function obtenerSiguientePaciente(){
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
@@ -27,16 +26,18 @@ function obtenerContenidoConsulta(titulo) {
     $("#body-js").html(html);
     // Datatable
     // $.getScript("contenido/js/estudio-tabla.js");
-    // Botones
-    // $.getScript("contenido/js/estudio-botones.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
   }).done(function(){
+    // Botones
+    $.getScript("contenido/js/consulta-paciente-botones.js");
+    // Obtener metodos para el dom
+    $.getScript("contenido/js/consulta-paciente.js");
     loader("Out")
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   })
 }
 
-function obtenerContenidoAntecedentes() {
+function obtenerContenidoAntecedentes(id, idTurno) {
   loader("In")
   obtenerTitulo('Perfil del paciente'); //Aqui mandar el nombre de la area
   $.post("contenido/consultorio_paciente.php", function (html) {
@@ -49,7 +50,9 @@ function obtenerContenidoAntecedentes() {
     $.getScript("contenido/js/consultorio-paciente-botones.js");
     // Funciones
     $.getScript('contenido/js/consultorio-paciente.js').done(function(){
-      obtenerConsultorio(2) //Llama todo el dom
+
+      alert("Anter de antecedentes")
+      obtenerConsultorio(id) //Llama todo el dom
     });
     select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
   });
@@ -59,13 +62,17 @@ function obtenerContenidoAntecedentes() {
 async function obtenerConsultorio(id){
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
   await obtenerPanelInformacion(id, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
+  alert("Antes de antecedentes")
   await obtenerAntecedentes('#antecedentes-paciente');
   // setValues(id)
+
+  alert("Antes de notas historial")
   await obtenerNotasHistorial(id);
+  alert("Antes de obtenerHistorialConsultas")
   await obtenerHistorialConsultas(id);
   // alert("Funcion terminada")
   loader("Out")
-  
+
 }
 
 

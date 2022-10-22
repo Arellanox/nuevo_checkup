@@ -25,6 +25,7 @@ $completado = $_POST['completado'];
 
 #datos de antecedentes
 $antecedentes = $_POST['antecedentes'];
+print_r($antecedentes);
 
 switch($api){
     case 1:
@@ -90,7 +91,7 @@ switch($api){
                             $ante[1] #notas
                         );
                     }
-                   
+
                     $response = $master->insertByProcedure('sp_consultorio_antecedentes_g',$ant);
                 }
            }

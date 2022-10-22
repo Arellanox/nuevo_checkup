@@ -3,6 +3,7 @@
   <hr class="dropdown-divider m-2">
   <p class="none-p" style="margin-left: 10px">Rellene todos los campos*</p>
   <div class="accordion m-2" id="accordionEstudios">
+    <form class="" id="formAntecedentes">
       <div class="accordion-item bg-acordion">
         <h2 class="accordion-header" id="collap-patologicos">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-Patologicos-Target" aria-expanded="false" aria-controls="accordionEstudios">
@@ -2296,6 +2297,7 @@
           </div>
         </div>
       </div>
+    </form>
 
   </div>
 </div>

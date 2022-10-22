@@ -410,6 +410,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         data = jQuery.parseJSON(data);
                         row = data['response']['data'][0];
                         $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                        $('#edad-persona').html(formatoFecha(row.EDAD))
                         $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                         $('#info-paci-curp').html(row.CURP);
                         $('#info-paci-telefono').html(row.CELULAR);
