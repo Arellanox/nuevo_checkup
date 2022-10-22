@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="card col-12 col-lg-3 pt-4">
+    <div class="" id="panel-informacion">
+
+    </div>
+  </div>
+  <div class="card col-12 col-lg-9" style="margin-bottom:5px">
+    <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-analisis-pdf">
+        <i class="bi bi-clipboard2-plus"></i> Subir resultados
+      </button>
+
+    </div>
+    <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
+      <thead class="" style="width: 100%">
+        <tr>
+          <th scope="col d-flex justify-content-center" class="all">Nombre</th>
+          <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
+          <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>
+          <th scope="col d-flex justify-content-center" class="min-tablet">Edad</th>
+          <th scope="col d-flex justify-content-center" class="min-tablet">Sexo</th>
+
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+</div>

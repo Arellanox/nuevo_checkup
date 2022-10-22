@@ -51,7 +51,8 @@
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#AUDIOMETRIA'; ?>">
     <i class="bi bi-ear"></i> Audiometría</a>
   </a>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#OFTALMOLOGIA'; ?>">
+
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/oftalmologia/#OFTALMOLOGIA'; ?>">
     <i class="bi bi-eye"></i> Oftalmología</a>
   </a>
 <?php endif; ?>

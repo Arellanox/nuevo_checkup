@@ -1,12 +1,11 @@
-
-<?php if ($menu == "Usuarios" || $menu == "Mesometria" || $menu == "Servicios" || $menu == "ListaPrecios" || $menu == 'Clientes'): ?>
+<?php if ($menu == "Usuarios" || $menu == "Mesometria" || $menu == "Servicios" || $menu == "ListaPrecios" || $menu == 'Clientes') : ?>
   <li class="nav-item">
     <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
       <i class="bi bi-people-fill"></i> Recepción
     </a>
   </li>
 <?php endif; ?>
-<!-- <?php if ($menu == "Mesometria"): ?>
+<!-- <?php if ($menu == "Mesometria") : ?>
   <li class="nav-item">
     <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>" data-bs-dismiss="offcanvas">
       <i class="bi bi-clipboard"></i> Consultorio
@@ -61,7 +60,7 @@
   </li>
 <?php endif; ?>
 
-<?php if ($menu == "Servicios"): ?>
+<?php if ($menu == "Servicios") : ?>
   <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Metodos
@@ -84,7 +83,7 @@
   </li>
 <?php endif; ?>
 
-<?php if ($menu == "ListaPrecios"): ?>
+<?php if ($menu == "ListaPrecios") : ?>
   <li class="nav-item">
     <a href="#PreciosEstudios" data-bs-dismiss="offcanvas">
       <i class="bi bi-thunderbolt"></i> Precios Estudio
@@ -97,7 +96,7 @@
   </li>
 <?php endif; ?>
 
-<?php if ($menu == "Consultorio"): ?>
+<?php if ($menu == "Consultorio") : ?>
   <li class="nav-item">
     <a href="#Perfil" data-bs-dismiss="offcanvas">
       <i class="bi bi-thunderbolt"></i> Perfil paciente
