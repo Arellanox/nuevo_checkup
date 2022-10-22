@@ -105,7 +105,7 @@ switch($api){
 
         break;
     case 2:
-        # recuperar de los ultimos antecedentes registrardos de un paciente por medio de la curp
+     # recuperar de los ultimos antecedentes registrardos de un paciente por medio de la curp
         #buscar el paciente por medio de la curp
         $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp));
 
@@ -113,10 +113,56 @@ switch($api){
             echo "CURP no reconocida";
             exit;
         }
+        # obtenemos el id del paciente que despues enviaremos al sp para obtener sus antecedentes
         $pacienteId = $paciente[0]['ID_PACIENTE'];
+  
+        $ultimosAntecedentes = $master->getByProcedure('sp_ultimos_antecedentes_paciente',array($pacienteId));
 
+        # creamos un array vacio que contendra los antecedentes por subtipo
+        $antecedentes = array();
+        # creamos una varible para identificar el tipo de antecedente que tenemos actualmente
+        $idTipo = 1; # se inicializa en 1 para poder guardar el primer tipo
+        $count = 0;
+        $tipoArray = array();
 
+        foreach($ultimosAntecedentes as $ultimo){
 
+            #comparamos el primer idTipo
+            if($ultimo['ID_TIPO']==$idTipo){
+                $subtipoArray = array(
+                    '0' => $ultimo['ID_RESPUESTA'],
+                    '1' => $ultimo['NOTAS'],
+                    '2' => $ultimo['ID_SUBTIPO']
+                );
+                ## asignamos una etiqueta al arreglo 
+                $label = str_replace(" ","_",$ultimo['SUBTIPO']);
+                
+                $tipoArray[] = $subtipoArray;
+
+            } else {
+                $antecedentes[] = $tipoArray;
+                $tipoArray = array();
+
+                $subtipoArray = array(
+                    '0' => $ultimo['ID_RESPUESTA'],
+                    '1' => $ultimo['NOTAS'],
+                    '2' => $ultimo['ID_SUBTIPO']
+                );
+                ## asignamos una etiqueta al arreglo 
+                $label = str_replace(" ","_",$ultimo['SUBTIPO']);
+                
+                $tipoArray[] = $subtipoArray;
+
+               /* # Guardamos el arreglo que hemos estado guardando en nuestro arreglo $antecedentes
+                $antecedentes[$label] = $tipoArray; 
+                # guardarmos el el id de tipo en la variable $idTipo
+                $idTipo = $ultimo['ID_SUBTIPO'];
+                $label = str_replace(" ","_",$ultimo['SUBTIPO']);
+                $tipoArray = array();*/
+            }
+        }
+        $antecedentes[] = $tipoArray;
+        print_r($antecedentes);
 
         break;
     default:
