@@ -15,7 +15,7 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
       },
       method: 'POST',
       url: '../../../api/turnos_api.php',
-      beforeSend: function() { loader("In") },
+      beforeSend: function() { loader("In"), obtenerPanelInformacion(0, 'pacientes_api', 'paciente'), selectListaLab = null; },
       complete: function(){ loader("Out") },
       dataSrc:'response.data'
   },

@@ -5,18 +5,7 @@ $('#agregar-nota-historial').on('click', function(){
 })
 
 
-function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;'){
-  if (date != null) {
-    date = '<p style="font-size: 14px;margin-left: 5px;">'+date+'</p>';
-  }
 
-  let html = '<div class="'+classTittle+'">'+
-                '<h4 class="m-3">'+tittle+' '+date+'</h4>'+
-                '<div style="'+style+'">'+
-                  '<p class="none-p">'+text+'<p> </div> </div>';
-
-  $(appendDiv).append(html);
-}
 
 //
 // <div id="notas-historial" class="mt-3">

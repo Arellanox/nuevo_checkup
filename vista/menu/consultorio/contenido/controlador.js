@@ -3,12 +3,24 @@ hasLocation();
 $(window).on("hashchange", function (e) {
   hasLocation();
 });
-loader("In")
 
+// Obtener id del pacientes
 
+function obtenerSiguientePaciente(){
+  $.ajax({
+    url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+    type: "POST",
+    datatype: "json",
+    data: { id: id, api: 7 },
+    success: function (data) {
+
+    }
+  });
+}
 
 // obtenerContenidoConsulta()
 function obtenerContenidoConsulta(titulo) {
+  loader("In")
   $("#titulo-js").html('');
   $.post("contenido/consultorio_consulta.php", function (html) {
     var idrow;
@@ -19,45 +31,55 @@ function obtenerContenidoConsulta(titulo) {
     // $.getScript("contenido/js/estudio-botones.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
   }).done(function(){
+    loader("Out")
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   })
 }
 
 function obtenerContenidoAntecedentes() {
+  loader("In")
   obtenerTitulo('Perfil del paciente'); //Aqui mandar el nombre de la area
   $.post("contenido/consultorio_paciente.php", function (html) {
     var idrow;
-    $("#body-js").html(html)
+    $("#body-js").html(html) // Rellenar la plantilla de consulta
   }).done(function() {
     // Datatable
     // $.getScript("contenido/js/estudio-tabla.js");
     // Botones
     $.getScript("contenido/js/consultorio-paciente-botones.js");
-    $.getScript('contenido/js/form-antecedentes.js').done(function(){
-        obtenerAntecedentes('#antecedentes-paciente')
-    })
-    select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
-    obtenerPanelInformacion(2, "pacientes_api", 'paciente')
-    obtenerPanelInformacion(2, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
-    setTimeout(function () {
-      loader("Out")
-    }, 1000);
+    // Funciones
+    $.getScript('contenido/js/consultorio-paciente.js').done(function(){
+      obtenerConsultorio(2) //Llama todo el dom
+    });
+    select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
   });
 }
 
+// Rellena la plantilla con metodos de espera Async Await
+async function obtenerConsultorio(id){
+  await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
+  await obtenerPanelInformacion(id, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
+  await obtenerAntecedentes('#antecedentes-paciente');
+  // setValues(id)
+  await obtenerNotasHistorial(id);
+  await obtenerHistorialConsultas(id);
+  // alert("Funcion terminada")
+  loader("Out")
+  
+}
 
 
+function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;'){
+  if (date != null) {
+    date = '<p style="font-size: 14px;margin-left: 5px;">'+date+'</p>';
+  }
 
-function obtenerAntecedentes(div){
-  $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
-    setTimeout(function () {
-      $(div).html(html);
-      setValues(1)
-    }, 100);
+  let html = '<div class="'+classTittle+'">'+
+                '<h4 class="m-3">'+tittle+' '+date+'</h4>'+
+                '<div style="'+style+'">'+
+                  '<p class="none-p">'+text+'<p> </div> </div>';
 
-  }).done(function(){
-    loader("Out")
-  });
+  $(appendDiv).append(html);
 }
 
 function hasLocation() {

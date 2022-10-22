@@ -27,12 +27,12 @@
     <div id="notas-historial">
 
     </div>
-    <div  class="card mt-3">
+    <!-- <div  class="card mt-3">
       <h4 class="m-3">@Usuario actual <p style="font-size: 14px;margin-left: 5px;">xx:xx Septiembre dia, año</p></h4>
       <div style="margin: -1px 30px 20px 30px;">
         <p class="none-p">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="col-12 col-lg-12 col-xxl-3">
     <div class="card">
@@ -57,14 +57,16 @@
       <div class="card m-3">
         <h4 class="m-3">Historial de consultas</h4>
         <!-- <hr class="dropdown-divider"> -->
-        <div class="row line-top" style="margin:0px">
-          <div class="col-3 line-right">
-            01 Sep 2022
-          </div>
-          <div class="col-9">
-            <p>Nombre medico</p>
-            <p>motivo consulta</p>
-          </div>
+        <div id="historial-consultas-paciente">
+          <!-- <div class="row line-top" style="margin:0px">
+            <div class="col-3 line-right">
+              01 Sep 2022
+            </div>
+            <div class="col-9">
+              <p>Nombre medico</p>
+              <p>motivo consulta</p>
+            </div>
+          </div> -->
         </div>
       </div>
     </div>

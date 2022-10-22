@@ -1,4 +1,4 @@
-<div class="modal fade" id="ModalSubirInterpretacion" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+<div class="modal fade" id="ModalSubirCapturas" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
@@ -6,16 +6,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="" id="formSubirInterpretacion">
+        <form class="" id="formSubirCapturas">
           <p class="text-center">Agregar Archivos de <strong>Resultado</strong> </p>
           <div class="row">
             <div class="col-6">
               <label for="nombre_contacto" class="form-label">Nombre del Cliente</label>
-              <input type="text" class="form-control input-form" value="Nombre del paciente" readonly id="nombre-paciente-interpretacion">
+              <input type="text" class="form-control input-form" value="Nombre del paciente" readonly id="nombre-paciente-capturas">
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">Seleccione Documento PDF</label>
-              <input type="file" name="pdf_estudio" class="form-control input-form" accept=".pdf" required>
+              <label for="apellidos_contacto" class="form-label">Suba las capturas</label>
+              <input type="file" name="pdf_estudio" class="form-control input-form" accept="image/*" required>
             </div>
             <div class="col-12">
               <label for="telefono1_contacto" class="form-label">Observaciones</label>
@@ -26,7 +26,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-      <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar-subir">
+      <button type="submit" form="formSubirCapturas" class="btn btn-confirmar-subir">
         <i class="bi bi-person-plus"></i> Agregar
       </button>
     </div>

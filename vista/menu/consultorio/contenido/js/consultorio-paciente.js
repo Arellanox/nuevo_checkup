@@ -5,7 +5,7 @@ function setValues(id){
 
 
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/pacientes.php",
+      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
       data: {id: 1},
       type: "POST",
       success: function (data) {
@@ -58,4 +58,74 @@ function setValuesAntecedentesMetodo(DIV, array){
   }else{
     alertSelectTable('No se pudo recuperar algunos datos...')
   }
+}
+
+
+
+
+
+
+
+
+
+// Metodos para rellenar el DOM
+function obtenerAntecedentes(div){
+  return new Promise(resolve => {
+    $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
+      $(div).html(html);
+    }).done(function(){
+      // alert("Done post")
+      resolve(1);
+    });
+
+  });
+}
+
+function obtenerNotasHistorial(id){
+  return new Promise(resolve => {
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+      type: "POST",
+      datatype: "json",
+      data: { id: id, api: 7 },
+      success: function (data) {
+        // agregarNotaConsulta('@Usuario actual', event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial')
+      },
+      complete:function(){
+        resolve(1);
+      }
+    });
+  });
+
+}
+
+function obtenerHistorialConsultas(id){
+  return new Promise(resolve => {
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+      type: "POST",
+      datatype: "json",
+      data: { id: id, api: 7 },
+      success: function (data) {
+
+        let fecha = '01 Sep 2022';
+        let nombre = 'Nombre medico';
+        let motivo = 'motivo consulta';
+
+
+        for (var i = 0; i < 5; i++) {
+          $('#historial-consultas-paciente').append('<div class="row line-top" style="margin:0px">'+
+                                                    '<div class="col-3 line-right">'+ fecha +'</div>'+
+                                                    '<div class="col-9"><p>'+ nombre +'</p> <p>'+ motivo +'</p>'+
+                                                    '</div> </div>')
+        }
+
+
+
+      },
+      complete:function(){
+        resolve(1);
+      }
+    });
+  });
 }

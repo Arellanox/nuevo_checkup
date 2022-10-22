@@ -1,3 +1,7 @@
+<div class="col-12 loader" id="loader" style="">
+  <div class="preloader" id="preloader"> </div>
+</div>
+
 <div class="container-fluid" style="z-index:5">
   <div class="row" id="menu-consultorio">
     <div class="col-8 row">

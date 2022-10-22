@@ -13,3 +13,11 @@ $("#btn-analisis-pdf").click(function () {
     alertSelectTable();
   }
 });
+
+$('#btn-capturas-pdf').click(function(){
+  if (selectListaLab != null) {
+    $("#ModalSubirCapturas").modal("show");
+  } else {
+    alertSelectTable();
+  }
+})
