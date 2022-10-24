@@ -1,7 +1,8 @@
 $('#agregar-nota-historial').on('click', function(){
   var event = new Date();
   var options = { hours: 'numeric', minutes: 'numeric', weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'};
-  agregarNotaConsulta(session.user, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial')
+
+  agregarNotaConsulta(session.user, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial');
 })
 
 
