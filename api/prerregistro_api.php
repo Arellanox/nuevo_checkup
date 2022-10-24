@@ -14,6 +14,7 @@ $paqueteId = $_POST['paqueteId'];
 $prefolio = $_POST['prefolio'];
 $folio = $_POST['folio'];
 $fechaAgenda = $_POST['fechaAgenda'];
+$fechaReagenda = $_POST['fechaReagenda'];
 $fechaRecepcion = $_POST['fechaRecepcion'];
 $turno = $_POST['turno'];
 $habilitado = isset($_POST['habilitado']) ? $_POST['habilitado'] : 0;
@@ -48,6 +49,7 @@ switch($api){
             $prefolio,
             $folio,
             $fechaAgenda,
+            $fechaReagenda,
             $fechaRecepcion,
             $turno,
             $habilitado,
