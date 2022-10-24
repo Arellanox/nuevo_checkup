@@ -17,8 +17,6 @@ $.post("contenido/contenido.php", function (html) {
 
      }
 
-
-
      function hasLocation() {
        hash = window.location.hash.substring(1);
        // $("a").removeClass("navlinkactive");

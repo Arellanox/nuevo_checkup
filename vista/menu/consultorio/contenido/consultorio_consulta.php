@@ -94,7 +94,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required >
+                  <input type="number" class="form-control input-form" name="" placeholder="" required>
                 </div>
               </div>
             </li>
@@ -107,7 +107,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required >
+                  <input type="number" class="form-control input-form" name="" placeholder="" required>
                 </div>
               </div>
             </li>
@@ -120,7 +120,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required >
+                  <input type="number" class="form-control input-form" name="" placeholder="" required>
                 </div>
               </div>
             </li>
@@ -137,7 +137,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required >
+                  <input type="number" class="form-control input-form" name="" placeholder="" required>
                 </div>
               </div>
             </li>
@@ -150,7 +150,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required >
+                  <input type="number" class="form-control input-form" name="" placeholder="" required>
                 </div>
               </div>
             </li>
@@ -163,7 +163,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required >
+                  <input type="number" class="form-control input-form" name="" placeholder="" required>
                 </div>
               </div>
             </li>
@@ -201,8 +201,10 @@
             </button>
           </div>
         </div>
-        <div class="col-6 card m-3">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class="col-6 card m-3" id="texto-exp-cli">
+          Estado de conciencia. Orientación temporo-espacial. Peso. Talla. Indice de masa corporal.
+          Deformidades generales, parciales o regionales. Color de piel y mucosas (palidez. Cianosis, ictericia. Manchas.
+          Estado de nutrición e hidratación. Presion arterial. Pulso y frecuencia de pulso. Temperatura.
         </div>
       </div>
       <div class="row" style="margin:0">
@@ -217,42 +219,61 @@
     <section id="card-motivo-consulta" class="card mt-3">
       <h4 class="m-3">Motivo de consulta</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="motivo-consultaas" placeholder="Escriba aqui sus notas"></textarea>
     </section>
     <section id="card-diagnostico" class="card mt-3">
       <h4 class="m-3">Diagnóstico</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="diagnostico-consultaas" placeholder="Escriba aqui sus notas"></textarea>
     </section>
     <section id="card-terapeutico" class="card mt-3">
       <h4 class="m-3">Manejo terapeutico</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="manejo-terapeuticoos" placeholder="Escriba aqui sus notas"></textarea>
     </section>
     <section id="card-receta" class="card mt-3">
       <h4 class="m-3">Receta</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="receta-medicaas" placeholder="Escriba aqui sus notas"></textarea>
     </section>
     <section id="card-solicitud-estudios" class="card mt-3">
       <h4 class="m-3">Solicitud de estudios y valoraciones complementarios</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="solicitud-estudios-valoraciones" placeholder="Escriba aqui sus notas"></textarea>
     </section>
   </div>
 </div>
 
 <style>
-
-
-#menu-consultorio {
-  background-color: rgb(246, 253, 255);
-  z-index: 5
-}
+  #menu-consultorio {
+    background-color: rgb(246, 253, 255);
+    z-index: 5
+  }
 </style>
 
 <script type="text/javascript">
-$("#nota-notas-padecimiento").on("change", function(e) {
-  alert("khjabsdkbhj")
-})
+  $("#nota-notas-padecimiento").on("change", function(e) {
+    let admin = $('#nota-notas-padecimiento').val();
+    alert(admin)
+  })
+  $("#motivo-consultaas").on("change", function(e) {
+    let mensajio = $('#motivo-consultaas').val();
+    alert(mensajio)
+  })
+  $("#diagnostico-consultaas").on("change", function(e) {
+    let admin1 = $('#diagnostico-consultaas').val();
+    alert(admin1)
+  })
+  $("#manejo-terapeuticoos").on("change", function(e) {
+    let admin2 = $('#manejo-terapeuticoos').val();
+    alert(admin2)
+  })
+  $("#receta-medicaas").on("change", function(e) {
+    let admin3 = $('#receta-medicaas').val();
+    alert(admin3)
+  })
+  $("#solicitud-estudios-valoraciones").on("change", function(e) {
+    let admin4 = $('#solicitud-estudios-valoraciones').val();
+    alert(admin4)
+  })
 </script>
