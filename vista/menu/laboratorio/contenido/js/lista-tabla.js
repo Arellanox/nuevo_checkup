@@ -22,6 +22,12 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
       },
       dataSrc:'response.data'
   },
+  createdRow: function( row, data, dataIndex ){
+      if ( data.EDAD == 31 )
+      {
+          $(row).addClass('bg-warning');
+      }
+  },
   columns:[
       {
         data: 'ID_PACIENTE', render: function(data){

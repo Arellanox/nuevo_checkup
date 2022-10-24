@@ -8,19 +8,6 @@
       <div class="modal-body">
         <p class="text-center" >Actualice la información requerida, no podrá regresar estos cambios</p>
         <form class="row" id="formEditarPaciente">
-          <div class="row">
-            <div class="col-12 col-lg-5">
-                <label for="procedencia" class="form-label">Procedencia</label>
-                <select class="input-form"  id="listProcedencia-editar" >
-                </select>
-            </div>
-            <div class="col-12 col-lg-4">
-              <label for="segmento" class="form-label">Segmentos</label>
-              <select name="segmento" id="segmentos_procedencias-edit" class="input-form" required >
-                 <!-- <option value="4">WCE-GAVSA</option> -->
-              </select>
-            </div>
-          </div>
           <div class="col-12 col-lg-4">
             <label for="nombre" class="form-label">Nombres</label>
             <input type="text" name="nombre" value="" class="form-control input-form" required id="editar-nombre">
@@ -46,7 +33,7 @@
           </div>
           <div class="col-7 col-lg-4">
             <label for="curp" class="form-label">CURP</label>
-            <input type="text" class="form-control input-form" name="curp" pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" placeholder="" required id="editar-curp">
+            <input type="text" class="form-control input-form" name="curp"  placeholder="" required id="editar-curp"> <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
           </div>
           <div class="col-5 col-lg-3">
             <label for="telefono" class="form-label">Télefono</label>

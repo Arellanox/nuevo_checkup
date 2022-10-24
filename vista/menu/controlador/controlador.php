@@ -19,6 +19,8 @@ session_start();
   // <!-- Aqui controlar e incluir las modals -->
   obtenerHeader('<?php echo $menu ?>');
   session = <?php echo json_encode($_SESSION); ?>;
+  session['id'] = '';
+  session['token'] = '';
   console.log(session)
   function obtenerHeader(menu){
     $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/header.php';?>", {menu: menu}, function(html){

@@ -1,6 +1,6 @@
 //Formulario de registro de pruebas
-$('#formDIV *').prop('disabled',true);
-$("#formDIV").fadeToggle(400);
+// $('#formDIV *').prop('disabled',true);
+$("#formDIV").fadeOut(400);
 $('#btnFormRegistrarPruba').prop('disabled',true);
 $('#eliminarForm').prop('disabled',true);
 $('#curp-paciente').prop('readonly', false);
@@ -8,6 +8,7 @@ $('#curp-paciente').prop('readonly', false);
 var tipoPaciente = "0"; //Particular por defecto
 
 $('#actualizarForm').click(function(){
+
   //Solicitar si la curp existe
   // window.location.hash = "formDIV";
 
@@ -17,24 +18,26 @@ $('#actualizarForm').click(function(){
   // $('#formDIV *').prop('disabled',false);
 
   // $('#btnFormRegistrarPruba').prop('disabled',false);
-  curp = document.getElementById("curp-paciente").value;
+  curp = $('#curp-paciente').val();
   $.ajax({
     data: {curp:curp, api:2},
-    url: "../../api/pacientes_api.php",
+    url:  http + servidor + "/nuevo_checkup/api/pacientes_api.php",
     type: "POST",
+    beforeSend: function(){
+      $('#actualizarForm').prop('disabled',true);
+    },
     success: function(data) {
       data = jQuery.parseJSON(data);
       if (mensajeAjax(data)) {
-        if (data.response.data != null) {
+        if (data['response']['data'].length > 0) {
           Toast.fire({
             icon: 'success',
             title: 'CURP valida...',
             timer: 2000
           });
-          $("#formDIV").fadeToggle(400);
+          $("#formDIV").fadeIn(400);
           $('#curp-paciente').prop('readonly', true);
           $('#eliminarForm').prop('disabled',false);
-          $('#actualizarForm').prop('disabled',true);
           document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
                                                            'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
                                                         '</div>';
@@ -42,14 +45,18 @@ $('#actualizarForm').click(function(){
           $('#curp-registro').html(data.response.data[0].CURP);
           $('#sexo-registro').html(data.response.data[0].GENERO);
           $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
-          $('#formDIV *').prop('disabled',false);
+          // $('#formDIV *').prop('disabled',false);
           $('#btnFormRegistrarPruba').prop('disabled',false);
           obtenerSignosVitales('#antecedentes-registro')
         }else{
+          $('#actualizarForm').prop('disabled',false);
           alertMensaje('error', 'Identificador invalido', 'Asegurese que que este usando correctamente su CURP o pasaporte');
         }
       }
     },
+    error: function(){
+      $('#actualizarForm').prop('disabled',false);
+    }
   });
 
   // obtenerSignosVitales('#antecedentes-registro')
@@ -60,7 +67,7 @@ $('#eliminarForm').click(function(){
   $('#eliminarForm').prop('disabled',true);
   $('#actualizarForm').prop('disabled',false);
   // $('#formDIV *').prop('disabled',true);
-  $("#formDIV").fadeToggle(400);
+  $("#formDIV").fadeOut(400);
   $('#btnFormRegistrarPruba').prop('disabled',true);
   // window.location.hash = "curp-paciente";
   // $('##antecedentes-registro').html('')
@@ -152,14 +159,14 @@ $('#btnFormRegistrarPruba').on('click', function(){
   }
 })
 
-jQuery(document).on("change ,  keyup" , "input[type='radio']" ,function(){
-     var parent_element = jQuery(this).closest("div[class='row']");
+$(document).on("change ,  keyup" , "input[type='radio']" ,function(){
+     var parent_element = $(this).closest("div[class='row']");
     if (this.value == true) {
-        var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
+        var collapID = $(parent_element).children("div[class='collapse']").attr("id");
         $('#'+collapID).collapse("show")
         // $('#'+collapID).find(':input').prop('required', true);
     }else{
-        var collapID = jQuery(parent_element).children("div[class='collapse show']").attr("id");
+        var collapID = $(parent_element).children("div[class='collapse show']").attr("id");
         $('#'+collapID).collapse("hide")
         $('#'+collapID).find(':input').val('')
         // $('#'+collapID).find(':input').prop('required', false);
