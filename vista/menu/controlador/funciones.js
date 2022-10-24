@@ -339,18 +339,35 @@ function mensajeAjax(data) {
   return 0;
 }
 
-function selectDatatable(tablename, datatable, panel = null, api = null, tipPanel = null){
+function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {0 : "#panel-informacion"}){ //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
+  // console.log(typeof tipPanel);
+  if (typeof tipPanel == "string") {
+    // Convierte String a Object
+    api = {0: api}; tipPanel= {0: tipPanel};
+  }else{
+    // Coloca por defecto la ID de panel si no existe ID de envio
+    if (idPanel[0] == null) {
+      idPanel[0] = "#panel-informacion";
+    }
+  }
+  // console.log(idPanel)
   $('#'+tablename+' tbody').on('click', 'tr', function () {
      if ($(this).hasClass('selected')) {
          $(this).removeClass('selected');
          array_selected = null;
          obtenerPanelInformacion(0, api, tipPanel)
+         for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+           obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
+         }
      } else {
          datatable.$('tr.selected').removeClass('selected');
          $(this).addClass('selected');
          array_selected = datatable.row( this ).data();
          if (panel) {
-           obtenerPanelInformacion(array_selected[0], api, tipPanel)
+           // Lee los 3 objetos para llamar a la funcion
+           for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+             obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
+           }
          }
      }
   });
@@ -524,11 +541,17 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 resolve(1);
               break;
               case 'contacto':
-              console.log(selectContacto)
+                console.log(selectContacto)
                 $('#nombre-contacto').html(selectContacto.NOMBRE+' '+selectContacto.APELLIDOS);
                 $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
                 $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
                 $('#info-contacto-email').html(selectContacto.EMAIL);
+                $(panel).fadeIn(100);
+                resolve(1);
+              break;
+              case 'documentos-paciente':
+                // console.log(selectContacto)
+
                 $(panel).fadeIn(100);
                 resolve(1);
               break;
