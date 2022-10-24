@@ -6,11 +6,19 @@
     <div class="" id="panel-informacion">
     </div>
     <div class="" id="panel-documentos-paciente">
-
     </div>
   </div>
   <div class="col-12 col-lg-9 card">
-    <div class="table-responsive" style="margin: 25px;margin-top: 40px;">
+
+    <div class="text-center" style="margin-top:4px;">
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar">
+        <i class="bi bi-check"></i> Reagendar paciente
+      </button>
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar">
+        <i class="bi bi-check"></i> Deshacer ingreso
+      </button>
+    </div>
+    <div class="table-responsive" style="margin: 25px;">
       <table class="table table-hover display responsive" id="TablaRecepcionPacientes-Ingresados" style="width: 100%;">
         <thead class="">
           <tr>

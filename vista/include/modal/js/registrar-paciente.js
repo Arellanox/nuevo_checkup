@@ -1,15 +1,15 @@
-const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
-var edited = false;
-modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
-  getProcedencias("listProcedencia");
-  var procedencia = $("#listProcedencia option:selected").val();
-  getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
-})
-// Lista de segmentos dinamico
-$('#listProcedencia').on('change', function() {
-  var procedencia = $("#listProcedencia option:selected").val();
-  getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
-});
+// const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
+// var edited = false;
+// modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
+//   getProcedencias("listProcedencia");
+//   var procedencia = $("#listProcedencia option:selected").val();
+//   getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
+// })
+// // Lista de segmentos dinamico
+// $('#listProcedencia').on('change', function() {
+//   var procedencia = $("#listProcedencia option:selected").val();
+//   getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
+// });
 
 //Formulario de Preregistro
 $("#formRegistrarPaciente").submit(function(event){
@@ -66,23 +66,23 @@ $("#formRegistrarPaciente").submit(function(event){
    event.preventDefault();
  });
 
- const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente');
-
- ModalRegistrarPaciente.addEventListener('hide.bs.modal', event => {
-  if (edited){
-    edited=false;
-    actualizarTablaPacientesRecepcion();
-  }
- });
-
-
-$("#vacuna").change(function(){
-  var seleccion =$("#vacuna").val();
-  if (seleccion.toUpperCase() =='OTRA'){
-    $("#vacunaExtra").prop('readonly', false);
-  }else{
-
-    $("#vacunaExtra").prop('readonly', true);
-    $("#vacunaExtra").prop('value', "NA");
-    }
-});
+//  const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente');
+//
+//  ModalRegistrarPaciente.addEventListener('hide.bs.modal', event => {
+//   if (edited){
+//     edited=false;
+//     actualizarTablaPacientesRecepcion();
+//   }
+//  });
+//
+//
+// $("#vacuna").change(function(){
+//   var seleccion =$("#vacuna").val();
+//   if (seleccion.toUpperCase() =='OTRA'){
+//     $("#vacunaExtra").prop('readonly', false);
+//   }else{
+//
+//     $("#vacunaExtra").prop('readonly', true);
+//     $("#vacunaExtra").prop('value', "NA");
+//     }
+// });

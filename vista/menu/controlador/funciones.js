@@ -355,7 +355,7 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
      if ($(this).hasClass('selected')) {
          $(this).removeClass('selected');
          array_selected = null;
-         obtenerPanelInformacion(0, api, tipPanel)
+         // obtenerPanelInformacion(0, api, tipPanel)
          for (var i = 0; i < Object.keys(tipPanel).length; i++) {
            obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
          }

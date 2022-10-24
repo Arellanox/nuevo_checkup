@@ -36,8 +36,4 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 
 })
 
-
-
-// obtenerPanelInformacion(idTurno, "signos-vitales_api", '', '');
-
-selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, {0:"pacientes_api", 1:"documentos_api" }, {0:"paciente", 1:"documentos-paciente"}, {0:"panel-informacion", 1:"#panel-documentos-paciente"})
+selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, {0:"pacientes_api", 1:"documentos_api" }, {0:"paciente", 1:"documentos-paciente"}, {0:"#panel-informacion", 1:"#panel-documentos-paciente"})
