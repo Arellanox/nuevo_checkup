@@ -15,6 +15,7 @@ $master = new Master();
 $estado_paciente = $_POST['estado'];
 $idTurno = $_POST['id_turno'];
 $idPaquete = $_POST['id_paquete'];
+$comentarioRechazo = $_POST['comentario_rechazo'];
 
 switch ($api) {
     case 1:

@@ -38,6 +38,10 @@ $habilitado = $_POST['habilitado'];
 $identificacion = $_POST['identificacion'];
 $total = $_POST['total'];
 $completado = $_POST['completado'];
+$comentario_rechazo = $_POST['comentario_rechazo'];
+$cliente_id = $_POST['cliente_id'];
+$segmento_id = $_POST['segmento_id'];
+
 
 
 $parametros = array(
@@ -54,7 +58,10 @@ $parametros = array(
     $habilitado,
     $identificacion,
     $total,
-    $completado
+    $completado,
+    $comentario_rechazo,
+    $cliente_id,
+    $segmento_id
 );
 $response = "";
 

@@ -20,11 +20,13 @@ $habilitado = isset($_POST['habilitado']) ? $_POST['habilitado'] : 0;
 $identificacion = $_POST['identificacion'];
 $total = $_POST['total'];
 $completado = $_POST['completado'];
-
+$comentarioRechazo = $_POST['comentario_rechazo'];
+$clienteId = $_POST['cliente_id'];
+$segmentoId = $_POST['segmento_id'];
 
 
 #datos de antecedentes
-$antecedentes = $_POST['antecedentes'];
+$antecedentes = array_slice($_POST,count($_POST)-5,1);
 // print_r($antecedentes);
 
 switch($api){
@@ -51,7 +53,10 @@ switch($api){
             $habilitado,
             $identificacion,
             $total,
-            $completado
+            $completado,
+            $comentarioRechazo,
+            $clienteId,
+            $segmentoId
         );
 
         #insertar antecedentes
