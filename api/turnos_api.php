@@ -87,7 +87,7 @@ switch ($api) {
 
     case 7:
         # api falsa
-        print_r($_POST);
+        // print_r($_POST);
         echo json_encode(array("response" => array("code" => 1, "data" => array())));
         exit;
         break;

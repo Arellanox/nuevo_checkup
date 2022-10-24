@@ -25,7 +25,7 @@ $completado = $_POST['completado'];
 
 #datos de antecedentes
 $antecedentes = $_POST['antecedentes'];
-print_r($antecedentes);
+// print_r($antecedentes);
 
 switch($api){
     case 1:

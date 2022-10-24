@@ -4,7 +4,9 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
-// Obtener id del pacientes
+var id, idturno, idconsulta, dataConsulta = new Array;
+
+// Obtener el turno e informacion del paciente a tratar
 function obtenerSiguientePaciente(){
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
@@ -18,9 +20,9 @@ function obtenerSiguientePaciente(){
 }
 
 // obtenerContenidoConsulta()
-function obtenerContenidoConsulta(titulo) {
+function obtenerContenidoConsulta(id = 1, idturno  = 1, idconsulta = 1, dataConsulta = 1) {
   loader("In")
-  $("#titulo-js").html('');
+  $("#titulo-js").html(''); //Vaciar la cabeza de titulo
   $.post("contenido/consultorio_consulta.php", function (html) {
     var idrow;
     $("#body-js").html(html);
@@ -31,7 +33,9 @@ function obtenerContenidoConsulta(titulo) {
     // Botones
     $.getScript("contenido/js/consulta-paciente-botones.js");
     // Obtener metodos para el dom
-    $.getScript("contenido/js/consulta-paciente.js");
+    $.getScript("contenido/js/consulta-paciente.js").done(function(){
+      obtenerConsulta(id, idturno, idconsulta);
+    });
     loader("Out")
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   })
@@ -50,29 +54,34 @@ function obtenerContenidoAntecedentes(id, idTurno) {
     $.getScript("contenido/js/consultorio-paciente-botones.js");
     // Funciones
     $.getScript('contenido/js/consultorio-paciente.js').done(function(){
-
-      alert("Anter de antecedentes")
-      obtenerConsultorio(id) //Llama todo el dom
+      // alert("Anter de antecedentes")
+      obtenerConsultorio(id, idTurno) //Llama todo el dom
     });
     select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
   });
 }
 
 // Rellena la plantilla con metodos de espera Async Await
-async function obtenerConsultorio(id){
+async function obtenerConsultorio(id, idTurno){
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
-  await obtenerPanelInformacion(id, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
-  alert("Antes de antecedentes")
-  await obtenerAntecedentes('#antecedentes-paciente');
-  // setValues(id)
+  await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
+  // alert("Antes de antecedentes")
+  await obtenerAntecedentes('#antecedentes-paciente', idTurno);
+  // setValues(idTurno) //llamar los valores para los antecedentes
 
-  alert("Antes de notas historial")
+  // alert("Antes de notas historial")
   await obtenerNotasHistorial(id);
-  alert("Antes de obtenerHistorialConsultas")
+  // alert("Antes de obtenerHistorialConsultas")
   await obtenerHistorialConsultas(id);
   // alert("Funcion terminada")
   loader("Out")
+}
 
+async function obtenerConsulta(id, idTurno){
+
+
+
+  loader("Out")
 }
 
 
@@ -95,7 +104,7 @@ function hasLocation() {
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {
     case "Perfil":
-      obtenerContenidoAntecedentes();
+      obtenerContenidoAntecedentes(2, 2);
       break;
     case "Consultorio":
       obtenerContenidoConsulta();
