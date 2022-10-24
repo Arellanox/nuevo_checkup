@@ -16,7 +16,7 @@ $folio = $_POST['folio'];
 $fechaAgenda = $_POST['fechaAgenda'];
 $fechaRecepcion = $_POST['fechaRecepcion'];
 $turno = $_POST['turno'];
-$habilitado = $_POST['habilitado'];
+$habilitado = isset($_POST['habilitado']) ? $_POST['habilitado'] : 0;
 $identificacion = $_POST['identificacion'];
 $total = $_POST['total'];
 $completado = $_POST['completado'];
@@ -162,8 +162,13 @@ switch($api){
             }
         }
         $antecedentes[] = $tipoArray;
-        print_r($antecedentes);
+        echo json_encode($antecedentes);
+        break;
 
+    case 3:
+        #buscar paciente por curp
+        $response = $master->getByProcedure('sp_pacientes_b',array(null,$curp));
+        echo $master->returnApi($response);
         break;
     default:
         echo "La selección actual no esta disponible. (API).";
