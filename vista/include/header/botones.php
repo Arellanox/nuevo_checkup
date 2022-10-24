@@ -1,5 +1,5 @@
 <?php $menu = $_POST['menu']; ?>
-<?php if ($menu == "Recepción | Pacientes en espera" || "Recepción | Pacientes captados" || "Recepción | Pacientes rechazados") : ?>
+<?php if ($menu == "Recepción | Pacientes en espera" || $menu =="Recepción | Pacientes captados" || $menu =="Recepción | Pacientes rechazados") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
     <i class="bi bi-pencil-square"></i> Actualizar información del paciente
   </button>

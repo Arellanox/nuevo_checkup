@@ -88,6 +88,8 @@ async function obtenerConsulta(id, idTurno){
 function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;'){
   if (date != null) {
     date = '<p style="font-size: 14px;margin-left: 5px;">'+date+'</p>';
+  }else{
+    date = ''
   }
 
   let html = '<div class="'+classTittle+'">'+

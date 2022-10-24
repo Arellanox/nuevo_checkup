@@ -291,3 +291,4 @@
 21/10/22 21:32:41 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
 21/10/22 21:39:30 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
 21/10/22 21:41:52 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
+24/10/22 19:39:41 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 13, got 12

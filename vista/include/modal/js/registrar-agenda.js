@@ -93,7 +93,7 @@ $("#formRegistrarAgenda").submit(function(event){
     // formData.set('antecedentes', json);
     formDataAntecedentes.set('curp', $('#curp-paciente').val())
     formDataAntecedentes.set('procedencia', 'Particular')
-    formDataAntecedentes.set('segmento', $('#selectSegmentos').val())
+    formDataAntecedentes.set('segmento', null) //$('#selectSegmentos').val()
     formDataAntecedentes.set('fechaAgenda', $('#fecha-agenda').val())
     formDataAntecedentes.set('api', 1);
     // console.log(formData);
