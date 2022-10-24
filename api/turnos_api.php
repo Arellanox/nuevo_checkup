@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    // $tokenVerification->logout();
-    // exit;
+    $tokenVerification->logout();
+    exit;
 }
 
 #api
@@ -31,6 +31,7 @@ $prefolio = $_POST['prefolio'];
 $folio = $_POST['folio'];
 $fecha_registro = $_POST['fecha_registro'];
 $fecha_agenda = $_POST['fecha_agenda'];
+$fecha_reagenda = $_POST['fecha_reagenda'];
 $fecha_recepcion = $_POST['fecha_recepcion'];
 $turno = $_POST['turno'];
 $habilitado = $_POST['habilitado'];
@@ -47,6 +48,7 @@ $parametros = array(
     $folio,
     //$fecha_registro,
     $fecha_agenda,
+    $fecha_reagenda,
     $fecha_recepcion,
     $turno,
     $habilitado,
