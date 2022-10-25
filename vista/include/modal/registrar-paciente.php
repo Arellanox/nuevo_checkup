@@ -13,7 +13,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarPaciente" class="btn btn-confirmar" id="btn-registrarse">
+        <button type="submit" form="formRegistrarPaciente" class="btn btn-confirmar" id="btn-formregistrar-informacion">
           <i class="bi bi-send-plus"></i> Registrar
         </button>
       </div>

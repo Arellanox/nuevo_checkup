@@ -36,15 +36,17 @@ $("#formRegistrarPaciente").submit(function(event){
     }).then((result) => {
       if (result.isConfirmed) {
         edited=true;
-        // $("#btn-registrarse").prop('disabled', true);
 
         // Esto va dentro del AJAX
         $.ajax({
           data: formData,
-          url: "../../../api/pacientes_api.php",
+          url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
           type: "POST",
           processData: false,
           contentType: false,
+          beforeSend: function(){
+            $("#btn-formregistrar-informacion").prop('disabled', true);
+          },
           success: function(data) {
             data = jQuery.parseJSON(data);
             if (mensajeAjax(data)) {
@@ -52,14 +54,17 @@ $("#formRegistrarPaciente").submit(function(event){
                 icon: 'success',
                 title: 'Su información a sido registrada :)',
                 timer: 2000
-
-
               });
               document.getElementById("formRegistrarPaciente").reset();
-              $("#ModalRegistrarPaciente").modal('hide');
-
+              if (session.id != null) {
+                $("#ModalRegistrarPaciente").modal('hide');
+                $("#btn-formregistrar-informacion").prop('disabled', false);
+              }
             }
           },
+          error: function (jqXHR, exception) {
+            $("#btn-formregistrar-informacion").prop('disabled', false);
+          }
         });
       }
     })

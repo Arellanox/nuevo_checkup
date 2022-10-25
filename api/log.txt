@@ -292,3 +292,17 @@
 21/10/22 21:39:30 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
 21/10/22 21:41:52 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 12, got 13
 24/10/22 19:39:41 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 13, got 12
+24/10/22 20:39:59 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 16, got 15
+24/10/22 20:42:22 sp_turnos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_turnos_g; expected 16, got 15
+24/10/22 20:47:03 sp_turnos_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'COMENARIO_RECHAZO' in 'field list'
+24/10/22 20:47:53 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_sub_tipo_1` FOREIGN KEY (`ANTECEDENTE_SUBTIPO_ID`) REFERENCES `antecedentes_sub_tipo` (`ID)
+24/10/22 20:53:04 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_respuestas_1` FOREIGN KEY (`ANTECEDENTE_RESPUESTA_ID`) REFERENCES `antecedentes_respuestas)
+25/10/22 15:52:19 sp_buscar_paciente_por_estado Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.CLIENTE_ID' in 'field list'
+25/10/22 15:54:23 sp_buscar_paciente_por_estado Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.CLIENTE_ID' in 'field list'
+25/10/22 15:54:24 sp_buscar_paciente_por_estado Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.CLIENTE_ID' in 'field list'
+25/10/22 16:00:25 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_respuestas_1` FOREIGN KEY (`ANTECEDENTE_RESPUESTA_ID`) REFERENCES `antecedentes_respuestas)
+25/10/22 16:02:24 sp_buscar_paciente_por_estado Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.CLIENTE_ID' in 'field list'
+25/10/22 16:02:25 sp_buscar_paciente_por_estado Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.CLIENTE_ID' in 'field list'
+25/10/22 18:07:21 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_respuestas_1` FOREIGN KEY (`ANTECEDENTE_RESPUESTA_ID`) REFERENCES `antecedentes_respuestas)
+25/10/22 18:14:11 sp_buscar_paciente_por_estado Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.CLIENTE_ID' in 'field list'
+25/10/22 18:14:33 sp_buscar_paciente_por_estado Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.CLIENTE_ID' in 'field list'

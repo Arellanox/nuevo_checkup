@@ -14,7 +14,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
         return $.extend(d, dataRecepcion);
       },
       method: 'POST',
-      url: '../../../api/pacientes_api.php',
+      url: '../../../api/recepcion_api.php',
       beforeSend: function() { loader("In") },
       complete: function(){ loader("Out") },
       dataSrc:'response.data'

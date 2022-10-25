@@ -85,8 +85,8 @@ $("#formRegistrarAgenda").submit(function(event){
     // }
     // formData.set('antecedentes', json);
     formDataAntecedentes.set('curp', $('#curp-paciente').val())
-    formDataAntecedentes.set('procedencia', 'Particular')
-    formDataAntecedentes.set('segmento', $('#selectSegmentos').val())
+    formDataAntecedentes.set('cliente_id', 1)
+    formDataAntecedentes.set('segmento_id', $('#selectSegmentos').val())
     formDataAntecedentes.set('fechaAgenda', $('#fecha-agenda').val())
     formDataAntecedentes.set('api', 1);
     // console.log(formData);
@@ -101,7 +101,7 @@ $("#formRegistrarAgenda").submit(function(event){
        cancelButtonText: "Cancelar"
      }).then((result) => {
        if (result.isConfirmed) {
-         $("#btn-registrarse").prop('disabled', true);
+         // $("#btn-registrarse").prop('disabled', true);
 
          $.ajax({
            data: formDataAntecedentes,

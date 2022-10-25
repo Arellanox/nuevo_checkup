@@ -10,7 +10,9 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
       dataType: 'json',
-      data: { api : 1},
+      data: function (d) {
+        return $.extend(d, dataRecepcion);
+      },
       method: 'POST',
       url: '../../../api/recepcion_api.php',
       beforeSend: function() { loader("In") },

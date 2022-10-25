@@ -24,8 +24,6 @@ $menu = "Preregistro";
   if (codigo == token) {
     alert('No tienes acceso')
   } else if (codigo != null) {
-
-
     $.ajax({
       data: {
         codigo: '<?php echo $codigo; ?>',
@@ -44,9 +42,6 @@ $menu = "Preregistro";
       },
     });
   } else if (token != null) {
-
-
-
     $.ajax({
       data: {
         token: '<?php echo $token; ?>',

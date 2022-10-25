@@ -1,9 +1,82 @@
 //Formulario de registro de pruebas
 // $('#formDIV *').prop('disabled',true);
 $("#formDIV").fadeOut(400);
-$('#btnFormRegistrarPruba').prop('disabled',true);
+$('#btn-formregistrar-agenda').prop('disabled',true);
 $('#eliminarForm').prop('disabled',true);
 $('#curp-paciente').prop('readonly', false);
+
+
+$("#formRegistrarAgenda").submit(function(event){
+    event.preventDefault();
+    alert("form formAntecedentes-paciente")
+    /*DATOS Y VALIDACION DEL REGISTRO*/
+    var form = document.getElementById("formRegistrarAgenda");
+    var formData = new FormData(form);
+    var formAntecedentes = document.getElementById('formAntecedentes');
+    var formDataAntecedentes = new FormData(formAntecedentes)
+    // console.log(formData.get('estudiosLab[]'))
+    // if (formData.get('estudiosLab[]') == null) {
+    //   Swal.fire({
+    //      icon: 'error',
+    //      title: 'Oops...',
+    //      text: 'No ha seleccionado ninguna prueba!',
+    //   })
+    //   return
+    // }
+    // formData.set('antecedentes', json);
+    formDataAntecedentes.set('curp', $('#curp-paciente').val())
+    formDataAntecedentes.set('cliente_id', 1)
+    formDataAntecedentes.set('segmento_id', null) //$('#selectSegmentos').val()
+    formDataAntecedentes.set('fechaAgenda', $('#fecha-agenda').val())
+    formDataAntecedentes.set('api', 1);
+    // console.log(formData);
+    Swal.fire({
+       title: '¿Está seguro de haber seleccionado todo?',
+       text: "¡No podrá volverse a regisrtrar con su CURP hasta terminar la solicitud de registro anterior!",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Si, registrame',
+       cancelButtonText: "Cancelar"
+     }).then((result) => {
+       if (result.isConfirmed) {
+         $("#btn-formregistrar-agenda").prop('disabled', true);
+
+         $.ajax({
+           data: formDataAntecedentes,
+           url: http + servidor + "/nuevo_checkup/api/prerregistro_api.php",
+           type: "POST",
+           processData: false,
+           contentType: false,
+           beforeSend: function(){
+             alertMensaje('info', '¡Se están cargando sus datos!', 'El sistema está guardando su agenda, se enviará un correo de confirmación con su prefolio')
+           },
+           success: function(data) {
+             data = jQuery.parseJSON(data);
+             if (mensajeAjax(data)) {
+               if (data.response.code == 1) {
+                 Toast.fire({
+                   icon: 'success',
+                   title: 'Su información a sido registrada :)',
+                   timer: 2000
+                 });
+                 // Autocompletar el campo de prefolio y CURP en consulta de resultado
+
+                 document.getElementById("formAntecedentes-paciente").reset();
+                 if (session.user != null) {
+                   $("#ModalRegistrarPrueba").modal('hide');
+                   $("#btn-formregistrar-agenda").prop('disabled', false);
+                 }
+               }else{
+                 alertMensaje('error', 'Agenda no registrada', 'Hubo un error, comuniquese con el personal');
+               }
+             }
+           },
+         });
+       }
+     })
+})
 
 var tipoPaciente = "0"; //Particular por defecto
 
@@ -17,7 +90,7 @@ $('#actualizarForm').click(function(){
                                                 // '</div>';
   // $('#formDIV *').prop('disabled',false);
 
-  // $('#btnFormRegistrarPruba').prop('disabled',false);
+  // $('#btn-formregistrar-agenda').prop('disabled',false);
   curp = $('#curp-paciente').val();
   $.ajax({
     data: {curp:curp, api:2},
@@ -46,7 +119,7 @@ $('#actualizarForm').click(function(){
           $('#sexo-registro').html(data.response.data[0].GENERO);
           $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
           // $('#formDIV *').prop('disabled',false);
-          $('#btnFormRegistrarPruba').prop('disabled',false);
+          $('#btn-formregistrar-agenda').prop('disabled',false);
           obtenerSignosVitales('#antecedentes-registro')
         }else{
           $('#actualizarForm').prop('disabled',false);
@@ -68,96 +141,26 @@ $('#eliminarForm').click(function(){
   $('#actualizarForm').prop('disabled',false);
   // $('#formDIV *').prop('disabled',true);
   $("#formDIV").fadeOut(400);
-  $('#btnFormRegistrarPruba').prop('disabled',true);
+  $('#btn-formregistrar-agenda').prop('disabled',true);
   // window.location.hash = "curp-paciente";
   // $('##antecedentes-registro').html('')
 })
 
-$("#formRegistrarAgenda").submit(function(event){
-    event.preventDefault();
-    alert("form formAntecedentes-paciente")
-    /*DATOS Y VALIDACION DEL REGISTRO*/
-    var form = document.getElementById("formRegistrarAgenda");
-    var formData = new FormData(form);
-    var formAntecedentes = document.getElementById('formAntecedentes');
-    var formDataAntecedentes = new FormData(formAntecedentes)
-    // console.log(formData.get('estudiosLab[]'))
-    // if (formData.get('estudiosLab[]') == null) {
-    //   Swal.fire({
-    //      icon: 'error',
-    //      title: 'Oops...',
-    //      text: 'No ha seleccionado ninguna prueba!',
-    //   })
-    //   return
-    // }
-    // formData.set('antecedentes', json);
-    formDataAntecedentes.set('curp', $('#curp-paciente').val())
-    formDataAntecedentes.set('procedencia', 'Particular')
-    formDataAntecedentes.set('segmento', null) //$('#selectSegmentos').val()
-    formDataAntecedentes.set('fechaAgenda', $('#fecha-agenda').val())
-    formDataAntecedentes.set('api', 1);
-    // console.log(formData);
-    Swal.fire({
-       title: '¿Está seguro de haber seleccionado todo?',
-       text: "¡No podrá volverse a regisrtrar con su CURP hasta terminar la solicitud de registro anterior!",
-       icon: 'warning',
-       showCancelButton: true,
-       confirmButtonColor: '#3085d6',
-       cancelButtonColor: '#d33',
-       confirmButtonText: 'Si, registrame',
-       cancelButtonText: "Cancelar"
-     }).then((result) => {
-       if (result.isConfirmed) {
-         $("#btn-registrarse").prop('disabled', true);
+// Registrar agenda del paciente
 
-         $.ajax({
-           data: formDataAntecedentes,
-           url: "../../api/prerregistro_api.php",
-           type: "POST",
-           processData: false,
-           contentType: false,
-           success: function(data) {
-             data = jQuery.parseJSON(data);
-             switch (data['codigo'] == 1) {
-               case 1:
-                 Toast.fire({
-                   icon: 'success',
-                   title: 'Su información a sido registrada :)',
-                   timer: 2000
-                 });
-                 // Autocompletar el campo de prefolio y CURP en consulta de resultado
-
-                 document.getElementById("formAntecedentes-paciente").reset();
-                 $("#ModalRegistrarPrueba").modal('hide');
-               break;
-               default:
-                 Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Hubo un problema!',
-                    footer: 'Reporte este error con el personal :)'
-                 })
-             }
-           },
-         });
-       }
-     })
-})
-
-
-$('#btnFormRegistrarPruba').on('click', function(){
-  if ($('input[type="radio"]:not(:checked)').length != 126 ) {
-    alert($('input[type="radio"]:not(:checked)').length)
-    console.log($('input[type="radio"]:not(:checked)'))
-    $('input[type="radio"]').prop("checked", true);
-  }else{
-    var form = document.getElementById("formAntecedentes-paciente");
-    var formData = new FormData(form);
-    formData.set('curp', $('#curp-paciente').val())
-    formData.set('procedencia', tipoPaciente)
-    console.log(formData.getAll);
-  }
-})
+// $('#btn-formregistrar-agenda').on('click', function(){
+//   if ($('input[type="radio"]:not(:checked)').length != 126 ) {
+//     alert($('input[type="radio"]:not(:checked)').length)
+//     console.log($('input[type="radio"]:not(:checked)'))
+//     $('input[type="radio"]').prop("checked", true);
+//   }else{
+//     var form = document.getElementById("formAntecedentes-paciente");
+//     var formData = new FormData(form);
+//     formData.set('curp', $('#curp-paciente').val())
+//     formData.set('procedencia', tipoPaciente)
+//     console.log(formData.getAll);
+//   }
+// })
 
 $(document).on("change ,  keyup" , "input[type='radio']" ,function(){
      var parent_element = $(this).closest("div[class='row']");

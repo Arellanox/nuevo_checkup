@@ -3,7 +3,7 @@
 
 session_start();
 include "../../variables.php";
-$menu = "Mesometria";
+$menu = "Somatometria";
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

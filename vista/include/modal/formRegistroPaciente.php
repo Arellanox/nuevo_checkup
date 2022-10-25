@@ -28,7 +28,8 @@
 </div>
 <div class="col-5 col-lg-3">
   <label for="telefono" class="form-label">Télefono</label>
-  <input type="tel" class="form-control input-form" pattern="[0-9]{10}" name="telefono" placeholder="" >
+  <input type="number" class="form-control input-form"  name="telefono" placeholder="" >
+  <!-- pattern="[0-9]{10}" -->
 </div>
 
 <div class="col-6 col-lg-4">
@@ -39,7 +40,8 @@
 
 <div class="col-6 col-lg-2">
   <label for="postal" class="form-label">Código postal</label>
-  <input type="number" class="form-control input-form" name="postal" pattern="[0-9]{5}" placeholder=""  >
+  <input type="number" class="form-control input-form" name="postal"  placeholder=""  >
+  <!-- pattern="[0-9]{5}" -->
 </div>
 <div class="col-6 col-lg-3">
   <label for="estado" class="form-label">Estado</label>

@@ -6,13 +6,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="formRegistrarPrueba">
+        <form id="formRegistrarAgenda">
           <?php include "formRegistrarAgenda.php"; ?>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarPrueba" class="btn btn-confirmar" id="btnFormRegistrarPruba">
+        <button type="submit" form="formRegistrarAgenda" class="btn btn-confirmar" id="btn-formregistrar-agenda">
           <i class="bi bi-send-plus"></i> Registrar
         </button>
       </div>
@@ -103,7 +103,7 @@
 //   });
 // })
 //
-// $("#formRegistrarPrueba").submit(function(event){
+// $("#formRegistrarAgenda").submit(function(event){
 //     event.preventDefault();
 //     /*DATOS Y VALIDACION DEL REGISTRO*/
 //     var form = document.getElementById("formRegistrarPrueba");

@@ -25,7 +25,7 @@ $("#formRegistrarPaciente").submit(function(event){
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        //$("#btn-registrarse").prop('disabled', true);
+        $("#btn-registrarse").prop('disabled', true);
 
         // Esto va dentro del AJAX
         $.ajax({

@@ -2,7 +2,7 @@
 
 // ObtenerTabla o cambiar
 // obtenerContenidoRecepcion();
-var tablaRecepcionPacientes, dataRecepcion = {api: 2, tipo: 1};
+var tablaRecepcionPacientes, dataRecepcion = {api: 1};
 
 
 function obtenerContenidoEspera(){
@@ -20,6 +20,7 @@ function obtenerContenidoAceptados(){
   obtenerTitulo('Recepción | Pacientes captados'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion-ingresados.php", function(html){
      $("#body-js").html(html);
+     dataRecepcion = {api: 1, estado:1};
      // Datatable
      $.getScript("contenido/js/recepcion-aceptados-tabla.js");
      // Botones
@@ -31,6 +32,7 @@ function obtenerContenidoRechazados(){
   obtenerTitulo('Recepción | Pacientes rechazados'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion-rechazados.php", function(html){
      $("#body-js").html(html);
+     dataRecepcion = {api: 1, estado:0};
      // Datatable
      $.getScript("contenido/js/recepcion-tabla.js");
      // Botones
@@ -56,6 +58,7 @@ function hasLocation() {
     break;
     case "pendientes":
       obtenerContenidoEspera();
+      dataRecepcion = {api: 1};
     break;
     default:
       window.location.hash = 'pendientes';
