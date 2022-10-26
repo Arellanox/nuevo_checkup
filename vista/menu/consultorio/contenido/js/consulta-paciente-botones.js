@@ -9,9 +9,9 @@ $('#select-exploracion-clinica').on('change', function () {
   switch (selectoo) {
     case '1':
       $("#texto-exp-cli").html(`
-      Estado de conciencia. Orientación temporo-espacial. Peso. Talla. Indice de masa corporal.
-      Deformidades generales, parciales o regionales. Color de piel y mucosas (palidez. Cianosis, ictericia. Manchas.
-      Estado de nutrición e hidratación. Presion arterial. Pulso y frecuencia de pulso. Temperatura. `);
+      Estado de conciencia. Orientación temporo-espacial. Peso. Talla. Índice de masa corporal.
+      Deformidades generales, parciales o regionales. Color de piel y mucosas (palidez. cianosis, ictericia, manchas,
+      estado de nutrición e hidratación, presion arterial. Pulso y frecuencia de pulso. Temperatura. `);
 
       break;
     case '2':
@@ -162,4 +162,3 @@ $.ajax({
           },
         });
 })
-

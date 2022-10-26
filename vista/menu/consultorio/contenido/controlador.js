@@ -106,7 +106,7 @@ function hasLocation() {
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {
     case "Perfil":
-      obtenerContenidoAntecedentes(2, 2);
+      obtenerContenidoAntecedentes(18, 18);
       break;
     case "Consultorio":
       obtenerContenidoConsulta();

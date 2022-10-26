@@ -5,7 +5,7 @@
   <div class="collapse" id="board-consultorio">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
       <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>"><i class="bi bi-dot"></i> Consultorio</a></li>
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>"><i class="bi bi-dot"></i> Somatometria</a></li>
+      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>"><i class="bi bi-dot"></i> Somatometría</a></li>
     </ul>
   </div>
 

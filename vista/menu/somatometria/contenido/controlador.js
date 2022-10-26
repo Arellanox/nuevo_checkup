@@ -1,7 +1,7 @@
 // ObtenerTabla o cambiar
 obtenerContenidoMeso();
 function obtenerContenidoMeso(){
-  obtenerTitulo('Somatometria'); //Aqui mandar el nombre de la area
+  obtenerTitulo('Somatometría'); //Aqui mandar el nombre de la area
   $.post("contenido/mesometria.php", function(html){
     var idrow;
      $("#body-js").html(html);

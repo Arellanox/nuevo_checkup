@@ -25,7 +25,7 @@
               <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
               <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>
               <th scope="col d-flex justify-content-center" class="desktop">Segmento</th>
-              <th scope="col d-flex justify-content-center" class="min-tablet">Ingreso</th>
+              <th scope="col d-flex justify-content-center" class="min-tablet">Agenda</th>
               <th scope="col d-flex justify-content-center" class="none">Sexo</th>
             </tr>
           </thead>

@@ -1,7 +1,7 @@
 // Obtener datos del paciente seleccionado
 const modalPacienteRechazar = document.getElementById('modalPacienteRechazar')
 modalPacienteRechazar.addEventListener('show.bs.modal', event => {
-  document.getElementById("title-paciente_rechazar").innerHTML = "Rechazar al paciente:<br />"+array_selected[1];
+  document.getElementById("title-paciente_rechazar").innerHTML = "Rechazar al paciente:<br />"+array_selected['NOMBRE_COMPLETO'];
 
 })
 
@@ -10,13 +10,15 @@ $("#formRechazarPaciente").submit(function(event){
    event.preventDefault();
    document.getElementById("btn-rechazar-paciente").disabled = true;
    /*DATOS Y VALIDACION DEL REGISTRO*/
-   var form = document.getElementById("formRechazados");
+   var form = document.getElementById("formRechazarPaciente");
    var formData = new FormData(form);
-   formData.set('api', 3);
+   formData.set('id_turno', array_selected['ID_TURNO']);
+   formData.set('estado', 0)
+   formData.set('api', 2);
    console.log(formData);
    $.ajax({
      data: formData,
-     url: "../../../",
+     url: "../../../api/recepcion_api.php",
      type: "POST",
      processData: false,
      contentType: false,

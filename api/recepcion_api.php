@@ -24,14 +24,14 @@ switch ($api) {
         # 0 para pacientes rechazados
         # null o no enviar nada, para pacientes en espera
         $response = $master->getByProcedure('sp_buscar_paciente_por_estado',array($estado_paciente));
-        
+
         break;
     case 2:
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos
         $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente',array($idTurno,$estado_paciente,$comentarioRechazo));
         break;
-    
+
     default:
         # code...
         break;

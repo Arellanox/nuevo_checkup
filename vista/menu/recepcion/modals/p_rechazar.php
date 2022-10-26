@@ -9,7 +9,7 @@
         <form class="" id="formRechazarPaciente">
           <div class="col-12 col-md-12 col-lg-12 col-xl-12">
               <label for="segmentosFiltro" class="form-label">Comentario</label>
-              <textarea name="name" class="input-form" rows="4" cols="40" placeholder="¿Problema? Escriba la situación" id="textarea-Comentario-rechazar"></textarea>
+              <textarea name="comentario_rechazo" class="input-form" rows="4" cols="40" placeholder="¿Problema? Escriba la situación" id="textarea-Comentario-rechazar"></textarea>
           </div>
         </form>
       </div>

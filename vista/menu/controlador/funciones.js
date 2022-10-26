@@ -373,7 +373,7 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
   });
 }
 
-function select2(select, modal = null, placeholder = 'Selecciona una opcion'){
+function select2(select, modal = null, placeholder = 'Selecciona una opción'){
   $(select).select2({
     dropdownParent: $('#'+modal),
     tags: false,

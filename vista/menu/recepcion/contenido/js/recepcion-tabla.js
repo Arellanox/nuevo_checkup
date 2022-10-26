@@ -23,9 +23,9 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
       {data: 'COUNT'},
       {data: 'NOMBRE_COMPLETO'},
       {data: 'PREFOLIO'},
-      {data: 'PROCEDENCIA'},
-      {data: 'SEGMENTO'},
-      {data: 'INGRESO'},
+      {data: 'NOMBRE_COMERCIAL'},
+      {data: 'DESCRIPCION_SEGMENTO'},
+      {data: 'FECHA_AGENDA'},
       {data: 'GENERO'}
       // {defaultContent: 'En progreso...'}
   ],
