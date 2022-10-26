@@ -32,7 +32,7 @@ switch ($api) {
         break;
     case 2:
         # aceptar o rechazar pacientes [tambien regresar a la vida]
-        # enviar 1 para aceptarlos, 0 para rechazarlos
+        # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
         $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente',array($idTurno,$estado_paciente,$comentarioRechazo));
 
         # Insertar el detalle del paquete al turno en cuestion
@@ -44,7 +44,7 @@ switch ($api) {
         # Insertar servicios extrar para pacientes empresas o servicios para particulares
         if(count($servicios)>0){
             # si hay algo en el arreglo lo insertamos
-            foreach ($variable as $key => $value) {
+            foreach ($servicios as $key => $value) {
                 $response = $master->insertByProcedure('sp_recepcion_detalle_paquete_g',array($idTurno,null,$value));
             }
         }
