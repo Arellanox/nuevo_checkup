@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
@@ -14,12 +14,12 @@ $master = new Master();
 
 $estado_paciente = $_POST['estado'];
 $idTurno = $_POST['id_turno'];
-$idPaquete = $_POST['id_paquete'];
+$idPaquete = $_POST['id_paquete']; #
 $comentarioRechazo = $_POST['comentario_rechazo'];
 
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
-$servicios =$_POST['servicios'];
+$servicios =$_POST['servicios']; //array
 
 switch ($api) {
     case 1:

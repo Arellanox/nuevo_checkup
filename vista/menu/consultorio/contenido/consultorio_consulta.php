@@ -22,6 +22,8 @@
   <div class="container">
     <section id="notas-padecimiento" class="card mt-3">
       <h4 class="m-3">Notas de padecimiento</h4>
+
+        
       <hr class="dropdown-divider m-2">
       <textarea name="name-notas-padecimiento" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aquí sus notas" id="nota-notas-padecimiento"></textarea>
     </section>

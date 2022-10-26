@@ -93,7 +93,7 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle =
   }
 
   let html = '<div class="'+classTittle+'">'+
-                '<h4 class="m-3">'+tittle+' '+date+'</h4>'+
+                '<h4 class="m-3">'+tittle+' <button type="button" class="btn btn-hover me-2" data-bs-id="id"> <i class="bi bi-trash"></i> </button> '+date+'</h4> '+
                 '<div style="'+style+'">'+
                   '<p class="none-p">'+text+'<p> </div> </div>';
 

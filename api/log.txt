@@ -308,3 +308,5 @@
 25/10/22 18:14:33 sp_buscar_paciente_por_estado Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac.CLIENTE_ID' in 'field list'
 25/10/22 20:01:28 sp_turnos_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`turnos`, CONSTRAINT `fk_turnos_segmentos_1` FOREIGN KEY (`SEGMENTO_ID`) REFERENCES `segmentos` (`ID_SEGMENTO`))
 25/10/22 20:03:58 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_respuestas_1` FOREIGN KEY (`ANTECEDENTE_RESPUESTA_ID`) REFERENCES `antecedentes_respuestas)
+26/10/22 19:25:24 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
