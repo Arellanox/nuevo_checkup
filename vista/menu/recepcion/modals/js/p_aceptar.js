@@ -6,6 +6,9 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("btn-confirmar-paciente").disabled = true;
 
   rellenarSelect('#select-paquetes','paquetes_api', 2,0,'DESCRIPCION')
+ rellenarSelect("#select-lab", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 6});
+  rellenarSelect('#select-us',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 7});
+  rellenarSelect('#select-otros',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'otros_servicios' : 1});
 })
 
 $("#btn-obtenerID").click(function(){

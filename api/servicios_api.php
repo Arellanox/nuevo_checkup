@@ -181,6 +181,7 @@ switch ($api) {
         }
         break;
     case 8:
+
         $response = $master->getByProcedure('sp_servicios_b',array(null,null,$id_area,$otros_servicios));
         echo $master->mis->returnApi($response);
         break;
@@ -244,4 +245,3 @@ switch ($api) {
         # code...
         break;
 } */
-?>

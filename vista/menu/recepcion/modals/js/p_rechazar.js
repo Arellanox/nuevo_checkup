@@ -26,6 +26,9 @@ $("#formRechazarPaciente").submit(function(event){
        data = jQuery.parseJSON(data);
        if (mensajeAjax(data)) {
          // Mensaje
+         {
+              alertSelectTable('¡Resultado confirmado!', 'success')
+            }
        }
      }
    });
