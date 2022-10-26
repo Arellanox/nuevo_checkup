@@ -46,7 +46,7 @@
     <i class="bi bi-activity"></i> Rayos X</a>
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ESPIROMETRIA'; ?>">
-    <i class="bi bi-activity"></i> Espirometría</a>
+    <i class="bi bi-lungs"></i> Espirometría</a>
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#AUDIOMETRIA'; ?>">
     <i class="bi bi-ear"></i> Audiometría</a>
