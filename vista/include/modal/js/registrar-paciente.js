@@ -25,13 +25,13 @@ $("#formRegistrarPaciente").submit(function(event){
   //   $i++;
   // });
    Swal.fire({
-      title: '¿Está seguro que todos sus datos estén correctos?',
+      title: '¿Está seguro que todos sus datos son correctos?',
       text: "¡No podrá editar o volverse a registrar!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, registrame',
+      confirmButtonText: 'Sí, regístrame',
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {

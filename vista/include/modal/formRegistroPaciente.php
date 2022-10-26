@@ -1,5 +1,5 @@
 <div class="col-12 col-lg-4">
-  <label for="nombre" class="form-label">Nombres</label>
+  <label for="nombre" class="form-label">Nombre(s)</label>
   <input type="text" name="nombre" value="" class="form-control input-form" required >
 </div>
 <div class="col-6 col-lg-4">
@@ -27,13 +27,13 @@
   <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
 </div>
 <div class="col-5 col-lg-3">
-  <label for="telefono" class="form-label">Télefono</label>
+  <label for="telefono" class="form-label">Teléfono</label>
   <input type="number" class="form-control input-form"  name="telefono" placeholder="" >
   <!-- pattern="[0-9]{10}" -->
 </div>
 
 <div class="col-6 col-lg-4">
-  <label for="correo" class="form-label">Correo</label>
+  <label for="correo" class="form-label">Correo electronico</label>
   <input type="email" class="form-control input-form" name="correo" placeholder="" required>
 </div>
 
@@ -120,7 +120,7 @@
     <div class="container">
       <div class="row"style="zoom:110%;">
         <div class="col-md-auto">
-          <label for="" >Genero: </label>
+          <label for="" >Género: </label>
         </div>
         <div class="col">
             <input type="radio" id="mascuCues" name="genero" value="MASCULINO" required>

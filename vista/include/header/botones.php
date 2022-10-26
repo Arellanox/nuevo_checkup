@@ -20,7 +20,7 @@
 <?php endif; ?>
 
 
-<?php if ($menu == "Preregistro") : ?>
+<?php if ($menu == "Prerregistro") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">
     <i class="bi bi-person-plus-fill"></i> Registrar mi información
   </button>

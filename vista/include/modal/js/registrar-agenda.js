@@ -31,13 +31,13 @@ $("#formRegistrarAgenda").submit(function(event){
     formDataAntecedentes.set('api', 1);
     // console.log(formData);
     Swal.fire({
-       title: '¿Está seguro de haber seleccionado todo?',
-       text: "¡No podrá volverse a regisrtrar con su CURP hasta terminar la solicitud de registro anterior!",
+       title: '¿Está seguro que todos sus datos son correctos?',
+       text: "¡No podrá volver a registrarse con su CURP hasta terminar la solicitud de registro anterior!",
        icon: 'warning',
        showCancelButton: true,
        confirmButtonColor: '#3085d6',
        cancelButtonColor: '#d33',
-       confirmButtonText: 'Si, registrame',
+       confirmButtonText: 'Sí, regístrame',
        cancelButtonText: "Cancelar"
      }).then((result) => {
        if (result.isConfirmed) {
@@ -50,7 +50,7 @@ $("#formRegistrarAgenda").submit(function(event){
            processData: false,
            contentType: false,
            beforeSend: function(){
-             alertMensaje('info', '¡Se están cargando sus datos!', 'El sistema está guardando su agenda, se enviará un correo de confirmación con su prefolio')
+             alertMensaje('info', '¡Se están cargando sus datos!', 'El sistema está guardando su agenda., Se enviará un correo de confirmación con su prefolio.')
            },
            success: function(data) {
              data = jQuery.parseJSON(data);
@@ -69,7 +69,7 @@ $("#formRegistrarAgenda").submit(function(event){
                    $("#btn-formregistrar-agenda").prop('disabled', false);
                  }
                }else{
-                 alertMensaje('error', 'Agenda no registrada', 'Hubo un error, comuniquese con el personal');
+                 alertMensaje('error', 'Agenda no registrada', 'Hubo un error, comuniquese con el personal.');
                }
              }
            },
