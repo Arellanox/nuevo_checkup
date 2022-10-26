@@ -2,7 +2,7 @@
 session_start();
 ?>
 <?php switch ($menu) {
-  case 'Preregistro':
+  case 'Prerregistro':
 ?>
     <nav class="navbar border-3 border-bottom border-dark bg-navbar">
       <div class="container-fluid d-flex justify-content-center">

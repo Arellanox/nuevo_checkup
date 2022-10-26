@@ -339,7 +339,7 @@
       <div class="accordion-item bg-acordion">
         <h2 class="accordion-header" id="collap-nopatologicos">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-nopatologicos-Target" aria-expanded="false" aria-controls="accordionEstudios">
-            <i class="bi bi-plus-circle-fill"></i>&nbsp;&nbsp;&nbsp; ANTECEDENTES NO PATOLOGICOS
+            <i class="bi bi-plus-circle-fill"></i>&nbsp;&nbsp;&nbsp; ANTECEDENTES NO PATOLÓGICOS
           </button>
         </h2>
         <div id="collapse-nopatologicos-Target" class="accordion-collapse collapse" aria-labelledby="collap-nopatologicos">
@@ -1046,7 +1046,7 @@
         </div>
       </div>
 
-      <div class="accordion-item bg-acordion">
+      <div class="accordion-item bg-acordion onlyProcedencia">
         <h2 class="accordion-header" id="collap-MedLabo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-MedLabo-Target" aria-expanded="false" aria-controls="accordionEstudios">
             <i class="bi bi-plus-circle-fill"></i>&nbsp;&nbsp;&nbsp; MEDIO LABORAL
@@ -1068,12 +1068,13 @@
                 <label for="checkNo-incapaAccid" >No</label>
               </div>
               <div class="collapse" id="collapse-incapaAccid">
-                <textarea name="check-incapaAccid[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-incapaAccid[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Incapacidad por enfermedad: </label>
+                <label>¿HAZ TENIDO INCAPACIDAD POR ALGUNA ENFERMEDAD?: </label>
                 <input type="hidden" name="check-incapaEnfer[]" value="55">
               </div>
               <div class="col-3">
@@ -1085,12 +1086,13 @@
                 <label for="checkNo-incapaEnfer" >No</label>
               </div>
               <div class="collapse" id="collapse-incapaEnfer">
-                <textarea name="check-incapaEnfer[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-incapaEnfer[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Condiciones de la piel por contacto con materiales: </label>
+                <label>¿PADECES ALGUNA ENFERMEDAD DE LA PIEL POR CONTACTO CON MATERIALES?: </label>
                 <input type="hidden" name="check-condiPielMateri[]" value="56">
               </div>
               <div class="col-3">
@@ -1102,12 +1104,13 @@
                 <label for="checkNo-condiPielMateri" >No</label>
               </div>
               <div class="collapse" id="collapse-condiPielMateri">
-                <textarea name="check-condiPielMateri[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-condiPielMateri[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Fracturas o lesiones por trabajo: </label>
+                <label>¿HAZ TENIDO ALGUNA FRACTURA O LESIÓN PROVOCADA EN EL TRABAJO?: </label>
                 <input type="hidden" name="check-fracLesiTrab[]" value="57">
               </div>
               <div class="col-3">
@@ -1119,12 +1122,13 @@
                 <label for="checkNo-fracLesiTrab" >No</label>
               </div>
               <div class="collapse" id="collapse-fracLesiTrab">
-                <textarea name="check-fracLesiTrab[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-fracLesiTrab[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Antecedentes enfermedades por trabajo: </label>
+                <label>¿PADECES ALGUNA ENFERMEDAD RELACIONADA CON TU TIPO DE ACTIVIDAD LABORAL?: </label>
                 <input type="hidden" name="check-anteEnferTrabajo[]" value="58">
               </div>
               <div class="col-3">
@@ -1136,12 +1140,13 @@
                 <label for="checkNo-anteEnferTrabajo" >No</label>
               </div>
               <div class="collapse" id="collapse-anteEnferTrabajo">
-                <textarea name="check-anteEnferTrabajo[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-anteEnferTrabajo[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición con material polvoso: </label>
+                <label>¿ESTÁS EXPUESTO A MATERIAL POLVOSO?: </label>
                 <input type="hidden" name="check-expoMatpolvo[]" value="59">
               </div>
               <div class="col-3">
@@ -1153,12 +1158,13 @@
                 <label for="checkNo-expoMatpolvo" >No</label>
               </div>
               <div class="collapse" id="collapse-expoMatpolvo">
-                <textarea name="check-expoMatpolvo[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-expoMatpolvo[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a ruidos fuertes: </label>
+                <label>¿ESTÁS EXPUESTO A RUIDOS FUERTES?: </label>
                 <input type="hidden" name="check-exposiRuidFuertes[]" value="60">
               </div>
               <div class="col-3">
@@ -1170,12 +1176,13 @@
                 <label for="checkNo-exposiRuidFuertes" >No</label>
               </div>
               <div class="collapse" id="collapse-exposiRuidFuertes">
-                <textarea name="check-exposiRuidFuertes[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-exposiRuidFuertes[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a sustancias químicas: </label>
+                <label>¿ESTÁS EXPUESTO A SUSTANCIAS QUÍMICAS?: </label>
                 <input type="hidden" name="check-expoSustQuimi[]" value="61">
               </div>
               <div class="col-3">
@@ -1187,12 +1194,13 @@
                 <label for="checkNo-expoSustQuimi" >No</label>
               </div>
               <div class="collapse" id="collapse-expoSustQuimi">
-                <textarea name="check-expoSustQuimi[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-expoSustQuimi[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a gases: </label>
+                <label>¿ESTÁS EXPUESTO A GASES?: </label>
                 <input type="hidden" name="check-exposGases[]" value="62">
               </div>
               <div class="col-3">
@@ -1204,12 +1212,13 @@
                 <label for="checkNo-exposGases" >No</label>
               </div>
               <div class="collapse" id="collapse-exposGases">
-                <textarea name="check-exposGases[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-exposGases[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a líquidos inflamables: </label>
+                <label>¿ESTÁS EXPUESTO A LÍQUIDOS INFLAMABLES?: </label>
                 <input type="hidden" name="check-expoLiquinfla[]" value="63">
               </div>
               <div class="col-3">
@@ -1221,12 +1230,13 @@
                 <label for="checkNo-expoLiquinfla" >No</label>
               </div>
               <div class="collapse" id="collapse-expoLiquinfla">
-                <textarea name="check-expoLiquinfla[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-expoLiquinfla[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a sólidos inflamables: </label>
+                <label>¿ESTÁS EXPUESTO A SÓLIDOS INFLAMABLES?: </label>
                 <input type="hidden" name="check-exposoliInflamables[]" value="64">
               </div>
               <div class="col-3">
@@ -1238,12 +1248,13 @@
                 <label for="checkNo-exposoliInflamables" >No</label>
               </div>
               <div class="collapse" id="collapse-exposoliInflamables">
-                <textarea name="check-exposoliInflamables[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-exposoliInflamables[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a explosivos: </label>
+                <label>¿ESTÁS EXPUESTO A EXPLOSIVOS?: </label>
                 <input type="hidden" name="check-expoExplosi[]" value="65">
               </div>
               <div class="col-3">
@@ -1255,12 +1266,13 @@
                 <label for="checkNo-expoExplosi" >No</label>
               </div>
               <div class="collapse" id="collapse-expoExplosi">
-                <textarea name="check-expoExplosi[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-expoExplosi[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a materiales radioactivos: </label>
+                <label>¿ESTÁS EXPUESTO A MATERIALES RADIOACTIVOS?: </label>
                 <input type="hidden" name="check-ExposimateRadio[]" value="66">
               </div>
               <div class="col-3">
@@ -1272,12 +1284,13 @@
                 <label for="checkNo-ExposimateRadio" >No</label>
               </div>
               <div class="collapse" id="collapse-ExposimateRadio">
-                <textarea name="check-ExposimateRadio[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-ExposimateRadio[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a sustancias corrosivas: </label>
+                <label>¿ESTÁS ESPUESTO A SUSTANCIAS CORROSIVAS?: </label>
                 <input type="hidden" name="check-exposiSusCorro[]" value="67">
               </div>
               <div class="col-3">
@@ -1289,12 +1302,13 @@
                 <label for="checkNo-exposiSusCorro" >No</label>
               </div>
               <div class="collapse" id="collapse-exposiSusCorro">
-                <textarea name="check-exposiSusCorro[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-exposiSusCorro[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Exposición a sustancias venenosas e infecciosas: </label>
+                <label>¿ESTÁS EXPUESTO A SUSTANCIAS VENENOSAS Y/O INFECCIOSAS?: </label>
                 <input type="hidden" name="check-exposSusVeneInfe[]" value="68">
               </div>
               <div class="col-3">
@@ -1306,7 +1320,7 @@
                 <label for="checkNo-exposSusVeneInfe" >No</label>
               </div>
               <div class="collapse" id="collapse-exposSusVeneInfe">
-                <textarea name="check-exposSusVeneInfe[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
+                <textarea name="check-exposSusVeneInfe[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
           </div>
@@ -1740,7 +1754,7 @@
                   </div>
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
-                      <label>Nauseas: </label>
+                      <label>Náuseas: </label>
                       <input type="hidden" name="check-aparatoDigestivo-Nauseas[]" value="92">
                     </div>
                     <div class="col-3">
@@ -2141,7 +2155,7 @@
                 <div class="accordion-body">
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
-                      <label>Dolores osteo-articular: </label>
+                      <label>Dolor osteo-articular: </label>
                       <input type="hidden" name="check-aparatoLocomot-DolorOsteoArticu[]" value="118">
                     </div>
                     <div class="col-3">
@@ -2345,7 +2359,7 @@
                   </div>
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
-                      <label>Dematosis: </label>
+                      <label>Dermatosis: </label>
                       <input type="hidden" name="check-piel-dematosis[]" value="129">
                     </div>
                     <div class="" id="collapse-piel-dematosis">

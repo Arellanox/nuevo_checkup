@@ -2,7 +2,7 @@
   <!-- Ultimos signos vitales -->
   <!--  -->
   <div class="col-8">
-    <h4>Ultimos signos vitales</h4>
+    <h4>Últimos signos vitales</h4>
   </div>
   <div class="col-4">
     xx/xx/xxxx
@@ -40,13 +40,13 @@
       <p class="none-p" id="info-signos-frecuenciaRespir"></p> <strong>r/m</strong>
     </div>
     <div class="col-7 text-end info-detalle">
-      <p>Sistolica:</p>
+      <p>Sistólica:</p>
     </div>
     <div class="col-5">
       <p class="none-p" id="info-signos-sistolica"></p> <strong>mmHg</strong>
     </div>
     <div class="col-7 text-end info-detalle">
-      <p>Diastolica:</p>
+      <p>Diastólica:</p>
     </div>
     <div class="col-5">
       <p class="none-p" id="info-signos-diastolica"></p> <strong>mmHg</strong>
@@ -62,6 +62,12 @@
     </div>
     <div class="col-5">
       <p class="none-p" id="info-signos-masaMuscular"></p> <strong>kg</strong>
+    </div>
+    <div class="col-7 text-end info-detalle">
+      <p>Perímetro Cefálico:</p>
+    </div>
+    <div class="col-5">
+      <p class="none-p" id="info-signos-perimeCefalico"></p> <strong>cm</strong>
     </div>
     <div class="col-7 text-end info-detalle">
       <p>Saturación de oxígeno:</p>

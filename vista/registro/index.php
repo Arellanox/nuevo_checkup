@@ -3,7 +3,7 @@
 $codigo = isset($_POST['code']) ? $_POST['code'] : null;
 $token = isset($_POST['token']) ? $_POST['token'] : null;
 include "../variables.php";
-$menu = "Preregistro";
+$menu = "Prerregistro";
 ?>
 
 <!DOCTYPE html>

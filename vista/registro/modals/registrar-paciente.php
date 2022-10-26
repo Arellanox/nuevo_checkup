@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="text-center" >Asegurese que toda su información este correcta. <br /> Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
+        <p class="text-center" >Asegúrese que toda su información esté correcta. <br /> Utilice su <strong>CURP</strong> para crear su registro de laboratorio.</p>
         <form class="row" id="formRegistrarPaciente">
           <!-- <div class="row">
             <div class="col-12 col-lg-4">

@@ -5,34 +5,7 @@
 <div class="container-fluid" style="z-index:5">
   <div class="row" id="menu-consultorio">
     <div class="col-8 row">
-      <div class="col-auto">
-        <h3 class="m-3" id="nombre-paciente-consulta">Nombre del paciente</h3>
-      </div>
-      <div class="col-auto row d-flex align-items-center justify-content-start" style="zoom:150%">
-        <div class="col-auto">
-          <span class="badge rounded-pill bg-primary" id="motivo-consulta">MOTIVO CONSULTA</span>
-        </div>
-        <div class="col-auto">
-          <span class="badge rounded-pill bg-danger" id="fechaConsulta-consulta">FECHA CONSULTA</span>
-        </div>
-      </div>
-      <div class="col-12 row" style="margin-left:10px">
-        <div class="col-auto">
-          <p class="info-detalle-p" id="nacimiento-paciente-consulta">fecha nacimiento</p>
-        </div>
-        <div class="col-auto">
-          <p class="info-detalle-p" id="edad-paciente-consulta">años</p>
-        </div>
-        <div class="col-auto">
-          <p class="info-detalle-p" id="genero-paciente-consulta">sexo</p>
-        </div>
-        <div class="col-auto">
-          <p class="info-detalle-p" id="correo-paciente-consulta">correo</p>
-        </div>
-        <div class="col-auto">
-          <p class="info-detalle-p" id="curp-paciente-consulta">numero CURP</p>
-        </div>
-      </div>
+      <?php include "include/info_paci_consulta.php"; ?>
     </div>
     <div class="col-4 d-flex justify-content-end">
       <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
@@ -40,34 +13,7 @@
       </button>
     </div>
     <div class="col-12 d-flex justify-content-center">
-      <nav id="navbar-menu-consultorio" class="navbar navbar-light bg-light px-3">
-        <ul class="nav nav-tabs nav-pills">
-          <li class="nav-item">
-            <a class="nav-link" href="#notas-padecimiento">Notas de padecimiento</a> <!-- active -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#card-nutricion">Nutrición</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#card-exploracion-clinica">EXPLORACIÓN CLINICA</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#card-motivo-consulta">MOTIVO DE CONSULTA</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#card-diagnostico">DIAGNÓSTICO</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#card-terapeutico">MANEJO TERAPEUTICO</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#card-receta">RECETA</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#card-solicitud-estudios">SOLICITUD DE ESTUDIOS</a>
-          </li>
-        </ul>
-      </nav>
+      <?php include "include/navbar_consulta.php"; ?>
     </div>
   </div>
 </div>
@@ -77,7 +23,7 @@
     <section id="notas-padecimiento" class="card mt-3">
       <h4 class="m-3">Notas de padecimiento</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name-notas-padecimiento" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas" id="nota-notas-padecimiento"></textarea>
+      <textarea name="name-notas-padecimiento" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aquí sus notas" id="nota-notas-padecimiento"></textarea>
     </section>
     <section id="card-nutricion" class="card mt-3">
       <h4 class="m-3">Nutrición</h4>
@@ -146,7 +92,7 @@
                 <div class="col-6 col-lg-8">
                   <p>
                     <i class="bi bi-heart-half"></i>
-                    Musculo
+                    Músculo
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
@@ -178,23 +124,23 @@
         <div class="col-5">
           <label for="metodo" class="form-label"></label>
           <select name="metodo" id="select-exploracion-clinica" class="form-select input-form" required>
-            <option value="1">Habito Constitucionales</option>
+            <option value="1">Hábito constitucionales</option>
             <option value="2">Cabeza</option>
-            <option value="3">Cavidad Bucal</option>
+            <option value="3">Cavidad bucal</option>
             <option value="4">Cuello</option>
             <option value="5">Tórax</option>
-            <option value="6">Aparato Respiratorio</option>
+            <option value="6">Aparato respiratorio</option>
             <option value="7">Cardiovascular</option>
             <option value="8">Abdomen y pélvis</option>
             <option value="9">Ingles</option>
-            <option value="10">Aparato Genito-urinario</option>
-            <option value="11">Gineco-obstetrico</option>
+            <option value="10">Aparato genito-urinario</option>
+            <option value="11">Gineco-obstétrico</option>
             <option value="12">Piel y faneras</option>
-            <option value="13">Sistema Hemolinfopoyético</option>
-            <option value="14">Aparato Osteomuscular</option>
-            <option value="15">Sistema Nervioso Central</option>
+            <option value="13">Sistema hemolinfopoyético</option>
+            <option value="14">Aparato osteomuscular</option>
+            <option value="15">Sistema nervioso central</option>
           </select>
-          <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas" style="width:95%" id="text-exploracion-clinica"></textarea>
+          <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aquí sus notas" style="width:95%" id="text-exploracion-clinica"></textarea>
           <div class=" d-flex justify-content-end">
             <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-agregar-exploracion-clinina">
               <i class="bi bi-clipboard-plus"></i> Agregar
@@ -213,30 +159,37 @@
         </div>
       </div>
     </section>
+    <section id="card-anamnesis-aparatos" class="card mt-3">
+      <h4 class="m-3">ANAMNESIS POR APARATOS</h4>
+      <hr class="dropdown-divider m-2">
+        <form class="m-4" id="formAntecedentes">
+          <?php include '../../../include/acordion/anamnesis-aparatos.php' ?>
+        </form>
+    </section>
     <section id="card-motivo-consulta" class="card mt-3">
       <h4 class="m-3">Motivo de consulta</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="motivo-consultaas" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="motivo-consultaas" placeholder="Escriba aquí sus notas"></textarea>
     </section>
     <section id="card-diagnostico" class="card mt-3">
       <h4 class="m-3">Diagnóstico</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="diagnostico-consultaas" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="diagnostico-consultaas" placeholder="Escriba aquí sus notas"></textarea>
     </section>
     <section id="card-terapeutico" class="card mt-3">
-      <h4 class="m-3">Manejo terapeutico</h4>
+      <h4 class="m-3">Manejo terapéutico</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="manejo-terapeuticoos" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="manejo-terapeuticoos" placeholder="Escriba aquí sus notas"></textarea>
     </section>
     <section id="card-receta" class="card mt-3">
       <h4 class="m-3">Receta</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="receta-medicaas" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="receta-medicaas" placeholder="Escriba aquí sus notas"></textarea>
     </section>
     <section id="card-solicitud-estudios" class="card mt-3">
       <h4 class="m-3">Solicitud de estudios y valoraciones complementarios</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="solicitud-estudios-valoraciones" placeholder="Escriba aqui sus notas"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="solicitud-estudios-valoraciones" placeholder="Escriba aquí sus notas"></textarea>
     </section>
   </div>
 </div>

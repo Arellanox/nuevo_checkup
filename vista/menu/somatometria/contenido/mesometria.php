@@ -74,7 +74,7 @@
         <li class="list-group-item">
           <div class="row d-flex align-items-center">
             <div class="col-6 col-lg-9 ">
-              <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Sistolica</p>
+              <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Sistólica</p>
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
@@ -87,7 +87,7 @@
         <li class="list-group-item">
           <div class="row d-flex align-items-center">
             <div class="col-6 col-lg-9 ">
-              <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Diastolica</p>
+              <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Diastólica</p>
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
@@ -126,7 +126,7 @@
         <li class="list-group-item">
           <div class="row d-flex align-items-center">
             <div class="col-6 col-lg-9 ">
-              <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Perímetro Cetálico</p>
+              <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Perímetro Cefálico</p>
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
