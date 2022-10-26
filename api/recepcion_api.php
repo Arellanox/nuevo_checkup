@@ -17,6 +17,10 @@ $idTurno = $_POST['id_turno'];
 $idPaquete = $_POST['id_paquete'];
 $comentarioRechazo = $_POST['comentario_rechazo'];
 
+
+#servicio para pacientes particulares o servicios extras para pacientes de empresas
+$servicios =$_POST['servicios'];
+
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
@@ -30,6 +34,20 @@ switch ($api) {
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos
         $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente',array($idTurno,$estado_paciente,$comentarioRechazo));
+
+        # Insertar el detalle del paquete al turno en cuestion
+        if($estado_paciente == 1){
+            # si el paciente es aceptado, cargar los estudios correspondientes
+            $response = $master->insertByProcedure('sp_recepcion_detalle_paquete_g',array($idTurno,$idPaquete,null));
+        }
+
+        # Insertar servicios extrar para pacientes empresas o servicios para particulares
+        if(count($servicios)>0){
+            # si hay algo en el arreglo lo insertamos
+            foreach ($variable as $key => $value) {
+                $response = $master->insertByProcedure('sp_recepcion_detalle_paquete_g',array($idTurno,null,$value));
+            }
+        }
         break;
 
     default:
