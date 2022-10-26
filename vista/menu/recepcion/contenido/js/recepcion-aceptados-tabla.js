@@ -23,10 +23,10 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       {data: 'COUNT'},
       {data: 'NOMBRE_COMPLETO'},
       {data: 'PREFOLIO'},
-      {data: 'PROCEDENCIA'},
-      {data: 'SEGMENTO'},
-      {data: 'EDAD'},
-      {data: 'INGRESO'},
+      {data: 'NOMBRE_COMERCIAL'},
+      {data: 'DESCRIPCION_SEGMENTO'},
+      {data: 'EDAD'}, //Area actual
+      {data: 'FECHA_AGENDA'},
       {data: 'GENERO'}
       // {defaultContent: 'En progreso...'}
   ],

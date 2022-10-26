@@ -12,9 +12,9 @@
         </h2>
         <div id="collapse-Patologicos-Target" class="accordion-collapse collapse" aria-labelledby="collap-patologicos">
           <div class="accordion-body">
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Alergia: </label>
+                <label>¿ERES ALÉRGICO A ALGÚN MEDICAMENTO O ALIMENTO?: </label>
                 <input type="hidden" name="check-aler[]" value="1">
               </div>
               <div class="col-3">
@@ -26,12 +26,13 @@
                 <label for="checkNo-aler" >No</label>
               </div>
               <div class="collapse" id="collapse-aler">
-                <textarea name="check-aler[]" class="form-control input-form" rows="2" cols="2" placeholder="Especificar..."></textarea>
+                <textarea name="check-aler[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Fracturas: </label>
+                <label>¿HAS SUFRIDO DE ALGUNA FRACTURA?: </label>
                 <input type="hidden" name="check-frac[]" value="2">
               </div>
               <div class="col-3">
@@ -43,12 +44,14 @@
                 <label for="checkNo-frac" >No</label>
               </div>
               <div class="collapse" id="collapse-frac">
-                <textarea name="check-frac[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuáles?"></textarea>
+                <textarea name="check-frac[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Diabetes Mellitus: </label>
+                <label>¿PADECES DIABETES MELLITUS?: </label>
                 <input type="hidden" name="check-DiaMelli[]" value="3">
               </div>
               <div class="col-3">
@@ -59,13 +62,15 @@
                 <input type="radio" required  id="checkNo-DiaMelli" name="check-DiaMelli[]" value="2" required>
                 <label for="checkNo-DiaMelli" >No</label>
               </div>
-              <div class="collapse" id="collapse-DiaMelli">
-                <textarea name="check-DiaMelli[]" class="form-control input-form" rows="2" cols="2" placeholder="Años, tratamiento..."></textarea>
+              <div class="collapse onlyMedico" id="collapse-DiaMelli">
+                <textarea name="check-DiaMelli[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Hispertensión Arterial: </label>
+                <label>¿PADECES HIPERTENSIÓN ARTERIAL?: </label>
                 <input type="hidden" name="check-hiArt[]" value="4">
               </div>
               <div class="col-3">
@@ -76,13 +81,15 @@
                 <input type="radio" required  id="checkNo-hiArt" name="check-hiArt[]" value="2" required>
                 <label for="checkNo-hiArt" >No</label>
               </div>
-              <div class="collapse" id="collapse-hiArt">
-                <textarea name="check-hiArt[]" class="form-control input-form" rows="2" cols="2" placeholder="Años, tratamiento..."></textarea>
+              <div class="collapse onlyMedico" id="collapse-hiArt">
+                <textarea name="check-hiArt[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Dislipidemia: </label>
+                <label>¿PADECES DE COLESTEROL Y TRIGLICERIDOS?: </label>
                 <input type="hidden" name="check-disli[]" value="5">
               </div>
               <div class="col-3">
@@ -93,13 +100,15 @@
                 <input type="radio" required  id="checkNo-disli" name="check-disli[]" value="2" required>
                 <label for="checkNo-disli" >No</label>
               </div>
-              <div class="collapse" id="collapse-disli">
-                <textarea name="check-disli[]" class="form-control input-form" rows="2" cols="2" placeholder="Años, tratamiento..."></textarea>
+              <div class="collapse onlyMedico" id="collapse-disli">
+                <textarea name="check-disli[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Enfermedad Tiroidea: </label>
+                <label>¿PADECES ALGUNA ENFERMEDAD RELACIONADA CON LA TIROIDES?: </label>
                 <input type="hidden" name="check-enTiro[]" value="6">
               </div>
               <div class="col-3">
@@ -111,12 +120,14 @@
                 <label for="checkNo-enTiro" >No</label>
               </div>
               <div class="collapse" id="collapse-enTiro">
-                <textarea name="check-enTiro[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-enTiro[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Cardiopatías: </label>
+                <label>¿PADECES ALGUNA ENFERMEDAD RELACIONADA CON EL CORAZÓN COMO: INSUFICIENCIA CARDIACA, ARRITMIAS, DERRAME CEREBRAL?: </label>
                 <input type="hidden" name="check-cardi[]" value="7">
               </div>
               <div class="col-3">
@@ -128,12 +139,14 @@
                 <label for="checkNo-cardi" >No</label>
               </div>
               <div class="collapse" id="collapse-cardi">
-                <textarea name="check-cardi[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-cardi[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Cáncer: </label>
+                <label>¿PADECES ALGÚN TIPO DE CÁNCER?: </label>
                 <input type="hidden" name="check-cancr[]" value="8">
               </div>
               <div class="col-3">
@@ -145,12 +158,14 @@
                 <label for="checkNo-cancr" >No</label>
               </div>
               <div class="collapse" id="collapse-cancr">
-                <textarea name="check-cancr[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-cancr[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Transfusiones: </label>
+                <label>¿HA TENIDO ALGUNA TRANSFUSIÓN SANGUINEA?: </label>
                 <input type="hidden" name="check-trans[]" value="9">
               </div>
               <div class="col-3">
@@ -162,12 +177,14 @@
                 <label for="checkNo-trans" >No</label>
               </div>
               <div class="collapse" id="collapse-trans">
-                <textarea name="check-trans[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-trans[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Enfermedad Respiratoria: </label>
+                <label>¿PADECES ALGUNA ENFERMEDAD RESPIRATORIA COMO: ASMA, BRONQUITIS, ENFERMEDAD PULMONAR OBSTRUCTIVA, ENTRE OTRAS?: </label>
                 <input type="hidden" name="check-enfRespi[]" value="10">
               </div>
               <div class="col-3">
@@ -179,12 +196,14 @@
                 <label for="checkNo-enfRespi" >No</label>
               </div>
               <div class="collapse" id="collapse-enfRespi">
-                <textarea name="check-enfRespi[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-enfRespi[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Enfermedad Gastrointestinal: </label>
+                <label>¿PADECES ALGUNA ENFERMEDAD GASTROINTESTINAL COMO: GASTRITIS, REFLUJO GASTROESOFÁGICO, PÓLIPOS INTESTINALES, ENTRE OTRAS: </label>
                 <input type="hidden" name="check-enfGastro[]" value="11">
               </div>
               <div class="col-3">
@@ -196,12 +215,14 @@
                 <label for="checkNo-enfGastro" >No</label>
               </div>
               <div class="collapse" id="collapse-enfGastro">
-                <textarea name="check-enfGastro[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-enfGastro[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Enfermedad psicológica-psiquiátrica: </label>
+                <label>¿PADECES DEPRESIÓN, ANSIEDAD, TRASTORNO DE LA CONDUCTA, ENTRE OTRAS?: </label>
                 <input type="hidden" name="check-enfPsiciPsiq[]" value="12">
               </div>
               <div class="col-3">
@@ -213,12 +234,14 @@
                 <label for="checkNo-enfPsiciPsiq" >No</label>
               </div>
               <div class="collapse" id="collapse-enfPsiciPsiq">
-                <textarea name="check-enfPsiciPsiq[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-enfPsiciPsiq[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Tuberclosis: </label>
+                <label>¿HA SIDO DIAGNOSTICADO CON TUBERCULOSIS: </label>
                 <input type="hidden" name="check-Turberclo[]" value="13">
               </div>
               <div class="col-3">
@@ -230,12 +253,14 @@
                 <label for="checkNo-Turberclo" >No</label>
               </div>
               <div class="collapse" id="collapse-Turberclo">
-                <textarea name="check-Turberclo[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-Turberclo[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Traumatismos: </label>
+                <label>¿HA SUFRIDO ALGÚN TRAUMATISMO EN CABEZA, CARA, COLUMNA CERVICAL, ESGUINCES, ENTRE OTRAS?: </label>
                 <input type="hidden" name="check-Trauma[]" value="14">
               </div>
               <div class="col-3">
@@ -247,12 +272,14 @@
                 <label for="checkNo-Trauma" >No</label>
               </div>
               <div class="collapse" id="collapse-Trauma">
-                <textarea name="check-Trauma[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-Trauma[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Enfermedad de transmisión sexual: </label>
+                <label>¿HA TENIDO ALGUNA ENFERMEDAD DE TRANSMISIÓN SEXUAL?: </label>
                 <input type="hidden" name="check-enfTransSex[]" value="15">
               </div>
               <div class="col-3">
@@ -264,12 +291,14 @@
                 <label for="checkNo-enfTransSex" >No</label>
               </div>
               <div class="collapse" id="collapse-enfTransSex">
-                <textarea name="check-enfTransSex[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-enfTransSex[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Hospitalización previa: </label>
+                <label>¿HA ESTADO HOSPITALIZADO EN ESTE AÑO?: </label>
                 <input type="hidden" name="check-hospitaPrevia[]" value="16">
               </div>
               <div class="col-3">
@@ -281,12 +310,14 @@
                 <label for="checkNo-hospitaPrevia" >No</label>
               </div>
               <div class="collapse" id="collapse-hospitaPrevia">
-                <textarea name="check-hospitaPrevia[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-hospitaPrevia[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Cirugía previa: </label>
+                <label>¿SE HA SOMETIDO A ALGUNA INTERVENCIÓN QUIRÚRGICA?: </label>
                 <input type="hidden" name="check-ciruPrev[]" value="17">
               </div>
               <div class="col-3">
@@ -298,7 +329,7 @@
                 <label for="checkNo-ciruPrev" >No</label>
               </div>
               <div class="collapse" id="collapse-ciruPrev">
-                <textarea name="check-ciruPrev[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, Años, tratamiento..."></textarea>
+                <textarea name="check-ciruPrev[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
           </div>
@@ -313,9 +344,9 @@
         </h2>
         <div id="collapse-nopatologicos-Target" class="accordion-collapse collapse" aria-labelledby="collap-nopatologicos">
           <div class="accordion-body">
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Tabaquismo: </label>
+                <label>¿FUMA?: </label>
                 <input type="hidden" name="check-tabaq[]" value="18">
               </div>
               <div class="col-3">
@@ -327,12 +358,13 @@
                 <label for="checkNo-tabaq" >No</label>
               </div>
               <div class="collapse" id="collapse-tabaq">
-                <textarea name="check-tabaq[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia..."></textarea>
+                <textarea name="check-tabaq[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Alcoholismo: </label>
+                <label>¿CONSUME BEBIDAS ALCOHÓLICAS?: </label>
                 <input type="hidden" name="check-alcoh[]" value="19">
               </div>
               <div class="col-3">
@@ -344,12 +376,13 @@
                 <label for="checkNo-alcoh" >No</label>
               </div>
               <div class="collapse" id="collapse-alcoh">
-                <textarea name="check-alcoh[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia..."></textarea>
+                <textarea name="check-alcoh[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Uso de drogas: </label>
+                <label>¿UTILIZA ALGÚN TIPO DE DROGAS?: </label>
                 <input type="hidden" name="check-usDrog[]" value="20">
               </div>
               <div class="col-3">
@@ -361,12 +394,13 @@
                 <label for="checkNo-usDrog" >No</label>
               </div>
               <div class="collapse" id="collapse-usDrog">
-                <textarea name="check-usDrog[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia..."></textarea>
+                <textarea name="check-usDrog[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Actividad física: </label>
+                <label>¿REALIZA ACTIVIDAD FÍSICA FRECUENTEMENTE?: </label>
                 <input type="hidden" name="check-actFisica[]" value="21">
               </div>
               <div class="col-3">
@@ -378,12 +412,13 @@
                 <label for="checkNo-actFisica" >No</label>
               </div>
               <div class="collapse" id="collapse-actFisica">
-                <textarea name="check-actFisica[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia..."></textarea>
+                <textarea name="check-actFisica[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Vivienda con servicios de urbanización: </label>
+                <label>¿SU VIVIENDA CUENTA CON AGUA POTABLE, LUZ Y DRENAJE? : </label>
                 <input type="hidden" name="check-viviSerUrba[]" value="22">
               </div>
               <div class="col-3">
@@ -394,13 +429,14 @@
                 <input type="radio" required  id="checkNo-viviSerUrba" name="check-viviSerUrba[]" value="2" required>
                 <label for="checkNo-viviSerUrba" >No</label>
               </div>
-              <div class="collapse" id="collapse-viviSerUrba">
+              <!-- <div class="collapse" id="collapse-viviSerUrba">
                 <textarea name="check-viviSerUrba[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia..."></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Actividad Sexual: </label>
+                <label>¿TIENE UNA VIDA SEXUAL ACTIVA?: </label>
                 <input type="hidden" name="check-actSex[]" value="23">
               </div>
               <div class="col-3">
@@ -411,13 +447,14 @@
                 <input type="radio" required  id="checkNo-actSex" name="check-actSex[]" value="2" required>
                 <label for="checkNo-actSex" >No</label>
               </div>
-              <div class="collapse" id="collapse-actSex">
-                <textarea name="check-actSex[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia..."></textarea>
+              <div class="collapse onlyMedico" id="collapse-actSex">
+                <textarea name="check-actSex[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Vacuna o inmunización reciente: </label>
+                <label>¿HA SIDO VACUNADO RECIENTEMENTE?: </label>
                 <input type="hidden" name="check-vacReci[]" value="24">
               </div>
               <div class="col-3">
@@ -444,26 +481,27 @@
         </h2>
         <div id="collapse-anteHeredo-Target" class="accordion-collapse collapse" aria-labelledby="collap-anteHeredo">
           <div class="accordion-body">
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Padre: </label>
+                <label>¿SU PADRE ESTÁ VIVO?: </label>
                 <input type="hidden" name="check-hero-padre[]" value="26">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hero-padre" name="check-hero-padre[]" value="1" required >
-                <label for="checkSi-hero-padre">Fallecido</label>
+                <label for="checkSi-hero-padre">Si</label>
               </div>
               <div class="col-3">
                 <input type="radio" required  id="checkNo-hero-padre" name="check-hero-padre[]" value="2" required>
-                <label for="checkNo-hero-padre" >Vivo</label>
+                <label for="checkNo-hero-padre">No</label>
               </div>
               <div class="collapse" id="collapse-hero-padre">
                 <textarea name="check-hero-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Causa?"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Diabetes Mellitus: </label>
+                <label>¿PADECE O PADECIÓ DE DIABETES MELLITUS?: </label>
                 <input type="hidden" name="check-diabe-padre[]" value="27">
               </div>
               <div class="col-3">
@@ -474,13 +512,14 @@
                 <input type="radio" required  id="checkNo-diabe-padre" name="check-diabe-padre[]" value="2" required>
                 <label for="checkNo-diabe-padre" >No</label>
               </div>
-              <div class="collapse" id="collapse-diabe-padre">
+              <!-- <div class="collapse" id="collapse-diabe-padre">
                 <textarea name="check-diabe-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Hispertensión Arterial: </label>
+                <label>¿PADECE O PADECIÓ DE HIPERTENSIÓN ARTERIAL?: </label>
                 <input type="hidden" name="check-hisperArt-padre[]" value="28">
               </div>
               <div class="col-3">
@@ -491,13 +530,14 @@
                 <input type="radio" required  id="checkNo-hisperArt-padre" name="check-hisperArt-padre[]" value="2" required>
                 <label for="checkNo-hisperArt-padre" >No</label>
               </div>
-              <div class="collapse" id="collapse-hisperArt-padre">
+              <!-- <div class="collapse" id="collapse-hisperArt-padre">
                 <textarea name="check-hisperArt-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Cáncer: </label>
+                <label>¿PADECE O PADECIÓ DE ALGÚN TIPO DE CÁNCER?: </label>
                 <input type="hidden" name="check-canc-padre[]" value="29">
               </div>
               <div class="col-3">
@@ -509,10 +549,12 @@
                 <label for="checkNo-canc-padre" >No</label>
               </div>
               <div class="collapse" id="collapse-canc-padre">
-                <textarea name="check-canc-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                <textarea name="check-canc-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+
+            <!-- <hr class="dropdown-divider m-2"> -->
+            <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Otras: </label>
                 <input type="hidden" name="check-otra-padre[]" value="30">
@@ -528,28 +570,30 @@
               <div class="collapse" id="collapse-otra-padre">
                 <textarea name="check-otra-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
               </div>
-            </div>
+            </div> -->
             <br>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <!-- <hr class="dropdown-divider m-2"> -->
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Madre: </label>
+                <label>¿SU MADRE ESTÁ VIVA?: </label>
                 <input type="hidden" name="check-hero-madre[]" value="31">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hero-madre" name="check-hero-madre[]" value="1" required >
-                <label for="checkSi-hero-madre">Fallecida</label>
+                <label for="checkSi-hero-madre">Si</label>
               </div>
               <div class="col-3">
                 <input type="radio" required  id="checkNo-hero-madre" name="check-hero-madre[]" value="2" required>
-                <label for="checkNo-hero-madre" >Viva</label>
+                <label for="checkNo-hero-madre" >No</label>
               </div>
               <div class="collapse" id="collapse-hero-madre">
                 <textarea name="check-hero-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Causa?"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Diabetes Mellitus: </label>
+                <label>¿PADECE O PADECIÓ DE DIABETES MELLITUS?: </label>
                 <input type="hidden" name="check-diabe-madre[]" value="32">
               </div>
               <div class="col-3">
@@ -560,13 +604,14 @@
                 <input type="radio" required  id="checkNo-diabe-madre" name="check-diabe-madre[]" value="2" required>
                 <label for="checkNo-diabe-madre" >No</label>
               </div>
-              <div class="collapse" id="collapse-diabe-madre">
+              <!-- <div class="collapse" id="collapse-diabe-madre">
                 <textarea name="check-diabe-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Hispertensión Arterial: </label>
+                <label>¿PADECE O PADECIÓ DE HIPERTENSIÓN ARTERIAL?: </label>
                 <input type="hidden" name="check-hisperArt-madre[]" value="33">
               </div>
               <div class="col-3">
@@ -577,13 +622,14 @@
                 <input type="radio" required  id="checkNo-hisperArt-madre" name="check-hisperArt-madre[]" value="2" required>
                 <label for="checkNo-hisperArt-madre" >No</label>
               </div>
-              <div class="collapse" id="collapse-hisperArt-madre">
+              <!-- <div class="collapse" id="collapse-hisperArt-madre">
                 <textarea name="check-hisperArt-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Cáncer: </label>
+                <label>¿PADECE O PADECIÓ DE ALGÚN TIPO DE CÁNCER?: </label>
                 <input type="hidden" name="check-canc-madre[]" value="34">
               </div>
               <div class="col-3">
@@ -595,10 +641,10 @@
                 <label for="checkNo-canc-madre" >No</label>
               </div>
               <div class="collapse" id="collapse-canc-madre">
-                <textarea name="check-canc-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                <textarea name="check-canc-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Otras: </label>
                 <input type="hidden" name="check-otra-madre[]" value="35">
@@ -614,7 +660,7 @@
               <div class="collapse" id="collapse-otra-madre">
                 <textarea name="check-otra-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -627,9 +673,9 @@
         </h2>
         <div id="collapse-antPsico-Target" class="accordion-collapse collapse" aria-labelledby="collap-antPsico">
           <div class="accordion-body">
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Padeces alguna enfermedad psicológica o psiquiátrica: </label>
+                <label>¿PADECES ALGUNA ENFERMEDAD PSICOLÓGICA O PSIQUIÁTRICA?: </label>
                 <input type="hidden" name="check-enfpsicopsiq[]" value="36">
               </div>
               <div class="col-3">
@@ -644,9 +690,10 @@
                 <textarea name="check-enfpsicopsiq[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Qué área de tu vida han sido afectadas por la enfermedad?: </label>
+                <label>¿QUÉ ÁREAS DE TU VIDA HAN SIDO AFECTADAS POR LA ENFERMEDAD?: </label>
                 <input type="hidden" name="check-enfAfect[]" value="37">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -662,19 +709,20 @@
                   <input type="radio" required  id="check-Laboral-enfAfect" name="check-enfAfect[]" value="5" required>
                   <label for="check-Laboral-enfAfect">Laboral</label>
                 </div>
-                <div class="col-4">
+                <!-- <div class="col-4">
                   <input type="radio" required  id="check-Todas-enfAfect" name="check-enfAfect[]" value="5" required>
                   <label for="check-Todas-enfAfect">Todas</label>
                 </div>
                 <div class="col-4">
                   <input type="radio" required  id="check-Ninguna-enfAfect" name="check-enfAfect[]" value="2" required>
                   <label for="check-Ninguna-enfAfect">Ninguna</label>
-                </div>
+                </div> -->
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Con qué frecuencia te sientes feliz?: </label>
+                <label>¿CON QUÉ FRECUENCIA TE SIENTES FELIZ?: </label>
                 <input type="hidden" name="check-frecFeliz[]" value="38">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -692,9 +740,10 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>¿Te sientes realizado?: </label>
+                <label>¿CONSIDERAS QUE HAZ CUMPLIDO TUS METAS?: </label>
                 <input type="hidden" name="check-sienRealiz[]" value="39">
               </div>
               <div class="col-3">
@@ -705,13 +754,14 @@
                 <input type="radio" required  id="checkNo-sienRealiz" name="check-sienRealiz[]" value="2" required>
                 <label for="checkNo-sienRealiz" >No</label>
               </div>
-              <div class="collapse" id="collapse-sienRealiz">
+              <!-- <div class="collapse" id="collapse-sienRealiz">
                 <textarea name="check-sienRealiz[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Con qué frecuencia te sientes solo?: </label>
+                <label>¿CON QUÉ FRECUENCIA TE SIENTES SOLO?: </label>
                 <input type="hidden" name="check-frecSolo[]" value="40">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -729,9 +779,10 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Con qué frecuencia te sientes triste?: </label>
+                <label>¿CON QUÉ FRECUENCIA TE SIENTES TRISTE?: </label>
                 <input type="hidden" name="check-frectris[]" value="41">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -749,9 +800,10 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Constantemente te sientes frustado ante situaciones cotidianas?: </label>
+                <label>¿CONSTANTEMENTE TE SIENTES FRUSTRADO ANTE SITUACIONES COTIDIANAS?: </label>
                 <input type="hidden" name="check-situaciCotidia[]" value="42">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -781,9 +833,9 @@
         </h2>
         <div id="collapse-antNutri-Target" class="accordion-collapse collapse" aria-labelledby="collap-antNutri">
           <div class="accordion-body">
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Desayuno: </label>
+                <label>¿DESAYUNAS ENTRE LAS 08:00AM Y 11:00AM?: </label>
                 <input type="hidden" name="check-Desayuno[]" value="43">
               </div>
               <div class="col-3">
@@ -794,13 +846,14 @@
                 <input type="radio" required  id="checkNo-Desayuno" name="check-Desayuno[]" value="2" required>
                 <label for="checkNo-Desayuno" >No</label>
               </div>
-              <div class="collapse" id="collapse-Desayuno">
+              <!-- <div class="collapse" id="collapse-Desayuno">
                 <textarea name="check-Desayuno[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Colación en la mañana: </label>
+                <label>¿REALIZAS UNA COLACIÓN DE ALIMENTOS POR LA MAÑANA?: </label>
                 <input type="hidden" name="check-colaMana[]" value="44">
               </div>
               <div class="col-3">
@@ -811,13 +864,14 @@
                 <input type="radio" required  id="checkNo-colaMana" name="check-colaMana[]" value="2" required>
                 <label for="checkNo-colaMana" >No</label>
               </div>
-              <div class="collapse" id="collapse-colaMana">
+              <!-- <div class="collapse" id="collapse-colaMana">
                 <textarea name="check-colaMana[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Comida: </label>
+                <label>¿ALMUERZAS ENTRE LAS 02:00PM Y 05:00PM?: </label>
                 <input type="hidden" name="check-Comida[]" value="45">
               </div>
               <div class="col-3">
@@ -828,13 +882,14 @@
                 <input type="radio" required  id="checkNo-Comida" name="check-Comida[]" value="2" required>
                 <label for="checkNo-Comida" >No</label>
               </div>
-              <div class="collapse" id="collapse-Comida">
+              <!-- <div class="collapse" id="collapse-Comida">
                 <textarea name="check-Comida[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Colación en la tarde: </label>
+                <label>¿REALIZAS UNA COLACIÓN DE ALIMENTOS POR LA TARDE?: </label>
                 <input type="hidden" name="check-colaTarde[]" value="46">
               </div>
               <div class="col-3">
@@ -845,13 +900,14 @@
                 <input type="radio" required  id="checkNo-colaTarde" name="check-colaTarde[]" value="2" required>
                 <label for="checkNo-colaTarde" >No</label>
               </div>
-              <div class="collapse" id="collapse-colaTarde">
+              <!-- <div class="collapse" id="collapse-colaTarde">
                 <textarea name="check-colaTarde[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>¿Consumes alimentos preparados en casa?: </label>
+                <label>¿CONSUMES ALIMENTOS PREPARADOS EN CASA?: </label>
                 <input type="hidden" name="check-alimePrepa[]" value="47">
               </div>
               <div class="col-3">
@@ -862,13 +918,14 @@
                 <input type="radio" required  id="checkNo-alimePrepa" name="check-alimePrepa[]" value="2" required>
                 <label for="checkNo-alimePrepa" >No</label>
               </div>
-              <div class="collapse" id="collapse-alimePrepa">
+              <!-- <div class="collapse" id="collapse-alimePrepa">
                 <textarea name="check-alimePrepa[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
-              </div>
+              </div> -->
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Con qué frecuencia consumes alimentos preparados en la calle?: </label>
+                <label>¿CON QUÉ FRECUENCIA COSUMES ALIMENTOS PREPARADOS EN LA CALLE?: </label>
                 <input type="hidden" name="check-frecAlimprepa[]" value="48">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -886,9 +943,10 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Cuál es tu nivel de apetito?: </label>
+                <label>¿CUÁL ES TU NIVEL DE APETITO?: </label>
                 <input type="hidden" name="check-nivelApeti[]" value="49">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -906,9 +964,10 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Cuál es tu nivel de saciedad?: </label>
+                <label>¿CUÁL ES TU NIVEL DE SACIEDAD?: </label>
                 <input type="hidden" name="check-nivelSacied[]" value="50">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -926,9 +985,10 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
-                <label>¿Cuántos vasos de agua consumes al día?: </label>
+                <label>¿CUÁNTOS VASOS DE AGUA CONSUMES AL DÍA?: </label>
                 <input type="hidden" name="check-vasosAguaConsuem[]" value="51">
               </div>
               <div class="col-7 row d-flex align-items-center">
@@ -946,9 +1006,10 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>¿Padeces alguna enfermedad relacionada a los alimentos: </label>
+                <label>¿PADECES ALGUNA ENFERMEDAD RELACIONADA CON LOS ALIMENTOS?: </label>
                 <input type="hidden" name="check-PadeceEnfeAlime[]" value="52">
               </div>
               <div class="col-3">
@@ -963,9 +1024,10 @@
                 <textarea name="check-PadeceEnfeAlime[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Consumes suplementos alimenticios: </label>
+                <label>¿CONSUMES SUPLEMENTOS ALIMENTICIOS?: </label>
                 <input type="hidden" name="check-ConssupleAli[]" value="53">
               </div>
               <div class="col-3">
@@ -977,7 +1039,7 @@
                 <label for="checkNo-ConssupleAli" >No</label>
               </div>
               <div class="collapse" id="collapse-ConssupleAli">
-                <textarea name="check-ConssupleAli[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
+                <textarea name="check-ConssupleAli[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
           </div>
@@ -992,9 +1054,9 @@
         </h2>
         <div id="collapse-MedLabo-Target" class="accordion-collapse collapse" aria-labelledby="collap-MedLabo">
           <div class="accordion-body">
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
-                <label>Incapacidades por accidentes: </label>
+                <label>¿HAZ TENIDO INCAPACIDAD POR ACCIDENTE LABORAL?: </label>
                 <input type="hidden" name="check-incapaAccid[]" value="54">
               </div>
               <div class="col-3">
@@ -1009,7 +1071,7 @@
                 <textarea name="check-incapaAccid[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Incapacidad por enfermedad: </label>
                 <input type="hidden" name="check-incapaEnfer[]" value="55">
@@ -1026,7 +1088,7 @@
                 <textarea name="check-incapaEnfer[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Condiciones de la piel por contacto con materiales: </label>
                 <input type="hidden" name="check-condiPielMateri[]" value="56">
@@ -1043,7 +1105,7 @@
                 <textarea name="check-condiPielMateri[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Fracturas o lesiones por trabajo: </label>
                 <input type="hidden" name="check-fracLesiTrab[]" value="57">
@@ -1060,7 +1122,7 @@
                 <textarea name="check-fracLesiTrab[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Antecedentes enfermedades por trabajo: </label>
                 <input type="hidden" name="check-anteEnferTrabajo[]" value="58">
@@ -1077,7 +1139,7 @@
                 <textarea name="check-anteEnferTrabajo[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición con material polvoso: </label>
                 <input type="hidden" name="check-expoMatpolvo[]" value="59">
@@ -1094,7 +1156,7 @@
                 <textarea name="check-expoMatpolvo[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a ruidos fuertes: </label>
                 <input type="hidden" name="check-exposiRuidFuertes[]" value="60">
@@ -1111,7 +1173,7 @@
                 <textarea name="check-exposiRuidFuertes[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a sustancias químicas: </label>
                 <input type="hidden" name="check-expoSustQuimi[]" value="61">
@@ -1128,7 +1190,7 @@
                 <textarea name="check-expoSustQuimi[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a gases: </label>
                 <input type="hidden" name="check-exposGases[]" value="62">
@@ -1145,7 +1207,7 @@
                 <textarea name="check-exposGases[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a líquidos inflamables: </label>
                 <input type="hidden" name="check-expoLiquinfla[]" value="63">
@@ -1162,7 +1224,7 @@
                 <textarea name="check-expoLiquinfla[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a sólidos inflamables: </label>
                 <input type="hidden" name="check-exposoliInflamables[]" value="64">
@@ -1179,7 +1241,7 @@
                 <textarea name="check-exposoliInflamables[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a explosivos: </label>
                 <input type="hidden" name="check-expoExplosi[]" value="65">
@@ -1196,7 +1258,7 @@
                 <textarea name="check-expoExplosi[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a materiales radioactivos: </label>
                 <input type="hidden" name="check-ExposimateRadio[]" value="66">
@@ -1213,7 +1275,7 @@
                 <textarea name="check-ExposimateRadio[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a sustancias corrosivas: </label>
                 <input type="hidden" name="check-exposiSusCorro[]" value="67">
@@ -1230,7 +1292,7 @@
                 <textarea name="check-exposiSusCorro[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique, enfermedad y tratamiento"></textarea>
               </div>
             </div>
-            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Exposición a sustancias venenosas e infecciosas: </label>
                 <input type="hidden" name="check-exposSusVeneInfe[]" value="68">
@@ -1269,7 +1331,7 @@
               </h2>
               <div id="collapse-sub-sisteCardio-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-sisteCardio">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Disnea: </label>
                       <input type="hidden" name="check-disnea[]" value="69">
@@ -1286,7 +1348,7 @@
                       <textarea name="check-disnea[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Frialdad de extremidades: </label>
                       <input type="hidden" name="check-frialExtremida[]" value="70">
@@ -1303,7 +1365,7 @@
                       <textarea name="check-frialExtremida[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Dolor torácico: </label>
                       <input type="hidden" name="check-dolorToraci[]" value="71">
@@ -1320,7 +1382,7 @@
                       <textarea name="check-dolorToraci[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Palpitaciones: </label>
                       <input type="hidden" name="check-palpita[]" value="72">
@@ -1337,7 +1399,7 @@
                       <textarea name="check-palpita[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Edema: </label>
                       <input type="hidden" name="check-edema[]" value="73">
@@ -1354,7 +1416,7 @@
                       <textarea name="check-edema[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Úlceras cutáneas: </label>
                       <input type="hidden" name="check-ulceCutane[]" value="74">
@@ -1371,7 +1433,7 @@
                       <textarea name="check-ulceCutane[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Claudicación a la deambulación: </label>
                       <input type="hidden" name="check-claudiDeambula[]" value="75">
@@ -1388,7 +1450,7 @@
                       <textarea name="check-claudiDeambula[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Cianosis: </label>
                       <input type="hidden" name="check-cianosis[]" value="76">
@@ -1417,7 +1479,7 @@
               </h2>
               <div id="collapse-sub-AparaRespiratorio-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-AparaRespiratorio">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Disnea: </label>
                       <input type="hidden" name="check-aparaRespir-disnea[]" value="77">
@@ -1434,7 +1496,7 @@
                       <textarea name="check-aparaRespir-disnea[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Tos: </label>
                       <input type="hidden" name="check-aparaRespir-tos[]" value="78">
@@ -1451,7 +1513,7 @@
                       <textarea name="check-aparaRespir-tos[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Expectoración: </label>
                       <input type="hidden" name="check-aparaRespir-expectoracion[]" value="79">
@@ -1468,7 +1530,7 @@
                       <textarea name="check-aparaRespir-expectoracion[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Dolor: </label>
                       <input type="hidden" name="check-aparaRespir-dolor[]" value="80">
@@ -1485,7 +1547,7 @@
                       <textarea name="check-aparaRespir-dolor[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Asma: </label>
                       <input type="hidden" name="check-aparaRespir-asma[]" value="81">
@@ -1502,7 +1564,7 @@
                       <textarea name="check-aparaRespir-asma[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Cianosis: </label>
                       <input type="hidden" name="check-aparaRespir-cianosis[]" value="82">
@@ -1519,7 +1581,7 @@
                       <textarea name="check-aparaRespir-cianosis[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Roncador: </label>
                       <input type="hidden" name="check-aparaRespir-roncador[]" value="83">
@@ -1536,7 +1598,7 @@
                       <textarea name="check-aparaRespir-roncador[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Infecciones respiratorias: </label>
                       <input type="hidden" name="check-aparaRespir-infeccRespira[]" value="84">
@@ -1565,7 +1627,7 @@
               </h2>
               <div id="collapse-sub-aparatoRespirator-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-aparatoRespirator">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Digestión: </label>
                       <input type="hidden" name="check-aparatoDigestivo-roncador[]" value="85">
@@ -1574,7 +1636,7 @@
                       <textarea name="check-aparatoDigestivo-roncador[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Flatulencias: </label>
                       <input type="hidden" name="check-aparatoDigestivo-flatulencias[]" value="86">
@@ -1591,7 +1653,7 @@
                       <textarea name="check-aparatoDigestivo-flatulencias[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Meteorismo: </label>
                       <input type="hidden" name="check-aparatoDigestivo-meteorismo[]" value="87">
@@ -1608,7 +1670,7 @@
                       <textarea name="check-aparatoDigestivo-meteorismo[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Pirosis: </label>
                       <input type="hidden" name="check-aparatoDigestivo-pirosis[]" value="88">
@@ -1625,7 +1687,7 @@
                       <textarea name="check-aparatoDigestivo-pirosis[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Disfagia: </label>
                       <input type="hidden" name="check-aparatoDigestivo-disfagia[]" value="89">
@@ -1642,7 +1704,7 @@
                       <textarea name="check-aparatoDigestivo-disfagia[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Odinofagia: </label>
                       <input type="hidden" name="check-aparatoDigestivo-odinofagia[]" value="90">
@@ -1659,7 +1721,7 @@
                       <textarea name="check-aparatoDigestivo-odinofagia[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Reflujo: </label>
                       <input type="hidden" name="check-aparatoDigestivo-reflujo[]" value="91">
@@ -1676,7 +1738,7 @@
                       <textarea name="check-aparatoDigestivo-reflujo[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Nauseas: </label>
                       <input type="hidden" name="check-aparatoDigestivo-Nauseas[]" value="92">
@@ -1693,7 +1755,7 @@
                       <textarea name="check-aparatoDigestivo-Nauseas[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Vómitos: </label>
                       <input type="hidden" name="check-aparatoDigestivo-Vómitos[]" value="93">
@@ -1710,7 +1772,7 @@
                       <textarea name="check-aparatoDigestivo-Vómitos[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Ritmo intestinal: </label>
                       <input type="hidden" name="check-aparatoDigestivo-ritmaIntestinal[]" value="94">
@@ -1719,7 +1781,7 @@
                       <textarea name="check-aparatoDigestivo-ritmaIntestinal[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Heces (Color, consistencia): </label>
                       <input type="hidden" name="check-aparatoDigestivo-hecesColroConsis[]" value="95">
@@ -1740,7 +1802,7 @@
               </h2>
               <div id="collapse-sub-aparatoGenitourina-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-aparatoGenitourina">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Cantidad de orina al día: </label>
                       <input type="hidden" name="check-aparatoGenitourina-cantidadOrinaDia[]" value="96">
@@ -1749,7 +1811,7 @@
                       <textarea name="check-aparatoGenitourina-cantidadOrinaDia[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Color de orina: </label>
                       <input type="hidden" name="check-aparatoGenitourina-colorOrina[]" value="97">
@@ -1758,7 +1820,7 @@
                       <textarea name="check-aparatoGenitourina-colorOrina[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Hematuria: </label>
                       <input type="hidden" name="check-aparatoGenitourina-colorOrina[]" value="98">
@@ -1775,7 +1837,7 @@
                       <textarea name="check-aparatoGenitourina-Hematuria[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Disuria: </label>
                       <input type="hidden" name="check-aparatoGenitourina-disuria[]" value="99">
@@ -1792,7 +1854,7 @@
                       <textarea name="check-aparatoGenitourina-disuria[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Poliaquiuria: </label>
                       <input type="hidden" name="check-aparatoGenitourina-poliaquiur[]" value="100">
@@ -1809,7 +1871,7 @@
                       <textarea name="check-aparatoGenitourina-poliaquiur[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Tenesmo: </label>
                       <input type="hidden" name="check-aparatoGenitourina-tenesm[]" value="101">
@@ -1826,7 +1888,7 @@
                       <textarea name="check-aparatoGenitourina-tenesm[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Micción imperiosa: </label>
                       <input type="hidden" name="check-aparatoGenitourina-micciImperi[]" value="102">
@@ -1835,7 +1897,7 @@
                       <textarea name="check-aparatoGenitourina-micciImperi[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Expulsión de arenilla: </label>
                       <input type="hidden" name="check-aparatoGenitourina-expulsiArenilla[]" value="103">
@@ -1856,7 +1918,7 @@
               </h2>
               <div id="collapse-sub-sistemNervios-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-sistemNervios">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Cefalea: </label>
                       <input type="hidden" name="check-sistemNervios-Cefalea[]" value="104">
@@ -1873,7 +1935,7 @@
                       <textarea name="check-sistemNervios-Cefalea[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Parestesias: </label>
                       <input type="hidden" name="check-sistemNervios-Parestesias[]" value="105">
@@ -1890,7 +1952,7 @@
                       <textarea name="check-sistemNervios-Parestesias[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Pérdida de fuerza: </label>
                       <input type="hidden" name="check-sistemNervios-perdidFuerza[]" value="106">
@@ -1907,7 +1969,7 @@
                       <textarea name="check-sistemNervios-perdidFuerza[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Alteraciones en la marcha: </label>
                       <input type="hidden" name="check-sistemNervios-alterMarcha[]" value="107">
@@ -1924,7 +1986,7 @@
                       <textarea name="check-sistemNervios-alterMarcha[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Alteraciones visuales: </label>
                       <input type="hidden" name="check-sistemNervios-alteracioVisuales[]" value="108">
@@ -1941,7 +2003,7 @@
                       <textarea name="check-sistemNervios-alteracioVisuales[]" class="form-control input-form" rows="2" cols="2" placeholder="(Visión, borrosidad) ¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Temblor: </label>
                       <input type="hidden" name="check-sistemNervios-temblor[]" value="109">
@@ -1958,7 +2020,7 @@
                       <textarea name="check-sistemNervios-temblor[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Calambres: </label>
                       <input type="hidden" name="check-sistemNervios-Calambres[]" value="110">
@@ -1987,7 +2049,7 @@
               </h2>
               <div id="collapse-sub-EndrocrinoloMetabolism-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-EndrocrinoloMetabolism">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Apetito: </label>
                       <input type="hidden" name="check-EndrocrinoloMetabolism-Apetito[]" value="112">
@@ -1996,7 +2058,7 @@
                       <textarea name="check-EndrocrinoloMetabolism-Apetito[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Hábitos nutricionales: </label>
                       <input type="hidden" name="check-EndrocrinoloMetabolism-habitoNutrici[]" value="113">
@@ -2005,7 +2067,7 @@
                       <textarea name="check-EndrocrinoloMetabolism-habitoNutrici[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Patrón alimentario: </label>
                       <input type="hidden" name="check-EndrocrinoloMetabolism-patroAliment[]" value="114">
@@ -2014,7 +2076,7 @@
                       <textarea name="check-EndrocrinoloMetabolism-patroAliment[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Obesidad: </label>
                       <input type="hidden" name="check-EndrocrinoloMetabolism-Obesidad[]" value="115">
@@ -2031,7 +2093,7 @@
                       <textarea name="check-EndrocrinoloMetabolism-Obesidad[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Delgadez: </label>
                       <input type="hidden" name="check-EndrocrinoloMetabolism-Delgadez[]" value="116">
@@ -2048,7 +2110,7 @@
                       <textarea name="check-EndrocrinoloMetabolism-Delgadez[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Ganacia o pérdida de peso: </label>
                       <input type="hidden" name="check-EndrocrinoloMetabolism-gananperdiPeso[]" value="117">
@@ -2077,7 +2139,7 @@
               </h2>
               <div id="collapse-sub-aparatoLocomot-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-aparatoLocomot">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Dolores osteo-articular: </label>
                       <input type="hidden" name="check-aparatoLocomot-DolorOsteoArticu[]" value="118">
@@ -2094,7 +2156,7 @@
                       <textarea name="check-aparatoLocomot-DolorOsteoArticu[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Reumatismo: </label>
                       <input type="hidden" name="check-aparatoLocomot-Reumatismo[]" value="119">
@@ -2111,7 +2173,7 @@
                       <textarea name="check-aparatoLocomot-Reumatismo[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Inflamación articular: </label>
                       <input type="hidden" name="check-aparatoLocomot-inflamaciArticu[]" value="120">
@@ -2128,7 +2190,7 @@
                       <textarea name="check-aparatoLocomot-inflamaciArticu[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Deformidades: </label>
                       <input type="hidden" name="check-aparatoLocomot-Deformidades[]" value="121">
@@ -2157,7 +2219,7 @@
               </h2>
               <div id="collapse-sub-Termoregulacin-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-Termoregulacin">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Fiebre: </label>
                       <input type="hidden" name="check-Termoregulacin-Fiebre[]" value="122">
@@ -2174,7 +2236,7 @@
                       <textarea name="check-Termoregulacin-Fiebre[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Escalofríos: </label>
                       <input type="hidden" name="check-Termoregulacin-Escalofríos[]" value="123">
@@ -2191,7 +2253,7 @@
                       <textarea name="check-Termoregulacin-Escalofríos[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Sudoración: </label>
                       <input type="hidden" name="check-Termoregulacin-Sudoración[]" value="124">
@@ -2208,7 +2270,7 @@
                       <textarea name="check-Termoregulacin-Sudoración[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Transtornos: </label>
                       <input type="hidden" name="check-Termoregulacin-Transtornos[]" value="124">
@@ -2225,7 +2287,7 @@
                       <textarea name="check-Termoregulacin-Transtornos[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div> -->
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Transtornos congénitos de metabolismo: </label>
                       <input type="hidden" name="check-Termoregulacin-congenMetabolism[]" value="125">
@@ -2254,7 +2316,7 @@
               </h2>
               <div id="collapse-sub-piel-Target" class="accordion-collapse collapse" aria-labelledby="collap-sub-piel">
                 <div class="accordion-body">
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Cambios de coloración "manchas": </label>
                       <input type="hidden" name="check-piel-CambiosColoracion[]" value="126">
@@ -2263,7 +2325,7 @@
                       <textarea name="check-piel-CambiosColoracion[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Prurito: </label>
                       <input type="hidden" name="check-piel-prurito[]" value="127">
@@ -2272,7 +2334,7 @@
                       <textarea name="check-piel-prurito[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Frialdad: </label>
                       <input type="hidden" name="check-piel-frialdad[]" value="128">
@@ -2281,7 +2343,7 @@
                       <textarea name="check-piel-frialdad[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 5px;">
+                  <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Dematosis: </label>
                       <input type="hidden" name="check-piel-dematosis[]" value="129">
