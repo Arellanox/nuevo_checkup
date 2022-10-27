@@ -13,7 +13,7 @@ $("#formRechazarPaciente").submit(function(event){
    var form = document.getElementById("formRechazarPaciente");
    var formData = new FormData(form);
    formData.set('id_turno', array_selected['ID_TURNO']);
-   formData.set('estado', 0)
+   formData.set('estado', 1)
    formData.set('api', 2);
    console.log(formData);
    $.ajax({

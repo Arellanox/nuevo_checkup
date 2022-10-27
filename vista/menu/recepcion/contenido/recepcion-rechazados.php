@@ -9,7 +9,7 @@
   <div class="col-12 col-lg-9 card">
     <div class="table-responsive">
       <div class="text-center" style="margin-top:4px;">
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar">
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-pendiente">
           <i class="bi bi-check"></i> Deshacer rechazo
         </button>
       </div>
