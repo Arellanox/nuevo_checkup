@@ -90,7 +90,7 @@
   </div>
 <?php endif; ?>
 
-<?php if ($menu == 'Resultados de Imagenología' || $menu == 'Resultados de Rayos X' || $menu == 'Resultados de Espirometría' || $menu == 'Resultados de Audiometría' || $menu == 'Resultados de Oftalmología') : ?>
+<?php if ($menu == 'Resultados de Imagenología' || $menu == 'Resultados de Rayos X' || $menu == 'Resultados de Espirometría' || $menu == 'Resultados de Audiometría' || $menu == 'Resultados de Oftalmología' || $menu == 'Toma de muestras') : ?>
   <div class="row">
     <div class="col-auto">
       <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>

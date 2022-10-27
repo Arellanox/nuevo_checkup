@@ -33,26 +33,29 @@
 
 
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/'; ?>">
-    <i class="bi bi-briefcase"></i> Clientes</a>
+    <i class="bi bi-briefcase"></i> Clientes
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
-    <i class="bi bi-heart-pulse"></i> Laboratorio</a>
+    <i class="bi bi-heart-pulse"></i> Laboratorio
+  </a>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/muestras/'; ?>">
+    <i class="bi bi-droplet-half"></i> Toma de muestras
   </a>
 
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#IMAGENOLOGIA'; ?>">
-    <i class="bi bi-person-video"></i> Imagenologia</a>
+    <i class="bi bi-person-video"></i> Imagenologia
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; ?>">
-    <i class="bi bi-activity"></i> Rayos X</a>
+    <i class="bi bi-activity"></i> Rayos X
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ESPIROMETRIA'; ?>">
-    <i class="bi bi-lungs"></i> Espirometría</a>
+    <i class="bi bi-lungs"></i> Espirometría
   </a>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#AUDIOMETRIA'; ?>">
-    <i class="bi bi-ear"></i> Audiometría</a>
+    <i class="bi bi-ear"></i> Audiometría
   </a>
 
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/oftalmologia/#OFTALMOLOGIA'; ?>">
-    <i class="bi bi-eye"></i> Oftalmología</a>
+    <i class="bi bi-eye"></i> Oftalmología
   </a>
 <?php endif; ?>

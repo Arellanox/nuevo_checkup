@@ -24,8 +24,6 @@
       </table>
     </div>
   </div>
-  
-
   <div class="col-3 col-lg-3 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card m-3" id="panel-informacion"> </div>
     <div class="card m-3 p-4">
