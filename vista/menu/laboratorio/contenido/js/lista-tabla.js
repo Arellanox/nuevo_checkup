@@ -49,53 +49,26 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
 
 })
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
-$('#TablaLaboratorio tbody').on('click', 'tr', function () {
-   if ($(this).hasClass('selected')) {
-       $(this).removeClass('selected');
-       selectListaLab = null;
-       getPanelLab('Out', 0)
-   } else {
-       tablaListaPaciente.$('tr.selected').removeClass('selected');
-       $(this).addClass('selected');
-       selectListaLab = tablaListaPaciente.row( this ).data();
-       getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
-   }
-});
+
+selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function(selectTR = null, array = null){
+  selectListaLab = array;
+  if (selectTR == 1) {
+    getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'In', async function(divClass){
+        await obtenerPanelInformacion(selectListaLab['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
+        await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
+        await generarFormularioPaciente(selectListaLab['ID_TURNO'])
+        $(divClass).fadeIn(100)
+      });
+    // getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
+  }else{
+    getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab',selectListaLab, 'Out')
+    // getPanelLab('Out', 0, 0)
+  }
+})
 
 $("#BuscarTablaListaLaboratorio").keyup(function () {
   tablaListaPaciente.search($(this).val()).draw();
 });
-
-async function getPanelLab(fade, id, id_paciente){
-  switch (fade) {
-    case 'Out':
-        if ($('.informacion-labo').is(':visible')) {
-          if (selectListaLab == null) {
-            loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);
-            $('.informacion-labo').fadeOut()
-            // console.log('Invisible!')
-          }
-        }else{
-          // console.log('Todavia visible!')
-          setTimeout(function(){
-            return getPanelLab('Out', 0)
-          }, 100);
-
-        }
-      break;
-    case 'In':
-        $('.informacion-labo').fadeOut(0)
-        loaderDiv("In", null, "#loader-Lab", '#loaderDivLab', 0);
-        await obtenerPanelInformacion(id_paciente, 'pacientes_api', 'paciente_lab')
-        await generarHistorialResultados(id)
-        await generarFormularioPaciente(id)
-        $('.informacion-labo').fadeIn(100)
-    break;
-    default:
-    return 0
-  }
-  return 1
-}
 
 function generarHistorialResultados(id){ return new Promise(resolve => {
     // $('#accordionResultadosAnteriores').html('')
