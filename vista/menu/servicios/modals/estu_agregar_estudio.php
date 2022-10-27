@@ -70,7 +70,7 @@
             </div>
             <div class="row" style="zoom:100%;">
               <div class="col-6">
-                <label for="">¿Se Subroga?: </label>
+                <label for="">¿Se subroga?: </label>
               </div>
               <div class="col-3">
                 <input type="radio" name="subroga" id="registrar-subrogaSi" value="1" required>

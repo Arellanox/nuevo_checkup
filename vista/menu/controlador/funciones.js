@@ -2,6 +2,42 @@ function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
 
+// Omitir paciente actual
+function pasarPacienteTurno(id_turno){
+  Swal.fire({
+    title: "¿Está seguro omitir este paciente?",
+    text: "¡Este paciente se mandará al final de la lista!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, omitir",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // $('#submit-registrarEstudio').prop('disabled', true);
+      // Esto va dentro del AJAX
+
+      $.ajax({
+        data: {api: 7, id_turno: id_turno},
+        url: "../../../api/turnos_api.php",
+        type: "POST",
+        success: function (data) {
+          data = jQuery.parseJSON(data);
+          if (mensajeAjax(data)) {
+            Toast.fire({
+              icon: "success",
+              title: "¡Paciente omitido!",
+              timer: 2000,
+            });
+            tablaMuestras.ajax.reload();
+          }
+        },
+      });
+    }
+  });
+}
+
 
 
 //Para el campo de preregistro
@@ -260,14 +296,14 @@ function loader(fade) {
   }
 }
 
-function loaderDiv(fade, div = null, loader, loaderDiv = null, seconds = 50){
+function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50){
   if (fade == 'Out') {
     if (div != null) {
       $(div).fadeIn(seconds);
     }
 
-    if (loaderDiv != null) {
-      $(loaderDiv).fadeOut(seconds);
+    if (loaderDiv1 != null) {
+      $(loaderDiv1).fadeOut(seconds);
     }
     $(loader).fadeOut(seconds);
     // alert("salir");
@@ -275,8 +311,8 @@ function loaderDiv(fade, div = null, loader, loaderDiv = null, seconds = 50){
     if (div != null) {
       $(div).fadeOut(seconds);
     }
-    if (loaderDiv != null) {
-      $(loaderDiv).fadeIn(seconds);
+    if (loaderDiv1 != null) {
+      $(loaderDiv1).fadeIn(seconds);
     }
     $(loader).fadeIn(seconds);
     // alert("entrar");
@@ -339,7 +375,7 @@ function mensajeAjax(data) {
   return 0;
 }
 
-function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {0 : "#panel-informacion"}){ //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
+function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {0 : "#panel-informacion"}, callback){ //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
   // console.log(typeof tipPanel);
   if (typeof tipPanel == "string") {
     // Convierte String a Object
@@ -359,6 +395,7 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
          for (var i = 0; i < Object.keys(tipPanel).length; i++) {
            obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
          }
+         callback(0, null);
      } else {
          datatable.$('tr.selected').removeClass('selected');
          $(this).addClass('selected');
@@ -369,8 +406,38 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
              obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
            }
          }
+         callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
      }
   });
+}
+
+function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback){
+  switch (fade) {
+    case 'Out':
+        if ($(divClass).is(':visible')) {
+          if (selectLista == null) {
+            loaderDiv("Out", null, loader, loaderDiv1, 0);
+            $(divClass).fadeOut()
+            // console.log('Invisible!')
+          }
+        }else{
+          // console.log('Todavia visible!')
+          setTimeout(function(){
+            return getPanel(divClass, loader, loaderDiv1, selectLista, 'Out')
+          }, 100);
+        }
+      break;
+    case 'In':
+        $(divClass).fadeOut(0)
+        loaderDiv("In", null, loader, loaderDiv1, 0);
+        // alert('in');
+        callback(divClass);
+        // $(divClass).fadeIn(100)
+    break;
+    default:
+    return 0
+  }
+  return 1
 }
 
 function select2(select, modal = null, placeholder = 'Selecciona una opción'){

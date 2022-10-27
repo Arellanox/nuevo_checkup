@@ -1,3 +1,6 @@
+<div class="col-12 loader" id="loader" style="">
+  <div class="preloader" id="preloader"> </div>
+</div>
 <div class="row">
   <div class="col-3 col-lg-3" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
@@ -32,7 +35,7 @@
       </table>
     </div>
   </div>
-  <div class="col-3 col-lg-3 informacion-labo" style="margin-right: -5px !important;">
+  <div class="col-3 col-lg-3 informacion-muestras" style="margin-right: -5px !important;display:none">
     <div class="card m-3" id="panel-informacion"> </div>
     <!-- <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -40,7 +43,7 @@
       </div>
     </div> -->
   </div>
-  <div class="col-lg-6 informacion-labo" style="margin-right: -5px !important;">
+  <div class="col-lg-6 informacion-muestras" style="margin-right: -5px !important;display:none">
     <div class="card mt-3 p-3">
       <div class="row">
         <div class="col-12 col-lg-7">
@@ -48,10 +51,10 @@
           <p class="none-p">Lista de los estudios y contenedores del pacientes</p>
         </div>
         <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
-          <button type="submit" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
+          <button type="submit" data-attribute="guardar" class="btn btn-hover" id="muestra-tomado" style="margin-bottom:4px">
             <i class="bi bi-droplet-fill"></i> Muestra tomada
           </button>
-          <button type="submit" data-attribute="confirmar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
+          <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="omitir-paciente" style="margin-bottom:4px">
             <i class="bi bi-clipboard-x"></i> Saltar paciente
           </button>
         </div>
@@ -80,8 +83,8 @@
       </div>
     </div>
   </div>
-  <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivLab' style="max-height: 75vh; display:none">
-    <div class="preloader" id="loader-Lab"></div>
+  <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivmuestras' style="max-height: 75vh; display:none">
+    <div class="preloader" id="loader-muestras"></div>
   </div>
 </div>
 <style media="screen">
