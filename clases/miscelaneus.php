@@ -183,7 +183,7 @@ class Miscelaneus{
 
     function generarQRURL($tipo, $codeContents, $nombre){
       # URL carpeta
-      $tempDir = 'temp/qr/'.$tipo.'/';
+      $tempDir = '../archivos/sistema/temp/qr/'.$tipo.'/';
 
       // $codeContents = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue, suscipit a';
 
