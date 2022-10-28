@@ -65,7 +65,7 @@ switch ($api) {
 
     case 5:
         # encontrar los paquetes que no han sido asigandos a algun cliente.
-        $response = $master->getByProcedure('sp_paquetes_sin_clientes',array());
+        $response = $master->getByProcedure('sp_paquetes_sin_clientes', array());
 
         break;
     case 6:
@@ -73,7 +73,7 @@ switch ($api) {
         $detalle = $_POST['paquete_detalle'];
         //print_r($detalle);
         # obtiene el arreglo del final
-        $info_paquete = array_slice($detalle,count($detalle)-1,1);
+        $info_paquete = array_slice($detalle, count($detalle) - 1, 1);
         #quita la informacion del paquete, solo deja los detalles
         $detalle_final = array_pop($detalle);
         #variables para verificar si se insertaron todos los detalles del paquete,
@@ -81,7 +81,7 @@ switch ($api) {
         $oks = 0;
         //print_r($detalle);
         //print_r($info_paquete);
-        foreach($detalle as $det){
+        foreach ($detalle as $det) {
             $newDet = array(
                 null,
                 $info_paquete[0]['id_paquete'],
@@ -92,29 +92,31 @@ switch ($api) {
                 $det['precioventa'],
                 $det['subtotal']
             );
-            $response =  $master->returnApi($master->insertByProcedure('sp_detalle_paquete_g',$newDet));
+            $response =  $master->returnApi($master->insertByProcedure('sp_detalle_paquete_g', $newDet));
 
-            $response = json_decode($response,true);
-        
-            if($response['response']['code']==1){
+            $response = json_decode($response, true);
+
+            if ($response['response']['code'] == 1) {
                 # agrega un insertado con exito al mensaje
                 $oks++;
                 //echo $response['response']['code'];
             }
         }
-        
-        if($oks==$len_detalle){
-            echo json_encode(array('response'=>array('code'=>1,'msj'=>"Se insertaron todos los servicios.")));
+
+        if ($oks == $len_detalle) {
+            echo json_encode(array('response' => array('code' => 1, 'msj' => "Se insertaron todos los servicios.")));
         } else {
-            echo json_encode(array('response'=>array('code'=>2,'msj'=>"Es posible que se hayn omitido algunos servicios..")));
+            echo json_encode(array('response' => array('code' => 2, 'msj' => "Es posible que se hayn omitido algunos servicios..")));
         }
 
         return;
         break;
-
+    case 7:
+        $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", [$id_paquete,$costo, $utilidad, $precio_venta, $iva]);
+        break;
     default:
-        print_r($_GET);        
-        $response = "api no reconocida ".$api;
+        print_r($_GET);
+        $response = "api no reconocida " . $api;
         break;
 }
 
