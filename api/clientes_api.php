@@ -74,6 +74,20 @@ switch ($api) {
         # desactivar
         $result = $master->deleteByProcedure("sp_clientes_e", [$id]);
         break;
+    case 5:
+        # creacion de qr de cliente
+        $idCliente = $_POST['id_cliente'];
+        $codigoCliente = $_POST['codigo'];
+        $cliente = array($idCliente,$codigoCliente);
+        $tipo = $_POST['tipo'];
+        
+        $result = $master->getByProcedure('sp_clientes_b',$cliente);
+        $nombreCliente = $result[0]['NOMBRE_COMERCIAL'];
+        $qr = $result[0]['QR'];
+        $url = $master->generarQRURL($tipo,$qr,$nombreCliente);
+        echo json_encode(array("url"=>$url));
+        exit;
+        break;
 
     default:
         $response = "api no reconocida";
