@@ -33,7 +33,9 @@
     </div>
     <div class="col-6">
       <p>Procedencia</p>
-      <p id="procedencia-registro">PARTICULAR</p>
+      <div class="" id="procedencia-agenda">
+        <p id="procedencia-registro">PARTICULAR</p>
+      </div>
     </div>
     <div class="col-6">
         <label for="segmento" class="form-label">Seleccionar segmento</label>

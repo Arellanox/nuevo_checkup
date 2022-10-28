@@ -22,5 +22,30 @@ $("#btn-contacto-agregar").click(function () {
   } else {
     alertSelectTable('No ha seleccionado un cliente');
   }
-
 });
+
+$('#generar-codigoqr').click(function(){
+  if (array_selected != null) {
+    $.ajax({
+      data: array_selected['ID_CLIENTE'],
+      url: "../../../api/clientes_api.php",
+      type: "POST",
+      success: function (data) {
+        data = jQuery.parseJSON(data);
+        if (mensajeAjax(data)) {
+          Toast.fire({
+            icon: "success",
+            title: "¡Estudio registrado!",
+            timer: 2000,
+          });
+          document.getElementById("formRegistrarEstudio").reset();
+          $('##div-select-contenedores').empty();
+          $("#ModalRegistrarEstudio").modal("hide");
+          tablaServicio.ajax.reload();
+        }
+      },
+    });
+  } else {
+    alertSelectTable('No ha seleccionado un cliente');
+  }
+})

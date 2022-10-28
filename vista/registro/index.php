@@ -16,7 +16,7 @@ $menu = "Prerregistro";
 
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">
-  var logeo = 1;
+  var logeo = 1, registroAgendaProcedencia = 0;
   let codigo = '<?php echo $codigo; ?>';
   let token = '<?php echo $token; ?>';
 

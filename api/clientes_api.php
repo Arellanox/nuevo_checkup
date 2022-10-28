@@ -60,19 +60,19 @@ $response = "";
 $master = new Master();
 switch ($api) {
     case 1:
-        $response = $master->insertByProcedure("sp_clientes_g", $parametros); 
+        $response = $master->insertByProcedure("sp_clientes_g", $parametros);
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo]); 
+        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo]);
         break;
     case 3:
         # actualizar
-        $response = $master->updateByProcedure("sp_clientes_g", $parametros); 
+        $response = $master->updateByProcedure("sp_clientes_g", $parametros);
         break;
     case 4:
         # desactivar
-        $result = $master->deleteByProcedure("sp_clientes_e", [$id]); 
+        $result = $master->deleteByProcedure("sp_clientes_e", [$id]);
         break;
 
     default:

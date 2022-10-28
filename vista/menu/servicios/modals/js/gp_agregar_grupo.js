@@ -54,6 +54,7 @@ $("#formRegistrarGrupo").submit(function (event) {
               timer: 2000,
             });
             document.getElementById("formRegistrarGrupo").reset();
+            $('##div-select-contenedoresGrupo').empty();
             $("#ModalRegistrarGrupo").modal("hide");
             tablaGrupos.ajax.reload();
           }
@@ -62,6 +63,19 @@ $("#formRegistrarGrupo").submit(function (event) {
     }
   });
   event.preventDefault();
+});
+
+// Nuevo contenedores
+ $('#nuevo-contenedorGrupo').on('click', function(){
+   numberContenedorGrupo += 1;
+   agregarContenedorMuestra('#div-select-contenedoresGrupo', numberContenedorGrupo, 1);
+ })
+
+ $(document).on('click', '.eliminarContenerMuestra1', function () {
+   var parent_element = $(this).closest("div[class='row']");
+   // console.log(parent_element)
+   // numberContenedor -= 1;
+   parent_element.remove();
 });
 
 select2("#registrar-area-grupo", "ModalRegistrarGrupo");

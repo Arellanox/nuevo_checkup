@@ -5,7 +5,7 @@ $('#btn-formregistrar-agenda').prop('disabled',true);
 $('#eliminarForm').prop('disabled',true);
 $('#curp-paciente').prop('readonly', false);
 
-
+// Registrar agenda del paciente
 $("#formRegistrarAgenda").submit(function(event){
     event.preventDefault();
     alert("form formAntecedentes-paciente")
@@ -63,7 +63,7 @@ $("#formRegistrarAgenda").submit(function(event){
                  });
                  // Autocompletar el campo de prefolio y CURP en consulta de resultado
 
-                 document.getElementById("formAntecedentes-paciente").reset();
+                 document.getElementById("formAntecedentes").reset();
                  if (session.user != null) {
                    $("#ModalRegistrarPrueba").modal('hide');
                    $("#btn-formregistrar-agenda").prop('disabled', false);
@@ -146,7 +146,7 @@ $('#eliminarForm').click(function(){
   // $('##antecedentes-registro').html('')
 })
 
-// Registrar agenda del paciente
+
 
 // $('#btn-formregistrar-agenda').on('click', function(){
 //   if ($('input[type="radio"]:not(:checked)').length != 126 ) {
@@ -175,4 +175,24 @@ $(document).on("change ,  keyup" , "input[type='radio']" ,function(){
         // $('#'+collapID).find(':input').prop('required', false);
     }
 });
+
+if (registroAgendaProcedencia == 1) {
+  $('#procedencia-agenda').html('<select class="form-control input-form" id="selectProcedencia"></select>')
+}
+// else{
+//   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')
+// }
+
+
+
+
+function obtenerSignosVitales(div){
+  $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
+    setTimeout(function () {
+      $(div).html(html);
+    }, 100);
+
+  });
+}
+
  // $("#formDIV").addClass("disable-div");

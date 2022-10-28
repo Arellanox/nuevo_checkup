@@ -244,7 +244,6 @@ function rellenarSelect(select, api, num,v,c, values = {}){
           }else{
             datao = data[i][c];
           }
-
           // Rellenar select con Jquery
           var o = new Option("option text", data[i][v]);
           $(o).html(datao);
@@ -375,7 +374,7 @@ function mensajeAjax(data) {
   return 0;
 }
 
-function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {0 : "#panel-informacion"}, callback){ //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
+function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {0 : "#panel-informacion"}, callback = null){ //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
   // console.log(typeof tipPanel);
   if (typeof tipPanel == "string") {
     // Convierte String a Object
@@ -395,7 +394,9 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
          for (var i = 0; i < Object.keys(tipPanel).length; i++) {
            obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
          }
-         callback(0, null);
+         if (callback != null) {
+           callback(0, null);
+         }
      } else {
          datatable.$('tr.selected').removeClass('selected');
          $(this).addClass('selected');
@@ -406,7 +407,9 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
              obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
            }
          }
-         callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
+         if (callback != null) {
+           callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
+         }
      }
   });
 }
