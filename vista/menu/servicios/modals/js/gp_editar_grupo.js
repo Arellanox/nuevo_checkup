@@ -83,6 +83,7 @@ $("#formEditarGrupo").submit(function (event) {
               timer: 2000,
             });
             document.getElementById("formEditarGrupo").reset();
+            $('##div-select-contenedoresGrupoEdit').empty();
             $("#ModalEditarGrupo").modal("hide");
             tablaGrupos.ajax.reload();
           }
@@ -91,6 +92,19 @@ $("#formEditarGrupo").submit(function (event) {
     }
   });
   event.preventDefault();
+});
+
+// Nuevo contenedores
+ $('#nuevo-contenedorGrupoEdit').on('click', function(){
+   numberContenedorGrupo += 1;
+   agregarContenedorMuestra('#div-select-contenedoresGrupoEdit', numberContenedorGrupo, 2);
+ })
+
+ $(document).on('click', '.eliminarContenerMuestra2', function () {
+   var parent_element = $(this).closest("div[class='row']");
+   // console.log(parent_element)
+   // numberContenedor -= 1;
+   parent_element.remove();
 });
 
 select2("#edit-area-grupo", "ModalEditarGrupo");

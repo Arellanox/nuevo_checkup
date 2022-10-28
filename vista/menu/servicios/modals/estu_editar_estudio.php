@@ -82,6 +82,17 @@
                 <label for="registrar-subrogaNo">No</label>
               </div>
             </div>
+            <p style="margin-top:15px; margin-bottom: 15px">Seleccione los contenedores que necesite esté estudio</p>
+            <div class="" id="div-select-contenedores-edit">
+
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <button type="button" class="btn btn-hover" id="nuevo-contenedor-edit">
+                  <i class="bi bi-plus"></i> Agregar nuevo contenedor
+                </button>
+              </div>
+            </div>
           </div>
 
         </form>

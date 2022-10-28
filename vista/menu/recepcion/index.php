@@ -12,6 +12,7 @@ $menu = "Recepción";
  </head>
  <body class="" id="body-controlador"> </body>
  <script type="text/javascript">
+    registroAgendaProcedencia = 1;
     vista('<?php echo $menu; ?>', '<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>')
      function vista(menu, url){
        $.post(url, {menu: menu}, function(html){

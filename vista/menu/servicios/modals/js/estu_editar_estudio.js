@@ -16,6 +16,7 @@ async function cargarDatosEstuEdit() {
     $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
     $('#edit-cve-estudio').val(array_selected['ABREVIATURA']);
     // $('#').val(array_selected['PADRE']).trigger('change');
+    console.log(array_selected['DETALLE_GRUPOS'])
     for (var i = 0; i < array_selected['DETALLE_GRUPOS'].length; i++) {
       padre = new Array()
       padre[i] = array_selected['DETALLE_GRUPOS'][i]['ID_SERVICIO']
@@ -91,6 +92,7 @@ $("#formEditarEstudio").submit(function (event) {
               timer: 2000,
             });
             document.getElementById("formEditarEstudio").reset();
+            $('##div-select-contenedores-edit').empty();
             $("#modalEditarEstudio").modal("hide");
             tablaServicio.ajax.reload();
           }
@@ -100,6 +102,22 @@ $("#formEditarEstudio").submit(function (event) {
   });
   event.preventDefault();
 });
+
+// Nuevo contenedores
+ $('#nuevo-contenedor-edit').on('click', function(){
+   alert("ajsbdj");
+   numberContenedorEdit += 1;
+   agregarContenedorMuestra('#div-select-contenedores-edit', numberContenedorEdit, 2);
+ })
+
+ $(document).on('click', '.eliminarContenerMuestra2', function () {
+   var parent_element = $(this).closest("div[class='row']");
+   // console.log(parent_element)
+   // numberContenedor -= 1;
+   parent_element.remove();
+});
+
+
 
 select2("#edit-clasificacion-estudio", "modalEditarEstudio");
 select2("#edit-metodos-estudio", "modalEditarEstudio");

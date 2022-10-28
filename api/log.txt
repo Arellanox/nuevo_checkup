@@ -310,3 +310,14 @@
 25/10/22 20:03:58 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_respuestas_1` FOREIGN KEY (`ANTECEDENTE_RESPUESTA_ID`) REFERENCES `antecedentes_respuestas)
 26/10/22 19:25:24 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
 
+27/10/22 19:23:45 sp_servicios_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_g; expected 20, got 19
+27/10/22 19:23:56 sp_servicios_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_g; expected 20, got 19
+27/10/22 19:53:15 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+27/10/22 19:53:16 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+27/10/22 19:54:33 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+27/10/22 20:22:16 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+27/10/22 20:22:16 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+27/10/22 20:22:17 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/10/22 17:12:39 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_respuestas_1` FOREIGN KEY (`ANTECEDENTE_RESPUESTA_ID`) REFERENCES `antecedentes_respuestas)
+28/10/22 17:13:13 sp_recepcion_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_recepcion_detalle_paquete_g does not exist
+28/10/22 18:28:16 sp_lista_de_trabajo Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_lista_de_trabajo; expected 3, got 2

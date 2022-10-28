@@ -54,6 +54,7 @@ $("#formRegistrarEstudio").submit(function (event) {
               timer: 2000,
             });
             document.getElementById("formRegistrarEstudio").reset();
+            $('##div-select-contenedores').empty();
             $("#ModalRegistrarEstudio").modal("hide");
             tablaServicio.ajax.reload();
           }
@@ -64,9 +65,40 @@ $("#formRegistrarEstudio").submit(function (event) {
   event.preventDefault();
 });
 
+
+// Nuevo contenedores
+ $('#nuevo-contenedor').on('click', function(){
+   numberContenedor += 1;
+   agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
+ })
+
+ $(document).on('click', '.eliminarContenerMuestra1', function () {
+   var parent_element = $(this).closest("div[class='row']");
+   // console.log(parent_element)
+   // numberContenedor -= 1;
+   parent_element.remove();
+});
+
+ // $('.eliminarContenerMuestra').on('click', function(event){
+ //   event.stopPropagation();
+ //   event.stopImmediatePropagation();
+ //   var parent_element = $(this).closest("div[class='row']");
+ //   console.log(parent_element)
+ //   parent_element.remove();
+ // })
+
+
+
+
+
+
+
 select2("#registrar-clasificacion-estudio", "ModalRegistrarEstudio");
 select2("#registrar-metodos-estudio", "ModalRegistrarEstudio");
 select2("#registrar-medidas-estudio", "ModalRegistrarEstudio");
 select2("#registrar-concepto-facturacion", "ModalRegistrarEstudio");
 select2("#registrar-grupo-estudio", "ModalRegistrarEstudio");
 select2("#registrar-area-estudio", "ModalRegistrarEstudio");
+
+select2("#registrar-contenedor1-estudio", "ModalRegistrarEstudio");
+select2("#registrar-muestraCont1-estudio", "ModalRegistrarEstudio");

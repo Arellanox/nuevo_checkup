@@ -1,26 +1,28 @@
 <?php
+require_once('../php/phpqrcode/qrlib.php');
+
 class Miscelaneus{
 
     function getFormValues($values){
         $form = array();
-       
+
         foreach($values as $clave=>$valor){
-            
+
             # Convierte el valor null tomado como string en un valor booleano
             if(is_string($valor)){
                 if (strtoupper($valor)=="NULL") {
-    
+
                     $form[] = null;
-        
+
                 } else {
-                    
+
                     $form[] = $valor;
                 }
             }else {
-               
+
                 $form[] = $valor;
-            }          
-            
+            }
+
         }
 
         return $form;
@@ -145,7 +147,7 @@ class Miscelaneus{
 
         return $initedArray;
     }
-    
+
     function setLog($message,$sp){
         $file = "log.txt";
         $fp = fopen($file,'a');
@@ -155,7 +157,7 @@ class Miscelaneus{
     }
 
     function returnApi($response){
-        
+
         if (is_array($response) || is_numeric($response)) {
             $json = json_encode(
                 array("response"=>array(
@@ -177,6 +179,17 @@ class Miscelaneus{
 
     function sayHello(){
         echo "Hello World!";
+    }
+
+    function generarQRURL($tipo, $codeContents, $nombre){
+      # URL carpeta
+      $tempDir = 'temp/qr/'.$tipo.'/';
+
+      # Enviar la url o codigo necesario desde antes
+      QRcode::png($codeContents, $tempDir.$nombre.'png', QR_ECLEVEL_M);
+
+      # retorna la URL donde se ubica el archivo
+      return $tempDir.$tempDir.$nombre.'png';
     }
 }
 ?>
