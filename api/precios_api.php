@@ -24,11 +24,12 @@ switch ($api) {
           $new = $precios[$i];
           $response = $master->updateByProcedure('sp_servicios_lista_de_precios_g',$new);
 
-          if(is_numeric($response)){
-              echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
-          } else {
-              echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
-          }
+          
+        }
+        if(is_numeric($response)){
+            echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
+        } else {
+            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
         }
         break;
     case 2:
