@@ -29,7 +29,7 @@ $response="";
 $master = new Master();
 switch ($api) {
     case 1:
-        $response = $master->insertByProcedure("sp_toma_de_muestra_lista_de_trabajo", [$fecha_agenda,$id_area]);
+        $response = $master->getByProcedure("sp_toma_de_muestra_lista_de_trabajo", [$fecha_agenda,$id_area]);
         break;
     case 2:
         # buscar_servicios de toma de muestra
