@@ -79,12 +79,13 @@ switch ($api) {
         $idCliente = $_POST['id_cliente'];
         $codigoCliente = $_POST['codigo'];
         $cliente = array($idCliente,$codigoCliente);
-        $tipo = $_POST['tipo'];
         
         $result = $master->getByProcedure('sp_clientes_b',$cliente);
         $nombreCliente = $result[0]['NOMBRE_COMERCIAL'];
-        $qr = $result[0]['QR'];
-        $url = $master->generarQRURL($tipo,$qr,$nombreCliente);
+        $qr = "http://localhost/nuevo_checkup/vista/registro/?codigo=".$result[0]['QR'];
+
+
+        $url = $master->generarQRURL("cliente",$qr,$nombreCliente);
         echo json_encode(array("url"=>$url));
         exit;
         break;
