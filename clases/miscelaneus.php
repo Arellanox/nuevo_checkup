@@ -1,5 +1,5 @@
 <?php
-require_once('../../php/phpqrcode/qrlib.php');
+require_once('../php/phpqrcode/qrlib.php');
 
 class Miscelaneus{
 
@@ -185,13 +185,10 @@ class Miscelaneus{
       # URL carpeta
       $tempDir = 'temp/qr/'.$tipo.'/';
 
-      // $codeContents = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue, suscipit a';
-
-      // generating
+      # Enviar la url o codigo necesario desde antes
       QRcode::png($codeContents, $tempDir.$nombre.'png', QR_ECLEVEL_M);
 
-      // echo URl
-      // echo "$tempDir.'QR_file_ID.png";
+      # retorna la URL donde se ubica el archivo
       return $tempDir.$tempDir.$nombre.'png';
     }
 }
