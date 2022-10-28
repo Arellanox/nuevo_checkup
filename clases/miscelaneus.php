@@ -181,15 +181,15 @@ class Miscelaneus{
         echo "Hello World!";
     }
 
-    function generarQRURL($tipo, $codeContents, $nombre){
+    function generarQRURL($tipo, $codeContents, $nombre, $frame = QR_ECLEVEL_M, $size = 3){
       # URL carpeta
-      $tempDir = '../archivos/sistema/temp/qr/'.$tipo.'/';
+      $tempDir = 'archivos/sistema/temp/qr/'.$tipo.'/';
 
       # Enviar la url o codigo necesario desde antes
-      QRcode::png($codeContents, $tempDir.$nombre.'png', QR_ECLEVEL_M);
+      QRcode::png($codeContents, '../'.$tempDir.$nombre.'.png', $frame, $size, 2);
 
       # retorna la URL donde se ubica el archivo
-      return $tempDir.$tempDir.$nombre.'png';
+      return 'http://localhost/nuevo_checkup/'.$tempDir.$nombre.'.png';
     }
 }
 ?>
