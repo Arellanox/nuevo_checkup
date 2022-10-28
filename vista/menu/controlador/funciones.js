@@ -38,7 +38,14 @@ function pasarPacienteTurno(id_turno){
   });
 }
 
-
+function DownloadFromUrl(fileURL, fileName) {
+  var link = document.createElement('a');
+  link.href = fileURL;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 
 //Para el campo de preregistro
 function deshabilitarVacunaExtra(vacuna, div) {
@@ -326,11 +333,12 @@ function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'e
   });
 }
 
-function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos completados', footer = null) {
+function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos completados', footer = null, html = null) {
   Swal.fire({
     icon: icon,
     title: title,
     text: text,
+    html: html,
     footer: footer
   })
 }
