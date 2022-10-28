@@ -183,7 +183,7 @@ class Miscelaneus{
 
     function generarQRURL($tipo, $codeContents, $nombre){
       # URL carpeta
-      $tempDir = 'temp/qr/'.$tipo.'/';
+      $tempDir = '../archivos/sistema/temp/qr/'.$tipo.'/';
 
       # Enviar la url o codigo necesario desde antes
       QRcode::png($codeContents, $tempDir.$nombre.'png', QR_ECLEVEL_M);
