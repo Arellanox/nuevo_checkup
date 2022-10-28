@@ -12,6 +12,6 @@ $codeContents = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin
 QRcode::png($codeContents, $tempDir.'QR_file_ID.png', QR_ECLEVEL_M);
 
 // echo URl
-echo "$tempDir.'QR_file_ID.png";
+echo $tempDir."QR_file_ID.png";
 
  ?>

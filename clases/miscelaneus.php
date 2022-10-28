@@ -191,7 +191,8 @@ class Miscelaneus{
       QRcode::png($codeContents, $tempDir.$nombre.'png', QR_ECLEVEL_M);
 
       // echo URl
-      echo "$tempDir.'QR_file_ID.png";
+      // echo "$tempDir.'QR_file_ID.png";
+      return $tempDir.$tempDir.$nombre.'png';
     }
 }
 ?>
