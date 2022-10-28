@@ -20,16 +20,16 @@ $id_area = $_POST['id_area'];
 $fecha_agenda = $_POST['fecha_agenda'];	
 
 #insertar
-$id_turno = $_POST['id_turno'];	
-$parametros = array(
-    $id_turno
-);
+// $id_turno = $_POST['id_turno'];	
+// $parametros = array(
+//     $id_turno
+// );
 $response="";
 
 $master = new Master();
 switch ($api) {
     case 1:
-        $response = $master->insertByProcedure("sp_toma_de_muestra_servicios_g", $parametros);
+        $response = $master->insertByProcedure("sp_toma_de_muestra_lista_de_trabajo", [$fecha_agenda,$id_area]);
         break;
     case 2:
         # buscar_servicios de toma de muestra
