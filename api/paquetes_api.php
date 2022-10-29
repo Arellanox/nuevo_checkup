@@ -115,14 +115,14 @@ switch ($api) {
         $precioPaquetes = $_POST['paquetes'];
 
         foreach($precioPaquetes as $paquete){
-            $id = $paquete['id'];
+            /* $id = $paquete['id'];
             $costo = $paquete['costo'];
             $utilidad = $paquete['utilidad'];
             $precio_venta = $paquete['precio_venta'];
 
-            $x = array($id,$costo,$utilidad,$precio_venta);
+            $x = array($id,$costo,$utilidad,$precio_venta); */
 
-            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", $x);
+            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", $paquete);
         }
         echo $master->returnApi($response);
         exit;
