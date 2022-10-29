@@ -112,7 +112,20 @@ switch ($api) {
         return;
         break;
     case 7:
-        $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", [$id_paquete,$costo, $utilidad, $precio_venta, $iva]);
+        $precioPaquetes = $_POST['paquetes'];
+
+        foreach($precioPaquetes as $paquete){
+            $id = $paquete['id'];
+            $costo = $paquete['costo'];
+            $utilidad = $paquete['utilidad'];
+            $precio_venta = $paquete['precio_venta'];
+
+            $x = array($id,$costo,$utilidad,$precio_venta);
+
+            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", $x);
+        }
+        echo $master->returnApi($response);
+        exit;
         break;
     default:
         print_r($_GET);
