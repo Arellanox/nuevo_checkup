@@ -114,17 +114,25 @@ switch ($api) {
     case 7:
         $precioPaquetes = $_POST['contenedorListaPrecios']; #Nombre similar para la cantidad de estudios
 
-        foreach($precioPaquetes as $paquete){
-            /* $id = $paquete['id'];
-            $costo = $paquete['costo'];
-            $utilidad = $paquete['utilidad'];
-            $precio_venta = $paquete['precio_venta'];
+        $oks = 0;
+        $fails = array();
 
-            $x = array($id,$costo,$utilidad,$precio_venta); */
+        foreach($precioPaquetes as $paquete){
 
             $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", $paquete);
+
+            if(is_numeric($response)){
+                $oks++;
+            } else {
+                $fails[] = $paquete[0];
+            }
         }
-        echo $master->returnApi($response);
+
+        if($oks == count($precioPaquetes)){
+            echo json_encode(array("response"=>array("code"=>1,"msj"=>"Se actualizaron todos los paquetes.")));
+        } else {
+            echo json_encode(array("response"=>array("code"=>2,"fails"=>$fails)));
+        }
         exit;
         break;
     default:
