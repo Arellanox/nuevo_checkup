@@ -43,6 +43,7 @@ function obtenerListaContactos(){
     // Datatable
     $.getScript("contenido/js/contactos-tabla.js");
     // Botones
+    $.getScript("contenido/js/botones-contacto.js");
 
   })
 }

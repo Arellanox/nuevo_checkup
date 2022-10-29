@@ -10,13 +10,14 @@
           <p class="text-center">Registre un nuevo <strong>Segmento</strong></p>
           <div class="row">
             <div class="col-6 col-md-6">
-              <label for="nombre_segmento" class="form-label">Nombre</label>
+              <label for="nombre_segmento" class="form-label">Descripción</label>
               <input type="text" name="nombre_segmento" id="nombre_segmento" class="input-form" required>
             </div>
             <div class="col-6 col-md-6">
-              <label for="descripcion" class="form-label">Descripcion</label>
+              <label for="descripcion" class="form-label">¿Subsecuente?</label>
               <input type="text" name="descripcion" id="descripcion" class="input-form" required>
             </div>
+            <input type="checkbox" name="" value=""> Segmento no subsecuente.
           </div>
         </form>
       </div>

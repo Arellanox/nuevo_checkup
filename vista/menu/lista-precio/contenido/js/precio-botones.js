@@ -38,22 +38,25 @@ $('#btn-precios-guardar').click(function () {
             tablaPrecios.push(arrayFor);
           }
 
-          if ($('input[type=radio][name=selectChecko]').val() != 'Paq') {
-            api = 1; url = 'precios_api';
+          if ($('input[type=radio][name=selectChecko]:last').is(':checked')) {
+            api = 7; url = 'paquetes_api';
+            alert('Paquete')
           }else{
-
+            api = 1; url = 'precios_api';
+            alert('Estudios')
+            console.log($('#check-paquetes'))
+            console.log($('input[type=radio][name=selectChecko]'))
           }
 
           $.ajax({
             url: http + servidor + "/nuevo_checkup/api/"+url+".php",
-            data: { api: api, precios: tablaPrecios },
+            data: { api: api, contenedorListaPrecios: tablaPrecios },
             type: "POST",
             datatype: 'json',
             success: function (data) {
 
             }
           })
-
 
           // console.log()
 

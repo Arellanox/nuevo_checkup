@@ -9,7 +9,7 @@ $menu = "muestras";
 <html lang="es" dir="ltr">
  <head>
    <?php include "../../include/head.php"; ?>
-   <title>Mesometría | Bimo</title>
+   <title>Toma de muestras | Bimo</title>
  </head>
  <body class="" id="body-controlador"> </body>
  <script type="text/javascript">

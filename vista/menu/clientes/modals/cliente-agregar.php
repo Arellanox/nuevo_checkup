@@ -48,6 +48,22 @@
               <label for="cuenta_contable" class="form-label">Cuenta Contable</label>
               <input type="number" name="cuenta_contable" class="form-control input-form" required>
             </div>
+            <div class="col-6">
+              <label for="apellidos_contacto" class="form-label">Régimen fiscal</label>
+              <select class="form-control input-form" id="selectSegmentos">
+
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="apellidos_contacto" class="form-label">CFDI</label>
+              <select class="form-control input-form" id="selectSegmentos">
+
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="apellidos_contacto" class="form-label">Convenio</label>
+              <input name="confac" id="registrar-concepto-facturacion" placeholder="www.ejemplo.com" class="form-control input-form" required>
+            </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Pagina Web</label>
               <input name="confac" id="registrar-concepto-facturacion" placeholder="www.ejemplo.com" class="form-control input-form" required>

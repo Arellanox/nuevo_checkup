@@ -26,6 +26,15 @@
               <input type="text" name="telefono2_contacto" class="form-control input-form" required>
             </div>
             <div class="col-6">
+              <label for="apellidos_contacto" class="form-label">Tipo de contacto</label>
+              <select class="form-control input-form" id="selectSegmentos">
+                <option value="">Finanzas</option>
+                <option value="">Envio de correo</option>
+                <option value="">Operativo</option>
+                <!-- <option value=""></option> -->
+              </select>
+            </div>
+            <div class="col-6">
               <label for="email_contacto" class="form-label">Correo Electronico</label>
               <input type="email" name="email_contacto" class="form-control input-form" required>
             </div>

@@ -112,7 +112,7 @@ switch ($api) {
         return;
         break;
     case 7:
-        $precioPaquetes = $_POST['paquetes'];
+        $precioPaquetes = $_POST['contenedorListaPrecios']; #Nombre similar para la cantidad de estudios
 
         foreach($precioPaquetes as $paquete){
             /* $id = $paquete['id'];

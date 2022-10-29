@@ -1327,7 +1327,7 @@
         </div>
       </div>
 
-      <div class="accordion-item bg-acordion">
+      <!-- <div class="accordion-item bg-acordion">
         <h2 class="accordion-header" id="collap-AnanApar">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-AnanApar-Target" aria-expanded="false" aria-controls="accordionEstudios">
             <i class="bi bi-plus-circle-fill"></i>&nbsp;&nbsp;&nbsp; ANAMNESIS POR APARATOS
@@ -2284,23 +2284,6 @@
                       <textarea name="check-Termoregulacin-Sudoración[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
                     </div>
                   </div>
-                  <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
-                    <div class="col-6">
-                      <label>Transtornos: </label>
-                      <input type="hidden" name="check-Termoregulacin-Transtornos[]" value="124">
-                    </div>
-                    <div class="col-3">
-                      <input type="radio" required id="checkSi-Termoregulacin-Transtornos" name="check-Termoregulacin-Transtornos[]" value="1" required >
-                      <label for="checkSi-Termoregulacin-Transtornos">Si</label>
-                    </div>
-                    <div class="col-3">
-                      <input type="radio" required  id="checkNo-Termoregulacin-Transtornos" name="check-Termoregulacin-Transtornos[]" value="2" required>
-                      <label for="checkNo-Termoregulacin-Transtornos" >No</label>
-                    </div>
-                    <div class="collapse" id="collapse-Termoregulacin-Transtornos">
-                      <textarea name="check-Termoregulacin-Transtornos[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
-                    </div>
-                  </div> -->
                   <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
                     <div class="col-6">
                       <label>Transtornos congénitos de metabolismo: </label>
@@ -2372,7 +2355,7 @@
 
           </div>
         </div>
-      </div>
+      </div> -->
     </form>
 
   </div>

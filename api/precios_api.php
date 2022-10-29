@@ -19,12 +19,12 @@ $api = $_POST['api'];
 
 switch ($api) {
     case 1:
-        $precios = $_POST['precios'];
+        $precios = $_POST['contenedorListaPrecios']; #Nombre similar para la cantidad de paquetes
         for ($i=0; $i < count($precios); $i++) {
           $new = $precios[$i];
           $response = $master->updateByProcedure('sp_servicios_lista_de_precios_g',$new);
 
-          
+
         }
         if(is_numeric($response)){
             echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
