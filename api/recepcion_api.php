@@ -44,6 +44,11 @@ switch ($api) {
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null));
         }
 
+        if($estado_paciente==0){
+            # si el paciente es rechazado, se desactivan los resultados de su turno.
+            $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
+        }
+
         # Insertar servicios extrar para pacientes empresas o servicios para particulares
         if (count($servicios) > 0) {
             # si hay algo en el arreglo lo insertamos
@@ -57,8 +62,8 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_recepcion_reagendar', array($idTurno, $fecha_reagenda));
         break;
     case 4:
-        #desactivar los servicios de un turno
-        $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
+       
+     
         break;
     default:
         # code...
