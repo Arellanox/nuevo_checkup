@@ -14,6 +14,7 @@ $master = new Master();
 $api = $_POST['api'];
 $id_area = $_POST['id_area'];
 $otros_servicios = $_POST['otros_servicios']; #activar con valor 1
+$abreviatura = $_POST['abreviatura']; #activar con valor 1
 
 
 switch ($api) {
