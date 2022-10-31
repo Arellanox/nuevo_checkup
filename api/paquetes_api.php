@@ -135,6 +135,13 @@ switch ($api) {
         }
         exit;
         break;
+
+    case 8:
+        # asignar un paquete a un cliente
+        $response = $master->updateByProcedure('sp_clientes_asignar_paquetes',array($cliente_id,$id_paquete));
+        break;
+
+    
     default:
         print_r($_GET);
         $response = "api no reconocida " . $api;
