@@ -17,6 +17,9 @@ $idTurno = $_POST['id_turno'];
 $idPaquete = $_POST['id_paquete']; #
 $comentarioRechazo = $_POST['comentario_rechazo'];
 
+# reagendar
+$fecha_reagenda = $_POST['fecha_reagenda'];
+
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
 $servicios = $_POST['servicios']; //array
@@ -50,8 +53,12 @@ switch ($api) {
         }
         break;
     case 3:
+        # reagendar una cita
+        $response = $master->updateByProcedure('sp_recepcion_reagendar', array($idTurno, $fecha_reagenda));
+        break;
+    case 4:
         #desactivar los servicios de un turno
-        $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno)); 
+        $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
         break;
     default:
         # code...
