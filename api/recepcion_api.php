@@ -44,7 +44,7 @@ switch ($api) {
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null));
         }
 
-        if($estado_paciente==0){
+        if($estado_paciente==0 || is_null($estado_paciente)){
             # si el paciente es rechazado, se desactivan los resultados de su turno.
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
         }
