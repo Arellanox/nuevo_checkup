@@ -41,7 +41,7 @@ switch ($api) {
     case 2:
         #getall
 
-        $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area,$otros_servicios));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area,$otros_servicios,$abreviatura));
 
         if (is_array($response)) {
             $newResponse = array();
@@ -70,7 +70,7 @@ switch ($api) {
     case 3:
         #getbyid
         $id = $_POST['id'];
-        $response = $master->getByProcedure('sp_servicios_b',array($id,null,$id_area,$otros_servicios));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,null,$id_area,$otros_servicios,$abreviatura));
         if (is_array($response)) {
             echo json_encode(array(
                 'response'=> array(
@@ -131,7 +131,7 @@ switch ($api) {
     case 6:
         #recuperar todos los hijos de un padre
         $padre = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre,null,$id_area,$otros_servicios));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre,null,$id_area,$otros_servicios,$abreviatura));
 
         if (is_array($response)) {
             echo json_encode(array(
@@ -151,7 +151,7 @@ switch ($api) {
         break;
     case 7:
         #recuperar todos los servicicos que sean grupos
-        $response = $master->getByProcedure('sp_servicios_b',array(null,1,$id_area,$otros_servicios));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,1,$id_area,$otros_servicios,$abreviatura));
 
         if(is_array($response)){
             $newResponse = array();
@@ -182,7 +182,7 @@ switch ($api) {
         break;
     case 8:
 
-        $response = $master->getByProcedure('sp_servicios_b',array(null,null,$id_area,$otros_servicios));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,null,$id_area,$otros_servicios,$abreviatura));
         echo $master->mis->returnApi($response);
         break;
 
