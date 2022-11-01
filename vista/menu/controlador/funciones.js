@@ -38,6 +38,16 @@ function pasarPacienteTurno(id_turno){
   });
 }
 
+// Validar la vista
+function redireccionarVista(vista, callback){
+  if (session.vista[vista] == 1 ? true:false) {
+    callback();
+  }else{
+    window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
+  }
+}
+
+
 function DownloadFromUrl(fileURL, fileName) {
   var link = document.createElement('a');
   link.href = fileURL;

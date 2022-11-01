@@ -33,11 +33,14 @@ session_start();
     });
   }
 
+
+  let array_selected;
+  let array_user;
+  const session = <?php echo json_encode($_SESSION); ?>;
+
   $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
     $(function(){
-      let array_selected;
-      let array_user;
-      const session = <?php echo json_encode($_SESSION); ?>;
+
       session['id'] = '';
       session['token'] = '';
       // console.log(session)

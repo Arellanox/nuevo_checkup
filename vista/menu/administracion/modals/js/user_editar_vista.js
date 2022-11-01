@@ -18,24 +18,27 @@ modalEditarVistaUsuario.addEventListener('show.bs.modal', event => {
         // // console.log(checkboxPermisos);
         document.getElementById("checkboxPermisos").innerHTML = checkboxPermisos;
       }
+    },
+    complete: function(){
+      $('.permisosUsuario').prop('checked', false);
+      $.ajax({
+        url: "../../../api/usuarios_permisos_api.php",
+        type: "POST",
+        data:{id: array_selected['ID_USUARIO'],api:6},
+        success: function(data) {
+          data = jQuery.parseJSON(data);
+          if (mensajeAjax(data)) {
+            for (var i = 0; i < data['response']['data'].length; i++) {
+              $('#checkPermisoUsuario'+data['response']['data'][i]['PERMISO_ID']).prop('checked', true);
+              // document.getElementById("checkPermisoUsuario"").checked = true;
+            }
+          }
+        }
+      })
     }
   })
 
-  $('.permisosUsuario').prop('checked', false);
-  $.ajax({
-    url: "../../../api/usuarios_permisos_api.php",
-    type: "POST",
-    data:{id: array_selected['ID_USUARIO'],api:6},
-    success: function(data) {
-      data = jQuery.parseJSON(data);
-      if (mensajeAjax(data)) {
-        for (var i = 0; i < data['response']['data'].length; i++) {
-          $('#checkPermisoUsuario'+data['response']['data'][i]['PERMISO_ID']).prop('checked', true);
-          // document.getElementById("checkPermisoUsuario"").checked = true;
-        }
-      }
-    }
-  })
+
 })
 
 
