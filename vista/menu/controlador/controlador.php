@@ -12,16 +12,12 @@ session_start();
 
 <script type="text/javascript">
   //Variable global para datatable
-  var array_selected;
-  var array_user;
+
   let http = "http://";
   let servidor = "localhost";
   // <!-- Aqui controlar e incluir las modals -->
   obtenerHeader('<?php echo $menu ?>');
-  session = <?php echo json_encode($_SESSION); ?>;
-  session['id'] = '';
-  session['token'] = '';
-  console.log(session)
+
   function obtenerHeader(menu){
     $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/header.php';?>", {menu: menu}, function(html){
        $("#header-js").html(html);
@@ -39,6 +35,12 @@ session_start();
 
   $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
     $(function(){
+      let array_selected;
+      let array_user;
+      const session = <?php echo json_encode($_SESSION); ?>;
+      session['id'] = '';
+      session['token'] = '';
+      // console.log(session)
       // <!-- Aqui controlar e incluir las modals -->
       $.getScript('modals/controlador.js');
       // <!-- Aqui controlar e incluir los tablas -->
