@@ -65,6 +65,19 @@ switch ($api) {
     case 2:
         # buscar
         $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr]);
+        
+        // si buscan solo un cliente se le agrega los segmentos disponibles
+        if(count($response)==1){
+            $segmentosResponse = $master->getByProcedure('fillSelect_segmentos',array($response[0]['ID_CLIENTE']));
+            if(count($segmentosResponse)>0){
+                $response[] = $segmentosResponse;
+                $response['SEGMENTOS'] = $segmentosResponse;
+            } else {
+                $response[] = "Sin segmentos";
+                $response['SEGMENTOS'] = "Sin segmentos";
+            }
+            
+        }
         break;
     case 3:
         # actualizar
