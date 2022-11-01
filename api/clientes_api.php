@@ -34,6 +34,7 @@ $instagram = $_POST['Instagram'];
 $regimen = $_POST['regimen'];
 $convenio = $_POST['convenio'];
 $qr = $_POST['qr'];
+$cfdi = $_POST['cfdi'];
 
 $parametros = array(
     $id_cliente,
@@ -52,7 +53,8 @@ $parametros = array(
     $facebook,
     $twitter,
     $instagram,
-    $codigo
+    $codigo,
+    $cfdi
 );
 
 $response = "";
