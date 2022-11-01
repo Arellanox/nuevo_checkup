@@ -67,6 +67,7 @@ switch($api){
 
         if(is_numeric($lastId)){
            #si el turno se inserto correctamente, se procede a insertar los antecedentes a ese turno
+           $prefolio = $master->getByProcedure('sp_turnos_b',array($lastId,null,null));
            foreach($antecedentes as $ante){
                 if(count($ante)==3){
                     # si el arreglo tiene 3
@@ -107,8 +108,8 @@ switch($api){
             # si no se puede insertar el turno, termina el ejecucion
             echo "No hemos podido agendar su visita.";
         }
-        $prefolio = $master->getByProcedure('sp_turnos_b',array($lastId,null,null));
-        echo json_encode(array('response'=>array('code'=>1,'data'=>$prefolio[0]['prefolio'])));
+        
+        echo json_encode(array('response'=>array('code'=>1,'data'=>$prefolio[0]['PREFOLIO'])));
         exit;
 
         break;
