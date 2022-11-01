@@ -29,7 +29,7 @@ $('#generar-codigoqr').click(function(){
         fileName = 'códigoQR_'+array_selected['NOMBRE_COMERCIAL'];
         console.log(data.url)
         Swal.fire({
-          html: `<div><div class="d-flex justify-content-center"><img src="`+data.url+`" alt="" style="width:auto"></div>`+
+          html: `<div><div class="d-flex justify-content-center"><img src="`+data.url+`" alt="" style="width:100%"></div>`+
                 `<div class="d-flex justify-content-center"> <button type="button" class="btn btn-borrar" name="button" style="width: 50%" onClick="DownloadFromUrl('`+data.url+`', '`+fileName+`')"> <i class="bi bi-image"></i> Descargar</button>`+
                 '</div></div>',
           showCloseButton: true,
