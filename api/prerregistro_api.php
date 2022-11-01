@@ -37,7 +37,7 @@ switch($api){
         $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp,$pasaporte));
 
         if(!count($paciente)>0){
-            echo "CURP no reconocida";
+            echo "CURP/Pasaporte no registrado.";
             exit;
         }
         $pacienteId = $paciente[0]['ID_PACIENTE'];
