@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+   // $tokenVerification->logout();
+   // exit;
 }
 
 #api
@@ -31,7 +31,6 @@ $pagina_web = $_POST['confac'];
 $facebook = $_POST['Facebook'];
 $twitter = $_POST['Twitter'];
 $instagram = $_POST['Instagram'];
-$codigo = $_POST['Codigo'];
 $regimen = $_POST['regimen'];
 $convenio = $_POST['convenio'];
 
@@ -76,14 +75,14 @@ switch ($api) {
         break;
     case 5:
         # creacion de qr de cliente
-        $idCliente = $_POST['id_cliente'];
-        $codigoCliente = $_POST['codigo'];
-        $cliente = array($idCliente,$codigoCliente);
+        #puedes buscar el cliente por codigo o por el id del cliente 
+        # enviar null para la variable que no se vaya a usar
+
+        $cliente = array($id_cliente,$codigo);
 
         $result = $master->getByProcedure('sp_clientes_b',$cliente);
         $nombreCliente = $result[0]['NOMBRE_COMERCIAL'];
         $qr = "http://localhost/nuevo_checkup/vista/registro/?codigo=".$result[0]['QR'];
-
 
         $url = $master->generarQRURL("cliente",$qr,$nombreCliente, QR_ECLEVEL_H, 10);
         echo json_encode(array("url"=>$url));
