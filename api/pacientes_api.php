@@ -79,7 +79,7 @@ switch ($api) {
         break;
     case 2:
         # buscar pacientes
-        $response = $master->getByProcedure("sp_pacientes_b", [$id, $curp]);
+        $response = $master->getByProcedure("sp_pacientes_b", [$id, $curp,$pasaporte]);
         break;
     case 3:
         # actualizar pacientes
