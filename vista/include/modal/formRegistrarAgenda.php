@@ -1,8 +1,14 @@
 <p class="text-center">Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
 <div class="row">
   <div class="col-12 col-lg-4">
-      <label for="curp" class="form-label">CURP</label>
+      <label for="curp" class="form-label" id="label-identificacion">CURP</label>
       <input type="text" name="curp" value="" class="form-control input-form" id="curp-paciente" required>
+      <div class="form-check">
+       <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">
+       <label class="form-check-label" for="checkCurpPasaporte-agenda">
+         Soy extranjero
+       </label>
+      </div>
   </div>
   <div class="col-12 col-lg-4" style="margin-bottom: 10px;">
       <label for="selectpaciente" class="form-label">Buscar paciente</label>
@@ -24,7 +30,7 @@
       <p id="paciente-registro"></p>
     </div>
     <div class="col-6">
-      <p>CURP:</p>
+      <p>CURP/Pasaporte:</p>
       <p id="curp-registro"></p>
     </div>
     <div class="col-6">
@@ -34,7 +40,7 @@
     <div class="col-6">
       <p>Procedencia</p>
       <div class="" id="procedencia-agenda">
-        <p id="procedencia-registro"></p>
+        <p id="procedencia-registro">a</p>
       </div>
     </div>
     <div class="col-6">

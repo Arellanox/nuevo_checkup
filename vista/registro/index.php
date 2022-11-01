@@ -52,7 +52,7 @@ $menu = "Prerregistro";
             row = data.response.data[0];
             // console.log(row);
             if (data.response.data[0]) {
-              completarCliente(row['ID_CLIENTE'], row['NOMBRE_CLIENTE'])
+              completarCliente(row['ID_CLIENTE'], row['NOMBRE_COMERCIAL'])
             }else {
               redireccionarPrerregistro()
             }

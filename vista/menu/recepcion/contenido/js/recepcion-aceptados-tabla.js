@@ -12,7 +12,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       },
       method: 'POST',
       url: '../../../api/recepcion_api.php',
-      beforeSend: function() { loader("In") },
+      beforeSend: function() { loader("In"), array_selected = null },
       complete: function(){ loader("Out") },
       dataSrc:'response.data'
   },

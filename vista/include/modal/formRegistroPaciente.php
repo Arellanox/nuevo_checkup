@@ -23,7 +23,13 @@
 </div>
 <div class="col-7 col-lg-4">
   <label for="curp" class="form-label">CURP</label>
-  <input type="text" class="form-control input-form" name="curp"   placeholder="" required >
+  <input type="text" class="form-control input-form" name="curp"   placeholder="" required id="curp-registro-infor">
+  <div class="form-check">
+   <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte">
+   <label class="form-check-label" for="checkCurpPasaporte">
+     Soy extranjero
+   </label>
+  </div>
   <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
 </div>
 <div class="col-5 col-lg-3">
@@ -80,7 +86,7 @@
 </div>
 <div class="col-6 col-lg-3">
   <label for="pasaporte" class="form-label">Pasaporte</label>
-  <input type="text" class="form-control input-form" name="pasaporte" placeholder="" >
+  <input type="text" class="form-control input-form" name="pasaporte" placeholder="" id="pasaporte-registro"> <!-- Requerido si no tiene curp -->
 </div>
 <div class="col-6 col-lg-3">
   <label for="rfc" class="form-label">RFC</label>

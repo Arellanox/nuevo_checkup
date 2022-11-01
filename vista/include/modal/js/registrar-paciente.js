@@ -71,6 +71,26 @@ $("#formRegistrarPaciente").submit(function(event){
    event.preventDefault();
  });
 
+
+ $('#checkCurpPasaporte').change(function() {
+   if($(this).is(":checked")) {
+     $('#curp-registro-infor').removeAttr('required');
+     $('#curp-registro-infor').prop('disabled', true);
+     $('#pasaporte-registro').prop('required', true);
+     $("#pasaporte-registro").focus();
+     alertSelectTable('Use su pasaporte como identificación', 'info', 3000)
+   }else{
+     $('#pasaporte-registro').removeAttr('required');
+     $('#curp-registro-infor').prop('disabled', false);
+     $('#curp-registro-infor').prop('required', true);
+     $("#curp-registro-infor").focus();
+     alertSelectTable('Use su CURP como identificación', 'info', 3000)
+   }
+   // $('#checkCurpPasaporte').val($(this).is(':checked'));
+ });
+
+
+
 //  const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente');
 //
 //  ModalRegistrarPaciente.addEventListener('hide.bs.modal', event => {

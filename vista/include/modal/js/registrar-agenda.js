@@ -24,7 +24,12 @@ $("#formRegistrarAgenda").submit(function(event){
     //   return
     // }
     // formData.set('antecedentes', json);
-    formDataAntecedentes.set('curp', $('#curp-paciente').val())
+    if($('#checkCurpPasaporte-agenda').is(":checked")) {
+      formDataAntecedentes.set('pasaporte', $('#curp-paciente').val())
+    }else{
+      formDataAntecedentes.set('curp', $('#curp-paciente').val())
+    }
+
     formDataAntecedentes.set('cliente_id', clienteRegistro)
     // formDataAntecedentes.set('segmento_id', null) //$('#selectSegmentos').val()
     formDataAntecedentes.set('fechaAgenda', $('#fecha-agenda').val())
@@ -56,11 +61,12 @@ $("#formRegistrarAgenda").submit(function(event){
              data = jQuery.parseJSON(data);
              if (mensajeAjax(data)) {
                if (data.response.code == 1) {
-                 Toast.fire({
-                   icon: 'success',
-                   title: 'Su información a sido registrada :)',
-                   timer: 2000
-                 });
+                 // Toast.fire({
+                 //   icon: 'success',
+                 //   title: 'Su información a sido registrada :)',
+                 //   timer: 2000
+                 // });
+                 alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio ('+data.response.data+')')
                  // Autocompletar el campo de prefolio y CURP en consulta de resultado
 
                  document.getElementById("formAntecedentes").reset();
@@ -79,7 +85,6 @@ $("#formRegistrarAgenda").submit(function(event){
 })
 
 var tipoPaciente = "0"; //Particular por defecto
-
 $('#actualizarForm').click(function(){
 
   //Solicitar si la curp existe
@@ -92,45 +97,57 @@ $('#actualizarForm').click(function(){
 
   // $('#btn-formregistrar-agenda').prop('disabled',false);
   curp = $('#curp-paciente').val();
-  $.ajax({
-    data: {curp:curp, api:2},
-    url:  http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-    type: "POST",
-    beforeSend: function(){
-      $('#actualizarForm').prop('disabled',true);
-    },
-    success: function(data) {
-      data = jQuery.parseJSON(data);
-      if (mensajeAjax(data)) {
-        if (data['response']['data'].length > 0) {
-          Toast.fire({
-            icon: 'success',
-            title: 'CURP valida...',
-            timer: 2000
-          });
-          $("#formDIV").fadeIn(400);
-          $('#curp-paciente').prop('readonly', true);
-          $('#eliminarForm').prop('disabled',false);
-          document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
-                                                           'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
-                                                        '</div>';
-          $('#paciente-registro').html(data.response.data[0].NOMBRE_COMPLETO);
-          $('#curp-registro').html(data.response.data[0].CURP);
-          $('#sexo-registro').html(data.response.data[0].GENERO);
-          $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
-          // $('#formDIV *').prop('disabled',false);
-          $('#btn-formregistrar-agenda').prop('disabled',false);
-          obtenerSignosVitales('#antecedentes-registro')
-        }else{
-          $('#actualizarForm').prop('disabled',false);
-          alertMensaje('error', 'Identificador invalido', 'Asegurese que que este usando correctamente su CURP o pasaporte');
+  if (curp.length > 0) {
+    $.ajax({
+      data: getDataAjax(curp),
+      url:  http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+      type: "POST",
+      beforeSend: function(){
+        $('#actualizarForm').prop('disabled',true);
+        $('#checkCurpPasaporte-agenda').prop('disabled',true);
+      },
+      success: function(data) {
+        data = jQuery.parseJSON(data);
+        if (mensajeAjax(data)) {
+          if (data['response']['data'].length > 0) {
+            Toast.fire({
+              icon: 'success',
+              title: 'CURP valida...',
+              timer: 2000
+            });
+            $("#formDIV").fadeIn(400);
+            $('#curp-paciente').prop('readonly', true);
+            $('#eliminarForm').prop('disabled',false);
+            document.getElementById("mensaje").innerHTML='<div class="alert alert-success" role="alert">'+
+                                                             'CURP aceptada, concluya su registro seleccionando el estudio a realizar.'+
+                                                          '</div>';
+            $('#paciente-registro').html(data.response.data[0].NOMBRE_COMPLETO);
+            if (data.response.data[0].CURP == null) {
+              $('#curp-registro').html(data.response.data[0].PASAPORTE);
+            }else{
+              $('#curp-registro').html(data.response.data[0].CURP);
+            }
+            $('#curp-registro').html(data.response.data[0].CURP);
+            $('#sexo-registro').html(data.response.data[0].GENERO);
+            // $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
+            // $('#formDIV *').prop('disabled',false);
+            $('#btn-formregistrar-agenda').prop('disabled',false);
+            obtenerSignosVitales('#antecedentes-registro')
+          }else{
+            $('#actualizarForm').prop('disabled',false);
+            $('#checkCurpPasaporte-agenda').prop('disabled',false);
+            alertMensaje('error', 'Identificador invalido', 'Asegurese que que este usando correctamente su CURP o pasaporte');
+          }
         }
+      },
+      error: function(){
+        $('#actualizarForm').prop('disabled',false);
+        $('#checkCurpPasaporte-agenda').prop('disabled',false);
       }
-    },
-    error: function(){
-      $('#actualizarForm').prop('disabled',false);
-    }
-  });
+    });
+  }else{
+    alertMensaje('error', 'Identificador invalido', 'Asegurese que que este usando correctamente su CURP o pasaporte');
+  }
 
   // obtenerSignosVitales('#antecedentes-registro')
 })
@@ -139,6 +156,7 @@ $('#eliminarForm').click(function(){
   $('#curp-paciente').prop('readonly', false);
   $('#eliminarForm').prop('disabled',true);
   $('#actualizarForm').prop('disabled',false);
+  $('#checkCurpPasaporte-agenda').prop('disabled',false);
   // $('#formDIV *').prop('disabled',true);
   $("#formDIV").fadeOut(400);
   $('#btn-formregistrar-agenda').prop('disabled',true);
@@ -161,6 +179,26 @@ $('#eliminarForm').click(function(){
 //     console.log(formData.getAll);
 //   }
 // })
+
+$('#checkCurpPasaporte-agenda').change(function() {
+  if($(this).is(":checked")) {
+    $('#label-identificacion').html('Pasaporte')
+  }else{
+    $('#label-identificacion').html('CURP')
+  }
+
+  $("#curp-paciente").focus();
+});
+
+function getDataAjax(text){
+  if($('#checkCurpPasaporte-agenda').is(":checked")) {
+    return dataAjax = {pasaporte:text, api:2};
+  }else{
+    return dataAjax = {curp:text, api:2};
+  }
+}
+
+
 
 $(document).on("change ,  keyup" , "input[type='radio']" ,function(){
      var parent_element = $(this).closest("div[class='row']");

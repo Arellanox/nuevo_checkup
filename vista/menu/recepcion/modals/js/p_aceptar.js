@@ -32,7 +32,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event){
 
   event.preventDefault();
 
-  var form = document.getElementById("formEditarEquipo");
+  var form = document.getElementById("formAceptarPacienteRecepcion");
   var formData = new FormData(form);
   formData.set('api', 2);
   formData.set('url', url_paciente);
@@ -171,12 +171,15 @@ function agregarFilaDiv(appendDiv, text, id){
 
  function limpiarFormAceptar(){
    $('#list-estudios-laboratorio').html('')
+   $('#file-laboratorio').val('');
    validarEstudiosLab = 0;
-   $('#list-estudios-rx').html()
+   $('#list-estudios-rx').html('')
+   $('#file-r-x').val('');
    validarEstudiosRX = 0;
-   $('#list-estudios-ultrasonido').html()
+   $('#list-estudios-ultrasonido').html('')
+   $('#file-ultra-sonido').val('');
    validarEstudiosImg = 0;
-   $('#list-estudios-otros').html()
+   $('#list-estudios-otros').html('')
    validarEstudiosOtros = 0;
    $('#Observaciones-aceptar').val('')
    estudiosEnviar = [];
