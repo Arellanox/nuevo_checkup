@@ -37,6 +37,7 @@ switch ($api) {
         break;
     case 3:
         # actualizar toma de muestra
+        # indicar que la muestra ya ha sido tomada.
         $response = $master->updateByProcedure("sp_toma_de_muestra_servicios_g", [$id_turno]);
         break;
     default:
