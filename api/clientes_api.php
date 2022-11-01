@@ -64,7 +64,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo]);
+        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr]);
         break;
     case 3:
         # actualizar
@@ -76,7 +76,7 @@ switch ($api) {
         break;
     case 5:
         # creacion de qr de cliente
-        #puedes buscar el cliente por codigo o por el id del cliente 
+        #puedes buscar el cliente por codigo o por el id del cliente
         # enviar null para la variable que no se vaya a usar
 
         $cliente = array($id_cliente,$codigo,$qr);

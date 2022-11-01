@@ -190,8 +190,17 @@ function obtenerSignosVitales(div){
   $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
     setTimeout(function () {
       $(div).html(html);
+      if (clienteRegistro) {
+        switch (clienteRegistro) {
+          case 1:
+            $('#onlyProcedencia').fadeOut(0);
+            $('#onlyMedico').fadeOut(0);
+            break;
+          default:
+            $('#onlyMedico').fadeOut(0);
+        }
+      }
     }, 100);
-
   });
 }
 

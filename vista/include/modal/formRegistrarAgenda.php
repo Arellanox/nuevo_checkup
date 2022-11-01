@@ -34,7 +34,7 @@
     <div class="col-6">
       <p>Procedencia</p>
       <div class="" id="procedencia-agenda">
-        <p id="procedencia-registro">PARTICULAR</p>
+        <p id="procedencia-registro"></p>
       </div>
     </div>
     <div class="col-6">

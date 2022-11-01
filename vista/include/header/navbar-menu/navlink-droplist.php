@@ -32,9 +32,14 @@
   </div>
 
 
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/'; ?>">
-    <i class="bi bi-briefcase"></i> Clientes
-  </a>
+
+  <?php if ($_SESSION['vista']['CLIENTES'] == 1): ?>
+    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/'; ?>">
+      <i class="bi bi-briefcase"></i> Clientes
+    </a>
+  <?php endif; ?>
+
+  
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
     <i class="bi bi-heart-pulse"></i> Laboratorio
   </a>

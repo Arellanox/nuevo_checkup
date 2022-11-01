@@ -1,7 +1,10 @@
-obtenerContenidoCliente("Clientes");
+
 // $(window).on("hashchange", function (e) {
 //   hasLocation();
 // });
+redireccionarVista('CLIENTES', function(){
+  obtenerContenidoCliente("Clientes");
+})
 
 var datacontactos ={api:2,id_cliente:0};
 var tablaContacto;

@@ -321,3 +321,41 @@
 28/10/22 17:12:39 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_respuestas_1` FOREIGN KEY (`ANTECEDENTE_RESPUESTA_ID`) REFERENCES `antecedentes_respuestas)
 28/10/22 17:13:13 sp_recepcion_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_recepcion_detalle_paquete_g does not exist
 28/10/22 18:28:16 sp_lista_de_trabajo Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_lista_de_trabajo; expected 3, got 2
+29/10/22 13:09:35 sp_consultorio_antecedentes_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_antecedentes`, CONSTRAINT `fk_consultorio_antecedentes_antecedentes_respuestas_1` FOREIGN KEY (`ANTECEDENTE_RESPUESTA_ID`) REFERENCES `antecedentes_respuestas)
+29/10/22 13:10:01 sp_recepcion_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_recepcion_detalle_paquete_g does not exist
+29/10/22 13:12:32 sp_recepcion_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_recepcion_detalle_paquete_g does not exist
+29/10/22 15:52:13 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+29/10/22 16:19:29 sp_paquetes_actualizar_costo Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_actualizar_costo; expected 5, got 4
+29/10/22 16:19:29 sp_paquetes_actualizar_costo Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_actualizar_costo; expected 5, got 4
+29/10/22 16:29:56 sp_paquetes_actualizar_costo Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_actualizar_costo; expected 5, got 4
+29/10/22 16:29:56 sp_paquetes_actualizar_costo Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_actualizar_costo; expected 5, got 4
+29/10/22 16:44:44 sp_paquetes_actualizar_costo Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_actualizar_costo; expected 5, got 4
+29/10/22 16:44:44 sp_paquetes_actualizar_costo Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_actualizar_costo; expected 5, got 4
+31/10/22 16:31:58 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:32:27 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:32:34 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:32:50 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:32:51 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:32:55 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:32:56 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:34:18 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha anulado una conexión establecida por el software en su equipo host..
+
+31/10/22 16:34:30 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en una red no accesible.
+
+31/10/22 16:35:01 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:42:18 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 16:42:21 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 4
+31/10/22 17:33:52 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+31/10/22 17:33:52 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+31/10/22 17:33:52 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+31/10/22 17:33:52 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+31/10/22 17:35:40 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+31/10/22 18:16:42 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+31/10/22 18:21:34 sp_recepcion_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_recepcion_detalle_paquete_g does not exist
