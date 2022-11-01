@@ -53,7 +53,7 @@ switch ($api) {
         if (count($servicios) > 0) {
             # si hay algo en el arreglo lo insertamos
             foreach ($servicios as $key => $value) {
-                $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value));
+                $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g',array($idTurno,null,$value));
             }
         }
         break;
@@ -62,8 +62,8 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_recepcion_reagendar', array($idTurno, $fecha_reagenda));
         break;
     case 4:
-       
-     
+
+
         break;
     default:
         # code...

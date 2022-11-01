@@ -42,18 +42,5 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
 
 })
 
-$('#TablaContenidoResultados tbody').on('click', 'tr', function () {
-   if ($(this).hasClass('selected')) {
-       $(this).removeClass('selected');
-       selectListaLab = null;
-       obtenerPanelInformacion(0, 'pacientes_api', 'paciente')
-       // getPanelLab('Out', 0)
-   } else {
-       tablaContenido.$('tr.selected').removeClass('selected');
-       $(this).addClass('selected');
-       selectListaLab = tablaContenido.row( this ).data();
-       obtenerPanelInformacion(selectListaLab['ID_PACIENTE'], 'pacientes_api', 'paciente')
-   }
-});
 
-// selectDatatable("TablaContenidoResultados", tablaContenido, 1, "pacientes_api", 'paciente')
+selectDatatable("TablaContenidoResultados", tablaContenido, 2, {0:"pacientes_api"}, {0:"paciente"}, {0:"#panel-informacion"})

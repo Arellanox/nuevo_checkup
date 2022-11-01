@@ -83,5 +83,5 @@ function formpassword(){
 $('#fechaListadoLaboratorio').change(function(){
   dataListaPaciente = {api:5, fecha_busqueda: $(this).val(), area_id: 6}
   tablaListaPaciente.ajax.reload();
-  getPanelLab('Out', 0)
+  getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab',selectListaLab, 'Out')
 })

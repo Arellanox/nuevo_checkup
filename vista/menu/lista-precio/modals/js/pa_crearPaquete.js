@@ -12,6 +12,7 @@ select2("#facturacion-paquete", 'ModalRegistrarPaquete')
 
 //Formulario de Preregistro
 $("#formRegistrarPaquete").submit(function (event) {
+
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarPaquete");
@@ -46,7 +47,18 @@ $("#formRegistrarPaquete").submit(function (event) {
             });
             document.getElementById("formRegistrarPaquete").reset();
             $("#ModalRegistrarPaquete").modal("hide");
-            // tablaEquipo.ajax.reload();
+            $('input[type=radio][name=selectPaquete]:checked').each(function() {
+              console.log($(this).val())
+              switch ($(this).val()) {
+                case '1':
+                  contenidoPaquete();
+                break;
+                case '2':
+                  mantenimientoPaquete();
+                break;
+
+                  }
+            });
           }
         },
       });

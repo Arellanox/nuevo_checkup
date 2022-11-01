@@ -40,5 +40,13 @@
       <p>Directorio:</p>
     </div>
     <div class="col-7" id="info-paci-directorio"></div>
+    <div class="col-5 text-end info-detalle">
+      <p>Comentario:</p>
+    </div>
+    <div class="col-7" id="info-paci-comentario"></div>
+    <div class="col-5 text-end info-detalle">
+      <p>Fecha de re-agenda:</p>
+    </div>
+    <div class="col-7" id="info-paci-agenda"></div>
   </div>
 </div>

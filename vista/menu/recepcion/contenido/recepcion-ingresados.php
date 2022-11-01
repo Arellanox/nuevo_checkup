@@ -5,17 +5,19 @@
   <div class="col-12 col-lg-3 info-detalle card pt-5" >
     <div class="" id="panel-informacion">
     </div>
+    <div class="" id="panel-recepcion">
+    </div>
     <div class="" id="panel-documentos-paciente">
     </div>
   </div>
   <div class="col-12 col-lg-9 card">
 
     <div class="text-center" style="margin-top:4px;">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar">
-        <i class="bi bi-check"></i> Reagendar paciente
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-reagendar">
+        <i class="bi bi-calendar2-event"></i> Re-agendar paciente
       </button>
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar">
-        <i class="bi bi-check"></i> Deshacer ingreso
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-pendiente">
+        <i class="bi bi-person-lines-fill"></i> Deshacer ingreso
       </button>
     </div>
     <div class="table-responsive" style="margin: 25px;">

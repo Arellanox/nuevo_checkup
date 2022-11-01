@@ -10,25 +10,22 @@ $("#formRechazarPaciente").submit(function(event){
    event.preventDefault();
    document.getElementById("btn-rechazar-paciente").disabled = true;
    /*DATOS Y VALIDACION DEL REGISTRO*/
-   var form = document.getElementById("formRechazarPaciente");
-   var formData = new FormData(form);
-   formData.set('id_turno', array_selected['ID_TURNO']);
-   formData.set('estado', 1)
-   formData.set('api', 2);
-   console.log(formData);
    $.ajax({
-     data: formData,
+     data: {
+       api: 2,
+       estado: 0,
+       comentario_rechazo: $('#textarea-Comentario-rechazar').val(),
+       id_turno: array_selected['ID_TURNO']
+     },
      url: "../../../api/recepcion_api.php",
      type: "POST",
-     processData: false,
-     contentType: false,
      success: function(data) {
        data = jQuery.parseJSON(data);
        if (mensajeAjax(data)) {
-         // Mensaje
-         {
-              alertSelectTable('¡Resultado confirmado!', 'success')
-            }
+         alertMensaje('info', '¡Paciente rechazado!', 'El paciente está en la lista de rechazados.');
+         document.getElementById("btn-rechazar-paciente").disabled = false;
+         $("#modalPacienteRechazar").modal("hide");
+         tablaRecepcionPacientes.ajax.reload();
        }
      }
    });

@@ -493,6 +493,10 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     }
                     $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
                     row.MUNICIPIO+", "+row.ESTADO);
+                    $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+                    if (row.FECHA_REAGENDA != null) {
+                      $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
+                    }
                     $(panel).fadeIn(100);
                     resolve(1);
                   }else{
@@ -518,6 +522,10 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         }
                         $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
                         row.MUNICIPIO+", "+row.ESTADO);
+                        $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+                        if (row.FECHA_REAGENDA != null) {
+                          $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
+                        }
                       },
                       complete: function(){
                         $(panel).fadeIn(100);

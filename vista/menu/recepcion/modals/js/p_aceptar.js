@@ -1,12 +1,13 @@
 // Obtener datos del paciente seleccionado
-var url_paciente = null;
+var url_paciente = null, validarEstudiosLab = 0, validarEstudiosRX = 0, validarEstudiosImg = 0, validarEstudiosOtros = 0;
+var estudiosEnviar = new Array();
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
   document.getElementById("btn-confirmar-paciente").disabled = true;
 
-  rellenarSelect('#select-paquetes','paquetes_api', 2,0,'DESCRIPCION')
- rellenarSelect("#select-lab", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 6});
+  rellenarSelect('#select-paquetes','paquetes_api', 2,0,'DESCRIPCION', {'cliente_id': array_selected['CLIENTE_ID']})
+  rellenarSelect("#select-lab", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 6});
   rellenarSelect('#select-us',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 7});
   rellenarSelect('#select-otros',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'otros_servicios' : 1});
 })
@@ -27,29 +28,163 @@ $("#btn-obtenerID").click(function(){
   });
 })
 
-$("#btn-confirmar-paciente").click(function(){
-document.getElementById("btn-confirmar-paciente").disabled = true;
-  $.ajax({
-    url: "??",
-    type: "POST",
-    data:{
-      id: array_selected['id_paciente'],
-      url: url_paciente
-    },
-    success: function(data) {
-      if (true) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Turno: @Turno',
-          text: 'Generando credencial...',
-          showCloseButton: false,
-        })
+$('#formAceptarPacienteRecepcion').submit(function (event){
 
-      }
-    },
+  event.preventDefault();
+
+  var form = document.getElementById("formEditarEquipo");
+  var formData = new FormData(form);
+  formData.set('api', 2);
+  formData.set('url', url_paciente);
+  formData.set('id_turno', array_selected['ID_TURNO']);
+  formData.set('estado', 1);
+  formData.set('comentario_rechazo', $('#Observaciones-aceptar').val());
+  formData.set('servicios', estudiosEnviar);
+  formData.set('id_paquete', $('#select-paquetes').val());
+
+
+  document.getElementById("btn-confirmar-paciente").disabled = true;
+  $.ajax({
+      url: "../../../api/recepcion_api.php",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        data = jQuery.parseJSON(data);
+        console.log(data);
+        if (true) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Turno: @Turno',
+            text: '¡Paciente aceptado! Recuerda generar sus documentos.',
+            showCloseButton: false,
+          })
+          limpiarFormAceptar();
+          $("#modalPacienteAceptar").modal("hide");
+          tablaRecepcionPacientes.ajax.reload();
+        }
+      },
   });
+  event.preventDefault();
 })
+
+
+function filtrarArray(){
+
+ }
+
+
+$('#btn-AgregarEstudioLab').on('click', function(){
+   let text = $( "#select-lab option:selected" ).text();
+   let id = $( "#select-lab" ).val();
+   validarEstudiosLab = 1;
+   agregarFilaDiv('#list-estudios-laboratorio', text, id)
+})
+$('#list-estudios-laboratorio').on('DOMSubtreeModified', function(){
+   if ($(this).children().length == 0) {
+     validarEstudiosLab = 0;
+     $('#file-laboratorio').prop('required',false);
+   }else{
+     $('#file-laboratorio').prop('required',true);
+   }
+});
+
+
+$('#btn-agregarEstudioRX').on('click', function(){
+   let text = $( "#select-rx option:selected" ).text();
+   let id = $( "#select-rx" ).val();
+   agregarFilaDiv('#list-estudios-rx', text, id)
+})
+$('#list-estudios-rx').on('DOMSubtreeModified', function(){
+    if ($(this).children().length == 0) {
+      validarEstudiosRX = 0;
+      $('#file-r-x').prop('required',false);
+    }else{
+      $('#file-r-x').prop('required',true);
+    }
+});
+
+
+$('#btn-agregarEstudioImg').on('click', function(){
+   let text = $( "#select-us option:selected" ).text();
+   let id = $( "#select-us" ).val();
+   agregarFilaDiv('#list-estudios-ultrasonido', text, id)
+})
+$('#list-estudios-ultrasonido').on('DOMSubtreeModified', function(){
+    if ($(this).children().length == 0) {
+      validarEstudiosImg = 0;
+      $('#file-ultra-sonido').prop('required',false);
+    }else{
+      $('#file-ultra-sonido').prop('required',true);
+    }
+});
+
+
+$('#btn-agregarEstudioOtros').on('click', function(){
+ let text = $( "#select-otros option:selected" ).text();
+ let id = $( "#select-otros" ).val();
+ agregarFilaDiv('#list-estudios-otros', text, id)
+})
+$('#list-estudios-otros').on('DOMSubtreeModified', function(){
+  if ($(this).children().length == 0) {
+    validarEstudiosOtros = 0;
+  }
+});
+
+
+function agregarFilaDiv(appendDiv, text, id){
+   estudiosEnviar.push(id)
+   let html = '<li class="list-group-item">'+
+             '<div class="row">'+
+               '<div class="col-10 d-flex  align-items-center">'+
+                 text+
+               '</div>'+
+               '<div class="col-2">'+
+                 '<button type="button" class="btn btn-hover me-2 eliminarfilaEstudio" data-bs-id="'+id+'"> <i class="bi bi-trash"></i> </button>'+
+               '</div>'+
+             '</div>'+
+           '</li>';
+   $(appendDiv).append(html);
+   // console.log(estudiosEnviar);
+}
+
+ $(document).on('click', '.eliminarfilaEstudio', function () {
+    let id = $(this).attr('data-bs-id');
+    eliminarElementoArray(id);
+    console.log(id);
+    var parent_element = $(this).closest("li[class='list-group-item']");
+    $(parent_element).remove()
+
+ });
+
+
+ function eliminarElementoArray(id){
+    estudiosEnviar = jQuery.grep(estudiosEnviar, function(value) {
+      return value != id;
+    });
+    console.log(estudiosEnviar);
+ }
+
+
+
+ function limpiarFormAceptar(){
+   $('#list-estudios-laboratorio').html('')
+   validarEstudiosLab = 0;
+   $('#list-estudios-rx').html()
+   validarEstudiosRX = 0;
+   $('#list-estudios-ultrasonido').html()
+   validarEstudiosImg = 0;
+   $('#list-estudios-otros').html()
+   validarEstudiosOtros = 0;
+   $('#Observaciones-aceptar').val('')
+   estudiosEnviar = [];
+ }
+
+
+
+
 select2("#select-paquetes", "modalPacienteAceptar", 'Seleccione un paquete');
 select2("#select-lab", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-rx", "modalPacienteAceptar", 'Seleccione un estudio');

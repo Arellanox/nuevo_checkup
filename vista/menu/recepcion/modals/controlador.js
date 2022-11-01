@@ -5,6 +5,8 @@ $.post("modals/m_recepcion.php", function(html){
   $.getScript('modals/js/p_aceptar.js');
   // Modal para rechazar
   $.getScript('modals/js/p_rechazar.js');
+  // Modal para reagendar
+  $.getScript('modals/js/p_reagendar.js');
   // Modal para rechazar
   $.getScript('modals/js/subir-perfil.js');
   // // Modal para registar una agenda

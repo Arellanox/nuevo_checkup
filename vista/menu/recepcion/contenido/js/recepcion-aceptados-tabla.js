@@ -1,9 +1,6 @@
 tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
-  processing: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-    loadingRecords: '&nbsp;',
-    processing: '<div class="spinner"></div>'
   },
   scrollY: "60vh",
   scrollCollapse: true,
@@ -18,6 +15,12 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       beforeSend: function() { loader("In") },
       complete: function(){ loader("Out") },
       dataSrc:'response.data'
+  },
+  createdRow: function( row, data, dataIndex ){
+      if ( data.REAGENDADO == 1 )
+      {
+          $(row).addClass('bg-info');
+      }
   },
   columns:[
       {data: 'COUNT'},

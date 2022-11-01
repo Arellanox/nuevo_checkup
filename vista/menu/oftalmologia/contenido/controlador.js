@@ -1,58 +1,27 @@
 var tablaContenido, areaActiva = 1;
-var dataListaPaciente = {api:7};
-var selectListaLab, hash;
+var dataListaPaciente = {};
+var selectListaLab;
 
-$.post("contenido/contenido.php", function (html) {
-  $("#body-js").html(html);
-  // // Botones
-  $.getScript("contenido/js/oftalmo-botones.js");
-}).done(function(){
-  // // Datatable
-   $.getScript("contenido/js/vista-tabla.js").done(function(){
+if (sessionVista('OFTALMOLOGIA') == true) {
+  obtenerContenidoOftal()
+}else{
+  window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
+}
 
-     async function obtenerContenidoOftal() {
-       await obtenerTitulo('Resultados de Oftalmología');
-       areaActiva = 3;
-       recargartabla()
+function obtenerContenidoOftal(){
+  obtenerTitulo('Resultados de Oftalmología'); //Aqui mandar el nombre de la area
+  $.post("contenido/contenido.php", function(html){
+     $("#body-js").html(html);
+  }).done(function(){
+    // Datatable
+    $.getScript("contenido/js/vista-tabla.js")
+    // Botones
+    $.getScript("contenido/js/oftalmo-botones.js");
+    dataListaPaciente = {api:5, area_id: 3, fecha_busqueda: $('#fechaListadoAreaMaster').val()};
+  });
+}
 
-     }
-
-     function hasLocation() {
-       hash = window.location.hash.substring(1);
-       // $("a").removeClass("navlinkactive");
-       // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-            if (sessionVista(hash) == true){
-              switch (hash) {
-
-               case "OFTALMOLOGIA":
-                 obtenerContenidoOftal();
-               break;
-               default:
-                 obtenerContenidoCliente();
-                 break;
-             }
-            }else{
-              window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
-            }
-
-
-
-     }
-     hasLocation();
-     $(window).on("hashchange", function (e) {
-      hasLocation();
-    });
-   });
-});
-
-// obtenerContenidoRX()
 function sessionVista(areaVista) {
   let vista = session.vista;
   return vista[areaVista] == 1 ? true:false;
-}
-
-function recargartabla(){
-  dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
-  tablaContenido.ajax.reload();
-  return 1;
 }

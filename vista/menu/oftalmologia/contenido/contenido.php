@@ -1,3 +1,6 @@
+<div class="col-12 loader" id="loader" style="">
+  <div class="preloader" id="preloader"> </div>
+</div>
 <div class="row">
   <div class="card col-12 col-lg-3 pt-4">
     <div class="" id="panel-informacion">
