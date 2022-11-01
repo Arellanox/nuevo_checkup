@@ -106,8 +106,8 @@ switch($api){
             # si no se puede insertar el turno, termina el ejecucion
             echo "No hemos podido agendar su visita.";
         }
-
-        echo json_encode(array('response'=>array('code'=>1,'data'=>'Se cargaron sus antecedentes.')));
+        $prefolio = $master->getByProcedure('sp_turnos_b',array($lastId,null,null));
+        echo json_encode(array('response'=>array('code'=>1,'data'=>$prefolio[0]['prefolio'])));
         exit;
 
         break;
