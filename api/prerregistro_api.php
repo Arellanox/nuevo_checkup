@@ -6,6 +6,7 @@ $api = $_POST['api'];
 
 #datos de pacientes
 $curp = $_POST['curp'];
+$pasaporte = $_POST['pasaporte'];
 
 # Datos de turnos
 $idTurno = $_POST['idTurno'];
@@ -33,7 +34,7 @@ $antecedentes = array_slice($_POST,0,count($_POST)-5);
 switch($api){
     case 1:
         #buscar el paciente por medio de la curp
-        $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp));
+        $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp,$pasaporte));
 
         if(!count($paciente)>0){
             echo "CURP no reconocida";
