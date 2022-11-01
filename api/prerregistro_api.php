@@ -119,7 +119,7 @@ switch($api){
         $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp));
 
         if(!count($paciente)>0){
-            echo "CURP no reconocida";
+            echo "identificación no reconocida";
             exit;
         }
         # obtenemos el id del paciente que despues enviaremos al sp para obtener sus antecedentes
@@ -176,7 +176,7 @@ switch($api){
 
     case 3:
         #buscar paciente por curp
-        $response = $master->getByProcedure('sp_pacientes_b',array(null,$curp));
+        $response = $master->getByProcedure('sp_pacientes_b',array(null,$curp,$pasaporte));
         echo $master->returnApi($response);
         break;
     default:
