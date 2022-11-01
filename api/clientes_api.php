@@ -33,6 +33,7 @@ $twitter = $_POST['Twitter'];
 $instagram = $_POST['Instagram'];
 $regimen = $_POST['regimen'];
 $convenio = $_POST['convenio'];
+$qr = $_POST['qr'];
 
 $parametros = array(
     $id_cliente,
@@ -78,7 +79,7 @@ switch ($api) {
         #puedes buscar el cliente por codigo o por el id del cliente 
         # enviar null para la variable que no se vaya a usar
 
-        $cliente = array($id_cliente,$codigo);
+        $cliente = array($id_cliente,$codigo,$qr);
 
         $result = $master->getByProcedure('sp_clientes_b',$cliente);
         $nombreCliente = $result[0]['NOMBRE_COMERCIAL'];
