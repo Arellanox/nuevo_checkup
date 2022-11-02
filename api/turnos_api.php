@@ -135,6 +135,11 @@ switch ($api) {
         }
         break;
 
+    case 11:
+          # guardar y confirmar pacientes de laboratorio
+          $response = $master->updateByProcedure('sp_laboratorio_confirmar_resultados',[$id_turno,$confirmar,$id_area]);
+        break;
+
     default:
         $response = "api no reconocida";
         break;

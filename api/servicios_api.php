@@ -190,9 +190,7 @@ switch ($api) {
         break;
 
     case 9:
-        # guardar y confirmar pacientes de laboratorio
-        $response = $master->updateByProcedure('sp_laboratorio_confirmar_resultados',[$id_turno,$confirmar,$id_area]);
-        echo $master->returnApi($response);
+      
         break;
 
     default:
