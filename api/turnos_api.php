@@ -17,6 +17,7 @@ $id = $_POST['id'];
 $id_paciente = $_POST['id_paciente'];
 $id_area = $_POST['id_area'];
 $fecha_agenda = $_POST['fecha_busqueda'];
+$confirmar = $_POST['confirmar'];
 
 #subir resultaddos
 $servicio_id = $_POST['servicio_id'];
@@ -113,7 +114,7 @@ switch ($api) {
         //print_r($id_turno);
         foreach ($setResultados as $servicio_id => $resultado) {
             # code...
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno['id_turno'], $servicio_id, $resultado, $observaciones));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno['id_turno'], $servicio_id, $resultado, $observaciones,$confirmar));
             //print_r($response);
         }
         echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
@@ -136,8 +137,7 @@ switch ($api) {
         break;
 
     case 11:
-          # guardar y confirmar pacientes de laboratorio
-          $response = $master->updateByProcedure('sp_laboratorio_confirmar_resultados',[$id_turno,$confirmar,$id_area]);
+         
         break;
 
     default:
