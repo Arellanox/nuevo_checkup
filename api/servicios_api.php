@@ -15,6 +15,8 @@ $api = $_POST['api'];
 $id_area = $_POST['id_area'];
 $otros_servicios = $_POST['otros_servicios']; #activar con valor 1
 $abreviatura = $_POST['abreviatura']; #activar con valor 1
+$confirmar = $_POST['confirmar'];
+$id_turno = $_POST['id_turno'];
 
 
 switch ($api) {
@@ -185,6 +187,12 @@ switch ($api) {
 
         $response = $master->getByProcedure('sp_servicios_b',array(null,null,$id_area,$otros_servicios,$abreviatura));
         echo $master->mis->returnApi($response);
+        break;
+
+    case 9:
+        # guardar y confirmar pacientes de laboratorio
+        $response = $master->updateByProcedure('sp_laboratorio_confirmar_resultados',[$id_turno,$confirmar,$id_area]);
+        echo $master->returnApi($response);
         break;
 
     default:
