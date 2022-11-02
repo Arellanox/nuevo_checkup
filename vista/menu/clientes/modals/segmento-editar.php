@@ -10,12 +10,19 @@
           <p class="text-center">Actualizar datos del <strong>Segmento</strong></p>
           <div class="row">
             <div class="col-6 col-md-6">
-              <label for="nombre_segmento" class="form-label">Nombre</label>
-              <input type="text" name="nombre_segmento" id="nombre_segmento_editar" class="input-form" required>
+              <label for="descripcion" class="form-label">Descripción</label>
+              <input type="text" name="descripcion" id="nombre_segmento_editar" class="input-form" required>
             </div>
             <div class="col-6 col-md-6">
-              <label for="descripcion" class="form-label">Descripcion</label>
-              <input type="text" name="descripcion" id="descripcion_segmento" class="input-form" required>
+              <label for="padre" class="form-label">¿Subsecuente?</label>
+              <select class="form-control input-form" name="padre" id="selectSegmentos_editar">
+              </select>
+              <div class="form-check">
+               <input class="form-check-input" type="checkbox" value="" id="checkSegmentoPadre_editar">
+               <label class="form-check-label" for="checkSegmentoPadre_editar">
+                 Segmento "padre".
+               </label>
+              </div>
             </div>
           </div>
         </form>

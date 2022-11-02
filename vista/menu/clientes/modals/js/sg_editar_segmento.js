@@ -1,14 +1,13 @@
 const ModalEditarSegmentos = document.getElementById("ModalEditarSegmentos");
 ModalEditarSegmentos.addEventListener("show.bs.modal", (event) => {
-
-  console.log(selectSegmento)
-
-  $("#descripcion_segmento").val(selectSegmento["DESCRIPCION"]);
-  $("#nombre_segmento_editar").val(selectSegmento["ID_SEGMENTO"]);
-
-
-
+  datosEditarSegmentos();
 });
+
+async function datosEditarSegmentos(){
+  await rellenarSelect('#selectSegmentos_editar', 'segmentos_api', 2, 'ID_SEGMENTO', 'DESCRIPCION', {cliente_id: array_selected["ID_CLIENTE"]})
+  $("#nombre_segmento_editar").val(selectSegmento["DESCRIPCION"]);
+  // $("#selectSegmentos_editar").val(selectSegmento["ID_SEGMENTO"]); #Falta recibir correctamente los segmentos
+}
 
 //Formulario de Preregistro
 $("#formEditarSegmento").submit(function (event) {

@@ -26,12 +26,12 @@
               <input type="text" name="telefono2_contacto" class="form-control input-form" required>
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">Tipo de contacto</label>
-              <select class="form-control input-form" id="selectSegmentos">
-                <option value="">Finanzas</option>
-                <option value="">Envio de correo</option>
-                <option value="">Operativo</option>
-                <!-- <option value=""></option> -->
+              <label for="tipo_contacto" class="form-label">Tipo de contacto</label>
+              <select class="form-control input-form" name="tipo_contacto">
+                <option value="1">Finanzas</option>
+                <option value="2">Envio de correo</option>
+                <option value="3">Operativo</option>
+                <option value="4">Adicional</option>
               </select>
             </div>
             <div class="col-6">

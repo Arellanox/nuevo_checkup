@@ -2,7 +2,7 @@
 <div class="p-3">
   <div class="row">
     <div class="col-12 info-detalle text-center">
-      <p class="none-p">Cliente: <strong id="nombre-contacto"></strong></p>
+      <p class="none-p">Nombre del contacto: <strong id="nombre-contacto"></strong></p>
     </div>
   </div>
   <div class="row mt-3">
@@ -19,10 +19,14 @@
 
     </div>
     <div class="col-6 text-end info-detalle">
+      <p>Tipo:</p>
+    </div>
+    <div class="col-6" id="info-contacto-tipo">
+    </div>
+    <div class="col-6 text-end info-detalle">
       <p>Email:</p>
     </div>
     <div class="col-6" id="info-contacto-email">
-
     </div>
   </div>
   <!-- <div class="row mt-2 d-flex justify-content-center">

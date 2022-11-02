@@ -40,7 +40,7 @@
           <p class="none-p">Estudios a subir</p>
         </div>
         <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
-          <button type="submit" form="formAnalisisLaboratorio" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
+          <button type="submit" form="formAnalisisLaboratorio" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px" >
             <i class="bi bi-clipboard2-pulse"></i> Guardar
           </button>
           <button type="submit" form="formAnalisisLaboratorio" data-attribute="confirmar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">

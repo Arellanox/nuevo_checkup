@@ -1,3 +1,9 @@
+const ModalRegistrarCliente = document.getElementById("ModalRegistrarCliente");
+ModalRegistrarCliente.addEventListener("show.bs.modal", (event) => {
+  rellenarSelect('#select-cfdi-agregar', 'cfdi_api', 1, 0, 1)
+});
+
+
 
 //Formulario Para agregar interpretacion
 $("#formRegistrarCliente").submit(function (event) {

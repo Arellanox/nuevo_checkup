@@ -12,6 +12,7 @@
     <label for="inputBuscarTableListaNuevos">Buscar:</label>
     <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" id="BuscarTablaContactos">
   </div>
+  <p class="none-p m-3">Seleccione un cliente para mostrar sus segmentos</p>
   <table class="table table-hover display responsive tableContenido" id="TablaSegmentosAdmin" style="width: 100%">
     <thead class="" style="width: 100%">
       <tr>

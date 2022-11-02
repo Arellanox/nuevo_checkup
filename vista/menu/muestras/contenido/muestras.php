@@ -20,17 +20,6 @@
           </tr>
         </thead>
         <tbody>
-          <?php for ($i=0; $i < 10; $i++) {
-            ?>
-            <tr>
-                <td>EJEMPLO</td>
-                <td>EJEMPLO</td>
-                <td>EJEMPLO</td>
-                <td>EJEMPLO</td>
-                <td>EJEMPLO</td>
-            </tr>
-            <?php
-          } ?>
         </tbody>
       </table>
     </div>
@@ -60,24 +49,14 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-6">
+        <div class="col-12">
           <h5>Estudios:</h5>
-          <ul class="list-group" id="lista-estudios-paciente">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-          </ul>
-        </div>
-        <div class="col-6">
-          <h5>Muestras:</h5>
-          <ul class="list-group" id="lista-contenedores-paciente">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
+          <ul class="list-group overflow-auto" id="lista-estudios-paciente" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
+            <!-- <li class="list-group-item">
+              GRUPO DE EXAMEN - SERVICIO
+              <br>
+              <i class="bi bi-arrow-return-right"></i> MUESTRA - CONTENEDOR
+            </li> -->
           </ul>
         </div>
       </div>

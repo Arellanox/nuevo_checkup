@@ -30,6 +30,7 @@ tablaContacto = $("#TablaContacto").DataTable({
   columns: [
     { data: "COUNT" },
     { data: "NOMBRE_COMPLETO" },
+    { data: "ACTIVO" },
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [{ width: "3px", targets: 0 }],

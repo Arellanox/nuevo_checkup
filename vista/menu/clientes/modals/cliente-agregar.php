@@ -27,22 +27,20 @@
             </div>
             <div class="col-6 col-md-6">
               <label for="curp" class="form-label">CURP</label>
-              <input type="text" name="curp" id="curp" class="form-control input-form" required>
+              <input type="text" name="curp" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="abreviatura" class="form-label">Abreviatura</label>
-              <input type="text" name="abreviatura" id="abreviatura" class="form-control input-form" required>
-              </inp>
+              <input type="text" name="abreviatura" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="limite" class="form-label">Limite de Credito</label>
-              <input name="limite" type="number" id="limite_credito" class="form-control input-form" required>
+              <input name="limite" type="number" class="form-control input-form" required>
 
             </div>
             <div class="col-3 col-md-3">
               <label for="tiempo_credito" class="form-label">Temporalidad de Credito</label>
-              <input type="number" name="tiempo_credito" class="form-control input-form" id="tiempo_credito" required>
-
+              <input type="number" name="tiempo_credito" class="form-control input-form" required>
             </div>
             <div class="col-3 col-md-3">
               <label for="cuenta_contable" class="form-label">Cuenta Contable</label>
@@ -50,40 +48,38 @@
             </div>
             <div class="col-6">
               <label for="apellidos_contacto" class="form-label">Régimen fiscal</label>
-              <select class="form-control input-form" id="selectSegmentos">
-
+              <select class="form-control input-form" id="selectRegimenFiscal-agregar" required>
               </select>
             </div>
             <div class="col-6">
               <label for="apellidos_contacto" class="form-label">CFDI</label>
-              <select class="form-control input-form" id="selectSegmentos">
+              <select class="form-control input-form" id="select-cfdi-agregar" required>
 
               </select>
             </div>
             <div class="col-6">
               <label for="apellidos_contacto" class="form-label">Convenio</label>
-              <input name="confac" id="registrar-concepto-facturacion" placeholder="www.ejemplo.com" class="form-control input-form" required>
+              <input name="confac" placeholder="www.ejemplo.com" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Pagina Web</label>
-              <input name="confac" id="registrar-concepto-facturacion" placeholder="www.ejemplo.com" class="form-control input-form" required>
-
+              <input name="confac" placeholder="www.ejemplo.com" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="Facebook" class="form-label">Facebook</label>
-              <input class="md-textarea input-form" name="Facebook" cols="45" rows="2" placeholder=""></input>
+              <input class="md-textarea input-form" name="Facebook" cols="45" rows="2" placeholder="" required></input>
             </div>
             <div class="col-6 col-md-6">
               <label for="Twitter" class="form-label">Twitter</label>
-              <input class="md-textarea input-form" name="Twitter" cols="45" rows="2" placeholder=""></input>
+              <input class="md-textarea input-form" name="Twitter" cols="45" rows="2" placeholder="" required></input>
             </div>
             <div class="col-6 col-md-6">
               <label for="Instagram" class="form-label">Instagram</label>
-              <input class="md-textarea input-form" name="Instagram" cols="45" rows="2" placeholder=""></input>
+              <input class="md-textarea input-form" name="Instagram" cols="45" rows="2" placeholder="" required></input>
             </div>
             <div class="col-6 col-md-6">
               <label for="Codigo" class="form-label">Codigo</label>
-              <input class="md-textarea input-form" name="Codigo" cols="45" rows="2" placeholder=""></input>
+              <input class="md-textarea input-form" name="Codigo" cols="45" rows="2" placeholder="" required></input>
             </div>
           </div>
         </form>

@@ -32,7 +32,6 @@
             <div class="col-6 col-md-6">
               <label for="abreviatura" class="form-label">Abreviatura</label>
               <input type="text" name="abreviatura" id="abreviatura_cliente" class="form-control input-form" required>
-              </inp>
             </div>
             <div class="col-6 col-md-6">
               <label for="limite" class="form-label">Limite de Credito</label>
@@ -47,6 +46,22 @@
             <div class="col-3 col-md-3">
               <label for="cuenta_contable" class="form-label">Cuenta Contable</label>
               <input type="text" name="cuenta_contable" id="cuenta_contable_cliente" class="form-control input-form" required>
+            </div>
+            <div class="col-6">
+              <label for="apellidos_contacto" class="form-label">Régimen fiscal</label>
+              <select class="form-control input-form" id="selectRegimenFiscal-editar" required>
+
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="apellidos_contacto" class="form-label">CFDI</label>
+              <select class="form-control input-form" id="select-cfdi-editar" required>
+
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="apellidos_contacto" class="form-label">Convenio</label>
+              <input name="confac" id="registrar-concepto-facturacion" placeholder="www.ejemplo.com" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Pagina Web</label>

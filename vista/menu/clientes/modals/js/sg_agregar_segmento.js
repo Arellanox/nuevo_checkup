@@ -1,9 +1,17 @@
+const ModalRegistrarSegmentos = document.getElementById("ModalRegistrarSegmentos");
+ModalRegistrarSegmentos.addEventListener("show.bs.modal", (event) => {
+  rellenarSelect('#selectSegmentos', 'segmentos_api', 2, 'ID_SEGMENTO', 'DESCRIPCION', {cliente_id: array_selected["ID_CLIENTE"]})
+});
+
 //Formulario de Preregistro
 $("#formRegistrarSegmento").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarSegmento");
   var formData = new FormData(form);
+  if($('#selectSegmentos').is(":checked")) {
+     formData.delete('padre')
+  }
   formData.set("cliente_id", array_selected["ID_CLIENTE"]);
   formData.set("api", 1);
   Swal.fire({
@@ -43,3 +51,11 @@ $("#formRegistrarSegmento").submit(function (event) {
   });
   event.preventDefault();
 });
+
+$('#checkSegmentoPadre').change(function(){
+  if($(this).is(":checked")) {
+     $('#selectSegmentos').prop('disabled', true);
+  }else{
+     $('#selectSegmentos').prop('disabled', false);
+  }
+})

@@ -13,11 +13,13 @@
     <label for="inputBuscarTableListaNuevos">Buscar:</label>
     <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" id="BuscarTablaContactos">
   </div>
+  <p class="none-p m-3">Seleccione un cliente para mostrar sus contactos</p>
   <table class="table table-hover display responsive " id="TablaContacto">
     <thead class="" style="width: 40%">
       <tr>
         <th scope="col d-flex justify-content-center" class="all">#</th>
         <th scope="col d-flex justify-content-center" class="all">Nombre</th>
+        <th scope="col d-flex justify-content-center" class="all">Tipo</th>
     </thead>
     <tbody id="contenido-contacto"> </tbody>
   </table>

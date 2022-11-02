@@ -13,7 +13,7 @@ tablaMuestras = $('#TablaMuestras').DataTable({
         return $.extend(d, dataListaPaciente);
       },
       method: 'POST',
-      url: '../../../api/turnos_api.php',
+      url: '../../../api/toma_de_muestra_api.php',
       beforeSend: function() { loader("In") },
       complete: function(){
         loader("Out")
@@ -23,9 +23,8 @@ tablaMuestras = $('#TablaMuestras').DataTable({
       dataSrc:'response.data'
   },
   createdRow: function( row, data, dataIndex ){
-      if ( data.EDAD == 31 )
-      {
-          $(row).addClass('bg-warning');
+      if ( data.MUESTRA_TOMADA == 1 ){
+          $(row).addClass('bg-success text-white');
       }
   },
   columns:[
@@ -52,15 +51,23 @@ tablaMuestras = $('#TablaMuestras').DataTable({
 loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
 selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function(selectTR = null, array = null){
   selectListaMuestras = array;
+  // console.log(selectListaMuestras)
   if (selectTR == 1) {
+    if (selectListaMuestras.MUESTRA_TOMADA == 1) {
+      $('#muestra-tomado').prop('disabled', true)
+      $('#omitir-paciente').prop('disabled', true)
+    }else {
+      $('#muestra-tomado').prop('disabled', false)
+      $('#omitir-paciente').prop('disabled', false)
+    }
     getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras', selectListaMuestras, 'In', async function(divClass){
-        await obtenerPanelInformacion(selectListaMuestras['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
-        await obtenerListaEstudiosContenedores(selectListaMuestras['ID_PACIENTE'])
-        console.log(divClass)
-        $(divClass).fadeIn(100);
-      });
+      await obtenerPanelInformacion(selectListaMuestras['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
+      await obtenerListaEstudiosContenedores(selectListaMuestras['ID_TURNO'])
+      // console.log(divClass)
+      $(divClass).fadeIn(100);
+    });
   }else{
-      getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras',selectListaMuestras, 'Out')
+    getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras',selectListaMuestras, 'Out')
   }
 })
 
@@ -69,7 +76,38 @@ $("#BuscarTablaListaMuestras").keyup(function () {
 });
 
 function obtenerListaEstudiosContenedores(idturno = null){return new Promise(resolve => {
-    loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
-    resolve(1);
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/toma_de_muestra_api.php",
+      type: "POST",
+      dataType: 'json',
+      data: { api: 2, id_turno: idturno },
+      success: function (data) {
+        let row = data.response.data
+
+
+
+        let html = '';
+        for (var i = 0; i < row.length; i++) {
+          // console.log(row[i]);
+          html +=  '<li class="list-group-item">';
+          if (row[i]['GRUPO'] == null) {
+            html += '<strong>'+row[i]['SERVICIO']+'</strong>';
+          }else{
+            html += row[i]['GRUPO']+' - <strong>'+row[i]['SERVICIO']+'</strong>';
+          }
+          html += '  <i class="bi bi-arrow-right-short"></i>'+ row[i]['MUESTRA'] +'-'+ row[i]['CONTENEDOR'] + '</li>';
+
+        }
+        $('#lista-estudios-paciente').html(html);
+
+
+
+
+      },
+      complete: function(){
+        loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
+        resolve(1);
+      }
+    });
   });
 }

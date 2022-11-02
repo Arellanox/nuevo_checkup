@@ -8,7 +8,6 @@ modalPacienteReagendar.addEventListener('show.bs.modal', event => {
 //Rechazados
 $("#formReagendarPaciente").submit(function(event){
    event.preventDefault();
-   document.getElementById("btn-agendar-paciente").disabled = true;
    /*DATOS Y VALIDACION DEL REGISTRO*/
    Swal.fire({
      title: '¿Está seguro que desea cambiar agendar el paciente a otro dia?',
@@ -30,6 +29,9 @@ $("#formReagendarPaciente").submit(function(event){
          },
          url: "../../../api/recepcion_api.php",
          type: "POST",
+         beforeSend: function(){
+           document.getElementById("btn-agendar-paciente").disabled = true;
+         },
          success: function(data) {
            data = jQuery.parseJSON(data);
            if (mensajeAjax(data)) {
