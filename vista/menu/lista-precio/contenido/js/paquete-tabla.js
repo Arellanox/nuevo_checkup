@@ -12,89 +12,14 @@ tablaPaquete = $("#TablaListaPaquetes").DataTable({
     { width: "102.484px", targets: 4 },
     { width: "99.344px", targets: 5 },
     { width: "64.75px", targets: 6 },
+    { visible: false, targets: 7, searchable: false, },
   ],
-  // data : dataSet,
-  // columns:[
-  //   {data: 'DESCRIPCION'},
-  //   {data: 'CVE'},
-    // {
-    //   data: 'CANTIDAD',
-    //   render: function (data, type, full, meta) {
-    //       if (data == null || data == 0) {
-    //         value = 0;
-    //       }else{
-    //         value = data;
-    //       }
-    //       rturn = '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="'+value+'" style="margin: 0;padding: 0;height: 35px;">';
-    //
-    //       return rturn;
-    //     },
-    // },
-  //   {
-  //     data: 'COSTO',
-  //     render: function (data, type, full, meta) {
-  //       if (data == null || data == 0) {
-  //         value = 0;
-  //       }else{
-  //         value = data;
-  //       }
-  //       rturn = '<div class="costo-paquete text-center">$3</div>';
-  //
-  //       return rturn;
-  //     },
-  //   },
-  //   {
-  //     data: 'COSTO_TOTAL',
-  //     render: function (data, type, full, meta) {
-  //       if (data == null || data == 0) {
-  //         value = 0;
-  //       }else{
-  //         value = data;
-  //       }
-  //       rturn = '<div class="costototal-paquete text-center">$'+value+'</div>';
-  //
-  //       return rturn;
-  //     },
-  //   },
-  //   {
-  //     data: 'PRECIO_VENTA',
-  //     render: function (data, type, full, meta) {
-  //       if (data == null || data == 0) {
-  //         value = 0;
-  //       }else{
-  //         value = data;
-  //       }
-  //       rturn = '<div class="precioventa-paquete text-center">$2</div>';
-  //
-  //       return rturn;
-  //     },
-  //   },
-  //   {
-  //     data: 'SUBTOTAL',
-  //     render: function (data, type, full, meta) {
-  //       if (data == null || data == 0) {
-  //         value = 0;
-  //       }else{
-  //         value = data;
-  //       }
-  //       rturn = '<div class="subtotal-paquete text-center">$'+value+'</div>';
-  //
-  //       return rturn;
-  //     },
-  //   }
-  // ],
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
 });
 
-// Get the column API object
-var column = tablaPaquete.column(7);
-
-// Toggle the visibility
-column.visible(!column.visible());
-
-$('#TablaListaPaquetes tbody').on('dblclick', 'tr', function () {
+$('#TablaListaPaquetes tbody').on('dblclick', 'tr', function (){
     if (!$("input[name='cantidad-paquete']").is(":focus")) {
 
       // let datadbl = tablaPaquete.row( this ).data();
@@ -106,10 +31,7 @@ $('#TablaListaPaquetes tbody').on('dblclick', 'tr', function () {
       //   cargarTabla(dataSet);
       //   // alert('Eliminado '+datadbl['DESCRIPCION'])
       // }
-      tablaPaquete
-       .row( $(this))
-       .remove()
-       .draw();
+      tablaPaquete.row( $(this)).remove().draw();
       calcularFilasTR()
     }
 });

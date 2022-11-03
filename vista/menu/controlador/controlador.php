@@ -13,8 +13,8 @@ session_start();
 <script type="text/javascript">
   //Variable global para datatable
 
-  let http = "https://";
-  let servidor = "bimo-lab.com";
+  let http = "http://";
+  let servidor = "localhost";
   // <!-- Aqui controlar e incluir las modals -->
   obtenerHeader('<?php echo $menu ?>');
 
