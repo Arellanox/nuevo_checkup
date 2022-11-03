@@ -16,6 +16,11 @@ if (! $tokenValido){
 
 $master = new Master();
 $api = $_POST['api'];
+$cliente_id = $_POST['cliente_id'];
+$datos = $_POST['precios']; #esta variable debe guardar el id del servicios, el margen de utilidad y el precio de venta
+# esta variable guarda el margen cuando se quiere actualizar el precio de venta de todos los servicios
+# de un cliente dado.
+$margen_global = $_POST['margen_global'];
 
 switch ($api) {
     case 1:
@@ -95,6 +100,37 @@ switch ($api) {
             echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
         } else {
             echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+        }
+        break;
+    case 6:
+        # asignar precios por default a un cliente
+        $fails = array();
+        $oks = 0;
+
+        foreach($datos as $data){
+            if($data['margen']==0){
+                $oks++;
+            } else {
+                $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['servicios_id'],$data['margen'],$data['precio_venta']]);
+                if(is_numeric($response)){
+                    $oks++;
+                } else {
+                    $fails[] = $data['servicio_id'];
+                }
+            }  
+        }
+
+        echo json_encode(array("response"=>(count($datos)==$oks ? 1 : $fails)));
+
+        break;
+    case 7:
+        # recuperar la lista de precio de un cliente
+        $response = $master->getByProcedure('sp_precios_b'[$cliente_id]);
+        echo $master->returnApi($response);
+        break;
+    case 8:
+        if(is_null($margen_global)){
+            
         }
         break;
 
