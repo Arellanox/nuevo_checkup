@@ -109,12 +109,15 @@ switch ($api) {
 
     case 9:
         # subir resultados
-        $setResultados = $_POST;
-        $id_turno = array_slice($setResultados, count($setResultados) - 3, 1);
+        $setResultados = $_POST['servicios'];
+        $id_turno = $_POST['id_turno'];
+        // $id_turno = array_slice($setResultados, count($setResultados) - 4, 1);
+
+        // echo $confirmar;
         //print_r($id_turno);
         foreach ($setResultados as $servicio_id => $resultado) {
             # code...
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno['id_turno'], $servicio_id, $resultado, $observaciones,$confirmar));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar));
             //print_r($response);
         }
         echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
@@ -137,7 +140,7 @@ switch ($api) {
         break;
 
     case 11:
-         
+
         break;
 
     default:

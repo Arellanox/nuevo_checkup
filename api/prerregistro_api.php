@@ -108,7 +108,7 @@ switch($api){
             # si no se puede insertar el turno, termina el ejecucion
             echo "No hemos podido agendar su visita.";
         }
-        
+
         echo json_encode(array('response'=>array('code'=>1,'data'=>$prefolio[0]['PREFOLIO'])));
         exit;
 
@@ -124,7 +124,7 @@ switch($api){
         }
         # obtenemos el id del paciente que despues enviaremos al sp para obtener sus antecedentes
         $pacienteId = $paciente[0]['ID_PACIENTE'];
-  
+
         $ultimosAntecedentes = $master->getByProcedure('sp_ultimos_antecedentes_paciente',array($pacienteId));
 
         # creamos un array vacio que contendra los antecedentes por subtipo
@@ -143,9 +143,9 @@ switch($api){
                     '1' => $ultimo['NOTAS'],
                     '2' => $ultimo['ID_SUBTIPO']
                 );
-                ## asignamos una etiqueta al arreglo 
+                ## asignamos una etiqueta al arreglo
                 $label = str_replace(" ","_",$ultimo['SUBTIPO']);
-                
+
                 $tipoArray[] = $subtipoArray;
 
             } else {
@@ -157,13 +157,13 @@ switch($api){
                     '1' => $ultimo['NOTAS'],
                     '2' => $ultimo['ID_SUBTIPO']
                 );
-                ## asignamos una etiqueta al arreglo 
+                ## asignamos una etiqueta al arreglo
                 $label = str_replace(" ","_",$ultimo['SUBTIPO']);
-                
+
                 $tipoArray[] = $subtipoArray;
 
                /* # Guardamos el arreglo que hemos estado guardando en nuestro arreglo $antecedentes
-                $antecedentes[$label] = $tipoArray; 
+                $antecedentes[$label] = $tipoArray;
                 # guardarmos el el id de tipo en la variable $idTipo
                 $idTipo = $ultimo['ID_SUBTIPO'];
                 $label = str_replace(" ","_",$ultimo['SUBTIPO']);

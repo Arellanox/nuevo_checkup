@@ -78,9 +78,6 @@ async function obtenerConsultorio(id, idTurno){
 }
 
 async function obtenerConsulta(id, idTurno){
-
-
-
   loader("Out")
 }
 
@@ -100,6 +97,24 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle =
   $(appendDiv).append(html);
 }
 
+
+function obtenerConsultorioMain(){
+  // loader("In")
+  obtenerTitulo('Consultorio');
+  $.post("contenido/consultorio_main.php", function (html) {
+    var idrow;
+    $("#body-js").html(html) // Rellenar la plantilla de consulta
+  }).done(function() {
+    loader("Out")
+    // Datatable
+    $.getScript("contenido/js/main-tabla.js");
+    // // Botones
+    // $.getScript("contenido/js/consultorio-paciente-botones.js");
+    // // Funciones
+    // $.getScript('contenido/js/consultorio-paciente.js')
+  });
+}
+
 function hasLocation() {
   var hash = window.location.hash.substring(1);
   $("a").removeClass("navlinkactive");
@@ -112,7 +127,7 @@ function hasLocation() {
       obtenerContenidoConsulta();
       break;
     case "Main":
-      obtenerContenidoEquipos();
+      obtenerConsultorioMain();
       break;
     default:
       // window.location.hash = 'Main';

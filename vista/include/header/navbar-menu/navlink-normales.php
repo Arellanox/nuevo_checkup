@@ -98,6 +98,11 @@
 
 <?php if ($menu == "Consultorio") : ?>
   <li class="nav-item">
+    <a href="#" type="button" onclick="obtenerConsultorioMain()">
+      <i class="bi bi-thunderbolt"></i> Consultorio
+    </a>
+  </li>
+  <li class="nav-item">
     <a href="#Perfil" data-bs-dismiss="offcanvas">
       <i class="bi bi-thunderbolt"></i> Perfil paciente
     </a>

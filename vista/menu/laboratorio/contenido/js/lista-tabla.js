@@ -23,9 +23,10 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
       dataSrc:'response.data'
   },
   createdRow: function( row, data, dataIndex ){
-      if ( data.EDAD == 31 )
-      {
-          $(row).addClass('bg-warning');
+      if ( data.CONFIRMADO == 1 ){
+        $(row).addClass('bg-success text-white');
+      }else{
+        $(row).addClass('bg-warning');
       }
   },
   columns:[
@@ -57,10 +58,28 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function(sel
         await obtenerPanelInformacion(selectListaLab['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
         await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
         await generarFormularioPaciente(selectListaLab['ID_TURNO'])
-        $(divClass).fadeIn(100)
+
+        if (selectListaLab.CONFIRMADO == 1) {
+          $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
+          $('#formAnalisisLaboratorio :input').prop('disabled', true)
+        }else {
+          $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', false)
+          $('#formAnalisisLaboratorio :input').prop('disabled', false)
+        }
+
+        while (!$(divClass).is(':visible')) {
+          if (!$(divClass).is(':visible')) {
+            setTimeout(function(){
+              $(divClass).fadeIn(0)
+              console.log("Visible!")
+            }, 100)
+          }
+          $(divClass).fadeIn(0)
+        }
       });
     // getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
   }else{
+    // console.log('rechazado')
     getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab',selectListaLab, 'Out')
     // getPanelLab('Out', 0, 0)
   }
@@ -147,9 +166,9 @@ function generarFormularioPaciente(id){ return new Promise(resolve => {
           html += colreStart;
           html += '<div class="input-group">';
           if (data[i]['RESULTADO'] == null) {
-            html += '<input type="text" class="form-control input-form" name="'+data[i]['ID_SERVICIO']+'" required autocomplete="off">';
+            html += '<input type="number" class="form-control input-form" name="servicios['+data[i]['ID_SERVICIO']+']" required autocomplete="off">';
           }else{
-            html += '<input type="text" class="form-control input-form" name="'+data[i]['ID_SERVICIO']+'" required value="'+data[i]['RESULTADO']+'" autocomplete="off">';
+            html += '<input type="number" class="form-control input-form" name="servicios['+data[i]['ID_SERVICIO']+']" required value="'+data[i]['RESULTADO']+'" autocomplete="off">';
           }
           html += '<span class="input-span">'+data[i]['DESCRIPCION_MEDIDA']+'</span>';
           html += '</div>';
