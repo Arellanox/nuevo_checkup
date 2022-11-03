@@ -10,6 +10,7 @@
         <form class="row" id="formRegistrarPaciente">
           <?php include "formRegistroPaciente.php"; ?>
         </form>
+        <p>Todos sus datos...</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
