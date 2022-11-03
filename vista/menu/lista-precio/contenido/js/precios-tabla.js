@@ -11,11 +11,12 @@ tablaPrecio = $("#TablaListaPrecios").DataTable({
   scrollY: "63vh",
   scrollCollapse: true,
   columnDefs: [
-    { width: "4%", targets: 0 },
-    { width: "24%", targets: 1 },
-    { width: "24%", targets: 2 },
-    { width: "24%", targets: 3 },
-    { width: "24%", targets: 4 },
+    { width: "5%", targets: 0 },
+    { width: "5%", targets: 1 },
+    { width: "50%", targets: 1 },
+    { width: "30%", targets: 2 },
+    // { width: "24%", targets: 3 },
+    // { width: "24%", targets: 4 },
   ],
   ajax: {
       dataType: 'json',
@@ -34,6 +35,7 @@ tablaPrecio = $("#TablaListaPrecios").DataTable({
   },
   columns:[
       {data: 'COUNT'},
+      {data: 'ABREVIATURA'},
       {data: 'DESCRIPCION'},
       {
         data: 'COSTO',
@@ -48,32 +50,32 @@ tablaPrecio = $("#TablaListaPrecios").DataTable({
             return rturn;
           },
       },
-      {
-        data: 'UTILIDAD',
-        render: function (data, type, full, meta) {
-            if (data == null || data == 0) {
-              value = 0;
-            }else{
-              value = data;
-            }
-            rturn = '<div class="input-group"><input type="number" class="form-control input-form margen" name="margen" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
-
-            return rturn;
-          },
-      },
-      {
-        data: 'PRECIO_VENTA',
-        render: function (data, type, full, meta) {
-          if (data == null || data == 0) {
-            value = 0;
-          }else{
-            value = data;
-          }
-          rturn = '<div class="total">$'+value+'</div>';
-
-          return rturn;
-        },
-      },
+      // {
+      //   data: 'UTILIDAD',
+      //   render: function (data, type, full, meta) {
+      //       if (data == null || data == 0) {
+      //         value = 0;
+      //       }else{
+      //         value = data;
+      //       }
+      //       rturn = '<div class="input-group"><input type="number" class="form-control input-form margen" name="margen" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
+      //
+      //       return rturn;
+      //     },
+      // },
+      // {
+      //   data: 'PRECIO_VENTA',
+      //   render: function (data, type, full, meta) {
+      //     if (data == null || data == 0) {
+      //       value = 0;
+      //     }else{
+      //       value = data;
+      //     }
+      //     rturn = '<div class="total">$'+value+'</div>';
+      //
+      //     return rturn;
+      //   },
+      // },
       // {defaultContent: 'En progreso...'}
   ],
 });

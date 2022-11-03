@@ -24,13 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>#1</td>
-          <td>Nombre</td>
-          <td>Clasificacion</td>
-          <td>Area</td>
-          <td>Estatus</td>
-        </tr>
+
       </tbody>
     </table>
   </div>

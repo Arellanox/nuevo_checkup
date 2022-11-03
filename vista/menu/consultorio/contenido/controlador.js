@@ -7,17 +7,17 @@ $(window).on("hashchange", function (e) {
 var id, idturno, idconsulta, dataConsulta = new Array;
 
 // Obtener el turno e informacion del paciente a tratar
-function obtenerSiguientePaciente(){
-  $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
-    type: "POST",
-    datatype: "json",
-    data: { id: id, api: 7 },
-    success: function (data) {
-
-    }
-  });
-}
+// function obtenerSiguientePaciente(){
+//   $.ajax({
+//     url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+//     type: "POST",
+//     datatype: "json",
+//     data: { id: id, api: 7 },
+//     success: function (data) {
+//
+//     }
+//   });
+// }
 
 // obtenerContenidoConsulta()
 function obtenerContenidoConsulta(id = 1, idturno  = 1, idconsulta = 1, dataConsulta = 1) {
