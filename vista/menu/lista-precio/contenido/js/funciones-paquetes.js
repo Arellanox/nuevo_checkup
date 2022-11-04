@@ -1,5 +1,4 @@
 
-
 async function mantenimientoPaquete(){
   loader("In");
   await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION');
@@ -12,26 +11,9 @@ async function contenidoPaquete(){
   loader("Out");
 }
 
+// Agrega Un nuevo TR a la tabla de paquetes
 function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREVIATURA, tablaPaquete){
   let longitud = dataSet.length+1;
-  // dataSet.push({
-  //   'COUNT':  longitud,
-  //   'DESCRIPCION': DESCRIPCION,
-  //   'CVE':CVE,
-  //   'CANTIDAD':1,
-  //   'COSTO': COSTO_TOTAL,
-  //   'COSTO_TOTAL': COSTO_TOTAL,
-  //   'precio_venta':precio_venta,
-  //   'SUBTOTAL': 0,
-  //   'ID_SERVICIO': ID_SERVICIO,
-  //   'LIST': ABREVIATURA+''+Math.random()*10
-  // })
-
-  // let html = '<tr class=""><td class="sorting_1 dtr-control">'+DESCRIPCION+'</td><td>'+CVE+'</td>'+
-  //       '<td></td>'+
-  //       '<td><div class="costo-paquete text-center">$'+COSTO_TOTAL+'</div></td>'+
-  //       '<td><div class="costototal-paquete text-center">$'+COSTO_TOTAL+'</div></td>'+
-  //       '<td><div class="precioventa-paquete text-center">$'+precio_venta+'</div></td><td><div class="subtotal-paquete text-center">$0</div></td></tr>';
   if (costo_total == null) {
     costo_total = 0;
   }else {
@@ -43,7 +25,6 @@ function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREV
   }else {
     precio_venta = precio_venta;
   }
-
 
   tablaPaquete.row.add([
     DESCRIPCION,

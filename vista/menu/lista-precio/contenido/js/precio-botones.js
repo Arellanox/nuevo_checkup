@@ -1,14 +1,3 @@
-$("#btn-perfil").click(function () {
-  alert();
-});
-
-$("#seleccion-cliente").select2({
-  tags: false,
-  width: "50%",
-  placeholder: "Selecciona un cliente",
-});
-rellenarSelect("#seleccion-cliente", "clientes_api", 2, 0, 1);
-
 
 $('#btn-precios-guardar').click(function () {
   $('#btn-precios-guardar').prop('disabled', true)
@@ -90,22 +79,178 @@ $('#btn-precios-guardar').click(function () {
   }, 50)
 });
 
-$('input[type=radio][name=selectChecko]').change(function() {
-    if ($(this).val() != 'Paq') {
-      if ($(this).val() != 0) {
-        tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
-        data = {api:8, id_area: $(this).val()};
-      }else{
-        tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
-        data = {api:8, otros_servicios: 1};
-      }
 
-    }else{
-        cargarpaquetes()
-    }
-    tablaPrecio.ajax.reload();
-});
+$('input[type=radio][name=selectChecko]').change(function(){
+  obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, id_area: $(this).val()})
+})
 
-$('#seleccion-cliente').on('change', function(){
-  cargarpaquetes()
+
+$('input[type=radio][name=selectTipLista]').change(function(){
+  switch ($(this).val()) {
+    case '1':
+        $('.vista_estudios-precios').fadeIn(100)
+        $('#divSeleccionCliente').fadeOut(100)
+      break;
+    case '2':
+        $('.vista_estudios-precios').fadeIn(100)
+        $('#divSeleccionCliente').fadeIn(100)
+      break;
+    case '3':
+        $('.vista_estudios-precios').fadeOut(100)
+        $('#divSeleccionCliente').fadeIn(100)
+      break;
+    default:
+
+  }
+  switch ($(this).val()) {
+    case "1":
+      columnsDefinidas = [
+        { width: "5%", title: "#", targets: 0 },
+        { width: "8%", title: "AB", targets: 1 },
+        { width: "42%", title: "Nombre", targets: 2 },
+        { width: "20%", title: "Costo", targets: 3 },
+      ]
+      columnasData = [
+          {data: 'COUNT'},
+          {data: 'ABREVIATURA'},
+          {data: 'DESCRIPCION'},
+          {
+            data: 'COSTO',
+            render: function (data, type, full, meta) {
+                if (data == null || data == 0) {
+                  value = 0;
+                }else{
+                  value = data;
+                }
+                rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form costo" name="costo" placeholder="" value="'+value+'"></div>';
+
+                return rturn;
+            },
+          },
+      ]
+    break;
+    case "2":
+      columnsDefinidas = [
+        { width: "5%", title: "#", targets: 0 },
+        { width: "8%", title: "AB", targets: 1 },
+        { width: "38%", title: "Nombre", targets: 2 },
+        { title: "Costo", targets: 3 },
+        { width: "20%",title: "Utilidad", targets: 4 },
+        { width: "20%",title: "Total", targets: 5 }
+      ]
+      columnasData = [
+        {data: 'COUNT'},
+        {data: 'ABREVIATURA'},
+        {data: 'DESCRIPCION'},
+        {
+          data: 'COSTO',
+          render: function (data, type, full, meta) {
+              if (data == null || data == 0) {
+                value = 0;
+              }else{
+                value = data;
+              }
+              rturn = '<div class="costo-paquete text-center">$'+value+'</div>';
+
+              return rturn;
+            },
+        },
+        {
+          data: 'UTILIDAD',
+          render: function (data, type, full, meta) {
+              if (data == null || data == 0) {
+                value = 0;
+              }else{
+                value = data;
+              }
+              rturn = '<div class="input-group"><input type="number" class="form-control input-form margen" name="margen" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
+
+              return rturn;
+            },
+        },
+        {
+          data: 'PRECIO_VENTA',
+          render: function (data, type, full, meta) {
+            if (data == null || data == 0) {
+              value = 0;
+            }else{
+              value = data;
+            }
+            rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="margen" placeholder="" value="'+value+'"></div>';
+
+            return rturn;
+          },
+        },
+    ]
+    break;
+    case "3":
+      columnsDefinidas = [
+        { width: "5%", title: "#", targets: 0 },
+        { title: "Paquete", targets: 1 },
+        { width: "10%",title: "Costo", targets: 2 },
+        { width: "18%",title: "Utilidad", targets: 3 },
+        { width: "18%",title: "Total", targets: 4 }
+      ]
+      columnasData = [
+        {data: 'COUNT'},
+        {data: 'DESCRIPCION'},
+        {
+          data: 'COSTO',
+          render: function (data, type, full, meta) {
+              if (data == null || data == 0) {
+                value = 0;
+              }else{
+                value = data;
+              }
+              rturn = '<div class="costo-paquete text-center">$'+value+'</div>';
+
+              return rturn;
+            },
+        },
+        {
+          data: 'UTILIDAD',
+          render: function (data, type, full, meta) {
+              if (data == null || data == 0) {
+                value = 0;
+              }else{
+                value = data;
+              }
+              rturn = '<div class="input-group"><input type="number" class="form-control input-form margen" name="margen" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
+
+              return rturn;
+            },
+        },
+        {
+          data: 'PRECIO_VENTA',
+          render: function (data, type, full, meta) {
+            if (data == null || data == 0) {
+              value = 0;
+            }else{
+              value = data;
+            }
+            rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="margen" placeholder="" value="'+value+'"></div>';
+
+            return rturn;
+          },
+        }
+    ]
+      obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: 1}, 'response.data')
+      return 1;
+    break;
+    default:
+    confirm('Esta opcion no deberia verser, recargue la pagina y eliga una opción')
+  }
+  tablaPrecio.destroy();
+  $('#TablaListaPrecios').empty();
+  tablaPrecio = $("#TablaListaPrecios").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    lengthChange: false,
+    info: false,
+    paging: false,
+    columnDefs:columnsDefinidas,
+  });
+  $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+  // obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl)
 })

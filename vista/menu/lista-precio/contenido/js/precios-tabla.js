@@ -12,9 +12,9 @@ tablaPrecio = $("#TablaListaPrecios").DataTable({
   scrollCollapse: true,
   columnDefs: [
     { width: "5%", targets: 0 },
-    { width: "5%", targets: 1 },
-    { width: "50%", targets: 1 },
-    { width: "30%", targets: 2 },
+    { width: "8%", targets: 1 },
+    { width: "42%", targets: 2 },
+    { width: "20%", targets: 3 },
     // { width: "24%", targets: 3 },
     // { width: "24%", targets: 4 },
   ],
