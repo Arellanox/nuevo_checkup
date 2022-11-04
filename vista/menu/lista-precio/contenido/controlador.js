@@ -9,30 +9,8 @@ var dataSet = new Array();
 var iva, total, subtotalPrecioventa, subtotalCosto;
 
 // Arreglos para la tabla dinamica, para solo costos
-  var columnsDefinidas = [
-    { width: "5%", title: "#", targets: 0 },
-    { width: "8%", title: "AB", targets: 1 },
-    { width: "42%", title: "Nombre", targets: 2 },
-    { width: "20%", title: "Costo", targets: 3 },
-  ]
-  var columnasData = [
-    {data: 'COUNT'},
-    {data: 'ABREVIATURA'},
-    {data: 'DESCRIPCION'},
-    {
-      data: 'COSTO',
-      render: function (data, type, full, meta) {
-          if (data == null || data == 0) {
-            value = 0;
-          }else{
-            value = data;
-          }
-          rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form costo" name="costo" placeholder="" value="'+value+'"></div>';
-
-          return rturn;
-      },
-    },
-  ];
+  var columnsDefinidas;
+  var columnasData;
 //
 
 function obtenerContenidoPrecios() {
@@ -43,24 +21,33 @@ function obtenerContenidoPrecios() {
     }).done(function(){
       $('#vista_paquetes-precios').fadeOut(0)
       $('#divSeleccionCliente').fadeOut(0)
-      // Datatable
-      tablaPrecio = $("#TablaListaPrecios").DataTable({
-        language: {
-          url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-        },
-        lengthChange: false,
-        info: false,
-        paging: false,
-        columnDefs:columnsDefinidas,
-      });
-      // obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, data)
-      $.getScript("contenido/js/precios-utilidad-tabla.js");
-      // Botones
-      $.getScript("contenido/js/precio-botones.js");
+      $.getScript('contenido/js/funciones-listaprecios.js').done(function(){
+        columnsDefinidas = obtenerColumnasTabla('1.1')
+        columnasData = obtenerColumnasTabla('1.2')
+        // Datatable
+        tablaPrecio = $("#TablaListaPrecios").DataTable({
+          language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+          },
+          lengthChange: false,
+          info: false,
+          paging: false,
+          columnDefs:columnsDefinidas,
+        });
+        // obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, data)
+        $.getScript("contenido/js/precios-tabla.js");
+        // Calcula las tablas
+        $.getScript("contenido/js/calculos-listaprecios.js");
+        // Botones
+        $.getScript("contenido/js/precio-botones.js");
+      })
+
     });
 }
 
 function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {api:7, id_area: 7}, response = null){
+    console.log(columnDefs);
+    console.log(columnsData)
     tablaPrecio.destroy();
     $('#TablaListaPrecios').empty();
     tablaPrecio = $("#TablaListaPrecios").DataTable({

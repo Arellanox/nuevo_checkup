@@ -56,7 +56,7 @@
   </div>
   <div class="col-8 card">
     <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-precios-guardar">
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-lista">
         <i class="bi bi-save"></i> Guardar
       </button>
     </div>

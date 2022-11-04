@@ -1,3 +1,14 @@
+select2('#seleccionar-cliente', 'divSeleccionCliente', 'Cargando lista de clientes...')
+rellenarSelect('#seleccionar-cliente','clientes_api', 2,0,'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
+
+$('#seleccionar-cliente').change(function(){
+  obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: $(this).val()}, 'response.data')
+})
+
+select2('#seleccion-paquete', 'vista_paquetes-precios', 'Cargando lista de paquetes...')
+rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION', {cliente_id: 1});
+
+
 
 $('#btn-precios-guardar').click(function () {
   $('#btn-precios-guardar').prop('disabled', true)
@@ -80,6 +91,24 @@ $('#btn-precios-guardar').click(function () {
 });
 
 
+$('#btn-guardar-lista').click(function(){
+  switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
+    case '1':
+        console.log(getListaConcepto());
+      break;
+    case '2':
+        console.log(getListaPrecios('ID_SERVICIO'))
+      break;
+    case '3':
+        console.log(getListaPrecios('ID_PAQUETE'))
+      break;
+    default:
+      alert('No a seleccionado ninguna opcion')
+
+  }
+})
+
+
 $('input[type=radio][name=selectChecko]').change(function(){
   obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, id_area: $(this).val()})
 })
@@ -88,157 +117,27 @@ $('input[type=radio][name=selectChecko]').change(function(){
 $('input[type=radio][name=selectTipLista]').change(function(){
   switch ($(this).val()) {
     case '1':
+        columnsDefinidas = obtenerColumnasTabla('1.1')
+        columnasData = obtenerColumnasTabla('1.2')
         $('.vista_estudios-precios').fadeIn(100)
         $('#divSeleccionCliente').fadeOut(100)
       break;
     case '2':
+        columnsDefinidas = obtenerColumnasTabla('2.1')
+        columnasData = obtenerColumnasTabla('2.2')
         $('.vista_estudios-precios').fadeIn(100)
         $('#divSeleccionCliente').fadeIn(100)
       break;
     case '3':
+        columnsDefinidas = obtenerColumnasTabla('3.1')
+        columnasData = obtenerColumnasTabla('3.2')
         $('.vista_estudios-precios').fadeOut(100)
         $('#divSeleccionCliente').fadeIn(100)
+        obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: 1}, 'response.data')
+        return 1;
       break;
     default:
-
-  }
-  switch ($(this).val()) {
-    case "1":
-      columnsDefinidas = [
-        { width: "5%", title: "#", targets: 0 },
-        { width: "8%", title: "AB", targets: 1 },
-        { width: "42%", title: "Nombre", targets: 2 },
-        { width: "20%", title: "Costo", targets: 3 },
-      ]
-      columnasData = [
-          {data: 'COUNT'},
-          {data: 'ABREVIATURA'},
-          {data: 'DESCRIPCION'},
-          {
-            data: 'COSTO',
-            render: function (data, type, full, meta) {
-                if (data == null || data == 0) {
-                  value = 0;
-                }else{
-                  value = data;
-                }
-                rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form costo" name="costo" placeholder="" value="'+value+'"></div>';
-
-                return rturn;
-            },
-          },
-      ]
-    break;
-    case "2":
-      columnsDefinidas = [
-        { width: "5%", title: "#", targets: 0 },
-        { width: "8%", title: "AB", targets: 1 },
-        { width: "38%", title: "Nombre", targets: 2 },
-        { title: "Costo", targets: 3 },
-        { width: "20%",title: "Utilidad", targets: 4 },
-        { width: "20%",title: "Total", targets: 5 }
-      ]
-      columnasData = [
-        {data: 'COUNT'},
-        {data: 'ABREVIATURA'},
-        {data: 'DESCRIPCION'},
-        {
-          data: 'COSTO',
-          render: function (data, type, full, meta) {
-              if (data == null || data == 0) {
-                value = 0;
-              }else{
-                value = data;
-              }
-              rturn = '<div class="costo-paquete text-center">$'+value+'</div>';
-
-              return rturn;
-            },
-        },
-        {
-          data: 'UTILIDAD',
-          render: function (data, type, full, meta) {
-              if (data == null || data == 0) {
-                value = 0;
-              }else{
-                value = data;
-              }
-              rturn = '<div class="input-group"><input type="number" class="form-control input-form margen" name="margen" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
-
-              return rturn;
-            },
-        },
-        {
-          data: 'PRECIO_VENTA',
-          render: function (data, type, full, meta) {
-            if (data == null || data == 0) {
-              value = 0;
-            }else{
-              value = data;
-            }
-            rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="margen" placeholder="" value="'+value+'"></div>';
-
-            return rturn;
-          },
-        },
-    ]
-    break;
-    case "3":
-      columnsDefinidas = [
-        { width: "5%", title: "#", targets: 0 },
-        { title: "Paquete", targets: 1 },
-        { width: "10%",title: "Costo", targets: 2 },
-        { width: "18%",title: "Utilidad", targets: 3 },
-        { width: "18%",title: "Total", targets: 4 }
-      ]
-      columnasData = [
-        {data: 'COUNT'},
-        {data: 'DESCRIPCION'},
-        {
-          data: 'COSTO',
-          render: function (data, type, full, meta) {
-              if (data == null || data == 0) {
-                value = 0;
-              }else{
-                value = data;
-              }
-              rturn = '<div class="costo-paquete text-center">$'+value+'</div>';
-
-              return rturn;
-            },
-        },
-        {
-          data: 'UTILIDAD',
-          render: function (data, type, full, meta) {
-              if (data == null || data == 0) {
-                value = 0;
-              }else{
-                value = data;
-              }
-              rturn = '<div class="input-group"><input type="number" class="form-control input-form margen" name="margen" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
-
-              return rturn;
-            },
-        },
-        {
-          data: 'PRECIO_VENTA',
-          render: function (data, type, full, meta) {
-            if (data == null || data == 0) {
-              value = 0;
-            }else{
-              value = data;
-            }
-            rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="margen" placeholder="" value="'+value+'"></div>';
-
-            return rturn;
-          },
-        }
-    ]
-      obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: 1}, 'response.data')
-      return 1;
-    break;
-    default:
-    confirm('Esta opcion no deberia verser, recargue la pagina y eliga una opción')
+      confirm('Esta opcion no deberia verser, recargue la pagina y eliga una opción')
   }
   tablaPrecio.destroy();
   $('#TablaListaPrecios').empty();
@@ -249,7 +148,7 @@ $('input[type=radio][name=selectTipLista]').change(function(){
     lengthChange: false,
     info: false,
     paging: false,
-    columnDefs:columnsDefinidas,
+    columnDefs: columnsDefinidas
   });
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   // obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl)
