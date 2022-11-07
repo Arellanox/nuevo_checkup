@@ -190,7 +190,9 @@ switch ($api) {
         break;
 
     case 9:
-      
+        # recuperar solo los servicios que sean grupos y los que no pertenezcan a un grupo ni tengan hijos
+        $response = $master->getByProcedure('sp_servicios_padres_b',[$id_area]);
+        echo $master->returnApi($response);
         break;
 
     default:

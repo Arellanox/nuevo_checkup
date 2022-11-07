@@ -18,6 +18,7 @@ $master = new Master();
 $api = $_POST['api'];
 $cliente_id = $_POST['cliente_id'];
 $datos = $_POST['precios']; #esta variable debe guardar el id del servicios, el margen de utilidad y el precio de venta
+
 # esta variable guarda el margen cuando se quiere actualizar el precio de venta de todos los servicios
 # de un cliente dado.
 $margen_global = $_POST['margen_global'];
