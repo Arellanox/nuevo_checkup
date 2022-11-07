@@ -195,7 +195,9 @@ switch ($api) {
         break;
 
     case 9:
-        # recuperar solo los servicios que sean grupos y los que no pertenezcan a un grupo ni tengan hijos
+        # recuperar solo los servicios que sean grupos,
+        # los estudios que no tengan hijos y 
+        # los estudios que pertenezcan a la lista de precios del cliente seleccionado
         $response = $master->getByProcedure('sp_servicios_padres_b',[$id_area,$paquete_id,$cliente_id]);
         echo $master->returnApi($response);
         break;
