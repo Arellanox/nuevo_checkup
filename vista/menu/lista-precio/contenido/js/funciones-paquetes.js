@@ -1,13 +1,13 @@
 
 async function mantenimientoPaquete(){
   loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION');
+  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.FECHA_CREACION');
   loader("Out");
 }
 
 async function contenidoPaquete(){
   loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 5,0,'DESCRIPCION');
+  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.FECHA_CREACION');
   loader("Out");
 }
 

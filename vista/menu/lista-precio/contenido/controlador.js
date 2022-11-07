@@ -4,19 +4,18 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
-var idsEstudios, data = {api:2, id_area: 7}, apiurl = '../../../api/servicios_api.php', tablaPrecio, tablaPaquete;
-var dataSet = new Array();
-var iva, total, subtotalPrecioventa, subtotalCosto;
+let idsEstudios, data = {api:2, id_area: 7}, apiurl = '../../../api/servicios_api.php', tablaPrecio, tablaPaquete;
+let dataSet = new Array();
+let iva, total, subtotalPrecioventa, subtotalCosto;
 
 // Arreglos para la tabla dinamica, para solo costos
-  var columnsDefinidas;
-  var columnasData;
+  let columnsDefinidas;
+  let columnasData;
 //
 
 function obtenerContenidoPrecios() {
   obtenerTitulo("Lista de precios"); //Aqui mandar el nombre de la area
     $.post("contenido/listaprecios.php", function (html) {
-      var idrow;
       $("#body-js").html(html);
     }).done(function(){
       $('#vista_paquetes-precios').fadeOut(0)
@@ -78,11 +77,11 @@ function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {a
 }
 
 
+
 function obtenerContenidoPaquetes(tabla) {
   obtenerTitulo("Paquetes de clientes"); //Aqui mandar el nombre de la area
   // Funciones js
     $.post("contenido/paquetes.php", function (html) {
-      var idrow;
       $("#body-js").html(html);
 
     }).done(function () {
@@ -92,8 +91,6 @@ function obtenerContenidoPaquetes(tabla) {
         $.getScript("contenido/js/paquete-tabla.js");
         // Botones
         $.getScript("contenido/js/paquete-botones.js");
-        select2('#seleccion-paquete', 'form-select-paquetes')
-        select2('#seleccion-estudio','form-select-paquetes')
       })
 
     });

@@ -23,6 +23,10 @@
               <select name="concepto_id" id="facturacion-paquete" class="input-form" required>
               </select>
             </div>
+            <div class="col-12">
+              <label for="cliente_id" class="form-label">Cliente del paquete:</label>
+              <select id="relacion-cliente" name="cliente_id" class="form-control input-form"> </select>
+            </div>
           </div>
         </form>
       </div>

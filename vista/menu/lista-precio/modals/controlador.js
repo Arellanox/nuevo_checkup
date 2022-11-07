@@ -3,7 +3,7 @@ $.post("modals/modals.php", function(html){
    // Modal para crear Paquete
    $.getScript('modals/js/pa_crearPaquete.js');
    //Modal para crear Relacion
-   $.getScript('modals/js/pa_crearRelacion.js');
+   // $.getScript('modals/js/pa_crearRelacion.js');
    // Modal para rechazar
    //$.getScript('modals/js/p_rechazar.js');
    // Modal para rechazar

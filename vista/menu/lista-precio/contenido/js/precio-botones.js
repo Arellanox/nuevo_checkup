@@ -110,7 +110,11 @@ $('#btn-guardar-lista').click(function(){
 
 
 $('input[type=radio][name=selectChecko]').change(function(){
-  obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, id_area: $(this).val()})
+  if ($(this).val() != 1) {
+      obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, id_area: $(this).val()})
+  }else{
+      obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, otros_servicios: 1})
+  }
 })
 
 

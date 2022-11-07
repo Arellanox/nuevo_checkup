@@ -1,5 +1,6 @@
 <?php
 require_once('../php/phpqrcode/qrlib.php');
+date_default_timezone_set('America/Mexico_City');
 
 class Miscelaneus{
 

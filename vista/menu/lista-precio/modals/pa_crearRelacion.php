@@ -1,4 +1,4 @@
-<div class="modal fade" id="ModalCrearRelacion" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+<!-- <div class="modal fade" id="ModalCrearRelacion" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
@@ -10,12 +10,7 @@
           <p class="text-center">Seleccione a continuacion para crear la <strong>Relacion</strong> </p>
           <br>
           <div class="row">
-            <div class="col-12">
-              <label for="descripcion" class="form-label">Cliente</label>
-              <select id="relacion-cliente" name="relacion-cliente" class="form-control input-form">
 
-              </select>
-            </div>
             <div class="col-12">
               <label for="descripcion" class="form-label">Paquete</label>
               <select id="relacion-paquete" name="relacion-paquete" class="form-control input-form">
@@ -34,4 +29,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
