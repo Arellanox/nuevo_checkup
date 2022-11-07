@@ -9,8 +9,10 @@ $("#telefono1_contacto").val(selectContacto["TELEFONO1"]);
 $("#telefono2_contacto").val(selectContacto["TELEFONO2"]);
 $("#email_contacto").val(selectContacto["EMAIL"]);
 
-if (selectContacto["TIPO"]) {
-  $("#select_tipo_contacto").val(selectContacto["TIPO"]);
+if (selectContacto["ID_TIPO"]) {
+  $("#select_tipo_contacto").val(selectContacto["ID_TIPO"]);
+}else{
+  $("#select_tipo_contacto").val('');
 }
 
 

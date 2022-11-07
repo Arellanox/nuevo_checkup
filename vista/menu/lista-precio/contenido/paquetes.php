@@ -24,20 +24,7 @@
           <label for="inputBuscarPaquetes">Seleccione un paquete:</label>
           <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required> </select>
           <div class="text-start" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
-            <style media="screen">
-              .btn-outline-success {
-                border-color: transparent;
-              }
 
-              .btn-outline-success:hover {
-                opacity: 50%;
-              }
-
-              .disable-div {
-                pointer-events: none;
-                background: rgb(0 0 0 / 8%);
-              }
-            </style>
             <label for="inputBuscarPaquetes">Pulse el area del estudio:</label> <br>
             <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off">
             <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagennología</label>
@@ -100,7 +87,7 @@
       <table class="table table-hover display responsive " id="TablaListaPaquetes" style="width: 100%">
         <thead style="width: 100%">
           <tr>
-            <th scope="col d-flex justify-content-center" class="all">Descripcion</th>
+            <th scope="col d-flex justify-content-center" class="all">Descripción</th>
             <th scope="col d-flex justify-content-center" class="all">CVE</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Cantidad</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Costo</th>
@@ -116,3 +103,19 @@
       </table>
   </div>
 </div>
+
+
+<style media="screen">
+  .btn-outline-success {
+    border-color: transparent;
+  }
+
+  .btn-outline-success:hover {
+    opacity: 50%;
+  }
+
+  .disable-div {
+    pointer-events: none;
+    background: rgb(0 0 0 / 8%);
+  }
+</style>

@@ -1,18 +1,20 @@
 
 async function mantenimientoPaquete(){
   loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.FECHA_CREACION');
+  tablaMantenimiento();
   loader("Out");
 }
 
-async function contenidoPaquete(){
+async function contenidoPaquete(select = null){
   loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.FECHA_CREACION');
-  loader("Out");
+  if (select == 1) {
+    await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.FECHA_CREACION');
+  }
+  tablaContenido()
 }
 
 // Agrega Un nuevo TR a la tabla de paquetes
-function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREVIATURA, tablaPaquete){
+function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete){
   let longitud = dataSet.length+1;
   if (costo_total == null) {
     costo_total = 0;
@@ -26,7 +28,7 @@ function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREV
     precio_venta = precio_venta;
   }
 
-  tablaPaquete.row.add([
+  tablaContenidoPaquete.row.add([
     DESCRIPCION,
     CVE,
     '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="1" style="margin: 0;padding: 0;height: 35px;">',
@@ -48,7 +50,7 @@ function calcularFilasTR(){
       let calculo = caluloFila(this)
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
-      tabledata = tablaPaquete.row( this ).data();
+      tabledata = tablaContenidoPaquete.row( this ).data();
 
 
       arregloEstudios = {
@@ -112,9 +114,9 @@ function cargarpaquetes(){
 
 // Precargar tabla
 function cargarTabla(dataSet){
-  tablaPaquete.clear();
-  tablaPaquete.rows.add(dataSet);
-  tablaPaquete.draw();
+  tablaContenidoPaquete.clear();
+  tablaContenidoPaquete.rows.add(dataSet);
+  tablaContenidoPaquete.draw();
   calcularFilasTR();
 }
 

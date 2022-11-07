@@ -8,7 +8,7 @@ $('#agregar-estudio-paquete').click(function() {
     url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
     type: "POST",
       dataType: 'json',
-      data: { id: $('#seleccion-estudio').val(),api: 3 },
+      data: { id: $('#seleccion-estudio').val(), api: 3},
       success: function (data) {
             data = data.response.data[0];
             meterDato(data.DESCRIPCION, data.ABREVIATURA, data.COSTO, data.PRECIO_VENTA, data.ID_SERVICIO, data.ABREVIATURA, tablaPaquete);
@@ -31,15 +31,15 @@ switch ($(this).val()) {
 
 $('input[type=radio][name=selectChecko]').change(function() {
   if ($(this).val() != 0) {
-    rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : this.value}); //Mandar cliente para lista personalizada
+    rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {id_area : this.value, paquete_id: $('#seleccion-paquete').val()}); //Mandar cliente para lista personalizada
   }else{
-    rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'otros_servicios' : 1});
+    rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {otros_servicios : 1,  paquete_id: $('#seleccion-paquete').val()});
   }
 });
 
 $('#guardar-contenido-paquete').on('click', function(){
   let dataAjax = calcularFilasTR();
-  let tableData = tablaPaquete.rows().data().toArray();
+  let tableData = tablaContenidoPaquete.rows().data().toArray();
   if (tableData.length > 0) {
 
    Swal.fire({

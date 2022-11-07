@@ -39,20 +39,19 @@ $('#TablaClientes tbody').on('click', 'tr', function () {
        $(this).removeClass('selected');
        array_selected = null;
        // datacontactos.api = 2;
-       datacontactos.id_cliente = 0;
-       tablaContacto.ajax.reload();
-           dataSegmento.cliente_id = 0;
-    tablaSegmentos.ajax.reload();
+       // datacontactos.id_cliente = 0;
+       tablaContacto.clear().draw();
+       // dataSegmento.cliente_id = 0;
+       tablaSegmentos.clear().draw();
    } else {
        tablaClientes.$('tr.selected').removeClass('selected');
        $(this).addClass('selected');
        array_selected = tablaClientes.row( this ).data();
        // datacontactos.api = 2;
-          dataSegmento.cliente_id = array_selected["ID_CLIENTE"];
-          datacontactos.id_cliente = array_selected['ID_CLIENTE'];
-          tablaSegmentos.ajax.reload();
+       dataSegmento.cliente_id = array_selected["ID_CLIENTE"];
+       datacontactos.id_cliente = array_selected['ID_CLIENTE'];
+       tablaSegmentos.ajax.reload();
        tablaContacto.ajax.reload();
-
    }
 });
 

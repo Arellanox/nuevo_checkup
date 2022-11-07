@@ -54,8 +54,10 @@ $("#formRegistrarSegmento").submit(function (event) {
 
 $('#checkSegmentoPadre').change(function(){
   if($(this).is(":checked")) {
-     $('#selectSegmentos').prop('disabled', true);
+    $('#selectSegmentos').val(0)
+    $('#selectSegmentos').prop('disabled', true);
   }else{
-     $('#selectSegmentos').prop('disabled', false);
+    $('#selectSegmentos').val($("#selectSegmentos option:first").val());
+    $('#selectSegmentos').prop('disabled', false);
   }
 })

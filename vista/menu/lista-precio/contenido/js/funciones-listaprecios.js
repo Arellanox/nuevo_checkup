@@ -1,5 +1,7 @@
 
-
+function ajaxMandarLista(array, url, api){
+  console.log(array);
+}
 
 
 function getListaConcepto(){
@@ -48,12 +50,12 @@ function calcularFilaPrecios(parent_element){
   let costo = parseFloat($(parent_element).find("div[class='costo text-center']").text().slice(1));
   let utilidad = parseFloat($(parent_element).find("input[name='utilidad']").val());
   let total = parseFloat($(parent_element).find("input[name='total']").val());
-
-  if (costo > 0 && utilidad != 0 && total != 0) {
-      return data = [costo, utilidad, total];
-  }else{
-    return false;
-  }
+  return data = [costo, utilidad, total];
+  // if (costo > 0 && utilidad != 0 && total != 0) {
+  //     return data = [costo, utilidad, total];
+  // }else{
+  //   return false;
+  // }
 
 }
 
