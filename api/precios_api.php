@@ -109,7 +109,7 @@ switch ($api) {
         $oks = 0;
 
         foreach($datos as $data){
-            if($data['margen']==0){
+            if($data['utilidad']==0){
                 $oks++;
             } else {
                 $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
@@ -130,8 +130,34 @@ switch ($api) {
         echo $master->returnApi($response);
         break;
     case 8:
+        # actualizar lista de precios
         if(is_null($margen_global)){
+            # si no proporcionan un margen de utilidad para todos,
+            # se actualiza uno por uno
+            $fails = array();
+            $oks = 0;
+
+            foreach($datos as $data){
+                if($data['utilidad']==0){
+                    $oks++;
+                } else {
+                    $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
+                    if(is_numeric($response)){
+                        $oks++;
+                    } else {
+                        $fails[] = $data['servicio_id'];
+                    }
+                }  
+            }
+
+            echo json_encode(array("response"=>(count($datos)==$oks ? 1 : $fails)));
+            exit;
             
+        } else {
+            # si el margen de utilidad para todos es el mismo
+            # solo se necesita el id del cliente
+            $response = $master->updateByProcedure('sp_precios_a',[$cliente_id,null,null,null,$margen_global]);
+            echo $master->returnApi($response);
         }
         break;
 
