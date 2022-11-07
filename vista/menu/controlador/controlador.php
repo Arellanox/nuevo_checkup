@@ -26,11 +26,12 @@ session_start();
        $("#header-js").html(html);
     });
   }
-  function obtenerTitulo(menu){
+  function obtenerTitulo(menu, callback = function(){}){ //callback para no tener problema con la fecha
     return new Promise(resolve => {
       $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/titulo.php';?>", {menu: menu}, function(html){
          $("#titulo-js").html(html);
       }).done(function(){
+        callback(1)
         resolve(1);
       });
     });

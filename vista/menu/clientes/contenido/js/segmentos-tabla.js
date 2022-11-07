@@ -26,7 +26,7 @@ tablaSegmentos = $("#TablaSegmentosAdmin").DataTable({
   columns: [
     { data: "COUNT" },
     { data: "DESCRIPCION" },
-    { data: "ACTIVO" },
+    { data: "DESCRIPCION_PADRE" },
 
     // {defaultContent: 'En progreso...'}
   ],

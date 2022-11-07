@@ -16,7 +16,7 @@ $(document).on("keyup" , "input[name='utilidad'] , input[name='total']", functio
         }
       break;
     case "total":
-        if (costo > 0 && total > 0 && isNaN(total)) {
+        if (costo > 0 && total > 0 && !isNaN(total)) {
           utilidadInput = (total-costo) / costo * 100;
           // utilidadInput = costo + (costo/100 * utilidad);
           $(parent_element).find("input[name='utilidad']").val(utilidadInput.toFixed(2));

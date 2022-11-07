@@ -42,7 +42,7 @@
           <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
         </div>
         <div class="col-auto m-1 vista_estudios-precios">
-          <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="1" autocomplete="off">
+          <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
           <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
         </div>
 

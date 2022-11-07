@@ -1,8 +1,41 @@
 select2('#seleccionar-cliente', 'divSeleccionCliente', 'Cargando lista de clientes...')
 rellenarSelect('#seleccionar-cliente','clientes_api', 2,0,'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
 
+
+// Rellenan la tabla dependiendo de las opciones
 $('#seleccionar-cliente').change(function(){
-  obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: $(this).val()}, 'response.data')
+  switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
+    case '3': //Solo paquetes
+        obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: $(this).val()}, 'response.data')
+      break;
+  }
+
+})
+
+$('input[type=radio][name=selectChecko]').change(function(){
+  switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
+    case '1': //Solo Concepto
+        if ($(this).val() != 1) {
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, id_area: $(this).val()})
+        }else{
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, otros_servicios: 1})
+        }
+    break;
+    case '2': //Lista de precios para clientes
+      if ($('#seleccionar-cliente').val() != null || $('#seleccionar-cliente').val() != 0) {
+        if ($(this).val() != 1) {
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, cliente_id: $('#seleccionar-cliente').val(), id_area: $(this).val()})
+        }else{
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, otros_servicios: $(this).val()})
+        }
+      }else{
+        alertSelectTable('Seleccione un cliente')
+      }
+    break;
+  }
+
+
+
 })
 
 select2('#seleccion-paquete', 'vista_paquetes-precios', 'Cargando lista de paquetes...')
@@ -90,34 +123,72 @@ $('#btn-precios-guardar').click(function () {
   }, 50)
 });
 
-
+//Guarda toda la tabla
 $('#btn-guardar-lista').click(function(){
-  switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
-    case '1':
-        console.log(getListaConcepto());
-      break;
-    case '2':
-        console.log(getListaPrecios('ID_SERVICIO'))
-      break;
-    case '3':
-        console.log(getListaPrecios('ID_PAQUETE'))
-      break;
-    default:
-      alert('No a seleccionado ninguna opcion')
 
-  }
+  Swal.fire({
+   title: '¿Está seguro de guardar está lista?',
+   text: 'Use su contraseña para confirmar',
+   showCancelButton: true,
+   confirmButtonText: 'Confirmar',
+   cancelButtonText: 'Cancelar',
+   showLoaderOnConfirm: true,
+   // inputAttributes: {
+   //   autocomplete: false
+   // },
+   // input: 'password',
+   html: '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder=""></form>',
+   // confirmButtonText: 'Sign in',
+   focusConfirm: false,
+   preConfirm: () => {
+     const password = Swal.getPopup().querySelector('#password-confirmar').value;
+     return fetch(http+servidor+"/nuevo_checkup/api/usuarios_api.php?api=9&password="+password)
+       .then(response => {
+         if (!response.ok) {
+           throw new Error(response.statusText)
+         }
+         return response.json()
+       })
+       .catch(error => {
+         Swal.showValidationMessage(
+           `Request failed: ${error}`
+         )
+       })
+   },
+   allowOutsideClick: () => !Swal.isLoading()
+ }).then((result) => {
+   if (result.isConfirmed) {
+     if (result.value.status == 1) {
+       let listaConcepto;
+       switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
+         case '1':
+             console.log(getListaConcepto());
+             listaConcepto = getListaConcepto();
+             ajaxMandarLista({servicios:listaConcepto}, 'servicios_api', 2);
+           break;
+         case '2':
+             console.log(getListaPrecios('ID_SERVICIO'))
+             listaConcepto = getListaPrecios('ID_SERVICIO');
+             ajaxMandarLista({servicios:listaConcepto, cliente_id: $('#seleccionar-cliente').val()}, 'servicios_api', 2);
+           break;
+         case '3':
+             console.log(getListaPrecios('ID_PAQUETE'))
+             listaConcepto = getListaPrecios('ID_PAQUETE');
+             ajaxMandarLista({paquetes:listaConcepto, cliente_id: $('#seleccionar-cliente').val()}, 'servicios_api', 2);
+           break;
+         default:
+           alert('No a seleccionado ninguna opcion')
+
+       }
+     }else{
+       alertSelectTable('¡Contraseña incorrecta!', 'error')
+     }
+   }
+ })
+
 })
 
-
-$('input[type=radio][name=selectChecko]').change(function(){
-  if ($(this).val() != 1) {
-      obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, id_area: $(this).val()})
-  }else{
-      obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, otros_servicios: 1})
-  }
-})
-
-
+//Cambiar vista de tabla
 $('input[type=radio][name=selectTipLista]').change(function(){
   switch ($(this).val()) {
     case '1':

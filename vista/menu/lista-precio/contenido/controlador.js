@@ -4,7 +4,7 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
-let idsEstudios, data = {api:2, id_area: 7}, apiurl = '../../../api/servicios_api.php', tablaPrecio, tablaPaquete;
+let idsEstudios, data = {api:2, id_area: 7}, apiurl = '../../../api/servicios_api.php', tablaPrecio, tablaPaquete, tablaContenidoPaquete;
 let dataSet = new Array();
 let iva, total, subtotalPrecioventa, subtotalCosto;
 
@@ -86,7 +86,8 @@ function obtenerContenidoPaquetes(tabla) {
 
     }).done(function () {
       $.getScript("contenido/js/funciones-paquetes.js").done(function(){
-        contenidoPaquete();
+        tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable()
+        contenidoPaquete(1)
         // Datatable
         $.getScript("contenido/js/paquete-tabla.js");
         // Botones
@@ -95,6 +96,79 @@ function obtenerContenidoPaquetes(tabla) {
 
     });
 
+}
+
+function tablaContenido(){
+  tablaContenidoPaquete.destroy();
+  $('#TablaListaPaquetes').empty();
+  tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
+    lengthChange: false,
+    // info: false,
+    paging: false,
+    scrollY: "63vh",
+    scrollCollapse: true,
+    columnDefs: [
+      { width: "213.266px",  title: "Descripción", targets: 0},
+      { width: "80.75px",  title: "CVE", targets: 1},
+      { width: "90.516px",  title: "Cantidad", targets: 2, orderable: false },
+      { width: "80.8438px",  title: "Costo", targets: 3 },
+      { width: "102.484px",  title: "Costo Total", targets: 4 },
+      { width: "99.344px",  title: "Precio Venta", targets: 5 },
+      { width: "64.75px",  title: "Subtotal", targets: 6 },
+      { visible: false,  title: "?", targets: 7, searchable: false, },
+    ],
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+  });
+  loader("Out");
+}
+
+function tablaMantenimiento(url = 'paquetes_api'){
+  tablaContenidoPaquete.destroy();
+  $('#TablaListaPaquetes').empty();
+  tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    lengthChange: false,
+    info: false,
+    paging: false,
+    scrollY: "63vh",
+    scrollCollapse: true,
+    columnDefs: [
+      { width: "213.266px",  title: "Descripción", targets: 0},
+      { width: "80.75px",  title: "CVE", targets: 1},
+      { width: "90.516px",  title: "Cantidad", targets: 2, orderable: false },
+      { width: "80.8438px",  title: "Costo", targets: 3 },
+      { width: "102.484px",  title: "Costo Total", targets: 4 },
+      { width: "99.344px",  title: "Precio Venta", targets: 5 },
+      { width: "64.75px",  title: "Subtotal", targets: 6 },
+      { visible: false,  title: "?", targets: 7, searchable: false, },
+    ],
+    ajax: {
+        dataType: 'json',
+        data: {
+          paquete_id: $('#seleccion-paquete').val(),
+
+        },
+        method: 'POST',
+        url: http + servidor + "/nuevo_checkup/api/"+url+".php",
+        complete: function(){ loader("Out") },
+        dataSrc:'response.data'
+    },
+    columns:[
+        {data: 'COUNT'},
+        {data: 'MARCA'},
+        {data: 'MODELO'},
+        {data: 'NUMERO_SERIE'},
+        {data: 'CVE_INVENTARIO'},
+        {data: 'FRECUENCIA_MANTENIMIENTO'},
+        {data: 'CALIBRACION'},
+        {data: 'STATUS'},
+        // {defaultContent: 'En progreso...'}
+    ],
+  });
 }
 
 function hasLocation() {
