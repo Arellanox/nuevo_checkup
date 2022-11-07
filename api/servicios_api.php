@@ -19,6 +19,11 @@ $confirmar = $_POST['confirmar'];
 $id_turno = $_POST['id_turno'];
 
 
+# para buscar servicios con precios establecidos al cliente
+$paquete_id = $_POST['paquete_id'];
+$cliente_id = $_POST['cliente_id'];
+
+
 switch ($api) {
     case 1:
         #insert
@@ -191,7 +196,7 @@ switch ($api) {
 
     case 9:
         # recuperar solo los servicios que sean grupos y los que no pertenezcan a un grupo ni tengan hijos
-        $response = $master->getByProcedure('sp_servicios_padres_b',[$id_area]);
+        $response = $master->getByProcedure('sp_servicios_padres_b',[$id_area,$paquete_id,$cliente_id]);
         echo $master->returnApi($response);
         break;
 
