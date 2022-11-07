@@ -16,6 +16,7 @@ $estado_paciente = $_POST['estado'];
 $idTurno = $_POST['id_turno'];
 $idPaquete = $_POST['id_paquete']; #
 $comentarioRechazo = $_POST['comentario_rechazo'];
+$identificacion = $_POST['identificacion']; #url
 
 # reagendar
 $fecha_reagenda = $_POST['fecha_reagenda'];
@@ -41,6 +42,7 @@ switch ($api) {
         # Insertar el detalle del paquete al turno en cuestion
         if ($estado_paciente == 1) {
             # si el paciente es aceptado, cargar los estudios correspondientes
+            rename($identificacion,"../../archivos/identificaciones/".$idTurno.".png");
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null));
         }
 
