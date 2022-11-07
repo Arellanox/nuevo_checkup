@@ -369,3 +369,5 @@
 
 02/11/22 22:03:11 sp_historial_servicios_paciente Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac_det.CHECKED' in 'field list'
 02/11/22 22:43:02 sp_historial_servicios_paciente Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac_det.CHECKED' in 'field list'
+03/11/22 21:11:31 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+

@@ -1,156 +1,204 @@
 
 
-async function mantenimientoPaquete(){
-  loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION');
-  loader("Out");
-}
-
-async function contenidoPaquete(){
-  loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 5,0,'DESCRIPCION');
-  loader("Out");
-}
-
-function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREVIATURA, tablaPaquete){
-  let longitud = dataSet.length+1;
-  // dataSet.push({
-  //   'COUNT':  longitud,
-  //   'DESCRIPCION': DESCRIPCION,
-  //   'CVE':CVE,
-  //   'CANTIDAD':1,
-  //   'COSTO': COSTO_TOTAL,
-  //   'COSTO_TOTAL': COSTO_TOTAL,
-  //   'precio_venta':precio_venta,
-  //   'SUBTOTAL': 0,
-  //   'ID_SERVICIO': ID_SERVICIO,
-  //   'LIST': ABREVIATURA+''+Math.random()*10
-  // })
-
-  // let html = '<tr class=""><td class="sorting_1 dtr-control">'+DESCRIPCION+'</td><td>'+CVE+'</td>'+
-  //       '<td></td>'+
-  //       '<td><div class="costo-paquete text-center">$'+COSTO_TOTAL+'</div></td>'+
-  //       '<td><div class="costototal-paquete text-center">$'+COSTO_TOTAL+'</div></td>'+
-  //       '<td><div class="precioventa-paquete text-center">$'+precio_venta+'</div></td><td><div class="subtotal-paquete text-center">$0</div></td></tr>';
-  if (costo_total == null) {
-    costo_total = 0;
-  }else {
-    costo_total = costo_total;
-  }
-
-  if (precio_venta == null) {
-    precio_venta = 0;
-  }else {
-    precio_venta = precio_venta;
-  }
 
 
-  tablaPaquete.row.add([
-    DESCRIPCION,
-    CVE,
-    '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="1" style="margin: 0;padding: 0;height: 35px;">',
-    '<div class="costo-paquete text-center">$'+costo_total+'</div>',
-    '<div class="costototal-paquete text-center">$'+costo_total,
-    '<div class="precioventa-paquete text-center">$'+precio_venta+'</div>',
-    '<div class="subtotal-paquete text-center">$0</div>', ID_SERVICIO]).draw();
-    // $('#TablaListaPaquetes tbody').append(html);
-
-    calcularFilasTR();
-}
-
-// Calular toda la tabla y filas
-function calcularFilasTR(){
-  subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;
-  var paqueteEstudios = new Array();
-  $('#TablaListaPaquetes tbody tr').each(function() {
+function getListaConcepto(){
+  let costo = 0;
+  let listaCosto = new Array();
+  $('#TablaListaPrecios tbody tr').each(function() {
       var arregloEstudios = new Array();
-      let calculo = caluloFila(this)
-      subtotalCosto += calculo[0];
-      subtotalPrecioventa += calculo[1];
-      tabledata = tablaPaquete.row( this ).data();
+      let costo = $(this).find("input[name='costoConcepto']").val();
+      tabledata = tablaPrecio.row( this ).data();
 
 
       arregloEstudios = {
-        'id': tabledata[7],
-        'cantidad': calculo[2],
-        'costo': calculo[3],
-        'costototal': calculo[0],
-        'precioventa': calculo[4],
-        'subtotal': calculo[1]
+        'id': tabledata['ID_SERVICIO'],
+        'costo': costo,
       }
 
-      paqueteEstudios.push(arregloEstudios)
+      listaCosto.push(arregloEstudios)
   });
-  // console.log(paqueteEstudios);
-  iva = (subtotalPrecioventa * 16)/100;
-  total = subtotalPrecioventa + iva;
-
-  if (!checkNumber(subtotalCosto)) { subtotalCosto = 0; }else { subtotalCosto = subtotalCosto; }
-  if (!checkNumber(subtotalPrecioventa)) { subtotalPrecioventa = 0; }else { subtotalPrecioventa = subtotalPrecioventa; }
-  if (!checkNumber(total)) { total = 0; }else { total = total; }
-  $('#subtotal-costo-paquete').html('$'+subtotalCosto);
-  $('#subtotal-precioventa-paquete').html('$'+subtotalPrecioventa);
-  $('#total-paquete').html('$'+total);
-  paqueteEstudios.push({
-    'total': total,
-    'subtotal-costo': subtotalCosto,
-    'subtotal.precioventa':subtotalPrecioventa,
-    'iva': iva,
-    'id_paquete': $('#seleccion-paquete').val()
-  })
-  return paqueteEstudios
+  return listaCosto
 }
 
-function caluloFila(parent_element){
-  // Calcula la fila de una tabla
-  let cantidad = parseFloat($(parent_element).find("input[name='cantidad-paquete']").val());
-  let costo = parseFloat($(parent_element).find("div[class='costo-paquete text-center']").text().slice(1));
-  let precioventa = parseFloat($(parent_element).find("div[class='precioventa-paquete text-center']").text().slice(1));
-  // Dar valor a costo total
-  let costoTotal= cantidad*costo;
-  if (Number.isInteger(costoTotal)) {
-    $(parent_element).find("div[class='costototal-paquete text-center']").html('$'+costoTotal)
-  }else{
-    $(parent_element).find("div[class='costototal-paquete text-center']").html('$0')
-  }
-  let subtotal= cantidad*precioventa;
-  if (Number.isInteger(subtotal)) {
-    $(parent_element).find("div[class='subtotal-paquete text-center']").html('$'+subtotal)
-  }else{
-    $(parent_element).find("div[class='subtotal-paquete text-center']").html('$0')
-  }
-  return data = [costoTotal, subtotal, cantidad, costo, precioventa]
-}
+//Genera el arreglo para obtener los precios de la lista de precios o paquetes
+function getListaPrecios(id){ //Enviar ID_SERVICIO o ID_PAQUETE
+  let listaPrecios = new Array();
+  $('#TablaListaPrecios tbody tr').each(function() {
+      let costo = 0, utilidad = 0, total = 0;
+      var arregloPrecios = new Array();
+      let calculo = calcularFilaPrecios($(this));
+      if (calculo) {
+        tabledata = tablaPrecio.row( this ).data();
 
-// Precargar listado
-function cargarpaquetes(){
-  tablaPrecio.ajax.url( '../../../api/paquetes_api.php' ).load();
-  data = {api:2, cliente_id: $('#seleccion-cliente').val()};
-  tablaPrecio.ajax.reload();
-}
-
-// Precargar tabla
-function cargarTabla(dataSet){
-  tablaPaquete.clear();
-  tablaPaquete.rows.add(dataSet);
-  tablaPaquete.draw();
-  calcularFilasTR();
-}
-
-function checkNumber(x) {
-
-    // check if the passed value is a number
-    if(typeof x == 'number' && !isNaN(x)){
-
-        // check if it is integer
-        if (Number.isInteger(x)) {
-            return 1
-        }
-        else {
-            return 1
+        arregloPrecios = {
+          'id': tabledata[id],
+          'costo': calculo[0],
+          'utilidad': calculo[1],
+          'total': calculo[2],
         }
 
-    } else {
-        return 0
-    }
+        listaPrecios.push(arregloPrecios)
+      }
+  });
+  return listaPrecios;
+}
+
+function calcularFilaPrecios(parent_element){
+  let costo = parseFloat($(parent_element).find("div[class='costo text-center']").text().slice(1));
+  let utilidad = parseFloat($(parent_element).find("input[name='utilidad']").val());
+  let total = parseFloat($(parent_element).find("input[name='total']").val());
+
+  if (costo > 0 && utilidad != 0 && total != 0) {
+      return data = [costo, utilidad, total];
+  }else{
+    return false;
+  }
+
+}
+
+
+function obtenerColumnasTabla(tipo){
+  switch (tipo) {
+    case "1.1": //Regresa columna definidas de concepto
+      return value = [
+        { width: "5%", title: "#", targets: 0 },
+        { width: "8%", title: "AB", targets: 1 },
+        { width: "42%", title: "Nombre", targets: 2 },
+        { width: "20%", title: "Costo", targets: 3, orderable: false },
+      ]
+    break;
+    case "1.2": //Regresa columnas datos de concepto
+      return value = [
+          {data: 'COUNT'},
+          {data: 'ABREVIATURA'},
+          {data: 'DESCRIPCION'},
+          {
+            data: 'COSTO',
+            render: function (data, type, full, meta) {
+                if (data == null || data == 0) {
+                  value = 0;
+                }else{
+                  value = data;
+                }
+                rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form costoConcepto" name="costoConcepto" placeholder="" value="'+value+'"></div>';
+
+                return rturn;
+            },
+          },
+      ]
+    break;
+    case "2.1": //Regresa columna definidas de precios
+      return value = [
+        { width: "5%", title: "#", targets: 0 },
+        { width: "8%", title: "AB", targets: 1 },
+        { width: "38%", title: "Nombre", targets: 2 },
+        { title: "Costo", targets: 3 },
+        { width: "20%",title: "Utilidad", targets: 4, orderable: false },
+        { width: "20%",title: "Precio Venta", targets: 5, orderable: false }
+      ]
+    break;
+    case "2.2": //Regresa columnas data de precios
+      return value = [
+        {data: 'COUNT'},
+        {data: 'ABREVIATURA'},
+        {data: 'DESCRIPCION'},
+        {
+          data: 'COSTO',
+          render: function (data, type, full, meta) {
+              if (data == null || data == 0) {
+                value = 0;
+              }else{
+                value = data;
+              }
+              rturn = '<div class="costo text-center">$'+value+'</div>';
+
+              return rturn;
+            },
+        },
+        {
+          data: 'UTILIDAD',
+          render: function (data, type, full, meta) {
+              if (data == null || data == 0) {
+                value = 0;
+              }else{
+                value = data;
+              }
+              rturn = '<div class="input-group"><input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
+
+              return rturn;
+            },
+        },
+        {
+          data: 'PRECIO_VENTA',
+          render: function (data, type, full, meta) {
+            if (data == null || data == 0) {
+              value = 0;
+            }else{
+              value = data;
+            }
+            rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="total" placeholder="" value="'+value+'"></div>';
+
+            return rturn;
+          },
+        },
+      ]
+    break;
+    case "3.1": //Regresa columnas definidas de paquetes
+      return value = [
+        { width: "5%", title: "#", targets: 0 },
+        { title: "Paquete", targets: 1 },
+        { width: "10%",title: "Costo", targets: 2 },
+        { width: "18%",title: "Utilidad", targets: 3, orderable: false },
+        { width: "18%",title: "Precio Venta", targets: 4, orderable: false }
+      ]
+    break;
+    case "3.2": //Regresa columnas data de paquetes
+      return value = [
+          {data: 'COUNT'},
+          {data: 'DESCRIPCION'},
+          {
+            data: 'COSTO',
+            render: function (data, type, full, meta) {
+                if (data == null || data == 0) {
+                  value = 0;
+                }else{
+                  value = data;
+                }
+                rturn = '<div class="costo text-center">$'+value+'</div>';
+
+                return rturn;
+              },
+          },
+          {
+            data: 'UTILIDAD',
+            render: function (data, type, full, meta) {
+                if (data == null || data == 0) {
+                  value = 0;
+                }else{
+                  value = data;
+                }
+                rturn = '<div class="input-group"><input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" value="'+value+'"><span class="input-span">%</span></div>';
+
+                return rturn;
+              },
+          },
+          {
+            data: 'PRECIO_VENTA',
+            render: function (data, type, full, meta) {
+              if (data == null || data == 0) {
+                value = 0;
+              }else{
+                value = data;
+              }
+              rturn = '<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="total" placeholder="" value="'+value+'"></div>';
+
+              return rturn;
+            },
+          }
+        ]
+    break;
+    default:
+
+  }
 }

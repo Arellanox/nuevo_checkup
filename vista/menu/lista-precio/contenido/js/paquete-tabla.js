@@ -1,13 +1,13 @@
 tablaPaquete = $("#TablaListaPaquetes").DataTable({
   lengthChange: false,
-  info: false,
+  // info: false,
   paging: false,
   scrollY: "63vh",
   scrollCollapse: true,
   columnDefs: [
     { width: "213.266px", targets: 0},
     { width: "80.75px", targets: 1},
-    { width: "90.516px", targets: 2 },
+    { width: "90.516px", targets: 2, orderable: false },
     { width: "80.8438px", targets: 3 },
     { width: "102.484px", targets: 4 },
     { width: "99.344px", targets: 5 },

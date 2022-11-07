@@ -1,13 +1,13 @@
-$("#btn-perfil").click(function () {
-  alert();
-});
+select2('#seleccionar-cliente', 'divSeleccionCliente', 'Cargando lista de clientes...')
+rellenarSelect('#seleccionar-cliente','clientes_api', 2,0,'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
 
-$("#seleccion-cliente").select2({
-  tags: false,
-  width: "50%",
-  placeholder: "Selecciona un cliente",
-});
-rellenarSelect("#seleccion-cliente", "clientes_api", 2, 0, 1);
+$('#seleccionar-cliente').change(function(){
+  obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: $(this).val()}, 'response.data')
+})
+
+select2('#seleccion-paquete', 'vista_paquetes-precios', 'Cargando lista de paquetes...')
+rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION', {cliente_id: 1});
+
 
 
 $('#btn-precios-guardar').click(function () {
@@ -90,22 +90,70 @@ $('#btn-precios-guardar').click(function () {
   }, 50)
 });
 
-$('input[type=radio][name=selectChecko]').change(function() {
-    if ($(this).val() != 'Paq') {
-      if ($(this).val() != 0) {
-        tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
-        data = {api:8, id_area: $(this).val()};
-      }else{
-        tablaPrecio.ajax.url( '../../../api/servicios_api.php' ).load();
-        data = {api:8, otros_servicios: 1};
-      }
 
-    }else{
-        cargarpaquetes()
-    }
-    tablaPrecio.ajax.reload();
-});
+$('#btn-guardar-lista').click(function(){
+  switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
+    case '1':
+        console.log(getListaConcepto());
+      break;
+    case '2':
+        console.log(getListaPrecios('ID_SERVICIO'))
+      break;
+    case '3':
+        console.log(getListaPrecios('ID_PAQUETE'))
+      break;
+    default:
+      alert('No a seleccionado ninguna opcion')
 
-$('#seleccion-cliente').on('change', function(){
-  cargarpaquetes()
+  }
+})
+
+
+$('input[type=radio][name=selectChecko]').change(function(){
+  if ($(this).val() != 1) {
+      obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, id_area: $(this).val()})
+  }else{
+      obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, otros_servicios: 1})
+  }
+})
+
+
+$('input[type=radio][name=selectTipLista]').change(function(){
+  switch ($(this).val()) {
+    case '1':
+        columnsDefinidas = obtenerColumnasTabla('1.1')
+        columnasData = obtenerColumnasTabla('1.2')
+        $('.vista_estudios-precios').fadeIn(100)
+        $('#divSeleccionCliente').fadeOut(100)
+      break;
+    case '2':
+        columnsDefinidas = obtenerColumnasTabla('2.1')
+        columnasData = obtenerColumnasTabla('2.2')
+        $('.vista_estudios-precios').fadeIn(100)
+        $('#divSeleccionCliente').fadeIn(100)
+      break;
+    case '3':
+        columnsDefinidas = obtenerColumnasTabla('3.1')
+        columnasData = obtenerColumnasTabla('3.2')
+        $('.vista_estudios-precios').fadeOut(100)
+        $('#divSeleccionCliente').fadeIn(100)
+        obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: 1}, 'response.data')
+        return 1;
+      break;
+    default:
+      confirm('Esta opcion no deberia verser, recargue la pagina y eliga una opción')
+  }
+  tablaPrecio.destroy();
+  $('#TablaListaPrecios').empty();
+  tablaPrecio = $("#TablaListaPrecios").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    lengthChange: false,
+    info: false,
+    paging: false,
+    columnDefs: columnsDefinidas
+  });
+  $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+  // obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl)
 })

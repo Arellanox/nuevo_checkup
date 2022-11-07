@@ -90,12 +90,8 @@ function obtenerListaEstudiosContenedores(idturno = null){return new Promise(res
         for (var i = 0; i < row.length; i++) {
           // console.log(row[i]);
           html +=  '<li class="list-group-item">';
-          if (row[i]['GRUPO'] == null) {
-            html += '<strong>'+row[i]['SERVICIO']+'</strong>';
-          }else{
-            html += row[i]['GRUPO']+' - <strong>'+row[i]['SERVICIO']+'</strong>';
-          }
-          html += '  <i class="bi bi-arrow-right-short"></i>'+ row[i]['MUESTRA'] +'-'+ row[i]['CONTENEDOR'] + '</li>';
+          html += row[i]['GRUPO'];
+          html += '<i class="bi bi-arrow-right-short"></i><strong>'+ row[i]['MUESTRA'] +'</strong> - <strong>'+ row[i]['CONTENEDOR'] + '</strong></li>';
 
         }
         $('#lista-estudios-paciente').html(html);

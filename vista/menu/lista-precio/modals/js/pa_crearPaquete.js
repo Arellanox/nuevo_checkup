@@ -1,13 +1,11 @@
 const ModalRegistrarPaquete = document.getElementById("ModalRegistrarPaquete");
 ModalRegistrarPaquete.addEventListener("show.bs.modal", (event) => {
-
+  rellenarSelect('#relacion-cliente','clientes_api', 2,0,'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
   rellenarSelect('#facturacion-paquete','sat_catalogo_api', 2,0,'COMPLETO');
 });
 
+select2("#relacion-cliente", 'ModalRegistrarPaquete')
 select2("#facturacion-paquete", 'ModalRegistrarPaquete')
-
-
-
 
 
 //Formulario de Preregistro
@@ -20,7 +18,7 @@ $("#formRegistrarPaquete").submit(function (event) {
     formData.set('api', 1);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
-    text: "¡Verifique El concepto de Facturacion antes de continuar!",
+    text: "¡Verifique todos lo datos antes de continuar!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -42,7 +40,7 @@ $("#formRegistrarPaquete").submit(function (event) {
           if (mensajeAjax(data)) {
             Toast.fire({
               icon: "success",
-              title: "Equipo registrado!",
+              title: "¡Paquete creado!",
               timer: 2000,
             });
             document.getElementById("formRegistrarPaquete").reset();

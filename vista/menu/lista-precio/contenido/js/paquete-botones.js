@@ -1,3 +1,8 @@
+select2('#seleccion-paquete', 'form-select-paquetes')
+select2('#seleccion-estudio','form-select-paquetes')
+
+
+
 $('#agregar-estudio-paquete').click(function() {
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
@@ -26,7 +31,7 @@ switch ($(this).val()) {
 
 $('input[type=radio][name=selectChecko]').change(function() {
   if ($(this).val() != 0) {
-    rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : this.value});
+    rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : this.value}); //Mandar cliente para lista personalizada
   }else{
     rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'otros_servicios' : 1});
   }

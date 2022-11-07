@@ -1,5 +1,6 @@
 <?php
 $menu = $_POST['menu'];
+date_default_timezone_set('America/Mexico_City');
 session_start();
 
 ?>
