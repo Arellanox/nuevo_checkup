@@ -17,7 +17,7 @@ if (! $tokenValido){
 $master = new Master();
 $api = $_POST['api'];
 $cliente_id = $_POST['cliente_id'];
-$datos = $_POST['precios']; #esta variable debe guardar el id del servicios, el margen de utilidad y el precio de venta
+$datos = $_POST['servicios']; #esta variable debe guardar el id del servicios, el margen de utilidad y el precio de venta
 
 # esta variable guarda el margen cuando se quiere actualizar el precio de venta de todos los servicios
 # de un cliente dado.
@@ -104,7 +104,7 @@ switch ($api) {
         }
         break;
     case 6:
-        # asignar precios por default a un cliente
+        # asignar precios a un cliente
         $fails = array();
         $oks = 0;
 
@@ -112,7 +112,7 @@ switch ($api) {
             if($data['margen']==0){
                 $oks++;
             } else {
-                $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['servicios_id'],$data['margen'],$data['precio_venta']]);
+                $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
                 if(is_numeric($response)){
                     $oks++;
                 } else {
