@@ -1,21 +1,32 @@
 select2('#seleccion-paquete', 'form-select-paquetes')
 select2('#seleccion-estudio','form-select-paquetes')
 
-
+//Declarar variable para la clase
+var selectEstudio;
 
 $('#agregar-estudio-paquete').click(function() {
-  $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
-    type: "POST",
-      dataType: 'json',
-      data: { id: $('#seleccion-estudio').val(), api: 3},
-      success: function (data) {
-            data = data.response.data[0];
-            meterDato(data.DESCRIPCION, data.ABREVIATURA, data.COSTO, data.PRECIO_VENTA, data.ID_SERVICIO, data.ABREVIATURA, tablaPaquete);
-        }
-      }
-    );
+    console.log(selectEstudio.array)
+    console.log($("#seleccion-estudio").prop('selectedIndex'))
+    // console.log(selectData)
+    selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
+    console.log(selectData)
+    meterDato(selectData.DESCRIPCION, selectData.ABREVIATURA, selectData.COSTO, selectData.PRECIO_VENTA, selectData.ID_SERVICIO, selectData.ABREVIATURA, tablaContenidoPaquete);
 })
+
+
+// $('#agregar-estudio-paquete').click(function() {
+//   $.ajax({
+//     url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
+//     type: "POST",
+//       dataType: 'json',
+//       data: { id: $('#seleccion-estudio').val(), api: 3},
+//       success: function (data) {
+//             data = data.response.data[0];
+//             meterDato(data.DESCRIPCION, data.ABREVIATURA, data.COSTO, data.PRECIO_VENTA, data.ID_SERVICIO, data.ABREVIATURA, tablaPaquete);
+//         }
+//       }
+//     );
+// })
 
 $('input[type="radio"][name="selectPaquete"]').change(function() {
 switch ($(this).val()) {
@@ -30,10 +41,16 @@ switch ($(this).val()) {
 });
 
 $('input[type=radio][name=selectChecko]').change(function() {
+
   if ($(this).val() != 0) {
-    rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {id_area : this.value, paquete_id: $('#seleccion-paquete').val()}); //Mandar cliente para lista personalizada
+    // selectData = null;
+    rellenarSelect("#seleccion-estudio", "servicios_api", 9, 0, 'ABREVIATURA.DESCRIPCION', {id_area : this.value, paquete_id: $('#seleccion-paquete').val()}, function(listaEstudios){
+        selectEstudio = new GuardarArreglo(listaEstudios);
+    }); //Mandar cliente para lista personalizada
   }else{
-    rellenarSelect("#seleccion-estudio", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {otros_servicios : 1,  paquete_id: $('#seleccion-paquete').val()});
+    rellenarSelect("#seleccion-estudio", "servicios_api", 9, 0, 'ABREVIATURA.DESCRIPCION', {paquete_id: $('#seleccion-paquete').val()}, function(listaEstudios){
+        selectEstudio = new GuardarArreglo(listaEstudios);
+    });
   }
 });
 

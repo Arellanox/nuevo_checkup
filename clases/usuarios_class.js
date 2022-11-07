@@ -26,28 +26,4 @@ class Usuarios{
   // get usuario(){ return this._usuario; }
   // set usuario(value){ this._usuario = value }
 
-  insertDatos(){
-    $.ajax({
-      data: this.arreglo,
-      url: "../../../api/usuarios_api.php",
-      type: "POST",
-      processData: false,
-      contentType: false,
-      success: function(data) {
-        data = jQuery.parseJSON(data);
-        // console.log(data);
-        if (mensajeAjax(data)) {
-          Toast.fire({
-            icon: 'success',
-            title: '¡Usuario actualizado!',
-            timer: 2000
-          });
-          document.getElementById("formEditarUsuario").reset();
-          $("#ModalEditarRegistroUsuario").modal('hide');
-          tablaUsuarios.ajax.reload()
-        }
-      },
-    });
-  }
-
 }

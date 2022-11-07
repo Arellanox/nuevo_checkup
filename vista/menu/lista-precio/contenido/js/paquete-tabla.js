@@ -1,7 +1,9 @@
 
-$('#TablaListaPaquetes tbody').on('dblclick', 'tr', function (){
+$(tablePaquetesHTML).on('dblclick', 'tr', function (){
     if (!$("input[name='cantidad-paquete']").is(":focus")) {
       tablaContenidoPaquete.row( $(this)).remove().draw();
-      calcularFilasTR()
+      if (tablaContenidoPaquete.data().count()) {
+        calcularFilasTR()
+      }
     }
 });

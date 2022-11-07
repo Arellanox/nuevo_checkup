@@ -1,6 +1,23 @@
 
-function ajaxMandarLista(array, url, api){
+function ajaxMandarLista(array, url){
   console.log(array);
+
+  $.ajax({
+    data: array,
+    url: "../../../api/"+url+".php",
+    type: "POST",
+    success: function (data) {
+      data = jQuery.parseJSON(data);
+      if (mensajeAjax(data)) {
+        Toast.fire({
+          icon: "success",
+          title: "¡Precios actualizados!",
+          timer: 2000,
+        });
+        tablaMuestras.ajax.reload();
+      }
+    },
+  });
 }
 
 
@@ -14,8 +31,8 @@ function getListaConcepto(){
 
 
       arregloEstudios = {
-        'id': tabledata['ID_SERVICIO'],
-        'costo': costo,
+        0: tabledata['ID_SERVICIO'],
+        1: costo,
       }
 
       listaCosto.push(arregloEstudios)
@@ -34,10 +51,10 @@ function getListaPrecios(id){ //Enviar ID_SERVICIO o ID_PAQUETE
         tabledata = tablaPrecio.row( this ).data();
 
         arregloPrecios = {
-          'id': tabledata[id],
-          'costo': calculo[0],
-          'utilidad': calculo[1],
-          'total': calculo[2],
+          0: tabledata[id],
+          1: calculo[0],
+          2: calculo[1],
+          4: calculo[2],
         }
 
         listaPrecios.push(arregloPrecios)

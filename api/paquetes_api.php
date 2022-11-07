@@ -112,7 +112,7 @@ switch ($api) {
         return;
         break;
     case 7:
-        $precioPaquetes = $_POST['contenedorListaPrecios']; #Nombre similar para la cantidad de estudios
+        $precioPaquetes = $_POST['contenedorPaquetes']; #Forma de recibirlo
 
         $oks = 0;
         $fails = array();
@@ -141,7 +141,7 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_clientes_asignar_paquetes',array($cliente_id,$id_paquete));
         break;
 
-    
+
     default:
         print_r($_GET);
         $response = "api no reconocida " . $api;

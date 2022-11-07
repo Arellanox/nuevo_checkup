@@ -221,7 +221,7 @@ function setProcedenciaOption(select, idProcedencia){
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select, api, num,v,c, values = {}){
+function rellenarSelect(select, api, num,v,c, values = {}, callback = function(array){}){
   return new Promise(resolve => {
     values.api = num;
 
@@ -252,11 +252,14 @@ function rellenarSelect(select, api, num,v,c, values = {}){
           if (Array.isArray(htmlContent)) {
             datao = "";
             for (var a = 0; a < htmlContent.length; a++) {
-              if (a == 0) {
-                datao += data[i][htmlContent[a]];
-              }else{
-                datao += " - " + data[i][htmlContent[a]];
+              if (data[i][htmlContent[a]] != null) {
+                if (datao == '') {
+                  datao += data[i][htmlContent[a]];
+                }else{
+                  datao += " - " + data[i][htmlContent[a]];
+                }
               }
+
             }
           }else{
             datao = data[i][c];
@@ -265,9 +268,12 @@ function rellenarSelect(select, api, num,v,c, values = {}){
           var o = new Option("option text", data[i][v]);
           $(o).html(datao);
           $(select).append(o);
+
         }
+        // console.log(data);
+        callback(data);
       },
-      complete: function(){
+      complete: function(data){
         resolve(1);
       }
     })

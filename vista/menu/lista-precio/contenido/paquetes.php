@@ -23,6 +23,14 @@
         <div class="p-3" id="form-select-paquetes">
           <label for="inputBuscarPaquetes">Seleccione un paquete:</label>
           <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required> </select>
+          <div class="row d-flex justify-content-center" style="margin-bottom: 15px">
+            <div class="col-auto">
+              <button class="btn btn-sm btn-confirmar" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Usar</button>
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-sm btn-borrar" type="button" id="CambiarPaquete"data-bs-toggle="tooltip" data-bs-placement="top" title="Borrará todo la tabla" ><i class="bi bi-eraser"></i> Cambiar</button>
+            </div>
+          </div>
           <div class="text-start" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
 
             <label for="inputBuscarPaquetes">Pulse el area del estudio:</label> <br>
@@ -84,6 +92,7 @@
         <i class="bi bi-person-plus-fill"></i> Guardar paquete
       </button>
     </div>
+    <div id="tabla-Paquetes">
       <table class="table table-hover display responsive " id="TablaListaPaquetes" style="width: 100%">
         <thead style="width: 100%">
           <tr>
@@ -101,6 +110,7 @@
 
         </tbody>
       </table>
+    </div>
   </div>
 </div>
 

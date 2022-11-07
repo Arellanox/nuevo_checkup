@@ -13,7 +13,10 @@ session_start();
 
 <script type="text/javascript">
   //Variable global para datatable
-
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
   let http = "http://";
   let servidor = "localhost";
   // let http = "https://";
@@ -41,18 +44,19 @@ session_start();
   let array_selected;
   let array_user;
   const session = <?php echo json_encode($_SESSION); ?>;
+  $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/class.js';?>").done(function() {
+    $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
+      $(function(){
 
-  $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
-    $(function(){
-
-      session['id'] = '';
-      session['token'] = '';
-      // console.log(session)
-      // <!-- Aqui controlar e incluir las modals -->
-      $.getScript('modals/controlador.js');
-      // <!-- Aqui controlar e incluir los tablas -->
-      $.getScript('contenido/controlador.js');
-    })
-    // console.log(session);
+        session['id'] = '';
+        session['token'] = '';
+        // console.log(session)
+        // <!-- Aqui controlar e incluir las modals -->
+        $.getScript('modals/controlador.js');
+        // <!-- Aqui controlar e incluir los tablas -->
+        $.getScript('contenido/controlador.js');
+      })
+      // console.log(session);
+    });
   });
 </script>

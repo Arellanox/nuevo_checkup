@@ -85,6 +85,7 @@ function obtenerContenidoPaquetes(tabla) {
       $("#body-js").html(html);
 
     }).done(function () {
+      let tablePaquetesHTML = $("#TablaListaPaquetes")
       $.getScript("contenido/js/funciones-paquetes.js").done(function(){
         tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable()
         contenidoPaquete(1)

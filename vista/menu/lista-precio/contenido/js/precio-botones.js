@@ -8,8 +8,20 @@ $('#seleccionar-cliente').change(function(){
     case '3': //Solo paquetes
         obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: $(this).val()}, 'response.data')
       break;
+    default:
+      $('input[type=radio][name=selectChecko]').prop('checked',false)
+      tablaPrecio.destroy();
+      $('#TablaListaPrecios').empty();
+      tablaPrecio = $("#TablaListaPrecios").DataTable({
+        language: {
+          url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+        },
+        lengthChange: false,
+        info: false,
+        paging: false,
+        columnDefs: columnsDefinidas
+      });
   }
-
 })
 
 $('input[type=radio][name=selectChecko]').change(function(){
@@ -24,9 +36,9 @@ $('input[type=radio][name=selectChecko]').change(function(){
     case '2': //Lista de precios para clientes
       if ($('#seleccionar-cliente').val() != null || $('#seleccionar-cliente').val() != 0) {
         if ($(this).val() != 1) {
-            obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, cliente_id: $('#seleccionar-cliente').val(), id_area: $(this).val()})
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, 'precios_api', {api:7, cliente_id: $('#seleccionar-cliente').val(), id_area: $(this).val()})
         }else{
-            obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, otros_servicios: $(this).val()})
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, 'precios_api', {api:7, cliente_id: $('#seleccionar-cliente').val(), otros_servicios: $(this).val()})
         }
       }else{
         alertSelectTable('Seleccione un cliente')
@@ -123,9 +135,9 @@ $('#btn-precios-guardar').click(function () {
   }, 50)
 });
 
-//Guarda toda la tabla
+//Guarda toda la tabla (Manda a ajax)
 $('#btn-guardar-lista').click(function(){
-
+  //Alerta de verificacion de contraseña
   Swal.fire({
    title: '¿Está seguro de guardar está lista?',
    text: 'Use su contraseña para confirmar',
@@ -158,23 +170,23 @@ $('#btn-guardar-lista').click(function(){
    allowOutsideClick: () => !Swal.isLoading()
  }).then((result) => {
    if (result.isConfirmed) {
-     if (result.value.status == 1) {
+     if (result.value.status == 1) { //Confirma que todo este bien y obtengo todo los datos por cada apartado
        let listaConcepto;
        switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
-         case '1':
+         case '1': //Concepto
              console.log(getListaConcepto());
              listaConcepto = getListaConcepto();
-             ajaxMandarLista({servicios:listaConcepto}, 'servicios_api', 2);
+             ajaxMandarLista({api: 1, contenedorListaPrecios:listaConcepto}, 'precios_api');
            break;
-         case '2':
+         case '2': //Precios
              console.log(getListaPrecios('ID_SERVICIO'))
              listaConcepto = getListaPrecios('ID_SERVICIO');
-             ajaxMandarLista({servicios:listaConcepto, cliente_id: $('#seleccionar-cliente').val()}, 'servicios_api', 2);
+             ajaxMandarLista({api: 6, servicios:listaConcepto, cliente_id: $('#seleccionar-cliente').val()}, 'servicios_api');
            break;
-         case '3':
+         case '3': //Paquetes
              console.log(getListaPrecios('ID_PAQUETE'))
              listaConcepto = getListaPrecios('ID_PAQUETE');
-             ajaxMandarLista({paquetes:listaConcepto, cliente_id: $('#seleccionar-cliente').val()}, 'servicios_api', 2);
+             ajaxMandarLista({api: 7, contenedorPaquetes:listaConcepto, cliente_id: $('#seleccionar-cliente').val()}, 'paquetes_api');
            break;
          default:
            alert('No a seleccionado ninguna opcion')
@@ -208,7 +220,7 @@ $('input[type=radio][name=selectTipLista]').change(function(){
         columnasData = obtenerColumnasTabla('3.2')
         $('.vista_estudios-precios').fadeOut(100)
         $('#divSeleccionCliente').fadeIn(100)
-        obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: 1}, 'response.data')
+        obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: $('#seleccionar-cliente').val()}, 'response.data')
         return 1;
       break;
     default:

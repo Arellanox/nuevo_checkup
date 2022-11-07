@@ -118,7 +118,7 @@ switch ($api) {
                 } else {
                     $fails[] = $data['servicio_id'];
                 }
-            }  
+            }
         }
 
         echo json_encode(array("response"=>(count($datos)==$oks ? 1 : $fails)));
@@ -147,12 +147,12 @@ switch ($api) {
                     } else {
                         $fails[] = $data['servicio_id'];
                     }
-                }  
+                }
             }
 
             echo json_encode(array("response"=>(count($datos)==$oks ? 1 : $fails)));
             exit;
-            
+
         } else {
             # si el margen de utilidad para todos es el mismo
             # solo se necesita el id del cliente
