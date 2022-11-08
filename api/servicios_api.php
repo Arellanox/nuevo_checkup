@@ -139,7 +139,7 @@ switch ($api) {
     case 6:
         #recuperar todos los hijos de un padre
         $padre = $master->mis->getFormValues(array_slice($_POST,0,1));
-        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre,null,$id_area,$otros_servicios,$abreviatura));
+        $response = $master->getByProcedure('sp_servicios_b',array($id,$padre,$id_area,$otros_servicios,$abreviatura));
 
         if (is_array($response)) {
             echo json_encode(array(
