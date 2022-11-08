@@ -4,7 +4,7 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
-let idsEstudios, data = {api:2, id_area: 7}, apiurl = '../../../api/servicios_api.php', tablaPrecio, tablaPaquete, tablaContenidoPaquete;
+let idsEstudios, data = {api:2, id_area: 7}, apiurl = 'servicios_api', tablaPrecio, tablaPaquete, tablaContenidoPaquete;
 let dataSet = new Array();
 let iva, total, subtotalPrecioventa, subtotalCosto;
 
@@ -13,6 +13,7 @@ let iva, total, subtotalPrecioventa, subtotalCosto;
   let columnasData;
 //
 
+//Cambia la vista a la lista de precios
 function obtenerContenidoPrecios() {
   obtenerTitulo("Lista de precios"); //Aqui mandar el nombre de la area
     $.post("contenido/listaprecios.php", function (html) {
@@ -44,9 +45,10 @@ function obtenerContenidoPrecios() {
     });
 }
 
+// rellena la tabla con el servicio que se envie
 function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {api:7, id_area: 7}, response = null){
-    console.log(columnDefs);
-    console.log(columnsData)
+    // console.log(columnDefs);
+    // console.log(columnsData)
     tablaPrecio.destroy();
     $('#TablaListaPrecios').empty();
     tablaPrecio = $("#TablaListaPrecios").DataTable({
@@ -63,7 +65,7 @@ function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {a
           dataType: 'json',
           data: dataAjax,
           method: 'POST',
-          url: urlApi,
+          url: '../../../api/'+urlApi+'.php',
           // beforeSend: function () {
           //   loaderDiv("In", "#contenido-lista-precios", "#loader-tabla-precios");
           // },
@@ -76,8 +78,8 @@ function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {a
     });
 }
 
-
-
+var tablePaquetesHTML;
+//Cambia la vista para paquetes
 function obtenerContenidoPaquetes(tabla) {
   obtenerTitulo("Paquetes de clientes"); //Aqui mandar el nombre de la area
   // Funciones js
@@ -85,7 +87,7 @@ function obtenerContenidoPaquetes(tabla) {
       $("#body-js").html(html);
 
     }).done(function () {
-      let tablePaquetesHTML = $("#TablaListaPaquetes")
+      tablePaquetesHTML = $("#TablaListaPaquetes")
       $.getScript("contenido/js/funciones-paquetes.js").done(function(){
         tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable()
         contenidoPaquete(1)
@@ -99,6 +101,7 @@ function obtenerContenidoPaquetes(tabla) {
 
 }
 
+//Vacia la tabla, para el poder rellenar
 function tablaContenido(){
   tablaContenidoPaquete.destroy();
   $('#TablaListaPaquetes').empty();
@@ -125,6 +128,7 @@ function tablaContenido(){
   loader("Out");
 }
 
+//Tabla para cargar los servicios de un paquete y modificarlos
 function tablaMantenimiento(url = 'paquetes_api'){
   tablaContenidoPaquete.destroy();
   $('#TablaListaPaquetes').empty();
@@ -172,6 +176,7 @@ function tablaMantenimiento(url = 'paquetes_api'){
   });
 }
 
+//Cambia la vista de la pagina
 function hasLocation() {
   var hash = window.location.hash.substring(1);
   $("a").removeClass("navlinkactive");

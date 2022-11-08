@@ -21,8 +21,10 @@
           </div>
         </div>
         <div class="p-3" id="form-select-paquetes">
-          <label for="inputBuscarPaquetes">Seleccione un paquete:</label>
-          <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required> </select>
+          <div class="" id="selectDisabled">
+            <label for="inputBuscarPaquetes">Seleccione un paquete:</label>
+            <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required> </select>
+          </div>
           <div class="row d-flex justify-content-center" style="margin-bottom: 15px">
             <div class="col-auto">
               <button class="btn btn-sm btn-confirmar" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Usar</button>
@@ -31,7 +33,7 @@
               <button class="btn btn-sm btn-borrar" type="button" id="CambiarPaquete"data-bs-toggle="tooltip" data-bs-placement="top" title="Borrará todo la tabla" ><i class="bi bi-eraser"></i> Cambiar</button>
             </div>
           </div>
-          <div class="text-start" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
+          <div class="text-start formContenidoPaquete" id="formPaqueteBotonesArea" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
 
             <label for="inputBuscarPaquetes">Pulse el area del estudio:</label> <br>
             <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off">
@@ -44,7 +46,7 @@
             <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
 
           </div>
-          <div class="row">
+          <div class="row formContenidoPaquete" id="formPaqueteSelectEstudio">
             <div class="col-12">
               <label for="inputBuscarAreaEstudio">Lista de estudios por area:</label>
               <select name="estudio" id="seleccion-estudio" class="input-form" required>
@@ -61,7 +63,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 pt-2">
+      <div class="col-12 pt-2" id="informacionPaquete">
         <div class="row">
           <div class="col-12 text-center">
             <h5>Calculo del paquete</h5>
@@ -122,10 +124,5 @@
 
   .btn-outline-success:hover {
     opacity: 50%;
-  }
-
-  .disable-div {
-    pointer-events: none;
-    background: rgb(0 0 0 / 8%);
   }
 </style>

@@ -28,6 +28,40 @@ $('#agregar-estudio-paquete').click(function() {
 //     );
 // })
 
+// Controlar el formulario
+  $("#formPaqueteBotonesArea").addClass("disable-element");
+  $("#formPaqueteSelectEstudio").addClass("disable-element");
+  $("#informacionPaquete").addClass("disable-element");
+
+  $('#UsarPaquete').on('click', function(){
+      $('#seleccion-paquete').prop('disabled', true);
+      $("#selectDisabled").addClass("disable-element");
+      // $('.formContenidoPaquete').prop('disabled', false);
+      $("#formPaqueteBotonesArea").removeClass("disable-element");
+      $("#formPaqueteSelectEstudio").removeClass("disable-element");
+      $("#informacionPaquete").removeClass("disable-element");
+
+      switch ($('input[type=radio][name=selectPaquete]:checked').val()) {
+        case '2': //Lista de precios para clientes
+          tablaMantenimiento();
+        break;
+      }
+  })
+//
+  $('#CambiarPaquete').on('click', function(){
+      $('#seleccion-paquete').prop('disabled', false);
+      $("#selectDisabled").removeClass("disable-element");
+      $("#formPaqueteBotonesArea").addClass("disable-element");
+      $("#formPaqueteSelectEstudio").addClass("disable-element");
+      $("#informacionPaquete").addClass("disable-element");
+
+      $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+      $("#seleccion-estudio").remove();
+      tablaContenido()
+      // $('.formContenidoPaquete').prop('disabled', true);
+  })
+//
+
 $('input[type="radio"][name="selectPaquete"]').change(function() {
 switch ($(this).val()) {
   case '1':
@@ -48,7 +82,7 @@ $('input[type=radio][name=selectChecko]').change(function() {
         selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   }else{
-    rellenarSelect("#seleccion-estudio", "servicios_api", 9, 0, 'ABREVIATURA.DESCRIPCION', {paquete_id: $('#seleccion-paquete').val()}, function(listaEstudios){
+    rellenarSelect("#seleccion-estudio", "servicios_api", 9, 0, 'ABREVIATURA.DESCRIPCION', {id_area : this.value, paquete_id: $('#seleccion-paquete').val()}, function(listaEstudios){
         selectEstudio = new GuardarArreglo(listaEstudios);
     });
   }

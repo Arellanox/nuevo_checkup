@@ -1,15 +1,14 @@
 
 async function mantenimientoPaquete(){
   loader("In");
-  tablaMantenimiento();
+  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE');
+  tablaContenido();
   loader("Out");
 }
 
 async function contenidoPaquete(select = null){
   loader("In");
-  if (select == 1) {
-    await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.FECHA_CREACION');
-  }
+  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE');
   tablaContenido()
 }
 
