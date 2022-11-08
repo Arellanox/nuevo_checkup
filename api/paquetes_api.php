@@ -15,6 +15,8 @@ $api = $_POST['api'];
 #buscar
 
 $contenido = $_POST['contenido'];
+$paquete = $_POST['id_paquete'];
+$cliente = $_POST['id_cliente'];
 
 //$id_cliente = $_POST['id_cliente'];
 #insertar
@@ -144,7 +146,7 @@ switch ($api) {
 
     case 9:
         # buscar
-        $response = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id,$contenido]);
+        $response = $master->getByProcedure("sp_detalle_paquete_b", [$paquete, $cliente]);
         break;
 
     default:
