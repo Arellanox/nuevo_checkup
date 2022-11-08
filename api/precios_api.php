@@ -105,7 +105,8 @@ switch ($api) {
         }
         break;
     case 6:
-        # asignar precios a un cliente
+        # asignar precios a un cliente, actualizar o eliminar alguno.
+        # para eliminar algun precio enviar 0 en utilidad
         $fails = array();
         $oks = 0;
 
@@ -123,7 +124,7 @@ switch ($api) {
         break;
     case 7:
         # recuperar la lista de precio de un cliente
-        $response = $master->getByProcedure('sp_precios_b'[$cliente_id]);
+        $response = $master->getByProcedure('sp_precios_b',[$cliente_id,$area_id]);
         echo $master->returnApi($response);
         break;
     case 8:
