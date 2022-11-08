@@ -111,7 +111,7 @@ switch ($api) {
         $oks = 0;
 
         foreach($datos as $data){
-            $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total'],$data['costo']]);
+            $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
             if(is_numeric($response)){
                 $oks++;
             } else {
@@ -119,7 +119,7 @@ switch ($api) {
             }
         }
 
-        echo json_encode(array("response"=>array("code"=>(count($datos)==$oks ? 1 : $fails))));
+        echo json_encode(array("response"=>(count($datos)==$oks ? 1 : $fails)));
 
         break;
     case 7:
