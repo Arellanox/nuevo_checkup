@@ -14,6 +14,7 @@ if (!$tokenValido) {
 $api = $_POST['api'];
 #buscar
 
+$contenido = $_POST['contenido'];
 
 //$id_cliente = $_POST['id_cliente'];
 #insertar
@@ -51,7 +52,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id]);
+        $response = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id,$contenido]);
         break;
 
     case 3:
