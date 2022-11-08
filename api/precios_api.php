@@ -18,6 +18,7 @@ $master = new Master();
 $api = $_POST['api'];
 $cliente_id = $_POST['cliente_id'];
 $datos = $_POST['servicios']; #esta variable debe guardar el id del servicios, el margen de utilidad y el precio de venta
+$area_id = $_POST['area_id'];
 
 # esta variable guarda el margen cuando se quiere actualizar el precio de venta de todos los servicios
 # de un cliente dado.
@@ -160,9 +161,16 @@ switch ($api) {
             echo $master->returnApi($response);
         }
         break;
+    case 9:
+        # mostrar la lista de todos los servicios con el precio de venta
+        # de acuerdo al cliente seleccionado y area seleccionada.
+        # solo el [area] puede ser null, si se envia el cliente null, no devuelve nada.
+        $response = $master->getByProcedure('sp_servicios_gral_precio_clientes_b',[$cliente_id,$area_id]);
+        break;
 
     default:
         # code...
+        echo "Api no reconocida.";
         break;
 }
 ?>
