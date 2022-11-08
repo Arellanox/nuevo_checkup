@@ -166,6 +166,7 @@ switch ($api) {
         # de acuerdo al cliente seleccionado y area seleccionada.
         # solo el [area] puede ser null, si se envia el cliente null, no devuelve nada.
         $response = $master->getByProcedure('sp_servicios_gral_precio_clientes_b',[$cliente_id,$area_id]);
+        echo $master->returnApi($response);
         break;
 
     default:
