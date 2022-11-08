@@ -122,7 +122,7 @@ switch ($api) {
 
         foreach($precioPaquetes as $paquete){
 
-            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", $paquete);
+            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", [$paquete['id'],$paquete['costo'],$paquete['utilidad'],$paquete['total']]);
 
             if(is_numeric($response)){
                 $oks++;
