@@ -110,15 +110,11 @@ switch ($api) {
         $oks = 0;
 
         foreach($datos as $data){
-            if($data['utilidad']==0){
+            $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
+            if(is_numeric($response)){
                 $oks++;
             } else {
-                $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
-                if(is_numeric($response)){
-                    $oks++;
-                } else {
-                    $fails[] = $data['servicio_id'];
-                }
+                $fails[] = $data['servicio_id'];
             }
         }
 
