@@ -119,7 +119,7 @@ switch ($api) {
             }
         }
 
-        echo json_encode(array("response"=>(count($datos)==$oks ? 1 : $fails)));
+        echo json_encode(array("response"=>array("code"=>(count($datos)==$oks ? 1 : $fails))));
 
         break;
     case 7:
