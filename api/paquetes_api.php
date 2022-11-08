@@ -142,6 +142,10 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_clientes_asignar_paquetes',array($cliente_id,$id_paquete));
         break;
 
+    case 9:
+        # buscar
+        $response = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id,$contenido]);
+        break;
 
     default:
         print_r($_GET);
