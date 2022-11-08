@@ -6,7 +6,7 @@ rellenarSelect('#seleccionar-cliente','clientes_api', 2,0,'NOMBRE_SISTEMA.NOMBRE
 $('#seleccionar-cliente').change(function(){
   switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
     case '3': //Solo paquetes
-        obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: $(this).val()}, 'response.data')
+        obtenertablaListaPrecios(columnsDefinidas, columnasData, 'paquetes_api', {api:2, cliente_id: $(this).val()}, 'response.data')
       break;
     default:
       $('input[type=radio][name=selectChecko]').prop('checked',false)
@@ -28,17 +28,17 @@ $('input[type=radio][name=selectChecko]').change(function(){
   switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
     case '1': //Solo Concepto
         if ($(this).val() != 1) {
-            obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, id_area: $(this).val()})
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, 'servicios_api', {api:2, id_area: $(this).val()})
         }else{
-            obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, {api:2, otros_servicios: 1})
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, 'servicios_api', {api:2, otros_servicios: 1})
         }
     break;
     case '2': //Lista de precios para clientes
       if ($('#seleccionar-cliente').val() != null || $('#seleccionar-cliente').val() != 0) {
         if ($(this).val() != 1) {
-            obtenertablaListaPrecios(columnsDefinidas, columnasData, 'precios_api', {api:7, cliente_id: $('#seleccionar-cliente').val(), id_area: $(this).val()})
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, 'precios_api', {api:9, cliente_id: $('#seleccionar-cliente').val(), area_id: $(this).val()}, 'response.data')
         }else{
-            obtenertablaListaPrecios(columnsDefinidas, columnasData, 'precios_api', {api:7, cliente_id: $('#seleccionar-cliente').val(), otros_servicios: $(this).val()})
+            obtenertablaListaPrecios(columnsDefinidas, columnasData, 'precios_api', {api:9, cliente_id: $('#seleccionar-cliente').val(), area_id: 0}, 'response.data')
         }
       }else{
         alertSelectTable('Seleccione un cliente')
@@ -54,86 +54,88 @@ select2('#seleccion-paquete', 'vista_paquetes-precios', 'Cargando lista de paque
 rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION', {cliente_id: 1});
 
 
+//Obsoleto
+  $('#btn-precios-guardar').click(function () {
+    $('#btn-precios-guardar').prop('disabled', true)
+    let tablaPrecios = new Array();
+    let url, api, id;
+    tablaPrecio.search('').draw();
+    setTimeout(function(){
+      // var form_data  = tablaPrecio.rows().data();
+      var costo = tablaPrecio.$("input[name='costo']").serialize();
+      var margen = tablaPrecio.$("input[name='margen']").serialize();
 
-$('#btn-precios-guardar').click(function () {
-  $('#btn-precios-guardar').prop('disabled', true)
-  let tablaPrecios = new Array();
-  let url, api, id;
-  tablaPrecio.search('').draw();
-  setTimeout(function(){
-    // var form_data  = tablaPrecio.rows().data();
-    var costo = tablaPrecio.$("input[name='costo']").serialize();
-    var margen = tablaPrecio.$("input[name='margen']").serialize();
+      costo2 = costo.slice(6);
+      // console.log(costo2);
 
-    costo2 = costo.slice(6);
-    // console.log(costo2);
+      let arraycosto = costo2.split('&costo=');
 
-    let arraycosto = costo2.split('&costo=');
+      margen2 = margen.slice(7);
+      // console.log(margen2);
 
-    margen2 = margen.slice(7);
-    // console.log(margen2);
+      let arraymargen = margen2.split('&margen=');
 
-    let arraymargen = margen2.split('&margen=');
-
-    // console.log(arraymargen);
-    var tableData = tablaPrecio.rows().data().toArray();
-    // console.log(tableData);
-    for (var i = 0; i < tableData.length; i++) {
-      total = parseFloat(arraycosto[i]) + (parseFloat(arraycosto[i])*parseFloat(arraymargen[i])/100);
-      if ($('input[type=radio][name=selectChecko]:last').is(':checked')) {
-        id = tableData[i]['ID_PAQUETE']
-      }else{
-        id = tableData[i]['ID_SERVICIO']
-      }
-      const arrayFor = [id, parseFloat(arraycosto[i]), parseFloat(arraymargen[i]), total];
-      tablaPrecios.push(arrayFor);
-    }
-    if (tablaPrecios.length > 0) {
-      if ($('input[type=radio][name=selectChecko]:last').is(':checked')) {
-        api = 7; url = 'paquetes_api';
-        // alert('Paquete')
-        aviso = "Estudios actualizados"
-      }else{
-        api = 1; url = 'precios_api';
-        aviso = "Paquetes actualizados";
-        // alert('Estudios')
-        // console.log($('#check-paquetes'))
-        // console.log($('input[type=radio][name=selectChecko]'))
-      }
-
-      // console.log(tablaPrecios)
-      //
-      $.ajax({
-        url: http + servidor + "/nuevo_checkup/api/"+url+".php",
-        data: { api: api, contenedorListaPrecios: tablaPrecios },
-        type: "POST",
-        datatype: 'json',
-        beforeSend: function(){
-           alertMensaje('info', 'Espere un momento', 'El sistema esta guardando los datos...')
-        },
-        success: function (data) {
-          data = jQuery.parseJSON(data);
-          if (mensajeAjax(data)) {
-            alertSelectTable(aviso, icon = 'success', timer = 2000)
-          }
-          $('#btn-precios-guardar').prop('disabled', false)
-        },
-        complete: function(){
-          $('#btn-precios-guardar').prop('disabled', false)
+      // console.log(arraymargen);
+      var tableData = tablaPrecio.rows().data().toArray();
+      // console.log(tableData);
+      for (var i = 0; i < tableData.length; i++) {
+        total = parseFloat(arraycosto[i]) + (parseFloat(arraycosto[i])*parseFloat(arraymargen[i])/100);
+        if ($('input[type=radio][name=selectChecko]:last').is(':checked')) {
+          id = tableData[i]['ID_PAQUETE']
+        }else{
+          id = tableData[i]['ID_SERVICIO']
         }
-      })
+        const arrayFor = [id, parseFloat(arraycosto[i]), parseFloat(arraymargen[i]), total];
+        tablaPrecios.push(arrayFor);
+      }
+      if (tablaPrecios.length > 0) {
+        if ($('input[type=radio][name=selectChecko]:last').is(':checked')) {
+          api = 7; url = 'paquetes_api';
+          // alert('Paquete')
+          aviso = "Estudios actualizados"
+        }else{
+          api = 1; url = 'precios_api';
+          aviso = "Paquetes actualizados";
+          // alert('Estudios')
+          // console.log($('#check-paquetes'))
+          // console.log($('input[type=radio][name=selectChecko]'))
+        }
 
-      // console.log()
+        // console.log(tablaPrecios)
+        //
+        $.ajax({
+          url: http + servidor + "/nuevo_checkup/api/"+url+".php",
+          data: { api: api, contenedorListaPrecios: tablaPrecios },
+          type: "POST",
+          datatype: 'json',
+          beforeSend: function(){
+             alertMensaje('info', 'Espere un momento', 'El sistema esta guardando los datos...')
+          },
+          success: function (data) {
+            data = jQuery.parseJSON(data);
+            if (mensajeAjax(data)) {
+              alertSelectTable(aviso, icon = 'success', timer = 2000)
+            }
+            $('#btn-precios-guardar').prop('disabled', false)
+          },
+          complete: function(){
+            $('#btn-precios-guardar').prop('disabled', false)
+          }
+        })
 
-      // console.log(tablaPrecios);
-    }else{
-      alertSelectTable('No hay información en la tabla', 'error')
-      $('#btn-precios-guardar').prop('disabled', false)
-    }
+        // console.log()
 
-    return false;
-  }, 50)
-});
+        // console.log(tablaPrecios);
+      }else{
+        alertSelectTable('No hay información en la tabla', 'error')
+        $('#btn-precios-guardar').prop('disabled', false)
+      }
+
+      return false;
+    }, 50)
+  });
+//
+
 
 //Guarda toda la tabla (Manda a ajax)
 $('#btn-guardar-lista').click(function(){
@@ -220,7 +222,7 @@ $('input[type=radio][name=selectTipLista]').change(function(){
         columnasData = obtenerColumnasTabla('3.2')
         $('.vista_estudios-precios').fadeOut(100)
         $('#divSeleccionCliente').fadeIn(100)
-        obtenertablaListaPrecios(columnsDefinidas, columnasData, '../../../api/paquetes_api.php', {api:2, cliente_id: $('#seleccionar-cliente').val()}, 'response.data')
+        obtenertablaListaPrecios(columnsDefinidas, columnasData, 'paquetes_api', {api:2, cliente_id: $('#seleccionar-cliente').val()}, 'response.data')
         return 1;
       break;
     default:

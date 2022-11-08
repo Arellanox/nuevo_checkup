@@ -121,7 +121,7 @@ function obtenerColumnasTabla(tipo){
       return value = [
         {data: 'COUNT'},
         {data: 'ABREVIATURA'},
-        {data: 'DESCRIPCION'},
+        {data: 'SERVICIO'},
         {
           data: 'COSTO',
           render: function (data, type, full, meta) {
