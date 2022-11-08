@@ -165,6 +165,9 @@ switch ($api) {
         # mostrar la lista de todos los servicios con el precio de venta
         # de acuerdo al cliente seleccionado y area seleccionada.
         # solo el [area] puede ser null, si se envia el cliente null, no devuelve nada.
+        # Si se quiere recuperar los servicios de todas las areas enviar null en $area_id,
+        # si se quiere recuperar "otros servicios" enviar 0, de lo contrario enviar el id del area
+        # que corresponda.
         $response = $master->getByProcedure('sp_servicios_gral_precio_clientes_b',[$cliente_id,$area_id]);
         echo $master->returnApi($response);
         break;
