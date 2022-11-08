@@ -8,7 +8,7 @@ function ajaxMandarLista(array, url){
     type: "POST",
     success: function (data) {
       data = jQuery.parseJSON(data);
-      if (mensajeAjax(data)) {
+      if (data['response']['code'] == 1) {
         Toast.fire({
           icon: "success",
           title: "¡Precios actualizados!",
@@ -51,10 +51,10 @@ function getListaPrecios(id){ //Enviar ID_SERVICIO o ID_PAQUETE
         tabledata = tablaPrecio.row( this ).data();
 
         arregloPrecios = {
-          0: tabledata[id],
-          1: calculo[0],
-          2: calculo[1],
-          4: calculo[2],
+          'id': tabledata[id],
+          'costo': calculo[0],
+          'utilidad': calculo[1],
+          'total': calculo[2],
         }
 
         listaPrecios.push(arregloPrecios)
@@ -130,7 +130,8 @@ function obtenerColumnasTabla(tipo){
               }else{
                 value = data;
               }
-              rturn = '<div class="costo text-center">$'+value+'</div>';
+              numero = getRandomInt(300);
+              rturn = '<label class="form-check-label" for="costo'+numero+'"> <div class="form-check"> <div class="costo text-center">$'+value+'<input class="form-check-input" type="checkbox" value="" id="costo'+numero+'" checked></div> </div> </label>';
 
               return rturn;
             },

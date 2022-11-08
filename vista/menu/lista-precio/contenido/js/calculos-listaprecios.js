@@ -1,5 +1,5 @@
 
-$(document).on("keyup" , "input[name='utilidad'] , input[name='total']", function(){
+$(document).on("change keyup" , "input[name='utilidad'] , input[name='total']", function(){
   let parent_element = $(this).closest("tr");
   let costo = parseFloat($(parent_element).find("div[class='costo text-center']").text().slice(1));
   let utilidad = parseFloat($(parent_element).find("input[name='utilidad']").val());

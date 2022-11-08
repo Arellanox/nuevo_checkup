@@ -29,8 +29,8 @@
               <label for="tipo_contacto" class="form-label">Tipo de contacto</label>
               <select class="form-control input-form" name="tipo_contacto">
                 <option value="1">Finanzas</option>
-                <option value="2">Envio de correo</option>
-                <option value="3">Operativo</option>
+                <option value="2">Operativo</option>
+                <option value="3">Envio de resultado</option>
                 <option value="4">Adicional</option>
               </select>
             </div>

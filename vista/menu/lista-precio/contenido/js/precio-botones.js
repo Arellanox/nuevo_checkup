@@ -183,7 +183,7 @@ $('#btn-guardar-lista').click(function(){
          case '2': //Precios
              console.log(getListaPrecios('ID_SERVICIO'))
              listaConcepto = getListaPrecios('ID_SERVICIO');
-             ajaxMandarLista({api: 6, servicios:listaConcepto, cliente_id: $('#seleccionar-cliente').val()}, 'servicios_api');
+             ajaxMandarLista({api: 6, servicios:listaConcepto, cliente_id: $('#seleccionar-cliente').val()}, 'precios_api');
            break;
          case '3': //Paquetes
              console.log(getListaPrecios('ID_PAQUETE'))

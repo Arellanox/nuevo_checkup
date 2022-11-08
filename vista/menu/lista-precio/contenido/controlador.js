@@ -154,8 +154,8 @@ function tablaMantenimiento(url = 'paquetes_api'){
     ajax: {
         dataType: 'json',
         data: {
-          paquete_id: $('#seleccion-paquete').val(),
-
+          id_paquete: $('#seleccion-paquete').val(),
+          api:9
         },
         method: 'POST',
         url: http + servidor + "/nuevo_checkup/api/"+url+".php",
@@ -163,14 +163,14 @@ function tablaMantenimiento(url = 'paquetes_api'){
         dataSrc:'response.data'
     },
     columns:[
-        {data: 'COUNT'},
-        {data: 'MARCA'},
-        {data: 'MODELO'},
-        {data: 'NUMERO_SERIE'},
-        {data: 'CVE_INVENTARIO'},
-        {data: 'FRECUENCIA_MANTENIMIENTO'},
-        {data: 'CALIBRACION'},
-        {data: 'STATUS'},
+        {data: 'SERVICIO'},
+        {data: 'ABREVIATURA'},
+        {data: 'CANTIDAD'},
+        {data: 'COSTO_UNITARIO'},
+        {data: 'COSTO_TOTAL'},
+        {data: 'PRECIO_VENTA_UNITARIO'},
+        {data: 'SUBTOTAL'},
+        {data: 'ID_SERVICIO'},
         // {defaultContent: 'En progreso...'}
     ],
   });

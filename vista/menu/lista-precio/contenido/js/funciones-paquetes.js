@@ -1,14 +1,30 @@
 
 async function mantenimientoPaquete(){
   loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE');
+  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE', {contenido: 1});
   tablaContenido();
+  $('#seleccion-paquete').prop('disabled', false);
+  $("#selectDisabled").removeClass("disable-element");
+  $("#formPaqueteBotonesArea").addClass("disable-element");
+  $("#formPaqueteSelectEstudio").addClass("disable-element");
+  $("#informacionPaquete").addClass("disable-element");
+
+  $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+  $("#seleccion-estudio").find('option').remove().end()
   loader("Out");
 }
 
 async function contenidoPaquete(select = null){
   loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE');
+  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE', {contenido: 0});
+  $('#seleccion-paquete').prop('disabled', false);
+  $("#selectDisabled").removeClass("disable-element");
+  $("#formPaqueteBotonesArea").addClass("disable-element");
+  $("#formPaqueteSelectEstudio").addClass("disable-element");
+  $("#informacionPaquete").addClass("disable-element");
+
+  $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+  $("#seleccion-estudio").find('option').remove().end()
   tablaContenido()
 }
 

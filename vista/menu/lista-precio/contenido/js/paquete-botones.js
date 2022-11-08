@@ -56,7 +56,7 @@ $('#agregar-estudio-paquete').click(function() {
       $("#informacionPaquete").addClass("disable-element");
 
       $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
-      $("#seleccion-estudio").remove();
+      $("#seleccion-estudio").find('option').remove().end()
       tablaContenido()
       // $('.formContenidoPaquete').prop('disabled', true);
   })
