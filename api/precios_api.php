@@ -142,7 +142,7 @@ switch ($api) {
                 if($data['utilidad']==0){
                     $oks++;
                 } else {
-                    $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
+                    $response = $master->updateByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
                     if(is_numeric($response)){
                         $oks++;
                     } else {
