@@ -32,6 +32,7 @@ $(document).on("change keyup" , "input[name='utilidad'] , input[name='total']", 
 $(document).on("change" , "input[name='utilidad'] , input[name='total']", function(){
   let parent_element = $(this).closest("tr");
   let utilidad = parseFloat($(parent_element).find("input[name='utilidad']").val());
+  let total = parseFloat($(parent_element).find("input[name='total']").val());
   switch ($(this).attr("name")) {
     case "utilidad":
         if (isNaN(utilidad)) {

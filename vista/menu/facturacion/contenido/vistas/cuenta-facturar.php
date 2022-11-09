@@ -30,57 +30,58 @@
           <button class="btn btn-sm btn-confirmar" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Buscar</button>
         </div>
       </div>
-
-      <div class="mt-2" id="panel-informacion"></div>
-      <div class="col-12 pt-2" id="informacionVista">
-        <div class="row">
-          <div class="col-12 text-center">
-            <h5>Cargos</h5>
+      <div class="row vistaCargosFacturar" style="display:none" id="informacionCargosFacturar">
+        <div class="mt-2" id="panel-informacion"></div>
+        <div class="col-12 pt-2" id="informacionCargos">
+          <div class="row">
+            <div class="col-12 text-center">
+              <h5>Cargos</h5>
+            </div>
+            <div class="col-6 text-start info-detalle">
+              <p>Descuento:</p>
+            </div>
+            <div class="col-6" id="subtotal-costo-paquete"></div>
+            <div class="col-6 text-start info-detalle">
+              <p>Subtotal:</p>
+            </div>
+            <div class="col-6" id="subtotal-costo-paquete"></div>
+            <div class="col-6 text-start info-detalle">
+              <p>IVA:</p>
+            </div>
+            <div class="col-6"> 16%</div>
+            <div class="col-6 text-start info-detalle">
+              <p>Total facturación:</p>
+            </div>
+            <div class="col-6" id="subtotal-precioventa-paquete"></div>
+            <div class="col-6 text-start info-detalle">
+              <p>Pagos:</p>
+            </div>
+            <div class="col-6" id="total-paquete"></div>
+            <div class="col-6 text-start info-detalle">
+              <p>Total a pagar:</p>
+            </div>
+            <div class="col-6" id="total-paquete"></div>
           </div>
-          <div class="col-6 text-start info-detalle">
-            <p>Descuento:</p>
-          </div>
-          <div class="col-6" id="subtotal-costo-paquete"></div>
-          <div class="col-6 text-start info-detalle">
-            <p>Subtotal:</p>
-          </div>
-          <div class="col-6" id="subtotal-costo-paquete"></div>
-          <div class="col-6 text-start info-detalle">
-            <p>IVA:</p>
-          </div>
-          <div class="col-6"> 16%</div>
-          <div class="col-6 text-start info-detalle">
-            <p>Total facturación:</p>
-          </div>
-          <div class="col-6" id="subtotal-precioventa-paquete"></div>
-          <div class="col-6 text-start info-detalle">
-            <p>Pagos:</p>
-          </div>
-          <div class="col-6" id="total-paquete"></div>
-          <div class="col-6 text-start info-detalle">
-            <p>Total a pagar:</p>
-          </div>
-          <div class="col-6" id="total-paquete"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Tabla de cargos -->
-<div class="col-9">
+<!-- Vista de cargos -->
+<div class="col-9 vistaCargosFacturar" style="display:none" id="vistaCargosFacturar">
   <div class="m-2 card">
     <div class="row m-3">
       <div class="col-12">
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="nav-link active disabled" aria-current="page" href="#">Cargos</a>
+            <a type="button" class="nav-link vistaFacturar active disabled" data-ds="1">Cargos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Factura paciente</a>
+            <a type="button" class="nav-link vistaFacturar" data-ds="2">Factura paciente</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Factura cliente</a>
+            <a type="button" class="nav-link vistaFacturar disabled" data-ds="3">Factura cliente</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Consulta factura</a>
@@ -114,10 +115,10 @@
         </table>
       </div>
       <div class="col-12" id="FormularioFacturarPaciente" style="display:none">
-        <!-- Tabla de cargos -->
+        <!-- facturar paciente -->
       </div>
       <div class="col-12" id="FormularioFacturarCliente" style="display:none">
-        <!-- Tabla de cargos -->
+        <!-- facturar cliente -->
       </div>
     </div>
     Tabla de servicios y formulario de facturar el paciente

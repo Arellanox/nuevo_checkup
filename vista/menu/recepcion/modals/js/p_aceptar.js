@@ -9,6 +9,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   rellenarSelect('#select-paquetes','paquetes_api', 2,0,'DESCRIPCION', {'cliente_id': array_selected['CLIENTE_ID']})
   rellenarSelect("#select-lab", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 6});
   rellenarSelect('#select-us',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 7});
+  rellenarSelect('#select-rx',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 8});
   rellenarSelect('#select-otros',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'otros_servicios' : 1});
 })
 
@@ -43,7 +44,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event){
   formData.set('servicios', estudiosEnviar);
   formData.set('id_paquete', $('#select-paquetes').val());
 
-
+  console.log(estudiosEnviar);
   document.getElementById("btn-confirmar-paciente").disabled = true;
   $.ajax({
       url: "../../../api/recepcion_api.php",

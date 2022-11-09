@@ -27,7 +27,7 @@ $('#seleccionar-cliente').change(function(){
 $('input[type=radio][name=selectChecko]').change(function(){
   switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
     case '1': //Solo Concepto
-        if ($(this).val() != 1) {
+        if ($(this).val() != 0) {
             obtenertablaListaPrecios(columnsDefinidas, columnasData, 'servicios_api', {api:2, id_area: $(this).val()})
         }else{
             obtenertablaListaPrecios(columnsDefinidas, columnasData, 'servicios_api', {api:2, otros_servicios: 1})

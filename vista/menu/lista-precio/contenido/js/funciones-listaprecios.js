@@ -14,7 +14,6 @@ function ajaxMandarLista(array, url){
           title: "¡Precios actualizados!",
           timer: 2000,
         });
-        tablaMuestras.ajax.reload();
       }
     },
   });
