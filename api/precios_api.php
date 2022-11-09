@@ -126,8 +126,6 @@ switch ($api) {
         # recuperar la lista de precio de un cliente
 
         $response = $master->getByProcedure('sp_precios_b',[$cliente_id,$area_id]);
-
-        $response = $master->getByProcedure('sp_precios_b', [$cliente_id]);
         echo $master->returnApi($response);
         break;
     case 8:
