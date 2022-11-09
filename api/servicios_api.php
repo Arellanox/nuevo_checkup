@@ -17,6 +17,7 @@ $otros_servicios = $_POST['otros_servicios']; #activar con valor 1
 $abreviatura = $_POST['abreviatura']; #activar con valor 1
 $confirmar = $_POST['confirmar'];
 $id_turno = $_POST['id_turno'];
+$id_servicio = $_POST['id_servicio'];
 
 
 # para buscar servicios con precios establecidos al cliente
@@ -201,9 +202,35 @@ switch ($api) {
         $response = $master->getByProcedure('sp_servicios_padres_b',[$id_area,$paquete_id,$cliente_id]);
         echo $master->returnApi($response);
         break;
+    case 10:
+        #Cargar los resultados (reportes) de las distintas areas
+        
+        # carpeta de destino para los reportes
+        $destination = "../archivos/reportes/";
+        
+        foreach ($_FILES['reportes']['error'] as $key => $error) {
+
+            #Si no existe error en la carga de archivos procedemos a moverlo
+            # a la caperta de destino.
+            if($error == UPLOAD_ERR_OK){
+                # obtenemos la ruta temporal del archivo
+                $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                # conseguimos solo el nombre del archivo, no la ruta.
+                $name = basename($_FILES['reportes']['name'][$key]);
+
+                #insertamos el registro en la tabla paciente_detalle
+                $response = $master->updateByProcedure('sp_subir_resultados',[$id_turno,$id_servicio,"$destination/$id_turno"],null,null);
+                
+                if(is_numeric($response)){
+                    #cambiamos de lugar el archivo
+                     move_uploaded_file($tmp_name,"$destination/$id_turno");
+                }
+            }
+        }
+        break;
 
     default:
-        # code...
+        echo "Api no reconocida.";
         break;
 }
 
