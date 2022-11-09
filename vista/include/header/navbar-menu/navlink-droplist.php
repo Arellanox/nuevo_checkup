@@ -9,6 +9,7 @@
     </ul>
   </div>
 
+  <!-- Administrativos -->
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
     <i class="bi bi-clipboard-heart"></i> Servicios
   </a>
@@ -20,7 +21,7 @@
     </ul>
   </div>
 
-
+  <!-- Contaduria -->
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
     <i class="bi bi-tag"></i> Lista de precios
   </a>
@@ -32,14 +33,14 @@
   </div>
 
 
-
+  <!-- Administrativo -->
   <?php if ($_SESSION['vista']['CLIENTES'] == 1): ?>
     <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/'; ?>">
       <i class="bi bi-briefcase"></i> Clientes
     </a>
   <?php endif; ?>
 
-  
+  <!-- Laboratorio -->
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
     <i class="bi bi-heart-pulse"></i> Laboratorio
   </a>
@@ -47,6 +48,8 @@
     <i class="bi bi-droplet-half"></i> Toma de muestras
   </a>
 
+
+<!-- Areas master -->
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#IMAGENOLOGIA'; ?>">
     <i class="bi bi-person-video"></i> Imagenologia
   </a>
@@ -59,8 +62,18 @@
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#AUDIOMETRIA'; ?>">
     <i class="bi bi-ear"></i> Audiometría
   </a>
-
+  <!-- Area propia -->
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/oftalmologia/#OFTALMOLOGIA'; ?>">
     <i class="bi bi-eye"></i> Oftalmología
   </a>
+
+  <!-- Facturacion -->
+  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
+    <i class="bi bi-calculator"></i> Facturación
+  </a>
+  <div class="collapse" id="board-facturacion">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
+      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/facturacion/#Estados-Cuentas'; ?>"><i class="bi bi-dot"></i> Estados de cuentas</a></li>
+    </ul>
+  </div>
 <?php endif; ?>

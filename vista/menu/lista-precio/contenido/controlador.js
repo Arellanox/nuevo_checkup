@@ -165,11 +165,37 @@ function tablaMantenimiento(url = 'paquetes_api'){
     columns:[
         {data: 'SERVICIO'},
         {data: 'ABREVIATURA'},
-        {data: 'CANTIDAD'},
-        {data: 'COSTO_UNITARIO'},
-        {data: 'COSTO_TOTAL'},
-        {data: 'PRECIO_VENTA_UNITARIO'},
-        {data: 'SUBTOTAL'},
+        {
+          data: 'CANTIDAD',
+          render: function (data, type, full, meta) {
+            rturn = '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="'+data+'" style="margin: 0;padding: 0;height: 35px;">';
+            return rturn;
+          }
+        },
+        {
+          data: 'COSTO_UNITARIO',
+          render: function(data, type, full, meta){
+            return '<div class="costo-paquete text-center">$'+data+'</div>'
+          }
+        },
+        {
+          data: 'COSTO_TOTAL',
+          render: function(data, type, full, meta){
+            return '<div class="costototal-paquete text-center">$'+data+'</div>';
+          }
+        },
+        {
+          data: 'PRECIO_VENTA_UNITARIO',
+          render: function(data, type, full, meta){
+            return '<div class="precioventa-paquete text-center">$'+data+'</div>'
+          }
+        },
+        {
+          data: 'SUBTOTAL',
+          render: function(data, type, full, meta){
+            return '<div class="subtotal-paquete text-center">$'+data+'</div>'
+          }
+        },
         {data: 'ID_SERVICIO'},
         // {defaultContent: 'En progreso...'}
     ],

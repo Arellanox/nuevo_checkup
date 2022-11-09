@@ -48,7 +48,7 @@ function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREV
     CVE,
     '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="1" style="margin: 0;padding: 0;height: 35px;">',
     '<div class="costo-paquete text-center">$'+costo_total+'</div>',
-    '<div class="costototal-paquete text-center">$'+costo_total,
+    '<div class="costototal-paquete text-center">$'+costo_total+'</div>',
     '<div class="precioventa-paquete text-center">$'+precio_venta+'</div>',
     '<div class="subtotal-paquete text-center">$0</div>', ID_SERVICIO]).draw();
     // $('#TablaListaPaquetes tbody').append(html);
@@ -67,9 +67,8 @@ function calcularFilasTR(){
       subtotalPrecioventa += calculo[1];
       tabledata = tablaContenidoPaquete.row( this ).data();
 
-
       arregloEstudios = {
-        'id': tabledata[7],
+        'id': tabledata['ID_SERVICIO'],
         'cantidad': calculo[2],
         'costo': calculo[3],
         'costototal': calculo[0],
