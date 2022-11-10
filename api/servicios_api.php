@@ -18,6 +18,7 @@ $abreviatura = $_POST['abreviatura']; #activar con valor 1
 $confirmar = $_POST['confirmar'];
 $id_turno = $_POST['id_turno'];
 $id_servicio = $_POST['id_servicio'];
+$comentario = $_POST['comentario'];
 
 
 # para buscar servicios con precios establecidos al cliente
@@ -235,6 +236,12 @@ switch ($api) {
             }
             $next++;
         }
+        break;
+    case 11:
+        # recupera todos los servicios que suben reportes o imagenes como resultado
+        # de un turno.
+        $response = $master->getByProcedure('sp_detalle_turno_b',[$id_turno,$id_area]);
+        echo $master->returnApi($response);
         break;
 
     default:
