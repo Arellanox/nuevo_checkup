@@ -207,6 +207,9 @@ switch ($api) {
         
         # carpeta de destino para los reportes
         $destination = "../archivos/reportes/";
+
+        # Evita que los archivos se sobreescriban si se suben mas de uno.
+        $next = 0;
         
         foreach ($_FILES['reportes']['error'] as $key => $error) {
 
@@ -218,14 +221,19 @@ switch ($api) {
                 # conseguimos solo el nombre del archivo, no la ruta.
                 $name = basename($_FILES['reportes']['name'][$key]);
 
+                # dividimos el nombre del archvivo original para obtener la extension.
+                # la extension del archivo se encuentra el posicion 1 del arreglo $explode.
+                $explode = explode(".",$name);
+
                 #insertamos el registro en la tabla paciente_detalle
-                $response = $master->updateByProcedure('sp_subir_resultados',[$id_turno,$id_servicio,"$destination/$id_turno"],null,null);
+                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destination/$id_turno"."_$next.".$explode[1]]);
                 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
                      move_uploaded_file($tmp_name,"$destination/$id_turno");
                 }
             }
+            $next++;
         }
         break;
 

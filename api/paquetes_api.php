@@ -31,6 +31,9 @@ $utilidad = $_POST['utilidad'];
 $precio_venta = $_POST['precio_venta'];
 $iva = $_POST['iva'];
 
+# para eliminar el detalle de un paquete
+$eliminados = $_POST['contenido'];
+
 $parametros = array(
     $id_paquete,
     $cliente_id,
@@ -148,9 +151,24 @@ switch ($api) {
         # buscar
         $response = $master->getByProcedure("sp_detalle_paquete_b", [$paquete, $cliente]);
         break;
+    case 10:
+        # eliminar servicios del paquete.
+        $oks = 0;
+        $fails = array();
+
+        foreach ($eliminados as $e) {
+            $response = $master->deleteByProcedure('sp_detalle_paquete_e',[$e['paquete_id'],$e['servicio_id']]);
+
+            if(is_numeric($response)){
+                $oks++;
+            } else {
+                $fails[] = $e['servicio_id'];
+            }
+        }
+        break;
 
     default:
-        print_r($_GET);
+        
         $response = "api no reconocida " . $api;
         break;
 }
