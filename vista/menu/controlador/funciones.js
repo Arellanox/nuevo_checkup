@@ -414,8 +414,12 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
       idPanel[0] = "#panel-informacion";
     }
   }
+  if (typeof tablename === 'string') {
+    tablename = '#'+tablename;
+  }
+  console.log(tablename)
   // console.log(idPanel)
-  $('#'+tablename+' tbody').on('click', 'tr', function () {
+  $(tablename).on('click', 'tr', function () {
      if ($(this).hasClass('selected')) {
          $(this).removeClass('selected');
          array_selected = null;
@@ -662,8 +666,13 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 $(panel).fadeIn(100);
                 resolve(1);
               break;
+              case 'resultados-areaMaster':
+                $(panel).fadeIn(100);
+                resolve(1);
+              break;
 
               default:
+                console.log('Sin opción panel')
             }
           }else{
             setTimeout(function(){

@@ -7,6 +7,7 @@ $(window).on("hashchange", function (e) {
 let idsEstudios, data = {api:2, id_area: 7}, apiurl = 'servicios_api', tablaPrecio, tablaPaquete, tablaContenidoPaquete;
 let dataSet = new Array();
 let iva, total, subtotalPrecioventa, subtotalCosto;
+let dataEliminados = new Array(); //Lista para cuando eliminen un servicio
 
 // Arreglos para la tabla dinamica, para solo costos
   let columnsDefinidas;
@@ -49,6 +50,7 @@ function obtenerContenidoPrecios() {
 function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {api:7, id_area: 7}, response = null){
     // console.log(columnDefs);
     // console.log(columnsData)
+    dataEliminados = new Array()
     tablaPrecio.destroy();
     $('#TablaListaPrecios').empty();
     tablaPrecio = $("#TablaListaPrecios").DataTable({
@@ -101,10 +103,11 @@ function obtenerContenidoPaquetes(tabla) {
 
 }
 
-//Vacia la tabla, para el poder rellenar
+//Vacia la tabla, para el poder rellenar en paquetes
 function tablaContenido(){
   tablaContenidoPaquete.destroy();
   $('#TablaListaPaquetes').empty();
+  dataEliminados = new Array()
   tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
     lengthChange: false,
     // info: false,
@@ -132,6 +135,7 @@ function tablaContenido(){
 function tablaMantenimiento(url = 'paquetes_api'){
   tablaContenidoPaquete.destroy();
   $('#TablaListaPaquetes').empty();
+  dataEliminados = new Array()
   tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",

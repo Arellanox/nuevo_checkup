@@ -14,8 +14,8 @@
               <input type="text" class="form-control input-form" value="Nombre del paciente" readonly id="nombre-paciente-interpretacion">
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">Seleccione Documento PDF</label>
-              <input type="file" name="pdf_estudio" class="form-control input-form" accept=".pdf" required>
+              <label for="reportes" class="form-label">Seleccione Documento PDF</label>
+              <input type="file" name="reportes" class="form-control input-form" accept=".pdf" required>
             </div>
             <div class="col-12">
               <label for="telefono1_contacto" class="form-label">Observaciones</label>

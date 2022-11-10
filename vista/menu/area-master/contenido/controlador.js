@@ -1,6 +1,8 @@
 var tablaContenido, areaActiva = 1;
 var dataListaPaciente = {api:7};
-var selectListaLab, hash;
+var selectPacienteArea, hash;
+//Variable para guardar los servicios de un paciente seleccionado
+var selectEstudio = new GuardarArreglo();
 
 $.post("contenido/contenido.php", function (html) {
   $("#body-js").html(html);
@@ -8,6 +10,8 @@ $.post("contenido/contenido.php", function (html) {
   $.getScript("contenido/js/area-botones.js");
 }).done(function(){
   // // Datatable
+  tablaHTML = $('#TablaContenidoResultados tbody')
+  tablaContenido = $('#TablaContenidoResultados').DataTable();
    $.getScript("contenido/js/vista-tabla.js").done(function(){
      async function obtenerContenidoImg() {
        await obtenerTitulo('Resultados de Imagenología')
@@ -49,7 +53,6 @@ $.post("contenido/contenido.php", function (html) {
             if (sessionVista(hash) == true){
               switch (hash) {
                case "IMAGENOLOGIA":
-
                  obtenerContenidoImg();
                break;
                case "RX":
@@ -86,10 +89,4 @@ $.post("contenido/contenido.php", function (html) {
 function sessionVista(areaVista) {
   let vista = session.vista;
   return vista[areaVista] == 1 ? true:false;
-}
-
-function recargartabla(){
-  dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
-  tablaContenido.ajax.reload();
-  return 1;
 }

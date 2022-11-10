@@ -6,8 +6,8 @@
     <div class="" id="panel-informacion">
 
     </div>
-    <div class="">
-      <p class="none-p">Aqui irán sus resultados para poder visualizarlos</p>
+    <div class="" id="panel-resultadosMaster">
+      <!-- <p class="none-p">Aqui irán sus resultados para poder visualizarlos</p> -->
     </div>
   </div>
   <div class="card col-12 col-lg-9" style="margin-bottom:5px">

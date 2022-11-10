@@ -198,14 +198,14 @@ switch ($api) {
 
     case 9:
         # recuperar solo los servicios que sean grupos,
-        # los estudios que no tengan hijos y 
+        # los estudios que no tengan hijos y
         # los estudios que pertenezcan a la lista de precios del cliente seleccionado
         $response = $master->getByProcedure('sp_servicios_padres_b',[$id_area,$paquete_id,$cliente_id]);
         echo $master->returnApi($response);
         break;
     case 10:
         #Cargar los resultados (reportes) de las distintas areas
-        
+
         # carpeta de destino para los reportes
         $destination = "../archivos/reportes/";
 
@@ -241,16 +241,15 @@ switch ($api) {
                     case 'webp':
                         $tipo = 2; # identifica que es una imagen.
                         break;
-                    
+
                     default:
                         echo "Formato no reconocido.";
                         exit; # salimos de la ejecucion del programa.
                         break;
                 }
-
                 #insertamos el registro en la tabla paciente_detalle
                 $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destination/$id_turno"."_$next.".$explode[1]],$comentario,$tipo);
-                
+
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
                      move_uploaded_file($tmp_name,"$destination/$id_turno"."_$next.".$explode[1]);

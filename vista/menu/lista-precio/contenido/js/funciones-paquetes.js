@@ -42,7 +42,7 @@ function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREV
   }else {
     precio_venta = precio_venta;
   }
-
+  console.log(DESCRIPCION)
   tablaContenidoPaquete.row.add([
     DESCRIPCION,
     CVE,
@@ -62,20 +62,28 @@ function calcularFilasTR(){
   var paqueteEstudios = new Array();
   $('#TablaListaPaquetes tbody tr').each(function() {
       var arregloEstudios = new Array();
+      let id_servicio;
       let calculo = caluloFila(this)
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
       tabledata = tablaContenidoPaquete.row( this ).data();
+      // console.log(tabledata);
+      // console.log(tabledata['ID_SERVICIO']);
+      if (typeof tabledata['ID_SERVICIO'] === "undefined") {
+        id_servicio = tabledata[7]
+      }else{
+        id_servicio = tabledata['ID_SERVICIO']
+      }
 
       arregloEstudios = {
-        'id': tabledata['ID_SERVICIO'],
+        'id': id_servicio,
         'cantidad': calculo[2],
         'costo': calculo[3],
         'costototal': calculo[0],
         'precioventa': calculo[4],
         'subtotal': calculo[1]
       }
-
+      // console.log(arregloEstudios)
       paqueteEstudios.push(arregloEstudios)
   });
   // console.log(paqueteEstudios);

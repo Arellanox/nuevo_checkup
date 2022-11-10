@@ -19,6 +19,7 @@ function obtenerVistaFacturar(){
   $.post('contenido/vistas/cuenta-facturar.php', function(html){
     $('#VistaEstadoCuenta').html(html);
   }).done(function(){
+    $('.vistaCargosFacturar').fadeOut(0) //Ocultar plantilla para buscar el estado de cuenta
     $.getScript('contenido/js-vistas-controlador/estado-facturar-controlador-vista.js');
     // JS necesarios
     obtenerPanelInformacion(3, "pacientes_api", 'paciente');

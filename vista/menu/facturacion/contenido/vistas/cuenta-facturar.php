@@ -30,7 +30,7 @@
           <button class="btn btn-sm btn-confirmar" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Buscar</button>
         </div>
       </div>
-      <div class="row vistaCargosFacturar" style="display:none" id="informacionCargosFacturar">
+      <div class="row vistaCargosFacturar" id="informacionCargosFacturar">
         <div class="mt-2" id="panel-informacion"></div>
         <div class="col-12 pt-2" id="informacionCargos">
           <div class="row">
@@ -69,7 +69,7 @@
 </div>
 
 <!-- Vista de cargos -->
-<div class="col-9 vistaCargosFacturar" style="display:none" id="vistaCargosFacturar">
+<div class="col-9 vistaCargosFacturar" id="vistaCargosFacturar">
   <div class="m-2 card">
     <div class="row m-3">
       <div class="col-12">

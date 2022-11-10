@@ -38,6 +38,10 @@
           <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagennología</label>
         </div>
         <div class="col-auto m-1 vista_estudios-precios">
+          <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">
+          <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
+        </div>
+        <div class="col-auto m-1 vista_estudios-precios">
           <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
           <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
         </div>

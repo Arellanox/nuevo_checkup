@@ -1,6 +1,6 @@
 
 function ajaxMandarLista(array, url){
-  console.log(array);
+  // console.log(array);
 
   $.ajax({
     data: array,
