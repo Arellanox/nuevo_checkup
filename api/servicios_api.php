@@ -226,8 +226,30 @@ switch ($api) {
                 # la extension del archivo se encuentra el posicion 1 del arreglo $explode.
                 $explode = explode(".",$name);
 
+                switch (strtolower($explode[1])) {
+                    case 'pdf':
+                    case 'docx':
+                    case 'xlsx':
+                    case 'pptx':
+                    case 'doc':
+                        $tipo = 1; # identificacion que es un archivo.
+                        break;
+                    case 'jpg':
+                    case 'jpeg':
+                    case 'png':
+                    case 'bmp':
+                    case 'webp':
+                        $tipo = 2; # identifica que es una imagen.
+                        break;
+                    
+                    default:
+                        echo "Formato no reconocido.";
+                        exit; # salimos de la ejecucion del programa.
+                        break;
+                }
+
                 #insertamos el registro en la tabla paciente_detalle
-                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destination/$id_turno"."_$next.".$explode[1]]);
+                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destination/$id_turno"."_$next.".$explode[1]],$comentario,$tipo);
                 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
