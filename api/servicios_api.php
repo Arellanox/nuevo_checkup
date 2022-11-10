@@ -231,7 +231,7 @@ switch ($api) {
                 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
-                     move_uploaded_file($tmp_name,"$destination/$id_turno");
+                     move_uploaded_file($tmp_name,"$destination/$id_turno"."_$next.".$explode[1]);
                 }
             }
             $next++;
