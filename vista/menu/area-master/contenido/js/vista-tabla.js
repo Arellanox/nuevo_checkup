@@ -46,7 +46,7 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
   },
   lengthChange: false,
-  info: false,
+  // info: false,
   paging: false,
   scrollY: "55vh",
   scrollCollapse: true,
@@ -94,13 +94,23 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
 })
 
 selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function(selectTR = null, array = null){
+  let dataajax;
+  let url;
+  botonesResultados('desactivar')
   selectPacienteArea = array;
   console.log(selectPacienteArea)
   if (selectTR == 1) {
     obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente')
+    if (areaActiva == 3) {
+      url = 'oftalmologia_api';
+      data = {turno_id: selectPacienteArea['ID_TURNO'], api:3}
+    }else{
+      data = { api: 11, id_turno: selectPacienteArea['ID_TURNO'], id_area: areaActiva}
+      url = 'servicios_api'
+    }
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
-      data: { api: 11, id_turno: selectPacienteArea['ID_TURNO'], id_area: areaActiva},
+      url: http + servidor + "/nuevo_checkup/api/"+url+".php",
+      data: data,
       type: "POST",
       datatype: 'json',
       success: function (data) {
@@ -108,7 +118,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
         console.log(data);
         selectEstudio = new GuardarArreglo(data.response.data);
         panelResultadoPaciente(data.response.data);
-        botonesResultados('activar')
+        botonesResultados('activar', areaActiva)
       },
       complete: function(){
 
@@ -175,25 +185,6 @@ function limpiarCampos(){
 
 
 async function panelResultadoPaciente(row, area = areaActiva){
-  switch (area) {
-    case 7:
-
-    break;
-    case 8:
-
-    break;
-    case 5:
-
-    break;
-    case 4:
-
-    break;
-    case 3:
-
-    break;
-    default:
-
-  }
   await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
 
   setTimeout(function(){
@@ -203,7 +194,7 @@ async function panelResultadoPaciente(row, area = areaActiva){
         let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+
                     '<p style="padding-bottom: 10px">'+row[i]['SERVICIO']+':</p>'+
                     '<div class="col-7 d-flex justify-content-center">'+
-                      '<a type="button" class="btn btn-borrar me-2" href="'+row[i]['INTERPRETACION']+'" style="margin-bottom:4px" id="btn-analisis-pdf">'+
+                      '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="'+row[i]['INTERPRETACION']+'" style="margin-bottom:4px" id="btn-analisis-pdf">'+
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación'+
                       '</a>'+
                     '</div>'+

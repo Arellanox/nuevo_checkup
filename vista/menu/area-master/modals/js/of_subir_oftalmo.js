@@ -1,26 +1,22 @@
 
-const ModalSubirInterpretacion = document.getElementById('ModalSubirInterpretacion')
-ModalSubirInterpretacion.addEventListener('show.bs.modal', event => {
-  // console.log(selectPacienteArea)
+const ModalSubirInterpretacionOftalmologia = document.getElementById('ModalSubirInterpretacionOftalmologia')
+ModalSubirInterpretacionOftalmologia.addEventListener('show.bs.modal', event => {
+  // console.log(selectListaLab)
   $('#Area-estudio').html(hash)
-  // alert(selectEstudio.selectID)
   $('#nombre-paciente-interpretacion').val(selectPacienteArea['NOMBRE_COMPLETO'])
 })
 
 //Formulario Para Subir Interpretacion
-$("#formSubirInterpretacion").submit(function (event) {
-  // alert(areaActiva)
+$("#formSubirInterpretacionOftalmo").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
-  var form = document.getElementById("formSubirInterpretacion");
+  var form = document.getElementById("formSubirInterpretacionOftalmo");
   var formData = new FormData(form);
-  formData.set('id_turno',selectPacienteArea['ID_TURNO'])
-  formData.set('id_servicio', selectEstudio.selectID)
-  formData.set('id_area', areaActiva)
-  formData.set('api', 10);
+    formData.set('turno_id',selectPacienteArea['ID_TURNO'])
+    formData.set('api', 1);
   Swal.fire({
     title: "¿Está seguro de subir la interpretación?",
-    text: "¡No podrá cambiar el resultado!",
+    text: "¡No podrá cambiar los valores!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -33,13 +29,10 @@ $("#formSubirInterpretacion").submit(function (event) {
 
       $.ajax({
         data: formData,
-        url: "../../../api/servicios_api.php",
+        url: "../../../api/oftalmologia_api.php",
         type: "POST",
         processData: false,
         contentType: false,
-        beforeSend: function(){
-          $("#formSubirInterpretacion:submit").prop('disabled', true)
-        },
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
@@ -48,15 +41,11 @@ $("#formSubirInterpretacion").submit(function (event) {
               title: "¡Interpretación guardada!",
               timer: 2000,
             });
-            document.getElementById("formSubirInterpretacion").reset();
+            document.getElementById("formSubirInterpretacionOftalmo").reset();
             $("#ModalSubirInterpretacion").modal("hide");
             // tablaContacto.ajax.reload();
-            $("#formSubirInterpretacion:submit").prop('disabled', false)
           }
         },
-        complete: function(){
-          $("#formSubirInterpretacion:submit").prop('disabled', false)
-        }
       });
     }
   });

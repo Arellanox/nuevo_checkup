@@ -52,6 +52,19 @@ function obtenerContenidoVistaMaster(area, titulo) {
       $.getScript("contenido/js/vista-tabla.js")
       // Botones
       $.getScript("contenido/js/area-botones.js")
+
+      switch (area) {
+        case 3:
+          $('#btn-analisis-pdf').fadeOut(0)
+          $('#btn-capturas-pdf').fadeOut(0)
+          $('#btn-analisis-oftalmo').fadeIn(0)
+        break;
+        default:
+          $('#btn-analisis-pdf').fadeIn(0)
+          $('#btn-capturas-pdf').fadeIn(0)
+          $('#btn-analisis-oftalmo').fadeOut(0)
+
+      }
   });
 }
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once "../clases/master_class.php";
 
 $master = new Master();
@@ -48,13 +48,20 @@ $params = array(
 
 switch ($api) {
     case 1:
-        #insertar 
+        #insertar
         $response = $master->insertByProcedure('sp_oftalmo_resultados_g',$params);
         break;
     case 2:
         # buscar
         $response = $master->getByProcedure('sp_oftalmo_resultados_b',[$id_oftalmo,$turno_id]);
-    
+        break;
+    case 3: #obtener resultado (url del pdf)
+        # buscar
+        $response = $master->getByProcedure('sp_oftalmo_resultados_b',[$id_oftalmo,$turno_id]);
+        if ($response) {
+          $response = array('url' => 'https://bimo-lab.com', );
+        }
+        break;
     default:
         # code...
         break;

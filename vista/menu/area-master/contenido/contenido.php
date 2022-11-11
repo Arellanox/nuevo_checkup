@@ -18,6 +18,9 @@
       <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-capturas-pdf">
         <i class="bi bi-clipboard2-plus"></i> Guardar capturas
       </button>
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-analisis-oftalmo">
+        <i class="bi bi-clipboard2-plus"></i> Subir resultados
+      </button>
     </div>
     <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
       <thead class="" style="width: 100%">

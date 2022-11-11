@@ -15,7 +15,7 @@
             </div>
             <div class="col-6">
               <label for="reportes" class="form-label">Suba las capturas</label>
-              <input type="file" name="reportes" class="form-control input-form" accept="image/*, .pdf" multiple required>
+              <input type="file" name="reportes[]" class="form-control input-form" accept="image/*, .pdf" multiple required>
             </div>
             <div class="col-12">
               <label for="comentario" class="form-label">Observaciones</label>

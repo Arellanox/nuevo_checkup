@@ -23,6 +23,15 @@ $('#btn-capturas-pdf').click(function(){
   }
 })
 
+$('#btn-analisis-oftalmo').click(function(){
+  if (selectPacienteArea != null) {
+
+    $("#ModalSubirInterpretacionOftalmologia").modal("show");
+  } else {
+    alertSelectTable();
+  }
+})
+
 function chooseEstudio(row, modal){
   let html = '';
   console.log(row)
