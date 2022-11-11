@@ -26,6 +26,9 @@ $paquete_id = $_POST['paquete_id'];
 $cliente_id = $_POST['cliente_id'];
 
 
+echo "api $api";
+print_r($_FILES);
+
 switch ($api) {
     case 1:
         #insert
@@ -212,15 +215,18 @@ switch ($api) {
         # Evita que los archivos se sobreescriban si se suben mas de uno.
         $next = 0;
         
-        foreach ($_FILES['reportes']['error'] as $key => $error) {
-
+        foreach ($_FILES as $key => $error) {
+            print_r($error);
             #Si no existe error en la carga de archivos procedemos a moverlo
             # a la caperta de destino.
-            if($error == UPLOAD_ERR_OK){
+            if($error['error'] == 0){
                 # obtenemos la ruta temporal del archivo
-                $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                $tmp_name = $error['tmp_name'];
+
                 # conseguimos solo el nombre del archivo, no la ruta.
-                $name = basename($_FILES['reportes']['name'][$key]);
+                ## $name = basename($_FILES['reportes']['name'][$key]);
+                $name = basename($error['name']);
 
                 # dividimos el nombre del archvivo original para obtener la extension.
                 # la extension del archivo se encuentra el posicion 1 del arreglo $explode.
@@ -252,7 +258,10 @@ switch ($api) {
 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
-                     move_uploaded_file($tmp_name,"$destination/$id_turno"."_$next.".$explode[1]);
+                    move_uploaded_file($tmp_name,"$destination/$id_turno"."_$next.".$explode[1]);
+                    echo $master->returnApi($response);
+                } else {
+                    echo $master->returnApi($response);
                 }
             }
             $next++;
