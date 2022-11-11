@@ -22,6 +22,7 @@
     <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
       <thead class="" style="width: 100%">
         <tr>
+          <th scope="col d-flex justify-content-center" class="all">#</th>
           <th scope="col d-flex justify-content-center" class="all">Nombre</th>
           <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
           <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>

@@ -3,6 +3,7 @@ const ModalSubirCapturas = document.getElementById('ModalSubirCapturas')
 ModalSubirCapturas.addEventListener('show.bs.modal', event => {
   // console.log(selectListaLab)
   $('#Area-estudio').html(hash)
+  // alert(selectEstudio.selectID)
   $('#nombre-paciente-capturas').val(selectListaLab['NOMBRE_COMPLETO'])
 })
 
@@ -12,8 +13,9 @@ $("#formSubirCapturas").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formSubirCapturas");
   var formData = new FormData(form);
-    formData.set('id_cliente',array_selected['ID_CLIENTE'])
-    formData.set('api', 3);
+  formData.set('id_turno',selectPacienteArea['ID_TURNO'])
+  formData.set('id_servicio', selectEstudio.selectID)
+  formData.set('api', 10);
   Swal.fire({
     title: "¿Está seguro de subir la interpretación?",
     text: "¡No podrá cambiar el resultado!",
@@ -30,7 +32,7 @@ $("#formSubirCapturas").submit(function (event) {
       $.ajax({
         data: formData,
         url: '??',
-        url: "../../../api/turnos_api.php",
+        url: "../../../api/servicios_api.php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -39,7 +41,7 @@ $("#formSubirCapturas").submit(function (event) {
           if (mensajeAjax(data)) {
             Toast.fire({
               icon: "success",
-              title: "¡Interpretación guardada!",
+              title: "¡Capturas guardadas!",
               timer: 2000,
             });
             document.getElementById("formSubirCapturas").reset();

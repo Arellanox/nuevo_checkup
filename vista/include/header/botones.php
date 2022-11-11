@@ -96,7 +96,7 @@
       <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>
     </div>
     <div class="col-auto">
-      <input type="date" class="form-control input-form" name="fechaListadoLaboratorio" value="<?php echo date('Y-m-d') ?>" required id="fechaListadoAreaMaster" onchange="recargartabla()">
+      <input type="date" class="form-control input-form" name="fechaListadoLaboratorio" value="<?php echo date('Y-m-d') ?>" required id="fechaListadoAreaMaster">
     </div>
   </div>
 <?php endif; ?>

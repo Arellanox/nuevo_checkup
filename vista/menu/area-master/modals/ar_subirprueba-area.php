@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <form class="" id="formSubirInterpretacion">
-          <p class="text-center">Agregar Archivos de <strong>Resultado</strong> </p>
+          <p class="text-center">Agregue el archivo de interpretación</p>
           <div class="row">
             <div class="col-6">
               <label for="nombre_contacto" class="form-label">Nombre del Cliente</label>

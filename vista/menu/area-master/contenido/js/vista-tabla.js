@@ -41,94 +41,117 @@
 //
 // })
 
-
-function tablaVistaMaster(data) {
-  tablaContenido.destroy();
-  $('#TablaContenidoResultados').empty();
-  tablaContenido = $('#TablaContenidoResultados').DataTable({
-    language: {
-      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-    },
-    lengthChange: false,
-    info: false,
-    paging: false,
-    scrollY: "55vh",
-    scrollCollapse: true,
-    ajax: {
-        dataType: 'json',
-        data: data,
-        method: 'POST',
-        url: '../../../api/turnos_api.php',
-        beforeSend: function() { loader("In"), obtenerPanelInformacion(0, 'pacientes_api', 'paciente'), selectListaLab = null; },
-        complete: function(){ loader("Out") },
-        dataSrc:'response.data'
-    },
-    columns:[
-        // {
-        //   data: 'EDAD', render: function(){
-        //     return '';
-        //   }
-        // },
-        {data: 'COUNT'},
-        {data: 'NOMBRE_COMPLETO'},
-        {data: 'PREFOLIO', render: function (data, type, full, meta) {
-            return "20221014JMC412";
-          },
+tablaContenido = $('#TablaContenidoResultados').DataTable({
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+  },
+  lengthChange: false,
+  info: false,
+  paging: false,
+  scrollY: "55vh",
+  scrollCollapse: true,
+  ajax: {
+      dataType: 'json',
+      data: function (d) {
+        return $.extend(d, dataListaPaciente);
+      },
+      method: 'POST',
+      url: '../../../api/turnos_api.php',
+      beforeSend: function() { loader("In"), obtenerPanelInformacion(0, 'pacientes_api', 'paciente'), selectListaLab = null; },
+      complete: function(){ loader("Out") },
+      dataSrc:'response.data'
+  },
+  columns:[
+      // {
+      //   data: 'EDAD', render: function(){
+      //     return '';
+      //   }
+      // },
+      {data: 'COUNT'},
+      {data: 'NOMBRE_COMPLETO'},
+      {data: 'PREFOLIO', render: function (data, type, full, meta) {
+          return "20221014JMC412";
         },
-        {data: 'EDAD'},
-        {data: 'GENERO'},
-        {data: 'GENERO'},
-        // {defaultContent: 'En progreso...'}
-    ],
-    columnDefs: [
-      { width: "5%", title: "#", targets: 0 },
-      { title: "Nombre", targets: 1 },
-      { title: "Prefolio", targets: 2 },
-      { title: "Costo", targets: 3 },
-      { title: "Procedencia", targets: 4},
-      { title: "Edad", targets: 5 },
-      { title: "Sexo", targets: 6 }
-    ]
-    // columnDefs: [
-    //   { "width": "10px", "targets": 0 },
-    // ],
+      },
+      {data: 'EDAD'},
+      {data: 'GENERO'},
+      {data: 'GENERO'},
+      // {defaultContent: 'En progreso...'}
+  ],
+  columnDefs: [
+    // { width: "5%", title: "#", targets: 0 },
+    // { title: "Nombre", targets: 1 },
+    // { title: "Prefolio", targets: 2 },
+    // { title: "Costo", targets: 3 },
+    // { title: "Procedencia", targets: 4},
+    // { title: "Edad", targets: 5 },
+    // { title: "Sexo", targets: 6 }
+  ]
+  // columnDefs: [
+  //   { "width": "10px", "targets": 0 },
+  // ],
 
-  })
+})
 
-  selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function(selectTR = null, array = null){
-    selectPacienteArea = array;
-    console.log(selectPacienteArea)
-    if (selectTR == 1) {
-      obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente')
-      $.ajax({
-        url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
-        data: { api: 11, id_turno: selectPacienteArea['ID_TURNO'], id_area: areaActiva},
-        type: "POST",
-        datatype: 'json',
-        success: function (data) {
-          data = jQuery.parseJSON(data)
-          console.log(data);
-          selectEstudio = new GuardarArreglo(data.response.data);
-          panelResultadoPaciente(data.response.data);
-        },
-        complete: function(){
+selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function(selectTR = null, array = null){
+  selectPacienteArea = array;
+  console.log(selectPacienteArea)
+  if (selectTR == 1) {
+    obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente')
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
+      data: { api: 11, id_turno: selectPacienteArea['ID_TURNO'], id_area: areaActiva},
+      type: "POST",
+      datatype: 'json',
+      success: function (data) {
+        data = jQuery.parseJSON(data)
+        console.log(data);
+        selectEstudio = new GuardarArreglo(data.response.data);
+        panelResultadoPaciente(data.response.data);
+        botonesResultados('activar')
+      },
+      complete: function(){
 
-        }
-      })
-    }else{
-      obtenerPanelInformacion(0, 0, 'paciente')
-    }
+      }
+    })
+  }else{
+    botonesResultados('desactivar')
+    obtenerPanelInformacion(0, 0, 'paciente')
+    obtenerPanelInformacion(0, null, 'resultados-areaMaster', '#panel-resultadosMaster')
+  }
+})
 
-  })
-}
 
+// function tablaVistaMaster(data) {
+//   // tablaContenido.destroy();
+//   // $('#TablaContenidoResultados').empty();
+//
+//   // console.log(selectrue)
+//   selectTableMaster(tablaContenido)
+//   if (selectrue != 1) {
+//     // alert('primera vez')
+//     selectrue = 1;
+//   }else{
+//     // alert('segunda vez')
+//     // location.reload();
+//   }
+// }
 
-function recargartabla(){
-  dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
-  tablaVistaMaster(dataListaPaciente)
-  // tablaContenido.ajax.reload();
-  return 1;
-}
+// function selectTableMaster(datatable){
+//
+// }
+//
+//
+// function recargartabla(){
+//   dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
+//   tablaVistaMaster(dataListaPaciente)
+//   botonesResultados('desactivar')
+//   obtenerPanelInformacion(0, 0, 'paciente')
+//   obtenerPanelInformacion(0, null, 'resultados-areaMaster', '#panel-resultadosMaster')
+//   var selectEstudio = new GuardarArreglo();
+//   // tablaContenido.ajax.reload();
+//   return 1;
+// }
 
 // $('#TablaContenidoResultadosa tbody').on('click', 'tr', function () {
 //   alert('oajnsdnji')
@@ -189,9 +212,6 @@ async function panelResultadoPaciente(row, area = areaActiva){
       }
     }
   }, 100);
-
-
-
 
 }
 

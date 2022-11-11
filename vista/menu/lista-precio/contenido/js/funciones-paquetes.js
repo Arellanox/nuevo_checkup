@@ -112,14 +112,14 @@ function caluloFila(parent_element){
   let costo = parseFloat($(parent_element).find("div[class='costo-paquete text-center']").text().slice(1));
   let precioventa = parseFloat($(parent_element).find("div[class='precioventa-paquete text-center']").text().slice(1));
   // Dar valor a costo total
-  let costoTotal= cantidad*costo;
-  if (Number.isInteger(costoTotal)) {
+  let costoTotal = cantidad*costo;
+  if (checkNumber(costoTotal)) {
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$'+costoTotal)
   }else{
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$0')
   }
   let subtotal= cantidad*precioventa;
-  if (Number.isInteger(subtotal)) {
+  if (checkNumber(subtotal)) {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$'+subtotal)
   }else{
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$0')

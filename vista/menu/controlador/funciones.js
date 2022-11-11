@@ -7,6 +7,23 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+// Checa si es un numero
+function checkNumber(x) {
+    // check if the passed value is a number
+    if(typeof x == 'number' && !isNaN(x)){
+        // check if it is integer
+        if (Number.isInteger(x)) {
+            return 1
+        }
+        else {
+            return 1
+        }
+
+    } else {
+        return 2
+    }
+}
+
 // Omitir paciente actual
 function pasarPacienteTurno(id_turno){
   Swal.fire({
@@ -441,6 +458,8 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
            }
          }
          if (callback != null) {
+           // alert('select')
+           // console.log(array_selected)
            callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
          }
      }

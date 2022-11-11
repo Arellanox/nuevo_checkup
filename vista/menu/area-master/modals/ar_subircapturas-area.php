@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <form class="" id="formSubirCapturas">
-          <p class="text-center">Agregar Archivos de <strong>Resultado</strong> </p>
+          <p class="text-center">Agregue los archivos de resultados </p>
           <div class="row">
             <div class="col-6">
               <label for="nombre_contacto" class="form-label">Nombre del Cliente</label>
@@ -15,7 +15,7 @@
             </div>
             <div class="col-6">
               <label for="apellidos_contacto" class="form-label">Suba las capturas</label>
-              <input type="file" name="pdf_estudio" class="form-control input-form" accept="image/*" required>
+              <input type="file" name="pdf_estudio" class="form-control input-form" accept="image/*" multiple required>
             </div>
             <div class="col-12">
               <label for="telefono1_contacto" class="form-label">Observaciones</label>

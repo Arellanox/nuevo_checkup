@@ -371,3 +371,50 @@
 02/11/22 22:43:02 sp_historial_servicios_paciente Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'pac_det.CHECKED' in 'field list'
 03/11/22 21:11:31 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
 
+04/11/22 22:36:30 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:36:30 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:36:31 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:36:31 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:36:40 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:39:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:39:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:39:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:39:53 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+04/11/22 22:39:53 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1226] User 'u808450138_bimo' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/11/22 15:26:32 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+08/11/22 10:28:38 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2006] MySQL server has gone away
+08/11/22 10:33:40 sp_precios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_precios_b; expected 2, got 1
+08/11/22 12:12:24 sp_servicios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_servicios_b; expected 5, got 6
+08/11/22 14:41:29 sp_paquetes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_b; expected 3, got 2
+08/11/22 14:52:41 sp_paquetes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_b; expected 3, got 2
+08/11/22 15:06:18 sp_paquetes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_paquetes_b; expected 3, got 2
+08/11/22 15:21:22 sp_paquetes_actualizar_costo Ha ocurrido un error(HY093). HY093  
+08/11/22 15:21:22 sp_paquetes_actualizar_costo Ha ocurrido un error(HY093). HY093  
+08/11/22 15:21:23 sp_paquetes_actualizar_costo Ha ocurrido un error(HY093). HY093  
+08/11/22 15:21:23 sp_paquetes_actualizar_costo Ha ocurrido un error(HY093). HY093  
+08/11/22 17:24:10 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:24:10 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:24:11 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:28:35 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:28:36 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:28:36 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:28:56 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:28:57 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:28:58 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+08/11/22 17:28:58 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+09/11/22 11:26:57 sp_precios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_precios_b; expected 2, got 1
+09/11/22 11:36:20 sp_precios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_precios_b; expected 3, got 2
+09/11/22 12:55:44 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+09/11/22 15:50:58 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+09/11/22 15:50:59 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+09/11/22 15:50:59 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+09/11/22 15:50:59 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+09/11/22 15:51:00 sp_detalle_paquete_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_detalle_paquete_g does not exist
+09/11/22 16:13:51 sp_detalle_paquete_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_activo' in 'field list'
+09/11/22 16:13:51 sp_detalle_paquete_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_activo' in 'field list'
+09/11/22 16:13:52 sp_detalle_paquete_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_activo' in 'field list'
+09/11/22 16:13:52 sp_detalle_paquete_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_activo' in 'field list'
+10/11/22 17:21:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
