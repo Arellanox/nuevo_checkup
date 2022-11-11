@@ -4,7 +4,7 @@ ModalSubirCapturas.addEventListener('show.bs.modal', event => {
   // console.log(selectListaLab)
   $('#Area-estudio').html(hash)
   // alert(selectEstudio.selectID)
-  $('#nombre-paciente-capturas').val(selectListaLab['NOMBRE_COMPLETO'])
+  $('#nombre-paciente-capturas').val(selectPacienteArea['NOMBRE_COMPLETO'])
 })
 
 //Formulario Para Subir Interpretacion
@@ -15,6 +15,7 @@ $("#formSubirCapturas").submit(function (event) {
   var formData = new FormData(form);
   formData.set('id_turno',selectPacienteArea['ID_TURNO'])
   formData.set('id_servicio', selectEstudio.selectID)
+  formData.set('id_area', areaActiva)
   formData.set('api', 10);
   Swal.fire({
     title: "¿Está seguro de subir la interpretación?",

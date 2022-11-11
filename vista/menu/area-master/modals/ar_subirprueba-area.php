@@ -15,11 +15,11 @@
             </div>
             <div class="col-6">
               <label for="reportes" class="form-label">Seleccione Documento PDF</label>
-              <input type="file" name="reportes" class="form-control input-form" accept=".pdf" required>
+              <input type="file" name="reportes" class="form-control input-form" multiple accept=".pdf" required>
             </div>
             <div class="col-12">
-              <label for="telefono1_contacto" class="form-label">Observaciones</label>
-              <textarea name="observaciones" class="md-textarea input-form" rows="4" cols="80"></textarea>
+              <label for="comentario" class="form-label">Observaciones</label>
+              <textarea name="comentario" class="md-textarea input-form" rows="4" cols="80"></textarea>
             </div>
         </form>
       </div>

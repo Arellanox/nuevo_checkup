@@ -15,6 +15,7 @@ $("#formSubirInterpretacion").submit(function (event) {
   var formData = new FormData(form);
   formData.set('id_turno',selectPacienteArea['ID_TURNO'])
   formData.set('id_servicio', selectEstudio.selectID)
+  formData.set('id_area', areaActiva)
   formData.set('api', 10);
   Swal.fire({
     title: "¿Está seguro de subir la interpretación?",
@@ -35,6 +36,9 @@ $("#formSubirInterpretacion").submit(function (event) {
         type: "POST",
         processData: false,
         contentType: false,
+        beforeSend: function(){
+          $("#formSubirInterpretacion:submit").prop('disabled', true)
+        },
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
@@ -46,8 +50,12 @@ $("#formSubirInterpretacion").submit(function (event) {
             document.getElementById("formSubirInterpretacion").reset();
             $("#ModalSubirInterpretacion").modal("hide");
             // tablaContacto.ajax.reload();
+            $("#formSubirInterpretacion:submit").prop('disabled', false)
           }
         },
+        complete: function(){
+          $("#formSubirInterpretacion:submit").prop('disabled', false)
+        }
       });
     }
   });

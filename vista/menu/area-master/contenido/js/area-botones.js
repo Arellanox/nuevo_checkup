@@ -27,15 +27,20 @@ function chooseEstudio(row, modal){
   let html = '';
   console.log(row)
   for (var i = 0; i < row.length; i++) {
+    if (row[i]['INTERPRETACION'] == null) {
       html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(`+row[i]['ID_SERVICIO']+`, '`+modal+`')" type="button">`+row[i]['SERVICIO']+`</button>`;
+    }
   }
-
-  Swal.fire({
-    html: '<h4>Seleccione el servicio a guardar</h4>'+
-      '<div class="d-grid gap-2">'+ html + '</div>',
-    showCloseButton: true,
-    showConfirmButton: false,
-  });
+  if (html) {
+    Swal.fire({
+      html: '<h4>Seleccione el servicio a guardar</h4>'+
+        '<div class="d-grid gap-2">'+ html + '</div>',
+      showCloseButton: true,
+      showConfirmButton: false,
+    });
+  }else{
+    alertSelectTable('Este paciente ya no tiene estudios pendientes')
+  }
 }
 
 function estudioSeleccionado(id, modal){
@@ -43,19 +48,4 @@ function estudioSeleccionado(id, modal){
   Swal.close();
   console.log(selectEstudio.selectID)
   $(modal).modal("show");
-}
-
-function botonesResultados(estilo){
-  switch (estilo) {
-    case 'desactivar':
-      $('#btn-analisis-pdf').prop('disabled', true)
-      $('#btn-capturas-pdf').prop('disabled', true)
-    break;
-    case 'activar':
-      $('#btn-analisis-pdf').prop('disabled', false)
-      $('#btn-capturas-pdf').prop('disabled', false)
-    break;
-    default:
-
-  }
 }

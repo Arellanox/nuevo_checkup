@@ -57,7 +57,7 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
       },
       method: 'POST',
       url: '../../../api/turnos_api.php',
-      beforeSend: function() { loader("In"), obtenerPanelInformacion(0, 'pacientes_api', 'paciente'), selectListaLab = null; },
+      beforeSend: function() { loader("In"), limpiarCampos(), selectListaLab = null; },
       complete: function(){ loader("Out") },
       dataSrc:'response.data'
   },
@@ -115,12 +115,16 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
       }
     })
   }else{
-    botonesResultados('desactivar')
-    obtenerPanelInformacion(0, 0, 'paciente')
-    obtenerPanelInformacion(0, null, 'resultados-areaMaster', '#panel-resultadosMaster')
+    limpiarCampos()
   }
 })
 
+function limpiarCampos(){
+  selectEstudio = new GuardarArreglo();
+  botonesResultados('desactivar')
+  obtenerPanelInformacion(0, 0, 'paciente')
+  obtenerPanelInformacion(0, null, 'resultados-areaMaster', '#panel-resultadosMaster')
+}
 
 // function tablaVistaMaster(data) {
 //   // tablaContenido.destroy();
@@ -199,7 +203,7 @@ async function panelResultadoPaciente(row, area = areaActiva){
         let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+
                     '<p style="padding-bottom: 10px">'+row[i]['SERVICIO']+':</p>'+
                     '<div class="col-7 d-flex justify-content-center">'+
-                      '<a type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-analisis-pdf">'+
+                      '<a type="button" class="btn btn-borrar me-2" href="'+row[i]['INTERPRETACION']+'" style="margin-bottom:4px" id="btn-analisis-pdf">'+
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación'+
                       '</a>'+
                     '</div>'+
@@ -215,6 +219,19 @@ async function panelResultadoPaciente(row, area = areaActiva){
 
 }
 
+function botonesResultados(estilo){
+  switch (estilo) {
+    case 'desactivar':
+      $('#btn-analisis-pdf').prop('disabled', true)
+      $('#btn-capturas-pdf').prop('disabled', true)
+    break;
+    case 'activar':
+      $('#btn-analisis-pdf').prop('disabled', false)
+      $('#btn-capturas-pdf').prop('disabled', false)
+    break;
+    default:
 
+  }
+}
 
 // selectDatatable("TablaContenidoResultados", tablaContenido, 1, "pacientes_api", 'paciente')

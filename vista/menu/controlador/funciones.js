@@ -451,17 +451,25 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
          datatable.$('tr.selected').removeClass('selected');
          $(this).addClass('selected');
          array_selected = datatable.row( this ).data();
-         if (panel) {
-           // Lee los 3 objetos para llamar a la funcion
-           for (var i = 0; i < Object.keys(tipPanel).length; i++) {
-             obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
+         if (array_selected != null) {
+           if (panel) {
+             // Lee los 3 objetos para llamar a la funcion
+             for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+               obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
+             }
            }
+           if (callback != null) {
+             // alert('select')
+             // console.log(array_selected)
+             callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
+           }
+         }else{
+           for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+             obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
+           }
+           callback(0, array_selected);
          }
-         if (callback != null) {
-           // alert('select')
-           // console.log(array_selected)
-           callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
-         }
+
      }
   });
 }
