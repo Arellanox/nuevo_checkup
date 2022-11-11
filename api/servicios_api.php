@@ -254,7 +254,7 @@ switch ($api) {
                         break;
                 }
                 #insertamos el registro en la tabla paciente_detalle
-                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destination/$id_turno"."_$next.".$explode[1]],$comentario,$tipo);
+                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destination/$id_turno"."_$next.".$explode[1],$comentario,$tipo]);
 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
