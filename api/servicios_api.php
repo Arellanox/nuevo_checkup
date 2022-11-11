@@ -26,8 +26,8 @@ $paquete_id = $_POST['paquete_id'];
 $cliente_id = $_POST['cliente_id'];
 
 
-echo "api $api";
-print_r($_FILES);
+// echo "api $api";
+// print_r($_FILES);
 
 switch ($api) {
     case 1:
@@ -210,11 +210,12 @@ switch ($api) {
         #Cargar los resultados (reportes) de las distintas areas
 
         # carpeta de destino para los reportes
-        $destination = "../archivos/reportes/";
+        $destination = "/archivos/reportes/";
+        $destinatio_sql = "https://bimo-lab.com/nuevo_checkup";
 
         # Evita que los archivos se sobreescriban si se suben mas de uno.
         $next = 0;
-        
+
         foreach ($_FILES as $key => $error) {
             print_r($error);
             #Si no existe error en la carga de archivos procedemos a moverlo
@@ -254,11 +255,11 @@ switch ($api) {
                         break;
                 }
                 #insertamos el registro en la tabla paciente_detalle
-                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destination/$id_turno"."_$next.".$explode[1],$comentario,$tipo]);
+                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$destination/$id_turno"."_$next.".$explode[1],$comentario,$tipo]);
 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
-                    move_uploaded_file($tmp_name,"$destination/$id_turno"."_$next.".$explode[1]);
+                    move_uploaded_file($tmp_name,"..$destination/$id_turno"."_$next.".$explode[1]);
                     echo $master->returnApi($response);
                 } else {
                     echo $master->returnApi($response);
