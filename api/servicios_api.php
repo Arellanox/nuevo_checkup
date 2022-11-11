@@ -26,8 +26,6 @@ $paquete_id = $_POST['paquete_id'];
 $cliente_id = $_POST['cliente_id'];
 
 
-// echo "api $api";
-// print_r($_FILES);
 
 switch ($api) {
     case 1:
@@ -211,23 +209,35 @@ switch ($api) {
 
         # carpeta de destino para los reportes
         $destination = "/archivos/reportes/";
-        $destinatio_sql = "https://bimo-lab.com/nuevo_checkup";
+        $destinatio_sql = "http://localhost/nuevo_checkup";
+
+        # obtener el nombre del area para crear la carpeta
+        $area_result = $master->getByProcedure('sp_areas_b',[$id_area,null]);
+        $area_label = $area_result[0]['DESCRIPCION'];
+
+        $dir = "..".$destination.$area_label.'/';
+
+        if(!is_dir($dir)){
+            if(!mkdir($dir)){
+                echo "no pudo crear el directorio";
+            }
+        }
 
         # Evita que los archivos se sobreescriban si se suben mas de uno.
         $next = 0;
-
-        foreach ($_FILES as $key => $error) {
-            print_r($error);
+        print_r($_FILES['reportes']['name']);
+        foreach ($_FILES['reportes']['error'] as $key => $error) {
             #Si no existe error en la carga de archivos procedemos a moverlo
             # a la caperta de destino.
-            if($error['error'] == 0){
+            if($error == UPLOAD_ERR_OK){
+                echo "hola";
                 # obtenemos la ruta temporal del archivo
                 ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
-                $tmp_name = $error['tmp_name'];
+                $tmp_name = $_FILES['reportes']['tmp_name'][$key];
 
                 # conseguimos solo el nombre del archivo, no la ruta.
                 ## $name = basename($_FILES['reportes']['name'][$key]);
-                $name = basename($error['name']);
+                $name = basename($_FILES['reportes']['name'][$key]);
 
                 # dividimos el nombre del archvivo original para obtener la extension.
                 # la extension del archivo se encuentra el posicion 1 del arreglo $explode.
@@ -255,11 +265,11 @@ switch ($api) {
                         break;
                 }
                 #insertamos el registro en la tabla paciente_detalle
-                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$destination/$id_turno"."_$next.".$explode[1],$comentario,$tipo]);
+                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$dir$id_turno"."_$next.".$explode[1],$comentario,$tipo]);
 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
-                    move_uploaded_file($tmp_name,"..$destination/$id_turno"."_$next.".$explode[1]);
+                    move_uploaded_file($tmp_name,$dir.$id_turno."_$next.".$explode[1]);
                     echo $master->returnApi($response);
                 } else {
                     echo $master->returnApi($response);
