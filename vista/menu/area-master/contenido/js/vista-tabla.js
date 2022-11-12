@@ -187,12 +187,23 @@ function limpiarCampos(){
 async function panelResultadoPaciente(row, area = areaActiva){
   await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
 
-  setTimeout(function(){
+  if (row['area_id'] == 3) {
+    let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+
+                '<p style="padding-bottom: 10px">Of:</p>'+ //'+row[i]['SERVICIO']+'
+                '<div class="col-12 d-flex justify-content-center">'+
+                  '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="'+row['url']+'" style="margin-bottom:4px" id="btn-analisis-pdf">'+
+                    '<i class="bi bi-file-earmark-pdf"></i> Interpretación'+
+                  '</a>'+
+                '</div>'+
+                '</div> <hr>';
+    $('#resultadosServicios-areas').append(html);
+  }else {
     for (var i = 0; i < row.length; i++) {
       console.log(row)
       if (row[i]['INTERPRETACION']) {
         let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+
                     '<p style="padding-bottom: 10px">'+row[i]['SERVICIO']+':</p>'+
+                    '<p class="none-p">('+row[i]['FECHA_INTERPRETACION']+')'+row[i]['COMENTARIOS']+'</p>'+
                     '<div class="col-7 d-flex justify-content-center">'+
                       '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="'+row[i]['INTERPRETACION']+'" style="margin-bottom:4px" id="btn-analisis-pdf">'+
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación'+
@@ -206,7 +217,7 @@ async function panelResultadoPaciente(row, area = areaActiva){
         $('#resultadosServicios-areas').append(html);
       }
     }
-  }, 100);
+  }
 
 }
 

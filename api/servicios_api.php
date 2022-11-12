@@ -12,6 +12,7 @@ if (! $tokenValido){
 
 $master = new Master();
 $api = $_POST['api'];
+$api = 12;
 $id_area = $_POST['id_area'];
 $otros_servicios = $_POST['otros_servicios']; #activar con valor 1
 $abreviatura = $_POST['abreviatura']; #activar con valor 1
@@ -283,6 +284,19 @@ switch ($api) {
         # de un turno.
         $response = $master->getByProcedure('sp_detalle_turno_b',[$id_turno,$id_area]);
         echo $master->returnApi($response);
+        break;
+    case 12:
+
+        if (!empty($_FILES['reportes']['name'])) {
+          $cont = 0;
+          foreach ($_FILES['reportes']['name'] as $key => $value) {
+            $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
+            print_r($_FILES);
+          }
+
+        }else{
+          echo "vacio";
+        }
         break;
 
     default:

@@ -59,7 +59,7 @@ switch ($api) {
         # buscar
         $response = $master->getByProcedure('sp_oftalmo_resultados_b',[$id_oftalmo,$turno_id]);
         if ($response) {
-          $response = array('url' => 'https://bimo-lab.com', );
+          $response = array('url' => 'https://bimo-lab.com', 'area_id' => 3);
         }
         break;
     default:
