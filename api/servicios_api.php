@@ -12,7 +12,6 @@ if (! $tokenValido){
 
 $master = new Master();
 $api = $_POST['api'];
-$api = 12;
 $id_area = $_POST['id_area'];
 $otros_servicios = $_POST['otros_servicios']; #activar con valor 1
 $abreviatura = $_POST['abreviatura']; #activar con valor 1
@@ -224,60 +223,34 @@ switch ($api) {
             }
         }
 
-        # Evita que los archivos se sobreescriban si se suben mas de uno.
-        $next = 0;
-        print_r($_FILES['reportes']['name']);
-        foreach ($_FILES['reportes']['error'] as $key => $error) {
-            #Si no existe error en la carga de archivos procedemos a moverlo
-            # a la caperta de destino.
-            if($error == UPLOAD_ERR_OK){
-                echo "hola";
+        if (!empty($_FILES['reportes']['name'])) {
+            $next = 0;
+            foreach ($_FILES['reportes']['name'] as $key => $value) {
+                $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
+                $tipo = isset($_POST['tipo_archivo']) ? $_POST['tipo_archivo'] : 2;
                 # obtenemos la ruta temporal del archivo
                 ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
                 $tmp_name = $_FILES['reportes']['tmp_name'][$key];
 
-                # conseguimos solo el nombre del archivo, no la ruta.
-                ## $name = basename($_FILES['reportes']['name'][$key]);
-                $name = basename($_FILES['reportes']['name'][$key]);
-
-                # dividimos el nombre del archvivo original para obtener la extension.
-                # la extension del archivo se encuentra el posicion 1 del arreglo $explode.
-                $explode = explode(".",$name);
-
-                switch (strtolower($explode[1])) {
-                    case 'pdf':
-                    case 'docx':
-                    case 'xlsx':
-                    case 'pptx':
-                    case 'doc':
-                        $tipo = 1; # identificacion que es un archivo.
-                        break;
-                    case 'jpg':
-                    case 'jpeg':
-                    case 'png':
-                    case 'bmp':
-                    case 'webp':
-                        $tipo = 2; # identifica que es una imagen.
-                        break;
-
-                    default:
-                        echo "Formato no reconocido.";
-                        exit; # salimos de la ejecucion del programa.
-                        break;
-                }
                 #insertamos el registro en la tabla paciente_detalle
-                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$dir$id_turno"."_$next.".$explode[1],$comentario,$tipo]);
+                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$explode[1],$comentario,$tipo]);
 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
-                    move_uploaded_file($tmp_name,$dir.$id_turno."_$next.".$explode[1]);
-                    echo $master->returnApi($response);
-                } else {
-                    echo $master->returnApi($response);
+                    try {
+                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$next.".$explode[1]);
+                    } catch (\Throwable $th) {
+                        # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
+                        $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$id_turno,$id_servicio]);
+                    }
                 }
+                $next++; 
             }
-            $next++;
+            echo $master->returnApi($response);
+        } else {
+            echo "No hay archivos.";
         }
+  
         break;
     case 11:
         # recupera todos los servicios que suben reportes o imagenes como resultado
@@ -291,8 +264,30 @@ switch ($api) {
           $cont = 0;
           foreach ($_FILES['reportes']['name'] as $key => $value) {
             $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
-            print_r($_FILES);
+            switch (strtolower($explode[1])) {
+                case 'pdf':
+                case 'docx':
+                case 'xlsx':
+                case 'pptx':
+                case 'doc':
+                    $tipo = 1; # identificacion que es un archivo.
+                    break;
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'bmp':
+                case 'webp':
+                    $tipo = 2; # identifica que es una imagen.
+                    break;
+
+                default:
+                    $tipo = null;
+                    break;
+            }
+
+            
           }
+          echo $master->returnApi($response);
 
         }else{
           echo "vacio";
