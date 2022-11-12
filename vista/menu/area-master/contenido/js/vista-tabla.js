@@ -43,7 +43,7 @@
 
 tablaContenido = $('#TablaContenidoResultados').DataTable({
   language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" 
   },
   lengthChange: false,
   // info: false,
@@ -188,7 +188,7 @@ async function panelResultadoPaciente(row, area = areaActiva){
   await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
 
   if (row['area_id'] == 3) {
-    let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+
+    let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+ + 
                 '<p style="padding-bottom: 10px">Of:</p>'+ //'+row[i]['SERVICIO']+'
                 '<div class="col-12 d-flex justify-content-center">'+
                   '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="'+row['url']+'" style="margin-bottom:4px" id="btn-analisis-pdf">'+
@@ -200,20 +200,23 @@ async function panelResultadoPaciente(row, area = areaActiva){
   }else {
     for (var i = 0; i < row.length; i++) {
       console.log(row)
-      if (row[i]['INTERPRETACION']) {
-        let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+
+      if (row[i]['INTERPRETACION'] || true) {
+        let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+ 
                     '<p style="padding-bottom: 10px">'+row[i]['SERVICIO']+':</p>'+
-                    '<p class="none-p">('+row[i]['FECHA_INTERPRETACION']+')'+row[i]['COMENTARIOS']+'</p>'+
+                    '<p class="none-p">('+formatoFecha2(row[i]['FECHA_INTERPRETACION'])+'):<br> '+row[i]['COMENTARIOS']+'</p>'+
                     '<div class="col-7 d-flex justify-content-center">'+
-                      '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="'+row[i]['INTERPRETACION']+'" style="margin-bottom:4px" id="btn-analisis-pdf">'+
+                      '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="'+row[i]['INTERPRETACION']+'" style="margin-bottom:4px">'+
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación'+
                       '</a>'+
-                    '</div>'+
-                    '<div class="col-5 d-flex justify-content-center">'+
-                      '<button type="button" class="btn btn-primary me-2" style="margin-bottom:4px" id="btn-analisis-pdf">'+
-                        '<i class="bi bi-images"></i> Capturas'+
-                      '</button>'+
-                    '</div> </div> <hr>';
+                    '</div>';
+        if (row[i]['IMG'] || true) {
+          html += '<div class="col-5 d-flex justify-content-center">'+
+            '<button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">'+
+              '<i class="bi bi-images"></i> Capturas'+
+            '</button>'+
+          '</div>';
+        }
+        html += '</div> <hr>';
         $('#resultadosServicios-areas').append(html);
       }
     }

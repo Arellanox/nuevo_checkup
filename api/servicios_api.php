@@ -233,12 +233,12 @@ switch ($api) {
                 $tmp_name = $_FILES['reportes']['tmp_name'][$key];
 
                 #insertamos el registro en la tabla paciente_detalle
-                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$explode[1],$comentario,$tipo]);
+                $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$extension,$comentario,$tipo]);
 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
                     try {
-                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$next.".$explode[1]);
+                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$next.".$extension);
                     } catch (\Throwable $th) {
                         # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
                         $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$id_turno,$id_servicio]);
