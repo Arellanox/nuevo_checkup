@@ -84,19 +84,33 @@ switch ($api) {
                 $current = $response[$i];
 
                 if($current['TURNO_ID'] == $turno_aux && $current['SERVICIO_ID'] == $servicio_aux){
-                    
+                    if($current['TIPO'] != 'FILE'){
+                        $rutas[] = $current['RUTA'];
+                    }
                 } else {
                     if($i!=0){
-                        $row['INTERPRETACIONES'] = $rutas;
-                        $newResponse[] = $row;
+                        $row[$position]['IMAGENES'] = $rutas;
+                        $newResponse[] = $row[$position];
+                        $position++;
                     }
+
                     $servicio_aux = $current['SERVICIO_ID'];
                     $turno_aux = $current['TURNO_ID'];
-                    $row = array();
-                    
-                    
+            
+                    $row[$position]['ID_RESULTADO'] = $current['ID_RESULTADO'];
+                    $row[$position]['TURNO_ID'] = $current['TURNO_ID']; 
+                    $row[$position]['SERVICIO_ID'] = $current['SERVICIO_ID'];
+                    $row[$position]['COMENTARIO'] = $current['COMENTARIO'];
+                    $row[$position]['FECHA_RESULTADO'] = $current['FECHA_RESULTADO'];  
+                    $row[$position]['INTERPRETACION'] = $current['TIPO'] == 'FILE' ? $current['RUTA'] : "SIN INTERPRETACION";
+
+                    if($current['TIPO'] != 'FILE'){
+                        $rutas[] = $current['RUTA'];
+                    }
                 }
             }
+
+            echo $master->returnApi($response);
         }
         break;
     default:

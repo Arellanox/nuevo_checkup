@@ -19,6 +19,7 @@ $confirmar = $_POST['confirmar'];
 $id_turno = $_POST['id_turno'];
 $id_servicio = $_POST['id_servicio'];
 $comentario = $_POST['comentario'];
+$tipo = isset($_POST['tipo_archivo']) ? $_POST['tipo_archivo'] : 2;
 
 
 # para buscar servicios con precios establecidos al cliente
@@ -216,42 +217,49 @@ switch ($api) {
         $area_label = $area_result[0]['DESCRIPCION'];
 
         $dir = "..".$destination.$area_label.'/'.$id_turno;
+        $imagenes = array();
 
         if(!is_dir($dir)){
             if(!mkdir($dir)){
                 echo "no pudo crear el directorio";
             }
         }
-        $urlJSON = $master -> guardarFiles($_FILES, $dir, ['1', '2'], $id_turno.$id_servicio);
-        print_r ($urlJSON);
+        // $urlJSON = $master -> guardarFiles($_FILES, $dir, ['1', '2'], $id_turno.$id_servicio);
+        // print_r ($urlJSON);
 
-        // if (!empty($_FILES['reportes']['name'])) {
-        //     $next = 0;
-        //     foreach ($_FILES['reportes']['name'] as $key => $value) {
-        //         $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
-        //         $tipo = isset($_POST['tipo_archivo']) ? $_POST['tipo_archivo'] : 2;
-        //         # obtenemos la ruta temporal del archivo
-        //         ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
-        //         $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+        if (!empty($_FILES['reportes']['name'])) {
+            $next = 0;
+            foreach ($_FILES['reportes']['name'] as $key => $value) {
+                $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
+                
+                # obtenemos la ruta temporal del archivo
+                ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                
+                $url = "$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$extension;
 
-        //         #insertamos el registro en la tabla paciente_detalle
-        //         $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$extension,$comentario,$tipo]);
+                if($tipo == 2){
+                    $imagenes = array('URL'=>$url);
+                }
 
-        //         if(is_numeric($response)){
-        //             #cambiamos de lugar el archivo
-        //             try {
-        //                 move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$next.".$extension);
-        //             } catch (\Throwable $th) {
-        //                 # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
-        //                 $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
-        //             }
-        //         }
-        //         $next++; 
-        //     }
-        //     echo $master->returnApi($response);
-        // } else {
-        //     echo "No hay archivos.";
-        // }
+                #insertamos el registro en la tabla de resultados reportes
+                $response = $master->insertByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,$url,$comentario,$tipo,json_encode($imagenes)]);
+
+                if(is_numeric($response)){
+                    #cambiamos de lugar el archivo
+                    try {
+                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$next.".$extension);
+                    } catch (\Throwable $th) {
+                        # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
+                        $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
+                    }
+                }
+                $next++; 
+            }
+            echo $master->returnApi($response);
+        } else {
+            echo "No hay archivos.";
+        }
   
         break;
     case 11:
