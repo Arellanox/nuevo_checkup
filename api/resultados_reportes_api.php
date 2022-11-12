@@ -69,7 +69,36 @@ switch ($api) {
         }
         exit; #salimos del programa para enviar enviar 2 respuestas.
         break;
-    
+    case 2:
+        #envia todos los registros seleccionados con las url de los archivos/imagenes en objeto
+        $response = $master->getByProcedure('sp_resultados_reportes_b',[$id_turno,$id_servicio]);
+
+        if(is_array($response)){
+            $newResponse = array();
+            $turno_aux = 0;
+            $servicio_aux = 0;
+            $row = array();
+            $rutas = array();
+
+            for ($i=0,$position=0; $i < count($response)-1; $i++) { 
+                $current = $response[$i];
+
+                if($current['TURNO_ID'] == $turno_aux && $current['SERVICIO_ID'] == $servicio_aux){
+                    
+                } else {
+                    if($i!=0){
+                        $row['INTERPRETACIONES'] = $rutas;
+                        $newResponse[] = $row;
+                    }
+                    $servicio_aux = $current['SERVICIO_ID'];
+                    $turno_aux = $current['TURNO_ID'];
+                    $row = array();
+                    
+                    
+                }
+            }
+        }
+        break;
     default:
         echo "Api no reconocida.";
         exit;

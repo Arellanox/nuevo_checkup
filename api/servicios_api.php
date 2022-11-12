@@ -241,7 +241,7 @@ switch ($api) {
                         move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$next.".$extension);
                     } catch (\Throwable $th) {
                         # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
-                        $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$id_turno,$id_servicio]);
+                        $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
                     }
                 }
                 $next++; 
