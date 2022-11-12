@@ -4,8 +4,32 @@ ModalSubirInterpretacion.addEventListener('show.bs.modal', event => {
   // console.log(selectPacienteArea)
   $('#Area-estudio').html(hash)
   // alert(selectEstudio.selectID)
+  document.getElementById("formSubirInterpretacion").reset();
   $('#nombre-paciente-interpretacion').val(selectPacienteArea['NOMBRE_COMPLETO'])
 })
+
+$('#inputFilesInterpreArea').on('change', function(){
+  var fileList = $(this)[0].files || [] //registra todos los archivos
+  let aviso = 0;
+  for (file of fileList){ //una iteración de toda la vida
+    ext=file.name.split('.').pop()
+    console.log('>ARCHIVO: ', file.name)
+    switch (ext) {
+      case 'pdf':
+        // console.log('>>TIPO DE ARCHIVO CORRECTO: ')
+        break;
+      default:
+        aviso = 1;
+        // console.log('>>TIPO DE ARCHIVO INCORRECTO', ext
+        break;
+    }
+  }
+  if (aviso == 1) {
+    $(this).val('')
+    alertMensaje('error', 'Archivo incorrecto', 'Algunos archivos no son correctos')
+  }
+});
+
 
 //Formulario Para Subir Interpretacion
 $("#formSubirInterpretacion").submit(function (event) {
@@ -18,6 +42,8 @@ $("#formSubirInterpretacion").submit(function (event) {
   formData.set('id_servicio', selectEstudio.selectID)
   formData.set('id_area', areaActiva)
   formData.set('api', 10);
+
+
   Swal.fire({
     title: "¿Está seguro de subir la interpretación?",
     text: "¡No podrá cambiar el resultado!",

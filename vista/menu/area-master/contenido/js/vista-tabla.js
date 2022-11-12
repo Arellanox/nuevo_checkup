@@ -200,7 +200,7 @@ async function panelResultadoPaciente(row, area = areaActiva){
   }else {
     for (var i = 0; i < row.length; i++) {
       console.log(row)
-      if (row[i]['INTERPRETACION'] || true) {
+      if (row[i]['INTERPRETACION']) {
         let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+ 
                     '<p style="padding-bottom: 10px">'+row[i]['SERVICIO']+':</p>'+
                     '<p class="none-p">('+formatoFecha2(row[i]['FECHA_INTERPRETACION'])+'):<br> '+row[i]['COMENTARIOS']+'</p>'+
@@ -209,7 +209,7 @@ async function panelResultadoPaciente(row, area = areaActiva){
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación'+
                       '</a>'+
                     '</div>';
-        if (row[i]['IMG'] || true) {
+        if (row[i]['IMG']) {
           html += '<div class="col-5 d-flex justify-content-center">'+
             '<button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">'+
               '<i class="bi bi-images"></i> Capturas'+
