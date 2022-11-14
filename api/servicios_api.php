@@ -246,7 +246,7 @@ switch ($api) {
                 $url = "$destinatio_sql$dir_base$id_turno"."_$id_servicio"."_$tipo_label"."_$next.".$extension;
 
                 if($tipo == 2){
-                    $imagenes = array('URL'=>$url);
+                    $imagenes = array('URL'=>$url, 'EXTENSION'=>$extension);
                 }
 
                 #insertamos el registro en la tabla de resultados reportes
@@ -273,9 +273,18 @@ switch ($api) {
         # recupera todos los servicios que suben reportes o imagenes como resultado
         # de un turno.
         $response = $master->getByProcedure('sp_detalle_turno_b',[$id_turno,$id_area]);
+        $newImg = array();
 
         $response[0]['IMAGENES'] = json_decode($response[0]['IMAGENES'],true);
-        $response[0]['IMAGENES'] = $response[0]['IMAGENES']['data'];
+
+        foreach($response[0]['IMAGENES']['data'] as $item){
+            $newImg[] = json_decode($item,true);
+        }
+
+        $response[0]['IMAGENES'] = $newImg;        
+
+        //;
+        // $response[0]['IMAGENES'] = $response[0]['IMAGENES']['data'];
         echo $master->returnApi($response);
         break;
     case 12:
