@@ -18,8 +18,8 @@
               <input type="file" name="reportes[]" class="form-control input-form" accept=".png, .jpg, .jpeg, .pdf" multiple required id="inputFilesCapturasArea">
             </div>
             <div class="col-12">
-              <label for="comentario" class="form-label">Observaciones</label>
-              <textarea name="comentario" class="md-textarea input-form" rows="4" cols="80"></textarea>
+              <label for="comentario_capturas" class="form-label">Observaciones</label>
+              <textarea name="comentario_capturas" class="md-textarea input-form" rows="4" cols="80"></textarea>
             </div>
         </form>
       </div>
