@@ -3,33 +3,43 @@ $(document).on('click', '.vistaFacturar', function () {
   $('.vistaFacturar').removeClass('disabled')
   $(this).addClass('active');
   $(this).addClass('disabled');
-  $('#TablaCargosVista').fadeOut(0);
-  $('#informacionCargos').fadeOut(0);
-  $('#FormularioFacturarPaciente').fadeOut(0);
-  $('#FormularioFacturarCliente').fadeOut(0);
-  switch ($(this).attr('data-ds')) {
-    case "1":
-      obtenerCargosPaciente(1)
-    break;
-    case "2":
-
-    break;
-    case "3":
-
-    break;
-    default:
-  }
+  obtenerContenidoInfo(parseInt($(this).attr('data-ds')))
 });
 
-function obtenerCargosPaciente(estadoCuenta){
-  $('#TablaCargosVista').fadeIn(0);
-  $('#informacionCargos').fadeIn(0);
+function obtenerContenidoInfo(number = 1, info = null){
+  if(info != null){ //Para ejecutar una sola vez, desde botones.js
+    // id = selectCuenta.array['ID_PACIENTE']; //Obtener id_paciente del estado de cuenta consultado
+    obtenerPanelInformacion(3, "pacientes_api", 'paciente', '#panel-informacion', 'drop'); //Obtener reemplazar id
+    cambiarVistaEstadoCuenta('In')
+  }
+  switch (number) {
+    case 1:
+      obtenerCargosPaciente(selectCuenta.array)
+    break;
+    case 2:
+      obtenerFormFacturarPaciente(selectCuenta.array)
+    break;
+    case 3:
+      obtenerFormFacturarGrupos(selectCuenta.array)
+    break;
+  
+    default:
+      break;
+  }
 }
 
-function obtenerFormFacturarPaciente(){
-  $('#FormularioFacturarPaciente').fadeIn(0);
+function obtenerCargosPaciente(estadoCuenta){ //Arreglo de la informacion del estado de cuenta buscado
+
+  $('#vistaCargosFacturar').fadeIn(0)
+  dataAjaxCargos = {api: 7, params: 2}
+  tablaCargosCuenta.ajax.reload()
 }
 
-function obtenerFormFacturarGrupos(){
-  $('#FormularioFacturarCliente').fadeIn(0);
+function obtenerFormFacturarPaciente(estadoCuenta){
+  // $('#FormularioFacturarPaciente').fadeIn(0);
 }
+
+function obtenerFormFacturarGrupos(estadoCuenta){
+  // $('#FormularioFacturarCliente').fadeIn(0);
+}
+

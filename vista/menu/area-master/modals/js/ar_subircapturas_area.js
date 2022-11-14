@@ -38,7 +38,7 @@ $("#formSubirCapturas").submit(function (event) {
   var formData = new FormData(form);
   formData.set('id_turno',selectPacienteArea['ID_TURNO'])
   formData.set('id_servicio', selectEstudio.selectID)
-  formData.set('tipo_archivo', 1)
+  formData.set('tipo_archivo', 2)
   formData.set('id_area', areaActiva)
   formData.set('api', 10);
   Swal.fire({

@@ -11,10 +11,8 @@ function obtenerContenidoEstadoCuenta(){
   }).done(function(){
     // Obtener el controlador de vistas de estado cuentas
     $.getScript("contenido/js-vistas-controlador/estado-controlador-vistas.js").done(function(){
-      obtenerVistaFacturar()
-      $.getScript("contenido/js/estadoCuenta-botones.js")
+      $.getScript("contenido/js/estadoCuentas-botones.js")
     });
-    obtenerPanelInformacion(3, "pacientes_api", 'paciente'); //Eliminar luego
   })
 }
 

@@ -9,6 +9,8 @@ $.post("modals/m_recepcion.php", function(html){
   $.getScript('modals/js/p_reagendar.js');
   // Modal para rechazar
   $.getScript('modals/js/subir-perfil.js');
+  // Modal para solicitud
+  $.getScript('modals/js/p_solicitud.js');
   // // Modal para registar una agenda
   $.getScript(http + servidor + "/nuevo_checkup/vista/include/modal/js/registrar-agenda.js");
   $.getScript(http + servidor + "/nuevo_checkup/vista/include/modal/js/registrar-paciente.js");

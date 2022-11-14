@@ -15,7 +15,7 @@
             </div>
             <div class="col-6">
               <label for="reportes" class="form-label">Seleccione Documento PDF</label>
-              <input type="file" name="reportes[]" class="form-control input-form" multiple accept=".pdf" required id="inputFilesInterpreArea">
+              <input type="file" name="reportes[]" class="form-control input-form" accept=".pdf" required id="inputFilesInterpreArea">
             </div>
             <div class="col-12">
               <label for="comentario" class="form-label">Observaciones</label>
