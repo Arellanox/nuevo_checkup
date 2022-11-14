@@ -41,14 +41,15 @@ switch ($api) {
                 <br />
                 <div style="max-width:35%; min-width:500px; margin:auto;">
                     <div style="background-color:lightgray; border-radius:5px 5px 0px 0px; padding: 5px; display:block;">
-                    <p style="text-align:center; padding:0; margin:0;">Gracias por contactartar con BIMO armas biológicas, puede hacer su preregistro desde el siguiente link </p>
+                        <p style="text-align:center; padding:0; margin:0;">Gracias por contactartar con BIMO armas biológicas, puede hacer su preregistro desde el siguiente link </p>
                     </div>
-                    <div >
-                    <a href="https://bimo-lab.com/nuevo_checkup/vista/registro/?token=' . $token . '">Registro en linea</a>
+                    <div style="border-width: 0 1px 1px 1px; border-color:lightgray; border-style:solid; padding:5px; display:flex; justify-content:center; border-radius: 0px 0px 5px 5px" >
+                        <a href="https://www.google.com/" style="text-decoration:none;">Registro en linea</a>
                     </div>
-                
-                </div>                
-                </div>'; 
+              
+                </div>
+              
+              </div>'; 
                 if (mail($correo, $motivo, $message)) {
                     $response = 1;
                 } else {
