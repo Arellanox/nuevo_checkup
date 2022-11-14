@@ -21,7 +21,6 @@ $id_servicio = $_POST['id_servicio'];
 $comentario = $_POST['comentario'];
 $tipo = isset($_POST['tipo_archivo']) ? $_POST['tipo_archivo'] : 2;
 
-
 # para buscar servicios con precios establecidos al cliente
 $paquete_id = $_POST['paquete_id'];
 $cliente_id = $_POST['cliente_id'];
@@ -216,12 +215,13 @@ switch ($api) {
         $area_result = $master->getByProcedure('sp_areas_b',[$id_area,null]);
         $area_label = $area_result[0]['DESCRIPCION'];
 
-        $dir = "..".$destination.$area_label.'/'.$id_turno;
-        $imagenes = array();
+        $dir = "..".$destination.$area_label.'/'.$id_turno."/";
+        $dir_base = $destination.$area_label.'/'.$id_turno."/";
 
         if(!is_dir($dir)){
-            if(!mkdir($dir)){
-                echo "no pudo crear el directorio";
+            if(!mkdir($dir, 0777, true)){
+                echo "no pudo crear el directorio. $dir";
+                exit;
             }
         }
         // $urlJSON = $master -> guardarFiles($_FILES, $dir, ['1', '2'], $id_turno.$id_servicio);
@@ -235,12 +235,15 @@ switch ($api) {
                 # obtenemos la ruta temporal del archivo
                 ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
                 $tmp_name = $_FILES['reportes']['tmp_name'][$key];
-                
-                $url = "$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$extension;
 
+                $tipo_label = "INTERPRETACION";
+              
                 if($tipo == 2){
                     $imagenes = array('URL'=>$url);
+                    $tipo_label = "CAPTURA";
                 }
+
+                $url = "$destinatio_sql$dir_base$id_turno"."_$id_servicio"."_$tipo_label"."_$next.".$extension;
 
                 #insertamos el registro en la tabla de resultados reportes
                 $response = $master->insertByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,$url,$comentario,$tipo,json_encode($imagenes)]);
