@@ -30,7 +30,7 @@ switch ($api) {
         } else {
             $tokenPregistro = new TokenPreregistro();
             $token = $tokenPregistro->generarTokenPrergistro($correo);
-            if ($token != '' && !str_contains($token,"Error: ")) {
+            if ($token != '' && !str_contains($token, "Error: ")) {
                 $motivo = "Token para registro de cita en linea";
                 $mensaje = '<div>
                 <div style="display:flex; justify-content:center;">
@@ -44,26 +44,31 @@ switch ($api) {
                     <p style="text-align:center; padding:0; margin:0;">Gracias por contactartar con BIMO armas biológicas, puede hacer su preregistro desde el siguiente link </p>
                     </div>
                     <div >
-                    <a href="https://bimo-lab.com/nuevo_checkup/vista/registro/?token=' . $token. '">Registro en linea</a>
+                    <a href="https://bimo-lab.com/nuevo_checkup/vista/registro/?token=' . $token . '">Registro en linea</a>
                     </div>
                 
                 </div>                
                 </div>';
-                mail($correo, $motivo, $mensaje);
-            }else{
+                $enviado = mail('abc@test.com', 'Test Subject', $message);
+                if ($enviado) {
+                    $response = 1;
+                } else {
+                    $response = "Ocurrio un problema al intentar enviar el correo";
+                }
+            } else {
                 $response = "No se ha podido generar el token. " . $token;
             }
         }
         break;
     case 2:
-          #verifica si el token aún es válido por fecha, verifica si el token no ha sido ya concluido y verifica que siga ACTIVO
-          $response = $master->getByProcedure("sp_preregistro_token_valido_b", [$token_correo]);
-          break;
-        
+        #verifica si el token aún es válido por fecha, verifica si el token no ha sido ya concluido y verifica que siga ACTIVO
+        $response = $master->getByProcedure("sp_preregistro_token_valido_b", [$token_correo]);
+        break;
+
     case 3:
         #Actualizo a concluido el token para que ya no se pueda utilizar y guardo el turno que generó
-        $response = $master->getByProcedure("sp_preregistro_token_g", [$id_preregistro,null,$turno_id]);
-        break;  
+        $response = $master->getByProcedure("sp_preregistro_token_g", [$id_preregistro, null, $turno_id]);
+        break;
     default:
         $response = "api no reconocida";
         break;
