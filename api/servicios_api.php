@@ -252,7 +252,7 @@ switch ($api) {
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
                     try {
-                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$next.".$extension);
+                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$tipo_label"."_$next.".$extension);
                     } catch (\Throwable $th) {
                         # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
                         $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
