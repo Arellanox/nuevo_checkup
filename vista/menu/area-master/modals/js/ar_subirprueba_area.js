@@ -79,6 +79,8 @@ $("#formSubirInterpretacion").submit(function (event) {
             $("#ModalSubirInterpretacion").modal("hide");
             // tablaContacto.ajax.reload();
             $("#formSubirInterpretacion:submit").prop('disabled', false)
+            limpiarCampos()
+            $('#TablaContenidoResultados').removeClass('selected');
           }
         },
         complete: function(){
