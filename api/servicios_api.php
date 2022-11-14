@@ -19,7 +19,7 @@ $confirmar = $_POST['confirmar'];
 $id_turno = $_POST['id_turno'];
 $id_servicio = $_POST['id_servicio'];
 $comentario = $_POST['comentario'];
-$tipo = isset($_POST['tipo_archivo']);
+$tipo = $_POST['tipo_archivo'];
 $comentario_capturas = $_POST['comentario_capturas'];
 
 # para buscar servicios con precios establecidos al cliente
@@ -240,11 +240,14 @@ switch ($api) {
                 $tipo_label = "INTERPRETACION";
               
                 if($tipo == 2){
-                    $imagenes = array('URL'=>$url);
                     $tipo_label = "CAPTURA";
                 }
 
                 $url = "$destinatio_sql$dir_base$id_turno"."_$id_servicio"."_$tipo_label"."_$next.".$extension;
+
+                if($tipo == 2){
+                    $imagenes = array('URL'=>$url);
+                }
 
                 #insertamos el registro en la tabla de resultados reportes
                 $response = $master->insertByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,$url,$comentario,$tipo,json_encode($imagenes),$comentario_capturas]);
@@ -270,6 +273,9 @@ switch ($api) {
         # recupera todos los servicios que suben reportes o imagenes como resultado
         # de un turno.
         $response = $master->getByProcedure('sp_detalle_turno_b',[$id_turno,$id_area]);
+
+        $response[0]['IMAGENES'] = json_decode($response[0]['IMAGENES'],true);
+        $response[0]['IMAGENES'] = $response[0]['IMAGENES']['data'];
         echo $master->returnApi($response);
         break;
     case 12:
