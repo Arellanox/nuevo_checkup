@@ -41,6 +41,7 @@ $("#formSubirInterpretacion").submit(function (event) {
   formData.set('id_turno',selectPacienteArea['ID_TURNO'])
   formData.set('id_servicio', selectEstudio.selectID)
   formData.set('id_area', areaActiva)
+  formData.set('tipo_archivo', 2)
   formData.set('api', 10);
 
 

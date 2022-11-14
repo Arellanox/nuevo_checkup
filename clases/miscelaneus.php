@@ -193,7 +193,18 @@ class Miscelaneus{
       return 'http://localhost/nuevo_checkup/'.$tempDir.$nombre.'.png';
     }
 
-    function guardarFiles($files, $dir, $carpetas, $nombre){
+    function guardarFiles($files, $dir, $carpetas = ['temp/'], $nombre){
+        foreach ($carpetas as $key => $value) {
+          if(!is_dir($dir.$value)){
+              if(mkdir($dir.$value)){
+                  $dir += $value;
+              }
+          }
+        }
+
+        // return $dir;
+
+
         $urlArray = array();
         if (!empty($files['reportes']['name'])) {
             $next = 0;
@@ -212,10 +223,11 @@ class Miscelaneus{
                     move_uploaded_file($tmp_name, $ubicacion);
                     $urlArray[] = array('url' => $ubicacion, 'tipo' => $extension);
                 } catch (\Throwable $th) {
+                  return "Algunos archivos no se lograron mover, intentelo nuevamente.";
                     # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
-                    $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
+                    // $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
                 }
-                $next++; 
+                $next++;
             }
             return $urlArray;
         } else {
