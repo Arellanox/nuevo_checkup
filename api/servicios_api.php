@@ -247,7 +247,7 @@ switch ($api) {
                 $url = "$destinatio_sql$dir_base$id_turno"."_$id_servicio"."_$tipo_label"."_$next.".$extension;
 
                 #insertamos el registro en la tabla de resultados reportes
-                $response = $master->insertByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,$url,$comentario,$tipo,json_encode($imagenes)]);
+                $response = $master->insertByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,$url,$comentario,$tipo,json_encode($imagenes),$comentario_capturas]);
 
                 if(is_numeric($response)){
                     #cambiamos de lugar el archivo
