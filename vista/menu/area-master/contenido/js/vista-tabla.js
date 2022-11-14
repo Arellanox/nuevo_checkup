@@ -74,7 +74,7 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
         },
       },
       {data: 'EDAD'},
-      {data: 'GENERO'},
+      {data: 'EDAD'},
       {data: 'GENERO'},
       // {defaultContent: 'En progreso...'}
   ],
@@ -134,6 +134,7 @@ function limpiarCampos(){
   botonesResultados('desactivar')
   obtenerPanelInformacion(0, 0, 'paciente')
   obtenerPanelInformacion(0, null, 'resultados-areaMaster', '#panel-resultadosMaster')
+  $('#TablaContenidoResultados').removeClass('selected');
 }
 
 // function tablaVistaMaster(data) {
@@ -186,7 +187,7 @@ function limpiarCampos(){
 
 async function panelResultadoPaciente(row, area = areaActiva){
   await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
-
+  console.log(row)
   if (row['area_id'] == 3) {
     let html =  '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">'+ + 
                 '<p style="padding-bottom: 10px">Of:</p>'+ //'+row[i]['SERVICIO']+'
@@ -209,7 +210,7 @@ async function panelResultadoPaciente(row, area = areaActiva){
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación'+
                       '</a>'+
                     '</div>';
-        if (row[i]['IMG']) {
+        if (row[i]['IMAGENES'].length > 0) {
           html += '<div class="col-5 d-flex justify-content-center">'+
             '<button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">'+
               '<i class="bi bi-images"></i> Capturas'+

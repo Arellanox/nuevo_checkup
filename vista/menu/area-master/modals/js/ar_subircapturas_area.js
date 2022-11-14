@@ -61,6 +61,9 @@ $("#formSubirCapturas").submit(function (event) {
         type: "POST",
         processData: false,
         contentType: false,
+        beforeSend: function(){
+          $("#formSubirCapturas:submit").prop('disabled', true)
+        },
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
@@ -71,9 +74,14 @@ $("#formSubirCapturas").submit(function (event) {
             });
             document.getElementById("formSubirCapturas").reset();
             $("#ModalSubirCapturas").modal("hide");
+            $("#formSubirCapturas:submit").prop('disabled', false)
+            limpiarCampos()
             // tablaContacto.ajax.reload();
           }
         },
+        complete: function(){
+          $("#formSubirCapturas:submit").prop('disabled', false)
+        }
       });
     }
   });

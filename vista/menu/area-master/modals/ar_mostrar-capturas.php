@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <div class="row" id="capturasPDF"> </div>
-        <div class="d-flex justify-content-center" id="capturasIMG"> </div>
+        <div class="row" id="capturasIMG"> </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>

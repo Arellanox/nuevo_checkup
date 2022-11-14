@@ -55,7 +55,7 @@ function chooseEstudio(row, modal, tip){
       break;
     case 2:
         for (var i = 0; i < row.length; i++) {
-          if (row[i]['IMG'] == null) {
+          if (row[i]['IMAGENES'] == null) {
             html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(`+row[i]['ID_SERVICIO']+`, '`+modal+`')" type="button">`+row[i]['SERVICIO']+`</button>`;
           }
         }
@@ -67,7 +67,7 @@ function chooseEstudio(row, modal, tip){
             showConfirmButton: false,
           });
         }else{
-          alertSelectTable('Este paciente ya no tiene sus capturass')
+          alertSelectTable('Este paciente ya no tiene sus capturas')
         }
       break;
     default:

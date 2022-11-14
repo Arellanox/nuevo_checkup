@@ -539,7 +539,7 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback){
         callback(divClass);
         // $(divClass).fadeIn(100)
     break;
-    default:
+    default:comentario_capturas
     return 0
   }
   return 1
