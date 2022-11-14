@@ -101,7 +101,6 @@
 }
 .btn-cancelar:hover{
   background-color: rgb(224 233 237);
-  color: black;
 }
 
 .btn-confirmar{
@@ -114,7 +113,6 @@
 }
 .btn-confirmar:hover{
   background-color: rgb(247 190 0 / 50%);
-  color: black;
 }
 
 .btn-borrar{
@@ -127,8 +125,8 @@
   color: white;
 }
 .btn-borrar:hover{
-  background-color: rgb(247 0 0 / 50%);
-  color: black;
+  background-color: rgb(247 0 0 / 70%);
+  color: white !important;
 }
 
 .label-span{

@@ -7,19 +7,19 @@
       </div>
       <div class="modal-body">
         <form class="" id="formSubirInterpretacion">
-          <p class="text-center">Agregar Archivos de <strong>Resultado</strong> </p>
+          <p class="text-center">Agregue el archivo de interpretación</p>
           <div class="row">
             <div class="col-6">
               <label for="nombre_contacto" class="form-label">Nombre del Cliente</label>
               <input type="text" class="form-control input-form" value="Nombre del paciente" readonly id="nombre-paciente-interpretacion">
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">Seleccione Documento PDF</label>
-              <input type="file" name="pdf_estudio" class="form-control input-form" accept=".pdf" required>
+              <label for="reportes" class="form-label">Seleccione Documento PDF</label>
+              <input type="file" name="reportes[]" class="form-control input-form" multiple accept=".pdf" required id="inputFilesInterpreArea">
             </div>
             <div class="col-12">
-              <label for="telefono1_contacto" class="form-label">Observaciones</label>
-              <textarea name="observaciones" class="md-textarea input-form" rows="4" cols="80"></textarea>
+              <label for="comentario" class="form-label">Observaciones</label>
+              <textarea name="comentario" class="md-textarea input-form" rows="4" cols="80"></textarea>
             </div>
         </form>
       </div>

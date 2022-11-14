@@ -7,6 +7,7 @@ $(window).on("hashchange", function (e) {
 let idsEstudios, data = {api:2, id_area: 7}, apiurl = 'servicios_api', tablaPrecio, tablaPaquete, tablaContenidoPaquete;
 let dataSet = new Array();
 let iva, total, subtotalPrecioventa, subtotalCosto;
+let dataEliminados = new Array(); //Lista para cuando eliminen un servicio
 
 // Arreglos para la tabla dinamica, para solo costos
   let columnsDefinidas;
@@ -49,6 +50,7 @@ function obtenerContenidoPrecios() {
 function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {api:7, id_area: 7}, response = null){
     // console.log(columnDefs);
     // console.log(columnsData)
+    dataEliminados = new Array()
     tablaPrecio.destroy();
     $('#TablaListaPrecios').empty();
     tablaPrecio = $("#TablaListaPrecios").DataTable({
@@ -101,10 +103,11 @@ function obtenerContenidoPaquetes(tabla) {
 
 }
 
-//Vacia la tabla, para el poder rellenar
+//Vacia la tabla, para el poder rellenar en paquetes
 function tablaContenido(){
   tablaContenidoPaquete.destroy();
   $('#TablaListaPaquetes').empty();
+  dataEliminados = new Array()
   tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
     lengthChange: false,
     // info: false,
@@ -132,6 +135,7 @@ function tablaContenido(){
 function tablaMantenimiento(url = 'paquetes_api'){
   tablaContenidoPaquete.destroy();
   $('#TablaListaPaquetes').empty();
+  dataEliminados = new Array()
   tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -154,8 +158,8 @@ function tablaMantenimiento(url = 'paquetes_api'){
     ajax: {
         dataType: 'json',
         data: {
-          paquete_id: $('#seleccion-paquete').val(),
-
+          id_paquete: $('#seleccion-paquete').val(),
+          api:9
         },
         method: 'POST',
         url: http + servidor + "/nuevo_checkup/api/"+url+".php",
@@ -163,14 +167,40 @@ function tablaMantenimiento(url = 'paquetes_api'){
         dataSrc:'response.data'
     },
     columns:[
-        {data: 'COUNT'},
-        {data: 'MARCA'},
-        {data: 'MODELO'},
-        {data: 'NUMERO_SERIE'},
-        {data: 'CVE_INVENTARIO'},
-        {data: 'FRECUENCIA_MANTENIMIENTO'},
-        {data: 'CALIBRACION'},
-        {data: 'STATUS'},
+        {data: 'SERVICIO'},
+        {data: 'ABREVIATURA'},
+        {
+          data: 'CANTIDAD',
+          render: function (data, type, full, meta) {
+            rturn = '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="'+data+'" style="margin: 0;padding: 0;height: 35px;">';
+            return rturn;
+          }
+        },
+        {
+          data: 'COSTO_UNITARIO',
+          render: function(data, type, full, meta){
+            return '<div class="costo-paquete text-center">$'+data+'</div>'
+          }
+        },
+        {
+          data: 'COSTO_TOTAL',
+          render: function(data, type, full, meta){
+            return '<div class="costototal-paquete text-center">$'+data+'</div>';
+          }
+        },
+        {
+          data: 'PRECIO_VENTA_UNITARIO',
+          render: function(data, type, full, meta){
+            return '<div class="precioventa-paquete text-center">$'+data+'</div>'
+          }
+        },
+        {
+          data: 'SUBTOTAL',
+          render: function(data, type, full, meta){
+            return '<div class="subtotal-paquete text-center">$'+data+'</div>'
+          }
+        },
+        {data: 'ID_SERVICIO'},
         // {defaultContent: 'En progreso...'}
     ],
   });

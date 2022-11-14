@@ -30,8 +30,8 @@
               <select class="form-control input-form" required name="tipo_contacto" id="select_tipo_contacto">
                 <option value="">Seleccione una opcion</option>
                 <option value="1">Finanzas</option>
-                <option value="2">Envio de correo</option>
-                <option value="3">Operativo</option>
+                <option value="2">Operativo</option>
+                <option value="3">Envio de resultado</option>
                 <option value="4">Adicional</option>
               </select>
             </div>

@@ -1,95 +1,75 @@
 var tablaContenido, areaActiva = 1;
 var dataListaPaciente = {api:7};
-var selectListaLab, hash;
+var selectPacienteArea, hash;
+//Variable para guardar los servicios de un paciente seleccionado
+var selectEstudio = new GuardarArreglo();
+var selectrue = 0;
 
-$.post("contenido/contenido.php", function (html) {
-  $("#body-js").html(html);
-  // // Botones
-  $.getScript("contenido/js/area-botones.js");
-}).done(function(){
-  // // Datatable
-   $.getScript("contenido/js/vista-tabla.js").done(function(){
-     async function obtenerContenidoImg() {
-       await obtenerTitulo('Resultados de Imagenología')
-       areaActiva = 7;
-       recargartabla()
-
-     }
-     async function obtenerContenidoRX() {
-       await obtenerTitulo('Resultados de Rayos X');
-       areaActiva = 8;
-       recargartabla()
-
-     }
-     async function obtenerContenidoEspiro() {
-       await obtenerTitulo('Resultados de Espirometría');
-       areaActiva = 5;
-       recargartabla()
-
-     }
-     async function obtenerContenidoAudio() {
-       await obtenerTitulo('Resultados de Audiometría');
-       areaActiva = 4;
-       recargartabla()
-
-     }
-     async function obtenerContenidoOftal() {
-       await obtenerTitulo('Resultados de Oftalmología');
-       areaActiva = 3;
-       recargartabla()
-
-     }
-
-
-
-     function hasLocation() {
-       hash = window.location.hash.substring(1);
-       // $("a").removeClass("navlinkactive");
-       // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-            if (sessionVista(hash) == true){
-              switch (hash) {
-               case "IMAGENOLOGIA":
-
-                 obtenerContenidoImg();
-               break;
-               case "RX":
-                 obtenerContenidoRX();
-               break;
-               case "ESPIROMETRIA":
-                 obtenerContenidoEspiro();
-               break;
-               case "AUDIOMETRIA":
-                 obtenerContenidoAudio();
-               break;
-               case "OFTALMOLOGIA":
-                 obtenerContenidoOftal();
-               break;
-               default:
-                 obtenerContenidoCliente();
-                 break;
-             }
-            }else{
-              window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
-            }
-
-
-
-     }
-     hasLocation();
-     $(window).on("hashchange", function (e) {
-      hasLocation();
-    });
-   });
+hasLocation();
+$(window).on("hashchange", function (e) {
+  hasLocation();
 });
+
+function hasLocation() {
+  hash = window.location.hash.substring(1);
+  // $("a").removeClass("navlinkactive");
+  // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+       if (sessionVista(hash) == true){
+         switch (hash) {
+          case "IMAGENOLOGIA":
+            obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
+          break;
+          case "RX":
+            obtenerContenidoVistaMaster(8, 'Resultados de Rayos X');
+          break;
+          case "ESPIROMETRIA":
+            obtenerContenidoVistaMaster(5, 'Resultados de Espirometría');
+          break;
+          case "AUDIOMETRIA":
+            obtenerContenidoVistaMaster(4, 'Resultados de Audiometría');
+          break;
+          case "OFTALMOLOGIA":
+            obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología');
+          break;
+          default:
+            obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
+            break;
+        }
+       }else{
+         window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
+       }
+
+}
+
+function obtenerContenidoVistaMaster(area, titulo) {
+  areaActiva = area;
+  $.post("contenido/contenido.php", async function (html) {
+    $("#body-js").html(html);
+    await obtenerTitulo(titulo)
+    dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
+  }).done(function(){
+      // Datatable
+      $.getScript("contenido/js/vista-tabla.js")
+      // Botones
+      $.getScript("contenido/js/area-botones.js")
+
+      switch (area) {
+        case 3:
+          $('#btn-analisis-pdf').fadeOut(0)
+          $('#btn-capturas-pdf').fadeOut(0)
+          $('#btn-analisis-oftalmo').fadeIn(0)
+        break;
+        default:
+          $('#btn-analisis-pdf').fadeIn(0)
+          $('#btn-capturas-pdf').fadeIn(0)
+          $('#btn-analisis-oftalmo').fadeOut(0)
+
+      }
+  });
+}
 
 // obtenerContenidoRX()
 function sessionVista(areaVista) {
   let vista = session.vista;
   return vista[areaVista] == 1 ? true:false;
-}
-
-function recargartabla(){
-  dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
-  tablaContenido.ajax.reload();
-  return 1;
 }

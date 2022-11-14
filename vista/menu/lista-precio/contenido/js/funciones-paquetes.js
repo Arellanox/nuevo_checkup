@@ -1,14 +1,30 @@
 
 async function mantenimientoPaquete(){
   loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE');
+  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE', {contenido: 1});
   tablaContenido();
+  $('#seleccion-paquete').prop('disabled', false);
+  $("#selectDisabled").removeClass("disable-element");
+  $("#formPaqueteBotonesArea").addClass("disable-element");
+  $("#formPaqueteSelectEstudio").addClass("disable-element");
+  $("#informacionPaquete").addClass("disable-element");
+
+  $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+  $("#seleccion-estudio").find('option').remove().end()
   loader("Out");
 }
 
 async function contenidoPaquete(select = null){
   loader("In");
-  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE');
+  await rellenarSelect('#seleccion-paquete','paquetes_api', 2,0,'DESCRIPCION.CLIENTE', {contenido: 0});
+  $('#seleccion-paquete').prop('disabled', false);
+  $("#selectDisabled").removeClass("disable-element");
+  $("#formPaqueteBotonesArea").addClass("disable-element");
+  $("#formPaqueteSelectEstudio").addClass("disable-element");
+  $("#informacionPaquete").addClass("disable-element");
+
+  $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+  $("#seleccion-estudio").find('option').remove().end()
   tablaContenido()
 }
 
@@ -26,13 +42,13 @@ function meterDato (DESCRIPCION,CVE,costo_total,precio_venta, ID_SERVICIO, ABREV
   }else {
     precio_venta = precio_venta;
   }
-
+  console.log(DESCRIPCION)
   tablaContenidoPaquete.row.add([
     DESCRIPCION,
     CVE,
     '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="1" style="margin: 0;padding: 0;height: 35px;">',
     '<div class="costo-paquete text-center">$'+costo_total+'</div>',
-    '<div class="costototal-paquete text-center">$'+costo_total,
+    '<div class="costototal-paquete text-center">$'+costo_total+'</div>',
     '<div class="precioventa-paquete text-center">$'+precio_venta+'</div>',
     '<div class="subtotal-paquete text-center">$0</div>', ID_SERVICIO]).draw();
     // $('#TablaListaPaquetes tbody').append(html);
@@ -46,21 +62,28 @@ function calcularFilasTR(){
   var paqueteEstudios = new Array();
   $('#TablaListaPaquetes tbody tr').each(function() {
       var arregloEstudios = new Array();
+      let id_servicio;
       let calculo = caluloFila(this)
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
       tabledata = tablaContenidoPaquete.row( this ).data();
-
+      // console.log(tabledata);
+      // console.log(tabledata['ID_SERVICIO']);
+      if (typeof tabledata['ID_SERVICIO'] === "undefined") {
+        id_servicio = tabledata[7]
+      }else{
+        id_servicio = tabledata['ID_SERVICIO']
+      }
 
       arregloEstudios = {
-        'id': tabledata[7],
+        'id': id_servicio,
         'cantidad': calculo[2],
         'costo': calculo[3],
         'costototal': calculo[0],
         'precioventa': calculo[4],
         'subtotal': calculo[1]
       }
-
+      // console.log(arregloEstudios)
       paqueteEstudios.push(arregloEstudios)
   });
   // console.log(paqueteEstudios);
@@ -89,14 +112,14 @@ function caluloFila(parent_element){
   let costo = parseFloat($(parent_element).find("div[class='costo-paquete text-center']").text().slice(1));
   let precioventa = parseFloat($(parent_element).find("div[class='precioventa-paquete text-center']").text().slice(1));
   // Dar valor a costo total
-  let costoTotal= cantidad*costo;
-  if (Number.isInteger(costoTotal)) {
+  let costoTotal = cantidad*costo;
+  if (checkNumber(costoTotal)) {
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$'+costoTotal)
   }else{
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$0')
   }
   let subtotal= cantidad*precioventa;
-  if (Number.isInteger(subtotal)) {
+  if (checkNumber(subtotal)) {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$'+subtotal)
   }else{
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$0')

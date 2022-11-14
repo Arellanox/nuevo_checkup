@@ -1,5 +1,5 @@
 
-$(document).on("keyup" , "input[name='utilidad'] , input[name='total']", function(){
+$(document).on("change keyup" , "input[name='utilidad'] , input[name='total']", function(){
   let parent_element = $(this).closest("tr");
   let costo = parseFloat($(parent_element).find("div[class='costo text-center']").text().slice(1));
   let utilidad = parseFloat($(parent_element).find("input[name='utilidad']").val());
@@ -32,6 +32,7 @@ $(document).on("keyup" , "input[name='utilidad'] , input[name='total']", functio
 $(document).on("change" , "input[name='utilidad'] , input[name='total']", function(){
   let parent_element = $(this).closest("tr");
   let utilidad = parseFloat($(parent_element).find("input[name='utilidad']").val());
+  let total = parseFloat($(parent_element).find("input[name='total']").val());
   switch ($(this).attr("name")) {
     case "utilidad":
         if (isNaN(utilidad)) {

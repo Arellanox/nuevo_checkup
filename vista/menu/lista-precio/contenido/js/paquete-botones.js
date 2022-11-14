@@ -5,12 +5,12 @@ select2('#seleccion-estudio','form-select-paquetes')
 var selectEstudio;
 
 $('#agregar-estudio-paquete').click(function() {
-    console.log(selectEstudio.array)
-    console.log($("#seleccion-estudio").prop('selectedIndex'))
+    // console.log(selectEstudio.array)
+    // console.log($("#seleccion-estudio").prop('selectedIndex'))
     // console.log(selectData)
     selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
     console.log(selectData)
-    meterDato(selectData.DESCRIPCION, selectData.ABREVIATURA, selectData.COSTO, selectData.PRECIO_VENTA, selectData.ID_SERVICIO, selectData.ABREVIATURA, tablaContenidoPaquete);
+    meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
 })
 
 
@@ -43,7 +43,24 @@ $('#agregar-estudio-paquete').click(function() {
 
       switch ($('input[type=radio][name=selectPaquete]:checked').val()) {
         case '2': //Lista de precios para clientes
-          tablaMantenimiento();
+          tablaContenido();
+          $.ajax({
+            url: http + servidor + "/nuevo_checkup/api/paquetes_api.php",
+            type: "POST",
+            dataType: 'json',
+            data: {
+              id_paquete: $('#seleccion-paquete').val(),
+              api:9
+            },
+            success: function (data) {
+              console.log(data);
+              row = data.response.data;
+              for (var i = 0; i < row.length; i++) {
+                meterDato(row[i]['SERVICIO'],row[i].ABREVIATURA,row[i].COSTO_TOTAL,row[i].SUBTOTAL, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
+
+              }
+            }
+          })
         break;
       }
   })
@@ -56,7 +73,7 @@ $('#agregar-estudio-paquete').click(function() {
       $("#informacionPaquete").addClass("disable-element");
 
       $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
-      $("#seleccion-estudio").remove();
+      $("#seleccion-estudio").find('option').remove().end()
       tablaContenido()
       // $('.formContenidoPaquete').prop('disabled', true);
   })
@@ -78,11 +95,11 @@ $('input[type=radio][name=selectChecko]').change(function() {
 
   if ($(this).val() != 0) {
     // selectData = null;
-    rellenarSelect("#seleccion-estudio", "servicios_api", 9, 0, 'ABREVIATURA.DESCRIPCION', {id_area : this.value, paquete_id: $('#seleccion-paquete').val()}, function(listaEstudios){
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : this.value, paquete_id: $('#seleccion-paquete').val()}, function(listaEstudios){
         selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   }else{
-    rellenarSelect("#seleccion-estudio", "servicios_api", 9, 0, 'ABREVIATURA.DESCRIPCION', {id_area : this.value, paquete_id: $('#seleccion-paquete').val()}, function(listaEstudios){
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : this.value, paquete_id: $('#seleccion-paquete').val()}, function(listaEstudios){
         selectEstudio = new GuardarArreglo(listaEstudios);
     });
   }
@@ -126,15 +143,21 @@ $('#guardar-contenido-paquete').on('click', function(){
     }).then((result) => {
       if (result.isConfirmed) {
         if (result.value.status == 1) {
+          if ($('input[type=radio][name=selectPaquete]:checked').val() == 1) {
+            ajaxDataSend = {api: 6, paquete_detalle: dataAjax};
+          }else{
+            ajaxDataSend = {api: 6, paquete_detalle: dataAjax, eliminados: dataEliminados};
+          }
           $.ajax({
             url: http + servidor + "/nuevo_checkup/api/paquetes_api.php",
-            data: { api: 6, paquete_detalle: dataAjax },
+            data: ajaxDataSend,
             type: "POST",
             datatype: 'json',
             success: function (data) {
               data = jQuery.parseJSON(data);
               if (mensajeAjax(data)) {
-                tablaPaquete.clear().draw();
+                tablaContenidoPaquete.clear().draw();
+                dataEliminados = new Array()
                 alertMensaje('success', 'Contenido registrado', 'El contenido se a registrado correctamente :)')
               }
             }
@@ -148,7 +171,7 @@ $('#guardar-contenido-paquete').on('click', function(){
    alertMensaje('error', '¡Faltan datos!', 'Necesita rellenar la tabla de estudios para continuar')
  }
 
-  console.log()
+  // console.log()
 })
 
 function formpassword(){

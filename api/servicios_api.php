@@ -17,11 +17,15 @@ $otros_servicios = $_POST['otros_servicios']; #activar con valor 1
 $abreviatura = $_POST['abreviatura']; #activar con valor 1
 $confirmar = $_POST['confirmar'];
 $id_turno = $_POST['id_turno'];
+$id_servicio = $_POST['id_servicio'];
+$comentario = $_POST['comentario'];
+$tipo = isset($_POST['tipo_archivo']) ? $_POST['tipo_archivo'] : 2;
 
 
 # para buscar servicios con precios establecidos al cliente
 $paquete_id = $_POST['paquete_id'];
 $cliente_id = $_POST['cliente_id'];
+
 
 
 switch ($api) {
@@ -196,14 +200,112 @@ switch ($api) {
 
     case 9:
         # recuperar solo los servicios que sean grupos,
-        # los estudios que no tengan hijos y 
+        # los estudios que no tengan hijos y
         # los estudios que pertenezcan a la lista de precios del cliente seleccionado
         $response = $master->getByProcedure('sp_servicios_padres_b',[$id_area,$paquete_id,$cliente_id]);
         echo $master->returnApi($response);
         break;
+    case 10:
+        #Cargar los resultados (reportes) de las distintas areas
+
+        # carpeta de destino para los reportes
+        $destination = "/archivos/reportes/";
+        $destinatio_sql = "http://localhost/nuevo_checkup";
+
+        # obtener el nombre del area para crear la carpeta
+        $area_result = $master->getByProcedure('sp_areas_b',[$id_area,null]);
+        $area_label = $area_result[0]['DESCRIPCION'];
+
+        $dir = "..".$destination.$area_label.'/'.$id_turno;
+        $imagenes = array();
+
+        if(!is_dir($dir)){
+            if(!mkdir($dir)){
+                echo "no pudo crear el directorio";
+            }
+        }
+        // $urlJSON = $master -> guardarFiles($_FILES, $dir, ['1', '2'], $id_turno.$id_servicio);
+        // print_r ($urlJSON);
+
+        if (!empty($_FILES['reportes']['name'])) {
+            $next = 0;
+            foreach ($_FILES['reportes']['name'] as $key => $value) {
+                $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
+                
+                # obtenemos la ruta temporal del archivo
+                ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                
+                $url = "$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$extension;
+
+                if($tipo == 2){
+                    $imagenes = array('URL'=>$url);
+                }
+
+                #insertamos el registro en la tabla de resultados reportes
+                $response = $master->insertByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,$url,$comentario,$tipo,json_encode($imagenes)]);
+
+                if(is_numeric($response)){
+                    #cambiamos de lugar el archivo
+                    try {
+                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$next.".$extension);
+                    } catch (\Throwable $th) {
+                        # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
+                        $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
+                    }
+                }
+                $next++; 
+            }
+            echo $master->returnApi($response);
+        } else {
+            echo "No hay archivos.";
+        }
+  
+        break;
+    case 11:
+        # recupera todos los servicios que suben reportes o imagenes como resultado
+        # de un turno.
+        $response = $master->getByProcedure('sp_detalle_turno_b',[$id_turno,$id_area]);
+        echo $master->returnApi($response);
+        break;
+    case 12:
+
+        if (!empty($_FILES['reportes']['name'])) {
+          $cont = 0;
+          foreach ($_FILES['reportes']['name'] as $key => $value) {
+            $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
+            switch (strtolower($explode[1])) {
+                case 'pdf':
+                case 'docx':
+                case 'xlsx':
+                case 'pptx':
+                case 'doc':
+                    $tipo = 1; # identificacion que es un archivo.
+                    break;
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'bmp':
+                case 'webp':
+                    $tipo = 2; # identifica que es una imagen.
+                    break;
+
+                default:
+                    $tipo = null;
+                    break;
+            }
+
+            
+          }
+          echo $master->returnApi($response);
+
+        }else{
+          echo "vacio";
+        }
+        break;
 
     default:
-        # code...
+        echo "Api no reconocida.";
         break;
 }
 

@@ -39,6 +39,9 @@
             <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off">
             <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagennología</label>
 
+            <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">
+            <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
+
             <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
             <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
 

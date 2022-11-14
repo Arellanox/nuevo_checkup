@@ -6,8 +6,8 @@
     <div class="" id="panel-informacion">
 
     </div>
-    <div class="">
-      <p class="none-p">Aqui irán sus resultados para poder visualizarlos</p>
+    <div class="" id="panel-resultadosMaster">
+      <!-- <p class="none-p">Aqui irán sus resultados para poder visualizarlos</p> -->
     </div>
   </div>
   <div class="card col-12 col-lg-9" style="margin-bottom:5px">
@@ -18,10 +18,14 @@
       <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-capturas-pdf">
         <i class="bi bi-clipboard2-plus"></i> Guardar capturas
       </button>
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-analisis-oftalmo">
+        <i class="bi bi-clipboard2-plus"></i> Subir resultados
+      </button>
     </div>
     <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
       <thead class="" style="width: 100%">
         <tr>
+          <th scope="col d-flex justify-content-center" class="all">#</th>
           <th scope="col d-flex justify-content-center" class="all">Nombre</th>
           <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
           <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>

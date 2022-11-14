@@ -1,5 +1,69 @@
+//Formatear Fecha de sql
 function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
+}
+
+function formatoFecha2(fecha, optionsDate = [3,2,2,2,1,1,1], formatMat = 'best fit'){
+  let options = {hour12: true, timeZone: 'America/Mexico_City'} // p.m. - a.m.
+
+  switch (optionsDate[0]) { //Dia de la semana
+    case 1: options['weekday'] = "narrow" ; break; // S
+    case 2: options['weekday'] = "short"; break; // Sáb
+    case 3: options['weekday'] = "long"; break; // Sábado
+  }
+  switch (optionsDate[1]) { //año de la semana
+    case 1: options['year'] = "numeric" ; break; // 2022
+    case 2: options['year'] = "2-digit"; break; // 22
+  }
+  switch (optionsDate[2]) { //Mes de la semana
+    case 1: options['month'] = "narrow" ; break; // N
+    case 2: options['month'] = "short"; break; // Nov
+    case 3: options['month'] = "long"; break; // Noviembre
+    case 4: options['month'] = "numeric"; break; // /11/
+    case 5: options['month'] = "2-digit"; break; // 11
+  }
+  switch (optionsDate[3]) { //Dia de la semana
+    case 1: options['day'] = "numeric" ; break;
+    case 2: options['day'] = "2-digit"; break;
+  }
+  switch (optionsDate[4]) { //Hora de la semana
+    case 1: options['hour'] = "numeric" ; break;
+    case 2: options['hour'] = "2-digit"; break;
+  }
+  switch (optionsDate[5]) { //Minutos de la semana
+    case 1: options['minute'] = "numeric" ; break;
+    case 2: options['minute'] = "2-digit"; break;
+  }
+  switch (optionsDate[6]) { //Segundos de la semana
+    case 1: options['seconds'] = "numeric" ; break;
+    case 2: options['seconds'] = "2-digit"; break;
+  }
+
+  console.log(options)
+  return new Date(fecha).toLocaleDateString('es-MX', options)
+}
+
+
+//Obtener numero rando
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+// Checa si es un numero
+function checkNumber(x) {
+    // check if the passed value is a number
+    if(typeof x == 'number' && !isNaN(x)){
+        // check if it is integer
+        if (Number.isInteger(x)) {
+            return 1
+        }
+        else {
+            return 1
+        }
+
+    } else {
+        return 2
+    }
 }
 
 // Omitir paciente actual
@@ -409,8 +473,12 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
       idPanel[0] = "#panel-informacion";
     }
   }
+  if (typeof tablename === 'string') {
+    tablename = '#'+tablename;
+  }
+  console.log(tablename)
   // console.log(idPanel)
-  $('#'+tablename+' tbody').on('click', 'tr', function () {
+  $(tablename).on('click', 'tr', function () {
      if ($(this).hasClass('selected')) {
          $(this).removeClass('selected');
          array_selected = null;
@@ -425,15 +493,25 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
          datatable.$('tr.selected').removeClass('selected');
          $(this).addClass('selected');
          array_selected = datatable.row( this ).data();
-         if (panel) {
-           // Lee los 3 objetos para llamar a la funcion
-           for (var i = 0; i < Object.keys(tipPanel).length; i++) {
-             obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
+         if (array_selected != null) {
+           if (panel) {
+             // Lee los 3 objetos para llamar a la funcion
+             for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+               obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
+             }
            }
+           if (callback != null) {
+             // alert('select')
+             // console.log(array_selected)
+             callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
+           }
+         }else{
+           for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+             obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
+           }
+           callback(0, array_selected);
          }
-         if (callback != null) {
-           callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
-         }
+
      }
   });
 }
@@ -657,8 +735,13 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 $(panel).fadeIn(100);
                 resolve(1);
               break;
+              case 'resultados-areaMaster':
+                $(panel).fadeIn(100);
+                resolve(1);
+              break;
 
               default:
+                console.log('Sin opción panel')
             }
           }else{
             setTimeout(function(){

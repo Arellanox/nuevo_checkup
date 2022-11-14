@@ -113,3 +113,11 @@
     </a>
   </li>
 <?php endif; ?>
+
+<?php if ($menu == 'Facturacion'): ?>
+  <li class="nav-item">
+    <a href="#Estados-Cuentas" data-bs-dismiss="offcanvas">
+      <i class="bi bi-thunderbolt"></i> Cuentas
+    </a>
+  </li>
+<?php endif; ?>

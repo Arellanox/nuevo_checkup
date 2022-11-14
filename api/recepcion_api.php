@@ -23,7 +23,7 @@ $fecha_reagenda = $_POST['fecha_reagenda'];
 
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
-$servicios = $_POST['servicios']; //array
+$servicios = explode(",",$_POST['servicios']); //array
 
 switch ($api) {
     case 1:
