@@ -273,15 +273,20 @@ switch ($api) {
         # recupera todos los servicios que suben reportes o imagenes como resultado
         # de un turno.
         $response = $master->getByProcedure('sp_detalle_turno_b',[$id_turno,$id_area]);
-        $newImg = array();
+       
 
-        $response[0]['IMAGENES'] = json_decode($response[0]['IMAGENES'],true);
+        #$response[0]['IMAGENES'] = json_decode($response[0]['IMAGENES'],true);
 
-        foreach($response[0]['IMAGENES']['data'] as $item){
-            $newImg[] = json_decode($item,true);
+        for ($i=0; $i < count($response); $i++) { 
+            $newImg = array();
+            $response[$i]['IMAGENES'] = json_decode($response[$i]['IMAGENES'],true);
+
+            for ($j=0; $j < count($response[$i]['IMAGENES']['data']); $j++) {  
+                $newImg[] = json_decode($response[$i]['IMAGENES']['data'][$j],true);
+            }
+            
+            $response[$i]['IMAGENES'] = $newImg;
         }
-
-        $response[0]['IMAGENES'] = $newImg;        
 
         //;
         // $response[0]['IMAGENES'] = $response[0]['IMAGENES']['data'];
