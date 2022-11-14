@@ -554,12 +554,13 @@ function select2(select, modal = null, placeholder = 'Selecciona una opción'){
   });
 }
 
-function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion'){
+function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null){
   return new Promise(resolve => {
     var html = "";
+    $(panel).fadeOut(0);
     $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-barra.php",
     {
-      tip: tipPanel
+      tip: tipPanel, nivel: nivel
     },
     function(html){
        setTimeout(function () {
@@ -567,7 +568,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
        }, 100);
     }).done(function(){
        setTimeout(function () {
-          $(panel).fadeOut(0);
           if (id > 0) {
             row = array_selected;
             switch (tipPanel) {

@@ -27,12 +27,13 @@
         <div class="" id="selectDisabled">
           <label for="inputBuscarEstadoCuenta">Numero:</label>
           <input type="number" class="form-control input-form" id="inputBuscarEstadoCuenta">
-          <button class="btn btn-sm btn-confirmar" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Buscar</button>
+          <button class="btn btn-sm btn-confirmar" type="button" id="BuscarNumeroCuenta"><i class="bi bi-binoculars"></i> Buscar</button>
+          <button class="btn btn-sm btn-confirmar" type="button" id="LimpiarNumeroCuenta"><i class="bi bi-eraser"></i> Limpiar</button>
         </div>
       </div>
       <div class="row vistaCargosFacturar" id="informacionCargosFacturar">
         <div class="mt-2" id="panel-informacion"></div>
-        <div class="col-12 pt-2" id="informacionCargos">
+        <div class="col-12 pt-2" id="informacionCargos" style="display:none">
           <div class="row">
             <div class="col-12 text-center">
               <h5>Cargos</h5>
@@ -88,14 +89,14 @@
           </li> -->
         </ul>
       </div>
-      <div class="col-12 d-flex align-items-center d-flex justify-content-end">
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="guardar-contenido-paquete">
-          <i class="bi bi-person-plus-fill"></i> Guardar
-        </button>
-      </div>
-      <div class="col-12" id="TablaCargosVista">
+      <div class="col-12" id="TablaCargosVista" style="display:none">
         <!-- Tabla de cargos -->
-        <table class="table table-hover display responsive " id="TablaListaPaquetes" style="width: 100%">
+        <div class="col-12 d-flex align-items-center d-flex justify-content-end">
+          <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="guardar-contenido-paquete">
+            <i class="bi bi-person-plus-fill"></i> Guardar
+          </button>
+        </div>
+        <table class="table table-hover display responsive " id="TablaListaCargos" style="width: 100%;">
           <thead style="width: 100%">
             <tr>
               <th scope="col d-flex justify-content-center" class="all">Servicio</th>
@@ -120,9 +121,14 @@
       <div class="col-12" id="FormularioFacturarCliente" style="display:none">
         <!-- facturar cliente -->
       </div>
-    </div>
-    Tabla de servicios y formulario de facturar el paciente
+      <!-- Carga de pantalla -->
+      <div class="col-12 d-flex justify-content-center align-items-center" id='loaderDivEstadoCuenta' style="max-height: 75vh; display:none">
+        <div class="preloader" id="loader-EstadoCuenta"></div>
+      </div>
 
-    ¿¿¿ información de facturacion ???
+    </div>
+    <!-- Tabla de servicios y formulario de facturar el paciente
+
+    ¿¿¿ información de facturacion ??? -->
   </div>
 </div>

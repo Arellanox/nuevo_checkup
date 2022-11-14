@@ -19,7 +19,7 @@ $confirmar = $_POST['confirmar'];
 $id_turno = $_POST['id_turno'];
 $id_servicio = $_POST['id_servicio'];
 $comentario = $_POST['comentario'];
-$tipo = isset($_POST['tipo_archivo']) ? $_POST['tipo_archivo'] : 2;
+$tipo = isset($_POST['tipo_archivo']);
 $comentario_capturas = $_POST['comentario_capturas'];
 
 # para buscar servicios con precios establecidos al cliente
