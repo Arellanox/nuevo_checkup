@@ -128,8 +128,8 @@ switch ($api) {
     case 6:
         #servicios por turno
         $response = $master->getByProcedure('sp_turnos_historial', [$id, $id_paciente]);
-        $hijo = $master->getByProcedure('sp_turnos_historial_detalle', [$id, $id_paciente, $area]);
-        for ($i = 0; $i < count($response) - 1; $i++) {
+        $hijo = $master->getByProcedure('sp_turnos_historial_detalle', [$id, $id_paciente, $id_area]);
+        for ($i = 0; $i < count($response) ; $i++) {
             $id_turno_padre = $response[$i]['ID_TURNO'];
             $servicios = array_filter($hijo, function ($obj) use ($id_turno_padre) {
                 $r = $obj['ID_TURNO'] == $id_turno_padre;
