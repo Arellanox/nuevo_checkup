@@ -419,3 +419,28 @@
 10/11/22 17:21:07 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
 
 11/11/22 10:00:04 sp_resultados_reportes_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_resultados_reportes_g; expected 5, got 3
+15/11/22 11:31:13 sp_clientes_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_clientes_b does not exist
+15/11/22 11:31:16 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:31:22 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:31:24 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:32:16 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:32:20 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:32:49 fn_connect_db Could not connect to the database local :SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+15/11/22 11:32:51 fn_connect_db Could not connect to the database local :SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+15/11/22 11:33:01 fn_connect_db Could not connect to the database local :SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+15/11/22 11:33:14 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:33:19 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:33:21 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:34:59 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:35:03 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:35:38 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:35:38 sp_usuarios_token_g Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_token_g does not exist
+15/11/22 11:36:45 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:36:45 sp_buscar_paciente_por_estado Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_buscar_paciente_por_estado does not exist
+15/11/22 11:37:06 sp_buscar_paciente_por_estado Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_buscar_paciente_por_estado does not exist
+15/11/22 11:37:47 sp_buscar_paciente_por_estado Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_buscar_paciente_por_estado does not exist
+15/11/22 11:37:51 sp_usuarios_login_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_usuarios_login_b does not exist
+15/11/22 11:37:51 sp_buscar_paciente_por_estado Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_buscar_paciente_por_estado does not exist
+15/11/22 11:37:55 sp_paquetes_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_paquetes_b does not exist
+15/11/22 11:37:56 sp_clientes_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_clientes_b does not exist
+15/11/22 11:37:56 sp_catalogo_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE local.sp_catalogo_b does not exist

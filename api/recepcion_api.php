@@ -23,7 +23,9 @@ $fecha_reagenda = $_POST['fecha_reagenda'];
 
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
-$servicios = explode(",",$_POST['servicios']); //array
+if (!is_null($_POST['servicios'])) {
+    $servicios = explode(",", $_POST['servicios']); //array
+}
 
 switch ($api) {
     case 1:
@@ -42,20 +44,21 @@ switch ($api) {
         # Insertar el detalle del paquete al turno en cuestion
         if ($estado_paciente == 1) {
             # si el paciente es aceptado, cargar los estudios correspondientes
-            rename($identificacion,"../../archivos/identificaciones/".$idTurno.".png");
+            rename($identificacion, "../../archivos/identificaciones/" . $idTurno . ".png");
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null));
-        }
-
-        if($estado_paciente==0 || is_null($estado_paciente)){
+        } else {
             # si el paciente es rechazado, se desactivan los resultados de su turno.
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
         }
 
         # Insertar servicios extrar para pacientes empresas o servicios para particulares
-        if (count($servicios) > 0) {
-            # si hay algo en el arreglo lo insertamos
-            foreach ($servicios as $key => $value) {
-                $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g',array($idTurno,null,$value));
+        if (is_array($servicios)) {
+            if (count($servicios) > 0) {
+                # si hay algo en el arreglo lo insertamos
+                foreach ($servicios as $key => $value) {
+                    print_r($servicios);
+                    $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value));
+                }
             }
         }
         break;
