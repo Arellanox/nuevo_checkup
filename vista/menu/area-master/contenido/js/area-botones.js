@@ -55,7 +55,7 @@ function chooseEstudio(row, modal, tip){
       break;
     case 2:
         for (var i = 0; i < row.length; i++) {
-          if (row[i]['IMAGENES'] == null) {
+          if (row[i]['IMAGENES'].length == 0) {
             html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(`+row[i]['ID_SERVICIO']+`, '`+modal+`')" type="button">`+row[i]['SERVICIO']+`</button>`;
           }
         }

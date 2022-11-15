@@ -1,5 +1,11 @@
 <?php if ($menu != null) : ?>
-  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>">
+  <i class="bi bi-clipboard2-pulse"></i> Consultorio
+  </a>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>">
+  <i class="bi bi-heart-pulse"></i> Somatometría
+  </a>
+  <!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
   <div class="collapse" id="board-consultorio">
@@ -7,7 +13,7 @@
       <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>"><i class="bi bi-dot"></i> Consultorio</a></li>
       <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>"><i class="bi bi-dot"></i> Somatometría</a></li>
     </ul>
-  </div>
+  </div> -->
 
   <!-- Administrativos -->
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">

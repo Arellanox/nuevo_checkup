@@ -67,7 +67,7 @@ function checkNumber(x) {
 }
 
 // Omitir paciente actual
-function pasarPacienteTurno(id_turno){
+function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback){
   Swal.fire({
     title: "¿Está seguro omitir este paciente?",
     text: "¡Este paciente se mandará al final de la lista!",
@@ -81,9 +81,8 @@ function pasarPacienteTurno(id_turno){
     if (result.isConfirmed) {
       // $('#submit-registrarEstudio').prop('disabled', true);
       // Esto va dentro del AJAX
-
       $.ajax({
-        data: {api: 7, id_turno: id_turno},
+        data: {api: 7, id_turno: id_turno, id_area: id_area, liberar: liberar},
         url: "../../../api/turnos_api.php",
         type: "POST",
         success: function (data) {
@@ -94,11 +93,24 @@ function pasarPacienteTurno(id_turno){
               title: "¡Paciente omitido!",
               timer: 2000,
             });
-            tablaMuestras.ajax.reload();
+            callback()
           }
         },
       });
     }
+  });
+}
+
+//Obtener paciente actual
+function buscarPaciente(id_area, callback) { 
+  $.ajax({
+    data: {api: 7, id_area: id_area},
+    url: "../../../api/turnos_api.php",
+    type: "POST",
+    success: function (data) {
+      data = jQuery.parseJSON(data);
+      callback(data);
+    },
   });
 }
 

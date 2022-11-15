@@ -80,7 +80,6 @@ $("#formSubirInterpretacion").submit(function (event) {
             // tablaContacto.ajax.reload();
             $("#formSubirInterpretacion:submit").prop('disabled', false)
             limpiarCampos()
-            $('#TablaContenidoResultados').removeClass('selected');
           }
         },
         complete: function(){

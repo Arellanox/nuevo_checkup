@@ -5,19 +5,20 @@ function obtenerContenidoMeso(){
   $.post("contenido/mesometria.php", function(html){
     var idrow;
      $("#body-js").html(html);
-     loader('Out')
   }).done(function(){
-    // Datatable
-    // $.getScript("contenido/js/recepcion-tabla.js");
     // Botones
     $.getScript("contenido/js/somatometria-botones.js");
+    cargarDatosPaciente(3);
   });
 }
-obtenerPanelInformacion(3, "pacientes_api", 'paciente');
 
 
 
 
-function cargarDatosPaciente(){
-
+function cargarDatosPaciente(id){
+  //Mandar area y luego el callback;
+  buscarPaciente(2, async function(data){
+    await obtenerPanelInformacion(id, "pacientes_api", 'paciente');
+    loader('Out')
+  })
 }
