@@ -57,7 +57,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id,$contenido]);
+        $response = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id, $contenido]);
         break;
 
     case 3:
@@ -75,6 +75,9 @@ switch ($api) {
 
         break;
     case 6:
+
+
+
         #detalles de un paquete
         $detalle = $_POST['paquete_detalle'];
         //print_r($detalle);
@@ -87,32 +90,41 @@ switch ($api) {
         $oks = 0;
         //print_r($detalle);
         //print_r($info_paquete);
-        foreach ($detalle as $det) {
-            $newDet = array(
-                null,
-                $info_paquete[0]['id_paquete'],
-                $det['id'],
-                $det['cantidad'],
-                $det['costo'],
-                $det['costototal'],
-                $det['precioventa'],
-                $det['subtotal']
-            );
-            $response =  $master->returnApi($master->insertByProcedure('sp_detalle_paquete_g', $newDet));
 
-            $response = json_decode($response, true);
+        $id_paquete =  $info_paquete[0]['id_paquete'];
 
-            if ($response['response']['code'] == 1) {
-                # agrega un insertado con exito al mensaje
-                $oks++;
-                //echo $response['response']['code'];
+        #desactivo todos los detalles actuales del paquete para poder dejar unicamente los cambios que estoy recibiendo
+        $array_reset = array(null, $id_paquete, null, null, null, null, null, null, 1 /*reseatear contenido */);
+        $desactivados = $master->deleteByProcedure('sp_detalle_paquete_g', $array_reset);
+
+        if (is_numeric($desactivados)) {
+            foreach ($detalle as $det) {
+                $newDet = array(
+                    null,
+                    $id_paquete,
+                    $det['id'],
+                    $det['cantidad'],
+                    $det['costo'],
+                    $det['costototal'],
+                    $det['precioventa'],
+                    $det['subtotal'],
+                    0 #resetear contenido
+                );
+                $response =  $master->returnApi($master->insertByProcedure('sp_detalle_paquete_g', $newDet));
+                $response = json_decode($response, true);
+                if ($response['response']['code'] == 1) {
+                    # agrega un insertado con exito al mensaje
+                    $oks++;
+                    //echo $response['response']['code'];
+                }
             }
         }
-
-        if ($oks == $len_detalle) {
+        if (!is_numeric($desactivados)) {
+            echo json_encode(array('response' => array('code' => 2, 'msj' => "No se ha podido reestablecer el contenido del paquete.")));
+        } elseif ($oks == $len_detalle) {
             echo json_encode(array('response' => array('code' => 1, 'msj' => "Se insertaron todos los servicios.")));
         } else {
-            echo json_encode(array('response' => array('code' => 2, 'msj' => "Es posible que se hayn omitido algunos servicios..")));
+            echo json_encode(array('response' => array('code' => 2, 'msj' => "Es posible que se hayn omitido algunos servicios.")));
         }
 
         return;
@@ -123,28 +135,28 @@ switch ($api) {
         $oks = 0;
         $fails = array();
 
-        foreach($precioPaquetes as $paquete){
+        foreach ($precioPaquetes as $paquete) {
 
-            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", [$paquete['id'],$paquete['costo'],$paquete['utilidad'],$paquete['total']]);
+            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", [$paquete['id'], $paquete['costo'], $paquete['utilidad'], $paquete['total']]);
 
-            if(is_numeric($response)){
+            if (is_numeric($response)) {
                 $oks++;
             } else {
                 $fails[] = $paquete[0];
             }
         }
 
-        if($oks == count($precioPaquetes)){
-            echo json_encode(array("response"=>array("code"=>1,"msj"=>"Se actualizaron todos los paquetes.")));
+        if ($oks == count($precioPaquetes)) {
+            echo json_encode(array("response" => array("code" => 1, "msj" => "Se actualizaron todos los paquetes.")));
         } else {
-            echo json_encode(array("response"=>array("code"=>2,"fails"=>$fails)));
+            echo json_encode(array("response" => array("code" => 2, "fails" => $fails)));
         }
         exit;
         break;
 
     case 8:
         # asignar un paquete a un cliente
-        $response = $master->updateByProcedure('sp_clientes_asignar_paquetes',array($cliente_id,$id_paquete));
+        $response = $master->updateByProcedure('sp_clientes_asignar_paquetes', array($cliente_id, $id_paquete));
         break;
 
     case 9:
@@ -157,9 +169,9 @@ switch ($api) {
         $fails = array();
 
         foreach ($eliminados as $e) {
-            $response = $master->deleteByProcedure('sp_detalle_paquete_e',[$e['paquete_id'],$e['servicio_id']]);
+            $response = $master->deleteByProcedure('sp_detalle_paquete_e', [$e['paquete_id'], $e['servicio_id']]);
 
-            if(is_numeric($response)){
+            if (is_numeric($response)) {
                 $oks++;
             } else {
                 $fails[] = $e['servicio_id'];
@@ -168,7 +180,7 @@ switch ($api) {
         break;
 
     default:
-        
+
         $response = "api no reconocida " . $api;
         break;
 }
