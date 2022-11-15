@@ -26,7 +26,7 @@ switch ($api) {
     case 1:
         #verifico que sea un correo válido, luego intento generar el token en la base de datos y luego intento enviarlo junto a la url por mail
         if (!(filter_var($correo, FILTER_VALIDATE_EMAIL))) {
-            $motivo = "Dirección de correo inválida";
+            $response = "Dirección de correo inválida";
         } else {
             $tokenPregistro = new TokenPreregistro();
             $token = $tokenPregistro->generarTokenPrergistro($correo);
