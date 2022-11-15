@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    #$tokenVerification->logout();
+    #exit;
 }
 
 #api
@@ -90,7 +90,7 @@ switch ($api) {
         $fecha = $_POST['fecha_busqueda'];
         $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area));
         break;
-    case 6:
+    case 10:
         #historial de servicios
         $response = $master->getByProcedure("sp_historial_servicios_paciente", [$id, $id_paciente, $id_area, $fecha_agenda]);
         break;
@@ -125,13 +125,13 @@ switch ($api) {
         //$response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
         break;
 
-    case 10:
+    case 6:
         #servicios por turno
         $response = $master->getByProcedure('sp_turnos_historial', [$id, $id_paciente]);
         $hijo = $master->getByProcedure('sp_turnos_historial_detalle', [$id, $id_paciente, $area]);
         for ($i = 0; $i < count($response) - 1; $i++) {
             $id_turno_padre = $response[$i]['ID_TURNO'];
-            $servicios = array_filter($fila, function ($obj) use ($id_turno_padre) {
+            $servicios = array_filter($hijo, function ($obj) use ($id_turno_padre) {
                 $r = $obj['ID_TURNO'] == $id_turno_padre;
                 return $r;
             });
