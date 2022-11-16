@@ -58,9 +58,49 @@ function validarSesión(area) {
       confirmButtonText: "Aceptar",
       allowOutsideClick: false
     }, function(){
-      window.location.replace("https://bimo-lab.com/nuevo_checkup/vista/login/");
+      window.location.replace(http + servidor + "/nuevo_checkup/vista/login/");
     })
   }
+}
+
+// Verificar si tiene una sesión activa
+function loggin(callback, tipoUrl = 1){
+  if(tipoUrl != 3){
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/usuarios_api.php",
+        type: "POST",
+        data:{api:8},
+        success: function(data) {
+          var data = jQuery.parseJSON(data);
+          if(mensajeAjax(data)){
+            console.log(data);
+            if (data['response']['code'] == 1) {
+              callback(1)
+            }else{
+              // alert(tipoUrl);
+              switch (tipoUrl) {
+                case 1: destroySession();window.location.replace = http + servidor + '/nuevo_checkup/vista/login/?page='+window.location; break;
+                case 2: destroySession();window.location.replace = http + servidor + '/nuevo_checkup/vista/login/'; break;
+                default:
+                  destroySession();
+                  window.location.replace = 'https://www.google.com/';
+                  break;
+              }
+            }
+          }
+        }
+    });
+  }else{
+    callback(1);
+  }
+}
+
+function destroySession(){
+  $.ajax({
+    url: http + servidor + "/nuevo_checkup/api/login_api.php",
+      type: "POST",
+      data:{api:2}
+  });
 }
 
 
@@ -525,6 +565,18 @@ function mensajeAjax(data) {
         text: 'Codigo: ' + data['response']['msj']
       })
       break;
+    case "Token": 
+      alertMensajeConfirm({
+        title: "¡No tiene permitido estar aqui!",
+        text: "No tiene permiso para usar esta area",
+        icon: "info",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Aceptar",
+        allowOutsideClick: false
+      }, function(){
+        
+      })
+    break;
     default:
       Swal.fire({
         icon: 'error',

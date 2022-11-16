@@ -30,7 +30,7 @@ $menu = "Prerregistro";
 
   function vista(menu, url) {
     $.post(url, {
-      menu: menu
+      menu: menu, tipoURL: 3
     }, function(html) {
       $("#body-controlador").html(html);
     }).done(function(){

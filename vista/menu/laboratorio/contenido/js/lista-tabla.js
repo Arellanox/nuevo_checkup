@@ -116,10 +116,10 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
                     '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio'+i+'-Target" aria-expanded="false" aria-controls="accordionEstudios">'+
                       '<div class="row">'+
                         '<div class="col-12">'+
-                          '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>'+row[i]['FECHA_RESULTADO']+'</strong> '+ //<strong>12:00 '+i+'</strong>
+                          '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>'+row[i]['NOMBRE_COMPLETO']+'</strong>'+
                         '</div>'+
                         '<div class="col-12">'+
-                          '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>@Usuario que confirmó '+i+'</strong>'+
+                          '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>'+formatoFecha2(row[i]['FECHA_CONFIRMADO'])+'</strong> '+ //<strong>12:00 '+i+'</strong>
                         '</div>'+
                       '</div>'+
                     '</button>'+

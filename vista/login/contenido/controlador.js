@@ -5,8 +5,9 @@ function obtenerContenido(tabla){
      $("#body-js").html(html);
 
 
-     $("#formIniciarSesion").submit(function(){
+     $("#formIniciarSesion").submit(function(event){
         event.preventDefault();
+        $(this).find('button :submit').prop('disabled',true)
         /*DATOS Y VALIDACION DEL REGISTRO*/
         var form = document.getElementById("formIniciarSesion");
         var formData = new FormData(form);
@@ -17,6 +18,9 @@ function obtenerContenido(tabla){
           type: "POST",
           processData: false,
           contentType: false,
+          beforeSend: function() {
+            alertMensaje('info', 'Espere un momento', 'Validando datos...');
+          },
           success: function(data) {
             data = jQuery.parseJSON(data);
             console.log(data);
@@ -29,6 +33,8 @@ function obtenerContenido(tabla){
               }else{
                 $(location).attr('href', 'http://localhost/nuevo_checkup/vista/menu/recepcion/');
               }
+            }else{
+              $(this).find('button :submit').prop('disabled',false)
             }
           },
         });

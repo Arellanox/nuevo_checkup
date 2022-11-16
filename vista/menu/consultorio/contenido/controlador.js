@@ -127,9 +127,9 @@ function hasLocation() {
     // case "Perfil":
     //   obtenerContenidoAntecedentes(18, 18);
     //   break;
-    // case "Consultorio":
-    //   obtenerContenidoConsulta();
-    //   break;
+    case "Consultorio":
+      obtenerContenidoConsulta();
+      break;
     case "Main":
       obtenerConsultorioMain();
       break;

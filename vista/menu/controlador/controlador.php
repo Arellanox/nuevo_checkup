@@ -1,5 +1,6 @@
 <?php
 $menu = $_POST['menu'];
+$tipoUrl = isset($_POST['tipoUrl']) ?  $_POST['tipoUrl'] : 1;
 date_default_timezone_set('America/Mexico_City');
 session_start();
 
@@ -45,22 +46,25 @@ session_start();
   let array_user;
   var validar;
   const session = <?php echo json_encode($_SESSION); ?>;
+  session['id'] = '';
+  session['token'] = '';
   $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/class.js';?>").done(function() {
     $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
-      $(function(){
-
-        session['id'] = '';
-        session['token'] = '';
-        // console.log(session)
-        // <!-- Aqui controlar e incluir las modals -->
-        $.getScript('contenido/controlador.js').done(function (data) {
-          if(validar == true){
-            // <!-- Aqui controlar e incluir los tablas -->
-            $.getScript('modals/controlador.js');
-          }
-        });
-      })
-      // console.log(session);
+      loggin(function(val){
+        // alert(val)
+        if (val) {
+          $(function(){
+            // console.log(session)
+            // <!-- Aqui controlar e incluir las modals -->
+            $.getScript('contenido/controlador.js').done(function (data) {
+              if(validar == true){ 
+                // <!-- Aqui controlar e incluir los tablas -->
+                $.getScript('modals/controlador.js');
+              }
+            });
+          })
+        }
+      }, <?php echo $tipoUrl; ?>)
     });
   });
 </script>

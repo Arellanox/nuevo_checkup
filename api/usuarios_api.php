@@ -118,7 +118,7 @@ switch ($api) {
         }
         break;
     case 8:
-        $response = $usuario->validarUsuario($_POST['id']);
+        $response = $usuario->validarUsuario($_SESSION['id']);
         if ($response != 0) {
             echo json_encode(array("response" => array("code" => 1, "data" => $response)));
         } else {
