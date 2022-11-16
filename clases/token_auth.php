@@ -48,7 +48,7 @@ class TokenVerificacion
         return $object;
     }
     public function logout(){
-        echo json_encode(array("response" => array("code" => 0, "msj" => "Token no autorizado, inicio de sesión requerido")));
+        echo json_encode(array("response" => array("code" => 2, "msj" => "Token no autorizado, inicio de sesión requerido")));
     }
 
 }
