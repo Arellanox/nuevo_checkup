@@ -14,7 +14,7 @@ function hasLocation() {
   hash = window.location.hash.substring(1);
   // $("a").removeClass("navlinkactive");
   // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-       if (sessionVista(hash) == true){
+       if (validarSesión(hash) == true){
          switch (hash) {
           case "IMAGENOLOGIA":
             obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
@@ -35,8 +35,6 @@ function hasLocation() {
             obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
             break;
         }
-       }else{
-         window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
        }
 
 }
@@ -69,7 +67,8 @@ function obtenerContenidoVistaMaster(area, titulo) {
 }
 
 // obtenerContenidoRX()
-function sessionVista(areaVista) {
-  let vista = session.vista;
-  return vista[areaVista] == 1 ? true:false;
-}
+
+// function sessionVista(areaVista) {
+//   let vista = session.vista;
+//   return vista[areaVista] == 1 ? true:false;
+// }

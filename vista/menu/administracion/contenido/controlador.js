@@ -43,21 +43,23 @@ function obtenerContenidoUsuarios() {
 // }
 
 function hasLocation() {
-  var hash = window.location.hash.substring(1);
-  $("a").removeClass("navlinkactive");
-  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-  switch (hash) {
-    case "Usuarios":
-      obtenerContenidoUsuarios("usuario.php", "Usuarios");
-      break;
-    // case "Servicios":
-    //   obtenerContenidoServicios("servicios.php", "Servicios");
-    //   break;
-    // case "Segmentos":
-    //   obtenerContenidoSegmentos("Segmentos");
-    //   break;
-    default:
-      obtenerContenidoUsuarios("usuario.php", "Usuarios");
-      break;
+  if (validarSesión('ADMINISTRACIÓN')) {
+    var hash = window.location.hash.substring(1);
+    $("a").removeClass("navlinkactive");
+    $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+    switch (hash) {
+      case "USUARIOS":
+        obtenerContenidoUsuarios("usuario.php", "Usuarios");
+        break;
+      // case "Servicios":
+      //   obtenerContenidoServicios("servicios.php", "Servicios");
+      //   break;
+      // case "Segmentos":
+      //   obtenerContenidoSegmentos("Segmentos");
+      //   break;
+      default:
+        obtenerContenidoUsuarios("usuario.php", "Usuarios");
+        break;
+    }
   }
 }

@@ -43,6 +43,7 @@ session_start();
 
   let array_selected;
   let array_user;
+  var validar;
   const session = <?php echo json_encode($_SESSION); ?>;
   $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/class.js';?>").done(function() {
     $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
@@ -52,9 +53,12 @@ session_start();
         session['token'] = '';
         // console.log(session)
         // <!-- Aqui controlar e incluir las modals -->
-        $.getScript('modals/controlador.js');
-        // <!-- Aqui controlar e incluir los tablas -->
-        $.getScript('contenido/controlador.js');
+        $.getScript('contenido/controlador.js').done(function (data) {
+          if(validar == true){
+            // <!-- Aqui controlar e incluir los tablas -->
+            $.getScript('modals/controlador.js');
+          }
+        });
       })
       // console.log(session);
     });

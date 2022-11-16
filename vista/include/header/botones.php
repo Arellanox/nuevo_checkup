@@ -57,6 +57,9 @@
   <button type="submit" class="btn btn-hover me-2" form="form-resultados-somatometria" style="margin-bottom:4px">
     <i class="bi bi-save"></i> Guardar resultados
   </button>
+  <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="omitir-paciente" style="margin-bottom:4px">
+    <i class="bi bi-clipboard-x"></i> Saltar paciente
+  </button>
 <?php endif; ?>
 
 

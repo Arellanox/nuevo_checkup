@@ -45,7 +45,7 @@ $('#omitir-paciente').on('click', function(){
 
 // cambiar fecha de la Lista
 $('#fechaListadoAreaMaster').change(function(){
-  dataListaPaciente = {api:5, fecha_busqueda: $(this).val(), area_id: 6}
+  dataListaPaciente = {api:1, fecha_agenda: $(this).val(), area_id: 6}
   tablaMuestras.ajax.reload();
   // getPanelLab('Out', 0)
 })

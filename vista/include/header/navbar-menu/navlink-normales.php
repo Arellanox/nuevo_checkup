@@ -98,7 +98,7 @@
 
 <?php if ($menu == "Consultorio") : ?>
   <li class="nav-item">
-    <a href="#" type="button" onclick="obtenerConsultorioMain()">
+    <a href="#Main" type="button">
       <i class="bi bi-thunderbolt"></i> Consultorio
     </a>
   </li>

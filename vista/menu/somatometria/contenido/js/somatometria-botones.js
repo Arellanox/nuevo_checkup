@@ -40,3 +40,10 @@ $('#form-resultados-somatometria').submit(function (event) {
       }
     });
 })
+
+$('#omitir-paciente').click(function() {
+  console.log(pacienteActual.array)
+  pasarPacienteTurno(pacienteActual.array['ID_TURNO'], 2, 0, function() {
+    console.log('EXITO')
+  })
+})

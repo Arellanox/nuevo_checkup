@@ -1,10 +1,13 @@
-<?php if ($menu != null) : ?>
+<?php if ($_SESSION['vista']['CONSULTORIO'] == 1): ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>">
-  <i class="bi bi-clipboard2-pulse"></i> Consultorio
+    <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
+<?php endif; ?>
+<?php if ($_SESSION['vista']['SOMATOMETRIA'] == 1): ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>">
-  <i class="bi bi-heart-pulse"></i> Somatometría
+    <i class="bi bi-heart-pulse"></i> Somatometría
   </a>
+<?php endif; ?>
   <!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
@@ -15,37 +18,8 @@
     </ul>
   </div> -->
 
-  <!-- Administrativos -->
-  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
-    <i class="bi bi-clipboard-heart"></i> Servicios
-  </a>
-  <div class="collapse" id="board-servicios">
-    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Estudios'; ?>"><i class="bi bi-dot"></i> Estudios</a></li>
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Grupos'; ?>"><i class="bi bi-dot"></i> Grupos de examenes</a></li>
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Equipos'; ?>"><i class="bi bi-dot"></i> Equipos</a></li>
-    </ul>
-  </div>
 
-  <!-- Contaduria -->
-  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
-    <i class="bi bi-tag"></i> Lista de precios
-  </a>
-  <div class="collapse" id="board-listaprecios">
-    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#PaquetesClientes'; ?>"><i class="bi bi-dot"></i> Paquetes</a></li>
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#PreciosEstudios'; ?>"><i class="bi bi-dot"></i> Estudios</a></li>
-    </ul>
-  </div>
-
-
-  <!-- Administrativo -->
-  <?php if ($_SESSION['vista']['CLIENTES'] == 1): ?>
-    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/'; ?>">
-      <i class="bi bi-briefcase"></i> Clientes
-    </a>
-  <?php endif; ?>
-
+<?php if ($_SESSION['vista']['LABORATORIO/MUESTRAS'] == 1): ?>
   <!-- Laboratorio -->
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
     <i class="bi bi-heart-pulse"></i> Laboratorio
@@ -53,32 +27,33 @@
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/muestras/'; ?>">
     <i class="bi bi-droplet-half"></i> Toma de muestras
   </a>
+<?php endif; ?>
 
 
 <!-- Areas master -->
+<?php if ($_SESSION['vista']['IMAGENOLOGIA'] == 1): ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#IMAGENOLOGIA'; ?>">
     <i class="bi bi-person-video"></i> Imagenologia
   </a>
+<?php endif; ?>
+<?php if ($_SESSION['vista']['RAYOS X'] == 1): ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; ?>">
     <i class="bi bi-activity"></i> Rayos X
   </a>
+<?php endif; ?>
+<?php if ($_SESSION['vista']['ESPIROMETRIA'] == 1): ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ESPIROMETRIA'; ?>">
     <i class="bi bi-lungs"></i> Espirometría
   </a>
+<?php endif; ?>
+<?php if ($_SESSION['vista']['AUDIOMETRIA'] == 1): ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#AUDIOMETRIA'; ?>">
     <i class="bi bi-ear"></i> Audiometría
   </a>
+<?php endif; ?>
+<?php if ($_SESSION['vista']['OFTALMOLOGIA'] == 1): ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#OFTALMOLOGIA'; ?>">
     <i class="bi bi-eye"></i> Oftalmología
   </a>
-
-  <!-- Facturacion -->
-  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
-    <i class="bi bi-calculator"></i> Facturación
-  </a>
-  <div class="collapse" id="board-facturacion">
-    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/facturacion/#Estados-Cuentas'; ?>"><i class="bi bi-dot"></i> Estados de cuentas</a></li>
-    </ul>
-  </div>
 <?php endif; ?>
+

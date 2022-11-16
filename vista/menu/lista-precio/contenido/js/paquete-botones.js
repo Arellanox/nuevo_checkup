@@ -148,6 +148,7 @@ $('#guardar-contenido-paquete').on('click', function(){
           }else{
             ajaxDataSend = {api: 6, paquete_detalle: dataAjax, eliminados: dataEliminados};
           }
+          console.log(dataEliminados);
           $.ajax({
             url: http + servidor + "/nuevo_checkup/api/paquetes_api.php",
             data: ajaxDataSend,

@@ -17,7 +17,7 @@ $id = $_POST['id'];
 
 #insertar
 $id_cargo = $_POST['id_cargo'];
-$descripcion = $_POST['descripcion'];
+$descripcion = $_POST['nombre'];
 
 $parametros = array(
     $id_cargo,

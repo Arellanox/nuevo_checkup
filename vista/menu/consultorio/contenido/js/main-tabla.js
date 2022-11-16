@@ -1,4 +1,4 @@
-var tablaMain = $('#TablaListaConsultorio').DataTable({
+tablaMain = $('#TablaListaConsultorio').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
@@ -7,9 +7,9 @@ var tablaMain = $('#TablaListaConsultorio').DataTable({
   lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
       dataType: 'json',
-      data: {api: 2},
+      data: {api: 5, area_id: 1},
       method: 'POST',
-      url: '../../../api/pacientes_api.php',
+      url: '../../../api/turnos_api.php',
       beforeSend: function() { loader("In") },
       complete: function(){ loader("Out") },
       dataSrc:'response.data'
@@ -17,13 +17,27 @@ var tablaMain = $('#TablaListaConsultorio').DataTable({
   columns:[
       {data: 'COUNT'},
       {data: 'NOMBRE_COMPLETO'},
-      {data: 'CLASIFICACION_EXAMEN'},
       {data: 'PREFOLIO'},
-      {data: 'ACTIVO'},
+      {data: 'PROCEDENCIA'},
+      {data: 'FECHA_AGENDA'},
+      {data: 'GENERO'},
+      {data: 'SEGMENTO'},
       // {defaultContent: 'En progreso...'}
-  ],
-  columnDefs: [
-    { "width": "3px", "targets": 0 },
-  ],
+  ]
+  // columnDefs: [
+  //   { "width": "3px", "targets": 0 },
+  // ],
 
 })
+
+
+//Seleccion del paciente
+selectDatatable('TablaListaConsultorio', tablaMain, 1, "pacientes_api", 'paciente')
+
+//DobleClik para funcionalidad
+dblclickDatatable('#TablaListaConsultorio', tablaMain, function(data){
+  console.log(data);
+  obtenerContenidoAntecedentes(data.ID_PACIENTE, data.ID_TURNO);
+})
+
+

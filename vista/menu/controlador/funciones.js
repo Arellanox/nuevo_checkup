@@ -43,6 +43,26 @@ function formatoFecha2(fecha, optionsDate = [3,2,2,2,1,1,1], formatMat = 'best f
   return new Date(fecha).toLocaleDateString('es-MX', options)
 }
 
+// Revisar sesión
+function validarSesión(area) {
+  if (session['vista'][area] == 1){
+    validar = true
+    return 1
+  }else{
+    validar = false
+    alertMensajeConfirm({
+      title: "¡No tiene permitido estar aqui!",
+      text: "No tiene permiso para usar esta area",
+      icon: "info",
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      allowOutsideClick: false
+    }, function(){
+      window.location.replace("https://bimo-lab.com/nuevo_checkup/vista/login/");
+    })
+  }
+}
+
 
 //Obtener numero rando
 function getRandomInt(max) {
@@ -68,16 +88,38 @@ function checkNumber(x) {
 
 // Omitir paciente actual
 function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback){
-  Swal.fire({
-    title: "¿Está seguro omitir este paciente?",
-    text: "¡Este paciente se mandará al final de la lista!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Sí, omitir",
-    cancelButtonText: "Cancelar",
-  }).then((result) => {
+  switch (liberar) {
+    case 1:
+      options = {
+        title: "¿Desea liberar el turno?",
+        text: "Se le otorgará otro paciente de la lista.",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, liberar",
+        cancelButtonText: "Cancelar",
+        allowOutsideClick: false
+      }
+      break;
+    case 0:
+      options = {
+        title: "¿Está seguro omitir este paciente?",
+        text: "¡Este paciente se mandará al final de la lista!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, omitir",
+        cancelButtonText: "Cancelar",
+        allowOutsideClick: false
+      }
+      break;
+    default:
+      break;
+  }
+
+  Swal.fire(options).then((result) => {
     if (result.isConfirmed) {
       // $('#submit-registrarEstudio').prop('disabled', true);
       // Esto va dentro del AJAX
@@ -93,7 +135,7 @@ function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback){
               title: "¡Paciente omitido!",
               timer: 2000,
             });
-            callback()
+            callback(data)
           }
         },
       });
@@ -435,6 +477,26 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
   })
 }
 
+function alertMensajeConfirm(options, callback) {
+  if (!options){
+    options = {
+      title: "¿Desea realizar esta acción?",
+      text: "Probablemente no podrá revertirlo",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+      // allowOutsideClick: false
+    }
+  }
+  Swal.fire(options).then((result) => {
+    // console.log(1)
+    callback()
+  })
+}
+
 function mensajeAjax(data) {
   switch (data['response']['code']) {
     case 1:
@@ -474,7 +536,15 @@ function mensajeAjax(data) {
   return 0;
 }
 
-function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {0 : "#panel-informacion"}, callback = null){ //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
+function dblclickDatatable(tablename, datatable, callback = function() {}){
+    // Seleccion del registro
+    $(tablename).on('dblclick', 'tr', function () {
+      callback(datatable.row( this ).data())
+  });
+}
+
+function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {0 : "#panel-informacion"}, callback = null, tipclick = 'click'){ 
+  //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
   // console.log(typeof tipPanel);
   if (typeof tipPanel == "string") {
     // Convierte String a Object
@@ -525,6 +595,9 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
          }
 
      }
+  }).on("dblclick", function(e){
+    e.preventDefault();  //cancel system double-click event
+    console.log('cancelado')
   });
 }
 

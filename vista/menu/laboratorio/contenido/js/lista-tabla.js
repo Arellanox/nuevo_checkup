@@ -99,7 +99,7 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
       success: function (data) {
         row = data.response.data;
         console.log("Haciendo el historial de resultados")
-          console.log(data.response.data)
+        console.log(data.response.data)
         console.log(row)
         let itemStart = '<div class="accordion-item bg-acordion">';
         let itemEnd = '</div>';
@@ -124,10 +124,11 @@ function generarHistorialResultados(id){ return new Promise(resolve => {
                       '</div>'+
                     '</button>'+
                   '</h2>'+
-                  '<div id="collapse-estudio'+i+'-Target" class="accordion-collapse collapse" aria-labelledby="collap-historial-estudios'+i+'">';
+                  '<div id="collapse-estudio'+i+'-Target" class="accordion-collapse collapse overflow-auto" aria-labelledby="collap-historial-estudios'+i+'" style="max-height: 70vh"> ';
+          html += '<p class="none-p" style="margin: 12px 0px 0px 15px;">Ver <a href="' + row[i]['servicios']['URL']+'">RESULTADO</a> aquí</p>';
           html += bodyStart;
-          for (var e = 0; e < 1; e++) {
-            html += '<div class="col-6 text-end info-detalle"><p>'+row[i]['DESCRIPCION']+':</p></div><div class="col-6">'+row[i]['RESULTADO']+'</div>';
+          for (var l = 0; l < row[i]['servicios'].length; l++) {
+            html += '<div class="col-8 text-start info-detalle"><p>'+row[i]['servicios'][l]['SERVICIO']+':</p></div><div class="col-4 text-start d-flex align-items-center">'+row[i]['servicios'][l]['RESULTADO']+' '+row[i]['servicios'][l]['MEDIDA_ABREVIATURA']+'</div> <hr style="margin: 3px"/>'; //
           }
           html += bodyEnd + '</div>';
           html += itemEnd;
