@@ -19,10 +19,5 @@ $menu = "Recepción";
           $("#body-controlador").html(html);
      	 });
      }
-
-     // Verificar logeo :)
-     $.getScript('<?php echo $https.$url.'/nuevo_checkup/vista/login/contenido/verificar.js';?>' ).done(function(){
-       loggin();
-     });
  </script>
 </html>

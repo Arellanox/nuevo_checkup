@@ -60,27 +60,35 @@
   </li>
 <?php endif; ?>
 
-<?php if ($menu == "Servicios") : ?>
-  <li class="nav-item">
-    <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
-      <i class="bi bi-box"></i> Metodos
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#Estudios" data-bs-dismiss="offcanvas">
-      <i class="bi bi-box"></i> Estudios
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#Grupos" data-bs-dismiss="offcanvas">
-      <i class="bi bi-collection"></i> Grupos de examenes
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#Equipos" data-bs-dismiss="offcanvas">
-      <i class="bi bi-thunderbolt"></i> Equipos
-    </a>
-  </li>
+<?php if ($menu == "Servicios") : ?> 
+  <?php if ($_SESSION['vista']['SERVICIOS (METODOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1): ?>
+    <li class="nav-item">
+      <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
+        <i class="bi bi-box"></i> Metodos
+      </a>
+    </li>
+  <?php endif; ?>
+  <?php if ($_SESSION['vista']['SERVICIOS (SERVICIOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1): ?>
+    <li class="nav-item">
+      <a href="#Estudios" data-bs-dismiss="offcanvas">
+        <i class="bi bi-box"></i> Estudios
+      </a>
+    </li>
+  <?php endif; ?>
+  <?php if ($_SESSION['vista']['SERVICIOS (GRUPOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1): ?>
+    <li class="nav-item">
+      <a href="#Grupos" data-bs-dismiss="offcanvas">
+        <i class="bi bi-collection"></i> Grupos de examenes
+      </a>
+    </li>
+  <?php endif; ?>
+  <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1): ?>
+    <li class="nav-item">
+      <a href="#Equipos" data-bs-dismiss="offcanvas">
+        <i class="bi bi-thunderbolt"></i> Equipos
+      </a>
+    </li>
+  <?php endif; ?>
 <?php endif; ?>
 
 <?php if ($menu == "ListaPrecios") : ?>

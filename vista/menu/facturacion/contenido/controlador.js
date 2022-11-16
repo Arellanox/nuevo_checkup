@@ -1,4 +1,6 @@
-hasLocation();
+if (validarVista('FACTURACIÓN')){
+  hasLocation();
+}
 
 $(window).on("hashchange", function (e) {
   hasLocation();
@@ -19,15 +21,15 @@ function obtenerContenidoEstadoCuenta(){
 
 //Cambia la vista de la pagina
 function hasLocation() {
-  var hash = window.location.hash.substring(1);
-  $("a").removeClass("navlinkactive");
-  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-  switch (hash) {
-    case "Estados-Cuentas":
-      obtenerContenidoEstadoCuenta();
-      break;
-    default:
-        alert('Sin opción')
-      break;
-  }
+    var hash = window.location.hash.substring(1);
+    $("a").removeClass("navlinkactive");
+    $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+    switch (hash) {
+      case "Estados-Cuentas":
+        obtenerContenidoEstadoCuenta();
+        break;
+      default:
+          alert('Sin opción')
+        break;
+    }
 }

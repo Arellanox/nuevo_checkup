@@ -44,7 +44,7 @@ function formatoFecha2(fecha, optionsDate = [3,2,2,2,1,1,1], formatMat = 'best f
 }
 
 // Revisar sesión
-function validarSesión(area) {
+function validarVista(area) {
   if (session['vista'][area] == 1){
     validar = true
     return 1
@@ -58,6 +58,7 @@ function validarSesión(area) {
       confirmButtonText: "Aceptar",
       allowOutsideClick: false
     }, function(){
+      destroySession();
       window.location.replace(http + servidor + "/nuevo_checkup/vista/login/");
     })
   }
@@ -196,7 +197,7 @@ function buscarPaciente(id_area, callback) {
   });
 }
 
-// Validar la vista
+// Validar la vista (OBSOLETOXD)
 function redireccionarVista(vista, callback){
   if (session.vista[vista] == 1 ? true:false) {
     callback();
@@ -567,15 +568,20 @@ function mensajeAjax(data) {
       break;
     case "Token": 
       alertMensajeConfirm({
-        title: "¡No tiene permitido estar aqui!",
-        text: "No tiene permiso para usar esta area",
+        title: "¡Sesión no valida!",
+        text: "El token de su sesión ha caducado, vuelva iniciar sesión",
+        footer: "Redireccionando pantalla...",
         icon: "info",
         confirmButtonColor: "#d33",
         confirmButtonText: "Aceptar",
-        allowOutsideClick: false
+        allowOutsideClick: false,
+        timer: 4000,
+        timerProgressBar: true,
       }, function(){
-        
+        destroySession();
+        window.location.replace(http + servidor + "/nuevo_checkup/vista/login/");
       })
+      
     break;
     default:
       Swal.fire({

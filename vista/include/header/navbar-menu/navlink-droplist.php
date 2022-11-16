@@ -36,7 +36,7 @@
     <i class="bi bi-person-video"></i> Imagenologia
   </a>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['RAYOS X'] == 1): ?>
+<?php if ($_SESSION['vista']['RX'] == 1): ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; ?>">
     <i class="bi bi-activity"></i> Rayos X
   </a>

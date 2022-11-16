@@ -2,7 +2,11 @@
 let pacienteActual = new GuardarArreglo()
 
 // ObtenerTabla o cambiar
-obtenerContenidoMeso();
+
+if (validarVista('SOMATOMETRIA')){
+  obtenerContenidoMeso();
+}
+
 function obtenerContenidoMeso(){
   obtenerTitulo('Somatometría'); //Aqui mandar el nombre de la area
   $.post("contenido/mesometria.php", function(html){

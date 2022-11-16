@@ -43,7 +43,7 @@ function obtenerContenidoUsuarios() {
 // }
 
 function hasLocation() {
-  if (validarSesión('ADMINISTRACIÓN')) {
+  if (validarVista('ADMINISTRACIÓN')) {
     var hash = window.location.hash.substring(1);
     $("a").removeClass("navlinkactive");
     $("nav li a[href='#" + hash + "']").addClass("navlinkactive");

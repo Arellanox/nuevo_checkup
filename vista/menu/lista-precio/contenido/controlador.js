@@ -1,4 +1,6 @@
-hasLocation();
+if (validarVista('LISTA DE PRECIOS')){
+  hasLocation();
+}
 
 $(window).on("hashchange", function (e) {
   hasLocation();

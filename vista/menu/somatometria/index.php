@@ -9,7 +9,7 @@ $menu = "Somatometria";
 <html lang="es" dir="ltr">
  <head>
    <?php include "../../include/head.php"; ?>
-   <title>Mesometría | Bimo</title>
+   <title>Somatometría | Bimo</title>
  </head>
  <body class="" id="body-controlador"> </body>
  <script type="text/javascript">
@@ -19,9 +19,5 @@ $menu = "Somatometria";
           $("#body-controlador").html(html);
      	 });
      }
-     // Verificar logeo :)
-     $.getScript('<?php echo $https.$url.'/nuevo_checkup/vista/login/contenido/verificar.js';?>' ).done(function(){
-       loggin();
-     });
  </script>
 </html>

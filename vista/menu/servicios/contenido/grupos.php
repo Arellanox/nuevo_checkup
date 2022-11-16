@@ -2,7 +2,8 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 <div class="row">
-  <div class="card col-12 col-lg-3 pt-4" id="panel-informacion">
+  <div class="card col-12 col-lg-3 pt-4">
+    <div class="card mt-3 p-3" id="informacion-segmento"> </div>
   </div>
   <div class="card col-12 col-lg-9" style="margin-bottom:5px">
     <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">

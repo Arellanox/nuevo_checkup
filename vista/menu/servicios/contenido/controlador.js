@@ -78,13 +78,19 @@ function hasLocation() {
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {
     case "Estudios":
-      obtenerContenidoEstudios("Estudios");
+      if (validarVista('SERVICIOS (ESTUDIOS)')){
+        obtenerContenidoEstudios("Estudios");
+      }
       break;
     case "Grupos":
-      obtenerContenidoGrupos("Grupos de examenes");
+      if (validarVista('SERVICIOS (GRUPOS)')){
+        obtenerContenidoGrupos("Grupos de examenes");
+      }
       break;
     case "Equipos":
-      obtenerContenidoEquipos("Equipos");
+      if (validarVista('SERVICIOS (EQUIPOS)')){
+        obtenerContenidoEquipos("Equipos");
+      }
       break;
     default:
       window.location.hash = 'Estudios';

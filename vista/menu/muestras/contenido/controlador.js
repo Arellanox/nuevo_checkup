@@ -1,8 +1,9 @@
 
 var tablaMuestras, dataListaPaciente = {}, selectListaMuestras;
 
-
-contenidoMuestras()
+if (validarVista('LABORATORIO/MUESTRAS')){
+  contenidoMuestras()
+}
 async function contenidoMuestras(){
   await obtenerTitulo("Toma de muestras");
   $.post("contenido/muestras.php", function(html){

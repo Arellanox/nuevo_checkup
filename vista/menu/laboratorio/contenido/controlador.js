@@ -1,7 +1,11 @@
 
 var tablaListaPaciente, dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: 6};
 var idsEstudiosa, selectListaLab;
-obtenerContenidoLaboratorio();
+
+if (validarVista('LABORATORIO/MUESTRAS')){
+  obtenerContenidoLaboratorio();
+}
+
 function obtenerContenidoLaboratorio(){
   obtenerTitulo("Resultados de laboratorio", function(rest){
     $.post("contenido/laboratorio.php", function(html){

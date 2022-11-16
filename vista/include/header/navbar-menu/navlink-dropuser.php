@@ -1,4 +1,24 @@
-<?php if ($_SESSION['vista']['FACTURACIÓN']): ?>
+<?php if($_SESSION['vista']['SERVICIOS'] == 1  || $_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || $_SESSION['vista']['SERVICIOS (GRUPOS)'] == 1 || $_SESSION['vista']['SERVICIOS (SERVICIOS)'] == 1): ?>
+  <!-- Administrativos -->
+  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
+    <i class="bi bi-clipboard-heart"></i> Servicios
+  </a>
+  <div class="collapse" id="board-servicios">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
+      <?php if ($_SESSION['vista']['SERVICIOS (SERVICIOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1): ?>
+        <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Estudios'; ?>"><i class="bi bi-dot"></i> Estudios</a></li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['SERVICIOS (GRUPOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1): ?>
+        <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Grupos'; ?>"><i class="bi bi-dot"></i> Grupos de examenes</a></li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1): ?>
+        <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Equipos'; ?>"><i class="bi bi-dot"></i> Equipos</a></li>
+      <?php endif; ?>
+    </ul>
+  </div>
+  <li><hr class="dropdown-divider"></li>
+<?php endif; ?>
+<?php if ($_SESSION['vista']['FACTURACIÓN'] == 1): ?>
   <!-- Facturacion -->
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
     <i class="bi bi-calculator"></i> Facturación
@@ -10,7 +30,7 @@
   </div>
   <li><hr class="dropdown-divider"></li>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['LISTA DE PRECIOS']): ?>
+<?php if ($_SESSION['vista']['LISTA DE PRECIOS'] == 1): ?>
   <!-- Contaduria -->
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
     <i class="bi bi-tag"></i> Lista de precios
@@ -23,7 +43,7 @@
   </div>
   <li><hr class="dropdown-divider"></li>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['ADMINISTRACIÓN'] == 1): ?>
+<?php if ($_SESSION['vista']['ADMINISTRACIÓN'] == 1 || $_SESSION['vista']['CLIENTES'] == 1): ?>
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-admin" aria-expanded="false">
     <i class="bi bi-person-check"></i> Adminitración
   </a>
@@ -39,7 +59,7 @@
       <?php if ($_SESSION['perfil'] == 1):?>
         <li>
           <a href="<?php echo $https.$url.'/nuevo_checkup/vista/menu/administracion/#USUARIOS'; ?>" class="dropdown-a" type="button">
-            <i class="bi bi-dot"></i> Usuario
+            <i class="bi bi-dot"></i> Usuarios
           </a>
         </li>
       <?php endif; ?>

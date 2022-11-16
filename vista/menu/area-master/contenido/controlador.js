@@ -14,7 +14,7 @@ function hasLocation() {
   hash = window.location.hash.substring(1);
   // $("a").removeClass("navlinkactive");
   // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-       if (validarSesión(hash) == true){
+       if (validarVista(hash) == true){
          switch (hash) {
           case "IMAGENOLOGIA":
             obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
@@ -32,7 +32,7 @@ function hasLocation() {
             obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología');
           break;
           default:
-            obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
+            // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
             break;
         }
        }

@@ -60,7 +60,7 @@ let val = $(this).val();
   //Revisa en que status está el checkbox y controlalo según lo //desees
   if( $( this ).is( ':checked' ) ){
     // Activar
-    ObtenerDatosVista('modulos_api', {usuario_id: array_selected['ID_USUARIO'],id_modulo: val, api:5}, function(){
+    ObtenerDatosVista('modulos_api', {usuario_id: array_selected['ID_USUARIO'],id_modulo: val, api:5}, function(data){
       data = jQuery.parseJSON(data);
       if (mensajeAjax(data)) {
         // Por ahora devolver nada
@@ -68,7 +68,7 @@ let val = $(this).val();
     })
   }else{
     // Desactivar
-    ObtenerDatosVista('modulos_api', {usuario_id: array_selected['ID_USUARIO'], id_modulo: val, a: 0, api:6}, function(){
+    ObtenerDatosVista('modulos_api', {usuario_id: array_selected['ID_USUARIO'], id_modulo: val, a: 0, api:6}, function(data){
       data = jQuery.parseJSON(data);
       if (mensajeAjax(data)) {
         // Por ahora devolver nada, sino lo hace mandaría error
