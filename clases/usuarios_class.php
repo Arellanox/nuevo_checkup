@@ -35,7 +35,7 @@ class Usuarios extends Master implements iMetodos{
         $this->strings = array(2,3,4,5,6,7,8,10);
         $this->doubles = array();
         $this->intergers_update = array(0,1,9,11);
-        $this->nulls = array(7);
+        $this->nulls = array(7,9,3,4,10,8);
 
     }
 
