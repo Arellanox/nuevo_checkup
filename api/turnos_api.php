@@ -23,6 +23,7 @@ $confirmar = $_POST['confirmar'];
 $servicio_id = $_POST['servicio_id'];
 $resultado = $_POST['resultado'];
 $observaciones = $_POST['observaciones'];
+$confirmado_por = $_SESSION['id'];
 
 #insertar
 $id_turno = $_POST['id_turno'];
@@ -117,7 +118,7 @@ switch ($api) {
         //print_r($id_turno);
         foreach ($setResultados as $servicio_id => $resultado) {
             # code...
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar,$confirmado_por));
             //print_r($response);
         }
         echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
