@@ -18,6 +18,21 @@ switch ($api) {
             echo json_encode(array("response" => array("code" => 'login', "msj" => $response)));
         }
     break;
+    case 2:
+        $_SESSION=array();
+
+        if(init_get("session.use_cookies")){
+            $params = session_get_cookie_params();
+            setcookie(session_name(),'',time() - 42000,
+            $params["path"],$params["domain"],$params["secure"],$params["httponly"]);
+        }
+
+        if(session_destroy()){
+            echo json_encode(array("response" => array("code" => '1', "msj" => "logout")));
+        } else {
+            echo json_encode(array("response" => array("code" => '2', "msj" => "errors")));
+        }
+        break;
 }
 
 
