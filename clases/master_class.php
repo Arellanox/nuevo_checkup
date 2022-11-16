@@ -29,7 +29,7 @@ class Master extends Miscelaneus
         $host = "212.1.208.201";
         $dbname = "u808450138_checkup";
         $username = "u808450138_bimo";
-        $password = "uJbr*Z7e";
+        $password = "I?6m7]Pe0";
         // $host = "localhost";
         // $dbname = "u808450138_checkup";
         // $username = "root";
