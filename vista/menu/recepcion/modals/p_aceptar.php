@@ -67,7 +67,7 @@
                               </button>
                             </div>
                             <div class="col-12 mt-3">
-                              <label for="paquete" class="form-label">Orden médica de laboratorio (Particular = requerido):</label>
+                              <label for="paquete" class="form-label">Orden médica de laboratorio:</label>
                               <input type="file" name="orden-medica-laboratorio" id="file-laboratorio" class="form-control input-form" value="">
                             </div>
                           </div>
@@ -101,7 +101,7 @@
                               </button>
                             </div>
                             <div class="col-12 mt-3">
-                              <label for="paquete" class="form-label">Orden médica de Rayos X (Particular = requerido):</label>
+                              <label for="paquete" class="form-label">Orden médica de Rayos X:</label>
                               <input type="file" name="orden-medica-rx" id="file-r-x" class="form-control input-form" value="">
                             </div>
                           </div>
@@ -135,7 +135,7 @@
                               </button>
                             </div>
                             <div class="col-12 mt-3">
-                              <label for="paquete" class="form-label">Orden médica de Ultra Sonido (Particular = requerido):</label>
+                              <label for="paquete" class="form-label">Orden médica de Ultra Sonido:</label>
                               <input type="file" name="orden-medica-us" id="file-ultra-sonido" class="form-control input-form">
                             </div>
                           </div>

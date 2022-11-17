@@ -7,10 +7,12 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("btn-confirmar-paciente").disabled = true;
 
   rellenarSelect('#select-paquetes','paquetes_api', 2,0,'DESCRIPCION', {'cliente_id': array_selected['CLIENTE_ID']})
-  rellenarSelect("#select-lab", "servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 6});
-  rellenarSelect('#select-us',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 7});
-  rellenarSelect('#select-rx',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'id_area' : 8});
-  rellenarSelect('#select-otros',"servicios_api", 8, 0, 'ABREVIATURA.DESCRIPCION', {'otros_servicios' : 1});
+  rellenarSelect("#select-lab", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {'area_id' : 6, cliente_id: array_selected['CLIENTE_ID']});
+  rellenarSelect('#select-us',"precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {'area_id' : 7, cliente_id: array_selected['CLIENTE_ID']});
+  rellenarSelect('#select-rx',"precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {'area_id' : 8, cliente_id: array_selected['CLIENTE_ID']});
+  rellenarSelect('#select-otros',"precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : 0, cliente_id: array_selected['CLIENTE_ID']});
+
+  // "#seleccion-estudio", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : this.value, paquete_id: $('#seleccion-paquete').val()}
 })
 
 $("#btn-obtenerID").click(function(){
@@ -84,14 +86,22 @@ $('#btn-AgregarEstudioLab').on('click', function(){
    validarEstudiosLab = 1;
    agregarFilaDiv('#list-estudios-laboratorio', text, id)
 })
-$('#list-estudios-laboratorio').on('DOMSubtreeModified', function(){
-   if ($(this).children().length == 0) {
-     validarEstudiosLab = 0;
-     $('#file-laboratorio').prop('required',false);
-   }else{
-     $('#file-laboratorio').prop('required',true);
-   }
+// Create an observer instance.
+var ObserRX = new MutationObserver(function(mutations) {
+  if ($('#list-estudios-laboratorio').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
+    validarEstudiosLab = 0;
+    $('#file-laboratorio').prop('required',false);
+  }else{
+    $('#file-laboratorio').prop('required',true);
+  }
 });
+// Pass in the target node, as well as the observer options.
+ObserRX.observe(document.querySelector('#list-estudios-laboratorio'), {
+    attributes:    true,
+    childList:     true,
+    characterData: true
+});
+
 
 
 $('#btn-agregarEstudioRX').on('click', function(){
@@ -99,14 +109,22 @@ $('#btn-agregarEstudioRX').on('click', function(){
    let id = $( "#select-rx" ).val();
    agregarFilaDiv('#list-estudios-rx', text, id)
 })
-$('#list-estudios-rx').on('DOMSubtreeModified', function(){
-    if ($(this).children().length == 0) {
-      validarEstudiosRX = 0;
-      $('#file-r-x').prop('required',false);
-    }else{
-      $('#file-r-x').prop('required',true);
-    }
+// Create an observer instance.
+var ObserRX = new MutationObserver(function(mutations) {
+  if ($('#list-estudios-rx').children().length == 0  || array_selected['CLIENTE_ID'] != 1) {
+    validarEstudiosRX = 0;
+    $('#file-r-x').prop('required',false);
+  }else{
+    $('#file-r-x').prop('required',true);
+  }
 });
+// Pass in the target node, as well as the observer options.
+ObserRX.observe(document.querySelector('#list-estudios-rx'), {
+    attributes:    true,
+    childList:     true,
+    characterData: true
+});
+
 
 
 $('#btn-agregarEstudioImg').on('click', function(){
@@ -114,14 +132,22 @@ $('#btn-agregarEstudioImg').on('click', function(){
    let id = $( "#select-us" ).val();
    agregarFilaDiv('#list-estudios-ultrasonido', text, id)
 })
-$('#list-estudios-ultrasonido').on('DOMSubtreeModified', function(){
-    if ($(this).children().length == 0) {
-      validarEstudiosImg = 0;
-      $('#file-ultra-sonido').prop('required',false);
-    }else{
-      $('#file-ultra-sonido').prop('required',true);
-    }
+// Create an observer instance.
+var ObserULTRSONIDO = new MutationObserver(function(mutations) {
+  if ($('#list-estudios-ultrasonido').children().length == 0  || array_selected['CLIENTE_ID'] != 1) {
+    validarEstudiosImg = 0;
+    $('#file-ultra-sonido').prop('required',false);
+  }else{
+    $('#file-ultra-sonido').prop('required',true);
+  } 
 });
+// Pass in the target node, as well as the observer options.
+ObserULTRSONIDO.observe(document.querySelector('#list-estudios-ultrasonido'), {
+    attributes:    true,
+    childList:     true,
+    characterData: true
+});
+
 
 
 $('#btn-agregarEstudioOtros').on('click', function(){
@@ -129,10 +155,17 @@ $('#btn-agregarEstudioOtros').on('click', function(){
  let id = $( "#select-otros" ).val();
  agregarFilaDiv('#list-estudios-otros', text, id)
 })
-$('#list-estudios-otros').on('DOMSubtreeModified', function(){
-  if ($(this).children().length == 0) {
+// Create an observer instance.
+var ObserOtros = new MutationObserver(function(mutations) {
+  if ($('#list-estudios-otros').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosOtros = 0;
-  }
+  }  
+});
+// Pass in the target node, as well as the observer options.
+ObserOtros.observe(document.querySelector('#list-estudios-otros'), {
+    attributes:    true,
+    childList:     true,
+    characterData: true
 });
 
 

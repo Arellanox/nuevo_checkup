@@ -9,7 +9,9 @@ session_start();
 <!-- HTML -->
 <header id="header-js"></header>
 <div  id="titulo-js"></div>
-<div class="container-fluid " id="body-js"> </div>
+<div class="container-fluid " id="body-js"> <div class="col-12 loader" id="loader" style="">
+  <div class="preloader" id="preloader"> </div>
+</div> </div>
 <div class="" id="modals-js"> <!-- Aqui podrán incluir los modals --> </div>
 
 <script type="text/javascript">

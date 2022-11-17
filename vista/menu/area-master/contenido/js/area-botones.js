@@ -1,5 +1,4 @@
 $('#fechaListadoAreaMaster').change(function(){
-  alert('cambio')
   dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
   tablaContenido.ajax.reload()
 })

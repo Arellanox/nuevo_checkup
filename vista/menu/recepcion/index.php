@@ -16,6 +16,7 @@ $menu = "Recepción";
     vista('<?php echo $menu; ?>', '<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>')
      function vista(menu, url){
        $.post(url, {menu: menu}, function(html){
+          validar = true;
           $("#body-controlador").html(html);
      	 });
      }
