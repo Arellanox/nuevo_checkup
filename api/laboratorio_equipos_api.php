@@ -58,6 +58,48 @@ $master = new Master();
 switch ($api) {
     case 1:
         # insertar
+        $dir = $master->urlEquiposLaboratorio."$descripcion/";
+        $r = $master->createDir($dir);
+
+        if (!empty($_FILES['reportes']['name'])) {
+            $next = 0;
+            foreach ($_FILES['reportes']['name'] as $key => $value) {
+                $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
+                
+                # obtenemos la ruta temporal del archivo
+                ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+
+                $tipo_label = "INTERPRETACION";
+              
+                if($tipo == 2){
+                    $tipo_label = "CAPTURA";
+                }
+
+                $url = "$destinatio_sql$dir_base$id_turno"."_$id_servicio"."_$tipo_label"."_$next.".$extension;
+
+                if($tipo == 2){
+                    $imagenes = array('URL'=>$url, 'EXTENSION'=>$extension);
+                }
+
+                #insertamos el registro en la tabla de resultados reportes
+                $response = $master->insertByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,$url,$comentario,$tipo,json_encode($imagenes),$comentario_capturas]);
+
+                if(is_numeric($response)){
+                    #cambiamos de lugar el archivo
+                    try {
+                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$tipo_label"."_$next.".$extension);
+                    } catch (\Throwable $th) {
+                        # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
+                        $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
+                    }
+                }
+                $next++; 
+            }
+            echo $master->returnApi($response);
+        } else {
+            echo "No hay archivos.";
+        }
         $response = $master->insertByProcedure("sp_laboratorio_equipos_g", $parametros);
         break;
     case 2:

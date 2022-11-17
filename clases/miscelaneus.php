@@ -194,7 +194,7 @@ class Miscelaneus{
     }
 
     function guardarFiles($files, $dir, $carpetas = ['temp/'], $nombre){
-        foreach ($carpetas as $key => $value) {
+       /*  foreach ($carpetas as $key => $value) {
           if(!is_dir($dir.$value)){
               if(mkdir($dir.$value)){
                   $dir += $value;
@@ -202,7 +202,7 @@ class Miscelaneus{
           }
         }
 
-        // return $dir;
+        // return $dir; */
 
 
         $urlArray = array();
@@ -234,5 +234,18 @@ class Miscelaneus{
             return "Error";
         }
     }
+
+    function createDir($dir){
+        if(!is_dir($dir)){
+            if(!mkdir($dir, 0777, true)){
+                echo "no pudo crear el directorio. $dir";
+                exit;
+            } else {
+                return 1;
+            }
+        }
+
+        return 0;
+    } //fin createDir
 }
 ?>

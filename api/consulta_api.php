@@ -34,7 +34,59 @@ $parametros = array(
     $consulta_subsecuente,
     $diagnostico
 );
+
+#nutricion
+$id_nutricion = $_POST['id_nutricion'];
+#$turnos_id = $_POST['turnos_id'];
+$peso_perdido = $_POST['peso_perdido'];
+$grasa = $_POST['grasa'];
+$cintura = $_POST['cintura'];
+$agua = $_POST['agua'];
+$musculo = $_POST['musculo'];
+$abdomen = $_POST['abdomen'];
+
+$nutricionParams = array(
+    $id_nutricion,
+    $turnos_id,
+    $peso_perdido,
+    $grasa,
+    $cintura,
+    $agua,
+    $musculo,
+    $abdomen);
+
+
+# exploracion clinica
+$id_exploracion_clinica = $_POST['id_exploracion_clinica'];
+$exploracion_tipo_id = $_POSTp['exploracion_tipo_id'];
+$exploracion = $_POST['exploracion'];
+
+
+# recetas
+$id_receta = $_POST['id_receta'];
+#el ide del turno esta arriba
+$nombre_generico = $_POST['nombre_generico'];
+$forma_farmaceutica = $_POST['forma_farmaceutica'];
+$dosis = $_POST['dosis'];
+$presentacion = $_POST['presentacion'];
+$frecuencia = $_POST['frecuencia'];
+$via_de_administracion = $_POST['via_de_administracion'];
+$duracion_del_tratamiento = $_POST['duracion_del_tratamiento'];
+$indicaciones_para_el_uso = $_POST['indicaciones_para_el_uso'];
  
+
+$recetaParams = array(
+    $id_receta,
+    $turno_id,
+    $nombre_generico,
+    $forma_farmaceutica,
+    $dosis,
+    $presentacion,
+    $frecuencia,
+    $via_de_administracion,
+    $duracion_del_tratamiento,
+    $indicaciones_para_el_uso
+);
 $response="";
 
 $master = new Master();
@@ -48,13 +100,33 @@ switch ($api) {
         break;
     case 3:
         # actualizar
+        # actualizar las notas de padecimiento,diagnostico
         $response = $master->updateByProcedure("sp_consultorio_consulta_g", $parametros);
         break;
     case 4:
         # desactivar
         $response = $master->deleteByProcedure("sp_consultorio_consulta_e", [$id_consulta]);
         break;
-
+    case 5:
+        # guardar consulta / nutricion tabla
+        $response = $master->insertByProcedure("sp_consultorio_nutricion_g",$nutricionParams);
+        break;
+    case 6:
+        # insertar exploracion clinica
+        $response = $master->insertByProcedure("sp_consultorio_exploracion_g",[$id_exploracion_clinica,$turno_id,$exploracion_tipo_id,$exploracion]);
+        break;
+    case 7:
+        # eliminar exploracion clinica
+        $response = $master->deleteByProcedure("sp_consultorio_exploracion_clinica_e",[$id_exploracion_clinica]);
+        break;
+    case 8:
+        # insertar anamnesis-aparatos
+        
+        break;
+    case 9:
+        # insetar receta
+        $response = $master->insertByProcedure("sp_consultorio_recetas_g",$recetaParams);
+        break;
     default:
     $response = "api no reconocida";
         break;

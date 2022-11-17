@@ -4,10 +4,12 @@ include "miscelaneus.php";
 class Master extends Miscelaneus
 {
     public $mis;
+    public $urlEquiposLaboratorio;
 
     function Master()
     {
         $this->mis = new Miscelaneus();
+        $this->urlEquiposLaboratorio = "../archivos/Equipos/";
     }
 
     function connection()
