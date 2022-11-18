@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    //$tokenVerification->logout();
+    // exit;
 }
 
 $api = $_POST['api'];
@@ -27,17 +27,6 @@ if (!is_null($_POST['servicios'])) {
     $servicios = explode(",", $_POST['servicios']); //array
 }
 
-#ordenes medicas
-$orden_medica_laboratorio = $_FILES['orden_medica_laboratorio'];
-$orden_medica_rx = $_FILES['orden_medica_rx'];
-$orden_medica_us = $_FILES['orden_medica_us'];
-
-$ordenes = array(
-    "LABORATORIO_ORDEN_MEDICA"=>$orden_medica_laboratorio,
-    "RAYOS_X_ORDEN_MEDICA"=> $orden_medica_rx,
-    "US_ORDEN_MEDICA"=>$orden_medica_us
-);
-
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
@@ -55,27 +44,8 @@ switch ($api) {
         # Insertar el detalle del paquete al turno en cuestion
         if ($estado_paciente == 1) {
             # si el paciente es aceptado, cargar los estudios correspondientes
-            $basename = basename($identificacion);
-            $explode = explode('.', $basename);
-            rename($identificacion, "../../archivos/identificaciones/" . $idTurno . $explode[1]);
+            rename($identificacion, "../../archivos/identificaciones/" . $idTurno . ".png");
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null));
-            
-
-            #aqui subir las ordenes medicas si las hay
-            #crear la carpeta de tunos dentro de ordenes_medicas
-            if(count($ordenes)!=0){ 
-                $dir = $master->urlOrdenesMedicas."$idTurno/";
-                $r = $master->createDir($dir);
-                if ($r) {
-                    
-                    foreach($ordenes as $key=>$orden){
-                        $nuevoNombre = $key."_".$idTurno;
-                        $return = $master->guardarFiles($orden,$dir,$nuevoNombre);
-                    }
-                }else {
-                    $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas","recepcion_api.php [case 2]");
-                }
-            }
         } else {
             # si el paciente es rechazado, se desactivan los resultados de su turno.
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
@@ -83,12 +53,11 @@ switch ($api) {
 
         # Insertar servicios extrar para pacientes empresas o servicios para particulares
         if (is_array($servicios)) {
-            if (count($servicios) > 0 && !empty($servicios[0])) {
+            if (count($servicios) > 0) {
                 # si hay algo en el arreglo lo insertamos
                 foreach ($servicios as $key => $value) {
-                    if(!empty($value)) {
-                        $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value));
-                    }
+                    // print_r($servicios);
+                    $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value));
                 }
             }
         }

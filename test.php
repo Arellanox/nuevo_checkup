@@ -1,14 +1,6 @@
 <?php
 echo gettype('{"data": ["{\"URL\":\"http:\\/\\/localhost\\/nuevo_checkup\\/archivos\\/reportes\\/IMAGENOLOGIA\\/56\\/56_354_CAPTURA_0.pdf\",\"EXTENSION\":\"pdf\"}", "{\"URL\":\"http:\\/\\/localhost\\/nuevo_checkup\\/archivos\\/reportes\\/IMAGENOLOGIA\\/56\\/56_354_CAPTURA_1.png\",\"EXTENSION\":\"png\"}", "{\"URL\":\"http:\\/\\/localhost\\/nuevo_checkup\\/archivos\\/reportes\\/IMAGENOLOGIA\\/56\\/56_354_CAPTURA_2.png\",\"EXTENSION\":\"png\"}"]}');
 echo "tipo 2:".gettype(10);
-
-$var = array('0'=>null);
-print_r($var);
-if (empty($var[0])) {
-    echo "$var is empty";
-} else  {
-    echo "$var is not empty";
-}
 // $array = array(5,"JOSH","DE LA CRUZ","ARELLANO",30,"1992-07-03","CUAJ920703HTCRRS09",9932243652,
 // "arellanox0392@gmail.com","cerrada del mango",0,null,"JOSE MARIA PINO SUAREZ",86029,NULL,"mexicana","añlsdkfj0293",1,"PIZER",
 // "NINGUNA","PRIMERA",NULL,1);
