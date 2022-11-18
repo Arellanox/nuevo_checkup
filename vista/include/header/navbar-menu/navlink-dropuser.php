@@ -18,6 +18,19 @@
   </div>
   <li><hr class="dropdown-divider"></li>
 <?php endif; ?>
+<?php if (true): ?>
+  <!-- Administrativos -->
+  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-laboratorio-servicios" aria-expanded="false">
+    <i class="bi bi-clipboard-heart"></i> Estudios laboratorio
+  </a>
+  <div class="collapse" id="board-laboratorio-servicios">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
+        <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio-servicios/#Estudios'; ?>"><i class="bi bi-dot"></i> Estudios</a></li>
+        <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio-servicios/#Grupos'; ?>"><i class="bi bi-dot"></i> Grupos de examenes</a></li>
+    </ul>
+  </div>
+  <li><hr class="dropdown-divider"></li>
+<?php endif; ?>
 <?php if ($_SESSION['vista']['FACTURACIÓN'] == 1): ?>
   <!-- Facturacion -->
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">

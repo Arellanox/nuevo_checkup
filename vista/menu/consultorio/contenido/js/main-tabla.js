@@ -36,8 +36,8 @@ selectDatatable('TablaListaConsultorio', tablaMain, 1, "pacientes_api", 'pacient
 
 //DobleClik para funcionalidad
 dblclickDatatable('#TablaListaConsultorio', tablaMain, function(data){
-  console.log(data);
-  obtenerContenidoAntecedentes(data.ID_PACIENTE, data.ID_TURNO);
+  // console.log(data);
+  obtenerContenidoAntecedentes(data);
 })
 
 

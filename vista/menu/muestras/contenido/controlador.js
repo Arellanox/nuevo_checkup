@@ -1,7 +1,7 @@
 
 var tablaMuestras, dataListaPaciente = {}, selectListaMuestras;
 
-if (validarVista('LABORATORIO/MUESTRAS')){
+if (validarVista('LABORATORIO')){
   contenidoMuestras()
 }
 async function contenidoMuestras(){

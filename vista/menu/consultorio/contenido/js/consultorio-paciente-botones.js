@@ -5,6 +5,21 @@ $('#agregar-nota-historial').on('click', function(){
   agregarNotaConsulta(session.user, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial');
 })
 
+$('#btn-regresar-vista').click(function(){
+  alertMensajeConfirm({
+    title: "¿Está seguro de regresar?",
+    text: "Asegurese de guardar los cambios",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Aceptar",
+    cancelButtonText: "Cancelar",
+  }, function(){
+    obtenerConsultorioMain();
+  })
+})
+
 
 
 

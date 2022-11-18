@@ -64,16 +64,17 @@ switch ($api) {
             #aqui subir las ordenes medicas si las hay
             #crear la carpeta de tunos dentro de ordenes_medicas
             if(count($ordenes)!=0){ 
-            $dir = $master->urlOrdenesMedicas."$idTurno/";
-            $r = $master->createDir($dir);
-            if ($r) {
-                
-                foreach($ordenes as $key=>$orden){
-                    $nuevoNombre = $key."_".$idTurno;
-                    $return = $master->guardarFiles($orden,$dir,$nuevoNombre);
+                $dir = $master->urlOrdenesMedicas."$idTurno/";
+                $r = $master->createDir($dir);
+                if ($r) {
+                    
+                    foreach($ordenes as $key=>$orden){
+                        $nuevoNombre = $key."_".$idTurno;
+                        $return = $master->guardarFiles($orden,$dir,$nuevoNombre);
+                    }
+                }else {
+                    $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas","recepcion_api.php [case 2]");
                 }
-            }else {
-                $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas","recepcion_api.php [case 2]");
             }
         } else {
             # si el paciente es rechazado, se desactivan los resultados de su turno.

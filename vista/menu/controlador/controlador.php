@@ -32,12 +32,11 @@ session_start();
        $("#header-js").html(html);
     });
   }
-  function obtenerTitulo(menu, callback = function(){}){ //callback para no tener problema con la fecha
+  function obtenerTitulo(menu, tipo = null){ //Usar async await para no tener problemas con inputs de fecha
     return new Promise(resolve => {
-      $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/titulo.php';?>", {menu: menu}, function(html){
+      $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/titulo.php';?>", {menu: menu, tipo: tipo}, function(html){
          $("#titulo-js").html(html);
       }).done(function(){
-        callback(1)
         resolve(1);
       });
     });
@@ -53,7 +52,6 @@ session_start();
   $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/class.js';?>").done(function() {
     $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
       loggin(function(val){
-        // alert(val)
         if (val) {
           $(function(){
             // console.log(session)

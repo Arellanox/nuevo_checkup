@@ -26,20 +26,16 @@ function obtenerConsultorioMain(){
 // Obtener el perfil del paciente (antecedentes);
 function obtenerContenidoAntecedentes(data) {
   loader("In")
-  obtenerTitulo('Perfil del paciente'); //Aqui mandar el nombre de la area
+  obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
   $.post("contenido/consultorio_paciente.php", function (html) {
     var idrow;
     $("#body-js").html(html) // Rellenar la plantilla de consulta
   }).done(function() {
-    // Datatable
-    // $.getScript("contenido/js/estudio-tabla.js");
     // Botones
     $.getScript("contenido/js/consultorio-paciente-botones.js");
     // Funciones
     $.getScript('contenido/js/consultorio-paciente.js').done(function(){
-      // alert("Anter de antecedentes")
-      obtenerConsultorio(data.ID_PACIENTE, data.ID_TURNO, data.COMPLETADO)
-      // obtenerConsultorio(id, idTurno) //Llama todo el dom
+      obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'], data['COMPLETADO'])
     });
     select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
   });
@@ -119,14 +115,15 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle =
 }
 
 
+// No deberia existir
 function hasLocation() {
   var hash = window.location.hash.substring(1);
   $("a").removeClass("navlinkactive");
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {
-    // case "Perfil":
-    //   obtenerContenidoAntecedentes(18, 18);
-    //   break;
+    case "Perfil":
+      obtenerContenidoAntecedentes(18, 18);
+      break;
     case "Consultorio":
       obtenerContenidoConsulta();
       break;

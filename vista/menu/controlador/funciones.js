@@ -92,6 +92,7 @@ function loggin(callback, tipoUrl = 1){
         }
     });
   }else{
+    validar = true
     callback(1);
   }
 }
@@ -530,11 +531,14 @@ function alertMensajeConfirm(options, callback) {
       confirmButtonText: "Aceptar",
       cancelButtonText: "Cancelar",
       // allowOutsideClick: false
+      // timer: 4000,
+      // timerProgressBar: true,
     }
   }
   Swal.fire(options).then((result) => {
-    // console.log(1)
-    callback()
+    if (result.isConfirmed || result.dismiss === "timer") {
+      callback()
+    }
   })
 }
 
@@ -836,8 +840,22 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 resolve(1);
               break;
               case 'signos-vitales':
-              $(panel).fadeIn(100);
-                resolve(1);
+                $.ajax({
+                  url: http + servidor + "/nuevo_checkup/api/somatometria_api.php",
+                  data: { api: 2, id_turno: id },
+                  type: "POST",
+                  datatype: 'json',
+                  success: function (data) {
+                    data = jQuery.parseJSON(data);
+                    row = data['response']['data'][0];
+                    console.log(data);
+                    
+                  },
+                  complete: function(){
+                    $(panel).fadeIn(100);
+                    resolve(1);
+                  }
+                })
               break;
               case 'cliente':
               // console.log(row)

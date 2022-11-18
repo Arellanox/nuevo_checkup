@@ -6,11 +6,11 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
   document.getElementById("btn-confirmar-paciente").disabled = true;
 
-  rellenarSelect('#select-paquetes','paquetes_api', 2,0,'DESCRIPCION', {'cliente_id': array_selected['CLIENTE_ID']})
-  rellenarSelect("#select-lab", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {'area_id' : 6, cliente_id: array_selected['CLIENTE_ID']});
-  rellenarSelect('#select-us',"precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {'area_id' : 7, cliente_id: array_selected['CLIENTE_ID']});
-  rellenarSelect('#select-rx',"precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {'area_id' : 8, cliente_id: array_selected['CLIENTE_ID']});
-  rellenarSelect('#select-otros',"precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : 0, cliente_id: array_selected['CLIENTE_ID']});
+  rellenarSelect('#select-paquetes','paquetes_api', 2,'ID_PAQUETE','DESCRIPCION', {'cliente_id': array_selected['CLIENTE_ID']})
+  rellenarSelect("#select-lab", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {'area_id' : 6, cliente_id: array_selected['CLIENTE_ID']});
+  rellenarSelect('#select-us',"precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {'area_id' : 7, cliente_id: array_selected['CLIENTE_ID']});
+  rellenarSelect('#select-rx',"precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {'area_id' : 8, cliente_id: array_selected['CLIENTE_ID']});
+  rellenarSelect('#select-otros',"precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {area_id : 0, cliente_id: array_selected['CLIENTE_ID']});
 
   // "#seleccion-estudio", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : this.value, paquete_id: $('#seleccion-paquete').val()}
 })
@@ -129,7 +129,7 @@ ObserRX.observe(document.querySelector('#list-estudios-rx'), {
 
 $('#btn-agregarEstudioImg').on('click', function(){
    let text = $( "#select-us option:selected" ).text();
-   let id = $( "#select-us" ).val();
+   let id = $("#select-us").val();
    agregarFilaDiv('#list-estudios-ultrasonido', text, id)
 })
 // Create an observer instance.
@@ -152,7 +152,7 @@ ObserULTRSONIDO.observe(document.querySelector('#list-estudios-ultrasonido'), {
 
 $('#btn-agregarEstudioOtros').on('click', function(){
  let text = $( "#select-otros option:selected" ).text();
- let id = $( "#select-otros" ).val();
+ let id = $("#select-otros").val();
  agregarFilaDiv('#list-estudios-otros', text, id)
 })
 // Create an observer instance.

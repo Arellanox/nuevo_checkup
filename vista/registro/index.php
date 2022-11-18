@@ -30,7 +30,7 @@ $menu = "Prerregistro";
 
   function vista(menu, url) {
     $.post(url, {
-      menu: menu, tipoURL: 3
+      menu: menu, tipoUrl: 3
     }, function(html) {
       $("#body-controlador").html(html);
     }).done(function(){
@@ -82,6 +82,7 @@ $menu = "Prerregistro";
   }
 
 function completarCliente(id, name){
+alert(name)
   $("#procedencia-registro").html(name)
   clienteRegistro = id
   rellenarSelect('#selectSegmentos','segmentos_api', 2,0,'DESCRIPCION', {cliente_id: clienteRegistro});

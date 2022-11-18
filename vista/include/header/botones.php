@@ -27,13 +27,13 @@
 <?php endif; ?>
 
 
-<?php if ($menu == "Estudios") : ?>
+<?php if ($menu == "Estudios - Laboratorio") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarEstudio">
     <i class="bi bi-plus-square"></i> Agregar nuevo estudio
   </button>
 <?php endif; ?>
 
-<?php if ($menu == "Grupos de examenes") : ?>
+<?php if ($menu == "Grupos de examenes - Laboratorio") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarGrupo">
     <i class="bi bi-plus-square"></i> Agregar nuevo grupo
   </button>
