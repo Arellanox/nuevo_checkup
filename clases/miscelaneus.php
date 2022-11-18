@@ -2,7 +2,7 @@
 require_once('../php/phpqrcode/qrlib.php');
 date_default_timezone_set('America/Mexico_City');
 
-class Miscelaneus{
+class Miscelaneus extends Url{
 
     function getFormValues($values){
         $form = array();
@@ -193,27 +193,21 @@ class Miscelaneus{
       return 'http://localhost/nuevo_checkup/'.$tempDir.$nombre.'.png';
     }
 
-    function guardarFiles($files, $dir, $carpetas = ['temp/'], $nombre){
-       /*  foreach ($carpetas as $key => $value) {
-          if(!is_dir($dir.$value)){
-              if(mkdir($dir.$value)){
-                  $dir += $value;
-              }
-          }
-        }
-
-        // return $dir; */
-
+    function guardarFiles($files, $dir, $nombre){
+        #$files debe contener ya el nombre del arreglo, ejemplo $files = $_FILES['reportes'];
+        #$dir, directorio donde se debe enviar el archivo.
+        #$nombre, nuevo nombre del archivo subido.
 
         $urlArray = array();
-        if (!empty($files['reportes']['name'])) {
+
+        if (!empty($files['name'])) {
             $next = 0;
-            foreach ($files['reportes']['name'] as $key => $value) {
-                $extension = pathinfo($files['reportes']['name'][$key], PATHINFO_EXTENSION);
+            foreach ($files['name'] as $key => $value) {
+                $extension = pathinfo($files['name'][$key], PATHINFO_EXTENSION);
                 // $tipo = isset($_POST['tipo_archivo']) ? $_POST['tipo_archivo'] : 2;
                 # obtenemos la ruta temporal del archivo
                 ## $tmp_name = $files['reportes']['tmp_name'][$key];
-                $tmp_name = $files['reportes']['tmp_name'][$key];
+                $tmp_name = $files['tmp_name'][$key];
 
                 #insertamos el registro en la tabla paciente_detalle
                 // $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$extension,$comentario,$tipo]);
