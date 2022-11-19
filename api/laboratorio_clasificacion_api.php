@@ -17,6 +17,7 @@ $api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api
 
 #buscar
 $id = $_POST['id'];
+$area_id = $_POST['area_id'];
 
 #insertar
 $id_clasificacion = $_POST['id_clasificacion'];
@@ -38,7 +39,7 @@ switch ($api) {
         break;
     case 2:
         #getall
-        $response = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', array($id));
+        $response = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', array($id,$area_id));
         break;
     case 3:
         #update
