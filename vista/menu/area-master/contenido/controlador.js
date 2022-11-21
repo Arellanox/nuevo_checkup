@@ -1,4 +1,4 @@
-var tablaContenido, areaActiva = 1;
+var tablaContenido, areaActiva;
 var dataListaPaciente = {api:7};
 var selectPacienteArea, hash;
 //Variable para guardar los servicios de un paciente seleccionado

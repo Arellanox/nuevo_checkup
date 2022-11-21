@@ -61,7 +61,7 @@
 <?php endif; ?>
 
 <?php if ($menu == "Servicios" || $menu == "ServiciosLab") : ?>
-  <?php if ($_SESSION['vista']['LABORATORIO'] == 1): ?>
+  <!-- <?php if ($_SESSION['vista']['LABORATORIO'] == 1): ?>
     <li class="nav-item">
       <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
         <i class="bi bi-box"></i> Metodos
@@ -81,14 +81,54 @@
         <i class="bi bi-collection"></i> Grupos de examenes
       </a>
     </li>
-  <?php endif; ?>
-  <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || true): ?>
+  <?php endif; ?> -->
+  <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 2): ?>
     <li class="nav-item">
       <a href="#Equipos" data-bs-dismiss="offcanvas">
         <i class="bi bi-thunderbolt"></i> Equipos
       </a>
     </li>
   <?php endif; ?>
+<?php endif; ?>
+
+<?php if ($menu == "ServiciosLab") : ?>
+  <!-- <li class="nav-item">
+    <a href="" onclick="history.go(-1)" data-bs-dismiss="offcanvas">
+      <i class="bi bi-reply"></i> Regresar
+    </a>
+  </li> -->
+
+  <li class="nav-item"> 
+    <a href="#Estudios" data-bs-dismiss="offcanvas">
+      <i class="bi bi-box"></i> Estudios
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="#Grupos" data-bs-dismiss="offcanvas">
+      <i class="bi bi-collection"></i> Grupos de examenes
+    </a>
+  </li>
+  
+<?php endif; ?>
+
+<?php if ($menu == "Laboratorio" || $menu == "AreaMaster") : ?>
+
+  <li class="nav-item">
+    <div class="dropdown ">
+      <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-clipboard-heart"></i> Estudios del area
+      </a>
+      <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
+        <a class="dropdown-a align-items-center rounded" type="button" href="" onclick="cargarVistaServiciosPorArea('Estudios')">
+          <i class="bi bi-dot"></i> Estudios
+        </a>
+        <a class="dropdown-a align-items-center rounded" type="button" href="" onclick="cargarVistaServiciosPorArea('Grupos')">
+          <i class="bi bi-dot"></i> Grupos
+        </a>
+      </ul>
+    </div>
+  </li>
 <?php endif; ?>
 
 <?php if ($menu == "ListaPrecios") : ?>

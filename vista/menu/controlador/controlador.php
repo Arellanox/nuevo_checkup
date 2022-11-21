@@ -15,6 +15,9 @@ session_start();
 <div class="" id="modals-js"> <!-- Aqui podrán incluir los modals --> </div>
 
 <script type="text/javascript">
+
+
+
   //Variable global para datatable
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -40,6 +43,44 @@ session_start();
         resolve(1);
       });
     });
+  }
+
+  function obtenerAreaActiva(){
+    if (typeof areaActual === 'undefined') {
+      return areaActiva; //Funciona para la area master, y probablemente para otras...
+    }
+    return areaActual; // Area actual es para areas independientes coloquen la ID donde pertenecen
+  }
+
+  function cargarVistaServiciosPorArea(hash){ 
+    event.preventDefault()
+    subarea = obtenerAreaActiva()
+    // Si existe la variable
+  
+    switch (subarea) {
+      case 6:
+        cargarVistaServiciosPorAreaURL(hash, 'laboratorio-servicios');
+        break;
+      case 3: case 4: case 5: case 7: case 8: case 9:
+        let base64 = new Base64();
+        var s = base64.encode(subarea); // BJlgLS
+        // var n = base64.decode('BJlgLS'); 
+        cargarVistaServiciosPorAreaURL(hash, 'area-servicios', '?var='+s);
+        break;
+      default:
+        break;
+    }
+  }
+
+  function cargarVistaServiciosPorAreaURL(hash, ubicacion, variables){
+    switch (hash) {
+      case 'Estudios':
+        window.location.href = "http://localhost/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables/*+"#Estudios";*/
+        break;
+      case 'Grupos':
+        window.location.href = "http://localhost/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables/*+"#Grupos";*/
+        break;
+    }
   }
 
 
