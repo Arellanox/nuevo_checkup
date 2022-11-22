@@ -3,7 +3,7 @@ $menu = $_POST['menu'];
 $tipoUrl = isset($_POST['tipoUrl']) ?  $_POST['tipoUrl'] : 1;
 date_default_timezone_set('America/Mexico_City');
 session_start();
-
+include "../../variables.php";
 ?>
 
 <!-- HTML -->
@@ -23,10 +23,20 @@ session_start();
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
-  let http = "http://";
-  let servidor = "localhost";
-  // let http = "https://";
-  // let servidor = "bimo-lab.com";
+
+  switch ('<?php echo $url ?>') {
+    case 'localhost':
+      var http = "http://";
+      var servidor = "localhost";
+      break;
+    case 'bimo-lab':
+      var http = "https://";
+      var servidor = "bimo-lab.com";
+      break;
+  
+    default:
+      break;
+  }
   // <!-- Aqui controlar e incluir las modals -->
   obtenerHeader('<?php echo $menu ?>');
 

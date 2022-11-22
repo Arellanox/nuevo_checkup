@@ -242,4 +242,10 @@ function obtenerSignosVitales(div){
   });
 }
 
+//Mayus
+$('#curp-paciente').css('text-transform', 'uppercase')
+$('#curp-paciente').val(function(){
+  return this.value.toUpperCase();
+})
+
  // $("#formDIV").addClass("disable-div");

@@ -6,7 +6,7 @@ var tablaRecepcionPacientes, dataRecepcion = {api: 1};
 
 
 function obtenerContenidoEspera(){
-  obtenerTitulo('Recepción | Pacientes en espera'); //Aqui mandar el nombre de la area
+  obtenerTitulo('Recepción | Espera'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion.php", function(html){
      $("#body-js").html(html);
      // Datatable
@@ -17,7 +17,7 @@ function obtenerContenidoEspera(){
 }
 
 function obtenerContenidoAceptados(){
-  obtenerTitulo('Recepción | Pacientes captados'); //Aqui mandar el nombre de la area
+  obtenerTitulo('Recepción | Ingresados'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion-ingresados.php", function(html){
      $("#body-js").html(html);
      dataRecepcion = {api: 1, estado:1};
@@ -29,7 +29,7 @@ function obtenerContenidoAceptados(){
 }
 
 function obtenerContenidoRechazados(){
-  obtenerTitulo('Recepción | Pacientes rechazados'); //Aqui mandar el nombre de la area
+  obtenerTitulo('Recepción | Rechazados'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion-rechazados.php", function(html){
      $("#body-js").html(html);
      dataRecepcion = {api: 1, estado:0};

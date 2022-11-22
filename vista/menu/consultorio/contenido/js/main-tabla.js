@@ -18,7 +18,7 @@ tablaMain = $('#TablaListaConsultorio').DataTable({
       {data: 'COUNT'},
       {data: 'NOMBRE_COMPLETO'},
       {data: 'PREFOLIO'},
-      {data: 'PROCEDENCIA'},
+      {data: 'CLIENTE'},
       {data: 'FECHA_AGENDA'},
       {data: 'GENERO'},
       {data: 'SEGMENTO'},

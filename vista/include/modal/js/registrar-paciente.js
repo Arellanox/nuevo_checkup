@@ -89,6 +89,16 @@ $("#formRegistrarPaciente").submit(function(event){
    // $('#checkCurpPasaporte').val($(this).is(':checked'));
  });
 
+ //Campos mayus
+ $('#formRegistrarPaciente input[type=text]').css('text-transform', 'uppercase')
+ $('#formRegistrarPaciente input[type=text]').on('change keyup', function(){
+  $(this).css('text-transform', 'uppercase')
+  $(this).val(function(){
+    return this.value.toUpperCase();
+  })
+ })
+//  this.value=this.value.toUpperCase();
+
 
 
 //  const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente');
