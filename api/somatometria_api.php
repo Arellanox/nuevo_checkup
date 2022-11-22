@@ -15,7 +15,7 @@ switch ($api) {
     case 1:
         # reservado para insertar
         foreach ($medidas as $medida) {
-            $response = $master->insertByProcedure("sp_mesometria_signos_vitales_g",[$medida['id_signo'],$medida['id_turno'],$medida['tipo'],$medida['resultado']]);
+            $response = $master->insertByProcedure("sp_mesometria_signos_vitales_g",[$medida['id_signo'],$id_turno,$medida['tipo'],$medida['resultado']]);
         }
        
         break;
