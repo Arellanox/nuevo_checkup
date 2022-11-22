@@ -14,8 +14,9 @@ $medidas = $_POST['medidas'];
 switch ($api) {
     case 1:
         # reservado para insertar
-        foreach ($medidas as $medida) {
-            $response = $master->insertByProcedure("sp_mesometria_signos_vitales_g",[$medida['id_signo'],$id_turno,$medida['tipo'],$medida['resultado']]);
+        foreach ($medidas as $key => $medida) {
+            $id_metrica = $key + 1;
+            $response = $master->insertByProcedure("sp_mesometria_signos_vitales_g",[$medida['id_signo'],$id_turno,$id_metrica,$medida['resultado']]);
         }
        
         break;
