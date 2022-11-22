@@ -73,7 +73,6 @@ $frecuencia = $_POST['frecuencia'];
 $via_de_administracion = $_POST['via_de_administracion'];
 $duracion_del_tratamiento = $_POST['duracion_del_tratamiento'];
 $indicaciones_para_el_uso = $_POST['indicaciones_para_el_uso'];
- 
 
 $recetaParams = array(
     $id_receta,
@@ -87,7 +86,10 @@ $recetaParams = array(
     $duracion_del_tratamiento,
     $indicaciones_para_el_uso
 );
-$response="";
+
+
+#anamnesis por aparatos
+$anamnesis = $_POST['anamnesis'];
 
 $master = new Master();
 switch ($api) {
@@ -121,7 +123,39 @@ switch ($api) {
         break;
     case 8:
         # insertar anamnesis-aparatos
-        
+        foreach ($anamnesis as $key => $value) {
+            if(count($value)==3){
+                $new = array(
+                    null,
+                    $turno_id,
+                    $value[0], # id subtipo
+                    $value[1], # id respuesta
+                    $value[2] #notas
+                );
+            } else {
+                if(is_numeric($value[1])){
+                    $new = array(
+                        null,
+                        $turno_id,
+                        $value[0], # id subtipo
+                        $value[1], # id respuesta
+                        null #notas
+                    );
+                } else {
+                    $new = array(
+                        null,
+                        $turno_id,
+                        $value[0], # id subtipo
+                        null, # id respuesta
+                        $value[1] #notas
+                    );
+
+                }
+            }
+
+            $response = $master->insertByProcedure("sp_consultorio_anamnesis_aparatos_g", $new);
+
+        }
         break;
     case 9:
         # insetar receta
