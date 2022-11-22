@@ -29,7 +29,7 @@ include "../../variables.php";
       var http = "http://";
       var servidor = "localhost";
       break;
-    case 'bimo-lab':
+    case 'bimo-lab.com':
       var http = "https://";
       var servidor = "bimo-lab.com";
       break;
@@ -85,10 +85,10 @@ include "../../variables.php";
   function cargarVistaServiciosPorAreaURL(hash, ubicacion, variables){
     switch (hash) {
       case 'Estudios':
-        window.location.href = "http://localhost/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables/*+"#Estudios";*/
+        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables/*+"#Estudios";*/
         break;
       case 'Grupos':
-        window.location.href = "http://localhost/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables/*+"#Grupos";*/
+        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables/*+"#Grupos";*/
         break;
     }
   }
