@@ -10,14 +10,20 @@
           <!-- <p class="text-center">Agrege un nuevo <strong>Grupo</strong> </p> -->
           <div class="row">
             <div class="col-12">
-              <label for="motivo-consulta" class="form-label">¿Cuál es el motivo de la consulta?</label>
-              <input type="text" name="motivo-consulta" class="form-control input-form" required>
+              <label for="motivo_consulta" class="form-label">¿Cuál es el motivo de la consulta?</label>
+              <input type="text" name="motivo_consulta" class="form-control input-form" required>
             </div>
             <div class="col-12">
-              <label for="cita-subsecuente" class="form-label">Elegir cita subsecuente (si la tiene)</label>
-              <select name="cita-subsecuente" id="select-cita-subsecuente">
+              <label for="consulta_subsecuente" class="form-label">Elegir cita subsecuente (si la tiene)</label>
+              <select name="consulta_subsecuente" id="select-cita-subsecuente">
 
               </select>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkCitaSubsecuente">
+                <label class="form-check-label" for="checkCitaSubsecuente">
+                  No subsecuente
+                </label>
+              </div>
             </div>
           </div>
         </form>

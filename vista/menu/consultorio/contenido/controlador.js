@@ -1,8 +1,8 @@
 //Menu predeterminado
 // hasLocation();
-// $(window).on("hashchange", function (e) {
-//   hasLocation();
-// });
+$(window).on("hashchange", function (e) {
+  hasLocation();
+});
 
 var id, idturno, idconsulta, dataConsulta = new Array, tablaMain;
 obtenerConsultorioMain()
@@ -23,19 +23,26 @@ function obtenerConsultorioMain(){
   });
 }
 
+
+var pacienteActivo = new GuardarArreglo()
+var infoConsultaActivo = new GuardarArreglo();
+
 // Obtener el perfil del paciente (antecedentes);
 function obtenerContenidoAntecedentes(data) {
+
   loader("In")
   obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
   $.post("contenido/consultorio_paciente.php", function (html) {
     var idrow;
     $("#body-js").html(html) // Rellenar la plantilla de consulta
   }).done(function() {
+    pacienteActivo = new GuardarArreglo(data)
+    $.getScript("modals/controlador-perfilPaciente.js");
     // Botones
     $.getScript("contenido/js/consultorio-paciente-botones.js");
     // Funciones
     $.getScript('contenido/js/consultorio-paciente.js').done(function(){
-      obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'], data['COMPLETADO'])
+      obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'])
     });
     select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
   });
@@ -43,7 +50,7 @@ function obtenerContenidoAntecedentes(data) {
 
 
 // obtenerContenidoConsulta()
-function obtenerContenidoConsulta(id = 1, idturno  = 1, idconsulta = 1, dataConsulta = 1) {
+function obtenerContenidoConsulta(data, idconsulta) {
   loader("In")
   // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
   $("#titulo-js").html(''); //Vaciar la cabeza de titulo
@@ -58,7 +65,7 @@ function obtenerContenidoConsulta(id = 1, idturno  = 1, idconsulta = 1, dataCons
     $.getScript("contenido/js/consulta-paciente.js").done(function(){
       // Botones
       $.getScript("contenido/js/consulta-paciente-botones.js");
-      obtenerConsulta(id, idturno, idconsulta);
+      obtenerConsulta(data, idconsulta);
     });
     loader("Out")
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
@@ -67,7 +74,7 @@ function obtenerContenidoConsulta(id = 1, idturno  = 1, idconsulta = 1, dataCons
 
 // METODOS
 // Rellena la plantilla con metodos de espera Async Await
-async function obtenerConsultorio(id, idTurno, estado){
+async function obtenerConsultorio(id, idTurno){
   // switch (estado) {
   //   case 0:
       
@@ -90,6 +97,10 @@ async function obtenerConsultorio(id, idTurno, estado){
 
   // alert("Antes de notas historial")
   await obtenerNotasHistorial(id);
+
+  //Verificar si hay consulta actual
+  await consultarConsulta(idTurno);
+
   // alert("Antes de obtenerHistorialConsultas")
   await obtenerHistorialConsultas(id);
   // alert("Funcion terminada")
@@ -117,23 +128,23 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle =
 
 
 // No deberia existir
-// function hasLocation() {
-//   var hash = window.location.hash.substring(1);
-//   $("a").removeClass("navlinkactive");
-//   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-//   switch (hash) {
-//     case "Perfil":
-//       obtenerContenidoAntecedentes(18, 18);
-//       break;
-//     case "Consultorio":
-//       obtenerContenidoConsulta();
-//       break;
-//     case "Main":
-//       obtenerConsultorioMain();
-//       break;
-//     default:
-//       window.location.hash = 'Main';
-//       // obtenerContenidoEstudios("Estudios");
-//       break;
-//   }
-// }
+function hasLocation() {
+  var hash = window.location.hash.substring(1);
+  $("a").removeClass("navlinkactive");
+  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+  switch (hash) {
+    // case "Perfil":
+    //   obtenerContenidoAntecedentes(18, 18);
+    //   break;
+    case "Consultorio":
+      obtenerContenidoConsulta();
+      break;
+    // case "Main":
+    //   obtenerConsultorioMain();
+    //   break;
+    default:
+      // window.location.hash = 'Main';
+      // obtenerContenidoEstudios("Estudios");
+      break;
+  }
+}

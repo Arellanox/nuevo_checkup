@@ -67,7 +67,6 @@ function validarVista(area) {
 // Verificar si tiene una sesión activa
 function loggin(callback, tipoUrl = 1){
   if(tipoUrl != 3){
-     alert('Validando Login')
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/usuarios_api.php",
         type: "POST",
@@ -383,9 +382,9 @@ function setProcedenciaOption(select, idProcedencia){
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select, api, num,v,c, values = {}, callback = function(array){}){
+function rellenarSelect(select, api, apinum,v,c, values = {}, callback = function(array){}){
   return new Promise(resolve => {
-    values.api = num;
+    values.api = apinum;
 
     let htmlContent;
     // Crear arreglo de contenido
@@ -849,9 +848,13 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   datatype: 'json',
                   success: function (data) {
                     data = jQuery.parseJSON(data);
-                    row = data['response']['data'][0];
-                    console.log(data);
-                    
+                    row = data['response']['data'];
+                    // console.log(data);
+                    for (let i = 0; i < row.length; i++) {
+                      // console.log($('#info-signos-'+i))
+                      $('#info-signos-'+i).html(row[i]['VALOR']+" <strong>"+row[i]['UNIDAD_MEDIDA']+"</strong>")
+                      
+                    }
                   },
                   complete: function(){
                     $(panel).fadeIn(100);

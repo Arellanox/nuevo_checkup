@@ -111,7 +111,7 @@ include "../../variables.php";
               console.log(validar);
               if(validar == true){ 
                 // <!-- Aqui controlar e incluir los tablas -->
-                $.getScript('modals/controlador.js');
+                $.getScript('modals/controlador.js'); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!
               }
             });
           })

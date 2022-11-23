@@ -1,12 +1,26 @@
+const modalMotivoConsulta = document.getElementById("modalMotivoConsulta");
+modalMotivoConsulta.addEventListener("show.bs.modal", (event) => {
+
+  rellenarSelect('#select-cita-subsecuente', 'consulta_api', 2, 0, 'DESCRIPCION', {id_paciente: pacienteActivo.array['ID_PACIENTE']}, function (array){
+    if (array.length == 0) {
+      $('#select-cita-subsecuente').removeAttr('required');
+      $('#select-cita-subsecuente').prop('disabled', true);
+      $('#checkCitaSubsecuente').prop('checked', true);
+    }
+  })
+});
+
 select2('#select-cita-subsecuente', 'modalMotivoConsulta')
+
 $('#formMotivoConsulta').submit(function(event){
   event.preventDefault();
   var form = document.getElementById("formMotivoConsulta");
   var formData = new FormData(form);
-  formData.set('api', 7)
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO'])
+  formData.set('api', 1)
   Swal.fire({
     title: "¿Está seguro de continuar?",
-    text: "¡La consulta necesita terminarla!",
+    text: "¡No podrá cambiar la consulta!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -18,18 +32,35 @@ $('#formMotivoConsulta').submit(function(event){
       // Esto va dentro del AJAX
       $.ajax({
         data: formData,
-        url: "../../../api/turnos_api.php",
+        url: "../../../api/consulta_api.php",
         type: "POST",
-        datatype: "json",
+        dataType: "json",
         processData: false,
         contentType: false,
         success: function (data) {
+          console.log(data);
+
           // Llamar la vista de consulta
+          obtenerContenidoConsulta(pacienteActivo, data['response']['data'])
           document.getElementById("formMotivoConsulta").reset();
           $("#modalMotivoConsulta").modal("hide");
-          obtenerContenidoConsulta()
+
+          $('#select-cita-subsecuente').prop('required', true);
+          $('#select-cita-subsecuente').prop('disabled', false);
+          $('#checkCitaSubsecuente').prop('checked', false);
         },
       });
     }
   });
+})
+
+$('#checkCitaSubsecuente').change(function() {
+  if($(this).is(":checked")) {
+    $('#select-cita-subsecuente').removeAttr('required');
+    $('#select-cita-subsecuente').prop('disabled', true);
+  }else{
+    $('#select-cita-subsecuente').prop('required', true);
+    $('#select-cita-subsecuente').prop('disabled', false);
+    $('#select-cita-subsecuente').focus();
+  }
 })

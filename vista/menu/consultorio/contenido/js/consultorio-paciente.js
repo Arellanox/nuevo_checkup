@@ -86,7 +86,7 @@ function obtenerNotasHistorial(id){
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
       type: "POST",
-      datatype: "json",
+      dataType: "json",
       data: { id: id, api: 7 },
       success: function (data) {
         // agregarNotaConsulta('@Usuario actual', event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial')
@@ -99,12 +99,28 @@ function obtenerNotasHistorial(id){
 
 }
 
+function consultarConsulta(id){ return new Promise(resolve => {
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      type: "POST",
+      data: { turno_id: id, api: 2 },
+      dataType: "json",
+      success: function (data) {
+        console.log(data);
+      },
+      complete:function(){
+        resolve(1);
+      }
+    });
+  })
+}
+
 function obtenerHistorialConsultas(id){
   return new Promise(resolve => {
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
       type: "POST",
-      datatype: "json",
+      dataType: "json",
       data: { id: id, api: 7 },
       success: function (data) {
         $('#historial-consultas-paciente').html('')
