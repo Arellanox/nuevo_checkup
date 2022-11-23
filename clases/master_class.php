@@ -4,12 +4,20 @@ include "miscelaneus.php";
 class Master extends Miscelaneus
 {
     public $mis;
+    public $urlServer;
+    public $urlLocal;
+    public $urlComodin;
+    public $urlOrdenesMedicas;
     public $urlEquiposLaboratorio;
 
     function Master()
     {
         $this->mis = new Miscelaneus();
-        $this->urlEquiposLaboratorio = "../archivos/Equipos/";
+        $this->urlServer = 'https://bimo-lab.com/';
+        $this->urlLocal = 'http://localhost/';
+        $this->urlComodin = '../';
+        $this->urlOrdenesMedicas = 'archivos/ordenes_medicas/';
+        $this->urlEquiposLaboratorio = "archivos/Equipos/";
     }
 
     function connection()

@@ -193,7 +193,7 @@ class Miscelaneus{
       return 'http://localhost/nuevo_checkup/'.$tempDir.$nombre.'.png';
     }
 
-    function guardarFiles($files, $dir, $carpetas = ['temp/'], $nombre){
+    function guardarFiles($files, $dir/*, $carpetas = ['temp/']*/, $nombre){
        /*  foreach ($carpetas as $key => $value) {
           if(!is_dir($dir.$value)){
               if(mkdir($dir.$value)){
@@ -237,15 +237,46 @@ class Miscelaneus{
 
     function createDir($dir){
         if(!is_dir($dir)){
+            # si no existe el directorio, intenta crearlo
             if(!mkdir($dir, 0777, true)){
-                echo "no pudo crear el directorio. $dir";
-                exit;
+                # si no puede ejecutar la linea del if, envia un mensaje de error al log
+                $this->setLog("no pudo crear el directorio. $dir",$dir);
             } else {
+                # si puede crearlo, enviar mensaje de exito [1]
                 return 1;
             }
+        } else {
+            # si el directorio ya existe, envia codigo de exito [1]
+            return 1;
         }
-
+        # si no puede crearlo, envia mensaje de error [0]
         return 0;
     } //fin createDir
+
+    // comprueba si un arreglo esta realmente vacio
+    public function checkArray($array,$isFile = 0){
+        $newArray = array();
+        foreach($array as $key => $value){
+            if(is_array($value)){
+                $newArray[$key] = $this->checkArray($value);
+            } else {
+                if(!empty($value)){
+                    $newArray[$key] = $value;
+                }
+            }
+            
+        }// fin del foreach
+
+        if($isFile==1){
+            $aux = array();
+            foreach($newArray as $key => $value){
+                if(count($value)>1){
+                    $aux[$key] = $value;
+                }
+            } // fin foreach
+            $newArray = $aux;
+        }
+        return $newArray;
+    } // fin de checkArray
 }
 ?>
