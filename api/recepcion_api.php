@@ -27,6 +27,17 @@ if (!is_null($_POST['servicios'])) {
     $servicios = explode(",", $_POST['servicios']); //array
 }
 
+#ordenes medicas
+$orden_laboratorio = $_FILES['orden_laboratorio'];
+$orden_rayos_x = $_FILES['orden_rayos_x'];
+$orden_ultrasonido = $_FILES['orden_ultrasonido'];
+
+$ordenes = array(
+    'ORDEN_LABORATORIO' => $orden_laboratorio,
+    'ORDEN_RAYOS_X' => $orden_rayos_x,
+    'ORDEN_ULTRASONIDO' => $orden_ultrasonido
+);
+
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
@@ -39,13 +50,31 @@ switch ($api) {
     case 2:
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
-        $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
+           $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
 
         # Insertar el detalle del paquete al turno en cuestion
         if ($estado_paciente == 1) {
             # si el paciente es aceptado, cargar los estudios correspondientes
             rename($identificacion, "../../archivos/identificaciones/" . $idTurno . ".png");
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null));
+            #aqui subir las ordenes medicas si las hay
+            #crear la carpeta de tunos dentro de ordenes_medicas
+
+
+
+            if(count($ordenes)!=0){ 
+                $dir = $master->urlComodin.$master->urlOrdenesMedicas."$idTurno/";
+                $r = $master->createDir($dir);
+                if ($r) {
+                    
+                    foreach($ordenes as $key=>$orden){
+                        $nuevoNombre = $key."_".$idTurno;
+                        $return = $master->guardarFiles($orden,$dir,$nuevoNombre);
+                    }
+                }else {
+                    $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas","recepcion_api.php [case 2]");
+                }
+            }
         } else {
             # si el paciente es rechazado, se desactivan los resultados de su turno.
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
