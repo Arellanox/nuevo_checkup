@@ -1,8 +1,5 @@
-// Exploracion clinica
-$('#btn-agregar-exploracion-clinina').on('click', function () {
-  var select = $('#select-exploracion-clinica').val()
-  var text = $('#text-exploracion-clinica').val()
-})
+
+
 // Exploracion clinica
 $('#select-exploracion-clinica').on('change', function () {
   let selectoo = $('#select-exploracion-clinica').val();
@@ -148,14 +145,58 @@ $('#btn-agregar-exploracion-clinina').on('click', function(){
 
   let titulo = $('#select-exploracion-clinica option').filter(':selected').text();
 
-$.ajax({
-      data: {titulo:$('#select-exploracion-clinica').val(),mensaje:$('#text-exploracion-clinica').val(),api: 7},
-          url: "../../../api/turnos_api.php",
-          type: "POST",
-          success: function(data) {
-            alert("antes de la nota")
-            agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio','mt-3')
-            alert("despues de la nota")
-          },
-        });
+  $.ajax({
+    data: {titulo:$('#select-exploracion-clinica').val(),mensaje:$('#text-exploracion-clinica').val(),api: 7},
+    url: "../../../api/turnos_api.php",
+    type: "POST",
+    success: function(data) {
+      // alert("antes de la nota")
+      agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio','mt-3')
+      $('#text-exploracion-clinica').val('')
+      // alert("despues de la nota")
+    },
+  });
 })
+//Eliminar los comentario 
+$(document).on('click', '.eliminarComentario', function () {
+  let id = $(this).attr('data-bs-id');
+  let comentario = $(this);
+
+  $.ajax({
+    data: {id: id,api: 7},
+    url: "../../../api/turnos_api.php",
+    type: "POST",
+    success: function(data) {
+      // alert("antes de la nota")
+      // if (mensajeAjax(data)) {
+        var parent_element = $(comentario).closest("div[class='mt-3']");
+        console.log(parent_element)
+        $(parent_element).remove()
+      // }
+
+      // alert("despues de la nota")
+    },
+  });
+  // eliminarElementoArray(id);
+  // console.log(id);
+
+});
+
+
+
+
+//Agegar form para receta
+$('#btn-agregar-medicamento-receta').click(function(){
+  nuevoMedicamentoReceta("#recetas-medicamentos")
+})
+
+//Eliminar los campos 
+$(document).on('click', '.eliminarRecetaActual', function () {
+  let id = $(this).attr('data-bs-id');
+
+  // eliminarElementoArray(id);
+  // console.log(id);
+  var parent_element = $(this).closest("div[class='col-12 d-flex justify-content-end']");
+  $(parent_element).remove()
+
+});

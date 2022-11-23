@@ -13,7 +13,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-estatura" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">m</span>
               </div>
             </div>
@@ -26,7 +26,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-peso" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">kg</span>
               </div>
             </div>
@@ -39,7 +39,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-corporal" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">kg/m2</span>
               </div>
             </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-temperatura" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">C</span>
               </div>
             </div>
@@ -65,7 +65,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-respiratoria" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">r/m</span>
               </div>
             </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-sistolica" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">mmHg</span>
               </div>
             </div>
@@ -91,7 +91,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-diastolica" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">mmHg</span>
               </div>
             </div>
@@ -104,7 +104,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">bpm</span>
               </div>
             </div>
@@ -117,7 +117,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">kg</span>
               </div>
             </div>
@@ -130,7 +130,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">cm</span>
               </div>
             </div>
@@ -142,7 +142,7 @@
               <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Saturación de Oxígeno</p>
             </div>
             <div class="col-6 col-lg-3">
-              <input type="number" class="form-control input-form" name="meso-saturacionOxi" placeholder=""  > <!-- required -->
+              <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
             </div>
           </div>
         </li>
@@ -153,7 +153,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">%</span>
               </div>
             </div>
@@ -166,7 +166,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">%</span>
               </div>
             </div>
@@ -179,7 +179,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">mm</span>
               </div>
             </div>
@@ -192,7 +192,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">tmb</span>
               </div>
             </div>
@@ -205,7 +205,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">%</span>
               </div>
             </div>
@@ -218,7 +218,7 @@
             </div>
             <div class="col-6 col-lg-3">
               <div class="input-group">
-                <input type="number" class="form-control input-form" name="meso-cardiaca" placeholder=""  > <!-- required -->
+                <input type="number" class="form-control input-form" name="medidas['resultado']" placeholder=""  > <!-- required -->
                 <span class="input-span">años</span>
               </div>
             </div>

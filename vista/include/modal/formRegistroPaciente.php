@@ -33,8 +33,8 @@
   <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
 </div>
 <div class="col-5 col-lg-3">
-  <label for="telefono" class="form-label">Teléfono</label>
-  <input type="number" class="form-control input-form"  name="telefono" placeholder="" >
+  <label for="celular" class="form-label">Teléfono</label>
+  <input type="number" class="form-control input-form"  name="celular" placeholder="" >
   <!-- pattern="[0-9]{10}" -->
 </div>
 

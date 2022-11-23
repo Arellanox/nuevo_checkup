@@ -167,20 +167,20 @@ switch ($api) {
 
         if(is_array($response)){
             $newResponse = array();
-            foreach ($response as $group) {
-                $tests = $master->getByProcedure('sp_detalle_grupo_b',array($group['ID_SERVICIO'],null));
-                if (sizeof($tests)>0) {
-                    $group['DETALLE_ESTUDIOS'] = $tests;
-                } else {
-                    $group['DETALLE_ESTUDIOS'] = 'NO TIENE ESTUDIOS ASOCIADOS';
-                }
+            // foreach ($response as $group) {
+            //     $tests = $master->getByProcedure('sp_detalle_grupo_b',array($group['ID_SERVICIO'],null));
+            //     if (sizeof($tests)>0) {
+            //         $group['DETALLE_ESTUDIOS'] = $tests;
+            //     } else {
+            //         $group['DETALLE_ESTUDIOS'] = 'NO TIENE ESTUDIOS ASOCIADOS';
+            //     }
 
-                $newResponse[] = $group;
-            }
+            //     $newResponse[] = $group;
+            // }
             echo json_encode(array(
                 'response'=>array(
                     'code'=>1,
-                    'data'=>$newResponse
+                    'data'=>$response
                 )
                 ));
         } else {

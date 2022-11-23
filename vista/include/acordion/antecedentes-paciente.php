@@ -2357,7 +2357,7 @@
         </div>
       </div> -->
     </form>
-
+    <div class="d-flex justify-content-end p-2" id="div-btn-guardarAntecedentes"> </div>
   </div>
 </div>
 
@@ -2385,7 +2385,7 @@
           $('#'+collapID).find(':input').prop('required', false);
       }
   });
-   $('input[type="radio"]').prop("checked", true);
+  //  $('input[type="radio"]').prop("checked", true);
 
   // $("#iniciar-consulta").on('click', function(){
   //   if ($('input[type="radio"]:not(:checked)').length > 125) {

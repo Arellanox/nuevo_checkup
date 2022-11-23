@@ -1,11 +1,11 @@
 //Menu predeterminado
-hasLocation();
-$(window).on("hashchange", function (e) {
-  hasLocation();
-});
+// hasLocation();
+// $(window).on("hashchange", function (e) {
+//   hasLocation();
+// });
 
 var id, idturno, idconsulta, dataConsulta = new Array, tablaMain;
-
+obtenerConsultorioMain()
 //Menú principal para consultorio
 function obtenerConsultorioMain(){
   // loader("In")
@@ -45,7 +45,7 @@ function obtenerContenidoAntecedentes(data) {
 // obtenerContenidoConsulta()
 function obtenerContenidoConsulta(id = 1, idturno  = 1, idconsulta = 1, dataConsulta = 1) {
   loader("In")
-  obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
+  // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
   $("#titulo-js").html(''); //Vaciar la cabeza de titulo
   $.post("contenido/consultorio_consulta.php", function (html) {
     var idrow;
@@ -54,10 +54,10 @@ function obtenerContenidoConsulta(id = 1, idturno  = 1, idconsulta = 1, dataCons
     // $.getScript("contenido/js/estudio-tabla.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
   }).done(function(){
-    // Botones
-    $.getScript("contenido/js/consulta-paciente-botones.js");
     // Obtener metodos para el dom
     $.getScript("contenido/js/consulta-paciente.js").done(function(){
+      // Botones
+      $.getScript("contenido/js/consulta-paciente-botones.js");
       obtenerConsulta(id, idturno, idconsulta);
     });
     loader("Out")
@@ -85,6 +85,7 @@ async function obtenerConsultorio(id, idTurno, estado){
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   // alert("Antes de antecedentes")
   await obtenerAntecedentes('#antecedentes-paciente', idTurno);
+  $('#div-btn-guardarAntecedentes').append('<button type="button" class="btn btn-confirmar m-1" id="guardar-antecedentes"> <i class="bi bi-plus"></i> Guardar </button>')
   // setValues(idTurno) //llamar los valores para los antecedentes
 
   // alert("Antes de notas historial")
@@ -107,32 +108,32 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle =
   }
 
   let html = '<div class="'+classTittle+'">'+
-                '<h4 class="m-3">'+tittle+' <button type="button" class="btn btn-hover me-2" data-bs-id="id"> <i class="bi bi-trash"></i> </button> '+date+'</h4> '+
+                '<h4 class="m-3">'+tittle+' <button type="button" class="btn btn-hover eliminarComentario" data-bs-id="id"> <i class="bi bi-trash"></i> </button> '+date+'</h4> '+
                 '<div style="'+style+'">'+
-                  '<p class="none-p">'+text+'<p> </div> </div>';
+              '<p class="none-p">'+text+'<p> </div> </div>';
 
   $(appendDiv).append(html);
 }
 
 
 // No deberia existir
-function hasLocation() {
-  var hash = window.location.hash.substring(1);
-  $("a").removeClass("navlinkactive");
-  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-  switch (hash) {
-    case "Perfil":
-      obtenerContenidoAntecedentes(18, 18);
-      break;
-    case "Consultorio":
-      obtenerContenidoConsulta();
-      break;
-    case "Main":
-      obtenerConsultorioMain();
-      break;
-    default:
-      window.location.hash = 'Main';
-      // obtenerContenidoEstudios("Estudios");
-      break;
-  }
-}
+// function hasLocation() {
+//   var hash = window.location.hash.substring(1);
+//   $("a").removeClass("navlinkactive");
+//   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+//   switch (hash) {
+//     case "Perfil":
+//       obtenerContenidoAntecedentes(18, 18);
+//       break;
+//     case "Consultorio":
+//       obtenerContenidoConsulta();
+//       break;
+//     case "Main":
+//       obtenerConsultorioMain();
+//       break;
+//     default:
+//       window.location.hash = 'Main';
+//       // obtenerContenidoEstudios("Estudios");
+//       break;
+//   }
+// }

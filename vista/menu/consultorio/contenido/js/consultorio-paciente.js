@@ -107,7 +107,7 @@ function obtenerHistorialConsultas(id){
       datatype: "json",
       data: { id: id, api: 7 },
       success: function (data) {
-
+        $('#historial-consultas-paciente').html('')
         let fecha = '01 Sep 2022';
         let nombre = 'Nombre medico';
         let motivo = 'motivo consulta';

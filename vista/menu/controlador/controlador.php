@@ -24,7 +24,7 @@ include "../../variables.php";
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 
-  switch ('<?php echo $url ?>') {
+  switch ('<?php echo $url; ?>') {
     case 'localhost':
       var http = "http://";
       var servidor = "localhost";
@@ -108,6 +108,7 @@ include "../../variables.php";
             // console.log(session)
             // <!-- Aqui controlar e incluir las modals -->
             $.getScript('contenido/controlador.js').done(function (data) {
+              console.log(validar);
               if(validar == true){ 
                 // <!-- Aqui controlar e incluir los tablas -->
                 $.getScript('modals/controlador.js');
@@ -115,7 +116,7 @@ include "../../variables.php";
             });
           })
         }
-      }, <?php echo $tipoUrl; ?>)
+      }, <?php echo $tipoUrl ; ?>)
     });
   });
 </script>

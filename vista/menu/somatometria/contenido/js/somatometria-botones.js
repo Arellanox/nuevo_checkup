@@ -2,8 +2,8 @@ $('#form-resultados-somatometria').submit(function (event) {
     event.preventDefault();
     var form = document.getElementById("form-resultados-somatometria");
     var formData = new FormData(form);
-    formData.set('id', 2)
-    formData.set('api', 7);
+    formData.set('id_turno', turno)
+    formData.set('api', 1);
 
     Swal.fire({
       title: "¿Está seguro que todos los datos están correctos?",
@@ -17,7 +17,7 @@ $('#form-resultados-somatometria').submit(function (event) {
       if (result.isConfirmed) {
         $.ajax({
           data: formData,
-          url: "../../../api/turnos_api.php",
+          url: "../../../api/somatometria_api.php",
           type: "POST",
           processData: false,
           contentType: false,

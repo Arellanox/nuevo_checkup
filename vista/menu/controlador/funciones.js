@@ -67,6 +67,7 @@ function validarVista(area) {
 // Verificar si tiene una sesión activa
 function loggin(callback, tipoUrl = 1){
   if(tipoUrl != 3){
+     alert('Validando Login')
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/usuarios_api.php",
         type: "POST",
@@ -76,6 +77,7 @@ function loggin(callback, tipoUrl = 1){
           if(mensajeAjax(data)){
             console.log(data);
             if (data['response']['code'] == 1) {
+              validar = true
               callback(1)
             }else{
               // alert(tipoUrl);
