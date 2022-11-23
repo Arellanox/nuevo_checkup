@@ -193,7 +193,7 @@ class Miscelaneus{
       return 'http://localhost/nuevo_checkup/'.$tempDir.$nombre.'.png';
     }
 
-    function guardarFiles($files, $dir/*, $carpetas = ['temp/']*/, $nombre){
+    function guardarFiles($files,$posicion='default', $dir/*, $carpetas = ['temp/']*/, $nombre){
        /*  foreach ($carpetas as $key => $value) {
           if(!is_dir($dir.$value)){
               if(mkdir($dir.$value)){
@@ -203,26 +203,26 @@ class Miscelaneus{
         }
 
         // return $dir; */
-
-
+        print_r($files[$posicion]['name']);
         $urlArray = array();
-        if (!empty($files['reportes']['name'])) {
+        if (!empty($files[$posicion]['name'])) {
+            echo "entra en el fi:";
             $next = 0;
-            foreach ($files['reportes']['name'] as $key => $value) {
-                $extension = pathinfo($files['reportes']['name'][$key], PATHINFO_EXTENSION);
-                // $tipo = isset($_POST['tipo_archivo']) ? $_POST['tipo_archivo'] : 2;
+            foreach ($files[$posicion]['name'] as $key => $value) {
+                echo "hola";
+                $extension = pathinfo($files[$posicion]['name'][$key], PATHINFO_EXTENSION);
                 # obtenemos la ruta temporal del archivo
-                ## $tmp_name = $files['reportes']['tmp_name'][$key];
-                $tmp_name = $files['reportes']['tmp_name'][$key];
+                $tmp_name = $files[$posicion]['tmp_name'][$key];
 
                 #insertamos el registro en la tabla paciente_detalle
-                // $response = $master->updateByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,"$destinatio_sql$dir$id_turno"."_$id_servicio"."_$next.".$extension,$comentario,$tipo]);
                 $ubicacion = $dir.$nombre."_$next.".$extension;
+
                 #cambiamos de lugar el archivo
                 try {
                     move_uploaded_file($tmp_name, $ubicacion);
                     $urlArray[] = array('url' => $ubicacion, 'tipo' => $extension);
                 } catch (\Throwable $th) {
+                    $this->setLog("No se movieron los archivos $th","{guardarfiles}");
                   return "Algunos archivos no se lograron mover, intentelo nuevamente.";
                     # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
                     // $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
@@ -231,7 +231,8 @@ class Miscelaneus{
             }
             return $urlArray;
         } else {
-            return "Error";
+            echo "no hay nadie";
+            $this->setLog("El archivo esta vacio, error al subir archivo.","[function guardarFiles]");
         }
     }
 

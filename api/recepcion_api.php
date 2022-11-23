@@ -66,11 +66,11 @@ switch ($api) {
                 $dir = $master->urlComodin.$master->urlOrdenesMedicas."$idTurno/";
                 $r = $master->createDir($dir);
                 if ($r==1) {
-                    
-                    foreach($ordenes as $key=>$orden){
-                        $nuevoNombre = $key."_".$idTurno;
-                        $return = $master->guardarFiles($orden,$dir,$nuevoNombre);
-                    }
+                    $return = $master->guardarFiles($_FILES,'orden-medica-laboratorio',$dir,$nuevoNombre);
+                    // foreach($ordenes as $key=>$orden){
+                    //     $nuevoNombre = $key."_".$idTurno;
+                    //     $return = $master->guardarFiles($orden,$dir,$nuevoNombre);
+                    // }
                 }else {
                     $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas","recepcion_api.php [case 2]");
                 }
