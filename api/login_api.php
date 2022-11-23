@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "../clases/master_class.php";  
-$api = 1;//$_POST['api'];
+$api = $_POST['api'];
 switch ($api) {
     case 1:
         $_SESSION=array();
