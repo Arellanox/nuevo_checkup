@@ -203,13 +203,12 @@ class Miscelaneus{
         }
 
         // return $dir; */
-        print_r($files[$posicion]['name']);
+    
         $urlArray = array();
         if (!empty($files[$posicion]['name'])) {
-            echo "entra en el fi:";
+            
             $next = 0;
             foreach ($files[$posicion]['name'] as $key => $value) {
-                echo "hola";
                 $extension = pathinfo($files[$posicion]['name'][$key], PATHINFO_EXTENSION);
                 # obtenemos la ruta temporal del archivo
                 $tmp_name = $files[$posicion]['tmp_name'][$key];
@@ -231,8 +230,8 @@ class Miscelaneus{
             }
             return $urlArray;
         } else {
-            echo "no hay nadie";
-            $this->setLog("El archivo esta vacio, error al subir archivo.","[function guardarFiles]");
+            $this->setLog("El archivo esta vacio, error al subir archivo.","[function guardarFiles][$posicion]");
+            return array();
         }
     }
 
