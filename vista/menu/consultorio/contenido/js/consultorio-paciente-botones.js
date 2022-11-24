@@ -2,7 +2,20 @@ $('#agregar-nota-historial').on('click', function(){
   var event = new Date();
   var options = { hours: 'numeric', minutes: 'numeric', weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'};
 
-  agregarNotaConsulta(session.user, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial');
+  $.ajax({
+    url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
+    type: "POST",
+    dataType: "json",
+    data: { 
+      api: 1,
+      id_turno: pacienteActivo.array['ID_TURNO'],
+      notas: $('#nota-historial-paciente').val()
+    },
+    success: function (data) {
+      console.log(data);
+      agregarNotaConsulta(session.nombre+" "+session.apellidos, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial');
+    }
+  });
 })
 
 $('#btn-regresar-vista').click(function(){
