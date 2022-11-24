@@ -66,11 +66,19 @@ switch ($api) {
                 $dir = $master->urlComodin.$master->urlOrdenesMedicas."$idTurno/";
                 $r = $master->createDir($dir);
                 if ($r==1) {
-                    $return = $master->guardarFiles($_FILES,'orden-medica-laboratorio',$dir,$nuevoNombre);
-                    // foreach($ordenes as $key=>$orden){
-                    //     $nuevoNombre = $key."_".$idTurno;
-                    //     $return = $master->guardarFiles($orden,$dir,$nuevoNombre);
-                    // }
+                    #movemos las ordenes medicas
+                    $return = $master->guardarFiles($_FILES,'orden-medica-laboratorio',$dir,"ORDEN_MEDICA_LABORATORIO_$idTurno");
+                    $return2 = $master->guardarFiles($_FILES,'orden-medica-rx',$dir,"ORDEN_MEDICA_RX_$idTurno");
+                    $return3 = $master->guardarFiles($_FILES,'orden-medica-us',$dir,"ORDEN_MEDICA_ULTRASONIDO_$idTurno");
+                    
+                    $merge = array_merge($return,$return2,$return3);
+                
+                    #insertarmos las ordenes medicas en la base de datos
+                    foreach ($merge as $item){
+                        if(!empty($item['tipo'])){
+                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g',[1,$idTurno,$item['url'],$item['tipo']]);
+                        }
+                    }
                 }else {
                     $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas","recepcion_api.php [case 2]");
                 }
