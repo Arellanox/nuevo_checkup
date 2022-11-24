@@ -116,15 +116,20 @@ switch($api){
     case 2:
      # recuperar de los ultimos antecedentes registrardos de un paciente por medio de la curp
         #buscar el paciente por medio de la curp
-        $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp));
-
-        if(!count($paciente)>0){
+        $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp,$pasaporte));
+        
+        if(!is_array($paciente)){
             echo "identificación no reconocida";
             exit;
         }
+
+        if(count($paciente)==0){
+            echo "CURP incorrecta. La consulta no devolvió datos.";
+        }
+
         # obtenemos el id del paciente que despues enviaremos al sp para obtener sus antecedentes
         $pacienteId = $paciente[0]['ID_PACIENTE'];
-
+        
         $ultimosAntecedentes = $master->getByProcedure('sp_ultimos_antecedentes_paciente',array($pacienteId));
 
         # creamos un array vacio que contendra los antecedentes por subtipo
