@@ -1,3 +1,6 @@
+<div class="col-auto d-flex justify-content-center align-items-center">
+  <a href="" id="btn-regresar-vista" onclick="event.preventDefault()"><i class="bi bi-chevron-bar-left"></i> Regresar</a>
+</div>
 <div class="col-auto">
   <h3 class="m-3" id="nombre-paciente-consulta">Nombre del paciente</h3>
 </div>

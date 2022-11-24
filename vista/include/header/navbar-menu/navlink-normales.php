@@ -150,10 +150,10 @@
 <?php if ($menu == "Consultorio") : ?>
   <li class="nav-item">
     <a href="#Main" type="button">
-      <i class="bi bi-thunderbolt"></i> Consultorio
+      <i class="bi bi-thunderbolt"></i> Menú
     </a>
   </li>
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a href="#Perfil" data-bs-dismiss="offcanvas">
       <i class="bi bi-thunderbolt"></i> Perfil paciente
     </a>
@@ -162,7 +162,7 @@
     <a href="#Consultorio" data-bs-dismiss="offcanvas">
       <i class="bi bi-thunderbolt"></i> Consultorio
     </a>
-  </li>
+  </li> -->
 <?php endif; ?>
 
 <?php if ($menu == 'Facturacion'): ?>

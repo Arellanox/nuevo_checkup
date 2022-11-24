@@ -39,7 +39,6 @@ function formatoFecha2(fecha, optionsDate = [3,1,2,2,1,1,1], formatMat = 'best f
     case 2: options['seconds'] = "2-digit"; break;
   }
 
-  console.log(options)
   return new Date(fecha).toLocaleDateString('es-MX', options)
 }
 
@@ -699,6 +698,7 @@ function obtenerSignosVitales(id){ return new Promise(resolve => {
       url: http + servidor + "/nuevo_checkup/api/prerregistro_api.php",
       data: {api: 2, curp: 'OERN890720MCRSR09'},
       type: "POST",
+      dataType: "json",
       success: function (data) {
         checkbox = data;
         // for (var i = 0; i < checkbox.length; i++) {

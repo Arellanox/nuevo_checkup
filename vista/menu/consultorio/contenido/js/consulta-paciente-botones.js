@@ -200,3 +200,9 @@ $(document).on('click', '.eliminarRecetaActual', function () {
   $(parent_element).remove()
 
 });
+
+
+//Regresar a perfil de paciente
+$('#btn-regresar-vista').click(function() {
+  obtenerContenidoAntecedentes(pacienteActivo.array)
+})

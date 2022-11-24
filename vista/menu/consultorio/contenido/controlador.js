@@ -60,6 +60,7 @@ $(window).on("hashchange", function (e) {
     $.post("contenido/consultorio_consulta.php", function (html) {
       var idrow;
       $("#body-js").html(html);
+      pacienteActivo = new GuardarArreglo(data)
       // Datatable
       // $.getScript("contenido/js/estudio-tabla.js");
       // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
