@@ -4,90 +4,80 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
-var id, idturno, idconsulta, dataConsulta = new Array, tablaMain;
-obtenerConsultorioMain()
+
 //Menú principal para consultorio
-function obtenerConsultorioMain(){
-  // loader("In")
-  obtenerTitulo('Consultorio');
-  $.post("contenido/consultorio_main.php", function (html) {
-    var idrow;
-    $("#body-js").html(html) // Rellenar la plantilla de consulta
-  }).done(function() {
-    // Datatable
-    $.getScript("contenido/js/main-tabla.js");
-    // // Botones
-    // $.getScript("contenido/js/consultorio-paciente-botones.js");
-    // // Funciones
-    // $.getScript('contenido/js/consultorio-paciente.js')
-  });
-}
+  var id, idturno, idconsulta, dataConsulta = new Array, tablaMain;
+  obtenerConsultorioMain()
+  function obtenerConsultorioMain(){
+    // loader("In")
+    obtenerTitulo('Consultorio');
+    $.post("contenido/consultorio_main.php", function (html) {
+      var idrow;
+      $("#body-js").html(html) // Rellenar la plantilla de consulta
+    }).done(function() {
+      // Datatable
+      $.getScript("contenido/js/main-tabla.js");
+      // // Botones
+      // $.getScript("contenido/js/consultorio-paciente-botones.js");
+      // // Funciones
+      // $.getScript('contenido/js/consultorio-paciente.js')
+    });
+  }
+//
 
 
-var pacienteActivo = new GuardarArreglo()
-var infoConsultaActivo = new GuardarArreglo();
 
 // Obtener el perfil del paciente (antecedentes);
-function obtenerContenidoAntecedentes(data) {
-
-  loader("In")
-  obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
-  $.post("contenido/consultorio_paciente.php", function (html) {
-    var idrow;
-    $("#body-js").html(html) // Rellenar la plantilla de consulta
-  }).done(function() {
-    pacienteActivo = new GuardarArreglo(data)
-    $.getScript("modals/controlador-perfilPaciente.js");
-    // Botones
-    $.getScript("contenido/js/consultorio-paciente-botones.js");
-    // Funciones
-    $.getScript('contenido/js/consultorio-paciente.js').done(function(){
-      obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'])
+  var pacienteActivo = new GuardarArreglo()
+  var infoConsultaActivo = new GuardarArreglo();
+  function obtenerContenidoAntecedentes(data) {
+    loader("In")
+    obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
+    $.post("contenido/consultorio_paciente.php", function (html) {
+      var idrow;
+      $("#body-js").html(html) // Rellenar la plantilla de consulta
+    }).done(function() {
+      pacienteActivo = new GuardarArreglo(data)
+      $.getScript("modals/controlador-perfilPaciente.js");
+      // Botones
+      $.getScript("contenido/js/consultorio-paciente-botones.js");
+      // Funciones
+      $.getScript('contenido/js/consultorio-paciente.js').done(function(){
+        obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'])
+      });
+      select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
     });
-    select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
-  });
-}
+  }
+//
 
 
 // obtenerContenidoConsulta()
-function obtenerContenidoConsulta(data, idconsulta) {
-  loader("In")
-  // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
-  $("#titulo-js").html(''); //Vaciar la cabeza de titulo
-  $.post("contenido/consultorio_consulta.php", function (html) {
-    var idrow;
-    $("#body-js").html(html);
-    // Datatable
-    // $.getScript("contenido/js/estudio-tabla.js");
-    // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
-  }).done(function(){
-    // Obtener metodos para el dom
-    $.getScript("contenido/js/consulta-paciente.js").done(function(){
-      // Botones
-      $.getScript("contenido/js/consulta-paciente-botones.js");
-      obtenerConsulta(data, idconsulta);
-    });
-    loader("Out")
-    // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
-  })
-}
+  function obtenerContenidoConsulta(data, idconsulta) {
+    loader("In")
+    // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
+    $("#titulo-js").html(''); //Vaciar la cabeza de titulo
+    $.post("contenido/consultorio_consulta.php", function (html) {
+      var idrow;
+      $("#body-js").html(html);
+      // Datatable
+      // $.getScript("contenido/js/estudio-tabla.js");
+      // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
+    }).done(function(){
+      // Obtener metodos para el dom
+      $.getScript("contenido/js/consulta-paciente.js").done(function(){
+        // Botones
+        $.getScript("contenido/js/consulta-paciente-botones.js");
+        obtenerConsulta(data, idconsulta);
+      });
+      loader("Out")
+      // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
+    })
+  }
+//
 
 // METODOS
 // Rellena la plantilla con metodos de espera Async Await
 async function obtenerConsultorio(id, idTurno){
-  // switch (estado) {
-  //   case 0:
-      
-  //     break;  
-  //   case 0:
-    
-  //     break;
-  //   case 0:
-      
-  //     break;
-  //   default:
-  //     break;
-  // }
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   // alert("Antes de antecedentes")

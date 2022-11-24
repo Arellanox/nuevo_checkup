@@ -69,6 +69,8 @@ function setValuesAntecedentesMetodo(DIV, array){
 
 
 // Metodos para rellenar el DOM
+
+
 function obtenerAntecedentes(div){
   return new Promise(resolve => {
     $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
@@ -84,11 +86,12 @@ function obtenerAntecedentes(div){
 function obtenerNotasHistorial(id){
   return new Promise(resolve => {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+      url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
       type: "POST",
       dataType: "json",
-      data: { id: id, api: 7 },
+      data: { id_paciente: id, api: 2 },
       success: function (data) {
+        console.log(data);
         // agregarNotaConsulta('@Usuario actual', event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial')
       },
       complete:function(){
