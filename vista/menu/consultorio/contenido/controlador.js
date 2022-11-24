@@ -27,6 +27,7 @@ $(window).on("hashchange", function (e) {
 
 
 
+
 // Obtener el perfil del paciente (antecedentes);
   var pacienteActivo = new GuardarArreglo()
   var infoConsultaActivo = new GuardarArreglo();
@@ -38,7 +39,7 @@ $(window).on("hashchange", function (e) {
       $("#body-js").html(html) // Rellenar la plantilla de consulta
     }).done(function() {
       pacienteActivo = new GuardarArreglo(data)
-      $.getScript("modals/controlador-perfilPaciente.js");
+      // $.getScript("modals/controlador-perfilPaciente.js");
       // Botones
       $.getScript("contenido/js/consultorio-paciente-botones.js");
       // Funciones
@@ -69,7 +70,6 @@ $(window).on("hashchange", function (e) {
         $.getScript("contenido/js/consulta-paciente-botones.js");
         obtenerConsulta(data, idconsulta);
       });
-      loader("Out")
       // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
     })
   }
@@ -81,8 +81,10 @@ async function obtenerConsultorio(id, idTurno){
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   // alert("Antes de antecedentes")
-  await obtenerAntecedentes('#antecedentes-paciente', idTurno);
+  // await obtenerAntecedentes('#antecedentes-paciente', idTurno);
+  await obtenerVistaSignosVitales('#antecedentes-paciente')
   $('#div-btn-guardarAntecedentes').append('<button type="button" class="btn btn-confirmar m-1" id="guardar-antecedentes"> <i class="bi bi-plus"></i> Guardar </button>')
+  await obtenerSignosVitales(1);
   // setValues(idTurno) //llamar los valores para los antecedentes
 
   // alert("Antes de notas historial")
@@ -97,24 +99,27 @@ async function obtenerConsultorio(id, idTurno){
   loader("Out")
 }
 
-async function obtenerConsulta(id, idTurno){
+async function obtenerConsulta(data, idconsulta){
+  // console.log(data, idconsulta)
+  await obtenerInformacionConsulta(idconsulta)
+  await obtenerInformacionPaciente(data)
   loader("Out")
 }
 
-function agregarNotaConsulta(tittle, date = null, text, appendDiv, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;'){
+function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;') {
   if (date != null) {
-    date = '<p style="font-size: 14px;margin-left: 5px;">'+date+'</p>';
-  }else{
-    date = ''
+    date = '<p style="font-size: 14px;margin-left: 5px;">' + date + '</p>';
+  } else {
+    date = '';
   }
-
-  let html = '<div class="'+classTittle+'">'+
-                '<h4 class="m-3">'+tittle+' <button type="button" class="btn btn-hover eliminarComentario" data-bs-id="id"> <i class="bi bi-trash"></i> </button> '+date+'</h4> '+
-                '<div style="'+style+'">'+
-              '<p class="none-p">'+text+'<p> </div> </div>';
-
+  let html = '<div class="' + classTittle + '" data-db="divDelete">' +
+    '<h4 class="m-3">' + tittle + ' <button type="button" class="btn btn-hover eliminarNota" data-bs-id="' + id + '"> <i class="bi bi-trash"></i> </button> ' + date + '</h4> ' +
+    '<div style="' + style + '">' +
+    '<p class="none-p">' + text + '<p> </div> </div>';
   $(appendDiv).append(html);
 }
+
+
 
 
 // No deberia existir
@@ -129,9 +134,9 @@ function hasLocation() {
     case "Consultorio":
       obtenerContenidoConsulta();
       break;
-    // case "Main":
-    //   obtenerConsultorioMain();
-    //   break;
+      // case "Main":
+      //   obtenerConsultorioMain();
+      //   break;
     default:
       // window.location.hash = 'Main';
       // obtenerContenidoEstudios("Estudios");

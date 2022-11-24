@@ -151,7 +151,7 @@ $('#btn-agregar-exploracion-clinina').on('click', function(){
     type: "POST",
     success: function(data) {
       // alert("antes de la nota")
-      agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio','mt-3')
+      agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio', '0','mt-3')
       $('#text-exploracion-clinica').val('')
       // alert("despues de la nota")
     },

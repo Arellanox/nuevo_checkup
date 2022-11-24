@@ -14,15 +14,15 @@
     <p class="info-detalle-p" id="nacimiento-paciente-consulta">fecha nacimiento</p>
   </div>
   <div class="col-auto">
-    <p class="info-detalle-p" id="edad-paciente-consulta">años</p>
+    <p class="info-detalle-p" id="edad-paciente-consulta"> </p>
   </div>
   <div class="col-auto">
-    <p class="info-detalle-p" id="genero-paciente-consulta">sexo</p>
+    <p class="info-detalle-p" id="genero-paciente-consulta"> </p>
   </div>
   <div class="col-auto">
-    <p class="info-detalle-p" id="correo-paciente-consulta">correo</p>
+    <p class="info-detalle-p" id="correo-paciente-consulta"> </p>
   </div>
   <div class="col-auto">
-    <p class="info-detalle-p" id="curp-paciente-consulta">numero CURP</p>
+    <p class="info-detalle-p" id="curp-paciente-consulta"> </p>
   </div>
 </div>

@@ -1,77 +1,5 @@
-function setValues(id){
-  return new Promise(resolve => {
-    let arrayDivs = new Array;
-    var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row']")
-
-
-    $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
-      data: {id: 1},
-      type: "POST",
-      success: function (data) {
-        checkbox = data;
-        for (var i = 0; i < checkbox.length; i++) {
-          setValuesAntecedentesMetodo(arrayDivs[i], checkbox[i])
-        }
-      },
-      complete: function(){
-        resolve(1);
-      }
-    })
-  });
-  // $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
-  //   console.log($(this).find("input[value='1']").val())
-  // })
-}
-
-function setValuesAntecedentesMetodo(DIV, array){
-  if (DIV.length == array.length) {
-    for (var i = 0; i < DIV.length; i++) {
-      // console.log(i)
-      // console.log('CHECK: '+array[i][0])
-
-      switch (array[i][0]) {
-        case 1:
-          $(DIV[i]).find("input[value='1']").prop("checked", true);
-          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
-          // console.log(collapID)
-          $('#'+collapID).collapse("show")
-        break;
-        case 2:
-          $(DIV[i]).find("input[value='2']").prop("checked", true);
-          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
-          $('#'+collapID).collapse("hide")
-        break;
-        default:
-      }
-      // console.log($(DIV[i]).find("input[value='1']").val());
-      // console.log('textarea: '+array[i][1])
-      // console.log($(DIV[i]).find("textarea[class='form-control input-form']"))
-      if (array[i][0] == 1) {
-        $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
-      }else{
-        $(DIV[i]).find("textarea[class='form-control input-form']").val('')
-      }
-
-      // console.log(DIV[i].find("input[value='1']").val())
-    }
-  }else{
-    alertSelectTable('No se pudo recuperar algunos datos...')
-  }
-}
-
-
-
-
-
-
-
-
-
 // Metodos para rellenar el DOM
-
-
-function obtenerAntecedentes(div){
+function obtenerAntecedentes(div){ //Sin usar
   return new Promise(resolve => {
     $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
       $(div).html(html);
@@ -92,7 +20,16 @@ function obtenerNotasHistorial(id){
       data: { id_paciente: id, api: 2 },
       success: function (data) {
         console.log(data);
-        // agregarNotaConsulta('@Usuario actual', event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial')
+        var event = new Date();
+        var options = { hours: 'numeric', minutes: 'numeric', weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'};
+        // ACTIVO: "1"
+        // ID_NOTA: "2"
+        // NOTAS: "nota historial Luisa"
+        // TURNO_ID: "59"
+        let row = data.response.data;
+        for (let i = 0; i < row.length; i++) {
+          agregarNotaConsulta('@Usuario actual', event.toLocaleDateString('es-ES', options), row[i]['NOTAS'], '#notas-historial', row[i]['ID_NOTA'])
+        }
       },
       complete:function(){
         resolve(1);
@@ -109,7 +46,12 @@ function consultarConsulta(id){ return new Promise(resolve => {
       data: { turno_id: id, api: 2 },
       dataType: "json",
       success: function (data) {
-        console.log(data);
+        let row = data.response.data
+        for (let i = 0; i < row.length; i++) {
+          if (row[i]['COMPLETADO'] == null) {
+            $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, '+row[i]['ID_CONSULTA']+')" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Continuar consulta </button>')
+          }
+        }
       },
       complete:function(){
         resolve(1);

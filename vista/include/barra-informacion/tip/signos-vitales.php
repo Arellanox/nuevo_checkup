@@ -4,11 +4,9 @@
   <div class="col-8">
     <h4>Últimos signos vitales</h4>
   </div>
-  <div class="col-4">
-    xx/xx/xxxx
-  </div>
+  <div class="col-4 text-start d-flex align-items-center" id="fecha-signos"> </div>
   <hr class="dropdown-divider">
-  <div class="row" style="max-width: 100%; max-height: 35vh;overflow-y: auto;overflow-x: hidden;">
+  <div class="row" style="max-width: 100%; max-height: 35vh;overflow-y: auto;overflow-x: hidden;" id="div-panel-signos">
     <div class="col-7 text-end info-detalle">
       <p>Estatura:</p>
     </div>

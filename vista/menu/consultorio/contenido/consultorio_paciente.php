@@ -36,9 +36,11 @@
   </div>
   <div class="col-12 col-lg-12 col-xxl-3">
     <div class="card">
-      <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
-        <i class="bi bi-person-plus-fill"></i> Iniciar Consulta
-      </button>
+      <div id="btn-ir-consulta">
+        <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
+          <i class="bi bi-person-plus-fill"></i> Iniciar Consulta
+        </button>
+      </div>
       <!-- <div class="accordion-item bg-acordion" style="margin: 10px">
         <h2 class="accordion-header" id="collappAgendarConsulta">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAgendarConsultaTarget" aria-expanded="false" aria-controls="accordionEstudios">

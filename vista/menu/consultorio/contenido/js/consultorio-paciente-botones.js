@@ -12,11 +12,33 @@ $('#agregar-nota-historial').on('click', function(){
       notas: $('#nota-historial-paciente').val()
     },
     success: function (data) {
-      console.log(data);
-      agregarNotaConsulta(session.nombre+" "+session.apellidos, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial');
+      if (mensajeAjax(data)) {
+        console.log(data);
+        agregarNotaConsulta(session.nombre+" "+session.apellidos, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial', data.response.data);
+      }
     }
   });
 })
+
+$(document).on('click', '.eliminarNota', function () {
+  let id = $(this).attr('data-bs-id');
+  let button = $(this);
+  $.ajax({
+    url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
+    type: "POST",
+    dataType: "json",
+    data: { 
+      api: 4,
+      id_nota: id,
+    },
+    success: function (data) {
+      if (mensajeAjax(data)) {
+        var parent_element = button.closest("div");
+        $(parent_element).remove()
+      }
+    }
+  });
+});
 
 $('#btn-regresar-vista').click(function(){
   alertMensajeConfirm({

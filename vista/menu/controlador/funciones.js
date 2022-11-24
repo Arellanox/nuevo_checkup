@@ -3,7 +3,7 @@ function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
 
-function formatoFecha2(fecha, optionsDate = [3,2,2,2,1,1,1], formatMat = 'best fit'){
+function formatoFecha2(fecha, optionsDate = [3,1,2,2,1,1,1], formatMat = 'best fit'){
   let options = {hour12: true, timeZone: 'America/Mexico_City'} // p.m. - a.m.
 
   switch (optionsDate[0]) { //Dia de la semana
@@ -690,6 +690,88 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback){
   return 1
 }
 
+
+function obtenerSignosVitales(id){ return new Promise(resolve => {
+    let arrayDivs = new Array;
+    var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row']")
+
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/prerregistro_api.php",
+      data: {api: 2, curp: 'OERN890720MCRSR09'},
+      type: "POST",
+      success: function (data) {
+        checkbox = data;
+        // for (var i = 0; i < checkbox.length; i++) {
+        //   setValuesAntecedentesMetodo(arrayDivs[i], checkbox[i])
+        // }
+        console.log(data);
+      },
+      complete: function(){
+        resolve(1);
+      }
+    })
+  });
+  // $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
+  //   console.log($(this).find("input[value='1']").val())
+  // })
+}
+
+function setValuesAntecedentesMetodo(DIV, array){
+  if (DIV.length == array.length) {
+    for (var i = 0; i < DIV.length; i++) {
+      // console.log(i)
+      // console.log('CHECK: '+array[i][0])
+
+      switch (array[i][0]) {
+        case 1:
+          $(DIV[i]).find("input[value='1']").prop("checked", true);
+          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
+          // console.log(collapID)
+          $('#'+collapID).collapse("show")
+        break;
+        case 2:
+          $(DIV[i]).find("input[value='2']").prop("checked", true);
+          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
+          $('#'+collapID).collapse("hide")
+        break;
+        default:
+      }
+      // console.log($(DIV[i]).find("input[value='1']").val());
+      // console.log('textarea: '+array[i][1])
+      // console.log($(DIV[i]).find("textarea[class='form-control input-form']"))
+      if (array[i][0] == 1) {
+        $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
+      }else{
+        $(DIV[i]).find("textarea[class='form-control input-form']").val('')
+      }
+
+      // console.log(DIV[i].find("input[value='1']").val())
+    }
+  }else{
+    alertSelectTable('No se pudo recuperar algunos datos...')
+  }
+}
+
+function obtenerVistaSignosVitales(div, cliente){  return new Promise(resolve => {
+    $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
+      setTimeout(function () {
+        $(div).html(html);
+        if (cliente) {
+          switch (cliente) {
+            case 1:
+              $('#onlyProcedencia').fadeOut(0);
+              $('#onlyMedico').fadeOut(0);
+              break;
+            default:
+              $('#onlyMedico').fadeOut(0);
+          }
+        }
+        resolve(1)
+      }, 100);
+    });
+  })
+}
+
 function select2(select, modal = null, placeholder = 'Selecciona una opción'){
   $(select).select2({
     dropdownParent: $('#'+modal),
@@ -850,10 +932,13 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     data = jQuery.parseJSON(data);
                     row = data['response']['data'];
                     // console.log(data);
-                    for (let i = 0; i < row.length; i++) {
-                      // console.log($('#info-signos-'+i))
-                      $('#info-signos-'+i).html(row[i]['VALOR']+" <strong>"+row[i]['UNIDAD_MEDIDA']+"</strong>")
-                      
+                    if (mensajeAjax(data) && row.length != 0) {
+                      for (let i = 0; i < row.length; i++) {
+                        $('#info-signos-'+i).html(row[i]['VALOR']+" <strong>"+row[i]['UNIDAD_MEDIDA']+"</strong>")
+                      }
+                      $('#fecha-signos').html(formatoFecha2('2022/11/24', [0,1,4,1,0,0,0]))
+                    }else{
+                      $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
                     }
                   },
                   complete: function(){

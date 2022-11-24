@@ -20,13 +20,22 @@
 
 <div class="overflow-auto" style="max-height:70vh; margin-bottom: 50px">
   <div class="container">
+
+
     <section id="notas-padecimiento" class="card mt-3">
       <h4 class="m-3">Notas de padecimiento</h4>
-
-        
       <hr class="dropdown-divider m-2">
       <textarea name="name-notas-padecimiento" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aquí sus notas" id="nota-notas-padecimiento"></textarea>
     </section>
+
+    
+    <section id="card-diagnostico" class="card mt-3">
+      <h4 class="m-3">Diagnóstico</h4>
+      <hr class="dropdown-divider m-2">
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="diagnostico-consultas" placeholder="Escriba aquí sus notas"></textarea>
+    </section>
+
+
     <section id="card-nutricion" class="card mt-3">
       <h4 class="m-3">Nutrición</h4>
       <hr class="dropdown-divider m-2">
@@ -168,21 +177,20 @@
           <?php include '../../../include/acordion/anamnesis-aparatos.php' ?>
         </form>
     </section>
+
+
     <!-- <section id="card-motivo-consulta" class="card mt-3">
       <h4 class="m-3">Motivo de consulta</h4>
       <hr class="dropdown-divider m-2">
       <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="motivo-consultaas" placeholder="Escriba aquí sus notas"></textarea>
     </section> -->
-    <section id="card-diagnostico" class="card mt-3">
-      <h4 class="m-3">Diagnóstico</h4>
-      <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="diagnostico-consultaas" placeholder="Escriba aquí sus notas"></textarea>
-    </section>
-    <section id="card-terapeutico" class="card mt-3">
+
+
+    <!-- <section id="card-terapeutico" class="card mt-3">
       <h4 class="m-3">Manejo terapéutico</h4>
       <hr class="dropdown-divider m-2">
       <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="manejo-terapeuticoos" placeholder="Escriba aquí sus notas"></textarea>
-    </section>
+    </section> -->
 
 
     <section id="card-receta" class="card mt-3">

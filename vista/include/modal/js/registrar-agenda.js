@@ -106,7 +106,7 @@ $('#actualizarForm').click(function(){
         $('#actualizarForm').prop('disabled',true);
         $('#checkCurpPasaporte-agenda').prop('disabled',true);
       },
-      success: function(data) {
+      success: async function(data) {
         data = jQuery.parseJSON(data);
         if (mensajeAjax(data)) {
           if (data['response']['data'].length > 0) {
@@ -132,7 +132,8 @@ $('#actualizarForm').click(function(){
             // $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
             // $('#formDIV *').prop('disabled',false);
             $('#btn-formregistrar-agenda').prop('disabled',false);
-            obtenerSignosVitales('#antecedentes-registro')
+            await obtenerVistaSignosVitales('#antecedentes-registro')
+            
           }else{
             $('#actualizarForm').prop('disabled',false);
             $('#checkCurpPasaporte-agenda').prop('disabled',false);
@@ -221,26 +222,6 @@ if (registroAgendaProcedencia == 1) {
 //   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')
 // }
 
-
-
-
-function obtenerSignosVitales(div){
-  $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
-    setTimeout(function () {
-      $(div).html(html);
-      if (clienteRegistro) {
-        switch (clienteRegistro) {
-          case 1:
-            $('#onlyProcedencia').fadeOut(0);
-            $('#onlyMedico').fadeOut(0);
-            break;
-          default:
-            $('#onlyMedico').fadeOut(0);
-        }
-      }
-    }, 100);
-  });
-}
 
 //Mayus
 $('#curp-paciente').css('text-transform', 'uppercase')
