@@ -186,7 +186,10 @@
                 <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Saturación de Oxígeno</p>
               </div>
               <div class="col-6 col-lg-4">
-                <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                <div class="input-group">
+                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <span class="input-span">%</span>
+                </div>
               </div>
             </div>
           </li>

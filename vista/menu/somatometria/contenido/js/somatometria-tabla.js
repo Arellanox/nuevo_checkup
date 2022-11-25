@@ -69,6 +69,8 @@ $("#BuscarTablaListaSignos").keyup(function () {
     tablaSignos.search($(this).val()).draw();
 });
 
+
+
 async function obtenerResultadosSignos(id){ return new Promise(resolve => {
     $.ajax({
         url: http + servidor + "/nuevo_checkup/api/somatometria_api.php",
