@@ -154,6 +154,7 @@ switch($api){
                 $tipoArray[] = $subtipoArray;
 
             } else {
+                $idTipo = $ultimo['ID_TIPO'];
                 $antecedentes[] = $tipoArray;
                 $tipoArray = array();
 
