@@ -161,6 +161,43 @@ switch ($api) {
         # insetar receta
         $response = $master->insertByProcedure("sp_consultorio_recetas_g",$recetaParams);
         break;
+
+    case 10:
+        $response = $master->getByProcedure('sp_consultorio_antecedentes_b',[$turno_id]);
+
+        $antecedentes = array();
+        $idTipo = 1;
+        $count = 0;
+        $tipoArray = array();
+
+        foreach($response as $ante){
+            if($ante['ID_TIPO']==$idTipo){
+                $subtipoArray = array(
+                    $ante['ID_RESPUESTA'],
+                    $ante['NOTAS'],
+                    $ante['ID_SUBTIPO']
+                );
+
+                $tipoArray[] = $subtipoArray;
+            } else {
+                $idTipo = $ante['ID_TIPO'];
+                $antecedentes[] = $tipoArray;
+                $tipoArray  = array();
+
+                $subtipoArray = array(
+                  $ante['ID_RESPUESTA'],
+                  $ante['NOTAS'],
+                  $ante['ID_SUBTIPO']  
+                );
+
+                $tipoArray[] = $subtipoArray;
+            }
+        }
+
+        $antecedentes[] = $tipoArray;
+        echo json_encode($antecedentes);
+        exit;
+        break;
     default:
     $response = "api no reconocida";
         break;
