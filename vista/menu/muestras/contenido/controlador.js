@@ -10,7 +10,6 @@ async function contenidoMuestras(){
      $("#body-js").html(html);
   }).done(function(){
     dataListaPaciente = {api:1,  area_id: 6, fecha_agenda: $('#fechaListadoAreaMaster').val()};
-    console.log($('#fechaListadoAreaMaster').val())
     // DataTable
     $.getScript('contenido/js/muestras-tabla.js')
     // Botones

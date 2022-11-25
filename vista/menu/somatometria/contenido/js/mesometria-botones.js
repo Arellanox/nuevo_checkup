@@ -1,9 +1,8 @@
 $('#form-resultados-somatometria').submit(function (event) {
-  // if (selectListaMuestras['MUESTRA_TOMADA'] == 0) {
     event.preventDefault();
     var form = document.getElementById("form-resultados-somatometria");
     var formData = new FormData(form);
-    formData.set('id_turno', selectListaSignos['ID_TURNO'])
+    formData.set('id_turno', turno)
     formData.set('api', 1);
 
     Swal.fire({
@@ -30,26 +29,21 @@ $('#form-resultados-somatometria').submit(function (event) {
                 title: "¡Signos vitales guardados!",
                 timer: 2000,
               });
-              tablaSignos.ajax.reload();
+              document.getElementById("form-resultados-somatometria").reset();
+              // $("#ModalRegistrarEquipo").modal("hide");
+              // tablaEquipo.ajax.reload();
+              // Aqui iniciar el siguiente turno y preguntar si lo desea liberar
             }
           },
         });
 
       }
     });
-  // }
 })
 
 $('#omitir-paciente').click(function() {
-  pasarPacienteTurno(selectListaSignos['ID_TURNO'], 2, 0, function() {
+  console.log(pacienteActual.array)
+  pasarPacienteTurno(pacienteActual.array['ID_TURNO'], 2, 0, function() {
     console.log('EXITO')
   })
 })
-
-// cambiar fecha de la Lista
-$('#fechaListadoAreaMaster').change(function(){
-  dataListaPaciente = {api:5, fecha_agenda: $(this).val(), area_id: 1}
-  tablaSignos.ajax.reload();
-  // getPanelLab('Out', 0)
-})
-

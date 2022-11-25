@@ -8,16 +8,18 @@ include "../../variables.php";
 
 <!-- HTML -->
 <header id="header-js"></header>
-<div  id="titulo-js"></div>
-<div class="container-fluid " id="body-js"> <div class="col-12 loader" id="loader" style="">
-  <div class="preloader" id="preloader"> </div>
-</div> </div>
+<div id="titulo-js"></div>
+<div class="container-fluid " id="body-js"> 
+  <div class="col-12 loader" id="loader" style="">
+    <div class="preloader" id="preloader"> </div>
+  </div> 
+</div>
 <div class="" id="modals-js"> <!-- Aqui podrán incluir los modals --> </div>
+<!-- HTML -->
+
+
 
 <script type="text/javascript">
-
-
-
   //Variable global para datatable
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

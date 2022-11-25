@@ -34,10 +34,7 @@ tablaMuestras = $('#TablaMuestras').DataTable({
         }
       },
       {data: 'NOMBRE_COMPLETO'},
-      {data: 'PREFOLIO', render: function (data, type, full, meta) {
-          return "20221014JMC412";
-        },
-      },
+      {data: 'PREFOLIO'},
       {data: 'EDAD'},
       {data: 'EDAD'},
       // {defaultContent: 'En progreso...'}

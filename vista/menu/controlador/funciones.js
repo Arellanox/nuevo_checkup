@@ -479,25 +479,32 @@ function loader(fade) {
 }
 
 function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50){
-  if (fade == 'Out') {
-    if (div != null) {
-      $(div).fadeIn(seconds);
-    }
+  switch (fade) {
+    case "Out":
+      if (div != null) {
+        $(div).fadeIn(seconds);
+      }
 
-    if (loaderDiv1 != null) {
-      $(loaderDiv1).fadeOut(seconds);
-    }
-    $(loader).fadeOut(seconds);
-    // alert("salir");
-  } else if (fade == 'In') {
-    if (div != null) {
-      $(div).fadeOut(seconds);
-    }
-    if (loaderDiv1 != null) {
-      $(loaderDiv1).fadeIn(seconds);
-    }
-    $(loader).fadeIn(seconds);
-    // alert("entrar");
+      if (loaderDiv1 != null) {
+        $(loaderDiv1).fadeOut(seconds);
+      }
+      $(loader).fadeOut(seconds);
+      // alert("salir");
+      break;
+
+    case "In":
+      if (div != null) {
+        $(div).fadeOut(seconds);
+      }
+      if (loaderDiv1 != null) {
+        $(loaderDiv1).fadeIn(seconds);
+      }
+      $(loader).fadeIn(seconds);
+      // alert("entrar");
+      break;
+
+    default:
+      console.log('LoaderDiv se perdió...')
   }
 }
 
