@@ -28,7 +28,7 @@ $segmentoId = $_POST['segmento_id'];
 
 
 #datos de antecedentes
-$antecedentes = array_slice($_POST,0,count($_POST)-5);
+$antecedentes = array_slice($_POST,0,count($_POST)-4);
 // print_r($antecedentes);
 
 switch($api){

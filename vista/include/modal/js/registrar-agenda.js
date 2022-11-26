@@ -132,7 +132,7 @@ $('#actualizarForm').click(function(){
             // $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
             // $('#formDIV *').prop('disabled',false);
             $('#btn-formregistrar-agenda').prop('disabled',false);
-            await obtenerVistaSignosVitales('#antecedentes-registro')
+            await obtenerVistaAntecenetesPaciente('#antecedentes-registro')
             
           }else{
             $('#actualizarForm').prop('disabled',false);

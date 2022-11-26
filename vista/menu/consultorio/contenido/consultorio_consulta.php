@@ -26,13 +26,23 @@
       <h4 class="m-3">Notas de padecimiento</h4>
       <hr class="dropdown-divider m-2">
       <textarea name="name-notas-padecimiento" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aquí sus notas" id="nota-notas-padecimiento"></textarea>
+      <div class=" d-flex justify-content-start m-2">
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-notaPadecimiento">
+        <i class="bi bi-paperclip"></i> Guardar
+        </button>
+      </div>
     </section>
 
     
     <section id="card-diagnostico" class="card mt-3">
       <h4 class="m-3">Diagnóstico</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="diagnostico-consultas" placeholder="Escriba aquí sus notas"></textarea>
+      <textarea name="name-diagnostico" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aquí sus notas" id="diagnostico-campo-consulta" ></textarea>
+      <div class=" d-flex justify-content-start m-2">
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-Diagnostico">
+        <i class="bi bi-paperclip"></i> Guardar
+        </button>
+      </div>
     </section>
 
 
@@ -221,30 +231,3 @@
     z-index: 5
   }
 </style>
-
-<script type="text/javascript">
-  $("#nota-notas-padecimiento").on("change", function(e) {
-    let admin = $('#nota-notas-padecimiento').val();
-    alert(admin)
-  })
-  $("#motivo-consultaas").on("change", function(e) {
-    let mensajio = $('#motivo-consultaas').val();
-    alert(mensajio)
-  })
-  $("#diagnostico-consultaas").on("change", function(e) {
-    let admin1 = $('#diagnostico-consultaas').val();
-    alert(admin1)
-  })
-  $("#manejo-terapeuticoos").on("change", function(e) {
-    let admin2 = $('#manejo-terapeuticoos').val();
-    alert(admin2)
-  })
-  $("#receta-medicaas").on("change", function(e) {
-    let admin3 = $('#receta-medicaas').val();
-    alert(admin3)
-  })
-  $("#solicitud-estudios-valoraciones").on("change", function(e) {
-    let admin4 = $('#solicitud-estudios-valoraciones').val();
-    alert(admin4)
-  })
-</script>

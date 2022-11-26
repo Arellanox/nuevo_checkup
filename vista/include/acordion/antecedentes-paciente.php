@@ -29,6 +29,7 @@
                 <textarea name="check-aler[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
               </div>
             </div>
+            
             <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
@@ -484,7 +485,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿SU PADRE ESTÁ VIVO?: </label>
-                <input type="hidden" name="check-hero-padre[]" value="26">
+                <input type="hidden" name="check-hero-padre[]" value="25">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hero-padre" name="check-hero-padre[]" value="1" required >
@@ -502,7 +503,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿PADECE O PADECIÓ DE DIABETES MELLITUS?: </label>
-                <input type="hidden" name="check-diabe-padre[]" value="27">
+                <input type="hidden" name="check-diabe-padre[]" value="26">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-diabe-padre" name="check-diabe-padre[]" value="1" required >
@@ -520,7 +521,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿PADECE O PADECIÓ DE HIPERTENSIÓN ARTERIAL?: </label>
-                <input type="hidden" name="check-hisperArt-padre[]" value="28">
+                <input type="hidden" name="check-hisperArt-padre[]" value="27">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hisperArt-padre" name="check-hisperArt-padre[]" value="1" required >
@@ -538,7 +539,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿PADECE O PADECIÓ DE ALGÚN TIPO DE CÁNCER?: </label>
-                <input type="hidden" name="check-canc-padre[]" value="29">
+                <input type="hidden" name="check-canc-padre[]" value="28">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-canc-padre" name="check-canc-padre[]" value="1" required >
@@ -557,7 +558,7 @@
             <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Otras: </label>
-                <input type="hidden" name="check-otra-padre[]" value="30">
+                <input type="hidden" name="check-otra-padre[]" value="29">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-otra-padre" name="check-otra-padre[]" value="1" required >
@@ -576,7 +577,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿SU MADRE ESTÁ VIVA?: </label>
-                <input type="hidden" name="check-hero-madre[]" value="31">
+                <input type="hidden" name="check-hero-madre[]" value="30">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hero-madre" name="check-hero-madre[]" value="1" required >
@@ -594,7 +595,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿PADECE O PADECIÓ DE DIABETES MELLITUS?: </label>
-                <input type="hidden" name="check-diabe-madre[]" value="32">
+                <input type="hidden" name="check-diabe-madre[]" value="31">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-diabe-madre" name="check-diabe-madre[]" value="1" required >
@@ -612,7 +613,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿PADECE O PADECIÓ DE HIPERTENSIÓN ARTERIAL?: </label>
-                <input type="hidden" name="check-hisperArt-madre[]" value="33">
+                <input type="hidden" name="check-hisperArt-madre[]" value="32">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-hisperArt-madre" name="check-hisperArt-madre[]" value="1" required >
@@ -630,7 +631,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿PADECE O PADECIÓ DE ALGÚN TIPO DE CÁNCER?: </label>
-                <input type="hidden" name="check-canc-madre[]" value="34">
+                <input type="hidden" name="check-canc-madre[]" value="33">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-canc-madre" name="check-canc-madre[]" value="1" required >
@@ -647,7 +648,7 @@
             <!-- <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>Otras: </label>
-                <input type="hidden" name="check-otra-madre[]" value="35">
+                <input type="hidden" name="check-otra-madre[]" value="34">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-otra-madre" name="check-otra-madre[]" value="1" required >
@@ -676,7 +677,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿PADECES ALGUNA ENFERMEDAD PSICOLÓGICA O PSIQUIÁTRICA?: </label>
-                <input type="hidden" name="check-enfpsicopsiq[]" value="36">
+                <input type="hidden" name="check-enfpsicopsiq[]" value="35">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-enfpsicopsiq" name="check-enfpsicopsiq[]" value="1" required >
@@ -694,7 +695,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
                 <label>¿QUÉ ÁREAS DE TU VIDA HAN SIDO AFECTADAS POR LA ENFERMEDAD?: </label>
-                <input type="hidden" name="check-enfAfect[]" value="37">
+                <input type="hidden" name="check-enfAfect[]" value="36">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -723,7 +724,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
                 <label>¿CON QUÉ FRECUENCIA TE SIENTES FELIZ?: </label>
-                <input type="hidden" name="check-frecFeliz[]" value="38">
+                <input type="hidden" name="check-frecFeliz[]" value="37">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -744,7 +745,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿CONSIDERAS QUE HAZ CUMPLIDO TUS METAS?: </label>
-                <input type="hidden" name="check-sienRealiz[]" value="39">
+                <input type="hidden" name="check-sienRealiz[]" value="38">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-sienRealiz" name="check-sienRealiz[]" value="1" required >
@@ -762,7 +763,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
                 <label>¿CON QUÉ FRECUENCIA TE SIENTES SOLO?: </label>
-                <input type="hidden" name="check-frecSolo[]" value="40">
+                <input type="hidden" name="check-frecSolo[]" value="39">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -783,7 +784,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
                 <label>¿CON QUÉ FRECUENCIA TE SIENTES TRISTE?: </label>
-                <input type="hidden" name="check-frectris[]" value="41">
+                <input type="hidden" name="check-frectris[]" value="40">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -804,7 +805,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 95%;margin-top: 10px;">
               <div class="col-5">
                 <label>¿CONSTANTEMENTE TE SIENTES FRUSTRADO ANTE SITUACIONES COTIDIANAS?: </label>
-                <input type="hidden" name="check-situaciCotidia[]" value="42">
+                <input type="hidden" name="check-situaciCotidia[]" value="41">
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
@@ -836,7 +837,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿DESAYUNAS ENTRE LAS 08:00AM Y 11:00AM?: </label>
-                <input type="hidden" name="check-Desayuno[]" value="43">
+                <input type="hidden" name="check-Desayuno[]" value="42">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-Desayuno" name="check-Desayuno[]" value="1" required >
@@ -854,7 +855,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿REALIZAS UNA COLACIÓN DE ALIMENTOS POR LA MAÑANA?: </label>
-                <input type="hidden" name="check-colaMana[]" value="44">
+                <input type="hidden" name="check-colaMana[]" value="43">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-colaMana" name="check-colaMana[]" value="1" required >
@@ -872,7 +873,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿ALMUERZAS ENTRE LAS 02:00PM Y 05:00PM?: </label>
-                <input type="hidden" name="check-Comida[]" value="45">
+                <input type="hidden" name="check-Comida[]" value="44">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-Comida" name="check-Comida[]" value="1" required >
@@ -890,7 +891,7 @@
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">
                 <label>¿REALIZAS UNA COLACIÓN DE ALIMENTOS POR LA TARDE?: </label>
-                <input type="hidden" name="check-colaTarde[]" value="46">
+                <input type="hidden" name="check-colaTarde[]" value="45">
               </div>
               <div class="col-3">
                 <input type="radio" required id="checkSi-colaTarde" name="check-colaTarde[]" value="1" required >
@@ -904,6 +905,26 @@
                 <textarea name="check-colaTarde[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
               </div> -->
             </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>¿CENAS ENTRE LAS 07:00PM Y 10:00PM?: </label>
+                <input type="hidden" name="check-colaCena[]" value="46">
+              </div>
+              <div class="col-3">
+                <input type="radio" required id="checkSi-colaCena" name="check-colaCena[]" value="1" required >
+                <label for="checkSi-colaCena">Si</label>
+              </div>
+              <div class="col-3">
+                <input type="radio" required  id="checkNo-colaCena" name="check-colaCena[]" value="2" required>
+                <label for="checkNo-colaCena" >No</label>
+              </div>
+              <!-- <div class="collapse" id="collapse-colaCena">
+                <textarea name="check-colaCena[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
+              </div> -->
+            </div>
+            
             <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
               <div class="col-6">

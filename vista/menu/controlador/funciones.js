@@ -508,13 +508,23 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50){
   }
 }
 
-function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
-  Toast.fire({
-    icon: icon,
-    title: msj,
-    timer: timer
-  });
-}
+// Mismas funciones, diferentes nombres por no querer cambiar el nombre donde lo llaman xd
+  function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
+    Toast.fire({
+      icon: icon,
+      title: msj,
+      timer: timer
+    });
+  }
+
+  function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
+    Toast.fire({
+      icon: icon,
+      title: msj,
+      timer: timer
+    });
+  }
+// 
 
 function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos completados', footer = null, html = null) {
   Swal.fire({
@@ -697,13 +707,19 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback){
 }
 
 
-function obtenerSignosVitales(id){ return new Promise(resolve => {
+function obtenerAntecedentesPaciente(id){ return new Promise(resolve => {
     let arrayDivs = new Array;
     var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row']")
+    var divNoPatologicos = $('#collapse-nopatologicos-Target').find("div[class='row']")
+    var divHeredofamiliares = $('#collapse-anteHeredo-Target').find("div[class='row']")
+    var divPsicologicos = $('#collapse-antPsico-Target').find("div[class='row']")
+    var divNutricionales = $('#collapse-antNutri-Target').find("div[class='row']")
+    var divLaboral = $('#collapse-MedLabo-Target').find("div[class='row']")
+    arrayDivs.push(divPatologicos, divNoPatologicos, divHeredofamiliares, divPsicologicos, divNutricionales, divLaboral)
 
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/prerregistro_api.php",
-      data: {api: 2, curp: 'OERN890720MCRSR09'},
+      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      data: {api: 10, turno_id: id},
       type: "POST",
       dataType: "json",
       success: function (data) {
@@ -712,6 +728,7 @@ function obtenerSignosVitales(id){ return new Promise(resolve => {
         //   setValuesAntecedentesMetodo(arrayDivs[i], checkbox[i])
         // }
         console.log(data);
+        console.log(arrayDivs)
       },
       complete: function(){
         resolve(1);
@@ -759,7 +776,7 @@ function setValuesAntecedentesMetodo(DIV, array){
   }
 }
 
-function obtenerVistaSignosVitales(div, cliente){  return new Promise(resolve => {
+function obtenerVistaAntecenetesPaciente(div, cliente){  return new Promise(resolve => {
     $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
       setTimeout(function () {
         $(div).html(html);

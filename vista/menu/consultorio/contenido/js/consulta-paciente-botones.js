@@ -206,3 +206,35 @@ $(document).on('click', '.eliminarRecetaActual', function () {
 $('#btn-regresar-vista').click(function() {
   obtenerContenidoAntecedentes(pacienteActivo.array)
 })
+
+$('#btn-guardar-notaPadecimiento').click(function() {
+  $('#btn-guardar-notaPadecimiento').prop('disabled', true);
+  guardarNotaConsulta({api: 3, notas_padecimiento: $('#nota-notas-padecimiento').val()}, function(){
+    $('#nota-notas-padecimiento').val('');
+    $('#btn-guardar-notaPadecimiento').prop('disabled',false);
+    alertToast('Nota guardarda')
+  })
+})
+
+$('#btn-guardar-Diagnostico').click(function() {
+  $('#btn-guardar-Diagnostico').prop('disabled', true);
+  guardarNotaConsulta({api: 3, diagnostico: $('#diagnostico-campo-consulta').val()}, function(){
+    $('#nota-notas-padecimiento').val('');
+    $('#btn-guardar-Diagnostico').prop('disabled',false);
+    alertToast('Nota guardarda')
+  })
+})
+
+function guardarNotaConsulta(data, callback){
+  $.ajax({
+    url: http + servidor + "/nuevo_checkup/api/consultar_api.php",
+    method: 'POST',
+    dataType: 'json',
+    data: data,
+    success: function (data) {
+      if(mensajeAjax(data)){
+        callback();
+      }
+    }
+  })
+}

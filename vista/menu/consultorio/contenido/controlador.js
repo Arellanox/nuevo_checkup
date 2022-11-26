@@ -83,9 +83,9 @@ async function obtenerConsultorio(id, idTurno){
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   // alert("Antes de antecedentes")
   // await obtenerAntecedentes('#antecedentes-paciente', idTurno);
-  await obtenerVistaSignosVitales('#antecedentes-paciente')
+  await obtenerVistaAntecenetesPaciente('#antecedentes-paciente')
   $('#div-btn-guardarAntecedentes').append('<button type="button" class="btn btn-confirmar m-1" id="guardar-antecedentes"> <i class="bi bi-plus"></i> Guardar </button>')
-  await obtenerSignosVitales(1);
+  await obtenerAntecedentesPaciente(idTurno);
   // setValues(idTurno) //llamar los valores para los antecedentes
 
   // alert("Antes de notas historial")
