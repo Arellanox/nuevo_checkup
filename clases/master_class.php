@@ -17,7 +17,7 @@ class Master extends Miscelaneus
         $this->urlLocal = 'http://localhost/';
         $this->urlComodin = '../';
         $this->urlOrdenesMedicas = 'archivos/ordenes_medicas/';
-        $this->urlEquiposLaboratorio = "archivos/Equipos/";
+        $this->urlEquiposLaboratorio = "archivos/laboratorio_equipos/";
     }
 
     function connection()
