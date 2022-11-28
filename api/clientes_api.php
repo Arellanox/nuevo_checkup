@@ -103,7 +103,6 @@ switch ($api) {
         $url = $master->generarQRURL("cliente",$qr,$nombreCliente, QR_ECLEVEL_H, 10);
         echo json_encode(array("url"=>$url));
         exit;
-        break;
 
     default:
         $response = "api no reconocida";

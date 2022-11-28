@@ -163,6 +163,7 @@ switch ($api) {
         break;
 
     case 10:
+        # recuperar los antecedentes del turno
         $response = $master->getByProcedure('sp_consultorio_antecedentes_b',[$turno_id]);
 
         $antecedentes = array();
@@ -197,6 +198,10 @@ switch ($api) {
         $antecedentes[] = $tipoArray;
         echo json_encode($antecedentes);
         exit;
+
+    case 11:
+        # terminar consulta
+        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$turno_id]);
         break;
     default:
     $response = "api no reconocida";
