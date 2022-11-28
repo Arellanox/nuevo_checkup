@@ -203,6 +203,10 @@ switch ($api) {
         # terminar consulta
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$turno_id]);
         break;
+    case 12:
+        # Actualizar antecedentes
+        
+        break;
     default:
     $response = "api no reconocida";
         break;

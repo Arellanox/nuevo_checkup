@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    #$tokenVerification->logout();
-    #exit;
+    $tokenVerification->logout();
+    exit;
 }
 
 #api
@@ -77,6 +77,7 @@ switch ($api) {
                     #para poder enviarlo a la base de datos
                     $fotos = json_encode($return);
                     $parametros[14] = $fotos;
+                    
                     $response = $master->insertByProcedure("sp_laboratorio_equipos_g", $parametros);
                 } else {
                     $response = "No se puedieron mover los archivos.";
