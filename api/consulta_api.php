@@ -58,7 +58,7 @@ $nutricionParams = array(
 
 # exploracion clinica
 $id_exploracion_clinica = $_POST['id_exploracion_clinica'];
-$exploracion_tipo_id = $_POSTp['exploracion_tipo_id'];
+$exploracion_tipo_id = $_POST['exploracion_tipo_id'];
 $exploracion = $_POST['exploracion'];
 
 
