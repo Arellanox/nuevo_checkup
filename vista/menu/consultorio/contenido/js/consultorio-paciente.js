@@ -38,7 +38,7 @@ function obtenerNotasHistorial(id) {
         // TURNO_ID: "59"
         let row = data.response.data;
         for (let i = 0; i < row.length; i++) {
-          agregarNotaConsulta('@Usuario actual', event.toLocaleDateString('es-ES', options), row[i]['NOTAS'], '#notas-historial', row[i]['ID_NOTA'])
+          agregarNotaConsulta(row[i]['NOMBRE_USUARIO'], formatoFecha2(row[i]['FECHA_CREACION'], [3, 1, 2, 2, 0, 0, 0]), row[i]['NOTAS'], '#notas-historial', row[i]['ID_NOTA'], 'eliminarNota')
         }
       },
       complete: function () {

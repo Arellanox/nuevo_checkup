@@ -47,16 +47,18 @@ function obtenerContenidoAntecedentes(data) {
 //
 
 
-
+var tablaRecetas; 
 // obtenerContenidoConsulta()
 function obtenerContenidoConsulta(data, idconsulta) {
   loader("In")
+  console.log(data)
   // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
   $("#titulo-js").html(''); //Vaciar la cabeza de titulo
   $.post("contenido/consultorio_consulta.html", function (html) {
     var idrow;
     $("#body-js").html(html);
     pacienteActivo = new GuardarArreglo(data)
+    pacienteActivo.selectID = idconsulta;
     // Datatable
     // $.getScript("contenido/js/estudio-tabla.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
@@ -105,23 +107,25 @@ async function obtenerConsultorio(id, idTurno) {
 }
 
 async function obtenerConsulta(data, idconsulta) {
-  // console.log(data, idconsulta)
+  console.log(data, idconsulta)
   await obtenerInformacionConsulta(idconsulta)
   await obtenerInformacionPaciente(data)
+  await obtenerNutricion(data['ID_TURNO'])
+  await obtenerExploracion(data['ID_TURNO'])
   await obtenerAnamnesisApartados(idturno);
 
 
   loader("Out")
 }
 
-function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;') {
+function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, clase, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;') {
   if (date != null) {
     date = '<p style="font-size: 14px;margin-left: 5px;">' + date + '</p>';
   } else {
     date = '';
   }
   let html = '<div class="' + classTittle + '" data-db="divDelete">' +
-    '<h4 class="m-3">' + tittle + ' <button type="button" class="btn btn-hover eliminarNota" data-bs-id="' + id + '"> <i class="bi bi-trash"></i> </button> ' + date + '</h4> ' +
+    '<h4 class="m-3">' + tittle + ' <button type="button" class="btn btn-hover '+clase+'" data-bs-id="' + id + '"> <i class="bi bi-trash"></i> </button> ' + date + '</h4> ' +
     '<div style="' + style + '">' +
     '<p class="none-p">' + text + '<p> </div> </div>';
   $(appendDiv).append(html);

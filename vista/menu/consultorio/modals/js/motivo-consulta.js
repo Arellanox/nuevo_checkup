@@ -1,7 +1,9 @@
 const modalMotivoConsulta = document.getElementById("modalMotivoConsulta");
 modalMotivoConsulta.addEventListener("show.bs.modal", (event) => {
 
-  rellenarSelect('#select-cita-subsecuente', 'consulta_api', 2, 0, 'DESCRIPCION', {id_paciente: pacienteActivo.array['ID_PACIENTE']}, function (array){
+  rellenarSelect('#select-cita-subsecuente', 'consulta_api', 2, 'ID_CONSULTA', 'MOTIVO_CONSULTA', {
+    id_paciente: pacienteActivo.array['ID_PACIENTE']
+  }, function (array) {
     if (array.length == 0) {
       $('#select-cita-subsecuente').removeAttr('required');
       $('#select-cita-subsecuente').prop('disabled', true);
@@ -12,7 +14,7 @@ modalMotivoConsulta.addEventListener("show.bs.modal", (event) => {
 
 select2('#select-cita-subsecuente', 'modalMotivoConsulta')
 
-$('#formMotivoConsulta').submit(function(event){
+$('#formMotivoConsulta').submit(function (event) {
   event.preventDefault();
   var form = document.getElementById("formMotivoConsulta");
   var formData = new FormData(form);
@@ -41,7 +43,7 @@ $('#formMotivoConsulta').submit(function(event){
           console.log(data);
 
           // Llamar la vista de consulta
-          obtenerContenidoConsulta(pacienteActivo, data['response']['data'])
+          obtenerContenidoConsulta(pacienteActivo.array, data['response']['data'])
           document.getElementById("formMotivoConsulta").reset();
           $("#modalMotivoConsulta").modal("hide");
 
@@ -54,11 +56,11 @@ $('#formMotivoConsulta').submit(function(event){
   });
 })
 
-$('#checkCitaSubsecuente').change(function() {
-  if($(this).is(":checked")) {
+$('#checkCitaSubsecuente').change(function () {
+  if ($(this).is(":checked")) {
     $('#select-cita-subsecuente').removeAttr('required');
     $('#select-cita-subsecuente').prop('disabled', true);
-  }else{
+  } else {
     $('#select-cita-subsecuente').prop('required', true);
     $('#select-cita-subsecuente').prop('disabled', false);
     $('#select-cita-subsecuente').focus();

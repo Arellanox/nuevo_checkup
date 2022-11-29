@@ -10,17 +10,14 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
   } // p.m. - a.m.
 
   switch (optionsDate[0]) { //Dia de la semana
-    case 1:
-      options['weekday'] = "narrow";
-      break; // S
-    case 2:
-      options['weekday'] = "short";
-      break; // Sáb
-    case 3:
-      options['weekday'] = "long";
-      break; // Sábado
-  }
-  switch (optionsDate[1]) { //año de la semana
+    case 1: options['weekday'] = "narrow";
+    break; // S
+    case 2: options['weekday'] = "short";
+    break; // Sáb
+    case 3: options['weekday'] = "long";
+    break; // Sábado
+    }
+  switch (optionsDate[1]) { //año
     case 1:
       options['year'] = "numeric";
       break; // 2022
@@ -28,7 +25,7 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
       options['year'] = "2-digit";
       break; // 22
   }
-  switch (optionsDate[2]) { //Mes de la semana
+  switch (optionsDate[2]) { //Mes
     case 1:
       options['month'] = "narrow";
       break; // N
@@ -45,7 +42,7 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
       options['month'] = "2-digit";
       break; // 11
   }
-  switch (optionsDate[3]) { //Dia de la semana
+  switch (optionsDate[3]) { //Dia
     case 1:
       options['day'] = "numeric";
       break;
@@ -53,7 +50,7 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
       options['day'] = "2-digit";
       break;
   }
-  switch (optionsDate[4]) { //Hora de la semana
+  switch (optionsDate[4]) { //Hora
     case 1:
       options['hour'] = "numeric";
       break;
@@ -61,7 +58,7 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
       options['hour'] = "2-digit";
       break;
   }
-  switch (optionsDate[5]) { //Minutos de la semana
+  switch (optionsDate[5]) { //Minutos
     case 1:
       options['minute'] = "numeric";
       break;
@@ -69,7 +66,7 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
       options['minute'] = "2-digit";
       break;
   }
-  switch (optionsDate[6]) { //Segundos de la semana
+  switch (optionsDate[6]) { //Segundos
     case 1:
       options['seconds'] = "numeric";
       break;

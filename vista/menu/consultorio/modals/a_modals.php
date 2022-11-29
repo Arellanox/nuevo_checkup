@@ -1,3 +1,3 @@
 <?php
 
-include 'motivo-consulta.php';
+include 'motivo-consulta.html';

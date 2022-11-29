@@ -1,5 +1,3 @@
-
-
 // Exploracion clinica
 $('#select-exploracion-clinica').on('change', function () {
   let selectoo = $('#select-exploracion-clinica').val();
@@ -132,46 +130,67 @@ Signos Meníngeos: rigidez de la nuca, Kernig, Brudzinski."
       break;
 
     default:
-     $("#texto-exp-cli").html(`Aqui se Mostrara Mas informacion`);
+      $("#texto-exp-cli").html(`Aqui se Mostrara Mas informacion`);
   }
 })
 
 
+//Regresar a perfil de paciente
+$('#btn-regresar-vista').click(function () {
+  alertMensajeConfirm({
+      title: "¿Está seguro de regresar?",
+      text: "¡Asegurese de guardar los cambios!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }, function () {
+      obtenerContenidoAntecedentes(pacienteActivo.array)
+    })
+})
+
 
 // Exploracion clinica
-
-
-$('#btn-agregar-exploracion-clinina').on('click', function(){
-
+$('#btn-agregar-exploracion-clinina').on('click', function () {
   let titulo = $('#select-exploracion-clinica option').filter(':selected').text();
-
   $.ajax({
-    data: {titulo:$('#select-exploracion-clinica').val(),mensaje:$('#text-exploracion-clinica').val(),api: 7},
-    url: "../../../api/turnos_api.php",
+    data: {
+      turno_id: pacienteActivo.array['ID_TURNO'],
+      exploracion_tipo_id: $('#select-exploracion-clinica').val(),
+      exploracion: $('#text-exploracion-clinica').val(),
+      api: 6
+    },
+    url: "../../../api/consulta_api.php",
     type: "POST",
-    success: function(data) {
+    dataType: "json",
+    success: function (data) {
       // alert("antes de la nota")
-      agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio', '0','mt-3')
+      agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio', data.response.data, 'eliminarExploracion')
       $('#text-exploracion-clinica').val('')
       // alert("despues de la nota")
     },
   });
 })
 //Eliminar los comentario 
-$(document).on('click', '.eliminarComentario', function () {
+$(document).on('click', '.eliminarExploracion', function () {
   let id = $(this).attr('data-bs-id');
   let comentario = $(this);
 
   $.ajax({
-    data: {id: id,api: 7},
-    url: "../../../api/turnos_api.php",
+    data: {
+      id_exploracion_clinica: id,
+      api: 7
+    },
+    url: "../../../api/consulta_api.php",
     type: "POST",
-    success: function(data) {
+    success: function (data) {
       // alert("antes de la nota")
       // if (mensajeAjax(data)) {
-        var parent_element = $(comentario).closest("div[class='mt-3']");
-        console.log(parent_element)
-        $(parent_element).remove()
+      var parent_element = $(comentario).closest("div[class='card mt-3']");
+      console.log(parent_element)
+      $(parent_element).remove()
       // }
 
       // alert("despues de la nota")
@@ -185,54 +204,153 @@ $(document).on('click', '.eliminarComentario', function () {
 
 
 
-//Agegar form para receta
-$('#btn-agregar-medicamento-receta').click(function(){
-  nuevoMedicamentoReceta("#recetas-medicamentos")
-})
-
+// //Agegar form para receta
+// $('#btn-agregar-medicamento-receta').click(function () {
+//   nuevoMedicamentoReceta("#recetas-medicamentos")
+//     // $id_receta,
+//   // $turno_id,
+//   // $nombre_generico,
+//   // $forma_farmaceutica,
+//   // $dosis,
+//   // $presentacion,
+//   // $frecuencia,
+//   // $via_de_administracion,
+//   // $duracion_del_tratamiento,
+//   // $indicaciones_para_el_uso
+// })
 //Eliminar los campos 
-$(document).on('click', '.eliminarRecetaActual', function () {
+// $(document).on('click', '.eliminarRecetaActual', function () {
+//   let id = $(this).attr('data-bs-id');
+
+
+//   var parent_element = $(this).closest("div[class='col-12 d-flex justify-content-end']");
+//   $(parent_element).remove()
+
+// });
+
+//Guardar receta 
+$('#formNuevaReceta').submit(function(event){
+  event.preventDefault();
+  let button = $('#btn-guardar-Receta')
+  button.prop('disabled', true)
+  let form = document.getElementById("formNuevaReceta");
+  let formData = new FormData(form)
+  formData.set('api', 9)
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO'])
+  $.ajax({
+    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    method: 'POST',
+    dataType: 'json',
+    processData: false,
+    contentType: false,
+    data: formData,
+    success: function (data) {
+      console.log(data);
+      document.getElementById("formNuevaReceta").reset();
+      tablaRecetas.ajax.reload()
+    }
+  })
+})
+//Eliminar receta registro
+$(document).on('click', '.eliminarRecetaTabla', function () {
   let id = $(this).attr('data-bs-id');
-
-  // eliminarElementoArray(id);
-  // console.log(id);
-  var parent_element = $(this).closest("div[class='col-12 d-flex justify-content-end']");
-  $(parent_element).remove()
-
+  let button = $(this);
+  alert(id);
+  alertMensajeConfirm({
+    title: "¿Está seguro de eliminar esta receta?",
+    text: "¡No podrá regresar los cambios!",
+    icon: "warning",
+    showCancelButton: true,
+    cancelButtonColor: "#3085d6",
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+  },function () {
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      method: 'POST',
+      dataType: 'json',
+      data: {api: 17, id_receta: id},
+      success: function (data) {
+        if (mensajeAjax(data)) {
+          // alertMensaje('info', 'Eliminado', 'ELIMINADO')
+          alertToast('Receta elimanda')
+        }
+      }
+    
+    })
+  })
+  // $.ajax({
+  //   url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
+  //   type: "POST",
+  //   dataType: "json",
+  //   data: {
+  //     api: 4,
+  //     id_nota: id,
+  //   },
+  //   success: function (data) {
+  //     if (mensajeAjax(data)) {
+  //       var parent_element = button.closest("div");
+  //       $(parent_element).remove()
+  //     }
+  //   }
+  // });
 });
 
 
-//Regresar a perfil de paciente
-$('#btn-regresar-vista').click(function() {
-  obtenerContenidoAntecedentes(pacienteActivo.array)
+$('#btn-guardar-Nutricion').click(function(){
+  let button = $(this)
+  button.prop('disabled',true)
+  guardarInformacion({
+    api: 5,
+    turnos_id: pacienteActivo.array['ID_TURNO'], 
+    peso_perdido: $('#input-pesosPerdido').val(),
+    grasa: $('#input-grasa').val(),
+    cintura: $('#input-cintura').val(),
+    agua: $('#input-agua').val(),
+    musculo: $('#input-musculo').val(),
+    abdomen: $('#input-abdomen').val()
+  }, function(){
+    button.prop('disabled', false)
+    alertToast('Datos guardados...', 'success')
+  })
 })
 
-$('#btn-guardar-notaPadecimiento').click(function() {
+$('#btn-guardar-notaPadecimiento').click(function () {
   $('#btn-guardar-notaPadecimiento').prop('disabled', true);
-  guardarNotaConsulta({api: 3, notas_padecimiento: $('#nota-notas-padecimiento').val()}, function(){
-    $('#nota-notas-padecimiento').val('');
-    $('#btn-guardar-notaPadecimiento').prop('disabled',false);
-    alertToast('Nota guardarda')
+  guardarInformacion({
+    api: 3,
+    notas_padecimiento: $('#nota-notas-padecimiento').val(),
+    id_consulta: pacienteActivo.selectID
+  }, function () {
+    $('#btn-guardar-notaPadecimiento').prop('disabled', false);
+    alertToast('Nota guardarda', 'success')
   })
 })
 
-$('#btn-guardar-Diagnostico').click(function() {
+$('#btn-guardar-Diagnostico').click(function () {
   $('#btn-guardar-Diagnostico').prop('disabled', true);
-  guardarNotaConsulta({api: 3, diagnostico: $('#diagnostico-campo-consulta').val()}, function(){
-    $('#nota-notas-padecimiento').val('');
-    $('#btn-guardar-Diagnostico').prop('disabled',false);
-    alertToast('Nota guardarda')
+  guardarInformacion({
+    api: 3,
+    diagnostico: $('#diagnostico-campo-consulta').val(),
+    id_consulta: pacienteActivo.selectID
+  }, function () {
+    $('#btn-guardar-Diagnostico').prop('disabled', false);
+    alertToast('Nota guardarda', 'success')
   })
 })
 
-function guardarNotaConsulta(data, callback){
+
+
+
+function guardarInformacion(data, callback) {
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/consultar_api.php",
+    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
     method: 'POST',
     dataType: 'json',
     data: data,
     success: function (data) {
-      if(mensajeAjax(data)){
+      if (mensajeAjax(data)) {
         callback();
       }
     }

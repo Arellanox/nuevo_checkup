@@ -21,7 +21,7 @@ $('#agregar-nota-historial').on('click', function () {
     success: function (data) {
       if (mensajeAjax(data)) {
         // console.log(data);
-        agregarNotaConsulta(session.nombre + " " + session.apellidos, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial', data.response.data);
+        agregarNotaConsulta(session.nombre + " " + session.apellidos, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial', data.response.data, 'eliminarNota');
       }
     }
   });
@@ -72,7 +72,8 @@ $(document).on('click', '.guardarAnt ', function () {
   // console.log(parent_element);
   let formData = new FormData(document.getElementById(parent_element));
   // console.log(formData);
-  formData.set('api', 10);
+  formData.set('api', 7);
+  formData.set('turno_id', 7);
 
   $.ajax({
     data: formData,

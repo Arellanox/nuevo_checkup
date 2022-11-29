@@ -1,4 +1,4 @@
-<div class="col-12 loader" id="loader" style="">
+<div class="col-12 loader" id="loader">
   <div class="preloader" id="preloader"> </div>
 </div>
 
@@ -125,7 +125,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required>
+                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-pesosPerdido">
                 </div>
               </div>
             </li>
@@ -138,7 +138,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required>
+                  <input type="number" class="form-control input-form" name="" placeholder="" required  id="input-grasa">
                 </div>
               </div>
             </li>
@@ -151,7 +151,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required>
+                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-cintura">
                 </div>
               </div>
             </li>
@@ -168,7 +168,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required>
+                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-agua">
                 </div>
               </div>
             </li>
@@ -181,7 +181,7 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required>
+                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-musculo">
                 </div>
               </div>
             </li>
@@ -194,14 +194,22 @@
                   </p>
                 </div>
                 <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required>
+                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-abdomen">
                 </div>
               </div>
             </li>
           </ul>
         </div>
       </div>
+      <div class=" d-flex justify-content-start m-2">
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-Nutricion">
+          <i class="bi bi-paperclip"></i> Guardar
+        </button>
+      </div>
     </section>
+
+
+
     <section id="card-exploracion-clinica" class="card mt-3">
       <h4 class="m-3">Exploración clinica</h4>
       <hr class="dropdown-divider m-2">
@@ -234,7 +242,7 @@
             </button>
           </div>
         </div>
-        <div class="col-6 card m-3" id="texto-exp-cli">
+        <div class="col-6 card m-3" id="texto-exp-cli" style="font-size: 18px;letter-spacing: 1px;" >
           Estado de conciencia. Orientación temporo-espacial. Peso. Talla. Indice de masa corporal.
           Deformidades generales, parciales o regionales. Color de piel y mucosas (palidez. Cianosis, ictericia.
           Manchas.
@@ -247,10 +255,15 @@
         </div>
       </div>
     </section>
+
+
+
+
+
     <section id="card-anamnesis-aparatos" class="card mt-3">
       <h4 class="m-3">ANAMNESIS POR APARATOS</h4>
       <hr class="dropdown-divider m-2">
-      <div id="divANAMNESISAPARATOS"> </div>
+      <div id="divANAMNESISAPARATOS" class="p-3"> </div>
     </section>
 
 
@@ -272,11 +285,80 @@
       <h4 class="m-3">Receta</h4>
       <hr class="dropdown-divider m-2">
       <p class="none-p m-3">Receta de médicamento(s)</p>
-      <div id="recetas-medicamentos"> </div>
-      <div class="d-flex justify-content-start" style="margin-left: 20px; margin-top:20px; margin-bottom:20px">
+      <div id="recetas-medicamentos"> 
+        <div class="col-12 d-flex justify-content-end">
+          <div class="card m-3">
+            <form id="formNuevaReceta">
+              <div class="row m-2">
+                <div class="col-4">
+                  <label for="estado" class="form-label">Nombre</label> 
+                  <input type="text" class="form-control input-form" name="nombre_generico" placeholder=""> 
+                </div>
+                <div class="col-2">
+                  <label for="estado" class="form-label">Forma farmacéutica</label> 
+                  <input type="text" class="form-control input-form" name="forma_farmaceutica" placeholder=""> 
+                </div>
+                <div class="col-2">
+                  <label for="estado" class="form-label">Dosis</label> 
+                  <input type="text" class="form-control input-form" name="dosis" placeholder="">
+                </div>
+                <div class="col-4">
+                  <label for="estado" class="form-label">Presentación</label> 
+                  <input type="text" class="form-control input-form" name="presentacion" placeholder="">
+                </div>
+                <div class="col-4">
+                  <label for="estado" class="form-label">Frecuencia</label> 
+                  <input type="text" class="form-control input-form" name="frecuencia" placeholder="">
+                </div>
+                <div class="col-2">
+                  <label for="estado" class="form-label">Vía de administración</label> 
+                  <input type="text" class="form-control input-form" name="via_de_administracion" placeholder="">
+                </div>
+                <div class="col-2">
+                  <label for="estado" class="form-label">Duración de tratamiento</label> 
+                  <input type="text" class="form-control input-form" name="duracion_del_tratamiento" placeholder="">
+                </div>
+                <div class="col-4">
+                  <label for="estado" class="form-label">Indicaciones</label> 
+                  <input type="text" class="form-control input-form" name="indicaciones_para_el_uso" placeholder="">
+                </div>
+              </div>
+            </form>
+            <div class=" d-flex justify-content-start m-2"> 
+              <button type="submit" form="formNuevaReceta" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-Receta"> 
+                <i class="bi bi-paperclip"></i> Guardar 
+              </button> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="d-flex justify-content-start" style="margin-left: 20px; margin-top:20px; margin-bottom:20px">
         <button type="button" class="btn btn-confirmar" style="margin-bottom:4px" id="btn-agregar-medicamento-receta">
           <i class="bi bi-clipboard-plus"></i> Agregar
         </button>
+      </div> -->
+      <div class="col-12">
+        <div class="card m-3 p-3">
+          <p class="none-p">Recetas guardadas de consulta</p>
+          <table class="table table-hover display responsive" id="tablaListaRecetas" style="width: 100%;">
+            <thead class="">
+              <tr>
+                <!-- <th scope="col d-flex justify-content-center" class="all">#</th> -->
+                <th scope="col d-flex justify-content-center" class="all">Nombre</th>
+                <th scope="col d-flex justify-content-center" class="all">For. Farmaceutica</th>
+                <th scope="col d-flex justify-content-center" class="all">Dosis</th>
+                <th scope="col d-flex justify-content-center" class="none">Presentación</th>
+                <th scope="col d-flex justify-content-center" class="all">Frecuencia</th>
+                <th scope="col d-flex justify-content-center" class="none">Vía de Administración</th>
+                <th scope="col d-flex justify-content-center" class="all">Duración</th>
+                <th scope="col d-flex justify-content-center" class="none">Indicaciones</th>
+                <th scope="col d-flex justify-content-center" class="all">Eliminar</th> <!-- <i class="bi bi-trash"></i> -->
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </section>
