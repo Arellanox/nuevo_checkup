@@ -212,6 +212,10 @@ switch ($api) {
         # recuperar los datos nutricionales
         $response = $master->getByProcedure('sp_consultorio_nutricion_b',[$turno_id]);
         break;
+    case 14:
+        # recuperar los datos de la receta
+        $response = $master->getByProcedure('sp_consultorio_recetas_b',[$turno_id]);
+        break;
     default:
     $response = "api no reconocida";
         break;
