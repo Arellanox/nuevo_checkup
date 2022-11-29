@@ -1,5 +1,6 @@
 <?php
-require_once 'vendor/autoload.php';
+
+require_once '../vendor/autoload.php';
 require 'class/View.php';
 
 use Dompdf\Adapter\PDFLib;
@@ -73,6 +74,9 @@ class Reporte{
             case 'descargar':
                 file_put_contents($path, $pdf->output());
                 return $pdf->output();
+                break;
+            case 'mostrar':
+                return $pdf->stream('resultado.pdf', array("Attachment" => false));
                 break;
             default:
                 return $pdf->stream('resultado.pdf', array("Attachment" => false));

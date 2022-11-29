@@ -1,10 +1,10 @@
 <?php
     require '../clases/master_class.php';
-    require '../pdf/class/Pdf.php';
+    // require '../pdf/class/Pdf.php';
+    // require '../pdf/class/Pdf.php';
+    require '../clases/Pdf.php';
 
-    require_once '../pdf/class/View.php';
-
-    $api = $_POST['api'];
+    $api = 3;
     $array = array(
     "folio"     => "007",
     "nombre"    => "Menganito paciente",
@@ -493,7 +493,8 @@
         "plan"          => "OBSERVACION ANUAL"
     )
 );
-
+    $data = json_encode($array);
+    
     switch ($api){
         case 1:
         // Case 1 para etiquetas

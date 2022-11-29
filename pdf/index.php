@@ -495,7 +495,7 @@ $array = array(
 
 $data = json_encode($array);
 // Genero la instancia
-$prueba = new Reporte($data, 'resultados', 'descargar');
+$prueba = new Reporte($data, 'resultados', 'mostrar');
 $prueba->build();
 
 // echo("The object is \n");
