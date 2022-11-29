@@ -223,17 +223,15 @@ switch ($api) {
     case 16:
         # actualizar los antecedentes del turno
         $antecedentes = array_slice($_POST,0,count($_POST)-2);
-        $antecedentes_registrados = $master->getByProcedure('sp_consultorio_antecedentes_g',[$turno_id]);
 
-        for($i=0; $i<count($antecedentes); $i++){
-            $id_ant = $antecedentes_registrados[$i]['ID_CONSULTORIO_ANTECEDENTE'];
-            $current = $antecedentes[$i];
-            $response = $master->updateByProcedure('sp_consultorio_antecedentes_g',[]);
+        foreach($antecedentes as $current){
+            $response = $master->updateByProcedure('sp_consultorio_antecedentes_a',[$turno_id,$current[0],$current[1],$current[2]]);
         }
 
         break;
     case 17:
         # eliminiar receta
+        $response = $master->deleteByProcedure('sp_consultorio_recetas_e',[$id_receta]);
         break;
     default:
     $response = "api no reconocida";
