@@ -209,8 +209,8 @@ switch ($api) {
         
         break;
     case 13:
-        # buscar losd datos de nutricionl
-        $response = $master->getByProcedure('',[]);
+        # recuperar los datos nutricionales
+        $response = $master->getByProcedure('sp_consultorio_nutricion_b',[$turno_id]);
         break;
     default:
     $response = "api no reconocida";
