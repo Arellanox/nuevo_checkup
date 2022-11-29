@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    #$tokenVerification->logout();
+    #exit;
 }
 
 #api
@@ -115,7 +115,7 @@ switch ($api) {
         break;
     case 6:
         # insertar exploracion clinica
-        $response = $master->insertByProcedure("sp_consultorio_exploracion_g",[$id_exploracion_clinica,$turno_id,$exploracion_tipo_id,$exploracion]);
+        $response = $master->insertByProcedure("sp_consultorio_exploracion_clinica_g",[$id_exploracion_clinica,$turno_id,$exploracion_tipo_id,$exploracion]);
         break;
     case 7:
         # eliminar exploracion clinica
@@ -204,8 +204,13 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$turno_id]);
         break;
     case 12:
-        # Actualizar antecedentes
+        # buscar las exploraciones clinicas.
+        $response = $master->getByProcedure('sp_consultorio_exploracion_clinica_b',[$turno_id]);
         
+        break;
+    case 13:
+        # buscar losd datos de nutricionl
+        $response = $master->getByProcedure('',[]);
         break;
     default:
     $response = "api no reconocida";
