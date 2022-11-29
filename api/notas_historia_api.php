@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
@@ -19,11 +20,13 @@ $id_paciente = $_POST['id_paciente'];
 
 #insertar  
 $notas = $_POST['notas'];
+$usuario = $_SESSION['id'];
 
 $parametros = array(
     $id_nota,
     $id_turno,
-    $notas
+    $notas,
+    $usuario
 );
  
 $response="";
