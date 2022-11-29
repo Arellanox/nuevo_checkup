@@ -216,6 +216,23 @@ switch ($api) {
         # recuperar los datos de la receta
         $response = $master->getByProcedure('sp_consultorio_recetas_b',[$turno_id]);
         break;
+    case 15:
+        # recuperar anamnesis por aparatos  
+        $response = $master->getByProcedure('sp_consultorio_anamnesis_aparatos_b',[$turno_id]);
+        break;
+    case 16:
+        # actualizar los antecedentes del turno
+        $antecedentes = array_slice($_POST,0,count($_POST)-2);
+
+        foreach($antecedentes as $current){
+            $response = $master->updateByProcedure('sp_consultorio_antecedentes_a',[$turno_id,$current[0],$current[1],$current[2]]);
+        }
+
+        break;
+    case 17:
+        # eliminiar receta
+        $response = $master->deleteByProcedure('sp_consultorio_recetas_e',[$id_receta]);
+        break;
     default:
     $response = "api no reconocida";
         break;
