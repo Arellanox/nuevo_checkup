@@ -202,6 +202,46 @@ $(document).on('click', '.eliminarExploracion', function () {
 });
 
 
+//Guardar antecedentes
+$(document).on('click', '.guardarAnamn ', function (event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $('.guardarAnamn')
+  button.prop('disabled', true);
+  var parent_element = button.closest("form").attr('id');
+  // console.log(parent_element);
+  let formData = new FormData(document.getElementById(parent_element));
+  console.log( $('#'+parent_element).serializeArray() );
+  // Display the key/value pairs
+  for (var pair of formData.entries()) {
+
+    console.log(pair[0]+ ', ' + pair[1]); 
+  }
+  formData.set('api', 17);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
+
+  // $.ajax({
+  //   data: formData,
+  //   url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+  //   type: "POST",
+  //   processData: false,
+  //   contentType: false,
+  //   dataType: 'json',
+  //   beforeSend: function() {
+  //     // alert('Enviando')
+  //     alertToast('Guardando...', 'info')
+  //   },
+  //   success: function (data) {
+  //     button.prop('disabled', false);
+  //     alertToast('Guardado con exito', 'success');
+  //   },
+  // });
+  // eliminarElementoArray(id);
+  // console.log(id);
+
+});
+
+
 
 
 // //Agegar form para receta
@@ -246,6 +286,7 @@ $('#formNuevaReceta').submit(function(event){
     data: formData,
     success: function (data) {
       console.log(data);
+      button.prop('disabled', false)
       document.getElementById("formNuevaReceta").reset();
       tablaRecetas.ajax.reload()
     }
@@ -274,7 +315,8 @@ $(document).on('click', '.eliminarRecetaTabla', function () {
       success: function (data) {
         if (mensajeAjax(data)) {
           // alertMensaje('info', 'Eliminado', 'ELIMINADO')
-          alertToast('Receta elimanda')
+          alertToast('Receta elimanda', 'success')
+          tablaRecetas.ajax.reload()
         }
       }
     
@@ -303,7 +345,7 @@ $('#btn-guardar-Nutricion').click(function(){
   button.prop('disabled',true)
   guardarInformacion({
     api: 5,
-    turnos_id: pacienteActivo.array['ID_TURNO'], 
+    turno_id: pacienteActivo.array['ID_TURNO'], 
     peso_perdido: $('#input-pesosPerdido').val(),
     grasa: $('#input-grasa').val(),
     cintura: $('#input-cintura').val(),

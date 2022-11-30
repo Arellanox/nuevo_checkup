@@ -30,6 +30,7 @@ $('#agregar-nota-historial').on('click', function () {
 $(document).on('click', '.eliminarNota', function () {
   let id = $(this).attr('data-bs-id');
   let button = $(this);
+  button.prop('disabled',true);
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
     type: "POST",
@@ -40,6 +41,8 @@ $(document).on('click', '.eliminarNota', function () {
     },
     success: function (data) {
       if (mensajeAjax(data)) {
+        button.prop("disabled", false)
+        $('#nota-historial-paciente').val('')
         var parent_element = button.closest("div");
         $(parent_element).remove()
       }
@@ -64,24 +67,29 @@ $('#btn-regresar-vista').click(function () {
 
 
 // $('.').on
-$(document).on('click', '.guardarAnt ', function () {
+$(document).on('click', '.guardarAnt ', function (event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
   button = $('.guardarAnt')
   button.prop('disabled', true);
-  alertToast('Guardando...')
   var parent_element = button.closest("form").attr('id');
   // console.log(parent_element);
   let formData = new FormData(document.getElementById(parent_element));
   // console.log(formData);
-  formData.set('api', 7);
-  formData.set('turno_id', 7);
+  formData.set('api', 17);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
 
   $.ajax({
     data: formData,
-    url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
     type: "POST",
     processData: false,
     contentType: false,
     dataType: 'json',
+    beforeSend: function() {
+      // alert('Enviando')
+      alertToast('Guardando...', 'info')
+    },
     success: function (data) {
       button.prop('disabled', false);
       alertToast('Guardado con exito', 'success');
@@ -91,6 +99,7 @@ $(document).on('click', '.guardarAnt ', function () {
   // console.log(id);
 
 });
+
 
 
 

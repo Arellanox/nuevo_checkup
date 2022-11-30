@@ -47,7 +47,7 @@ $abdomen = $_POST['abdomen'];
 
 $nutricionParams = array(
     $id_nutricion,
-    $turnos_id,
+    $turno_id,
     $peso_perdido,
     $grasa,
     $cintura,

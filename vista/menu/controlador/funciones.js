@@ -820,6 +820,12 @@ function obtenerAntecedentesPaciente(id) {
   // })
 }
 
+// function obtenerAnamnesisApartadosPaciente(id){
+//   return new Promise(resolve => {
+
+//   })
+// }
+
 function setValuesAntecedentesMetodo(DIV, array) {
   if (DIV.length == array.length) {
     for (var i = 0; i < DIV.length; i++) {
