@@ -118,7 +118,7 @@ function obtenerAnamnesisApartados(turno) {
               method: 'POST',
               dataType: 'json',
               data: {
-                api: 15, turno_id: turno
+                api: 18, turno_id: turno
               },
               success: function (data) {
                 checkbox = data;

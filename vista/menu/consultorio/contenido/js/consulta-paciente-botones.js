@@ -211,31 +211,26 @@ $(document).on('click', '.guardarAnamn ', function (event) {
   var parent_element = button.closest("form").attr('id');
   // console.log(parent_element);
   let formData = new FormData(document.getElementById(parent_element));
-  console.log( $('#'+parent_element).serializeArray() );
-  // Display the key/value pairs
-  for (var pair of formData.entries()) {
-
-    console.log(pair[0]+ ', ' + pair[1]); 
-  }
-  formData.set('api', 17);
+  // console.log(formData);
+  formData.set('api', 8);
   formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
 
-  // $.ajax({
-  //   data: formData,
-  //   url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
-  //   type: "POST",
-  //   processData: false,
-  //   contentType: false,
-  //   dataType: 'json',
-  //   beforeSend: function() {
-  //     // alert('Enviando')
-  //     alertToast('Guardando...', 'info')
-  //   },
-  //   success: function (data) {
-  //     button.prop('disabled', false);
-  //     alertToast('Guardado con exito', 'success');
-  //   },
-  // });
+  $.ajax({
+    data: formData,
+    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function() {
+      // alert('Enviando')
+      alertToast('Guardando...', 'info')
+    },
+    success: function (data) {
+      button.prop('disabled', false);
+      alertToast('Guardado con exito', 'success');
+    },
+  });
   // eliminarElementoArray(id);
   // console.log(id);
 
