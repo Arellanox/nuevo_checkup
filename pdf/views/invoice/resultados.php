@@ -21,7 +21,6 @@
                 right: 25px; 
                 height: 220px; 
                 margin-top: 0; /*-30px*/
-                background-color: blue;
             }
 
             .footer { 
@@ -30,7 +29,6 @@
                 left: 25px; 
                 right: 25px; 
                 height: 165px; 
-                background-color: blue;
             }
 
             .footer .page:after {
@@ -157,15 +155,8 @@
             <tbody>
                 <tr>
                     <td  style="border-bottom: none">
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
                     </td>
                 </tr>
-                
             </tbody>
         </table>
         <table>
