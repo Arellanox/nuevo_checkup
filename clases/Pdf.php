@@ -44,28 +44,28 @@ class Reporte{
                 $template = render_view('invoice/etiquetas.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper(array(0, 0, 107, 70), 'portrait');
-                $path    = $_SERVER['DOCUMENT_ROOT'] . 'pdf/public/etiquetas/E-'. $data->folio . '.pdf';
+                $path    = $_SERVER['DOCUMENT_ROOT'] . 'nuevo_checkup/pdf/public/etiquetas/E-'. $data->folio . '.pdf';
                 break;
 
             case 'resultados':
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = $_SERVER['DOCUMENT_ROOT'] . 'pdf/public/resultados/E-'. $data->folio . '.pdf';
+                $path    = $_SERVER['DOCUMENT_ROOT'] . 'nuevo_checkup/pdf/public/resultados/E-'. $data->folio . '.pdf';
                 break;
 
             case 'oftamologia':
                 $template = render_view('invoice/oftamologia.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = $_SERVER['DOCUMENT_ROOT'] . 'pdf/public/oftamologia/E-'. $data->folio . '.pdf';
+                $path    = $_SERVER['DOCUMENT_ROOT'] . 'nuevo_checkup/pdf/public/oftamologia/E-'. $data->folio . '.pdf';
                 break;
 
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = $_SERVER['DOCUMENT_ROOT'] . 'pdf/public/reportes/E-'. $data->folio . '.pdf';
+                $path    = $_SERVER['DOCUMENT_ROOT'] . 'nuevo_checkup/pdf/public/oftamologia/E-'. $data->folio . '.pdf';
                 break;
                 
         }
@@ -78,15 +78,15 @@ class Reporte{
             case 'descargar':
                 $pdf->render();
                 file_put_contents($path, $pdf->output());
-                return $pdf->output();
+                return $pdf->stream();
                 break;
             case 'mostrar':
                 $pdf->render();
-                return $pdf->stream('resultado.pdf', array("Attachment" => false));
+                return $pdf->stream('documento.pdf', array("Attachment" => false));
                 break;
             default:
                 $pdf->render();
-                return $pdf->stream('resultado.pdf', array("Attachment" => false));
+                return $pdf->stream('documento.pdf', array("Attachment" => false));
                 break;
         }
     }

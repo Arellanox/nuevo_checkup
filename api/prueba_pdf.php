@@ -507,7 +507,7 @@
             $pdf->build();
             break;
         case 3: 
-            $pdf = new Reporte($data, 'oftamologia', 'mostrar');
+            $pdf = new Reporte($data, 'oftamologia', 'descargar');
             $pdf->build();
             break;
         default:
