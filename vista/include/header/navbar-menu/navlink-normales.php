@@ -149,7 +149,7 @@
 
 <?php if ($menu == "Consultorio") : ?>
   <li class="nav-item">
-    <a href="#Main" type="button">
+    <a href="#" type="button" onclick="obtenerConsultorioMain()">
       <i class="bi bi-thunderbolt"></i> Menú
     </a>
   </li>

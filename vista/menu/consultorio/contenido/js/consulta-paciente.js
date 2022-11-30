@@ -48,14 +48,14 @@ function obtenerNutricion(turno) {
             data: {api: 13, turno_id: turno},
             success: function (data) {
                 if (mensajeAjax(data)) {
-                    console.log(data)
-                    let row = data.response.data;
-                    $('#input-pesosPerdido').val(),
-                    $('#input-grasa').val(),
-                    $('#input-cintura').val(),
-                    $('#input-agua').val(),
-                    $('#input-musculo').val(),
-                    $('#input-abdomen').val()
+                    // console.log(data)
+                    let row = data.response.data[0];
+                    $('#input-pesosPerdido').val(row.PESO_PERDIDO)
+                    $('#input-grasa').val(row.GRASA)
+                    $('#input-cintura').val(row.CINTURA)
+                    $('#input-agua').val(row.AGUA)
+                    $('#input-musculo').val(row.MUSCULO)
+                    $('#input-abdomen').val(row.ABDOMEN)
                 }
             }, 
             complete: function(){
@@ -93,21 +93,39 @@ function obtenerAnamnesisApartados(turno) {
         $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/anamnesis-aparatos.html", function (html) {
             $('#divANAMNESISAPARATOS').html(html);
         }).done(function () {
+            let arrayDivs = new Array();
+            var divsisteCardio = $('#collapse-sub-sisteCardio-Target').find("div[class='row']")
+            var divAparaRespiratorio = $('#collapse-sub-AparaRespiratorio-Target').find("div[class='row']")
+            var divaparatoDigestivo = $('#collapse-sub-aparatoDigestivo-Target').find("div[class='row']")
+            var divaparatoGenitourina = $('#collapse-sub-aparatoGenitourina-Target').find("div[class='row']")
+            var divsistemNervios = $('#collapse-sub-sistemNervios-Target').find("div[class='row']")
+            var divEndrocrinoloMetabolism = $('#collapse-sub-EndrocrinoloMetabolism-Target').find("div[class='row']")
+            var divaparatoLocomot = $('#collapse-sub-aparatoLocomot-Target').find("div[class='row']")
+            var divTermoregulacin = $('#collapse-sub-Termoregulacin-Target').find("div[class='row']")
+            var divpiel = $('#collapse-sub-piel-Target').find("div[class='row']")
+            arrayDivs.push(divsisteCardio, 
+                divAparaRespiratorio, 
+                divaparatoDigestivo, 
+                divaparatoGenitourina, 
+                divsistemNervios, 
+                divEndrocrinoloMetabolism,
+                divaparatoLocomot,
+                divTermoregulacin,
+                divpiel)
+            
             $.ajax({
-                url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
-                dataType: 'json',
-                method: 'POST',
-                data: {
-                    turno_id: turno,
-                    api: 0
-                },
-                success: function (data) {
-
-                },
-                complete: function () {
-                    resolve(1);
-                }
-
+              url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+              method: 'POST',
+              dataType: 'json',
+              data: {
+                api: 15, turno_id: turno
+              },
+              success: function (data) {
+                checkbox = data;
+                console.log(data);
+              }, complete: function(){
+                resolve(1);
+              }
             })
         });
     })
@@ -134,7 +152,10 @@ tablaRecetas = $('#tablaListaRecetas').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    scrollY: "60vh",
+    lengthChange: false,
+    info: false,
+    paging: false,
+    scrollY: "100%",
     scrollCollapse: true,
     lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
     ajax: {
@@ -142,8 +163,8 @@ tablaRecetas = $('#tablaListaRecetas').DataTable({
         data: {api: 14, turno_id: pacienteActivo.array['ID_TURNO']},
         method: 'POST',
         url:  http + servidor + "/nuevo_checkup/api/consulta_api.php",
-        beforeSend: function() { loader("In"), array_selected = null },
-        complete: function(){ loader("Out") },
+        // beforeSend: function() {  },
+        // complete: function(){  },
         dataSrc:'response.data'
     },
     columns:[
@@ -156,7 +177,7 @@ tablaRecetas = $('#tablaListaRecetas').DataTable({
         {data: 'FORMA_FARMACEUTICA'},
         {data: 'INDICACIONES_PARA_EL_USO'},
         {data: 'ID_RECETA',  render: function(data){
-            return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover me-2 eliminarRecetaTabla" style="margin-bottom:4px" data-bs-id ="'+data+'"> <i class="bi bi-trash"></i> </button> </div>';
+            return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarRecetaTabla" style="margin: -15px;" data-bs-id ="'+data+'"> <i class="bi bi-trash"></i> </button> </div>';
         }}
     ],
     columnDefs: [
