@@ -88,9 +88,6 @@ $recetaParams = array(
 );
 
 
-#anamnesis por aparatos
-$anamnesis = $_POST['anamnesis'];
-
 $master = new Master();
 switch ($api) {
     case 1:
@@ -123,6 +120,8 @@ switch ($api) {
         break;
     case 8:
         # insertar y/o actualizar  anamnesis-aparatos
+        $anamnesis = array_slice($_POST,0,count($_POST)-2);
+        //    print_r($payload);
         foreach ($anamnesis as $key => $value) {
             if(count($value)==3){
                 $new = array(
@@ -198,7 +197,7 @@ switch ($api) {
 
     case 11:
         # terminar consulta
-        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$turno_id]);
+        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$id_consulta]);
         break;
     case 12:
         # buscar las exploraciones clinicas.
