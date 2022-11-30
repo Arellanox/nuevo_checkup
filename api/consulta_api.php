@@ -126,7 +126,6 @@ switch ($api) {
         foreach ($anamnesis as $key => $value) {
             if(count($value)==3){
                 $new = array(
-                    null,
                     $turno_id,
                     $value[0], # id subtipo
                     $value[1], # id respuesta
@@ -135,7 +134,6 @@ switch ($api) {
             } else {
                 if(is_numeric($value[1])){
                     $new = array(
-                        null,
                         $turno_id,
                         $value[0], # id subtipo
                         $value[1], # id respuesta
@@ -143,7 +141,6 @@ switch ($api) {
                     );
                 } else {
                     $new = array(
-                        null,
                         $turno_id,
                         $value[0], # id subtipo
                         null, # id respuesta
