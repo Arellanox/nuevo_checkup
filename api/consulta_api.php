@@ -122,7 +122,7 @@ switch ($api) {
         $response = $master->deleteByProcedure("sp_consultorio_exploracion_clinica_e",[$id_exploracion_clinica]);
         break;
     case 8:
-        # insertar anamnesis-aparatos
+        # insertar y/o actualizar  anamnesis-aparatos
         foreach ($anamnesis as $key => $value) {
             if(count($value)==3){
                 $new = array(
