@@ -3,7 +3,7 @@
 function render_view( $view_name, &$view_vars=null){
     if( $view_vars == null ){
         // include $_SERVER["DOCUMENT_ROOT"]."/views/$view_name";
-        include $_SERVER["DOCUMENT_ROOT"] . "/pdf/views/$view_name";
+        include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/$view_name";
         return;
     }
 
@@ -16,6 +16,6 @@ function render_view( $view_name, &$view_vars=null){
     
     ob_start();
     // include $_SERVER["DOCUMENT_ROOT"]."/views/$view_name";
-    include $_SERVER["DOCUMENT_ROOT"] . "/pdf/views/$view_name";
+    include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/$view_name";
     return ob_get_clean();
 }

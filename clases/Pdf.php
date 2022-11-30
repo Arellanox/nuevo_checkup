@@ -39,6 +39,7 @@ class Reporte{
             "data" => $data,
         );
 
+        // Recibe la orden de que tipo de archivo quiere
         switch ($tipo) {
             case 'etiquetas':
                 $template = render_view('invoice/etiquetas.php', $view_vars);
@@ -70,10 +71,7 @@ class Reporte{
                 
         }
 
-        // $pdf->render();
-        // file_put_contents($path, $pdf->output());
-        // return $pdf->stream('resultado.pdf', array("Attachment" => false));
-
+        // Recibe la orden de que tipo de  modo de visualizacion quiere
         switch ($orden){
             case 'descargar':
                 $pdf->render();
