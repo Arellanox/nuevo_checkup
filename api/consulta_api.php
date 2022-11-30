@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    #$tokenVerification->logout();
+    #exit;
 }
 
 #api
@@ -58,7 +58,7 @@ $nutricionParams = array(
 
 # exploracion clinica
 $id_exploracion_clinica = $_POST['id_exploracion_clinica'];
-$exploracion_tipo_id = $_POSTp['exploracion_tipo_id'];
+$exploracion_tipo_id = $_POST['exploracion_tipo_id'];
 $exploracion = $_POST['exploracion'];
 
 
@@ -115,7 +115,7 @@ switch ($api) {
         break;
     case 6:
         # insertar exploracion clinica
-        $response = $master->insertByProcedure("sp_consultorio_exploracion_g",[$id_exploracion_clinica,$turno_id,$exploracion_tipo_id,$exploracion]);
+        $response = $master->insertByProcedure("sp_consultorio_exploracion_clinica_g",[$id_exploracion_clinica,$turno_id,$exploracion_tipo_id,$exploracion]);
         break;
     case 7:
         # eliminar exploracion clinica
@@ -202,6 +202,36 @@ switch ($api) {
     case 11:
         # terminar consulta
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$turno_id]);
+        break;
+    case 12:
+        # buscar las exploraciones clinicas.
+        $response = $master->getByProcedure('sp_consultorio_exploracion_clinica_b',[$turno_id]);
+        
+        break;
+    case 13:
+        # recuperar los datos nutricionales
+        $response = $master->getByProcedure('sp_consultorio_nutricion_b',[$turno_id]);
+        break;
+    case 14:
+        # recuperar los datos de la receta
+        $response = $master->getByProcedure('sp_consultorio_recetas_b',[$turno_id]);
+        break;
+    case 15:
+        # recuperar anamnesis por aparatos  
+        $response = $master->getByProcedure('sp_consultorio_anamnesis_aparatos_b',[$turno_id]);
+        break;
+    case 16:
+        # actualizar los antecedentes del turno
+        $antecedentes = array_slice($_POST,0,count($_POST)-2);
+
+        foreach($antecedentes as $current){
+            $response = $master->updateByProcedure('sp_consultorio_antecedentes_a',[$turno_id,$current[0],$current[1],$current[2]]);
+        }
+
+        break;
+    case 17:
+        # eliminiar receta
+        $response = $master->deleteByProcedure('sp_consultorio_recetas_e',[$id_receta]);
         break;
     default:
     $response = "api no reconocida";

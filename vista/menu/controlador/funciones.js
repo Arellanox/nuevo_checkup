@@ -3,40 +3,76 @@ function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
 
-function formatoFecha2(fecha, optionsDate = [3,1,2,2,1,1,1], formatMat = 'best fit'){
-  let options = {hour12: true, timeZone: 'America/Mexico_City'} // p.m. - a.m.
+function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
+  let options = {
+    hour12: true,
+    timeZone: 'America/Mexico_City'
+  } // p.m. - a.m.
 
   switch (optionsDate[0]) { //Dia de la semana
-    case 1: options['weekday'] = "narrow" ; break; // S
-    case 2: options['weekday'] = "short"; break; // Sáb
-    case 3: options['weekday'] = "long"; break; // Sábado
+    case 1: options['weekday'] = "narrow";
+    break; // S
+    case 2: options['weekday'] = "short";
+    break; // Sáb
+    case 3: options['weekday'] = "long";
+    break; // Sábado
+    }
+  switch (optionsDate[1]) { //año
+    case 1:
+      options['year'] = "numeric";
+      break; // 2022
+    case 2:
+      options['year'] = "2-digit";
+      break; // 22
   }
-  switch (optionsDate[1]) { //año de la semana
-    case 1: options['year'] = "numeric" ; break; // 2022
-    case 2: options['year'] = "2-digit"; break; // 22
+  switch (optionsDate[2]) { //Mes
+    case 1:
+      options['month'] = "narrow";
+      break; // N
+    case 2:
+      options['month'] = "short";
+      break; // Nov
+    case 3:
+      options['month'] = "long";
+      break; // Noviembre
+    case 4:
+      options['month'] = "numeric";
+      break; // /11/
+    case 5:
+      options['month'] = "2-digit";
+      break; // 11
   }
-  switch (optionsDate[2]) { //Mes de la semana
-    case 1: options['month'] = "narrow" ; break; // N
-    case 2: options['month'] = "short"; break; // Nov
-    case 3: options['month'] = "long"; break; // Noviembre
-    case 4: options['month'] = "numeric"; break; // /11/
-    case 5: options['month'] = "2-digit"; break; // 11
+  switch (optionsDate[3]) { //Dia
+    case 1:
+      options['day'] = "numeric";
+      break;
+    case 2:
+      options['day'] = "2-digit";
+      break;
   }
-  switch (optionsDate[3]) { //Dia de la semana
-    case 1: options['day'] = "numeric" ; break;
-    case 2: options['day'] = "2-digit"; break;
+  switch (optionsDate[4]) { //Hora
+    case 1:
+      options['hour'] = "numeric";
+      break;
+    case 2:
+      options['hour'] = "2-digit";
+      break;
   }
-  switch (optionsDate[4]) { //Hora de la semana
-    case 1: options['hour'] = "numeric" ; break;
-    case 2: options['hour'] = "2-digit"; break;
+  switch (optionsDate[5]) { //Minutos
+    case 1:
+      options['minute'] = "numeric";
+      break;
+    case 2:
+      options['minute'] = "2-digit";
+      break;
   }
-  switch (optionsDate[5]) { //Minutos de la semana
-    case 1: options['minute'] = "numeric" ; break;
-    case 2: options['minute'] = "2-digit"; break;
-  }
-  switch (optionsDate[6]) { //Segundos de la semana
-    case 1: options['seconds'] = "numeric" ; break;
-    case 2: options['seconds'] = "2-digit"; break;
+  switch (optionsDate[6]) { //Segundos
+    case 1:
+      options['seconds'] = "numeric";
+      break;
+    case 2:
+      options['seconds'] = "2-digit";
+      break;
   }
 
   return new Date(fecha).toLocaleDateString('es-MX', options)
@@ -44,10 +80,10 @@ function formatoFecha2(fecha, optionsDate = [3,1,2,2,1,1,1], formatMat = 'best f
 
 // Revisar sesión
 function validarVista(area) {
-  if (session['vista'][area] == 1){
+  if (session['vista'][area] == 1) {
     validar = true
     return 1
-  }else{
+  } else {
     validar = false
     alertMensajeConfirm({
       title: "¡No tiene permitido estar aqui!",
@@ -56,7 +92,7 @@ function validarVista(area) {
       confirmButtonColor: "#d33",
       confirmButtonText: "Aceptar",
       allowOutsideClick: false
-    }, function(){
+    }, function () {
       destroySession();
       window.location.replace(http + servidor + "/nuevo_checkup/vista/login/");
     })
@@ -64,44 +100,54 @@ function validarVista(area) {
 }
 
 // Verificar si tiene una sesión activa
-function loggin(callback, tipoUrl = 1){
-  if(tipoUrl != 3){
+function loggin(callback, tipoUrl = 1) {
+  if (tipoUrl != 3) {
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/usuarios_api.php",
-        type: "POST",
-        data:{api:8},
-        success: function(data) {
-          var data = jQuery.parseJSON(data);
-          if(mensajeAjax(data)){
-            console.log(data);
-            if (data['response']['code'] == 1) {
-              validar = true
-              callback(1)
-            }else{
-              // alert(tipoUrl);
-              switch (tipoUrl) {
-                case 1: destroySession();window.location.replace = http + servidor + '/nuevo_checkup/vista/login/?page='+window.location; break;
-                case 2: destroySession();window.location.replace = http + servidor + '/nuevo_checkup/vista/login/'; break;
-                default:
-                  destroySession();
-                  window.location.replace = 'https://www.google.com/';
-                  break;
-              }
+      type: "POST",
+      data: {
+        api: 8
+      },
+      success: function (data) {
+        var data = jQuery.parseJSON(data);
+        if (mensajeAjax(data)) {
+          // console.log(data);
+          if (data['response']['code'] == 1) {
+            validar = true
+            callback(1)
+          } else {
+            // alert(tipoUrl);
+            switch (tipoUrl) {
+              case 1:
+                destroySession();
+                window.location.replace = http + servidor + '/nuevo_checkup/vista/login/?page=' + window.location;
+                break;
+              case 2:
+                destroySession();
+                window.location.replace = http + servidor + '/nuevo_checkup/vista/login/';
+                break;
+              default:
+                destroySession();
+                window.location.replace = 'https://www.google.com/';
+                break;
             }
           }
         }
+      }
     });
-  }else{
+  } else {
     validar = true
     callback(1);
   }
 }
 
-function destroySession(){
+function destroySession() {
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/login_api.php",
-      type: "POST",
-      data:{api:2}
+    type: "POST",
+    data: {
+      api: 2
+    }
   });
 }
 
@@ -113,23 +159,22 @@ function getRandomInt(max) {
 
 // Checa si es un numero
 function checkNumber(x) {
-    // check if the passed value is a number
-    if(typeof x == 'number' && !isNaN(x)){
-        // check if it is integer
-        if (Number.isInteger(x)) {
-            return 1
-        }
-        else {
-            return 1
-        }
-
+  // check if the passed value is a number
+  if (typeof x == 'number' && !isNaN(x)) {
+    // check if it is integer
+    if (Number.isInteger(x)) {
+      return 1
     } else {
-        return 2
+      return 1
     }
+
+  } else {
+    return 2
+  }
 }
 
 // Omitir paciente actual
-function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback){
+function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback) {
   switch (liberar) {
     case 1:
       options = {
@@ -166,7 +211,12 @@ function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback){
       // $('#submit-registrarEstudio').prop('disabled', true);
       // Esto va dentro del AJAX
       $.ajax({
-        data: {api: 7, id_turno: id_turno, id_area: id_area, liberar: liberar},
+        data: {
+          api: 7,
+          id_turno: id_turno,
+          id_area: id_area,
+          liberar: liberar
+        },
         url: "../../../api/turnos_api.php",
         type: "POST",
         success: function (data) {
@@ -186,9 +236,12 @@ function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback){
 }
 
 //Obtener paciente actual
-function buscarPaciente(id_area, callback) { 
+function buscarPaciente(id_area, callback) {
   $.ajax({
-    data: {api: 7, id_area: id_area},
+    data: {
+      api: 7,
+      id_area: id_area
+    },
     url: "../../../api/turnos_api.php",
     type: "POST",
     success: function (data) {
@@ -199,10 +252,10 @@ function buscarPaciente(id_area, callback) {
 }
 
 // Validar la vista (OBSOLETOXD)
-function redireccionarVista(vista, callback){
-  if (session.vista[vista] == 1 ? true:false) {
+function redireccionarVista(vista, callback) {
+  if (session.vista[vista] == 1 ? true : false) {
     callback();
-  }else{
+  } else {
     window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
   }
 }
@@ -226,11 +279,11 @@ function deshabilitarVacunaExtra(vacuna, div) {
   }
 }
 
-function desactivarCampo(div, fade){
+function desactivarCampo(div, fade) {
   if (fade == 1) {
     $(div).fadeIn(400);
-  }else{
-    $(div +": input").val("");
+  } else {
+    $(div + ": input").val("");
     $(div).fadeOut(400);
   }
 }
@@ -255,13 +308,16 @@ const Toast = Swal.mixin({
 
 
 // Obtener segmentos por procedencia en select
-function getSegmentoByProcedencia(id, select){
+function getSegmentoByProcedencia(id, select) {
   return new Promise(resolve => {
-    $('#'+select).find('option').remove().end()
+    $('#' + select).find('option').remove().end()
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/segmentos_api.php",
       type: "POST",
-      data: { id: id, api: 6 },
+      data: {
+        id: id,
+        api: 6
+      },
       success: function (data) {
         var data = jQuery.parseJSON(data);
         if (mensajeAjax(data)) {
@@ -269,16 +325,16 @@ function getSegmentoByProcedencia(id, select){
             for (var i = 0; i < data['response']['data'].length; i++) {
               var o = new Option("option text", data['response']['data'][i]['id']);
               $(o).html(data['response']['data'][i]['segmento']);
-              $('#'+select).append(o);
+              $('#' + select).append(o);
             }
-          }else{
+          } else {
             var o = new Option("option text", null);
             $(o).html('No contiene segmentos');
-            $('#'+select).append(o);
+            $('#' + select).append(o);
           }
         }
       },
-      complete: function(){
+      complete: function () {
         resolve(1);
       }
     });
@@ -294,7 +350,10 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/segmentos_api.php",
     type: "POST",
-    data: { id: idProcedencia, api: 6 },
+    data: {
+      id: idProcedencia,
+      api: 6
+    },
     success: function (data) {
       var data = jQuery.parseJSON(data);
       if (mensajeAjax(data)) {
@@ -328,22 +387,26 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
 
 
 // Obtener procedencias en select
-function getProcedencias(select){
+function getProcedencias(select) {
   return new Promise(resolve => {
-    $('#'+select).find('option').remove().end()
+    $('#' + select).find('option').remove().end()
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/clientes_api.php",
       type: "POST",
-      data: { api: 2 },
+      data: {
+        api: 2
+      },
+      dataType: "json",
       success: function (data) {
-        var data = jQuery.parseJSON(data);
-        for (var i = 0; i < data['response']['data'].length; i++) {
-          var o = new Option("option text", data['response']['data'][i]['ID_CLIENTE']);
-          $(o).html(data['response']['data'][i]['NOMBRE_COMERCIAL']);
-          $('#'+select).append(o);
+        if (mensajeAjax(data)) {
+          for (var i = 0; i < data['response']['data'].length; i++) {
+            var o = new Option("option text", data['response']['data'][i]['ID_CLIENTE']);
+            $(o).html(data['response']['data'][i]['NOMBRE_COMERCIAL']);
+            $('#' + select).append(o);
+          }
         }
       },
-      complete: function(){
+      complete: function () {
         resolve(1);
       }
     })
@@ -351,7 +414,7 @@ function getProcedencias(select){
 }
 
 
-function setProcedenciaOption(select, idProcedencia){
+function setProcedenciaOption(select, idProcedencia) {
   var select = document.getElementById(select),
     length = select.options.length;
   while (length--) {
@@ -360,20 +423,24 @@ function setProcedenciaOption(select, idProcedencia){
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/clientes_api.php",
     type: "POST",
-    data: { api: 2 },
+    data: {
+      api: 2
+    },
+    dataType: "json",
     success: function (data) {
-      var data = jQuery.parseJSON(data);
-      for (var i = 0; i < data['response']['data'].length; i++) {
-        var content = data['response']['data'][i]['NOMBRE_COMERCIAL'];
-        var value = data['response']['data'][i]['ID_CLIENTE'];
-        var el = document.createElement("option");
-        el.textContent = content;
-        el.value = value;
-        if (value == idProcedencia) {
-          el.selected = true;
-        }
-        select.appendChild(el);
+      if (mensajeAjax(data)) {
+        for (var i = 0; i < data['response']['data'].length; i++) {
+          var content = data['response']['data'][i]['NOMBRE_COMERCIAL'];
+          var value = data['response']['data'][i]['ID_CLIENTE'];
+          var el = document.createElement("option");
+          el.textContent = content;
+          el.value = value;
+          if (value == idProcedencia) {
+            el.selected = true;
+          }
+          select.appendChild(el);
 
+        }
       }
     }
   });
@@ -381,7 +448,7 @@ function setProcedenciaOption(select, idProcedencia){
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select, api, apinum,v,c, values = {}, callback = function(array){}){
+function rellenarSelect(select, api, apinum, v, c, values = {}, callback = function (array) {}) {
   return new Promise(resolve => {
     values.api = apinum;
 
@@ -400,9 +467,9 @@ function rellenarSelect(select, api, apinum,v,c, values = {}, callback = functio
 
         if (typeof data == "string" && data.indexOf('response') > -1) {
           data = JSON.parse(data);
-          data  = data['response']['data'];
+          data = data['response']['data'];
           // data = data['data'];
-        }else{
+        } else {
           data = JSON.parse(data);
         }
 
@@ -415,13 +482,13 @@ function rellenarSelect(select, api, apinum,v,c, values = {}, callback = functio
               if (data[i][htmlContent[a]] != null) {
                 if (datao == '') {
                   datao += data[i][htmlContent[a]];
-                }else{
+                } else {
                   datao += " - " + data[i][htmlContent[a]];
                 }
               }
 
             }
-          }else{
+          } else {
             datao = data[i][c];
           }
           // Rellenar select con Jquery
@@ -433,7 +500,7 @@ function rellenarSelect(select, api, apinum,v,c, values = {}, callback = functio
         // console.log(data);
         callback(data);
       },
-      complete: function(data){
+      complete: function (data) {
         resolve(1);
       }
     })
@@ -441,7 +508,7 @@ function rellenarSelect(select, api, apinum,v,c, values = {}, callback = functio
 }
 
 
-function optionElement(select,value,content){
+function optionElement(select, value, content) {
   var o = new Option("option text", value);
   $(o).html(content);
   $(select).append(o);
@@ -456,7 +523,8 @@ $(window).on('hashchange', function (e) {
       window.location.hash = '';
       window.location.href = http + servidor + '/nuevo_checkup/vista/login/?page=' + window.location;
       break;
-    default: break;
+    default:
+      break;
   }
 });
 
@@ -478,7 +546,7 @@ function loader(fade) {
   }
 }
 
-function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50){
+function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50) {
   switch (fade) {
     case "Out":
       if (div != null) {
@@ -504,26 +572,26 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50){
       break;
 
     default:
-      console.log('LoaderDiv se perdió...')
+      // console.log('LoaderDiv se perdió...')
   }
 }
 
 // Mismas funciones, diferentes nombres por no querer cambiar el nombre donde lo llaman xd
-  function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
-    Toast.fire({
-      icon: icon,
-      title: msj,
-      timer: timer
-    });
-  }
+function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
+  Toast.fire({
+    icon: icon,
+    title: msj,
+    timer: timer
+  });
+}
 
-  function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
-    Toast.fire({
-      icon: icon,
-      title: msj,
-      timer: timer
-    });
-  }
+function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
+  Toast.fire({
+    icon: icon,
+    title: msj,
+    timer: timer
+  });
+}
 // 
 
 function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos completados', footer = null, html = null) {
@@ -537,7 +605,7 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
 }
 
 function alertMensajeConfirm(options, callback) {
-  if (!options){
+  if (!options) {
     options = {
       title: "¿Desea realizar esta acción?",
       text: "Probablemente no podrá revertirlo",
@@ -587,7 +655,7 @@ function mensajeAjax(data) {
         text: 'Codigo: ' + data['response']['msj']
       })
       break;
-    case "Token": 
+    case "Token":
       alertMensajeConfirm({
         title: "¡Sesión no valida!",
         text: "El token de su sesión ha caducado, vuelva iniciar sesión",
@@ -598,12 +666,12 @@ function mensajeAjax(data) {
         allowOutsideClick: false,
         timer: 4000,
         timerProgressBar: true,
-      }, function(){
+      }, function () {
         destroySession();
         window.location.replace(http + servidor + "/nuevo_checkup/vista/login/");
       })
-      
-    break;
+
+      break;
     default:
       Swal.fire({
         icon: 'error',
@@ -615,99 +683,108 @@ function mensajeAjax(data) {
   return 0;
 }
 
-function dblclickDatatable(tablename, datatable, callback = function() {}){
-    // Seleccion del registro
-    $(tablename).on('dblclick', 'tr', function () {
-      callback(datatable.row( this ).data())
+function dblclickDatatable(tablename, datatable, callback = function () {}) {
+  // Seleccion del registro
+  $(tablename).on('dblclick', 'tr', function () {
+    callback(datatable.row(this).data())
   });
 }
 
-function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {0 : "#panel-informacion"}, callback = null, tipclick = 'click'){ 
+function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {
+  0: "#panel-informacion"
+}, callback = null, tipclick = 'click') {
   //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
   // console.log(typeof tipPanel);
   if (typeof tipPanel == "string") {
     // Convierte String a Object
-    api = {0: api}; tipPanel= {0: tipPanel};
-  }else{
+    api = {
+      0: api
+    };
+    tipPanel = {
+      0: tipPanel
+    };
+  } else {
     // Coloca por defecto la ID de panel si no existe ID de envio
     if (idPanel[0] == null) {
       idPanel[0] = "#panel-informacion";
     }
   }
   if (typeof tablename === 'string') {
-    tablename = '#'+tablename;
+    tablename = '#' + tablename;
   }
-  console.log(tablename)
+  // console.log(tablename)
   // console.log(idPanel)
   $(tablename).on('click', 'tr', function () {
-     if ($(this).hasClass('selected')) {
-         $(this).removeClass('selected');
-         array_selected = null;
-         // obtenerPanelInformacion(0, api, tipPanel)
-         for (var i = 0; i < Object.keys(tipPanel).length; i++) {
-           obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
-         }
-         if (callback != null) {
-           callback(0, null);
-         }
-     } else {
-         datatable.$('tr.selected').removeClass('selected');
-         $(this).addClass('selected');
-         array_selected = datatable.row( this ).data();
-         if (array_selected != null) {
-           if (panel) {
-             // Lee los 3 objetos para llamar a la funcion
-             for (var i = 0; i < Object.keys(tipPanel).length; i++) {
-               obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
-             }
-           }
-           if (callback != null) {
-             // alert('select')
-             // console.log(array_selected)
-             callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
-           }
-         }else{
-           for (var i = 0; i < Object.keys(tipPanel).length; i++) {
-             obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
-           }
-           callback(0, array_selected);
-         }
+    if ($(this).hasClass('selected')) {
+      $(this).removeClass('selected');
+      array_selected = null;
+      // obtenerPanelInformacion(0, api, tipPanel)
+      for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+        obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
+      }
+      if (callback != null) {
+        callback(0, null);
+      }
+    } else {
+      datatable.$('tr.selected').removeClass('selected');
+      $(this).addClass('selected');
+      array_selected = datatable.row(this).data();
+      if (array_selected != null) {
+        if (panel) {
+          // Lee los 3 objetos para llamar a la funcion
+          for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+            obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
+          }
+        }
+        if (callback != null) {
+          // alert('select')
+          // console.log(array_selected)
+          callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
+        }
+      } else {
+        for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+          obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
+        }
+        callback(0, array_selected);
+      }
 
-     }
+    }
   })
 }
 
-function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback){
+function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) {
   switch (fade) {
     case 'Out':
-        if ($(divClass).is(':visible')) {
-          if (selectLista == null) {
-            loaderDiv("Out", null, loader, loaderDiv1, 0);
-            $(divClass).fadeOut()
-            // console.log('Invisible!')
-          }
-        }else{
-          // console.log('Todavia visible!')
-          setTimeout(function(){
-            return getPanel(divClass, loader, loaderDiv1, selectLista, 'Out')
-          }, 100);
+      if ($(divClass).is(':visible')) {
+        if (selectLista == null) {
+          loaderDiv("Out", null, loader, loaderDiv1, 0);
+          $(divClass).fadeOut()
+          // console.log('Invisible!')
         }
+      } else {
+        // console.log('Todavia visible!')
+        setTimeout(function () {
+          return getPanel(divClass, loader, loaderDiv1, selectLista, 'Out')
+        }, 100);
+      }
       break;
     case 'In':
-        $(divClass).fadeOut(0)
-        loaderDiv("In", null, loader, loaderDiv1, 0);
-        // alert('in');
-        callback(divClass);
-        // $(divClass).fadeIn(100)
-    break;
-    default:comentario_capturas
-    return 0
+      $(divClass).fadeOut(0)
+      loaderDiv("In", null, loader, loaderDiv1, 0);
+      // alert('in');
+      callback(divClass);
+      // $(divClass).fadeIn(100)
+      break;
+    default:
+      comentario_capturas
+      return 0
   }
   return 1
 }
 
 
-function obtenerAntecedentesPaciente(id){ return new Promise(resolve => {
+function obtenerAntecedentesPaciente(id) {
+  return new Promise(resolve => {
     let arrayDivs = new Array;
     var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row']")
     var divNoPatologicos = $('#collapse-nopatologicos-Target').find("div[class='row']")
@@ -719,18 +796,21 @@ function obtenerAntecedentesPaciente(id){ return new Promise(resolve => {
 
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
-      data: {api: 10, turno_id: id},
+      data: {
+        api: 10,
+        turno_id: id
+      },
       type: "POST",
       dataType: "json",
       success: function (data) {
         checkbox = data;
-        // for (var i = 0; i < checkbox.length; i++) {
-        //   setValuesAntecedentesMetodo(arrayDivs[i], checkbox[i])
-        // }
-        console.log(data);
-        console.log(arrayDivs)
+        for (var i = 0; i < checkbox.length; i++) {
+          setValuesAntecedentesMetodo(arrayDivs[i], checkbox[i])
+        }
+        // console.log(data);
+        // console.log(arrayDivs)
       },
-      complete: function(){
+      complete: function () {
         resolve(1);
       }
     })
@@ -740,44 +820,34 @@ function obtenerAntecedentesPaciente(id){ return new Promise(resolve => {
   // })
 }
 
-function setValuesAntecedentesMetodo(DIV, array){
+function setValuesAntecedentesMetodo(DIV, array) {
   if (DIV.length == array.length) {
     for (var i = 0; i < DIV.length; i++) {
-      // console.log(i)
-      // console.log('CHECK: '+array[i][0])
 
-      switch (array[i][0]) {
-        case 1:
-          $(DIV[i]).find("input[value='1']").prop("checked", true);
-          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
-          // console.log(collapID)
-          $('#'+collapID).collapse("show")
-        break;
-        case 2:
-          $(DIV[i]).find("input[value='2']").prop("checked", true);
-          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
-          $('#'+collapID).collapse("hide")
-        break;
-        default:
+      $(DIV[i]).find("input[value='" + array[i][0] + "']").prop("checked", true);
+      var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
+      // console.log(collapID)
+      if (array[i][0] == 1) {
+        $('#' + collapID).collapse("show")
       }
-      // console.log($(DIV[i]).find("input[value='1']").val());
-      // console.log('textarea: '+array[i][1])
-      // console.log($(DIV[i]).find("textarea[class='form-control input-form']"))
+
       if (array[i][0] == 1) {
         $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
-      }else{
+      } else {
         $(DIV[i]).find("textarea[class='form-control input-form']").val('')
       }
 
-      // console.log(DIV[i].find("input[value='1']").val())
     }
-  }else{
-    alertSelectTable('No se pudo recuperar algunos datos...')
+  } else {
+    // console.log(DIV)
+    // console.log(array);
+    alertSelectTable('Algunos antecedentes no se cargaron correctamente', 'info', 6000)
   }
 }
 
-function obtenerVistaAntecenetesPaciente(div, cliente){  return new Promise(resolve => {
-    $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
+function obtenerVistaAntecenetesPaciente(div, cliente) {
+  return new Promise(resolve => {
+    $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.html", function (html) {
       setTimeout(function () {
         $(div).html(html);
         if (cliente) {
@@ -796,97 +866,104 @@ function obtenerVistaAntecenetesPaciente(div, cliente){  return new Promise(reso
   })
 }
 
-function select2(select, modal = null, placeholder = 'Selecciona una opción'){
+function select2(select, modal = null, placeholder = 'Selecciona una opción') {
   $(select).select2({
-    dropdownParent: $('#'+modal),
+    dropdownParent: $('#' + modal),
     tags: false,
-    width:'100%',
+    width: '100%',
     placeholder: placeholder
   });
 }
 
-function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null){
+function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null) {
   return new Promise(resolve => {
     var html = "";
     $(panel).fadeOut(0);
-    $.post(http+servidor+"/nuevo_checkup/vista/include/barra-informacion/info-barra.php",
-    {
-      tip: tipPanel, nivel: nivel
-    },
-    function(html){
-       setTimeout(function () {
-         $(panel).html(html);
-       }, 100);
-    }).done(function(){
-       setTimeout(function () {
-          if (id > 0) {
-            row = array_selected;
-            switch (tipPanel) {
-              case 'paciente':
-                  if (array_selected != null) {
-                    $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                    $('#edad-persona').html(formatoFecha(row.EDAD))
-                    $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
-                    $('#info-paci-curp').html(row.CURP);
-                    $('#info-paci-telefono').html(row.CELULAR);
-                    $('#info-paci-correo').html(row.CORREO);
-                    $('#info-paci-sexo').html(row.GENERO);
-                    if (row.TURNO) {
-                      $('#info-paci-turno').html(row.TURNO);
-                    }else{
-                      $('#info-paci-turno').html('Sin generar');
-                    }
-                    $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
-                    row.MUNICIPIO+", "+row.ESTADO);
-                    $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
-                    if (row.FECHA_REAGENDA != null) {
-                      $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
-                    }
-                    $(panel).fadeIn(100);
-                    resolve(1);
-                  }else{
-                    $.ajax({
-                      url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-                      data: { api: 2, id: id },
-                      type: "POST",
-                      datatype: 'json',
-                      success: function (data) {
-                        data = jQuery.parseJSON(data);
-                        row = data['response']['data'][0];
-                        $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                        $('#edad-persona').html(formatoFecha(row.EDAD))
-                        $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
-                        $('#info-paci-curp').html(row.CURP);
-                        $('#info-paci-telefono').html(row.CELULAR);
-                        $('#info-paci-correo').html(row.CORREO);
-                        $('#info-paci-sexo').html(row.GENERO);
-                        if (row.TURNO) {
-                          $('#info-paci-turno').html(row.TURNO);
-                        }else{
-                          $('#info-paci-turno').html('Sin generar');
-                        }
-                        $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
-                        row.MUNICIPIO+", "+row.ESTADO);
-                        $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
-                        if (row.FECHA_REAGENDA != null) {
-                          $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
-                        }
-                      },
-                      complete: function(){
-                        $(panel).fadeIn(100);
-                        resolve(1);
-                      }
-                    })
-                  }
-              break;
-              case 'paciente_lab':
+    $.post(http + servidor + "/nuevo_checkup/vista/include/barra-informacion/info-barra.php", {
+        tip: tipPanel,
+        nivel: nivel
+      },
+      function (html) {
+        setTimeout(function () {
+          $(panel).html(html);
+        }, 100);
+      }).done(function () {
+      setTimeout(function () {
+        if (id > 0) {
+          row = array_selected;
+          switch (tipPanel) {
+            case 'paciente':
+              if (array_selected != null) {
+                $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                $('#edad-persona').html(formatoFecha(row.EDAD))
+                $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
+                $('#info-paci-curp').html(row.CURP);
+                $('#info-paci-telefono').html(row.CELULAR);
+                $('#info-paci-correo').html(row.CORREO);
+                $('#info-paci-sexo').html(row.GENERO);
+                if (row.TURNO) {
+                  $('#info-paci-turno').html(row.TURNO);
+                } else {
+                  $('#info-paci-turno').html('Sin generar');
+                }
+                $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
+                  row.MUNICIPIO + ", " + row.ESTADO);
+                $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+                if (row.FECHA_REAGENDA != null) {
+                  $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
+                }
+                $(panel).fadeIn(100);
+                resolve(1);
+              } else {
                 $.ajax({
                   url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-                  data: { api: 2, id: id },
+                  data: {
+                    api: 2,
+                    id: id
+                  },
                   type: "POST",
-                  datatype: 'json',
+                  dataType: 'json',
                   success: function (data) {
-                    data = jQuery.parseJSON(data);
+                    if (mensajeAjax(data)) {
+                      row = data['response']['data'][0];
+                      $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                      $('#edad-persona').html(formatoFecha(row.EDAD))
+                      $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                      $('#info-paci-curp').html(row.CURP);
+                      $('#info-paci-telefono').html(row.CELULAR);
+                      $('#info-paci-correo').html(row.CORREO);
+                      $('#info-paci-sexo').html(row.GENERO);
+                      if (row.TURNO) {
+                        $('#info-paci-turno').html(row.TURNO);
+                      } else {
+                        $('#info-paci-turno').html('Sin generar');
+                      }
+                      $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
+                        row.MUNICIPIO + ", " + row.ESTADO);
+                      $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+                      if (row.FECHA_REAGENDA != null) {
+                        $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
+                      }
+                    }
+                  },
+                  complete: function () {
+                    $(panel).fadeIn(100);
+                    resolve(1);
+                  }
+                })
+              }
+              break;
+            case 'paciente_lab':
+              $.ajax({
+                url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                data: {
+                  api: 2,
+                  id: id
+                },
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                  if (mensajeAjax(data)) {
                     row = data['response']['data'][0];
                     $('#nombre-persona').html(row.NOMBRE_COMPLETO);
                     $('#edad-persona').html(formatoFecha(row.EDAD))
@@ -897,137 +974,141 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     $('#info-paci-sexo').html(row.GENERO);
                     if (row.TURNO) {
                       $('#info-paci-turno').html(row.TURNO);
-                    }else{
+                    } else {
                       $('#info-paci-turno').html('Sin generar');
                     }
-                    $('#info-paci-directorio').html(row.CALLE+", "+row.COLONIA+", "+
-                    row.MUNICIPIO+", "+row.ESTADO);
+                    $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
+                      row.MUNICIPIO + ", " + row.ESTADO);
                     $('#info-paci-procedencia').html(row.PROCEDENCIA);
                     $('#info-paci-prefolio').html(row.PREFOLIO)
-                  },
-                  complete: function(){
-                    $(panel).fadeIn(100);
-                    resolve(1);
                   }
-                })
-              break;
-              case 'estudio':
-                $('#nombre-estudio').html(row['DESCRIPCION']);
-                $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
-                $('#estudio-metodo').html(row.METODO);
-                $('#estudio-medida').html(row.MEDIDA);
-                $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
-                if (row.LOCAL == 1) {
-                  $('#estudio-subroga').html('Si');
-                }else{
-                  $('#estudio-subroga').html('No');
+                },
+                complete: function () {
+                  $(panel).fadeIn(100);
+                  resolve(1);
                 }
-                if (row.MUESTRA_VALORES_REFERENCIA == 1) {
-                  $('#estudio-valorvista').html('Si');
-                }else{
-                  $('#estudio-valorvista').html('No');
-                }
-                $('#estudio-indicaciones').html(row.INDICACIONES);
-                $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
-                $('#estudio-venta').html(row.PRECIO_VENTA);
-                $(panel).fadeIn(100);
-                resolve(1);
+              })
               break;
-              case 'equipo':
-                $('#nombre-equipo').html(row.MARCA + "-"+row.MODELO);
-                // $('#equipo-equipo').html(row.);
-                $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
-                $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
-                $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
-                $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO +" "+row.NUMERO_PRUEBAS);
-                $('#equipo-calibracion').html(row.CALIBRACION +" "+ row.NUMERO_PRUEBAS_CALIBRACION);
-                $('#equipo-uso').html(row.USO);
-                $('#equipo-descripcion').html(row.DESCRIPCION);
-                $(panel).fadeIn(100);
-                resolve(1);
+            case 'estudio':
+              $('#nombre-estudio').html(row['DESCRIPCION']);
+              $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
+              $('#estudio-metodo').html(row.METODO);
+              $('#estudio-medida').html(row.MEDIDA);
+              $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
+              if (row.LOCAL == 1) {
+                $('#estudio-subroga').html('Si');
+              } else {
+                $('#estudio-subroga').html('No');
+              }
+              if (row.MUESTRA_VALORES_REFERENCIA == 1) {
+                $('#estudio-valorvista').html('Si');
+              } else {
+                $('#estudio-valorvista').html('No');
+              }
+              $('#estudio-indicaciones').html(row.INDICACIONES);
+              $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
+              $('#estudio-venta').html(row.PRECIO_VENTA);
+              $(panel).fadeIn(100);
+              resolve(1);
               break;
-              case 'signos-vitales':
-                $.ajax({
-                  url: http + servidor + "/nuevo_checkup/api/somatometria_api.php",
-                  data: { api: 2, id_turno: id },
-                  type: "POST",
-                  datatype: 'json',
-                  success: function (data) {
-                    data = jQuery.parseJSON(data);
-                    row = data['response']['data'];
-                    // console.log(data);
-                    if (mensajeAjax(data) && row.length != 0) {
-                      for (let i = 0; i < row.length; i++) {
-                        $('#info-signos-'+i).html(row[i]['VALOR']+" <strong>"+row[i]['UNIDAD_MEDIDA']+"</strong>")
-                      }
-                      $('#fecha-signos').html(formatoFecha2('2022/11/24', [0,1,4,1,0,0,0]))
-                    }else{
-                      $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
+            case 'equipo':
+              $('#nombre-equipo').html(row.MARCA + "-" + row.MODELO);
+              // $('#equipo-equipo').html(row.);
+              $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
+              $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
+              $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
+              $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO + " " + row.NUMERO_PRUEBAS);
+              $('#equipo-calibracion').html(row.CALIBRACION + " " + row.NUMERO_PRUEBAS_CALIBRACION);
+              $('#equipo-uso').html(row.USO);
+              $('#equipo-descripcion').html(row.DESCRIPCION);
+              $(panel).fadeIn(100);
+              resolve(1);
+              break;
+            case 'signos-vitales':
+              $.ajax({
+                url: http + servidor + "/nuevo_checkup/api/somatometria_api.php",
+                data: {
+                  api: 2,
+                  id_turno: id
+                },
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                  // data = jQuery.parseJSON(data);
+                  row = data['response']['data'];
+                  // console.log(data);
+                  if (mensajeAjax(data) && row.length != 0) {
+                    for (let i = 0; i < row.length; i++) {
+                      $('#info-signos-' + i).html(row[i]['VALOR'] + " <strong>" + row[i]['UNIDAD_MEDIDA'] + "</strong>")
                     }
-                  },
-                  complete: function(){
-                    $(panel).fadeIn(100);
-                    resolve(1);
+                    $('#fecha-signos').html(formatoFecha2('2022/11/24', [0, 1, 4, 1, 0, 0, 0]))
+                  } else {
+                    $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
                   }
-                })
+                },
+                complete: function () {
+                  $(panel).fadeIn(100);
+                  resolve(1);
+                }
+              })
               break;
-              case 'cliente':
+            case 'cliente':
               // console.log(row)
-                $('#nombreComercial-cliente').html(row.NOMBRE_COMERCIAL);
-                $('#nombreSistema-cliente').html(row.NOMBRE_SISTEMA);
-                $('#info-cliente-RFC').html(row.RFC);
-                $('#info-cliente-CURP').html(row.CURP);
-                $('#info-cliente-codigo').html(row.CODIGO);
-                $('#info-cliente-credito').html(row.LIMITE_CREDITO);
-                $('#info-cliente-tempcredito').html(row.TEMPORALIDAD_DE_CREDITO);
-                $('#info-cliente-cuentaContable').html(row.CUENTA_CONTABLE);
-                $('#info-cliente-pagweb').attr("href", row.PAGINA_WEB);
-                $('#info-cliente-pagweb').text(row.PAGINA_WEB);
-                $('#info-cliente-face').attr("href", row.FACEBOOK);
-                $('#info-cliente-face').text(row.FACEBOOK);
-                $('#info-cliente-twitter').attr("href", row.TWITTER);
-                $('#info-cliente-twitter').text(row.TWITTER);
-                $('#info-cliente-instragram').attr("href", row.INSTAGRAM);
-                $('#info-cliente-instragram').text(row.INSTAGRAM);
-                $(panel).fadeIn(100);
-                resolve(1);
+              $('#nombreComercial-cliente').html(row.NOMBRE_COMERCIAL);
+              $('#nombreSistema-cliente').html(row.NOMBRE_SISTEMA);
+              $('#info-cliente-RFC').html(row.RFC);
+              $('#info-cliente-CURP').html(row.CURP);
+              $('#info-cliente-codigo').html(row.CODIGO);
+              $('#info-cliente-credito').html(row.LIMITE_CREDITO);
+              $('#info-cliente-tempcredito').html(row.TEMPORALIDAD_DE_CREDITO);
+              $('#info-cliente-cuentaContable').html(row.CUENTA_CONTABLE);
+              $('#info-cliente-pagweb').attr("href", row.PAGINA_WEB);
+              $('#info-cliente-pagweb').text(row.PAGINA_WEB);
+              $('#info-cliente-face').attr("href", row.FACEBOOK);
+              $('#info-cliente-face').text(row.FACEBOOK);
+              $('#info-cliente-twitter').attr("href", row.TWITTER);
+              $('#info-cliente-twitter').text(row.TWITTER);
+              $('#info-cliente-instragram').attr("href", row.INSTAGRAM);
+              $('#info-cliente-instragram').text(row.INSTAGRAM);
+              $(panel).fadeIn(100);
+              resolve(1);
               break;
-              case 'contacto':
-                console.log(selectContacto)
-                $('#nombre-contacto').html(selectContacto.NOMBRE+' '+selectContacto.APELLIDOS);
-                $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
-                $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
-                $('#info-contacto-email').html(selectContacto.EMAIL);
-                $(panel).fadeIn(100);
-                resolve(1);
+            case 'contacto':
+              // console.log(selectContacto)
+              $('#nombre-contacto').html(selectContacto.NOMBRE + ' ' + selectContacto.APELLIDOS);
+              $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
+              $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
+              $('#info-contacto-email').html(selectContacto.EMAIL);
+              $(panel).fadeIn(100);
+              resolve(1);
               break;
-              case 'documentos-paciente':
-                // console.log(selectContacto)
+            case 'documentos-paciente':
+              // console.log(selectContacto)
 
-                $(panel).fadeIn(100);
-                resolve(1);
+              $(panel).fadeIn(100);
+              resolve(1);
               break;
-              case 'resultados-areaMaster':
-                $(panel).fadeIn(100);
-                resolve(1);
+            case 'resultados-areaMaster':
+              $(panel).fadeIn(100);
+              resolve(1);
               break;
 
-              default:
-                console.log('Sin opción panel')
-            }
-          }else{
-            setTimeout(function(){
-              $(panel).fadeOut(100);
-            }, 100);
+            default:
+              console.log('Sin opción panel')
           }
-       }, 110);
+        } else {
+          setTimeout(function () {
+            $(panel).fadeOut(100);
+          }, 100);
+        }
+      }, 110);
     });
     // resolve(0);
   });
 }
 
 
-function selectedTrTable(text, column = 1, table){
+function selectedTrTable(text, column = 1, table) {
   filter = text.toUpperCase();
   tablesearch = document.getElementById(table);
   tr = tablesearch.getElementsByTagName("tr");

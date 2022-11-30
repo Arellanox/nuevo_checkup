@@ -1,20 +1,27 @@
-$('#agregar-nota-historial').on('click', function(){
+$('#agregar-nota-historial').on('click', function () {
   var event = new Date();
-  var options = { hours: 'numeric', minutes: 'numeric', weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'};
+  var options = {
+    hours: 'numeric',
+    minutes: 'numeric',
+    weekday: 'long',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
 
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
     type: "POST",
     dataType: "json",
-    data: { 
+    data: {
       api: 1,
       id_turno: pacienteActivo.array['ID_TURNO'],
       notas: $('#nota-historial-paciente').val()
     },
     success: function (data) {
       if (mensajeAjax(data)) {
-        console.log(data);
-        agregarNotaConsulta(session.nombre+" "+session.apellidos, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial', data.response.data);
+        // console.log(data);
+        agregarNotaConsulta(session.nombre + " " + session.apellidos, event.toLocaleDateString('es-ES', options), $('#nota-historial-paciente').val(), '#notas-historial', data.response.data, 'eliminarNota');
       }
     }
   });
@@ -27,7 +34,7 @@ $(document).on('click', '.eliminarNota', function () {
     url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
     type: "POST",
     dataType: "json",
-    data: { 
+    data: {
       api: 4,
       id_nota: id,
     },
@@ -40,7 +47,7 @@ $(document).on('click', '.eliminarNota', function () {
   });
 });
 
-$('#btn-regresar-vista').click(function(){
+$('#btn-regresar-vista').click(function () {
   alertMensajeConfirm({
     title: "¿Está seguro de regresar?",
     text: "Asegurese de guardar los cambios",
@@ -50,11 +57,40 @@ $('#btn-regresar-vista').click(function(){
     cancelButtonColor: "#d33",
     confirmButtonText: "Aceptar",
     cancelButtonText: "Cancelar",
-  }, function(){
+  }, function () {
     obtenerConsultorioMain();
   })
 })
 
+
+// $('.').on
+$(document).on('click', '.guardarAnt ', function () {
+  button = $('.guardarAnt')
+  button.prop('disabled', true);
+  alertToast('Guardando...')
+  var parent_element = button.closest("form").attr('id');
+  // console.log(parent_element);
+  let formData = new FormData(document.getElementById(parent_element));
+  // console.log(formData);
+  formData.set('api', 7);
+  formData.set('turno_id', 7);
+
+  $.ajax({
+    data: formData,
+    url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    success: function (data) {
+      button.prop('disabled', false);
+      alertToast('Guardado con exito', 'success');
+    },
+  });
+  // eliminarElementoArray(id);
+  // console.log(id);
+
+});
 
 
 

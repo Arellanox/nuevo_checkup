@@ -10,10 +10,43 @@ $("#formRegistrarAgenda").submit(function(event){
     event.preventDefault();
     alert("form formAntecedentes-paciente")
     /*DATOS Y VALIDACION DEL REGISTRO*/
-    var form = document.getElementById("formRegistrarAgenda");
-    var formData = new FormData(form);
-    var formAntecedentes = document.getElementById('formAntecedentes');
-    var formDataAntecedentes = new FormData(formAntecedentes)
+    // var form = document.getElementById("formRegistrarAgenda");
+
+    var formAntPersonalPato = document.getElementById('formAntPersonalPato');
+    // var formAntNoPatologicos = document.getElementById('formAntNoPatologicos');
+    var formAntNoPatologicos = jQuery(document.forms['formAntNoPatologicos']).serializeArray();
+    // var formAntHeredofamiliares = document.getElementById('formAntHeredofamiliares');
+    var formAntHeredofamiliares = jQuery(document.forms['formAntHeredofamiliares']).serializeArray();
+    // var formAntPsicologico = document.getElementById('formAntPsicologico');
+    var formAntPsicologico = jQuery(document.forms['formAntPsicologico']).serializeArray();
+    // var formAntNutricionales = document.getElementById('formAntNutricionales');
+    var formAntNutricionales = jQuery(document.forms['formAntNutricionales']).serializeArray();
+    // var formMedioLaboral = document.getElementById('formMedioLaboral');
+    var formMedioLaboral = jQuery(document.forms['formMedioLaboral']).serializeArray();
+
+    var formData = new FormData(formAntPersonalPato);
+
+    for (var i=0; i<formAntNoPatologicos.length; i++)
+      formData.append(formAntNoPatologicos[i].name, formAntNoPatologicos[i].value)
+
+    for (var i=0; i<formAntHeredofamiliares.length; i++)
+      formData.append(formAntHeredofamiliares[i].name, formAntHeredofamiliares[i].value);
+
+    for (var i=0; i<formAntPsicologico.length; i++)
+      formData.append(formAntPsicologico[i].name, formAntPsicologico[i].value);
+    
+    for (var i=0; i<formAntNutricionales.length; i++)
+      formData.append(formAntNutricionales[i].name, formAntNutricionales[i].value);
+
+    for (var i=0; i<formMedioLaboral.length; i++)
+      formData.append(formMedioLaboral[i].name, formMedioLaboral[i].value);
+
+    // var formData = new FormData(document.forms['form-ship']); // with the file input
+    // var poData = jQuery(document.forms['po-form']).serializeArray();
+    // for (var i=0; i<poData.length; i++)
+    //     formData.append(poData[i].name, poData[i].value);
+
+
     // console.log(formData.get('estudiosLab[]'))
     // if (formData.get('estudiosLab[]') == null) {
     //   Swal.fire({
@@ -25,15 +58,15 @@ $("#formRegistrarAgenda").submit(function(event){
     // }
     // formData.set('antecedentes', json);
     if($('#checkCurpPasaporte-agenda').is(":checked")) {
-      formDataAntecedentes.set('pasaporte', $('#curp-paciente').val())
+      formData.set('pasaporte', $('#curp-paciente').val())
     }else{
-      formDataAntecedentes.set('curp', $('#curp-paciente').val())
+      formData.set('curp', $('#curp-paciente').val())
     }
 
-    formDataAntecedentes.set('cliente_id', clienteRegistro)
-    // formDataAntecedentes.set('segmento_id', null) //$('#selectSegmentos').val()
-    formDataAntecedentes.set('fechaAgenda', $('#fecha-agenda').val())
-    formDataAntecedentes.set('api', 1);
+    formData.set('cliente_id', clienteRegistro)
+    // formData.set('segmento_id', null) //$('#selectSegmentos').val()
+    formData.set('fechaAgenda', $('#fecha-agenda').val())
+    formData.set('api', 1);
     // console.log(formData);
     Swal.fire({
        title: '¿Está seguro que todos sus datos son correctos?',
@@ -49,7 +82,7 @@ $("#formRegistrarAgenda").submit(function(event){
          $("#btn-formregistrar-agenda").prop('disabled', true);
 
          $.ajax({
-           data: formDataAntecedentes,
+           data: formData,
            url: http + servidor + "/nuevo_checkup/api/prerregistro_api.php",
            type: "POST",
            processData: false,

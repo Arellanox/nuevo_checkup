@@ -58,49 +58,37 @@ $master = new Master();
 switch ($api) {
     case 1:
         # insertar
-        $dir = $master->urlEquiposLaboratorio."$descripcion/";
+        $dir = $master->urlComodin.$master->urlEquiposLaboratorio.$descripcion."/";
         $r = $master->createDir($dir);
 
-        if (!empty($_FILES['reportes']['name'])) {
-            $next = 0;
-            foreach ($_FILES['reportes']['name'] as $key => $value) {
-                $extension = pathinfo($_FILES['reportes']['name'][$key], PATHINFO_EXTENSION);
+        if($r==1){
+            #si se cre correctamente el directorio, 
+            #movemos el archivo a la caperta indicada
+            if(empty($_FILES)){    
+                $response = $master->insertByProcedure("sp_laboratorio_equipos_g", $parametros);
+            } else {
+                $return = $master->guardarFiles($_FILES,'foto',$dir,$descripcion);
                 
-                # obtenemos la ruta temporal del archivo
-                ## $tmp_name = $_FILES['reportes']['tmp_name'][$key];
-                $tmp_name = $_FILES['reportes']['tmp_name'][$key];
+                if(!empty($return)){
+                    # si el arreglo que regresa el subir los archivos no esta vacio,
+                    # insertarmos el registro en la base de datos
 
-                $tipo_label = "INTERPRETACION";
-              
-                if($tipo == 2){
-                    $tipo_label = "CAPTURA";
+                    #convertirmos el arreglo que regresa la funcion guardarFiles a json,
+                    #para poder enviarlo a la base de datos
+                    $fotos = json_encode($return);
+                    $parametros[14] = $fotos;
+                    
+                    $response = $master->insertByProcedure("sp_laboratorio_equipos_g", $parametros);
+                } else {
+                    $response = "No se puedieron mover los archivos.";
                 }
-
-                $url = "$destinatio_sql$dir_base$id_turno"."_$id_servicio"."_$tipo_label"."_$next.".$extension;
-
-                if($tipo == 2){
-                    $imagenes = array('URL'=>$url, 'EXTENSION'=>$extension);
-                }
-
-                #insertamos el registro en la tabla de resultados reportes
-                $response = $master->insertByProcedure('sp_resultados_reportes_g',[$id_turno,$id_servicio,$url,$comentario,$tipo,json_encode($imagenes),$comentario_capturas]);
-
-                if(is_numeric($response)){
-                    #cambiamos de lugar el archivo
-                    try {
-                        move_uploaded_file($tmp_name,$dir.$id_turno."_$id_servicio"."_$tipo_label"."_$next.".$extension);
-                    } catch (\Throwable $th) {
-                        # si no se puede subir el archivo, desactivamos el resultado que se guardo en la base de datos
-                        $e = $master->deleteByProcedure('sp_resultados_reportes_e',[$response[0]['LAST_ID']]);
-                    }
-                }
-                $next++; 
             }
-            echo $master->returnApi($response);
         } else {
-            echo "No hay archivos.";
+            $response = "No se pudo crear el directorio.";
         }
-        $response = $master->insertByProcedure("sp_laboratorio_equipos_g", $parametros);
+
+      
+        
         break;
     case 2:
         # buscar
