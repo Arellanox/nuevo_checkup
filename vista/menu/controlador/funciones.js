@@ -851,21 +851,31 @@ function setValuesAntecedentesMetodo(DIV, array) {
   }
 }
 
-function obtenerVistaAntecenetesPaciente(div, cliente) {
+function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
   return new Promise(resolve => {
     $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.html", function (html) {
       setTimeout(function () {
         $(div).html(html);
-        if (cliente) {
-          switch (cliente) {
-            case 1:
-              $('#onlyProcedencia').fadeOut(0);
-              $('#onlyMedico').fadeOut(0);
-              break;
-            default:
-              $('#onlyMedico').fadeOut(0);
-          }
+        console.log(cliente)
+        if(cliente == "Particular" || cliente == "PARTICULAR"){
+          $('.onlyProcedencia').fadeOut(0);
+        }else{
+          $('.onlyProcedencia').fadeIn(0);
         }
+
+        if(pagina == 0){
+          $('.onlyMedico').fadeOut(0);
+        }else{
+          $('.onlyMedico').fadeIn(0);
+        }
+        // if (cliente) {
+        //   switch (cliente) {
+        //     case 'Particular':
+        //       break;
+        //     default:
+        //       $('#onlyMedico').fadeOut(0);
+        //   }
+        // }
         resolve(1)
       }, 100);
     });

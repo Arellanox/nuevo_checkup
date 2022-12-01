@@ -10,6 +10,6 @@
     </ul>
   </div>
   <div class="row" id="VistaEstadoCuenta">
-
+    <?php ?>
   </div>
 </div>

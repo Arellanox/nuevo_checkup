@@ -25,7 +25,7 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-:root{
+html {
   scroll-behavior: smooth;
 }
 
@@ -55,7 +55,7 @@ a{
   text-decoration: none;
 }
 
-a: hover{
+a:hover{
   color: black;
 }
 
@@ -107,5 +107,3 @@ p{
 .info-detalle a{
   text-decoration: underline !important;
 }
-
---

@@ -69,8 +69,10 @@
   </div>
 </div>
 
+
+
 <!-- Vista de cargos -->
-<div class="col-9 vistaCargosFacturar" id="vistaCargosFacturar">
+<div class="col-9 vistaCargosFacturar" id="vistaCargosFacturar" style="display: none">
   <div class="m-2 card">
     <div class="row m-3">
       <div class="col-12">
@@ -122,7 +124,7 @@
         <!-- facturar cliente -->
       </div>
       <!-- Carga de pantalla -->
-      <div class="col-12 d-flex justify-content-center align-items-center" id='loaderDivEstadoCuenta' style="max-height: 75vh; display:none">
+      <div class="col-12 d-flex justify-content-center align-items-center" id='loaderDivEstadoCuenta' style="max-height: 75vh;">
         <div class="preloader" id="loader-EstadoCuenta"></div>
       </div>
 

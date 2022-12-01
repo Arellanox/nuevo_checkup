@@ -1,7 +1,7 @@
 <div class="card ">
   <h4 class="m-3">Antecedentes</h4>
   <hr class="dropdown-divider m-2">
-  <p class="none-p" style="margin-left: 10px">Rellene todos los campos*</p>
+  <p class="none-p" style="margin-left: 10px" id="descripcion-antecedentes">Rellene todos los campos*</p>
   <div class="accordion m-2" id="accordionEstudios">
     <!-- <form class="" id="formAntecedentes"> -->
       
@@ -66,8 +66,8 @@
                   <input type="radio" required  id="checkNo-DiaMelli" name="check-DiaMelli[]" value="2" required>
                   <label for="checkNo-DiaMelli" >No</label>
                 </div>
-                <div class="collapse onlyMedico" id="collapse-DiaMelli">
-                  <textarea name="check-DiaMelli[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
+                <div class="collapse" id="collapse-DiaMelli">
+                  <textarea name="check-DiaMelli[]" class="onlyMedico form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
                 </div>
               </div>
   
@@ -85,8 +85,8 @@
                   <input type="radio" required  id="checkNo-hiArt" name="check-hiArt[]" value="2" required>
                   <label for="checkNo-hiArt" >No</label>
                 </div>
-                <div class="collapse onlyMedico" id="collapse-hiArt">
-                  <textarea name="check-hiArt[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
+                <div class="collapse" id="collapse-hiArt">
+                  <textarea name="check-hiArt[]" class="onlyMedico form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
                 </div>
               </div>
   
@@ -104,8 +104,8 @@
                   <input type="radio" required  id="checkNo-disli" name="check-disli[]" value="2" required>
                   <label for="checkNo-disli" >No</label>
                 </div>
-                <div class="collapse onlyMedico" id="collapse-disli">
-                  <textarea name="check-disli[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
+                <div class="collapse" id="collapse-disli">
+                  <textarea name="check-disli[]" class="onlyMedico form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
                 </div>
               </div>
   
@@ -456,8 +456,8 @@
                   <input type="radio" required  id="checkNo-actSex" name="check-actSex[]" value="2" required>
                   <label for="checkNo-actSex" >No</label>
                 </div>
-                <div class="collapse onlyMedico" id="collapse-actSex">
-                  <textarea name="check-actSex[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia"></textarea>
+                <div class="collapse" id="collapse-actSex">
+                  <textarea name="check-actSex[]" class="onlyMedico form-control input-form" rows="2" cols="2" placeholder="Frecuencia"></textarea>
                 </div>
               </div>
               <hr class="dropdown-divider m-2">
@@ -1394,10 +1394,19 @@
        var parent_element = jQuery(this).closest("div[class='row']");
       if (this.value == true) {
           var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
+          console.log(collapID)
+          if(typeof collapID === "undefined"){
+            // alert('indefinido')
+            var collapID = jQuery(parent_element).children("div[class='onlyMedico collapse']").attr("id");
+          }
           $('#'+collapID).collapse("show")
           $('#'+collapID).find(':input').prop('required', true);
       }else{
           var collapID = jQuery(parent_element).children("div[class='collapse show']").attr("id");
+          if(typeof collapID === "undefined"){
+            // alert('indefinido')
+            var collapID = jQuery(parent_element).children("div[class='onlyMedico collapse show']").attr("id");
+          }
           $('#'+collapID).collapse("hide")
           $('#'+collapID).find(':input').val('')
           $('#'+collapID).find(':input').prop('required', false);

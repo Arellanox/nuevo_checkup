@@ -5,6 +5,8 @@ $('#btn-formregistrar-agenda').prop('disabled',true);
 $('#eliminarForm').prop('disabled',true);
 $('#curp-paciente').prop('readonly', false);
 
+
+
 // Registrar agenda del paciente
 $("#formRegistrarAgenda").submit(function(event){
     event.preventDefault();
@@ -12,7 +14,7 @@ $("#formRegistrarAgenda").submit(function(event){
     /*DATOS Y VALIDACION DEL REGISTRO*/
     // var form = document.getElementById("formRegistrarAgenda");
 
-    var formAntPersonalPato = document.getElementById('formAntPersonalPato');
+    var formAntPersonalPato = jQuery(document.forms['formAntNoPatologicos']).serializeArray();
     // var formAntNoPatologicos = document.getElementById('formAntNoPatologicos');
     var formAntNoPatologicos = jQuery(document.forms['formAntNoPatologicos']).serializeArray();
     // var formAntHeredofamiliares = document.getElementById('formAntHeredofamiliares');
@@ -23,6 +25,14 @@ $("#formRegistrarAgenda").submit(function(event){
     var formAntNutricionales = jQuery(document.forms['formAntNutricionales']).serializeArray();
     // var formMedioLaboral = document.getElementById('formMedioLaboral');
     var formMedioLaboral = jQuery(document.forms['formMedioLaboral']).serializeArray();
+
+    if(evaluarAntecedentes(formAntPersonalPato, formAntNoPatologicos, formAntHeredofamiliares, formAntPsicologico, formAntNutricionales, formMedioLaboral)){
+      alertMensaje('info', 'Antecedentes incompletos', 'Necesita llenar todo el formulario de antecedentes')
+      return false;
+    }
+
+    
+    var formAntPersonalPato = document.getElementById('formAntPersonalPato');
 
     var formData = new FormData(formAntPersonalPato);
 
@@ -117,6 +127,28 @@ $("#formRegistrarAgenda").submit(function(event){
      })
 })
 
+function evaluarAntecedentes(div1, div2, div3, div4, div5, div6){
+  if(div1.length != 20){
+    return true;
+  }
+  if(div2.length != 20){
+    return true;
+  }
+  if(div3.length != 20){
+    return true;
+  }
+  if(div4.length != 15){
+    return true;
+  }
+  if(div5.length != 26){
+    return true;
+  }
+  if(div6.length != 45){
+    return true;
+  }
+  return false;
+}
+
 var tipoPaciente = "0"; //Particular por defecto
 $('#actualizarForm').click(function(){
 
@@ -165,7 +197,7 @@ $('#actualizarForm').click(function(){
             // $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
             // $('#formDIV *').prop('disabled',false);
             $('#btn-formregistrar-agenda').prop('disabled',false);
-            await obtenerVistaAntecenetesPaciente('#antecedentes-registro')
+            await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
             
           }else{
             $('#actualizarForm').prop('disabled',false);

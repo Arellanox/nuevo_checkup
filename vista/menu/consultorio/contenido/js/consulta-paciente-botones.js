@@ -1,3 +1,36 @@
+$('#btn-consulta-terminar').click(function() {
+  let button = $(this)
+  alertMensajeConfirm({
+    title: "¿Está seguro de terminar la consulta?",
+    text: "Ya no podrá hacer cambios con la consulta",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Aceptar",
+    cancelButtonText: "Cancelar",
+  }, function (){
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      method: 'POST',
+      dataType: 'json',
+      beforeSend: function() {
+        button.prop('disabled', true)
+      },
+      data: {api:11, id_consulta: pacienteActivo.selectID},
+      success: function (data) {
+        if (mensajeAjax(data)) {
+          button.prop('disabled', false)
+          alertMensaje('info', 'La consulta ha sido cerrada', 'Podrá consultar la información del paciente desde el menú :)')
+        }
+      }, complete: function () {
+
+      }
+
+    })
+  })
+})
+
 // Exploracion clinica
 $('#select-exploracion-clinica').on('change', function () {
   let selectoo = $('#select-exploracion-clinica').val();
@@ -198,8 +231,47 @@ $(document).on('click', '.eliminarExploracion', function () {
   });
   // eliminarElementoArray(id);
   // console.log(id);
-
 });
+
+
+// Exploracion clinica
+$('#formAgregarOdontograma').submit(function (event) {
+  event.preventDefault();
+  let button = $('#btn-guardar-Receta')
+  button.prop('disabled', true)
+  let form = document.getElementById("formNuevaReceta");
+  let formData = new FormData(form)
+  $.ajax({
+    data: {
+      turno_id: pacienteActivo.array['ID_TURNO'],
+      exploracion_tipo_id: $('#select-exploracion-clinica').val(),
+      exploracion: $('#text-exploracion-clinica').val(),
+      api: 6
+    },
+    url: "../../../api/consulta_api.php",
+    type: "POST",
+    dataType: "json",
+    success: function (data) {
+      // alert("antes de la nota")
+      agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio', data.response.data, 'eliminarExploracion')
+      $('#text-exploracion-clinica').val('')
+      // alert("despues de la nota")
+    },
+  });
+})
+//Eliminar odontograma
+$(document).on('click', 'eliminarOdontograma', function(event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $('.guardarAnamn')
+  button.prop('disabled', true);
+})
+
+
+
+
+
+
 
 
 //Guardar antecedentes

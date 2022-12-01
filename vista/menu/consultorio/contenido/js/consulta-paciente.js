@@ -185,6 +185,46 @@ tablaRecetas = $('#tablaListaRecetas').DataTable({
     ],
 })
 
+tablaOdontograma = $('#tablaOdontograma').DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    lengthChange: false,
+    info: false,
+    paging: false,
+    scrollY: "100%",
+    scrollCollapse: true,
+    ajax:{
+        dataType: "json",
+        data: {api: 14, turno_id: pacienteActivo.array['ID_TURNO']},
+        method: 'POST',
+        url:  http + servidor + "/nuevo_checkup/api/consulta_api.php",
+        // beforeSend: function() {  },
+        // complete: function(){  },
+        dataSrc:'response.data'
+    },
+    columns:[
+        {data: 'DOSIS'},
+        {data: 'PRESENTACION'},
+        {data: 'FRECUENCIA'},
+        {data: 'VIA_DE_ADMINISTRACION'},
+        {data: 'FORMA_FARMACEUTICA'},
+        {data: 'INDICACIONES_PARA_EL_USO'},
+        {data: 'ID_RECETA',  render: function(data){
+            return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarOdontograma" style="margin: -15px;" data-bs-id ="'+data+'"> <i class="bi bi-trash"></i> </button> </div>';
+        }}
+    ],
+    columnDefs:[
+        {"width": "10%", "target": 3},
+        {"width": "10%", "target": 4}
+    ]
+})
+
+select2('#select-exploracion-clinica', '#card-exploracion-clinica')
+select2('#select-odontograma-piezaDental', '#card-odontograma')
+select2('#select-odontograma-cara', '#card-odontograma')
+select2('#select-odontograma-tratamiento', '#card-odontograma')
+
 
 // //Agrega nuevo campo para medicamento
 // function nuevoMedicamentoReceta(div) {

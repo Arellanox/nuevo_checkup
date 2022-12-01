@@ -61,10 +61,15 @@ function consultarConsulta(id) {
       dataType: "json",
       success: function (data) {
         let row = data.response.data
-        for (let i = 0; i < row.length; i++) {
-          if (row[i]['COMPLETADO'] == 0) {
-            $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, ' + row[i]['ID_CONSULTA'] + ')" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Continuar consulta </button>')
-          }
+        if (row) {
+          // for (let i = 0; i < row.length; i++) {
+            if (row[0]['COMPLETADO'] == 0) {
+              $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, ' + row[0]['ID_CONSULTA'] + ')" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Continuar consulta </button>')
+            }else if(row[0]['COMPLETADO'] == 1){
+              $('#btn-ir-consulta').html('<button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Consulta terminada </button>')
+            }
+  
+          // }
         }
       },
       complete: function () {

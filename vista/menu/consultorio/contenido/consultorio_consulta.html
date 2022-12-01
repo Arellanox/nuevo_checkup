@@ -2,6 +2,7 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 
+
 <div class="container-fluid" style="z-index:5">
   <div class="row" id="menu-consultorio">
     <div class="col-8 row">
@@ -39,8 +40,7 @@
       </div>
     </div>
     <div class="col-4 d-flex justify-content-end">
-      <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
-        data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
+      <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" id="btn-consulta-terminar">
         <i class="bi bi-clipboard2-check"></i> Terminar consulta
       </button>
     </div>
@@ -58,6 +58,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#card-exploracion-clinica">EXPLORACIÓN CLÍNICA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#card-odontograma">ODONTOGRAMA</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#card-anamnesis-aparatos">ANAMNESIS POR APARATOS</a>
@@ -90,7 +93,7 @@
       <textarea name="name-notas-padecimiento" rows="10" cols="90" class="form-textarea-content"
         placeholder="Escriba aquí sus notas" id="nota-notas-padecimiento"></textarea>
       <div class=" d-flex justify-content-start m-2">
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-notaPadecimiento">
+        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-notaPadecimiento">
           <i class="bi bi-paperclip"></i> Guardar
         </button>
       </div>
@@ -103,7 +106,7 @@
       <textarea name="name-diagnostico" rows="10" cols="90" class="form-textarea-content"
         placeholder="Escriba aquí sus notas" id="diagnostico-campo-consulta"></textarea>
       <div class=" d-flex justify-content-start m-2">
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-Diagnostico">
+        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-Diagnostico">
           <i class="bi bi-paperclip"></i> Guardar
         </button>
       </div>
@@ -202,7 +205,7 @@
         </div>
       </div>
       <div class=" d-flex justify-content-start m-2">
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-Nutricion">
+        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-Nutricion">
           <i class="bi bi-paperclip"></i> Guardar
         </button>
       </div>
@@ -236,7 +239,7 @@
           <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aquí sus notas"
             style="width:95%" id="text-exploracion-clinica"></textarea>
           <div class=" d-flex justify-content-end">
-            <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px"
+            <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px"
               id="btn-agregar-exploracion-clinina">
               <i class="bi bi-clipboard-plus"></i> Agregar
             </button>
@@ -257,7 +260,121 @@
     </section>
 
 
-
+    <section id="card-odontograma" class="card mt-3">
+      <h4 class="m-3">ODONTOGRAMA</h4>
+      <hr class="dropdown-divider m-2">
+      <form class="formAgregarOdontograma"></form>
+      <div class="p-3 row">
+        <div class="col-auto">
+          <label for="metodo" class="form-label">Pieza dental</label>
+          <select name="metodo" id="select-odontograma-piezaDental" class="form-select input-form" required>
+            <option value="11" class="piezaAdulto">Pieza 11 </option>
+            <option value="12" class="piezaAdulto">Pieza 12 </option>
+            <option value="13" class="piezaAdulto">Pieza 13 </option>
+            <option value="14" class="piezaAdulto">Pieza 14 </option>
+            <option value="15" class="piezaAdulto">Pieza 15 </option>
+            <option value="16" class="piezaAdulto">Pieza 16 </option>
+            <option value="17" class="piezaAdulto">Pieza 17 </option>
+            <option value="21" class="piezaAdulto">Pieza 21 </option>
+            <option value="22" class="piezaAdulto">Pieza 22 </option>
+            <option value="23" class="piezaAdulto">Pieza 23 </option>
+            <option value="24" class="piezaAdulto">Pieza 24 </option>
+            <option value="25" class="piezaAdulto">Pieza 25 </option>
+            <option value="26" class="piezaAdulto">Pieza 26 </option>
+            <option value="27" class="piezaAdulto">Pieza 27 </option>
+            <option value="28" class="piezaAdulto">Pieza 28 </option>
+            <option value="31" class="piezaAdulto">Pieza 31 </option>
+            <option value="32" class="piezaAdulto">Pieza 32 </option>
+            <option value="33" class="piezaAdulto">Pieza 33 </option>
+            <option value="34" class="piezaAdulto">Pieza 34 </option>
+            <option value="35" class="piezaAdulto">Pieza 35 </option>
+            <option value="36" class="piezaAdulto">Pieza 36 </option>
+            <option value="37" class="piezaAdulto">Pieza 38 </option>
+            <option value="38" class="piezaAdulto">Pieza 38 </option>
+            <option value="41" class="piezaAdulto">Pieza 41 </option>
+            <option value="42" class="piezaAdulto">Pieza 42 </option>
+            <option value="43" class="piezaAdulto">Pieza 43 </option>
+            <option value="44" class="piezaAdulto">Pieza 44 </option>
+            <option value="45" class="piezaAdulto">Pieza 45 </option>
+            <option value="46" class="piezaAdulto">Pieza 46 </option>
+            <option value="47" class="piezaAdulto">Pieza 47 </option>
+            <option value="48" class="piezaAdulto">Pieza 48 </option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <label for="metodo" class="form-label">Cara</label>
+          <select name="metodo" id="select-odontograma-cara" class="form-select input-form" required>
+            <option id="1">OCLUSAL </option> 
+            <option id="2">PALANTINA </option> 
+            <option id="3">DISTAL </option> 
+            <option id="4">MESIAL </option> 
+          </select>
+        </div>
+        <div class="col-3">
+          <label for="metodo" class="form-label">Tratatamiento</label>
+          <select name="metodo" id="select-odontograma-tratamiento" class="form-select input-form" required>
+            <option id="1">PROFILÁCTICO</option>
+            <option id="2">RESTAURACIÓN CON RESINA</option>
+            <option id="3">SELLADOR</option>
+            <option id="4">CURACIÓN</option>
+            <option id="5">CURETAJE</option>
+            <option id="6">ALARGAMIENTO DE CORONA</option>
+            <option id="7">RECONTORNEO GINGIVAL</option>
+            <option id="8">EXTRACCIÓN 3ER MOLAR</option>
+            <option id="9">CIRUGÍA 3ER MOLAR</option>
+            <option id="10">EXTRACCIÓN INFANTIL</option>
+            <option id="11">ENDODONCIA</option>
+            <option id="12">RETRATAMIENTO EDODONTAL</option>
+            <option id="13">POSTE</option>
+            <option id="14">CORONA METAL-CERÁMICA</option>
+            <option id="15">RECONSTRUCCIÓN DE RESINA</option>
+            <option id="16">BLANQUEAMIENTO EXTERNO</option>
+            <option id="17">CURACIÓN</option>
+            <option id="18">TREPANACIÓN</option>
+            <option id="19">PRÓTESIS PARCIAL REMOVIBLE</option>
+            <option id="20">CIRUGÍA PERIODONTAL</option>
+            <option id="21">TRATAMIENTO DE ENCÍAS</option>
+            <option id="22">IMPLANTE</option>
+            <option id="23">ENTABLILLADO</option>
+            <option id="24">CIRUGÍA ORAL / MAXILOFACIAL</option>
+          </select>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-6">
+          <label for="metodo" class="form-label">Diagnóstico</label>
+          <textarea name="name" rows="3" cols="90" class="input-form" placeholder="..."
+            style="width:95%" id="text-exploracion-clinica"></textarea>
+        </div>
+        <div class="col-6">
+          <label for="metodo" class="form-label">Comentario</label>
+          <textarea name="name" rows="3" cols="90" class="input-form" placeholder=""
+            style="width:95%" id="text-exploracion-clinica"></textarea>
+        </div>
+        <div class="d-flex justify-content-start m-2"> 
+          <button type="submit" form="formNuevaReceta" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-Receta"> 
+            <i class="bi bi-paperclip"></i> Guardar 
+          </button> 
+        </div>
+      </div>
+      <div class="p-3">
+        <table class="table table-hover display responsive" id="tablaOdontograma" style="width: 100%;">
+          <thead>
+            <tr>
+              <!-- <th scope="col d-flex justify-content-center" class="all">#</th> -->
+              <th scope="col d-flex justify-content-center" class="all">Diagnóstico</th>
+              <th scope="col d-flex justify-content-center" class="all">Procedimiento</th>
+              <th scope="col d-flex justify-content-center" class="all">Tratamiento</th>
+              <th scope="col d-flex justify-content-center" class="all">Pieza dental</th>
+              <th scope="col d-flex justify-content-center" class="all">Cara</th>
+              <th scope="col d-flex justify-content-center" class="none">Comentario</th>
+              <th scope="col d-flex justify-content-center" class="all"></th> <!-- Boton para eliminar -->
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
 
     <section id="card-anamnesis-aparatos" class="card mt-3">
@@ -265,7 +382,6 @@
       <hr class="dropdown-divider m-2">
       <div id="divANAMNESISAPARATOS" class="p-3"> </div>
     </section>
-
 
     <!-- <section id="card-motivo-consulta" class="card mt-3">
       <h4 class="m-3">Motivo de consulta</h4>
@@ -325,7 +441,7 @@
               </div>
             </form>
             <div class=" d-flex justify-content-start m-2"> 
-              <button type="submit" form="formNuevaReceta" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-Receta"> 
+              <button type="submit" form="formNuevaReceta" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-Receta"> 
                 <i class="bi bi-paperclip"></i> Guardar 
               </button> 
             </div>
@@ -341,7 +457,7 @@
         <div class="card m-3 p-3">
           <h3>Recetas guardadas de consulta</h3>
           <table class="table table-hover display responsive" id="tablaListaRecetas" style="width: 100%;">
-            <thead class="">
+            <thead>
               <tr>
                 <!-- <th scope="col d-flex justify-content-center" class="all">#</th> -->
                 <th scope="col d-flex justify-content-center" class="all">Nombre</th>

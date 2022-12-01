@@ -1,3 +1,4 @@
+//Primer menu
 $(document).on('click', '.VistaEstadoCuenta', function () {
   $('.VistaEstadoCuenta').removeClass('active')
   $('.VistaEstadoCuenta').removeClass('disabled')
@@ -14,23 +15,33 @@ $(document).on('click', '.VistaEstadoCuenta', function () {
   }
 });
 
+
+
+
 let dataAjaxCargos = {api: 7}, selectCuenta = new GuardarArreglo();
 // Obtener de primer vista el estado de cuenta
-obtenerVistaFacturar()
+
 
 function obtenerVistaFacturar(){
   $.post('contenido/vistas/cuenta-facturar.php', function(html){
     $('#VistaEstadoCuenta').html(html);
   }).done(function(){
+    //Botones
+    $.getScript('contenido/js/VistaFacturar/vistaFacturar-botones.js');
+
+
+    $.getScript('contenido/js/VistaFacturar/controlador.js');
 
     // JS necesarios
-    cambiarVistaEstadoCuenta('Out')
-    $.getScript('contenido/js/VistaFacturar/tabla.js').done(function(){
-      $.getScript('contenido/js/VistaFacturar/botones.js');
-    })
-    $.getScript('contenido/js-vistas-controlador/estado-facturar-controlador-vista.js');
+    // cambiarVistaEstadoCuenta('Out')
+    // $.getScript('contenido/js/VistaFacturar/tabla.js').done(function(){
+    //   $.getScript('contenido/js/VistaFacturar/botones.js');
+    // })
+    // $.getScript('contenido/js-vistas-controlador/estado-facturar-controlador-vista.js');
   })
 }
+
+
 
 function obtenerVistaGrupos(){
   $.post('contenido/vistas/cuenta-grupo.php', function(html){
@@ -55,3 +66,7 @@ function cambiarVistaEstadoCuenta(fade) {
   }
    //Ocultar plantilla para buscar el estado de cuenta
 }
+
+
+
+
