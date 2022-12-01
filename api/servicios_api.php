@@ -351,46 +351,7 @@ switch ($api) {
             #print_r($servicios);
         
             if(!empty($servicios)){
-                /* $group = array();
-                $grupo_array = array();
-               
-                $first_key = array_key_first($servicios);
-                $grupo = $servicios[$first_key]['GRUPO'];
-            
-                for ($j=$first_key, $x=0, $k=0; $x < count($servicios); $j++,$x++) {
-                    if($servicios[$j]['GRUPO'] == $grupo) {
-
-                        $grupo_array[] = array(
-                            "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                            "resultado"=> $servicios[$j]['RESULTADO']
-                        );
-
-                    }else {
-                       
-                        $group[$k] = array(
-                            "estudio"=> $grupo,
-                            "analitos"=> $grupo_array
-                        );
-                        $k++;
-                        $grupo = $servicios[$j]['GRUPO'];
-                        $grupo_array = array();
-
-                        $grupo_array[] = array(
-                            "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                            "resultado"=> $servicios[$j]['RESULTADO']
-                        );
-                    }
-
-                    $group[$k] = array(
-                        "estudio"=> $grupo,
-                        "analitos"=> $grupo_array
-                    );
-                }
-                #echo "ESTA ES LA CLASIFICACIOEN". $clasificaciones[$i]['DESCRIPCION'];
-                $aux = array(
-                    "area" => $clasificaciones[$i]['DESCRIPCION'],
-                    "estudios" => $group
-                ); */
+              
                 $aux = ordenarResultados($servicios,$clasificaciones[$i]['DESCRIPCION']);
 
                 $arrayGlobal['areas'][] = $aux;
