@@ -752,7 +752,7 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
   })
 }
 
-function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) {
+function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) { //selectLista es una variable que no se usa 
   switch (fade) {
     case 'Out':
       if ($(divClass).is(':visible')) {
@@ -780,6 +780,19 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) {
       return 0
   }
   return 1
+}
+
+function bugGetPanel(divClass, loader, loaderDiv1) {
+  loaderDiv("Out", null, loader, loaderDiv1, 0);
+  while (!$(divClass).is(':visible')) {
+    if (!$(divClass).is(':visible')) {
+      setTimeout(function () {
+        $(divClass).fadeIn(0)
+        console.log("Visible!")
+      }, 100)
+    }
+    $(divClass).fadeIn(0)
+  }
 }
 
 

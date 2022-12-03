@@ -77,16 +77,16 @@ class Contactos extends Master implements iMetodos{
         $stmt->bindParam(1,$activo);
         $stmt->bindParam(2,$cliente);
 
-        $error_titpo_dato = $this->master->mis->validarDatos(array($cliente),array(),array(),array());
+        $error_tipo_dato = $this->master->mis->validarDatos(array($cliente),array(),array(),array());
 
         if(count($error_tipo_dato)>0){
             $posiciones = implode(",",$error_tipo_dato);
             $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
             return $error_msj;
         }
-        echo $sql;
+        // echo $sql;
         if(!$stmt->execute()){
-            $error = "Ha ocurrido un error (".$stmt->errno."). ".$stmt->error;
+            $error = "Ha ocurrido un error (".$stmt->error."). ".$stmt->error;
             return $error;
         }
 

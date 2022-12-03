@@ -67,15 +67,9 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function(sel
           $('#formAnalisisLaboratorio :input').prop('disabled', false)
         }
 
-        while (!$(divClass).is(':visible')) {
-          if (!$(divClass).is(':visible')) {
-            setTimeout(function(){
-              $(divClass).fadeIn(0)
-              console.log("Visible!")
-            }, 100)
-          }
-          $(divClass).fadeIn(0)
-        }
+
+        bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
+
       });
     // getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
   }else{
@@ -181,7 +175,6 @@ function generarFormularioPaciente(id){ return new Promise(resolve => {
         $('#list-group-form-resultado-laboro').html(html);
       },
       complete: function(){
-        loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);
         resolve(1);
       }
     });

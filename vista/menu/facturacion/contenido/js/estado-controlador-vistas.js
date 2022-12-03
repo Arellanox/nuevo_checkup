@@ -4,9 +4,10 @@ $(document).on('click', '.VistaEstadoCuenta', function () {
   $('.VistaEstadoCuenta').removeClass('disabled')
   $(this).addClass('active');
   $(this).addClass('disabled');
+  $('.vistaArea').fadeOut(0)
   switch ($(this).attr('data-ds')) {
     case "1":
-        obtenerVistaFacturar()
+        obtenerVistaFacturarCuenta()
       break;
     case "2":
         obtenerVistaGrupos()
@@ -15,58 +16,61 @@ $(document).on('click', '.VistaEstadoCuenta', function () {
   }
 });
 
-
+obtenerVistaFacturarCuenta()
 
 
 let dataAjaxCargos = {api: 7}, selectCuenta = new GuardarArreglo();
 // Obtener de primer vista el estado de cuenta
 
 
-function obtenerVistaFacturar(){
-  $.post('contenido/vistas/cuenta-facturar.php', function(html){
-    $('#VistaEstadoCuenta').html(html);
-  }).done(function(){
-    //Botones
-    $.getScript('contenido/js/VistaFacturar/vistaFacturar-botones.js');
-
-
-    $.getScript('contenido/js/VistaFacturar/controlador.js');
-
-    // JS necesarios
-    // cambiarVistaEstadoCuenta('Out')
-    // $.getScript('contenido/js/VistaFacturar/tabla.js').done(function(){
-    //   $.getScript('contenido/js/VistaFacturar/botones.js');
-    // })
-    // $.getScript('contenido/js-vistas-controlador/estado-facturar-controlador-vista.js');
-  })
+function obtenerVistaFacturarCuenta(){
+  $('#VistaFacturarEstadoCuenta').fadeIn(0)
 }
-
-
 
 function obtenerVistaGrupos(){
-  $.post('contenido/vistas/cuenta-grupo.php', function(html){
-    $('#VistaEstadoCuenta').html(html);
-  }).done(function(){
-    // JS necesarios
+  $('#vistaFacturarGrupoCuenta').fadeIn(0)
+}
+
+async function menu(vista) {
+  $('.vistaFacturarSeccion').fadeOut(200)
+  setTimeout(function(){
+    switch (parseInt(vista)) {
+      case 1:
+        $('#TablaCargosVista').fadeIn(200)
+        break;
+      case 2:
+        $('#FormularioFacturarPaciente').fadeIn(200)
+        break;
+      case 3:
+        $('#FormularioFacturarCliente').fadeIn(200)
+        break;
+  
+      default:
+        console.log(vista)
+        alert('Ningun menú seleccionado')
+        break;
+    }
+
+  }, 200)
+
+}
+
+
+
+async function cargarDatosCuenta(data){ //Las 3 vistas
+  getPanel('#vistaCargosFacturar', '#loader-estadoCuenta', '#loaderDivestadoCuenta', 1, 'In', async function(divClass){
+    await obtenerPanelInformacion(34, 'pacientes_api', 'paciente', '#panel-informacion', '_facturar')
+
+    menu(1)
+    bugGetPanel('#vistaCargosFacturar', '#loader-estadoCuenta', '#loaderDivestadoCuenta') // <-- Soluciona el problema de mostrar el panel y quita el loaderDiv
   })
 }
 
 
-function cambiarVistaEstadoCuenta(fade) {
-  switch (fade) {
-    case 'Out':
-      $('.vistaCargosFacturar').fadeOut(0)
-    break;
-    case 'In':
-      $('.vistaCargosFacturar').fadeIn(0)
-    break;
+// cargarTabla
+function obtenerTablaListaCargos(){
   
-    default:
-    break;
-  }
-   //Ocultar plantilla para buscar el estado de cuenta
 }
-
 
 
 
