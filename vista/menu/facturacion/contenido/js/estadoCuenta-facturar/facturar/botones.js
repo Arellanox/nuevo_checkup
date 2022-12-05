@@ -2,6 +2,7 @@
 $('#LimpiarNumeroCuenta').prop('disabled', true);
 // Busca el estado de cuenta y genera toda la vista
 $('#BuscarNumeroCuenta').click(function() {
+    disabledButtonsVista();
     button = $(this);
     input = $('#inputBuscarEstadoCuenta');
 

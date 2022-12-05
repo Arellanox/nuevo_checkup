@@ -18,7 +18,6 @@ $id_preregistro = $_POST['id_preregistro'];
 $correo = $_POST['correo'];
 $token_correo = $_POST['token'];
 $turno_id = $_POST['id_turno'];
-echo ("alert('" + $correo + "'");
 $response = "";
 
 $master = new Master();

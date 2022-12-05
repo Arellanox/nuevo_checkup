@@ -15,12 +15,12 @@ class TokenPreregistro
             $master = new Master();
             $parametros = [null,$correo,null];
             $conexion = $master->connectDb();
-            $sp = "call generar_token_preregistro". $this->concatQuestionMark(count($parametros));
+            $sp = "call sp_preregistro_token_g". $this->concatQuestionMark(count($parametros));
             $sentencia = $conexion->prepare($sp);
             $sentencia = $this->bindParams($sentencia,$parametros);
             $sentencia->execute();
             $resultSet = $sentencia->fetchAll();
-            $sentencia->closeCursor();            
+            $sentencia->closeCursor();
             if (count($resultSet)>0){
                 $token =  $resultSet[0]['TOKEN'];
             }

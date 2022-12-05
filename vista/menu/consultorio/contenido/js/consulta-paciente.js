@@ -13,10 +13,12 @@ function obtenerInformacionConsulta(id) {
                 if (mensajeAjax(data)) {
                     let row = data.response.data[0]
                     console.log(row)
-                    $('#motivo-consulta').html(row.MOTIVO_CONSULTA)
-                    $('#fechaConsulta-consulta').html(formatoFecha2(row.FECHA_CONSULTA, [0, 1, 2, 2, 0, 0, 0]))
-                    $('#nota-notas-padecimiento').val(row.NOTAS_PADECIMIENTO)
-                    $('#diagnostico-campo-consulta').val(row.DIAGNOSTICO)
+                    if (row.length) {
+                        $('#motivo-consulta').html(row.MOTIVO_CONSULTA)
+                        $('#fechaConsulta-consulta').html(formatoFecha2(row.FECHA_CONSULTA, [0, 1, 2, 2, 0, 0, 0]))
+                        $('#nota-notas-padecimiento').val(row.NOTAS_PADECIMIENTO)
+                        $('#diagnostico-campo-consulta').val(row.DIAGNOSTICO)
+                    }
                 }
             },
             complete: function () {
@@ -45,20 +47,26 @@ function obtenerNutricion(turno) {
             url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
             method: 'POST',
             dataType: 'json',
-            data: {api: 13, turno_id: turno},
+            data: {
+                api: 13,
+                turno_id: turno
+            },
             success: function (data) {
                 if (mensajeAjax(data)) {
                     // console.log(data)
                     let row = data.response.data[0];
-                    $('#input-pesosPerdido').val(row.PESO_PERDIDO)
-                    $('#input-grasa').val(row.GRASA)
-                    $('#input-cintura').val(row.CINTURA)
-                    $('#input-agua').val(row.AGUA)
-                    $('#input-musculo').val(row.MUSCULO)
-                    $('#input-abdomen').val(row.ABDOMEN)
+                    console.log(row)
+                    if (row) {
+                        $('#input-pesosPerdido').val(row.PESO_PERDIDO)
+                        $('#input-grasa').val(row.GRASA)
+                        $('#input-cintura').val(row.CINTURA)
+                        $('#input-agua').val(row.AGUA)
+                        $('#input-musculo').val(row.MUSCULO)
+                        $('#input-abdomen').val(row.ABDOMEN)
+                    }
                 }
-            }, 
-            complete: function(){
+            },
+            complete: function () {
                 resolve(1);
             }
         })
@@ -71,12 +79,15 @@ function obtenerExploracion(turno) {
             url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
             method: 'POST',
             dataType: 'json',
-            data: {api: 12, turno_id: turno},
+            data: {
+                api: 12,
+                turno_id: turno
+            },
             success: function (data) {
                 if (mensajeAjax(data)) {
                     let row = data.response.data;
                     for (let i = 0; i < row.length; i++) {
-                        agregarNotaConsulta(row[i]['EXPLORACION_TIPO'],null, row[i]['EXPLORACION'], '#notas-historial-consultorio', row[i]['ID_EXPLORACION_CLINICA'], 'eliminarExploracion')
+                        agregarNotaConsulta(row[i]['EXPLORACION_TIPO'], null, row[i]['EXPLORACION'], '#notas-historial-consultorio', row[i]['ID_EXPLORACION_CLINICA'], 'eliminarExploracion')
                     }
                 }
             },
@@ -103,29 +114,31 @@ function obtenerAnamnesisApartados(turno) {
             var divaparatoLocomot = $('#collapse-sub-aparatoLocomot-Target').find("div[class='row']")
             var divTermoregulacin = $('#collapse-sub-Termoregulacin-Target').find("div[class='row']")
             var divpiel = $('#collapse-sub-piel-Target').find("div[class='row']")
-            arrayDivs.push(divsisteCardio, 
-                divAparaRespiratorio, 
-                divaparatoDigestivo, 
-                divaparatoGenitourina, 
-                divsistemNervios, 
+            arrayDivs.push(divsisteCardio,
+                divAparaRespiratorio,
+                divaparatoDigestivo,
+                divaparatoGenitourina,
+                divsistemNervios,
                 divEndrocrinoloMetabolism,
                 divaparatoLocomot,
                 divTermoregulacin,
                 divpiel)
-            
+
             $.ajax({
-              url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
-              method: 'POST',
-              dataType: 'json',
-              data: {
-                api: 18, turno_id: turno
-              },
-              success: function (data) {
-                checkbox = data;
-                console.log(data);
-              }, complete: function(){
-                resolve(1);
-              }
+                url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    api: 18,
+                    turno_id: turno
+                },
+                success: function (data) {
+                    checkbox = data;
+                    console.log(data);
+                },
+                complete: function () {
+                    resolve(1);
+                }
             })
         });
     })
@@ -157,32 +170,57 @@ tablaRecetas = $('#tablaListaRecetas').DataTable({
     paging: false,
     scrollY: "100%",
     scrollCollapse: true,
-    lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
+    lengthMenu: [
+        [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
+        [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]
+    ],
     ajax: {
         dataType: 'json',
-        data: {api: 14, turno_id: pacienteActivo.array['ID_TURNO']},
+        data: {
+            api: 14,
+            turno_id: pacienteActivo.array['ID_TURNO']
+        },
         method: 'POST',
-        url:  http + servidor + "/nuevo_checkup/api/consulta_api.php",
+        url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
         // beforeSend: function() {  },
         // complete: function(){  },
-        dataSrc:'response.data'
+        dataSrc: 'response.data'
     },
-    columns:[
-        {data: 'NOMBRE_GENERICO'},
-        {data: 'FORMA_FARMACEUTICA'},
-        {data: 'DOSIS'},
-        {data: 'PRESENTACION'},
-        {data: 'FRECUENCIA'},
-        {data: 'VIA_DE_ADMINISTRACION'},
-        {data: 'FORMA_FARMACEUTICA'},
-        {data: 'INDICACIONES_PARA_EL_USO'},
-        {data: 'ID_RECETA',  render: function(data){
-            return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarRecetaTabla" style="margin: -15px;" data-bs-id ="'+data+'"> <i class="bi bi-trash"></i> </button> </div>';
-        }}
+    columns: [{
+            data: 'NOMBRE_GENERICO'
+        },
+        {
+            data: 'FORMA_FARMACEUTICA'
+        },
+        {
+            data: 'DOSIS'
+        },
+        {
+            data: 'PRESENTACION'
+        },
+        {
+            data: 'FRECUENCIA'
+        },
+        {
+            data: 'VIA_DE_ADMINISTRACION'
+        },
+        {
+            data: 'FORMA_FARMACEUTICA'
+        },
+        {
+            data: 'INDICACIONES_PARA_EL_USO'
+        },
+        {
+            data: 'ID_RECETA',
+            render: function (data) {
+                return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarRecetaTabla" style="margin: -15px;" data-bs-id ="' + data + '"> <i class="bi bi-trash"></i> </button> </div>';
+            }
+        }
     ],
-    columnDefs: [
-    { "width": "5px", "targets": 8 },
-    ],
+    columnDefs: [{
+        "width": "5px",
+        "targets": 8
+    }, ],
 })
 
 tablaOdontograma = $('#tablaOdontograma').DataTable({
@@ -194,36 +232,58 @@ tablaOdontograma = $('#tablaOdontograma').DataTable({
     paging: false,
     scrollY: "100%",
     scrollCollapse: true,
-    ajax:{
+    ajax: {
         dataType: "json",
-        data: {api: 14, turno_id: pacienteActivo.array['ID_TURNO']},
+        data: {
+            api: 14,
+            turno_id: pacienteActivo.array['ID_TURNO']
+        },
         method: 'POST',
-        url:  http + servidor + "/nuevo_checkup/api/consulta_api.php",
+        url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
         // beforeSend: function() {  },
         // complete: function(){  },
-        dataSrc:'response.data'
+        dataSrc: 'response.data'
     },
-    columns:[
-        {data: 'DOSIS'},
-        {data: 'PRESENTACION'},
-        {data: 'FRECUENCIA'},
-        {data: 'VIA_DE_ADMINISTRACION'},
-        {data: 'FORMA_FARMACEUTICA'},
-        {data: 'INDICACIONES_PARA_EL_USO'},
-        {data: 'ID_RECETA',  render: function(data){
-            return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarOdontograma" style="margin: -15px;" data-bs-id ="'+data+'"> <i class="bi bi-trash"></i> </button> </div>';
-        }}
+    columns: [{
+            data: 'DOSIS'
+        },
+        {
+            data: 'PRESENTACION'
+        },
+        {
+            data: 'FRECUENCIA'
+        },
+        {
+            data: 'VIA_DE_ADMINISTRACION'
+        },
+        {
+            data: 'FORMA_FARMACEUTICA'
+        },
+        {
+            data: 'INDICACIONES_PARA_EL_USO'
+        },
+        {
+            data: 'ID_RECETA',
+            render: function (data) {
+                return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarOdontograma" style="margin: -15px;" data-bs-id ="' + data + '"> <i class="bi bi-trash"></i> </button> </div>';
+            }
+        }
     ],
-    columnDefs:[
-        {"width": "10%", "target": 3},
-        {"width": "10%", "target": 4}
+    columnDefs: [{
+            "width": "10%",
+            "target": 3
+        },
+        {
+            "width": "10%",
+            "target": 4
+        }
     ]
 })
 
-select2('#select-exploracion-clinica', '#card-exploracion-clinica')
-select2('#select-odontograma-piezaDental', '#card-odontograma')
-select2('#select-odontograma-cara', '#card-odontograma')
-select2('#select-odontograma-tratamiento', '#card-odontograma')
+select2('#select-exploracion-clinica', 'card-exploracion-clinica')
+select2('#select-odontograma-piezaDental', '#ard-odontograma')
+select2('#select-odontograma-cara', 'card-odontograma')
+select2('#select-odontograma-tratamiento', 'card-odontograma')
 
 
 // //Agrega nuevo campo para medicamento
