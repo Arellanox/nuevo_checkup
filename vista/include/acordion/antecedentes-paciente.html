@@ -1,11 +1,6 @@
 <div class="card ">
   <h4 class="m-3">Antecedentes</h4>
   <hr class="dropdown-divider m-2">
-  <p class="none-p" style="margin-left: 10px" id="descripcion-antecedentes">
-    Si es su primer registro, rellene cada campo del cuestionario. Si ha tenido un registro previo podrá visualizar su
-    información y actualizarlos. <br>
-    Haga click en cada categoria del cuestionario para desplegar los campos del mismo.
-  </p>
   <div class="accordion m-2" id="accordionEstudios">
     <!-- <form class="" id="formAntecedentes"> -->
 
@@ -415,7 +410,7 @@
               </div>
               <div class="collapse" id="collapse-alcoh">
                 <textarea name="check-alcoh[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Especifique"></textarea>
+                  placeholder="Frecuencia"></textarea>
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -433,8 +428,8 @@
                 <label for="checkNo-usDrog">No</label>
               </div>
               <div class="collapse" id="collapse-usDrog">
-                <textarea name="check-usDrog[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Frecuencia"></textarea>
+                <textarea name="check-usDrog[]" class="onlyMedico form-control input-form" rows="2" cols="2"
+                  placeholder="Frecuencia y ¿Cuáles?"></textarea>
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -537,12 +532,12 @@
                 <input type="hidden" name="check-hero-padre[]" value="25">
               </div>
               <div class="col-3">
-                <input type="radio" required id="checkSi-hero-padre" name="check-hero-padre[]" value="1" required>
-                <label for="checkSi-hero-padre">No</label>
+                <input type="radio" required id="checkSi-hero-padre" name="check-hero-padre[]" value="2" required>
+                <label for="checkSi-hero-padre">Si</label>
               </div>
               <div class="col-3">
-                <input type="radio" required id="checkNo-hero-padre" name="check-hero-padre[]" value="2" required>
-                <label for="checkNo-hero-padre">Si</label>
+                <input type="radio" required id="checkNo-hero-padre" name="check-hero-padre[]" value="1" required>
+                <label for="checkNo-hero-padre">No</label>
               </div>
               <div class="collapse" id="collapse-hero-padre">
                 <textarea name="check-hero-padre[]" class="form-control input-form" rows="2" cols="2"
@@ -633,12 +628,12 @@
                 <input type="hidden" name="check-hero-madre[]" value="30">
               </div>
               <div class="col-3">
-                <input type="radio" required id="checkSi-hero-madre" name="check-hero-madre[]" value="1" required>
-                <label for="checkSi-hero-madre">No</label>
+                <input type="radio" required id="checkSi-hero-madre" name="check-hero-madre[]" value="2" required>
+                <label for="checkSi-hero-madre">Si</label>
               </div>
               <div class="col-3">
-                <input type="radio" required id="checkNo-hero-madre" name="check-hero-madre[]" value="2" required>
-                <label for="checkNo-hero-madre">Si</label>
+                <input type="radio" required id="checkNo-hero-madre" name="check-hero-madre[]" value="1" required>
+                <label for="checkNo-hero-madre">No</label>
               </div>
               <div class="collapse" id="collapse-hero-madre">
                 <textarea name="check-hero-madre[]" class="form-control input-form" rows="2" cols="2"
@@ -764,7 +759,8 @@
               </div>
               <div class="col-7 row d-flex align-items-center">
                 <div class="col-4">
-                  <input type="radio" required id="checkFamiliar-enfAfect" name="check-enfAfect[]" value="3" required>
+                  <input ut type="radio" required id="checkFamiliar-enfAfect" name="check-enfAfect[]" value="3"
+                    required>
                   <label for="checkFamiliar-enfAfect">Familiar</label>
                 </div>
                 <div class="col-4">
@@ -774,6 +770,10 @@
                 <div class="col-4">
                   <input type="radio" required id="check-Laboral-enfAfect" name="check-enfAfect[]" value="5" required>
                   <label for="check-Laboral-enfAfect">Laboral</label>
+                </div>
+                <div class="col-4">
+                  <input type="radio" required id="check-noAplica-enfAfect" name="check-enfAfect[]" value="2" required>
+                  <label for="check-noAplica-enfAfect">No aplica</label>
                 </div>
                 <!-- <div class="col-4">
                     <input type="radio" required  id="check-Todas-enfAfect" name="check-enfAfect[]" value="5" required>

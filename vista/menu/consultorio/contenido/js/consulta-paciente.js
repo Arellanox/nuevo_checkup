@@ -13,12 +13,10 @@ function obtenerInformacionConsulta(id) {
                 if (mensajeAjax(data)) {
                     let row = data.response.data[0]
                     console.log(row)
-                    if (row.length) {
-                        $('#motivo-consulta').html(row.MOTIVO_CONSULTA)
-                        $('#fechaConsulta-consulta').html(formatoFecha2(row.FECHA_CONSULTA, [0, 1, 2, 2, 0, 0, 0]))
-                        $('#nota-notas-padecimiento').val(row.NOTAS_PADECIMIENTO)
-                        $('#diagnostico-campo-consulta').val(row.DIAGNOSTICO)
-                    }
+                    $('#motivo-consulta').html(row.MOTIVO_CONSULTA)
+                    $('#fechaConsulta-consulta').html(formatoFecha2(row.FECHA_CONSULTA, [0, 1, 2, 2, 0, 0, 0]))
+                    if (row.NOTAS_PADECIMIENTO) $('#nota-notas-padecimiento').val(row.NOTAS_PADECIMIENTO);
+                    if (row.DIAGNOSTICO) $('#diagnostico-campo-consulta').val(row.DIAGNOSTICO);
                 }
             },
             complete: function () {
@@ -281,7 +279,7 @@ tablaOdontograma = $('#tablaOdontograma').DataTable({
 })
 
 select2('#select-exploracion-clinica', 'card-exploracion-clinica')
-select2('#select-odontograma-piezaDental', '#ard-odontograma')
+select2('#select-odontograma-piezaDental', 'card-odontograma')
 select2('#select-odontograma-cara', 'card-odontograma')
 select2('#select-odontograma-tratamiento', 'card-odontograma')
 

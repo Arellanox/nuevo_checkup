@@ -49,9 +49,9 @@
         </div>
       </div>
       <form class="" id="formAnalisisLaboratorio">
-        <ul class="list-group m-4 overflow-auto hover-list info-detalle" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;" id="list-group-form-resultado-laboro">
-
-        </ul>
+        <div id="formulario-estudios">
+          <!-- <p class="mt-3">BIOMETRIA HEMATICA</p> -->
+        </div>
       </form>
     </div>
   </div>

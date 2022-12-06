@@ -58,7 +58,7 @@
               <div class="col-6 col-lg-4">
                 <div class="input-group">
                   <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
-                  <span class="input-span">m</span>
+                  <span class="input-span">cm</span>
                 </div>
               </div>
             </div>

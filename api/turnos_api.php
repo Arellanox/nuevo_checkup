@@ -105,7 +105,31 @@ switch ($api) {
 
     case 8:
         # cargar los resultados
+        $tipo = $_POST['tipo'];
+        
+        if($tipo==1){
+            $grupos = $master->getByProcedure("sp_cargar_grupos", [$id_turno,$id_area]);     
+            $response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
+            $array = array();
+            for($i=0; $i<count($grupos);$i++){
+                $nombre_grupo = $grupos[$i]['GRUPO'];
+                $contenido_grupo = array_filter($response, function ($obj) use ($nombre_grupo) {
+                    $r = $obj["GRUPO"] == $nombre_grupo;
+                    return $r;
+                });
+
+                if(!empty($contenido_grupo)){
+                    $array[] = $contenido_grupo;
+                }
+            }
+
+            echo json_encode(array("response"=>array("code"=>1,"data"=>$array)));
+            exit;
+
+        } else {
         $response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
+        }
+
         break;
 
     case 9:
