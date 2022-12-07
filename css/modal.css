@@ -92,7 +92,7 @@
 }
 
 .btn-cancelar{
-  background-color: rgb(194 204 209);
+  background-color: rgb(194 204 209) !important;
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
   border-top: 1px solid #0000002b;
@@ -104,7 +104,7 @@
 }
 
 .btn-confirmar{
-  background-color: rgb(247 190 0);
+  background-color: rgb(247 190 0) !important;
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
   border-top: 1px solid #0000002b;
@@ -116,7 +116,7 @@
 }
 
 .btn-borrar{
-  background-color: rgb(247 0 0);
+  background-color: rgb(247 0 0) !important;
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
   border-top: 1px solid #0000002b;

@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    #$tokenVerification->logout();
-    #exit;
+    $tokenVerification->logout();
+    exit;
 }
 
 #api
@@ -47,7 +47,7 @@ $abdomen = $_POST['abdomen'];
 
 $nutricionParams = array(
     $id_nutricion,
-    $turnos_id,
+    $turno_id,
     $peso_perdido,
     $grasa,
     $cintura,
@@ -88,9 +88,6 @@ $recetaParams = array(
 );
 
 
-#anamnesis por aparatos
-$anamnesis = $_POST['anamnesis'];
-
 $master = new Master();
 switch ($api) {
     case 1:
@@ -122,11 +119,12 @@ switch ($api) {
         $response = $master->deleteByProcedure("sp_consultorio_exploracion_clinica_e",[$id_exploracion_clinica]);
         break;
     case 8:
-        # insertar anamnesis-aparatos
+        # insertar y/o actualizar  anamnesis-aparatos
+        $anamnesis = array_slice($_POST,0,count($_POST)-2);
+        //    print_r($payload);
         foreach ($anamnesis as $key => $value) {
             if(count($value)==3){
                 $new = array(
-                    null,
                     $turno_id,
                     $value[0], # id subtipo
                     $value[1], # id respuesta
@@ -135,7 +133,6 @@ switch ($api) {
             } else {
                 if(is_numeric($value[1])){
                     $new = array(
-                        null,
                         $turno_id,
                         $value[0], # id subtipo
                         $value[1], # id respuesta
@@ -143,7 +140,6 @@ switch ($api) {
                     );
                 } else {
                     $new = array(
-                        null,
                         $turno_id,
                         $value[0], # id subtipo
                         null, # id respuesta
@@ -201,7 +197,7 @@ switch ($api) {
 
     case 11:
         # terminar consulta
-        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$turno_id]);
+        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$id_consulta]);
         break;
     case 12:
         # buscar las exploraciones clinicas.

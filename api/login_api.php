@@ -45,7 +45,7 @@ function generarToken($id_usuario)
     $token = hash("sha1", implode("_", $tokenArray), false);
 
     if (guardarUserToken($id_usuario,$token)) {
-        setcookie("token", $token);
+        //setcookie("token", $token);
         $_SESSION['token'] = $token;
         return $token;
     } else {

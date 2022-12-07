@@ -1,5 +1,5 @@
 <?php $menu = $_POST['menu']; $tipo = isset($_POST['tipo'])? $_POST['tipo'] : 0 ?>
-<div class="px-3 py-2 border-bottom">
+<div class="px-3 py-2 border-bottom" id="Titulo-Contenido">
   <div class="container d-flex flex-wrap">
     <div class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
       <div class="row">

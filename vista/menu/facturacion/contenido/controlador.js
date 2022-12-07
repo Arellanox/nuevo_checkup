@@ -11,10 +11,14 @@ function obtenerContenidoEstadoCuenta(){
   $.post('contenido/estado-cuentas.php', function(html){
     $('#body-js').html(html);
   }).done(function(){
+    
     // Obtener el controlador de vistas de estado cuentas
-    $.getScript("contenido/js-vistas-controlador/estado-controlador-vistas.js").done(function(){
-      $.getScript("contenido/js/estadoCuentas-botones.js")
+    $.getScript("contenido/js/estado-controlador-vistas.js").done(function (){
+      // JS funcionales
+      $.getScript("contenido/js/estadoCuenta-facturar/facturar/botones.js");
     });
+
+
   })
 }
 

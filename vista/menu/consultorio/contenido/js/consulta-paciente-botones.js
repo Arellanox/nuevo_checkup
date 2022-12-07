@@ -1,3 +1,36 @@
+$('#btn-consulta-terminar').click(function() {
+  let button = $(this)
+  alertMensajeConfirm({
+    title: "¿Está seguro de terminar la consulta?",
+    text: "Ya no podrá hacer cambios con la consulta",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Aceptar",
+    cancelButtonText: "Cancelar",
+  }, function (){
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      method: 'POST',
+      dataType: 'json',
+      beforeSend: function() {
+        button.prop('disabled', true)
+      },
+      data: {api:11, id_consulta: pacienteActivo.selectID},
+      success: function (data) {
+        if (mensajeAjax(data)) {
+          button.prop('disabled', false)
+          alertMensaje('info', 'La consulta ha sido cerrada', 'Podrá consultar la información del paciente desde el menú :)')
+        }
+      }, complete: function () {
+
+      }
+
+    })
+  })
+})
+
 // Exploracion clinica
 $('#select-exploracion-clinica').on('change', function () {
   let selectoo = $('#select-exploracion-clinica').val();
@@ -198,6 +231,80 @@ $(document).on('click', '.eliminarExploracion', function () {
   });
   // eliminarElementoArray(id);
   // console.log(id);
+});
+
+
+// Exploracion clinica
+$('#formAgregarOdontograma').submit(function (event) {
+  event.preventDefault();
+  let button = $('#btn-guardar-Receta')
+  button.prop('disabled', true)
+  let form = document.getElementById("formNuevaReceta");
+  let formData = new FormData(form)
+  $.ajax({
+    data: {
+      turno_id: pacienteActivo.array['ID_TURNO'],
+      exploracion_tipo_id: $('#select-exploracion-clinica').val(),
+      exploracion: $('#text-exploracion-clinica').val(),
+      api: 6
+    },
+    url: "../../../api/consulta_api.php",
+    type: "POST",
+    dataType: "json",
+    success: function (data) {
+      // alert("antes de la nota")
+      agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio', data.response.data, 'eliminarExploracion')
+      $('#text-exploracion-clinica').val('')
+      // alert("despues de la nota")
+    },
+  });
+})
+//Eliminar odontograma
+$(document).on('click', 'eliminarOdontograma', function(event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $('.guardarAnamn')
+  button.prop('disabled', true);
+})
+
+
+
+
+
+
+
+
+//Guardar antecedentes
+$(document).on('click', '.guardarAnamn ', function (event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $('.guardarAnamn')
+  button.prop('disabled', true);
+  var parent_element = button.closest("form").attr('id');
+  // console.log(parent_element);
+  let formData = new FormData(document.getElementById(parent_element));
+  // console.log(formData);
+  formData.set('api', 8);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
+
+  $.ajax({
+    data: formData,
+    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function() {
+      // alert('Enviando')
+      alertToast('Guardando...', 'info')
+    },
+    success: function (data) {
+      button.prop('disabled', false);
+      alertToast('Guardado con exito', 'success');
+    },
+  });
+  // eliminarElementoArray(id);
+  // console.log(id);
 
 });
 
@@ -246,6 +353,7 @@ $('#formNuevaReceta').submit(function(event){
     data: formData,
     success: function (data) {
       console.log(data);
+      button.prop('disabled', false)
       document.getElementById("formNuevaReceta").reset();
       tablaRecetas.ajax.reload()
     }
@@ -274,7 +382,8 @@ $(document).on('click', '.eliminarRecetaTabla', function () {
       success: function (data) {
         if (mensajeAjax(data)) {
           // alertMensaje('info', 'Eliminado', 'ELIMINADO')
-          alertToast('Receta elimanda')
+          alertToast('Receta elimanda', 'success')
+          tablaRecetas.ajax.reload()
         }
       }
     
@@ -303,7 +412,7 @@ $('#btn-guardar-Nutricion').click(function(){
   button.prop('disabled',true)
   guardarInformacion({
     api: 5,
-    turnos_id: pacienteActivo.array['ID_TURNO'], 
+    turno_id: pacienteActivo.array['ID_TURNO'], 
     peso_perdido: $('#input-pesosPerdido').val(),
     grasa: $('#input-grasa').val(),
     cintura: $('#input-cintura').val(),

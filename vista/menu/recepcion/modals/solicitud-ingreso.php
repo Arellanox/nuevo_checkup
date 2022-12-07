@@ -9,7 +9,7 @@
         <form class="" id="formEnviarCorreoIngreso">
           <div class="col-12 col-md-12 col-lg-12 col-xl-12">
             <label for="correo" class="form-label">Ingrese el correo</label>
-            <input type="email" name="correo" value="" class="form-control input-form" required>
+            <input type="email" name="correo" id="inputURLSolicitudCorreo" class="form-control input-form" required>
           </div>
         </form>
       </div>

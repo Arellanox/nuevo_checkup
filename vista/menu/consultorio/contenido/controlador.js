@@ -37,7 +37,7 @@ function obtenerContenidoAntecedentes(data) {
     // $.getScript("modals/controlador-perfilPaciente.js");
     // Funciones
     $.getScript('contenido/js/consultorio-paciente.js').done(function () {
-      obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'])
+      obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'], pacienteActivo.array['CLIENTE'])
       // Botones
       $.getScript("contenido/js/consultorio-paciente-botones.js");
     });
@@ -80,19 +80,20 @@ function obtenerContenidoConsulta(data, idconsulta) {
 
 // METODOS
 // Rellena la plantilla con metodos de espera Async Await
-async function obtenerConsultorio(id, idTurno) {
+async function obtenerConsultorio(id, idTurno, cliente) {
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   // alert("Antes de antecedentes")
   // await obtenerAntecedentes('#antecedentes-paciente', idTurno);
-  await obtenerVistaAntecenetesPaciente('#antecedentes-paciente')
-  $('.div-btn-guardarAntPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-plus"></i> Guardar </button>')
-  $('.div-btn-guardarAntNoPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-plus"></i> Guardar </button>')
-  $('.div-btn-guardarHeredoFami').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-plus"></i> Guardar </button>')
-  $('.div-btn-guardarPsico').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-plus"></i> Guardar </button>')
-  $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-plus"></i> Guardar </button>')
-  $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-plus"></i> Guardar </button>')
-  await obtenerAntecedentesPaciente(idTurno);
+  await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', cliente)  
+  $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
+  $('.div-btn-guardarAntPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarAntNoPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarHeredoFami').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarPsico').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  await obtenerAntecedentesPaciente(idTurno, 'ANT');
   // setValues(idTurno) //llamar los valores para los antecedentes
 
   // alert("Antes de notas historial")
