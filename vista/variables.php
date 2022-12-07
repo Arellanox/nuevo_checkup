@@ -1,6 +1,6 @@
 <?php
 
-$url = $_SERVER[HTTP_HOST];
+$url = "localhost";
 $https = 'http://';
 
  ?>
