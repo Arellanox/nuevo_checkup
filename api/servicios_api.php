@@ -2,6 +2,7 @@
 #include "../interfaces/iMetodos.php";
 include "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -327,10 +328,108 @@ switch ($api) {
           echo "vacio";
         }
         break;
+    case 13:
+        # para crear los reportes de LABORATORIO
+        $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
+        $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
+        $arrayGlobal = array(
+            'areas' =>array()
+        );
+
+        for($i=0; $i<count($clasificaciones); $i++) {
+            $clasificacion_id = $clasificaciones[$i]['ID_CLASIFICACION'];
+            
+   
+            # sacamos arrays individuales por clasificacion de examen
+            $servicios = array_filter($response,function($obj) use ($clasificacion_id){
+                $return = $obj['CLASIFICACION_ID'] == $clasificacion_id;
+                return $return;
+            });
+
+            # como no estamos seguros que de que se encuentren todas las clasificaciones 
+            # en un paciente, evaluamos que el array no este vacio.
+            #print_r($servicios);
+        
+            if(!empty($servicios)){
+              
+                $aux = ordenarResultados($servicios,$clasificaciones[$i]['DESCRIPCION']);
+
+                $arrayGlobal['areas'][] = $aux;
+                
+            }
+        }
+        // echo "================================================================";
+        // echo "<br>";
+        
+
+        # habra estudios que no tengan clasificacion, esos el servidor las regresa con id 0
+        # como el id 0 no existe dentro de la tabla de clasificaciones, el algoritmo de arriba los ignora
+        # por tanto se tiene que realizar un algoritmo similar pero con el filtro en 0.
+        $servicios = array_filter($response, function($obj){
+            $return = $obj['CLASIFICACION_ID'] == 0;
+            return $return;
+        });
+
+        if(!empty($servicios)){
+            $aux = ordenarResultados($servicios,"NINGUNA");
+            $arrayGlobal['areas'][]= $aux;
+        }
+
+        // print_r($arrayGlobal);
+
+        $pdf = new Reporte(json_encode($arrayGlobal), 'resultados', 'url');
+        $pdf->build();
+        
+        break;
 
     default:
         echo "Api no reconocida.";
         break;
+}
+
+
+function ordenarResultados($servicios,$clasificacion){
+    $group = array();
+                $grupo_array = array();
+               
+                $first_key = array_key_first($servicios);
+                $grupo = $servicios[$first_key]['GRUPO'];
+            
+                for ($j=$first_key, $x=0, $k=0; $x < count($servicios); $j++,$x++) {
+                    if($servicios[$j]['GRUPO'] == $grupo) {
+
+                        $grupo_array[] = array(
+                            "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                            "resultado"=> $servicios[$j]['RESULTADO']
+                        );
+
+                    }else {
+                       
+                        $group[$k] = array(
+                            "estudio"=> $grupo,
+                            "analitos"=> $grupo_array
+                        );
+                        $k++;
+                        $grupo = $servicios[$j]['GRUPO'];
+                        $grupo_array = array();
+
+                        $grupo_array[] = array(
+                            "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                            "resultado"=> $servicios[$j]['RESULTADO']
+                        );
+                    }
+
+                    $group[$k] = array(
+                        "estudio"=> $grupo,
+                        "analitos"=> $grupo_array
+                    );
+                }
+                #echo "ESTA ES LA CLASIFICACIOEN". $clasificaciones[$i]['DESCRIPCION'];
+                $aux = array(
+                    "area" =>$clasificacion, # $clasificaciones[$i]['DESCRIPCION'],
+                    "estudios" => $group
+                );
+                return $aux;
 }
 
 /*
