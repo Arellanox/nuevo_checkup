@@ -64,6 +64,8 @@ include "../../variables.php";
     return areaActual; // Area actual es para areas independientes coloquen la ID donde pertenecen
   }
 
+
+  // Carga la vista para entrar a los servicios
   function cargarVistaServiciosPorArea(hash){ 
     event.preventDefault()
     subarea = obtenerAreaActiva()
@@ -84,13 +86,13 @@ include "../../variables.php";
     }
   }
 
-  function cargarVistaServiciosPorAreaURL(hash, ubicacion, variables){
+  function cargarVistaServiciosPorAreaURL(hash, ubicacion, variables = ''){
     switch (hash) {
       case 'Estudios':
-        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables/*+"#Estudios";*/
+        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables+"#Estudios";
         break;
       case 'Grupos':
-        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables/*+"#Grupos";*/
+        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables+"#Grupos";
         break;
     }
   }
