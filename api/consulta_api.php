@@ -88,6 +88,10 @@ $recetaParams = array(
 );
 
 
+# datos para el odontograma
+$id_pieza_dental = $_POST['id_pieza_dental'];
+
+
 $master = new Master();
 switch ($api) {
     case 1:
