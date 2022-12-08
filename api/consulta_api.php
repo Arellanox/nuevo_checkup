@@ -89,8 +89,21 @@ $recetaParams = array(
 
 
 # datos para el odontograma
+$id_odontograma = $_POST['id_odontograma'];
 $id_pieza_dental = $_POST['id_pieza_dental'];
+$cara_id = $_POST['cara_id'];
+$tratamiento_id = $_POST['tratamiento_id'];
+$diagnostico = $_POST['diagnostico'];
+$comentario = $_POST['comentario'];
 
+$odonto_array = array(
+    $id_odontograma,
+    $id_pieza_dental,
+    $cara_id,
+    $tratamiento_id,
+    $diagnostico,
+    $comentario
+);
 
 $master = new Master();
 switch ($api) {
@@ -232,6 +245,10 @@ switch ($api) {
     case 17:
         # eliminiar receta
         $response = $master->deleteByProcedure('sp_consultorio_recetas_e',[$id_receta]);
+        break;
+    case 18:
+        #insertar resultado del odontograma
+        $response = $master->insertByProcedure("sp_consultorio_odontograma_g",$odonto_array);
         break;
     default:
     $response = "api no reconocida";
