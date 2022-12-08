@@ -182,32 +182,58 @@ function generarFormularioPaciente(id) {
 
         for (var i = 0; i < data.length; i++) {
           console.log(1)
-          html += '<ul class = "list-group m-4 overflow-auto hover-list info-detalle" style = "max-width: 100%; max-height: 70vh;margin-bottom:10px;" >';
-          for (let e = 0; e < data[i].length; e++) {
-            html += '<li class="list-group-item">';
-            html += '<div class="row d-flex align-items-center">';
-            html += colStart;
-            html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + data[i][e]['DESCRIPCION_SERVICIO'] + '</p>';
-            html += endDiv;
-            html += colreStart;
-            html += '<div class="input-group">';
-            if (data[i][e]['RESULTADO'] == null) {
-              html += '<input type="number" class="form-control input-form" name="servicios[' + data[i][e]['ID_SERVICIO'] + ']" required autocomplete="off">';
-            } else {
-              html += '<input type="number" class="form-control input-form" name="servicios[' + data[i][e]['ID_SERVICIO'] + ']" required value="' + data[i][e]['RESULTADO'] + '" autocomplete="off">';
+          let row = data[i]
+          console.log(row)
+          var count = Object.keys(row).length;
+          console.log(count);
+          html += '<ul class = "list-group card hover-list info-detalle" style="margin: 15px;padding: 15px;" >';
+          html += '<h4 style="border-radius: 8px;font-size: 20px !important;font-weight: 600 !important;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">' + row['NombreGrupo'] + '</h4>';
+          for (var k in row) {
+            if (row[k]['ID_SERVICIO'] > 0) {
+              // console.log(k, row[k])
+              // console.log(2)
+              html += '<li class="list-group-item">';
+              html += '<div class="row d-flex align-items-center">';
+              html += colStart;
+              html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
+              html += endDiv;
+              html += colreStart;
+              html += '<div class="input-group">';
+              if (row[k]['RESULTADO'] == null) {
+                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required autocomplete="off">';
+              } else {
+                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+              }
+              html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
+              html += '</div>';
+              html += endDiv;
+              if (row[k]['ABSOLUTO'] = 1) {
+                html += colStart;
+                html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
+                html += endDiv;
+                html += colreStart;
+                html += '<div class="input-group">';
+                if (row[k]['RESULTADO'] == null) {
+                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required autocomplete="off">';
+                } else {
+                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+                }
+                html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
+                html += '</div>';
+                html += endDiv;
+              }
+              html += endDiv;
+              html += '</li>';
             }
-            html += '<span class="input-span">' + data[i][e]['DESCRIPCION_MEDIDA'] + '</span>';
-            html += '</div>';
-            html += endDiv;
-            html += endDiv;
-            html += '</li>';
-
           }
+          html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
+            '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
+            '<textarea name="servicios[ID_GRUPO][OBSERVACIONES]" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
           html += '</ul>';
 
           // idsEstudios.push[data[i]['ID_SERVICIO']]
         }
-        $('#formulario-estudios').html(html);
+        $('#formulario-estudios').html(html)
       },
       complete: function () {
         resolve(1);

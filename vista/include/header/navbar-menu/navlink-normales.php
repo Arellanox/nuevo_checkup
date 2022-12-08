@@ -101,6 +101,12 @@
     </a>
   </li> -->
 
+  <li class="nav-item">
+    <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
+      <i class="bi bi-box"></i> Metodos
+    </a>
+  </li>
+
   <li class="nav-item"> 
     <a href="#Estudios" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Estudios

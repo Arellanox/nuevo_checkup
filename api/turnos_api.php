@@ -117,7 +117,7 @@ switch ($api) {
                     $r = $obj["GRUPO"] == $nombre_grupo;
                     return $r;
                 });
-
+                $contenido_grupo['NombreGrupo'] = $nombre_grupo;
                 if(!empty($contenido_grupo)){
                     $array[] = $contenido_grupo;
                 }
@@ -136,6 +136,7 @@ switch ($api) {
         # subir resultados
         $setResultados = $_POST['servicios'];
         $id_turno = $_POST['id_turno'];
+        // print_r($_POST);
         // $id_turno = array_slice($setResultados, count($setResultados) - 4, 1);
 
         // echo $confirmar;
