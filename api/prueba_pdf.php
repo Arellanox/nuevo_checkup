@@ -491,17 +491,15 @@
             "plan"          => "OBSERVACION ANUAL"
         )
     );
-    
+
     $data = json_encode($array);
-    
+
     switch ($api){
         case 1:
-        // Case 1 para etiquetas
             $pdf = new Reporte($data, 'etiquetas', 'url');
             $pdf->build();
             break;
         case 2:
-        // Case 2 para resultados
             $pdf = new Reporte($data, 'resultados', 'mostrar');
             $pdf->build();
             break;
@@ -512,4 +510,5 @@
         default:
             break;
     }
+
 ?>

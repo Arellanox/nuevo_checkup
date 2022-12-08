@@ -330,8 +330,8 @@ switch ($api) {
         break;
     case 13:
         # para crear los reportes de LABORATORIO
-        $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null,6]);
-        $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno,6]);
+        $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
+        $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
         $arrayGlobal = array(
             'areas' =>array()
         );
@@ -375,9 +375,11 @@ switch ($api) {
             $arrayGlobal['areas'][]= $aux;
         }
 
-        print_r($arrayGlobal);
+        // print_r($arrayGlobal);
+
+        $pdf = new Reporte(json_encode($arrayGlobal), 'resultados', 'url');
+        $pdf->build();
         
-        #$reporte = new Reporte();
         break;
 
     default:

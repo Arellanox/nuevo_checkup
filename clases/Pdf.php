@@ -45,29 +45,30 @@ class Reporte{
                 $template = render_view('invoice/etiquetas.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper(array(0, 0, 107, 70), 'portrait');
-                $path    = 'pdf/public/etiquetas/E-'. $data->folio . '.pdf';
+                $path    = 'pdf/public/etiquetas/00001.pdf';
                 break;
 
             case 'resultados':
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/resultados/E-'. $data->folio . '.pdf';
+                $path    = 'pdf/public/resultados/E-00001.pdf';
                 break;
 
             case 'oftamologia':
                 $template = render_view('invoice/oftamologia.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/oftamologia/E-'. $data->folio . '.pdf';
+                $path    = 'pdf/public/oftamologia/E-00001.pdf';
                 break;
 
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/oftamologia/E-'. $data->folio . '.pdf';
+                $path    = 'pdf/public/oftamologia/E00001.pdf';
                 break;
+
         }
 
         // Recibe la orden de que tipo de  modo de visualizacion quiere
