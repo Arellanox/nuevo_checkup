@@ -1,11 +1,11 @@
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
-  rellenarSelect("#registrar-clasificacion-estudio","laboratorio_clasificacion_api",2,0,1);
-  rellenarSelect("#registrar-metodos-estudio","laboratorio_metodos_api",2,0,1);
-  rellenarSelect("#registrar-medidas-estudio","laboratorio_medidas_api",2,0,1);
+  rellenarSelect("#registrar-clasificacion-estudio", "laboratorio_clasificacion_api", 2, 0, 1);
+  rellenarSelect("#registrar-metodos-estudio", "laboratorio_metodos_api", 2, 0, 1);
+  rellenarSelect("#registrar-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1);
   rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 'DESCRIPCION');
-  rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
-  rellenarSelect('#registrar-concepto-facturacion','sat_catalogo_api', 2,0,'COMPLETO');
+  // rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
+  rellenarSelect('#registrar-concepto-facturacion', 'sat_catalogo_api', 2, 0, 'COMPLETO');
 })
 
 //Formulario de Preregistro
@@ -67,25 +67,25 @@ $("#formRegistrarEstudio").submit(function (event) {
 
 
 // Nuevo contenedores
- $('#nuevo-contenedor').on('click', function(){
-   numberContenedor += 1;
-   agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
- })
+$('#nuevo-contenedor').on('click', function () {
+  numberContenedor += 1;
+  agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
+})
 
- $(document).on('click', '.eliminarContenerMuestra1', function () {
-   var parent_element = $(this).closest("div[class='row']");
-   // console.log(parent_element)
-   // numberContenedor -= 1;
-   parent_element.remove();
+$(document).on('click', '.eliminarContenerMuestra1', function () {
+  var parent_element = $(this).closest("div[class='row']");
+  // console.log(parent_element)
+  // numberContenedor -= 1;
+  parent_element.remove();
 });
 
- // $('.eliminarContenerMuestra').on('click', function(event){
- //   event.stopPropagation();
- //   event.stopImmediatePropagation();
- //   var parent_element = $(this).closest("div[class='row']");
- //   console.log(parent_element)
- //   parent_element.remove();
- // })
+// $('.eliminarContenerMuestra').on('click', function(event){
+//   event.stopPropagation();
+//   event.stopImmediatePropagation();
+//   var parent_element = $(this).closest("div[class='row']");
+//   console.log(parent_element)
+//   parent_element.remove();
+// })
 
 
 

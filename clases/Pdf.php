@@ -8,6 +8,9 @@ use Dompdf\Adapter\PDFLib;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
+
 
 class Reporte{
 
@@ -23,6 +26,22 @@ class Reporte{
         $this->response = $response;
         $this->tipo     = $tipo;
         $this->orden    = $orden;
+    }
+
+    public function generarQRURL($clave, $folio, $url = 'resultados/validar-pdf/'){
+        $options = new QROptions(
+        [
+            'eccLevel' => QRCode::ECC_L,
+            'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+            'version' => 5,
+        ]
+        );
+
+        $contenido = 'https://bimo-lab.com/nuevo_checkup/'.$url+'?clave='.$clave.'&id='.$folio.'&resultado=1';
+
+        $qrcode = (new QRCode($options))->render($contenido);
+
+        return array($contenido, $qrcode);
     }
 
 

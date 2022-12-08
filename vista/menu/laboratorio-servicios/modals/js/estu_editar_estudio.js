@@ -5,12 +5,12 @@ modalEditarEstudio.addEventListener("show.bs.modal", (event) => {
 
 async function cargarDatosEstuEdit() {
   $('#formEditarEstudio').trigger("reset");
-  await rellenarSelect("#edit-grupo-estudio", 'servicios_api',7,0,'DESCRIPCION');
-  await rellenarSelect("#edit-area-estudio", "areas_api", 2,0,2);
-  await rellenarSelect('#edit-clasificacion-estudio','laboratorio_clasificacion_api', 2,0,1);
-  await rellenarSelect('#edit-metodos-estudio','laboratorio_metodos_api', 2,0,1);
+  await rellenarSelect("#edit-grupo-estudio", 'servicios_api', 7, 0, 'DESCRIPCION');
+  // await rellenarSelect("#edit-area-estudio", "areas_api", 2,0,2);
+  await rellenarSelect('#edit-clasificacion-estudio', 'laboratorio_clasificacion_api', 2, 0, 1);
+  await rellenarSelect('#edit-metodos-estudio', 'laboratorio_metodos_api', 2, 0, 1);
   await rellenarSelect("#edit-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1);
-  if (   await rellenarSelect("#edit-concepto-facturacion", "sat_catalogo_api", 2, 0, 'COMPLETO')  ) {
+  if (await rellenarSelect("#edit-concepto-facturacion", "sat_catalogo_api", 2, 0, 'COMPLETO')) {
 
     // $('#edit-clasificacion-estudio').val(null).trigger('change');
     $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
@@ -29,20 +29,20 @@ async function cargarDatosEstuEdit() {
     $('#edit-medidas-estudio').val(array_selected['ID_MEDIDA']).trigger('change');
     $('#edit-dias-estudio').val(array_selected['DIAS_DE_ENTREGA']);
     $('#edit-concepto-facturacion').val(array_selected['SAT_ID_CODIGO']).trigger('change');
-      $('#edit-indicaciones-estudio').val(array_selected['INDICACIONES']);
+    $('#edit-indicaciones-estudio').val(array_selected['INDICACIONES']);
 
     // Check Valor referencia
-     if(array_selected['MUESTRA_VALORES_REFERENCIA'] ==  1){
-       $('#edit-checkValSi-estudio').attr('checked', true);
-     }  else{
-       $('#edit-checkValNo-estudio').attr('checked', true);
-     }
+    if (array_selected['MUESTRA_VALORES_REFERENCIA'] == 1) {
+      $('#edit-checkValSi-estudio').attr('checked', true);
+    } else {
+      $('#edit-checkValNo-estudio').attr('checked', true);
+    }
     // Check Subroga
-     if(array_selected['LOCAL'] == 1){
-       $('#edit-checkRogSi-estudio').attr('checked', true);
-     }  else{
-       $('#edit-checkRogNo-estudio').attr('checked', true);
-     }
+    if (array_selected['LOCAL'] == 1) {
+      $('#edit-checkRogSi-estudio').attr('checked', true);
+    } else {
+      $('#edit-checkRogNo-estudio').attr('checked', true);
+    }
   }
 }
 
@@ -104,17 +104,17 @@ $("#formEditarEstudio").submit(function (event) {
 });
 
 // Nuevo contenedores
- $('#nuevo-contenedor-edit').on('click', function(){
-   alert("ajsbdj");
-   numberContenedorEdit += 1;
-   agregarContenedorMuestra('#div-select-contenedores-edit', numberContenedorEdit, 2);
- })
+$('#nuevo-contenedor-edit').on('click', function () {
+  alert("ajsbdj");
+  numberContenedorEdit += 1;
+  agregarContenedorMuestra('#div-select-contenedores-edit', numberContenedorEdit, 2);
+})
 
- $(document).on('click', '.eliminarContenerMuestra2', function () {
-   var parent_element = $(this).closest("div[class='row']");
-   // console.log(parent_element)
-   // numberContenedor -= 1;
-   parent_element.remove();
+$(document).on('click', '.eliminarContenerMuestra2', function () {
+  var parent_element = $(this).closest("div[class='row']");
+  // console.log(parent_element)
+  // numberContenedor -= 1;
+  parent_element.remove();
 });
 
 

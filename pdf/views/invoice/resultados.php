@@ -67,6 +67,8 @@
                 font-size: 16px;
                 margin-top: 2px;
                 margin-bottom: 2px;
+                text-align: center;
+                background-color: rgba(215, 222, 228, 0.748);
             }
             h3{
                 font-size: 14px;
@@ -104,26 +106,28 @@
             }
             th, td {
                 /* border-bottom: 1px solid #ddd; */
+                width: 100%;
+                max-width: 100%;
                 word-break: break-all;
             }
 
             /* Para divisiones de 3 encabezado*/
             .col-left{
-                width: 40%; 
-                max-width: 40%; 
-                text-align: left;
-                font-size: 12px;
-            }
-            .col-center{
                 width: 30%; 
                 max-width: 30%; 
                 text-align: left;
                 font-size: 12px;
             }
+            .col-center{
+                width: 40%; 
+                max-width: 40%; 
+                text-align: center;
+                font-size: 12px;
+            }
             .col-right{
-                width: 20%; 
-                max-width: 20%; 
-                text-align: left;
+                width: 30%; 
+                max-width: 30%; 
+                text-align: right;
                 font-size: 12px;
             }
 
@@ -205,7 +209,7 @@
         $encode_qr = base64_encode($ruta_qr);
 
         // path firma
-        $ruta_firma = file_get_contents('../pdf/public/assets/firma.jpeg');
+        $ruta_firma = file_get_contents('../pdf/public/assets/firma.png');
         $encode_firma = base64_encode($ruta_firma);
 
     ?>
@@ -218,12 +222,14 @@
         <table>
             <tbody>
                 <tr>
-                    <td class="col-izq"  style="border-bottom: none">
+                    <td class="col-izq"  style="border-bottom: none; text-align:center;">
                     <?php echo "<img src='data:image/png;base64, ". $encode . "' height='75' > " ?>
                     </td>
                     <td class="col-der"  style="border-bottom: none">
-                        Hospital Nuestra Señora de Guadalupe <br>
-                        Resultados de exámenes
+                        <h4>
+                            Hospital Nuestra Señora de Guadalupe <br>
+                            Resultados de exámenes
+                        </h4>
                     </td>
                 </tr>
             </tbody>
@@ -232,7 +238,9 @@
             <tbody>
                 <tr>
                     <td style="text-align: center; border-style: solid none solid none; ">
-                        Laboratorio Clínico
+                        <h3>
+                            Laboratorio Clínico
+                        </h3>
                     </td>
                 </tr>
             </tbody>
@@ -297,13 +305,10 @@
                     <p>
                     </p>
                 </td>
-                <td class="col-foot-two" style="border-bottom: none;">
-                    <p>
-                        Atentamente
-                    </p>
+                <td class="col-foot-two" style="border-bottom: none; text-align: center; text-justify: inter-word;">
                     <p>
                         <!-- Fimra -->
-                        <?php echo "<img src='data:image/jpeg;base64, ". $encode_firma . "' height='100px' > " ?>
+                        <?php echo "<img src='data:image/png;base64, ". $encode_firma . "' height='100px' > " ?>
                     </p>
                     <p> 
                         <!-- valida -->
@@ -338,7 +343,7 @@
             $i = 0;
             foreach ($areas as $key => $area) {
 
-                echo "<h2>AREA: ". $area->area . "</h2><br>";
+                echo "<h2  >". $area->area . "</h2>";
 
                 foreach ($area->estudios as $key => $estudio) {
                     echo "<h5>" . $estudio->estudio . "</h5>";
@@ -414,16 +419,6 @@
                             echo $estudio->metodo;
                         }else{
                             echo "Sin metodo de muestra";
-                        }
-                    ?>
-                </div>
-                <div >
-                    <strong>Muestra: </strong>
-                    <?php
-                        if(isset($estudio->muestra)){
-                            echo $estudio->muestra;
-                        }else{
-                            echo "Sin tipo de muestra";
                         }
                     ?>
                 </div>

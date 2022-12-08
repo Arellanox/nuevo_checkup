@@ -6,7 +6,7 @@ include "estu_editar_estudio.php";
 include "estu_relacion_estudio.php";
 
 // Metodos de examen
-include "vista_metodos.php";
+include "vista_metodos.html";
 
 //Modales de Equipo
 include "eq_agregar_equipo.php";

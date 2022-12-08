@@ -49,7 +49,7 @@
         </div>
       </div>
       <form class="" id="formAnalisisLaboratorio">
-        <div id="formulario-estudios">
+        <div id="formulario-estudios" class="overflow-auto" style = "max-width: 100%; max-height: 70vh;margin-bottom:10px;">
           <!-- <p class="mt-3">BIOMETRIA HEMATICA</p> -->
         </div>
       </form>
@@ -58,6 +58,15 @@
   <style media="screen">
     #TablaLaboratorio_filter{
       display: none
+    }
+
+    li:first-child {
+      border-top-left-radius: 10px !important;
+      border-top-right-radius: 10px !important;
+    }
+    li:last-child {
+      border-bottom-left-radius: 10px !important;
+      border-bottom-right-radius: 10px !important;
     }
   </style>
   <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivLab' style="max-height: 75vh; display:none">
