@@ -254,4 +254,5 @@ switch ($api) {
     $response = "api no reconocida";
         break;
 }
+
 echo $master->returnApi($response);
