@@ -243,13 +243,20 @@ switch ($api) {
 
         break;
     case 17:
-        # eliminiar receta
+        # eliminar receta
         $response = $master->deleteByProcedure('sp_consultorio_recetas_e',[$id_receta]);
         break;
     case 18:
         #insertar resultado del odontograma
         $response = $master->insertByProcedure("sp_consultorio_odontograma_g",$odonto_array);
         break;
+    case 19:
+        # recuperar detalles de odontograma
+        $response = $master->getByProcedure("sp_consultorio_odontograma_b", [$id_odontograma]);
+        break;
+    case 20:
+        # eliminar odontograma
+        $response = $master->deleteByProcedure('sp_consultorio_odontograma_e',[$id_odontograma]);
     default:
     $response = "api no reconocida";
         break;
