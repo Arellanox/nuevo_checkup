@@ -257,6 +257,7 @@ switch ($api) {
     case 20:
         # eliminar odontograma
         $response = $master->deleteByProcedure('sp_consultorio_odontograma_e',[$id_odontograma]);
+        break;
     default:
     $response = "api no reconocida";
         break;
