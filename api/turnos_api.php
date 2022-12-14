@@ -143,7 +143,7 @@ switch ($api) {
         //print_r($id_turno);
         foreach ($setResultados as $servicio_id => $resultado) {
             # code...
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar,$confirmado_por));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar,$confirmado_por,$valor_absoluto));
             //print_r($response);
         }
         echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
