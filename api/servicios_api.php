@@ -332,7 +332,7 @@ switch ($api) {
         # para crear los reportes de LABORATORIO
 
         # informacion general del paciente
-        $infoPaciente = array();
+        $infoPaciente = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
 
         #Estudios solicitados por el paciente
         $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
