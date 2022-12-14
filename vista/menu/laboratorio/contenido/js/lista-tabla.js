@@ -199,10 +199,12 @@ function generarFormularioPaciente(id) {
               html += endDiv;
               html += colreStart;
               html += '<div class="input-group">';
+
+              //Formulario
               if (row[k]['RESULTADO'] == null) {
-                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required autocomplete="off">';
+                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required autocomplete="off">';
               } else {
-                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
               }
 
               if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
@@ -212,6 +214,8 @@ function generarFormularioPaciente(id) {
               }
               html += '</div>';
               html += endDiv;
+
+              //Valor Absoluto
               if (row[k]['TIENE_VALOR_ABSOLUTO'] == 1) {
                 html += colStart;
                 html += '<p  style="padding-left: 40px;"><i class="bi bi-box-arrow-in-right"></i> Valor absoluto</p>';
@@ -219,9 +223,9 @@ function generarFormularioPaciente(id) {
                 html += colreStart;
                 html += '<div class="input-group">';
                 if (row[k]['RESULTADO'] == null) {
-                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required autocomplete="off">';
+                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required autocomplete="off">';
                 } else {
-                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
                 }
                 html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
                 html += '</div>';
@@ -230,10 +234,11 @@ function generarFormularioPaciente(id) {
               html += endDiv;
               html += '</li>';
             }
+
           }
           html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
             '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
-            '<textarea name="servicios[ID_GRUPO][OBSERVACIONES]" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
+            '<textarea name="observaciones[' + row['ID_GRUPO'] + '][OBSERVACIONES]" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
           html += '</ul>';
 
           // idsEstudios.push[data[i]['ID_SERVICIO']]
