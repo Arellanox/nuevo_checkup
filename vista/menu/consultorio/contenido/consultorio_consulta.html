@@ -269,106 +269,106 @@
     <section id="card-odontograma" class="card mt-3">
       <h4 class="m-3">ODONTOGRAMA</h4>
       <hr class="dropdown-divider m-2">
-      <form class="formAgregarOdontograma"></form>
-      <div class="p-3 row">
-        <div class="col-auto">
-          <label for="metodo" class="form-label">Pieza dental</label>
-          <select name="metodo" id="select-odontograma-piezaDental" class="form-select input-form" required>
-            <option value="11" class="piezaAdulto">Pieza 11 </option>
-            <option value="12" class="piezaAdulto">Pieza 12 </option>
-            <option value="13" class="piezaAdulto">Pieza 13 </option>
-            <option value="14" class="piezaAdulto">Pieza 14 </option>
-            <option value="15" class="piezaAdulto">Pieza 15 </option>
-            <option value="16" class="piezaAdulto">Pieza 16 </option>
-            <option value="17" class="piezaAdulto">Pieza 17 </option>
-            <option value="21" class="piezaAdulto">Pieza 21 </option>
-            <option value="22" class="piezaAdulto">Pieza 22 </option>
-            <option value="23" class="piezaAdulto">Pieza 23 </option>
-            <option value="24" class="piezaAdulto">Pieza 24 </option>
-            <option value="25" class="piezaAdulto">Pieza 25 </option>
-            <option value="26" class="piezaAdulto">Pieza 26 </option>
-            <option value="27" class="piezaAdulto">Pieza 27 </option>
-            <option value="28" class="piezaAdulto">Pieza 28 </option>
-            <option value="31" class="piezaAdulto">Pieza 31 </option>
-            <option value="32" class="piezaAdulto">Pieza 32 </option>
-            <option value="33" class="piezaAdulto">Pieza 33 </option>
-            <option value="34" class="piezaAdulto">Pieza 34 </option>
-            <option value="35" class="piezaAdulto">Pieza 35 </option>
-            <option value="36" class="piezaAdulto">Pieza 36 </option>
-            <option value="37" class="piezaAdulto">Pieza 38 </option>
-            <option value="38" class="piezaAdulto">Pieza 38 </option>
-            <option value="41" class="piezaAdulto">Pieza 41 </option>
-            <option value="42" class="piezaAdulto">Pieza 42 </option>
-            <option value="43" class="piezaAdulto">Pieza 43 </option>
-            <option value="44" class="piezaAdulto">Pieza 44 </option>
-            <option value="45" class="piezaAdulto">Pieza 45 </option>
-            <option value="46" class="piezaAdulto">Pieza 46 </option>
-            <option value="47" class="piezaAdulto">Pieza 47 </option>
-            <option value="48" class="piezaAdulto">Pieza 48 </option>
-          </select>
+      <form id="formAgregarOdontograma">
+        <div class="p-3 row">
+          <div class="col-auto">
+            <label for="id_pieza_dental" class="form-label">Pieza dental</label>
+            <select name="id_pieza_dental" id="select-odontograma-piezaDental" class="form-select input-form" required>
+              <option value="11" class="piezaAdulto">Pieza 11 </option>
+              <option value="12" class="piezaAdulto">Pieza 12 </option>
+              <option value="13" class="piezaAdulto">Pieza 13 </option>
+              <option value="14" class="piezaAdulto">Pieza 14 </option>
+              <option value="15" class="piezaAdulto">Pieza 15 </option>
+              <option value="16" class="piezaAdulto">Pieza 16 </option>
+              <option value="17" class="piezaAdulto">Pieza 17 </option>
+              <option value="21" class="piezaAdulto">Pieza 21 </option>
+              <option value="22" class="piezaAdulto">Pieza 22 </option>
+              <option value="23" class="piezaAdulto">Pieza 23 </option>
+              <option value="24" class="piezaAdulto">Pieza 24 </option>
+              <option value="25" class="piezaAdulto">Pieza 25 </option>
+              <option value="26" class="piezaAdulto">Pieza 26 </option>
+              <option value="27" class="piezaAdulto">Pieza 27 </option>
+              <option value="28" class="piezaAdulto">Pieza 28 </option>
+              <option value="31" class="piezaAdulto">Pieza 31 </option>
+              <option value="32" class="piezaAdulto">Pieza 32 </option>
+              <option value="33" class="piezaAdulto">Pieza 33 </option>
+              <option value="34" class="piezaAdulto">Pieza 34 </option>
+              <option value="35" class="piezaAdulto">Pieza 35 </option>
+              <option value="36" class="piezaAdulto">Pieza 36 </option>
+              <option value="37" class="piezaAdulto">Pieza 38 </option>
+              <option value="38" class="piezaAdulto">Pieza 38 </option>
+              <option value="41" class="piezaAdulto">Pieza 41 </option>
+              <option value="42" class="piezaAdulto">Pieza 42 </option>
+              <option value="43" class="piezaAdulto">Pieza 43 </option>
+              <option value="44" class="piezaAdulto">Pieza 44 </option>
+              <option value="45" class="piezaAdulto">Pieza 45 </option>
+              <option value="46" class="piezaAdulto">Pieza 46 </option>
+              <option value="47" class="piezaAdulto">Pieza 47 </option>
+              <option value="48" class="piezaAdulto">Pieza 48 </option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <label for="cara_id" class="form-label">Cara</label>
+            <select name="cara_id" id="select-odontograma-cara" class="form-select input-form" required>
+              <option value="1">OCLUSAL </option>
+              <option value="2">PALANTINA </option>
+              <option value="3">DISTAL </option>
+              <option value="4">MESIAL </option>
+            </select>
+          </div>
+          <div class="col-3">
+            <label for="tratamiento_id" class="form-label">Tratatamiento</label>
+            <select name="tratamiento_id" id="select-odontograma-tratamiento" class="form-select input-form" required>
+              <option value="1">PROFILÁCTICO</option>
+              <option value="2">RESTAURACIÓN CON RESINA</option>
+              <option value="3">SELLADOR</option>
+              <option value="4">CURACIÓN</option>
+              <option value="5">CURETAJE</option>
+              <option value="6">ALARGAMIENTO DE CORONA</option>
+              <option value="7">RECONTORNEO GINGIVAL</option>
+              <option value="8">EXTRACCIÓN 3ER MOLAR</option>
+              <option value="9">CIRUGÍA 3ER MOLAR</option>
+              <option value="10">EXTRACCIÓN INFANTIL</option>
+              <option value="11">ENDODONCIA</option>
+              <option value="12">RETRATAMIENTO EDODONTAL</option>
+              <option value="13">POSTE</option>
+              <option value="14">CORONA METAL-CERÁMICA</option>
+              <option value="15">RECONSTRUCCIÓN DE RESINA</option>
+              <option value="16">BLANQUEAMIENTO EXTERNO</option>
+              <option value="17">CURACIÓN</option>
+              <option value="18">TREPANACIÓN</option>
+              <option value="19">PRÓTESIS PARCIAL REMOVIBLE</option>
+              <option value="20">CIRUGÍA PERIODONTAL</option>
+              <option value="21">TRATAMIENTO DE ENCÍAS</option>
+              <option value="22">IMPLANTE</option>
+              <option value="23">ENTABLILLADO</option>
+              <option value="24">CIRUGÍA ORAL / MAXILOFACIAL</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for="diagnostico" class="form-label">Diagnóstico</label>
+            <textarea name="diagnostico" rows="3" cols="90" class="input-form" placeholder="..." style="width:95%"
+              id="text-exploracion-clinica"></textarea>
+          </div>
+          <div class="col-6">
+            <label for="comentario" class="form-label">Comentario</label>
+            <textarea name="comentario" rows="3" cols="90" class="input-form" placeholder="" style="width:95%"
+              id="text-exploracion-clinica"></textarea>
+          </div>
+          <div class="d-flex justify-content-start m-2">
+            <button type="submit" form="formAgregarOdontograma" class="btn btn-confirmar me-2"
+              style="margin-bottom:4px">
+              <i class="bi bi-paperclip"></i> Guardar
+            </button>
+          </div>
         </div>
-        <div class="col-auto">
-          <label for="metodo" class="form-label">Cara</label>
-          <select name="metodo" id="select-odontograma-cara" class="form-select input-form" required>
-            <option id="1">OCLUSAL </option>
-            <option id="2">PALANTINA </option>
-            <option id="3">DISTAL </option>
-            <option id="4">MESIAL </option>
-          </select>
-        </div>
-        <div class="col-3">
-          <label for="metodo" class="form-label">Tratatamiento</label>
-          <select name="metodo" id="select-odontograma-tratamiento" class="form-select input-form" required>
-            <option id="1">PROFILÁCTICO</option>
-            <option id="2">RESTAURACIÓN CON RESINA</option>
-            <option id="3">SELLADOR</option>
-            <option id="4">CURACIÓN</option>
-            <option id="5">CURETAJE</option>
-            <option id="6">ALARGAMIENTO DE CORONA</option>
-            <option id="7">RECONTORNEO GINGIVAL</option>
-            <option id="8">EXTRACCIÓN 3ER MOLAR</option>
-            <option id="9">CIRUGÍA 3ER MOLAR</option>
-            <option id="10">EXTRACCIÓN INFANTIL</option>
-            <option id="11">ENDODONCIA</option>
-            <option id="12">RETRATAMIENTO EDODONTAL</option>
-            <option id="13">POSTE</option>
-            <option id="14">CORONA METAL-CERÁMICA</option>
-            <option id="15">RECONSTRUCCIÓN DE RESINA</option>
-            <option id="16">BLANQUEAMIENTO EXTERNO</option>
-            <option id="17">CURACIÓN</option>
-            <option id="18">TREPANACIÓN</option>
-            <option id="19">PRÓTESIS PARCIAL REMOVIBLE</option>
-            <option id="20">CIRUGÍA PERIODONTAL</option>
-            <option id="21">TRATAMIENTO DE ENCÍAS</option>
-            <option id="22">IMPLANTE</option>
-            <option id="23">ENTABLILLADO</option>
-            <option id="24">CIRUGÍA ORAL / MAXILOFACIAL</option>
-          </select>
-        </div>
-        <div class="col-6">
-          <label for="metodo" class="form-label">Diagnóstico</label>
-          <textarea name="name" rows="3" cols="90" class="input-form" placeholder="..." style="width:95%"
-            id="text-exploracion-clinica"></textarea>
-        </div>
-        <div class="col-6">
-          <label for="metodo" class="form-label">Comentario</label>
-          <textarea name="name" rows="3" cols="90" class="input-form" placeholder="" style="width:95%"
-            id="text-exploracion-clinica"></textarea>
-        </div>
-        <div class="d-flex justify-content-start m-2">
-          <button type="submit" form="formNuevaReceta" class="btn btn-confirmar me-2" style="margin-bottom:4px"
-            id="btn-guardar-Receta">
-            <i class="bi bi-paperclip"></i> Guardar
-          </button>
-        </div>
-      </div>
+      </form>
       <div class="p-3">
         <table class="table table-hover display responsive" id="tablaOdontograma" style="width: 100%;">
           <thead>
             <tr>
               <!-- <th scope="col d-flex justify-content-center" class="all">#</th> -->
               <th scope="col d-flex justify-content-center" class="all">Diagnóstico</th>
-              <th scope="col d-flex justify-content-center" class="all">Procedimiento</th>
               <th scope="col d-flex justify-content-center" class="all">Tratamiento</th>
               <th scope="col d-flex justify-content-center" class="all">Pieza dental</th>
               <th scope="col d-flex justify-content-center" class="all">Cara</th>
