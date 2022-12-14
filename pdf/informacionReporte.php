@@ -161,7 +161,7 @@ function fechaCastellano ($fecha) {
         <p><strong>Comentarios:</strong> Esta prueba identifica la presencia  y el médico tratante es quien realiza
          la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
         </p>
-        
+
         <br>
         <table style="width: 100%;">
             <tr>
@@ -178,7 +178,30 @@ function fechaCastellano ($fecha) {
             </tr>
         </table> 
         <br>
-        <footer>
+        <table>
+                <tbody>
+                    <tr class="col-foot-one">
+                        <td colspan="12" style="text-align: center; padding-right: 0;"><strong>Atentamente</strong></td>
+                    </tr>
+                    <tr class="col-foot-two" >
+                        <td colspan="3" style="text-align: center; ">
+                            <a target="_blank" href="<?php echo $qr[0]; ?>"> <img style="margin-bottom: -30px" src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+                        </td>
+                        <td colspan="3" style="text-align: left;">
+                            <?php echo "<img style='position:absolute;' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
+                        </td>
+                    </tr>
+                    <tr class="col-foot-three"  style="font-size: 13px;">
+                        <td colspan="12" style="text-align: center; width: 50%; ">
+                            <strong >Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="margin-top: 0px; height: 0.5px; background-color: black ;">
+            <p style="text-align: center; margin-top: 0px"><small><strong>Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono: 993 131 00 42 
+            Correo electrónico: hola@bimo.com.mx</strong></small></p>
+        <!-- <footer>
             <table style="width: 100%;">
                 <tr>
                     <td colspan="2" style="text-align: right; padding-right: 5rem;"><strong>Atentamente</strong></td>
@@ -197,7 +220,7 @@ function fechaCastellano ($fecha) {
             </table>
             <hr style="height: 2px; background-color: black ;">
             <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa, Tabasco - Teléfono: 993 131 00 42 Correo electrónico: biologia.molecular@hguadalupe.com</strong></small></p>
-        </footer>
+        </footer> -->
     </div>
     
 </body>
