@@ -336,6 +336,9 @@ switch ($api) {
             'areas' =>array()
         );
 
+        $reponsePac = $master->getByProcedure("sp_informacion_paciente", [$id_turno]);
+        // print_r($reponsePac[0]);
+
         for($i=0; $i<count($clasificaciones); $i++) {
             $clasificacion_id = $clasificaciones[$i]['ID_CLASIFICACION'];
             
@@ -377,7 +380,7 @@ switch ($api) {
 
         // print_r($arrayGlobal);
 
-        $pdf = new Reporte(json_encode($arrayGlobal), 'resultados', 'url');
+        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($reponsePac[0]), 'resultados', 'url');
         $pdf->build();
         
         break;
