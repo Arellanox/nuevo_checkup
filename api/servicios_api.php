@@ -331,6 +331,10 @@ switch ($api) {
     case 13:
         # para crear los reportes de LABORATORIO
 
+        # informacion general del paciente
+        $infoPaciente = array();
+
+        #Estudios solicitados por el paciente
         $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
         $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
         $arrayGlobal = array(
