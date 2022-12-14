@@ -14,3 +14,12 @@
 
 05/12/22 17:29:30 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
 
+12/12/22 11:53:26 sp_consultorio_odontograma_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_consultorio_odontograma_g; expected 7, got 6
+12/12/22 11:54:09 sp_consultorio_odontograma_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_consultorio_odontograma_g; expected 7, got 6
+12/12/22 12:00:54 sp_consultorio_odontograma_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_consultorio_odontograma_g; expected 7, got 6
+12/12/22 15:36:54 sp_consultorio_odontograma_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_consultorio_odontograma_g; expected 7, got 6
+12/12/22 15:37:53 sp_consultorio_odontograma_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_consultorio_odontograma_g; expected 7, got 6
+12/12/22 15:59:04 sp_consultorio_odontograma_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_consultorio_odontograma_g; expected 7, got 6
+12/12/22 16:13:00 sp_consultorio_odontograma_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`consultorio_odontograma`, CONSTRAINT `fk_consultorio_odontograma_consultorio_pieza_dental_caras_1` FOREIGN KEY (`CARA_ID`) REFERENCES `consultorio_pieza_dental_caras` (`I)
+13/12/22 10:34:17 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en una red no accesible.
+

@@ -98,6 +98,7 @@ $comentario = $_POST['comentario'];
 
 $odonto_array = array(
     $id_odontograma,
+    $turno_id,
     $id_pieza_dental,
     $cara_id,
     $tratamiento_id,
@@ -252,7 +253,7 @@ switch ($api) {
         break;
     case 19:
         # recuperar detalles de odontograma
-        $response = $master->getByProcedure("sp_consultorio_odontograma_b", [$id_odontograma]);
+        $response = $master->getByProcedure("sp_consultorio_odontograma_b", [$turno_id]);
         break;
     case 20:
         # eliminar odontograma

@@ -127,7 +127,7 @@ function obtenerAnamnesisApartados(turno) {
                 method: 'POST',
                 dataType: 'json',
                 data: {
-                    api: 18,
+                    api: 15,
                     turno_id: turno
                 },
                 success: function (data) {
@@ -233,7 +233,7 @@ tablaOdontograma = $('#tablaOdontograma').DataTable({
     ajax: {
         dataType: "json",
         data: {
-            api: 14,
+            api: 19,
             turno_id: pacienteActivo.array['ID_TURNO']
         },
         method: 'POST',
@@ -242,30 +242,31 @@ tablaOdontograma = $('#tablaOdontograma').DataTable({
         // complete: function(){  },
         dataSrc: 'response.data'
     },
+
     columns: [{
-            data: 'DOSIS'
+            data: 'DIAGNOSTICO'
         },
         {
-            data: 'PRESENTACION'
+            data: 'TRATAMIENTO'
         },
         {
-            data: 'FRECUENCIA'
+            data: 'PIEZA_DENTAL'
         },
         {
-            data: 'VIA_DE_ADMINISTRACION'
+            data: 'CARA'
         },
         {
-            data: 'FORMA_FARMACEUTICA'
+            data: 'COMENTARIOS'
         },
         {
-            data: 'INDICACIONES_PARA_EL_USO'
-        },
-        {
-            data: 'ID_RECETA',
+            data: 'ID_ODONTOGRAMA',
             render: function (data) {
                 return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarOdontograma" style="margin: -15px;" data-bs-id ="' + data + '"> <i class="bi bi-trash"></i> </button> </div>';
             }
         }
+        
+
+
     ],
     columnDefs: [{
             "width": "10%",
