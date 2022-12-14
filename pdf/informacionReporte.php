@@ -158,40 +158,41 @@ function fechaCastellano ($fecha) {
                 <td colspan="4">NEGATIVO</td>
             </tr>
         </table>
-        <br>
-        <p></p><strong>Comentarios:</strong> Esta prueba identifica la presencia  y el médico tratante es quien realiza
+        <p><strong>Comentarios:</strong> Esta prueba identifica la presencia  y el médico tratante es quien realiza
          la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
         </p>
-        <br><br>
+        
+        <br>
         <table style="width: 100%;">
             <tr>
-                <td colspan="3" class="bold" style="width: 15% ;">Lote kit:</strong></td>
-                <td colspan="3">0</strong></td>
-                <td colspan="3" class="bold" style="width: 15% ;">ID de Frasco:</strong></td>
-                <td colspan="3">0</strong></td>
+                <td colspan="1" class="bold" style="width: 15% ;">Lote kit:</strong></td>
+                <td colspan="1">0</strong></td>
+                <td colspan="1" class="bold" style="width: 15% ;">ID de Frasco:</strong></td>
+                <td colspan="1">0</strong></td>
             </tr>
             <tr>
-                <td colspan="3" class="bold" style="width: 15% ;">Kit utilizado:</strong></td>
-                <td colspan="3"></strong></td>
-                <td colspan="3" class="bold" style="width: 15% ;"> Registro Sanitario:</td>
-                <td colspan="3"> </td>
+                <td colspan="1" class="bold" style="width: 15% ;">Kit utilizado:</strong></td>
+                <td colspan="1"></strong></td>
+                <td colspan="1" class="bold" style="width: 15% ;"> Registro Sanitario:</td>
+                <td colspan="1"> </td>
             </tr>
         </table> 
         <br>
         <footer>
             <table style="width: 100%;">
                 <tr>
-                    <td colspan="12" style="text-align: right; padding-right: 5rem;"><strong>Atentamente</strong></td>
+                    <td colspan="2" style="text-align: right; padding-right: 5rem;"><strong>Atentamente</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="12" style="text-align: right;"><strong>&nbsp;</strong></td>
+                    <td colspan="2" style="text-align: right;"><strong>&nbsp;</strong></td>
                 </tr>
                 <tr>
-                    <td style="height: 60px"></td>
+                    <td colspal="1" style="height: 60px; width: 50%"></td>
+                    <td colspal="1" style="height: 60px; text-align: right; width: 50%; padding-right: 5rem;"><img src="http://bimo-lab.com/pdf/logo/firma.png" alt="" style="width: 15%"></td>
                 </tr>
                 <tr style="font-size: 13px;">
-                    <td colspan="6" style="text-align: center; width: 50%">AQUI VA EL QR</td>
-                    <td colspan="6" style="text-align: right; width: 50%"><strong>Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong></td>
+                    <td colspan="1" style="text-align: center; width: 50%">AQUI VA EL QR</td>
+                    <td colspan="1" style="text-align: right; width: 50%"><strong>Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong></td>
                 </tr>
             </table>
             <hr style="height: 2px; background-color: black ;">
