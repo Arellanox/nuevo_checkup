@@ -22,11 +22,11 @@
               <select name="grupo[]" multiple="multiple" id="registrar-grupo-estudio" required>
               </select>
             </div>
-            <div class="col-6 col-md-6">
+            <!-- <div class="col-6 col-md-6">
               <label for="area" class="form-label">Área</label>
               <select name="area" id="registrar-area-estudio" required>
               </select>
-            </div>
+            </div> -->
             <div class="col-6 col-md-6">
               <label for="clasificacion" class="form-label">Clasificación de exámen</label>
               <select name="clasificacion" id="registrar-clasificacion-estudio" required>

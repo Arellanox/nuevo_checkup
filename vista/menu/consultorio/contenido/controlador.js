@@ -47,7 +47,7 @@ function obtenerContenidoAntecedentes(data) {
 //
 
 
-var tablaRecetas; 
+var tablaRecetas;
 // obtenerContenidoConsulta()
 function obtenerContenidoConsulta(data, idconsulta) {
   loader("In")
@@ -85,7 +85,7 @@ async function obtenerConsultorio(id, idTurno, cliente) {
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   // alert("Antes de antecedentes")
   // await obtenerAntecedentes('#antecedentes-paciente', idTurno);
-  await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', cliente)  
+  await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', cliente)
   $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
   $('.div-btn-guardarAntPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntNoPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
@@ -113,7 +113,7 @@ async function obtenerConsulta(data, idconsulta) {
   await obtenerInformacionPaciente(data)
   await obtenerNutricion(data['ID_TURNO'])
   await obtenerExploracion(data['ID_TURNO'])
-  await obtenerAnamnesisApartados(idturno);
+  await obtenerAnamnesisApartados(data['ID_TURNO']);
 
 
   loader("Out")
@@ -126,7 +126,7 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, clase, cl
     date = '';
   }
   let html = '<div class="' + classTittle + '" data-db="divDelete">' +
-    '<h4 class="m-3">' + tittle + ' <button type="button" class="btn btn-hover '+clase+'" data-bs-id="' + id + '"> <i class="bi bi-trash"></i> </button> ' + date + '</h4> ' +
+    '<h4 class="m-3">' + tittle + ' <button type="button" class="btn btn-hover ' + clase + '" data-bs-id="' + id + '"> <i class="bi bi-trash"></i> </button> ' + date + '</h4> ' +
     '<div style="' + style + '">' +
     '<p class="none-p">' + text + '<p> </div> </div>';
   $(appendDiv).append(html);

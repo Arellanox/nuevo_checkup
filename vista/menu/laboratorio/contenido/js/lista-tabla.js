@@ -204,12 +204,17 @@ function generarFormularioPaciente(id) {
               } else {
                 html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
               }
-              html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
+
+              if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
+                html += '<span class="input-span">%</span>';
+              } else {
+                html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
+              }
               html += '</div>';
               html += endDiv;
-              if (row[k]['ABSOLUTO'] = 1) {
+              if (row[k]['TIENE_VALOR_ABSOLUTO'] == 1) {
                 html += colStart;
-                html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
+                html += '<p  style="padding-left: 40px;"><i class="bi bi-box-arrow-in-right"></i> Valor absoluto</p>';
                 html += endDiv;
                 html += colreStart;
                 html += '<div class="input-group">';
