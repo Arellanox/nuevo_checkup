@@ -332,6 +332,7 @@ switch ($api) {
         # para crear los reportes de LABORATORIO
         $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
         $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
+        $reponsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
         $arrayGlobal = array(
             'areas' =>array()
         );

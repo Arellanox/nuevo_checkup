@@ -113,11 +113,13 @@ switch ($api) {
             $array = array();
             for($i=0; $i<count($grupos);$i++){
                 $nombre_grupo = $grupos[$i]['GRUPO'];
+                $id_grupo = $grupos[$i]['GRUPO_ID'];
                 $contenido_grupo = array_filter($response, function ($obj) use ($nombre_grupo) {
                     $r = $obj["GRUPO"] == $nombre_grupo;
                     return $r;
                 });
                 $contenido_grupo['NombreGrupo'] = $nombre_grupo;
+                $contenido_grupo['ID_GRUPO'] = $id_grupo;
                 if(!empty($contenido_grupo)){
                     $array[] = $contenido_grupo;
                 }
@@ -143,7 +145,7 @@ switch ($api) {
         //print_r($id_turno);
         foreach ($setResultados as $servicio_id => $resultado) {
             # code...
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar,$confirmado_por));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar,$confirmado_por,$valor_absoluto));
             //print_r($response);
         }
         echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
