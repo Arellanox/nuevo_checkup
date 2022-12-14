@@ -10,11 +10,22 @@
             
             body{
                 font-family: 'Noto Sans', sans-serif;
-                /* line-height: 1; */
                 margin-top: 60px;
                 font-size: 10px;
             }
 
+            #image {
+                top: -155px;
+                position: fixed;
+                height: 120px;
+                width: 80px;
+                z-index: -9999;
+                
+                background-image: url({{$membrete}});
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
+            
             .header { 
                 position: fixed; 
                 top: -165px;
@@ -22,7 +33,6 @@
                 right: 25px; 
                 height: 220px; 
                 margin-top: 0; /*-30px*/
-                /* background-color: orange; */
             }
 
             .footer { 
@@ -30,8 +40,7 @@
                 bottom: -165px; 
                 left: 25px; 
                 right: 25px; 
-                height: 165px; 
-                /* background-color: blue; */
+                height: 190px; 
             }
 
             .footer .page:after {
@@ -53,10 +62,6 @@
                 text-justify: inter-word;
             }
 
-            /* .separador-bottom{
-                border-style: none none solid none;
-                border-style: none none none none;
-            } */
             
             h1{
                 font-size: 18px;
@@ -103,9 +108,9 @@
                 max-width: 100%;
                 margin: auto;
                 white-space:nowrap;
+                /* table-layout:fixed; */
             }
             th, td {
-                /* border-bottom: 1px solid #ddd; */
                 width: 100%;
                 max-width: 100%;
                 word-break: break-all;
@@ -113,21 +118,21 @@
 
             /* Para divisiones de 3 encabezado*/
             .col-left{
-                width: 30%; 
-                max-width: 30%; 
+                width: 35%; 
+                max-width: 35%; 
                 text-align: left;
                 font-size: 12px;
             }
             .col-center{
-                width: 40%; 
-                max-width: 40%; 
-                text-align: center;
+                width: 35%; 
+                max-width: 35%; 
+                text-align: left;
                 font-size: 12px;
             }
             .col-right{
                 width: 30%; 
                 max-width: 30%; 
-                text-align: right;
+                text-align: left;
                 font-size: 12px;
             }
 
@@ -170,13 +175,13 @@
 
             /* Fivisiones de cinco */
             .col-one{
-                width: 25%; 
-                max-width: 25%; 
+                width: 30%; 
+                max-width: 30%; 
                 text-align: left;
             }
             .col-two{
-                width: 25%; 
-                max-width: 25%; 
+                width: 20%; 
+                max-width: 20%; 
                 text-align: right;
             }
             .col-three{
@@ -194,256 +199,274 @@
     </head>
 
     <?php 
+        
         // para el path del logo 
         $ruta = file_get_contents('../pdf/public/assets/logotipo.png');
         $encode = base64_encode($ruta);
 
-        // Para el path del qr, esta imagen la debo recibir en base64, dentro del response que se me manda
-        // para solo anexarlo aqui al ejemplo de abajo
-            // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
         // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
         //los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
+        // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
         
-        //path qr
-        $ruta_qr = file_get_contents('../pdf/public/assets/qr.jpeg');
-        $encode_qr = base64_encode($ruta_qr);
-
         // path firma
         $ruta_firma = file_get_contents('../pdf/public/assets/firma.png');
         $encode_firma = base64_encode($ruta_firma);
 
     ?>
     <body>
+        <div id="image">
+        </div>
+        <!-- header -->
+        <div class="header">
+            <br><br>
+            
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="col-der"  style="border-bottom: none">
+                            <h4>
+                                DIAGNOSTICO BIOMOLECULAR <br>
+                                Laboratorio de Biólogia Molecular <br>
+                                Resultados de Exámenes
+                            </h4>
+                        </td>
+                        <td class="col-izq"  style="border-bottom: none; text-align:center;">
+                            <?php echo "<img src='data:image/png;base64, ". $encode . "' height='75' > " ?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table >
+                <tbody>
+                    <tr>
+                        <td style="text-align: center; border-style: solid none solid none; ">
+                            <h3>
+                                Biólogia Molecular
+                            </h3>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="col-left"  style="border-bottom: none">
+                            No. Identificacion: <strong> <?php echo $encabezado->PREFOLIO;?> </strong> 
+                        </td>
+                        <td class="col-center"  style="border-bottom: none">
+                            Edad: <strong> <?php echo $encabezado->EDAD;?> </strong> 
+                        </td>
+                        <td class="col-right"  style="border-bottom: none">
+                            Sexo: <strong><?php echo $encabezado->SEXO;?> </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-left"  style="border-bottom: none">
+                            Nombre: <strong> <?php echo $encabezado->NOMBRE;?> </strong>  
+                        </td>
+                        <td class="col-center"  style="border-bottom: none">
+                            Fecha de Nacimiento: <strong> 15-12-2024 </strong>
+                        </td>
+                        <td class="col-right"  style="border-bottom: none">
+                            Pasaporte: <strong>Ninguno</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-left"  style="border-bottom: none">
+                            Fecha de Toma de Muestra: <strong>  <?php echo $encabezado->FECHA_TOMA;?>  </strong>
+                        </td>
+                        <td class="col-center"  style="border-bottom: none">
+                            Fecha de Resultado:     <strong><?php echo $encabezado->FECHA_RESULTADO;?> </strong>
+                        </td>
+                        <td class="col-right"  style="border-bottom: none">
+                            Tipo de Muestra: <strong>Sangre</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-left"  style="border-bottom: none">
+                            Procedencia: <strong><?php echo $encabezado->PROCEDENCIA;?> </strong>
+                        </td>
+                        <td class="col-center"  style="border-bottom: none">
+                            <?php echo (isset($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong>". $encabezado->MEDICO_TRATANTE . "</strong>" : "" ;?> 
+                        </td>
+                        <td class="col-right"  style="border-bottom: none">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         
-    <!-- header -->
-    <div class="header">
-        <br><br>
-        
-        <table>
-            <tbody>
-                <tr>
-                    <td class="col-izq"  style="border-bottom: none; text-align:center;">
-                    <?php echo "<img src='data:image/png;base64, ". $encode . "' height='75' > " ?>
-                    </td>
-                    <td class="col-der"  style="border-bottom: none">
-                        <h4>
-                            Hospital Nuestra Señora de Guadalupe <br>
-                            Resultados de exámenes
-                        </h4>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table >
-            <tbody>
-                <tr>
-                    <td style="text-align: center; border-style: solid none solid none; ">
-                        <h3>
-                            Laboratorio Clínico
-                        </h3>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table>
-            <tbody>
-                <tr>
-                    <td class="col-left"  style="border-bottom: none">
-                    No. identificacion: 
-                    63
-                    </td>
-                    <td class="col-center"  style="border-bottom: none">
-                    Sexo:
-                    Masculino
-                    </td>
-                    <td class="col-right"  style="border-bottom: none">
-                    Edad:
-                    99
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-left"  style="border-bottom: none">
-                    Nombre:
-                    Pedro Pascal
-                    </td>
-                    <td class="col-center"  style="border-bottom: none">
-                    Fecha de toma:
-                    07-12-2022
-                    </td>
-                    <td class="col-right"  style="border-bottom: none">
-                    Fecha de resultado:
-                    08-12-2022
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-left"  style="border-bottom: none">
-                    Fecha nacimiento:
-                    01-01-1923
-                    </td>
-                    <td class="col-center"  style="border-bottom: none">
-                    Procedencia:
-                    Republica de Yucatán
-                    </td>
-                    <td class="col-right"  style="border-bottom: none">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
+        <!-- <div class="footer">
+            <table>
+                <tbody>
+                    <tr class="col-foot-one">
+                        <td colspan="12" style="text-align: right; padding-right: 0;"><strong>Atentamente</strong></td>
+                    </tr>
+                    <tr class="col-foot-two" >
+                        <td colspan="10">
+                        </td>
+                        <td colspan="2" style="text-align: left;">
+                            <?php echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
+                        </td>
+                    </tr>
+                    <tr class="col-foot-three"  style="font-size: 13px;">
+                        <td colspan="6" style="text-align: center; width: 50%">
+                            <a target="_blank" href="<?php echo $qr[0]; ?>"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+                        </td>
+                        <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
+                            <strong >Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
+            <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa, Tabasco - Teléfono: 993 131 00 42 Correo electrónico: biologia.molecular@hguadalupe.com</strong></small></p>
+        </div> -->
 
-    <!-- footer -->
-    <div class="footer">
-        <table style="line-height: 0.5;">
-            <tr >
-                <td class="col-foot-one" style="border-bottom: none;">
-                    <p>
-                        <?php echo "<img src='data:image/jpeg;base64, ". $encode_qr . "' height='125px' width:'125px' > " ?>
-                    </p>
-                    <p>
-                    </p>
-                    <p>
-                    </p>
-                </td>
-                <td class="col-foot-two" style="border-bottom: none; text-align: center; text-justify: inter-word;">
-                    <p>
-                        <!-- Fimra -->
-                        <?php echo "<img src='data:image/png;base64, ". $encode_firma . "' height='100px' > " ?>
-                    </p>
-                    <p> 
-                        <!-- valida -->
-                        Q. F. B Emperatriz Vazquez Torrusco
-                    </p>
-                    <p>
-                    </p>
-                    <p>
-                    </p> 
-                </td>
-                <td class="col-foot-three" style="border-bottom: none;">
-                    <p>
-                        Fecha de impresión: 
-                        <?php echo date('d/m/Y') ?>
-                    </p> 
-
-                    <p class="page">Página </p>
-                </td>
-            </tr>
-        </table>
-        <br>
-        <br>
-        <br>
-    </div>
+        <div class="footer">
+            <table>
+                <tbody>
+                    <tr class="col-foot-one">
+                        <td colspan="12" style="text-align: center; padding-right: 0;"><strong>Atentamente</strong></td>
+                    </tr>
+                    <tr class="col-foot-two" >
+                        <td colspan="3" style="text-align: center; ">
+                            <a target="_blank" href="<?php echo $qr[0]; ?>"> <img style="margin-bottom: -30px" src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+                        </td>
+                        <td colspan="3" style="text-align: left;">
+                            <?php echo "<img style='position:absolute;' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
+                        </td>
+                    </tr>
+                    <tr class="col-foot-three"  style="font-size: 13px;">
+                        <td colspan="12" style="text-align: center; width: 50%; ">
+                            <strong >Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="margin-top: 0px; height: 0.5px; background-color: black ;">
+            <p style="text-align: center; margin-top: 0px"><small><strong>Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono: 993 131 00 42 
+            Correo electrónico: hola@bimo.com.mx</strong></small></p>
+        </div>
 
 
-    <!-- body -->
-    <div class="invoice-content">
-        <?php
-            $areas = $data->areas;
-            $count = count($areas);
-            $i = 0;
-            foreach ($areas as $key => $area) {
 
-                echo "<h2  >". $area->area . "</h2>";
+        <!-- body -->
+        <div class="invoice-content">
+            <?php
+                $areas = $resultados->areas;
+                $count = count($areas);
+                $i = 0;
+                foreach ($areas as $key => $area) {
 
-                foreach ($area->estudios as $key => $estudio) {
-                    echo "<h5>" . $estudio->estudio . "</h5>";
-        ?>
-                <table class="result" >
-                    <thead>
-                        <tr>
-                            <th class="col-one">Nombre</th>
-                            <th class="col-two">Resultado</th>
-                            <th class="col-three">Unidad</th>
-                            <th class="col-four">Referencia</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($estudio->analitos as $key => $analito) {
-                        ?>
-                            <tr >
-                                <td class="col-one">
-                                    <?php echo $analito->nombre ; ?>
-                                </td>
-                                <td class="col-two">
-                                    <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
-                                </td>
-                                <td class="col-three">
-                                    ml/dL
-                                </td>
-                                <td class="col-four">
-                                    3.14 - 6.69
-                                </td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                        <?php
-                            if(isset($estudio->absoluto)){
-                        ?>
+                    echo "<h2  >". $area->area . "</h2>";
+
+                    foreach ($area->estudios as $key => $estudio) {
+                        echo "<h5>" . $estudio->estudio . "</h5>";
+            ?>
+                    <table class="result" >
+                        <thead>
                             <tr>
-                                <td class="col-one">
-                                    <h5>
-                                        VALORES ABSOLUTOS
-                                    </h5>
-                                </td>
+                                <th class="col-one">Nombre</th>
+                                <th class="col-two">Resultado</th>
+                                <th class="col-three">Unidad</th>
+                                <th class="col-four">Referencia</th>
                             </tr>
-                        <?php
-                                foreach($estudio->absoluto as $key=>$absoluto){
-                        ?>
-                            <tr>
-                                <td class="col-one">
-                                    <?php echo $analito->nombre ; ?>
-                                </td>
-                                <td class="col-two">
-                                    <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
-                                </td>
-                                <td class="col-three">
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($estudio->analitos as $key => $analito) {
+                            ?>
+                                <tr >
+                                    <td class="col-one">
+                                        <?php echo $analito->nombre ; ?>
+                                    </td>
+                                    <td class="col-two">
+                                        <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
+                                    </td>
+                                    <td class="col-three">
+                                        ml/dL
+                                    </td>
+                                    <td class="col-four">
+                                        3.14 - 6.69
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                                if(isset($estudio->absoluto)){
+                            ?>
+                                <tr>
+                                    <td class="col-one">
+                                        <h5>
+                                            VALORES ABSOLUTOS
+                                        </h5>
+                                    </td>
+                                </tr>
+                            <?php
+                                    foreach($estudio->absoluto as $key=>$absoluto){
+                            ?>
+                                <tr>
+                                    <td class="col-one">
+                                        <?php echo $analito->nombre ; ?>
+                                    </td>
+                                    <td class="col-two">
+                                        <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
+                                    </td>
+                                    <td class="col-three">
 
-                                </td>
-                                <td class="col-four">
+                                    </td>
+                                    <td class="col-four">
 
-                                </td>
-                            </tr>
-                        <?php
+                                    </td>
+                                </tr>
+                            <?php
+                                    }
                                 }
+                            ?>
+
+                        </tbody>
+                    </table>
+                    <div >
+                        <strong>Método: </strong>
+                        <?php
+                            if(isset($estudio->metodo)){
+                                echo $estudio->metodo;
+                            }else{
+                                echo "Sin metodo de muestra";
                             }
                         ?>
-
-                    </tbody>
-                </table>
-                <div >
-                    <strong>Método: </strong>
-                    <?php
-                        if(isset($estudio->metodo)){
-                            echo $estudio->metodo;
-                        }else{
-                            echo "Sin metodo de muestra";
-                        }
-                    ?>
-                </div>
-                <div >
-                    <strong>Observaciones: </strong>
-                    <?php
-                        if(isset($estudio->observaciones)){
-                            echo $estudio->observaciones;
-                        }else{
-                            echo "Sin observaciones";
-                        }
-                    ?>
-                </div>
-                <br>
-        <?php
+                    </div>
+                    <div >
+                        <strong>Equipo: </strong>
+                        <?php
+                            if(isset($estudio->equipo)){
+                                echo $estudio->equipo;
+                            }else{
+                                echo "Sin equipo.";
+                            }
+                        ?>
+                    </div>
+                    <div >
+                        <strong>Observaciones: </strong>
+                        <?php
+                            if(isset($estudio->observaciones)){
+                                echo $estudio->observaciones;
+                            }else{
+                                echo "Sin observaciones";
+                            }
+                        ?>
+                    </div>
+                    <br>
+            <?php
+                    }
+                    // $i++;
+                    // if ($i < $count) {  
+                    //     echo '<div class="break"></div>';
+                    // }
                 }
-                $i++;
-                if ($i < $count) {  //if the counter is less than the lenght of the array, add a page break. 
-                                    //Esto evita que dompdf genere una pagina extra en blanco
-                    // echo '<div class="break"></div>';
-                }
-
-            }
-        ?>
-    </div>
-
+            ?>
+        </div>
     </body>
 </html>

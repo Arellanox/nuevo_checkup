@@ -32,7 +32,7 @@ function obtenerContenido(tabla) {
             if (page) {
               $(location).attr('href', page);
             } else {
-              $(location).attr('href', http + servidor + -'/nuevo_checkup/vista/menu/recepcion/');
+              $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/recepcion/');
             }
           } else {
             $(this).find('button :submit').prop('disabled', false)
