@@ -225,7 +225,7 @@ function generarFormularioPaciente(id) {
                 if (row[k]['RESULTADO'] == null) {
                   html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required autocomplete="off">';
                 } else {
-                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['VALOR_ABSOLUTO'] + '" autocomplete="off">';
                 }
                 html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
                 html += '</div>';
@@ -235,18 +235,24 @@ function generarFormularioPaciente(id) {
               html += '</li>';
 
               if (row[k]['LLEVA_COMENTARIO'] == true) {
+                if (row[k]['OBSERVACIONES'] == null) {
+                  row[k]['OBSERVACIONES'] = '';
+                }
                 html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
                   '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
-                  '<textarea name="observacionesServicios[' + row[k]['ID_SERVICIO'] + ']" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
+                  '<textarea name="observacionesServicios[' + row[k]['ID_SERVICIO'] + ']" rows="2;" cols="90" class="input-form" value="">' + row[k]['OBSERVACIONES'] + '</textarea></div ></div > ';
 
               }
             }
 
           }
           if (row['ID_GRUPO'] != null) {
+            if (row['OBSERVACIONES'] == null) {
+              row['OBSERVACIONES'] = '';
+            }
             html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
               '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
-              '<textarea name="observacionesGrupos[' + row['ID_GRUPO'] + ']" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
+              '<textarea name="observacionesGrupos[' + row['ID_GRUPO'] + ']" rows="2;" cols="90" class="input-form">' + row['OBSERVACIONES'] + '</textarea></div ></div > ';
           }
           html += '</ul>';
 
