@@ -207,11 +207,14 @@ function generarFormularioPaciente(id) {
                 html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
               }
 
-              if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
-                html += '<span class="input-span">%</span>';
-              } else {
-                html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
+              if (row[k]['MEDIDA']) {
+                if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
+                  html += '<span class="input-span">%</span>';
+                } else {
+                  html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';
+                }
               }
+
               html += '</div>';
               html += endDiv;
 
@@ -227,7 +230,9 @@ function generarFormularioPaciente(id) {
                 } else {
                   html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['VALOR_ABSOLUTO'] + '" autocomplete="off">';
                 }
-                html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
+                if (row[k]['MEDIDA']) {
+                  html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';
+                }
                 html += '</div>';
                 html += endDiv;
               }
