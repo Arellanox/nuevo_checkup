@@ -115,12 +115,14 @@ switch ($api) {
             for($i=0; $i<count($grupos);$i++){
                 $nombre_grupo = $grupos[$i]['GRUPO'];
                 $id_grupo = $grupos[$i]['GRUPO_ID'];
+                $obs = $grupos[$i]['OBSERVACIONES'];
                 $contenido_grupo = array_filter($response, function ($obj) use ($nombre_grupo) {
                     $r = $obj["GRUPO"] == $nombre_grupo;
                     return $r;
                 });
                 $contenido_grupo['NombreGrupo'] = $nombre_grupo;
                 $contenido_grupo['ID_GRUPO'] = $id_grupo;
+                $contenido_grupo['OBSERVACIONES'] = $obs;
                 if(!empty($contenido_grupo)){
                     $array[] = $contenido_grupo;
                 }
@@ -149,6 +151,7 @@ switch ($api) {
         }
 
         // actualizamos las observaciones por los grupos en casa hijo de la tabla paciente detalle
+        
         foreach($observaciones as $key =>$observacion){
             $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,$key,null,$observacion]);
         }
