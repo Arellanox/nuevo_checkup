@@ -376,10 +376,10 @@ switch ($api) {
             $arrayGlobal['areas'][]= $aux;
         }
 
-        // print_r($arrayGlobal);
+        print_r($arrayGlobal);
 
-        $pdf = new Reporte(json_encode($arrayGlobal), 'resultados', 'url');
-        $pdf->build();
+      /*   $pdf = new Reporte(json_encode($arrayGlobal), 'resultados', 'url');
+        $pdf->build(); */
         
         break;
 
