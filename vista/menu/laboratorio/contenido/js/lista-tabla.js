@@ -181,16 +181,16 @@ function generarFormularioPaciente(id) {
         //   </ul>
 
         for (var i = 0; i < data.length; i++) {
-          console.log(1)
+          console.log('FOR')
           let row = data[i]
-          console.log(row)
+          // console.log(row)
           var count = Object.keys(row).length;
           console.log(count);
           html += '<ul class = "list-group card hover-list info-detalle" style="margin: 15px;padding: 15px;" >';
           html += '<h4 style="border-radius: 8px;font-size: 20px !important;font-weight: 600 !important;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">' + row['NombreGrupo'] + '</h4>';
           for (var k in row) {
-            if (row[k]['ID_SERVICIO'] > 0) {
-              // console.log(k, row[k])
+            console.log(k, row[k])
+            if (Number.isInteger(parseInt(k))) {
               // console.log(2)
               html += '<li class="list-group-item">';
               html += '<div class="row d-flex align-items-center">';

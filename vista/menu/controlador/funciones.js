@@ -10,13 +10,16 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
   } // p.m. - a.m.
 
   switch (optionsDate[0]) { //Dia de la semana
-    case 1: options['weekday'] = "narrow";
-    break; // S
-    case 2: options['weekday'] = "short";
-    break; // Sáb
-    case 3: options['weekday'] = "long";
-    break; // Sábado
-    }
+    case 1:
+      options['weekday'] = "narrow";
+      break; // S
+    case 2:
+      options['weekday'] = "short";
+      break; // Sáb
+    case 3:
+      options['weekday'] = "long";
+      break; // Sábado
+  }
   switch (optionsDate[1]) { //año
     case 1:
       options['year'] = "numeric";
@@ -305,6 +308,15 @@ const Toast = Swal.mixin({
     toast.addEventListener('mouseleave', Swal.resumeTimer)
   }
 });
+
+function isJson(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
 
 
 // Obtener segmentos por procedencia en select
@@ -870,15 +882,15 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
       setTimeout(function () {
         $(div).html(html);
         console.log(cliente)
-        if(cliente == "Particular" || cliente == "PARTICULAR"){
+        if (cliente == "Particular" || cliente == "PARTICULAR") {
           $('.onlyProcedencia').fadeOut(0);
-        }else{
+        } else {
           $('.onlyProcedencia').fadeIn(0);
         }
 
-        if(pagina == 0){
+        if (pagina == 0) {
           $('.onlyMedico').fadeOut(0);
-        }else{
+        } else {
           $('.onlyMedico').fadeIn(0);
         }
         // if (cliente) {
