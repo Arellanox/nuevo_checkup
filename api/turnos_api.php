@@ -142,12 +142,15 @@ switch ($api) {
         foreach ($setResultados as $servicio_id => $resultado) {
             #determinamos si el estudio de laboratorio tiene valor absoluto.
             $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
+
+            $a = array($id_turno, $servicio_id, $resultado, $observaciones, $confirmar, $confirmado_por, $valor_absoluto);
+
+            print_r($a);
             
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar,$confirmado_por,$valor_absoluto));
+            // $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar,$confirmado_por,$valor_absoluto));
         }
-        echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
+       // echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
         exit;
-        //$response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
         break;
 
     case 6:
