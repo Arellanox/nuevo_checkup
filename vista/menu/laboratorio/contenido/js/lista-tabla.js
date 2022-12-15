@@ -233,12 +233,21 @@ function generarFormularioPaciente(id) {
               }
               html += endDiv;
               html += '</li>';
+
+              if (row[k]['LLEVA_COMENTARIO'] == true) {
+                html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
+                  '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
+                  '<textarea name="observacionesServicios[' + row[k]['ID_SERVICIO'] + ']" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
+
+              }
             }
 
           }
-          html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
-            '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
-            '<textarea name="observaciones[' + row['ID_GRUPO'] + '][OBSERVACIONES]" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
+          if (row['ID_GRUPO'] != null) {
+            html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
+              '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
+              '<textarea name="observacionesGrupos[' + row['ID_GRUPO'] + ']" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
+          }
           html += '</ul>';
 
           // idsEstudios.push[data[i]['ID_SERVICIO']]
