@@ -116,13 +116,16 @@ switch ($api) {
                 $nombre_grupo = $grupos[$i]['GRUPO'];
                 $id_grupo = $grupos[$i]['GRUPO_ID'];
                 $obs = $grupos[$i]['OBSERVACIONES'];
+
                 $contenido_grupo = array_filter($response, function ($obj) use ($nombre_grupo) {
                     $r = $obj["GRUPO"] == $nombre_grupo;
                     return $r;
                 });
+
                 $contenido_grupo['NombreGrupo'] = $nombre_grupo;
                 $contenido_grupo['ID_GRUPO'] = $id_grupo;
                 $contenido_grupo['OBSERVACIONES'] = $obs;
+                
                 if(!empty($contenido_grupo)){
                     $array[] = $contenido_grupo;
                 }
