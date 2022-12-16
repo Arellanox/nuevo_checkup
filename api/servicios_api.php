@@ -351,7 +351,7 @@ switch ($api) {
         
             if(!empty($servicios)){
               
-                $aux = ordenarResultados($servicios,$clasificaciones[$i]['DESCRIPCION']);
+                $aux = ordenar($servicios,$clasificaciones[$i]['DESCRIPCION'],$id_turno);
 
                 $arrayGlobal['areas'][] = $aux;
                 
@@ -370,7 +370,7 @@ switch ($api) {
         });
 
         if(!empty($servicios)){
-            $aux = ordenarResultados($servicios,"NINGUNA");
+            $aux = ordenar($servicios,"NINGUNA",$id_turno);
             $arrayGlobal['areas'][]= $aux;
         }
 
@@ -386,6 +386,91 @@ switch ($api) {
         break;
 }
 
+#$servicios (conjunto de datos clasificados), $clasificacion (nombre de la clasificacion)
+function ordenar($servicios, $clasificacion, $turno){
+    #obtener los valores absolutos
+    $absoluto_array = array();
+    $in_array = 0;
+    #estamos buscandor el id 1 que corresponde a la biometria hematica
+    foreach($servicios as $current){
+        if(in_array(1,$current)){
+             $in_array++;
+         }
+     }
+
+     #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
+    if($in_array>0){
+        $bh = array_filter($servicios, function ($obj) {
+            $r = $obj['GRUPO_ID'] == 1;
+            return $r;
+        });
+
+        $abs = array_filter($bh, function ($obj) {
+            $r = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
+            return $r;
+        });
+
+        foreach ($abs as $current) {
+            $absoluto_array[] = array(
+                "analito" => $current['DESCRIPCION_SERVICIO'],
+                "valor_abosluto" => $current['VALOR_ABSOLUTO']
+            );
+        }
+    }
+
+    $master = new Master();
+    $grupos = $master->getByProcedure('sp_cargar_grupos',[$turno,6]);
+    $estudios = array();
+    $analitos = array();
+    for ($i = 0; $i < count($grupos); $i++){
+        $nombre_grupo = $grupos[$i]['GRUPO'];
+        $contenido_grupo = array_filter($servicios, function ($obj) use ($nombre_grupo) {
+            $r = $obj['GRUPO'] == $nombre_grupo;
+            return $r;
+        });
+
+        if(!empty($contenido_grupo)){
+
+
+            
+            # llenado de los analitos del grupo
+            foreach($contenido_grupo as $current)
+            {
+                $nombre_grupo = $current['GRUPO'];
+                $observacionnes_generales = $current['OBSERVACIONES'];
+
+                $item = array(
+                    "nombre"            => $current['DESCRIPCION_SERVICIO'],
+                    "unidad"            => $current['MEDIDA'],
+                    "resultado"         => $current['RESULTADO'],
+                    "referencia"        => $current['VALOR_DE_REFERENCIA'],
+                    "observaciones"     => $current['OBSERVACIONES']
+                );
+
+                $analitos[] = $item;
+            }
+
+            # llenar arreglo estudios
+            $estudios[] = array(
+                "estudio"        => $nombre_grupo,
+                "analitos"       => $analitos,
+                "metodo"         => "OPTICO",
+                "equipo"         => "SELECTRA PRO S",
+                "observaciones"  => $observacionnes_generales
+            );
+            $analitos = array();
+        }
+    }
+
+    # ARREGLO DE AREAS
+
+    $response = array(
+        "area" => $clasificacion,
+        "estudios" => $estudios
+    );
+
+    return $response;
+}
 
 function ordenarResultados($servicios,$clasificacion){
     $group = array();
@@ -454,14 +539,22 @@ function ordenarResultados($servicios,$clasificacion){
             }
 
         }else {
-            
-            $group[$k] = array(
-                "estudio"=> $grupo,
-                "analitos"=> $grupo_array,
-                "metodo"        => "OPTICO",
-                "observaciones" => $observaciones
+            if (isset($observaciones)) {
+                $group[$k] = array(
+                    "estudio" => $grupo,
+                    "analitos" => $grupo_array,
+                    "metodo" => "OPTICO",
+                    "observaciones" => $observaciones
 
-            );
+                );
+            } else {
+                $group[$k] = array(
+                    "estudio" => $grupo,
+                    "analitos" => $grupo_array,
+                    "metodo" => "OPTICO"
+                );
+            }
+
             $k++;
             $grupo = $servicios[$j]['GRUPO'];
             $grupo_array = array();
