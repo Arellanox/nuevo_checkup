@@ -251,7 +251,7 @@
                 <tbody>
                     <tr>
                         <td class="col-left"  style="border-bottom: none">
-                            No. Identificacion: <strong> <?php echo $encabezado->PREFOLIO;?> </strong> 
+                            No. Identificacion: <strong> <?php echo $encabezado->FOLIO;?> </strong> 
                         </td>
                         <td class="col-center"  style="border-bottom: none">
                             Edad: <strong> <?php echo $encabezado->EDAD;?> </strong> 
@@ -376,10 +376,41 @@
                         <tbody>
                             <?php
                             foreach ($estudio->analitos as $key => $analito) {
+                                if(is_array($analito)){
+                            ?>
+                                    <tr>
+                                        <td class="col-one">
+                                            <strong>Valores absolutos</strong>
+                                        </td>
+                                        <td class="col-two">
+                                        </td>
+                                        <td class="col-three">
+                                        </td>
+                                        <td class="col-four">
+                                        </td>
+                                    </tr>
+                            <?php
+                                    foreach ($analito as $b => $absoluto) {
+                            ?>
+                                        <tr style="text-indent: 5px;" >
+                                            <td class="col-one">
+                                                <?php echo ($absoluto->analito != null) ? $absoluto->analito : '' ;  ?>
+                                            </td>
+                                            <td class="col-two">
+                                                <?php echo ($absoluto->valor_abosluto != null) ? $absoluto->valor_abosluto : '' ; ?>
+                                            </td>
+                                            <td class="col-three">
+                                            </td>
+                                            <td class="col-four">
+                                            </td>
+                                        </tr>
+                            <?php
+                                    }
+                                }else{
                             ?>
                                 <tr >
                                     <td class="col-one">
-                                        <?php echo $analito->nombre ; ?>
+                                        <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
                                     </td>
                                     <td class="col-two">
                                         <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
@@ -392,6 +423,7 @@
                                     </td>
                                 </tr>
                             <?php
+                                }
                             }
                             ?>
                             <?php
@@ -429,42 +461,39 @@
                         </tbody>
                     </table>
                     <div >
-                        <strong>Método: </strong>
+                        
                         <?php
                             if(isset($estudio->metodo)){
-                                echo $estudio->metodo;
+                                echo "<strong>Método: </strong>". $estudio->metodo;
                             }else{
-                                echo "Sin metodo de muestra";
                             }
                         ?>
                     </div>
                     <div >
-                        <strong>Equipo: </strong>
+                        
                         <?php
                             if(isset($estudio->equipo)){
-                                echo $estudio->equipo;
+                                echo "<strong>Equipo: </strong>" .$estudio->equipo;
                             }else{
-                                echo "Sin equipo.";
                             }
                         ?>
                     </div>
                     <div >
-                        <strong>Observaciones: </strong>
+                        
                         <?php
                             if(isset($estudio->observaciones)){
-                                echo $estudio->observaciones;
+                                echo "<strong>Observaciones: </strong>". $estudio->observaciones;
                             }else{
-                                echo "Sin observaciones";
                             }
                         ?>
                     </div>
                     <br>
             <?php
                     }
-                    // $i++;
-                    // if ($i < $count) {  
-                    //     echo '<div class="break"></div>';
-                    // }
+                    $i++;
+                    if ($i < $count) {  
+                        echo '<div class="break"></div>';
+                    }
                 }
             ?>
         </div>

@@ -389,7 +389,7 @@ switch ($api) {
             $arrayGlobal['areas'][]= $aux;
         }
 
-        // print_r($arrayGlobal);
+        print_r($arrayGlobal);
         // print_r($responsePac);
 
 
