@@ -158,46 +158,70 @@ function fechaCastellano ($fecha) {
                 <td colspan="4">NEGATIVO</td>
             </tr>
         </table>
-        <br>
-        <p></p><strong>Comentarios:</strong> Esta prueba identifica la presencia  y el médico tratante es quien realiza
+        <p><strong>Comentarios:</strong> Esta prueba identifica la presencia  y el médico tratante es quien realiza
          la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
         </p>
-        <br><br>
+
+        <br>
         <table style="width: 100%;">
             <tr>
-                <td colspan="3" class="bold" style="width: 15% ;">Lote kit:</strong></td>
-                <td colspan="3">0</strong></td>
-                <td colspan="3" class="bold" style="width: 15% ;">ID de Frasco:</strong></td>
-                <td colspan="3">0</strong></td>
+                <td colspan="1" class="bold" style="width: 15% ;">Lote kit:</strong></td>
+                <td colspan="1">0</strong></td>
+                <td colspan="1" class="bold" style="width: 15% ;">ID de Frasco:</strong></td>
+                <td colspan="1">0</strong></td>
             </tr>
             <tr>
-                <td colspan="3" class="bold" style="width: 15% ;">Kit utilizado:</strong></td>
-                <td colspan="3"></strong></td>
-                <td colspan="3" class="bold" style="width: 15% ;"> Registro Sanitario:</td>
-                <td colspan="3"> </td>
+                <td colspan="1" class="bold" style="width: 15% ;">Kit utilizado:</strong></td>
+                <td colspan="1"></strong></td>
+                <td colspan="1" class="bold" style="width: 15% ;"> Registro Sanitario:</td>
+                <td colspan="1"> </td>
             </tr>
         </table> 
         <br>
-        <footer>
+        <table>
+                <tbody>
+                    <tr class="col-foot-one">
+                        <td colspan="12" style="text-align: center; padding-right: 0;"><strong>Atentamente</strong></td>
+                    </tr>
+                    <tr class="col-foot-two" >
+                        <td colspan="3" style="text-align: center; ">
+                            <a target="_blank" href="<?php echo $qr[0]; ?>"> <img style="margin-bottom: -30px" src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+                        </td>
+                        <td colspan="3" style="text-align: left;">
+                            <?php echo "<img style='position:absolute;' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
+                        </td>
+                    </tr>
+                    <tr class="col-foot-three"  style="font-size: 13px;">
+                        <td colspan="12" style="text-align: center; width: 50%; ">
+                            <strong >Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="margin-top: 0px; height: 0.5px; background-color: black ;">
+            <p style="text-align: center; margin-top: 0px"><small><strong>Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono: 993 131 00 42 
+            Correo electrónico: hola@bimo.com.mx</strong></small></p>
+        <!-- <footer>
             <table style="width: 100%;">
                 <tr>
-                    <td colspan="12" style="text-align: right; padding-right: 5rem;"><strong>Atentamente</strong></td>
+                    <td colspan="2" style="text-align: right; padding-right: 5rem;"><strong>Atentamente</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="12" style="text-align: right;"><strong>&nbsp;</strong></td>
+                    <td colspan="2" style="text-align: right;"><strong>&nbsp;</strong></td>
                 </tr>
                 <tr>
-                    <td style="height: 60px"></td>
+                    <td colspal="1" style="height: 60px; width: 50%"></td>
+                    <td colspal="1" style="height: 60px; text-align: right; width: 50%; padding-right: 5rem;"><img src="http://bimo-lab.com/pdf/logo/firma.png" alt="" style="width: 15%"></td>
                 </tr>
                 <tr style="font-size: 13px;">
-                    <td colspan="6" style="text-align: center; width: 50%">AQUI VA EL QR</td>
-                    <td colspan="6" style="text-align: right; width: 50%"><strong>Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong></td>
+                    <td colspan="1" style="text-align: center; width: 50%">AQUI VA EL QR</td>
+                    <td colspan="1" style="text-align: right; width: 50%"><strong>Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong></td>
                 </tr>
             </table>
             <hr style="height: 2px; background-color: black ;">
             <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa, Tabasco - Teléfono: 993 131 00 42 Correo electrónico: biologia.molecular@hguadalupe.com</strong></small></p>
-        </footer>
+        </footer> -->
     </div>
     
 </body>
-</html
+</html>

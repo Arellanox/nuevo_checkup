@@ -22,7 +22,8 @@ $confirmar = $_POST['confirmar'];
 #subir resultaddos
 $servicio_id = $_POST['servicio_id'];
 $resultado = $_POST['resultado'];
-$observaciones = $_POST['observaciones'];
+$observaciones = $_POST['observacionesGrupos'];
+$observacionesServicios = $_POST['observacionesServicios'];
 $confirmado_por = $_SESSION['id'];
 
 #insertar
@@ -114,12 +115,17 @@ switch ($api) {
             for($i=0; $i<count($grupos);$i++){
                 $nombre_grupo = $grupos[$i]['GRUPO'];
                 $id_grupo = $grupos[$i]['GRUPO_ID'];
+                $obs = $grupos[$i]['OBSERVACIONES'];
+
                 $contenido_grupo = array_filter($response, function ($obj) use ($nombre_grupo) {
                     $r = $obj["GRUPO"] == $nombre_grupo;
                     return $r;
                 });
+
                 $contenido_grupo['NombreGrupo'] = $nombre_grupo;
                 $contenido_grupo['ID_GRUPO'] = $id_grupo;
+                $contenido_grupo['OBSERVACIONES'] = $obs;
+                
                 if(!empty($contenido_grupo)){
                     $array[] = $contenido_grupo;
                 }
@@ -138,19 +144,26 @@ switch ($api) {
         # subir resultados
         $setResultados = $_POST['servicios'];
         $id_turno = $_POST['id_turno'];
-        // print_r($_POST);
-        // $id_turno = array_slice($setResultados, count($setResultados) - 4, 1);
-
-        // echo $confirmar;
-        //print_r($id_turno);
+        
         foreach ($setResultados as $servicio_id => $resultado) {
-            # code...
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado, $observaciones,$confirmar,$confirmado_por,$valor_absoluto));
-            //print_r($response);
+            #determinamos si el estudio de laboratorio tiene valor absoluto.
+            $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
+
+            #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'],$confirmar,$confirmado_por,$valor_absoluto));
         }
-        echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
-        exit;
-        //$response = $master->updateByProcedure('sp_subir_resultados',array($id_turno,$servicio_id,$resultado,$observaciones));
+
+        // actualizamos las observaciones por los grupos en casa hijo de la tabla paciente detalle
+        
+        foreach($observaciones as $key =>$observacion){
+            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,$key,null,$observacion]);
+        }
+
+        foreach($observacionesServicios as $key => $observacion){
+            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,null,$key,$observacion]);
+        }
+        //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
+        
         break;
 
     case 6:

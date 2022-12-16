@@ -181,16 +181,16 @@ function generarFormularioPaciente(id) {
         //   </ul>
 
         for (var i = 0; i < data.length; i++) {
-          console.log(1)
+          console.log('FOR')
           let row = data[i]
-          console.log(row)
+          // console.log(row)
           var count = Object.keys(row).length;
           console.log(count);
           html += '<ul class = "list-group card hover-list info-detalle" style="margin: 15px;padding: 15px;" >';
           html += '<h4 style="border-radius: 8px;font-size: 20px !important;font-weight: 600 !important;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">' + row['NombreGrupo'] + '</h4>';
           for (var k in row) {
-            if (row[k]['ID_SERVICIO'] > 0) {
-              // console.log(k, row[k])
+            console.log(k, row[k])
+            if (Number.isInteger(parseInt(k))) {
               // console.log(2)
               html += '<li class="list-group-item">';
               html += '<div class="row d-flex align-items-center">';
@@ -199,19 +199,26 @@ function generarFormularioPaciente(id) {
               html += endDiv;
               html += colreStart;
               html += '<div class="input-group">';
+
+              //Formulario
               if (row[k]['RESULTADO'] == null) {
-                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required autocomplete="off">';
+                html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required autocomplete="off">';
               } else {
-                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+                html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
               }
 
-              if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
-                html += '<span class="input-span">%</span>';
-              } else {
-                html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
+              if (row[k]['MEDIDA']) {
+                if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
+                  html += '<span class="input-span">%</span>';
+                } else {
+                  html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';
+                }
               }
+
               html += '</div>';
               html += endDiv;
+
+              //Valor Absoluto
               if (row[k]['TIENE_VALOR_ABSOLUTO'] == 1) {
                 html += colStart;
                 html += '<p  style="padding-left: 40px;"><i class="bi bi-box-arrow-in-right"></i> Valor absoluto</p>';
@@ -219,21 +226,39 @@ function generarFormularioPaciente(id) {
                 html += colreStart;
                 html += '<div class="input-group">';
                 if (row[k]['RESULTADO'] == null) {
-                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required autocomplete="off">';
+                  html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required autocomplete="off">';
                 } else {
-                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + ']" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+                  html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['VALOR_ABSOLUTO'] + '" autocomplete="off">';
                 }
-                html += '<span class="input-span">' + row[k]['DESCRIPCION_MEDIDA'] + '</span>';
+                if (row[k]['MEDIDA']) {
+                  html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';
+                }
                 html += '</div>';
                 html += endDiv;
               }
               html += endDiv;
               html += '</li>';
+
+              if (row[k]['LLEVA_COMENTARIO'] == true) {
+                if (row[k]['OBSERVACIONES'] == null) {
+                  row[k]['OBSERVACIONES'] = '';
+                }
+                html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
+                  '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
+                  '<textarea name="observacionesServicios[' + row[k]['ID_SERVICIO'] + ']" rows="2;" cols="90" class="input-form" value="">' + row[k]['OBSERVACIONES'] + '</textarea></div ></div > ';
+
+              }
             }
+
           }
-          html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
-            '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
-            '<textarea name="servicios[ID_GRUPO][OBSERVACIONES]" rows="2;" cols="90" class="input-form" placeholder=""></textarea></div ></div > ';
+          if (row['ID_GRUPO'] != null) {
+            if (row['OBSERVACIONES'] == null) {
+              row['OBSERVACIONES'] = '';
+            }
+            html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
+              '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
+              '<textarea name="observacionesGrupos[' + row['ID_GRUPO'] + ']" rows="2;" cols="90" class="input-form">' + row['OBSERVACIONES'] + '</textarea></div ></div > ';
+          }
           html += '</ul>';
 
           // idsEstudios.push[data[i]['ID_SERVICIO']]
