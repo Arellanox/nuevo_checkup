@@ -385,10 +385,10 @@
                                         <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
                                     </td>
                                     <td class="col-three">
-                                        ml/dL
+                                        <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>
                                     </td>
                                     <td class="col-four">
-                                        3.14 - 6.69
+                                        <?php echo ($analito->referencia != null) ? $analito->referencia : '' ; ?>
                                     </td>
                                 </tr>
                             <?php

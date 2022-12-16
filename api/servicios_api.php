@@ -337,7 +337,7 @@ switch ($api) {
         #Estudios solicitados por el paciente
         $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
         $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
-        $reponsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
+        $responsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
         $arrayGlobal = array(
             'areas' =>array()
         );
@@ -389,20 +389,13 @@ switch ($api) {
             $arrayGlobal['areas'][]= $aux;
         }
 
-<<<<<<< HEAD
         // print_r($arrayGlobal);
-        print_r($valores_absolutos);
+        // print_r($responsePac);
 
-      /*   $pdf = new Reporte(json_encode($arrayGlobal), 'resultados', 'url');
+
+        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), 'resultados', 'url');
         $pdf->build();
-         */
-=======
-        print_r($arrayGlobal);
-
-        // $pdf = new Reporte(json_encode($arrayGlobal), 'resultados', 'url');
-        // $pdf->build();
         
->>>>>>> 09cf6e23d44934f713451b053199eb1e0ce6877b
         break;
 
     default:
