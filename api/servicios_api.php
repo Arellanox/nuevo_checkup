@@ -405,6 +405,7 @@ function ordenarResultados($servicios,$clasificacion){
          }
      }
 
+     #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
     if($in_array>0){
         $bh = array_filter($servicios, function ($obj) {
             $r = $obj['GRUPO_ID'] == 1;
@@ -425,17 +426,32 @@ function ordenarResultados($servicios,$clasificacion){
     }
 
 
+    $observaciones = "";
             
     for ($j=$first_key, $x=0, $k=0; $x < count($servicios); $j++,$x++) {
         if($servicios[$j]['GRUPO'] == $grupo) {
+            if(isset($servicios[$j]['GRUPO_ID'])){
+                # si viene de un grupo, se guardal la observacion para agregarla al arreglo que guarda al grupo
+                $observaciones = $servicios[$j]['OBSERVACIONES'];
+                $grupo_array[] = array(
+                    "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                    "unidad" => $servicios[$j]["MEDIDA"],
+                    "resultado" => $servicios[$j]['RESULTADO'],
+                    "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
 
-            $grupo_array[] = array(
-                "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                "unidad" => $servicios[$j]["MEDIDA"],
-                "resultado"=> $servicios[$j]['RESULTADO'],
-                "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
+                );
 
-            );
+            } else {
+                # si lo agregaron por separado, se tiene que agregar al arreglo actual, la observacion
+                $grupo_array[] = array(
+                    "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                    "unidad" => $servicios[$j]["MEDIDA"],
+                    "resultado" => $servicios[$j]['RESULTADO'],
+                    "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA'],
+                    "observaciones" => $servicios[$j]['OBSERVACIONES']
+
+                );
+            }
 
         }else {
             
@@ -443,19 +459,36 @@ function ordenarResultados($servicios,$clasificacion){
                 "estudio"=> $grupo,
                 "analitos"=> $grupo_array,
                 "metodo"        => "OPTICO",
+                "observaciones" => $observaciones
 
             );
             $k++;
             $grupo = $servicios[$j]['GRUPO'];
             $grupo_array = array();
 
-            $grupo_array[] = array(
-                "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                "unidad" => $servicios[$j]["MEDIDA"],
-                "resultado"=> $servicios[$j]['RESULTADO'],
-                "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
+            if(isset($servicios[$j]['GRUPO_ID'])){
+                # si viene de un grupo, se guardal la observacion para agregarla al arreglo que guarda al grupo
+                $observaciones = $servicios[$j]['OBSERVACIONES'];
+                $grupo_array[] = array(
+                    "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                    "unidad" => $servicios[$j]["MEDIDA"],
+                    "resultado" => $servicios[$j]['RESULTADO'],
+                    "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
 
-            );
+                );
+
+            } else {
+                # si lo agregaron por separado, se tiene que agregar al arreglo actual, la observacion
+                $grupo_array[] = array(
+                    "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                    "unidad" => $servicios[$j]["MEDIDA"],
+                    "resultado" => $servicios[$j]['RESULTADO'],
+                    "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA'],
+                    "observaciones" => $servicios[$j]['OBSERVACIONES']
+
+                );
+            }
+
         }
 
         $group[$k] = array(
