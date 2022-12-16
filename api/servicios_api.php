@@ -339,8 +339,6 @@ switch ($api) {
 
         for($i=0; $i<count($clasificaciones); $i++) {
             $clasificacion_id = $clasificaciones[$i]['ID_CLASIFICACION'];
-            
-   
             # sacamos arrays individuales por clasificacion de examen
             $servicios = array_filter($response,function($obj) use ($clasificacion_id){
                 $return = $obj['CLASIFICACION_ID'] == $clasificacion_id;
@@ -391,10 +389,42 @@ switch ($api) {
 
 function ordenarResultados($servicios,$clasificacion){
     $group = array();
-                $grupo_array = array();
+    $grupo_array = array();
+
+    $absoluto_array = array();
                
-                $first_key = array_key_first($servicios);
-                $grupo = $servicios[$first_key]['GRUPO'];
+    $first_key = array_key_first($servicios);
+    $grupo = $servicios[$first_key]['GRUPO'];
+
+    $in_array =0;
+
+    #estamos buscandor el id 1 que corresponde a la biometria hematica
+    foreach($servicios as $current){
+        if(in_array(1,$current)){
+             $in_array++;
+         }
+     }
+
+    if($in_array>0){
+        $bh = array_filter($servicios, function ($obj) {
+            $r = $obj['GRUPO_ID'] == 1;
+            return $r;
+        });
+
+        $abs = array_filter($bh, function ($obj) {
+            $r = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
+            return $r;
+        });
+
+        foreach ($abs as $current) {
+            $absoluto_array[] = array(
+                "analito" => $current['DESCRIPCION_SERVICIO'],
+                "valor_abosluto" => $current['VALOR_ABSOLUTO']
+            );
+        }
+    }
+
+
             
                 for ($j=$first_key, $x=0, $k=0; $x < count($servicios); $j++,$x++) {
                     if($servicios[$j]['GRUPO'] == $grupo) {
@@ -425,11 +455,19 @@ function ordenarResultados($servicios,$clasificacion){
                         "analitos"=> $grupo_array
                     );
                 }
-                #echo "ESTA ES LA CLASIFICACIOEN". $clasificaciones[$i]['DESCRIPCION'];
+                
+               
                 $aux = array(
                     "area" =>$clasificacion, # $clasificaciones[$i]['DESCRIPCION'],
                     "estudios" => $group
                 );
+
+                if(!empty($absoluto_array)){
+                    $position = count($aux['estudios'][0]['analitos']) - 1;
+                    $aux_abs = $aux['estudios'][0]['analitos'][$position];
+                    $aux['estudios'][0]['analitos'][$position] = $absoluto_array;
+                    $aux['estudios'][0]['analitos'][] = $aux_abs;
+                }
                 return $aux;
 }
 
