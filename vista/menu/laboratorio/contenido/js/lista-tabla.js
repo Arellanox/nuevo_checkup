@@ -202,9 +202,9 @@ function generarFormularioPaciente(id) {
 
               //Formulario
               if (row[k]['RESULTADO'] == null) {
-                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required autocomplete="off">';
+                html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required autocomplete="off">';
               } else {
-                html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+                html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
               }
 
               if (row[k]['MEDIDA']) {
@@ -226,9 +226,9 @@ function generarFormularioPaciente(id) {
                 html += colreStart;
                 html += '<div class="input-group">';
                 if (row[k]['RESULTADO'] == null) {
-                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required autocomplete="off">';
+                  html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required autocomplete="off">';
                 } else {
-                  html += '<input type="number" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['VALOR_ABSOLUTO'] + '" autocomplete="off">';
+                  html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['VALOR_ABSOLUTO'] + '" autocomplete="off">';
                 }
                 if (row[k]['MEDIDA']) {
                   html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';
