@@ -438,6 +438,7 @@ function ordenar($servicios, $clasificacion, $turno){
             {
                 $nombre_grupo = $current['GRUPO'];
                 $observacionnes_generales = $current['OBSERVACIONES'];
+                $id_grupo = $current['GRUPO_ID'];
 
                 $item = array(
                     "nombre"            => $current['DESCRIPCION_SERVICIO'],
@@ -448,6 +449,13 @@ function ordenar($servicios, $clasificacion, $turno){
                 );
 
                 $analitos[] = $item;
+            }
+
+            if($id_grupo==1){
+                $last_position = count($analitos)-1;
+                $aux = $analitos[$last_position];
+                $analitos[$last_position] = $absoluto_array;
+                $analitos[] = $aux;
             }
 
             # llenar arreglo estudios
