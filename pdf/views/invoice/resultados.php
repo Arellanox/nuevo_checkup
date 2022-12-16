@@ -423,40 +423,25 @@
                                     </td>
                                 </tr>
                             <?php
-                                }
-                            }
+                                    if(isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '' ){
                             ?>
-                            <?php
-                                if(isset($estudio->absoluto)){
-                            ?>
-                                <tr>
+                                <tr >
                                     <td class="col-one">
-                                        <h5>
-                                            VALORES ABSOLUTOS
-                                        </h5>
-                                    </td>
-                                </tr>
-                            <?php
-                                    foreach($estudio->absoluto as $key=>$absoluto){
-                            ?>
-                                <tr>
-                                    <td class="col-one">
-                                        <?php echo $analito->nombre ; ?>
+                                        <?php echo "<strong>Observaciones: </strong>" .$analito->observaciones ?>
                                     </td>
                                     <td class="col-two">
-                                        <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
                                     </td>
                                     <td class="col-three">
-
                                     </td>
                                     <td class="col-four">
-
                                     </td>
                                 </tr>
                             <?php
                                     }
                                 }
+                            }
                             ?>
+                            
 
                         </tbody>
                     </table>
