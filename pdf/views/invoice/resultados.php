@@ -400,8 +400,12 @@
                                                 <?php echo ($absoluto->valor_abosluto != null) ? $absoluto->valor_abosluto : '' ; ?>
                                             </td>
                                             <td class="col-three">
+                                                <?php echo ($absoluto->unidad != null) ? $absoluto->unidad : '' ; ?>
+
                                             </td>
                                             <td class="col-four">
+                                                <?php echo ($absoluto->referencia != null) ? $absoluto->referencia : '' ; ?>
+
                                             </td>
                                         </tr>
                             <?php
@@ -425,17 +429,17 @@
                             <?php
                                     if(isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '' ){
                             ?>
-                                <tr >
-                                    <td class="col-one">
-                                        <?php echo "<strong>Observaciones: </strong>" .$analito->observaciones ?>
-                                    </td>
-                                    <td class="col-two">
-                                    </td>
-                                    <td class="col-three">
-                                    </td>
-                                    <td class="col-four">
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td class="col-one">
+                                                <?php echo "<strong>Observaciones: </strong>" .$analito->observaciones ?>
+                                            </td>
+                                            <td class="col-two">
+                                            </td>
+                                            <td class="col-three">
+                                            </td>
+                                            <td class="col-four">
+                                            </td>
+                                        </tr>
                             <?php
                                     }
                                 }
