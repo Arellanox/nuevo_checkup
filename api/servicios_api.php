@@ -413,7 +413,9 @@ function ordenar($servicios, $clasificacion, $turno){
         foreach ($abs as $current) {
             $absoluto_array[] = array(
                 "analito" => $current['DESCRIPCION_SERVICIO'],
-                "valor_abosluto" => $current['VALOR_ABSOLUTO']
+                "valor_abosluto" => $current['VALOR_ABSOLUTO'],
+                "referencia" => null,
+                "unidad" => null
             );
         }
     }
