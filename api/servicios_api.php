@@ -426,53 +426,56 @@ function ordenarResultados($servicios,$clasificacion){
 
 
             
-                for ($j=$first_key, $x=0, $k=0; $x < count($servicios); $j++,$x++) {
-                    if($servicios[$j]['GRUPO'] == $grupo) {
+    for ($j=$first_key, $x=0, $k=0; $x < count($servicios); $j++,$x++) {
+        if($servicios[$j]['GRUPO'] == $grupo) {
 
-                        $grupo_array[] = array(
-                            "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                            "unidad" => $servicios[$j]["MEDIDA"],
-                            "resultado"=> $servicios[$j]['RESULTADO'],
-                            "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
+            $grupo_array[] = array(
+                "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                "unidad" => $servicios[$j]["MEDIDA"],
+                "resultado"=> $servicios[$j]['RESULTADO'],
+                "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
 
-                        );
+            );
 
-                    }else {
-                       
-                        $group[$k] = array(
-                            "estudio"=> $grupo,
-                            "analitos"=> $grupo_array
-                        );
-                        $k++;
-                        $grupo = $servicios[$j]['GRUPO'];
-                        $grupo_array = array();
+        }else {
+            
+            $group[$k] = array(
+                "estudio"=> $grupo,
+                "analitos"=> $grupo_array,
+                "metodo"        => "OPTICO",
 
-                        $grupo_array[] = array(
-                            "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                            "unidad" => $servicios[$j]["MEDIDA"],
-                            "resultado"=> $servicios[$j]['RESULTADO'],
-                            "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
+            );
+            $k++;
+            $grupo = $servicios[$j]['GRUPO'];
+            $grupo_array = array();
 
-                        );
-                    }
+            $grupo_array[] = array(
+                "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                "unidad" => $servicios[$j]["MEDIDA"],
+                "resultado"=> $servicios[$j]['RESULTADO'],
+                "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
 
-                    $group[$k] = array(
-                        "estudio"=> $grupo,
-                        "analitos"=> $grupo_array
-                    );
-                }
-                
-               
-                $aux = array(
-                    "area" =>$clasificacion, # $clasificaciones[$i]['DESCRIPCION'],
-                    "estudios" => $group
-                );
+            );
+        }
 
-                if(!empty($absoluto_array)){
-                    $position = count($aux['estudios'][0]['analitos']) - 1;
-                    $aux_abs = $aux['estudios'][0]['analitos'][$position];
-                    $aux['estudios'][0]['analitos'][$position] = $absoluto_array;
-                    $aux['estudios'][0]['analitos'][] = $aux_abs;
-                }
-                return $aux;
+        $group[$k] = array(
+            "estudio"=> $grupo,
+            "analitos"=> $grupo_array,
+            "metodo"        => "OPTICO",
+        );
+    }
+
+
+    $aux = array(
+        "area" =>$clasificacion, # $clasificaciones[$i]['DESCRIPCION'],
+        "estudios" => $group
+    );
+
+    if(!empty($absoluto_array)){
+        $position = count($aux['estudios'][0]['analitos']) - 1;
+        $aux_abs = $aux['estudios'][0]['analitos'][$position];
+        $aux['estudios'][0]['analitos'][$position] = $absoluto_array;
+        $aux['estudios'][0]['analitos'][] = $aux_abs;
+    }
+    return $aux;
 }
