@@ -330,12 +330,27 @@ switch ($api) {
         break;
     case 13:
         # para crear los reportes de LABORATORIO
+
+        # informacion general del paciente
+        $infoPaciente = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
+
+        #Estudios solicitados por el paciente
         $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
         $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
-        $reponsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
+        $responsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
         $arrayGlobal = array(
             'areas' =>array()
         );
+
+        # filtramos el arreglo principal y obtenemos aquellos estudios
+        # que tienen valor absoluto.
+        $serv_var_abs_obj = array_filter($response,function($obj){
+            $return = $obj['TIENE_VALOR_ABSOLUTO']==1;
+            return $return;
+        });
+
+        $serv_var_abs = ordenarResultados($serv_var_abs_obj, "VALORES ABSOLUTOS");
+        $valores_absolutos = $serv_var_abs['estudios'][0]['analitos'];
 
         for($i=0; $i<count($clasificaciones); $i++) {
             $clasificacion_id = $clasificaciones[$i]['ID_CLASIFICACION'];
@@ -370,14 +385,17 @@ switch ($api) {
         });
 
         if(!empty($servicios)){
+            // $aux = ordenarResultados($servicios,"OTROS ESTUDIOS");
             $aux = ordenar($servicios,"NINGUNA",$id_turno);
             $arrayGlobal['areas'][]= $aux;
         }
 
         print_r($arrayGlobal);
+        // print_r($responsePac);
 
-        // $pdf = new Reporte(json_encode($arrayGlobal), 'resultados', 'url');
-        // $pdf->build();
+
+        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), 'resultados', 'url');
+        $pdf->build();
         
         break;
 

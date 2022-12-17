@@ -1,16 +1,13 @@
 <?php
 
 require_once '../php/dompdf/vendor/autoload.php';
-// require 'class/View.php';
 require 'View.php';
+require 'Qrcode.php';
+
 
 use Dompdf\Adapter\PDFLib;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
-use chillerlan\QRCode\QRCode;
-use chillerlan\QRCode\QROptions;
-
 
 class Reporte{
 
@@ -22,41 +19,30 @@ class Reporte{
      *
      * @return void
      */
-    public function __construct($response, $tipo, $orden){
+    public function __construct($response, $data, $tipo, $orden){
         $this->response = $response;
+        $this->data     = $data;
         $this->tipo     = $tipo;
         $this->orden    = $orden;
     }
 
-    public function generarQRURL($clave, $folio, $url = 'resultados/validar-pdf/'){
-        $options = new QROptions(
-        [
-            'eccLevel' => QRCode::ECC_L,
-            'outputType' => QRCode::OUTPUT_MARKUP_SVG,
-            'version' => 5,
-        ]
-        );
-
-        $contenido = 'https://bimo-lab.com/nuevo_checkup/'.$url+'?clave='.$clave.'&id='.$folio.'&resultado=1';
-
-        $qrcode = (new QRCode($options))->render($contenido);
-
-        return array($contenido, $qrcode);
-    }
-
-
     public function build(){
-        $data       = json_decode($this->response);
+        $response   = json_decode($this->response);
+        $data       = json_decode($this->data); //Esperando la data general
         $tipo       = $this->tipo;
         $orden      = $this->orden;
 
         $pdf = new Dompdf();
-        
+
+        $prueba = generarQRURL('12345', 'DBM-1');
+
         session_start();
-        
         $view_vars = array(
-            "data" => $data,
+            "resultados"            => $response,
+            "encabezado"            => $data,
+            "qr"                    => $prueba,
         );
+
 
         // Recibe la orden de que tipo de archivo quiere
         switch ($tipo) {
