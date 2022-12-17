@@ -111,3 +111,30 @@ $('#fechaListadoLaboratorio').change(function () {
   tablaListaPaciente.ajax.reload();
   getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
 })
+
+// obtenerPDF
+$(document).on('click', '.obtenerPDF', function (event) {
+  // alert('si')
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  let id = $(this).attr('data-bs-id');
+  $.ajax({
+    url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
+    type: "POST",
+    // dataType: 'json',
+    data: {
+      id_turno: id,
+      api: 13
+    },
+    beforeSend: function () {
+      alertMensaje('info', 'Espere un momento', 'Generando')
+    },
+    success: function (data) {
+      console.log(data);
+      alertMensaje(null, null, null, null,
+        `<div class="d-flex justify-content-center"> <button type="button" class="btn btn-borrar" name="button" style="width: 50%" onClick="DownloadFromUrl('` + data + `')"> <i class="bi bi-image"></i> Descargar</button></div></div>`
+      )
+
+    }
+  })
+})

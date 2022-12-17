@@ -387,10 +387,10 @@ switch ($api) {
         if(!empty($servicios)){
             // $aux = ordenarResultados($servicios,"OTROS ESTUDIOS");
             $aux = ordenar($servicios,"NINGUNA",$id_turno);
-            $arrayGlobal['areas'][]= $aux;
+            // $arrayGlobal['areas'][]= $aux;
         }
 
-        print_r($arrayGlobal);
+        // print_r($arrayGlobal);
         // print_r($responsePac);
 
 

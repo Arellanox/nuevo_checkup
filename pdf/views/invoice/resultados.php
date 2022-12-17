@@ -209,7 +209,7 @@
         // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
         
         // path firma
-        $ruta_firma = file_get_contents('../pdf/public/assets/firma.png');
+        $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
         $encode_firma = base64_encode($ruta_firma);
 
     ?>
@@ -279,7 +279,7 @@
                             Fecha de Resultado:     <strong><?php echo $encabezado->FECHA_RESULTADO;?> </strong>
                         </td>
                         <td class="col-right"  style="border-bottom: none">
-                            Tipo de Muestra: <strong>Sangre</strong>
+                            <!-- Tipo de Muestra: <strong>Sangre</strong> -->
                         </td>
                     </tr>
                     <tr>
@@ -470,7 +470,7 @@
                     <div >
                         
                         <?php
-                            if(isset($estudio->observaciones)){
+                            if($estudio->observaciones != '' || $estudio->observaciones != null){
                                 echo "<strong>Observaciones: </strong>". $estudio->observaciones;
                             }else{
                             }
