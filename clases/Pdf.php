@@ -90,7 +90,7 @@ class Reporte{
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                echo 'https://bimo-lab.com/'. $path;
+                echo 'https://bimo-lab.com/nuevo_checkup/'. $path;
                 break;
             default:
                 $pdf->render();
