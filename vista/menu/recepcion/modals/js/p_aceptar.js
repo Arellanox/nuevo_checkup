@@ -1,38 +1,58 @@
 // Obtener datos del paciente seleccionado
-var url_paciente = null, validarEstudiosLab = 0, validarEstudiosRX = 0, validarEstudiosImg = 0, validarEstudiosOtros = 0;
+var url_paciente = null,
+  validarEstudiosLab = 0,
+  validarEstudiosRX = 0,
+  validarEstudiosImg = 0,
+  validarEstudiosOtros = 0;
 var estudiosEnviar = new Array();
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
   document.getElementById("btn-confirmar-paciente").disabled = true;
 
-  rellenarSelect('#select-paquetes','paquetes_api', 2,'ID_PAQUETE','DESCRIPCION', {'cliente_id': array_selected['CLIENTE_ID']})
-  rellenarSelect("#select-lab", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {'area_id' : 6, cliente_id: array_selected['CLIENTE_ID']});
-  rellenarSelect('#select-us',"precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {'area_id' : 7, cliente_id: array_selected['CLIENTE_ID']});
-  rellenarSelect('#select-rx',"precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {'area_id' : 8, cliente_id: array_selected['CLIENTE_ID']});
-  rellenarSelect('#select-otros',"precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {area_id : 0, cliente_id: array_selected['CLIENTE_ID']});
+  rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
+    'cliente_id': array_selected['CLIENTE_ID']
+  })
+  rellenarSelect("#select-lab", "servicios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    'area_id': 6,
+    cliente_id: array_selected['CLIENTE_ID']
+  });
+  rellenarSelect('#select-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    'area_id': 7,
+    cliente_id: array_selected['CLIENTE_ID']
+  });
+  rellenarSelect('#select-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    'area_id': 8,
+    cliente_id: array_selected['CLIENTE_ID']
+  });
+  rellenarSelect('#select-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    area_id: 0,
+    cliente_id: array_selected['CLIENTE_ID']
+  });
 
   // "#seleccion-estudio", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : this.value, paquete_id: $('#seleccion-paquete').val()}
 })
 
-$("#btn-obtenerID").click(function(){
+$("#btn-obtenerID").click(function () {
   var folder = "identificacion/";
   $.ajax({
-    url : "../../../api/archivos/imagen_paciente.php",
+    url: "../../../api/archivos/imagen_paciente.php",
     type: "POST",
-    data:{api:1},
+    data: {
+      api: 1
+    },
     success: function (data) {
       data = jQuery.parseJSON(data);
-      img = "identificacion/"+data[2];
-      $("#image-perfil").attr("src",img);
-      url_paciente = "https:bimo-lab.com/nuevo_checkup/vista/menu/recepcion/identificacion/"+data[2];
+      img = "identificacion/" + data[2];
+      $("#image-perfil").attr("src", img);
+      url_paciente = "https:bimo-lab.com/nuevo_checkup/vista/menu/recepcion/identificacion/" + data[2];
       url_paciente = data;
       document.getElementById("btn-confirmar-paciente").disabled = false;
     }
   });
 })
 
-$('#formAceptarPacienteRecepcion').submit(function (event){
+$('#formAceptarPacienteRecepcion').submit(function (event) {
 
   event.preventDefault();
 
@@ -49,176 +69,176 @@ $('#formAceptarPacienteRecepcion').submit(function (event){
   console.log(estudiosEnviar);
   document.getElementById("btn-confirmar-paciente").disabled = true;
   $.ajax({
-      url: "../../../api/recepcion_api.php",
-      type: "POST",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function(data) {
-        data = jQuery.parseJSON(data);
-        console.log(data);
-        if (true) {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Turno: @Turno',
-            text: '¡Paciente aceptado! Recuerda generar sus documentos.',
-            showCloseButton: false,
-          })
-          limpiarFormAceptar();
-          $("#modalPacienteAceptar").modal("hide");
-          tablaRecepcionPacientes.ajax.reload();
-        }
-      },
+    url: "../../../api/recepcion_api.php",
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (data) {
+      data = jQuery.parseJSON(data);
+      console.log(data);
+      if (true) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Turno: @Turno',
+          text: '¡Paciente aceptado! Recuerda generar sus documentos.',
+          showCloseButton: false,
+        })
+        limpiarFormAceptar();
+        $("#modalPacienteAceptar").modal("hide");
+        tablaRecepcionPacientes.ajax.reload();
+      }
+    },
   });
   event.preventDefault();
 })
 
 
-function filtrarArray(){
+function filtrarArray() {
 
- }
+}
 
 
-$('#btn-AgregarEstudioLab').on('click', function(){
-   let text = $( "#select-lab option:selected" ).text();
-   let id = $( "#select-lab" ).val();
-   validarEstudiosLab = 1;
-   agregarFilaDiv('#list-estudios-laboratorio', text, id)
+$('#btn-AgregarEstudioLab').on('click', function () {
+  let text = $("#select-lab option:selected").text();
+  let id = $("#select-lab").val();
+  validarEstudiosLab = 1;
+  agregarFilaDiv('#list-estudios-laboratorio', text, id)
 })
 // Create an observer instance.
-var ObserRX = new MutationObserver(function(mutations) {
+var ObserRX = new MutationObserver(function (mutations) {
   if ($('#list-estudios-laboratorio').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosLab = 0;
-    $('#file-laboratorio').prop('required',false);
-  }else{
-    $('#file-laboratorio').prop('required',true);
+    $('#file-laboratorio').prop('required', false);
+  } else {
+    $('#file-laboratorio').prop('required', true);
   }
 });
 // Pass in the target node, as well as the observer options.
 ObserRX.observe(document.querySelector('#list-estudios-laboratorio'), {
-    attributes:    true,
-    childList:     true,
-    characterData: true
+  attributes: true,
+  childList: true,
+  characterData: true
 });
 
 
 
-$('#btn-agregarEstudioRX').on('click', function(){
-   let text = $( "#select-rx option:selected" ).text();
-   let id = $( "#select-rx" ).val();
-   agregarFilaDiv('#list-estudios-rx', text, id)
+$('#btn-agregarEstudioRX').on('click', function () {
+  let text = $("#select-rx option:selected").text();
+  let id = $("#select-rx").val();
+  agregarFilaDiv('#list-estudios-rx', text, id)
 })
 // Create an observer instance.
-var ObserRX = new MutationObserver(function(mutations) {
-  if ($('#list-estudios-rx').children().length == 0  || array_selected['CLIENTE_ID'] != 1) {
+var ObserRX = new MutationObserver(function (mutations) {
+  if ($('#list-estudios-rx').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosRX = 0;
-    $('#file-r-x').prop('required',false);
-  }else{
-    $('#file-r-x').prop('required',true);
+    $('#file-r-x').prop('required', false);
+  } else {
+    $('#file-r-x').prop('required', true);
   }
 });
 // Pass in the target node, as well as the observer options.
 ObserRX.observe(document.querySelector('#list-estudios-rx'), {
-    attributes:    true,
-    childList:     true,
-    characterData: true
+  attributes: true,
+  childList: true,
+  characterData: true
 });
 
 
 
-$('#btn-agregarEstudioImg').on('click', function(){
-   let text = $( "#select-us option:selected" ).text();
-   let id = $("#select-us").val();
-   agregarFilaDiv('#list-estudios-ultrasonido', text, id)
+$('#btn-agregarEstudioImg').on('click', function () {
+  let text = $("#select-us option:selected").text();
+  let id = $("#select-us").val();
+  agregarFilaDiv('#list-estudios-ultrasonido', text, id)
 })
 // Create an observer instance.
-var ObserULTRSONIDO = new MutationObserver(function(mutations) {
-  if ($('#list-estudios-ultrasonido').children().length == 0  || array_selected['CLIENTE_ID'] != 1) {
+var ObserULTRSONIDO = new MutationObserver(function (mutations) {
+  if ($('#list-estudios-ultrasonido').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosImg = 0;
-    $('#file-ultra-sonido').prop('required',false);
-  }else{
-    $('#file-ultra-sonido').prop('required',true);
-  } 
+    $('#file-ultra-sonido').prop('required', false);
+  } else {
+    $('#file-ultra-sonido').prop('required', true);
+  }
 });
 // Pass in the target node, as well as the observer options.
 ObserULTRSONIDO.observe(document.querySelector('#list-estudios-ultrasonido'), {
-    attributes:    true,
-    childList:     true,
-    characterData: true
+  attributes: true,
+  childList: true,
+  characterData: true
 });
 
 
 
-$('#btn-agregarEstudioOtros').on('click', function(){
- let text = $( "#select-otros option:selected" ).text();
- let id = $("#select-otros").val();
- agregarFilaDiv('#list-estudios-otros', text, id)
+$('#btn-agregarEstudioOtros').on('click', function () {
+  let text = $("#select-otros option:selected").text();
+  let id = $("#select-otros").val();
+  agregarFilaDiv('#list-estudios-otros', text, id)
 })
 // Create an observer instance.
-var ObserOtros = new MutationObserver(function(mutations) {
+var ObserOtros = new MutationObserver(function (mutations) {
   if ($('#list-estudios-otros').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosOtros = 0;
-  }  
+  }
 });
 // Pass in the target node, as well as the observer options.
 ObserOtros.observe(document.querySelector('#list-estudios-otros'), {
-    attributes:    true,
-    childList:     true,
-    characterData: true
+  attributes: true,
+  childList: true,
+  characterData: true
 });
 
 
-function agregarFilaDiv(appendDiv, text, id){
-   estudiosEnviar.push(id)
-   let html = '<li class="list-group-item">'+
-             '<div class="row">'+
-               '<div class="col-10 d-flex  align-items-center">'+
-                 text+
-               '</div>'+
-               '<div class="col-2">'+
-                 '<button type="button" class="btn btn-hover me-2 eliminarfilaEstudio" data-bs-id="'+id+'"> <i class="bi bi-trash"></i> </button>'+
-               '</div>'+
-             '</div>'+
-           '</li>';
-   $(appendDiv).append(html);
-   // console.log(estudiosEnviar);
+function agregarFilaDiv(appendDiv, text, id) {
+  estudiosEnviar.push(id)
+  let html = '<li class="list-group-item">' +
+    '<div class="row">' +
+    '<div class="col-10 d-flex  align-items-center">' +
+    text +
+    '</div>' +
+    '<div class="col-2">' +
+    '<button type="button" class="btn btn-hover me-2 eliminarfilaEstudio" data-bs-id="' + id + '"> <i class="bi bi-trash"></i> </button>' +
+    '</div>' +
+    '</div>' +
+    '</li>';
+  $(appendDiv).append(html);
+  // console.log(estudiosEnviar);
 }
 
- $(document).on('click', '.eliminarfilaEstudio', function () {
-    let id = $(this).attr('data-bs-id');
-    eliminarElementoArray(id);
-    console.log(id);
-    var parent_element = $(this).closest("li[class='list-group-item']");
-    $(parent_element).remove()
+$(document).on('click', '.eliminarfilaEstudio', function () {
+  let id = $(this).attr('data-bs-id');
+  eliminarElementoArray(id);
+  console.log(id);
+  var parent_element = $(this).closest("li[class='list-group-item']");
+  $(parent_element).remove()
 
- });
-
-
- function eliminarElementoArray(id){
-    estudiosEnviar = jQuery.grep(estudiosEnviar, function(value) {
-      return value != id;
-    });
-    console.log(estudiosEnviar);
- }
+});
 
 
+function eliminarElementoArray(id) {
+  estudiosEnviar = jQuery.grep(estudiosEnviar, function (value) {
+    return value != id;
+  });
+  console.log(estudiosEnviar);
+}
 
- function limpiarFormAceptar(){
-   $('#list-estudios-laboratorio').html('')
-   $('#file-laboratorio').val('');
-   validarEstudiosLab = 0;
-   $('#list-estudios-rx').html('')
-   $('#file-r-x').val('');
-   validarEstudiosRX = 0;
-   $('#list-estudios-ultrasonido').html('')
-   $('#file-ultra-sonido').val('');
-   validarEstudiosImg = 0;
-   $('#list-estudios-otros').html('')
-   validarEstudiosOtros = 0;
-   $('#Observaciones-aceptar').val('')
-   estudiosEnviar = [];
- }
+
+
+function limpiarFormAceptar() {
+  $('#list-estudios-laboratorio').html('')
+  $('#file-laboratorio').val('');
+  validarEstudiosLab = 0;
+  $('#list-estudios-rx').html('')
+  $('#file-r-x').val('');
+  validarEstudiosRX = 0;
+  $('#list-estudios-ultrasonido').html('')
+  $('#file-ultra-sonido').val('');
+  validarEstudiosImg = 0;
+  $('#list-estudios-otros').html('')
+  validarEstudiosOtros = 0;
+  $('#Observaciones-aceptar').val('')
+  estudiosEnviar = [];
+}
 
 
 

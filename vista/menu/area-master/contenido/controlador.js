@@ -1,5 +1,7 @@
 var tablaContenido, areaActiva;
-var dataListaPaciente = {api:7};
+var dataListaPaciente = {
+  api: 7
+};
 var selectPacienteArea, hash;
 //Variable para guardar los servicios de un paciente seleccionado
 var selectEstudio = new GuardarArreglo();
@@ -14,55 +16,59 @@ function hasLocation() {
   hash = window.location.hash.substring(1);
   // $("a").removeClass("navlinkactive");
   // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-       if (validarVista(hash) == true){
-         switch (hash) {
-          case "IMAGENOLOGIA":
-            obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
-          break;
-          case "RX":
-            obtenerContenidoVistaMaster(8, 'Resultados de Rayos X');
-          break;
-          case "ESPIROMETRIA":
-            obtenerContenidoVistaMaster(5, 'Resultados de Espirometría');
-          break;
-          case "AUDIOMETRIA":
-            obtenerContenidoVistaMaster(4, 'Resultados de Audiometría');
-          break;
-          case "OFTALMOLOGIA":
-            obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología');
-          break;
-          default:
-            // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
-            break;
-        }
-       }
+  if (validarVista(hash) == true) {
+    switch (hash) {
+      case "IMAGENOLOGIA":
+        obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
+        break;
+      case "RX":
+        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X');
+        break;
+      case "ESPIROMETRIA":
+        obtenerContenidoVistaMaster(5, 'Resultados de Espirometría');
+        break;
+      case "AUDIOMETRIA":
+        obtenerContenidoVistaMaster(4, 'Resultados de Audiometría');
+        break;
+      case "OFTALMOLOGIA":
+        obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_oftalmologia.php');
+        break;
+      default:
+        // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
+        break;
+    }
+  }
 
 }
 
-function obtenerContenidoVistaMaster(area, titulo) {
+function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.php') {
   areaActiva = area;
-  $.post("contenido/contenido.php", async function (html) {
+  $.post("contenido/" + contenidoHTML, async function (html) {
     $("#body-js").html(html);
     await obtenerTitulo(titulo)
-    dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
-  }).done(function(){
-      // Datatable
-      $.getScript("contenido/js/vista-tabla.js")
-      // Botones
-      $.getScript("contenido/js/area-botones.js")
+    dataListaPaciente = {
+      api: 5,
+      fecha_busqueda: $('#fechaListadoAreaMaster').val(),
+      area_id: areaActiva
+    }
+  }).done(function () {
+    // Datatable
+    $.getScript("contenido/js/vista-tabla.js")
+    // Botones
+    $.getScript("contenido/js/area-botones.js")
 
-      switch (area) {
-        case 3:
-          $('#btn-analisis-pdf').fadeOut(0)
-          $('#btn-capturas-pdf').fadeOut(0)
-          $('#btn-analisis-oftalmo').fadeIn(0)
+    switch (area) {
+      case 3:
+        $('#btn-analisis-pdf').fadeOut(0)
+        $('#btn-capturas-pdf').fadeOut(0)
+        $('#btn-analisis-oftalmo').fadeIn(0)
         break;
-        default:
-          $('#btn-analisis-pdf').fadeIn(0)
-          $('#btn-capturas-pdf').fadeIn(0)
-          $('#btn-analisis-oftalmo').fadeOut(0)
+      default:
+        $('#btn-analisis-pdf').fadeIn(0)
+        $('#btn-capturas-pdf').fadeIn(0)
+        $('#btn-analisis-oftalmo').fadeOut(0)
 
-      }
+    }
   });
 }
 
