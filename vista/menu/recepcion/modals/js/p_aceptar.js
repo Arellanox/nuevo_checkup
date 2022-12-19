@@ -64,7 +64,11 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   formData.set('estado', 1);
   formData.set('comentario_rechazo', $('#Observaciones-aceptar').val());
   formData.set('servicios', estudiosEnviar);
-  formData.set('id_paquete', $('#select-paquetes').val());
+
+
+  if (!$('#checkPaqueteAceptar').is(":checked")) {
+    formData.set('id_paquete', $('#select-paquetes').val());
+  }
 
   console.log(estudiosEnviar);
   document.getElementById("btn-confirmar-paciente").disabled = true;
@@ -107,16 +111,16 @@ $('#btn-AgregarEstudioLab').on('click', function () {
   agregarFilaDiv('#list-estudios-laboratorio', text, id)
 })
 // Create an observer instance.
-var ObserRX = new MutationObserver(function (mutations) {
+var Obserlab = new MutationObserver(function (mutations) {
   if ($('#list-estudios-laboratorio').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosLab = 0;
-    $('#file-laboratorio').prop('required', false);
+    // $('#file-laboratorio').prop('required', false);
   } else {
-    $('#file-laboratorio').prop('required', true);
+    // $('#file-laboratorio').prop('required', true);
   }
 });
 // Pass in the target node, as well as the observer options.
-ObserRX.observe(document.querySelector('#list-estudios-laboratorio'), {
+Obserlab.observe(document.querySelector('#list-estudios-laboratorio'), {
   attributes: true,
   childList: true,
   characterData: true
@@ -133,9 +137,9 @@ $('#btn-agregarEstudioRX').on('click', function () {
 var ObserRX = new MutationObserver(function (mutations) {
   if ($('#list-estudios-rx').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosRX = 0;
-    $('#file-r-x').prop('required', false);
+    // $('#file-r-x').prop('required', false);
   } else {
-    $('#file-r-x').prop('required', true);
+    // $('#file-r-x').prop('required', true);
   }
 });
 // Pass in the target node, as well as the observer options.
@@ -156,9 +160,9 @@ $('#btn-agregarEstudioImg').on('click', function () {
 var ObserULTRSONIDO = new MutationObserver(function (mutations) {
   if ($('#list-estudios-ultrasonido').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosImg = 0;
-    $('#file-ultra-sonido').prop('required', false);
+    // $('#file-ultra-sonido').prop('required', false);
   } else {
-    $('#file-ultra-sonido').prop('required', true);
+    // $('#file-ultra-sonido').prop('required', true);
   }
 });
 // Pass in the target node, as well as the observer options.
