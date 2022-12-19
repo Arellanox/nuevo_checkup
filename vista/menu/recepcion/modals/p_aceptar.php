@@ -50,7 +50,7 @@
               </div>
             </div>
             <div class="col-12">
-              <h4>Añade mas estudios</h4>
+              <h4>Añade más estudios</h4>
               <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
@@ -123,7 +123,7 @@
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Estudios de Ultra Sonido
+                      Estudios de Ultrasonido
                     </button>
                   </h2>
                   <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -141,7 +141,7 @@
                               </button>
                             </div>
                             <div class="col-12 mt-3">
-                              <label for="paquete" class="form-label">Orden médica de Ultra Sonido:</label>
+                              <label for="paquete" class="form-label">Orden médica de Ultrasonido:</label>
                               <input type="file" name="orden-medica-us[]" id="file-ultra-sonido" class="form-control input-form">
                             </div>
                           </div>

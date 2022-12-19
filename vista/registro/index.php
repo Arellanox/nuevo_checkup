@@ -1,7 +1,8 @@
 <?php
 //Variables dinamicas;
 $codigo = isset($_GET['codigo']) ? $_GET['codigo'] : null;
-$token = isset($_POST['token']) ? $_POST['token'] : null;
+$token = isset($_GET['token']) ? $_GET['token'] : null;
+$ant = isset($_GET['ant']) ? $_GET['ant'] : null;
 include "../variables.php";
 $menu = "Prerregistro";
 ?>
@@ -19,6 +20,7 @@ $menu = "Prerregistro";
   var logeo = 1, registroAgendaProcedencia = 0;
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
+  const ant = '<?php echo $ant; ?>';
   let clienteRegistro;
 
   if (!codigo == token) {

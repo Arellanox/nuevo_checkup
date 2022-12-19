@@ -280,11 +280,10 @@ function crearReporteLaboratorio($id_paciente_detalle,$id_area,$id_turno){
     $respuesta = array(json_encode($res_toma_muestra_serv));
     echo json_encode($respuesta);
 
-    $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), 'resultados', 'url');
+    $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
-    $responseReport = $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->getRuta()]);
-    $pdf->build();
-
+    $responseReport = $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'], $pdf->build()]);
+    
 }
 
 

@@ -28,6 +28,9 @@ $id_paciente_detalle = $_POST['id_paciente_detalle'];
 $paquete_id = $_POST['paquete_id'];
 $cliente_id = $_POST['cliente_id'];
 
+#filtrar servicios y grupos 
+$tipgrupo = isset($_POST['tipgrupo']) ? $_POST['tipgrupo'] : null;
+
 
 
 switch ($api) {
@@ -55,7 +58,7 @@ switch ($api) {
     case 2:
         #getall
 
-        $response = $master->getByProcedure('sp_servicios_b',array(null,0,$id_area,$otros_servicios,$abreviatura));
+        $response = $master->getByProcedure('sp_servicios_b',array(null,$tipgrupo,$id_area,$otros_servicios,$abreviatura));
 
         if (is_array($response)) {
             $newResponse = array();

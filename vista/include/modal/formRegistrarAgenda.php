@@ -54,13 +54,15 @@
     </div>
   </div>
   <br>
-  <h3>Cuestionario</h3>
-  <p class="none-p" style="margin-left: 10px" id="descripcion-antecedentes">
-    Si es su primer registro, rellene cada campo del cuestionario. Si ha tenido un registro previo podrá visualizar su
-    información y actualizarlos. <br>
-    Haga click en cada categoria del cuestionario para desplegar los campos del mismo.
-  </p>
-  <div class="mt-3" id="antecedentes-registro">
+  <div id="cuestionadioRegistro">
+      <h3>Cuestionario</h3>
+      <p class="none-p" style="margin-left: 10px" id="descripcion-antecedentes">
+        Si es su primer registro, rellene cada campo del cuestionario. Si ha tenido un registro previo podrá visualizar su
+        información y actualizarlos. <br>
+        Haga click en cada categoria del cuestionario para desplegar los campos del mismo.
+      </p>
+      <div class="mt-3" id="antecedentes-registro">
 
+      </div>
   </div>
 </div>

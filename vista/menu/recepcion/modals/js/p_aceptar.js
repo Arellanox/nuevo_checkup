@@ -8,27 +8,47 @@ var estudiosEnviar = new Array();
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
-  document.getElementById("btn-confirmar-paciente").disabled = true;
+  // document.getElementById("btn-confirmar-paciente").disabled = true;
 
   rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
     'cliente_id': array_selected['CLIENTE_ID']
   })
-  rellenarSelect("#select-lab", "servicios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-    'area_id': 6,
+
+  //Pruebas
+  rellenarSelect("#select-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    id_area: 6,
     cliente_id: array_selected['CLIENTE_ID']
   });
-  rellenarSelect('#select-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-    'area_id': 7,
+  rellenarSelect('#select-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    id_area: 7,
     cliente_id: array_selected['CLIENTE_ID']
   });
-  rellenarSelect('#select-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-    'area_id': 8,
+  rellenarSelect('#select-rx', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    id_area: 8,
     cliente_id: array_selected['CLIENTE_ID']
   });
-  rellenarSelect('#select-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-    area_id: 0,
+  rellenarSelect('#select-otros', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    id_area: 0,
     cliente_id: array_selected['CLIENTE_ID']
   });
+
+
+  // rellenarSelect("#select-lab", "servicios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+  //   'area_id': 6,
+  //   cliente_id: array_selected['CLIENTE_ID']
+  // });
+  // rellenarSelect('#select-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+  //   'area_id': 7,
+  //   cliente_id: array_selected['CLIENTE_ID']
+  // });
+  // rellenarSelect('#select-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+  //   'area_id': 8,
+  //   cliente_id: array_selected['CLIENTE_ID']
+  // });
+  // rellenarSelect('#select-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+  //   area_id: 0,
+  //   cliente_id: array_selected['CLIENTE_ID']
+  // });
 
   // "#seleccion-estudio", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : this.value, paquete_id: $('#seleccion-paquete').val()}
 })
