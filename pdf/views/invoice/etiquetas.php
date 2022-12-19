@@ -8,16 +8,17 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
     <style>
         *{
             margin: 0;
             padding: 0;
         }
+
         body{
-            font-family: 'Noto Sans', sans-serif;
-			font-size: 6px;
+            font-family: 'Roboto', sans-serif;
+			font-size: 7px;
 			width: 50mm;
             max-width: 50mm;
             height: 25mm;
@@ -28,7 +29,7 @@
             text-align:justify ;
         }
 
-        .etiqueta{
+        .label{
             margin: 1px;
         }
 
@@ -38,20 +39,28 @@
     </style>
 </head>
 <body>
-    <div class="etiqueta">
+    <?php
+    $ruta = file_get_contents('../pdf/public/assets/barcode.png');
+    $encode = base64_encode($ruta);
+    ?>
+    <div class="label">
         <table>
         <?php
-            foreach ($data->estudios as $key => $estudio) {
+            $recipientes = $resultados->recipientes;
+            foreach ($recipientes as $a => $recipiente) {
                 echo "  <tr>
                             <label>"
                                 .date('Y-m-d')."
                             </label>
-                            <p>". $estudio->recipiente ."</p>
-                            <p>". $data->nombre ."</p>
-                            <p>". $estudio->clave ."</p>
-                            <p>Aqui va el codigo de barras</p>
-                        </tr>";
-                        // <img src='data:image/svg+xml;base64,".base64_encode($barcode)."' />
+                            <p>". $recipiente->recipiente ."</p>
+                            <p>". $resultados->nombre ."</p>";
+                $etiqueta = '';
+                foreach ($recipiente->estudios as $b => $estudio) {
+                    $etiqueta = $etiqueta . $estudio->clave . ", "; 
+                }
+                echo    "<p>". $etiqueta ."</p>
+                        <p> <img src='data:image/png;base64," .  $encode .  " width='50px' height='20px'></p>";
+
             }
         ?>
         </table>

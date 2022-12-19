@@ -49,7 +49,11 @@ class Reporte{
             case 'etiquetas':
                 $template = render_view('invoice/etiquetas.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper(array(0, 0, 107, 70), 'portrait');
+                        
+                $ancho = (4 / 2.54) * 72;
+                $alto  = (2 / 2.54) * 72;
+
+                $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
                 $path    = 'pdf/public/etiquetas/00001.pdf';
                 break;
 

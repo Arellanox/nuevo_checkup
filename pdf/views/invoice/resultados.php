@@ -2,28 +2,18 @@
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet"> 
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+        
         <style>
             @page { 
                 margin: 165px 10px; 
             }
             
             body{
-                font-family: 'Noto Sans', sans-serif;
+                font-family: 'Roboto', sans-serif;
                 margin-top: 60px;
                 font-size: 10px;
-            }
-
-            #image {
-                top: -155px;
-                position: fixed;
-                height: 120px;
-                width: 80px;
-                z-index: -9999;
-                
-                background-image: url({{$membrete}});
-                background-repeat: no-repeat;
-                background-size: 100%;
             }
             
             .header { 
@@ -401,11 +391,9 @@
                                             </td>
                                             <td class="col-three">
                                                 <?php echo ($absoluto->unidad != null) ? $absoluto->unidad : '' ; ?>
-
                                             </td>
                                             <td class="col-four">
                                                 <?php echo ($absoluto->referencia != null) ? $absoluto->referencia : '' ; ?>
-
                                             </td>
                                         </tr>
                             <?php
