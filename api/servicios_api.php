@@ -22,6 +22,7 @@ $id_servicio = $_POST['id_servicio'];
 $comentario = $_POST['comentario'];
 $tipo = $_POST['tipo_archivo'];
 $comentario_capturas = $_POST['comentario_capturas'];
+$id_paciente_detalle = $_POST['id_paciente_detalle'];
 
 # para buscar servicios con precios establecidos al cliente
 $paquete_id = $_POST['paquete_id'];
@@ -393,6 +394,10 @@ switch ($api) {
         // print_r($arrayGlobal);
         // print_r($responsePac);
 
+        //JSON para etiquetas (toma de muestra servicios)
+        $res_toma_muestra_serv = $master->getByProcedure('sp_toma_de_muestra_servicios_b',[$id_paciente_detalle,$id_area,$id_turno]);
+        $respuesta = array(json_encode($res_toma_muestra_serv));
+        echo json_encode($respuesta);
 
         $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), 'resultados', 'url');
         $pdf->build();
