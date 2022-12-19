@@ -1,6 +1,6 @@
 <?php
 
-$url = "localhost";
-$https = 'http://';
+$url = "bimo-lab.com";
+$https = 'https://';
 
  ?>

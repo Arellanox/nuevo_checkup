@@ -12,7 +12,7 @@
             'version' => 5,
         ]);
 
-        $contenido = 'https://bimo-lab.com/nuevo_checkup/'.$url.'?clave='.$clave.'&id='.$folio.'&resultado=1';
+        $contenido = 'https://bimo-lab.com/nuevo_checkup/'.$url.'?clave=83704a0987fc6f4860ef13a7340781d1&id=DBML1&modulo=6';
 
         $qrcode = (new QRCode())->render($contenido);
 

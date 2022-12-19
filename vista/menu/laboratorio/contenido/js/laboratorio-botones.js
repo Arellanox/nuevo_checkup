@@ -131,8 +131,8 @@ $(document).on('click', '.obtenerPDF', function (event) {
     },
     success: function (data) {
       console.log(data);
-      alertMensaje(null, null, null, null,
-        `<div class="d-flex justify-content-center"> <button type="button" class="btn btn-borrar" name="button" style="width: 50%" onClick="DownloadFromUrl('` + data + `')"> <i class="bi bi-image"></i> Descargar</button></div></div>`
+    alertMensaje(null, null, null, null,
+        `<div class="d-flex justify-content-center"> <a href="` + data + `" class="btn btn-borrar" target="_blank" style="width: 50%"> <i class="bi bi-image"></i> Descargar</a></div></div>`
       )
 
     }

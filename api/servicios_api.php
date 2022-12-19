@@ -482,8 +482,8 @@ function ordenar($servicios, $clasificacion, $turno){
             $estudios[] = array(
                 "estudio"        => $nombre_grupo,
                 "analitos"       => $analitos,
-                "metodo"         => "OPTICO",
-                "equipo"         => "SELECTRA PRO S",
+                "metodo"         => "",
+                "equipo"         => "",
                 "observaciones"  => $observacionnes_generales
             );
             $analitos = array();
