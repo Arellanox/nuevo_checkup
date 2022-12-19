@@ -135,11 +135,15 @@ function generarHistorialResultados(id) {
             '</button>' +
             '</h2>' +
             '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse overflow-auto" aria-labelledby="collap-historial-estudios' + i + '" style="max-height: 70vh"> ';
-          html += '<p class="none-p" style="margin: 12px 0px 0px 15px;">Ver <a href="' + row[i]['servicios']['URL'] + '">RESULTADO</a> aquí</p>';
+          html += '<p class="none-p" style="margin: 12px 0px 0px 15px;">Ver <a class="obtenerPDF" href="#" data-bs-id="' + row[i]['ID_TURNO'] + '">RESULTADO</a> aquí</p>';
           html += bodyStart;
-          for (var l = 0; l < row[i]['servicios'].length; l++) {
-            html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][l]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][l]['RESULTADO'] + ' ' + row[i]['servicios'][l]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
+          for (var k in row[i]['servicios']) {
+            console.log(k)
+            html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][k]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][k]['RESULTADO'] + ' ' + row[i]['servicios'][k]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
           }
+          // for (var l = 0; l < row[i]['servicios'].length; l++) {
+          //   html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][l]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][l]['RESULTADO'] + ' ' + row[i]['servicios'][l]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
+          // }
           html += bodyEnd + '</div>';
           html += itemEnd;
         }
@@ -202,9 +206,9 @@ function generarFormularioPaciente(id) {
 
               //Formulario
               if (row[k]['RESULTADO'] == null) {
-                html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required autocomplete="off">';
+                html += '<input type="text" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required autocomplete="off">';
               } else {
-                html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
+                html += '<input type="text" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" required value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
               }
 
               if (row[k]['MEDIDA']) {
@@ -226,9 +230,9 @@ function generarFormularioPaciente(id) {
                 html += colreStart;
                 html += '<div class="input-group">';
                 if (row[k]['RESULTADO'] == null) {
-                  html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required autocomplete="off">';
+                  html += '<input type="text" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required autocomplete="off">';
                 } else {
-                  html += '<input type="number" step="0.01" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['VALOR_ABSOLUTO'] + '" autocomplete="off">';
+                  html += '<input type="text" class="form-control input-form text-end" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" required value="' + row[k]['VALOR_ABSOLUTO'] + '" autocomplete="off">';
                 }
                 if (row[k]['MEDIDA']) {
                   html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';

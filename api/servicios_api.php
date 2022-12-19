@@ -387,7 +387,7 @@ switch ($api) {
         if(!empty($servicios)){
             // $aux = ordenarResultados($servicios,"OTROS ESTUDIOS");
             $aux = ordenar($servicios,"NINGUNA",$id_turno);
-            $arrayGlobal['areas'][]= $aux;
+            // $arrayGlobal['areas'][]= $aux;
         }
 
         // print_r($arrayGlobal);
@@ -999,8 +999,8 @@ function ordenar($servicios, $clasificacion, $turno){
             $estudios[] = array(
                 "estudio"        => $nombre_grupo,
                 "analitos"       => $analitos,
-                "metodo"         => "OPTICO",
-                "equipo"         => "SELECTRA PRO S",
+                "metodo"         => "",
+                "equipo"         => "",
                 "observaciones"  => $observacionnes_generales
             );
             $analitos = array();

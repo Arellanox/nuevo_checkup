@@ -199,7 +199,7 @@
         // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
         
         // path firma
-        $ruta_firma = file_get_contents('../pdf/public/assets/firma.png');
+        $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
         $encode_firma = base64_encode($ruta_firma);
 
     ?>
@@ -216,7 +216,7 @@
                         <td class="col-der"  style="border-bottom: none">
                             <h4>
                                 DIAGNOSTICO BIOMOLECULAR <br>
-                                Laboratorio de Biólogia Molecular <br>
+                                Laboratorio Clínico <br>
                                 Resultados de Exámenes
                             </h4>
                         </td>
@@ -231,7 +231,7 @@
                     <tr>
                         <td style="text-align: center; border-style: solid none solid none; ">
                             <h3>
-                                Biólogia Molecular
+                                Laboratorio Clinico
                             </h3>
                         </td>
                     </tr>
@@ -244,7 +244,7 @@
                             No. Identificacion: <strong> <?php echo $encabezado->FOLIO;?> </strong> 
                         </td>
                         <td class="col-center"  style="border-bottom: none">
-                            Edad: <strong> <?php echo $encabezado->EDAD;?> </strong> 
+                            Edad: <strong> <?php echo $encabezado->EDAD;?> años</strong> 
                         </td>
                         <td class="col-right"  style="border-bottom: none">
                             Sexo: <strong><?php echo $encabezado->SEXO;?> </strong>
@@ -255,10 +255,10 @@
                             Nombre: <strong> <?php echo $encabezado->NOMBRE;?> </strong>  
                         </td>
                         <td class="col-center"  style="border-bottom: none">
-                            Fecha de Nacimiento: <strong> 15-12-2024 </strong>
+                            Fecha de Nacimiento: <strong> <?php echo $encabezado->NACIMIENTO;?> </strong>
                         </td>
                         <td class="col-right"  style="border-bottom: none">
-                            Pasaporte: <strong>Ninguno</strong>
+                            <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong>".$encabezado->PASAPORTE."</strong>" : ""; ?>
                         </td>
                     </tr>
                     <tr>
@@ -269,7 +269,7 @@
                             Fecha de Resultado:     <strong><?php echo $encabezado->FECHA_RESULTADO;?> </strong>
                         </td>
                         <td class="col-right"  style="border-bottom: none">
-                            Tipo de Muestra: <strong>Sangre</strong>
+                            <!-- Tipo de Muestra: <strong>Sangre</strong> -->
                         </td>
                     </tr>
                     <tr>
@@ -286,7 +286,7 @@
             </table>
         </div>
         
-        <!-- <div class="footer">
+        <div class="footer">
             <table>
                 <tbody>
                     <tr class="col-foot-one">
@@ -301,7 +301,7 @@
                     </tr>
                     <tr class="col-foot-three"  style="font-size: 13px;">
                         <td colspan="6" style="text-align: center; width: 50%">
-                            <a target="_blank" href="<?php echo $qr[0]; ?>"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+                            <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
                         </td>
                         <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                             <strong >Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
@@ -311,9 +311,9 @@
             </table>
             <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
             <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa, Tabasco - Teléfono: 993 131 00 42 Correo electrónico: biologia.molecular@hguadalupe.com</strong></small></p>
-        </div> -->
+        </div> 
 
-        <div class="footer">
+        <!--  <div class="footer">
             <table>
                 <tbody>
                     <tr class="col-foot-one">
@@ -337,7 +337,7 @@
             <hr style="margin-top: 0px; height: 0.5px; background-color: black ;">
             <p style="text-align: center; margin-top: 0px"><small><strong>Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono: 993 131 00 42 
             Correo electrónico: hola@bimo.com.mx</strong></small></p>
-        </div>
+        </div>-->
 
 
 
@@ -458,7 +458,7 @@
                     <div >
                         
                         <?php
-                            if(isset($estudio->observaciones)){
+                            if($estudio->observaciones != '' || $estudio->observaciones != null){
                                 echo "<strong>Observaciones: </strong>". $estudio->observaciones;
                             }else{
                             }

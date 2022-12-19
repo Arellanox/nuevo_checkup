@@ -4,7 +4,7 @@
     use chillerlan\QRCode\QRCode;
     use chillerlan\QRCode\QROptions;
 
-    function generarQRURL($clave, $folio, $url = 'resultados/validar-pdf/'){
+    function generarQRURL($clave, $folio, $modulo, $url = 'resultados/validar-pdf/'){
         
         $options = new QROptions([
             'eccLevel' => QRCode::ECC_L,
@@ -12,7 +12,7 @@
             'version' => 5,
         ]);
 
-        $contenido = 'https://bimo-lab.com/nuevo_checkup/'.$url.'?clave='.$clave.'&id='.$folio.'&resultado=1';
+        $contenido = 'https://bimo-lab.com/nuevo_checkup/'.$url.'?clave=-'.$clave.'&id='.$folio.'&modulo='.$modulo;
 
         $qrcode = (new QRCode())->render($contenido);
 

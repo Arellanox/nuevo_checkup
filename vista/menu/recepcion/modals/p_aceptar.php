@@ -25,6 +25,12 @@
                   <label for="paquete" class="form-label">Seleccionar un paquete</label>
                   <select class="" id="select-paquetes">
                   </select>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkPaqueteAceptar">
+                    <label class="form-check-label" for="checkPaqueteAceptar">
+                      Sin paquete
+                    </label>
+                  </div>
                   <div class="mt-3">
                     <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones" id="Observaciones-aceptar"></textarea>
                   </div>
