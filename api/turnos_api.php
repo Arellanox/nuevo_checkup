@@ -354,13 +354,17 @@ function ordenar($servicios, $clasificacion, $turno){
                 $nombre_grupo = $current['GRUPO'];
                 $observacionnes_generales = $current['OBSERVACIONES'];
                 $id_grupo = $current['GRUPO_ID'];
+                $metodo_grupo = $current['METODOS_GRUPO'];
+                $equipo_grupo = $current['EQUIPOS_GRUPO'];
 
                 $item = array(
                     "nombre"            => $current['DESCRIPCION_SERVICIO'],
                     "unidad"            => $current['MEDIDA'],
                     "resultado"         => $current['RESULTADO'],
                     "referencia"        => $current['VALOR_DE_REFERENCIA'],
-                    "observaciones"     => isset($id_grupo)? null : $current['OBSERVACIONES']
+                    "observaciones"     => isset($id_grupo)? null : $current['OBSERVACIONES'],
+                    "metodo"            => isset($metodo_grupo) ? null : $current['METODOS_ESTUDIO'],
+                    "equipo"            => isset($equipo_grupo)? null : $current['EQUIPOS_ESTUDIO']
                 );
 
                 $analitos[] = $item;
@@ -377,8 +381,8 @@ function ordenar($servicios, $clasificacion, $turno){
             $estudios[] = array(
                 "estudio"        => $nombre_grupo,
                 "analitos"       => $analitos,
-                "metodo"         => "",
-                "equipo"         => "",
+                "metodo"         => $metodo_grupo,
+                "equipo"         => $equipo_grupo,
                 "observaciones"  => $observacionnes_generales
             );
             $analitos = array();
