@@ -147,28 +147,29 @@ switch ($api) {
         $setResultados = $_POST['servicios'];
         $id_turno = $_POST['id_turno'];
         
-        foreach ($setResultados as $servicio_id => $resultado) {
-            #determinamos si el estudio de laboratorio tiene valor absoluto.
-            $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
+        // foreach ($setResultados as $servicio_id => $resultado) {
+        //     #determinamos si el estudio de laboratorio tiene valor absoluto.
+        //     $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
 
-            #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'],$confirmar,$confirmado_por,$valor_absoluto));
-        }
+        //     #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
+        //     $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'],$confirmar,$confirmado_por,$valor_absoluto));
+        // }
 
-        // actualizamos las observaciones por los grupos en casa hijo de la tabla paciente detalle
+        // // actualizamos las observaciones por los grupos en casa hijo de la tabla paciente detalle
         
-        foreach($observaciones as $key =>$observacion){
-            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,$key,null,$observacion]);
-        }
+        // foreach($observaciones as $key =>$observacion){
+        //     $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,$key,null,$observacion]);
+        // }
 
-        foreach($observacionesServicios as $key => $observacion){
-            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,null,$key,$observacion]);
-        }
-        //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
+        // foreach($observacionesServicios as $key => $observacion){
+        //     $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,null,$key,$observacion]);
+        // }
+        // //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
 
         if(isset($confirmar)){
             # generar el reporte
-            crearReporteLaboratorio($id_paciente_detalle, $id_area, $id_turno);
+            echo "confirmar";
+            crearReporteLaboratorio($id_area, $id_turno);
         }
         
         break;
@@ -187,9 +188,11 @@ switch ($api) {
         }
         break;
 
-    case 11:
+    // case 'crearReporte'
 
-        break;
+    // case 11:
+    //     crearReporteLaboratorio($id_paciente_detalle, $id_area, $id_turno);
+    //     break;
 
     default:
         $response = "api no reconocida";
@@ -199,7 +202,7 @@ switch ($api) {
 echo $master->returnApi($response);
 
 
-function crearReporteLaboratorio($id_paciente_detalle,$id_area,$id_turno){
+function crearReporteLaboratorio($id_area,$id_turno){
     # para crear los reportes de LABORATORIO
     $master = new Master();
     # informacion general del paciente
@@ -208,6 +211,7 @@ function crearReporteLaboratorio($id_paciente_detalle,$id_area,$id_turno){
     $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
     $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
     $responsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
+    
 
     # pie de pagina
     $fecha_resultado = $responsePac[0]['FECHA_CARPETA'];
@@ -223,6 +227,8 @@ function crearReporteLaboratorio($id_paciente_detalle,$id_area,$id_turno){
     $arrayGlobal = array(
         'areas' =>array()
     );
+
+
 
     # filtramos el arreglo principal y obtenemos aquellos estudios
     # que tienen valor absoluto.
@@ -254,6 +260,7 @@ function crearReporteLaboratorio($id_paciente_detalle,$id_area,$id_turno){
             
         }
     }
+        echo "si";
     // echo "================================================================";
     // echo "<br>";
 
@@ -276,13 +283,18 @@ function crearReporteLaboratorio($id_paciente_detalle,$id_area,$id_turno){
     // print_r($responsePac);
 
     //JSON para etiquetas (toma de muestra servicios)
-    $res_toma_muestra_serv = $master->getByProcedure('sp_toma_de_muestra_servicios_b',[$id_paciente_detalle,$id_area,$id_turno]);
-    $respuesta = array(json_encode($res_toma_muestra_serv));
-    echo json_encode($respuesta);
+    // $id_paciente_detalle = $_POST['id_paciente_detalle'];
+    // $res_toma_muestra_serv = $master->getByProcedure('sp_toma_de_muestra_servicios_b',[$id_paciente_detalle,$id_area,$id_turno]);
+    // $respuesta = array(json_encode($res_toma_muestra_serv));
+    // echo json_encode($respuesta);
 
-    $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
+    echo "antes de Generar PDF";
 
-    $responseReport = $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'], $pdf->build()]);
+    $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), 'resultados', 'url');
+    $pdfURL = $pdf->build();
+    echo "pdf Generado";
+
+    return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'], ]);
     
 }
 

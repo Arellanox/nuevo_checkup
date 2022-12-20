@@ -34,7 +34,7 @@ class Reporte{
 
         $pdf = new Dompdf();
 
-        $prueba = generarQRURL('12345', 'DBM-1');
+        $prueba = generarQRURL('12345', 'DBM-1', 6);
 
         session_start();
         $view_vars = array(
@@ -75,7 +75,7 @@ class Reporte{
                 break;
 
         }
-
+        echo "si";
         // Recibe la orden de que tipo de  modo de visualizacion quiere
         switch ($orden){
             case 'descargar':
