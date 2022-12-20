@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,14 +54,13 @@
                                 .date('Y-m-d')."
                             </label>
                             <p>". $recipiente->recipiente ."</p>
-                            <p>". $resultados->nombre ."</p>";
+                            <p>". $resultados->nombre . " - " . $resultados->edad . " - " . $resultados->sexo .  "</p>";
                 $etiqueta = '';
                 foreach ($recipiente->estudios as $b => $estudio) {
                     $etiqueta = $etiqueta . $estudio->clave . ", "; 
                 }
                 echo    "<p>". $etiqueta ."</p>
-                        <p> <img src='data:image/png;base64," .  $encode .  " width='50px' height='20px'></p>";
-
+                        <p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p>";
             }
         ?>
         </table>

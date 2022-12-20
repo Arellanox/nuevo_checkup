@@ -135,7 +135,7 @@ function generarHistorialResultados(id) {
             '</button>' +
             '</h2>' +
             '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse overflow-auto" aria-labelledby="collap-historial-estudios' + i + '" style="max-height: 70vh"> ';
-          html += '<p class="none-p" style="margin: 12px 0px 0px 15px;">Ver <a class="obtenerPDF" href="#" data-bs-id="' + row[i]['ID_TURNO'] + '">RESULTADO</a> aquí</p>';
+          html += '<p class="none-p" style="margin: 12px 0px 0px 15px;">Ver <a class="" href="' + row[i]['RUTA_REPORTE'] + '" target="_blank" data-bs-id="' + row[i]['ID_TURNO '] + '">RESULTADO</a> aquí</p>';
           html += bodyStart;
           for (var k in row[i]['servicios']) {
             console.log(k)

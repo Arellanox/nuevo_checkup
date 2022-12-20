@@ -1,6 +1,8 @@
 <?php
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+include_once "../clases/Pdf.php";
+
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -163,6 +165,12 @@ switch ($api) {
             $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,null,$key,$observacion]);
         }
         //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
+
+        if(isset($confirmar)){
+            # generar el reporte
+            #echo "confirmar";
+            crearReporteLaboratorio($id_area, $id_turno);
+        }
         
         break;
 
@@ -180,9 +188,11 @@ switch ($api) {
         }
         break;
 
-    case 11:
+    // case 'crearReporte'
 
-        break;
+    // case 11:
+    //     crearReporteLaboratorio($id_paciente_detalle, $id_area, $id_turno);
+    //     break;
 
     default:
         $response = "api no reconocida";
@@ -190,3 +200,197 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
+
+
+function crearReporteLaboratorio($id_area,$id_turno){
+    # para crear los reportes de LABORATORIO
+    $master = new Master();
+    # informacion general del paciente
+
+    #Estudios solicitados por el paciente
+    $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
+    $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
+    $responsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
+    
+
+    # pie de pagina
+    $fecha_resultado = $responsePac[0]['FECHA_CARPETA'];
+    $nombre_paciente = $responsePac[0]['NOMBRE'];
+    $nombre = str_replace(" ","_",$nombre_paciente);
+
+    $ruta_saved = "reportes/modulo/lab/$fecha_resultado/$id_turno/";
+
+    # Crear el directorio si no existe
+    $r = $master->createDir("../".$ruta_saved);
+
+    $archivo = array("ruta"=>$ruta_saved,"nombre_archivo"=>$nombre."-".$responsePac[0]['TURNO'].'-'.$fecha_resultado);
+
+    $clave = $master->getByProcedure("sp_generar_clave",[]);
+
+    $pie_pagina = array("clave"=>$clave[0]['TOKEN'],"folio"=>$responsePac[0]['FOLIO'],"modulo"=>6);
+
+    $arrayGlobal = array(
+        'areas' =>array()
+    );
+
+    # filtramos el arreglo principal y obtenemos aquellos estudios
+    # que tienen valor absoluto.
+    $serv_var_abs_obj = array_filter($response,function($obj){
+        $return = $obj['TIENE_VALOR_ABSOLUTO']==1;
+        return $return;
+    });
+
+    $serv_var_abs = ordenar($serv_var_abs_obj, "VALORES ABSOLUTOS",$id_turno);
+    $valores_absolutos = $serv_var_abs['estudios'][0]['analitos'];
+
+    for($i=0; $i<count($clasificaciones); $i++) {
+        $clasificacion_id = $clasificaciones[$i]['ID_CLASIFICACION'];
+        # sacamos arrays individuales por clasificacion de examen
+        $servicios = array_filter($response,function($obj) use ($clasificacion_id){
+            $return = $obj['CLASIFICACION_ID'] == $clasificacion_id;
+            return $return;
+        });
+
+        # como no estamos seguros que de que se encuentren todas las clasificaciones 
+        # en un paciente, evaluamos que el array no este vacio.
+        #print_r($servicios);
+
+        if(!empty($servicios)){
+            
+            $aux = ordenar($servicios,$clasificaciones[$i]['DESCRIPCION'],$id_turno);
+
+            $arrayGlobal['areas'][] = $aux;
+            
+        }
+    }
+    // echo "================================================================";
+    // echo "<br>";
+
+
+    # habra estudios que no tengan clasificacion, esos el servidor las regresa con id 0
+    # como el id 0 no existe dentro de la tabla de clasificaciones, el algoritmo de arriba los ignora
+    # por tanto se tiene que realizar un algoritmo similar pero con el filtro en 0.
+    $servicios = array_filter($response, function($obj){
+        $return = $obj['CLASIFICACION_ID'] == 0;
+        return $return;
+    });
+
+    if(!empty($servicios)){
+        // $aux = ordenarResultados($servicios,"OTROS ESTUDIOS");
+        $aux = ordenar($servicios,"NINGUNA",$id_turno);
+        // $arrayGlobal['areas'][]= $aux;
+    }
+
+    // print_r($arrayGlobal);
+    // print_r($responsePac);
+
+    //JSON para etiquetas (toma de muestra servicios)
+    // $id_paciente_detalle = $_POST['id_paciente_detalle'];
+    // $res_toma_muestra_serv = $master->getByProcedure('sp_toma_de_muestra_servicios_b',[$id_paciente_detalle,$id_area,$id_turno]);
+    // $respuesta = array(json_encode($res_toma_muestra_serv));
+    // echo json_encode($respuesta);
+
+    //echo "antes de Generar PDF";
+
+    $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
+    #echo "pdf Generado";
+
+    return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->build()]);
+    
+}
+
+
+function ordenar($servicios, $clasificacion, $turno){
+    #obtener los valores absolutos
+    $absoluto_array = array();
+    $in_array = 0;
+    #estamos buscandor el id 1 que corresponde a la biometria hematica
+    foreach($servicios as $current){
+        if(in_array(1,$current)){
+             $in_array++;
+         }
+     }
+
+     #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
+    if($in_array>0){
+        $bh = array_filter($servicios, function ($obj) {
+            $r = $obj['GRUPO_ID'] == 1;
+            return $r;
+        });
+
+        $abs = array_filter($bh, function ($obj) {
+            $r = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
+            return $r;
+        });
+
+        foreach ($abs as $current) {
+            $absoluto_array[] = array(
+                "analito" => $current['DESCRIPCION_SERVICIO'],
+                "valor_abosluto" => $current['VALOR_ABSOLUTO'],
+                "referencia" => null,
+                "unidad" => null
+            );
+        }
+    }
+
+    $master = new Master();
+    $grupos = $master->getByProcedure('sp_cargar_grupos',[$turno,6]);
+    $estudios = array();
+    $analitos = array();
+    for ($i = 0; $i < count($grupos); $i++){
+        $nombre_grupo = $grupos[$i]['GRUPO'];
+        $contenido_grupo = array_filter($servicios, function ($obj) use ($nombre_grupo) {
+            $r = $obj['GRUPO'] == $nombre_grupo;
+            return $r;
+        });
+
+        if(!empty($contenido_grupo)){
+
+
+            
+            # llenado de los analitos del grupo
+            foreach($contenido_grupo as $current)
+            {
+                $nombre_grupo = $current['GRUPO'];
+                $observacionnes_generales = $current['OBSERVACIONES'];
+                $id_grupo = $current['GRUPO_ID'];
+
+                $item = array(
+                    "nombre"            => $current['DESCRIPCION_SERVICIO'],
+                    "unidad"            => $current['MEDIDA'],
+                    "resultado"         => $current['RESULTADO'],
+                    "referencia"        => $current['VALOR_DE_REFERENCIA'],
+                    "observaciones"     => isset($id_grupo)? null : $current['OBSERVACIONES']
+                );
+
+                $analitos[] = $item;
+            }
+
+            if($id_grupo==1){
+                $last_position = count($analitos)-1;
+                $aux = $analitos[$last_position];
+                $analitos[$last_position] = $absoluto_array;
+                $analitos[] = $aux;
+            }
+
+            # llenar arreglo estudios
+            $estudios[] = array(
+                "estudio"        => $nombre_grupo,
+                "analitos"       => $analitos,
+                "metodo"         => "",
+                "equipo"         => "",
+                "observaciones"  => $observacionnes_generales
+            );
+            $analitos = array();
+        }
+    }
+
+    # ARREGLO DE AREAS
+
+    $response = array(
+        "area" => $clasificacion,
+        "estudios" => $estudios
+    );
+
+    return $response;
+}

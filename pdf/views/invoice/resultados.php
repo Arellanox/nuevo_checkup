@@ -204,8 +204,6 @@
 
     ?>
     <body>
-        <div id="image">
-        </div>
         <!-- header -->
         <div class="header">
             <br><br>
@@ -221,7 +219,11 @@
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
-                            <?php echo "<img src='data:image/png;base64, ". $encode . "' height='75' > " ?>
+                            <?php
+                                echo "<img src='data:image/png;base64, ". $encode . "' height='75' >";
+                                // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+                            ?>
+
                         </td>
                     </tr>
                 </tbody>
@@ -233,6 +235,7 @@
                             <h3>
                                 Laboratorio Clinico
                             </h3>
+                            
                         </td>
                     </tr>
                 </tbody>
