@@ -168,7 +168,7 @@ switch ($api) {
 
         if(isset($confirmar)){
             # generar el reporte
-            echo "confirmar";
+            #echo "confirmar";
             crearReporteLaboratorio($id_area, $id_turno);
         }
         
@@ -228,8 +228,6 @@ function crearReporteLaboratorio($id_area,$id_turno){
         'areas' =>array()
     );
 
-
-
     # filtramos el arreglo principal y obtenemos aquellos estudios
     # que tienen valor absoluto.
     $serv_var_abs_obj = array_filter($response,function($obj){
@@ -237,7 +235,7 @@ function crearReporteLaboratorio($id_area,$id_turno){
         return $return;
     });
 
-    $serv_var_abs = ordenarResultados($serv_var_abs_obj, "VALORES ABSOLUTOS");
+    $serv_var_abs = ordenar($serv_var_abs_obj, "VALORES ABSOLUTOS",$id_turno);
     $valores_absolutos = $serv_var_abs['estudios'][0]['analitos'];
 
     for($i=0; $i<count($clasificaciones); $i++) {
@@ -260,7 +258,6 @@ function crearReporteLaboratorio($id_area,$id_turno){
             
         }
     }
-        echo "si";
     // echo "================================================================";
     // echo "<br>";
 
@@ -288,13 +285,13 @@ function crearReporteLaboratorio($id_area,$id_turno){
     // $respuesta = array(json_encode($res_toma_muestra_serv));
     // echo json_encode($respuesta);
 
-    echo "antes de Generar PDF";
+    //echo "antes de Generar PDF";
 
     $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), 'resultados', 'url');
     $pdfURL = $pdf->build();
-    echo "pdf Generado";
+    #echo "pdf Generado";
 
-    return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'], ]);
+    return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->build()]);
     
 }
 
