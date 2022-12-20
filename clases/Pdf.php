@@ -101,6 +101,7 @@ class Reporte{
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
                 return 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                #return 'http://localhost/nuevo_checkup/'. $path;
                 break;
             default:
                 $pdf->render();
