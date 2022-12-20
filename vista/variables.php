@@ -1,7 +1,7 @@
 <?php
 
-// $url = "bimo-lab.com";
-// $https = 'https://';
-$url = "localhost";
-$https = 'http://';
+$url = "bimo-lab.com";
+$https = 'https://';
+// $url = "localhost";
+// $https = 'http://';
  ?>

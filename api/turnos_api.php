@@ -147,24 +147,24 @@ switch ($api) {
         $setResultados = $_POST['servicios'];
         $id_turno = $_POST['id_turno'];
         
-        // foreach ($setResultados as $servicio_id => $resultado) {
-        //     #determinamos si el estudio de laboratorio tiene valor absoluto.
-        //     $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
+        foreach ($setResultados as $servicio_id => $resultado) {
+            #determinamos si el estudio de laboratorio tiene valor absoluto.
+            $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
 
-        //     #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-        //     $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'],$confirmar,$confirmado_por,$valor_absoluto));
-        // }
+            #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'],$confirmar,$confirmado_por,$valor_absoluto));
+        }
 
-        // // actualizamos las observaciones por los grupos en casa hijo de la tabla paciente detalle
+        // actualizamos las observaciones por los grupos en casa hijo de la tabla paciente detalle
         
-        // foreach($observaciones as $key =>$observacion){
-        //     $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,$key,null,$observacion]);
-        // }
+        foreach($observaciones as $key =>$observacion){
+            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,$key,null,$observacion]);
+        }
 
-        // foreach($observacionesServicios as $key => $observacion){
-        //     $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,null,$key,$observacion]);
-        // }
-        // //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
+        foreach($observacionesServicios as $key => $observacion){
+            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,null,$key,$observacion]);
+        }
+        //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
 
         if(isset($confirmar)){
             # generar el reporte
@@ -218,10 +218,10 @@ function crearReporteLaboratorio($id_area,$id_turno){
     $nombre_paciente = $responsePac[0]['NOMBRE'];
     $nombre = str_replace(" ","_",$nombre_paciente);
 
-    $ruta_saved = "reporte/modulo/lab/$fecha_resultado/$id_turno/";
+    $ruta_saved = "reportes/modulo/lab/$fecha_resultado/$id_turno/";
 
     # Crear el directorio si no existe
-    $r = $master->createDir($ruta_saved);
+    $r = $master->createDir("../".$ruta_saved);
 
     $archivo = array("ruta"=>$ruta_saved,"nombre_archivo"=>$nombre."-".$responsePac[0]['TURNO'].'-'.$fecha_resultado);
 

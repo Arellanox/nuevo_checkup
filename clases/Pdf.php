@@ -35,8 +35,8 @@ class Reporte{
     public function build(){
         $response   = json_decode($this->response);
         $data       = json_decode($this->data); //Esperando la data general
-        $pie   = json_decode($this->pie);
-        $archivo       = json_decode($this->archivo);
+        $pie        = $this->pie;
+        $archivo    = $this->archivo;
         $tipo       = $this->tipo;
         $orden      = $this->orden;
 
@@ -44,7 +44,8 @@ class Reporte{
 
         $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
 
-        $path = $archivo['ruta'];
+        $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+        // echo $path;
 
         session_start();
         $view_vars = array(
@@ -99,7 +100,7 @@ class Reporte{
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                echo 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                return 'https://bimo-lab.com/nuevo_checkup/'. $path;
                 break;
             default:
                 $pdf->render();
