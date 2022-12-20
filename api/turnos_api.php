@@ -218,7 +218,12 @@ function crearReporteLaboratorio($id_area,$id_turno){
     $nombre_paciente = $responsePac[0]['NOMBRE'];
     $nombre = str_replace(" ","_",$nombre_paciente);
 
-    $archivo = array("ruta"=>"reporte/modulo/lab/$fecha_resultado/$id_turno/","nombre_archivo"=>$nombre."-".$responsePac[0]['TURNO'].'-'.$fecha_resultado);
+    $ruta_saved = "reporte/modulo/lab/$fecha_resultado/$id_turno/";
+
+    # Crear el directorio si no existe
+    $r = $master->createDir($ruta_saved);
+
+    $archivo = array("ruta"=>$ruta_saved,"nombre_archivo"=>$nombre."-".$responsePac[0]['TURNO'].'-'.$fecha_resultado);
 
     $clave = $master->getByProcedure("sp_generar_clave",[]);
 
