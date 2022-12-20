@@ -1,9 +1,10 @@
 <?php
+include_once "master_class.php";
 class TokenPreregistro
 {
 
  
-    public function generarTokenPrergistro($correo)
+    public function generarTokenPreregistro($correo)
     {
         if (!(filter_var($correo, FILTER_VALIDATE_EMAIL))) {
             echo 'Invalid email';

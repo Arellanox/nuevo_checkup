@@ -28,7 +28,7 @@ switch ($api) {
             $response = "Dirección de correo inválida";
         } else {
             $tokenPregistro = new TokenPreregistro();
-            $token = $tokenPregistro->generarTokenPrergistro($correo);
+            $token = $tokenPregistro->generarTokenPreregistro($correo);
             if ($token != '' && !str_contains($token, "Error: ")) {
                 $motivo = "Token para registro de cita en linea";
                 $mensaje = '<div>
