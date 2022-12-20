@@ -106,7 +106,7 @@ switch($api){
            }
         } else {
             # si no se puede insertar el turno, termina el ejecucion
-            echo "No hemos podido agendar su visita.";
+            echo json_encode(array('response'=>array('code'=>2,'data'=>"No hemos podido agendar su visita.")));
         }
 
         echo json_encode(array('response'=>array('code'=>1,'data'=>$prefolio[0]['PREFOLIO'])));
