@@ -12,16 +12,22 @@ use Dompdf\Options;
 class Reporte{
 
     public $response;
+    public $data;
+    public $pie;
+    public $archivo;
     public $tipo;
+    public $orden;
 
     /**
      * Create a new instance.
      *
      * @return void
      */
-    public function __construct($response, $data, $tipo, $orden){
+    public function __construct($response, $data, $pie, $archivo, $tipo, $orden){
         $this->response = $response;
         $this->data     = $data;
+        $this->pie      = $pie;
+        $this->archivo  = $archivo;
         $this->tipo     = $tipo;
         $this->orden    = $orden;
     }
@@ -29,12 +35,16 @@ class Reporte{
     public function build(){
         $response   = json_decode($this->response);
         $data       = json_decode($this->data); //Esperando la data general
+        $pie   = json_decode($this->pie);
+        $archivo       = json_decode($this->archivo);
         $tipo       = $this->tipo;
         $orden      = $this->orden;
 
         $pdf = new Dompdf();
 
-        $prueba = generarQRURL('12345', 'DBM-1', 6);
+        $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
+
+        $path = $archivo['ruta'];
 
         session_start();
         $view_vars = array(
@@ -50,32 +60,31 @@ class Reporte{
                 $template = render_view('invoice/etiquetas.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper(array(0, 0, 107, 70), 'portrait');
-                $path    = 'pdf/public/etiquetas/00001.pdf';
+                // $path    = 'pdf/public/etiquetas/00001.pdf';
                 break;
 
             case 'resultados':
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/resultados/E-00001.pdf';
+                // $path    = 'pdf/public/resultados/E-00001.pdf';
                 break;
 
             case 'oftamologia':
                 $template = render_view('invoice/oftamologia.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/oftamologia/E-00001.pdf';
+                // $path    = 'pdf/public/oftamologia/E-00001.pdf';
                 break;
 
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/oftamologia/E00001.pdf';
+                // $path    = 'pdf/public/oftamologia/E00001.pdf';
                 break;
 
         }
-        echo "si";
         // Recibe la orden de que tipo de  modo de visualizacion quiere
         switch ($orden){
             case 'descargar':
