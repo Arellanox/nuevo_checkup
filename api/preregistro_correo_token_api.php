@@ -2,6 +2,7 @@
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 require_once "../clases/preregistro_correo_token_class.php";
+include_once "../clases/correo_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -69,9 +70,19 @@ switch ($api) {
                 // Para enviar un correo HTML, debe establecerse la cabecera Content-type
                 $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
                 $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                $respuestaCorreo = mail($correo, $motivo, $mensaje,$cabeceras);
-                //   echo $respuestaCorreo;
-                if ($respuestaCorreo) {
+
+                // $respuestaCorreo = mail($correo, $motivo, $mensaje,$cabeceras);
+                // //   echo $respuestaCorreo;
+                // if ($respuestaCorreo) {
+                //     $response = 1;
+                // } else {
+                //     $response = "Ocurrio un problema al intentar enviar el correo";
+                // }
+
+                $correo_obj = new Correo();
+                $respuesta_mail = $correo_obj->sendLinkByEmail($correo, $token);
+
+                if ($respuesta_mail) {
                     $response = 1;
                 } else {
                     $response = "Ocurrio un problema al intentar enviar el correo";
