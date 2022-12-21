@@ -5,11 +5,11 @@ require_once "../clases/preregistro_correo_token_class.php";
 include_once "../clases/correo_class.php";
 
 $tokenVerification = new TokenVerificacion();
-$tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
-}
+// $tokenValido = $tokenVerification->verificar();
+// if (!$tokenValido) {
+//     $tokenVerification->logout();
+//     exit;
+// }
 
 #api
 $api = $_POST['api'];
@@ -44,25 +44,19 @@ switch ($api) {
                 </head>
                 
                 <body>
-                    <div>
-                        <div style="display:flex; justify-content:center;">
-                            <img src="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png" />
-                            <img style="max-height:100px;" src="https://cdn19.picsart.com/9896529016.png">
+                    <div class="" id="contenido" style="background-color: #BABABA;">
+                        <div class="head" style="overflow: auto;text-align: left;background-color: #616A6B;padding: 5px;color:white;">
+                            <img src="https://bimo-lab.com/archivos/sistema/bimo.png" alt="img" style="border-radius: 15px;height: 55px;float: left;padding: 8px;"/>
+                            <p style="font-size: 20px;">Resultados de análisis</p>
                         </div>
-                        <br />
-                        <br />
-                        <div style="max-width:35%; min-width:500px; margin:auto;">
-                            <div style="background-color:lightgray; border-radius:5px 5px 0px 0px; padding: 5px; display:block;">
-                                <p style="text-align:center; padding:0; margin:0;">Gracias por contactartar con BIMO armas biológicas,
-                                    puede hacer su preregistro desde el siguiente link </p>
+                        <div class="esqueleto" style="padding: 5px 20px 15px 20px;color: white;font-size: 14px;background-color: #424949;">
+                            <h2>¡Buenas Tardes!</h2>
+                            <p align="justify">Se adjuntan resultados de laboratorio</p>
+                            <div class="atentamente-text" style="text-align: right;">
+                            <p>Atentamente</p>
+                            <p>Laboratorio de Biología Molecular</p>
                             </div>
-                            <div
-                                style="border-width: 0 1px 1px 1px; border-color:lightgray; border-style:solid; padding:5px; display:flex; justify-content:center; border-radius: 0px 0px 5px 5px">
-                                <a href="https://bimo-lab.com/nuevo_checkup/vista/registro/index.php?codigo='.$token.'" style="text-decoration:none;">Registro en linea</a>
-                            </div>
-                
                         </div>
-                
                     </div>
                 </body>
                 

@@ -17,17 +17,18 @@ class Correo {
         #envia la liga con un token para permitir a los pacientes realizar el prerregistro.
 
         #creamos un objeto de la clase phpmailer
-        $mail = new PHPMailer();
+        $mail = new PHPMailer(true);
 
         #configuramos el correo de donde saldran los mensajes, la cabecer, etc
         $username = 'hola@bimo-lab.com';
         $password = 'Bimo&2022';
+        $fromName = 'bimo';
         // $fromName = utf8_decode('Biologia Molecular | Diagnóstico Biomolecular');
         // $descripcion = 'Laboratorio de Biología Molecular';
 
         try{
             # server settings
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -37,6 +38,7 @@ class Correo {
             $mail->Port       = 465;        
             
             # recipients
+            $mail->setFrom($username, $fromName);
             $mail->addAddress($email);
 
             # content

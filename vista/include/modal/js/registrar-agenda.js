@@ -65,7 +65,7 @@ $("#formRegistrarAgenda").submit(function (event) {
 
     for (var i = 0; i < formMedioLaboral.length; i++)
       formData.append(formMedioLaboral[i].name, formMedioLaboral[i].value);
-    alert('form');
+    // alert('form');
   }
   // var formData = new FormData(document.forms['form-ship']); // with the file input
   // var poData = jQuery(document.forms['po-form']).serializeArray();
@@ -98,7 +98,7 @@ $("#formRegistrarAgenda").submit(function (event) {
   }
 
   if ($('#selectSegmentos').val() != null) {
-    formData.set('segmento_id', ) //
+    formData.set('segmento_id', $('#selectSegmentos').val()) //
   }
   formData.set('fechaAgenda', $('#fecha-agenda').val())
   formData.set('api', 1);
@@ -137,12 +137,15 @@ $("#formRegistrarAgenda").submit(function (event) {
               //   timer: 2000
               // });
               //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
-              alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio <strong class="bg-danger">(' + data.response.data + ')</strong>')
-              // Autocompletar el campo de prefolio y CURP en consulta de resultado
+              alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
 
-              document.getElementById("formAntecedentes").reset();
+              $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)</div>')
+
+
+
+              // document.getElementById("formAntecedentes").reset();
+              $("#ModalRegistrarPrueba").modal('hide');
               if (session.user != null) {
-                $("#ModalRegistrarPrueba").modal('hide');
                 $("#btn-formregistrar-agenda").prop('disabled', false);
               }
             } else {

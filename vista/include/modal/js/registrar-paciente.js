@@ -48,8 +48,8 @@ $("#formRegistrarPaciente").submit(function (event) {
           $("#btn-formregistrar-informacion").prop('disabled', true);
           alertMensaje('info', '¡Se están cargando sus datos!', 'El sistema está guardando su agenda. Se enviará un correo de confirmación con su prefolio.')
         },
+        dataType: 'json',
         success: function (data) {
-          data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
             switch (tip) {
               case "pie":
@@ -91,9 +91,8 @@ $("#formRegistrarPaciente").submit(function (event) {
                         // });
                         //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
                         alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
-                        $('#').html('Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)')
+                        $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)</div>')
                         // Autocompletar el campo de prefolio y CURP en consulta de resultado
-
                         // document.getElementById("formAntecedentes").reset();
                         // if (session.user != null) {
                         //   $("#ModalRegistrarPrueba").modal('hide');

@@ -20,10 +20,12 @@ $menu = "Prerregistro";
   var logeo = 1, registroAgendaProcedencia = 0;
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
+  console.log(token)
   let tip = '<?php echo $tip; ?>';
   let clienteRegistro, nombreCliente, ant;
-  if (!codigo == token) {
-    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
+  console.log(codigo);
+  if (codigo != token) {
+    validarToken()
   }else{
     redireccionarPrerregistro()
   }
@@ -35,12 +37,12 @@ $menu = "Prerregistro";
     }, function(html) {
       $("#body-controlador").html(html);
     }).done(function(){
-      validarToken();
+      // validarToken();
     });
   }
 
   function validarToken(){
-    if (codigo != null) {
+    if (codigo != null && codigo != '') {
         $.ajax({
           data: {
             qr: codigo,
@@ -61,35 +63,40 @@ $menu = "Prerregistro";
           },
         });
     }else if (token != null) {
-      // $.ajax({
-      //     data: {
-      //       token: token,
-      //       api: 1
-      //     },
-      //     url: "../../api/token_api.php",
-      //     type: "POST",
-      //     success: function(data) {
-      //       data = jQuery.parseJSON(data);
-      //       if (data.response.data[0]) {
-      //         completarCliente(row['ID_CLIENTE'], row['NOMBRE_CLIENTE'])
-      //       }else {
-      //         redireccionarPrerregistro()
-      //       }
-      //     },
-      //   });
+      console.log(token);
+      $.ajax({
+          data: {
+            token: token,
+            api: 2
+          },
+          url: "../../api/preregistro_correo_token_api.php",
+          type: "POST",
+          success: function(data) {
+            data = jQuery.parseJSON(data);
+            if (data.response.data[0]) {
+              completarCliente(1, 'PARTICULAR')
+            }else {
+              // redireccionarPrerregistro()
+            }
+          },
+        });
     }else{
+      alert(1);
       redireccionarPrerregistro()
+      return;
     }
   }
-
-function completarCliente(id, name){
-// alert(name)
-  nombreCliente = name
-  clienteRegistro = id
-
-  if(id == 1)
+  
+  function completarCliente(id, name){
+    // alert(name)
+    nombreCliente = name
+    clienteRegistro = id
+    
+    if(id == 1)
     ant = true;
-
+    
+    //Mostrar Vista
+    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
 }
 
 function redireccionarPrerregistro(){

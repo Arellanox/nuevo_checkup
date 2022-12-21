@@ -14,7 +14,8 @@ $menu = "Recepción";
  <script type="text/javascript">
     registroAgendaProcedencia = 1;
     nombreCliente = null;
-    ant = true;
+    ant = true; // registro
+    tip = "pie"; // registro-agenda
     vista('<?php echo $menu; ?>', '<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>')
      function vista(menu, url){
        $.post(url, {menu: menu}, function(html){
