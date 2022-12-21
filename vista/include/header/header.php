@@ -1,4 +1,6 @@
-<?php $menu = $_POST['menu'];
+<?php 
+$menu = $_POST['menu'];
+$tip = $_POST['tip'];
 session_start();
 ?>
 <?php switch ($menu) {
@@ -15,7 +17,11 @@ session_start();
           <h2 class="text-center"><?php echo $menu; ?></h2> <!-- Dinamico -->
         </div>
         <div class="text-center" id="botones-menu-js">
-          <?php include "botones.php" ?>
+          <?php 
+            if ($tip != 'pie') {
+              include "botones.php";
+            }
+          ?>
         </div>
       </div>
     </div>

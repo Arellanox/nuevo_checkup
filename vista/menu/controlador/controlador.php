@@ -1,6 +1,7 @@
 <?php
 $menu = $_POST['menu'];
 $tipoUrl = isset($_POST['tipoUrl']) ?  $_POST['tipoUrl'] : 1;
+$tip = $_POST['tip'];
 date_default_timezone_set('America/Mexico_City');
 session_start();
 include "../../variables.php";
@@ -40,10 +41,10 @@ include "../../variables.php";
       break;
   }
   // <!-- Aqui controlar e incluir las modals -->
-  obtenerHeader('<?php echo $menu ?>');
+  obtenerHeader('<?php echo $menu ?>', '<?php echo $tip ?>');
 
-  function obtenerHeader(menu){
-    $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/header.php';?>", {menu: menu}, function(html){
+  function obtenerHeader(menu, tip){
+    $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/header.php';?>", {menu: menu, tip: tip}, function(html){
        $("#header-js").html(html);
     });
   }

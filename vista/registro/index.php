@@ -2,7 +2,7 @@
 //Variables dinamicas;
 $codigo = isset($_GET['codigo']) ? $_GET['codigo'] : null;
 $token = isset($_GET['token']) ? $_GET['token'] : null;
-$ant = isset($_GET['ant']) ? $_GET['ant'] : null;
+$tip = isset($_GET['tip']) ? $_GET['tip'] : null;
 include "../variables.php";
 $menu = "Prerregistro";
 ?>
@@ -20,19 +20,18 @@ $menu = "Prerregistro";
   var logeo = 1, registroAgendaProcedencia = 0;
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
-  const ant = '<?php echo $ant; ?>';
-  let clienteRegistro;
-
+  let tip = '<?php echo $tip; ?>';
+  let clienteRegistro, nombreCliente, ant;
   if (!codigo == token) {
-    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>')
+    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
   }else{
     redireccionarPrerregistro()
   }
 
 
-  function vista(menu, url) {
+  function vista(menu, url, tip) {
     $.post(url, {
-      menu: menu, tipoUrl: 3
+      menu: menu, tipoUrl: 3, tip: tip
     }, function(html) {
       $("#body-controlador").html(html);
     }).done(function(){
@@ -84,10 +83,13 @@ $menu = "Prerregistro";
   }
 
 function completarCliente(id, name){
-alert(name)
-  $("#procedencia-registro").html(name)
+// alert(name)
+  nombreCliente = name
   clienteRegistro = id
-  rellenarSelect('#selectSegmentos','segmentos_api', 2,0,'DESCRIPCION', {cliente_id: clienteRegistro});
+
+  if(id == 1)
+    ant = true;
+
 }
 
 function redireccionarPrerregistro(){

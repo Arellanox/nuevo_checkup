@@ -3,6 +3,17 @@ function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
 
+function formatoFechaSQL(fecha, formato) {
+  const map = {
+    dd: fecha.getDate(),
+    mm: fecha.getMonth() + 1,
+    // yy: fecha.getFullYear().toString().slice(-2),
+    yy: fecha.getFullYear()
+  }
+
+  return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched])
+}
+
 function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
   let options = {
     hour12: true,

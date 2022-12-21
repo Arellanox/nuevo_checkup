@@ -12,91 +12,153 @@
 // });
 
 //Formulario de Preregistro
-$("#formRegistrarPaciente").submit(function(event){
-   event.preventDefault();
-   /*DATOS Y VALIDACION DEL REGISTRO*/
-   var form = document.getElementById("formRegistrarPaciente");
-   var formData = new FormData(form);
-   formData.set('api', 1);
-   // console.log(formData);
-   // $i=0;
+$("#formRegistrarPaciente").submit(function (event) {
+  event.preventDefault();
+  /*DATOS Y VALIDACION DEL REGISTRO*/
+  var form = document.getElementById("formRegistrarPaciente");
+  var formData = new FormData(form);
+  formData.set('api', 1);
+  // console.log(formData);
+  // $i=0;
   //  formData.forEach(element => {
   //   console.log($i + element);
   //   $i++;
   // });
-   Swal.fire({
-      title: '¿Está seguro que todos sus datos son correctos?',
-      text: "¡No podrá editar o volverse a registrar!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, regístrame',
-      cancelButtonText: "Cancelar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        edited=true;
+  Swal.fire({
+    title: '¿Está seguro que todos sus datos son correctos?',
+    text: "¡No podrá editar o volverse a registrar!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí, regístrame',
+    cancelButtonText: "Cancelar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      edited = true;
 
-        // Esto va dentro del AJAX
-        $.ajax({
-          data: formData,
-          url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-          type: "POST",
-          processData: false,
-          contentType: false,
-          beforeSend: function(){
-            $("#btn-formregistrar-informacion").prop('disabled', true);
-          },
-          success: function(data) {
-            data = jQuery.parseJSON(data);
-            if (mensajeAjax(data)) {
-              Toast.fire({
-                icon: 'success',
-                title: 'Su información a sido registrada :)',
-                timer: 2000
-              });
-              document.getElementById("formRegistrarPaciente").reset();
-              if (session.id != null) {
-                $("#ModalRegistrarPaciente").modal('hide');
-                $("#btn-formregistrar-informacion").prop('disabled', false);
-              }
+      // Esto va dentro del AJAX
+      $.ajax({
+        data: formData,
+        url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+          $("#btn-formregistrar-informacion").prop('disabled', true);
+          alertMensaje('info', '¡Se están cargando sus datos!', 'El sistema está guardando su agenda. Se enviará un correo de confirmación con su prefolio.')
+        },
+        success: function (data) {
+          data = jQuery.parseJSON(data);
+          if (mensajeAjax(data)) {
+            switch (tip) {
+              case "pie":
+                // id = data.response.data;
+                var AgendaData = new FormData();
+                if ($('#checkCurpPasaporte').is(":checked")) {
+                  AgendaData.set('pasaporte', $('#pasaporte-registro').val())
+                } else {
+                  AgendaData.set('curp', $('#curp-registro-infor').val())
+                }
+
+                AgendaData.set('cliente_id', clienteRegistro)
+                // AgendaData.set('segmento_id', null) //$('#selectSegmentos').val()
+                // const tiempoTranscurrido = Date.now();
+                // const hoy = new Date(tempoTranscurrido);
+                // hoy.toLocaleDateString(); // "14/6/2020"
+                const hoy = new Date();
+                AgendaData.set('fechaAgenda', formatoFechaSQL(hoy, 'yy/mm/dd'))
+                AgendaData.set('api', 1);
+                // console.log(AgendaData);
+
+
+                $.ajax({
+                  data: AgendaData,
+                  url: http + servidor + "/nuevo_checkup/api/prerregistro_api.php",
+                  type: "POST",
+                  processData: false,
+                  contentType: false,
+                  dataType: "json",
+                  // beforeSend: function () {
+                  // },
+                  success: function (data) {
+                    if (mensajeAjax(data)) {
+                      if (data.response.code == 1) {
+                        // Toast.fire({
+                        //   icon: 'success',
+                        //   title: 'Su información a sido registrada :)',
+                        //   timer: 2000
+                        // });
+                        //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
+                        alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
+                        $('#').html('Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)')
+                        // Autocompletar el campo de prefolio y CURP en consulta de resultado
+
+                        // document.getElementById("formAntecedentes").reset();
+                        // if (session.user != null) {
+                        //   $("#ModalRegistrarPrueba").modal('hide');
+                        //   $("#btn-formregistrar-agenda").prop('disabled', false);
+                        // }
+                      } else {
+                        alertMensaje('error', 'Agenda no registrada', 'Hubo un error, comuniquese con el personal.');
+                      }
+                    }
+                  },
+                });
+                break;
+
+              default:
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Su información a sido registrada :)',
+                  timer: 2000
+                });
+                break;
             }
-          },
-          error: function (jqXHR, exception) {
-            $("#btn-formregistrar-informacion").prop('disabled', false);
+
+
+            document.getElementById("formRegistrarPaciente").reset();
+            if (session.id != null) {
+              $("#ModalRegistrarPaciente").modal('hide');
+              $("#btn-formregistrar-informacion").prop('disabled', false);
+            }
           }
-        });
-      }
-    })
-   event.preventDefault();
- });
+        },
+        error: function (jqXHR, exception) {
+          $("#btn-formregistrar-informacion").prop('disabled', false);
+        }
+      });
+    }
+  })
+  event.preventDefault();
+});
 
 
- $('#checkCurpPasaporte').change(function() {
-   if($(this).is(":checked")) {
-     $('#curp-registro-infor').removeAttr('required');
-     $('#curp-registro-infor').prop('disabled', true);
-     $('#pasaporte-registro').prop('required', true);
-     $("#pasaporte-registro").focus();
-     alertSelectTable('Use su pasaporte como identificación', 'info', 3000)
-   }else{
-     $('#pasaporte-registro').removeAttr('required');
-     $('#curp-registro-infor').prop('disabled', false);
-     $('#curp-registro-infor').prop('required', true);
-     $("#curp-registro-infor").focus();
-     alertSelectTable('Use su CURP como identificación', 'info', 3000)
-   }
-   // $('#checkCurpPasaporte').val($(this).is(':checked'));
- });
+$('#checkCurpPasaporte').change(function () {
+  if ($(this).is(":checked")) {
+    $('#curp-registro-infor').removeAttr('required');
+    $('#curp-registro-infor').prop('disabled', true);
+    $('#pasaporte-registro').prop('required', true);
+    $("#pasaporte-registro").focus();
+    alertSelectTable('Use su pasaporte como identificación', 'info', 3000)
+  } else {
+    $('#pasaporte-registro').removeAttr('required');
+    $('#curp-registro-infor').prop('disabled', false);
+    $('#curp-registro-infor').prop('required', true);
+    $("#curp-registro-infor").focus();
+    alertSelectTable('Use su CURP como identificación', 'info', 3000)
+  }
+  // $('#checkCurpPasaporte').val($(this).is(':checked'));
+});
 
- //Campos mayus
- $('#formRegistrarPaciente input[type=text]').css('text-transform', 'uppercase')
- $('#formRegistrarPaciente input[type=text]').on('change keyup', function(){
+//Campos mayus
+$('#formRegistrarPaciente input[type=text]').css('text-transform', 'uppercase')
+$('#formRegistrarPaciente input[type=text]').on('change keyup', function () {
   $(this).css('text-transform', 'uppercase')
-  $(this).val(function(){
+  $(this).val(function () {
     return this.value.toUpperCase();
   })
- })
+})
 //  this.value=this.value.toUpperCase();
 
 

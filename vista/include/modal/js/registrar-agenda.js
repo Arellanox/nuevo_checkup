@@ -6,11 +6,22 @@ $('#eliminarForm').prop('disabled', true);
 $('#curp-paciente').prop('readonly', false);
 
 
+setTimeout(() => {
+  if (nombreCliente != null) {
+    $("#procedencia-registro").html(nombreCliente)
+    rellenarSelect('#selectSegmentos', 'segmentos_api', 2, 0, 'DESCRIPCION', {
+      cliente_id: clienteRegistro
+    });
+  }
+}, 1000);
+
+
+
 
 // Registrar agenda del paciente
 $("#formRegistrarAgenda").submit(function (event) {
   event.preventDefault();
-  alert("form formAntecedentes-paciente")
+  // alert("form formAntecedentes-paciente")
   /*DATOS Y VALIDACION DEL REGISTRO*/
   // var form = document.getElementById("formRegistrarAgenda");
   var formData = new FormData();
@@ -72,16 +83,27 @@ $("#formRegistrarAgenda").submit(function (event) {
   //   return
   // }
   // formData.set('antecedentes', json);
+  switch (registroAgendaProcedencia) {
+    case 1:
+      formData.set('cliente_id', $('#selectProcedencia').val())
+      break;
+    default:
+      formData.set('cliente_id', clienteRegistro)
+      break;
+  }
   if ($('#checkCurpPasaporte-agenda').is(":checked")) {
     formData.set('pasaporte', $('#curp-paciente').val())
   } else {
     formData.set('curp', $('#curp-paciente').val())
   }
 
-  formData.set('cliente_id', clienteRegistro)
-  // formData.set('segmento_id', null) //$('#selectSegmentos').val()
+  if ($('#selectSegmentos').val() != null) {
+    formData.set('segmento_id', ) //
+  }
   formData.set('fechaAgenda', $('#fecha-agenda').val())
   formData.set('api', 1);
+
+
   // console.log(formData);
   Swal.fire({
     title: '¿Está seguro que todos sus datos son correctos?',
@@ -102,11 +124,11 @@ $("#formRegistrarAgenda").submit(function (event) {
         type: "POST",
         processData: false,
         contentType: false,
+        dataType: "json",
         beforeSend: function () {
           alertMensaje('info', '¡Se están cargando sus datos!', 'El sistema está guardando su agenda. Se enviará un correo de confirmación con su prefolio.')
         },
         success: function (data) {
-          data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
             if (data.response.code == 1) {
               // Toast.fire({
@@ -158,6 +180,14 @@ function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
 var tipoPaciente = "0"; //Particular por defecto
 $('#actualizarForm').click(function () {
 
+  if (ant) {
+    $('#cuestionadioRegistro').fadeOut(100);
+    // $('input[type="radio"]').prop("checked", true)
+  } else {
+    obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
+    console.log(ant)
+  }
+
   //Solicitar si la curp existe
   // window.location.hash = "formDIV";
 
@@ -203,13 +233,7 @@ $('#actualizarForm').click(function () {
             // $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
             // $('#formDIV *').prop('disabled',false);
             $('#btn-formregistrar-agenda').prop('disabled', false);
-            await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
-            if (ant) {
-              $('#cuestionadioRegistro').fadeOut(100);
-              // $('input[type="radio"]').prop("checked", true)
-            } else {
-              console.log(ant)
-            }
+
 
           } else {
             $('#actualizarForm').prop('disabled', false);
