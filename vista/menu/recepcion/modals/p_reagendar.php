@@ -9,7 +9,7 @@
         <form class="" id="formReagendarPaciente">
           <div class="col-12 col-md-12 col-lg-12 col-xl-12">
             <label for="segmentosFiltro" class="form-label">fecha de nueva agenda</label>
-            <input type="date" name="fechaAgenda" value="" class="form-control input-form" required id="fecha-agenda">
+            <input type="date" name="fechaAgenda" value="" class="form-control input-form" required id="fecha-reagenda">
           </div>
         </form>
       </div>

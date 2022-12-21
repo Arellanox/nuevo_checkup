@@ -24,7 +24,7 @@ $("#formReagendarPaciente").submit(function (event) {
       $.ajax({
         data: {
           api: 3,
-          fecha_reagenda: $('#fecha-agenda').val(),
+          fecha_reagenda: $('#fecha-reagenda').val(),
           id_turno: array_selected['ID_TURNO']
         },
         url: "../../../api/recepcion_api.php",
