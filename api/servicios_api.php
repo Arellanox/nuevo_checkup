@@ -407,6 +407,11 @@ switch ($api) {
         
         break;
 
+    case 14:
+        # generar las etiquetas de laboratorio
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
+        print_r($infoPaciente);
+        break;
     default:
         echo "Api no reconocida.";
         break;
