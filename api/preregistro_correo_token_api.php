@@ -57,7 +57,7 @@ switch ($api) {
                             </div>
                             <div
                                 style="border-width: 0 1px 1px 1px; border-color:lightgray; border-style:solid; padding:5px; display:flex; justify-content:center; border-radius: 0px 0px 5px 5px">
-                                <a href="https://www.google.com/" style="text-decoration:none;">Registro en linea</a>
+                                <a href="https://bimo-lab.com/nuevo_checkup/vista/registro/index.php?codigo='.$token.'" style="text-decoration:none;">Registro en linea</a>
                             </div>
                 
                         </div>
