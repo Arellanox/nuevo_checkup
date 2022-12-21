@@ -29,27 +29,49 @@ switch ($api) {
         } else {
             $tokenPregistro = new TokenPreregistro();
             $token = $tokenPregistro->generarTokenPreregistro($correo);
-            if ($token != '' && !str_contains($token, "Error: ")) {
+            if ($token != '') {
                 $motivo = "Token para registro de cita en linea";
-                $mensaje = '<div>
-                <div style="display:flex; justify-content:center;">
-                    <img src="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png"/>
-                    <img style="max-height:100px;" src="https://cdn19.picsart.com/9896529016.png">
-                </div>
-                <br />
-                <br />
-                <div style="max-width:35%; min-width:500px; margin:auto;">
-                    <div style="background-color:lightgray; border-radius:5px 5px 0px 0px; padding: 5px; display:block;">
-                        <p style="text-align:center; padding:0; margin:0;">Gracias por contactartar con BIMO armas biológicas, puede hacer su preregistro desde el siguiente link </p>
+                // echo $motivo;
+                $mensaje = '<!DOCTYPE html>
+                <html lang="en">
+                
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Document</title>
+                </head>
+                
+                <body>
+                    <div>
+                        <div style="display:flex; justify-content:center;">
+                            <img src="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png" />
+                            <img style="max-height:100px;" src="https://cdn19.picsart.com/9896529016.png">
+                        </div>
+                        <br />
+                        <br />
+                        <div style="max-width:35%; min-width:500px; margin:auto;">
+                            <div style="background-color:lightgray; border-radius:5px 5px 0px 0px; padding: 5px; display:block;">
+                                <p style="text-align:center; padding:0; margin:0;">Gracias por contactartar con BIMO armas biológicas,
+                                    puede hacer su preregistro desde el siguiente link </p>
+                            </div>
+                            <div
+                                style="border-width: 0 1px 1px 1px; border-color:lightgray; border-style:solid; padding:5px; display:flex; justify-content:center; border-radius: 0px 0px 5px 5px">
+                                <a href="https://www.google.com/" style="text-decoration:none;">Registro en linea</a>
+                            </div>
+                
+                        </div>
+                
                     </div>
-                    <div style="border-width: 0 1px 1px 1px; border-color:lightgray; border-style:solid; padding:5px; display:flex; justify-content:center; border-radius: 0px 0px 5px 5px" >
-                        <a href="https://www.google.com/" style="text-decoration:none;">Registro en linea</a>
-                    </div>
-              
-                </div>
-              
-              </div>'; 
-                if (mail($correo, $motivo, $message)) {
+                </body>
+                
+                </html>';
+                // Para enviar un correo HTML, debe establecerse la cabecera Content-type
+                $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+                $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                $respuestaCorreo = mail($correo, $motivo, $mensaje,$cabeceras);
+                //   echo $respuestaCorreo;
+                if ($respuestaCorreo) {
                     $response = 1;
                 } else {
                     $response = "Ocurrio un problema al intentar enviar el correo";

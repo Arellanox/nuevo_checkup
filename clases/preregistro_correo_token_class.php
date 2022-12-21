@@ -3,53 +3,46 @@ include_once "master_class.php";
 class TokenPreregistro
 {
 
- 
+
     public function generarTokenPreregistro($correo)
     {
         if (!(filter_var($correo, FILTER_VALIDATE_EMAIL))) {
             echo 'Invalid email';
         }
 
-        $token='';
+        $token = '';
 
         try {
             $master = new Master();
-            $parametros = [null,$correo,null];
-            $conexion = $master->connectDb();
-            $sp = "call sp_preregistro_token_g". $this->concatQuestionMark(count($parametros));
-            $sentencia = $conexion->prepare($sp);
-            $sentencia = $this->bindParams($sentencia,$parametros);
-            $sentencia->execute();
-            $resultSet = $sentencia->fetchAll();
-            $sentencia->closeCursor();
-            if (count($resultSet)>0){
-                $token =  $resultSet[0]['TOKEN'];
-            }
+            $resSP = $master->getByProcedure("sp_preregistro_token_g", [null, $correo, null]);
+            $token = $resSP[0]['_token'];
         } catch (Exception $e) {
-            return ('Error: '  . $sentencia->errorCode());
+            // return ('Error: '  . $sentencia->errorCode());
+            return ('Error: '  . $e);
         }
         return $token;
     }
 
-    private function concatQuestionMark($length){
+    private function concatQuestionMark($length)
+    {
         $questionMarks = "(";
-        for ($i=0; $i < $length; $i++) {
-            if ($i==$length-1) {
-                $questionMarks.="?";
+        for ($i = 0; $i < $length; $i++) {
+            if ($i == $length - 1) {
+                $questionMarks .= "?";
             } else {
-                $questionMarks.="?,";
+                $questionMarks .= "?,";
             }
         }
 
-        $questionMarks.=");";
+        $questionMarks .= ");";
         return $questionMarks;
     }
 
-    private function bindParams($object, $params){
-        for ($i=0; $i < count($params); $i++) {
-            $object->bindParam(($i+1),$params[$i]);
+    private function bindParams($object, $params)
+    {
+        for ($i = 0; $i < count($params); $i++) {
+            $object->bindParam(($i + 1), $params[$i]);
         }
         return $object;
     }
-
 }
