@@ -22,12 +22,12 @@ class Correo {
         #configuramos el correo de donde saldran los mensajes, la cabecer, etc
         $username = 'hola@bimo-lab.com';
         $password = 'Bimo&2022';
-        $fromName = utf8_decode('Biologia Molecular | Diagnóstico Biomolecular');
-        $descripcion = 'Laboratorio de Biología Molecular';
+        // $fromName = utf8_decode('Biologia Molecular | Diagnóstico Biomolecular');
+        // $descripcion = 'Laboratorio de Biología Molecular';
 
         try{
             # server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
