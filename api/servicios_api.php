@@ -410,7 +410,40 @@ switch ($api) {
     case 14:
         # generar las etiquetas de laboratorio
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
-        print_r($infoPaciente);
+        
+
+        $infoEtiqueta = $master->getByProcedure('sp_toma_de_muestra_servicios_b', [null, 6, $id_turno]);
+
+        $arrayEtiqueta = [];
+        $arrayEtiquetaEstudios = [];
+        for ($i=0; $i < count($infoEtiqueta); $i++) { 
+
+            for ($e=0; $e < count($infoEtiqueta); $e++) {
+                
+                if(strpos($infoEtiqueta[$e]['GRUPO'], $infoEtiqueta[$i]['GRUPO']) !== false && $infoEtiqueta[$i]['ABREVIATURA'] !== null ) {
+                    $arregloEtiqueta = array('CLAVE'=> $infoEtiqueta[$e]['ABREVIATURA']);
+                    array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
+                }
+            }
+
+            $array1 = array('CONTENEDOR'=> $infoEtiqueta[$i]['CONTENEDOR'],
+            'MUESTRA'=> $infoEtiqueta[$i]['MUESTRA'],
+            'ESTUDIOS'=> $arrayEtiquetaEstudios);
+            array_push($arrayEtiqueta, $array1);
+            $arrayEtiquetaEstudios = [];
+        }
+
+        $arregloPaciente = array('NOMBRE'=>$infoPaciente[0]['NOMBRE'],
+        'FECHA_TOMA' => $infoPaciente[0]['FECHA_TOMA'],
+        "FOLIO" => $infoPaciente[0]['FOLIO'],
+        "EDAD" => $infoPaciente[0]['EDAD'],
+        'SEXO' => $infoPaciente[0]['SEXO'],
+        'CONTENEDORES' => $arrayEtiqueta);
+        
+        $arrayPacienteEtiqueta = array($arregloPaciente);
+
+        print_r($arrayPacienteEtiqueta);
+        // echo json_encode($arrayPacienteEtiqueta);
         break;
     default:
         echo "Api no reconocida.";
