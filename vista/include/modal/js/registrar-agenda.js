@@ -83,7 +83,7 @@ $("#formRegistrarAgenda").submit(function (event) {
   //   return
   // }
   // formData.set('antecedentes', json);
-  switch (registroAgendaProcedencia) {
+  switch (registroAgendaRecepcion) {
     case 1:
       formData.set('cliente_id', $('#selectProcedencia').val())
       break;
@@ -325,8 +325,15 @@ $(document).on("change ,  keyup", "input[type='radio']", function () {
   }
 });
 
-if (registroAgendaProcedencia == 1) {
+
+
+if (registroAgendaRecepcion == 1) {
   $('#procedencia-agenda').html('<select class="form-control input-form" id="selectProcedencia"></select>')
+  $('#Label-BuscarPaciente').html('<label for="curp" class="form-label" id="label-identificacion">CURP</label>' +
+    '<select class="form-control input-form" id="curp-paciente"></select>' +
+    '<div class="form-check">' +
+    '<input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">' +
+    '<label class="form-check-label" for="checkCurpPasaporte-agenda"> Soy extranjero </label></div>')
 }
 // else{
 //   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')

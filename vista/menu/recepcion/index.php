@@ -12,7 +12,7 @@ $menu = "Recepción";
  </head>
  <body class="" id="body-controlador"> </body>
  <script type="text/javascript">
-    registroAgendaProcedencia = 1;
+    registroAgendaRecepcion = 1;
     nombreCliente = null;
     ant = true; // registro
     tip = "pie"; // registro-agenda

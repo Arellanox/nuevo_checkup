@@ -14,7 +14,38 @@ $menu = "Prerregistro";
   <?php include "../include/head.php"; ?>
   <title><?php echo $menu; ?> | Bimo</title>
 </head>
+<footer>
+  <script>
+    function redireccionarPrerregistro(){
+      $('#body-controlador').html('');
+      // alertMensajeConfirm({
 
+      // }, function () {
+
+      // })
+
+      setTimeout(() => {
+        Swal.fire({
+            title: "¡No tiene permitido estar aqui!",
+            text: "El token de su registro ya caducó o ha sido vencido",
+            footer: "Cerrando ventana...",
+            icon: "info",
+            confirmButtonColor: "#d33",
+            confirmButtonText: "Aceptar",
+            allowOutsideClick: false,
+            timer: 4000,
+            timerProgressBar: true,
+        }).then((result) => {
+          if (result.isConfirmed || result.dismiss === "timer") {
+            // destroySession();
+            window.location.href = 'https://www.google.com';
+          }
+        })
+      }, 100);
+
+      }
+  </script>
+</footer>
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">
   var logeo = 1, registroAgendaProcedencia = 0;
@@ -110,37 +141,6 @@ $menu = "Prerregistro";
   //   alert('No tienes acceso 4')
   // }
 </script>
-<footer>
-  <script>
-    function redireccionarPrerregistro(){
-      $('#body-controlador').html('');
-      // alertMensajeConfirm({
 
-      // }, function () {
-
-      // })
-
-      setTimeout(() => {
-        Swal.fire({
-            title: "¡No tiene permitido estar aqui!",
-            text: "El token de su registro ya caducó o ha sido vencido",
-            footer: "Cerrando ventana...",
-            icon: "info",
-            confirmButtonColor: "#d33",
-            confirmButtonText: "Aceptar",
-            allowOutsideClick: false,
-            timer: 4000,
-            timerProgressBar: true,
-        }).then((result) => {
-          if (result.isConfirmed || result.dismiss === "timer") {
-            // destroySession();
-            window.location.href = 'https://www.google.com';
-          }
-        })
-      }, 100);
-
-      }
-  </script>
-</footer>
 </html>
 
