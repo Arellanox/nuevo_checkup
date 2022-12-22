@@ -404,18 +404,26 @@
                                 }else{
                             ?>
                                 <tr >
-                                    <td class="col-one">
-                                        <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
-                                    </td>
-                                    <td class="col-two">
-                                        <?php echo ($analito->resultado != null && $analito->resultado != "N/A") ? $analito->resultado : '' ; ?>
-                                    </td>
-                                    <td class="col-three">
-                                        <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>
-                                    </td>
-                                    <td class="col-four">
-                                        <?php echo ($analito->referencia != null) ? $analito->referencia : '' ; ?>
-                                    </td>
+                                    <?php
+                                    if($analito->resultado == 'N/A'){
+
+                                    }else{
+                                    ?>
+                                        <td class="col-one">
+                                            <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
+                                        </td>
+                                        <td class="col-two">
+                                            <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
+                                        </td>
+                                        <td class="col-three">
+                                            <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>
+                                        </td>
+                                        <td class="col-four">
+                                            <?php echo ($analito->referencia != null) ? $analito->referencia : '' ; ?>
+                                        </td>
+                                    <?php                                    
+                                    } 
+                                    ?>
                                 </tr>
                             <?php
                                     if(isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '' ){
