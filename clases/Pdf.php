@@ -49,8 +49,7 @@ class Reporte{
         $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
         $barcode  = base64_encode($generator->getBarcode('081231723897', $generator::TYPE_CODE_128));
 
-        // Path del dominio
-        // $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+
         // echo $path;
 
         session_start();
@@ -79,7 +78,8 @@ class Reporte{
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                // $path    = 'pdf/public/resultados/E-00001.pdf';
+                // Path del dominio
+                $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
                 break;
 
             case 'oftamologia':
@@ -111,7 +111,8 @@ class Reporte{
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                return 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                // return 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                return 'localhost/nuevo_checkup/'. $path;
                 break;
             default:
                 $pdf->render();

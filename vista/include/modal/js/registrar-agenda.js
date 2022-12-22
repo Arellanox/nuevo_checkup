@@ -334,6 +334,7 @@ if (registroAgendaRecepcion == 1) {
     '<div class="form-check">' +
     '<input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">' +
     '<label class="form-check-label" for="checkCurpPasaporte-agenda"> Soy extranjero </label></div>')
+  select2('#curp-paciente', "ModalRegistrarPrueba", 'Cargando...')
 }
 // else{
 //   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')
