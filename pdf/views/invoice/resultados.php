@@ -408,7 +408,7 @@
                                         <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
                                     </td>
                                     <td class="col-two">
-                                        <?php echo ($analito->resultado != null || $analito->resultado != "N/A") ? $analito->resultado : '' ; ?>
+                                        <?php echo ($analito->resultado != null && $analito->resultado != "N/A") ? $analito->resultado : '' ; ?>
                                     </td>
                                     <td class="col-three">
                                         <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>
