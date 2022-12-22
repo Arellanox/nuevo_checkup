@@ -306,15 +306,15 @@ function ordenar($servicios, $clasificacion, $turno){
     $in_array = 0;
     #estamos buscandor el id 1 que corresponde a la biometria hematica
     foreach($servicios as $current){
-        if(in_array(1,$current)){
+        if(in_array(1,$current) || in_array(35,$current)){
              $in_array++;
          }
      }
 
-     #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
+     #si existe la biometria hematica [id 1] o perfil reumatico [id 35], obtenemos los valores absolutos y creamos un array
     if($in_array>0){
         $bh = array_filter($servicios, function ($obj) {
-            $r = $obj['GRUPO_ID'] == 1;
+            $r = $obj['GRUPO_ID'] == 1 || 35;
             return $r;
         });
 
@@ -327,8 +327,8 @@ function ordenar($servicios, $clasificacion, $turno){
             $absoluto_array[] = array(
                 "analito" => $current['DESCRIPCION_SERVICIO'],
                 "valor_abosluto" => $current['VALOR_ABSOLUTO'],
-                "referencia" => null,
-                "unidad" => null
+                "referencia" => $current['VALOR_REFERENCIA_ABS'],
+                "unidad" => $current['MEDIDA_ABS']
             );
         }
     }
