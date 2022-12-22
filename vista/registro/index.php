@@ -20,10 +20,10 @@ $menu = "Prerregistro";
   var logeo = 1, registroAgendaProcedencia = 0;
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
-  console.log(token)
+  // console.log(token)
   let tip = '<?php echo $tip; ?>';
   let clienteRegistro, nombreCliente, ant;
-  console.log(codigo);
+  // console.log(codigo);
   if (codigo != token) {
     validarToken()
   }else{
@@ -76,12 +76,12 @@ $menu = "Prerregistro";
             if (data.response.data[0]) {
               completarCliente(1, 'PARTICULAR')
             }else {
-              // redireccionarPrerregistro()
+              redireccionarPrerregistro()
             }
           },
         });
     }else{
-      alert(1);
+      // alert(1);
       redireccionarPrerregistro()
       return;
     }
@@ -99,11 +99,7 @@ $menu = "Prerregistro";
     vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
 }
 
-function redireccionarPrerregistro(){
-  $('#body-controlador').html('');
-  alert('No tienes acceso a este sitio');
-  window.location.href = 'https://www.google.com';
-}
+
 
   // else if (codigo != null) {
 
@@ -114,5 +110,37 @@ function redireccionarPrerregistro(){
   //   alert('No tienes acceso 4')
   // }
 </script>
+<footer>
+  <script>
+    function redireccionarPrerregistro(){
+      $('#body-controlador').html('');
+      // alertMensajeConfirm({
 
+      // }, function () {
+
+      // })
+
+      setTimeout(() => {
+        Swal.fire({
+            title: "¡No tiene permitido estar aqui!",
+            text: "El token de su registro ya caducó o ha sido vencido",
+            footer: "Cerrando ventana...",
+            icon: "info",
+            confirmButtonColor: "#d33",
+            confirmButtonText: "Aceptar",
+            allowOutsideClick: false,
+            timer: 4000,
+            timerProgressBar: true,
+        }).then((result) => {
+          if (result.isConfirmed || result.dismiss === "timer") {
+            // destroySession();
+            window.location.href = 'https://www.google.com';
+          }
+        })
+      }, 100);
+
+      }
+  </script>
+</footer>
 </html>
+
