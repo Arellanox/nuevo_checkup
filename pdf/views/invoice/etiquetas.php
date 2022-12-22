@@ -47,20 +47,20 @@
     <div class="label">
         <table>
         <?php
-            $recipientes = $resultados->recipientes;
+            $recipientes = $resultados->contenedores;
             foreach ($recipientes as $a => $recipiente) {
                 echo "  <tr>
                             <label>"
-                                .date('Y-m-d')."
+                                . $resultados->fecha_hora_toma ."
                             </label>
-                            <p>". $recipiente->recipiente ."</p>
-                            <p>". $resultados->nombre . " - " . $resultados->edad . " - " . $resultados->sexo .  "</p>";
+                            <p>". $recipiente->contenedor ."</p>
+                            <p>". $resultados->nombre . "</p>
+                            <p>" . $resultados->edad . " años - " . $resultados->sexo .  "</p>";
                 $etiqueta = '';
                 foreach ($recipiente->estudios as $b => $estudio) {
                     $etiqueta = $etiqueta . $estudio->clave . ", "; 
                 }
-                echo    "<p>". $etiqueta ."</p>
-                        <p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p>";
+                echo    "<p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p> <p>". $etiqueta ."</p>";
             }
         ?>
         </table>
