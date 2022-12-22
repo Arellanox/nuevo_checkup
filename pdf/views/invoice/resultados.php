@@ -2,28 +2,18 @@
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet"> 
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+        
         <style>
             @page { 
                 margin: 165px 10px; 
             }
             
             body{
-                font-family: 'Noto Sans', sans-serif;
+                font-family: 'Roboto', sans-serif;
                 margin-top: 60px;
                 font-size: 10px;
-            }
-
-            #image {
-                top: -155px;
-                position: fixed;
-                height: 120px;
-                width: 80px;
-                z-index: -9999;
-                
-                background-image: url({{$membrete}});
-                background-repeat: no-repeat;
-                background-size: 100%;
             }
             
             .header { 
@@ -214,8 +204,6 @@
 
     ?>
     <body>
-        <div id="image">
-        </div>
         <!-- header -->
         <div class="header">
             <br><br>
@@ -231,7 +219,11 @@
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
-                            <?php echo "<img src='data:image/png;base64, ". $encode . "' height='75' > " ?>
+                            <?php
+                                echo "<img src='data:image/png;base64, ". $encode . "' height='75' >";
+                                // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+                            ?>
+
                         </td>
                     </tr>
                 </tbody>
@@ -243,6 +235,7 @@
                             <h3>
                                 Laboratorio Clinico
                             </h3>
+                            
                         </td>
                     </tr>
                 </tbody>
@@ -401,11 +394,9 @@
                                             </td>
                                             <td class="col-three">
                                                 <?php echo ($absoluto->unidad != null) ? $absoluto->unidad : '' ; ?>
-
                                             </td>
                                             <td class="col-four">
                                                 <?php echo ($absoluto->referencia != null) ? $absoluto->referencia : '' ; ?>
-
                                             </td>
                                         </tr>
                             <?php
@@ -417,7 +408,7 @@
                                         <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
                                     </td>
                                     <td class="col-two">
-                                        <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
+                                        <?php echo ($analito->resultado != null || $analito->resultado != "N/A") ? $analito->resultado : '' ; ?>
                                     </td>
                                     <td class="col-three">
                                         <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>

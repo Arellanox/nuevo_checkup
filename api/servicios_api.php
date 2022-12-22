@@ -402,7 +402,38 @@ switch ($api) {
         $respuesta = array(json_encode($res_toma_muestra_serv));
         echo json_encode($respuesta);
 
-        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), 'resultados', 'url');
+        $array = array(
+            "nombre"=> "JOSUE DE LA CRUZ ARELLANO",
+            "fecha_hora_toma"=> "fecha",
+            "folio" => "1",
+            "edad"=> "1",
+            "sexo"=> "binario",
+            "contenedores"=> array(
+                                array(
+                                        "contenedor" => "tubo rojo",
+                                        "tipo_muestra" => "sangre",
+                                        "estudios"=>array(
+                                            array(
+                                                "clave" => "ES6",
+                                            ),
+                                            array(
+                                                "clave" => "QS4",
+                                            )
+                                        )
+                                    ),
+                                array(
+                                        "contenedor" => "frasco",
+                                        "tipo_muestra" => "orina",
+                                        "estudios"=>array(
+                                            array(
+                                                "clave" => "ego"
+                                            )
+                                        )
+                                    )
+                            )
+                );
+
+        $pdf = new Reporte(json_encode($array), json_encode($responsePac[0]), null, null, 'etiquetas', 'url');
         $pdf->build();
         
         break;
