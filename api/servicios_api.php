@@ -433,7 +433,7 @@ switch ($api) {
                             )
                 );
 
-        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), null, null, 'resultados', 'url');
+        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), null, null, 'etiquetas', 'url');
         $pdf->build();
         
         break;
@@ -451,11 +451,11 @@ function ordenar($servicios, $clasificacion, $turno){
     #estamos buscandor el id 1 que corresponde a la biometria hematica
     foreach($servicios as $current){
         if(in_array(1,$current)){
-             $in_array++;
-         }
-     }
+            $in_array++;
+        }
+    }
 
-     #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
+    #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
     if($in_array>0){
         $bh = array_filter($servicios, function ($obj) {
             $r = $obj['GRUPO_ID'] == 1;
