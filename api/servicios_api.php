@@ -448,20 +448,8 @@ switch ($api) {
 
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
 
-                //     if (strpos($infoEtiqueta[$e]['GRUPO'], $infoEtiqueta[$i]['GRUPO']) !== false && $infoEtiqueta[$i]['GRUPO'] !== null) {
-                //         // $arregloEtiqueta = array('GRUPO' => $infoEtiqueta[$e]['GRUPO']);
-                //         // array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
-
-                //         $array1 = array(
-                //             'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
-                //             'MUESTRA' => $infoEtiqueta[$i]['MUESTRA']
-                //         );
-                //         array_push($arrayEtiqueta, $array1);
-                //     }
-                // }
                 if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR']) {
-                    echo $infoEtiqueta[$i]['CONTENEDOR']." = ".$infoEtiqueta[$e]['CONTENEDOR']." \n "; 
-                    $arregloEtiqueta = array('GRUPO' => $infoEtiqueta[$e]['GRUPO']);
+                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABREVIATURA']);
                     array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
                 }
             }
