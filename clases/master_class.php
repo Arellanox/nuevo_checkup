@@ -63,7 +63,7 @@ class Master extends Miscelaneus
 
             $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
             $sentencia = $conexion->prepare($sp);
-
+            
             $sentencia = $this->bindParams($sentencia, $parametros);
 
             if (!$sentencia->execute()) {
@@ -112,6 +112,19 @@ class Master extends Miscelaneus
         return $retorno;
     }
 
+    private function trimmer($trimming = array()){
+        $trimed = array();
+        // for ($i = 0; $i < count($trimming); $i++) {
+        //     $trimed[] = trim( $trimming[$i] );
+        // }
+
+        foreach ($trimming as $key =>$current){
+            $trimed[$key] = isset($current) ? trim($current) : $current;
+        }
+
+        return $trimed;
+    }
+
     public function insertByProcedure($nombreProcedimiento, $parametros)
     {
         $retorno = $this->updateByProcedure($nombreProcedimiento, $parametros);
@@ -141,6 +154,7 @@ class Master extends Miscelaneus
 
     private function bindParams($object, $params)
     {
+        $params = $this->trimmer($params);
         for ($i = 0; $i < count($params); $i++) {
             $object->bindParam(($i + 1), $params[$i]);
         }

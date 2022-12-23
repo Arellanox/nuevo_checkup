@@ -6,11 +6,22 @@ $('#eliminarForm').prop('disabled', true);
 $('#curp-paciente').prop('readonly', false);
 
 
+setTimeout(() => {
+  if (nombreCliente != null) {
+    $("#procedencia-registro").html(nombreCliente)
+    rellenarSelect('#selectSegmentos', 'segmentos_api', 2, 0, 'DESCRIPCION', {
+      cliente_id: clienteRegistro
+    });
+  }
+}, 1000);
+
+
+
 
 // Registrar agenda del paciente
 $("#formRegistrarAgenda").submit(function (event) {
   event.preventDefault();
-  alert("form formAntecedentes-paciente")
+  // alert("form formAntecedentes-paciente")
   /*DATOS Y VALIDACION DEL REGISTRO*/
   // var form = document.getElementById("formRegistrarAgenda");
   var formData = new FormData();
@@ -54,7 +65,7 @@ $("#formRegistrarAgenda").submit(function (event) {
 
     for (var i = 0; i < formMedioLaboral.length; i++)
       formData.append(formMedioLaboral[i].name, formMedioLaboral[i].value);
-    alert('form');
+    // alert('form');
   }
   // var formData = new FormData(document.forms['form-ship']); // with the file input
   // var poData = jQuery(document.forms['po-form']).serializeArray();
@@ -72,16 +83,27 @@ $("#formRegistrarAgenda").submit(function (event) {
   //   return
   // }
   // formData.set('antecedentes', json);
+  switch (registroAgendaRecepcion) {
+    case 1:
+      formData.set('cliente_id', $('#selectProcedencia').val())
+      break;
+    default:
+      formData.set('cliente_id', clienteRegistro)
+      break;
+  }
   if ($('#checkCurpPasaporte-agenda').is(":checked")) {
     formData.set('pasaporte', $('#curp-paciente').val())
   } else {
     formData.set('curp', $('#curp-paciente').val())
   }
 
-  formData.set('cliente_id', clienteRegistro)
-  // formData.set('segmento_id', null) //$('#selectSegmentos').val()
+  if ($('#selectSegmentos').val() != null) {
+    formData.set('segmento_id', $('#selectSegmentos').val()) //
+  }
   formData.set('fechaAgenda', $('#fecha-agenda').val())
   formData.set('api', 1);
+
+
   // console.log(formData);
   Swal.fire({
     title: '¿Está seguro que todos sus datos son correctos?',
@@ -102,11 +124,11 @@ $("#formRegistrarAgenda").submit(function (event) {
         type: "POST",
         processData: false,
         contentType: false,
+        dataType: "json",
         beforeSend: function () {
           alertMensaje('info', '¡Se están cargando sus datos!', 'El sistema está guardando su agenda. Se enviará un correo de confirmación con su prefolio.')
         },
         success: function (data) {
-          data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
             if (data.response.code == 1) {
               // Toast.fire({
@@ -115,12 +137,15 @@ $("#formRegistrarAgenda").submit(function (event) {
               //   timer: 2000
               // });
               //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
-              alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio <strong class="bg-danger">(' + data.response.data + ')</strong>')
-              // Autocompletar el campo de prefolio y CURP en consulta de resultado
+              alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
 
-              document.getElementById("formAntecedentes").reset();
+              $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)</div>')
+
+
+
+              // document.getElementById("formAntecedentes").reset();
+              $("#ModalRegistrarPrueba").modal('hide');
               if (session.user != null) {
-                $("#ModalRegistrarPrueba").modal('hide');
                 $("#btn-formregistrar-agenda").prop('disabled', false);
               }
             } else {
@@ -157,6 +182,14 @@ function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
 
 var tipoPaciente = "0"; //Particular por defecto
 $('#actualizarForm').click(function () {
+
+  if (ant) {
+    $('#cuestionadioRegistro').fadeOut(100);
+    // $('input[type="radio"]').prop("checked", true)
+  } else {
+    obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
+    console.log(ant)
+  }
 
   //Solicitar si la curp existe
   // window.location.hash = "formDIV";
@@ -203,13 +236,7 @@ $('#actualizarForm').click(function () {
             // $('#procedencia-registro').html(data.response.data[0].PROCEDENCIA);
             // $('#formDIV *').prop('disabled',false);
             $('#btn-formregistrar-agenda').prop('disabled', false);
-            await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
-            if (ant) {
-              $('#cuestionadioRegistro').fadeOut(100);
-              // $('input[type="radio"]').prop("checked", true)
-            } else {
-              console.log(ant)
-            }
+
 
           } else {
             $('#actualizarForm').prop('disabled', false);
@@ -298,8 +325,16 @@ $(document).on("change ,  keyup", "input[type='radio']", function () {
   }
 });
 
-if (registroAgendaProcedencia == 1) {
+
+
+if (registroAgendaRecepcion == 1) {
   $('#procedencia-agenda').html('<select class="form-control input-form" id="selectProcedencia"></select>')
+  $('#Label-BuscarPaciente').html('<label for="curp" class="form-label" id="label-identificacion">CURP</label>' +
+    '<select class="form-control input-form" id="curp-paciente"></select>' +
+    '<div class="form-check">' +
+    '<input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">' +
+    '<label class="form-check-label" for="checkCurpPasaporte-agenda"> Soy extranjero </label></div>')
+  select2('#curp-paciente', "ModalRegistrarPrueba", 'Cargando...')
 }
 // else{
 //   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')

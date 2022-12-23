@@ -11,6 +11,8 @@ $('#formAnalisisLaboratorio').submit(function (event) {
     // console.log(formData);
     if ($('button[type="submit"][form="formAnalisisLaboratorio"]:focus').attr('data-attribute') == 'confirmar') {
       formData.set('confirmar', true);
+    } else {
+
     }
 
     Swal.fire({
@@ -73,6 +75,10 @@ $('#formAnalisisLaboratorio').submit(function (event) {
   }
 })
 
+$('#btn-confirmar-formulario').click(function (e) {
+
+})
+
 // $('#btn-guardar-resultados').click(function(){
 //   alert("button guardar")
 //   console.log($(this))
@@ -131,7 +137,7 @@ $(document).on('click', '.obtenerPDF', function (event) {
     },
     success: function (data) {
       console.log(data);
-    alertMensaje(null, null, null, null,
+      alertMensaje(null, null, null, null,
         `<div class="d-flex justify-content-center"> <a href="` + data + `" class="btn btn-borrar" target="_blank" style="width: 50%"> <i class="bi bi-image"></i> Descargar</a></div></div>`
       )
 

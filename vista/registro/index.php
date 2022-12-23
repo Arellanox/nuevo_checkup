@@ -2,7 +2,7 @@
 //Variables dinamicas;
 $codigo = isset($_GET['codigo']) ? $_GET['codigo'] : null;
 $token = isset($_GET['token']) ? $_GET['token'] : null;
-$ant = isset($_GET['ant']) ? $_GET['ant'] : null;
+$tip = isset($_GET['tip']) ? $_GET['tip'] : null;
 include "../variables.php";
 $menu = "Prerregistro";
 ?>
@@ -14,34 +14,66 @@ $menu = "Prerregistro";
   <?php include "../include/head.php"; ?>
   <title><?php echo $menu; ?> | Bimo</title>
 </head>
+<footer>
+  <script>
+    function redireccionarPrerregistro(){
+      $('#body-controlador').html('');
+      // alertMensajeConfirm({
 
+      // }, function () {
+
+      // })
+
+      setTimeout(() => {
+        Swal.fire({
+            title: "¡No tiene permitido estar aqui!",
+            text: "El token de su registro ya caducó o ha sido vencido",
+            footer: "Cerrando ventana...",
+            icon: "info",
+            confirmButtonColor: "#d33",
+            confirmButtonText: "Aceptar",
+            allowOutsideClick: false,
+            timer: 4000,
+            timerProgressBar: true,
+        }).then((result) => {
+          if (result.isConfirmed || result.dismiss === "timer") {
+            // destroySession();
+            window.location.href = 'https://www.google.com';
+          }
+        })
+      }, 100);
+
+      }
+  </script>
+</footer>
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">
   var logeo = 1, registroAgendaProcedencia = 0;
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
-  const ant = '<?php echo $ant; ?>';
-  let clienteRegistro;
-
-  if (!codigo == token) {
-    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>')
+  // console.log(token)
+  let tip = '<?php echo $tip; ?>';
+  let clienteRegistro, nombreCliente, ant;
+  // console.log(codigo);
+  if (codigo != token) {
+    validarToken()
   }else{
     redireccionarPrerregistro()
   }
 
 
-  function vista(menu, url) {
+  function vista(menu, url, tip) {
     $.post(url, {
-      menu: menu, tipoUrl: 3
+      menu: menu, tipoUrl: 3, tip: tip
     }, function(html) {
       $("#body-controlador").html(html);
     }).done(function(){
-      validarToken();
+      // validarToken();
     });
   }
 
   function validarToken(){
-    if (codigo != null) {
+    if (codigo != null && codigo != '') {
         $.ajax({
           data: {
             qr: codigo,
@@ -62,39 +94,43 @@ $menu = "Prerregistro";
           },
         });
     }else if (token != null) {
-      // $.ajax({
-      //     data: {
-      //       token: token,
-      //       api: 1
-      //     },
-      //     url: "../../api/token_api.php",
-      //     type: "POST",
-      //     success: function(data) {
-      //       data = jQuery.parseJSON(data);
-      //       if (data.response.data[0]) {
-      //         completarCliente(row['ID_CLIENTE'], row['NOMBRE_CLIENTE'])
-      //       }else {
-      //         redireccionarPrerregistro()
-      //       }
-      //     },
-      //   });
+      console.log(token);
+      $.ajax({
+          data: {
+            token: token,
+            api: 2
+          },
+          url: "../../api/preregistro_correo_token_api.php",
+          type: "POST",
+          success: function(data) {
+            data = jQuery.parseJSON(data);
+            if (data.response.data[0]) {
+              completarCliente(1, 'PARTICULAR')
+            }else {
+              redireccionarPrerregistro()
+            }
+          },
+        });
     }else{
+      // alert(1);
       redireccionarPrerregistro()
+      return;
     }
   }
-
-function completarCliente(id, name){
-alert(name)
-  $("#procedencia-registro").html(name)
-  clienteRegistro = id
-  rellenarSelect('#selectSegmentos','segmentos_api', 2,0,'DESCRIPCION', {cliente_id: clienteRegistro});
+  
+  function completarCliente(id, name){
+    // alert(name)
+    nombreCliente = name
+    clienteRegistro = id
+    
+    if(id == 1)
+    ant = true;
+    
+    //Mostrar Vista
+    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
 }
 
-function redireccionarPrerregistro(){
-  $('#body-controlador').html('');
-  alert('No tienes acceso a este sitio');
-  window.location.href = 'https://www.google.com';
-}
+
 
   // else if (codigo != null) {
 
@@ -107,3 +143,4 @@ function redireccionarPrerregistro(){
 </script>
 
 </html>
+

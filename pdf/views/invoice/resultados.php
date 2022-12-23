@@ -244,7 +244,7 @@
                 <tbody>
                     <tr>
                         <td class="col-left"  style="border-bottom: none">
-                            No. Identificacion: <strong> <?php echo $encabezado->FOLIO;?> </strong> 
+                            No. Identificación: <strong> <?php echo $encabezado->FOLIO;?> </strong> 
                         </td>
                         <td class="col-center"  style="border-bottom: none">
                             Edad: <strong> <?php echo $encabezado->EDAD;?> años</strong> 

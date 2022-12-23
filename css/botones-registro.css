@@ -25,12 +25,12 @@
 
 #box2{
     box-shadow: 0px 6px 6px 1px rgba(0,0,0,0.5);
-    background-color: rgb(0 158 15);
+    background-color: rgb(0, 55, 175);
     color: white;
     margin-top: 50px;
 }
 
 #box2:hover{
-  background-color: rgb(0 158 15 / 69%);
+  background-color: rgba(0, 61, 175, 0.69);
   color: black;
 }

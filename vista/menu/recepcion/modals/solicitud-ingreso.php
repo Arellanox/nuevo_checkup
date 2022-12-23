@@ -6,11 +6,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <p>Recuerde que los pacientes particulares no rellenan el cuestionario de antencedentes</p>
         <form class="" id="formEnviarCorreoIngreso">
           <div class="col-12 col-md-12 col-lg-12 col-xl-12">
             <label for="correo" class="form-label">Ingrese el correo</label>
             <input type="email" name="correo" id="inputURLSolicitudCorreo" class="form-control input-form" required>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="checkInfoPers">
+              <label class="form-check-label" for="checkInfoPers">
+                Solo información personal
+              </label>
+            </div>
           </div>
+          
         </form>
       </div>
       <div class="modal-footer">
