@@ -42,9 +42,6 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
     },
     {
       data: 'PREFOLIO',
-      render: function (data, type, full, meta) {
-        return "20221014JMC412";
-      },
     },
     {
       data: 'EDAD'
