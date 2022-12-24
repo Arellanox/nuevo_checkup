@@ -9,15 +9,19 @@ $('#formAnalisisLaboratorio').submit(function (event) {
     formData.set('id_area', 6)
     formData.set('api', 9);
     // console.log(formData);
-    if ($('button[type="submit"][form="formAnalisisLaboratorio"]:focus').attr('data-attribute') == 'confirmar') {
+    if ($('.subir-resultado-lab:focus').attr('data-attribute') == 'confirmar') {
       formData.set('confirmar', true);
+      title = "¿Está seguro de confirmar los resultados?";
+      text = "¡No podrá revertir esta acción!";
     } else {
+      title = "¿Estás seguro de guardar los resultados?";
+      text = "use la contraseña de su sesión para guardar/actualizar los resultados";
 
     }
 
     Swal.fire({
-      title: '¿Estás seguro de guardar los resultados?',
-      text: 'Use su contraseña para confirmar',
+      title: title,
+      text: text,
       showCancelButton: true,
       confirmButtonText: 'Confirmar',
       cancelButtonText: 'Cancelar',
@@ -73,6 +77,15 @@ $('#formAnalisisLaboratorio').submit(function (event) {
       }
     })
   }
+})
+
+$('.subir-resultado-lab').click(function () {
+  if ($('.subir-resultado-lab:focus').attr('data-attribute') == 'confirmar') {
+    $('.inputFormRequired').prop('required', true);
+  } else {
+    $('.inputFormRequired').prop('required', false);
+  }
+  $("#btnConfirmarResultados").click();
 })
 
 $('#btn-confirmar-formulario').click(function (e) {
