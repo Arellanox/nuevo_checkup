@@ -329,12 +329,13 @@ $(document).on("change ,  keyup", "input[type='radio']", function () {
 
 if (registroAgendaRecepcion == 1) {
   $('#procedencia-agenda').html('<select class="form-control input-form" id="selectProcedencia"></select>')
-  $('#Label-BuscarPaciente').html('<label for="curp" class="form-label" id="label-identificacion">CURP</label>' +
+  $('#Label-BuscarPaciente').html('<label for="curp" class="form-label" id="label-identificacion">Pacientes existentes</label>' +
     '<select class="form-control input-form" id="curp-paciente"></select>' +
     '<div class="form-check">' +
     '<input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">' +
     '<label class="form-check-label" for="checkCurpPasaporte-agenda"> Soy extranjero </label></div>')
   select2('#curp-paciente', "ModalRegistrarPrueba", 'Cargando...')
+  rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'CURP', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
 }
 // else{
 //   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')

@@ -24,7 +24,7 @@
       </table>
     </div>
   </div>
-  <div class="col-3 col-lg-3 informacion-labo" style="margin-right: -5px !important;display:none">
+  <div class="col-3 col-lg-4 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card m-3" id="panel-informacion"> </div>
     <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 informacion-labo" style="margin-right: -5px !important;display:none">
+  <div class="col-lg-5 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card mt-3 p-3">
       <div class="row">
         <div class="col-12 col-lg-7">
