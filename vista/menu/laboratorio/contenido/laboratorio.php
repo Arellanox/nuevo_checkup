@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col-12 col-lg-7">
           <h4>Formulario de resultados</h4>
-          <p class="none-p">Estudios a subir, recuerde dar como resultado N/A para ocultar el resultado en el reporte...</p>
+          <p class="none-p">Estudios a subir, recuerde mostrar como resultado N/A si necesita ocultar la prueba</p>
         </div>
         <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
           <button type="button" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px" >
