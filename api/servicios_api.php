@@ -330,108 +330,9 @@ switch ($api) {
         }
         break;
     case 13:
-        # para crear los reportes de LABORATORIO
-
-        # informacion general del paciente
-        $infoPaciente = $master->getByProcedure("sp_informacion_paciente", [$id_turno]);
-
-        #Estudios solicitados por el paciente
-        $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', [null, 6]);
-        $response = $master->getByProcedure("sp_cargar_estudios", [$id_turno, 6]);
-        $responsePac = $master->getByProcedure("sp_informacion_paciente", [$id_turno]);
-        $arrayGlobal = array(
-            'areas' => array()
-        );
-
-        # filtramos el arreglo principal y obtenemos aquellos estudios
-        # que tienen valor absoluto.
-        $serv_var_abs_obj = array_filter($response, function ($obj) {
-            $return = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
-            return $return;
-        });
-
-        $serv_var_abs = ordenarResultados($serv_var_abs_obj, "VALORES ABSOLUTOS");
-        $valores_absolutos = $serv_var_abs['estudios'][0]['analitos'];
-
-        for ($i = 0; $i < count($clasificaciones); $i++) {
-            $clasificacion_id = $clasificaciones[$i]['ID_CLASIFICACION'];
-            # sacamos arrays individuales por clasificacion de examen
-            $servicios = array_filter($response, function ($obj) use ($clasificacion_id) {
-                $return = $obj['CLASIFICACION_ID'] == $clasificacion_id;
-                return $return;
-            });
-
-            # como no estamos seguros que de que se encuentren todas las clasificaciones 
-            # en un paciente, evaluamos que el array no este vacio.
-            #print_r($servicios);
-
-            if (!empty($servicios)) {
-
-                $aux = ordenar($servicios, $clasificaciones[$i]['DESCRIPCION'], $id_turno);
-
-                $arrayGlobal['areas'][] = $aux;
-            }
-        }
-        // echo "================================================================";
-        // echo "<br>";
-
-
-        # habra estudios que no tengan clasificacion, esos el servidor las regresa con id 0
-        # como el id 0 no existe dentro de la tabla de clasificaciones, el algoritmo de arriba los ignora
-        # por tanto se tiene que realizar un algoritmo similar pero con el filtro en 0.
-        $servicios = array_filter($response, function ($obj) {
-            $return = $obj['CLASIFICACION_ID'] == 0;
-            return $return;
-        });
-
-        if (!empty($servicios)) {
-            // $aux = ordenarResultados($servicios,"OTROS ESTUDIOS");
-            $aux = ordenar($servicios, "NINGUNA", $id_turno);
-            // $arrayGlobal['areas'][]= $aux;
-        }
-
-        // print_r($arrayGlobal);
-        // print_r($responsePac);
-
-        //JSON para etiquetas (toma de muestra servicios)
-        $res_toma_muestra_serv = $master->getByProcedure('sp_toma_de_muestra_servicios_b', [$id_paciente_detalle, $id_area, $id_turno]);
-        $respuesta = array(json_encode($res_toma_muestra_serv));
-        echo json_encode($respuesta);
-
-        $array = array(
-            "nombre" => "JOSUE DE LA CRUZ ARELLANO",
-            "fecha_hora_toma" => "fecha",
-            "folio" => "1",
-            "edad" => "1",
-            "sexo" => "binario",
-            "contenedores" => array(
-                array(
-                    "contenedor" => "tubo rojo",
-                    "tipo_muestra" => "sangre",
-                    "estudios" => array(
-                        array(
-                            "clave" => "ES6",
-                        ),
-                        array(
-                            "clave" => "QS4",
-                        )
-                    )
-                ),
-                array(
-                    "contenedor" => "frasco",
-                    "tipo_muestra" => "orina",
-                    "estudios" => array(
-                        array(
-                            "clave" => "ego"
-                        )
-                    )
-                )
-            )
-        );
-
-        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), null, null, 'resultados', 'url');
-        $pdf->build();
-
+        # ARREGLO PARA LAS ETIQUETAS
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente',[$id_turno]);
+        $infoEtiqueta = $master->getByProcedure('sp_toma_de_muestra_servicios_b', [null,]);
         break;
 
     case 14:
@@ -475,6 +376,7 @@ switch ($api) {
             "FOLIO" => $infoPaciente[0]['FOLIO'],
             "EDAD" => $infoPaciente[0]['EDAD'],
             'SEXO' => $infoPaciente[0]['SEXO'],
+            'BARRAS' => $infoPaciente[0]['CODIGO_BARRAS'],
             'CONTENEDORES' => $arrayEtiqueta
         );
 
