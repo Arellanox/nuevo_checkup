@@ -450,7 +450,8 @@ switch ($api) {
 
                 if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR']) {
                     #$arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABREVIATURA']);
-                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
+                    #$arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
+                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ID']);
                     array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
                 }
             }
