@@ -24,7 +24,7 @@
       </table>
     </div>
   </div>
-  <div class="col-3 col-lg-3 informacion-labo" style="margin-right: -5px !important;display:none">
+  <div class="col-3 col-lg-4 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card m-3" id="panel-informacion"> </div>
     <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -32,19 +32,22 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 informacion-labo" style="margin-right: -5px !important;display:none">
+  <div class="col-lg-5 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card mt-3 p-3">
       <div class="row">
         <div class="col-12 col-lg-7">
           <h4>Formulario de resultados</h4>
-          <p class="none-p">Estudios a subir</p>
+          <p class="none-p">Estudios a subir, recuerde mostrar como resultado N/A si necesita ocultar la prueba</p>
         </div>
         <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
-          <button type="submit" form="formAnalisisLaboratorio" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px" >
+          <button type="button" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px" >
             <i class="bi bi-clipboard2-pulse"></i> Guardar
           </button>
-          <button type="submit" form="formAnalisisLaboratorio" data-attribute="confirmar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
+          <button type="button" data-attribute="confirmar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
             <i class="bi bi-clipboard2-pulse"></i> Confirmar
+          </button>
+          <button type="submit" form="formAnalisisLaboratorio" data-attribute="confirmar" id="btnConfirmarResultados" class="btn btn-hover" style="margin-bottom:4px; display: none;">
+            <i class="bi bi-clipboard2-pulse"></i> submit
           </button>
         </div>
       </div>

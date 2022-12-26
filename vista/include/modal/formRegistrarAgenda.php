@@ -1,6 +1,6 @@
 <p class="text-center">Utilice su <strong>CURP</strong> para crear su registro de laboratorio</p>
 <div class="row">
-  <div class="col-12 col-lg-4" id="Label-BuscarPaciente">
+  <div class="col-12 col-lg-8" id="Label-BuscarPaciente">
       <label for="curp" class="form-label" id="label-identificacion">CURP</label>
       <input type="text" name="curp" value="" class="form-control input-form" id="curp-paciente" required>
       <div class="form-check">

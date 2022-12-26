@@ -10,8 +10,8 @@ $('#fechaListadoAreaMaster').change(function () {
 
 $("#btn-analisis-pdf").click(function () {
   if (selectPacienteArea != null) {
-    $("#ModalSubirInterpretacion").modal("show");
-    // chooseEstudio(selectEstudio.array, '#ModalSubirInterpretacion', 1)
+    // $("#ModalSubirInterpretacion").modal("show");
+    chooseEstudio(selectEstudio.array, '#ModalSubirInterpretacion', 1)
   } else {
     alertSelectTable();
   }
