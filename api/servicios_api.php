@@ -332,7 +332,7 @@ switch ($api) {
     case 13:
         # ARREGLO PARA LAS ETIQUETAS
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente',[$id_turno]);
-        $infoEtiqueta = $master->getByProcedure('sp_toma_de_muestra_servicios_b', [null,]);
+        $infoEtiqueta = $master->getByProcedure('sp_toma_de_muestra_servicios_b', [null,6,$id_turno]);
         break;
 
     case 14:
@@ -345,11 +345,12 @@ switch ($api) {
         $arrayEtiqueta = [];
         $arrayEtiquetaEstudios = [];
         $content = "";
+        $muestra = "";
         for ($i = 0; $i < count($infoEtiqueta); $i++) {
 
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
 
-                if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR']) {
+                if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
                     #$arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABREVIATURA']);
                     #$arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
                     $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ID']);
@@ -360,6 +361,7 @@ switch ($api) {
 
             if ($content !== $infoEtiqueta[$i]['CONTENEDOR']) {
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
+                $muestra = $infoEtiqueta[$i]['MUESTRA'];
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
@@ -367,6 +369,16 @@ switch ($api) {
                 );
                 array_push($arrayEtiqueta, $array1);
                 $arrayEtiquetaEstudios = [];
+            } else if ($muestra !== $infoEtiqueta[$i]['MUESTRA']){
+                $content = $infoEtiqueta[$i]['CONTENEDOR'];
+                $muestra = $infoEtiqueta[$i]['MUESTRA'];
+                $array1 = array(
+                    'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
+                    'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
+                    'ESTUDIOS' => $arrayEtiquetaEstudios,
+                );
+                array_push($arrayEtiqueta, $array1);
+                $arrayEtiquetaEstudios = [];    
             }
         }
 
