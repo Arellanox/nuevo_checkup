@@ -47,18 +47,18 @@
     <div class="label">
         <table>
         <?php
-            $recipientes = $resultados->contenedores;
-            foreach ($recipientes as $a => $recipiente) {
+            $recipientes = $resultados;
+            foreach ($recipientes->CONTENEDORES as $a => $recipiente) {
                 echo "  <tr>
                             <label>"
-                                . $resultados->fecha_hora_toma ."
+                                . $recipientes->FECHA_TOMA ."
                             </label>
-                            <p>". $recipiente->contenedor ."</p>
-                            <p>". $resultados->nombre . "</p>
-                            <p>" . $resultados->edad . " años - " . $resultados->sexo .  "</p>";
+                            <p>". $recipiente->CONTENEDOR ."</p>
+                            <p>". $recipientes->NOMBRE . "</p>
+                            <p>" . $recipientes->EDAD . " años - " . $recipientes->SEXO .  "</p>";
                 $etiqueta = '';
-                foreach ($recipiente->estudios as $b => $estudio) {
-                    $etiqueta = $etiqueta . $estudio->clave . ", "; 
+                foreach ($recipiente->ESTUDIOS as $b => $estudio) {
+                    $etiqueta = $etiqueta . $estudio->ABREVIATURA . ", "; 
                 }
                 echo    "<p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p> <p>". $etiqueta ."</p>";
             }

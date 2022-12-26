@@ -479,7 +479,9 @@ switch ($api) {
         $arrayPacienteEtiqueta = array($arregloPaciente);
 
         // print_r($arrayPacienteEtiqueta);
-        echo json_encode($arrayPacienteEtiqueta);
+        print_r($arrayPacienteEtiqueta);
+        $pdf = new Reporte(json_encode($arrayPacienteEtiqueta[0]), null, null, null, 'etiquetas', 'url');
+        $pdf->build();
         break;
     default:
         echo "Api no reconocida.";
@@ -718,4 +720,5 @@ function ordenarResultados($servicios, $clasificacion)
         $aux['estudios'][0]['analitos'][] = $aux_abs;
     }
     return $aux;
+}
 }

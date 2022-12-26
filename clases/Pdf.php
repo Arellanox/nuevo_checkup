@@ -47,10 +47,10 @@ class Reporte{
 
         // Barcode
         $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-        $barcode  = base64_encode($generator->getBarcode('081231723897', $generator::TYPE_CODE_128));
+        $barcode  = base64_encode($generator->getBarcode('1234567890', $generator::TYPE_CODE_128));
 
         // Path del dominio
-        $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+        // $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
         // echo $path;
 
         session_start();
@@ -72,7 +72,7 @@ class Reporte{
                 $alto  = (2 / 2.54) * 72;
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
-                // $path    = 'pdf/public/etiquetas/00001.pdf';
+                $path    = 'pdf/public/etiquetas/00001.pdf';
                 break;
 
             case 'resultados':
@@ -112,7 +112,7 @@ class Reporte{
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                return 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                // return 'https://bimo-lab.com/nuevo_checkup/'. $path;
                 // return $path;
                 break;
             default:
