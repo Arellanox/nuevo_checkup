@@ -24,14 +24,15 @@
             max-width: 50mm;
             height: 25mm;
             max-height: 25mm; 
+            margin: 3px 5px 0px;
 		}
 
         table{
             text-align:justify ;
         }
-
+        
         .label{
-            margin: 1px;
+            /* margin: 0px 5px 0px; */
         }
 
         .break {
@@ -49,18 +50,20 @@
         <?php
             $recipientes = $resultados;
             foreach ($recipientes->CONTENEDORES as $a => $recipiente) {
-                echo "  <tr>
+                echo "  <tr >
                             <label>"
-                                . $recipientes->FECHA_TOMA ."
+                                .   $recipientes->FECHA_TOMA ."
                             </label>
-                            <p>". $recipiente->CONTENEDOR . " (" . $recipiente->MUESTRA ." ) </p>
-                            <p>". $recipientes->NOMBRE . "</p>
-                            <p>" . $recipientes->EDAD . " años - " . $recipientes->SEXO .  "</p>";
+                            <p>".   $recipiente->CONTENEDOR . " (" . $recipiente->MUESTRA ." ) </p>
+                            <p>".   $recipientes->NOMBRE . "</p>
+                            <p>".   $recipientes->EDAD . " años - " . $recipientes->SEXO .  "</p>";
                 $etiqueta = '';
                 foreach ($recipiente->ESTUDIOS as $b => $estudio) {
                     $etiqueta = $etiqueta . $estudio->ABREVIATURA . ", "; 
                 }
-                echo    "<p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p> <p>". $etiqueta ."</p>";
+                echo    "   <p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p> 
+                            <p>". $etiqueta ."</p>
+                        </tr>";
             }
         ?>
         </table>
