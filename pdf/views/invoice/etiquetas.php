@@ -53,7 +53,7 @@
                             <label>"
                                 . $recipientes->FECHA_TOMA ."
                             </label>
-                            <p>". $recipiente->CONTENEDOR ."</p>
+                            <p>". $recipiente->CONTENEDOR . " (" . $recipiente->MUESTRA ." ) </p>
                             <p>". $recipientes->NOMBRE . "</p>
                             <p>" . $recipientes->EDAD . " años - " . $recipientes->SEXO .  "</p>";
                 $etiqueta = '';
