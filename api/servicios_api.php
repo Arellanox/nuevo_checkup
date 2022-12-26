@@ -475,6 +475,7 @@ switch ($api) {
             "FOLIO" => $infoPaciente[0]['FOLIO'],
             "EDAD" => $infoPaciente[0]['EDAD'],
             'SEXO' => $infoPaciente[0]['SEXO'],
+            'BARRAS' => $infoPaciente[0]['CODIGO_BARRAS'],
             'CONTENEDORES' => $arrayEtiqueta
         );
 

@@ -47,7 +47,7 @@ class Reporte{
 
         // Barcode
         $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-        $barcode  = base64_encode($generator->getBarcode('1234567890', $generator::TYPE_CODE_128));
+        $barcode  = base64_encode($generator->getBarcode($response->BARRAS, $generator::TYPE_CODE_128));
 
         // Path del dominio
         // $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
