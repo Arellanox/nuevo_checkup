@@ -351,8 +351,6 @@ switch ($api) {
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
 
                 if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
-                    #$arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABREVIATURA']);
-                    #$arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
                     $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
                     array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
                 }
