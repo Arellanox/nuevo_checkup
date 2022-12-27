@@ -355,6 +355,7 @@
                     echo "<h2  >". $area->area . "</h2>";
 
                     foreach ($area->estudios as $key => $estudio) {
+                        
                         echo "<h5>" . $estudio->estudio . "</h5>";
             ?>
                     <table class="result" >
@@ -441,6 +442,42 @@
                                         </tr>
                             <?php
                                     }
+
+                                    if(isset($analito->metodo) && $analito->metodo != null || $analito->metodo != '' ){
+                            ?>
+                                        <tr>
+                                            <td class="col-one">
+                                                <?php echo "<strong>Método: </strong>" .$analito->metodo ?>
+                                            </td>
+                                            <td class="col-two">
+                                            </td>
+                                            <td class="col-three">
+                                            </td>
+                                            <td class="col-four">
+                                            </td>
+                                        </tr>
+                            <?php        
+                                    }
+
+                                    if(isset($analito->equipo) && $analito->equipo != null || $analito->equipo != '' ){
+                            ?>
+                                        <tr>
+                                            <td class="col-one">
+                                                <?php echo "<strong>Equipo: </strong>" .$analito->equipo ?>
+                                            </td>
+                                            <td class="col-two">
+                                            </td>
+                                            <td class="col-three">
+                                            </td>
+                                            <td class="col-four">
+                                            </td>
+                                        </tr>
+                            <?php
+                                    }
+
+                                    if($estudio->estudio == 'OTROS SERVICIOS'){
+                                        echo "<br>";
+                                    }
                                 }
                             }
                             ?>
@@ -451,27 +488,27 @@
                     <div >
                         
                         <?php
-                            if(isset($estudio->metodo)){
+                            if($estudio->metodo == '' || $estudio->metodo == null){
+                            }else{
                                 echo "<strong>Método: </strong>". $estudio->metodo;
-                            }else{
                             }
                         ?>
                     </div>
                     <div >
                         
                         <?php
-                            if(isset($estudio->equipo)){
+                            if($estudio->equipo == '' || $estudio->equipo == null){
+                            }else{
                                 echo "<strong>Equipo: </strong>" .$estudio->equipo;
-                            }else{
                             }
                         ?>
                     </div>
                     <div >
                         
                         <?php
-                            if($estudio->observaciones != '' || $estudio->observaciones != null){
-                                echo "<strong>Observaciones: </strong>". $estudio->observaciones;
+                            if($estudio->observaciones == '' || $estudio->observaciones == null){
                             }else{
+                                echo "<strong>Observaciones: </strong>". $estudio->observaciones;
                             }
                         ?>
                     </div>

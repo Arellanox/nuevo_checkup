@@ -19,48 +19,79 @@
 
         body{
             font-family: 'Roboto', sans-serif;
-			font-size: 7px;
+			font-size: 6px;
 			width: 50mm;
             max-width: 50mm;
             height: 25mm;
             max-height: 25mm; 
+            margin: 1px 5px 0px;
+            /* list-style: circle; */
+            /* background-color: aqua; */
 		}
+
+        .header { 
+            position: fixed; 
+            top: -2px;
+            left: 2px; 
+            right: 2px; 
+            height: 3px; 
+            margin-top: 0; /*-30px*/
+            /* background-color: aqua; */
+        }
+
+        .footer { 
+            position: fixed; 
+            bottom: -2px; 
+            left: 2px; 
+            right: 2px; 
+            height: 3px; 
+            /* background-color: magenta; */
+        }
 
         table{
             text-align:justify ;
         }
-
+        
         .label{
-            margin: 1px;
+            text-justify: inter-word;
+            /* margin: 0px 5px 0px; */
         }
 
         .break {
-            page-break-after: avoid;
+            page-break-after: always;
         }
     </style>
 </head>
 <body>
-    <?php
-    $ruta = file_get_contents('../pdf/public/assets/barcode.png');
-    $encode = base64_encode($ruta);
-    ?>
+    <div class="header">
+    </div>
+    <div class="footer">
+    </div>
     <div class="label">
         <table>
         <?php
-            $recipientes = $resultados->contenedores;
-            foreach ($recipientes as $a => $recipiente) {
-                echo "  <tr>
-                            <label>"
-                                . $resultados->fecha_hora_toma ."
-                            </label>
-                            <p>". $recipiente->contenedor ."</p>
-                            <p>". $resultados->nombre . "</p>
-                            <p>" . $resultados->edad . " años - " . $resultados->sexo .  "</p>";
-                $etiqueta = '';
-                foreach ($recipiente->estudios as $b => $estudio) {
-                    $etiqueta = $etiqueta . $estudio->clave . ", "; 
-                }
-                echo    "<p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p> <p>". $etiqueta ."</p>";
+            $count = count($resultados->CONTENEDORES);
+            $i = 0;
+
+            $recipientes = $resultados;
+            foreach ($recipientes->CONTENEDORES as $a => $recipiente) {
+                echo "  <tr >
+                            <td>
+                                <label>"
+                                    .   $recipientes->FECHA_TOMA ."
+                                </label>
+                                <p>".   $recipiente->CONTENEDOR . " (" . $recipiente->MUESTRA ." ) </p>
+                                <p>".   $recipientes->NOMBRE . "</p>
+                                <p>".   $recipientes->EDAD . " años - " . $recipientes->SEXO .  "</p>";
+                    $etiqueta = '';
+                    foreach ($recipiente->ESTUDIOS as $b => $estudio) {
+                        $etiqueta = $etiqueta . $estudio->ABREVIATURA . ", "; 
+                    }
+                    echo    "   <p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p> 
+                                <p style='font-size: 7px; padding-right:2px;'>". $etiqueta ."</p>
+                            </td>
+                        </tr>";
+                $i++;
             }
         ?>
         </table>
