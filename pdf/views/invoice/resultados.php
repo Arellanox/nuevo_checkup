@@ -457,6 +457,22 @@
                                         </tr>
                             <?php        
                                     }
+
+                                    if(isset($analito->equipo) && $analito->equipo != null || $analito->equipo != '' ){
+                            ?>
+                                        <tr>
+                                            <td class="col-one">
+                                                <?php echo "<strong>Equipo: </strong>" .$analito->equipo ?>
+                                            </td>
+                                            <td class="col-two">
+                                            </td>
+                                            <td class="col-three">
+                                            </td>
+                                            <td class="col-four">
+                                            </td>
+                                        </tr>
+                            <?php
+                                    }
                                 }
                             }
                             ?>
@@ -494,10 +510,10 @@
                     <br>
             <?php
                     }
-                    // $i++;
-                    // if ($i < $count) {  
-                    //     echo '<div class="break"></div>';
-                    // }
+                    $i++;
+                    if ($i < $count) {  
+                        echo '<div class="break"></div>';
+                    }
                 }
             ?>
         </div>
