@@ -451,27 +451,27 @@
                     <div >
                         
                         <?php
-                            if(isset($estudio->metodo)){
+                            if($estudio->metodo == '' || $estudio->metodo == null){
+                            }else{
                                 echo "<strong>Método: </strong>". $estudio->metodo;
-                            }else{
                             }
                         ?>
                     </div>
                     <div >
                         
                         <?php
-                            if(isset($estudio->equipo)){
+                            if($estudio->equipo == '' || $estudio->equipo == null){
+                            }else{
                                 echo "<strong>Equipo: </strong>" .$estudio->equipo;
-                            }else{
                             }
                         ?>
                     </div>
                     <div >
                         
                         <?php
-                            if($estudio->observaciones != '' || $estudio->observaciones != null){
-                                echo "<strong>Observaciones: </strong>". $estudio->observaciones;
+                            if($estudio->observaciones == '' || $estudio->observaciones == null){
                             }else{
+                                echo "<strong>Observaciones: </strong>". $estudio->observaciones;
                             }
                         ?>
                     </div>

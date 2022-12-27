@@ -12,7 +12,7 @@ if (!$tokenValido) {
 }
 
 #api
-$api = $_POST['api'];
+$api = 11;
 
 #buscar
 $id = $_POST['id'];
@@ -71,7 +71,7 @@ $parametros = array(
 $response = "";
 
 $master = new Master();
-switch ($api) {
+switch (11) {
     case 1:
         $response = $master->insertByProcedure("sp_turnos_g", $parametros);
         break;
@@ -209,8 +209,8 @@ function crearReporteLaboratorio($id_area,$id_turno){
 
     #Estudios solicitados por el paciente
     $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
-    $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
-    $responsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
+    $response = $master->getByProcedure("sp_cargar_estudios",[98, 6]);
+    $responsePac = $master->getByProcedure("sp_informacion_paciente",[98]);
     
 
     # pie de pagina
@@ -291,7 +291,7 @@ function crearReporteLaboratorio($id_area,$id_turno){
     // echo json_encode($respuesta);
 
     //echo "antes de Generar PDF";
-
+    print_r($arrayGlobal);
     $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
     #echo "pdf Generado";
 
