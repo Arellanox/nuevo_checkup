@@ -378,6 +378,13 @@ function ordenar($servicios, $clasificacion, $turno){
                 $analitos[] = $aux;
             }
 
+            if($id_grupo==35){
+                $last_position = count($analitos)-5;
+                $aux = $analitos[$last_position];
+                $analitos[$last_position] = $absoluto_array;
+                $analitos[] = $aux;
+            }
+
             # llenar arreglo estudios
             $estudios[] = array(
                 "estudio"        => $nombre_grupo,
