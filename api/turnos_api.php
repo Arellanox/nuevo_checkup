@@ -350,9 +350,12 @@ function ordenar($servicios, $clasificacion, $turno){
                     "unidad"            => $current['MEDIDA'],
                     "resultado"         => $current['RESULTADO'],
                     "referencia"        => $current['VALOR_DE_REFERENCIA'],
-                    "observaciones"     => isset($id_grupo)? null : $current['OBSERVACIONES'],
-                    "metodo"            => isset($metodo_grupo) ? null : $current['METODOS_ESTUDIO'],
-                    "equipo"            => isset($equipo_grupo)? null : $current['EQUIPOS_ESTUDIO']
+                   # "observaciones"     => isset($id_grupo) ? null : $current['OBSERVACIONES'],
+                    "observaciones"     => $nombre_grupo != "OTROS SERVICIOS"? null : $current['OBSERVACIONES'],
+                    "metodo"     => $nombre_grupo != "OTROS SERVICIOS"? null : $current['METODOS_ESTUDIO'],
+                    "equipo"     => $nombre_grupo != "OTROS SERVICIOS"? null : $current['EQUIPOS_ESTUDIO'],
+                    #"metodo"            => isset($metodo_grupo) ? null : $current['METODOS_ESTUDIO'],
+                    #"equipo"            => isset($equipo_grupo) ? null : $current['EQUIPOS_ESTUDIO']
                 );
               
                 $analitos[] = $item;
