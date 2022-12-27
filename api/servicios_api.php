@@ -429,7 +429,7 @@ switch ($api) {
             )
         );
 
-        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), null, null, 'etiquetas', 'url');
+        $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), null, null, 'resultados', 'url');
         $pdf->build();
 
         break;

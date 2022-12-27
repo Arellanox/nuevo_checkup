@@ -68,10 +68,11 @@ class Reporte{
                 $template = render_view('invoice/etiquetas.php', $view_vars);
                 $pdf->loadHtml($template);
                 
-                $ancho = (4 / 2.54) * 72;
-                $alto  = (2 / 2.54) * 72;
+                $ancho = (5.1 / 2.54) * 72;
+                $alto  = (2.5 / 2.54) * 72;
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
+                // $pdf->setPaper('letter', 'portrait');
                 $path    = 'pdf/public/etiquetas/00001.pdf';
                 break;
 
@@ -113,7 +114,7 @@ class Reporte{
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
                 // return 'https://bimo-lab.com/nuevo_checkup/'. $path;
-                // return $path;
+                return $path;
                 break;
             default:
                 $pdf->render();
