@@ -343,6 +343,7 @@ function ordenar($servicios, $clasificacion, $turno){
                 $id_grupo = $current['GRUPO_ID'];
                 $metodo_grupo = $current['METODOS_GRUPO'];
                 $equipo_grupo = $current['EQUIPOS_GRUPO'];
+                $clasificacion_id = $current['CLASIFICACION_ID'];
 
                 $item = array(
                     "nombre"            => $current['DESCRIPCION_SERVICIO'],
@@ -353,7 +354,7 @@ function ordenar($servicios, $clasificacion, $turno){
                     "metodo"            => isset($metodo_grupo) ? null : $current['METODOS_ESTUDIO'],
                     "equipo"            => isset($equipo_grupo)? null : $current['EQUIPOS_ESTUDIO']
                 );
-
+              
                 $analitos[] = $item;
             }
 
@@ -368,10 +369,14 @@ function ordenar($servicios, $clasificacion, $turno){
                     break;
                 #perfil reumatico
                 case 35:
-                    $last_position = count($analitos)-5;
-                    $aux = $analitos[$last_position];
-                    $analitos[$last_position] = $absoluto_array;
-                    $analitos[] = $aux;
+                    if ($clasificacion_id == 1) {
+                        # 1 para la clasificacion de hematologia. 
+                        # Solo la hematoloigia debe mandar los valores absolutos                        
+                        $last_position = count($analitos) - 5;
+                        $aux = $analitos[$last_position];
+                        $analitos[$last_position] = $absoluto_array;
+                        $analitos[] = $aux;
+                    }
                     break;
             }
 
