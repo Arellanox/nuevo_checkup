@@ -370,6 +370,7 @@ function ordenar($servicios, $clasificacion, $turno){
                 $analitos[] = $item;
             }
 
+            # para los valorse absolutos
             if($id_grupo==1){
                 $last_position = count($analitos)-1;
                 $aux = $analitos[$last_position];
@@ -383,7 +384,7 @@ function ordenar($servicios, $clasificacion, $turno){
                 "analitos"       => $analitos,
                 "metodo"         => $metodo_grupo,
                 "equipo"         => $equipo_grupo,
-                "observaciones"  => $observacionnes_generales
+                "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null 
             );
             $analitos = array();
         }

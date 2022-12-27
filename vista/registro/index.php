@@ -54,6 +54,7 @@ $menu = "Prerregistro";
   // console.log(token)
   let tip = '<?php echo $tip; ?>';
   let clienteRegistro, nombreCliente, ant;
+  var registroAgendaRecepcion  = 0;
   // console.log(codigo);
   if (codigo != token) {
     validarToken()

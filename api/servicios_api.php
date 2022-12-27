@@ -450,9 +450,7 @@ switch ($api) {
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
 
                 if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
-                    #$arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABREVIATURA']);
-                    #$arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
-                    $arregloEtiqueta = array('ABREVIATURA' => "A;LSDKFJA;LSK A;SLDKFJ A;LKSDFJ ;ALSKDFJ ;ASLDKFJ A;SLKDJF ;ASLDKFJ A;SLDKFJ A;SDLKFJ A;SLDKFJ A;SDLKFJ A;SLDKFJ A;SLDKDFJ ;ASLDKJF A;SLDKFJ ;LKAJSDF ;ALSJDKF A;LSKDFJ ;ALKSDJF");
+                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
                     array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
                 }
             }
