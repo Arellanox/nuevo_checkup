@@ -188,11 +188,10 @@ switch ($api) {
         }
         break;
 
-    // case 'crearReporte'
-
-    // case 11:
-    //     crearReporteLaboratorio($id_paciente_detalle, $id_area, $id_turno);
-    //     break;
+    case 11:
+        # Crear reporte de puertas
+        crearReporteLaboratorio($id_area, $id_turno);
+        break;
 
     default:
         $response = "api no reconocida";
