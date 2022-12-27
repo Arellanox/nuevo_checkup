@@ -355,6 +355,7 @@
                     echo "<h2  >". $area->area . "</h2>";
 
                     foreach ($area->estudios as $key => $estudio) {
+                        
                         echo "<h5>" . $estudio->estudio . "</h5>";
             ?>
                     <table class="result" >
@@ -472,6 +473,10 @@
                                             </td>
                                         </tr>
                             <?php
+                                    }
+
+                                    if($estudio->estudio == 'OTROS SERVICIOS'){
+                                        echo "<br>";
                                     }
                                 }
                             }
