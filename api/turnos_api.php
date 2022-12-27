@@ -12,7 +12,7 @@ if (!$tokenValido) {
 }
 
 #api
-$api = 11;
+$api = $_POST['api'];
 
 #buscar
 $id = $_POST['id'];
@@ -71,7 +71,7 @@ $parametros = array(
 $response = "";
 
 $master = new Master();
-switch (11) {
+switch ($api) {
     case 1:
         $response = $master->insertByProcedure("sp_turnos_g", $parametros);
         break;
@@ -209,8 +209,8 @@ function crearReporteLaboratorio($id_area,$id_turno){
 
     #Estudios solicitados por el paciente
     $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
-    $response = $master->getByProcedure("sp_cargar_estudios",[98, 6]);
-    $responsePac = $master->getByProcedure("sp_informacion_paciente",[98]);
+    $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
+    $responsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
     
 
     # pie de pagina
@@ -253,7 +253,6 @@ function crearReporteLaboratorio($id_area,$id_turno){
 
         # como no estamos seguros que de que se encuentren todas las clasificaciones 
         # en un paciente, evaluamos que el array no este vacio.
-        #print_r($servicios);
 
         if(!empty($servicios)){
             
@@ -276,24 +275,14 @@ function crearReporteLaboratorio($id_area,$id_turno){
     });
 
     if(!empty($servicios)){
-        // $aux = ordenarResultados($servicios,"OTROS ESTUDIOS");
+    
         $aux = ordenar($servicios,"NINGUNA",$id_turno);
-        // $arrayGlobal['areas'][]= $aux;
+
     }
 
-    // print_r($arrayGlobal);
-    // print_r($responsePac);
-
-    //JSON para etiquetas (toma de muestra servicios)
-    // $id_paciente_detalle = $_POST['id_paciente_detalle'];
-    // $res_toma_muestra_serv = $master->getByProcedure('sp_toma_de_muestra_servicios_b',[$id_paciente_detalle,$id_area,$id_turno]);
-    // $respuesta = array(json_encode($res_toma_muestra_serv));
-    // echo json_encode($respuesta);
-
-    //echo "antes de Generar PDF";
+ 
     print_r($arrayGlobal);
     $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
-    #echo "pdf Generado";
 
     return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->build()]);
     
@@ -345,8 +334,6 @@ function ordenar($servicios, $clasificacion, $turno){
         });
 
         if(!empty($contenido_grupo)){
-
-
             
             # llenado de los analitos del grupo
             foreach($contenido_grupo as $current)
@@ -371,18 +358,21 @@ function ordenar($servicios, $clasificacion, $turno){
             }
 
             # para los valorse absolutos
-            if($id_grupo==1){
-                $last_position = count($analitos)-1;
-                $aux = $analitos[$last_position];
-                $analitos[$last_position] = $absoluto_array;
-                $analitos[] = $aux;
-            }
-
-            if($id_grupo==35){
-                $last_position = count($analitos)-5;
-                $aux = $analitos[$last_position];
-                $analitos[$last_position] = $absoluto_array;
-                $analitos[] = $aux;
+            switch($id_grupo){
+                #biometria hematica
+                case 1:
+                    $last_position = count($analitos)-1;
+                    $aux = $analitos[$last_position];
+                    $analitos[$last_position] = $absoluto_array;
+                    $analitos[] = $aux;
+                    break;
+                #perfil reumatico
+                case 35:
+                    $last_position = count($analitos)-5;
+                    $aux = $analitos[$last_position];
+                    $analitos[$last_position] = $absoluto_array;
+                    $analitos[] = $aux;
+                    break;
             }
 
             # llenar arreglo estudios

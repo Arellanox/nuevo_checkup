@@ -441,6 +441,22 @@
                                         </tr>
                             <?php
                                     }
+
+                                    if(isset($analito->metodo) && $analito->metodo != null || $analito->metodo != '' ){
+                            ?>
+                                        <tr>
+                                            <td class="col-one">
+                                                <?php echo "<strong>Método: </strong>" .$analito->metodo ?>
+                                            </td>
+                                            <td class="col-two">
+                                            </td>
+                                            <td class="col-three">
+                                            </td>
+                                            <td class="col-four">
+                                            </td>
+                                        </tr>
+                            <?php        
+                                    }
                                 }
                             }
                             ?>
@@ -478,10 +494,10 @@
                     <br>
             <?php
                     }
-                    $i++;
-                    if ($i < $count) {  
-                        echo '<div class="break"></div>';
-                    }
+                    // $i++;
+                    // if ($i < $count) {  
+                    //     echo '<div class="break"></div>';
+                    // }
                 }
             ?>
         </div>
