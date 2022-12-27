@@ -191,6 +191,7 @@ switch ($api) {
     case 11:
         # Crear reporte de puertas
         crearReporteLaboratorio($id_area, $id_turno);
+        exit;
         break;
 
     default:
