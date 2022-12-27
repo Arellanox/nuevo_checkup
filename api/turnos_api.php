@@ -281,8 +281,8 @@ function crearReporteLaboratorio($id_area,$id_turno){
     }
 
  
-    print_r($arrayGlobal);
-    #$pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
+    #print_r($arrayGlobal);
+    $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
     return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->build()]);
     
