@@ -36,10 +36,20 @@ switch ($api) {
 
         $response = $master->insertByProcedure('sp_rayosx_resultados_g',[$id_rayo,$turno_id,$interpretacion[0]['url'],json_encode($imagenes),$usuario]);
         break;
+
+    case 2:
+        # recuperar los resultados de rayos x
+        $res = $master->getByProcedure('sp_rayosx_resultados_b',[$id_rayo,$turno_id]);
+        $response = [];
+        foreach($response as $item){
+            $item['CAPTURAS'] = json_decode($item['CAPTURAS'], true);
+            $response[] = $item;
+        }
+        break;
     default:
         $response = "Api no definida.";
         break;
 }
 
-echo $master->returnApi($reseponse);
+echo $master->returnApi($response);
 ?>
