@@ -191,7 +191,7 @@
     <?php 
         
         // para el path del logo 
-        $ruta = file_get_contents('../pdf/public/assets/logotipo.png');
+        $ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
         $encode = base64_encode($ruta);
 
         // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
@@ -213,9 +213,9 @@
                     <tr>
                         <td class="col-der"  style="border-bottom: none">
                             <h4>
-                                DIAGNOSTICO BIOMOLECULAR <br>
-                                Laboratorio Clínico <br>
-                                Resultados de Exámenes
+                                DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
+                                Laboratorio de Análisis Clínicos <br>
+                                Resultado de Exámenes
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
@@ -233,7 +233,7 @@
                     <tr>
                         <td style="text-align: center; border-style: solid none solid none; ">
                             <h3>
-                                Laboratorio Clinico
+                                Laboratorio de Análisis Clínicos
                             </h3>
                             
                         </td>
