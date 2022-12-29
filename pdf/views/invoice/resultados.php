@@ -531,7 +531,7 @@
                     //     echo '<div class="break"></div>';
                     // }
 
-                    echo $a;
+                    // echo $a;
                     if($a <= 15){
                     }else{
                         // echo "salto de linea";
