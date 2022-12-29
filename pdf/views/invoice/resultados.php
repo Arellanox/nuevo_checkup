@@ -64,7 +64,9 @@
                 margin-bottom: 2px;
                 text-align: center;
                 background-color: rgba(215, 222, 228, 0.748);
+                padding-top: 10px;
             }
+
             h3{
                 font-size: 14px;
                 margin-top: 2px;
@@ -516,8 +518,8 @@
                             }
                         ?>
                     </div>
-                    <br>
             <?php
+
                     }
                     $i++;
                     // $color_count % 2 == 0
@@ -529,10 +531,18 @@
                     //     echo '<div class="break"></div>';
                     // }
 
-                    if($a < 20){
+                    echo $a;
+                    if($a <= 15){
                     }else{
-                        echo '<div class="break"></div>';
+                        // echo "salto de linea";
+            ?>
+                <div class="break"></div>
+            <?php
+                        // echo '<div class="break">';
                     }
+            ?>
+
+            <?php
                 }
             ?>
         </div>

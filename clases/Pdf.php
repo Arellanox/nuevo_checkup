@@ -133,6 +133,9 @@ class Reporte{
                 $pdf->render();
                 return $pdf->stream('documento.pdf', array("Attachment" => false));
                 break;
+
+            // session_write_close();
+            session_destroy();
         }
     }
 }
