@@ -19,8 +19,8 @@ function hasLocation() {
   if (validarVista(hash) == true) {
     switch (hash) {
       case "IMAGENOLOGIA":
-        formulario = "";
-        obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
+        formulario = "formSubirInterpretacion";
+        obtenerContenidoVistaMaster(7, 'Resultados de Ultrasonido', 'contenido_new.php');
         break;
       case "RX":
         formulario = "";
@@ -31,8 +31,8 @@ function hasLocation() {
         obtenerContenidoVistaMaster(5, 'Resultados de Espirometría');
         break;
       case "AUDIOMETRIA":
-        formulario = "";
-        obtenerContenidoVistaMaster(4, 'Resultados de Audiometría');
+        formulario = "formSubirInterpretacionOftalmo";
+        obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_new.php');
         break;
       case "OFTALMOLOGIA":
         formulario = "formSubirInterpretacionOftalmo";
@@ -68,13 +68,43 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ph
       area_id: areaActiva
     }
   }).done(function () {
+
+    // Cambiar aspecto
+    $('.btnResultados').fadeOut(0)
     switch (area) {
-      case 3:
+
+      case 3: //Oftalmología
+        $('#btn-analisis-oftalmo').fadeIn(0)
+        $('#formSubirInterpretacionOftalmo').fadeIn(0)
         // Datatable
-        $.getScript("contenido/js/oftalmo-tabla.js")
+        $.getScript("contenido/js/controlador-tabla.js")
+        // Subir resultado
+        $.getScript("modals/js/of_subir_oftalmo.js");
+        break;
+
+      case 4: //Audiometria
+        $('#btn-analisis-audiometria').fadeIn(0)
+        $('#btn-capturas-pdf').fadeIn(0)
+        $('#formSubirInterpretacionAudiome').fadeIn(0)
+        // Datatable
+        $.getScript("contenido/js/controlador-tabla.js")
+        // Subir resultado
+        $.getScript("modals/js/au_subir_audiometria.js");
+        break;
+
+      case 4: //Ultrasonido
+        $('#btn-analisis-ultraso').fadeIn(0)
+        // Datatable
+        $.getScript("contenido/js/controlador-tabla.js")
+        // Subir resultado
+        $.getScript("modals/js/master_subir_interpretación.js");
         break;
 
       default:
+        $('#btn-analisis-pdf').fadeIn(0)
+        $('#btn-capturas-pdf').fadeIn(0)
+        $('.btnResultados').fadeOut(0)
+
         // Datatable
         $.getScript("contenido/js/vista-tabla.js")
         break;
@@ -82,18 +112,6 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ph
     // Botones
     $.getScript("contenido/js/area-botones.js")
 
-    switch (area) {
-      case 3:
-        $('#btn-analisis-pdf').fadeOut(0)
-        $('#btn-capturas-pdf').fadeOut(0)
-        $('#btn-analisis-oftalmo').fadeIn(0)
-        break;
-      default:
-        $('#btn-analisis-pdf').fadeIn(0)
-        $('#btn-capturas-pdf').fadeIn(0)
-        $('#btn-analisis-oftalmo').fadeOut(0)
-
-    }
   });
 }
 
