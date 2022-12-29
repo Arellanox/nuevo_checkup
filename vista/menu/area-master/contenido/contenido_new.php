@@ -1,3 +1,7 @@
+<?php
+$form = $_POST['form'];
+
+?>
 <!-- <div class="col-12 loader" id="loader" style="">
   <div class="preloader" id="preloader"> </div>
 </div> -->
@@ -49,12 +53,9 @@
       <h4>Lista de pacientes</h4>
       <div class="text-center">
         <label for="inputBuscarTableListaNuevos">Buscar:</label>
-        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important"
-          name="inputBuscarTableListaPacientes" value="" style="width:80%" autocomplete="off"
-          id="BuscarTablaListaMuestras">
+        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaPacientes" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaMuestras">
       </div>
-      <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados"
-        style="width: 100%">
+      <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
         <thead class="" style="width: 100%">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
@@ -86,45 +87,52 @@
           <h4>Reporte de interpretación</h4>
           <p class="none-p"></p>
         </div>
-        <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
-          <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
-            <i class="bi bi-clipboard2-plus"></i> Guardar capturas
-          </button>
-          <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis-pdf">
-            <i class="bi bi-clipboard2-plus"></i> Guardar reporte
-          </button>
+        <div class="row">
+          <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
+            <button type="button" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
+              <i class="bi bi-clipboard2-plus"></i> Subir capturas
+            </button>
+          </div>
+          <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">
+            <button type="button" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis-pdf">
+              <i class="bi bi-clipboard2-plus"></i> Guardar reporte
+            </button>
 
 
-          
-          <!-- SubmitPorAreas -->
-
-          <button type="submit" form="formSubirInterpretacionAudiome" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis-audiometria">
-            <i class="bi bi-clipboard2-plus"></i> Guardar reporte audio <!-- formulario para audiometria -->
-          </button>
-          <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis-oftalmo">
-            <i class="bi bi-clipboard2-plus"></i> Guardar reporte oftalmo<!-- formulario para oftamologia -->
-          </button>
-          <button type="submit" form="formSubirInterpretacion" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis-ultraso">
-            <i class="bi bi-clipboard2-plus"></i> Guardar reporte ultraso<!-- formulario para ultrasonido -->
-          </button>
+            <!-- SubmitPorAreas -->
+            <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis-oftalmo">
+              <i class="bi bi-clipboard2-plus"></i> Guardar Reporte
+              <!-- formulario para oftamologia -->
+            </button>
+            <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis">
+              <i class="bi bi-clipboard2-plus"></i> Guardar Reporte
+              <!-- BTN para formulario global -->
+            </button>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
-          <!-- Resultados de oftalmologia -->
-          <form id="formSubirInterpretacionOftalmo" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh;margin-bottom:10px; padding: 15px;">
-            <?php include 'forms/oftalmo.html'; ?>
-          </form>
 
-          <!-- Resultados de Audiometria -->
-          <form id="formSubirInterpretacionAudiome" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh; margin-bottom: 10px; padding: 15px;">
-            <?php include 'forms/audiome.html'; ?>
-          </form>
+          <?php
+          switch ($form) {
+              //<!-- Resultados de oftalmologia -->
+            case 'formSubirInterpretacionOftalmo':
+              echo '<form id="formSubirInterpretacionOftalmo" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh;margin-bottom:10px; padding: 15px;">';
+              include 'forms/oftalmo.html';
+              echo '</form>';
+              break;
 
-          <!-- Resultados de Ultrasonido -->
-          <form id="formSubirInterpretacion" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh; margin-bottom: 10px; padding: 15px;">
-            <?php include 'forms/form_general.html'; ?>
-          </form>
+              //<!-- Formulario general -->
+            default:
+              echo '<form id="formSubirInterpretacion" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh;margin-bottom:10px; padding: 15px;">';
+              include 'forms/form_general.html';
+              echo '</form>';
+              break;
+          }
+
+          ?>
+
 
 
 
@@ -140,8 +148,7 @@
       </div>
     </div>
   </div>
-  <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivPaciente'
-    style="max-height: 75vh; display:none">
+  <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivPaciente' style="max-height: 75vh; display:none">
     <div class="preloader" id="loader-paciente"></div>
   </div>
 </div>
