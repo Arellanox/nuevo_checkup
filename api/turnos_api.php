@@ -381,10 +381,16 @@ function ordenar($servicios, $clasificacion, $turno){
                         $aux = $analitos[$last_position];
                         $analitos[$last_position] = $absoluto_array;
 
-                        // while(){
+                        $last_position++;
+                        while(!empty($analitos[$last_position])){
+                            $auxc = $analitos[$last_position];
+                            $analitos[$last_position] = $aux;
+                            $aux = $auxc;
+                            $last_position++;
+                        }
 
-                        // }
-                        $analitos[] = $aux;
+                        $analitos[$last_position] = $aux;
+                        
                     }
                     break;
             }
