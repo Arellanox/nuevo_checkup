@@ -350,6 +350,7 @@
                 $areas = $resultados->areas;
                 $count = count($areas);
                 $i = 0;
+                $a = 0;
                 foreach ($areas as $key => $area) {
 
                     echo "<h2  >". $area->area . "</h2>";
@@ -370,6 +371,7 @@
                         <tbody>
                             <?php
                             foreach ($estudio->analitos as $key => $analito) {
+                                $a++;
                                 if(is_array($analito)){
                             ?>
                                     <tr>
@@ -516,6 +518,9 @@
             <?php
                     }
                     $i++;
+                    if($a < 20){
+                        'hola';
+                    }
                     if ($i < $count) {  
                         echo '<div class="break"></div>';
                     }
