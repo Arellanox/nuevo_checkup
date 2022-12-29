@@ -206,6 +206,11 @@ echo $master->returnApi($response);
 function crearReporteLaboratorio($id_area,$id_turno){
     # para crear los reportes de LABORATORIO
     $master = new Master();
+
+    # dar de alta primero el folio en la tabla de reportes_areas
+    $folio = $master->insertByProcedure('sp_generar_folio_laboratorio',[]);
+    $res = $master->insertByProcedure('sp_reportes_areas_g', [null,$id_turno,6,null,null,$folio[0]['FOLIO']]);
+
     # informacion general del paciente
 
     #Estudios solicitados por el paciente
@@ -286,6 +291,7 @@ function crearReporteLaboratorio($id_area,$id_turno){
 
     $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
+        #aqui, como el folio ya se inserto al principio del metodo, solo va a actualizar la clave y la ruta del pdf.
     return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->build(),$responsePac[0]['FOLIO_SP']]);
     
 }
