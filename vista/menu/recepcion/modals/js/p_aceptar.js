@@ -67,7 +67,7 @@ $("#btn-obtenerID").click(function () {
       $("#image-perfil").attr("src", img);
       url_paciente = "https:bimo-lab.com/nuevo_checkup/vista/menu/recepcion/identificacion/" + data[2];
       url_paciente = data;
-      document.getElementById("btn-confirmar-paciente").disabled = false;
+      // document.getElementById("btn-confirmar-paciente").disabled = false;
     }
   });
 })
@@ -90,8 +90,8 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     formData.set('id_paquete', $('#select-paquetes').val());
   }
 
-  console.log(estudiosEnviar);
-  document.getElementById("btn-confirmar-paciente").disabled = true;
+  // console.log(estudiosEnviar);
+  // document.getElementById("btn-confirmar-paciente").disabled = true;
   $.ajax({
     url: "../../../api/recepcion_api.php",
     type: "POST",

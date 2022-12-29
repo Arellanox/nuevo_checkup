@@ -1,10 +1,9 @@
-
-const ModalSubirInterpretacionOftalmologia = document.getElementById('ModalSubirInterpretacionOftalmologia')
-ModalSubirInterpretacionOftalmologia.addEventListener('show.bs.modal', event => {
-  // console.log(selectListaLab)
-  $('#Area-estudio').html(hash)
-  $('#nombre-paciente-interpretacion').val(selectPacienteArea['NOMBRE_COMPLETO'])
-})
+// const ModalSubirInterpretacionOftalmologia = document.getElementById('ModalSubirInterpretacionOftalmologia')
+// ModalSubirInterpretacionOftalmologia.addEventListener('show.bs.modal', event => {
+//   // console.log(selectListaLab)
+//   $('#Area-estudio').html(hash)
+//   $('#nombre-paciente-interpretacion').val(selectPacienteArea['NOMBRE_COMPLETO'])
+// })
 
 //Formulario Para Subir Interpretacion
 $("#formSubirInterpretacionOftalmo").submit(function (event) {
@@ -12,8 +11,8 @@ $("#formSubirInterpretacionOftalmo").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formSubirInterpretacionOftalmo");
   var formData = new FormData(form);
-    formData.set('turno_id',selectPacienteArea['ID_TURNO'])
-    formData.set('api', 1);
+  formData.set('turno_id', selectPacienteArea['ID_TURNO'])
+  formData.set('api', 1);
   Swal.fire({
     title: "¿Está seguro de subir la interpretación?",
     text: "¡No podrá cambiar los valores!",
@@ -36,13 +35,11 @@ $("#formSubirInterpretacionOftalmo").submit(function (event) {
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
-            Toast.fire({
-              icon: "success",
-              title: "¡Interpretación guardada!",
-              timer: 2000,
-            });
-            document.getElementById("formSubirInterpretacionOftalmo").reset();
-            $("#ModalSubirInterpretacion").modal("hide");
+            alertMensaje('success', 'Interpretación guardada', 'El reporte de resultado ha sido generado...', 'El formulario ha sido cerrado');
+            // document.getElementById("formSubirInterpretacionOftalmo").reset();
+            $('button[type="submit"][form="formSubirInterpretacionOftalmo"]').prop('disabled', true)
+            $('#formSubirInterpretacionOftalmo :textarea').prop('disabled', true)
+            // $("#ModalSubirInterpretacion").modal("hide");
             // tablaContacto.ajax.reload();
           }
         },

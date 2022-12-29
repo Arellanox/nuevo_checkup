@@ -194,15 +194,6 @@ class Miscelaneus{
     }
 
     function guardarFiles($files,$posicion='default', $dir/*, $carpetas = ['temp/']*/, $nombre){
-       /*  foreach ($carpetas as $key => $value) {
-          if(!is_dir($dir.$value)){
-              if(mkdir($dir.$value)){
-                  $dir += $value;
-              }
-          }
-        }
-
-        // return $dir; */
     
         $urlArray = array();
         if (!empty($files[$posicion]['name'])) {
@@ -213,7 +204,7 @@ class Miscelaneus{
                 # obtenemos la ruta temporal del archivo
                 $tmp_name = $files[$posicion]['tmp_name'][$key];
 
-                #insertamos el registro en la tabla paciente_detalle
+                # Nueva ubicacion del archivo.
                 $ubicacion = $dir.$nombre."_$next.".$extension;
 
                 #cambiamos de lugar el archivo

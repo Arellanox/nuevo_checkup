@@ -1,5 +1,17 @@
 <?php
+session_start();
 include_once "../clases/master_class.php";
+require_once "../clases/token_auth.php";
+include_once "../clases/Pdf.php";
+
+
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (!$tokenValido) {
+    $tokenVerification->logout();
+    exit;
+}
+
 
 $master = new Master();
 $api = $_POST['api'];
@@ -43,19 +55,32 @@ $params = array(
     $presion_intraocular_od,
     $presion_intraocular_oi,
     $diagnostico,
-    $plan
+    $plan,
+    $_SESSION['id'] # id del usuario que esta subiendo la informacion
 );
 
 switch ($api) {
     case 1:
         #insertar
+        #primero recuperamos la informacion del paciente en responsePac
+        $responsePac = $master->getByProcedure("sp_informacion_paciente",[$turno_id]);
+
+        # con el arreglo superior, creamos el pdf para conseguir la ruta antes de insertar en la tabla de mysql
+        $pdf = new Reporte(json_encode($params), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
+
+        # inserta en el array de parametros, la ruta del pdf de reporte al final.
+        array_push($params, $pdf->build());
+
+        # finalmente insertamos el array completo (CON LA RUTA DEL REPORTE) en la base de datos.
         $response = $master->insertByProcedure('sp_oftalmo_resultados_g',$params);
         break;
     case 2:
         # buscar
+        # si ambas variables se le envian en null, recupera todo la informacion de la tabla, de todos los turnos.
         $response = $master->getByProcedure('sp_oftalmo_resultados_b',[$id_oftalmo,$turno_id]);
         break;
-    case 3: #obtener resultado (url del pdf)
+    case 3: 
+        #obtener resultado (url del pdf)
         # buscar
         $response = $master->getByProcedure('sp_oftalmo_resultados_b',[$id_oftalmo,$turno_id]);
         if ($response) {

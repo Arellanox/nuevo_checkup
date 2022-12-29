@@ -40,18 +40,15 @@ class Reporte{
         $tipo       = $this->tipo;
         $orden      = $this->orden;
 
-        $pdf = new Dompdf();
-
-        // Qrcode
-
-        // Barcode
         switch ($tipo) {
             case 'etiquetas':
                 $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                 $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
                 break;
             case 'resultados':
+                // Qrcode
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
+                // Barcode
                 $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                 $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
                 break;
@@ -61,9 +58,9 @@ class Reporte{
                 break;
         }
         
-
         // Path del dominio
-        // $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+        $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+        // $path    = 'pdf/public/resultados/E-00001.pdf';
         // echo $path;
 
         session_start();
@@ -75,6 +72,8 @@ class Reporte{
         );
 
 
+
+        $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
         switch ($tipo) {
             case 'etiquetas':
@@ -86,29 +85,29 @@ class Reporte{
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
                 // $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/etiquetas/00002.pdf';
+                // $path    = 'pdf/public/etiquetas/00002.pdf';
                 break;
 
             case 'resultados':
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/resultados/E-00001.pdf';
-                return $path;
+                // $path    = 'pdf/public/resultados/E-00001.pdf';
+                // return $path;
                 break;
 
             case 'oftamologia':
                 $template = render_view('invoice/oftamologia.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/oftamologia/E-00001.pdf';
+                // $path    = 'pdf/public/oftamologia/E-00001.pdf';
                 break;
 
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/oftamologia/E00001.pdf';
+                // $path    = 'pdf/public/oftamologia/E00001.pdf';
                 break;
 
         }
@@ -126,9 +125,9 @@ class Reporte{
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                // echo 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                echo 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                // echo $path;
                 // return $path;
-                echo $path;
                 break;
             default:
                 $pdf->render();

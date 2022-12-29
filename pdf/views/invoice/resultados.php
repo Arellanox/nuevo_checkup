@@ -191,7 +191,7 @@
     <?php 
         
         // para el path del logo 
-        $ruta = file_get_contents('../pdf/public/assets/logotipo.png');
+        $ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
         $encode = base64_encode($ruta);
 
         // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
@@ -213,9 +213,9 @@
                     <tr>
                         <td class="col-der"  style="border-bottom: none">
                             <h4>
-                                DIAGNOSTICO BIOMOLECULAR <br>
-                                Laboratorio Clínico <br>
-                                Resultados de Exámenes
+                                DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
+                                Laboratorio de Análisis Clínicos <br>
+                                Resultado de Exámenes
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
@@ -233,7 +233,7 @@
                     <tr>
                         <td style="text-align: center; border-style: solid none solid none; ">
                             <h3>
-                                Laboratorio Clinico
+                                Laboratorio de Análisis Clínicos
                             </h3>
                             
                         </td>
@@ -350,14 +350,15 @@
                 $areas = $resultados->areas;
                 $count = count($areas);
                 $i = 0;
-                $a = 0;
                 foreach ($areas as $key => $area) {
+                    $a = 0;
 
                     echo "<h2  >". $area->area . "</h2>";
 
                     foreach ($area->estudios as $key => $estudio) {
                         
                         echo "<h5>" . $estudio->estudio . "</h5>";
+
             ?>
                     <table class="result" >
                         <thead>
@@ -406,28 +407,28 @@
                                     }
                                 }else{
                             ?>
-                                <tr >
-                                    <?php
-                                    if($analito->resultado == 'N/A'){
+                                    <tr >
+                                        <?php
+                                        if($analito->resultado == 'N/A'){
 
-                                    }else{
-                                    ?>
-                                        <td class="col-one">
-                                            <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
-                                        </td>
-                                        <td class="col-two">
-                                            <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
-                                        </td>
-                                        <td class="col-three">
-                                            <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>
-                                        </td>
-                                        <td class="col-four">
-                                            <?php echo ($analito->referencia != null) ? $analito->referencia : '' ; ?>
-                                        </td>
-                                    <?php                                    
-                                    } 
-                                    ?>
-                                </tr>
+                                        }else{
+                                        ?>
+                                            <td class="col-one">
+                                                <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
+                                            </td>
+                                            <td class="col-two">
+                                                <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
+                                            </td>
+                                            <td class="col-three">
+                                                <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>
+                                            </td>
+                                            <td class="col-four">
+                                                <?php echo ($analito->referencia != null) ? $analito->referencia : '' ; ?>
+                                            </td>
+                                        <?php                                    
+                                        } 
+                                        ?>
+                                    </tr>
                             <?php
                                     if(isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '' ){
                             ?>
@@ -449,7 +450,7 @@
                             ?>
                                         <tr>
                                             <td class="col-one">
-                                                <?php echo "<strong>Método: </strong>" .$analito->metodo ?>
+                                                <?php echo "<strong>Método: </strong>".$analito->metodo ?>
                                             </td>
                                             <td class="col-two">
                                             </td>
@@ -481,6 +482,7 @@
                                         echo "<br>";
                                     }
                                 }
+
                             }
                             ?>
                             
@@ -492,7 +494,7 @@
                         <?php
                             if($estudio->metodo == '' || $estudio->metodo == null){
                             }else{
-                                echo "<strong>Método: </strong>". $estudio->metodo;
+                                echo "<strong>Método: </strong>" .$estudio->metodo;
                             }
                         ?>
                     </div>
@@ -518,10 +520,17 @@
             <?php
                     }
                     $i++;
+                    // $color_count % 2 == 0
+                    // $a < 15
+                    // if($a < 15){
+                    // }
+
+                    // if ($i < $count) {  
+                    //     echo '<div class="break"></div>';
+                    // }
+
                     if($a < 20){
-                        'hola';
-                    }
-                    if ($i < $count) {  
+                    }else{
                         echo '<div class="break"></div>';
                     }
                 }

@@ -1,4 +1,3 @@
-
 const ModalSubirInterpretacion = document.getElementById('ModalSubirInterpretacion')
 ModalSubirInterpretacion.addEventListener('show.bs.modal', event => {
   // console.log(selectPacienteArea)
@@ -8,11 +7,11 @@ ModalSubirInterpretacion.addEventListener('show.bs.modal', event => {
   $('#nombre-paciente-interpretacion').val(selectPacienteArea['NOMBRE_COMPLETO'])
 })
 
-$('#inputFilesInterpreArea').on('change', function(){
+$('#inputFilesInterpreArea').on('change', function () {
   var fileList = $(this)[0].files || [] //registra todos los archivos
   let aviso = 0;
-  for (file of fileList){ //una iteración de toda la vida
-    ext=file.name.split('.').pop()
+  for (file of fileList) { //una iteración de toda la vida
+    ext = file.name.split('.').pop()
     console.log('>ARCHIVO: ', file.name)
     switch (ext) {
       case 'pdf':
@@ -38,7 +37,7 @@ $("#formSubirInterpretacion").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formSubirInterpretacion");
   var formData = new FormData(form);
-  formData.set('id_turno',selectPacienteArea['ID_TURNO'])
+  formData.set('id_turno', selectPacienteArea['ID_TURNO'])
   formData.set('id_servicio', selectEstudio.selectID)
   formData.set('id_area', areaActiva)
   formData.set('tipo_archivo', 1)
@@ -64,7 +63,7 @@ $("#formSubirInterpretacion").submit(function (event) {
         type: "POST",
         processData: false,
         contentType: false,
-        beforeSend: function(){
+        beforeSend: function () {
           $("#formSubirInterpretacion:submit").prop('disabled', true)
         },
         success: function (data) {
@@ -82,7 +81,7 @@ $("#formSubirInterpretacion").submit(function (event) {
             limpiarCampos()
           }
         },
-        complete: function(){
+        complete: function () {
           $("#formSubirInterpretacion:submit").prop('disabled', false)
         }
       });

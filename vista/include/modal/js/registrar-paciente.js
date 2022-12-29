@@ -61,7 +61,7 @@ $("#formRegistrarPaciente").submit(function (event) {
                   AgendaData.set('curp', $('#curp-registro-infor').val())
                 }
 
-                AgendaData.set('cliente_id', clienteRegistro)
+                AgendaData.set('cliente_id', 1)
                 // AgendaData.set('segmento_id', null) //$('#selectSegmentos').val()
                 // const tiempoTranscurrido = Date.now();
                 // const hoy = new Date(tempoTranscurrido);
@@ -98,6 +98,7 @@ $("#formRegistrarPaciente").submit(function (event) {
                         //   $("#ModalRegistrarPrueba").modal('hide');
                         //   $("#btn-formregistrar-agenda").prop('disabled', false);
                         // }
+                        tablaRecepcionPacientes.ajax.reload();
                       } else {
                         alertMensaje('error', 'Agenda no registrada', 'Hubo un error, comuniquese con el personal.');
                       }
