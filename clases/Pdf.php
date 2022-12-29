@@ -50,7 +50,7 @@ class Reporte{
         $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
 
         // Path del dominio
-        // $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+        $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
         // echo $path;
 
         session_start();
@@ -80,7 +80,7 @@ class Reporte{
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/resultados/E-00001.pdf';
+                // $path    = 'pdf/public/resultados/E-00001.pdf';
                 // return $path;
                 break;
 
