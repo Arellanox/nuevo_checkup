@@ -375,7 +375,7 @@ function ordenar($servicios, $clasificacion, $turno){
                     if ($clasificacion_id == 1) {
                         # 1 para la clasificacion de hematologia. 
                         # Solo la hematoloigia debe mandar los valores absolutos                        
-                        $last_position = count($analitos) - 5;
+                        $last_position = count($analitos) - 2;
                         $aux = $analitos[$last_position];
                         $analitos[$last_position] = $absoluto_array;
                         $analitos[] = $aux;
