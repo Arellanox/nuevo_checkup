@@ -7,8 +7,8 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+   # $tokenVerification->logout();
+   # exit;
 }
 
 #api
@@ -168,8 +168,9 @@ switch ($api) {
 
         if(isset($confirmar)){
             # generar el reporte
-            #echo "confirmar";
+        
             crearReporteLaboratorio($id_area, $id_turno);
+            
         }
         
         break;
@@ -281,10 +282,11 @@ function crearReporteLaboratorio($id_area,$id_turno){
     }
 
  
-    # print_r($arrayGlobal);
+    #print_r($arrayGlobal);
+
     $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
-    return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->build()]);
+    return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->build(),$responsePac[0]['FOLIO_SP']]);
     
 }
 
@@ -378,6 +380,10 @@ function ordenar($servicios, $clasificacion, $turno){
                         $last_position = count($analitos) - 2;
                         $aux = $analitos[$last_position];
                         $analitos[$last_position] = $absoluto_array;
+
+                        // while(){
+
+                        // }
                         $analitos[] = $aux;
                     }
                     break;

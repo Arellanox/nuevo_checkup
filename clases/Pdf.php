@@ -46,8 +46,9 @@ class Reporte{
         $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
 
         // Barcode
-        $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-        $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
+        
+        // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+        // $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
 
         // Path del dominio
         $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
@@ -58,8 +59,10 @@ class Reporte{
             "resultados"            => $response,
             "encabezado"            => $data,
             "qr"                    => $prueba,
-            "barcode"               => $barcode,
+           # "barcode"               => $barcode,
         );
+
+
 
 
         // Recibe la orden de que tipo de archivo quiere
