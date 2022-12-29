@@ -79,7 +79,21 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
         getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', selectPacienteArea, 'In', async function (divClass) {
             await obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
 
-            await obtenerResultadosOftalmo(selectPacienteArea['ID_TURNO'])
+            await obtenerServicios(areaActiva)
+
+            //Obtener resultado de cada area 
+            switch (areaActiva) {
+                case 3:
+                    await obtenerResultadosOftalmo(selectPacienteArea['ID_TURNO'])
+                    break;
+                case 4:
+                    botonesResultados('activar');
+
+                    break;
+
+                default:
+                    break;
+            }
 
 
 
@@ -96,6 +110,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
             bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
         })
     } else {
+        $('#btnResultados').fadeOut('100');
         getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', selectPacienteArea, 'Out')
     }
 
@@ -151,50 +166,38 @@ function limpiarCampos() {
     $('#TablaContenidoResultados').removeClass('selected');
 }
 
-async function obtenerResultados() {
+async function obtenerServicios(area) {
+    if (area == 3) {
+        url = 'oftalmologia_api';
+        data = {
+            turno_id: selectPacienteArea['ID_TURNO'],
+            api: 3
+        }
+    } else {
+        data = {
+            api: 11,
+            id_turno: selectPacienteArea['ID_TURNO'],
+            id_area: area
+        }
+        url = 'servicios_api'
+    }
+    $.ajax({
+        url: http + servidor + "/nuevo_checkup/api/" + url + ".php",
+        data: data,
+        type: "POST",
+        datatype: 'json',
+        success: function (data) {
+            data = jQuery.parseJSON(data)
+            console.log(data);
+            selectEstudio = new GuardarArreglo(data.response.data);
+            panelResultadoPaciente(data.response.data);
+            botonesResultados('activar', area)
+        },
+        complete: function () {
 
+        }
+    })
 }
-
-async function obtenerResultadosOftalmo(id) {
-    return new Promise(resolve => {
-        $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",
-            data: {
-                api: 2,
-                id_turno: id
-            },
-            type: "POST",
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                let row = data.response.data[0];
-                $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
-                $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);
-                $('#padecimiento_actual').val(row.PADECIMIENTO_ACTUAL);
-                $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
-                $('#od').val(row.OD);
-                $('#oi').val(row.OI);
-                $('#jaeger').val(row.JAEGER);
-                $('#refraccion').val(row.REFRACCION);
-                $('#prueba').val(row.PRUEBA);
-                $('#exploracion_oftalmologica').val(row.EXPLORACION_OFTALMOLOGICA);
-                $('#forias').val(row.FORIAS);
-                $('#campimetria').val(row.CAMPIMETRIA);
-                $('#presion_intraocular_od').val(row.PRESION_INTRAOCULAR_OD);
-                $('#presion_intraocular_oi').val(row.PRESION_INTRAOCULAR_OI);
-                $('#diagnostico').val(row.DIAGNOSTICO);
-                $('#plan').val(row.PLAN);
-
-                // botonesResultados('activar', areaActiva)
-            },
-            complete: function () {
-                resolve(1);
-            }
-        })
-    });
-}
-
-
 async function panelResultadoPaciente(row, area = areaActiva) {
     console.log(row)
 
@@ -259,4 +262,43 @@ function botonesResultados(estilo) {
         default:
 
     }
+}
+
+async function obtenerResultadosOftalmo(id) {
+    return new Promise(resolve => {
+        $.ajax({
+            url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",
+            data: {
+                api: 2,
+                id_turno: id
+            },
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                let row = data.response.data[0];
+                $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
+                $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);
+                $('#padecimiento_actual').val(row.PADECIMIENTO_ACTUAL);
+                $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
+                $('#od').val(row.OD);
+                $('#oi').val(row.OI);
+                $('#jaeger').val(row.JAEGER);
+                $('#refraccion').val(row.REFRACCION);
+                $('#prueba').val(row.PRUEBA);
+                $('#exploracion_oftalmologica').val(row.EXPLORACION_OFTALMOLOGICA);
+                $('#forias').val(row.FORIAS);
+                $('#campimetria').val(row.CAMPIMETRIA);
+                $('#presion_intraocular_od').val(row.PRESION_INTRAOCULAR_OD);
+                $('#presion_intraocular_oi').val(row.PRESION_INTRAOCULAR_OI);
+                $('#diagnostico').val(row.DIAGNOSTICO);
+                $('#plan').val(row.PLAN);
+
+                // botonesResultados('activar', areaActiva)
+            },
+            complete: function () {
+                resolve(1);
+            }
+        })
+    });
 }
