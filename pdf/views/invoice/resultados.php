@@ -14,6 +14,7 @@
                 font-family: 'Roboto', sans-serif;
                 margin-top: 60px;
                 font-size: 10px;
+                padding-bottom: 20px;
             }
             
             .header { 
@@ -27,11 +28,18 @@
 
             .footer { 
                 position: fixed; 
+                bottom: -220px; 
+                left: 25px; 
+                right: 25px; 
+                height: 260px; 
+            }
+            /* .footer { 
+                position: fixed; 
                 bottom: -165px; 
                 left: 25px; 
                 right: 25px; 
                 height: 190px; 
-            }
+            } */
 
             .footer .page:after {
                 content: counter(page); 
@@ -45,7 +53,7 @@
             /* Content */
             .invoice-content {
                 border-radius: 4px;
-                padding-bottom: 10px;
+                padding-bottom: 15px;
                 padding-right: 30px;
                 padding-left: 30px;
                 text-align: justify;
@@ -355,14 +363,14 @@
                 foreach ($areas as $key => $area) {
                     $a = 0;
 
-                    echo "<h2  >". $area->area . "</h2>";
+                    echo "<h2 style='padding-bottom: 5px; padding-top: 5px;'>". $area->area . "</h2>";
 
                     foreach ($area->estudios as $key => $estudio) {
                         
-                        echo "<h5>" . $estudio->estudio . "</h5>";
+                        echo "<h4 style='padding-top: 15px'>" . $estudio->estudio . "</h4>";
 
             ?>
-                    <table class="result" >
+                    <table class="result" style="padding-top: 7px;">
                         <thead>
                             <tr>
                                 <th class="col-one">Nombre</th>
@@ -432,22 +440,6 @@
                                         ?>
                                     </tr>
                             <?php
-                                    if(isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '' ){
-                            ?>
-                                        <tr>
-                                            <td class="col-one">
-                                                <?php echo "<strong>Observaciones: </strong>" .$analito->observaciones ?>
-                                            </td>
-                                            <td class="col-two">
-                                            </td>
-                                            <td class="col-three">
-                                            </td>
-                                            <td class="col-four">
-                                            </td>
-                                        </tr>
-                            <?php
-                                    }
-
                                     if(isset($analito->metodo) && $analito->metodo != null || $analito->metodo != '' ){
                             ?>
                                         <tr>
@@ -461,14 +453,32 @@
                                             <td class="col-four">
                                             </td>
                                         </tr>
-                            <?php        
+                            <?php
                                     }
+                            ?>
+                            <?php        
 
                                     if(isset($analito->equipo) && $analito->equipo != null || $analito->equipo != '' ){
                             ?>
                                         <tr>
                                             <td class="col-one">
                                                 <?php echo "<strong>Equipo: </strong>" .$analito->equipo ?>
+                                            </td>
+                                            <td class="col-two">
+                                            </td>
+                                            <td class="col-three">
+                                            </td>
+                                            <td class="col-four">
+                                            </td>
+                                        </tr>
+                            <?php
+                                    }
+
+                                    if(isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '' ){
+                            ?>
+                                        <tr>
+                                            <td class="col-one">
+                                                <?php echo "<strong>Observaciones: </strong>" .$analito->observaciones ?>
                                             </td>
                                             <td class="col-two">
                                             </td>
