@@ -82,6 +82,36 @@ class Master extends Miscelaneus
             echo $e->getMessage();
         }
     }
+
+    public function getByNext($nombreProcedimiento,$parametros){
+        try {
+            $conexion = $this->connectDb();
+
+            $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
+            $sentencia = $conexion->prepare($sp);
+            
+            $sentencia = $this->bindParams($sentencia, $parametros);
+
+            if (!$sentencia->execute()) {
+                $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
+                $this->mis->setLog($error_msj, $nombreProcedimiento);
+                return "ERROR. No se pudieron recuperar los datos.";
+            }
+
+            $global = [];
+            do {
+                $resultSet = $sentencia->fetchAll();
+                $global[] = $resultSet;
+            } while ($sentencia->nextRowset());
+            
+            $sentencia->closeCursor();
+
+            return $global;
+        } catch (Exception $e) {
+
+            echo $e->getMessage();
+        }
+    }
     public function updateByProcedure($nombreProcedimiento, $parametros)
     {
         $retorno = "";
