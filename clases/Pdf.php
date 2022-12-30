@@ -40,31 +40,40 @@ class Reporte{
         $tipo       = $this->tipo;
         $orden      = $this->orden;
 
-        $pdf = new Dompdf();
-
-        // Qrcode
-        $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
-
-        // Barcode
+        switch ($tipo) {
+            case 'etiquetas':
+                $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+                $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
+                break;
+            case 'resultados':
+                // Qrcode
+                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
+                // Barcode
+                $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+                $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
+                break;
+            default:
+                $barcode = null;
+                return $barcode;
+                break;
+        }
         
-        // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-        // $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
-
         // Path del dominio
         $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+        // $path    = 'pdf/public/resultados/E-00001.pdf';
         // echo $path;
 
         session_start();
         $view_vars = array(
             "resultados"            => $response,
             "encabezado"            => $data,
-            "qr"                    => $prueba,
-           # "barcode"               => $barcode,
+            "qr"                    => isset($prueba) ? $prueba : null,
+            "barcode"               => $barcode,
         );
 
 
 
-
+        $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
         switch ($tipo) {
             case 'etiquetas':
@@ -116,13 +125,17 @@ class Reporte{
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                return 'https://bimo-lab.com/nuevo_checkup/'. $path;
-                return $path;
+                echo 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                // echo $path;
+                // return $path;
                 break;
             default:
                 $pdf->render();
                 return $pdf->stream('documento.pdf', array("Attachment" => false));
                 break;
+
+            // session_write_close();
+            session_destroy();
         }
     }
 }

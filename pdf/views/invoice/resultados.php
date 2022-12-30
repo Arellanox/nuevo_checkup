@@ -64,7 +64,9 @@
                 margin-bottom: 2px;
                 text-align: center;
                 background-color: rgba(215, 222, 228, 0.748);
+                padding-top: 10px;
             }
+
             h3{
                 font-size: 14px;
                 margin-top: 2px;
@@ -351,12 +353,14 @@
                 $count = count($areas);
                 $i = 0;
                 foreach ($areas as $key => $area) {
+                    $a = 0;
 
                     echo "<h2  >". $area->area . "</h2>";
 
                     foreach ($area->estudios as $key => $estudio) {
                         
                         echo "<h5>" . $estudio->estudio . "</h5>";
+
             ?>
                     <table class="result" >
                         <thead>
@@ -370,6 +374,7 @@
                         <tbody>
                             <?php
                             foreach ($estudio->analitos as $key => $analito) {
+                                $a++;
                                 if(is_array($analito)){
                             ?>
                                     <tr>
@@ -404,28 +409,28 @@
                                     }
                                 }else{
                             ?>
-                                <tr >
-                                    <?php
-                                    if($analito->resultado == 'N/A'){
+                                    <tr >
+                                        <?php
+                                        if($analito->resultado == 'N/A'){
 
-                                    }else{
-                                    ?>
-                                        <td class="col-one">
-                                            <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
-                                        </td>
-                                        <td class="col-two">
-                                            <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
-                                        </td>
-                                        <td class="col-three">
-                                            <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>
-                                        </td>
-                                        <td class="col-four">
-                                            <?php echo ($analito->referencia != null) ? $analito->referencia : '' ; ?>
-                                        </td>
-                                    <?php                                    
-                                    } 
-                                    ?>
-                                </tr>
+                                        }else{
+                                        ?>
+                                            <td class="col-one">
+                                                <?php echo ($analito->nombre != null) ? $analito->nombre : '' ;  ?>
+                                            </td>
+                                            <td class="col-two">
+                                                <?php echo ($analito->resultado != null) ? $analito->resultado : '' ; ?>
+                                            </td>
+                                            <td class="col-three">
+                                                <?php echo ($analito->unidad != null) ? $analito->unidad : '' ; ?>
+                                            </td>
+                                            <td class="col-four">
+                                                <?php echo ($analito->referencia != null) ? $analito->referencia : '' ; ?>
+                                            </td>
+                                        <?php                                    
+                                        } 
+                                        ?>
+                                    </tr>
                             <?php
                                     if(isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '' ){
                             ?>
@@ -447,7 +452,7 @@
                             ?>
                                         <tr>
                                             <td class="col-one">
-                                                <?php echo "<strong>Método: </strong>" .$analito->metodo ?>
+                                                <?php echo "<strong>Método: </strong>".$analito->metodo ?>
                                             </td>
                                             <td class="col-two">
                                             </td>
@@ -479,6 +484,7 @@
                                         echo "<br>";
                                     }
                                 }
+
                             }
                             ?>
                             
@@ -490,7 +496,7 @@
                         <?php
                             if($estudio->metodo == '' || $estudio->metodo == null){
                             }else{
-                                echo "<strong>Método: </strong>". $estudio->metodo;
+                                echo "<strong>Método: </strong>" .$estudio->metodo;
                             }
                         ?>
                     </div>
@@ -512,13 +518,31 @@
                             }
                         ?>
                     </div>
-                    <br>
             <?php
+
                     }
                     $i++;
-                    if ($i < $count) {  
-                        echo '<div class="break"></div>';
+                    // $color_count % 2 == 0
+                    // $a < 15
+                    // if($a < 15){
+                    // }
+
+                    // if ($i < $count) {  
+                    //     echo '<div class="break"></div>';
+                    // }
+
+                    // echo $a;
+                    if($a <= 15){
+                    }else{
+                        // echo "salto de linea";
+            ?>
+                <div class="break"></div>
+            <?php
+                        // echo '<div class="break">';
                     }
+            ?>
+
+            <?php
                 }
             ?>
         </div>
