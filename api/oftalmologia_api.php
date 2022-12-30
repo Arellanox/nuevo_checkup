@@ -65,6 +65,27 @@ switch ($api) {
         #primero recuperamos la informacion del paciente en responsePac
         $responsePac = $master->getByProcedure("sp_informacion_paciente",[$turno_id]);
 
+        
+        # pie de pagina
+        $fecha_resultado = $responsePac[0]['FECHA_FOLDER_OF'];
+        $nombre_paciente = $responsePac[0]['NOMBRE'];
+        $nombre = str_replace(" ","_",$nombre_paciente);
+
+        $ruta_saved = "reportes/modulo/oftalmo/$fecha_resultado/$id_turno/";
+
+        # Crear el directorio si no existe
+        $r = $master->createDir("../".$ruta_saved);
+
+        if($r!=1){
+            $response = "No se puedo crear el directorio.";
+            break;
+        }
+        $archivo = array("ruta"=>$ruta_saved,"nombre_archivo"=>$nombre."-".$responsePac[0]['TURNO'].'-'.$fecha_resultado);
+
+        $clave = $master->getByProcedure("sp_generar_clave",[]);
+
+        $pie_pagina = array("clave"=>$clave[0]['TOKEN'],"folio"=>$responsePac[0]['FOLIO'],"modulo"=>3);
+
         # con el arreglo superior, creamos el pdf para conseguir la ruta antes de insertar en la tabla de mysql
         $pdf = new Reporte(json_encode($params), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
