@@ -48,9 +48,9 @@ class Reporte{
             case 'resultados':
                 // Qrcode
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
-                // Barcode
-                $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
+                // // Barcode
+                // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+                // $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
                 break;
             default:
                 $barcode = null;
