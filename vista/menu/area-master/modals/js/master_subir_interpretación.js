@@ -41,7 +41,10 @@ $("#formSubirInterpretacion").submit(function (event) {
     // formData.set('id_servicio', selectEstudio.selectID)
     formData.set('id_area', areaActiva)
     // formData.set('tipo_archivo', 1)
-    formData.set('api', 10);
+
+
+    //Api y url sacada desde el controlador
+    formData.set('api', api);
 
 
     Swal.fire({
@@ -59,7 +62,7 @@ $("#formSubirInterpretacion").submit(function (event) {
 
             $.ajax({
                 data: formData,
-                url: "../../../api/servicios_api.php",
+                url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
                 type: "POST",
                 processData: false,
                 contentType: false,
@@ -70,10 +73,7 @@ $("#formSubirInterpretacion").submit(function (event) {
                     data = jQuery.parseJSON(data);
                     if (mensajeAjax(data)) {
                         alertMensaje('success', 'Interpretación guardada', '...', 'El formulario ha sido cerrado');
-
-                        $('button[type="submit"][form="formSubirInterpretacion"]').prop('disabled', true)
-                        $('#formSubirInterpretacion :textarea').prop('disabled', true)
-                        limpiarCampos()
+                        estadoFormulario(1) //Desactiva el formulario
                     }
                 },
                 complete: function () {
