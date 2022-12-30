@@ -48,9 +48,10 @@ class Reporte{
             case 'resultados':
                 // Qrcode
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
-                // // Barcode
-                // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                // $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
+                break;
+            case 'oftamologia':
+                // Qrcode
+                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
             default:
                 $barcode = null;
@@ -68,7 +69,7 @@ class Reporte{
             "resultados"            => $response,
             "encabezado"            => $data,
             "qr"                    => isset($prueba) ? $prueba : null,
-            "barcode"               => $barcode,
+            "barcode"               => isset($barcode) ? $barcode : null,
         );
 
 
