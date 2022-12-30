@@ -98,14 +98,6 @@ switch ($api) {
         # si ambas variables se le envian en null, recupera todo la informacion de la tabla, de todos los turnos.
         $response = $master->getByProcedure('sp_oftalmo_resultados_b',[$id_oftalmo,$turno_id]);
         break;
-    case 3: 
-        #obtener resultado (url del pdf)
-        # buscar
-        $response = $master->getByProcedure('sp_oftalmo_resultados_b',[$id_oftalmo,$turno_id]);
-        if ($response) {
-          $response = array('url' => 'https://bimo-lab.com', 'area_id' => 3);
-        }
-        break;
     default:
         # code...
         break;

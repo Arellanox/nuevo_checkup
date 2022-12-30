@@ -21,6 +21,8 @@ $servicio_id = $_POST['servicio_id'];
 
 switch ($api) {
     case 1:
+        # subir interpretacion de rayos x.
+        
         #creamos el directorio donde se va a guardar la informacion del turno
         $dir = "../reportes/modulo/rayosx/$turno_id/";
         $r = $master->createDir($dir);
