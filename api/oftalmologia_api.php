@@ -56,23 +56,24 @@ $params = array(
     $presion_intraocular_oi,
     $diagnostico,
     $plan,
-    $_SESSION['id'] # id del usuario que esta subiendo la informacion
+    $_SESSION['id'],# id del usuario que esta subiendo la informacion,
+    null # esta es la ruta del reporte, que posteriormente se tiene que actualizar
 );
 
 switch ($api) {
     case 1:
         #insertar
-        #primero recuperamos la informacion del paciente en responsePac
-        $responsePac = $master->getByProcedure("sp_informacion_paciente",[$turno_id]);
+        # en el procedure se insertar el folio consecutivo de los resultados activos.
+        $last_id = $master->insertByProcedure('sp_oftalmo_resultados_g',$params);
 
-        
-        # pie de pagina
-        $fecha_resultado = $responsePac[0]['FECHA_FOLDER_OF'];
+        # recuperamos el encabezado del paciente.
+        $responsePac = $master->getByProcedure("sp_informacion_paciente",[$turno_id]);
+         # pie de pagina
+        $fecha_resultado = $responsePac[0]['FECHA_RESULTADO_OFTALMO'];
         $nombre_paciente = $responsePac[0]['NOMBRE'];
         $nombre = str_replace(" ","_",$nombre_paciente);
 
-        $ruta_saved = "reportes/modulo/oftalmo/$fecha_resultado/$id_turno/";
-
+        $ruta_saved = "reportes/modulo/oftalmo/$fecha_resultado/".$id_turno."/";
         # Crear el directorio si no existe
         $r = $master->createDir("../".$ruta_saved);
 
@@ -83,17 +84,14 @@ switch ($api) {
         $archivo = array("ruta"=>$ruta_saved,"nombre_archivo"=>$nombre."-".$responsePac[0]['TURNO'].'-'.$fecha_resultado);
 
         $clave = $master->getByProcedure("sp_generar_clave",[]);
-
-        $pie_pagina = array("clave"=>$clave[0]['TOKEN'],"folio"=>$responsePac[0]['FOLIO'],"modulo"=>3);
+        $pie_pagina = array("clave"=>$clave[0]['TOKEN'],"folio"=>$responsePac[0]['FOLIO_OFTALMO'],"modulo"=>3);
 
         # con el arreglo superior, creamos el pdf para conseguir la ruta antes de insertar en la tabla de mysql
         $pdf = new Reporte(json_encode($params), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
-        # inserta en el array de parametros, la ruta del pdf de reporte al final.
-        array_push($params, $pdf->build());
+        #actualizamos la url del reporte.
+        $response = $master->updateByProcedure("sp_oftalmo_resultados_g",[$last_id,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,$pdf->build()]);
 
-        # finalmente insertamos el array completo (CON LA RUTA DEL REPORTE) en la base de datos.
-        $response = $master->insertByProcedure('sp_oftalmo_resultados_g',$params);
         break;
     case 2:
         # buscar
@@ -113,4 +111,32 @@ switch ($api) {
         break;
 }
 echo $master->returnApi($response);
+/*
+    #primero recuperamos la informacion del paciente en responsePac
+    $responsePac = $master->getByProcedure("sp_informacion_paciente",[$turno_id]);
+
+        
+    # pie de pagina
+    $fecha_resultado = $responsePac[0]['FECHA_FOLDER_OF'];
+    $nombre_paciente = $responsePac[0]['NOMBRE'];
+    $nombre = str_replace(" ","_",$nombre_paciente);
+
+    $ruta_saved = "reportes/modulo/oftalmo/$fecha_resultado/$id_turno/";
+
+    # Crear el directorio si no existe
+    $r = $master->createDir("../".$ruta_saved);
+
+    if($r!=1){
+        $response = "No se puedo crear el directorio.";
+        break;
+    }
+    $archivo = array("ruta"=>$ruta_saved,"nombre_archivo"=>$nombre."-".$responsePac[0]['TURNO'].'-'.$fecha_resultado);
+
+    $clave = $master->getByProcedure("sp_generar_clave",[]);
+
+    $pie_pagina = array("clave"=>$clave[0]['TOKEN'],"folio"=>$responsePac[0]['FOLIO'],"modulo"=>3);
+
+    # con el arreglo superior, creamos el pdf para conseguir la ruta antes de insertar en la tabla de mysql
+    $pdf = new Reporte(json_encode($params), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
+    */
 ?>
