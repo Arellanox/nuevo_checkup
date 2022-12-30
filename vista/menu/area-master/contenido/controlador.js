@@ -2,7 +2,7 @@ var tablaContenido, areaActiva;
 var dataListaPaciente = {
   api: 7
 };
-var selectPacienteArea, hash, formulario, api, url_api;
+var selectPacienteArea, hash, formulario;
 //Variable para guardar los servicios de un paciente seleccionado
 var selectEstudio = new GuardarArreglo();
 var selectrue = 0;
@@ -20,26 +20,18 @@ function hasLocation() {
     switch (hash) {
       case "IMAGENOLOGIA":
         formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
         obtenerContenidoVistaMaster(7, 'Resultados de Ultrasonido', 'contenido_new.php');
         break;
       case "RX":
-        formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
-        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_new.php');
+        formulario = "";
+        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X');
         break;
       case "ESPIROMETRIA":
-        formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
-        obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_new.php');
+        formulario = "";
+        obtenerContenidoVistaMaster(5, 'Resultados de Espirometría');
         break;
       case "AUDIOMETRIA":
-        formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
+        formulario = "formSubirInterpretacionOftalmo";
         obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_new.php');
         break;
       case "OFTALMOLOGIA":
@@ -67,9 +59,7 @@ function hasLocation() {
 */
 function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.php') {
   areaActiva = area;
-  $.post("contenido/" + contenidoHTML, {
-    form: formulario
-  }, async function (html) {
+  $.post("contenido/" + contenidoHTML, async function (html) {
     $("#body-js").html(html);
     await obtenerTitulo(titulo)
     dataListaPaciente = {
@@ -92,35 +82,32 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ph
         $.getScript("modals/js/of_subir_oftalmo.js");
         break;
 
-        // case 4: //Audiometria
-        //   $('#btn-analisis-audiometria').fadeIn(0)
-        //   $('#btn-capturas-pdf').fadeIn(0)
-        //   $('#formSubirInterpretacionAudiome').fadeIn(0)
-        //   // Datatable
-        //   $.getScript("contenido/js/controlador-tabla.js")
-        //   // Subir resultado
-        //   $.getScript("modals/js/au_subir_audiometria.js");
-        //   break;
-
-      default: //Ultrasonido
-        $('#btn-analisis').fadeIn(0)
+      case 4: //Audiometria
+        $('#btn-analisis-audiometria').fadeIn(0)
         $('#btn-capturas-pdf').fadeIn(0)
-        $('#formSubirInterpretacion').fadeIn(0)
+        $('#formSubirInterpretacionAudiome').fadeIn(0)
+        // Datatable
+        $.getScript("contenido/js/controlador-tabla.js")
+        // Subir resultado
+        $.getScript("modals/js/au_subir_audiometria.js");
+        break;
+
+      case 4: //Ultrasonido
+        $('#btn-analisis-ultraso').fadeIn(0)
         // Datatable
         $.getScript("contenido/js/controlador-tabla.js")
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
         break;
 
-        // default:
-        //   $('#btn-analisis-pdf').fadeIn(0)
-        //   $('#btn-capturas-pdf').fadeIn(0)
-        //   $('.btnResultados').fadeOut(0)
-        //   // Datatable
-        //   $.getScript("contenido/js/vista-tabla.js");
-        //   // Modal para agregar interpretacion
-        //   $.getScript("modals/js/ar_subirprueba_area.js");
-        //   break;
+      default:
+        $('#btn-analisis-pdf').fadeIn(0)
+        $('#btn-capturas-pdf').fadeIn(0)
+        $('.btnResultados').fadeOut(0)
+
+        // Datatable
+        $.getScript("contenido/js/vista-tabla.js")
+        break;
     }
     // Botones
     $.getScript("contenido/js/area-botones.js")

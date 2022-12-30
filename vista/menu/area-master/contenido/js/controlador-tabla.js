@@ -18,7 +18,6 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
             loader("In"), limpiarCampos(), selectListaLab = null;
             loaderDiv("Out", null, "#loader-paciente", '#loaderDivPaciente', 0);
             $('.informacion-paciente').fadeOut()
-            estadoFormulario()
         },
         complete: function () {
             loader("Out")
@@ -79,30 +78,20 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
     if (selectTR == 1) {
         getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', selectPacienteArea, 'In', async function (divClass) {
             await obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
-            await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
+
             await obtenerServicios(areaActiva)
 
             //Obtener resultado de cada area 
             switch (areaActiva) {
                 case 3:
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     await obtenerResultadosOftalmo(selectPacienteArea['ID_TURNO'])
                     break;
                 case 4:
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
-                    break;
-                case 5:
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
-                    break;
-                case 7:
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
-                    break;
-                case 8:
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
-                    break;
-                default:
                     botonesResultados('activar');
 
+                    break;
+
+                default:
                     break;
             }
 
@@ -110,7 +99,8 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
 
 
             if (selectPacienteArea.CONFIRMADO == 1) {
-                estadoFormulario(0)
+                $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
+                $('#' + formulario + ' :input').prop('disabled', true)
             } else {
                 $('button[type="submit"][form="' + formulario + '"]').prop('disabled', false)
                 $('#' + formulario + ' :input').prop('disabled', false)
@@ -210,150 +200,68 @@ async function obtenerServicios(area) {
 }
 async function panelResultadoPaciente(row, area = areaActiva) {
     console.log(row)
-    let html = '';
-    switch (row['area_id']) {
-        case 3:
-            html += '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' +
-                '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'
-                '<div class="col-12 d-flex justify-content-center">' +
-                '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row['url'] + '" style="margin-bottom:4px" id="btn-analisis-pdf">' +
-                '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
-                '</a>' +
-                '</div>' +
-                '</div> <hr>';
-            $('#resultadosServicios-areas').append(html);
-            break;
 
-        default:
-            let itemStart = '<div class="accordion-item bg-acordion">';
-            let itemEnd = '</div>';
+    // switch (area) {
+    //     case value:
 
-            let bodyStart = '<div class="accordion-body">' +
-                '<div class="row">';
-            let bodyEnd = '</div>' +
-                '</div>';
-            html += '';
+    //         break;
 
-            for (var i = 0; i < row.length; i++) {
-                html += itemStart;
-                html += '<h2 class="accordion-header" id="collap-historial-estudios' + i + '">' +
-                    '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio' + i + '-Target" aria-expanded="false" aria-controls="accordionEstudios">' +
-                    '<div class="row">' +
-                    '<div class="col-12">' +
-                    '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + row[i]['NOMBRE_COMPLETO'] + '</strong>' +
-                    '</div>' +
-                    '<div class="col-12">' +
-                    '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>' + formatoFecha2(row[i]['FECHA_CONFIRMADO']) + '</strong> ' + //<strong>12:00 '+i+'</strong>
-                    '</div>' +
-                    '</div>' +
-                    '</button>' +
-                    '</h2>' +
-                    //Dentro del acordion
-                    '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse overflow-auto" aria-labelledby="collap-historial-estudios' + i + '" style="max-height: 70vh"> ';
-
-                html += bodyStart;
-                //Campos existentes
-                html += '<p class="none-p"> <strong>Observaciones: </strong>' +
-                    '*COMENTARIO*' +
-                    '</p>';
-                //
-                //Boton de interpretacion
-                if (true) {
-                    html += '<div class="col-7 d-flex justify-content-center">' +
-                        '<a type="button" target="_blank" class="btn btn-borrar me-2" href="' + row[i]['INTERPRETACION'] + '" style="margin-bottom:4px">' +
-                        '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
-                        '</a>' +
-                        '</div>';
-                }
-                //Boton de capturas
-                if (true) {
-                    html += '<div class="col-5 d-flex justify-content-center">' +
-                        '<a type="button" class="btn btn-option me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
-                        '<i class="bi bi-images"></i> Capturas' +
-                        '</a>' +
-                        '</div>';
-                }
-
-
-                html += bodyEnd + '</div>';
-                html += itemEnd;
-            }
-            $('#resultadosServicios-areas').html(html);
-            break;
-    }
-
-    '<div class="row"><div class="col-12"><i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>Aurora  </strong></div><div class="col-12"><i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>jueves, 29 de dic de 2022 6:15 p.&nbsp;m.</strong> </div></div>'
-
-    // if (row['area_id'] == 3) {
-    //     let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' + +
-    //         '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'
-    //         '<div class="col-12 d-flex justify-content-center">' +
-    //         '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row['url'] + '" style="margin-bottom:4px" id="btn-analisis-pdf">' +
-    //         '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
-    //         '</a>' +
-    //         '</div>' +
-    //         '</div> <hr>';
-    //     $('#resultadosServicios-areas').append(html);
-    // } else {
-    //     for (var i = 0; i < row.length; i++) {
-    //         console.log(row)
-    //         if (row[i]['INTERPRETACION']) {
-    //             let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' +
-    //                 '<p style="padding-bottom: 10px">' + row[i]['SERVICIO'] + ':</p>' +
-    //                 '<p class="none-p">(' + formatoFecha2(row[i]['FECHA_INTERPRETACION']) + '):<br> ' + row[i]['COMENTARIOS'] + '</p>' +
-    //                 '<div class="col-7 d-flex justify-content-center">' +
-    //                 '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row[i]['INTERPRETACION'] + '" style="margin-bottom:4px">' +
-    //                 '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
-    //                 '</a>' +
-    //                 '</div>';
-    //             if (row[i]['IMAGENES'].length > 0) {
-    //                 html += '<div class="col-5 d-flex justify-content-center">' +
-    //                     '<button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
-    //                     '<i class="bi bi-images"></i> Capturas' +
-    //                     '</button>' +
-    //                     '</div>';
-    //             }
-    //             html += '</div> <hr>';
-    //             $('#resultadosServicios-areas').append(html);
-    //         }
-    //     }
+    //     default:
+    //         break;
     // }
+
+
+
+    if (row['area_id'] == 3) {
+        let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' + +
+            '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'
+            '<div class="col-12 d-flex justify-content-center">' +
+            '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row['url'] + '" style="margin-bottom:4px" id="btn-analisis-pdf">' +
+            '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
+            '</a>' +
+            '</div>' +
+            '</div> <hr>';
+        $('#resultadosServicios-areas').append(html);
+    } else {
+        for (var i = 0; i < row.length; i++) {
+            console.log(row)
+            if (row[i]['INTERPRETACION']) {
+                let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' +
+                    '<p style="padding-bottom: 10px">' + row[i]['SERVICIO'] + ':</p>' +
+                    '<p class="none-p">(' + formatoFecha2(row[i]['FECHA_INTERPRETACION']) + '):<br> ' + row[i]['COMENTARIOS'] + '</p>' +
+                    '<div class="col-7 d-flex justify-content-center">' +
+                    '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row[i]['INTERPRETACION'] + '" style="margin-bottom:4px">' +
+                    '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
+                    '</a>' +
+                    '</div>';
+                if (row[i]['IMAGENES'].length > 0) {
+                    html += '<div class="col-5 d-flex justify-content-center">' +
+                        '<button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
+                        '<i class="bi bi-images"></i> Capturas' +
+                        '</button>' +
+                        '</div>';
+                }
+                html += '</div> <hr>';
+                $('#resultadosServicios-areas').append(html);
+            }
+        }
+    }
 
 }
 
-
-//Activa o desactiva los botones de capturas
 function botonesResultados(estilo) {
     switch (estilo) {
         case 'desactivar':
-            // $('#btn-analisis-pdf').prop('disabled', true)
+            $('#btn-analisis-pdf').prop('disabled', true)
             $('#btn-capturas-pdf').prop('disabled', true)
             break;
         case 'activar':
-            // $('#btn-analisis-pdf').prop('disabled', false)
+            $('#btn-analisis-pdf').prop('disabled', false)
             $('#btn-capturas-pdf').prop('disabled', false)
             break;
         default:
 
     }
-}
-
-//Desactiva o activa el formulario si ya tiene resultado o si ya ha sido cargada
-function estadoFormulario(estado) {
-    switch (estado) {
-        case 1:
-            $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
-            $('#' + formulario + '').find('textarea').prop('disabled', true)
-            $('#' + formulario + '').find('input').prop('disabled', true)
-            break;
-
-        default:
-            $('button[type="submit"][form="' + formulario + '"]').prop('disabled', false)
-            $('#' + formulario + '').find('textarea').prop('disabled', false)
-            $('#' + formulario + '').find('input').prop('disabled', false)
-            break;
-    }
-
 }
 
 async function obtenerResultadosOftalmo(id) {
