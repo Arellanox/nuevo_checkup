@@ -61,14 +61,18 @@ switch ($api) {
 
     case 3:
         # recuperar los resultados de rayos x
-        $response = $master->getByNext('sp_rayosx_resultados_b',[$id_rayo,$turno_id]);
+        $response = $master->getByProcedure('sp_rayosx_resultados_b',[$id_rayo,$turno_id]);
+
+        # recuperar las capturas si las tiene.
+        $area_id = 8; # 8 es el id para rayos x.
+        $response2 = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id,$area_id]);
         $capturas = [];
-        foreach($response[1] as $current){
+        foreach($response2 as $current){
             $current['CAPTURAS'] = json_decode($current['CAPTURAS'], true);
             $capturas[] = $current;
         }
 
-        $reponse[0][0]['CAPTURAS'] = $capturas;
+        $reponse[0]['CAPTURAS'] = $capturas;
         
         break;
     default:
