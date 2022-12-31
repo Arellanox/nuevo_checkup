@@ -72,7 +72,7 @@ switch ($api) {
             $capturas[] = $current;
         }
 
-        $reponse[0]['CAPTURAS'] = $capturas;
+        $response[0]['CAPTURAS'] = $capturas;
         
         break;
     default:
