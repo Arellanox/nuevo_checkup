@@ -97,6 +97,8 @@ switch ($api) {
         # buscar
         # si ambas variables se le envian en null, recupera todo la informacion de la tabla, de todos los turnos.
         $response = $master->getByProcedure('sp_oftalmo_resultados_b',[$id_oftalmo,$turno_id]);
+        if(count($response))
+        $response[0]['CAPTURAS'] = [];
         break;
     default:
         # code...

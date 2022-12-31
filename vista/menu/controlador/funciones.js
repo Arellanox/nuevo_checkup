@@ -186,6 +186,12 @@ function checkNumber(x) {
     return 2
   }
 }
+//servicios: 
+// 85, 354, 355, 356, 84
+function ifnull(data) {
+  if (data) return data;
+  return '';
+}
 
 // Omitir paciente actual
 function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback) {
@@ -919,6 +925,7 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
 }
 
 function select2(select, modal = null, placeholder = 'Selecciona una opción') {
+  if (!modal) modal = 'body-controlador';
   $(select).select2({
     dropdownParent: $('#' + modal),
     tags: false,
