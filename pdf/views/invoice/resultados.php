@@ -107,13 +107,15 @@
                 width: 100%;
                 max-width: 100%;
                 margin: auto;
-                white-space:nowrap;
+                white-space: normal;
+                word-break: break-all;
                 /* table-layout:fixed; */
             }
             th, td {
                 width: 100%;
                 max-width: 100%;
-                word-break: break-all;
+                table-layout: fixed;
+                /* border: 1px solid; */
             }
 
             /* Para divisiones de 3 encabezado*/
@@ -176,7 +178,7 @@
             /* Fivisiones de cinco */
             .col-one{
                 width: 30%; 
-                max-width: 30%; 
+                max-width: 100px; 
                 text-align: left;
             }
             .col-two{
