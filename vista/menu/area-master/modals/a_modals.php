@@ -2,8 +2,8 @@
 
 
 //Boton para subir interpretacion
-include 'ar_subirprueba-area.php';
-include 'ar_subircapturas-area.php';
-// include 'of_subir_oftalmo.php';
+include 'ar_subirprueba-area.html';
+include 'ar_subircapturas-area.html';
+// include 'of_subir_oftalmo.html';
 //Mostrar fotos
-include 'ar_mostrar-capturas.php';
+include 'ar_mostrar-capturas.html';

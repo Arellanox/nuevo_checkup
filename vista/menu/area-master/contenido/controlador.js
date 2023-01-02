@@ -5,7 +5,8 @@ var dataListaPaciente = {
 var selectPacienteArea, hash, formulario, api, url_api;
 //Variable para guardar los servicios de un paciente seleccionado
 var selectEstudio = new GuardarArreglo();
-var selectrue = 0;
+var selectrue = 0,
+  confirmado;
 
 hasLocation();
 $(window).on("hashchange", function (e) {
@@ -44,7 +45,7 @@ function hasLocation() {
         break;
       case "OFTALMOLOGIA":
         formulario = "formSubirInterpretacionOftalmo";
-        obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_oftalmologia.php');
+        obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_new.php');
         break;
       default:
         // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
@@ -65,7 +66,7 @@ function hasLocation() {
 
 
 */
-function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.php') {
+function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.html') {
   areaActiva = area;
   $.post("contenido/" + contenidoHTML, {
     form: formulario
@@ -92,17 +93,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ph
         $.getScript("modals/js/of_subir_oftalmo.js");
         break;
 
-        // case 4: //Audiometria
-        //   $('#btn-analisis-audiometria').fadeIn(0)
-        //   $('#btn-capturas-pdf').fadeIn(0)
-        //   $('#formSubirInterpretacionAudiome').fadeIn(0)
-        //   // Datatable
-        //   $.getScript("contenido/js/controlador-tabla.js")
-        //   // Subir resultado
-        //   $.getScript("modals/js/au_subir_audiometria.js");
-        //   break;
-
-      default: //Ultrasonido
+      default: //Areas Genericas
         $('#btn-analisis').fadeIn(0)
         $('#btn-capturas-pdf').fadeIn(0)
         $('#formSubirInterpretacion').fadeIn(0)
@@ -112,6 +103,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ph
         $.getScript("modals/js/master_subir_interpretación.js");
         break;
 
+        // Versión anterior (Absoleta)
         // default:
         //   $('#btn-analisis-pdf').fadeIn(0)
         //   $('#btn-capturas-pdf').fadeIn(0)

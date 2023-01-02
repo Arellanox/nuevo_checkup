@@ -32,15 +32,16 @@ $("#formSubirInterpretacionOftalmo").submit(function (event) {
         type: "POST",
         processData: false,
         contentType: false,
+        beforeSend: function () {
+          $("#formSubirInterpretacion:submit").prop('disabled', true)
+          alertMensaje('info', 'Subiendo información', 'Espere un momento', 'No puede revertir esta acción')
+        },
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
             alertMensaje('success', 'Interpretación guardada', 'El reporte de resultado ha sido generado...', 'El formulario ha sido cerrado');
-            // document.getElementById("formSubirInterpretacionOftalmo").reset();
-            $('button[type="submit"][form="formSubirInterpretacionOftalmo"]').prop('disabled', true)
-            $('#formSubirInterpretacionOftalmo :textarea').prop('disabled', true)
-            // $("#ModalSubirInterpretacion").modal("hide");
-            // tablaContacto.ajax.reload();
+            estadoFormulario(1) //Desactiva el formulario
+            obtenerServicios(3)
           }
         },
       });
