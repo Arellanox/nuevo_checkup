@@ -36,7 +36,7 @@ switch($api){
         }
 
         #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "interpretacion", "../".$ruta_saved, "INTERPRETACION_RX_$turno_id");
+        $interpretacion = $master->guardarFiles($_FILES, "interpretacion", "../".$ruta_saved, "INTERPRETACION_ULTRASONIDO_$turno_id");
 
         $response = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$interpretacion[0]['URL'],$usuario]);
         break;
@@ -50,7 +50,7 @@ switch($api){
             break;
         }
 
-        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_RX_$turno_id");
+        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_ULTRASONIDO_$turno_id");
 
 
         $response = $master->insertByProcedure('sp_capturas_imagen_g',[null, $turno_id,$servicio_id,json_encode($capturas),$comentario,$usuario]);
