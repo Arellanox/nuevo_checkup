@@ -148,6 +148,19 @@ $("#formRegistrarAgenda").submit(function (event) {
               if (session.user != null) {
                 $("#btn-formregistrar-agenda").prop('disabled', false);
               }
+
+              //Recargar la vista
+              try {
+                tablaRecepcionPacientes.ajax.reload();
+              } catch (error) {
+                console.log(error);
+              }
+              //Recargar la vista de aceptados
+              try {
+                tablaRecepcionPacientesIngrersados.ajax.reload();
+              } catch (error) {
+                console.log(error);
+              }
             } else {
               alertMensaje('error', 'Agenda no registrada', 'Hubo un error, comuniquese con el personal.');
             }
