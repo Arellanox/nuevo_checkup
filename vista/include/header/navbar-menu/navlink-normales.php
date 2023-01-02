@@ -174,7 +174,12 @@
 <?php if ($menu == 'Facturacion'): ?>
   <li class="nav-item">
     <a href="#Estados-Cuentas" data-bs-dismiss="offcanvas">
-      <i class="bi bi-thunderbolt"></i> Cuentas
+      <i class="bi bi-thunderbolt"></i> Estado de cuentas
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="#Cuentas-usuarios" data-bs-dismiss="offcanvas">
+      <i class="bi bi-thunderbolt"></i> Cuentas de usuario
     </a>
   </li>
 <?php endif; ?>

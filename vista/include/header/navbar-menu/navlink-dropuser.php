@@ -20,9 +20,9 @@
 <?php endif; ?>
 
 
-<?php if (false): ?>
+<?php if (true): ?>
   <!-- Administrativos -->
-  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-laboratorio-servicios" aria-expanded="false">
+  <!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-laboratorio-servicios" aria-expanded="false">
     <i class="bi bi-clipboard-heart"></i> Estudios laboratorio
   </a>
   <div class="collapse" id="board-laboratorio-servicios">
@@ -31,7 +31,7 @@
         <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio-servicios/#Grupos'; ?>"><i class="bi bi-dot"></i> Grupos de examenes</a></li>
     </ul>
   </div>
-  <li><hr class="dropdown-divider"></li>
+  <li><hr class="dropdown-divider"></li> -->
 <?php endif; ?>
 
 
@@ -43,6 +43,7 @@
   <div class="collapse" id="board-facturacion">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
       <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/facturacion/#Estados-Cuentas'; ?>"><i class="bi bi-dot"></i> Estados de cuentas</a></li>
+      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/facturacion/#Cuentas-usuarios'; ?>"><i class="bi bi-dot"></i> Cuentas usuarios</a></li>
     </ul>
   </div>
   <li><hr class="dropdown-divider"></li>

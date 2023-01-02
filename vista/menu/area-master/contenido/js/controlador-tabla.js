@@ -18,11 +18,26 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
             loader("In"), limpiarCampos(), selectListaLab = null;
             loaderDiv("Out", null, "#loader-paciente", '#loaderDivPaciente', 0);
             $('.informacion-paciente').fadeOut()
+            estadoFormulario()
         },
         complete: function () {
             loader("Out")
         },
         dataSrc: 'response.data'
+    },
+    createdRow: function (row, data, dataIndex) {
+        switch (areaActiva) {
+            case 3:
+                if (data.CONFIRMADO_OFTAL == 1) {
+                    $(row).addClass('bg-success text-white');
+                } else {
+                    // $(row).addClass('bg-warning');
+                }
+                break;
+
+            default:
+                break;
+        }
     },
     columns: [
         // {
@@ -78,33 +93,33 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
     if (selectTR == 1) {
         getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', selectPacienteArea, 'In', async function (divClass) {
             await obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
-
+            await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
             await obtenerServicios(areaActiva)
 
             //Obtener resultado de cada area 
+            estadoFormulario(0) //Activa el formulario
             switch (areaActiva) {
                 case 3:
+                    if (selectPacienteArea.CONFIRMADO_OFTAL == 1) estadoFormulario(1)
                     await obtenerResultadosOftalmo(selectPacienteArea['ID_TURNO'])
                     break;
                 case 4:
-                    botonesResultados('activar');
-
+                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
-
+                case 5:
+                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
+                    break;
+                case 7:
+                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
+                    break;
+                case 8:
+                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
+                    break;
                 default:
+                    botonesResultados('activar');
                     break;
             }
 
-
-
-
-            if (selectPacienteArea.CONFIRMADO == 1) {
-                $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
-                $('#' + formulario + ' :input').prop('disabled', true)
-            } else {
-                $('button[type="submit"][form="' + formulario + '"]').prop('disabled', false)
-                $('#' + formulario + ' :input').prop('disabled', false)
-            }
 
 
             bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
@@ -171,7 +186,7 @@ async function obtenerServicios(area) {
         url = 'oftalmologia_api';
         data = {
             turno_id: selectPacienteArea['ID_TURNO'],
-            api: 3
+            api: 2
         }
     } else {
         data = {
@@ -200,68 +215,152 @@ async function obtenerServicios(area) {
 }
 async function panelResultadoPaciente(row, area = areaActiva) {
     console.log(row)
+    let html = '';
+    switch (row['area_id']) {
+        case 3:
+            html += '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' +
+                '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'
+                '<div class="col-12 d-flex justify-content-center">' +
+                '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row['url'] + '" style="margin-bottom:4px" id="btn-analisis-pdf">' +
+                '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
+                '</a>' +
+                '</div>' +
+                '</div> <hr>';
+            $('#resultadosServicios-areas').append(html);
+            break;
 
-    // switch (area) {
-    //     case value:
+        default:
+            let itemStart = '<div class="accordion-item bg-acordion">';
+            let itemEnd = '</div>';
 
-    //         break;
+            let bodyStart = '<div class="accordion-body">' +
+                '<div class="row">';
+            let bodyEnd = '</div>' +
+                '</div>';
+            html += '';
 
-    //     default:
-    //         break;
-    // }
+            for (var i = 0; i < row.length; i++) {
+                html += itemStart;
+                html += '<h2 class="accordion-header" id="collap-historial-estudios' + i + '">' +
+                    '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio' + i + '-Target" aria-expanded="false" aria-controls="accordionEstudios">' +
+                    '<div class="row">' +
+                    '<div class="col-12">' +
+                    '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + row[i]['CARGADO_POR'] + '</strong>' +
+                    '</div>' +
+                    '<div class="col-12">' +
+                    '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>' + formatoFecha2(row[i]['FECHA_RESULTADO'], [3, 1, 2, 2, 1, 1, 1]) + '</strong> ' + //<strong>12:00 '+i+'</strong>
+                    '</div>' +
+                    '</div>' +
+                    '</button>' +
+                    '</h2>' +
+                    //Dentro del acordion
+                    '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse overflow-auto" aria-labelledby="collap-historial-estudios' + i + '" style="max-height: 70vh"> ';
 
-
-
-    if (row['area_id'] == 3) {
-        let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' + +
-            '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'
-            '<div class="col-12 d-flex justify-content-center">' +
-            '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row['url'] + '" style="margin-bottom:4px" id="btn-analisis-pdf">' +
-            '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
-            '</a>' +
-            '</div>' +
-            '</div> <hr>';
-        $('#resultadosServicios-areas').append(html);
-    } else {
-        for (var i = 0; i < row.length; i++) {
-            console.log(row)
-            if (row[i]['INTERPRETACION']) {
-                let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' +
-                    '<p style="padding-bottom: 10px">' + row[i]['SERVICIO'] + ':</p>' +
-                    '<p class="none-p">(' + formatoFecha2(row[i]['FECHA_INTERPRETACION']) + '):<br> ' + row[i]['COMENTARIOS'] + '</p>' +
-                    '<div class="col-7 d-flex justify-content-center">' +
-                    '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row[i]['INTERPRETACION'] + '" style="margin-bottom:4px">' +
-                    '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
-                    '</a>' +
-                    '</div>';
-                if (row[i]['IMAGENES'].length > 0) {
-                    html += '<div class="col-5 d-flex justify-content-center">' +
-                        '<button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
-                        '<i class="bi bi-images"></i> Capturas' +
-                        '</button>' +
+                html += bodyStart;
+                //Campos existentes
+                html += '<p class="none-p"> <strong>Observaciones: </strong>' +
+                    ifnull(row[i]['OBSERVACIONES']) +
+                    '</p>';
+                //
+                //Boton de interpretacion
+                if (row[i]['PDF']) {
+                    html += '<div class="col-7 d-flex justify-content-center">' +
+                        '<a type="button" target="_blank" class="btn btn-borrar me-2" href="' + row[i]['PDF'] + '" style="margin-bottom:4px">' +
+                        '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
+                        '</a>' +
                         '</div>';
                 }
-                html += '</div> <hr>';
-                $('#resultadosServicios-areas').append(html);
+                //Boton de capturas
+                if (row[i]['CAPTURAS'].length) {
+                    html += '<div class="col-5 d-flex justify-content-center">' +
+                        '<a type="button" class="btn btn-option me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
+                        '<i class="bi bi-images"></i> Capturas' +
+                        '</a>' +
+                        '</div>';
+                }
+
+
+                html += bodyEnd + '</div>';
+                html += itemEnd;
             }
-        }
+            $('#resultadosServicios-areas').html(html);
+            break;
     }
+
+    '<div class="row"><div class="col-12"><i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>Aurora  </strong></div><div class="col-12"><i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>jueves, 29 de dic de 2022 6:15 p.&nbsp;m.</strong> </div></div>'
+
+    // if (row['area_id'] == 3) {
+    //     let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' + +
+    //         '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'
+    //         '<div class="col-12 d-flex justify-content-center">' +
+    //         '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row['url'] + '" style="margin-bottom:4px" id="btn-analisis-pdf">' +
+    //         '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
+    //         '</a>' +
+    //         '</div>' +
+    //         '</div> <hr>';
+    //     $('#resultadosServicios-areas').append(html);
+    // } else {
+    //     for (var i = 0; i < row.length; i++) {
+    //         console.log(row)
+    //         if (row[i]['INTERPRETACION']) {
+    //             let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' +
+    //                 '<p style="padding-bottom: 10px">' + row[i]['SERVICIO'] + ':</p>' +
+    //                 '<p class="none-p">(' + formatoFecha2(row[i]['FECHA_INTERPRETACION']) + '):<br> ' + row[i]['COMENTARIOS'] + '</p>' +
+    //                 '<div class="col-7 d-flex justify-content-center">' +
+    //                 '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row[i]['INTERPRETACION'] + '" style="margin-bottom:4px">' +
+    //                 '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
+    //                 '</a>' +
+    //                 '</div>';
+    //             if (row[i]['IMAGENES'].length > 0) {
+    //                 html += '<div class="col-5 d-flex justify-content-center">' +
+    //                     '<button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
+    //                     '<i class="bi bi-images"></i> Capturas' +
+    //                     '</button>' +
+    //                     '</div>';
+    //             }
+    //             html += '</div> <hr>';
+    //             $('#resultadosServicios-areas').append(html);
+    //         }
+    //     }
+    // }
 
 }
 
+
+//Activa o desactiva los botones de capturas
 function botonesResultados(estilo) {
     switch (estilo) {
         case 'desactivar':
-            $('#btn-analisis-pdf').prop('disabled', true)
+            // $('#btn-analisis-pdf').prop('disabled', true)
             $('#btn-capturas-pdf').prop('disabled', true)
             break;
         case 'activar':
-            $('#btn-analisis-pdf').prop('disabled', false)
+            // $('#btn-analisis-pdf').prop('disabled', false)
             $('#btn-capturas-pdf').prop('disabled', false)
             break;
         default:
 
     }
+}
+
+//Desactiva o activa el formulario si ya tiene resultado o si ya ha sido cargada
+function estadoFormulario(estado) {
+    switch (estado) {
+        case 1:
+            confirmado = 1;
+            $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
+            $('#' + formulario + '').find('textarea').prop('disabled', true)
+            $('#' + formulario + '').find('input').prop('disabled', true)
+            break;
+
+        default:
+            confirmado = 0;
+            $('button[type="submit"][form="' + formulario + '"]').prop('disabled', false)
+            $('#' + formulario + '').find('textarea').prop('disabled', false)
+            $('#' + formulario + '').find('input').prop('disabled', false)
+            break;
+    }
+
 }
 
 async function obtenerResultadosOftalmo(id) {
@@ -270,29 +369,34 @@ async function obtenerResultadosOftalmo(id) {
             url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",
             data: {
                 api: 2,
-                id_turno: id
+                turno_id: id
             },
             type: "POST",
             dataType: 'json',
             success: function (data) {
                 console.log(data);
-                let row = data.response.data[0];
-                $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
-                $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);
-                $('#padecimiento_actual').val(row.PADECIMIENTO_ACTUAL);
-                $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
-                $('#od').val(row.OD);
-                $('#oi').val(row.OI);
-                $('#jaeger').val(row.JAEGER);
-                $('#refraccion').val(row.REFRACCION);
-                $('#prueba').val(row.PRUEBA);
-                $('#exploracion_oftalmologica').val(row.EXPLORACION_OFTALMOLOGICA);
-                $('#forias').val(row.FORIAS);
-                $('#campimetria').val(row.CAMPIMETRIA);
-                $('#presion_intraocular_od').val(row.PRESION_INTRAOCULAR_OD);
-                $('#presion_intraocular_oi').val(row.PRESION_INTRAOCULAR_OI);
-                $('#diagnostico').val(row.DIAGNOSTICO);
-                $('#plan').val(row.PLAN);
+                if (mensajeAjax(data)) {
+                    let row = data.response.data[0];
+                    if (row) {
+                        $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
+                        $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);
+                        $('#padecimiento_actual').val(row.PADECIMIENTO_ACTUAL);
+                        $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
+                        $('#od').val(row.OD);
+                        $('#oi').val(row.OI);
+                        $('#jaeger').val(row.JAEGER);
+                        $('#refraccion').val(row.REFRACCION);
+                        $('#prueba').val(row.PRUEBA);
+                        $('#exploracion_oftalmologica').val(row.EXPLORACION_OFTALMOLOGICA);
+                        $('#forias').val(row.FORIAS);
+                        $('#campimetria').val(row.CAMPIMETRIA);
+                        $('#presion_intraocular_od').val(row.PRESION_INTRAOCULAR_OD);
+                        $('#presion_intraocular_oi').val(row.PRESION_INTRAOCULAR_OI);
+                        $('#diagnostico').val(row.DIAGNOSTICO);
+                        $('#plan').val(row.PLAN);
+                        $('#observaciones').val(row.OBSERVACIONES);
+                    }
+                }
 
                 // botonesResultados('activar', areaActiva)
             },

@@ -2,10 +2,11 @@ var tablaContenido, areaActiva;
 var dataListaPaciente = {
   api: 7
 };
-var selectPacienteArea, hash, formulario;
+var selectPacienteArea, hash, formulario, api, url_api;
 //Variable para guardar los servicios de un paciente seleccionado
 var selectEstudio = new GuardarArreglo();
-var selectrue = 0;
+var selectrue = 0,
+  confirmado;
 
 hasLocation();
 $(window).on("hashchange", function (e) {
@@ -20,23 +21,31 @@ function hasLocation() {
     switch (hash) {
       case "IMAGENOLOGIA":
         formulario = "formSubirInterpretacion";
+        api = 7;
+        url_api = 'turnos_api';
         obtenerContenidoVistaMaster(7, 'Resultados de Ultrasonido', 'contenido_new.php');
         break;
       case "RX":
-        formulario = "";
-        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X');
+        formulario = "formSubirInterpretacion";
+        api = 7;
+        url_api = 'turnos_api';
+        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_new.php');
         break;
       case "ESPIROMETRIA":
-        formulario = "";
-        obtenerContenidoVistaMaster(5, 'Resultados de Espirometría');
+        formulario = "formSubirInterpretacion";
+        api = 7;
+        url_api = 'turnos_api';
+        obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_new.php');
         break;
       case "AUDIOMETRIA":
-        formulario = "formSubirInterpretacionOftalmo";
+        formulario = "formSubirInterpretacion";
+        api = 7;
+        url_api = 'turnos_api';
         obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_new.php');
         break;
       case "OFTALMOLOGIA":
         formulario = "formSubirInterpretacionOftalmo";
-        obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_oftalmologia.php');
+        obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_new.php');
         break;
       default:
         // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
@@ -57,9 +66,11 @@ function hasLocation() {
 
 
 */
-function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.php') {
+function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.html') {
   areaActiva = area;
-  $.post("contenido/" + contenidoHTML, async function (html) {
+  $.post("contenido/" + contenidoHTML, {
+    form: formulario
+  }, async function (html) {
     $("#body-js").html(html);
     await obtenerTitulo(titulo)
     dataListaPaciente = {
@@ -82,32 +93,26 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ph
         $.getScript("modals/js/of_subir_oftalmo.js");
         break;
 
-      case 4: //Audiometria
-        $('#btn-analisis-audiometria').fadeIn(0)
+      default: //Areas Genericas
+        $('#btn-analisis').fadeIn(0)
         $('#btn-capturas-pdf').fadeIn(0)
-        $('#formSubirInterpretacionAudiome').fadeIn(0)
-        // Datatable
-        $.getScript("contenido/js/controlador-tabla.js")
-        // Subir resultado
-        $.getScript("modals/js/au_subir_audiometria.js");
-        break;
-
-      case 4: //Ultrasonido
-        $('#btn-analisis-ultraso').fadeIn(0)
+        $('#formSubirInterpretacion').fadeIn(0)
         // Datatable
         $.getScript("contenido/js/controlador-tabla.js")
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
         break;
 
-      default:
-        $('#btn-analisis-pdf').fadeIn(0)
-        $('#btn-capturas-pdf').fadeIn(0)
-        $('.btnResultados').fadeOut(0)
-
-        // Datatable
-        $.getScript("contenido/js/vista-tabla.js")
-        break;
+        // Versión anterior (Absoleta)
+        // default:
+        //   $('#btn-analisis-pdf').fadeIn(0)
+        //   $('#btn-capturas-pdf').fadeIn(0)
+        //   $('.btnResultados').fadeOut(0)
+        //   // Datatable
+        //   $.getScript("contenido/js/vista-tabla.js");
+        //   // Modal para agregar interpretacion
+        //   $.getScript("modals/js/ar_subirprueba_area.js");
+        //   break;
     }
     // Botones
     $.getScript("contenido/js/area-botones.js")

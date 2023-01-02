@@ -325,7 +325,7 @@
                 </tbody>
             </table>
             <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
-            <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa, Tabasco - Teléfono: 993 131 00 42 Correo electrónico: biologia.molecular@hguadalupe.com</strong></small></p>
+            <p style="text-align: center;"><small><strong>Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red"> 993 131 00 42 </strong> </br> <strong>Correo electrónico:</strong> <strong style="color:red">hola@bimo.com.mx</strong></small></p>
         </div> 
 
         <!--  <div class="footer">

@@ -11,16 +11,16 @@
       </div>
   </div>
   <div class="col-12 col-lg-4" style="margin-bottom: 10px;">
-      <label for="selectpaciente" class="form-label">Buscar paciente</label>
-      <div class="row">
-        <div class="col-auto">
-          <button class="btn btn-sm btn-confirmar" type="button" id="actualizarForm"><i class="bi bi-binoculars"></i> Consultar</button>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-sm btn-borrar" type="button" id="eliminarForm" ><i class="bi bi-eraser"></i> Limpiar</button>
-        </div>
+    <label for="selectpaciente" class="form-label">Buscar paciente</label>
+    <div class="row">
+      <div class="col-auto">
+        <button class="btn btn-sm btn-confirmar" type="button" id="actualizarForm"><i class="bi bi-binoculars"></i> Consultar</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-sm btn-borrar" type="button" id="eliminarForm" ><i class="bi bi-eraser"></i> Limpiar</button>
       </div>
     </div>
+  </div>
 </div>
 <div id="formDIV">
   <p id="mensaje" class="text-center"></p>

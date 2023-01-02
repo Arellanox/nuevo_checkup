@@ -13,9 +13,15 @@ $('#formAnalisisLaboratorio').submit(function (event) {
       formData.set('confirmar', true);
       title = "¿Está seguro de confirmar los resultados?";
       text = "¡No podrá revertir esta acción!";
+      alertmeensj = 'Cerrando y generando formato de laboratorio';
+      alertoas = '¡Resultados listos!';
+      confirmar = 1;
     } else {
       title = "¿Estás seguro de guardar los resultados?";
-      text = "use la contraseña de su sesión para guardar/actualizar los resultados";
+      text = "Use su contraseña de su sesión para guardar/actualizar los resultados";
+      alertmeensj = 'Guardando resultado de laboratorio';
+      alertoas = '¡Resultados guardados!'
+      confirmar = 0;
 
     }
 
@@ -59,15 +65,17 @@ $('#formAnalisisLaboratorio').submit(function (event) {
             processData: false,
             contentType: false,
             beforeSend: function () {
-              alertMensaje('info', 'Espere un momento', 'Guardando resultados...')
+              alertMensaje('info', 'Espere un momento', alertmeensj)
             },
             success: function (data) {
               data = jQuery.parseJSON(data);
               if (mensajeAjax(data)) {
-                alertSelectTable('¡Resultados guardados!', 'success')
+                alertSelectTable(alertoas, 'success')
                 // dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: 6}
-                tablaListaPaciente.ajax.reload();
-                getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
+                if (confirmar) {
+                  tablaListaPaciente.ajax.reload();
+                  getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
+                }
               }
             },
           });
@@ -122,14 +130,29 @@ function formpassword() {
 
 // cambiar fecha de la Lista
 $('#fechaListadoLaboratorio').change(function () {
+  recargarVistaLab();
+})
+
+$('#checkDiaAnalisis').click(function () {
+  if ($(this).is(':checked')) {
+    recargarVistaLab(0)
+    $('#fechaListadoLaboratorio').prop('disabled', true)
+  } else {
+    recargarVistaLab();
+    $('#fechaListadoLaboratorio').prop('disabled', false)
+  }
+})
+
+function recargarVistaLab(fecha = 1) {
   dataListaPaciente = {
     api: 5,
-    fecha_busqueda: $(this).val(),
     area_id: 6
   }
+  if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
+
   tablaListaPaciente.ajax.reload();
   getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
-})
+}
 
 // obtenerPDF
 $(document).on('click', '.obtenerPDF', function (event) {
