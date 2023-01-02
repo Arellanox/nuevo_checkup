@@ -130,14 +130,29 @@ function formpassword() {
 
 // cambiar fecha de la Lista
 $('#fechaListadoLaboratorio').change(function () {
+  recargarVistaLab();
+})
+
+$('#checkDiaAnalisis').click(function () {
+  if ($(this).is(':checked')) {
+    recargarVistaLab(0)
+    $('#fechaListadoLaboratorio').prop('disabled', true)
+  } else {
+    recargarVistaLab();
+    $('#fechaListadoLaboratorio').prop('disabled', false)
+  }
+})
+
+function recargarVistaLab(fecha = 1) {
   dataListaPaciente = {
     api: 5,
-    fecha_busqueda: $(this).val(),
     area_id: 6
   }
+  if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
+
   tablaListaPaciente.ajax.reload();
   getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
-})
+}
 
 // obtenerPDF
 $(document).on('click', '.obtenerPDF', function (event) {

@@ -32,23 +32,24 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
     }
   },
   columns: [{
-      data: 'ID_PACIENTE',
-      render: function (data) {
-        return '';
-      }
-    },
-    {
+      data: 'COUNT'
+    }, {
       data: 'NOMBRE_COMPLETO'
+    }, {
+      data: 'PREFOLIO'
+    }, {
+      data: 'CLIENTE'
+    }, {
+      data: 'SEGMENTO'
+    }, {
+      data: 'turno'
+    }, {
+      data: 'GENERO'
+    }, {
+      data: 'EXPEDIENTE'
     },
-    {
-      data: 'PREFOLIO',
-    },
-    {
-      data: 'EDAD'
-    },
-    {
-      data: 'EDAD'
-    },
+
+
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [{
@@ -62,24 +63,28 @@ loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (selectTR = null, array = null) {
   selectListaLab = array;
   if (selectTR == 1) {
-    getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'In', async function (divClass) {
-      await obtenerPanelInformacion(selectListaLab['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
-      await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
-      await generarFormularioPaciente(selectListaLab['ID_TURNO'])
+    try {
+      getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'In', async function (divClass) {
+        await obtenerPanelInformacion(selectListaLab['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
+        await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
+        await generarFormularioPaciente(selectListaLab['ID_TURNO'])
 
-      if (selectListaLab.CONFIRMADO == 1) {
-        $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
-        $('#formAnalisisLaboratorio :input').prop('disabled', true)
-      } else {
-        $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', false)
-        $('#formAnalisisLaboratorio :input').prop('disabled', false)
-      }
+        if (selectListaLab.CONFIRMADO == 1) {
+          $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
+          $('#formAnalisisLaboratorio :input').prop('disabled', true)
+        } else {
+          $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', false)
+          $('#formAnalisisLaboratorio :input').prop('disabled', false)
+        }
 
 
-      bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
+        bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
 
-    });
-    // getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
+      });
+      // getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
+    } catch (error) {
+      console.log(error)
+    }
   } else {
     // console.log('rechazado')
     getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
@@ -188,7 +193,7 @@ function generarFormularioPaciente(id) {
           var count = Object.keys(row).length;
           console.log(count);
           html += '<ul class = "list-group card hover-list info-detalle" style="margin: 15px;padding: 15px;" >';
-          html += '<h4 style="border-radius: 8px;font-size: 20px !important;font-weight: 600 !important;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">' + row['NombreGrupo'] + '</h4>';
+          html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
           for (var k in row) {
             console.log(k, row[k])
             if (Number.isInteger(parseInt(k))) {

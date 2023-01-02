@@ -15,8 +15,11 @@
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Folio</th>
-            <th scope="col d-flex justify-content-center" class="none">Compañia</th>
-            <th scope="col d-flex justify-content-center" class="none">Edad</th>
+            <th scope="col d-flex justify-content-center" class="none">Cliente</th>
+            <th scope="col d-flex justify-content-center" class="none">Segmento</th>
+            <th scope="col d-flex justify-content-center" class="none">Turno</th>
+            <th scope="col d-flex justify-content-center" class="none">Sexo</th>
+            <th scope="col d-flex justify-content-center" class="none">Expendiente</th>
           </tr>
         </thead>
         <tbody>
