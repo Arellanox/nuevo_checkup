@@ -35,7 +35,7 @@ $presion_intraocular_od = $_POST['presion_intraocular_od'];
 $presion_intraocular_oi = $_POST['presion_intraocular_oi'];
 $diagnostico = $_POST['diagnostico'];
 $plan = $_POST['plan'];
-
+$observaciones = $_POST['observaciones'];
 #creacion de array.
 $params = array(
     $id_oftalmo,
@@ -57,7 +57,8 @@ $params = array(
     $diagnostico,
     $plan,
     $_SESSION['id'],# id del usuario que esta subiendo la informacion,
-    null # esta es la ruta del reporte, que posteriormente se tiene que actualizar
+    null, # esta es la ruta del reporte, que posteriormente se tiene que actualizar
+    $observaciones
 );
 
 switch ($api) {
@@ -90,7 +91,7 @@ switch ($api) {
         $pdf = new Reporte(json_encode($params), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
         #actualizamos la url del reporte.
-        $response = $master->updateByProcedure("sp_oftalmo_resultados_g",[$last_id,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,$pdf->build()]);
+        $response = $master->updateByProcedure("sp_oftalmo_resultados_g",[$last_id,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,$pdf->build(),null]);
 
         break;
     case 2:
