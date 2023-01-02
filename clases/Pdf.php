@@ -60,8 +60,8 @@ class Reporte{
         }
         
         // Path del dominio
-        // $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
-        $path    = 'pdf/public/resultados/E-00001.pdf';
+        $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+        // $path    = 'pdf/public/resultados/E-00001.pdf';
         // echo $path;
 
         session_start();
@@ -126,8 +126,8 @@ class Reporte{
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                // echo 'https://bimo-lab.com/nuevo_checkup/'. $path;
-                echo $path;
+                echo 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                // echo $path;
                 // return $path;
                 break;
             default:
