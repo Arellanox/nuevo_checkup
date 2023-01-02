@@ -134,10 +134,10 @@ function generarHistorialResultados(id) {
             '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse overflow-auto" aria-labelledby="collap-historial-estudios' + i + '" style="max-height: 70vh"> ';
           html += '<p class="none-p" style="margin: 12px 0px 0px 15px;">Ver <a class="" href="' + row[i]['RUTA_REPORTE'] + '" target="_blank" data-bs-id="' + row[i]['ID_TURNO '] + '">RESULTADO</a> aquí</p>';
           html += bodyStart;
-          for (var k in row[i]['servicios']) {
-            console.log(k)
-            html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][k]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][k]['RESULTADO'] + ' ' + row[i]['servicios'][k]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
-          }
+          // for (var k in row[i]['servicios']) {
+          //   console.log(k)
+          //   html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][k]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][k]['RESULTADO'] + ' ' + row[i]['servicios'][k]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
+          // }
           // for (var l = 0; l < row[i]['servicios'].length; l++) {
           //   html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][l]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][l]['RESULTADO'] + ' ' + row[i]['servicios'][l]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
           // }
