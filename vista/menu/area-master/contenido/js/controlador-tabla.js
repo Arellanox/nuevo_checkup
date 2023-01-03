@@ -109,10 +109,10 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                 case 5:
                     if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
-                case 7:
+                case 7: //Rayos X
                     if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
-                case 8:
+                case 11: //Ultrasonido
                     if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
                 default:
@@ -361,6 +361,12 @@ function estadoFormulario(estado) {
             break;
     }
 
+}
+
+async function ObtenerResultadosUltrsonido(data) {
+    for (const k in data) {
+
+    }
 }
 
 async function obtenerResultadosOftalmo(id) {

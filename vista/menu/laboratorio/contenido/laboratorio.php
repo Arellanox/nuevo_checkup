@@ -7,7 +7,10 @@
       <h4>Lista de pacientes</h4>
       <div class="text-center">
         <label for="inputBuscarTableListaNuevos">Buscar:</label>
-        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaLaboratorio">
+        <input type="text" class="form-control input-color" 
+          style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" 
+          value="" style="width:80%" autocomplete="off" id="BuscarTablaListaLaboratorio"
+          data-bs-toggle="tooltip" data-bs-placement="bottom" title="Filtra la lista de pacientes">
       </div>
       <table class="table display responsive" id="TablaLaboratorio" style="width: 100%">
         <thead class="">

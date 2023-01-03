@@ -23,7 +23,7 @@ function hasLocation() {
         formulario = "formSubirInterpretacion";
         api = 7;
         url_api = 'turnos_api';
-        obtenerContenidoVistaMaster(7, 'Resultados de Ultrasonido', 'contenido_new.php');
+        obtenerContenidoVistaMaster(11, 'Resultados de Ultrasonido', 'contenido_new.php');
         break;
       case "RX":
         formulario = "formSubirInterpretacion";

@@ -776,7 +776,9 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
         for (var i = 0; i < Object.keys(tipPanel).length; i++) {
           obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
         }
-        callback(0, array_selected);
+        if (callback != null) {
+          callback(0, array_selected);
+        }
       }
 
     }
