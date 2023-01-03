@@ -20,7 +20,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
     cliente_id: array_selected['CLIENTE_ID']
   });
   rellenarSelect('#select-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-    id_area: 7,
+    id_area: 11,
     cliente_id: array_selected['CLIENTE_ID']
   });
   rellenarSelect('#select-rx', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
