@@ -7,8 +7,8 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-   #$tokenVerification->logout();
-   #exit;
+   $tokenVerification->logout();
+   exit;
 }
 
 $master = new Master();
@@ -18,7 +18,7 @@ $api = $_POST['api'];
 $id_imagen = $_POST['id_imagen'];
 $turno_id = $_POST['turno_id'];
 $usuario = $_SESSION['id'];
-$area_id = $_POST['area_id'];
+$area_id = 11; #$_POST['area_id']; # el id 11 es para el area de ultrasonido
 
 # Datos para las capturas
 $servicio_id = $_POST['servicio_id'];
