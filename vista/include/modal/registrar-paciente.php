@@ -10,7 +10,7 @@
         <form class="row" id="formRegistrarPaciente">
           <?php include "formRegistroPaciente.php"; ?>
         </form>
-        <p>Todos sus datos...</p>
+        <p>Los datos personales recabados serán protegidos, incorporados y tratados en el Sistema de Datos Personales correspondiente, de conformidad con lo dispuesto por la Ley Federal de Transparencia y Acceso a la Información Pública Gubernamental y demás disposiciones aplicables.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>

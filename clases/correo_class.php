@@ -31,7 +31,7 @@ class Correo {
 
         try{
             # server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -56,7 +56,7 @@ class Correo {
                     <title>Document</title>
                 </head>
                 <body>
-                    <div id="contenido" style="background-color:white">
+                    <div id="contenido" style="background-color:#f6fdff">
                         <div style="overflow:auto;text-align:left;background-color:rgb(000,078,089);padding:5px;color:white">
                             <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" alt="img" style="border-radius:15px;height:55px;float:left;padding:8px" class="CToWUd a6T" data-bit="iit" tabindex="0">
                             <p style="font-size:20px">Laboratorio Biologia Molecular</p>
@@ -66,11 +66,14 @@ class Correo {
                                 ¡Buenas tardes!
                             </h2>
                             <p align="justify">
-                                Correo de confirmación de su nueva registro de agenda.
+                                Se ha generado un nuevo token para su Pre-registro en bimo:
                             </p>
-                            <p> 
+                            <p>
+                                <a href="https://bimo-lab.com/nuevo_checkup/vista/registro/?token='.$token.'" target="_blank"> Registrar aqui </a>
+                            </p>
+                            <!-- <p> 
                                 Guarde su nuevo prefolio de identificación (<strong>("FOLIO")</strong>) para el ingreso a _bimo checkup_
-                            </p>
+                            </p> -->
 
                             <div style="text-align:right">
                             <p>Atentamente</p>

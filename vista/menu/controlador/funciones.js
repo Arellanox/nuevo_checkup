@@ -17,6 +17,7 @@ function formatoFechaSQL(fecha, formato) {
 }
 
 function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
+  console.log(fecha)
   let options = {
     hour12: true,
     timeZone: 'America/Mexico_City'
@@ -90,8 +91,15 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
       options['seconds'] = "2-digit";
       break;
   }
+  let date;
+  if (fecha.length == 10) {
+    date = new Date(fecha + 'T00:00:00')
+  } else {
+    date = new Date(fecha)
+  }
 
-  return new Date(fecha).toLocaleDateString('es-MX', options)
+  // console.log(date)
+  return date.toLocaleDateString('es-MX', options)
 }
 
 // Revisar sesión
@@ -479,7 +487,7 @@ function setProcedenciaOption(select, idProcedencia) {
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select, api, apinum, v, c, values = {}, callback = function (array) {}) {
+function rellenarSelect(select, api, apinum, v, c, values = {}, callback = function (array) { }) {
   return new Promise(resolve => {
     values.api = apinum;
 
@@ -512,11 +520,13 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
             for (var a = 0; a < htmlContent.length; a++) {
               if (data[i][htmlContent[a]] != null) {
                 if (datao == '') {
+
                   datao += data[i][htmlContent[a]];
                 } else {
                   datao += " - " + data[i][htmlContent[a]];
                 }
               }
+              console.log(datao)
 
             }
           } else {
@@ -603,7 +613,7 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50) {
       break;
 
     default:
-      // console.log('LoaderDiv se perdió...')
+    // console.log('LoaderDiv se perdió...')
   }
 }
 
@@ -714,7 +724,7 @@ function mensajeAjax(data) {
   return 0;
 }
 
-function dblclickDatatable(tablename, datatable, callback = function () {}) {
+function dblclickDatatable(tablename, datatable, callback = function () { }) {
   // Seleccion del registro
   $(tablename).on('dblclick', 'tr', function () {
     callback(datatable.row(this).data())
@@ -943,41 +953,80 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
     var html = "";
     $(panel).fadeOut(0);
     $.post(http + servidor + "/nuevo_checkup/vista/include/barra-informacion/info-barra.php", {
-        tip: tipPanel,
-        nivel: nivel
-      },
+      tip: tipPanel,
+      nivel: nivel
+    },
       function (html) {
         setTimeout(function () {
           $(panel).html(html);
         }, 100);
       }).done(function () {
-      setTimeout(function () {
-        if (id > 0) {
-          row = array_selected;
-          switch (tipPanel) {
-            case 'paciente':
-              if (array_selected != null) {
-                $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                $('#edad-persona').html(formatoFecha(row.EDAD))
-                $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
-                $('#info-paci-curp').html(row.CURP);
-                $('#info-paci-telefono').html(row.CELULAR);
-                $('#info-paci-correo').html(row.CORREO);
-                $('#info-paci-sexo').html(row.GENERO);
-                if (row.TURNO) {
-                  $('#info-paci-turno').html(row.TURNO);
+        setTimeout(function () {
+          if (id > 0) {
+            row = array_selected;
+            switch (tipPanel) {
+              case 'paciente':
+                if (array_selected != null) {
+                  $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                  $('#edad-persona').html(formatoFecha(row.EDAD))
+                  $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
+                  $('#info-paci-curp').html(row.CURP);
+                  $('#info-paci-telefono').html(row.CELULAR);
+                  $('#info-paci-correo').html(row.CORREO);
+                  $('#info-paci-sexo').html(row.GENERO);
+                  if (row.TURNO) {
+                    $('#info-paci-turno').html(row.TURNO);
+                  } else {
+                    $('#info-paci-turno').html('Sin generar');
+                  }
+                  $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
+                    row.MUNICIPIO + ", " + row.ESTADO);
+                  $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+                  if (row.FECHA_REAGENDA != null) {
+                    $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
+                  }
+                  $(panel).fadeIn(100);
+                  resolve(1);
                 } else {
-                  $('#info-paci-turno').html('Sin generar');
+                  $.ajax({
+                    url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                    data: {
+                      api: 2,
+                      id: id
+                    },
+                    type: "POST",
+                    dataType: 'json',
+                    success: function (data) {
+                      if (mensajeAjax(data)) {
+                        row = data['response']['data'][0];
+                        $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                        $('#edad-persona').html(formatoFecha(row.EDAD))
+                        $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                        $('#info-paci-curp').html(row.CURP);
+                        $('#info-paci-telefono').html(row.CELULAR);
+                        $('#info-paci-correo').html(row.CORREO);
+                        $('#info-paci-sexo').html(row.GENERO);
+                        if (row.TURNO) {
+                          $('#info-paci-turno').html(row.TURNO);
+                        } else {
+                          $('#info-paci-turno').html('Sin generar');
+                        }
+                        $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
+                          row.MUNICIPIO + ", " + row.ESTADO);
+                        $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+                        if (row.FECHA_REAGENDA != null) {
+                          $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
+                        }
+                      }
+                    },
+                    complete: function () {
+                      $(panel).fadeIn(100);
+                      resolve(1);
+                    }
+                  })
                 }
-                $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
-                  row.MUNICIPIO + ", " + row.ESTADO);
-                $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
-                if (row.FECHA_REAGENDA != null) {
-                  $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
-                }
-                $(panel).fadeIn(100);
-                resolve(1);
-              } else {
+                break;
+              case 'paciente_lab':
                 $.ajax({
                   url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
                   data: {
@@ -1003,10 +1052,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       }
                       $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
                         row.MUNICIPIO + ", " + row.ESTADO);
-                      $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
-                      if (row.FECHA_REAGENDA != null) {
-                        $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
-                      }
+                      $('#info-paci-procedencia').html(row.PROCEDENCIA);
+                      $('#info-paci-prefolio').html(row.PREFOLIO)
                     }
                   },
                   complete: function () {
@@ -1014,158 +1061,121 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     resolve(1);
                   }
                 })
-              }
-              break;
-            case 'paciente_lab':
-              $.ajax({
-                url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-                data: {
-                  api: 2,
-                  id: id
-                },
-                type: "POST",
-                dataType: 'json',
-                success: function (data) {
-                  if (mensajeAjax(data)) {
-                    row = data['response']['data'][0];
-                    $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                    $('#edad-persona').html(formatoFecha(row.EDAD))
-                    $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
-                    $('#info-paci-curp').html(row.CURP);
-                    $('#info-paci-telefono').html(row.CELULAR);
-                    $('#info-paci-correo').html(row.CORREO);
-                    $('#info-paci-sexo').html(row.GENERO);
-                    if (row.TURNO) {
-                      $('#info-paci-turno').html(row.TURNO);
+                break;
+              case 'estudio':
+                $('#nombre-estudio').html(row['DESCRIPCION']);
+                $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
+                $('#estudio-metodo').html(row.METODO);
+                $('#estudio-medida').html(row.MEDIDA);
+                $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
+                if (row.LOCAL == 1) {
+                  $('#estudio-subroga').html('Si');
+                } else {
+                  $('#estudio-subroga').html('No');
+                }
+                if (row.MUESTRA_VALORES_REFERENCIA == 1) {
+                  $('#estudio-valorvista').html('Si');
+                } else {
+                  $('#estudio-valorvista').html('No');
+                }
+                $('#estudio-indicaciones').html(row.INDICACIONES);
+                $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
+                $('#estudio-venta').html(row.PRECIO_VENTA);
+                $(panel).fadeIn(100);
+                resolve(1);
+                break;
+              case 'equipo':
+                $('#nombre-equipo').html(row.MARCA + "-" + row.MODELO);
+                // $('#equipo-equipo').html(row.);
+                $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
+                $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
+                $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
+                $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO + " " + row.NUMERO_PRUEBAS);
+                $('#equipo-calibracion').html(row.CALIBRACION + " " + row.NUMERO_PRUEBAS_CALIBRACION);
+                $('#equipo-uso').html(row.USO);
+                $('#equipo-descripcion').html(row.DESCRIPCION);
+                $(panel).fadeIn(100);
+                resolve(1);
+                break;
+              case 'signos-vitales':
+                $.ajax({
+                  url: http + servidor + "/nuevo_checkup/api/somatometria_api.php",
+                  data: {
+                    api: 2,
+                    id_turno: id
+                  },
+                  type: "POST",
+                  dataType: 'json',
+                  success: function (data) {
+                    // data = jQuery.parseJSON(data);
+                    row = data['response']['data'];
+                    // console.log(data);
+                    if (mensajeAjax(data) && row.length != 0) {
+                      for (let i = 0; i < row.length; i++) {
+                        $('#info-signos-' + i).html(row[i]['VALOR'] + " <strong>" + row[i]['UNIDAD_MEDIDA'] + "</strong>")
+                      }
+                      $('#fecha-signos').html(formatoFecha2('2022/11/24', [0, 1, 4, 1, 0, 0, 0]))
                     } else {
-                      $('#info-paci-turno').html('Sin generar');
+                      $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
                     }
-                    $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
-                      row.MUNICIPIO + ", " + row.ESTADO);
-                    $('#info-paci-procedencia').html(row.PROCEDENCIA);
-                    $('#info-paci-prefolio').html(row.PREFOLIO)
+                  },
+                  complete: function () {
+                    $(panel).fadeIn(100);
+                    resolve(1);
                   }
-                },
-                complete: function () {
-                  $(panel).fadeIn(100);
-                  resolve(1);
-                }
-              })
-              break;
-            case 'estudio':
-              $('#nombre-estudio').html(row['DESCRIPCION']);
-              $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
-              $('#estudio-metodo').html(row.METODO);
-              $('#estudio-medida').html(row.MEDIDA);
-              $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
-              if (row.LOCAL == 1) {
-                $('#estudio-subroga').html('Si');
-              } else {
-                $('#estudio-subroga').html('No');
-              }
-              if (row.MUESTRA_VALORES_REFERENCIA == 1) {
-                $('#estudio-valorvista').html('Si');
-              } else {
-                $('#estudio-valorvista').html('No');
-              }
-              $('#estudio-indicaciones').html(row.INDICACIONES);
-              $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
-              $('#estudio-venta').html(row.PRECIO_VENTA);
-              $(panel).fadeIn(100);
-              resolve(1);
-              break;
-            case 'equipo':
-              $('#nombre-equipo').html(row.MARCA + "-" + row.MODELO);
-              // $('#equipo-equipo').html(row.);
-              $('#equipo-ingreso').html(formatoFecha(row.FECHA_INGRESO_EQUIPO));
-              $('#equipo-inicio').html(formatoFecha(row.FECHA_INICIO_USO));
-              $('#equipo-valor').html(row.VALOR_DEL_EQUIPO);
-              $('#equipo-mantenimiento').html(row.FRECUENCIA_MANTENIMIENTO + " " + row.NUMERO_PRUEBAS);
-              $('#equipo-calibracion').html(row.CALIBRACION + " " + row.NUMERO_PRUEBAS_CALIBRACION);
-              $('#equipo-uso').html(row.USO);
-              $('#equipo-descripcion').html(row.DESCRIPCION);
-              $(panel).fadeIn(100);
-              resolve(1);
-              break;
-            case 'signos-vitales':
-              $.ajax({
-                url: http + servidor + "/nuevo_checkup/api/somatometria_api.php",
-                data: {
-                  api: 2,
-                  id_turno: id
-                },
-                type: "POST",
-                dataType: 'json',
-                success: function (data) {
-                  // data = jQuery.parseJSON(data);
-                  row = data['response']['data'];
-                  // console.log(data);
-                  if (mensajeAjax(data) && row.length != 0) {
-                    for (let i = 0; i < row.length; i++) {
-                      $('#info-signos-' + i).html(row[i]['VALOR'] + " <strong>" + row[i]['UNIDAD_MEDIDA'] + "</strong>")
-                    }
-                    $('#fecha-signos').html(formatoFecha2('2022/11/24', [0, 1, 4, 1, 0, 0, 0]))
-                  } else {
-                    $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
-                  }
-                },
-                complete: function () {
-                  $(panel).fadeIn(100);
-                  resolve(1);
-                }
-              })
-              break;
-            case 'cliente':
-              // console.log(row)
-              $('#nombreComercial-cliente').html(row.NOMBRE_COMERCIAL);
-              $('#nombreSistema-cliente').html(row.NOMBRE_SISTEMA);
-              $('#info-cliente-RFC').html(row.RFC);
-              $('#info-cliente-CURP').html(row.CURP);
-              $('#info-cliente-codigo').html(row.CODIGO);
-              $('#info-cliente-credito').html(row.LIMITE_CREDITO);
-              $('#info-cliente-tempcredito').html(row.TEMPORALIDAD_DE_CREDITO);
-              $('#info-cliente-cuentaContable').html(row.CUENTA_CONTABLE);
-              $('#info-cliente-pagweb').attr("href", row.PAGINA_WEB);
-              $('#info-cliente-pagweb').text(row.PAGINA_WEB);
-              $('#info-cliente-face').attr("href", row.FACEBOOK);
-              $('#info-cliente-face').text(row.FACEBOOK);
-              $('#info-cliente-twitter').attr("href", row.TWITTER);
-              $('#info-cliente-twitter').text(row.TWITTER);
-              $('#info-cliente-instragram').attr("href", row.INSTAGRAM);
-              $('#info-cliente-instragram').text(row.INSTAGRAM);
-              $(panel).fadeIn(100);
-              resolve(1);
-              break;
-            case 'contacto':
-              // console.log(selectContacto)
-              $('#nombre-contacto').html(selectContacto.NOMBRE + ' ' + selectContacto.APELLIDOS);
-              $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
-              $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
-              $('#info-contacto-email').html(selectContacto.EMAIL);
-              $(panel).fadeIn(100);
-              resolve(1);
-              break;
-            case 'documentos-paciente':
-              // console.log(selectContacto)
+                })
+                break;
+              case 'cliente':
+                // console.log(row)
+                $('#nombreComercial-cliente').html(row.NOMBRE_COMERCIAL);
+                $('#nombreSistema-cliente').html(row.NOMBRE_SISTEMA);
+                $('#info-cliente-RFC').html(row.RFC);
+                $('#info-cliente-CURP').html(row.CURP);
+                $('#info-cliente-codigo').html(row.CODIGO);
+                $('#info-cliente-credito').html(row.LIMITE_CREDITO);
+                $('#info-cliente-tempcredito').html(row.TEMPORALIDAD_DE_CREDITO);
+                $('#info-cliente-cuentaContable').html(row.CUENTA_CONTABLE);
+                $('#info-cliente-pagweb').attr("href", row.PAGINA_WEB);
+                $('#info-cliente-pagweb').text(row.PAGINA_WEB);
+                $('#info-cliente-face').attr("href", row.FACEBOOK);
+                $('#info-cliente-face').text(row.FACEBOOK);
+                $('#info-cliente-twitter').attr("href", row.TWITTER);
+                $('#info-cliente-twitter').text(row.TWITTER);
+                $('#info-cliente-instragram').attr("href", row.INSTAGRAM);
+                $('#info-cliente-instragram').text(row.INSTAGRAM);
+                $(panel).fadeIn(100);
+                resolve(1);
+                break;
+              case 'contacto':
+                // console.log(selectContacto)
+                $('#nombre-contacto').html(selectContacto.NOMBRE + ' ' + selectContacto.APELLIDOS);
+                $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
+                $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
+                $('#info-contacto-email').html(selectContacto.EMAIL);
+                $(panel).fadeIn(100);
+                resolve(1);
+                break;
+              case 'documentos-paciente':
+                // console.log(selectContacto)
 
-              $(panel).fadeIn(100);
-              resolve(1);
-              break;
-            case 'resultados-areaMaster':
-              $(panel).fadeIn(100);
-              resolve(1);
-              break;
+                $(panel).fadeIn(100);
+                resolve(1);
+                break;
+              case 'resultados-areaMaster':
+                $(panel).fadeIn(100);
+                resolve(1);
+                break;
 
-            default:
-              console.log('Sin opción panel')
+              default:
+                console.log('Sin opción panel')
+            }
+          } else {
+            setTimeout(function () {
+              $(panel).fadeOut(100);
+            }, 100);
           }
-        } else {
-          setTimeout(function () {
-            $(panel).fadeOut(100);
-          }, 100);
-        }
-      }, 110);
-    });
+        }, 110);
+      });
     // resolve(0);
   });
 }

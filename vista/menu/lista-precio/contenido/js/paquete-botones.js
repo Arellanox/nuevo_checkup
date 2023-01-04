@@ -10,7 +10,7 @@ $('#agregar-estudio-paquete').click(function () {
   // console.log(selectData)
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
   console.log(selectData)
-  meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
+  meterDato(selectData['DESCRIPCION'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
 })
 
 
@@ -95,15 +95,15 @@ $('input[type=radio][name=selectChecko]').change(function () {
 
   if ($(this).val() != 0) {
     // selectData = null;
-    rellenarSelect("#seleccion-estudio", "servicios_api", 7, 0, 'ABREVIATURA.DESCRIPCION', {
-      area_id: this.value,
+    rellenarSelect("#seleccion-estudio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+      id_area: this.value,
       paquete_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
       selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   } else {
-    rellenarSelect("#seleccion-estudio", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {
-      area_id: this.value,
+    rellenarSelect("#seleccion-estudio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+      id_area: this.value,
       paquete_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
       selectEstudio = new GuardarArreglo(listaEstudios);

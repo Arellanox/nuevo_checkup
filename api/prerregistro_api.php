@@ -34,13 +34,15 @@ $antecedentes = array_slice($_POST,0,count($_POST)-4);
 switch($api){
     case 1:
         #buscar el paciente por medio de la curp
-        $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp,$pasaporte));
+        if(!isset($pacienteId)){
+            $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp,$pasaporte));
 
-        if(!count($paciente)>0){
-            echo "CURP/Pasaporte no registrado.";
-            exit;
+            if(!count($paciente)>0){
+                echo json_encode(array('response'=>array('code'=>2,'data'=>"CURP/Pasaporte no registrado.")));
+                exit;
+            }
+            $pacienteId = $paciente[0]['ID_PACIENTE'];
         }
-        $pacienteId = $paciente[0]['ID_PACIENTE'];
 
         # preparamos el array para que consuma el procedure
         $preTurno = array(

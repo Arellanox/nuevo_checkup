@@ -28,24 +28,13 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       $(row).addClass('bg-info');
     }
   },
-  columns: [{
-      data: 'COUNT'
-    },
-    {
-      data: 'NOMBRE_COMPLETO'
-    },
-    {
-      data: 'PREFOLIO',
-    },
-    {
-      data: 'NOMBRE_COMERCIAL'
-    },
-    {
-      data: 'DESCRIPCION_SEGMENTO'
-    },
-    {
-      data: 'TURNO'
-    },
+  columns: [
+    { data: 'COUNT' },
+    { data: 'NOMBRE_COMPLETO' },
+    { data: 'PREFOLIO', },
+    { data: 'NOMBRE_COMERCIAL' },
+    { data: 'DESCRIPCION_SEGMENTO' },
+    { data: 'TURNO' },
     {
       data: 'ID_PACIENTE',
       render: function (data) {
@@ -53,20 +42,20 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       }
     },
     {
-      data: 'FECHA_AGENDA'
+      data: 'FECHA_AGENDA',
+      render: function (data) {
+        return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+      }
     },
-    {
-      data: 'FECHA_REAGENDA'
-    },
-    {
-      data: 'GENERO'
-    }
+    { data: 'FECHA_REAGENDA' },
+    { data: 'GENERO' }
     // {defaultContent: 'En progreso...'}
   ],
-  columnDefs: [{
-    "width": "5px",
-    "targets": 0
-  }, ],
+  columnDefs: [
+    { width: "5px", targets: 0 },
+    { visible: false, title: "AreaActual", targets: 6, searchable: false }
+
+  ],
 
 })
 
