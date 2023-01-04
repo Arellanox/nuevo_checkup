@@ -117,7 +117,7 @@ $('#guardar-contenido-paquete').on('click', function () {
   if (tableData.length > 0) {
 
     Swal.fire({
-      title: '¿Estás seguro de guardar los resultados?',
+      title: '¿Estás guardar el contenido de este paquete?',
       text: 'Use su contraseña para confirmar',
       showCancelButton: true,
       confirmButtonText: 'Confirmar',
@@ -167,6 +167,9 @@ $('#guardar-contenido-paquete').on('click', function () {
             data: ajaxDataSend,
             type: "POST",
             datatype: 'json',
+            beforeSend: function () {
+              alertMensaje('info', 'Espere un momento', 'Guardando contenido del paquete en el servidor');
+            },
             success: function (data) {
               data = jQuery.parseJSON(data);
               if (mensajeAjax(data)) {

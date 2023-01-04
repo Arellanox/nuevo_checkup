@@ -3,6 +3,7 @@
 $codigo = isset($_GET['codigo']) ? $_GET['codigo'] : null;
 $token = isset($_GET['token']) ? $_GET['token'] : null;
 $tip = isset($_GET['tip']) ? $_GET['tip'] : null;
+$ant = isset($_GET['ant']) ? $_GET['ant'] : null;
 include "../variables.php";
 $menu = "Prerregistro";
 ?>
@@ -52,8 +53,9 @@ $menu = "Prerregistro";
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
   // console.log(token)
+  const ant = '<?php echo $ant; ?>';
   let tip = '<?php echo $tip; ?>';
-  let clienteRegistro, nombreCliente, ant;
+  let clienteRegistro, nombreCliente;
   var registroAgendaRecepcion  = 0;
   // console.log(codigo);
   if (codigo != token) {
