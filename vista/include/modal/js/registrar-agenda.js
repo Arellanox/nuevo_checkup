@@ -91,10 +91,19 @@ $("#formRegistrarAgenda").submit(function (event) {
       formData.set('cliente_id', clienteRegistro)
       break;
   }
-  if ($('#checkCurpPasaporte-agenda').is(":checked")) {
-    formData.set('pasaporte', $('#curp-paciente').val())
-  } else {
-    formData.set('curp', $('#curp-paciente').val())
+
+  switch (registroAgendaRecepcion) {
+    case 1:
+      formData.set('pacienteId', $('#curp-paciente').val())
+      break;
+
+    default:
+      if ($('#checkCurpPasaporte-agenda').is(":checked")) {
+        formData.set('pasaporte', $('#curp-paciente').val())
+      } else {
+        formData.set('curp', $('#curp-paciente').val())
+      }
+      break;
   }
 
   if ($('#selectSegmentos').val() != null) {
@@ -309,6 +318,12 @@ $('#checkCurpPasaporte-agenda').change(function () {
 });
 
 function getDataAjax(text) {
+  if (registroAgendaRecepcion == 1)
+    return dataAjax = {
+      id: text,
+      api: 2
+    };
+
   if ($('#checkCurpPasaporte-agenda').is(":checked")) {
     return dataAjax = {
       pasaporte: text,
@@ -348,7 +363,8 @@ if (registroAgendaRecepcion == 1) {
     '<input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">' +
     '<label class="form-check-label" for="checkCurpPasaporte-agenda"> Soy extranjero </label></div>')
   select2('#curp-paciente', "ModalRegistrarPrueba", 'Cargando...')
-  rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'CURP', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
+  rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
+  $('#checkCurpPasaporte-agenda').prop('disabled', true)
 }
 // else{
 //   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')

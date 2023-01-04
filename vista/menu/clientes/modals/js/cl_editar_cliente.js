@@ -1,24 +1,39 @@
 const ModalActualizarCliente = document.getElementById("ModalActualizarCliente");
 ModalActualizarCliente.addEventListener("show.bs.modal", (event) => {
 
+  cargarDatos()
 
-$("#nombre_cliente").val(array_selected["NOMBRE_COMERCIAL"]);
-$("#razon_social").val(array_selected["RAZON_SOCIAL"]);
-$("#nombre_sistema").val(array_selected["NOMBRE_SISTEMA"]);
-$("#rfc_cliente").val(array_selected["RFC"]);
-$("#curp_cliente").val(array_selected["CURP"]);
-$("#abreviatura_cliente").val(array_selected["ABREVIATURA"]);
-$("#limite_credito_cliente").val(array_selected["LIMITE_CREDITO"]);
-$("#cuenta_contable_cliente").val(array_selected["CUENTA_CONTABLE"]);
-$("#tiempo_credito_cliente").val(array_selected["TEMPORALIDAD_DE_CREDITO"]);
-$("#pagina_web").val(array_selected["PAGINA_WEB"]);
-$("#facebook").val(array_selected["FACEBOOK"]);
-$("#instagram").val(array_selected["INSTAGRAM"]);
-$("#twitter").val(array_selected["TWITTER"]);
-$("#codigo").val(array_selected["CODIGO"]);
 
 
 });
+
+// select2('#selectRegimenFiscal-editar', 'ModalActualizarCliente');
+// select2('#select-cfdi-editar', 'ModalActualizarCliente');
+
+async function cargarDatos() {
+  await rellenarSelect('#select-cfdi-editar', 'cfdi_api', 1, 0, 1)
+  await rellenarSelect('#selectRegimenFiscal-editar', 'sat_regimen_api', 1, 0, 1);
+
+
+  $("#nombre_cliente").val(array_selected["NOMBRE_COMERCIAL"]);
+  $("#razon_social").val(array_selected["RAZON_SOCIAL"]);
+  $("#nombre_sistema").val(array_selected["NOMBRE_SISTEMA"]);
+  $("#rfc_cliente").val(array_selected["RFC"]);
+  $("#curp_cliente").val(array_selected["CURP"]);
+  $("#abreviatura_cliente").val(array_selected["ABREVIATURA"]);
+  $("#limite_credito_cliente").val(array_selected["LIMITE_CREDITO"]);
+  $("#cuenta_contable_cliente").val(array_selected["CUENTA_CONTABLE"]);
+  $("#tiempo_credito_cliente").val(array_selected["TEMPORALIDAD_DE_CREDITO"]);
+  $("#pagina_web").val(array_selected["PAGINA_WEB"]);
+  $("#facebook").val(array_selected["FACEBOOK"]);
+  $("#instagram").val(array_selected["INSTAGRAM"]);
+  $("#twitter").val(array_selected["TWITTER"]);
+  $("#codigo").val(array_selected["CODIGO"]);
+
+  $('#selectRegimenFiscal-editar').val(array_selected["REGIMEN_ID"]);
+  $('#select-cfdi-editar').val(array_selected["CFDI_ID"]);
+  $('#selectConvenio-editar').val(array_selected["CONVENIO_ID"])
+}
 
 //Formulario de Preregistro
 $("#formActualizarCliente").submit(function (event) {
@@ -26,8 +41,8 @@ $("#formActualizarCliente").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formActualizarCliente");
   var formData = new FormData(form);
-  formData.set('id',array_selected['ID_CLIENTE']);
-    formData.set('api', 3);
+  formData.set('id_cliente', array_selected['ID_CLIENTE']);
+  formData.set('api', 3);
   Swal.fire({
     title: "¿Está seguro que todos los datos están correctos?",
     text: "¡Verifique los Nuevos datos antes de continuar!",

@@ -1,7 +1,5 @@
 tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
-  language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-  },
+  language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
   scrollY: "60vh",
   scrollCollapse: true,
   lengthMenu: [
@@ -23,33 +21,20 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     },
     dataSrc: 'response.data'
   },
-  columns: [{
-      data: 'COUNT'
-    },
-    {
-      data: 'NOMBRE_COMPLETO'
-    },
-    {
-      data: 'PREFOLIO'
-    },
-    {
-      data: 'NOMBRE_COMERCIAL'
-    },
-    {
-      data: 'DESCRIPCION_SEGMENTO'
-    },
-    {
-      data: 'FECHA_AGENDA'
-    },
-    {
-      data: 'GENERO'
-    }
+  columns: [
+    { data: 'COUNT' },
+    { data: 'NOMBRE_COMPLETO' },
+    { data: 'PREFOLIO' },
+    { data: 'NOMBRE_COMERCIAL' },
+    { data: 'DESCRIPCION_SEGMENTO' },
+    { data: 'FECHA_AGENDA' },
+    { data: 'GENERO' }
     // {defaultContent: 'En progreso...'}
   ],
-  columnDefs: [{
-    "width": "5px",
-    "targets": 0
-  }, ],
+  columnDefs: [
+    { width: "5px", targets: 0 },
+
+  ],
 
 })
 

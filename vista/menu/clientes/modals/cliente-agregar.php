@@ -10,7 +10,7 @@
           <p class="text-center">Agrege un nuevo <strong>Cliente</strong> </p>
           <div class="row">
             <div class="col-6">
-              <label for="nombre_estudio" class="form-label">Nombre</label>
+              <label for="nombre_comercial" class="form-label">Nombre</label>
               <input type="text" name="nombre_comercial" class="form-control input-form" required>
             </div>
             <div class="col-6">
@@ -47,19 +47,24 @@
               <input type="number" name="cuenta_contable" class="form-control input-form" required>
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">Régimen fiscal</label>
-              <select class="form-control input-form" id="selectRegimenFiscal-agregar" required>
+              <label for="regimen" class="form-label">Régimen fiscal</label>
+              <select class="form-control input-form" name = "regimen" id="selectRegimenFiscal-agregar" required>
               </select>
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">CFDI</label>
-              <select class="form-control input-form" id="select-cfdi-agregar" required>
+              <label for="cfdi" class="form-label">CFDI</label>
+              <select class="form-control input-form" name = "cfdi" id="select-cfdi-agregar" required>
 
               </select>
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">Convenio</label>
-              <input name="confac" placeholder="www.ejemplo.com" class="form-control input-form" required>
+              <label for="convenio" class="form-label">Convenio</label>
+              <select class="form-control input-form" name = "convenio" id="selectConvenio-agregar" required>
+                <option value="1">ASEGURADORAS </option>
+                <option value="2">INSTITUCIONES PUBLICAS </option>
+                <option value="3">INSTITUCIONES PRIVADAS </option>
+                <option value="4">CORTESIAS </option>
+              </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Pagina Web</label>

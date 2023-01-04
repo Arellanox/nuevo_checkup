@@ -36,8 +36,8 @@
           <div class="text-start formContenidoPaquete" id="formPaqueteBotonesArea" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
 
             <label for="inputBuscarPaquetes">Pulse el area del estudio:</label> <br>
-            <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off">
-            <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagennología</label>
+            <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="11" autocomplete="off">
+            <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Ultrasonido</label>
 
             <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">
             <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
