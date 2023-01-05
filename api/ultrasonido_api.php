@@ -26,7 +26,7 @@ $comentario = $_POST['comentario'];
 
 # para el detalle de las imagenes.
 # cuando suban los resultados en el formuliar que contienen los campos de hallazgos, interpretacion, etc
-$id_rayo = $_POST['id_rayo'];
+$id_imagen = $_POST['id_imagen'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
 
@@ -49,7 +49,7 @@ switch($api){
         $response = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$interpretacion[0]['URL'],$usuario,$area_id]);
 
         # insertar el formulario de bimo.
-        $response2 = $master->insertByProcedure("sp_imagen_detalle_g", [$id_rayo,$turno_id,$servicio_id,$hallazgo,$inter_texto,$usuario,$comentario]);
+        $response2 = $master->insertByProcedure("sp_imagen_detalle_g", [$id_imagen,$turno_id,$servicio_id,$hallazgo,$inter_texto,$usuario,$comentario]);
         break;
     case 2:
         # insertamos las capturas.
