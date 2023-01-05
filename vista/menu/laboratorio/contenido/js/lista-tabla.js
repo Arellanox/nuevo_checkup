@@ -173,6 +173,7 @@ function generarFormularioPaciente(id) {
         tipo: 1
       },
       success: function (data) {
+        $('#formulario-estudios').html('')
         data = data.response.data;
 
         let colStart = '<div class="col-auto col-lg-6">';
