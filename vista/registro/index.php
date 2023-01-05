@@ -53,7 +53,7 @@ $menu = "Prerregistro";
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
   // console.log(token)
-  const ant = '<?php echo $ant; ?>';
+  let ant = '<?php echo $ant; ?>';
   let tip = '<?php echo $tip; ?>';
   let clienteRegistro, nombreCliente;
   var registroAgendaRecepcion  = 0;
