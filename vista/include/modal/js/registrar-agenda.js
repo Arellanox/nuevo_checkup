@@ -82,21 +82,15 @@ $("#formRegistrarAgenda").submit(function (event) {
   //   return
   // }
   // formData.set('antecedentes', json);
-  switch (registroAgendaRecepcion) {
-    case 1:
-      formData.set('cliente_id', $('#selectProcedencia').val())
-      break;
-    default:
-      formData.set('cliente_id', clienteRegistro)
-      break;
-  }
 
   switch (registroAgendaRecepcion) {
     case 1:
+      formData.set('cliente_id', $('#selectProcedencia').val())
       formData.set('pacienteId', $('#curp-paciente').val())
       break;
 
     default:
+      formData.set('cliente_id', clienteRegistro)
       if ($('#checkCurpPasaporte-agenda').is(":checked")) {
         formData.set('pasaporte', $('#curp-paciente').val())
       } else {
@@ -139,11 +133,6 @@ $("#formRegistrarAgenda").submit(function (event) {
         success: function (data) {
           if (mensajeAjax(data)) {
             if (data.response.code == 1) {
-              // Toast.fire({
-              //   icon: 'success',
-              //   title: 'Su información a sido registrada :)',
-              //   timer: 2000
-              // });
               //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
               alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
 
@@ -179,6 +168,7 @@ $("#formRegistrarAgenda").submit(function (event) {
   })
 })
 
+//Revisa y alerta si falta algun campo
 function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
   // console.log(div1.length)
   if (div1.length != 51) {
@@ -214,6 +204,7 @@ function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
   return false;
 }
 
+//Muestra al paciente el formulario a ver
 function mostrarAntecedente(btn, form) {
   location.hash = '';
   // $('#' + btn).click();
@@ -268,11 +259,11 @@ $('#actualizarForm').click(function () {
             document.getElementById("mensaje").innerHTML = '<div class="alert alert-success" role="alert">' +
               'CURP aceptada, concluya su registro seleccionando el estudio a realizar.' +
               '</div>';
+
+
             $('#paciente-registro').html(data.response.data[0].NOMBRE_COMPLETO);
             if (data.response.data[0].CURP == null) {
               $('#curp-registro').html(data.response.data[0].PASAPORTE);
-            } else {
-              $('#curp-registro').html(data.response.data[0].CURP);
             }
             $('#curp-registro').html(data.response.data[0].CURP);
             $('#sexo-registro').html(data.response.data[0].GENERO);
