@@ -26,7 +26,7 @@ $comentario = $_POST['comentario'];
 
 # para el detalle de rayos-x.
 # cuando suban los resultados en el formuliar que contienen los campos de hallazgos, interpretacion, etc
-$id_rayo = $_POST['id_rayo'];
+$id_imagen = $_POST['id_imagen'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
 
@@ -46,10 +46,10 @@ switch($api){
         #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
         $interpretacion = $master->guardarFiles($_FILES, "interpretacion", "../".$ruta_saved, "INTERPRETACION_RX_$turno_id");
 
-        $response = $master->insertByProcedure('sp_rayosx_resultados_g',[null,$turno_id,$interpretacion[0]['URL'],NULL,$usuario,null,$tipo,null]);
+        $response = $master->insertByProcedure('sp_imagenologia_resultados_g',[$id_imagen,$turno_id,$interpretacion[0]['URL'],$usuario,$area_id]);
         
-        # insertar el formulario de bimo.
-        // $response2 = $master->insertByProcedure("sp_rayosx_detalle_g", [$id_rayo,$turno_id,$servicio_id,$hallazgo,$inter_texto,$usuario,$comentario]);
+      # insertar el formulario de bimo.
+      $response2 = $master->insertByProcedure("sp_imagen_detalle_g", [$id_imagen,$turno_id,$servicio_id,$hallazgo,$inter_texto,$usuario,$comentario]);
         break;
     case 2:
         #creamos el directorio donde se va a guardar la informacion del turno
@@ -64,14 +64,14 @@ switch($api){
         $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_RX_$turno_id");
 
 
-        $response = $master->insertByProcedure("sp_rayosx_resultados_g", [null,$turno_id,null,json_encode($capturas),$usuario,$tipo,$servicio_id,$comentario]);
+        $response = $master->insertByProcedure('sp_capturas_imagen_g',[null, $turno_id,$servicio_id,json_encode($capturas),$comentario,$usuario]);
         break;
     case 3:
         # recuperar las capturas
         $response = array();
         # recuperar los resultados de rayos x
         $area_id = 8; # 8 es el id para rayosx.
-        $response1 = $master->getByProcedure('sp_rayosx_resultados_b',[$id_rayo,$turno_id]);
+        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
 
         # recuperar las capturas si las tiene.
 
