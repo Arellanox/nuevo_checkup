@@ -27,8 +27,10 @@ $comentario = $_POST['comentario'];
 # para el detalle de las imagenes.
 # cuando suban los resultados en el formuliar que contienen los campos de hallazgos, interpretacion, etc
 $id_imagen = $_POST['id_imagen'];
+$formulario = $_POST['formulario'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
+$host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/" ;
 
 
 switch($api){
@@ -44,12 +46,17 @@ switch($api){
         }
 
         #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "interpretacion", "../".$ruta_saved, "INTERPRETACION_ULTRASONIDO_$turno_id");
+        $interpretacion = $master->guardarFiles($_FILES, "interpretacion", $host.$ruta_saved, "INTERPRETACION_ULTRASONIDO_$turno_id");
 
-        $response = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$interpretacion[0]['URL'],$usuario,$area_id]);
+        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$interpretacion[0]['URL'],$usuario,$area_id]);
 
         # insertar el formulario de bimo.
-        $response2 = $master->insertByProcedure("sp_imagen_detalle_g", [$id_imagen,$turno_id,$servicio_id,$hallazgo,$inter_texto,$usuario,$comentario]);
+        foreach($formulario as $f){
+            $res = $master->insertByProcedure('sp_imagen_detalle_g',[$id_imagen,$turno_id,$servicio_id,$hallazgo,$inter_texto,$comentario,$last_id]);
+        }
+
+        #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
+        $response = $last_id;
         break;
     case 2:
         # insertamos las capturas.
@@ -61,7 +68,7 @@ switch($api){
             break;
         }
 
-        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_ULTRASONIDO_$turno_id");
+        $capturas = $master->guardarFiles($_FILES, "capturas", $host . $ruta_saved, "CAPTURAS_ULTRASONIDO_$turno_id");
 
 
         $response = $master->insertByProcedure('sp_capturas_imagen_g',[null, $turno_id,$servicio_id,json_encode($capturas),$comentario,$usuario]);

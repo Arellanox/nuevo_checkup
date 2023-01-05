@@ -277,24 +277,48 @@ switch ($api) {
     case 11:
         # recupera todos los servicios que suben reportes o imagenes como resultado
         # de un turno.
-        $response = $master->getByProcedure('sp_detalle_turno_b', [$id_turno, $id_area]);
 
+        $response = array();
+        $response1 = $master->getByNext('sp_detalle_turno_b', [$id_turno, $id_area]);
 
-        #$response[0]['IMAGENES'] = json_decode($response[0]['IMAGENES'],true);
+        for ($i=0; $i < count($response1[0]); $i++) {
+            # en response[0] llegan la interpretacion o las interpretacion (en caso de que no se le haya mandando algun filtro).
+            $turno = $response[0][$i]['ID_TURNO'];
+            $area = $response[0][$i]['AREA_ID'];
+           
+            #filtramos solo las capturas para ese turno y esa area.
+            $subconjunto_imagen = array_filter($response1[1], function ($obj) use ($turno,$area) {
+                $r = $obj['AREA_ID'] == $area && $obj['TURNO_ID']==$turno;
+                return $r;
+            });
 
-        for ($i = 0; $i < count($response); $i++) {
-            $newImg = array();
-            $response[$i]['IMAGENES'] = json_decode($response[$i]['IMAGENES'], true);
-
-            for ($j = 0; $j < count($response[$i]['IMAGENES']['data']); $j++) {
-                $newImg[] = json_decode($response[$i]['IMAGENES']['data'][$j], true);
+             # convertir en arreglo las capturas.
+            $capturas = array();
+            foreach($subconjunto_imagen as $current){
+                $current['CAPTURAS'] = json_decode($current['CAPTURAS'], true);
+                $capturas[] = $current;
             }
 
-            $response[$i]['IMAGENES'] = $newImg;
+            # agregamos un espacio para en el arreglo de las interpretacion para guardar las imagenes.
+            $response1[0][$i]['IMAGENES'] = $capturas;
         }
+       
 
-        //;
-        // $response[0]['IMAGENES'] = $response[0]['IMAGENES']['data'];
+        // for ($i = 0; $i < count($response); $i++) {
+        //     $newImg = array();
+        //     $response[$i]['IMAGENES'] = json_decode($response[$i]['IMAGENES'], true);
+
+        //     for ($j = 0; $j < count($response[$i]['IMAGENES']['data']); $j++) {
+        //         $newImg[] = json_decode($response[$i]['IMAGENES']['data'][$j], true);
+        //     }
+
+        //     $response[$i]['IMAGENES'] = $newImg;
+
+        // $response['INTERPRETACION'] = $response1[0][0];     
+        // $response['CAPTURAS'] = $capturas;
+        // $response = array();
+
+        $response = $response1[0];
         echo $master->returnApi($response);
         break;
     case 12:
