@@ -39,7 +39,6 @@ $("#formRegistrarAgenda").submit(function (event) {
     var formMedioLaboral = jQuery(document.forms['formMedioLaboral']).serializeArray();
 
     if (evaluarAntecedentes(formAntPersonalPato, formAntNoPatologicos, formAntHeredofamiliares, formAntPsicologico, formAntNutricionales, formMedioLaboral)) {
-      alertMensaje('info', 'Antecedentes incompletos', 'Necesita llenar todo el formulario de antecedentes')
       return false;
     }
 
@@ -181,25 +180,47 @@ $("#formRegistrarAgenda").submit(function (event) {
 })
 
 function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
-  if (div1.length != 20) {
+  // console.log(div1.length)
+  if (div1.length != 51) {
+    alertMensaje('info', 'Antecedentes personales patológicos', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-Patologicos-Target', 'formAntPersonalPato')
     return true;
   }
   if (div2.length != 20) {
+    alertMensaje('info', 'Antecedentes no patológicos', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-nopatologicos-Target', 'formAntNoPatologicos')
     return true;
   }
   if (div3.length != 20) {
+    alertMensaje('info', 'Antecedentes heredofamiliares', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-anteHeredo-Target', 'formAntHeredofamiliares')
     return true;
   }
   if (div4.length != 15) {
+    alertMensaje('info', 'Antecedentes psicológicos/psiquiátricos', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-antPsico-Target', 'formAntPsicologico')
     return true;
   }
   if (div5.length != 26) {
+    alertMensaje('info', 'Antecedentes nutricionales', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-antNutri-Target', 'formAntNutricionales')
     return true;
   }
   if (div6.length != 45) {
+    alertMensaje('info', 'Antecedentes medio laboral', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-MedLabo-Target', 'formMedioLaboral')
     return true;
   }
   return false;
+}
+
+function mostrarAntecedente(btn, form) {
+  location.hash = '';
+  // $('#' + btn).click();
+  $("#" + btn).collapse("show");
+  setTimeout(() => {
+    location.hash = form;
+  }, 300);
 }
 
 var tipoPaciente = "0"; //Particular por defecto
