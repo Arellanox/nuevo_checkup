@@ -55,7 +55,7 @@ $menu = "Prerregistro";
   // console.log(token)
   let ant = '<?php echo $ant; ?>';
   let tip = '<?php echo $tip; ?>';
-  let clienteRegistro, nombreCliente;
+  let clienteRegistro, nombreCliente, idtoken;
   var registroAgendaRecepcion  = 0;
   // console.log(codigo);
   if (codigo != token) {
@@ -89,7 +89,7 @@ $menu = "Prerregistro";
             row = data.response.data[0];
             // console.log(row);
             if (data.response.data[0]) {
-              completarCliente(row['ID_CLIENTE'], row['NOMBRE_COMERCIAL'])
+              completarCliente(row['ID_CLIENTE'], row['NOMBRE_COMERCIAL'], data.response.data[0]['ID_PREREGISTRO'])
             }else {
               redireccionarPrerregistro()
             }
@@ -121,10 +121,11 @@ $menu = "Prerregistro";
     }
   }
   
-  function completarCliente(id, name){
+  function completarCliente(id, name, id_registro){
     // alert(name)
     nombreCliente = name
     clienteRegistro = id
+    idtoken = id_registro
     
     if(id == 1)
     ant = true;
