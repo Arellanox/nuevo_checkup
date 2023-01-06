@@ -21,26 +21,30 @@ function hasLocation() {
     switch (hash) {
       case "IMAGENOLOGIA":
         formulario = "formSubirInterpretacion";
-        api = 7;
+        api_capturas = 2;
+        api_interpretacion = 1;
         url_api = 'ultrasonido_api';
         obtenerContenidoVistaMaster(11, 'Resultados de Ultrasonido', 'contenido_new.php');
         break;
       case "RX":
         formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
+        api_capturas = 2;
+        api_interpretacion = 1;
+        url_api = 'rayosx_api';
         obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_new.php');
         break;
       case "ESPIROMETRIA":
         formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
+        api_capturas = 2;
+        api_interpretacion = 1;
+        url_api = 'espirometria_api';
         obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_new.php');
         break;
       case "AUDIOMETRIA":
         formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
+        api_capturas = 2;
+        api_interpretacion = 1;
+        url_api = 'audiometria_api';
         obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_new.php');
         break;
       case "OFTALMOLOGIA":

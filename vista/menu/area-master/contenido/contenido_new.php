@@ -91,8 +91,8 @@ $form = $_POST['form'];
         </div>
         <div class="row">
           <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
-            <button type="button" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
-              <i class="bi bi-clipboard2-plus"></i> Subir capturas
+            <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
+              <i class="bi bi-clipboard2-plus"></i> Cargar capturas
             </button>
           </div>
           <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">
@@ -107,7 +107,7 @@ $form = $_POST['form'];
               <!-- formulario para oftamologia -->
             </button>
             <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis">
-              <i class="bi bi-clipboard2-plus"></i> Guardar Reporte
+              <i class="bi bi-clipboard2-plus"></i> Subir Reporte
               <!-- BTN para formulario global -->
             </button>
           </div>

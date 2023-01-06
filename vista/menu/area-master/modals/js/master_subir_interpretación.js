@@ -45,7 +45,7 @@ $("#formSubirInterpretacion").submit(function (event) {
 
 
         //Api y url sacada desde el controlador
-        formData.set('api', api);
+        formData.set('api', api_interpretacion);
 
 
         Swal.fire({

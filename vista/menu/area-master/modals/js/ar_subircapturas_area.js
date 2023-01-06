@@ -38,10 +38,10 @@ $("#formSubirCapturas").submit(function (event) {
   var formData = new FormData(form);
   formData.set('turno_id', selectPacienteArea['ID_TURNO'])
   formData.set('servicio_id', selectEstudio.selectID)
-  formData.set('api', 2);
+  formData.set('api', api_capturas);
   Swal.fire({
-    title: "¿Está seguro de subir la interpretación?",
-    text: "¡No podrá cambiar el resultado!",
+    title: "¿Está seguro de cargar las capturas correctas?",
+    text: "¡No podrá cambiar esto!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -54,7 +54,7 @@ $("#formSubirCapturas").submit(function (event) {
 
       $.ajax({
         data: formData,
-        url: http + servidor + "/nuevo_checkup/api/" + url_api+".php",
+        url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
         type: "POST",
         processData: false,
         contentType: false,
