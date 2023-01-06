@@ -27,9 +27,10 @@ $comentario = $_POST['comentario'];
 # para el detalle de rayos-x.
 # cuando suban los resultados en el formuliar que contienen los campos de hallazgos, interpretacion, etc
 $id_imagen = $_POST['id_imagen'];
+$formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
-
+$host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/" ;
 
 switch($api){
     case 1:
@@ -44,14 +45,22 @@ switch($api){
         }
 
         #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "interpretacion", "../".$ruta_saved, "INTERPRETACION_RX_$turno_id");
+        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_RX_$turno_id");
 
-        $response = $master->insertByProcedure('sp_imagenologia_resultados_g',[$id_imagen,$turno_id,$interpretacion[0]['URL'],$usuario,$area_id]);
-        
-      # insertar el formulario de bimo.
-      $response2 = $master->insertByProcedure("sp_imagen_detalle_g", [$id_imagen,$turno_id,$servicio_id,$hallazgo,$inter_texto,$usuario,$comentario]);
+        $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
+
+        $last_id = $master->insertByProcedure('sp_imagenologia_resultados_g',[$id_imagen,$turno_id,$ruta_archivo,$usuario,$area_id]);
+
+        # insertar el formulario de bimo.
+        foreach($formulario as $item){
+            $res = $master->insertByProcedure('sp_imagen_detalle_g',[null,$turno_id,$id_servicio,$item['hallazgo'],$item['interpretacion'],$item['comentario'],$last_id]);
+        }
+
+        #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
+        $response = $last_id;  
         break;
     case 2:
+        $turno_id = $_POST['turno_id'];
         #creamos el directorio donde se va a guardar la informacion del turno
         $ruta_saved = "reportes/modulo/rayosx/$turno_id/capturas/";
         $r = $master->createDir("../".$ruta_saved);
@@ -61,9 +70,18 @@ switch($api){
             break;
         }
 
+        # subimos las capturas al servidor.
+        # combinar la ruta_saved con ../ sirve para crear la ruta el directorio en el servidor
+        # por si no existe aun.
+        # se necesita formatear la ruta para agregarle el la url completa de internet.
         $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_RX_$turno_id");
 
+        # formateamos la ruta de los archivos para guardarlas en la base de datos
+        for ($i=0; $i < count($capturas); $i++) {
+            $capturas[$i]['url'] = str_replace("../",$host,$capturas[$i]['url']);
+        }
 
+        # insertamos en la base de datos.
         $response = $master->insertByProcedure('sp_capturas_imagen_g',[null, $turno_id,$servicio_id,json_encode($capturas),$comentario,$usuario]);
         break;
     case 3:
