@@ -7,17 +7,14 @@
       <h4>Lista de pacientes</h4>
       <div class="text-center">
         <label for="inputBuscarTableListaNuevos">Buscar:</label>
-        <input type="text" class="form-control input-color" 
-          style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" 
-          value="" style="width:80%" autocomplete="off" id="BuscarTablaListaLaboratorio"
-          data-bs-toggle="tooltip" data-bs-placement="bottom" title="Filtra la lista de pacientes">
+        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Filtra la lista de pacientes">
       </div>
       <table class="table display responsive" id="TablaLaboratorio" style="width: 100%">
         <thead class="">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Folio</th>
+            <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
             <th scope="col d-flex justify-content-center" class="none">Cliente</th>
             <th scope="col d-flex justify-content-center" class="none">Segmento</th>
             <th scope="col d-flex justify-content-center" class="none">Turno</th>
@@ -46,7 +43,7 @@
           <p class="none-p">Estudios a subir, recuerde mostrar como resultado N/A si necesita ocultar la prueba</p>
         </div>
         <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
-          <button type="button" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px" >
+          <button type="button" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
             <i class="bi bi-clipboard2-pulse"></i> Guardar
           </button>
           <button type="button" data-attribute="confirmar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
@@ -58,14 +55,14 @@
         </div>
       </div>
       <form class="" id="formAnalisisLaboratorio">
-        <div id="formulario-estudios" class="overflow-auto" style = "max-width: 100%; max-height: 70vh;margin-bottom:10px;">
+        <div id="formulario-estudios" class="overflow-auto" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
           <!-- <p class="mt-3">BIOMETRIA HEMATICA</p> -->
         </div>
       </form>
     </div>
   </div>
   <style media="screen">
-    #TablaLaboratorio_filter{
+    #TablaLaboratorio_filter {
       display: none
     }
 
@@ -73,6 +70,7 @@
       border-top-left-radius: 10px !important;
       border-top-right-radius: 10px !important;
     }
+
     li:last-child {
       border-bottom-left-radius: 10px !important;
       border-bottom-right-radius: 10px !important;

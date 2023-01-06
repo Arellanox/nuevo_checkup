@@ -22,7 +22,7 @@ function hasLocation() {
       case "IMAGENOLOGIA":
         formulario = "formSubirInterpretacion";
         api = 7;
-        url_api = 'turnos_api';
+        url_api = 'ultrasonido_api';
         obtenerContenidoVistaMaster(11, 'Resultados de Ultrasonido', 'contenido_new.php');
         break;
       case "RX":
@@ -103,16 +103,16 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $.getScript("modals/js/master_subir_interpretación.js");
         break;
 
-        // Versión anterior (Absoleta)
-        // default:
-        //   $('#btn-analisis-pdf').fadeIn(0)
-        //   $('#btn-capturas-pdf').fadeIn(0)
-        //   $('.btnResultados').fadeOut(0)
-        //   // Datatable
-        //   $.getScript("contenido/js/vista-tabla.js");
-        //   // Modal para agregar interpretacion
-        //   $.getScript("modals/js/ar_subirprueba_area.js");
-        //   break;
+      // Versión anterior (Absoleta)
+      // default:
+      //   $('#btn-analisis-pdf').fadeIn(0)
+      //   $('#btn-capturas-pdf').fadeIn(0)
+      //   $('.btnResultados').fadeOut(0)
+      //   // Datatable
+      //   $.getScript("contenido/js/vista-tabla.js");
+      //   // Modal para agregar interpretacion
+      //   $.getScript("modals/js/ar_subirprueba_area.js");
+      //   break;
     }
     // Botones
     $.getScript("contenido/js/area-botones.js")

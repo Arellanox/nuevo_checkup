@@ -31,31 +31,20 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
       $(row).addClass('bg-warning');
     }
   },
-  columns: [{
-    data: 'COUNT'
-  }, {
-    data: 'NOMBRE_COMPLETO'
-  }, {
-    data: 'PREFOLIO'
-  }, {
-    data: 'CLIENTE'
-  }, {
-    data: 'SEGMENTO'
-  }, {
-    data: 'turno'
-  }, {
-    data: 'GENERO'
-  }, {
-    data: 'EXPEDIENTE'
-  },
-
-
+  columns: [
+    { data: 'COUNT' },
+    { data: 'NOMBRE_COMPLETO' },
+    { data: 'PREFOLIO' },
+    { data: 'CLIENTE' },
+    { data: 'SEGMENTO' },
+    { data: 'turno' },
+    { data: 'GENERO' },
+    { data: 'EXPEDIENTE' },
     // {defaultContent: 'En progreso...'}
   ],
-  columnDefs: [{
-    "width": "10px",
-    "targets": 0
-  },],
+  columnDefs: [
+    { "width": "10px", "targets": 0 },
+  ],
 
 })
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');

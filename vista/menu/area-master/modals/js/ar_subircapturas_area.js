@@ -2,17 +2,17 @@
 const ModalSubirCapturas = document.getElementById('ModalSubirCapturas')
 ModalSubirCapturas.addEventListener('show.bs.modal', event => {
   // console.log(selectListaLab)
-  $('#Area-estudio').html(hash)
+  $('#Area-estudio').html('Cargar capturas de ' + hash + ' <!-- : <strong id="Area-estudio"  style = "color:white !important" >' + selectPacienteArea['NOMBRE_COMPLETO'] + '</strong > -->')
   document.getElementById("formSubirCapturas").reset();
   // alert(selectEstudio.selectID)
   $('#nombre-paciente-capturas').val(selectPacienteArea['NOMBRE_COMPLETO'])
 })
 
-$('#inputFilesCapturasArea').on('change', function(){
+$('#inputFilesCapturasArea').on('change', function () {
   var fileList = $(this)[0].files || [] //registra todos los archivos
   let aviso = 0;
-  for (file of fileList){ //una iteración de toda la vida
-    ext=file.name.split('.').pop()
+  for (file of fileList) { //una iteración de toda la vida
+    ext = file.name.split('.').pop()
     console.log('>ARCHIVO: ', file.name)
     switch (ext) {
       case 'png': case 'jpg': case 'jpeg': case 'pdf':
@@ -36,11 +36,9 @@ $("#formSubirCapturas").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formSubirCapturas");
   var formData = new FormData(form);
-  formData.set('id_turno',selectPacienteArea['ID_TURNO'])
-  formData.set('id_servicio', selectEstudio.selectID)
-  formData.set('tipo_archivo', 2)
-  formData.set('id_area', areaActiva)
-  formData.set('api', 10);
+  formData.set('turno_id', selectPacienteArea['ID_TURNO'])
+  formData.set('servicio_id', selectEstudio.selectID)
+  formData.set('api', 2);
   Swal.fire({
     title: "¿Está seguro de subir la interpretación?",
     text: "¡No podrá cambiar el resultado!",
@@ -56,12 +54,11 @@ $("#formSubirCapturas").submit(function (event) {
 
       $.ajax({
         data: formData,
-        url: '??',
-        url: "../../../api/servicios_api.php",
+        url: http + servidor + "/nuevo_checkup/api/" + url_api+".php",
         type: "POST",
         processData: false,
         contentType: false,
-        beforeSend: function(){
+        beforeSend: function () {
           $("#formSubirCapturas:submit").prop('disabled', true)
         },
         success: function (data) {
@@ -79,7 +76,7 @@ $("#formSubirCapturas").submit(function (event) {
             // tablaContacto.ajax.reload();
           }
         },
-        complete: function(){
+        complete: function () {
           $("#formSubirCapturas:submit").prop('disabled', false)
         }
       });
