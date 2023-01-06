@@ -16,7 +16,7 @@ $api = $_POST['api'];
 
 # Datos para la interpretacion
 $id_imagen = $_POST['id_imagen'];
-$turno_id = $_POST['turno_id'];
+$turno_id = $_POST['id_turno'];
 $usuario = $_SESSION['id'];
 $area_id = 11; #$_POST['area_id']; # el id 11 es para el area de ultrasonido
 
@@ -61,6 +61,7 @@ switch($api){
         $response = $last_id;
         break;
     case 2:
+
         # insertamos las capturas.
         $ruta_saved = "reportes/modulo/ultrasonido/$turno_id/capturas/";
         $r = $master->createDir("../".$ruta_saved);
