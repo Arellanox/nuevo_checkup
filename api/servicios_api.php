@@ -283,8 +283,8 @@ switch ($api) {
 
         for ($i=0; $i < count($response1[0]); $i++) {
             # en response[0] llegan la interpretacion o las interpretacion (en caso de que no se le haya mandando algun filtro).
-            $turno = $response[0][$i]['ID_TURNO'];
-            $area = $response[0][$i]['AREA_ID'];
+            $turno = $response1[0][$i]['ID_TURNO'];
+            $area = $response1[0][$i]['AREA_ID'];
            
             #filtramos solo las capturas para ese turno y esa area.
             $subconjunto_imagen = array_filter($response1[1], function ($obj) use ($turno,$area) {
