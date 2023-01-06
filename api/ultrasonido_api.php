@@ -32,7 +32,6 @@ $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
 $host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/" ;
 
-
 switch($api){
     case 1:
         # insertar la interpretacion
@@ -46,9 +45,9 @@ switch($api){
         }
 
         #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "interpretacion", "../".$ruta_saved, "INTERPRETACION_ULTRASONIDO_$turno_id");
+        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_ULTRASONIDO_$turno_id");
 
-        $ruta_archivo = str_replace("../", $host, $interpretacion[0]);
+        $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
         $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$ruta_archivo,$usuario,$area_id]);
 
@@ -61,7 +60,7 @@ switch($api){
         $response = $last_id;
         break;
     case 2:
-
+        $turno_id = $_POST['turno_id'];
         # insertamos las capturas.
         $ruta_saved = "reportes/modulo/ultrasonido/$turno_id/capturas/";
         $r = $master->createDir("../".$ruta_saved);
@@ -72,6 +71,9 @@ switch($api){
         }
 
         # subimos las capturas al servidor.
+        # combinar la ruta_saved con ../ sirve para crear la ruta el directorio en el servidor
+        # por si no existe aun.
+        # se necesita formatear la ruta para agregarle el la url completa de internet.
         $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_ULTRASONIDO_$turno_id");
         
         # formateamos la ruta de los archivos para guardarlas en la base de datos
