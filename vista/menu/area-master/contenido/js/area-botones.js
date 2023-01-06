@@ -1,11 +1,28 @@
 $('#fechaListadoAreaMaster').change(function () {
+  recargarVistaLab();
+})
+
+$('#checkDiaAnalisis').click(function () {
+  if ($(this).is(':checked')) {
+    recargarVistaLab(0)
+    $('#fechaListadoAreaMaster').prop('disabled', true)
+  } else {
+    recargarVistaLab();
+    $('#fechaListadoAreaMaster').prop('disabled', false)
+  }
+})
+
+function recargarVistaLab(fecha = 1) {
   dataListaPaciente = {
     api: 5,
-    fecha_busqueda: $('#fechaListadoAreaMaster').val(),
+    // fecha_busqueda: $('#fechaListadoAreaMaster').val(),
     area_id: areaActiva
   }
+
+  if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
+
   tablaContenido.ajax.reload()
-})
+}
 
 
 $("#btn-analisis-pdf").click(function () {

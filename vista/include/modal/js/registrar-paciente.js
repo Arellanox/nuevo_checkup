@@ -90,8 +90,8 @@ $("#formRegistrarPaciente").submit(function (event) {
                         //   timer: 2000
                         // });
                         //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
-                        alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
-                        $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)</div>')
+                        alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, si correo está correcto, le llegará un mensaje de confirmación con su prefolio (' + data.response.data + ')')
+                        $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, si correo está correcto, le llegará un mensaje de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)</div>')
                         // Autocompletar el campo de prefolio y CURP en consulta de resultado
                         // document.getElementById("formAntecedentes").reset();
                         // if (session.user != null) {

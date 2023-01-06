@@ -61,9 +61,11 @@ $form = $_POST['form'];
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
-            <th scope="col d-flex justify-content-center" class="none">Procedencia</th>
-            <th scope="col d-flex justify-content-center" class="none">Edad</th>
+            <th scope="col d-flex justify-content-center" class="none">Cliente</th>
+            <th scope="col d-flex justify-content-center" class="none">Segmento</th>
+            <th scope="col d-flex justify-content-center" class="none">Turno</th>
             <th scope="col d-flex justify-content-center" class="none">Sexo</th>
+            <th scope="col d-flex justify-content-center" class="none">Expendiente</th>
           </tr>
         </thead>
         <tbody>
@@ -132,18 +134,6 @@ $form = $_POST['form'];
           }
 
           ?>
-
-
-
-
-          <!-- <h5>Estudios:</h5> -->
-          <!-- <ul class="list-group overflow-auto" id="lista-estudios-paciente" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;"> -->
-          <!-- <li class="list-group-item">
-              GRUPO DE EXAMEN - SERVICIO
-              <br>
-              <i class="bi bi-arrow-return-right"></i> MUESTRA - CONTENEDOR
-            </li> -->
-          <!-- </ul> -->
         </div>
       </div>
     </div>
