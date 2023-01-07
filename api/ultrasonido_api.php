@@ -7,8 +7,8 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-   $tokenVerification->logout();
-   exit;
+  # $tokenVerification->logout();
+  # exit;
 }
 
 $master = new Master();
@@ -97,8 +97,13 @@ switch($api){
 
         $capturas = [];
         foreach($response2 as $current){
-            $current['CAPTURAS'] = json_decode($current['CAPTURAS'],true);
+            $capturas_child = [];
+            foreach(json_decode($current['CAPTURAS'],true) as $item){
+                $capturas_child[] = json_decode($item, true);
+            }
+            $current['CAPTURAS'] = $capturas_child;
             $capturas[] = $current;
+
         }
 
         $response["PDF"] = $response1[0];
