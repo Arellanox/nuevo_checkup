@@ -42,7 +42,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       }
     },
     {
-      data: 'FECHA_AGENDA',
+      data: 'FECHA_RECEPCION',
       render: function (data) {
         return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
       }

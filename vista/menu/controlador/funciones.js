@@ -17,6 +17,8 @@ function formatoFechaSQL(fecha, formato) {
 }
 
 function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
+  if (fecha == null)
+    return '';
   console.log(fecha)
   let options = {
     hour12: true,
