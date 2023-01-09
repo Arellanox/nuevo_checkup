@@ -1052,7 +1052,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       }
                       $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
                         row.MUNICIPIO + ", " + row.ESTADO);
-                      $('#info-paci-procedencia').html(row.PROCEDENCIA);
+                      $('#info-paci-procedencia').html(row.NOMBRE_COMERCIAL);
                       $('#info-paci-prefolio').html(row.PREFOLIO)
                     }
                   },
