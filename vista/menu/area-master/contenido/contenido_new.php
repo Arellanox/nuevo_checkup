@@ -126,7 +126,7 @@ $form = $_POST['form'];
               break;
 
               //<!-- Formulario general -->
-            default:
+            case 'formSubirInterpretacion':
               echo '<form id="formSubirInterpretacion" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh;margin-bottom:10px; padding: 15px;">';
               include 'forms/form_general.html';
               echo '</form>';

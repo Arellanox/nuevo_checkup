@@ -86,8 +86,12 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
                 case 11: //Ultrasonido
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
+                    if (selectPacienteArea.CONFIRMADO_ULTRASO == 1) estadoFormulario(1)
                     ObtenerResultadosUltrsonido(selectEstudio.array);
+                    break;
+                case 10: //Electrocardiograma
+                    if (selectPacienteArea.CONFIRMADO_ELECTRO == 1) estadoFormulario(1)
+                    // ObtenerResultadosUltrsonido(selectEstudio.array);
                     break;
                 default:
                     botonesResultados('activar');

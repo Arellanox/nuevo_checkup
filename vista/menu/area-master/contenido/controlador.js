@@ -41,7 +41,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_new.php');
         break;
       case "ELECTROCARDIOGRAMA":
-        formulario = "formSubirInterpretacion";
+        formulario = "SinForm";
         api_capturas = 2;
         api_interpretacion = 1;
         url_api = 'electrocardiograma_api';
