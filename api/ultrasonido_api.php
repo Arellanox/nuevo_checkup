@@ -30,13 +30,14 @@ $id_imagen = $_POST['id_imagen'];
 $formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
-$host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/" ;
+$host = $_SERVER['SERVER_NAME']=="localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/" ;
+$date = date("dmY_His");
 
 switch($api){
     case 1:
         # insertar la interpretacion
         #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/ultrasonido/$turno_id/interpretacion/";
+        $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
         $r = $master->createDir("../".$ruta_saved);
 
         if($r!=1){
@@ -62,7 +63,7 @@ switch($api){
     case 2:
         $turno_id = $_POST['turno_id'];
         # insertamos las capturas.
-        $ruta_saved = "reportes/modulo/ultrasonido/$turno_id/capturas/";
+        $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/capturas/";
         $r = $master->createDir("../".$ruta_saved);
 
         if($r!=1){
@@ -106,10 +107,46 @@ switch($api){
 
         }
 
-        $response["PDF"] = $response1[0];
-        $response['DETALLE'] = $response1[1];
-        $response['CAPTURAS'] = $capturas; 
-      
+        // $response["PDF"] = $response1[0];
+        // $response['DETALLE'] = $response1[1];
+        // $response['CAPTURAS'] = $capturas;
+        $merge = [];
+        for ($i=0; $i < count($response1[1]); $i++) {
+            $id_imagen = $response1[1][$i]['IMAGEN_ID'];
+            $servicio =  $response1[1][$i]['ID_SERVICIO'];
+
+            $subconjunto = array_filter($response1[0], function ($obj) use ($id_imagen) {
+                $r = $obj['ID_IMAGENOLOGIA'] == $id_imagen;
+                return $r;
+            });
+
+
+            $sub_caps = array_filter($response2, function ($obj) use ($servicio) {
+                $r = $obj['ID_SERVICIO'] == $servicio;
+                return $r;
+            });
+
+            $capturas = [];
+            foreach($sub_caps as $sub){
+                $sub['CAPTURAS'] = json_decode($sub['CAPTURAS'], true);
+                $cap = [];
+                foreach($sub['CAPTURAS'] as $s){
+                    $cap[] = json_decode($s, true);
+                }
+                $sub['CAPTURAS'] = $cap;
+                $capturas[] = $sub;
+            }
+
+            //print_r($sub_caps);
+    
+            $m = array_merge($response1[1][$i], $subconjunto[0]);
+            $m = array_merge($m, $capturas);
+           
+            $merge[] = $m;
+        }
+  
+        # si algo falla por favor de comentar esta linea y decomentar las lineas 110,111,112
+        $response = $merge;
         break;
     default:
         $response = "Api no definida.";
