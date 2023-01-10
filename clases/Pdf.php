@@ -43,7 +43,8 @@ class Reporte{
         switch ($tipo) {
             case 'etiquetas':
                 $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                $barcode  = base64_encode($generator->getBarcode($data->CODIGO_BARRAS, $generator::TYPE_CODE_128));
+                $barcode  = base64_encode($generator->getBarcode($response->BARRAS, $generator::TYPE_CODE_128));
+                // $barcode  = base64_encode($generator->getBarcode('750169978916', $generator::TYPE_CODE_128));
                 break;
             case 'resultados':
                 // Qrcode
@@ -53,16 +54,22 @@ class Reporte{
                 // Qrcode
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
+            case 'ultrasonidos':
+                // Ultrasonidos
+                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
+                break;
             default:
                 $barcode = null;
                 return $barcode;
                 break;
         }
         
+        $host =  isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
         // Path del dominio
         $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
         // $path    = 'pdf/public/resultados/E-00001.pdf';
         // echo $path;
+        // print_r($path);
 
         session_start();
         $view_vars = array(
@@ -86,7 +93,7 @@ class Reporte{
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
                 // $pdf->setPaper('letter', 'portrait');
-                // $path    = 'pdf/public/etiquetas/00002.pdf';
+                // $path    = 'pdf/public/etiquetas/00001.pdf';
                 break;
 
             case 'resultados':
@@ -102,6 +109,12 @@ class Reporte{
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 // $path    = 'pdf/public/oftamologia/E-00001.pdf';
+                break;
+
+            case 'ultrasonidos':
+                $template = render_view('invoice/ultrasonidos.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
                 break;
 
             default:
@@ -126,7 +139,8 @@ class Reporte{
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                return 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                // return 'https://bimo-lab.com/nuevo_checkup/'. $path;
+                echo $host . $path;
                 // echo $path;
                 // return $path;
                 break;
