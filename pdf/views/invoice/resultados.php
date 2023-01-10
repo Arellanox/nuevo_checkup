@@ -107,25 +107,27 @@
                 width: 100%;
                 max-width: 100%;
                 margin: auto;
-                white-space:nowrap;
+                white-space: normal;
+                word-break: break-all;
                 /* table-layout:fixed; */
             }
             th, td {
                 width: 100%;
                 max-width: 100%;
-                word-break: break-all;
+                table-layout: fixed;
+                /* border: 1px solid; */
             }
 
             /* Para divisiones de 3 encabezado*/
             .col-left{
-                width: 35%; 
-                max-width: 35%; 
+                width: 40%; 
+                max-width: 40%; 
                 text-align: left;
                 font-size: 12px;
             }
             .col-center{
-                width: 35%; 
-                max-width: 35%; 
+                width: 30%; 
+                max-width: 30%; 
                 text-align: left;
                 font-size: 12px;
             }
@@ -176,7 +178,7 @@
             /* Fivisiones de cinco */
             .col-one{
                 width: 30%; 
-                max-width: 30%; 
+                max-width: 100px; 
                 text-align: left;
             }
             .col-two{
@@ -290,7 +292,7 @@
                             Procedencia: <strong><?php echo $encabezado->PROCEDENCIA;?> </strong>
                         </td>
                         <td class="col-center"  style="border-bottom: none">
-                            <?php echo (isset($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong>". $encabezado->MEDICO_TRATANTE . "</strong>" : "" ;?> 
+                            <?php (isset($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong>". $encabezado->MEDICO_TRATANTE . "</strong>" : "" ;?> 
                         </td>
                         <td class="col-right"  style="border-bottom: none">
                         </td>
