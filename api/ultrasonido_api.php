@@ -111,10 +111,6 @@ switch($api){
             $capturas[] = $current;
 
         }
-
-        // print_r($response1[0]);
-        // print_r($capturas);
-        // exit;
     
         $merge = [];
         for ($i = 0; $i < count($response1[0]); $i++){
@@ -130,17 +126,6 @@ switch($api){
                 $r = $obj['ID_SERVICIO_CAP'] == $servicio;
                 return $r;
             });
-
-            // $capturas = [];
-            // foreach($sub_caps as $sub){
-            //     $sub['CAPTURAS'] = json_decode($sub['CAPTURAS'], true);
-            //     $cap = [];
-            //     foreach($sub['CAPTURAS'] as $s){
-            //         $cap[] = json_decode($s, true);
-            //     }
-            //     $sub['CAPTURAS'] = $cap;
-            //     $capturas[] = $sub;
-            // }
         
             $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
             $m['CAPTURAS'] = $sub_caps;
@@ -148,39 +133,6 @@ switch($api){
             $merge[] = $m;
         }
 
-        // for ($i=0; $i < count($response1[1]); $i++) {
-        //     $id_imagen = $response1[1][$i]['IMAGEN_ID'];
-        //     $servicio =  $response1[1][$i]['ID_SERVICIO'];
-
-        //     $subconjunto = array_filter($response1[0], function ($obj) use ($id_imagen) {
-        //         $r = $obj['ID_IMAGENOLOGIA'] == $id_imagen;
-        //         return $r;
-        //     });
-
-
-        //     $sub_caps = array_filter($response2, function ($obj) use ($servicio) {
-        //         $r = $obj['ID_SERVICIO'] == $servicio;
-        //         return $r;
-        //     });
-
-        //     $capturas = [];
-        //     foreach($sub_caps as $sub){
-        //         $sub['CAPTURAS'] = json_decode($sub['CAPTURAS'], true);
-        //         $cap = [];
-        //         foreach($sub['CAPTURAS'] as $s){
-        //             $cap[] = json_decode($s, true);
-        //         }
-        //         $sub['CAPTURAS'] = $cap;
-        //         $capturas[] = $sub;
-        //     }
-    
-        //     $m = array_merge($response1[1][$i], $subconjunto[0]);
-        //     $m['CAPTURAS'] = $capturas;
-           
-        //     $merge[] = $m;
-        // }
-  
-        # si algo falla por favor de comentar esta linea y decomentar las lineas 110,111,112
         $response = $merge;
         break;
     case 4:

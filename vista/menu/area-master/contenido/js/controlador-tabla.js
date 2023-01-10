@@ -83,6 +83,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
                 case 7: //Rayos X
+                await ObtenerResultadosUltrsonido(selectEstudio.array);
                     if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
                 case 11: //Ultrasonido

@@ -16,7 +16,7 @@ $api = $_POST['api'];
 
 # Datos para la interpretacion
 $id_rayo = $_POST['id_rayo'];
-$turno_id = $_POST['turno_id'];
+$turno_id = $_POST['id_turno'];
 $usuario = $_SESSION['id'];
 $area_id = 8; #$_POST['area_id']; # el id 8 es para el area de rayos-x
 
@@ -93,7 +93,7 @@ switch($api){
         # recuperar las capturas
         $response = array();
         #recupera la interpretacion.
-        $area_id = 11; # 11 es el id para ultrasonido.
+        $area_id = 8; # 11 es el id para ultrasonido.
         $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
 
         # recupera la capturas del turno.
@@ -112,40 +112,27 @@ switch($api){
         }
 
         $merge = [];
-        for ($i=0; $i < count($response1[1]); $i++) {
-            $id_imagen = $response1[1][$i]['IMAGEN_ID'];
-            $servicio =  $response1[1][$i]['ID_SERVICIO'];
+        for ($i = 0; $i < count($response1[0]); $i++){
+            $id_imagenologia = $response1[0][$i]['ID_IMAGENOLOGIA'];
+            $servicio = $response1[0][$i]['ID_SERVICIO'];
 
-            $subconjunto = array_filter($response1[0], function ($obj) use ($id_imagen) {
-                $r = $obj['ID_IMAGENOLOGIA'] == $id_imagen;
+            $subconjunto = array_filter($response1[1], function ($obj) use ($id_imagenologia) {
+                $r = $obj['IMAGEN_ID'] == $id_imagenologia;
                 return $r;
             });
 
-
-            $sub_caps = array_filter($response2, function ($obj) use ($servicio) {
-                $r = $obj['ID_SERVICIO'] == $servicio;
+            $sub_caps = array_filter($capturas, function ($obj) use ($servicio) {
+                $r = $obj['ID_SERVICIO_CAP'] == $servicio;
                 return $r;
             });
-
-            $capturas = [];
-            foreach($sub_caps as $sub){
-                $sub['CAPTURAS'] = json_decode($sub['CAPTURAS'], true);
-                $cap = [];
-                foreach($sub['CAPTURAS'] as $s){
-                    $cap[] = json_decode($s, true);
-                }
-                $sub['CAPTURAS'] = $cap;
-                $capturas[] = $sub;
-            }
-    
-            $m = array_merge($response1[1][$i], $subconjunto[0]);
-            $m['CAPTURAS'] = $capturas;
         
+            $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
+            $m['CAPTURAS'] = $sub_caps;
+           
             $merge[] = $m;
         }
 
-        # si algo falla por favor de comentar esta linea y decomentar las lineas 110,111,112
-        $response = $merge;       
+        $response = $merge;
         break;
     case 4:
         #recuperar la informacion del Reporte de interpretacion de Rayos-x
