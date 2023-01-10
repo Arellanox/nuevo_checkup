@@ -112,6 +112,10 @@ switch($api){
 
         }
 
+        // print_r($response1[0]);
+        // print_r($capturas);
+        // exit;
+    
         $merge = [];
         for ($i = 0; $i < count($response1[0]); $i++){
             $id_imagenologia = $response1[0][$i]['ID_IMAGENOLOGIA'];
@@ -123,7 +127,7 @@ switch($api){
             });
 
             $sub_caps = array_filter($capturas, function ($obj) use ($servicio) {
-                $r = $obj['ID_SERVICIO'] == $servicio;
+                $r = $obj['ID_SERVICIO_CAP'] == $servicio;
                 return $r;
             });
 
@@ -139,7 +143,7 @@ switch($api){
             // }
         
             $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
-            $m['CAPTURAS'] = $capturas;
+            $m['CAPTURAS'] = $sub_caps;
            
             $merge[] = $m;
         }
