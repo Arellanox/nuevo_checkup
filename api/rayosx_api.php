@@ -7,8 +7,8 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-   $tokenVerification->logout();
-   exit;
+//    $tokenVerification->logout();
+//    exit;
 }
 
 $master = new Master();
@@ -105,6 +105,42 @@ switch($api){
         $response['DETALLE'] = $response1[1];
         $response['CAPTURAS'] = $capturas; 
        
+        break;
+    case 4:
+        #recuperar la informacion del Reporte de interpretacion de Rayos-x
+        $response = array();
+        # recuperar los resultados de rayos x
+        $area_id = 8; # 8 es el id para rayosx.
+        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
+
+            $arrayimg = [];
+
+            for ($i=0; $i < count($response1[1]) ; $i++) { 
+                
+                $servicio = $response1[1][$i]['SERVICIO'];
+                $hallazgo = $response1[1][$i]['HALLAZGO'];
+                $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
+                $comentario = $response1[1][$i]['COMENTARIO'];
+                $array1 = array(
+                    "ESTUDIO" => $servicio,
+                    "HALLAZGO" => $hallazgo,
+                    "INTERPRETACION" => $servicioimg,
+                    "COMENTARIO" => $comentario,
+
+                );
+                array_push($arrayimg, $array1);
+            }
+
+            $arregloPaciente = array(
+                'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+                "EDAD" => $infoPaciente[0]['EDAD'],
+                'SEXO' => $infoPaciente[0]['SEXO'],
+                'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
+                'ESTUDIOS' => $arrayimg
+            );
+            // print_r($arregloPaciente);
+            $response = $arregloPaciente;
+
         break;
     default:
         $response = "Api no definida...";

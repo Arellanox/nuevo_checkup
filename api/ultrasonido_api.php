@@ -148,6 +148,44 @@ switch($api){
         # si algo falla por favor de comentar esta linea y decomentar las lineas 110,111,112
         $response = $merge;
         break;
+        case 4:
+            #Recuperar info paciente
+            $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
+
+            #recuperar la informacion del Reporte de interpretacion de ultrasonido
+            $response = array();
+            # recuperar los resultados de ultrasonido
+            $area_id = 11; #11 es el id para ultrasonido.
+            $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
+
+            $arrayimg = [];
+
+            for ($i=0; $i < count($response1[1]) ; $i++) { 
+                
+                $servicio = $response1[1][$i]['SERVICIO'];
+                $hallazgo = $response1[1][$i]['HALLAZGO'];
+                $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
+                $comentario = $response1[1][$i]['COMENTARIO'];
+                $array1 = array(
+                    "ESTUDIO" => $servicio,
+                    "HALLAZGO" => $hallazgo,
+                    "INTERPRETACION" => $servicioimg,
+                    "COMENTARIO" => $comentario,
+
+                );
+                array_push($arrayimg, $array1);
+            }
+
+            $arregloPaciente = array(
+                'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+                "EDAD" => $infoPaciente[0]['EDAD'],
+                'SEXO' => $infoPaciente[0]['SEXO'],
+                'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
+                'ESTUDIOS' => $arrayimg
+            );
+            // print_r($arregloPaciente);
+            $response = $arregloPaciente;
+            break;
     default:
         $response = "Api no definida.";
         break;
