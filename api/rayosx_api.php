@@ -115,8 +115,7 @@ switch($api){
 
             $arrayimg = [];
 
-            for ($i=0; $i < count($response1[1]) ; $i++) { 
-                
+            for ($i=0; $i < count($response1[1]) ; $i++) {                
                 $servicio = $response1[1][$i]['SERVICIO'];
                 $hallazgo = $response1[1][$i]['HALLAZGO'];
                 $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
