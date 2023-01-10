@@ -151,6 +151,7 @@ switch($api){
         case 4:
             #Recuperar info paciente
             $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
+            $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
 
             #recuperar la informacion del Reporte de interpretacion de ultrasonido
             $response = array();
@@ -180,15 +181,76 @@ switch($api){
                 'NOMBRE' => $infoPaciente[0]['NOMBRE'],
                 "EDAD" => $infoPaciente[0]['EDAD'],
                 'SEXO' => $infoPaciente[0]['SEXO'],
+                'FOLIO' => $infoPaciente[0]['FOLIO_IMAGEN'],
                 'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
                 'ESTUDIOS' => $arrayimg
             );
             // print_r($arregloPaciente);
             $response = $arregloPaciente;
             break;
+    case 5:
+        crearReporteUltrasonido($turnod_id, $area_id);
+        break;
     default:
         $response = "Api no definida.";
         break;
 }
 echo $master->returnApi($response);
+
+
+function crearReporteUltrasonido($turno_id,$area_id){
+    $master = new Master();
+    #Recuperar info paciente
+    $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
+    $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+
+    #recuperar la informacion del Reporte de interpretacion de ultrasonido
+    $response = array();
+    # recuperar los resultados de ultrasonido
+    $area_id = 11; #11 es el id para ultrasonido.
+    $response1 = $master->getByNext('sp_imagenologia_resultados_b', [null,$turno_id,$area_id]);
+
+    $arrayimg = [];
+
+    for ($i=0; $i < count($response1[1]) ; $i++) { 
+        
+        $servicio = $response1[1][$i]['SERVICIO'];
+        $hallazgo = $response1[1][$i]['HALLAZGO'];
+        $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
+        $comentario = $response1[1][$i]['COMENTARIO'];
+        $array1 = array(
+            "ESTUDIO" => $servicio,
+            "HALLAZGO" => $hallazgo,
+            "INTERPRETACION" => $interpretacion,
+            "COMENTARIO" => $comentario,
+
+        );
+        array_push($arrayimg, $array1);
+    }
+
+    $arregloPaciente = array(
+        'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+        "EDAD" => $infoPaciente[0]['EDAD'],
+        'SEXO' => $infoPaciente[0]['SEXO'],
+        'FOLIO' => $infoPaciente[0]['FOLIO_IMAGEN'],
+        'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
+        'ESTUDIOS' => $arrayimg
+    );
+
+    # pie de pagina
+    $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
+    $nombre_paciente = $infoPaciente[0]['NOMBRE'];
+    $nombre = str_replace(" ", "_", $nombre_paciente);
+
+    $ruta_saved = "reportes/modulo/ultrasonido/$fecha_resultado/$turno_id/";
+
+    # Crear el directorio si no existe
+    $r = $master->createDir("../" . $ruta_saved);
+    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['TURNO'] . '-' . $fecha_resultado);
+
+    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
+    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
+    $pdf->build();
+
+}
 ?>
