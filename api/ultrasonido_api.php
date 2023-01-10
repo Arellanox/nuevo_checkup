@@ -235,7 +235,7 @@ function crearReporteUltrasonido($turno_id,$area_id){
     );
 
     # pie de pagina
-    $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
+    $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
     $nombre_paciente = $infoPaciente[0]['NOMBRE'];
     $nombre = str_replace(" ", "_", $nombre_paciente);
 

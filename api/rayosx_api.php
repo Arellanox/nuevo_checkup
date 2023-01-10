@@ -229,11 +229,11 @@ function crearReporteRayosX($turno_id,$area_id){
     );
 
     # pie de pagina
-    $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
+    $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
     $nombre_paciente = $infoPaciente[0]['NOMBRE'];
     $nombre = str_replace(" ", "_", $nombre_paciente);
 
-    $ruta_saved = "reportes/modulo/ultrasonido/$fecha_resultado/$turno_id/";
+    $ruta_saved = "reportes/modulo/rayos_x/$fecha_resultado/$turno_id/";
 
     # Crear el directorio si no existe
     $r = $master->createDir("../" . $ruta_saved);
