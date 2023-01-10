@@ -19,7 +19,7 @@ function formatoFechaSQL(fecha, formato) {
 function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
   if (fecha == null)
     return '';
-  console.log(fecha)
+  // console.log(fecha)
   let options = {
     hour12: true,
     timeZone: 'America/Mexico_City'
@@ -528,7 +528,7 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
                   datao += " - " + data[i][htmlContent[a]];
                 }
               }
-              console.log(datao)
+              // console.log(datao)
 
             }
           } else {
@@ -833,7 +833,7 @@ function bugGetPanel(divClass, loader, loaderDiv1) {
     if (!$(divClass).is(':visible')) {
       setTimeout(function () {
         $(divClass).fadeIn(0)
-        console.log("Visible!")
+        // console.log("Visible!")
       }, 100)
     }
     $(divClass).fadeIn(0)
@@ -914,7 +914,7 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
     $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.html", function (html) {
       setTimeout(function () {
         $(div).html(html);
-        console.log(cliente)
+        // console.log(cliente)
         if (cliente == "Particular" || cliente == "PARTICULAR") {
           $('.onlyProcedencia').fadeOut(0);
         } else {

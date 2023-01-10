@@ -1,8 +1,10 @@
 $('#fechaListadoAreaMaster').change(function () {
+  console.log(1)
   recargarVistaLab();
 })
 
 $('#checkDiaAnalisis').click(function () {
+  console.log(1)
   if ($(this).is(':checked')) {
     recargarVistaLab(0)
     $('#fechaListadoAreaMaster').prop('disabled', true)
@@ -57,6 +59,7 @@ function chooseEstudio(row, modal, tip) {
   console.log(row)
   switch (tip) {
     case 1:
+      return false
       for (var i = 0; i < row.length; i++) {
         if (row[i]['INTERPRETACION'] == null) {
           html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
@@ -75,8 +78,8 @@ function chooseEstudio(row, modal, tip) {
       break;
     case 2:
       for (var i = 0; i < row.length; i++) {
-        if (row[i]['IMAGENES'].length == 0) {
-          html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
+        if (row[i]['CAPTURAS'].length == 0) {
+          html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['SERVICIO'] + `, '` + modal + `', ` + row[i]['ID_SERVICIO'] + `)" type="button">` + row[i]['SERVICIO'] + `</button>`;
         }
       }
       if (html) {
@@ -87,7 +90,7 @@ function chooseEstudio(row, modal, tip) {
           showConfirmButton: false,
         });
       } else {
-        alertSelectTable('Se han guardado todas sus capturas')
+        alertSelectTable('Se han guardado todas sus capturas', 'success', 400)
       }
       break;
     default:
@@ -96,9 +99,10 @@ function chooseEstudio(row, modal, tip) {
 
 }
 
-function estudioSeleccionado(id, modal) {
+function estudioSeleccionado(id, modal, serv) {
   selectEstudio.selectID = id;
   Swal.close();
-  console.log(selectEstudio.selectID)
+  // console.log(selectEstudio.selectID)
+  servicio_nombre = serv;
   $(modal).modal("show");
 }

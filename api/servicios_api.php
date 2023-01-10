@@ -281,20 +281,20 @@ switch ($api) {
         $response = array();
         $response1 = $master->getByNext('sp_detalle_turno_b', [$id_turno, $id_area]);
 
-        for ($i=0; $i < count($response1[0]); $i++) {
+        for ($i = 0; $i < count($response1[0]); $i++) {
             # en response[0] llegan la interpretacion o las interpretacion (en caso de que no se le haya mandando algun filtro).
             $turno = $response1[0][$i]['ID_TURNO'];
             $area = $response1[0][$i]['AREA_ID'];
-           
+
             #filtramos solo las capturas para ese turno y esa area.
-            $subconjunto_imagen = array_filter($response1[1], function ($obj) use ($turno,$area) {
-                $r = $obj['AREA_ID'] == $area && $obj['TURNO_ID']==$turno;
+            $subconjunto_imagen = array_filter($response1[1], function ($obj) use ($turno, $area) {
+                $r = $obj['AREA_ID'] == $area && $obj['TURNO_ID'] == $turno;
                 return $r;
             });
 
-             # convertir en arreglo las capturas.
+            # convertir en arreglo las capturas.
             $capturas = array();
-            foreach($subconjunto_imagen as $current){
+            foreach ($subconjunto_imagen as $current) {
                 $current['CAPTURAS'] = json_decode($current['CAPTURAS'], true);
                 $capturas[] = $current;
             }
@@ -302,7 +302,7 @@ switch ($api) {
             # agregamos un espacio para en el arreglo de las interpretacion para guardar las imagenes.
             $response1[0][$i]['IMAGENES'] = $capturas;
         }
-       
+
 
         // for ($i = 0; $i < count($response); $i++) {
         //     $newImg = array();
@@ -490,7 +490,7 @@ switch ($api) {
                 );
                 array_push($arrayEtiqueta, $array1);
                 $arrayEtiquetaEstudios = [];
-            } else if ($muestra !== $infoEtiqueta[$i]['MUESTRA']){
+            } else if ($muestra !== $infoEtiqueta[$i]['MUESTRA']) {
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
                 $muestra = $infoEtiqueta[$i]['MUESTRA'];
                 $array1 = array(
@@ -499,7 +499,7 @@ switch ($api) {
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
                 );
                 array_push($arrayEtiqueta, $array1);
-                $arrayEtiquetaEstudios = [];    
+                $arrayEtiquetaEstudios = [];
             }
         }
 
@@ -518,7 +518,7 @@ switch ($api) {
         // print_r($arrayPacienteEtiqueta);
         // print_r($arrayPacienteEtiqueta);
 
-        $pdf = new Reporte(json_encode($arrayPacienteEtiqueta[0]), null, null, null, 'ultrasonidos', 'url');
+        $pdf = new Reporte(json_encode($arrayPacienteEtiqueta[0]), null, null, null, 'etiquetas', 'url');
         $pdf->build();
         break;
     default:
@@ -538,110 +538,6 @@ function ordenar($servicios, $clasificacion, $turno)
             $in_array++;
         }
     }
-    foreach($servicios as $current){
-        if(in_array(1,$current)){
-            $in_array++;
-        }
-    }
-
-    #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
-    if ($in_array > 0) {
-    #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
-    if($in_array>0){
-        $bh = array_filter($servicios, function ($obj) {
-            $r = $obj['GRUPO_ID'] == 1;
-            return $r;
-        });
-
-        $abs = array_filter($bh, function ($obj) {
-            $r = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
-            return $r;
-        });
-
-        foreach ($abs as $current) {
-            $absoluto_array[] = array(
-                "analito" => $current['DESCRIPCION_SERVICIO'],
-                "valor_abosluto" => $current['VALOR_ABSOLUTO'],
-                "referencia" => null,
-                "unidad" => null
-            );
-        }
-    }
-
-    $master = new Master();
-    $grupos = $master->getByProcedure('sp_cargar_grupos', [$turno, 6]);
-    $estudios = array();
-    $analitos = array();
-    for ($i = 0; $i < count($grupos); $i++) {
-        $nombre_grupo = $grupos[$i]['GRUPO'];
-        $contenido_grupo = array_filter($servicios, function ($obj) use ($nombre_grupo) {
-            $r = $obj['GRUPO'] == $nombre_grupo;
-            return $r;
-        });
-
-        if (!empty($contenido_grupo)) {
-
-
-
-            # llenado de los analitos del grupo
-            foreach ($contenido_grupo as $current) {
-                $nombre_grupo = $current['GRUPO'];
-                $observacionnes_generales = $current['OBSERVACIONES'];
-                $id_grupo = $current['GRUPO_ID'];
-
-                $item = array(
-                    "nombre"            => $current['DESCRIPCION_SERVICIO'],
-                    "unidad"            => $current['MEDIDA'],
-                    "resultado"         => $current['RESULTADO'],
-                    "referencia"        => $current['VALOR_DE_REFERENCIA'],
-                    "observaciones"     => isset($id_grupo) ? null : $current['OBSERVACIONES']
-                );
-
-                $analitos[] = $item;
-            }
-
-            if ($id_grupo == 1) {
-                $last_position = count($analitos) - 1;
-                $aux = $analitos[$last_position];
-                $analitos[$last_position] = $absoluto_array;
-                $analitos[] = $aux;
-            }
-
-            # llenar arreglo estudios
-            $estudios[] = array(
-                "estudio"        => $nombre_grupo,
-                "analitos"       => $analitos,
-                "metodo"         => "",
-                "equipo"         => "",
-                "observaciones"  => $observacionnes_generales
-            );
-            $analitos = array();
-        }
-    }
-
-    # ARREGLO DE AREAS
-
-    $response = array(
-        "area" => $clasificacion,
-        "estudios" => $estudios
-    );
-
-    return $response;
-}
-
-function ordenarResultados($servicios, $clasificacion)
-{
-    $group = array();
-    $grupo_array = array();
-
-    $absoluto_array = array();
-
-    $first_key = array_key_first($servicios);
-    $grupo = $servicios[$first_key]['GRUPO'];
-
-    $in_array = 0;
-
-    #estamos buscandor el id 1 que corresponde a la biometria hematica
     foreach ($servicios as $current) {
         if (in_array(1, $current)) {
             $in_array++;
@@ -650,113 +546,217 @@ function ordenarResultados($servicios, $clasificacion)
 
     #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
     if ($in_array > 0) {
-        $bh = array_filter($servicios, function ($obj) {
-            $r = $obj['GRUPO_ID'] == 1;
-            return $r;
-        });
+        #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
+        if ($in_array > 0) {
+            $bh = array_filter($servicios, function ($obj) {
+                $r = $obj['GRUPO_ID'] == 1;
+                return $r;
+            });
 
-        $abs = array_filter($bh, function ($obj) {
-            $r = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
-            return $r;
-        });
+            $abs = array_filter($bh, function ($obj) {
+                $r = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
+                return $r;
+            });
 
-        foreach ($abs as $current) {
-            $absoluto_array[] = array(
-                "analito" => $current['DESCRIPCION_SERVICIO'],
-                "valor_abosluto" => $current['VALOR_ABSOLUTO']
+            foreach ($abs as $current) {
+                $absoluto_array[] = array(
+                    "analito" => $current['DESCRIPCION_SERVICIO'],
+                    "valor_abosluto" => $current['VALOR_ABSOLUTO'],
+                    "referencia" => null,
+                    "unidad" => null
+                );
+            }
+        }
+
+        $master = new Master();
+        $grupos = $master->getByProcedure('sp_cargar_grupos', [$turno, 6]);
+        $estudios = array();
+        $analitos = array();
+        for ($i = 0; $i < count($grupos); $i++) {
+            $nombre_grupo = $grupos[$i]['GRUPO'];
+            $contenido_grupo = array_filter($servicios, function ($obj) use ($nombre_grupo) {
+                $r = $obj['GRUPO'] == $nombre_grupo;
+                return $r;
+            });
+
+            if (!empty($contenido_grupo)) {
+
+
+
+                # llenado de los analitos del grupo
+                foreach ($contenido_grupo as $current) {
+                    $nombre_grupo = $current['GRUPO'];
+                    $observacionnes_generales = $current['OBSERVACIONES'];
+                    $id_grupo = $current['GRUPO_ID'];
+
+                    $item = array(
+                        "nombre"            => $current['DESCRIPCION_SERVICIO'],
+                        "unidad"            => $current['MEDIDA'],
+                        "resultado"         => $current['RESULTADO'],
+                        "referencia"        => $current['VALOR_DE_REFERENCIA'],
+                        "observaciones"     => isset($id_grupo) ? null : $current['OBSERVACIONES']
+                    );
+
+                    $analitos[] = $item;
+                }
+
+                if ($id_grupo == 1) {
+                    $last_position = count($analitos) - 1;
+                    $aux = $analitos[$last_position];
+                    $analitos[$last_position] = $absoluto_array;
+                    $analitos[] = $aux;
+                }
+
+                # llenar arreglo estudios
+                $estudios[] = array(
+                    "estudio"        => $nombre_grupo,
+                    "analitos"       => $analitos,
+                    "metodo"         => "",
+                    "equipo"         => "",
+                    "observaciones"  => $observacionnes_generales
+                );
+                $analitos = array();
+            }
+        }
+
+        # ARREGLO DE AREAS
+
+        $response = array(
+            "area" => $clasificacion,
+            "estudios" => $estudios
+        );
+
+        return $response;
+    }
+
+    function ordenarResultados($servicios, $clasificacion)
+    {
+        $group = array();
+        $grupo_array = array();
+
+        $absoluto_array = array();
+
+        $first_key = array_key_first($servicios);
+        $grupo = $servicios[$first_key]['GRUPO'];
+
+        $in_array = 0;
+
+        #estamos buscandor el id 1 que corresponde a la biometria hematica
+        foreach ($servicios as $current) {
+            if (in_array(1, $current)) {
+                $in_array++;
+            }
+        }
+
+        #si existe la biometria hematica, obtenemos los valores absolutos y creamos un array
+        if ($in_array > 0) {
+            $bh = array_filter($servicios, function ($obj) {
+                $r = $obj['GRUPO_ID'] == 1;
+                return $r;
+            });
+
+            $abs = array_filter($bh, function ($obj) {
+                $r = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
+                return $r;
+            });
+
+            foreach ($abs as $current) {
+                $absoluto_array[] = array(
+                    "analito" => $current['DESCRIPCION_SERVICIO'],
+                    "valor_abosluto" => $current['VALOR_ABSOLUTO']
+                );
+            }
+        }
+
+
+        $observaciones = "";
+
+        for ($j = $first_key, $x = 0, $k = 0; $x < count($servicios); $j++, $x++) {
+            if ($servicios[$j]['GRUPO'] == $grupo) {
+                if (isset($servicios[$j]['GRUPO_ID'])) {
+                    # si viene de un grupo, se guardal la observacion para agregarla al arreglo que guarda al grupo
+                    $observaciones = $servicios[$j]['OBSERVACIONES'];
+                    $grupo_array[] = array(
+                        "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                        "unidad" => $servicios[$j]["MEDIDA"],
+                        "resultado" => $servicios[$j]['RESULTADO'],
+                        "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
+
+                    );
+                } else {
+                    # si lo agregaron por separado, se tiene que agregar al arreglo actual, la observacion
+                    $grupo_array[] = array(
+                        "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                        "unidad" => $servicios[$j]["MEDIDA"],
+                        "resultado" => $servicios[$j]['RESULTADO'],
+                        "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA'],
+                        "observaciones" => $servicios[$j]['OBSERVACIONES']
+
+                    );
+                }
+            } else {
+                if (isset($observaciones)) {
+                    $group[$k] = array(
+                        "estudio" => $grupo,
+                        "analitos" => $grupo_array,
+                        "metodo" => "OPTICO",
+                        "observaciones" => $observaciones
+
+                    );
+                } else {
+                    $group[$k] = array(
+                        "estudio" => $grupo,
+                        "analitos" => $grupo_array,
+                        "metodo" => "OPTICO"
+                    );
+                }
+
+                $k++;
+                $grupo = $servicios[$j]['GRUPO'];
+                $grupo_array = array();
+
+                if (isset($servicios[$j]['GRUPO_ID'])) {
+                    # si viene de un grupo, se guardal la observacion para agregarla al arreglo que guarda al grupo
+                    $observaciones = $servicios[$j]['OBSERVACIONES'];
+                    $grupo_array[] = array(
+                        "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                        "unidad" => $servicios[$j]["MEDIDA"],
+                        "resultado" => $servicios[$j]['RESULTADO'],
+                        "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
+
+                    );
+                } else {
+                    # si lo agregaron por separado, se tiene que agregar al arreglo actual, la observacion
+                    $grupo_array[] = array(
+                        "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
+                        "unidad" => $servicios[$j]["MEDIDA"],
+                        "resultado" => $servicios[$j]['RESULTADO'],
+                        "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA'],
+                        "observaciones" => $servicios[$j]['OBSERVACIONES']
+
+                    );
+                }
+            }
+
+            $group[$k] = array(
+                "estudio" => $grupo,
+                "analitos" => $grupo_array,
+                "metodo"        => "OPTICO",
             );
         }
-    }
 
 
-    $observaciones = "";
-
-    for ($j = $first_key, $x = 0, $k = 0; $x < count($servicios); $j++, $x++) {
-        if ($servicios[$j]['GRUPO'] == $grupo) {
-            if (isset($servicios[$j]['GRUPO_ID'])) {
-                # si viene de un grupo, se guardal la observacion para agregarla al arreglo que guarda al grupo
-                $observaciones = $servicios[$j]['OBSERVACIONES'];
-                $grupo_array[] = array(
-                    "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                    "unidad" => $servicios[$j]["MEDIDA"],
-                    "resultado" => $servicios[$j]['RESULTADO'],
-                    "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
-
-                );
-            } else {
-                # si lo agregaron por separado, se tiene que agregar al arreglo actual, la observacion
-                $grupo_array[] = array(
-                    "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                    "unidad" => $servicios[$j]["MEDIDA"],
-                    "resultado" => $servicios[$j]['RESULTADO'],
-                    "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA'],
-                    "observaciones" => $servicios[$j]['OBSERVACIONES']
-
-                );
-            }
-        } else {
-            if (isset($observaciones)) {
-                $group[$k] = array(
-                    "estudio" => $grupo,
-                    "analitos" => $grupo_array,
-                    "metodo" => "OPTICO",
-                    "observaciones" => $observaciones
-
-                );
-            } else {
-                $group[$k] = array(
-                    "estudio" => $grupo,
-                    "analitos" => $grupo_array,
-                    "metodo" => "OPTICO"
-                );
-            }
-
-            $k++;
-            $grupo = $servicios[$j]['GRUPO'];
-            $grupo_array = array();
-
-            if (isset($servicios[$j]['GRUPO_ID'])) {
-                # si viene de un grupo, se guardal la observacion para agregarla al arreglo que guarda al grupo
-                $observaciones = $servicios[$j]['OBSERVACIONES'];
-                $grupo_array[] = array(
-                    "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                    "unidad" => $servicios[$j]["MEDIDA"],
-                    "resultado" => $servicios[$j]['RESULTADO'],
-                    "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA']
-
-                );
-            } else {
-                # si lo agregaron por separado, se tiene que agregar al arreglo actual, la observacion
-                $grupo_array[] = array(
-                    "nombre" => $servicios[$j]['DESCRIPCION_SERVICIO'],
-                    "unidad" => $servicios[$j]["MEDIDA"],
-                    "resultado" => $servicios[$j]['RESULTADO'],
-                    "referencia" => $servicios[$j]['VALOR_DE_REFERENCIA'],
-                    "observaciones" => $servicios[$j]['OBSERVACIONES']
-
-                );
-            }
-        }
-
-        $group[$k] = array(
-            "estudio" => $grupo,
-            "analitos" => $grupo_array,
-            "metodo"        => "OPTICO",
+        $aux = array(
+            "area" => $clasificacion, # $clasificaciones[$i]['DESCRIPCION'],
+            "estudios" => $group
         );
+
+        if (!empty($absoluto_array)) {
+            $position = count($aux['estudios'][0]['analitos']) - 1;
+            $aux_abs = $aux['estudios'][0]['analitos'][$position];
+            $aux['estudios'][0]['analitos'][$position] = $absoluto_array;
+            $aux['estudios'][0]['analitos'][] = $aux_abs;
+        }
+        return $aux;
     }
-
-
-    $aux = array(
-        "area" => $clasificacion, # $clasificaciones[$i]['DESCRIPCION'],
-        "estudios" => $group
-    );
-
-    if (!empty($absoluto_array)) {
-        $position = count($aux['estudios'][0]['analitos']) - 1;
-        $aux_abs = $aux['estudios'][0]['analitos'][$position];
-        $aux['estudios'][0]['analitos'][$position] = $absoluto_array;
-        $aux['estudios'][0]['analitos'][] = $aux_abs;
-    }
-    return $aux;
-}
 }

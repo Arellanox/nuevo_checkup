@@ -38,6 +38,7 @@ $("#formSubirCapturas").submit(function (event) {
   var formData = new FormData(form);
   formData.set('turno_id', selectPacienteArea['ID_TURNO'])
   formData.set('servicio_id', selectEstudio.selectID)
+  formData.set('NOMBRE_SERVICIO', servicio_nombre)
   formData.set('api', api_capturas);
   Swal.fire({
     title: "¿Está seguro de cargar las capturas correctas?",
@@ -64,15 +65,12 @@ $("#formSubirCapturas").submit(function (event) {
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
-            Toast.fire({
-              icon: "success",
-              title: "¡Capturas guardadas!",
-              timer: 2000,
-            });
+            alertMensaje('success', 'Capturas guardada', '')
+            // tablaContenido.ajax.reload()
             document.getElementById("formSubirCapturas").reset();
             $("#ModalSubirCapturas").modal("hide");
-            $("#formSubirCapturas:submit").prop('disabled', false)
-            limpiarCampos()
+            // $("#formSubirCapturas:submit").prop('disabled', false)
+            // limpiarCampos()
             // tablaContacto.ajax.reload();
           }
         },
