@@ -31,12 +31,13 @@ $formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
 $host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/" ;
+$date = date("dmY_His");
 
 switch($api){
     case 1:
         # insertar la interpretacion
         #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/rayosx/$turno_id/interpretacion/";
+        $ruta_saved = "reportes/modulo/rayosx/$date/$turno_id/interpretacion/";
         $r = $master->createDir("../".$ruta_saved);
         
         if($r!=1){
@@ -52,7 +53,7 @@ switch($api){
         $last_id = $master->insertByProcedure('sp_imagenologia_resultados_g',[$id_imagen,$turno_id,$ruta_archivo,$usuario,$area_id]);
 
         # insertar el formulario de bimo.
-        foreach($formulario as $item){
+        foreach($formulario as $id_servicio => $item){
             $res = $master->insertByProcedure('sp_imagen_detalle_g',[null,$turno_id,$id_servicio,$item['hallazgo'],$item['interpretacion'],$item['comentario'],$last_id]);
         }
 
@@ -61,8 +62,10 @@ switch($api){
         break;
     case 2:
         $turno_id = $_POST['turno_id'];
+        $nombre_servicio = $_POST['nombre_servicio'];
+        $serv = str_replace(" ", "_", $nombre_servicio);
         #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/rayosx/$turno_id/capturas/";
+        $ruta_saved = "reportes/modulo/rayosx/$date/$turno_id/capturas/";
         $r = $master->createDir("../".$ruta_saved);
         
         if($r!=1){
@@ -74,7 +77,7 @@ switch($api){
         # combinar la ruta_saved con ../ sirve para crear la ruta el directorio en el servidor
         # por si no existe aun.
         # se necesita formatear la ruta para agregarle el la url completa de internet.
-        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_RX_$turno_id");
+        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_RX_$serv");
 
         # formateamos la ruta de los archivos para guardarlas en la base de datos
         for ($i=0; $i < count($capturas); $i++) {
@@ -87,24 +90,60 @@ switch($api){
     case 3:
         # recuperar las capturas
         $response = array();
-        # recuperar los resultados de rayos x
-        $area_id = 8; # 8 es el id para rayosx.
+        #recupera la interpretacion.
+        $area_id = 11; # 11 es el id para ultrasonido.
         $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
 
-        # recuperar las capturas si las tiene.
-
-        $response2 = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id,$area_id]);
+        # recupera la capturas del turno.
+        # necesitamos enviarle el area del estudio para hacer el filtro.
+        $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$turno_id,$area_id]);
 
         $capturas = [];
         foreach($response2 as $current){
-            $current['CAPTURAS'] = json_decode($current['CAPTURAS'], true);
+            $capturas_child = [];
+            foreach(json_decode($current['CAPTURAS'],true) as $item){
+                $capturas_child[] = json_decode($item, true);
+            }
+            $current['CAPTURAS'] = $capturas_child;
             $capturas[] = $current;
+
         }
+
+        $merge = [];
+        for ($i=0; $i < count($response1[1]); $i++) {
+            $id_imagen = $response1[1][$i]['IMAGEN_ID'];
+            $servicio =  $response1[1][$i]['ID_SERVICIO'];
+
+            $subconjunto = array_filter($response1[0], function ($obj) use ($id_imagen) {
+                $r = $obj['ID_IMAGENOLOGIA'] == $id_imagen;
+                return $r;
+            });
+
+
+            $sub_caps = array_filter($response2, function ($obj) use ($servicio) {
+                $r = $obj['ID_SERVICIO'] == $servicio;
+                return $r;
+            });
+
+            $capturas = [];
+            foreach($sub_caps as $sub){
+                $sub['CAPTURAS'] = json_decode($sub['CAPTURAS'], true);
+                $cap = [];
+                foreach($sub['CAPTURAS'] as $s){
+                    $cap[] = json_decode($s, true);
+                }
+                $sub['CAPTURAS'] = $cap;
+                $capturas[] = $sub;
+            }
+    
+            $m = array_merge($response1[1][$i], $subconjunto[0]);
+            $m['CAPTURAS'] = $capturas;
         
-        $response["PDF"] = $response1[0];
-        $response['DETALLE'] = $response1[1];
-        $response['CAPTURAS'] = $capturas; 
-       
+            $merge[] = $m;
+        }
+
+        # si algo falla por favor de comentar esta linea y decomentar las lineas 110,111,112
+        $response = $merge;       
         break;
     case 4:
         #recuperar la informacion del Reporte de interpretacion de Rayos-x
