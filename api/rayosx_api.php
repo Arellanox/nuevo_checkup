@@ -241,7 +241,7 @@ function crearReporteRayosX($turno_id,$area_id){
     $r = $master->createDir("../" . $ruta_saved);
     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['TURNO'] . '-' . $fecha_resultado);
 
-    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
+    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 8);
     $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
     $pdf->build();
 
