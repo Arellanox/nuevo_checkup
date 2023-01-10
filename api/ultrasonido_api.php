@@ -50,7 +50,7 @@ switch($api){
 
         $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
-        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$ruta_archivo,$usuario,$area_id]);
+        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$ruta_archivo,$usuario,$area_id,null]);
 
         # insertar el formulario de bimo.
         foreach($formulario as $id_servicio => $item){
@@ -60,7 +60,7 @@ switch($api){
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
 
         $url = crearReporteUltrasonido($turno_id, $area_id);
-        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id,null,$url,null,null]);
+        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id,null,null,null,null,$url]);
         $response = $last_id;
         break;
     case 2:
