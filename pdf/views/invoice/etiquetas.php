@@ -19,7 +19,7 @@
 
         body{
             font-family: 'Roboto', sans-serif;
-			font-size: 6px;
+			font-size: 8px;
 			width: 50mm;
             max-width: 50mm;
             height: 25mm;
@@ -28,6 +28,10 @@
             /* list-style: circle; */
             /* background-color: aqua; */
 		}
+        p{
+            white-space: normal;
+            word-break: break-all;
+        }
 
         .header { 
             position: fixed; 
@@ -49,7 +53,18 @@
         }
 
         table{
+            width: 100%;
+            max-width: 100%;
             text-align:justify ;
+            margin: auto;
+            white-space: normal;
+            word-break: break-all;
+        }
+        th, td {
+            width: 100%;
+            max-width: 90px;
+            table-layout: fixed;
+            /* border: 1px solid; */
         }
         
         .label{
@@ -69,31 +84,31 @@
     </div>
     <div class="label">
         <table>
-        <?php
-            $count = count($resultados->CONTENEDORES);
-            $i = 0;
+            <?php
+                $count = count($resultados->CONTENEDORES);
+                $i = 0;
 
-            $recipientes = $resultados;
-            foreach ($recipientes->CONTENEDORES as $a => $recipiente) {
-                echo "  <tr >
-                            <td>
-                                <label>"
-                                    .   $recipientes->FECHA_TOMA ."
-                                </label>
-                                <p>".   $recipiente->CONTENEDOR . " (" . $recipiente->MUESTRA ." ) </p>
-                                <p>".   $recipientes->NOMBRE . "</p>
-                                <p>".   $recipientes->EDAD . " años - " . $recipientes->SEXO .  "</p>";
-                    $etiqueta = '';
-                    foreach ($recipiente->ESTUDIOS as $b => $estudio) {
-                        $etiqueta = $etiqueta . $estudio->ABREVIATURA . ", "; 
-                    }
-                    echo    "   <p> <img src='data:image/png;base64," .  $barcode .  " width='50px' height='20px'></p> 
-                                <p style='font-size: 7px; padding-right:2px;'>". $etiqueta ."</p>
-                            </td>
-                        </tr>";
-                $i++;
-            }
-        ?>
+                $recipientes = $resultados;
+                foreach ($recipientes->CONTENEDORES as $a => $recipiente) {
+                    echo "  <tr>
+                                <td>
+                                    <p style='font-size: 8px;'> <span style='font-weight:bold;'>".   $recipiente->CONTENEDOR . " (" . $recipiente->MUESTRA ." ) </span> | " .   $recipientes->FECHA_TOMA ." </p>
+                                    <p>".   $recipientes->NOMBRE . "</p>
+                                    <p>".   $recipientes->EDAD . " años | " . $recipientes->SEXO .  "</p>";
+                        $etiqueta = '';
+                        foreach ($recipiente->ESTUDIOS as $b => $estudio) {
+                            $etiqueta = $etiqueta . $estudio->ABREVIATURA . ", "; 
+                        }
+                        echo    "   
+                                    <p style='text-align:center; padding-top: 4px; padding-bottom: 4px;'> 
+                                        <img src='data:image/png;base64," .  $barcode .  " width='65px' height='30px'>
+                                    </p> 
+                                    <p style='font-size: 9px; padding-right:2px;'>". $etiqueta ."</p>
+                                </td>
+                            </tr>";
+                    $i++;
+                }
+            ?>
         </table>
     </div>
 </body>

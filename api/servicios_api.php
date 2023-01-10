@@ -516,8 +516,9 @@ switch ($api) {
         $arrayPacienteEtiqueta = array($arregloPaciente);
 
         // print_r($arrayPacienteEtiqueta);
-        print_r($arrayPacienteEtiqueta);
-        $pdf = new Reporte(json_encode($arrayPacienteEtiqueta[0]), null, null, null, 'etiquetas', 'url');
+        // print_r($arrayPacienteEtiqueta);
+
+        $pdf = new Reporte(json_encode($arrayPacienteEtiqueta[0]), null, null, null, 'ultrasonidos', 'url');
         $pdf->build();
         break;
     default:
