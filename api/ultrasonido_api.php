@@ -62,6 +62,8 @@ switch($api){
         break;
     case 2:
         $turno_id = $_POST['turno_id'];
+        $nombre_servicio = $_POST['nombre_servicio'];
+        $serv = str_replace(" ", "_", $nombre_servicio);
         # insertamos las capturas.
         $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/capturas/";
         $r = $master->createDir("../".$ruta_saved);
@@ -75,7 +77,7 @@ switch($api){
         # combinar la ruta_saved con ../ sirve para crear la ruta el directorio en el servidor
         # por si no existe aun.
         # se necesita formatear la ruta para agregarle el la url completa de internet.
-        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_ULTRASONIDO_$turno_id");
+        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_ULTRASONIDO_$serv");
         
         # formateamos la ruta de los archivos para guardarlas en la base de datos
         for ($i=0; $i < count($capturas); $i++) {
