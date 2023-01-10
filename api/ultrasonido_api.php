@@ -7,8 +7,8 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-  # $tokenVerification->logout();
-  # exit;
+    $tokenVerification->logout();
+    exit;
 }
 
 $master = new Master();
@@ -50,14 +50,17 @@ switch($api){
 
         $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
-        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$ruta_archivo,$usuario,$area_id]);
+        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen,$turno_id,$ruta_archivo,$usuario,$area_id,null]);
 
         # insertar el formulario de bimo.
         foreach($formulario as $id_servicio => $item){
             $res = $master->insertByProcedure('sp_imagen_detalle_g',[null,$turno_id,$id_servicio,$item['hallazgo'],$item['interpretacion'],$item['comentario'],$last_id]);
         }
-
+        
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
+
+        $url = crearReporteUltrasonido($turno_id, $area_id);
+        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id,null,null,null,null,$url]);
         $response = $last_id;
         break;
     case 2:
@@ -145,46 +148,46 @@ switch($api){
         # si algo falla por favor de comentar esta linea y decomentar las lineas 110,111,112
         $response = $merge;
         break;
-        case 4:
-            #Recuperar info paciente
-            $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
-            $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+    case 4:
+        #Recuperar info paciente
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
+        $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
 
-            #recuperar la informacion del Reporte de interpretacion de ultrasonido
-            $response = array();
-            # recuperar los resultados de ultrasonido
-            $area_id = 11; #11 es el id para ultrasonido.
-            $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
+        #recuperar la informacion del Reporte de interpretacion de ultrasonido
+        $response = array();
+        # recuperar los resultados de ultrasonido
+        $area_id = 11; #11 es el id para ultrasonido.
+        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
 
-            $arrayimg = [];
+        $arrayimg = [];
 
-            for ($i=0; $i < count($response1[1]) ; $i++) { 
-                
-                $servicio = $response1[1][$i]['SERVICIO'];
-                $hallazgo = $response1[1][$i]['HALLAZGO'];
-                $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
-                $comentario = $response1[1][$i]['COMENTARIO'];
-                $array1 = array(
-                    "ESTUDIO" => $servicio,
-                    "HALLAZGO" => $hallazgo,
-                    "INTERPRETACION" => $interpretacion,
-                    "COMENTARIO" => $comentario,
+        for ($i=0; $i < count($response1[1]) ; $i++) { 
+            
+            $servicio = $response1[1][$i]['SERVICIO'];
+            $hallazgo = $response1[1][$i]['HALLAZGO'];
+            $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
+            $comentario = $response1[1][$i]['COMENTARIO'];
+            $array1 = array(
+                "ESTUDIO" => $servicio,
+                "HALLAZGO" => $hallazgo,
+                "INTERPRETACION" => $interpretacion,
+                "COMENTARIO" => $comentario,
 
-                );
-                array_push($arrayimg, $array1);
-            }
-
-            $arregloPaciente = array(
-                'NOMBRE' => $infoPaciente[0]['NOMBRE'],
-                "EDAD" => $infoPaciente[0]['EDAD'],
-                'SEXO' => $infoPaciente[0]['SEXO'],
-                'FOLIO' => $infoPaciente[0]['FOLIO_IMAGEN'],
-                'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
-                'ESTUDIOS' => $arrayimg
             );
-            // print_r($arregloPaciente);
-            $response = $arregloPaciente;
-            break;
+            array_push($arrayimg, $array1);
+        }
+
+        $arregloPaciente = array(
+            'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+            "EDAD" => $infoPaciente[0]['EDAD'],
+            'SEXO' => $infoPaciente[0]['SEXO'],
+            'FOLIO' => $infoPaciente[0]['FOLIO_IMAGEN'],
+            'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
+            'ESTUDIOS' => $arrayimg
+        );
+        // print_r($arregloPaciente);
+        $response = $arregloPaciente;
+        break;
     case 5:
         crearReporteUltrasonido($turno_id, $area_id);
         break;
@@ -235,7 +238,7 @@ function crearReporteUltrasonido($turno_id,$area_id){
     );
 
     # pie de pagina
-    $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
+    $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
     $nombre_paciente = $infoPaciente[0]['NOMBRE'];
     $nombre = str_replace(" ", "_", $nombre_paciente);
 
@@ -248,9 +251,8 @@ function crearReporteUltrasonido($turno_id,$area_id){
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
     print_r($infoPaciente);
     $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
-    $pdf->build();
+    return $pdf->build();
 
-    print_r($arregloPaciente);
-
+    # print_r($arregloPaciente);
 }
 ?>
