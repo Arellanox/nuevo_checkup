@@ -40,46 +40,19 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
         }
     },
     columns: [
-        // {
-        //   data: 'EDAD', render: function(){
-        //     return '';
-        //   }
-        // },
-        {
-            data: 'COUNT'
-        },
-        {
-            data: 'NOMBRE_COMPLETO'
-        },
-        {
-            data: 'PREFOLIO',
-            render: function (data, type, full, meta) {
-                return "20221014JMC412";
-            },
-        },
-        {
-            data: 'EDAD'
-        },
-        {
-            data: 'EDAD'
-        },
-        {
-            data: 'GENERO'
-        },
+        { data: 'COUNT' },
+        { data: 'NOMBRE_COMPLETO' },
+        { data: 'PREFOLIO' },
+        { data: 'CLIENTE' },
+        { data: 'SEGMENTO' },
+        { data: 'turno' },
+        { data: 'GENERO' },
+        { data: 'EXPEDIENTE' },
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        // { width: "5%", title: "#", targets: 0 },
-        // { title: "Nombre", targets: 1 },
-        // { title: "Prefolio", targets: 2 },
-        // { title: "Costo", targets: 3 },
-        // { title: "Procedencia", targets: 4},
-        // { title: "Edad", targets: 5 },
-        // { title: "Sexo", targets: 6 }
-    ]
-    // columnDefs: [
-    //   { "width": "10px", "targets": 0 },
-    // ],
+        { "width": "10px", "targets": 0 },
+    ],
 
 })
 
@@ -109,11 +82,16 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                 case 5:
                     if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
-                case 7:
+                case 7: //Rayos X
                     if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
                     break;
-                case 8:
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
+                case 11: //Ultrasonido
+                    if (selectPacienteArea.CONFIRMADO_ULTRASO == 1) estadoFormulario(1)
+                    ObtenerResultadosUltrsonido(selectEstudio.array);
+                    break;
+                case 10: //Electrocardiograma
+                    if (selectPacienteArea.CONFIRMADO_ELECTRO == 1) estadoFormulario(1)
+                    // ObtenerResultadosUltrsonido(selectEstudio.array);
                     break;
                 default:
                     botonesResultados('activar');
@@ -182,35 +160,37 @@ function limpiarCampos() {
 }
 
 async function obtenerServicios(area) {
-    if (area == 3) {
-        url = 'oftalmologia_api';
-        data = {
-            turno_id: selectPacienteArea['ID_TURNO'],
-            api: 2
+    return new Promise(resolve => {
+        if (area == 3) {
+            url = 'oftalmologia_api';
+            data = {
+                turno_id: selectPacienteArea['ID_TURNO'],
+                api: 2
+            }
+        } else {
+            data = {
+                api: 11,
+                id_turno: selectPacienteArea['ID_TURNO'],
+                id_area: area
+            }
+            url = 'servicios_api'
         }
-    } else {
-        data = {
-            api: 11,
-            id_turno: selectPacienteArea['ID_TURNO'],
-            id_area: area
-        }
-        url = 'servicios_api'
-    }
-    $.ajax({
-        url: http + servidor + "/nuevo_checkup/api/" + url + ".php",
-        data: data,
-        type: "POST",
-        datatype: 'json',
-        success: function (data) {
-            data = jQuery.parseJSON(data)
-            console.log(data);
-            selectEstudio = new GuardarArreglo(data.response.data);
-            panelResultadoPaciente(data.response.data);
-            botonesResultados('activar', area)
-        },
-        complete: function () {
-
-        }
+        $.ajax({
+            url: http + servidor + "/nuevo_checkup/api/" + url + ".php",
+            data: data,
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                if (mensajeAjax(data)) {
+                    selectEstudio = new GuardarArreglo(data.response.data);
+                    // panelResultadoPaciente(data.response.data);
+                    botonesResultados('activar', area)
+                }
+            },
+            complete: function () {
+                resolve(1)
+            }
+        })
     })
 }
 async function panelResultadoPaciente(row, area = areaActiva) {
@@ -361,6 +341,66 @@ function estadoFormulario(estado) {
             break;
     }
 
+}
+
+async function ObtenerResultadosUltrsonido(data) {
+    $('#formulario-estudios').html('')
+    let endDiv = '</div>';
+
+    let html = '';
+
+    for (const k in data) {
+        console.log(data[k]);
+        let row = data[k];
+
+        //   <a class="aign-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion'+k+'" aria-expanded="false">
+        //     <i class="bi bi-calculator"></i> Facturación
+        //   </a>
+        //   <div class="collapse" id="board-facturacion'+k+'">
+        //     
+        //   </div>
+
+        html += '<ul class = "list-group hover-list" style ="margin-top: 5px; margin-bottom: 5px">';
+        html += '<a class="dropdown-a rounded collapsed" href="" onClick="return false;" data-bs-toggle="collapse" data-bs-target="#board-facturacion' + k + '" aria-expanded="false"> <div style = "display: block">' + //margin-bottom: 10px; 
+            '<div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">' +
+            '<h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['SERVICIO'] + '</h4> <!-- <p> </p> --> </div></div> </a>';
+
+        html += '<div class="collapse" id="board-facturacion' + k + '">';
+        //Cada textarea
+
+        html += cargarForm('Hallazgos', row['ID_SERVICIO'], 'hallazgo', '');
+        html += cargarForm('Interpretación', row['ID_SERVICIO'], 'interpretacion', '');
+        html += cargarForm('Comentario', row['ID_SERVICIO'], 'comentario', '');
+        // html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
+        //     '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
+        //     '<textarea name="observacionesServicios[ID_SERVICIO]" rows="2;" cols="90" class="input-form" value=""></textarea></div ></div > ';
+        html += '</ul>';
+        html += endDiv;
+    }
+
+    $('#formulario-estudios').html(html)
+}
+
+function cargarForm(campo, id, campoAjax, texto) {
+    let colStart = '<div class="col-auto col-lg-12">';
+    let colreStart = '<div class="col-auto col-lg-12 d-flex justify-content-end align-items-center">';
+    let endDiv = '</div>';
+    html = '';
+    html += '<li class="list-group-item">';
+    html += '<div class="row d-flex align-items-center">';
+
+    html += colStart;
+    html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + campo + ' </p>';
+    html += endDiv;
+    html += colreStart;
+    html += '<div class="input-group">';
+    html += '<textarea type="text" class="form-control input-form inputFormRequired" name="servicios[' + id + '][' + campoAjax + ']" autocomplete="off">' + texto + '</textarea>';
+    html += '</div>';
+    html += endDiv;
+
+    html += endDiv;
+    html += '</li>';
+    return html;
 }
 
 async function obtenerResultadosOftalmo(id) {

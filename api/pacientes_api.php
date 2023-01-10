@@ -13,7 +13,7 @@ if (!$tokenValido) {
 $api = $_POST['api'];
 
 #buscar
-$id = $_POST['id'];
+#$id = $_POST['id'];
 $curp = $_POST['curp'];
 
 #insertar
@@ -79,7 +79,8 @@ switch ($api) {
         break;
     case 2:
         # buscar pacientes
-        $response = $master->getByProcedure("sp_pacientes_b", [$id, $curp,$pasaporte]);
+        // echo $id_paciente;
+        $response = $master->getByProcedure("sp_pacientes_b", [$id_paciente, $curp,$pasaporte]);
         break;
     case 3:
         # actualizar pacientes
@@ -87,7 +88,7 @@ switch ($api) {
         break;
     case 4:
         # desactivr paciente
-        $response = $master->deleteByProcedure("sp_pacientes_e", [$id]);
+        $response = $master->deleteByProcedure("sp_pacientes_e", [$id_paciente]);
         break;
     default:
         $response = "api no reconocida";

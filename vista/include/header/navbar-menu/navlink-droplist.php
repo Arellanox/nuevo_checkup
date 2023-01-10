@@ -1,14 +1,14 @@
-<?php if ($_SESSION['vista']['CONSULTORIO'] == 1): ?>
+<?php if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['SOMATOMETRIA'] == 1): ?>
+<?php if ($_SESSION['vista']['SOMATOMETRIA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>">
     <i class="bi bi-heart-pulse"></i> Somatometría
   </a>
 <?php endif; ?>
-  <!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
+<!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
   <div class="collapse" id="board-consultorio">
@@ -19,7 +19,7 @@
   </div> -->
 
 
-<?php if ($_SESSION['vista']['LABORATORIO'] == 1): ?>
+<?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
   <!-- Laboratorio -->
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
     <i class="bi bi-heart-pulse"></i> Laboratorio
@@ -31,29 +31,33 @@
 
 
 <!-- Areas master -->
-<?php if ($_SESSION['vista']['IMAGENOLOGIA'] == 1): ?>
+<?php if ($_SESSION['vista']['IMAGENOLOGIA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#IMAGENOLOGIA'; ?>">
-    <i class="bi bi-person-video"></i> Imagenologia
+    <i class="bi bi-person-video"></i> Ultrasonido
   </a>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['RX'] == 1): ?>
+<?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1) : ?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
+    <i class="bi bi-activity"></i> Electrocardiograma
+  </a>
+<?php endif; ?>
+<?php if ($_SESSION['vista']['RX'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; ?>">
-    <i class="bi bi-activity"></i> Rayos X
+    <i class="bi bi-universal-access"></i> Rayos X
   </a>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['ESPIROMETRIA'] == 1): ?>
+<?php if ($_SESSION['vista']['ESPIROMETRIA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ESPIROMETRIA'; ?>">
     <i class="bi bi-lungs"></i> Espirometría
   </a>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['AUDIOMETRIA'] == 1): ?>
+<?php if ($_SESSION['vista']['AUDIOMETRIA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#AUDIOMETRIA'; ?>">
     <i class="bi bi-ear"></i> Audiometría
   </a>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['OFTALMOLOGIA'] == 1): ?>
+<?php if ($_SESSION['vista']['OFTALMOLOGIA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#OFTALMOLOGIA'; ?>">
     <i class="bi bi-eye"></i> Oftalmología
   </a>
 <?php endif; ?>
-

@@ -21,26 +21,37 @@ function hasLocation() {
     switch (hash) {
       case "IMAGENOLOGIA":
         formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
-        obtenerContenidoVistaMaster(7, 'Resultados de Ultrasonido', 'contenido_new.php');
+        api_capturas = 2;
+        api_interpretacion = 1;
+        url_api = 'ultrasonido_api';
+        obtenerContenidoVistaMaster(11, 'Resultados de Ultrasonido', 'contenido_new.php');
         break;
       case "RX":
         formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
+        api_capturas = 2;
+        api_interpretacion = 1;
+        url_api = 'rayosx_api';
         obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_new.php');
         break;
       case "ESPIROMETRIA":
         formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
+        api_capturas = 2;
+        api_interpretacion = 1;
+        url_api = 'espirometria_api';
         obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_new.php');
+        break;
+      case "ELECTROCARDIOGRAMA":
+        formulario = "SinForm";
+        api_capturas = 2;
+        api_interpretacion = 1;
+        url_api = 'electrocardiograma_api';
+        obtenerContenidoVistaMaster(10, 'Resultados de Electrocardiograma', 'contenido_new.php');
         break;
       case "AUDIOMETRIA":
         formulario = "formSubirInterpretacion";
-        api = 7;
-        url_api = 'turnos_api';
+        api_capturas = 2;
+        api_interpretacion = 1;
+        url_api = 'audiometria_api';
         obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_new.php');
         break;
       case "OFTALMOLOGIA":
@@ -103,16 +114,16 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $.getScript("modals/js/master_subir_interpretación.js");
         break;
 
-        // Versión anterior (Absoleta)
-        // default:
-        //   $('#btn-analisis-pdf').fadeIn(0)
-        //   $('#btn-capturas-pdf').fadeIn(0)
-        //   $('.btnResultados').fadeOut(0)
-        //   // Datatable
-        //   $.getScript("contenido/js/vista-tabla.js");
-        //   // Modal para agregar interpretacion
-        //   $.getScript("modals/js/ar_subirprueba_area.js");
-        //   break;
+      // Versión anterior (Absoleta)
+      // default:
+      //   $('#btn-analisis-pdf').fadeIn(0)
+      //   $('#btn-capturas-pdf').fadeIn(0)
+      //   $('.btnResultados').fadeOut(0)
+      //   // Datatable
+      //   $.getScript("contenido/js/vista-tabla.js");
+      //   // Modal para agregar interpretacion
+      //   $.getScript("modals/js/ar_subirprueba_area.js");
+      //   break;
     }
     // Botones
     $.getScript("contenido/js/area-botones.js")

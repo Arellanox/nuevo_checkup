@@ -39,7 +39,6 @@ $("#formRegistrarAgenda").submit(function (event) {
     var formMedioLaboral = jQuery(document.forms['formMedioLaboral']).serializeArray();
 
     if (evaluarAntecedentes(formAntPersonalPato, formAntNoPatologicos, formAntHeredofamiliares, formAntPsicologico, formAntNutricionales, formMedioLaboral)) {
-      alertMensaje('info', 'Antecedentes incompletos', 'Necesita llenar todo el formulario de antecedentes')
       return false;
     }
 
@@ -83,18 +82,21 @@ $("#formRegistrarAgenda").submit(function (event) {
   //   return
   // }
   // formData.set('antecedentes', json);
+
   switch (registroAgendaRecepcion) {
     case 1:
       formData.set('cliente_id', $('#selectProcedencia').val())
+      formData.set('pacienteId', $('#curp-paciente').val())
       break;
+
     default:
       formData.set('cliente_id', clienteRegistro)
+      if ($('#checkCurpPasaporte-agenda').is(":checked")) {
+        formData.set('pasaporte', $('#curp-paciente').val())
+      } else {
+        formData.set('curp', $('#curp-paciente').val())
+      }
       break;
-  }
-  if ($('#checkCurpPasaporte-agenda').is(":checked")) {
-    formData.set('pasaporte', $('#curp-paciente').val())
-  } else {
-    formData.set('curp', $('#curp-paciente').val())
   }
 
   if ($('#selectSegmentos').val() != null) {
@@ -131,11 +133,6 @@ $("#formRegistrarAgenda").submit(function (event) {
         success: function (data) {
           if (mensajeAjax(data)) {
             if (data.response.code == 1) {
-              // Toast.fire({
-              //   icon: 'success',
-              //   title: 'Su información a sido registrada :)',
-              //   timer: 2000
-              // });
               //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
               alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
 
@@ -171,26 +168,50 @@ $("#formRegistrarAgenda").submit(function (event) {
   })
 })
 
+//Revisa y alerta si falta algun campo
 function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
-  if (div1.length != 20) {
+  // console.log(div1.length)
+  if (div1.length != 51) {
+    alertMensaje('info', 'Antecedentes personales patológicos', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-Patologicos-Target', 'formAntPersonalPato')
     return true;
   }
   if (div2.length != 20) {
+    alertMensaje('info', 'Antecedentes no patológicos', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-nopatologicos-Target', 'formAntNoPatologicos')
     return true;
   }
   if (div3.length != 20) {
+    alertMensaje('info', 'Antecedentes heredofamiliares', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-anteHeredo-Target', 'formAntHeredofamiliares')
     return true;
   }
   if (div4.length != 15) {
+    alertMensaje('info', 'Antecedentes psicológicos/psiquiátricos', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-antPsico-Target', 'formAntPsicologico')
     return true;
   }
   if (div5.length != 26) {
+    alertMensaje('info', 'Antecedentes nutricionales', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-antNutri-Target', 'formAntNutricionales')
     return true;
   }
   if (div6.length != 45) {
+    alertMensaje('info', 'Antecedentes medio laboral', 'Formulario incompleto, favor de rellenar todos')
+    mostrarAntecedente('collapse-MedLabo-Target', 'formMedioLaboral')
     return true;
   }
   return false;
+}
+
+//Muestra al paciente el formulario a ver
+function mostrarAntecedente(btn, form) {
+  location.hash = '';
+  // $('#' + btn).click();
+  $("#" + btn).collapse("show");
+  setTimeout(() => {
+    location.hash = form;
+  }, 300);
 }
 
 var tipoPaciente = "0"; //Particular por defecto
@@ -238,11 +259,11 @@ $('#actualizarForm').click(function () {
             document.getElementById("mensaje").innerHTML = '<div class="alert alert-success" role="alert">' +
               'CURP aceptada, concluya su registro seleccionando el estudio a realizar.' +
               '</div>';
+
+
             $('#paciente-registro').html(data.response.data[0].NOMBRE_COMPLETO);
             if (data.response.data[0].CURP == null) {
               $('#curp-registro').html(data.response.data[0].PASAPORTE);
-            } else {
-              $('#curp-registro').html(data.response.data[0].CURP);
             }
             $('#curp-registro').html(data.response.data[0].CURP);
             $('#sexo-registro').html(data.response.data[0].GENERO);
@@ -309,6 +330,12 @@ $('#checkCurpPasaporte-agenda').change(function () {
 });
 
 function getDataAjax(text) {
+  if (registroAgendaRecepcion == 1)
+    return dataAjax = {
+      id: text,
+      api: 2
+    };
+
   if ($('#checkCurpPasaporte-agenda').is(":checked")) {
     return dataAjax = {
       pasaporte: text,
@@ -348,7 +375,8 @@ if (registroAgendaRecepcion == 1) {
     '<input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">' +
     '<label class="form-check-label" for="checkCurpPasaporte-agenda"> Soy extranjero </label></div>')
   select2('#curp-paciente', "ModalRegistrarPrueba", 'Cargando...')
-  rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'CURP', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
+  rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
+  $('#checkCurpPasaporte-agenda').prop('disabled', true)
 }
 // else{
 //   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')

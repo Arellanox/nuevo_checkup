@@ -61,9 +61,11 @@ $form = $_POST['form'];
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
-            <th scope="col d-flex justify-content-center" class="none">Procedencia</th>
-            <th scope="col d-flex justify-content-center" class="none">Edad</th>
+            <th scope="col d-flex justify-content-center" class="none">Cliente</th>
+            <th scope="col d-flex justify-content-center" class="none">Segmento</th>
+            <th scope="col d-flex justify-content-center" class="none">Turno</th>
             <th scope="col d-flex justify-content-center" class="none">Sexo</th>
+            <th scope="col d-flex justify-content-center" class="none">Expendiente</th>
           </tr>
         </thead>
         <tbody>
@@ -89,8 +91,8 @@ $form = $_POST['form'];
         </div>
         <div class="row">
           <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
-            <button type="button" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
-              <i class="bi bi-clipboard2-plus"></i> Subir capturas
+            <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
+              <i class="bi bi-clipboard2-plus"></i> Cargar capturas
             </button>
           </div>
           <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">
@@ -105,7 +107,7 @@ $form = $_POST['form'];
               <!-- formulario para oftamologia -->
             </button>
             <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis">
-              <i class="bi bi-clipboard2-plus"></i> Guardar Reporte
+              <i class="bi bi-clipboard2-plus"></i> Subir Reporte
               <!-- BTN para formulario global -->
             </button>
           </div>
@@ -124,7 +126,7 @@ $form = $_POST['form'];
               break;
 
               //<!-- Formulario general -->
-            default:
+            case 'formSubirInterpretacion':
               echo '<form id="formSubirInterpretacion" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh;margin-bottom:10px; padding: 15px;">';
               include 'forms/form_general.html';
               echo '</form>';
@@ -132,18 +134,6 @@ $form = $_POST['form'];
           }
 
           ?>
-
-
-
-
-          <!-- <h5>Estudios:</h5> -->
-          <!-- <ul class="list-group overflow-auto" id="lista-estudios-paciente" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;"> -->
-          <!-- <li class="list-group-item">
-              GRUPO DE EXAMEN - SERVICIO
-              <br>
-              <i class="bi bi-arrow-return-right"></i> MUESTRA - CONTENEDOR
-            </li> -->
-          <!-- </ul> -->
         </div>
       </div>
     </div>

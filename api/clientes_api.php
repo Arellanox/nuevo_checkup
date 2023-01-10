@@ -98,7 +98,7 @@ switch ($api) {
 
         $result = $master->getByProcedure('sp_clientes_b',$cliente);
         $nombreCliente = $result[0]['NOMBRE_COMERCIAL'];
-        $qr = "http://localhost/nuevo_checkup/vista/registro/?codigo=".$result[0]['QR'];
+        $qr = "https://bimo-lab.com/nuevo_checkup/vista/registro/?codigo=".$result[0]['QR'];
 
         $url = $master->generarQRURL("cliente",$qr,$nombreCliente, QR_ECLEVEL_H, 10);
         echo json_encode(array("url"=>$url));

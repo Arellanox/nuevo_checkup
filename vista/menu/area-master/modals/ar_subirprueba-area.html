@@ -2,7 +2,8 @@
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
-        <h5 class="modal-title" id="filtrador">Subir Interpretacion Area: <strong id="Area-estudio" style="color:white !important"></strong> </h5>
+        <h5 class="modal-title" id="filtrador">Subir Interpretacion Area: <strong id="Area-estudio"
+            style="color:white !important"></strong> </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -11,11 +12,13 @@
           <div class="row">
             <div class="col-6">
               <label for="nombre_contacto" class="form-label">Nombre del Cliente</label>
-              <input type="text" class="form-control input-form" value="Nombre del paciente" readonly id="nombre-paciente-interpretacion">
+              <input type="text" class="form-control input-form" value="Nombre del paciente" readonly
+                id="nombre-paciente-interpretacion">
             </div>
             <div class="col-6">
               <label for="reportes" class="form-label">Seleccione Documento PDF</label>
-              <input type="file" name="reportes[]" class="form-control input-form" accept=".pdf" required id="inputFilesInterpreArea">
+              <input type="file" name="reportes[]" class="form-control input-form" accept=".pdf" required
+                id="inputFilesInterpreArea">
             </div>
             <div class="col-12">
               <label for="comentario" class="form-label">Observaciones</label>
@@ -25,9 +28,10 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-      <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar-subir">
-        <i class="bi bi-person-plus"></i> Agregar
+      <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
+        Cancelar</button>
+      <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar">
+        <i class="bi bi-send-plus"></i> Subir
       </button>
     </div>
   </div>

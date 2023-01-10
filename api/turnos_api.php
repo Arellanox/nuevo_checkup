@@ -7,8 +7,8 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-   # $tokenVerification->logout();
-   # exit;
+    # $tokenVerification->logout();
+    # exit;
 }
 
 #api
@@ -102,6 +102,9 @@ switch ($api) {
     case 7:
         # api falsa
         // print_r($_POST);
+        print_r($_POST['servicios']);
+        print_r($_POST);
+
         echo json_encode(array("response" => array("code" => 1, "data" => array())));
         exit;
         break;
@@ -109,12 +112,12 @@ switch ($api) {
     case 8:
         # cargar los resultados
         $tipo = $_POST['tipo'];
-        
-        if($tipo==1){
-            $grupos = $master->getByProcedure("sp_cargar_grupos", [$id_turno,$id_area]);     
-            $response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
+
+        if ($tipo == 1) {
+            $grupos = $master->getByProcedure("sp_cargar_grupos", [$id_turno, $id_area]);
+            $response = $master->getByProcedure('sp_cargar_estudios', [$id_turno, $id_area]);
             $array = array();
-            for($i=0; $i<count($grupos);$i++){
+            for ($i = 0; $i < count($grupos); $i++) {
                 $nombre_grupo = $grupos[$i]['GRUPO'];
                 $id_grupo = $grupos[$i]['GRUPO_ID'];
                 $obs = $grupos[$i]['OBSERVACIONES'];
@@ -129,17 +132,16 @@ switch ($api) {
                 $contenido_grupo['ID_GRUPO'] = $id_grupo;
                 $contenido_grupo['OBSERVACIONES'] = $obs;
                 $contenido_grupo['CLASIFICACION'] = $clasificacion;
-                
-                if(!empty($contenido_grupo)){
+
+                if (!empty($contenido_grupo)) {
                     $array[] = $contenido_grupo;
                 }
             }
 
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$array)));
+            echo json_encode(array("response" => array("code" => 1, "data" => $array)));
             exit;
-
         } else {
-        $response = $master->getByProcedure('sp_cargar_estudios',[$id_turno,$id_area]);
+            $response = $master->getByProcedure('sp_cargar_estudios', [$id_turno, $id_area]);
         }
 
         break;
@@ -148,40 +150,39 @@ switch ($api) {
         # subir resultados
         $setResultados = $_POST['servicios'];
         $id_turno = $_POST['id_turno'];
-        
+
         foreach ($setResultados as $servicio_id => $resultado) {
             #determinamos si el estudio de laboratorio tiene valor absoluto.
             $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'],$confirmar,$confirmado_por,$valor_absoluto));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto));
         }
 
         // actualizamos las observaciones por los grupos en casa hijo de la tabla paciente detalle
-        
-        foreach($observaciones as $key =>$observacion){
-            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,$key,null,$observacion]);
+
+        foreach ($observaciones as $key => $observacion) {
+            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio', [$id_turno, $key, null, $observacion]);
         }
 
-        foreach($observacionesServicios as $key => $observacion){
-            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio',[$id_turno,null,$key,$observacion]);
+        foreach ($observacionesServicios as $key => $observacion) {
+            $response = $master->updateByProcedure('sp_cargar_observaciones_laboratorio', [$id_turno, null, $key, $observacion]);
         }
         //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
 
-        if(isset($confirmar)){
+        if (isset($confirmar)) {
             # generar el reporte
-        
+
             crearReporteLaboratorio($id_area, $id_turno);
-            
         }
-        
+
         break;
 
     case 6:
         #servicios por turno
         $response = $master->getByProcedure('sp_turnos_historial', [$id, $id_paciente]);
         $hijo = $master->getByProcedure('sp_turnos_historial_detalle', [$id, $id_paciente, $id_area]);
-        for ($i = 0; $i < count($response) ; $i++) {
+        for ($i = 0; $i < count($response); $i++) {
             $id_turno_padre = $response[$i]['ID_TURNO'];
             $servicios = array_filter($hijo, function ($obj) use ($id_turno_padre) {
                 $r = $obj['ID_TURNO'] == $id_turno_padre;
@@ -205,57 +206,58 @@ switch ($api) {
 echo $master->returnApi($response);
 
 
-function crearReporteLaboratorio($id_area,$id_turno){
+function crearReporteLaboratorio($id_area, $id_turno)
+{
     # para crear los reportes de LABORATORIO
     $master = new Master();
 
     # dar de alta primero el folio en la tabla de reportes_areas
-    $folio = $master->insertByProcedure('sp_generar_folio_laboratorio',[]);
+    $folio = $master->insertByProcedure('sp_generar_folio_laboratorio', []);
 
-    $res = $master->insertByProcedure('sp_reportes_areas_g', [null,$id_turno,6,null,null,$folio]);
+    $res = $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, 6, null, null, $folio]);
 
     # informacion general del paciente
 
     #Estudios solicitados por el paciente
-    $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b',[null, 6]);
-    $response = $master->getByProcedure("sp_cargar_estudios",[$id_turno, 6]);
-    $responsePac = $master->getByProcedure("sp_informacion_paciente",[$id_turno]);
-    
+    $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', [null, 6]);
+    $response = $master->getByProcedure("sp_cargar_estudios", [$id_turno, 6]);
+    $responsePac = $master->getByProcedure("sp_informacion_paciente", [$id_turno]);
+
 
     # pie de pagina
     $fecha_resultado = $responsePac[0]['FECHA_CARPETA'];
     $nombre_paciente = $responsePac[0]['NOMBRE'];
-    $nombre = str_replace(" ","_",$nombre_paciente);
+    $nombre = str_replace(" ", "_", $nombre_paciente);
 
     $ruta_saved = "reportes/modulo/lab/$fecha_resultado/$id_turno/";
 
     # Crear el directorio si no existe
-    $r = $master->createDir("../".$ruta_saved);
+    $r = $master->createDir("../" . $ruta_saved);
 
-    $archivo = array("ruta"=>$ruta_saved,"nombre_archivo"=>$nombre."-".$responsePac[0]['TURNO'].'-'.$fecha_resultado);
+    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $responsePac[0]['TURNO'] . '-' . $fecha_resultado);
 
-    $clave = $master->getByProcedure("sp_generar_clave",[]);
+    $clave = $master->getByProcedure("sp_generar_clave", []);
 
-    $pie_pagina = array("clave"=>$clave[0]['TOKEN'],"folio"=>$responsePac[0]['FOLIO'],"modulo"=>6);
+    $pie_pagina = array("clave" => $clave[0]['TOKEN'], "folio" => $responsePac[0]['FOLIO'], "modulo" => 6);
 
     $arrayGlobal = array(
-        'areas' =>array()
+        'areas' => array()
     );
 
     # filtramos el arreglo principal y obtenemos aquellos estudios
     # que tienen valor absoluto.
-    $serv_var_abs_obj = array_filter($response,function($obj){
-        $return = $obj['TIENE_VALOR_ABSOLUTO']==1;
+    $serv_var_abs_obj = array_filter($response, function ($obj) {
+        $return = $obj['TIENE_VALOR_ABSOLUTO'] == 1;
         return $return;
     });
 
-    $serv_var_abs = ordenar($serv_var_abs_obj, "VALORES ABSOLUTOS",$id_turno);
+    $serv_var_abs = ordenar($serv_var_abs_obj, "VALORES ABSOLUTOS", $id_turno);
     $valores_absolutos = $serv_var_abs['estudios'][0]['analitos'];
 
-    for($i=0; $i<count($clasificaciones); $i++) {
+    for ($i = 0; $i < count($clasificaciones); $i++) {
         $clasificacion_id = $clasificaciones[$i]['ID_CLASIFICACION'];
         # sacamos arrays individuales por clasificacion de examen
-        $servicios = array_filter($response,function($obj) use ($clasificacion_id){
+        $servicios = array_filter($response, function ($obj) use ($clasificacion_id) {
             $return = $obj['CLASIFICACION_ID'] == $clasificacion_id;
             return $return;
         });
@@ -263,12 +265,11 @@ function crearReporteLaboratorio($id_area,$id_turno){
         # como no estamos seguros que de que se encuentren todas las clasificaciones 
         # en un paciente, evaluamos que el array no este vacio.
 
-        if(!empty($servicios)){
-            
-            $aux = ordenar($servicios,$clasificaciones[$i]['DESCRIPCION'],$id_turno);
+        if (!empty($servicios)) {
+
+            $aux = ordenar($servicios, $clasificaciones[$i]['DESCRIPCION'], $id_turno);
 
             $arrayGlobal['areas'][] = $aux;
-            
         }
     }
     // echo "================================================================";
@@ -278,14 +279,14 @@ function crearReporteLaboratorio($id_area,$id_turno){
     # habra estudios que no tengan clasificacion, esos el servidor las regresa con id 0
     # como el id 0 no existe dentro de la tabla de clasificaciones, el algoritmo de arriba los ignora
     # por tanto se tiene que realizar un algoritmo similar pero con el filtro en 0.
-    $servicios = array_filter($response, function($obj){
+    $servicios = array_filter($response, function ($obj) {
         $return = $obj['CLASIFICACION_ID'] == 0;
         return $return;
     });
 
-    if(!empty($servicios)){
-    
-        $aux = ordenar($servicios,"NINGUNA",$id_turno);
+    if (!empty($servicios)) {
+
+        $aux = ordenar($servicios, "NINGUNA", $id_turno);
         $arrayGlobal['areas'][] = $aux;
     }
 
@@ -294,25 +295,25 @@ function crearReporteLaboratorio($id_area,$id_turno){
 
     $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
-        #aqui, como el folio ya se inserto al principio del metodo, solo va a actualizar la clave y la ruta del pdf.
-    return $master->insertByProcedure('sp_reportes_areas_g',[null,$id_turno,6,$clave[0]['TOKEN'],$pdf->build(),null]);
-    
+    #aqui, como el folio ya se inserto al principio del metodo, solo va a actualizar la clave y la ruta del pdf.
+    return $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, 6, $clave[0]['TOKEN'], $pdf->build(), null]);
 }
 
 
-function ordenar($servicios, $clasificacion, $turno){
+function ordenar($servicios, $clasificacion, $turno)
+{
     #obtener los valores absolutos
     $absoluto_array = array();
     $in_array = 0;
     #estamos buscandor el id 1 que corresponde a la biometria hematica
-    foreach($servicios as $current){
-        if(in_array(1,$current) || in_array(35,$current)){
-             $in_array++;
-         }
-     }
+    foreach ($servicios as $current) {
+        if (in_array(1, $current) || in_array(35, $current)) {
+            $in_array++;
+        }
+    }
 
-     #si existe la biometria hematica [id 1] o perfil reumatico [id 35], obtenemos los valores absolutos y creamos un array
-    if($in_array>0){
+    #si existe la biometria hematica [id 1] o perfil reumatico [id 35], obtenemos los valores absolutos y creamos un array
+    if ($in_array > 0) {
         $bh = array_filter($servicios, function ($obj) {
             $r = $obj['GRUPO_ID'] == 1 || 35;
             return $r;
@@ -334,21 +335,20 @@ function ordenar($servicios, $clasificacion, $turno){
     }
 
     $master = new Master();
-    $grupos = $master->getByProcedure('sp_cargar_grupos',[$turno,6]);
+    $grupos = $master->getByProcedure('sp_cargar_grupos', [$turno, 6]);
     $estudios = array();
     $analitos = array();
-    for ($i = 0; $i < count($grupos); $i++){
+    for ($i = 0; $i < count($grupos); $i++) {
         $nombre_grupo = $grupos[$i]['GRUPO'];
         $contenido_grupo = array_filter($servicios, function ($obj) use ($nombre_grupo) {
             $r = $obj['GRUPO'] == $nombre_grupo;
             return $r;
         });
 
-        if(!empty($contenido_grupo)){
-            
+        if (!empty($contenido_grupo)) {
+
             # llenado de los analitos del grupo
-            foreach($contenido_grupo as $current)
-            {
+            foreach ($contenido_grupo as $current) {
                 $nombre_grupo = $current['GRUPO'];
                 $observacionnes_generales = $current['OBSERVACIONES'];
                 $id_grupo = $current['GRUPO_ID'];
@@ -361,27 +361,27 @@ function ordenar($servicios, $clasificacion, $turno){
                     "unidad"            => $current['MEDIDA'],
                     "resultado"         => $current['RESULTADO'],
                     "referencia"        => $current['VALOR_DE_REFERENCIA'],
-                   # "observaciones"     => isset($id_grupo) ? null : $current['OBSERVACIONES'],
-                    "observaciones"     => $nombre_grupo != "OTROS SERVICIOS"? null : $current['OBSERVACIONES'],
-                    "metodo"     => $nombre_grupo != "OTROS SERVICIOS"? null : $current['METODOS_ESTUDIO'],
-                    "equipo"     => $nombre_grupo != "OTROS SERVICIOS"? null : $current['EQUIPOS_ESTUDIO'],
+                    # "observaciones"     => isset($id_grupo) ? null : $current['OBSERVACIONES'],
+                    "observaciones"     => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['OBSERVACIONES'],
+                    "metodo"     => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['METODOS_ESTUDIO'],
+                    "equipo"     => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['EQUIPOS_ESTUDIO'],
                     #"metodo"            => isset($metodo_grupo) ? null : $current['METODOS_ESTUDIO'],
                     #"equipo"            => isset($equipo_grupo) ? null : $current['EQUIPOS_ESTUDIO']
                 );
-              
+
                 $analitos[] = $item;
             }
 
             # para los valorse absolutos
-            switch($id_grupo){
-                #biometria hematica
+            switch ($id_grupo) {
+                    #biometria hematica
                 case 1:
-                    $last_position = count($analitos)-1;
+                    $last_position = count($analitos) - 1;
                     $aux = $analitos[$last_position];
                     $analitos[$last_position] = $absoluto_array;
                     $analitos[] = $aux;
                     break;
-                #perfil reumatico
+                    #perfil reumatico
                 case 35:
                     if ($clasificacion_id == 1) {
                         # 1 para la clasificacion de hematologia. 
@@ -391,7 +391,7 @@ function ordenar($servicios, $clasificacion, $turno){
                         $analitos[$last_position] = $absoluto_array;
 
                         $last_position++;
-                        while(!empty($analitos[$last_position])){
+                        while (!empty($analitos[$last_position])) {
                             $auxc = $analitos[$last_position];
                             $analitos[$last_position] = $aux;
                             $aux = $auxc;
@@ -399,7 +399,6 @@ function ordenar($servicios, $clasificacion, $turno){
                         }
 
                         $analitos[$last_position] = $aux;
-                        
                     }
                     break;
             }
@@ -410,7 +409,7 @@ function ordenar($servicios, $clasificacion, $turno){
                 "analitos"       => $analitos,
                 "metodo"         => $metodo_grupo,
                 "equipo"         => $equipo_grupo,
-                "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null 
+                "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null
             );
             $analitos = array();
         }

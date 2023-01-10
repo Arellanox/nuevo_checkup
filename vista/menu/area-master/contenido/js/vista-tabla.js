@@ -66,46 +66,19 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
     dataSrc: 'response.data'
   },
   columns: [
-    // {
-    //   data: 'EDAD', render: function(){
-    //     return '';
-    //   }
-    // },
-    {
-      data: 'COUNT'
-    },
-    {
-      data: 'NOMBRE_COMPLETO'
-    },
-    {
-      data: 'PREFOLIO',
-      render: function (data, type, full, meta) {
-        return "20221014JMC412";
-      },
-    },
-    {
-      data: 'EDAD'
-    },
-    {
-      data: 'EDAD'
-    },
-    {
-      data: 'GENERO'
-    },
+    { data: 'COUNT' },
+    { data: 'NOMBRE_COMPLETO' },
+    { data: 'PREFOLIO' },
+    { data: 'CLIENTE' },
+    { data: 'SEGMENTO' },
+    { data: 'turno' },
+    { data: 'GENERO' },
+    { data: 'EXPEDIENTE' },
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
-    // { width: "5%", title: "#", targets: 0 },
-    // { title: "Nombre", targets: 1 },
-    // { title: "Prefolio", targets: 2 },
-    // { title: "Costo", targets: 3 },
-    // { title: "Procedencia", targets: 4},
-    // { title: "Edad", targets: 5 },
-    // { title: "Sexo", targets: 6 }
-  ]
-  // columnDefs: [
-  //   { "width": "10px", "targets": 0 },
-  // ],
+    { "width": "10px", "targets": 0 },
+  ],
 
 })
 

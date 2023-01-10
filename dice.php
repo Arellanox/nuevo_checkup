@@ -1,5 +1,7 @@
 <?php
+echo $_SERVER['SERVER_NAME'];
 
+echo date("dmY_His");
 class Dice {
     public $num_sides;
 

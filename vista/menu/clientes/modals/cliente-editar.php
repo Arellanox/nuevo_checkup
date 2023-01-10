@@ -10,8 +10,8 @@
           <p class="text-center">Actualizar datos de <strong>Cliente</strong> </p>
           <div class="row">
             <div class="col-6">
-              <label for="nombre_cliente" class="form-label">Nombre</label>
-              <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control input-form" required>
+              <label for="nombre_comercial" class="form-label">Nombre</label>
+              <input type="text" name="nombre_comercial" id="nombre_cliente" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="cve_cliente" class="form-label">Razon Social</label>
@@ -48,20 +48,25 @@
               <input type="text" name="cuenta_contable" id="cuenta_contable_cliente" class="form-control input-form" required>
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">Régimen fiscal</label>
-              <select class="form-control input-form" id="selectRegimenFiscal-editar" required>
+              <label for="regimen" class="form-label">Régimen fiscal</label>
+              <select class="form-control input-form" name = "regimen" id="selectRegimenFiscal-editar" required>
 
               </select>
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">CFDI</label>
-              <select class="form-control input-form" id="select-cfdi-editar" required>
+              <label for="cfdi" class="form-label">CFDI</label>
+              <select class="form-control input-form" name = "cfdi" id="select-cfdi-editar" required>
 
               </select>
             </div>
             <div class="col-6">
-              <label for="apellidos_contacto" class="form-label">Convenio</label>
-              <input name="confac" id="registrar-concepto-facturacion" placeholder="www.ejemplo.com" class="form-control input-form" required>
+              <label for="convenio" class="form-label">Convenio</label>
+              <select class="form-control input-form" name = "convenio" id="selectConvenio-editar" required>
+                <option value="1">ASEGURADORAS </option>
+                <option value="2">INSTITUCIONES PUBLICAS </option>
+                <option value="3">INSTITUCIONES PRIVADAS </option>
+                <option value="4">CORTESIAS </option>
+              </select>
             </div>
             <div class="col-6 col-md-6">
               <label for="confac" class="form-label">Pagina Web</label>

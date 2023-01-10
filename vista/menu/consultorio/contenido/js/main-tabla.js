@@ -6,23 +6,23 @@ tablaMain = $('#TablaListaConsultorio').DataTable({
   scrollCollapse: true,
   lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
-      dataType: 'json',
-      data: {api: 5, area_id: 1},
-      method: 'POST',
-      url: '../../../api/turnos_api.php',
-      beforeSend: function() { loader("In") },
-      complete: function(){ loader("Out") },
-      dataSrc:'response.data'
+    dataType: 'json',
+    data: { api: 1, estado: 1 },
+    method: 'POST',
+    url: '../../../api/recepcion_api.php',
+    beforeSend: function () { loader("In") },
+    complete: function () { loader("Out") },
+    dataSrc: 'response.data'
   },
-  columns:[
-      {data: 'COUNT'},
-      {data: 'NOMBRE_COMPLETO'},
-      {data: 'PREFOLIO'},
-      {data: 'CLIENTE'},
-      {data: 'FECHA_AGENDA'},
-      {data: 'GENERO'},
-      {data: 'SEGMENTO'},
-      // {defaultContent: 'En progreso...'}
+  columns: [
+    { data: 'COUNT' },
+    { data: 'NOMBRE_COMPLETO' },
+    { data: 'PREFOLIO' },
+    { data: 'CLIENTE' },
+    { data: 'FECHA_AGENDA' },
+    { data: 'GENERO' },
+    { data: 'SEGMENTO' },
+    // {defaultContent: 'En progreso...'}
   ]
   // columnDefs: [
   //   { "width": "3px", "targets": 0 },
@@ -35,7 +35,7 @@ tablaMain = $('#TablaListaConsultorio').DataTable({
 selectDatatable('TablaListaConsultorio', tablaMain, 1, "pacientes_api", 'paciente')
 
 //DobleClik para funcionalidad
-dblclickDatatable('#TablaListaConsultorio', tablaMain, function(data){
+dblclickDatatable('#TablaListaConsultorio', tablaMain, function (data) {
   // console.log(data);
   obtenerContenidoAntecedentes(data);
 })
