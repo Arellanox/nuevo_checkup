@@ -58,6 +58,8 @@ switch($api){
         }
 
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
+        $url = crearReporteUltrasonido($turno_id, $area_id);
+        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id,null,$url,null,null]);
         $response = $last_id;  
         break;
     case 2:

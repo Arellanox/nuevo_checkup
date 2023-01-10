@@ -56,8 +56,11 @@ switch($api){
         foreach($formulario as $id_servicio => $item){
             $res = $master->insertByProcedure('sp_imagen_detalle_g',[null,$turno_id,$id_servicio,$item['hallazgo'],$item['interpretacion'],$item['comentario'],$last_id]);
         }
-
+        
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
+
+        $url = crearReporteUltrasonido($turno_id, $area_id);
+        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id,null,$url,null,null]);
         $response = $last_id;
         break;
     case 2:
@@ -247,9 +250,8 @@ function crearReporteUltrasonido($turno_id,$area_id){
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
     $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
-    $pdf->build();
+    return $pdf->build();
 
-    print_r($arregloPaciente);
-
+    # print_r($arregloPaciente);
 }
 ?>
