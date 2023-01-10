@@ -109,9 +109,6 @@ switch($api){
 
         }
 
-        // $response["PDF"] = $response1[0];
-        // $response['DETALLE'] = $response1[1];
-        // $response['CAPTURAS'] = $capturas;
         $merge = [];
         for ($i=0; $i < count($response1[1]); $i++) {
             $id_imagen = $response1[1][$i]['IMAGEN_ID'];
@@ -138,8 +135,6 @@ switch($api){
                 $sub['CAPTURAS'] = $cap;
                 $capturas[] = $sub;
             }
-
-            //print_r($sub_caps);
     
             $m = array_merge($response1[1][$i], $subconjunto[0]);
             $m['CAPTURAS'] = $capturas;
@@ -191,7 +186,7 @@ switch($api){
             $response = $arregloPaciente;
             break;
     case 5:
-        crearReporteUltrasonido($turnod_id, $area_id);
+        crearReporteUltrasonido($turno_id, $area_id);
         break;
     default:
         $response = "Api no definida.";
@@ -253,6 +248,8 @@ function crearReporteUltrasonido($turno_id,$area_id){
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
     $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
     $pdf->build();
+
+    print_r($arregloPaciente);
 
 }
 ?>
