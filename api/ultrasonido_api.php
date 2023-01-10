@@ -7,8 +7,8 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    #$tokenVerification->logout();
+    #exit;
 }
 
 $master = new Master();
@@ -113,37 +113,68 @@ switch($api){
         }
 
         $merge = [];
-        for ($i=0; $i < count($response1[1]); $i++) {
-            $id_imagen = $response1[1][$i]['IMAGEN_ID'];
-            $servicio =  $response1[1][$i]['ID_SERVICIO'];
+        for ($i = 0; $i < count($response1[0]); $i++){
+            $id_imagenologia = $response1[0][$i]['ID_IMAGENOLOGIA'];
+            $servicio = $response1[0][$i]['ID_SERVICIO'];
 
-            $subconjunto = array_filter($response1[0], function ($obj) use ($id_imagen) {
-                $r = $obj['ID_IMAGENOLOGIA'] == $id_imagen;
+            $subconjunto = array_filter($response1[1], function ($obj) use ($id_imagenologia) {
+                $r = $obj['IMAGEN_ID'] == $id_imagenologia;
                 return $r;
             });
 
-
-            $sub_caps = array_filter($response2, function ($obj) use ($servicio) {
+            $sub_caps = array_filter($capturas, function ($obj) use ($servicio) {
                 $r = $obj['ID_SERVICIO'] == $servicio;
                 return $r;
             });
 
-            $capturas = [];
-            foreach($sub_caps as $sub){
-                $sub['CAPTURAS'] = json_decode($sub['CAPTURAS'], true);
-                $cap = [];
-                foreach($sub['CAPTURAS'] as $s){
-                    $cap[] = json_decode($s, true);
-                }
-                $sub['CAPTURAS'] = $cap;
-                $capturas[] = $sub;
-            }
-    
-            $m = array_merge($response1[1][$i], $subconjunto[0]);
+            // $capturas = [];
+            // foreach($sub_caps as $sub){
+            //     $sub['CAPTURAS'] = json_decode($sub['CAPTURAS'], true);
+            //     $cap = [];
+            //     foreach($sub['CAPTURAS'] as $s){
+            //         $cap[] = json_decode($s, true);
+            //     }
+            //     $sub['CAPTURAS'] = $cap;
+            //     $capturas[] = $sub;
+            // }
+        
+            $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
             $m['CAPTURAS'] = $capturas;
            
             $merge[] = $m;
         }
+
+        // for ($i=0; $i < count($response1[1]); $i++) {
+        //     $id_imagen = $response1[1][$i]['IMAGEN_ID'];
+        //     $servicio =  $response1[1][$i]['ID_SERVICIO'];
+
+        //     $subconjunto = array_filter($response1[0], function ($obj) use ($id_imagen) {
+        //         $r = $obj['ID_IMAGENOLOGIA'] == $id_imagen;
+        //         return $r;
+        //     });
+
+
+        //     $sub_caps = array_filter($response2, function ($obj) use ($servicio) {
+        //         $r = $obj['ID_SERVICIO'] == $servicio;
+        //         return $r;
+        //     });
+
+        //     $capturas = [];
+        //     foreach($sub_caps as $sub){
+        //         $sub['CAPTURAS'] = json_decode($sub['CAPTURAS'], true);
+        //         $cap = [];
+        //         foreach($sub['CAPTURAS'] as $s){
+        //             $cap[] = json_decode($s, true);
+        //         }
+        //         $sub['CAPTURAS'] = $cap;
+        //         $capturas[] = $sub;
+        //     }
+    
+        //     $m = array_merge($response1[1][$i], $subconjunto[0]);
+        //     $m['CAPTURAS'] = $capturas;
+           
+        //     $merge[] = $m;
+        // }
   
         # si algo falla por favor de comentar esta linea y decomentar las lineas 110,111,112
         $response = $merge;
@@ -203,6 +234,7 @@ function crearReporteUltrasonido($turno_id,$area_id){
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+    $infoPaciente[0]["TITULO"] = "Ultrasonido";
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();
