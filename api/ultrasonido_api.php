@@ -140,7 +140,7 @@ switch($api){
             //print_r($sub_caps);
     
             $m = array_merge($response1[1][$i], $subconjunto[0]);
-            $m = array_merge($m, $capturas);
+            $m['CAPTURAS'] = $capturas;
            
             $merge[] = $m;
         }
@@ -169,7 +169,7 @@ switch($api){
                 $array1 = array(
                     "ESTUDIO" => $servicio,
                     "HALLAZGO" => $hallazgo,
-                    "INTERPRETACION" => $servicioimg,
+                    "INTERPRETACION" => $interpretacion,
                     "COMENTARIO" => $comentario,
 
                 );
