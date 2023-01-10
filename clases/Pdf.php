@@ -54,7 +54,7 @@ class Reporte{
                 // Qrcode
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
-            case 'ultrasonidos':
+            case 'ultrasonido':
                 // Ultrasonidos
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
@@ -115,7 +115,7 @@ class Reporte{
                 // $path    = 'pdf/public/oftamologia/E-00001.pdf';
                 break;
 
-            case 'ultrasonidos':
+            case 'ultrasonido':
                 $template = render_view('invoice/ultrasonidos.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');

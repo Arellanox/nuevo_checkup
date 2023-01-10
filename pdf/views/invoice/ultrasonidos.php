@@ -301,7 +301,24 @@
 
         <!-- body -->
         <div class="invoice-content">
-            <h2>RADIOGRAFÍA DE TORAX</h2>
+            <?php
+                $count = 0;
+                foreach ($resultados->ESTUDIOS as $key => $resultado) {
+                    echo "<h2>" . $resultado->ESTUDIO . "</h2>";
+                    echo "<h4>Hallazgo</h4>";
+                    echo "<p>". $resultado->HALLAZGO."</p>";
+                    echo "<p><strong>Interpretación: </strong>". $resultado->INTERPRETACION ."</p>";
+                    echo "<p><strong>Comentario: </strong>". $resultado->COMENTARIO ."</p>";
+                    // $i%$numero==0
+                    $count ++;
+                    if($count % 2 == 0){
+            ?>
+                        <div class="break"></div>
+            <?php
+                    }
+                }
+            ?>
+            <!-- <h2>RADIOGRAFÍA DE TORAX</h2>
             <h4>Hallazgos</h4>
             <p>
             Tórax normolíneo. Tejidos blandos perifericos sin datos de lesión. La densidad ósea se encuentra conservada, las estructuras óseas sin alteración. Hemidiafragmas en adecuada posición, de contornos regulares bien definidos, los recesos cardiofrénicos y costodiafragmático se encuentra libres. Campos pulmonares adecuadamente distendidos, no se observaron lesiones nodulares, zonas de consolidación ni infiltrados. La trama broncovascular encuentra conservada. La tráquea central. El corazón de tamaño y morfología normal.
@@ -311,7 +328,7 @@
             <h2>RADIOGRAFIA DE COLUMNA LUMBOSACRA</h2>
             <h4>Hallazgos</h4>
             <p>Los cuerpos vertebrales se encuentran desviadosos hacia la izquierda, ángulo de Cobb de 40°, la lordosis se encuentra conservada, ángulo de Ferguson de 340°. Los cuerpos vertebrales son normales en forma, número y tamaño, no hay datos de listesis. Los espacios intersomáticos tienen amplitud conservada. Las cabezas femorales tienen morfología esférica, se proyectan a la misma altura, las articulaciones coxofemorales se encuentran conservadas.</p>
-            <p> <strong>Interpretación: </strong> Columna lumbar de actitud escoliótica, de convexidad izquierda. Realizar correlación clínica.</p>
+            <p> <strong>Interpretación: </strong> Columna lumbar de actitud escoliótica, de convexidad izquierda. Realizar correlación clínica.</p> -->
         </div>
     </body>
 </html>
