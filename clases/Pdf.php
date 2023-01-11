@@ -9,7 +9,8 @@ use Dompdf\Adapter\PDFLib;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-class Reporte{
+class Reporte
+{
 
     public $response;
     public $data;
@@ -23,7 +24,8 @@ class Reporte{
      *
      * @return void
      */
-    public function __construct($response, $data, $pie, $archivo, $tipo, $orden){
+    public function __construct($response, $data, $pie, $archivo, $tipo, $orden)
+    {
         $this->response = $response;
         $this->data     = $data;
         $this->pie      = $pie;
@@ -32,7 +34,8 @@ class Reporte{
         $this->orden    = $orden;
     }
 
-    public function build(){
+    public function build()
+    {
         $response   = json_decode($this->response);
         $data       = json_decode($this->data); //Esperando la data general
         $pie        = $this->pie;
@@ -67,10 +70,10 @@ class Reporte{
                 return $barcode;
                 break;
         }
-        
+
         $host =  isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
         // Path del dominio
-        $path = $archivo['ruta'].$archivo['nombre_archivo'].".pdf";
+        $path = $archivo['ruta'] . $archivo['nombre_archivo'] . ".pdf";
         // $path    = 'pdf/public/resultados/E-00001.pdf';
         // echo $path;
         // print_r($path);
@@ -91,7 +94,7 @@ class Reporte{
             case 'etiquetas':
                 $template = render_view('invoice/etiquetas.php', $view_vars);
                 $pdf->loadHtml($template);
-                
+
                 $ancho = (5.1 / 2.54) * 72;
                 $alto  = (2.5 / 2.54) * 72;
 
@@ -120,7 +123,7 @@ class Reporte{
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;
-            
+
             case 'rayos':
                 $template = render_view('invoice/rayos.php', $view_vars);
                 $pdf->loadHtml($template);
@@ -133,10 +136,9 @@ class Reporte{
                 $pdf->setPaper('letter', 'portrait');
                 // $path    = 'pdf/public/oftamologia/E00001.pdf';
                 break;
-
         }
         // Recibe la orden de que tipo de  modo de visualizacion quiere
-        switch ($orden){
+        switch ($orden) {
             case 'descargar':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
@@ -150,7 +152,7 @@ class Reporte{
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
                 // return 'https://bimo-lab.com/nuevo_checkup/'. $path;
-                echo $host . $path;
+                return $host . $path;
                 // echo $path;
                 // return $path;
                 break;
@@ -159,8 +161,8 @@ class Reporte{
                 return $pdf->stream('documento.pdf', array("Attachment" => false));
                 break;
 
-            // session_write_close();
-            session_destroy();
+                // session_write_close();
+                session_destroy();
         }
     }
 }
