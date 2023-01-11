@@ -2,9 +2,9 @@ var tablaContenido, areaActiva;
 var dataListaPaciente = {
   api: 7
 };
-var selectPacienteArea, hash, servicio_nombre, formulario, api, url_api;
+var hash, servicio_nombre, formulario, api, url_api, selecta, nombre_paciente;
 //Variable para guardar los servicios de un paciente seleccionado
-var selectEstudio = new GuardarArreglo();
+var selectEstudio = new GuardarArreglo(), dataSelect = new GuardarArreglo();
 var selectrue = 0,
   confirmado;
 
@@ -82,15 +82,15 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
   areaActiva = area;
   $.post("contenido/" + contenidoHTML, {
     form: formulario
-  }, async function (html) {
+  }, function (html) {
     $("#body-js").html(html);
+  }).done(async function () {
     await obtenerTitulo(titulo);
     dataListaPaciente = {
       api: 5,
       fecha_busqueda: $('#fechaListadoAreaMaster').val(),
       area_id: areaActiva
     }
-  }).done(function () {
 
     // Cambiar aspecto
     $('.btnResultados').fadeOut(0)

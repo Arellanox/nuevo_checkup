@@ -201,8 +201,22 @@ function checkNumber(x) {
 //servicios: 
 // 85, 354, 355, 356, 84
 function ifnull(data) {
+  if (typeof data === 'undefined') return '';
   if (data) return data;
   return '';
+}
+
+//Devuelve la area
+function getAreaActiva() {
+  hash = window.location.hash.substring(1);
+  switch (hash) {
+    case "ULTRASONIDO": return 11;
+    case "RX": return 8;
+    case "ESPIROMETRIA": return 5;
+    case "ELECTROCARDIOGRAMA": return 10;
+    case "AUDIOMETRIA": return 4;
+    case "OFTALMOLOGIA": return 3;
+  }
 }
 
 // Omitir paciente actual

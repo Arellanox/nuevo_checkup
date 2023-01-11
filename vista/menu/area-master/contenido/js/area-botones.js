@@ -28,7 +28,7 @@ function recargarVistaLab(fecha = 1) {
 
 
 $("#btn-analisis-pdf").click(function () {
-  if (selectPacienteArea != null) {
+  if (dataSelect.array['select']) {
     // $("#ModalSubirInterpretacion").modal("show");
     chooseEstudio(selectEstudio.array, '#ModalSubirInterpretacion', 1)
   } else {
@@ -37,7 +37,7 @@ $("#btn-analisis-pdf").click(function () {
 });
 
 $('#btn-capturas-pdf').click(function () {
-  if (selectPacienteArea != null) {
+  if (dataSelect.array['select']) {
     // $("#ModalSubirCapturas").modal("show");
     chooseEstudio(selectEstudio.array, '#ModalSubirCapturas', 2)
   } else {
@@ -46,7 +46,7 @@ $('#btn-capturas-pdf').click(function () {
 })
 
 $('#btn-analisis-oftalmo').click(function () {
-  if (selectPacienteArea != null) {
+  if (dataSelect.array['select']) {
 
     $("#ModalSubirInterpretacionOftalmologia").modal("show");
   } else {
@@ -79,7 +79,7 @@ function chooseEstudio(row, modal, tip) {
     case 2:
       for (var i = 0; i < row.length; i++) {
         if (row[i]['CAPTURAS'].length == 0) {
-          html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['SERVICIO'] + `, '` + modal + `', ` + row[i]['ID_SERVICIO'] + `)" type="button">` + row[i]['SERVICIO'] + `</button>`;
+          html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `', '` + row[i]['SERVICIO'] + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
         }
       }
       if (html) {

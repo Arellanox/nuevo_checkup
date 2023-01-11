@@ -62,36 +62,42 @@ $("#inputBuscarTableListaPacientes").keyup(function () {
 
 
 selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function (selectTR = null, array = null) {
-    selectPacienteArea = array;
+    let datalist = array;
+
     if (selectTR == 1) {
-        getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', selectPacienteArea, 'In', async function (divClass) {
-            await obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
+        dataSelect = new GuardarArreglo({
+            select: true,
+            nombre_paciente: datalist['NOMBRE_COMPLETO'],
+            turno: datalist['ID_TURNO']
+        })
+        getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
+            await obtenerPanelInformacion(datalist['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
             await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
-            await obtenerServicios(areaActiva)
+            await obtenerServicios(areaActiva, datalist['ID_TURNO'])
 
             //Obtener resultado de cada area 
             estadoFormulario(0) //Activa el formulario
             switch (areaActiva) {
                 case 3:
-                    if (selectPacienteArea.CONFIRMADO_OFTAL == 1) estadoFormulario(1)
-                    await obtenerResultadosOftalmo(selectPacienteArea['ID_TURNO'])
+                    if (datalist.CONFIRMADO_OFTAL == 1) estadoFormulario(1)
+                    await obtenerResultadosOftalmo(selectEstudio.array)
                     break;
                 case 4:
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
+                    if (datalist.CONFIRMADO == 1) estadoFormulario(1)
                     break;
                 case 5:
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
+                    if (datalist.CONFIRMADO == 1) estadoFormulario(1)
                     break;
-                case 7: //Rayos X
-                await ObtenerResultadosUltrsonido(selectEstudio.array);
-                    if (selectPacienteArea.CONFIRMADO == 1) estadoFormulario(1)
+                case 8: //Rayos X
+                    await ObtenerResultadosUltrsonido(selectEstudio.array);
+                    if (datalist.CONFIRMADO == 1) estadoFormulario(1)
                     break;
                 case 11: //Ultrasonido
                     await ObtenerResultadosUltrsonido(selectEstudio.array);
-                    if (selectPacienteArea.CONFIRMADO_ULTRASO == 1) estadoFormulario(1)
+                    if (datalist.CONFIRMADO_ULTRASO == 1) estadoFormulario(1)
                     break;
                 case 10: //Electrocardiograma
-                    if (selectPacienteArea.CONFIRMADO_ELECTRO == 1) estadoFormulario(1)
+                    if (datalist.CONFIRMADO_ELECTRO == 1) estadoFormulario(1)
                     // ObtenerResultadosUltrsonido(selectEstudio.array);
                     break;
                 default:
@@ -104,28 +110,34 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
             bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
         })
     } else {
+        dataSelect = new GuardarArreglo({
+            select: false,
+            nombre_paciente: 'Sin paciente',
+            turno: 0
+        })
+
         $('#btnResultados').fadeOut('100');
-        getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', selectPacienteArea, 'Out')
+        getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'Out')
     }
 
 
     // let dataajax;
     // let url;
     // botonesResultados('desactivar')
-    // selectPacienteArea = array;
-    // console.log(selectPacienteArea)
+    // datalist = array;
+    // console.log(datalist)
     // if (selectTR == 1) {
-    //     obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente')
+    //     obtenerPanelInformacion(datalist['ID_PACIENTE'], 'pacientes_api', 'paciente')
     //     if (areaActiva == 3) {
     //         url = 'oftalmologia_api';
     //         data = {
-    //             turno_id: selectPacienteArea['ID_TURNO'],
+    //             turno_id: datalist['ID_TURNO'],
     //             api: 3
     //         }
     //     } else {
     //         data = {
     //             api: 11,
-    //             id_turno: selectPacienteArea['ID_TURNO'],
+    //             id_turno: datalist['ID_TURNO'],
     //             id_area: areaActiva
     //         }
     //         url = 'servicios_api'
@@ -160,19 +172,18 @@ function limpiarCampos() {
     $('#TablaContenidoResultados').removeClass('selected');
 }
 
-async function obtenerServicios(area) {
+async function obtenerServicios(area, turno) {
     return new Promise(resolve => {
         if (area == 3) {
             // url = 'oftalmologia_api';
             data = {
-                turno_id: selectPacienteArea['ID_TURNO'],
+                turno_id: turno,
                 api: 2
             }
         } else {
             data = {
                 api: 3,
-                id_turno: selectPacienteArea['ID_TURNO'],
-                id_area: area
+                id_turno: turno,
             }
             // url = 'servicios_api'
         }
@@ -185,7 +196,7 @@ async function obtenerServicios(area) {
                 if (mensajeAjax(data)) {
                     selectEstudio = new GuardarArreglo(data.response.data);
                     let row = [data.response.data];
-                    panelResultadoPaciente(row);
+                    panelResultadoPaciente(row, area);
                     botonesResultados('activar', area)
                 }
             },
@@ -195,31 +206,42 @@ async function obtenerServicios(area) {
         })
     })
 }
-async function panelResultadoPaciente(row, area = areaActiva) {
-    // console.log(row)
+async function panelResultadoPaciente(row, area) {
+    console.log(row)
     let html = '';
-    switch (areaActiva) {
+    let itemStart = '<div class="accordion-item bg-acordion">';
+    let itemEnd = '</div>';
+
+    let bodyStart = '<div class="accordion-body"> <div class="row">';
+    let bodyEnd = '</div>  </div>';
+    html += '';
+    let truehtml = false;
+    $('#divAreaMasterResultados').fadeOut()
+    switch (area) {
         case 3:
-            html += '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' +
-                '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'
-                '<div class="col-12 d-flex justify-content-center">' +
-                '<a type="button"a target="_blank" class="btn btn-borrar me-2" href="' + row['url'] + '" style="margin-bottom:4px" id="btn-analisis-pdf">' +
-                '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
-                '</a>' +
-                '</div>' +
-                '</div> <hr>';
+            for (const i in row) {
+                // console.log(row[i]);
+                html += itemStart;
+                html += '<h2 class="accordion-header" id="collap-historial-estudios' + i + '">' +
+                    '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio' + i + '-Target" aria-expanded="false" aria-controls="accordionEstudios">' +
+                    '<div class="row">' +
+                    '<div class="col-12">' +
+                    '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + ifnull(row[i][0]['CARGADO_POR']) + '</strong>' +
+                    '</div>' +
+                    '<div class="col-12">' +
+                    '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>' + formatoFecha2(row[i][0]['FECHA_RESULTADO'], [3, 1, 2, 2, 1, 1, 1]) + '</strong> ' + //<strong>12:00 '+i+'</strong>
+                    '</div>' +
+                    '</div>' +
+                    '</button>' +
+                    '</h2>' +
+                    //Dentro del acordion
+                    '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse " aria-labelledby="collap-historial-estudios' + i + '" > '; //overflow-auto style="max-height: 70vh"
+
+            }
             $('#resultadosServicios-areas').append(html);
             break;
 
         default:
-            let itemStart = '<div class="accordion-item bg-acordion">';
-            let itemEnd = '</div>';
-
-            let bodyStart = '<div class="accordion-body">' +
-                '<div class="row">';
-            let bodyEnd = '</div>' +
-                '</div>';
-            html += '';
 
             for (const i in row) {
                 // console.log(row[i]);
@@ -228,7 +250,7 @@ async function panelResultadoPaciente(row, area = areaActiva) {
                     '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio' + i + '-Target" aria-expanded="false" aria-controls="accordionEstudios">' +
                     '<div class="row">' +
                     '<div class="col-12">' +
-                    '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + row[i][0]['CARGADO_POR'] + '</strong>' +
+                    '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + ifnull(row[i][0]['CARGADO_POR']) + '</strong>' +
                     '</div>' +
                     '<div class="col-12">' +
                     '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>' + formatoFecha2(row[i][0]['FECHA_RESULTADO'], [3, 1, 2, 2, 1, 1, 1]) + '</strong> ' + //<strong>12:00 '+i+'</strong>
@@ -252,6 +274,8 @@ async function panelResultadoPaciente(row, area = areaActiva) {
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación generado' +
                         '</a>' +
                         '</div>';
+                    //Busca si existe interpretación o imagen
+                    truehtml = true;
                 }
 
                 if (row[i][0]['INTERPRETACION_PDF']) {
@@ -260,6 +284,8 @@ async function panelResultadoPaciente(row, area = areaActiva) {
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación bimo' +
                         '</a>' +
                         '</div>';
+                    //Busca si existe interpretación o imagen
+                    truehtml = true;
                 }
                 //Boton de capturas
                 // console.log(row[i]['CAPTURAS'])
@@ -270,6 +296,8 @@ async function panelResultadoPaciente(row, area = areaActiva) {
                 //         '</a>' +
                 //         '</div>';
                 // }
+
+
                 let img = false;
                 for (const im in row[i]) {
                     // console.log(row[i][im]['CAPTURAS'])
@@ -281,13 +309,18 @@ async function panelResultadoPaciente(row, area = areaActiva) {
                         '<i class="bi bi-images"></i> Capturas' +
                         '</a>' +
                         '</div>';
+                    //Busca si existe interpretación o imagen
+                    truehtml = true;
                 }
 
-
+                console.log(img);
                 html += bodyEnd + '</div>';
                 html += itemEnd;
             }
-            $('#resultadosServicios-areas').html(html);
+            if (truehtml) {
+                $('#resultadosServicios-areas').html(html)
+                $('#divAreaMasterResultados').fadeIn()
+            }
             break;
     }
 
@@ -427,7 +460,7 @@ function cargarForm(campo, id, campoAjax, texto) {
     html += endDiv;
     html += colreStart;
     html += '<div class="input-group">';
-    html += '<textarea type="text" class="form-control input-form inputFormRequired" name="servicios[' + id + '][' + campoAjax + ']" autocomplete="off">' + texto + '</textarea>';
+    html += '<textarea type="text" class="form-control input-form inputFormRequired" name="servicios[' + id + '][' + campoAjax + ']" autocomplete="off">' + ifnull(texto) + '</textarea>';
     html += '</div>';
     html += endDiv;
 
@@ -436,46 +469,23 @@ function cargarForm(campo, id, campoAjax, texto) {
     return html;
 }
 
-async function obtenerResultadosOftalmo(id) {
-    return new Promise(resolve => {
-        $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",
-            data: {
-                api: 2,
-                turno_id: id
-            },
-            type: "POST",
-            dataType: 'json',
-            success: function (data) {
-                // console.log(data);
-                if (mensajeAjax(data)) {
-                    let row = data.response.data[0];
-                    if (row) {
-                        $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
-                        $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);
-                        $('#padecimiento_actual').val(row.PADECIMIENTO_ACTUAL);
-                        $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
-                        $('#od').val(row.OD);
-                        $('#oi').val(row.OI);
-                        $('#jaeger').val(row.JAEGER);
-                        $('#refraccion').val(row.REFRACCION);
-                        $('#prueba').val(row.PRUEBA);
-                        $('#exploracion_oftalmologica').val(row.EXPLORACION_OFTALMOLOGICA);
-                        $('#forias').val(row.FORIAS);
-                        $('#campimetria').val(row.CAMPIMETRIA);
-                        $('#presion_intraocular_od').val(row.PRESION_INTRAOCULAR_OD);
-                        $('#presion_intraocular_oi').val(row.PRESION_INTRAOCULAR_OI);
-                        $('#diagnostico').val(row.DIAGNOSTICO);
-                        $('#plan').val(row.PLAN);
-                        $('#observaciones').val(row.OBSERVACIONES);
-                    }
-                }
-
-                // botonesResultados('activar', areaActiva)
-            },
-            complete: function () {
-                resolve(1);
-            }
-        })
-    });
+async function obtenerResultadosOftalmo(data) {
+    let row = data[0]
+    $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
+    $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);
+    $('#padecimiento_actual').val(row.PADECIMIENTO_ACTUAL);
+    $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
+    $('#od').val(row.OD);
+    $('#oi').val(row.OI);
+    $('#jaeger').val(row.JAEGER);
+    $('#refraccion').val(row.REFRACCION);
+    $('#prueba').val(row.PRUEBA);
+    $('#exploracion_oftalmologica').val(row.EXPLORACION_OFTALMOLOGICA);
+    $('#forias').val(row.FORIAS);
+    $('#campimetria').val(row.CAMPIMETRIA);
+    $('#presion_intraocular_od').val(row.PRESION_INTRAOCULAR_OD);
+    $('#presion_intraocular_oi').val(row.PRESION_INTRAOCULAR_OI);
+    $('#diagnostico').val(row.DIAGNOSTICO);
+    $('#plan').val(row.PLAN);
+    $('#observaciones').val(row.OBSERVACIONES);
 }
