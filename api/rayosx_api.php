@@ -7,7 +7,7 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    
+
     $tokenVerification->logout();
     exit;
 }
@@ -31,37 +31,37 @@ $id_imagen = $_POST['id_imagen'];
 $formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
-$host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/" ;
+$host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 $date = date("dmY_His");
 
-switch($api){
+switch ($api) {
     case 1:
         # insertar la interpretacion
         #creamos el directorio donde se va a guardar la informacion del turno
         $ruta_saved = "reportes/modulo/rayosx/$date/$turno_id/interpretacion/";
-        $r = $master->createDir("../".$ruta_saved);
-        
-        if($r!=1){
+        $r = $master->createDir("../" . $ruta_saved);
+
+        if ($r != 1) {
             $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
             break;
         }
 
         #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_RX_$turno_id");
+        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../" . $ruta_saved, "INTERPRETACION_RX_$turno_id");
 
         $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
-        $last_id = $master->insertByProcedure('sp_imagenologia_resultados_g',[$id_imagen,$turno_id,$ruta_archivo,$usuario,$area_id,null]);
+        $last_id = $master->insertByProcedure('sp_imagenologia_resultados_g', [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null]);
 
         # insertar el formulario de bimo.
-        foreach($formulario as $id_servicio => $item){
-            $res = $master->insertByProcedure('sp_imagen_detalle_g',[null,$turno_id,$id_servicio,$item['hallazgo'],$item['interpretacion'],$item['comentario'],$last_id]);
+        foreach ($formulario as $id_servicio => $item) {
+            $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id]);
         }
 
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
-        $url = crearReporteUltrasonido($turno_id, $area_id);
-        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id,null,null,null,null,$url]);
-        $response = $last_id;  
+        $url = crearReporteRayosX($turno_id, $area_id);
+        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
+        $response = $last_id;
         break;
     case 2:
         $turno_id = $_POST['turno_id'];
@@ -69,9 +69,9 @@ switch($api){
         $serv = str_replace(" ", "_", $nombre_servicio);
         #creamos el directorio donde se va a guardar la informacion del turno
         $ruta_saved = "reportes/modulo/rayosx/$date/$turno_id/capturas/";
-        $r = $master->createDir("../".$ruta_saved);
-        
-        if($r!=1){
+        $r = $master->createDir("../" . $ruta_saved);
+
+        if ($r != 1) {
             $response = "No se pudo crear el directorio de carpetas. Capturas.";
             break;
         }
@@ -83,37 +83,36 @@ switch($api){
         $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_RX_$serv");
 
         # formateamos la ruta de los archivos para guardarlas en la base de datos
-        for ($i=0; $i < count($capturas); $i++) {
-            $capturas[$i]['url'] = str_replace("../",$host,$capturas[$i]['url']);
+        for ($i = 0; $i < count($capturas); $i++) {
+            $capturas[$i]['url'] = str_replace("../", $host, $capturas[$i]['url']);
         }
 
         # insertamos en la base de datos.
-        $response = $master->insertByProcedure('sp_capturas_imagen_g',[null, $turno_id,$servicio_id,json_encode($capturas),$comentario,$usuario]);
+        $response = $master->insertByProcedure('sp_capturas_imagen_g', [null, $turno_id, $servicio_id, json_encode($capturas), $comentario, $usuario]);
         break;
     case 3:
         # recuperar las capturas
         $response = array();
         #recupera la interpretacion.
         $area_id = 8; # 11 es el id para ultrasonido.
-        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
+        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen, $turno_id, $area_id]);
 
         # recupera la capturas del turno.
         # necesitamos enviarle el area del estudio para hacer el filtro.
-        $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$turno_id,$area_id]);
+        $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$turno_id, $area_id]);
 
         $capturas = [];
-        foreach($response2 as $current){
+        foreach ($response2 as $current) {
             $capturas_child = [];
-            foreach(json_decode($current['CAPTURAS'],true) as $item){
+            foreach (json_decode($current['CAPTURAS'], true) as $item) {
                 $capturas_child[] = json_decode($item, true);
             }
             $current['CAPTURAS'] = $capturas_child;
             $capturas[] = $current;
-
         }
 
         $merge = [];
-        for ($i = 0; $i < count($response1[0]); $i++){
+        for ($i = 0; $i < count($response1[0]); $i++) {
             $id_imagenologia = $response1[0][$i]['ID_IMAGENOLOGIA'];
             $servicio = $response1[0][$i]['ID_SERVICIO'];
 
@@ -128,10 +127,10 @@ switch($api){
             });
 
             $sub_caps = $master->getFormValues($sub_caps);
-        
+
             $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
             $m['CAPTURAS'] = $sub_caps;
-           
+
             $merge[] = $m;
         }
 
@@ -142,34 +141,34 @@ switch($api){
         $response = array();
         # recuperar los resultados de rayos x
         $area_id = 8; # 8 es el id para rayosx.
-        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen,$turno_id,$area_id]);
+        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen, $turno_id, $area_id]);
 
-            $arrayimg = [];
+        $arrayimg = [];
 
-            for ($i=0; $i < count($response1[1]) ; $i++) {                
-                $servicio = $response1[1][$i]['SERVICIO'];
-                $hallazgo = $response1[1][$i]['HALLAZGO'];
-                $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
-                $comentario = $response1[1][$i]['COMENTARIO'];
-                $array1 = array(
-                    "ESTUDIO" => $servicio,
-                    "HALLAZGO" => $hallazgo,
-                    "INTERPRETACION" => $servicioimg,
-                    "COMENTARIO" => $comentario,
+        for ($i = 0; $i < count($response1[1]); $i++) {
+            $servicio = $response1[1][$i]['SERVICIO'];
+            $hallazgo = $response1[1][$i]['HALLAZGO'];
+            $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
+            $comentario = $response1[1][$i]['COMENTARIO'];
+            $array1 = array(
+                "ESTUDIO" => $servicio,
+                "HALLAZGO" => $hallazgo,
+                "INTERPRETACION" => $servicioimg,
+                "COMENTARIO" => $comentario,
 
-                );
-                array_push($arrayimg, $array1);
-            }
-
-            $arregloPaciente = array(
-                'NOMBRE' => $infoPaciente[0]['NOMBRE'],
-                "EDAD" => $infoPaciente[0]['EDAD'],
-                'SEXO' => $infoPaciente[0]['SEXO'],
-                'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
-                'ESTUDIOS' => $arrayimg
             );
-            // print_r($arregloPaciente);
-            $response = $arregloPaciente;
+            array_push($arrayimg, $array1);
+        }
+
+        $arregloPaciente = array(
+            'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+            "EDAD" => $infoPaciente[0]['EDAD'],
+            'SEXO' => $infoPaciente[0]['SEXO'],
+            'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
+            'ESTUDIOS' => $arrayimg
+        );
+        // print_r($arregloPaciente);
+        $response = $arregloPaciente;
 
         break;
     case 5:
@@ -181,22 +180,25 @@ switch($api){
 }
 echo $master->returnApi($response);
 
-function crearReporteRayosX($turno_id,$area_id){
+function crearReporteRayosX($turno_id, $area_id)
+{
     $master = new Master();
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+    $infoPaciente[0]['TITULO'] = 'RAYOS X';
+    $infoPaciente[0]['SUBTITULO'] = 'RAYOS X';
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();
     # recuperar los resultados de ultrasonido
     $area_id = 11; #11 es el id para ultrasonido.
-    $response1 = $master->getByNext('sp_imagenologia_resultados_b', [null,$turno_id,$area_id]);
+    $response1 = $master->getByNext('sp_imagenologia_resultados_b', [null, $turno_id, $area_id]);
 
     $arrayimg = [];
 
-    for ($i=0; $i < count($response1[1]) ; $i++) { 
-        
+    for ($i = 0; $i < count($response1[1]); $i++) {
+
         $servicio = $response1[1][$i]['SERVICIO'];
         $hallazgo = $response1[1][$i]['HALLAZGO'];
         $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
@@ -232,9 +234,8 @@ function crearReporteRayosX($turno_id,$area_id){
     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['TURNO'] . '-' . $fecha_resultado);
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 8);
-    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
-    $pdf->build();
+    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'rayos', 'url');
+    return $pdf->build();
 
-    print_r($arregloPaciente);
+    // print_r($arregloPaciente);
 }
-?>

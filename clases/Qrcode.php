@@ -1,21 +1,23 @@
 <?php
-    require_once '../php/codeqr/vendor/autoload.php';
+require_once '../php/codeqr/vendor/autoload.php';
 
-    use chillerlan\QRCode\QRCode;
-    use chillerlan\QRCode\QROptions;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
-    function generarQRURL($clave, $folio, $modulo, $url = 'resultados/validar-pdf/'){
-        
-        $options = new QROptions([
-            'eccLevel' => QRCode::ECC_L,
-            'outputType' => QRCode::OUTPUT_MARKUP_SVG,
-            'version' => 5,
-        ]);
+function generarQRURL($clave, $folio, $modulo, $url = 'resultados/validar-pdf/')
+{
 
-        $contenido = 'https://bimo-lab.com/nuevo_checkup/'.$url.'?clave=-'.$clave.'&id='.$folio.'&modulo='.$modulo;
+    $options = new QROptions([
+        'eccLevel' => QRCode::ECC_L,
+        'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+        'version' => 5,
+    ]);
 
-        $qrcode = (new QRCode())->render($contenido);
+    $host =  isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 
-        return array($contenido, $qrcode);
-    }
-?>
+    $contenido = $host . $url . '?clave=' . $clave . '&id=' . $folio . '&modulo=' . $modulo;
+
+    $qrcode = (new QRCode())->render($contenido);
+
+    return array($contenido, $qrcode);
+}

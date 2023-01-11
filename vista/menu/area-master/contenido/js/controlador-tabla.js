@@ -278,9 +278,9 @@ async function panelResultadoPaciente(row, area) {
                     truehtml = true;
                 }
 
-                if (row[i][0]['INTERPRETACION_PDF']) {
+                if (row[i][0]['RUTA_REPORTE']) {
                     html += '<div class="col-12 d-flex justify-content-center">' +
-                        '<a type="button" target="_blank" class="btn btn-borrar me-2" href="' + row[i][0]['INTERPRETACION'] + '" style="margin-bottom:4px">' +
+                        '<a type="button" target="_blank" class="btn btn-borrar me-2" href="' + row[i][0]['RUTA_REPORTE'] + '" style="margin-bottom:4px">' +
                         '<i class="bi bi-file-earmark-pdf"></i> Interpretación bimo' +
                         '</a>' +
                         '</div>';

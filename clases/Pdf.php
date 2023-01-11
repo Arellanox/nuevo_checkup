@@ -62,7 +62,7 @@ class Reporte
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
             case 'rayos':
-                //rayos piu piu
+                // Ultrasonidos //rayos piu piu
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
             default:
