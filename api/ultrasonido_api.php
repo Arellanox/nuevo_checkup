@@ -7,8 +7,8 @@ include_once "../clases/Pdf.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    #$tokenVerification->logout();
-    #exit;
+    $tokenVerification->logout();
+    exit;
 }
 
 $master = new Master();
@@ -126,6 +126,8 @@ switch($api){
                 $r = $obj['ID_SERVICIO_CAP'] == $servicio;
                 return $r;
             });
+
+          //  $sub_caps = $master->getFormValues($sub_caps);
         
             $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
             $m['CAPTURAS'] = $sub_caps;
