@@ -292,7 +292,7 @@
                             Procedencia: <strong><?php echo $encabezado->PROCEDENCIA;?> </strong>
                         </td>
                         <td class="col-center"  style="border-bottom: none">
-                            <?php (isset($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong>". $encabezado->MEDICO_TRATANTE . "</strong>" : "" ;?> 
+                            <?php echo (isset($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong>". $encabezado->MEDICO_TRATANTE . "</strong>" : "" ;?> 
                         </td>
                         <td class="col-right"  style="border-bottom: none">
                         </td>

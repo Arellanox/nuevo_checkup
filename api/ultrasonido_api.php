@@ -184,7 +184,7 @@ switch($api){
         $response = "Api no definida.";
         break;
 }
-echo $master->returnApi($response);
+// echo $master->returnApi($response);
 
 
 function crearReporteUltrasonido($turno_id,$area_id){
@@ -197,7 +197,7 @@ function crearReporteUltrasonido($turno_id,$area_id){
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();
     # recuperar los resultados de ultrasonido
-    $area_id = 11; #11 es el id para ultrasonido.
+    $area_id = $area_id; #11 es el id para ultrasonido.
     $response1 = $master->getByNext('sp_imagenologia_resultados_b', [null,$turno_id,$area_id]);
 
     $arrayimg = [];
@@ -239,6 +239,7 @@ function crearReporteUltrasonido($turno_id,$area_id){
     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['TURNO'] . '-' . $fecha_resultado);
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
+    print_r($infoPaciente);
     $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
     return $pdf->build();
 

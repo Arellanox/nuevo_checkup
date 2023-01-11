@@ -217,7 +217,7 @@
                             <h4>
                                 DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
                                 Clínica Checkup <br>
-                                Imagenología
+                                <?php echo $encabezado->TITULO ?>
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
@@ -235,7 +235,7 @@
                     <tr>
                         <td style="text-align: center; border-style: solid none solid none; ">
                             <h3>
-                                Ultrasonido
+                                <?php echo $encabezado->SUBTITULO ?>
                             </h3>
                         </td>
                     </tr>
@@ -316,34 +316,6 @@
             <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
             <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red; font-size: 12px;"> 993 131 00 42 </strong> </br> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
         </div> 
-
-        <!--  <div class="footer">
-            <table>
-                <tbody>
-                    <tr class="col-foot-one">
-                        <td colspan="12" style="text-align: center; padding-right: 0;"><strong>Atentamente</strong></td>
-                    </tr>
-                    <tr class="col-foot-two" >
-                        <td colspan="3" style="text-align: center; ">
-                            <a target="_blank" href="<?php echo $qr[0]; ?>"> <img style="margin-bottom: -30px" src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
-                        </td>
-                        <td colspan="3" style="text-align: left;">
-                            <?php echo "<img style='position:absolute;' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
-                        </td>
-                    </tr>
-                    <tr class="col-foot-three"  style="font-size: 13px;">
-                        <td colspan="12" style="text-align: center; width: 50%; ">
-                            <strong >Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr style="margin-top: 0px; height: 0.5px; background-color: black ;">
-            <p style="text-align: center; margin-top: 0px"><small><strong>Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono: 993 131 00 42 
-            Correo electrónico: hola@bimo.com.mx</strong></small></p>
-        </div>-->
-
-
 
         <!-- body -->
         <div class="invoice-content">
