@@ -121,11 +121,11 @@ class Reporte{
                 $pdf->setPaper('letter', 'portrait');
                 break;
             
-                case 'rayos':
-                    $template = render_view('invoice/rayos.php', $view_vars);
-                    $pdf->loadHtml($template);
-                    $pdf->setPaper('letter', 'portrait');
-                    break;
+            case 'rayos':
+                $template = render_view('invoice/rayos.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
 
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);

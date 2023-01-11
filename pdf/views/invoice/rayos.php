@@ -217,7 +217,7 @@
                             <h4>
                                 DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
                                 Clínica Checkup <br>
-                                Ultrasonido
+                                <?php echo $encabezado->TITULO ?>
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
@@ -235,7 +235,7 @@
                     <tr>
                         <td style="text-align: center; border-style: solid none solid none; ">
                             <h3>
-                                Ultrasonido
+                                <?php echo $encabezado->SUBTITULO ?>
                             </h3>
                         </td>
                     </tr>
