@@ -217,7 +217,7 @@
                             <h4>
                                 DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
                                 Clínica Checkup <br>
-                                Imagenología
+                                <?php echo $encabezado->TITULO ?>
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
@@ -235,7 +235,7 @@
                     <tr>
                         <td style="text-align: center; border-style: solid none solid none; ">
                             <h3>
-                                Ultrasonido
+                                <?php echo $encabezado->SUBTITULO ?>
                             </h3>
                         </td>
                     </tr>
@@ -353,9 +353,9 @@
                     echo "<h2 style='padding-bottom: 8px; padding-top: 8px;'>" . $resultado->ESTUDIO . "</h2>";
                     echo "<h4 style='line-height: 1.5: padding-top: 20px;'>Hallazgos</h4>";
                     echo "<p style='line-height: 1.5'>". $resultado->HALLAZGO."</p>";
-                    echo "<p style='line-height: 1.5'><strong>Interpretación: </strong>". $resultado->INTERPRETACION;
+                    echo "<p style='line-height: 1.5'><strong>Interpretación: </strong>". $resultado->INTERPRETACION . "</p>";
                     if($resultado->COMENTARIO != "" || $resultado->COMENTARIO != null){
-                        echo "<strong>Comentario: </strong>". $resultado->COMENTARIO ."</p><br>" ;
+                        echo "<p><strong>Comentario: </strong>". $resultado->COMENTARIO ."</p><br>" ;
                     }
                     $count ++;
                     if($count % 2 == 0){

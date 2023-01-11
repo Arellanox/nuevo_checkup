@@ -226,8 +226,8 @@
                         <td class="col-der"  style="border-bottom: none">
                             <h4>
                                 DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
-                                Laboratorio de Análisis Clínicos <br>
-                                Resultado de Exámenes
+                                Clínica Checkup <br>
+                                <?php echo $encabezado->TITULO ?>
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
@@ -245,9 +245,8 @@
                     <tr>
                         <td style="text-align: center; border-style: solid none solid none; ">
                             <h3>
-                                Laboratorio de Análisis Clínicos
+                                <?php echo $encabezado->SUBTITULO ?>
                             </h3>
-                            
                         </td>
                     </tr>
                 </tbody>
