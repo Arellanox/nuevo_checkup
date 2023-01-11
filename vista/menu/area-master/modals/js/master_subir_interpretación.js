@@ -38,7 +38,7 @@ $("#formSubirInterpretacion").submit(function (event) {
     if (confirmado != 1) {
         var form = document.getElementById("formSubirInterpretacion");
         var formData = new FormData(form);
-        formData.set('id_turno', selectPacienteArea['ID_TURNO'])
+        formData.set('id_turno', dataSelect.array['turno'])
         // formData.set('id_servicio', selectEstudio.selectID)
         formData.set('id_area', areaActiva)
         // formData.set('tipo_archivo', 1)
