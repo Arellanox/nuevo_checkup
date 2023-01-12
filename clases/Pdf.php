@@ -71,7 +71,7 @@ class Reporte
                 break;
         }
 
-        $host =  isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+        $host = /* isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : */ "https://bimo-lab.com/nuevo_checkup/";
         // Path del dominio
         $path = $archivo['ruta'] . $archivo['nombre_archivo'] . ".pdf";
         // $path    = 'pdf/public/resultados/E-00001.pdf';

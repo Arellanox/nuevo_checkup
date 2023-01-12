@@ -55,11 +55,13 @@ $("#formRegistrarPaciente").submit(function (event) {
               case "pie":
                 // id = data.response.data;
                 var AgendaData = new FormData();
-                if ($('#checkCurpPasaporte').is(":checked")) {
-                  AgendaData.set('pasaporte', $('#pasaporte-registro').val())
-                } else {
-                  AgendaData.set('curp', $('#curp-registro-infor').val())
-                }
+                // if ($('#checkCurpPasaporte').is(":checked")) {
+                //   AgendaData.set('pasaporte', $('#pasaporte-registro').val())
+                // } else {
+                //   AgendaData.set('curp', $('#curp-registro-infor').val())
+                // }
+
+                AgendaData.set('pacienteId', data.response.data);
 
                 AgendaData.set('cliente_id', 1)
                 // AgendaData.set('segmento_id', null) //$('#selectSegmentos').val()
