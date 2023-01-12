@@ -27,13 +27,9 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
     },
     createdRow: function (row, data, dataIndex) {
         switch (areaActiva) {
-            case 3:
-                if (data.CONFIRMADO_OFTAL == 1) {
-                    $(row).addClass('bg-success text-white');
-                } else {
-                    // $(row).addClass('bg-warning');
-                }
-                break;
+            case 3: if (data.CONFIRMADO_OFTAL == 1) $(row).addClass('bg-success text-white'); break;
+            case 8: if (data.CONFIRMADO_RX == 1) $(row).addClass('bg-success text-white'); break;
+            case 11: if (data.CONFIRMADO_ULTRASO == 1) $(row).addClass('bg-success text-white'); break;
 
             default:
                 break;
@@ -90,7 +86,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     break;
                 case 8: //Rayos X
                     await ObtenerResultadosUltrsonido(selectEstudio.array);
-                    if (datalist.CONFIRMADO == 1) estadoFormulario(1)
+                    if (datalist.CONFIRMADO_RX == 1) estadoFormulario(1)
                     break;
                 case 11: //Ultrasonido
                     await ObtenerResultadosUltrsonido(selectEstudio.array);
