@@ -29,6 +29,7 @@ $comentario = $_POST['comentario'];
 $id_imagen = $_POST['id_imagen'];
 $formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
+$tecnica = $_POST['tecnica'];
 $inter_texto = $_POST['inter_texto'];
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 $date = date("dmY_His");
@@ -65,7 +66,7 @@ switch ($api) {
 
         # insertar el formulario de bimo.
         foreach ($formulario as $id_servicio => $item) {
-            $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id]);
+            $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id,$item['tecnica']]);
         }
 
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
@@ -169,11 +170,13 @@ switch ($api) {
             $hallazgo = $response1[1][$i]['HALLAZGO'];
             $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
             $comentario = $response1[1][$i]['COMENTARIO'];
+            $tecnica = $response[1][$i]['TECNICA'];
             $array1 = array(
                 "ESTUDIO" => $servicio,
                 "HALLAZGO" => $hallazgo,
                 "INTERPRETACION" => $interpretacion,
                 "COMENTARIO" => $comentario,
+                "TECNICA" => $tecnica
 
             );
             array_push($arrayimg, $array1);
@@ -223,11 +226,13 @@ function crearReporteUltrasonido($turno_id, $area_id)
         $hallazgo = $response1[1][$i]['HALLAZGO'];
         $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
         $comentario = $response1[1][$i]['COMENTARIO'];
+        $tecnica = $response1[1][$i]['TECNICA'];
         $array1 = array(
             "ESTUDIO" => $servicio,
             "HALLAZGO" => $hallazgo,
             "INTERPRETACION" => $interpretacion,
             "COMENTARIO" => $comentario,
+            "TECNICA" => $tecnica
 
         );
         array_push($arrayimg, $array1);
