@@ -240,7 +240,7 @@ function crearReporteUltrasonido($turno_id, $area_id)
 
     # Crear el directorio si no existe
     $r = $master->createDir("../" . $ruta_saved);
-    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['TURNO'] . '-' . $fecha_resultado);
+    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
     // print_r($infoPaciente);

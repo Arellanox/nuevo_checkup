@@ -234,7 +234,7 @@ function crearReporteLaboratorio($id_area, $id_turno)
     # Crear el directorio si no existe
     $r = $master->createDir("../" . $ruta_saved);
 
-    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $responsePac[0]['TURNO'] . '-' . $fecha_resultado);
+    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $responsePac[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
 
     $clave = $master->getByProcedure("sp_generar_clave", []);
 
