@@ -13,7 +13,7 @@ function generarQRURL($clave, $folio, $modulo, $url = 'resultados/validar-pdf/')
         'version' => 5,
     ]);
 
-    $host =  isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+    $host =  /*isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" :*/ "https://bimo-lab.com/nuevo_checkup/";
 
     $contenido = $host . $url . '?clave=' . $clave . '&id=' . $folio . '&modulo=' . $modulo;
 
