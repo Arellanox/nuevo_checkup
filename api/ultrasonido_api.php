@@ -121,7 +121,7 @@ switch ($api) {
                 return $r;
             });
 
-            print_r($subconjunto);
+            $subconjunto = $master->getFormValues($subconjunto);
 
 
             $sub_caps = array_filter($capturas, function ($obj) use ($servicio) {
@@ -186,7 +186,7 @@ switch ($api) {
         $response = "Api no definida.";
         break;
 }
-// echo $master->returnApi($response);
+echo $master->returnApi($response);
 
 
 function crearReporteUltrasonido($turno_id, $area_id)

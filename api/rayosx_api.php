@@ -138,15 +138,20 @@ switch ($api) {
         $response = $merge;
         break;
     case 4:
-        #recuperar la informacion del Reporte de interpretacion de Rayos-x
+        #Recuperar info paciente
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
+        $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+
+        #recuperar la informacion del Reporte de interpretacion de ultrasonido
         $response = array();
-        # recuperar los resultados de rayos x
-        $area_id = 8; # 8 es el id para rayosx.
+        # recuperar los resultados de ultrasonido
+        $area_id = 8; #11 es el id para ultrasonido.
         $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen, $turno_id, $area_id]);
 
         $arrayimg = [];
 
         for ($i = 0; $i < count($response1[1]); $i++) {
+
             $servicio = $response1[1][$i]['SERVICIO'];
             $hallazgo = $response1[1][$i]['HALLAZGO'];
             $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
@@ -154,7 +159,7 @@ switch ($api) {
             $array1 = array(
                 "ESTUDIO" => $servicio,
                 "HALLAZGO" => $hallazgo,
-                "INTERPRETACION" => $servicioimg,
+                "INTERPRETACION" => $interpretacion,
                 "COMENTARIO" => $comentario,
 
             );
@@ -165,12 +170,12 @@ switch ($api) {
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "EDAD" => $infoPaciente[0]['EDAD'],
             'SEXO' => $infoPaciente[0]['SEXO'],
+            'FOLIO' => $infoPaciente[0]['FOLIO_IMAGEN'],
             'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
             'ESTUDIOS' => $arrayimg
         );
         // print_r($arregloPaciente);
         $response = $arregloPaciente;
-
         break;
     case 5:
         crearReporteRayosX($turno_id, $area_id);
