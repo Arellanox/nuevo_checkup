@@ -36,13 +36,24 @@ $date = date("dmY_His");
 switch ($api) {
     case 1:
         # insertar la interpretacion
-        #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
-        $r = $master->createDir("../" . $ruta_saved);
+        $res_reporte = false;
+        if (file_exists($_FILES['reportes']['tmp_name'][0])) {
+            #creamos el directorio donde se va a guardar la informacion del turno
+            $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
+            $r = $master->createDir("../" . $ruta_saved);
 
-        if ($r != 1) {
-            $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
-            break;
+            if ($r != 1) {
+                $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
+                break;
+            }
+            #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
+            $interpretacion = $master->guardarFiles($_FILES, "reportes", "../" . $ruta_saved, "INTERPRETACION_RX_$turno_id");
+
+            $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
+
+            $res_reporte = true;
+        } else {
+            $ruta_archivo = null;
         }
 
         #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
