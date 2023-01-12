@@ -201,9 +201,9 @@ function checkNumber(x) {
 //servicios: 
 // 85, 354, 355, 356, 84
 function ifnull(data) {
-  if (typeof data === 'undefined') return '';
+  if (typeof data === 'undefined') return null;
   if (data) return data;
-  return '';
+  return null;
 }
 
 //Devuelve la area
