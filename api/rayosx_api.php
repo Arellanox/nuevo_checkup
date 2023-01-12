@@ -175,7 +175,7 @@ switch ($api) {
 
         break;
     case 5:
-        crearReporteRayosX($turno_id, $area_id);
+        crearReporteRayosX($turno_id, 8);
         break;
     default:
         $response = "Api no definida...";
@@ -195,7 +195,7 @@ function crearReporteRayosX($turno_id, $area_id)
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();
     # recuperar los resultados de ultrasonido
-    $area_id = 11; #11 es el id para ultrasonido.
+    // $area_id = $area_id; #11 es el id para ultrasonido.
     $response1 = $master->getByNext('sp_imagenologia_resultados_b', [null, $turno_id, $area_id]);
 
     $arrayimg = [];
