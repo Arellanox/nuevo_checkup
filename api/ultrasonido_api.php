@@ -50,7 +50,7 @@ switch ($api) {
 
         $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
-        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null]);
+        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [null, $turno_id, $ruta_archivo, $usuario, $area_id, null]);
 
         # insertar el formulario de bimo.
         foreach ($formulario as $id_servicio => $item) {
