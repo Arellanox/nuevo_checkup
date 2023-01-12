@@ -249,7 +249,10 @@ class Miscelaneus{
         $newArray = array();
         foreach($array as $key => $value){
             if(is_array($value)){
-                $newArray[$key] = $this->checkArray($value);
+                if(!empty($this->checkArray($value))){
+                    $newArray[$key] = $this->checkArray($value);
+                }
+
             } else {
                 if(!empty($value)){
                     $newArray[$key] = $value;

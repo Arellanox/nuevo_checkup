@@ -1,5 +1,11 @@
 <?php
 echo $_SERVER['SERVER_NAME'];
+$arr1 = array("hoola"=>1,2,3);
+$arr2 = array(4,5,6);
+
+$arr = array_merge($arr1, $arr2);
+
+print_r($arr);
 
 echo date("dmY_His");
 class Dice {
