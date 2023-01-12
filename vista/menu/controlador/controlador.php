@@ -10,10 +10,10 @@ include "../../variables.php";
 <!-- HTML -->
 <header id="header-js"></header>
 <div id="titulo-js"></div>
-<div class="container-fluid " id="body-js"> 
+<div class="container-fluid " id="body-js">
   <div class="col-12 loader" id="loader" style="">
     <div class="preloader" id="preloader"> </div>
-  </div> 
+  </div>
 </div>
 <div class="" id="modals-js"> <!-- Aqui podrán incluir los modals --> </div>
 <!-- HTML -->
@@ -23,7 +23,7 @@ include "../../variables.php";
 <script type="text/javascript">
   //Variable global para datatable
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 
@@ -36,29 +36,36 @@ include "../../variables.php";
       var http = "https://";
       var servidor = "bimo-lab.com";
       break;
-  
+
     default:
       break;
   }
   // <!-- Aqui controlar e incluir las modals -->
   obtenerHeader('<?php echo $menu ?>', '<?php echo $tip ?>');
 
-  function obtenerHeader(menu, tip){
-    $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/header.php';?>", {menu: menu, tip: tip}, function(html){
-       $("#header-js").html(html);
+  function obtenerHeader(menu, tip) {
+    $.post("<?php echo $https . $url . '/nuevo_checkup/vista/include/header/header.php'; ?>", {
+      menu: menu,
+      tip: tip
+    }, function(html) {
+      $("#header-js").html(html);
     });
   }
-  function obtenerTitulo(menu, tipo = null){ //Usar async await para no tener problemas con inputs de fecha
+
+  function obtenerTitulo(menu, tipo = null) { //Usar async await para no tener problemas con inputs de fecha
     return new Promise(resolve => {
-      $.post("<?php echo $https.$url.'/nuevo_checkup/vista/include/header/titulo.php';?>", {menu: menu, tipo: tipo}, function(html){
-         $("#titulo-js").html(html);
-      }).done(function(){
+      $.post("<?php echo $https . $url . '/nuevo_checkup/vista/include/header/titulo.php'; ?>", {
+        menu: menu,
+        tipo: tipo
+      }, function(html) {
+        $("#titulo-js").html(html);
+      }).done(function() {
         resolve(1);
       });
     });
   }
 
-  function obtenerAreaActiva(){
+  function obtenerAreaActiva() {
     if (typeof areaActual === 'undefined') {
       return areaActiva; //Funciona para la area master, y probablemente para otras...
     }
@@ -67,33 +74,38 @@ include "../../variables.php";
 
 
   // Carga la vista para entrar a los servicios
-  function cargarVistaServiciosPorArea(hash){ 
+  function cargarVistaServiciosPorArea(hash) {
     event.preventDefault()
     subarea = obtenerAreaActiva()
     // Si existe la variable
-  
+
     switch (subarea) {
       case 6:
         cargarVistaServiciosPorAreaURL(hash, 'laboratorio-servicios');
         break;
-      case 3: case 4: case 5: case 7: case 8: case 9:
+      case 3:
+      case 4:
+      case 5:
+      case 7:
+      case 8:
+      case 9:
         let base64 = new Base64();
         var s = base64.encode(subarea); // BJlgLS
         // var n = base64.decode('BJlgLS'); 
-        cargarVistaServiciosPorAreaURL(hash, 'area-servicios', '?var='+s);
+        cargarVistaServiciosPorAreaURL(hash, 'area-servicios', '?var=' + s);
         break;
       default:
         break;
     }
   }
 
-  function cargarVistaServiciosPorAreaURL(hash, ubicacion, variables = ''){
+  function cargarVistaServiciosPorAreaURL(hash, ubicacion, variables = '') {
     switch (hash) {
       case 'Estudios':
-        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables+"#Estudios";
+        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/" + ubicacion + "/" + variables + "#Estudios";
         break;
       case 'Grupos':
-        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/"+ubicacion+"/"+variables+"#Grupos";
+        window.location.href = http + servidor + "/nuevo_checkup/vista/menu/" + ubicacion + "/" + variables + "#Grupos";
         break;
     }
   }
@@ -105,21 +117,21 @@ include "../../variables.php";
   const session = <?php echo json_encode($_SESSION); ?>;
   session['id'] = '';
   session['token'] = '';
-  $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/class.js';?>").done(function() {
-    $.getScript("<?php echo $https.$url.'/nuevo_checkup/vista/menu/controlador/funciones.js';?>").done(function() {
-      loggin(function(val){
+  $.getScript("<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/class.js'; ?>").done(function() {
+    $.getScript("<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/funciones.js'; ?>").done(function() {
+      loggin(function(val) {
         if (val) {
-          $(function(){
+          $(function() {
             // console.log(session)
             // <!-- Aqui controlar e incluir las modals -->
-            $.getScript('contenido/controlador.js').done(function (data) {
+            $.getScript('contenido/controlador.js').done(function(data) {
               console.log(validar);
-              if(validar == true){ 
+              if (validar == true) {
                 // <!-- Aqui controlar e incluir los tablas -->
-                $.getScript('modals/controlador.js').done(function(){
+                $.getScript('modals/controlador.js').done(function() {
                   //tooltips para todos (source: https://getbootstrap.com/docs/5.0/components/tooltips/)
                   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-                  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl)
                   })
                 }); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!
@@ -127,7 +139,7 @@ include "../../variables.php";
             });
           })
         }
-      }, <?php echo $tipoUrl ; ?>)
+      }, <?php echo $tipoUrl; ?>)
     });
   });
 </script>

@@ -113,20 +113,23 @@ switch ($api) {
 
         $merge = [];
         for ($i = 0; $i < count($response1[0]); $i++) {
-            $id_imagenologia = $response1[0][$i]['ID_IMAGENOLOGIA'];
+            $id_imagenologia = $response1[0][$i]['ID_SERVICIO'];
             $servicio = $response1[0][$i]['ID_SERVICIO'];
 
             $subconjunto = array_filter($response1[1], function ($obj) use ($id_imagenologia) {
-                $r = $obj['IMAGEN_ID'] == $id_imagenologia;
+                $r = $obj['SERVICIO_ID'] == $id_imagenologia;
                 return $r;
             });
+
+            print_r($subconjunto);
+
 
             $sub_caps = array_filter($capturas, function ($obj) use ($servicio) {
                 $r = $obj['ID_SERVICIO_CAP'] == $servicio;
                 return $r;
             });
 
-            //  $sub_caps = $master->getFormValues($sub_caps);
+            $sub_caps = $master->getFormValues($sub_caps);
 
             $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
             $m['CAPTURAS'] = $sub_caps;
@@ -183,7 +186,7 @@ switch ($api) {
         $response = "Api no definida.";
         break;
 }
-echo $master->returnApi($response);
+// echo $master->returnApi($response);
 
 
 function crearReporteUltrasonido($turno_id, $area_id)
@@ -192,8 +195,8 @@ function crearReporteUltrasonido($turno_id, $area_id)
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'RAYOS X';
-    $infoPaciente[0]['SUBTITULO'] = 'RAYOS X';
+    $infoPaciente[0]['TITULO'] = 'Ultrasonido';
+    $infoPaciente[0]['SUBTITULO'] = 'Ultrasonidox';
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();

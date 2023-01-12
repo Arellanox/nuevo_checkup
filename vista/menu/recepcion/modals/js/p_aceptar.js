@@ -98,6 +98,9 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     data: formData,
     processData: false,
     contentType: false,
+    beforeSend: function () {
+      alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
+    },
     success: function (data) {
       data = jQuery.parseJSON(data);
       console.log(data);

@@ -74,7 +74,7 @@ $("#formSubirInterpretacion").submit(function (event) {
                     success: function (data) {
                         data = jQuery.parseJSON(data);
                         if (mensajeAjax(data)) {
-                            alertMensaje('success', 'Interpretación guardada', '...', 'El formulario ha sido cerrado');
+                            alertMensaje('success', '¡Interpretación guardada!', 'Puedes consultar el reporte desde el panel de resultado', 'El formulario ha sido cerrado');
                             estadoFormulario(1) //Desactiva el formulario
                             obtenerServicios(areaActiva, dataSelect.array['turno'])
                         }
