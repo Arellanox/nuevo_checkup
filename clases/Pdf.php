@@ -26,12 +26,12 @@ class Reporte
      */
     public function __construct($response, $data, $pie, $archivo, $tipo, $orden)
     {
-        $this->response = $response;
-        $this->data     = $data;
-        $this->pie      = $pie;
-        $this->archivo  = $archivo;
-        $this->tipo     = $tipo;
-        $this->orden    = $orden;
+        $this->response = $response; //cuerpo
+        $this->data     = $data; //Ecabezado
+        $this->pie      = $pie; //Footer
+        $this->archivo  = $archivo; //Ruta de reporte
+        $this->tipo     = $tipo; //Tipo de resultado
+        $this->orden    = $orden; //Forma de visualizar
     }
 
     public function build()
