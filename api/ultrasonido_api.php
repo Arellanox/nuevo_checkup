@@ -206,6 +206,12 @@ switch ($api) {
         # si no se desea confirmar enviarlo null
         $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, null,$confirmado]);
         break;
+
+    case 7:
+        # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
+        $r = crearReporteUltrasonido($turno_id, $area_id,"mostrar");
+        exit;
+        break;
     default:
         $response = "Api no definida.";
         break;
@@ -213,7 +219,7 @@ switch ($api) {
 echo $master->returnApi($response);
 
 
-function crearReporteUltrasonido($turno_id, $area_id)
+function crearReporteUltrasonido($turno_id, $area_id, $viz='url')
 {
     $master = new Master();
     #Recuperar info paciente
@@ -270,7 +276,7 @@ function crearReporteUltrasonido($turno_id, $area_id)
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
     // print_r($infoPaciente);
-    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
+    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', $viz);
     return $pdf->build();
 
     # print_r($arregloPaciente);

@@ -202,13 +202,18 @@ switch ($api) {
         # si no se desea confirmar enviarlo null
         $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, null,$confirmado]);
         break;
+
+    case 7:
+        # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
+        $r = crearReporteRayosX($turno_id, $area_id,"mostrar");
+        exit;
     default:
         $response = "Api no definida...";
         break;
 }
 echo $master->returnApi($response);
 
-function crearReporteRayosX($turno_id, $area_id)
+function crearReporteRayosX($turno_id, $area_id,$viz='url')
 {
     $master = new Master();
     #Recuperar info paciente
@@ -264,7 +269,7 @@ function crearReporteRayosX($turno_id, $area_id)
     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 8);
-    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'rayos', 'url');
+    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'rayos', $viz);
     return $pdf->build();
 
     // print_r($arregloPaciente);
