@@ -207,6 +207,15 @@ switch ($api) {
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
         $r = crearReporteRayosX($turno_id, $area_id,"mostrar");
         exit;
+    case 8:
+        # actualizar reporte bimo [solo administradores]
+        foreach($formulario as $serv => $item){
+            $response = $master->updateByProcedure("sp_imagen_detalle_g", [$item['id_rayo'],null,$serv,$item['hallazgo'],$item['interpretacion'],$item['comentario'],null,$item['tecnica']]);
+        }
+
+        # como no modifica la fecha y el turno es el mismo, debe reemplazar el archivo anterior.
+        $url = crearReporteRayosX($turno_id, $area_id);
+        break;
     default:
         $response = "Api no definida...";
         break;
