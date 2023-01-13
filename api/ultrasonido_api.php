@@ -219,7 +219,7 @@ switch ($api) {
         }
 
         # como no modifica la fecha y el turno es el mismo, debe reemplazar el archivo anterior.
-        $url = crearReporteRayosX($turno_id, $area_id);
+        $url = crearReporteUltrasonido($turno_id, $area_id);
         break;
     default:
         $response = "Api no definida.";
