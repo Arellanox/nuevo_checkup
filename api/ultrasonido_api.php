@@ -36,31 +36,47 @@ $date = date("dmY_His");
 switch ($api) {
     case 1:
         # insertar la interpretacion
-        #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
-        $r = $master->createDir("../" . $ruta_saved);
+        $res_reporte = false;
+        if (file_exists($_FILES['reportes']['tmp_name'][0])) {
+            #creamos el directorio donde se va a guardar la informacion del turno
+            $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
+            $r = $master->createDir("../" . $ruta_saved);
 
-        if ($r != 1) {
-            $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
-            break;
+            if ($r != 1) {
+                $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
+                break;
+            }
+            #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
+            $interpretacion = $master->guardarFiles($_FILES, "reportes", "../" . $ruta_saved, "INTERPRETACION_RX_$turno_id");
+
+            $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
+
+            $res_reporte = true;
+        } else {
+            $ruta_archivo = null;
         }
 
-        #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../" . $ruta_saved, "INTERPRETACION_ULTRASONIDO_$turno_id");
-
-        $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
-
-        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null]);
-
-        # insertar el formulario de bimo.
-        foreach ($formulario as $id_servicio => $item) {
-            $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id]);
+        $res_detalle = !empty($master->checkArray($formulario));
+        // echo 1;
+        if ($res_reporte == true || $res_detalle) {
+            // echo "registra";
+            $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null]);
         }
-
-        #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
-
-        $url = crearReporteUltrasonido($turno_id, $area_id);
-        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
+        // print_r($res_detalle);
+        // echo $res_detalle;
+        // echo 2;
+        if ($res_detalle) {
+            # insertar el formulario de bimo.
+            foreach ($formulario as $id_servicio => $item) {
+                // echo "for";
+                $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica']]);
+            }
+            // echo 3;
+            #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
+            $url = crearReporteRayosX($turno_id, $area_id);
+            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
+        }
+        // echo 4;
         $response = $last_id;
         break;
     case 2:
@@ -113,20 +129,23 @@ switch ($api) {
 
         $merge = [];
         for ($i = 0; $i < count($response1[0]); $i++) {
-            $id_imagenologia = $response1[0][$i]['ID_IMAGENOLOGIA'];
+            $id_imagenologia = $response1[0][$i]['ID_SERVICIO'];
             $servicio = $response1[0][$i]['ID_SERVICIO'];
 
             $subconjunto = array_filter($response1[1], function ($obj) use ($id_imagenologia) {
-                $r = $obj['IMAGEN_ID'] == $id_imagenologia;
+                $r = $obj['SERVICIO_ID'] == $id_imagenologia;
                 return $r;
             });
+
+            $subconjunto = $master->getFormValues($subconjunto);
+
 
             $sub_caps = array_filter($capturas, function ($obj) use ($servicio) {
                 $r = $obj['ID_SERVICIO_CAP'] == $servicio;
                 return $r;
             });
 
-            //  $sub_caps = $master->getFormValues($sub_caps);
+            $sub_caps = $master->getFormValues($sub_caps);
 
             $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
             $m['CAPTURAS'] = $sub_caps;
@@ -192,8 +211,8 @@ function crearReporteUltrasonido($turno_id, $area_id)
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'RAYOS X';
-    $infoPaciente[0]['SUBTITULO'] = 'RAYOS X';
+    $infoPaciente[0]['TITULO'] = 'Ultrasonido';
+    $infoPaciente[0]['SUBTITULO'] = 'Ultrasonidox';
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();
@@ -209,11 +228,13 @@ function crearReporteUltrasonido($turno_id, $area_id)
         $hallazgo = $response1[1][$i]['HALLAZGO'];
         $interpretacion = $response1[1][$i]['INTERPRETACION_DETALLE'];
         $comentario = $response1[1][$i]['COMENTARIO'];
+        $tecnica = $response1[1][$i]['TECNICA'];
         $array1 = array(
             "ESTUDIO" => $servicio,
             "HALLAZGO" => $hallazgo,
             "INTERPRETACION" => $interpretacion,
             "COMENTARIO" => $comentario,
+            "TECNICA" => $tecnica
 
         );
         array_push($arrayimg, $array1);
@@ -237,7 +258,7 @@ function crearReporteUltrasonido($turno_id, $area_id)
 
     # Crear el directorio si no existe
     $r = $master->createDir("../" . $ruta_saved);
-    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['TURNO'] . '-' . $fecha_resultado);
+    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
     // print_r($infoPaciente);

@@ -1,4 +1,6 @@
-<?php if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
+<?php
+date_default_timezone_set('America/Mexico_City');
+if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
@@ -36,14 +38,14 @@
     <i class="bi bi-person-video"></i> Ultrasonido
   </a>
 <?php endif; ?>
-<?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
-    <i class="bi bi-activity"></i> Electrocardiograma
-  </a>
-<?php endif; ?>
 <?php if ($_SESSION['vista']['RX'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; ?>">
     <i class="bi bi-universal-access"></i> Rayos X
+  </a>
+<?php endif; ?>
+<?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1) : ?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
+    <i class="bi bi-activity"></i> Electrocardiograma
   </a>
 <?php endif; ?>
 <?php if ($_SESSION['vista']['ESPIROMETRIA'] == 1) : ?>

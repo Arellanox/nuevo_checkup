@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+include_once '../clases/master_class.php';
 include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
@@ -11,22 +11,24 @@ if (!$tokenValido) {
     // exit;
 }
 
-$area_id = 5; #$_POST['area_id']; # el id 5 es para el area de ESPIROMETRIA
+$area_id = 10; #$_POST['area_id']; # el id 10 es para el area de ELECTROCARDIOGRAMA
 
 $master = new Master();
+$api = isset($_POST['api']) ? $_POST['api'] : '';
+# Datos para la interpretacion
 $id_imagen = isset($_POST['id_imagen']) ? $_POST['id_imagen'] : null;
-$api = isset($_POST['api']) ? $_POST['api'] : null;
-$id_turno = isset($_POST['turno_id']) ? $_POST['turno_id'] : null;
-$interpretacion = isset($_POST['interpretacion']) ? $_POST['interpretacion'] : null;
-$capturas = isset($_POST['capturas']) ? $_POST['capturas'] : null;
-$usuario = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+$turno_id = isset($_POST['turno_id']) ? $_POST['turno_id'] : '';
+$interpretacion = isset($_POST['interpretacion']) ? $_POST['interpretacion'] : '';
+$fecha_registro = isset($_POST['fecha_registro']) ? $_POST['fecha_registro'] : '';
+$registrado_por = isset($_POST['registrado_por']) ? $_POST['registrado_por'] : '';
+$folio = isset($_POST['folio']) ? $_POST['folio'] : '';
+$usuario = $_SESSION['id'];
 
-$imagenes = array();
-switch ($api) {
+switch($api){
     case 1:
 # insertar la interpretacion
         #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/espirometria/$date/$turno_id/interpretacion/";
+        $ruta_saved = "reportes/modulo/electrocardiograma/$date/$turno_id/interpretacion/";
         $r = $master->createDir("../".$ruta_saved);
 
         if($r!=1){
@@ -35,7 +37,7 @@ switch ($api) {
         }
 
         #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_ESPIROMETRIA_$turno_id");
+        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_ELECTROCARDIOGRAMA_$turno_id");
 
         $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
@@ -52,10 +54,10 @@ switch ($api) {
         $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
         $response = $last_id;
     break;
-    case 2:
+    case 2:        
         $serv = str_replace(" ", "_", $nombre_servicio);
         #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/espirometria/$date/$turno_id/capturas/";
+        $ruta_saved = "reportes/modulo/electrocardiograma/$date/$turno_id/capturas/";
         $r = $master->createDir("../" . $ruta_saved);
 
         if ($r != 1) {
@@ -67,7 +69,7 @@ switch ($api) {
         # combinar la ruta_saved con ../ sirve para crear la ruta el directorio en el servidor
         # por si no existe aun.
         # se necesita formatear la ruta para agregarle el la url completa de internet.
-        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_ESPIROMETRIA_$serv");
+        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_ELECTRO_$serv");
 
         # formateamos la ruta de los archivos para guardarlas en la base de datos
         for ($i = 0; $i < count($capturas); $i++) {
@@ -124,11 +126,12 @@ switch ($api) {
             }
     
             $response = $merge;
-        break;
+    break;
     default:
         $response = "Api no definida.";
         break;
 }
+echo $master->returnApi($response);
 
-// echo $master->returnApi($response);
+
 ?>
