@@ -2,10 +2,11 @@
 const ModalSubirCapturas = document.getElementById('ModalSubirCapturas')
 ModalSubirCapturas.addEventListener('show.bs.modal', event => {
   // console.log(selectListaLab)
-  $('#Area-estudio').html('Cargar capturas de ' + hash + ' <!-- : <strong id="Area-estudio"  style = "color:white !important" >' + selectPacienteArea['NOMBRE_COMPLETO'] + '</strong > -->')
+  $('#Area-estudio').html('Cargar capturas <strong id="Area-estudio"  style = "color:white !important" >' + servicio_nombre + ' (' + hash + ')</strong >')
   document.getElementById("formSubirCapturas").reset();
   // alert(selectEstudio.selectID)
-  $('#nombre-paciente-capturas').val(selectPacienteArea['NOMBRE_COMPLETO'])
+  //Modals
+  $('#nombre-paciente-capturas').val(dataSelect.array['nombre_paciente'])
 })
 
 $('#inputFilesCapturasArea').on('change', function () {
@@ -36,8 +37,9 @@ $("#formSubirCapturas").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formSubirCapturas");
   var formData = new FormData(form);
-  formData.set('turno_id', selectPacienteArea['ID_TURNO'])
+  formData.set('turno_id', dataSelect.array['turno'])
   formData.set('servicio_id', selectEstudio.selectID)
+  formData.set('nombre_servicio', servicio_nombre)
   formData.set('api', api_capturas);
   Swal.fire({
     title: "¿Está seguro de cargar las capturas correctas?",
@@ -60,19 +62,18 @@ $("#formSubirCapturas").submit(function (event) {
         contentType: false,
         beforeSend: function () {
           $("#formSubirCapturas:submit").prop('disabled', true)
+          alertMensaje('info', 'Subiendo capturas', 'Por favor espere un momento')
         },
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
-            Toast.fire({
-              icon: "success",
-              title: "¡Capturas guardadas!",
-              timer: 2000,
-            });
+            alertMensaje('success', '¡Capturas guardadas!', 'Las capturas han sido guardadas, podrás visualizarlo en los detalle del paciente')
+            // tablaContenido.ajax.reload()
             document.getElementById("formSubirCapturas").reset();
             $("#ModalSubirCapturas").modal("hide");
-            $("#formSubirCapturas:submit").prop('disabled', false)
-            limpiarCampos()
+            obtenerServicios(areaActiva, dataSelect.array['turno'])
+            // $("#formSubirCapturas:submit").prop('disabled', false)
+            // limpiarCampos()
             // tablaContacto.ajax.reload();
           }
         },

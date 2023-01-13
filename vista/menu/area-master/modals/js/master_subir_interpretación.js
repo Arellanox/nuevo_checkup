@@ -38,7 +38,7 @@ $("#formSubirInterpretacion").submit(function (event) {
     if (confirmado != 1) {
         var form = document.getElementById("formSubirInterpretacion");
         var formData = new FormData(form);
-        formData.set('id_turno', selectPacienteArea['ID_TURNO'])
+        formData.set('id_turno', dataSelect.array['turno'])
         // formData.set('id_servicio', selectEstudio.selectID)
         formData.set('id_area', areaActiva)
         // formData.set('tipo_archivo', 1)
@@ -69,12 +69,14 @@ $("#formSubirInterpretacion").submit(function (event) {
                     contentType: false,
                     beforeSend: function () {
                         $("#formSubirInterpretacion:submit").prop('disabled', true)
+                        alertMensaje('info', 'Cargando datos de interpretación', 'Espere un momento mientras el sistema registra todos los datos');
                     },
                     success: function (data) {
                         data = jQuery.parseJSON(data);
                         if (mensajeAjax(data)) {
                             alertMensaje('success', 'Interpretación guardada', '...', 'El formulario ha sido cerrado');
                             estadoFormulario(1) //Desactiva el formulario
+                            obtenerServicios(areaActiva, dataSelect.array['turno'])
                         }
                     },
                     complete: function () {

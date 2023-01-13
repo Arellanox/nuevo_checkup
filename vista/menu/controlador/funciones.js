@@ -19,7 +19,7 @@ function formatoFechaSQL(fecha, formato) {
 function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
   if (fecha == null)
     return '';
-  console.log(fecha)
+  // console.log(fecha)
   let options = {
     hour12: true,
     timeZone: 'America/Mexico_City'
@@ -201,8 +201,22 @@ function checkNumber(x) {
 //servicios: 
 // 85, 354, 355, 356, 84
 function ifnull(data) {
+  if (typeof data === 'undefined') return '';
   if (data) return data;
   return '';
+}
+
+//Devuelve la area
+function getAreaActiva() {
+  hash = window.location.hash.substring(1);
+  switch (hash) {
+    case "ULTRASONIDO": return 11;
+    case "RX": return 8;
+    case "ESPIROMETRIA": return 5;
+    case "ELECTROCARDIOGRAMA": return 10;
+    case "AUDIOMETRIA": return 4;
+    case "OFTALMOLOGIA": return 3;
+  }
 }
 
 // Omitir paciente actual
@@ -528,7 +542,7 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
                   datao += " - " + data[i][htmlContent[a]];
                 }
               }
-              console.log(datao)
+              // console.log(datao)
 
             }
           } else {
@@ -833,7 +847,7 @@ function bugGetPanel(divClass, loader, loaderDiv1) {
     if (!$(divClass).is(':visible')) {
       setTimeout(function () {
         $(divClass).fadeIn(0)
-        console.log("Visible!")
+        // console.log("Visible!")
       }, 100)
     }
     $(divClass).fadeIn(0)
@@ -914,7 +928,7 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
     $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.html", function (html) {
       setTimeout(function () {
         $(div).html(html);
-        console.log(cliente)
+        // console.log(cliente)
         if (cliente == "Particular" || cliente == "PARTICULAR") {
           $('.onlyProcedencia').fadeOut(0);
         } else {

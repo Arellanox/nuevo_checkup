@@ -31,8 +31,8 @@
 
 
 <!-- Areas master -->
-<?php if ($_SESSION['vista']['IMAGENOLOGIA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#IMAGENOLOGIA'; ?>">
+<?php if ($_SESSION['vista']['ULTRASONIDO'] == 1) : ?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDO'; ?>">
     <i class="bi bi-person-video"></i> Ultrasonido
   </a>
 <?php endif; ?>

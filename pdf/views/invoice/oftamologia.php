@@ -259,6 +259,7 @@
                             Nombre: <strong> <?php echo $encabezado->NOMBRE;?> </strong>  
                         </td>
                         <td class="col-center"  style="border-bottom: none">
+                        <!-- style="font-size: 12px;" -->
                             Fecha de Nacimiento: <strong> <?php echo $encabezado->NACIMIENTO;?> </strong>
                         </td>
                         <td class="col-right"  style="border-bottom: none">

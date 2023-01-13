@@ -2,9 +2,9 @@ var tablaContenido, areaActiva;
 var dataListaPaciente = {
   api: 7
 };
-var selectPacienteArea, hash, formulario, api, url_api;
+var hash, servicio_nombre, formulario, api, url_api, selecta, nombre_paciente;
 //Variable para guardar los servicios de un paciente seleccionado
-var selectEstudio = new GuardarArreglo();
+var selectEstudio = new GuardarArreglo(), dataSelect = new GuardarArreglo();
 var selectrue = 0,
   confirmado;
 
@@ -19,7 +19,7 @@ function hasLocation() {
   // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   if (validarVista(hash) == true) {
     switch (hash) {
-      case "IMAGENOLOGIA":
+      case "ULTRASONIDO":
         formulario = "formSubirInterpretacion";
         api_capturas = 2;
         api_interpretacion = 1;
@@ -55,6 +55,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_new.php');
         break;
       case "OFTALMOLOGIA":
+        url_api = 'oftalmologia_api';
         formulario = "formSubirInterpretacionOftalmo";
         obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_new.php');
         break;
@@ -81,15 +82,15 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
   areaActiva = area;
   $.post("contenido/" + contenidoHTML, {
     form: formulario
-  }, async function (html) {
+  }, function (html) {
     $("#body-js").html(html);
-    await obtenerTitulo(titulo)
+  }).done(async function () {
+    await obtenerTitulo(titulo);
     dataListaPaciente = {
       api: 5,
       fecha_busqueda: $('#fechaListadoAreaMaster').val(),
       area_id: areaActiva
     }
-  }).done(function () {
 
     // Cambiar aspecto
     $('.btnResultados').fadeOut(0)
