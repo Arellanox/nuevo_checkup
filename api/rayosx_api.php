@@ -33,6 +33,7 @@ $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
 $host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 $date = date("dmY_His");
+$confirmado = $_POST['confirmado'];
 
 switch ($api) {
     case 1:
@@ -61,7 +62,7 @@ switch ($api) {
         // echo 1;
         if ($res_reporte == true || $res_detalle) {
             // echo "registra";
-            $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null]);
+            $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null,$confirmado]);
         }
         // print_r($res_detalle);
         // echo $res_detalle;
@@ -75,7 +76,7 @@ switch ($api) {
             // echo 3;
             #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
             $url = crearReporteRayosX($turno_id, $area_id);
-            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
+            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url,$confirmado]);
         }
         // echo 4;
         $response = $last_id;
@@ -193,6 +194,13 @@ switch ($api) {
         break;
     case 5:
         crearReporteRayosX($turno_id, 8);
+        break;
+    case 6:
+         # confirmar el resultado
+        # tienes que enviar $id_imagen como id_imagen
+        # $confirmado se recibe como ['confirmado'], para confirmar enviar 1,
+        # si no se desea confirmar enviarlo null
+        $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, null,$confirmado]);
         break;
     default:
         $response = "Api no definida...";
