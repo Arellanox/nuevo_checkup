@@ -193,9 +193,9 @@
     <?php 
         
         // para el path del logo 
-        $ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
+        $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
         $encode = base64_encode($ruta);
-
+        
         // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
         //los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
         // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
@@ -217,7 +217,7 @@
                             <h4>
                                 DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
                                 Clínica Checkup <br>
-                                <?php echo $encabezado->TITULO ?>
+                                Reporte de oftamologia
                             </h4>
                         </td>
                         <td class="col-izq"  style="border-bottom: none; text-align:center;">
@@ -235,7 +235,7 @@
                     <tr>
                         <td style="text-align: center; border-style: solid none solid none; ">
                             <h3>
-                                <?php echo $encabezado->SUBTITULO ?>
+                                Datos del paciente
                             </h3>
                         </td>
                     </tr>
@@ -348,6 +348,65 @@
 
         <!-- body -->
         <div class="invoice-content">
+            <p>
+                ANTECEDENTES PERSONALES <br>
+                NEGADOS <br>
+            </p>
+            <p>
+                ANTECEDENTES OFTALMOLOGICOS <br>
+                PTERIGION NASAL OJO IZQUIERDO <br>
+                
+            </p>
+            <p>
+                PADECIMIENTO ACTUAL. <br>
+                ASINTOMATICA <br>
+                
+            </p>
+            <p>
+                AGUDEZA VISUAL SIN CORRECCIÓN: TABLA DE SNELLEN <br>
+                OD: 20/20 <br>
+                OI: 20/20 <br>
+                JAEGER 1:20/20 VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE ROSENBÁUM  <br>
+            </p>
+            <p>
+                REFRACCIÓN: <br>
+                <strong> 
+                    NO AMERIA DE CORRECCIÓN OPTICA
+                </strong> 
+            </p>
+            <p>
+                PRUEBA CROMATICA NORMAL CON PRUEBA DE ISHIHARA
+                
+            </p>
+            <p>
+                EXPLORACIÓN OFTALMOLOGICA: <br>
+                ANEXOS OCULARES NORMALES SEGMENTO ANTERIOR CONJUNTIVA PTERIGION NASAL OJO IZQUIERDO, CORNEA, IRIS, CRISTALINO, SIN ALTERACIONES. SEGMENTO POSTERIOR VITREO, NERVIO OPTICO, MACULA SIN ALTERACIONES.
+
+            </p>
+            <p>
+
+                FORIAS NO PRESENTES
+               
+            </p>
+            <p>
+                CAMPIMETRtA POR CONFRONTACION NORMAL.
+                
+            </p>
+            <p>
+                PRESION INTRAOCULAR. <br>
+                OD: 10 MMHG
+                OI: 10 MMHG
+                
+            </p>
+            <p>
+                DIAGNOSTICO. <br>
+                VALORACION VISUAL NORMAL + PTERIGION NASAL OJO IZQUIERDO NO INVOLUCRO EJE VISUAL
+                
+            </p>
+            <p>
+                PLAN: <br>
+                OBSERVACION ANUAL
+            </p>
         </div>
     </body>
 </html>
