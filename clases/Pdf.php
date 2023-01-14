@@ -137,6 +137,8 @@ class Reporte
                 // $path    = 'pdf/public/oftamologia/E00001.pdf';
                 break;
         }
+                // session_destroy();
+
         // Recibe la orden de que tipo de  modo de visualizacion quiere
         switch ($orden) {
             case 'descargar':
@@ -162,7 +164,6 @@ class Reporte
                 break;
 
                 // session_write_close();
-                session_destroy();
         }
     }
 }

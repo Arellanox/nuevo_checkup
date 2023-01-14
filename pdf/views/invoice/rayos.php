@@ -325,9 +325,10 @@
                     echo "<h2 style='padding-bottom: 8px; padding-top: 8px;'>" . $resultado->ESTUDIO . "</h2>";
                     echo "<h4 style='line-height: 1.5: padding-top: 20px;'>Hallazgos</h4>";
                     echo "<p style='line-height: 1.5'>". $resultado->HALLAZGO."</p>";
-                    echo "<p style='line-height: 1.5'><strong>Interpretación: </strong>". $resultado->INTERPRETACION;
+                    echo "<p style='line-height: 1.5'>". $resultado->TECNICA."</p>";
+                    echo "<p style='line-height: 1.5'><strong>Interpretación: </strong>". $resultado->INTERPRETACION . "<br>";
                     if($resultado->COMENTARIO != "" || $resultado->COMENTARIO != null){
-                        echo "<strong>Comentario: </strong>". $resultado->COMENTARIO ."</p><br>" ;
+                        echo "<strong>Comentario: </strong>". $resultado->COMENTARIO ."</p>" ;
                     }
                     $count ++;
                     if($count % 2 == 0){
