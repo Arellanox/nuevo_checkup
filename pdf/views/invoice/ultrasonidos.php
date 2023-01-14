@@ -14,7 +14,9 @@
         body {
             font-family: 'Roboto', sans-serif;
             margin-top: 60px;
+            margin-bottom: 40px;
             font-size: 10px;
+            /* background-color: gray; */
         }
 
         .header {
@@ -24,7 +26,7 @@
             right: 25px;
             height: 220px;
             margin-top: 0;
-            /*-30px*/
+            /* background-color: cadetblue; */
         }
 
         .footer {
@@ -32,7 +34,8 @@
             bottom: -165px;
             left: 25px;
             right: 25px;
-            height: 190px;
+            height: 200px;
+            /* background-color: pink; */
         }
 
         .footer .page:after {
@@ -62,7 +65,7 @@
         }
 
         h2 {
-            font-size: 18px;
+            font-size: 17px;
             margin-top: 18px;
             margin-bottom: 10px;
             text-align: center;
@@ -71,29 +74,29 @@
         }
 
         h3 {
-            font-size: 18px;
-            margin-top: 2px;
-            margin-bottom: 2px;
-        }
-
-        h4 {
             font-size: 16px;
             margin-top: 2px;
             margin-bottom: 2px;
         }
 
+        h4 {
+            font-size: 14px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
         h5 {
-            font-size: 14.5px;
+            font-size: 12.5px;
             margin-top: 2px;
             margin-bottom: 2px;
         }
 
         p {
-            font-size: 15px;
+            font-size: 12px;
         }
 
         strong {
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .align-center {
@@ -232,7 +235,7 @@ $encode_firma = base64_encode($ruta_firma);
                     <td class="col-der" style="border-bottom: none">
                         <h4>
                             DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
-                            Clínica Checkup <br>
+                            Checkup Clínica y Prevención<br>
                             <?php echo $encabezado->TITULO ?>
                         </h4>
                     </td>
@@ -261,7 +264,7 @@ $encode_firma = base64_encode($ruta_firma);
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong> <?php echo $encabezado->FOLIO_IMAGEN; ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_IMAGEN; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?> años</strong>
@@ -324,64 +327,49 @@ $encode_firma = base64_encode($ruta_firma);
                         <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                        <strong style="font-size: 12px;">Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445</strong>
+                        <strong style="font-size: 12px;">Q.F.B. NERY FABIOLA ORNELAS RESENDIZ 
+                            <br>
+                                UPCH
+                            <br>
+                                Cédula profesional: 09291445
+                            <br> 
+                                Especialidad: 
+                            <br> 
+                                Subespecialidad: 
+                        </strong>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
+        <hr style="height: 0.5px; background-color: black ;">
         <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red; font-size: 12px;"> 993 131 00 42 </strong> </br> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
     </div>
 
-    <!--  <div class="footer">
-            <table>
-                <tbody>
-                    <tr class="col-foot-one">
-                        <td colspan="12" style="text-align: center; padding-right: 0;"><strong>Atentamente</strong></td>
-                    </tr>
-                    <tr class="col-foot-two" >
-                        <td colspan="3" style="text-align: center; ">
-                            <a target="_blank" href="<?php echo $qr[0]; ?>"> <img style="margin-bottom: -30px" src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
-                        </td>
-                        <td colspan="3" style="text-align: left;">
-                            <?php echo "<img style='position:absolute;' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
-                        </td>
-                    </tr>
-                    <tr class="col-foot-three"  style="font-size: 13px;">
-                        <td colspan="12" style="text-align: center; width: 50%; ">
-                            <strong >Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr style="margin-top: 0px; height: 0.5px; background-color: black ;">
-            <p style="text-align: center; margin-top: 0px"><small><strong>Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono: 993 131 00 42 
-            Correo electrónico: hola@bimo.com.mx</strong></small></p>
-        </div>-->
 
-
-
-    <!-- body -->
-    <div class="invoice-content">
-        <?php
-        $count = 0;
-        foreach ($resultados->ESTUDIOS as $key => $resultado) {
-            echo "<h2 style='padding-bottom: 8px; padding-top: 8px;'>" . $resultado->ESTUDIO . "</h2>";
-            echo "<h4 style='line-height: 1.5: padding-top: 20px;'>Hallazgos</h4>";
-            echo "<p style='line-height: 1.5'>" . $resultado->HALLAZGO . "</p>";
-            echo "<p style='line-height: 1.5'><strong>Interpretación: </strong>" . $resultado->INTERPRETACION;
-            if ($resultado->COMENTARIO != "" || $resultado->COMENTARIO != null) {
-                echo "<strong>Comentario: </strong>" . $resultado->COMENTARIO . "</p><br>";
-            }
-            $count++;
-            if ($count % 2 == 0) {
-        ?>
-                <div class="break"></div>
-        <?php
-            }
-        }
-        ?>
-    </div>
-</body>
-
+        <!-- body -->
+        <!-- <?php ?> -->
+        <div class="invoice-content">
+            <?php
+                $count = 0;
+                $conteo = count($resultados->ESTUDIOS);
+                foreach ($resultados->ESTUDIOS as $key => $resultado) {
+                    echo "<h2 style='padding-bottom: 8px; padding-top: 8px;'> US " . $resultado->ESTUDIO . "</h2>";
+                    echo "<h5 style='line-height: 1.5; padding-top: 10px;'>Tecnica</h5>"; 
+                    echo "<p>" . $resultado->TECNICA ."</p>";
+                    echo "<h5 style='line-height: 1.5;'>Hallazgos</h5>";
+                    echo "<p style='line-height: 1.5'>". $resultado->HALLAZGO."</p>";
+                    echo "<p style='line-height: 1.5'><strong>Interpretación: </strong>". $resultado->INTERPRETACION . "<br>";
+                    if($resultado->COMENTARIO != "" || $resultado->COMENTARIO != null){
+                        echo "<strong>Comentario: </strong>". $resultado->COMENTARIO ."</p><br>" ;
+                    }
+                    $count ++;
+                    if($count % 2 == 0 && $count < $conteo ){
+            ?>
+                        <div class="break"></div>
+            <?php
+                    }
+                }
+            ?>
+        </div>
+    </body>
 </html>

@@ -6,11 +6,11 @@ include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
+// if (!$tokenValido) {
 
-    $tokenVerification->logout();
-    exit;
-}
+//     $tokenVerification->logout();
+//     exit;
+// }
 
 $master = new Master();
 $api = $_POST['api'];
@@ -281,5 +281,5 @@ function crearReporteRayosX($turno_id, $area_id,$viz='url')
     $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'rayos', $viz);
     return $pdf->build();
 
-    // print_r($arregloPaciente);
+    print_r($arregloPaciente);
 }
