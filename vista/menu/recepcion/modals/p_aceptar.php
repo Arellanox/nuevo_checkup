@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalPacienteAceptar" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-xl modal-fullscreen-xxl-down modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header header-modal">
         <h5 class="modal-title" id="title-paciente_aceptar">Nombre paciente</h5>
@@ -9,31 +9,41 @@
         <form class="" id="formAceptarPacienteRecepcion">
           <div class="row">
             <div class="col-8">
-              <p>Escanea la identificación del paciente y espere a que se guarde</p>
+              <p>Acepte, cargue y añada los estudios e información correspondiente al paciente ha aceptar.</p>
             </div>
-            <div class="col-4">
+            <!-- <div class="col-4">
               <button type="button" class="btn btn-confirmar" id="btn-obtenerID">
                 <i class="bi bi-person-badge"></i> Obtener ID
               </button>
-            </div>
+            </div> -->
           </div>
-          <p style="margin-top:20px"> <strong>Verifique los siguientes datos</strong> </p>
+          <p> <strong></strong> </p>
           <div class="row">
-            <div class="col-12 col-lg-6">
-              <p class="text-center" >Estudios del paciente</p>
+            <div class="col-12 col-lg-4">
+              <h4 class="mt-2">Buscar un paquete</h4>
               <div class="col-12">
-                  <label for="paquete" class="form-label">Seleccionar un paquete</label>
-                  <select class="" id="select-paquetes">
-                  </select>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="checkPaqueteAceptar">
-                    <label class="form-check-label" for="checkPaqueteAceptar">
-                      Sin paquete
-                    </label>
-                  </div>
-                  <div class="mt-3">
-                    <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones" id="Observaciones-aceptar"></textarea>
-                  </div>
+                <label for="paquete" class="form-label">Selecciona un paquete</label>
+                <select class="" id="select-paquetes">
+                </select>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="checkPaqueteAceptar">
+                  <label class="form-check-label" for="checkPaqueteAceptar">
+                    Sin paquete
+                  </label>
+                </div>
+                <h4 class="mt-3">Cargar información</h4>
+                <div class="col-12 mt-3">
+                  <label for="paquete" class="form-label">Suba credencial:</label>
+                  <input type="file" name="credencial" id="file-credencial" class="form-control input-form" value="">
+                </div>
+                <div class="mt-3">
+                  <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones" id="Observaciones-aceptar"></textarea>
+                </div>
+                <div class="col-12 mt-3">
+                  <p>Formas de pago: </p>
+                  <p>Total del paquete: <strong>$1200.00</strong></p>
+                  <p>Total de estudios individuales: <strong>$600.00</strong></p>
+                </div>
               </div>
               <!-- <div class="overflow-auto" style="max-width: 100%; max-height: 220px;margin-bottom:10px;">
                 <ul class="list-group" id="list-estudiosPaciente">
@@ -42,23 +52,21 @@
                   <li class="list-group-item">A third item</li>
                 </ul>
               </div> -->
-            </div>
-            <div class="col-12 col-lg-6">
-              <p class="text-center" >Identificación</p>
-              <div class="overflow-hidden" style="max-width: 100%; max-height: 235px;">
-                <img src="https://mdbootstrap.com/img/Others/documentation/img%20(131)-mini.jpg" class="img-fluid" alt="Responsive image" id="image-perfil">
+              <div class="col-12">
+
               </div>
             </div>
-            <div class="col-12">
-              <h4>Añade más estudios</h4>
+            <div class="col-12 col-lg-8">
+              <h4 class="mt-2">Cargar estudios</h4>
+              <p>Busqué y agregue estudios para las areas si es necesario</p>
               <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                       Estudios de laboratorio
                     </button>
                   </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                       <div class="row">
                         <div class="col-6">
@@ -186,11 +194,18 @@
                 </div>
               </div>
             </div>
+            <!-- <div class="col-12 col-lg-6">
+              <p class="text-center">Identificación</p>
+              <div class="overflow-hidden" style="max-width: 100%; max-height: 235px;">
+                <img src="https://mdbootstrap.com/img/Others/documentation/img%20(131)-mini.jpg" class="img-fluid" alt="Responsive image" id="image-perfil">
+              </div>
+            </div> -->
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+      <div class="modal-footer" style="zoom:90%">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
+        <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button>
         <button type="submit" form="formAceptarPacienteRecepcion" class="btn btn-confirmar" id="btn-confirmar-paciente">
           <i class="bi bi-check2-square"></i> Aceptar paciente
         </button>

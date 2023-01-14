@@ -76,7 +76,8 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
             switch (areaActiva) {
                 case 3:
                     if (datalist.CONFIRMADO_OFTAL == 1) estadoFormulario(1)
-                    await obtenerResultadosOftalmo(selectEstudio.array)
+                    if (selectEstudio.array.length)
+                        await obtenerResultadosOftalmo(selectEstudio.array)
                     break;
                 case 4:
                     if (datalist.CONFIRMADO == 1) estadoFormulario(1)
@@ -192,7 +193,9 @@ async function obtenerServicios(area, turno) {
                 if (mensajeAjax(data)) {
                     selectEstudio = new GuardarArreglo(data.response.data);
                     let row = [data.response.data];
-                    panelResultadoPaciente(row, area);
+
+                    if (row.length)
+                        panelResultadoPaciente(row, area);
                     botonesResultados('activar', area)
                 }
             },
@@ -212,29 +215,35 @@ async function panelResultadoPaciente(row, area) {
     let bodyEnd = '</div>  </div>';
     html += '';
     let truehtml = false;
-    $('#divAreaMasterResultados').fadeOut()
+
     switch (area) {
         case 3:
-            for (const i in row) {
-                // console.log(row[i]);
-                html += itemStart;
-                html += '<h2 class="accordion-header" id="collap-historial-estudios' + i + '">' +
-                    '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio' + i + '-Target" aria-expanded="false" aria-controls="accordionEstudios">' +
-                    '<div class="row">' +
-                    '<div class="col-12">' +
-                    '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + ifnull(row[i][0]['CARGADO_POR']) + '</strong>' +
-                    '</div>' +
-                    '<div class="col-12">' +
-                    '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>' + formatoFecha2(row[i][0]['FECHA_RESULTADO'], [3, 1, 2, 2, 1, 1, 1]) + '</strong> ' + //<strong>12:00 '+i+'</strong>
-                    '</div>' +
-                    '</div>' +
-                    '</button>' +
-                    '</h2>' +
-                    //Dentro del acordion
-                    '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse " aria-labelledby="collap-historial-estudios' + i + '" > '; //overflow-auto style="max-height: 70vh"
+            if (row[0].length) {
+                for (const i in row) {
 
+                    // console.log(row[i]);
+                    html += itemStart;
+                    html += '<h2 class="accordion-header" id="collap-historial-estudios' + i + '">' +
+                        '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio' + i + '-Target" aria-expanded="false" aria-controls="accordionEstudios">' +
+                        '<div class="row">' +
+                        '<div class="col-12">' +
+                        '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + ifnull(row[i][0]['CARGADO_POR']) + '</strong>' +
+                        '</div>' +
+                        '<div class="col-12">' +
+                        '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>' + formatoFecha2(row[i][0]['FECHA_RESULTADO'], [3, 1, 2, 2, 1, 1, 1]) + '</strong> ' + //<strong>12:00 '+i+'</strong>
+                        '</div>' +
+                        '</div>' +
+                        '</button>' +
+                        '</h2>' +
+                        //Dentro del acordion
+                        '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse " aria-labelledby="collap-historial-estudios' + i + '" > '; //overflow-auto style="max-height: 70vh"
+
+
+                }
+
+                $('#divAreaMasterResultados').fadeIn()
+                $('#resultadosServicios-areas').append(html);
             }
-            $('#resultadosServicios-areas').append(html);
             break;
 
         default:
@@ -316,6 +325,8 @@ async function panelResultadoPaciente(row, area) {
             if (truehtml) {
                 $('#resultadosServicios-areas').html(html)
                 $('#divAreaMasterResultados').fadeIn()
+            } else {
+                $('#resultadosServicios-areas').html('<div class="alert alert-info" role="alert"> A simple info alert—check it out!</div > ')
             }
             break;
     }
@@ -421,9 +432,9 @@ async function ObtenerResultadosUltrsonido(data) {
 
             html += '<div class="collapse" id="board-facturacion' + k + '">';
             //Cada textarea
-
+            html += cargarForm('Técnica', row['ID_SERVICIO'], 'tecnica', row['TECNICA']);
             html += cargarForm('Hallazgos', row['ID_SERVICIO'], 'hallazgo', row['HALLAZGO']);
-            html += cargarForm('Interpretación', row['ID_SERVICIO'], 'interpretacion', row['INTERPRETACION_DETALLE']);
+            html += cargarForm('Diagnóstico', row['ID_SERVICIO'], 'interpretacion', row['INTERPRETACION_DETALLE']);
             html += cargarForm('Comentario', row['ID_SERVICIO'], 'comentario', row['COMENTARIO']);
             // html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
             //     '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
