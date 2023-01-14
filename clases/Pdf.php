@@ -162,7 +162,7 @@ class Reporte
                 break;
 
                 // session_write_close();
-                session_destroy();
+                // session_destroy();
         }
     }
 }

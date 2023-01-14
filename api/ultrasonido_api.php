@@ -4,12 +4,12 @@ require_once "../clases/token_auth.php";
 include_once '../clases/master_class.php';
 include_once "../clases/Pdf.php";
 
-$tokenVerification = new TokenVerificacion();
-$tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
-}
+// $tokenVerification = new TokenVerificacion();
+// $tokenValido = $tokenVerification->verificar();
+// if (!$tokenValido) {
+//     $tokenVerification->logout();
+//     exit;
+// }
 
 $master = new Master();
 $api = $_POST['api'];
@@ -202,7 +202,7 @@ switch ($api) {
         $response = "Api no definida.";
         break;
 }
-echo $master->returnApi($response);
+// echo $master->returnApi($response);
 
 
 function crearReporteUltrasonido($turno_id, $area_id)
@@ -261,9 +261,9 @@ function crearReporteUltrasonido($turno_id, $area_id)
     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
-    // print_r($infoPaciente);
+    print_r($infoPaciente);
     $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', 'url');
     return $pdf->build();
 
-    # print_r($arregloPaciente);
+    // print_r($pie_pagina);
 }

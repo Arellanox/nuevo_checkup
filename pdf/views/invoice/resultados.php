@@ -14,8 +14,9 @@
         body {
             font-family: 'Roboto', sans-serif;
             margin-top: 60px;
+            margin-bottom: 40px;
             font-size: 10px;
-            padding-bottom: 20px;
+            /* background-color: gray; */
         }
 
         .header {
@@ -25,7 +26,7 @@
             right: 25px;
             height: 220px;
             margin-top: 0;
-            /*-30px*/
+            /* background-color: moccasin; */
         }
 
         .footer {
@@ -34,15 +35,8 @@
             left: 25px;
             right: 25px;
             height: 260px;
+            /* background-color: moccasin; */
         }
-
-        /* .footer { 
-                position: fixed; 
-                bottom: -165px; 
-                left: 25px; 
-                right: 25px; 
-                height: 190px; 
-            } */
 
         .footer .page:after {
             content: counter(page);
@@ -264,7 +258,6 @@ $encode_firma = base64_encode($ruta_firma);
                         <h3>
                             Laboratorio de Análisis Clínicos
                         </h3>
-
                     </td>
                 </tr>
             </tbody>
@@ -273,32 +266,32 @@ $encode_firma = base64_encode($ruta_firma);
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong> <?php echo $encabezado->FOLIO; ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Edad: <strong> <?php echo $encabezado->EDAD; ?> años</strong>
+                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?> años</strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
-                        Sexo: <strong><?php echo $encabezado->SEXO; ?> </strong>
+                        Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Nombre: <strong> <?php echo $encabezado->NOMBRE; ?> </strong>
+                        Nombre: <strong style="font-size: 12px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Fecha de Nacimiento: <strong> <?php echo $encabezado->NACIMIENTO; ?> </strong>
+                        Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
-                        <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
+                        <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong style='font-size:12px'>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Fecha de Toma de Muestra: <strong> <?php echo $encabezado->FECHA_TOMA; ?> </strong>
+                        Fecha de Toma de Muestra: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_TOMA; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Fecha de Resultado: <strong><?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
+                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -306,14 +299,8 @@ $encode_firma = base64_encode($ruta_firma);
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Procedencia: <strong><?php echo $encabezado->PROCEDENCIA; ?> </strong>
+                        Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong>
                     </td>
-                    <!-- <td class="col-center"  style="border-bottom: none">
-                            <?php // echo (isset($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong>". $encabezado->MEDICO_TRATANTE . "</strong>" : "" ;
-                            ?> 
-                        </td>
-                        <td class="col-right"  style="border-bottom: none">
-                        </td> -->
                 </tr>
             </tbody>
         </table>
@@ -323,7 +310,7 @@ $encode_firma = base64_encode($ruta_firma);
         <table>
             <tbody>
                 <tr class="col-foot-one">
-                    <td colspan="12" style="text-align: right; padding-right: 0;"><strong>Atentamente</strong></td>
+                    <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
                 </tr>
                 <tr class="col-foot-two">
                     <td colspan="10">
@@ -337,42 +324,14 @@ $encode_firma = base64_encode($ruta_firma);
                         <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                        <strong>Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445</strong>
+                        <strong style="font-size: 12px;">Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445</strong>
                     </td>
                 </tr>
             </tbody>
         </table>
         <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small><strong>Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red"> 993 131 00 42 </strong> </br> <strong>Correo electrónico:</strong> <strong style="color:red">hola@bimo.com.mx</strong></small></p>
+        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red; font-size: 12px;"> 993 131 00 42 </strong> </br> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
     </div>
-
-    <!--  <div class="footer">
-            <table>
-                <tbody>
-                    <tr class="col-foot-one">
-                        <td colspan="12" style="text-align: center; padding-right: 0;"><strong>Atentamente</strong></td>
-                    </tr>
-                    <tr class="col-foot-two" >
-                        <td colspan="3" style="text-align: center; ">
-                            <a target="_blank" href="<?php echo $qr[0]; ?>"> <img style="margin-bottom: -30px" src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
-                        </td>
-                        <td colspan="3" style="text-align: left;">
-                            <?php echo "<img style='position:absolute;' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
-                        </td>
-                    </tr>
-                    <tr class="col-foot-three"  style="font-size: 13px;">
-                        <td colspan="12" style="text-align: center; width: 50%; ">
-                            <strong >Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr style="margin-top: 0px; height: 0.5px; background-color: black ;">
-            <p style="text-align: center; margin-top: 0px"><small><strong>Avenida José Pagés Llergo No. 150  Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono: 993 131 00 42 
-            Correo electrónico: hola@bimo.com.mx</strong></small></p>
-        </div>-->
-
-
 
     <!-- body -->
     <div class="invoice-content">
@@ -562,10 +521,13 @@ $encode_firma = base64_encode($ruta_firma);
             // echo $a;
             if ($a <= 15) {
             } else {
+                if($i < $count){
+
                 // echo "salto de linea";
             ?>
                 <div class="break"></div>
             <?php
+                }
                 // echo '<div class="break">';
             }
             ?>
