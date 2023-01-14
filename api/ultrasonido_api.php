@@ -70,7 +70,7 @@ switch ($api) {
             # insertar el formulario de bimo.
             foreach ($formulario as $id_servicio => $item) {
                 // echo "for";
-                $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica']]);
+                $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'],$usuario]);
             }
             // echo 3;
             #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
@@ -215,7 +215,7 @@ switch ($api) {
     case 8:
         # actualizar reporte bimo [solo administradores]
         foreach($formulario as $serv => $item){
-            $response = $master->updateByProcedure("sp_imagen_detalle_g", [$item['id_rayo'],null,$serv,$item['hallazgo'],$item['interpretacion'],$item['comentario'],null,$item['tecnica']]);
+            $response = $master->updateByProcedure("sp_imagen_detalle_g", [$item['id_rayo'],null,$serv,$item['hallazgo'],$item['interpretacion'],$item['comentario'],null,$item['tecnica'],$usuario]);
         }
 
         # como no modifica la fecha y el turno es el mismo, debe reemplazar el archivo anterior.
