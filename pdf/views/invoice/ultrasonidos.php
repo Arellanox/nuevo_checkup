@@ -65,9 +65,9 @@
         }
 
         h2 {
-            font-size: 17px;
+            font-size: 15px;
             margin-top: 18px;
-            margin-bottom: 10px;
+            /* margin-bottom: 10px; */
             text-align: center;
             background-color: rgba(215, 222, 228, 0.748);
             /* padding-top: 10px; */
@@ -87,8 +87,8 @@
 
         h5 {
             font-size: 12.5px;
-            margin-top: 2px;
-            margin-bottom: 2px;
+            margin-top: 0px;
+            margin-bottom: 0px;
         }
 
         p {
@@ -327,15 +327,11 @@ $encode_firma = base64_encode($ruta_firma);
                         <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                        <strong style="font-size: 12px;">Q.F.B. NERY FABIOLA ORNELAS RESENDIZ 
-                            <br>
-                                UPCH
-                            <br>
-                                Cédula profesional: 09291445
-                            <br> 
-                                Especialidad: 
-                            <br> 
-                                Subespecialidad: 
+                        <strong style="font-size: 12px;">
+                            Dra. Zoila Aideé Quiroz Colorado <br>
+                            Cédula profesional <br>
+                            Radiologia e imagen <br>
+                            Subespecialista en radiología pediátrica
                         </strong>
                     </td>
                 </tr>
@@ -353,11 +349,10 @@ $encode_firma = base64_encode($ruta_firma);
                 $count = 0;
                 $conteo = count($resultados->ESTUDIOS);
                 foreach ($resultados->ESTUDIOS as $key => $resultado) {
-                    echo "<h2 style='padding-bottom: 8px; padding-top: 8px;'> US " . $resultado->ESTUDIO . "</h2>";
-                    echo "<h5 style='line-height: 1.5; padding-top: 10px;'>Tecnica</h5>"; 
-                    echo "<p>" . $resultado->TECNICA ."</p>";
+                    echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'> US " . $resultado->ESTUDIO . "</h2>";
+                    echo "<p style='margin-bottom: 0;'><strong>Técnica: </strong>". $resultado->TECNICA ."</p><br>" ;
                     echo "<h5 style='line-height: 1.5;'>Hallazgos</h5>";
-                    echo "<p style='line-height: 1.5'>". $resultado->HALLAZGO."</p>";
+                    echo "<p style='line-height: 1.5; margin-top: 1px;'>". $resultado->HALLAZGO."</p>";
                     echo "<p style='line-height: 1.5'><strong>Interpretación: </strong>". $resultado->INTERPRETACION . "<br>";
                     if($resultado->COMENTARIO != "" || $resultado->COMENTARIO != null){
                         echo "<strong>Comentario: </strong>". $resultado->COMENTARIO ."</p><br>" ;
