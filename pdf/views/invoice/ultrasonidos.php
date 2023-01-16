@@ -331,7 +331,7 @@ $encode_firma = base64_encode($ruta_firma);
                             Dra. Zoila Aideé Quiroz Colorado <br>
                             Cédula profesional <br>
                             Radiologia e imagen <br>
-                            Subespecialista en radiología pediátrica
+                            Subespecialista en radiología pediátrica
                         </strong>
                     </td>
                 </tr>
