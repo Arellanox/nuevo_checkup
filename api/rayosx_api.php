@@ -38,45 +38,64 @@ $confirmado = $_POST['confirmado'];
 switch ($api) {
     case 1:
         # insertar la interpretacion
-        $res_reporte = false;
-        if (file_exists($_FILES['reportes']['tmp_name'][0])) {
-            #creamos el directorio donde se va a guardar la informacion del turno
-            $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
-            $r = $master->createDir("../" . $ruta_saved);
+        if (!isset($confirmado)) {
+            $res_reporte = false;
+            if (file_exists($_FILES['reportes']['tmp_name'][0])) {
+                #creamos el directorio donde se va a guardar la informacion del turno
+                $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
+                $r = $master->createDir("../" . $ruta_saved);
 
-            if ($r != 1) {
-                $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
-                break;
+                if ($r != 1) {
+                    $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
+                    break;
+                }
+                #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
+                $interpretacion = $master->guardarFiles($_FILES, "reportes", "../" . $ruta_saved, "INTERPRETACION_RX_$turno_id");
+
+                $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
+
+                $res_reporte = true;
+            } else {
+                $ruta_archivo = null;
             }
-            #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-            $interpretacion = $master->guardarFiles($_FILES, "reportes", "../" . $ruta_saved, "INTERPRETACION_RX_$turno_id");
 
-            $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
-
-            $res_reporte = true;
+            $res_detalle = !empty($master->checkArray($formulario));
+            // echo 1;
+            if ($res_reporte == true || $res_detalle) {
+                // echo "registra";
+                $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null, $confirmado]);
+            }
+            // print_r($res_detalle);
+            // echo $res_detalle;
+            // echo 2;
+            if ($res_detalle) {
+                # insertar el formulario de bimo.
+                foreach ($formulario as $id_servicio => $item) {
+                    // echo "for";
+                    $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
+                }
+                // echo 3;
+                #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
+                $url = crearReporteRayosX($turno_id, $area_id);
+                $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url, $confirmado]);
+            }
         } else {
-            $ruta_archivo = null;
-        }
+            # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
+            $res_detalle = !empty($master->checkArray($formulario));
+            if ($res_detalle) {
+                # insertar el formulario de bimo.
+            
+                foreach ($formulario as $id_servicio => $item) {
+                    // echo "for";
+                    $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
+                }
 
-        $res_detalle = !empty($master->checkArray($formulario));
-        // echo 1;
-        if ($res_reporte == true || $res_detalle) {
-            // echo "registra";
-            $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null,$confirmado]);
-        }
-        // print_r($res_detalle);
-        // echo $res_detalle;
-        // echo 2;
-        if ($res_detalle) {
-            # insertar el formulario de bimo.
-            foreach ($formulario as $id_servicio => $item) {
-                // echo "for";
-                $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id,$item['tecnica'],$usuario]);
+                # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
+
+                $url = crearReporteRayosX($turno_id, $area_id);
+                
+                $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, $url, $confirmado]);
             }
-            // echo 3;
-            #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
-            $url = crearReporteRayosX($turno_id, $area_id);
-            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url,$confirmado]);
         }
         // echo 4;
         $response = $last_id;
