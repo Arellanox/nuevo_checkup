@@ -67,36 +67,19 @@ switch ($api) {
 
             if ($res_detalle) {
                 # insertar el formulario de bimo.
-                if (isset($confirmado)) {
-                    foreach ($formulario as $id_servicio => $item) {
-                        // echo "for";
-                        $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
-                    }
-
-                    # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
-
-                    $url = crearReporteUltrasonido($turno_id, $area_id);
-                }
-                $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url, $confirmado]);
-
-            }
-        } else {
-            # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
-            $res_detalle = !empty($master->checkArray($formulario));
-            if ($res_detalle) {
-                # insertar el formulario de bimo.
-            
                 foreach ($formulario as $id_servicio => $item) {
                     // echo "for";
                     $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
                 }
 
-                # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
-
-                $url = crearReporteUltrasonido($turno_id, $area_id);
-                
-                $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, $url, $confirmado]);
             }
+        } else {
+            # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
+
+            $url = crearReporteUltrasonido($turno_id, $area_id);
+            
+            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, $url, $confirmado]);
+            
         }
   
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.\

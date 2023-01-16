@@ -60,45 +60,28 @@ switch ($api) {
             }
 
             $res_detalle = !empty($master->checkArray($formulario));
-            // echo 1;
+         
             if ($res_reporte == true || $res_detalle) {
-                // echo "registra";
+            
                 $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null, $confirmado]);
             }
-            // print_r($res_detalle);
-            // echo $res_detalle;
-            // echo 2;
+       
             if ($res_detalle) {
                 # insertar el formulario de bimo.
                 foreach ($formulario as $id_servicio => $item) {
-                    // echo "for";
+             
                     $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
                 }
-                // echo 3;
-                #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
-                $url = crearReporteRayosX($turno_id, $area_id);
-                $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url, $confirmado]);
+           
             }
         } else {
             # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
-            $res_detalle = !empty($master->checkArray($formulario));
-            if ($res_detalle) {
-                # insertar el formulario de bimo.
+            $url = crearReporteRayosX($turno_id, $area_id);
             
-                foreach ($formulario as $id_servicio => $item) {
-                    // echo "for";
-                    $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
-                }
-
-                # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
-
-                $url = crearReporteRayosX($turno_id, $area_id);
-                
-                $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, $url, $confirmado]);
-            }
+            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, $url, $confirmado]);
         }
-        // echo 4;
-        $response = $last_id;
+
+        $response = isset($last_id) ? $last_id : $res_url;
         break;
     case 2:
         $turno_id = $_POST['turno_id'];
