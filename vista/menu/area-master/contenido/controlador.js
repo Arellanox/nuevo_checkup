@@ -24,14 +24,14 @@ function hasLocation() {
         api_capturas = 2;
         api_interpretacion = 1;
         url_api = 'ultrasonido_api';
-        obtenerContenidoVistaMaster(11, 'Resultados de Ultrasonido', 'contenido_new.php');
+        obtenerContenidoVistaMaster(11, 'Resultados de Ultrasonido', 'contenido_modal.php');
         break;
       case "RX":
         formulario = "formSubirInterpretacion";
         api_capturas = 2;
         api_interpretacion = 1;
         url_api = 'rayosx_api';
-        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_new.php');
+        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_modal.php');
         break;
       case "ESPIROMETRIA":
         formulario = "formSubirInterpretacion";
@@ -45,7 +45,7 @@ function hasLocation() {
         api_capturas = 2;
         api_interpretacion = 1;
         url_api = 'electrocardiograma_api';
-        obtenerContenidoVistaMaster(10, 'Resultados de Electrocardiograma', 'contenido_new.php');
+        obtenerContenidoVistaMaster(10, 'Resultados de Electrocardiograma', 'contenido_modal.php');
         break;
       case "AUDIOMETRIA":
         formulario = "formSubirInterpretacion";

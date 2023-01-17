@@ -1,6 +1,7 @@
 class GuardarArreglo {
   array = new Array();
   selectID;
+  guardado;
   constructor(array) {
     this.array = array
   }
@@ -19,20 +20,32 @@ class GuardarArreglo {
   //Guarda el seleccionado
   set selectID(id) {
     if (true) {
-      this.select = id;
+      this.selectID = id;
     }
   }
 
   get selectID() {
     return this.selectID;
   }
+
+  //Guarda el seleccionado
+  setguardado(id) {
+    if (true) {
+      this.guardado = id;
+    }
+  }
+
+  getguardado() {
+    return this.guardado;
+  }
+
 }
 
 var Base64 = (function () {
 
   var ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
-  var Base64 = function () {};
+  var Base64 = function () { };
 
   var _encode = function (value) {
 

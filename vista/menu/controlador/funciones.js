@@ -1177,13 +1177,16 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 $(panel).fadeIn(100);
                 resolve(1);
                 break;
-              case 'resultados-areaMaster':
+              case 'resultados-areas':
                 $(panel).fadeIn(100);
                 resolve(1);
                 break;
 
               default:
                 console.log('Sin opción panel')
+                setTimeout(function () {
+                  $(panel).fadeOut(100);
+                }, 100);
             }
           } else {
             setTimeout(function () {

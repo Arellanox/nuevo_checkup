@@ -71,17 +71,15 @@ switch ($api) {
                     // echo "for";
                     $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
                 }
-
             }
         } else {
             # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
 
             $url = crearReporteUltrasonido($turno_id, $area_id);
-            
-            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, $url, $confirmado]);
-            
+
+            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [null, $turno_id, null, null, null, $url, $confirmado]);
         }
-  
+
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.\
         $response = isset($last_id) ? $last_id : $res_url;
         break;
@@ -209,18 +207,18 @@ switch ($api) {
         # tienes que enviar $id_imagen como id_imagen
         # $confirmado se recibe como ['confirmado'], para confirmar enviar 1,
         # si no se desea confirmar enviarlo null
-        $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [null, $turno_id, null, null, null, null,$confirmado]);
+        $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [null, $turno_id, null, null, null, null, $confirmado]);
         break;
 
     case 7:
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = crearReporteUltrasonido($turno_id, $area_id,"mostrar");
+        $r = crearReporteUltrasonido($turno_id, $area_id, "mostrar");
         exit;
         break;
     case 8:
         # actualizar reporte bimo [solo administradores]
-        foreach($formulario as $serv => $item){
-            $response = $master->updateByProcedure("sp_imagen_detalle_g", [$item['id_rayo'],null,$serv,$item['hallazgo'],$item['interpretacion'],$item['comentario'],null,$item['tecnica'],$usuario]);
+        foreach ($formulario as $serv => $item) {
+            $response = $master->updateByProcedure("sp_imagen_detalle_g", [$item['id_rayo'], null, $serv, $item['hallazgo'], $item['interpretacion'], $item['comentario'], null, $item['tecnica'], $usuario]);
         }
 
         # como no modifica la fecha y el turno es el mismo, debe reemplazar el archivo anterior.
@@ -233,7 +231,7 @@ switch ($api) {
 echo $master->returnApi($response);
 
 
-function crearReporteUltrasonido($turno_id, $area_id, $viz='url')
+function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url')
 {
     $master = new Master();
     #Recuperar info paciente

@@ -11,7 +11,7 @@ $("#formSubirInterpretacionOftalmo").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formSubirInterpretacionOftalmo");
   var formData = new FormData(form);
-  formData.set('turno_id', selectPacienteArea['ID_TURNO'])
+  formData.set('turno_id', dataSelect.array['turno'])
   formData.set('api', 1);
   Swal.fire({
     title: "¿Está seguro de subir la interpretación?",
@@ -39,8 +39,8 @@ $("#formSubirInterpretacionOftalmo").submit(function (event) {
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
-            alertMensaje('success', 'Interpretación guardada', 'El reporte de resultado ha sido generado...', 'El formulario ha sido cerrado');
-            estadoFormulario(1) //Desactiva el formulario
+            alertMensaje('success', 'Interpretación guardada', 'Ya puede visualizar el reporte', 'Es necesario confirmar la interpretación');
+            //estadoFormulario(1) //Desactiva el formulario
             obtenerServicios(3)
           }
         },

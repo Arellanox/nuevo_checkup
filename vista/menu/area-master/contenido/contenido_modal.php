@@ -82,7 +82,38 @@ $form = $_POST['form'];
     </div> -->
     </div>
     <div class="col-lg-4 informacion-paciente" style="margin-right: -5px !important;display:none">
-        <div class="card mt-3 p-2" id="panel-resultadosMaster"> </div>
+        <div class="card mt-3 p-2" id="panel">
+            <div class="" id="divAreaMasterResultados">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Resultados</h4>
+                        <p class="none-p">Cargué o visualice el reporte de interpretación del paciente</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
+                            <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
+                                <i class="bi bi-clipboard2-plus"></i> Imágenes
+                            </button>
+                        </div>
+                        <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">
+                            <!-- Subir por areas -->
+                            <button type="button" id="abrirModalResultados" class="btn btn-confirmar me-2" style="margin-bottom:4px">
+                                <i class="bi bi-clipboard2-plus"></i> Interpretación
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="spamResultado">
+
+                </div>
+                <div id="mostrarResultado" style="display: none;">
+                    <h5>Resultados del paciente:</h5>
+                    <div class="" id="resultadosServicios-areas">
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-8 d-flex justify-content-center align-items-center" id='loaderDivPaciente' style="max-height: 75vh; display:none">
         <div class="preloader" id="loader-paciente"></div>
@@ -90,21 +121,21 @@ $form = $_POST['form'];
 </div>
 
 <div>
-    <div class="modal fade" id="modalPacienteAceptar" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-fullscreen-xxl-down modal-dialog-centered">
+    <div class="modal fade" id="modalSubirInterpretacion" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header header-modal">
-                    <h5 class="modal-title" id="title-paciente_aceptar">Nombre paciente</h5>
+                    <h5 class="modal-title" id="title-paciente_aceptar">Reporte de interpretación</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-12 col-lg-7">
+                        <!-- <div class="col-12 col-lg-7">
                             <h4>Reporte de interpretación</h4>
                             <p class="none-p"></p>
-                        </div>
+                        </div> -->
                         <div class="row">
-                            <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
+                            <!-- <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
                                 <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
                                     <i class="bi bi-clipboard2-plus"></i> Cargar capturas
                                 </button>
@@ -115,16 +146,12 @@ $form = $_POST['form'];
                                 </button>
 
 
-                                <!-- SubmitPorAreas -->
-                                <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis-oftalmo">
-                                    <i class="bi bi-clipboard2-plus"></i> Guardar Reporte
-                                    <!-- formulario para oftamologia -->
-                                </button>
+
                                 <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar me-2 btnResultados" style="margin-bottom:4px" id="btn-analisis">
                                     <i class="bi bi-clipboard2-plus"></i> Subir Reporte
-                                    <!-- BTN para formulario global -->
+                                    BTN para formulario global 
                                 </button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row">
@@ -134,14 +161,14 @@ $form = $_POST['form'];
                             switch ($form) {
                                     //<!-- Resultados de oftalmologia -->
                                 case 'formSubirInterpretacionOftalmo':
-                                    echo '<form id="formSubirInterpretacionOftalmo" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh;margin-bottom:10px; padding: 15px;">';
+                                    echo '<form id="formSubirInterpretacionOftalmo">';
                                     include 'forms/oftalmo.html';
                                     echo '</form>';
                                     break;
 
                                     //<!-- Formulario general -->
                                 case 'formSubirInterpretacion':
-                                    echo '<form id="formSubirInterpretacion" class="overflow-auto" style="display:none;max-width: 100%; max-height: 68vh;margin-bottom:10px; padding: 15px;">';
+                                    echo '<form id="formSubirInterpretacion">';
                                     include 'forms/form_general.html';
                                     echo '</form>';
                                     break;
@@ -153,9 +180,23 @@ $form = $_POST['form'];
                 </div>
                 <div class="modal-footer" style="zoom:90%">
                     <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
-                    <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button>
-                    <button type="submit" form="formAceptarPacienteRecepcion" class="btn btn-confirmar" id="btn-confirmar-paciente">
-                        <i class="bi bi-check2-square"></i> Aceptar paciente
+                    <!-- <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button> -->
+
+                    <button type="button" class="btn btn-borrar btnResultados" id="btn-ver-reporte">
+                        <i class="bi bi-file-earmark-pdf"></i> Visualizar reporte
+                    </button>
+
+                    <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte">
+                        <i class="bi bi-file-earmark-pdf"></i> Confirmar reporte
+                    </button>
+
+                    <!-- BTN oftalmo -->
+                    <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar btnResultados" id="btn-inter-oftal">
+                        <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
+                    </button>
+                    <!-- BTN GLOBAL -->
+                    <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar btnResultados" id="btn-inter-areas">
+                        <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
                     </button>
                 </div>
             </div>

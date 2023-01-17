@@ -54,6 +54,15 @@ $('#btn-analisis-oftalmo').click(function () {
   }
 })
 
+$('#abrirModalResultados').click(function () {
+  // alert('Si')
+  $('#modalSubirInterpretacion').modal('show')
+})
+
+$('#btn-ver-reporte').click(function () {
+  window.open("https://www.google.com?paciente=" + dataSelect.array['turno'], "_blank");
+})
+
 function chooseEstudio(row, modal, tip) {
   let html = '';
   console.log(row)
