@@ -31,7 +31,7 @@ class Usuarios extends Master implements iMetodos{
 
     function Usuarios(){
         $this->tabla = "usuarios";
-        $this->public_attributes = 15;
+        $this->public_attributes = 13;
         $this->master = new Master();
         $this->intergers = array(0,1,9);
         $this->strings = array(2,3,4,5,6,7,8,10);
@@ -207,22 +207,22 @@ class Usuarios extends Master implements iMetodos{
     }
 
     function validarUsuario($id){
-          $conn = $this->master->connectDb();
-          $sql = "SELECT TIPO_ID FROM $this->tabla WHERE ID_USUARIO = ?";
-          $stmt = $conn -> prepare ($sql);
-          $stmt ->bindParam(1, $id);
-          if (!$stmt->execute()) {
-            return "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
-          }
-          $result = $stmt->fetchAll();
-          if (count($result)>0) {
-            return $result[0]['TIPO_ID'];
-          }else{
-            session_start();
-            session_unset();
-            session_destroy();
-            return 0;
-          }
+        $conn = $this->master->connectDb();
+        $sql = "SELECT TIPO_ID FROM $this->tabla WHERE ID_USUARIO = ?";
+        $stmt = $conn -> prepare ($sql);
+        $stmt ->bindParam(1, $id);
+        if (!$stmt->execute()) {
+        return "Ha ocurrido un error (".$stmt->errorCode()."). ".implode(" ",$stmt->errorInfo());
+        }
+        $result = $stmt->fetchAll();
+        if (count($result)>0) {
+        return $result[0]['TIPO_ID'];
+        }else{
+        session_start();
+        session_unset();
+        session_destroy();
+        return 0;
+        }
     }
 }
 ?>

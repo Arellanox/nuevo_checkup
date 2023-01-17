@@ -1,7 +1,7 @@
 <?php
 include "../interfaces/iMetodos.php";
 require_once "../clases/token_auth.php";
-include "../clases/usuarios_class.php";
+include_once "../clases/usuarios_class.php";
 include "../clases/cargos_class.php";
 include "../clases/tipos_usuarios_class.php";
 include_once "../clases/master_class.php";
@@ -18,6 +18,8 @@ $master = new Master();
 
 $api = isset($_POST['api']) ? $_POST['api'] : $_GET['api'];
 
+
+
 #Datos insertar usuario
 $id_usuario = $_POST['id_usuario'];
 $cargo_id = $_POST['cargo'];
@@ -25,7 +27,7 @@ $tipo_id = $_POST['tipo'];
 $nombre = $_POST['nombre'];
 $paterno = $_POST['paterno'];
 $materno = $_POST['materno'];
-$usuario = $_POST['usuario'];
+$username = $_POST['usuario'];
 $contrasenia = $_POST['contraseña'];
 $profesion = $_POST['profesion'];
 $cedula = $_POST['cedula'];
@@ -42,7 +44,7 @@ $params = array(
     $nombre,
     $paterno,
     $materno,
-    $usuario,
+    $username,
     $contrasenia,
     $profesion,
     $cedula,
