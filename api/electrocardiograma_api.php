@@ -18,12 +18,12 @@ $api = isset($_POST['api']) ? $_POST['api'] : '';
 # Datos para la interpretacion
 $id_electro = isset($_POST['id_electro']) ? $_POST['id_electro'] : null;
 $turno_id = isset($_POST['turno_id']) ? $_POST['turno_id'] : '';
-$clave = isset($_POST['clave']) ? $_POST['clave'] : null;
 $fecha_registro = isset($_POST['fecha_registro']) ? $_POST['fecha_registro'] : '';
 $registrado_por = isset($_POST['registrado_por']) ? $_POST['registrado_por'] : '';
 $folio = isset($_POST['folio']) ? $_POST['folio'] : '';
 $usuario = $_SESSION['id'];
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+$date = date("dmY_His");
 
 switch($api){
     case 1:
@@ -42,7 +42,7 @@ switch($api){
 
         $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
-        $last_id = $master->insertByProcedure("sp_electro_resultados_g", [null, $turno_id, $clave, $ruta_archivo, $usuario, $comentario]);
+        $last_id = $master->insertByProcedure("sp_electro_resultados_g", [null, $turno_id, $ruta_archivo, $usuario, $comentario]);
 
         // # insertar el formulario de bimo.  
         // foreach($formulario as $id_servicio => $item){
@@ -56,62 +56,31 @@ switch($api){
         $response = $last_id;
     break;
     case 2: 
-            # recuperar las capturas
-            $response = array();
-            #recupera la interpretacion.
-            $response1 = $master->getByProcedure('sp_electro_resultados_b', [$id_electro]);
-    
-            # recupera los archivos del turno.
-            # necesitamos enviarle el area del estudio para hacer el filtro.
-            $response2 = $master->getByProcedure('sp_electro_archivos_b', [$turno_id]);
-    
-            $capturas = [];
-            foreach ($response2 as $current) {
-                $capturas[] = $current['ARCHIVO'];
-            }
+        # recuperar las capturas
+        $response = array();
+        #recupera la interpretacion.
+        $response1 = $master->getByProcedure('sp_electro_resultados_b', [$id_electro]);
 
-            // print_r($response1);
+        # recupera los archivos del turno.
+        # necesitamos enviarle el area del estudio para hacer el filtro.
+        $response2 = $master->getByProcedure('sp_electro_archivos_b', [$turno_id]);
 
-            // print_r($capturas);
-    
-            // $merge = [];
-            // for ($i = 0; $i < count($response1[0]); $i++) {
-            //     $id_electro = $response1[0][$i]['ID_SERVICIO'];
-            //     $servicio = $response1[0][$i]['ID_SERVICIO'];
-    
-            //     $subconjunto = array_filter($response1[1], function ($obj) use ($id_electro) {
-            //         $r = $obj['SERVICIO_ID'] == $id_electro;
-            //         return $r;
-            //     });
-    
-            //     $subconjunto = $master->getFormValues($subconjunto);
-    
-    
-            //     $sub_caps = array_filter($capturas, function ($obj) use ($servicio) {
-            //         $r = $obj['ID_SERVICIO_CAP'] == $servicio;
-            //         return $r;
-            //     });
-    
-            //     $sub_caps = $master->getFormValues($sub_caps);
-    
-            //     $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
-            //     $m['CAPTURAS'] = $sub_caps;
-    
-            //     $merge[] = $m;
-            // }
-    
-            $response = $capturas;
-    break;
+        $capturas = [];
+        foreach ($response2 as $current) {
+            $capturas[] = $current['ARCHIVO'];
+        }
+
+        $response = $capturas;
+        break;
     case 3: 
-        $response1 = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, null, null, null, null, null, $comentario]);
+        $response1 = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, null, null, null, $comentario]);
+        $response = $response1;
+        break;
+    case 4: 
+        $response1 = $master->deleteByProcedure("sp_electro_resultados_e", [$id_electro]);
 
         $response = $response1;
-break;
-case 4: 
-    $response1 = $master->deleteByProcedure("sp_electro_resultados_e", [$id_electro]);
-
-    $response = $response1;
-break;
+        break;
     default:
         $response = "Api no definida.";
         break;
