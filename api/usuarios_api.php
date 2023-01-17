@@ -55,6 +55,11 @@ $params = array(
     $universidad
 );
 
+# especialidades
+$id_u_especialidad = $_POST['id_u_especialidad'];
+$especialidad_id = $_POST['especialidad_id'];
+$certificado_por = $_POST['certificado_por'];
+
 
 switch ($api) {
     case 1:
@@ -195,7 +200,25 @@ switch ($api) {
 
 
         break;
+    case 10:
+        #insertar especialidades para medicos/ actualizar especialidades
+        $response = $master->insertByProcedure("sp_u_especialidades_g", [$id_u_especialidad,$id_usuario,$especialidad_id,$cedula,$universidad,$certificado_por]);
 
+        echo $master->returnApi($response);
+        break;
+
+    case 11:
+        # buscar especialidades
+        $response = $master->getByProcedure("sp_u_especialidades_b", [$id_u_especialidad,$id_usuario]);
+
+        echo $master->returnApi($response);
+        break;
+    case 12:
+        # eliminar especialidad
+        $response = $master->deleteByProcedure("sp_u_especialidades_e", [$id_u_especialidad]);
+
+        echo $master->returnApi($response);
+        break;
     default:
         # code...
         break;
