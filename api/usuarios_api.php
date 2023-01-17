@@ -18,18 +18,63 @@ $master = new Master();
 
 $api = isset($_POST['api']) ? $_POST['api'] : $_GET['api'];
 
+#Datos insertar usuario
+$id_usuario = $_POST['id_usuario'];
+$cargo_id = $_POST['cargo'];
+$tipo_id = $_POST['tipo'];
+$nombre = $_POST['nombre'];
+$paterno = $_POST['paterno'];
+$materno = $_POST['materno'];
+$usuario = $_POST['usuario'];
+$contrasenia = $_POST['contraseña'];
+$profesion = $_POST['profesion'];
+$cedula = $_POST['cedula'];
+$telefono = $_POST['telefono'];
+$correo = $_POST['correo'];
+$bloqueado = $_POST['bloqueado'];
+$titulo_id= $_POST['titulo_id'];
+$universidad = $_POST['universidad'];
+
+$params = array(
+    $id_usuario,
+    $cargo_id,
+    $tipo_id,
+    $nombre,
+    $paterno,
+    $materno,
+    $usuario,
+    $contrasenia,
+    $profesion,
+    $cedula,
+    $telefono,
+    $correo,
+    $bloqueado,
+    $titulo_id,
+    $universidad
+);
+
+
 switch ($api) {
     case 1:
-        $array_slice = array_slice($_POST, 0, 11);
-        $a = $usuario->master->mis->getFormValues($array_slice);
-        // $newRecord = array(4,1,"Josue","De la Cruz","Arellano","Arellanox","arditas","Ingeniero en TI");
-        $response = $usuario->insert($a);
+        // $array_slice = array_slice($_POST, 0, 13);
+        // $a = $usuario->master->mis->getFormValues($array_slice);
+        // // $newRecord = array(4,1,"Josue","De la Cruz","Arellano","Arellanox","arditas","Ingeniero en TI");
+        // $response = $usuario->insert($a);
 
-        if (is_numeric($response)) {
-            echo json_encode(array("response" => array("code" => 1, "lastId" => $response)));
-        } else {
-            echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
-        }
+        // if (is_numeric($response)) {
+        //     echo json_encode(array("response" => array("code" => 1, "lastId" => $response)));
+        // } else {
+        //     echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
+        // }
+
+        $opciones = [
+            'cost' => 12,
+        ];
+        $contrasenia = password_hash($contrasenia,PASSWORD_BCRYPT, $opciones);
+
+        $response = $master->insertByProcedure('sp_usuarios_g',$params);
+
+        echo $master->returnApi($response);
         break;
     case 2:
         $response = $usuario->getAll();

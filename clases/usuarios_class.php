@@ -15,6 +15,8 @@ class Usuarios extends Master implements iMetodos{
     public $telefono;#9
     public $correo;#10
     // public $bloqueado;
+    public $titulo_id; #12
+    public $universidad; #13
     public $activo;
     private $tabla;
     private $public_attributes;
@@ -29,7 +31,7 @@ class Usuarios extends Master implements iMetodos{
 
     function Usuarios(){
         $this->tabla = "usuarios";
-        $this->public_attributes = 13;
+        $this->public_attributes = 15;
         $this->master = new Master();
         $this->intergers = array(0,1,9);
         $this->strings = array(2,3,4,5,6,7,8,10);
