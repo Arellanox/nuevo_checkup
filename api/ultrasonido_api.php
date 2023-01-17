@@ -209,7 +209,7 @@ switch ($api) {
         # tienes que enviar $id_imagen como id_imagen
         # $confirmado se recibe como ['confirmado'], para confirmar enviar 1,
         # si no se desea confirmar enviarlo null
-        $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, null,$confirmado]);
+        $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [null, $turno_id, null, null, null, null,$confirmado]);
         break;
 
     case 7:
