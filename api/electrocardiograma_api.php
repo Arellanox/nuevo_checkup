@@ -55,28 +55,28 @@ switch($api){
         // $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
         $response = $last_id;
     break;
-    case 2: 
+    case 3: 
         # recuperar las capturas
-        $response = array();
+        // $response = array();
         #recupera la interpretacion.
-        $response1 = $master->getByProcedure('sp_electro_resultados_b', [$id_electro]);
+        $response = $master->getByProcedure('sp_electro_resultados_b', [$id_electro,$turno_id]);
 
         # recupera los archivos del turno.
         # necesitamos enviarle el area del estudio para hacer el filtro.
-        $response2 = $master->getByProcedure('sp_electro_archivos_b', [$turno_id]);
+       // $response2 = $master->getByProcedure('sp_electro_archivos_b', [$turno_id]);
 
-        $capturas = [];
-        foreach ($response2 as $current) {
-            $capturas[] = $current['ARCHIVO'];
-        }
+        // $capturas = [];
+        // foreach ($response2 as $current) {
+        //     $capturas[] = $current['ARCHIVO'];
+        // }
 
-        $response = $capturas;
+        // $response = $capturas;
         break;
-    case 3: 
+    case 4: 
         $response1 = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, null, null, null, $comentario]);
         $response = $response1;
         break;
-    case 4: 
+    case 5: 
         $response1 = $master->deleteByProcedure("sp_electro_resultados_e", [$id_electro]);
 
         $response = $response1;
