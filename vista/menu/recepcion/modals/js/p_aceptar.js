@@ -108,7 +108,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Turno: ' + data.response.data[1],
+          title: 'Turno: ' + data.response.data[1]['TURNO'],
           text: '¡Paciente aceptado! Recuerda generar sus documentos.',
           showCloseButton: false,
         })

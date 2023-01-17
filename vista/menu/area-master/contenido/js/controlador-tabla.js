@@ -243,6 +243,9 @@ async function panelResultadoPaciente(row, area) {
 
                 $('#divAreaMasterResultados').fadeIn()
                 $('#resultadosServicios-areas').append(html);
+
+            } else {
+                $('#spamResultado').html('<div class="alert alert-info" role="alert">Interpretación del paciente sin cargar</div > ')
             }
             break;
 
@@ -326,7 +329,7 @@ async function panelResultadoPaciente(row, area) {
                 $('#resultadosServicios-areas').html(html)
                 $('#divAreaMasterResultados').fadeIn()
             } else {
-                $('#resultadosServicios-areas').html('<div class="alert alert-info" role="alert"> A simple info alert—check it out!</div > ')
+                $('#spamResultado').html('<div class="alert alert-info" role="alert">Interpretación del paciente sin cargar</div > ')
             }
             break;
     }

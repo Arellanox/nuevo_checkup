@@ -8,7 +8,7 @@ include_once "../clases/master_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
@@ -43,8 +43,8 @@ switch ($api) {
                 $labelCargo = $cargo->getById($user["CARGO_ID"]);
                 $labelTipo = $tipo->getById($user['TIPO_ID']);
 
-                $user[] = $labelCargo;
-                $user[] = $labelTipo;
+                $user['cargo'] = $labelCargo;
+                $user['tipo'] = $labelTipo;
                 $user['nombrecompleto'] = $user['NOMBRE'] . " " . $user['PATERNO'] . " " . $user['MATERNO'];
                 $user['count'] = $i;
                 $user['ACTIVO'] = $user['BLOQUEADO'] ? "INACTIVO" : "ACTIVO";
@@ -68,8 +68,8 @@ switch ($api) {
                 $labelCargo = $cargo->getById($user["CARGO_ID"]);
                 $labelTipo = $tipo->getById($user['TIPO_ID']);
 
-                $user[] = $labelCargo;
-                $user[] = $labelTipo;
+                $user['cargo'] = $labelCargo;
+                $user['tipo'] = $labelTipo;
 
                 $completedUser[] = $user;
             }
@@ -131,22 +131,22 @@ switch ($api) {
         $activo = 1;
         $bloqueado = 0;
         $user = $_SESSION['user'];
-        $parametros = [$user,$activo,$bloqueado]; 
-        $result = $master->getByProcedure("sp_usuarios_login_b",$parametros); 
+        $parametros = [$user, $activo, $bloqueado];
+        $result = $master->getByProcedure("sp_usuarios_login_b", $parametros);
         $password = $_GET['password'];
 
-        if(count($result)>0){
-            if(password_verify($password,$result[0]['CONTRASENIA'])){
-                echo json_encode(array("status"=>1));
+        if (count($result) > 0) {
+            if (password_verify($password, $result[0]['CONTRASENIA'])) {
+                echo json_encode(array("status" => 1));
             } else {
-                echo json_encode(array("status"=>0));
+                echo json_encode(array("status" => 0));
             }
         } else {
-            echo json_encode(array("status"=>'No se encuentra el usuario.'));
+            echo json_encode(array("status" => 'No se encuentra el usuario.'));
         }
-        
 
-        
+
+
         break;
 
     default:
