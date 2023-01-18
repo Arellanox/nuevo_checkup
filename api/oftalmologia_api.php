@@ -102,71 +102,75 @@ switch ($api) {
         if (count($response))
             $response[0]['CAPTURAS'] = [];
         break;
-    default:
-        # code...
-        break;
-        case 3:
-            $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
-            #recuperar la informacion del Reporte de interpretacion de Oftalmología
-            $response = array();
-            # recuperar los resultados de oftalmología
-            $area_id = 3; # 3 es el id para oftalmología
-            $response1 = $master->getByProcedure('sp_oftalmo_resultados_b', [$id_oftalmo, $turno_id]);
-            #print_r($response1);
-            $arrayoftalmo = [];
-    
-            for ($i = 0; $i < count($response1); $i++) {
-                $antecedentes_personales = $response1[$i]['ANTECEDENTES_PERSONALES'];
-                $antecedentes_oftalmologicos = $response1[$i]['ANTECEDENTES_OFTALMOLOGICOS'];
-                $pacedimiento_actual = $response1[$i]['PADECIMIENTO_ACTUAL'];
-                $agudeza_visual = $response1[$i]['AGUDEZA_VISUAL_SIN_CORRECCION'];
-                $od = $response1[$i]['OD'];
-                $oi = $response1[$i]['OI'];
-                $jaeger = $response1[$i]['JAEGER'];
-                $refraccion = $response1[$i]['REFRACCION'];
-                $prueba = $response1[$i]['PRUEBA'];
-                $exploracion_oftalmologica = $response1[$i]['EXPLORACION_OFTALMOLOGICA'];
-                $forias = $response1[$i]['FORIAS'];
-                $campimetria = $response1[$i]['CAMPIMETRIA'];
-                $presion_intraocular_od = $response1[$i]['PRESION_INTRAOCULAR_OD'];
-                $presion_intraocular_oi = $response1[$i]['PRESION_INTRAOCULAR_OI'];
-                $diagnostico = $response1[$i]['DIAGNOSTICO'];
-                $plan = $response1[$i]['PLAN'];
-                $observaciones = $response1[$i]['OBSERVACIONES'];
-                $array1 = array(
-                    "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
-                    "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,
-                    "PADECIMIENTO_ACTUAL" => $pacedimiento_actual,
-                    "AGUDEZA_VISUAL" => $agudeza_visual,
-                    "OD" => $od,
-                    "OI" => $oi,
-                    "JAEGER" => $jaeger,
-                    "REFRACCION" =>  $refraccion,
-                    "PRUEBA" => $prueba,
-                    "EXPLORACION_OFTALMOLOGICA" => $exploracion_oftalmologica,
-                    "'FORIAS" => $forias,
-                    "CAMPIMETRIA" => $campimetria,
-                    "PRESION_INTRAOCULAR_OD" => $presion_intraocular_od,
-                    "PRESION_INTRAOCULAR_OI" => $presion_intraocular_oi,
-                    "DIAGNOSTICO" => $diagnostico,
-                    "PLAN" => $plan,
-                    "OBSERVACIONES" => $observaciones
-    
-                );
-                array_push($arrayoftalmo, $array1);
-            }
-            #print_r($arrayoftalmo);
-            $arregloPaciente = array(
-                'NOMBRE' => $infoPaciente[0]['NOMBRE'],
-                "EDAD" => $infoPaciente[0]['EDAD'],
-                'SEXO' => $infoPaciente[0]['SEXO'],
-                'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
-                'ESTUDIOS' => $arrayoftalmo
+
+    case 3:
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
+
+
+        print_r($infoPaciente);
+        #recuperar la informacion del Reporte de interpretacion de Oftalmología
+        $response = array();
+        # recuperar los resultados de oftalmología
+        $area_id = 3; # 3 es el id para oftalmología
+        $response1 = $master->getByProcedure('sp_oftalmo_resultados_b', [$id_oftalmo, $turno_id]);
+        #print_r($response1);
+        $arrayoftalmo = [];
+
+        for ($i = 0; $i < count($response1); $i++) {
+            $antecedentes_personales = $response1[$i]['ANTECEDENTES_PERSONALES'];
+            $antecedentes_oftalmologicos = $response1[$i]['ANTECEDENTES_OFTALMOLOGICOS'];
+            $pacedimiento_actual = $response1[$i]['PADECIMIENTO_ACTUAL'];
+            $agudeza_visual = $response1[$i]['AGUDEZA_VISUAL_SIN_CORRECCION'];
+            $od = $response1[$i]['OD'];
+            $oi = $response1[$i]['OI'];
+            $jaeger = $response1[$i]['JAEGER'];
+            $refraccion = $response1[$i]['REFRACCION'];
+            $prueba = $response1[$i]['PRUEBA'];
+            $exploracion_oftalmologica = $response1[$i]['EXPLORACION_OFTALMOLOGICA'];
+            $forias = $response1[$i]['FORIAS'];
+            $campimetria = $response1[$i]['CAMPIMETRIA'];
+            $presion_intraocular_od = $response1[$i]['PRESION_INTRAOCULAR_OD'];
+            $presion_intraocular_oi = $response1[$i]['PRESION_INTRAOCULAR_OI'];
+            $diagnostico = $response1[$i]['DIAGNOSTICO'];
+            $plan = $response1[$i]['PLAN'];
+            $observaciones = $response1[$i]['OBSERVACIONES'];
+            $array1 = array(
+                "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
+                "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,
+                "PADECIMIENTO_ACTUAL" => $pacedimiento_actual,
+                "AGUDEZA_VISUAL" => $agudeza_visual,
+                "OD" => $od,
+                "OI" => $oi,
+                "JAEGER" => $jaeger,
+                "REFRACCION" =>  $refraccion,
+                "PRUEBA" => $prueba,
+                "EXPLORACION_OFTALMOLOGICA" => $exploracion_oftalmologica,
+                "'FORIAS" => $forias,
+                "CAMPIMETRIA" => $campimetria,
+                "PRESION_INTRAOCULAR_OD" => $presion_intraocular_od,
+                "PRESION_INTRAOCULAR_OI" => $presion_intraocular_oi,
+                "DIAGNOSTICO" => $diagnostico,
+                "PLAN" => $plan,
+                "OBSERVACIONES" => $observaciones
+
             );
-            print_r($arregloPaciente);
-            $response = $arregloPaciente;
-    
+            array_push($arrayoftalmo, $array1);
+        }
+        #print_r($arrayoftalmo);
+        $arregloPaciente = array(
+            'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+            "EDAD" => $infoPaciente[0]['EDAD'],
+            'SEXO' => $infoPaciente[0]['SEXO'],
+            'FECHA_RESULTADO' => $infoPaciente[0]['FECHA_RESULTADO_OFTALMO'],
+            'ESTUDIOS' => $arrayoftalmo
+        );
+        print_r($arregloPaciente);
+        $response = $arregloPaciente;
+
             break;
+    default:
+    # code...
+        break;
 }
 echo $master->returnApi($response);
 /*
