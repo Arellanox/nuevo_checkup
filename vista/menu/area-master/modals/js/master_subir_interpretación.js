@@ -35,7 +35,7 @@ $("#formSubirInterpretacion").submit(function (event) {
     // alert(areaActiva)
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
-    if (confirmado != 1) {
+    if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
         var form = document.getElementById("formSubirInterpretacion");
         var formData = new FormData(form);
         formData.set('id_turno', dataSelect.array['turno'])
@@ -76,7 +76,7 @@ $("#formSubirInterpretacion").submit(function (event) {
                         data = jQuery.parseJSON(data);
                         if (mensajeAjax(data)) {
                             alertMensaje('success', '¡Interpretación guardada!', 'Consulte o confirme el reporte despues de guardar');
-                            estadoFormulario(2) //Desactiva el formulario
+                            estadoFormulario(2)
                             obtenerServicios(areaActiva, dataSelect.array['turno'])
                         }
                     },
@@ -97,10 +97,10 @@ $('#btn-confirmar-reporte').click(function (event) {
     // alert(areaActiva)
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
-    if (confirmado != 1) {
+    if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
         Swal.fire({
-            title: "¿Está seguro de confirmar el reporte?",
-            text: "¡No podrá actualizar los datos del reporte!",
+            title: "¿Está seguro de confirmar este reporte?",
+            text: "¡No podrá actualizar los datos de reporte!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -122,14 +122,14 @@ $('#btn-confirmar-reporte').click(function (event) {
                     type: "POST",
                     beforeSend: function () {
                         $("#formSubirInterpretacion:submit").prop('disabled', true)
-                        alertMensaje('info', 'Cargando datos de interpretación', 'Espere un momento mientras el sistema registra todos los datos');
+                        alertMensaje('info', 'Confirmando reporte', 'Espere un momento mientras se genera el reporte en el sistema');
                     },
                     success: function (data) {
                         data = jQuery.parseJSON(data);
                         if (mensajeAjax(data)) {
                             alertMensaje('success', '¡Interpretación connfirmada!', 'El formulario ha sido cerrado');
                             $('#modalSubirInterpretacion').modal('hide')
-                            estadoFormulario(2) //Desactiva el formulario
+                            estadoFormulario(1)
                             obtenerServicios(areaActiva, dataSelect.array['turno'])
                         }
                     },

@@ -130,10 +130,11 @@ include "../../variables.php";
                 // <!-- Aqui controlar e incluir los tablas -->
                 $.getScript('modals/controlador.js').done(function() {
                   //tooltips para todos (source: https://getbootstrap.com/docs/5.0/components/tooltips/)
-                  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-                  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl)
-                  })
+                  $(document).ready(function() {
+                    $(document.body).tooltip({
+                      selector: "[title]"
+                    });
+                  });
                 }); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!
               }
             });

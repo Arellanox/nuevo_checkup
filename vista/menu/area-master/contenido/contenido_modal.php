@@ -178,24 +178,24 @@ $form = $_POST['form'];
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="zoom:90%">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
                     <!-- <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button> -->
 
-                    <button type="button" class="btn btn-borrar btnResultados" id="btn-ver-reporte">
-                        <i class="bi bi-file-earmark-pdf"></i> Visualizar reporte
+                    <button type="button" class="btn btn-borrar btnResultados" id="btn-ver-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa del reporte una vez guardado los cambios">
+                        <i class="bi bi-file-earmark-pdf"></i> Vista previa
                     </button>
 
-                    <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte">
+                    <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="Cierre el reporte una vez listo todo">
                         <i class="bi bi-file-earmark-pdf"></i> Confirmar reporte
                     </button>
 
                     <!-- BTN oftalmo -->
-                    <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar btnResultados" id="btn-inter-oftal">
+                    <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar btnResultados" id="btn-inter-oftal" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
                         <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
                     </button>
                     <!-- BTN GLOBAL -->
-                    <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar btnResultados" id="btn-inter-areas">
+                    <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar btnResultados" id="btn-inter-areas" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
                         <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
                     </button>
                 </div>

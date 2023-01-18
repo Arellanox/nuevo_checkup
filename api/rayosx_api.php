@@ -60,24 +60,23 @@ switch ($api) {
             }
 
             $res_detalle = !empty($master->checkArray($formulario));
-         
+
             if ($res_reporte == true || $res_detalle) {
-            
+
                 $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null, $confirmado]);
             }
-       
+
             if ($res_detalle) {
                 # insertar el formulario de bimo.
                 foreach ($formulario as $id_servicio => $item) {
-             
+
                     $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
                 }
-           
             }
         } else {
             # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
             $url = crearReporteRayosX($turno_id, $area_id);
-            
+
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
         }
 
@@ -198,21 +197,21 @@ switch ($api) {
         crearReporteRayosX($turno_id, 8);
         break;
     case 6:
-         # confirmar el resultado
+        # confirmar el resultado
         # tienes que enviar $id_imagen como id_imagen
         # $confirmado se recibe como ['confirmado'], para confirmar enviar 1,
         # si no se desea confirmar enviarlo null
-        $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, null,$confirmado]);
+        $response = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, null, $confirmado]);
         break;
 
     case 7:
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = crearReporteRayosX($turno_id, $area_id,"mostrar");
+        $r = crearReporteRayosX($turno_id, $area_id, "mostrar");
         exit;
     case 8:
         # actualizar reporte bimo [solo administradores]
-        foreach($formulario as $serv => $item){
-            $response = $master->updateByProcedure("sp_imagen_detalle_g", [$item['id_rayo'],null,$serv,$item['hallazgo'],$item['interpretacion'],$item['comentario'],null,$item['tecnica'],$usuario]);
+        foreach ($formulario as $serv => $item) {
+            $response = $master->updateByProcedure("sp_imagen_detalle_g", [$item['id_rayo'], null, $serv, $item['hallazgo'], $item['interpretacion'], $item['comentario'], null, $item['tecnica'], $usuario]);
         }
 
         # como no modifica la fecha y el turno es el mismo, debe reemplazar el archivo anterior.
@@ -224,14 +223,14 @@ switch ($api) {
 }
 echo $master->returnApi($response);
 
-function crearReporteRayosX($turno_id, $area_id,$viz='url')
+function crearReporteRayosX($turno_id, $area_id, $viz = 'url')
 {
     $master = new Master();
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'RAYOS X';
-    $infoPaciente[0]['SUBTITULO'] = 'RAYOS X';
+    $infoPaciente[0]['TITULO'] = 'Reporte de rayos x';
+    $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();
@@ -280,7 +279,7 @@ function crearReporteRayosX($turno_id, $area_id,$viz='url')
     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 8);
-    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'rayos', $viz);
+    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', $viz);
     return $pdf->build();
 
     print_r($arregloPaciente);

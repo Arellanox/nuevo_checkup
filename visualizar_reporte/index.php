@@ -44,8 +44,21 @@ function crearReporteImageonologia($turno_id, $area_id, $reporte, $viz = 'url')
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'Reporte de ultrasonido';
-    $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
+
+    switch ($area_id) {
+        case 8:
+        case '8':
+            $infoPaciente[0]['TITULO'] = 'Reporte de rayos x';
+            $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
+            break;
+        case 11:
+        case '11':
+            $infoPaciente[0]['TITULO'] = 'Reporte de ultrasonido';
+            $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
+            break;
+    }
+
+
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();

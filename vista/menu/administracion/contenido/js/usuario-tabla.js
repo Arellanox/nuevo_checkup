@@ -9,26 +9,26 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
   scrollCollapse: true,
   lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
-      dataType: 'json',
-      data: {api: 2},
-      method: 'POST',
-      url: '../../../api/usuarios_api.php',
-      beforeSend: function() { loader("In") },
-      complete: function(){loader("Out");},
-      dataSrc:''
+    dataType: 'json',
+    data: { api: 2 },
+    method: 'POST',
+    url: '../../../api/usuarios_api.php',
+    beforeSend: function () { loader("In") },
+    complete: function () { loader("Out"); },
+    dataSrc: ''
   },
-  columns:[
-      {data: 'count'},
-      {data: 'nombrecompleto'},
-      {data: 'USUARIO'},
-      {data: '15.0.DESCRIPCION'},
-      {data: '16.0.DESCRIPCION'},
-      {data: 'ACTIVO'},
-      {data: 'PROFESION'},
-      {data: 'CEDULA'},
-      {data: 'TELEFONO'},
-      {data: 'CORREO'},
-      // {defaultContent: 'En progreso...'}
+  columns: [
+    { data: 'count' },
+    { data: 'nombrecompleto' },
+    { data: 'USUARIO' },
+    { data: 'cargo.0.DESCRIPCION' },
+    { data: 'tipo.0.DESCRIPCION' },
+    { data: 'ACTIVO' },
+    { data: 'PROFESION' },
+    { data: 'CEDULA' },
+    { data: 'TELEFONO' },
+    { data: 'CORREO' },
+    // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
     { "width": "3px", "targets": 0 },

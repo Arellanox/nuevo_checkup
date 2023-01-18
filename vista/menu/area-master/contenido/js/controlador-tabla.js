@@ -93,14 +93,14 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                 case 8: //Rayos X
                     $('#btn-inter-areas').fadeIn(0);
                     await GeenerarReporteImagenologia(selectEstudio.array);
-                    if (datalist.CONFIRMADO_RX == 1) estadoFormulario(1)
-                    if (selectEstudio.getguardado() == 1) estadoFormulario(2)
+                    if (datalist.CONFIRMADO_RX == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                    if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2) estadoFormulario(2)
                     break;
                 case 11: //Ultrasonido
                     $('#btn-inter-areas').fadeIn(0);
                     await GeenerarReporteImagenologia(selectEstudio.array);
-                    if (datalist.CONFIRMADO_ULTRASO == 1) estadoFormulario(1)
-                    if (selectEstudio.getguardado() == 1) estadoFormulario(2)
+                    if (datalist.CONFIRMADO_ULTRASO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                    if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2) estadoFormulario(2)
                     break;
                 case 10: //Electrocardiograma
                     $('#btn-inter-areas').fadeIn(0);
@@ -210,10 +210,12 @@ async function obtenerServicios(area, turno) {
                         console.log(key, row[0][key])
                         if (row[0][key]['GUARDADO'] == 1)
                             trueResultados = 1
+                        if (row[0][key]['CONFIRMADO'] == 1)
+                            trueResultados = 2
                     }
 
                     if (trueResultados)
-                        selectEstudio.setguardado(1)
+                        selectEstudio.setguardado(trueResultados)
                     //
 
                     if (row.length)
@@ -338,7 +340,12 @@ async function panelResultadoPaciente(row, area) {
                         '</div>';
                     //Busca si existe interpretación o imagen
                     truehtml = true;
+                } else if (row[i][0]['CONFIRMADO'] == 0 && row[i][0]['GUARDADO'] == 1) {
+                    html += '<div class="col-12 d-flex justify-content-center">' +
+                        '<div class="alert alert-danger" role="alert"> Reporte sin confirmar </div>' +
+                        '</div>';
                 }
+
 
                 if (row[i][0]['RUTA_REPORTE']) {
                     html += '<div class="col-12 d-flex justify-content-center">' +
@@ -453,9 +460,9 @@ function estadoFormulario(estado) {
             if (session.permisos['Actualizar reportes'] != 1) {
                 $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
                 $('#btn-confirmar-reporte').prop('disabled', true);
+                $('#' + formulario + '').find('textarea').prop('disabled', true)
+                $('#' + formulario + '').find('input').prop('disabled', true)
             }
-            $('#' + formulario + '').find('textarea').prop('disabled', true)
-            $('#' + formulario + '').find('input').prop('disabled', true)
             break;
         case 2:
             $('#btn-ver-reporte').fadeIn()
