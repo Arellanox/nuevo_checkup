@@ -60,7 +60,12 @@ $('#abrirModalResultados').click(function () {
 })
 
 $('#btn-ver-reporte').click(function () {
-  window.open("https://www.google.com?paciente=" + dataSelect.array['turno'], "_blank");
+  api = encodeURIComponent(window.btoa('imagenologia'));
+  turno = encodeURIComponent(window.btoa(dataSelect.array['turno']));
+  area = encodeURIComponent(window.btoa(areaActiva));
+
+
+  window.open(http + servidor + "/nuevo_checkup/visualizar_reporte/?api=" + api + "&turno=" + turno + "&area=" + area, "_blank");
 })
 
 function chooseEstudio(row, modal, tip) {

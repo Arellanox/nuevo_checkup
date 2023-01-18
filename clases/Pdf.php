@@ -18,13 +18,14 @@ class Reporte
     public $archivo;
     public $tipo;
     public $orden;
+    public $preview;
 
     /**
      * Create a new instance.
      *
      * @return void
      */
-    public function __construct($response, $data, $pie, $archivo, $tipo, $orden)
+    public function __construct($response, $data, $pie, $archivo, $tipo, $orden, $preview = 0)
     {
         $this->response = $response; //cuerpo
         $this->data     = $data; //Ecabezado
@@ -32,6 +33,7 @@ class Reporte
         $this->archivo  = $archivo; //Ruta de reporte
         $this->tipo     = $tipo; //Tipo de resultado
         $this->orden    = $orden; //Forma de visualizar
+        $this->preview = $preview;
     }
 
     public function build()
@@ -42,6 +44,7 @@ class Reporte
         $archivo    = $this->archivo;
         $tipo       = $this->tipo;
         $orden      = $this->orden;
+        $preview    = $this->preview;
 
         switch ($tipo) {
             case 'etiquetas':
@@ -84,6 +87,7 @@ class Reporte
             "encabezado"            => $data,
             "qr"                    => isset($prueba) ? $prueba : null,
             "barcode"               => isset($barcode) ? $barcode : null,
+            "preview"               => $preview
         );
 
 
@@ -137,7 +141,7 @@ class Reporte
                 // $path    = 'pdf/public/oftamologia/E00001.pdf';
                 break;
         }
-                // session_destroy();
+        // session_destroy();
 
         // Recibe la orden de que tipo de  modo de visualizacion quiere
         switch ($orden) {

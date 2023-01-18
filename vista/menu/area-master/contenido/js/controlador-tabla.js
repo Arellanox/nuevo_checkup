@@ -305,8 +305,6 @@ async function panelResultadoPaciente(row, area) {
             break;
 
         default:
-
-            let truehtml = false;
             for (const i in row) {
                 // console.log(row[i]);
                 html += itemStart;
@@ -391,7 +389,7 @@ async function panelResultadoPaciente(row, area) {
             break;
     }
 
-    '<div class="row"><div class="col-12"><i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>Aurora  </strong></div><div class="col-12"><i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>jueves, 29 de dic de 2022 6:15 p.&nbsp;m.</strong> </div></div>'
+    // '<div class="row"><div class="col-12"><i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>Aurora  </strong></div><div class="col-12"><i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>jueves, 29 de dic de 2022 6:15 p.&nbsp;m.</strong> </div></div>'
 
     // if (row['area_id'] == 3) {
     //     let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' + +
@@ -452,7 +450,10 @@ function estadoFormulario(estado) {
     switch (estado) {
         case 1:
             confirmado = 1
-            $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
+            if (session.permisos['Actualizar reportes'] != 1) {
+                $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
+                $('#btn-confirmar-reporte').prop('disabled', true);
+            }
             $('#' + formulario + '').find('textarea').prop('disabled', true)
             $('#' + formulario + '').find('input').prop('disabled', true)
             break;

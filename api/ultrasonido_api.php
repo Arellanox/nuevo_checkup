@@ -237,8 +237,8 @@ function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url')
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'Ultrasonido';
-    $infoPaciente[0]['SUBTITULO'] = 'Ultrasonidox';
+    $infoPaciente[0]['TITULO'] = 'Reporte de ultrasonido';
+    $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
     $response = array();
