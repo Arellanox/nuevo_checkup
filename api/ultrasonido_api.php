@@ -81,7 +81,11 @@ switch ($api) {
         }
 
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.\
-        $response = isset($last_id) ? $last_id : $res_url;
+        if ($res_reporte == true || $res_detalle) {
+            $response = isset($last_id) ? $last_id : $res_url;
+        } else {
+            $responsee = 'No ha cargado ninguna información';
+        }
         break;
     case 2:
         $turno_id = $_POST['turno_id'];
