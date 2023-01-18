@@ -78,7 +78,7 @@ switch ($api) {
             # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
             $url = crearReporteRayosX($turno_id, $area_id);
             
-            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$id_imagen, null, null, null, null, $url, $confirmado]);
+            $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
         }
 
         $response = isset($last_id) ? $last_id : $res_url;
