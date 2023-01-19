@@ -30,7 +30,7 @@ $id_imagen = $_POST['id_imagen'];
 $formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
-$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+$host = /* $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" :*/ "https://bimo-lab.com/nuevo_checkup/";
 $date = date("dmY_His");
 $confirmado = $_POST['confirmado'];
 
@@ -241,7 +241,7 @@ function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url')
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'Reporte de ultrasonido';
+    $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
     $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido

@@ -31,18 +31,18 @@ $id_imagen = $_POST['id_imagen'];
 $formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
-$host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+$host = /*isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : */ "https://bimo-lab.com/nuevo_checkup/";
 $date = date("dmY_His");
 $confirmado = $_POST['confirmado'];
 
 switch ($api) {
     case 1:
-        # insertar la interpretacion
+        $res_reporte = false;
         if (!isset($confirmado)) {
-            $res_reporte = false;
+            # insertar la interpretacion
             if (file_exists($_FILES['reportes']['tmp_name'][0])) {
                 #creamos el directorio donde se va a guardar la informacion del turno
-                $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
+                $ruta_saved = "reportes/modulo/rayosx/$date/$turno_id/interpretacion/";
                 $r = $master->createDir("../" . $ruta_saved);
 
                 if ($r != 1) {
@@ -60,28 +60,35 @@ switch ($api) {
             }
 
             $res_detalle = !empty($master->checkArray($formulario));
-
+            // echo 1;
             if ($res_reporte == true || $res_detalle) {
-
+                // echo "registra";
                 $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null, $confirmado]);
             }
 
             if ($res_detalle) {
                 # insertar el formulario de bimo.
                 foreach ($formulario as $id_servicio => $item) {
-
+                    // echo "for";
                     $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
                 }
             }
         } else {
             # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
-            $url = crearReporteRayosX($turno_id, $area_id);
+            $res_reporte = true;
+            $url = crearReporteImageonologia($turno_id, $area_id);
 
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
         }
 
-        $response = isset($last_id) ? $last_id : $res_url;
+        #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.\
+        if ($res_reporte == true || $res_detalle) {
+            $response = isset($last_id) ? $last_id : $res_url;
+        } else {
+            $response = 'No ha cargado ninguna información';
+        }
         break;
+
     case 2:
         $turno_id = $_POST['turno_id'];
         $nombre_servicio = $_POST['nombre_servicio'];
@@ -194,7 +201,7 @@ switch ($api) {
 
         break;
     case 5:
-        crearReporteRayosX($turno_id, 8);
+        crearReporteImageonologia($turno_id, 8);
         break;
     case 6:
         # confirmar el resultado
@@ -206,7 +213,7 @@ switch ($api) {
 
     case 7:
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = crearReporteRayosX($turno_id, $area_id, "mostrar");
+        $r = crearReporteImageonologia($turno_id, $area_id, "mostrar");
         exit;
     case 8:
         # actualizar reporte bimo [solo administradores]
@@ -215,7 +222,7 @@ switch ($api) {
         }
 
         # como no modifica la fecha y el turno es el mismo, debe reemplazar el archivo anterior.
-        $url = crearReporteRayosX($turno_id, $area_id);
+        $url = crearReporteImageonologia($turno_id, $area_id);
         break;
     default:
         $response = "Api no definida...";
@@ -223,13 +230,13 @@ switch ($api) {
 }
 echo $master->returnApi($response);
 
-function crearReporteRayosX($turno_id, $area_id, $viz = 'url')
+function crearReporteImageonologia($turno_id, $area_id, $viz = 'url')
 {
     $master = new Master();
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'Reporte de rayos x';
+    $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
     $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
