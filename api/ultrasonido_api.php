@@ -36,9 +36,9 @@ $confirmado = $_POST['confirmado'];
 
 switch ($api) {
     case 1:
+        $res_reporte = false;
         if (!isset($confirmado)) {
             # insertar la interpretacion
-            $res_reporte = false;
             if (file_exists($_FILES['reportes']['tmp_name'][0])) {
                 #creamos el directorio donde se va a guardar la informacion del turno
                 $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
@@ -74,7 +74,7 @@ switch ($api) {
             }
         } else {
             # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
-
+            $res_reporte = true;
             $url = crearReporteUltrasonido($turno_id, $area_id);
 
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
