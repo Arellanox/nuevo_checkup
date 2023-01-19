@@ -216,7 +216,7 @@ switch ($api) {
 
     case 7:
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = crearReporteUltrasonido($turno_id, $area_id, "mostrar");
+        $r = crearReporteUltrasonido($turno_id, $area_id, "mostrar",1);
         exit;
         break;
     case 8:
@@ -234,8 +234,15 @@ switch ($api) {
 }
 echo $master->returnApi($response);
 
+function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url', $preview = 0){
+    $master = new Master();
+    $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview,$_SESSION['id']);
+    return $url;
 
-function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url')
+}
+
+
+function crearReporteUltrasonido1($turno_id, $area_id, $viz = 'url')
 {
     $master = new Master();
     #Recuperar info paciente

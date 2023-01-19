@@ -213,7 +213,7 @@ switch ($api) {
 
     case 7:
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = crearReporteImageonologia($turno_id, $area_id, "mostrar");
+        $r = crearReporteImageonologia($turno_id, $area_id, "mostrar",1);
         exit;
     case 8:
         # actualizar reporte bimo [solo administradores]
@@ -230,7 +230,14 @@ switch ($api) {
 }
 echo $master->returnApi($response);
 
-function crearReporteImageonologia($turno_id, $area_id, $viz = 'url')
+
+function crearReporteImageonologia($turno_id, $area_id, $viz = 'url', $preview = 0){
+    $master = new Master();
+    $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview,$_SESSION['id']);
+    return $url;
+}
+
+function crearReporteImageonologia1($turno_id, $area_id, $viz = 'url')
 {
     $master = new Master();
     #Recuperar info paciente
