@@ -283,7 +283,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0,$usuario=0)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -306,7 +306,8 @@ class Miscelaneus
             case 8:
             case '8':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
-                $datos_medicos = array();
+                $info = $master->getByProcedure("sp_info_medicos",[$usuario]);
+                $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
                 $carpeta_guardado = 'ultrasonido';
@@ -314,7 +315,8 @@ class Miscelaneus
             case 11:
             case '11':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
-                $datos_medicos = array();
+                $info = $master->getByProcedure("sp_info_medicos",[$usuario]);
+                $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
                 $carpeta_guardado = 'rayosx';
@@ -378,6 +380,23 @@ class Miscelaneus
         return array(
             'ESTUDIOS' => $arrayimg
         );
+    }
+
+    private function getMedicalCarrier($info = array()){
+
+        $carreraPrincipal = array_filter($info, function ($obj) {
+            $r = $obj['ESPECIALIDAD'] == 0;
+            return $r;
+        });
+
+        $especialidades = array_filter($info, function ($obj) {
+            $r = $obj['ESPECIALIDAD'] == 1;
+            return $r;
+        });
+
+        $carreraPrincipal['ESPECIALIDADES'] = $especialidades;
+
+        return $carreraPrincipal;
     }
 
     private function getBodyInfoOftal($master, $turno_id)

@@ -21,13 +21,13 @@ if (!$tokenValido) {
 $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
-
+$usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 switch ($api) {
     case 'imagenologia':
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', 'mostrar', 1);
+        $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', 'mostrar', 1,$usuario_id);
         break;
     case 'oftalmo':
         $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'mostrar', 1);
