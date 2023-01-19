@@ -71,11 +71,11 @@ switch ($api) {
         if(!isset($confirmado)){
             $response = $master->insertByProcedure('sp_oftalmo_resultados_g', $params);
         } else {
-            $id_oftalmo = $master->updateByProcedure('sp_oftalmo_resultados_g', $params);
+            #$id_oftalmo = $master->updateByProcedure('sp_oftalmo_resultados_g', $params);
             $url = crearReporteOftalmologia($turno_id);
 
             # actualizar la url del reporte
-            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [$id_oftalmo,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,$url,null,null]);
+            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null,$turno_id,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,$url,null,null]);
         }
         
 
