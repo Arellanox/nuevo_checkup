@@ -76,7 +76,7 @@ switch ($api) {
         } else {
             # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
             $res_reporte = true;
-            $url = crearReporteUltrasonido($turno_id, $area_id);
+            $url = crearReporteImageonologia($turno_id, $area_id);
 
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
         }
@@ -88,7 +88,7 @@ switch ($api) {
             $response = 'No ha cargado ninguna información';
         }
         break;
-    
+
     case 2:
         $turno_id = $_POST['turno_id'];
         $nombre_servicio = $_POST['nombre_servicio'];
@@ -201,7 +201,7 @@ switch ($api) {
 
         break;
     case 5:
-        crearReporteRayosX($turno_id, 8);
+        crearReporteImageonologia($turno_id, 8);
         break;
     case 6:
         # confirmar el resultado
@@ -213,7 +213,7 @@ switch ($api) {
 
     case 7:
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = crearReporteRayosX($turno_id, $area_id, "mostrar");
+        $r = crearReporteImageonologia($turno_id, $area_id, "mostrar");
         exit;
     case 8:
         # actualizar reporte bimo [solo administradores]
@@ -222,7 +222,7 @@ switch ($api) {
         }
 
         # como no modifica la fecha y el turno es el mismo, debe reemplazar el archivo anterior.
-        $url = crearReporteRayosX($turno_id, $area_id);
+        $url = crearReporteImageonologia($turno_id, $area_id);
         break;
     default:
         $response = "Api no definida...";
@@ -230,13 +230,13 @@ switch ($api) {
 }
 echo $master->returnApi($response);
 
-function crearReporteRayosX($turno_id, $area_id, $viz = 'url')
+function crearReporteImageonologia($turno_id, $area_id, $viz = 'url')
 {
     $master = new Master();
     #Recuperar info paciente
     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'Reporte de rayos x';
+    $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
     $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido

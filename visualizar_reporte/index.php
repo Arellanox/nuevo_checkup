@@ -48,16 +48,15 @@ function crearReporteImageonologia($turno_id, $area_id, $reporte, $viz = 'url')
     switch ($area_id) {
         case 8:
         case '8':
-            $infoPaciente[0]['TITULO'] = 'Reporte de rayos x';
-            $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
+            $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
             break;
         case 11:
         case '11':
-            $infoPaciente[0]['TITULO'] = 'Reporte de ultrasonido';
-            $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
+            $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
             break;
     }
 
+    $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
 
     #recuperar la informacion del Reporte de interpretacion de ultrasonido
