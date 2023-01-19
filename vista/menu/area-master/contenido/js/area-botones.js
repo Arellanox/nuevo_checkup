@@ -104,7 +104,7 @@ function chooseEstudio(row, modal, tip) {
           showConfirmButton: false,
         });
       } else {
-        alertSelectTable('Se han guardado todas sus capturas', 'success', 400)
+        alertSelectTable('Se han guardado todas sus capturas', 'success')
       }
       break;
     default:
