@@ -31,7 +31,7 @@ $id_imagen = $_POST['id_imagen'];
 $formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
-$host = isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+$host = /*isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : */ "https://bimo-lab.com/nuevo_checkup/";
 $date = date("dmY_His");
 $confirmado = $_POST['confirmado'];
 
