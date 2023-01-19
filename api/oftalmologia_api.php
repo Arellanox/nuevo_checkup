@@ -36,6 +36,7 @@ $presion_intraocular_oi = $_POST['presion_intraocular_oi'];
 $diagnostico = $_POST['diagnostico'];
 $plan = $_POST['plan'];
 $observaciones = $_POST['observaciones'];
+$confirmado = $_POST['confirmado'];
 #creacion de array.
 $params = array(
     $id_oftalmo,
@@ -58,7 +59,8 @@ $params = array(
     $plan,
     $_SESSION['id'], # id del usuario que esta subiendo la informacion,
     null, # esta es la ruta del reporte, que posteriormente se tiene que actualizar
-    $observaciones
+    $observaciones,
+    $confirmado
 );
 
 switch ($api) {
@@ -66,7 +68,17 @@ switch ($api) {
         #insertar
         // print_r($params);
         # en el procedure se insertar el folio consecutivo de los resultados activos.
-        $response = $master->insertByProcedure('sp_oftalmo_resultados_g', $params);
+        if(!isset($confirmado)){
+            $response = $master->insertByProcedure('sp_oftalmo_resultados_g', $params);
+        } else {
+            $id_oftalmo = $master->updateByProcedure('sp_oftalmo_resultados_g', $params);
+            $url = crearReporteOftalmologia($turno_id);
+
+            # actualizar la url del reporte
+            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [$id_oftalmo,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,$url,null,null]);
+        }
+        
+
 
         # recuperamos el encabezado del paciente.
         // $responsePac = $master->getByProcedure("sp_informacion_paciente", [$turno_id]);
@@ -109,7 +121,7 @@ switch ($api) {
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
 
 
-        print_r($infoPaciente);
+        // print_r($infoPaciente);
         #recuperar la informacion del Reporte de interpretacion de Oftalmología
         $response = array();
         # recuperar los resultados de oftalmología
