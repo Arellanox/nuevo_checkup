@@ -84,7 +84,7 @@ switch ($api) {
         if ($res_reporte == true || $res_detalle) {
             $response = isset($last_id) ? $last_id : $res_url;
         } else {
-            $responsee = 'No ha cargado ninguna información';
+            $response = 'No ha cargado ninguna información';
         }
         break;
     case 2:
