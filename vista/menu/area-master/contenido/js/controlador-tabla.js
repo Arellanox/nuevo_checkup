@@ -78,7 +78,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                 case 3:
                     // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster', '_version2')
                     $('#btn-inter-oftal').fadeIn(0);
-                    if (datalist.CONFIRMADO_OFTAL == 1) estadoFormulario(1)
+                    if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
                     if (selectEstudio.array.length)
                         await obtenerResultadosOftalmo(selectEstudio.array)
                     break;
@@ -94,13 +94,11 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     $('#btn-inter-areas').fadeIn(0);
                     await GeenerarReporteImagenologia(selectEstudio.array);
                     if (datalist.CONFIRMADO_RX == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-                    if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2) estadoFormulario(2)
                     break;
                 case 11: //Ultrasonido
                     $('#btn-inter-areas').fadeIn(0);
                     await GeenerarReporteImagenologia(selectEstudio.array);
                     if (datalist.CONFIRMADO_ULTRASO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-                    if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2) estadoFormulario(2)
                     break;
                 case 10: //Electrocardiograma
                     $('#btn-inter-areas').fadeIn(0);
@@ -111,9 +109,9 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     botonesResultados('activar');
                     break;
             }
-
-
-
+            if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2)
+                a = ''
+            estadoFormulario(2)
             bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
         })
     } else {
@@ -239,7 +237,7 @@ async function panelResultadoPaciente(row, area) {
     let bodyEnd = '</div>  </div>';
     html += '';
     let truehtml = false;
-    $('#resultadosServicios-areas').append(html);
+    $('#resultadosServicios-areas').html(html);
 
     $('#mostrarResultado').fadeOut()
 
@@ -276,13 +274,22 @@ async function panelResultadoPaciente(row, area) {
                             '</div>';
                         //Busca si existe interpretación o imagen
                         truehtml = true;
+                    } else if (row[i][0]['CONFIRMADO'] == 0 && row[i][0]['GUARDADO'] == 1) {
+                        truehtml = true;
+                        html += '<div class="col-12 d-flex justify-content-center">' +
+                            '<div class="alert alert-danger" role="alert"> Reporte sin confirmar </div>' +
+                            '</div>';
                     }
 
 
                     let img = false;
                     for (const im in row[i]) {
                         // console.log(row[i][im]['CAPTURAS'])
-                        if (row[i][im]['CAPTURAS'].length) img = true;
+                        try {
+                            if (row[i][im]['CAPTURAS'].length) img = true;
+                        } catch (error) {
+                            console.log(error);
+                        }
                     }
                     if (img) {
                         html += '<div class="col-12 d-flex justify-content-center">' +
@@ -298,9 +305,13 @@ async function panelResultadoPaciente(row, area) {
                     html += itemEnd;
                 }
 
-                $('#mostrarResultado').fadeIn()
-                $('#resultadosServicios-areas').append(html);
-
+                if (truehtml) {
+                    $('#spamResultado').html('')
+                    $('#resultadosServicios-areas').html(html)
+                    $('#mostrarResultado').fadeIn()
+                } else {
+                    $('#spamResultado').html('<div class="alert alert-info" role="alert">Reporte del paciente sin cargar</div > ')
+                }
             } else {
                 $('#spamResultado').html('<div class="alert alert-info" role="alert">Interpretación del paciente sin cargar</div>')
             }
@@ -341,6 +352,7 @@ async function panelResultadoPaciente(row, area) {
                     //Busca si existe interpretación o imagen
                     truehtml = true;
                 } else if (row[i][0]['CONFIRMADO'] == 0 && row[i][0]['GUARDADO'] == 1) {
+                    truehtml = true;
                     html += '<div class="col-12 d-flex justify-content-center">' +
                         '<div class="alert alert-danger" role="alert"> Reporte sin confirmar </div>' +
                         '</div>';
@@ -370,7 +382,11 @@ async function panelResultadoPaciente(row, area) {
                 let img = false;
                 for (const im in row[i]) {
                     // console.log(row[i][im]['CAPTURAS'])
-                    if (row[i][im]['CAPTURAS'].length) img = true;
+                    try {
+                        if (row[i][im]['CAPTURAS'].length) img = true;
+                    } catch (error) {
+                        console.log(error);
+                    }
                 }
                 if (img) {
                     html += '<div class="col-12 d-flex justify-content-center">' +
@@ -485,6 +501,8 @@ function estadoFormulario(estado) {
 
 }
 
+
+//Nueva version
 async function GeenerarReporteImagenologia(data) {
     return new Promise(resolve => {
         $('#formulario-estudios').html('')
@@ -521,7 +539,10 @@ function textAreaIMG(campo, id, campoAjax, texto, rows) {
     htmlinnput += '</div>'
     return htmlinnput;
 }
+//
 
+
+//Version anterior
 async function ObtenerResultadosUltrsonido(data) {
     return new Promise(resolve => {
         $('#formulario-estudios').html('')
@@ -559,16 +580,10 @@ async function ObtenerResultadosUltrsonido(data) {
         }
 
         $('#formulario-estudios').html(html)
-        autosize(document.querySelectorAll('textarea'))
+        // autosize(document.querySelectorAll('textarea'))
         resolve(1)
     })
 }
-
-//Actualiza los texareas
-$('#' + formulario).click(function () {
-    autosize(document.querySelectorAll('textarea'))
-    autosize.update(document.querySelectorAll('textarea'));
-})
 
 function cargarForm(campo, id, campoAjax, texto) {
     let colStart = '<div class="col-auto col-lg-12">';

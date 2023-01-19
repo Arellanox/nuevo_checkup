@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado de interpretación de Imagenología</title>
+    <title>Resultado de interpretación de Oftalmologia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
 
     <style>
         @page {
@@ -228,7 +229,6 @@ $encode_firma = base64_encode($ruta_firma);
 ?>
 
 <body>
-    <!-- header -->
     <div class="header">
         <br><br>
 
@@ -239,7 +239,7 @@ $encode_firma = base64_encode($ruta_firma);
                         <h4>
                             DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
                             Checkup Clínica y Prevención<br>
-                            <?php echo $encabezado->TITULO ?>
+                            Reporte de oftamologia
                         </h4>
                     </td>
                     <td class="col-izq" style="border-bottom: none; text-align:center;">
@@ -257,7 +257,7 @@ $encode_firma = base64_encode($ruta_firma);
                 <tr>
                     <td style="text-align: center; border-style: solid none solid none; ">
                         <h3>
-                            <?php echo $encabezado->SUBTITULO ?>
+                            Datos del paciente
                         </h3>
                     </td>
                 </tr>
@@ -322,12 +322,12 @@ $encode_firma = base64_encode($ruta_firma);
                     <td colspan="10">
                     </td>
                     <td colspan="2" style="text-align: left;">
-                        <?php echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
                         <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
@@ -344,30 +344,67 @@ $encode_firma = base64_encode($ruta_firma);
         <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red; font-size: 12px;"> 993 131 00 42 </strong> </br> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
     </div>
 
-
     <!-- body -->
-    <!-- <?php ?> -->
     <div class="invoice-content">
-        <?php
-        $count = 0;
-        $conteo = count($resultados->ESTUDIOS);
-        foreach ($resultados->ESTUDIOS as $key => $resultado) {
-            echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'> US " . $resultado->ESTUDIO . "</h2>";
-            echo "<p style='margin-bottom: 0;'><strong>Técnica: </strong>" . $resultado->TECNICA . "</p><br>";
-            echo "<h5 style='line-height: 1.5;'>Hallazgos</h5>";
-            echo "<p style='line-height: 1.5; margin-top: 1px;'>" . $resultado->HALLAZGO . "</p>";
-            echo "<p style='line-height: 1.5'><strong>Interpretación: </strong>" . $resultado->INTERPRETACION . "<br>";
-            if ($resultado->COMENTARIO != "" || $resultado->COMENTARIO != null) {
-                echo "<strong>Comentario: </strong>" . $resultado->COMENTARIO . "</p><br>";
-            }
-            $count++;
-            if ($count % 2 == 0 && $count < $conteo) {
-        ?>
-                <div class="break"></div>
-        <?php
-            }
-        }
-        ?>
+        <p>
+            ANTECEDENTES PERSONALES <br>
+            NEGADOS <br>
+        </p>
+        <p>
+            ANTECEDENTES OFTALMOLOGICOS <br>
+            PTERIGION NASAL OJO IZQUIERDO <br>
+
+        </p>
+        <p>
+            PADECIMIENTO ACTUAL. <br>
+            ASINTOMATICA <br>
+
+        </p>
+        <p>
+            AGUDEZA VISUAL SIN CORRECCIÓN: TABLA DE SNELLEN <br>
+            OD: 20/20 <br>
+            OI: 20/20 <br>
+            JAEGER 1:20/20 VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE ROSENBÁUM <br>
+        </p>
+        <p>
+            REFRACCIÓN: <br>
+            <strong>
+                NO AMERIA DE CORRECCIÓN OPTICA
+            </strong>
+        </p>
+        <p>
+            PRUEBA CROMATICA NORMAL CON PRUEBA DE ISHIHARA
+
+        </p>
+        <p>
+            EXPLORACIÓN OFTALMOLOGICA: <br>
+            ANEXOS OCULARES NORMALES SEGMENTO ANTERIOR CONJUNTIVA PTERIGION NASAL OJO IZQUIERDO, CORNEA, IRIS, CRISTALINO, SIN ALTERACIONES. SEGMENTO POSTERIOR VITREO, NERVIO OPTICO, MACULA SIN ALTERACIONES.
+
+        </p>
+        <p>
+
+            FORIAS NO PRESENTES
+
+        </p>
+        <p>
+            CAMPIMETRtA POR CONFRONTACION NORMAL.
+
+        </p>
+        <p>
+            PRESION INTRAOCULAR. <br>
+            OD: 10 MMHG
+            OI: 10 MMHG
+
+        </p>
+        <p>
+            DIAGNOSTICO. <br>
+            VALORACION VISUAL NORMAL + PTERIGION NASAL OJO IZQUIERDO NO INVOLUCRO EJE VISUAL
+
+        </p>
+        <p>
+            PLAN: <br>
+            OBSERVACION ANUAL
+        </p>
     </div>
 </body>
 

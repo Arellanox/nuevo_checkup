@@ -66,35 +66,35 @@ switch ($api) {
         #insertar
         // print_r($params);
         # en el procedure se insertar el folio consecutivo de los resultados activos.
-        $last_id = $master->insertByProcedure('sp_oftalmo_resultados_g', $params);
+        $response = $master->insertByProcedure('sp_oftalmo_resultados_g', $params);
 
         # recuperamos el encabezado del paciente.
-        $responsePac = $master->getByProcedure("sp_informacion_paciente", [$turno_id]);
+        // $responsePac = $master->getByProcedure("sp_informacion_paciente", [$turno_id]);
         # pie de pagina
-        $fecha_resultado = $responsePac[0]['FECHA_RESULTADO_OFTALMO'];
-        $nombre_paciente = $responsePac[0]['NOMBRE'];
-        $nombre = str_replace(" ", "_", $nombre_paciente);
+        // $fecha_resultado = $responsePac[0]['FECHA_RESULTADO_OFTALMO'];
+        // $nombre_paciente = $responsePac[0]['NOMBRE'];
+        // $nombre = str_replace(" ", "_", $nombre_paciente);
 
-        $ruta_saved = "reportes/modulo/oftalmo/$fecha_resultado/" . $turno_id . "/";
-        # Crear el directorio si no existe
-        $r = $master->createDir("../" . $ruta_saved);
+        // $ruta_saved = "reportes/modulo/oftalmo/$fecha_resultado/" . $turno_id . "/";
+        // # Crear el directorio si no existe
+        // $r = $master->createDir("../" . $ruta_saved);
 
-        if ($r != 1) {
-            $response = "No se puedo crear el directorio.";
-            break;
-        }
-        $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $responsePac[0]['TURNO'] . '-' . $fecha_resultado);
+        // if ($r != 1) {
+        //     $response = "No se puedo crear el directorio.";
+        //     break;
+        // }
+        // $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $responsePac[0]['TURNO'] . '-' . $fecha_resultado);
 
-        $clave = $master->getByProcedure("sp_generar_clave", []);
-        $pie_pagina = array("clave" => $clave[0]['TOKEN'], "folio" => $responsePac[0]['FOLIO_OFTALMO'], "modulo" => 3);
+        // $clave = $master->getByProcedure("sp_generar_clave", []);
+        // $pie_pagina = array("clave" => $clave[0]['TOKEN'], "folio" => $responsePac[0]['FOLIO_OFTALMO'], "modulo" => 3);
 
         # con el arreglo superior, creamos el pdf para conseguir la ruta antes de insertar en la tabla de mysql
-        $pdf = new Reporte(json_encode($params), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
+        // $pdf = new Reporte(json_encode($params), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
 
-        #actualizamos la url del reporte.
-        $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [$last_id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $pdf->build(), null]);
-        
-        crearReporteOftalmologia($turno_id,$ruta_saved);
+        // #actualizamos la url del reporte.
+        // $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [$last_id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $pdf->build(), null]);
+
+        // crearReporteOftalmologia($turno_id, $ruta_saved);
 
         break;
     case 2:
@@ -169,14 +169,14 @@ switch ($api) {
         print_r($arregloPaciente);
         $response = $arregloPaciente;
 
-            break;
+        break;
     default:
-    # code...
+        # code...
         break;
 }
 echo $master->returnApi($response);
 
-function crearReporteOftalmologia($turno_id,$viz='url')
+function crearReporteOftalmologia($turno_id, $viz = 'url')
 {
     $master = new Master();
     #Recuperar info paciente
@@ -233,10 +233,6 @@ function crearReporteOftalmologia($turno_id,$viz='url')
     }
 
     $arregloPaciente = array(
-        'NOMBRE' => $infoPaciente[0]['NOMBRE'],
-        "EDAD" => $infoPaciente[0]['EDAD'],
-        'SEXO' => $infoPaciente[0]['SEXO'],
-        'FECHA_RESULTADO' => $infoPaciente[0]['FECHA_RESULTADO_OFTALMO'],
         'ESTUDIOS' => $arrayoftalmo
     );
 

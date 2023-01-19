@@ -271,11 +271,6 @@ function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url')
     }
 
     $arregloPaciente = array(
-        'NOMBRE' => $infoPaciente[0]['NOMBRE'],
-        "EDAD" => $infoPaciente[0]['EDAD'],
-        'SEXO' => $infoPaciente[0]['SEXO'],
-        'FOLIO' => $infoPaciente[0]['FOLIO_IMAGEN'],
-        'FECHA_RESULTADO' => $response1[1][0]['FECHA_RESULTADO'],
         'ESTUDIOS' => $arrayimg
     );
 

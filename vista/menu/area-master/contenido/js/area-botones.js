@@ -56,11 +56,27 @@ $('#btn-analisis-oftalmo').click(function () {
 
 $('#abrirModalResultados').click(function () {
   // alert('Si')
+  autosize(document.querySelectorAll('textarea'))
+  setTimeout(() => {
+    autosize.update(document.querySelectorAll('textarea'));
+  }, 200);
   $('#modalSubirInterpretacion').modal('show')
 })
 
 $('#btn-ver-reporte').click(function () {
-  api = encodeURIComponent(window.btoa('imagenologia'));
+  switch (areaActiva) {
+    case 3: case '3':
+      area_nombre = 'oftalmo'
+      break;
+    case 8: case 11: case '8': case '11':
+      area_nombre = 'imagenologia'
+      break;
+
+    default:
+      break;
+  }
+
+  api = encodeURIComponent(window.btoa(area_nombre));
   turno = encodeURIComponent(window.btoa(dataSelect.array['turno']));
   area = encodeURIComponent(window.btoa(areaActiva));
 

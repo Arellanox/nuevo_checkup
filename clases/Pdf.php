@@ -56,7 +56,7 @@ class Reporte
                 // Qrcode
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
-            case 'oftamologia':
+            case 'oftalmologia':
                 // Qrcode
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
@@ -115,11 +115,11 @@ class Reporte
                 // return $path;
                 break;
 
-            case 'oftamologia':
-                $template = render_view('invoice/oftamologia.php', $view_vars);
+            case 'oftalmologia':
+                $template = render_view('invoice/oftalmologia.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                // $path    = 'pdf/public/oftamologia/E-00001.pdf';
+                // $path    = 'pdf/public/oftalmologia/E-00001.pdf';
                 break;
 
             case 'ultrasonido':
@@ -138,7 +138,7 @@ class Reporte
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                // $path    = 'pdf/public/oftamologia/E00001.pdf';
+                // $path    = 'pdf/public/oftalmologia/E00001.pdf';
                 break;
         }
         // session_destroy();

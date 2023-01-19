@@ -221,6 +221,7 @@ function crearReporteLaboratorio($id_area, $id_turno)
     #Estudios solicitados por el paciente
     $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', [null, 6]);
     $response = $master->getByProcedure("sp_cargar_estudios", [$id_turno, 6]);
+
     $responsePac = $master->getByProcedure("sp_informacion_paciente", [$id_turno]);
 
 
@@ -291,9 +292,9 @@ function crearReporteLaboratorio($id_area, $id_turno)
     }
 
     // print_r($arrayGlobal);
-    
+
     $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), $pie_pagina, $archivo, 'resultados', 'url');
-    
+
     #aqui, como el folio ya se inserto al principio del metodo, solo va a actualizar la clave y la ruta del pdf.
     return $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, 6, $clave[0]['TOKEN'], $pdf->build(), null]);
     // print_r($responsePac);
