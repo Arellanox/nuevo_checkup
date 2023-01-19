@@ -22,6 +22,11 @@ $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 
+#variables directas si es necesario testearlo
+//$api = laboratorio
+//$turno_id = 167;
+//$area_id = 6
+
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 switch ($api) {
@@ -30,7 +35,9 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', 'mostrar', 1);
         break;
     case 'oftalmo':
-        $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'mostrar', 1);
+        $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'mostrar', 1, 1 /* Este uno te regresa todo el arreglo sin generar el pdfxd */);
+        #Usar para imprimir el arreglo y verlo en postman
+        print_r($r);
         break;
 
     case 'laboratorio':
