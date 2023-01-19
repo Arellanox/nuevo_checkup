@@ -17,14 +17,14 @@ $id = $_POST['id'];
 
 #insertar
 $id_cargo = $_POST['id_cargo'];
-$descripcion = $_POST['nombre'];
+$descripcion = $_POST['descripcion'];
 
 $parametros = array(
     $id_cargo,
     $descripcion
 );
 
-$response="";
+$response = "";
 
 $master = new Master();
 switch ($api) {
@@ -45,7 +45,7 @@ switch ($api) {
         break;
 
     default:
-    $response = "api no reconocida";
+        $response = "api no reconocida";
         break;
 }
 echo $master->returnApi($response);

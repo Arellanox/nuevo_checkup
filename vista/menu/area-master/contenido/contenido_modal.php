@@ -186,7 +186,7 @@ $form = $_POST['form'];
                         <i class="bi bi-file-earmark-pdf"></i> Vista previa
                     </button>
 
-                    <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="Cierre el reporte una vez listo todo">
+                    <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirme el reporte una vez guardado los cambios">
                         <i class="bi bi-file-earmark-pdf"></i> Confirmar reporte
                     </button>
 
