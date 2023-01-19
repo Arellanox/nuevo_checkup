@@ -37,9 +37,9 @@ $confirmado = $_POST['confirmado'];
 
 switch ($api) {
     case 1:
-        # insertar la interpretacion
+        $res_reporte = false;
         if (!isset($confirmado)) {
-            $res_reporte = false;
+            # insertar la interpretacion
             if (file_exists($_FILES['reportes']['tmp_name'][0])) {
                 #creamos el directorio donde se va a guardar la informacion del turno
                 $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
@@ -60,28 +60,35 @@ switch ($api) {
             }
 
             $res_detalle = !empty($master->checkArray($formulario));
-
+            // echo 1;
             if ($res_reporte == true || $res_detalle) {
-
+                // echo "registra";
                 $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [$id_imagen, $turno_id, $ruta_archivo, $usuario, $area_id, null, $confirmado]);
             }
 
             if ($res_detalle) {
                 # insertar el formulario de bimo.
                 foreach ($formulario as $id_servicio => $item) {
-
+                    // echo "for";
                     $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id, $item['tecnica'], $usuario]);
                 }
             }
         } else {
             # si envian el $confirmado, entonces se genera y se guarda el reporte final de bimo.
-            $url = crearReporteRayosX($turno_id, $area_id);
+            $res_reporte = true;
+            $url = crearReporteUltrasonido($turno_id, $area_id);
 
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
         }
 
-        $response = isset($last_id) ? $last_id : $res_url;
+        #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.\
+        if ($res_reporte == true || $res_detalle) {
+            $response = isset($last_id) ? $last_id : $res_url;
+        } else {
+            $response = 'No ha cargado ninguna información';
+        }
         break;
+    
     case 2:
         $turno_id = $_POST['turno_id'];
         $nombre_servicio = $_POST['nombre_servicio'];
