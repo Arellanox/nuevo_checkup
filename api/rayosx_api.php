@@ -42,7 +42,7 @@ switch ($api) {
             # insertar la interpretacion
             if (file_exists($_FILES['reportes']['tmp_name'][0])) {
                 #creamos el directorio donde se va a guardar la informacion del turno
-                $ruta_saved = "reportes/modulo/ultrasonido/$date/$turno_id/interpretacion/";
+                $ruta_saved = "reportes/modulo/rayosx/$date/$turno_id/interpretacion/";
                 $r = $master->createDir("../" . $ruta_saved);
 
                 if ($r != 1) {
