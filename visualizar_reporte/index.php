@@ -7,10 +7,10 @@ include_once "../clases/Pdf.php";
 $master = new Master();
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
-}
+// if (!$tokenValido) {
+//     $tokenVerification->logout();
+//     exit;
+// }
 #Visualizar los reportes de ultrasonido y rayos X aqui
 //Recibir las variables codificadas
 

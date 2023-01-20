@@ -212,21 +212,31 @@
     </style>
 </head>
 
-<?php
 
-// para el path del logo 
-$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
-$encode = base64_encode($ruta);
+    <?php
 
-// Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
-//los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
-// echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
+    // para el path del logo 
+    $ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
+    $encode = base64_encode($ruta);
 
-// path firma
-$ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
-$encode_firma = base64_encode($ruta_firma);
+    // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
+    //los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
+    // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
-?>
+    // path firma
+    // Verifica si mandan firma o si existe en el arreglo
+    if(isset($encabezado->FIRMA)){
+        $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
+        $encode_firma = base64_encode($ruta_firma);
+    }else{
+        $encode_firma = null;
+    }
+
+    if(!isset($qr)){
+        $qr = null;
+    }
+
+    ?>
 
 <body>
     <div class="header">
@@ -326,15 +336,22 @@ $encode_firma = base64_encode($ruta_firma);
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
-                        <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
-
+                        <?php
+                            if($qr!= null){
+                                echo "<a target='_blank' href='#'> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>";
+                            }
+                        ?>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
-                            Dra. Zoila Aideé Quiroz Colorado <br>
+                            Dra. <?php echo $encabezado->DOCTORA; ?><br>
+                            <?php echo $encabezado->CEDULA; ?><br>
+                            <?php echo $encabezado->ESPECIALIDAD; ?><br>
+                            <?php echo $encabezado->SUBESPECIALIDAD; ?>
+                            <!-- Dra. Zoila Aideé Quiroz Colorado <br>
                             Cédula profesional <br>
                             Radiologia e imagen <br>
-                            Subespecialista en radiología pediátrica
+                            Subespecialista en radiología pediátrica -->
                         </strong>
                     </td>
                 </tr>
@@ -347,63 +364,107 @@ $encode_firma = base64_encode($ruta_firma);
     <!-- body -->
     <div class="invoice-content">
         <p>
-            ANTECEDENTES PERSONALES <br>
-            NEGADOS <br>
-        </p>
-        <p>
-            ANTECEDENTES OFTALMOLOGICOS <br>
-            PTERIGION NASAL OJO IZQUIERDO <br>
-
-        </p>
-        <p>
-            PADECIMIENTO ACTUAL. <br>
-            ASINTOMATICA <br>
-
-        </p>
-        <p>
-            AGUDEZA VISUAL SIN CORRECCIÓN: TABLA DE SNELLEN <br>
-            OD: 20/20 <br>
-            OI: 20/20 <br>
-            JAEGER 1:20/20 VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE ROSENBÁUM <br>
-        </p>
-        <p>
-            REFRACCIÓN: <br>
             <strong>
-                NO AMERIA DE CORRECCIÓN OPTICA
+                ANTECEDENTES PERSONALES 
             </strong>
+            <br>
+            <?php echo $resultados->PERSONALES; ?> <br>
         </p>
         <p>
-            PRUEBA CROMATICA NORMAL CON PRUEBA DE ISHIHARA
+            <strong>
+                ANTECEDENTES OFTALMOLOGICOS 
+            </strong>
+            <br>
+            <?php echo $resultados->OFTAMOLOGICOS;?> <br>
 
         </p>
         <p>
-            EXPLORACIÓN OFTALMOLOGICA: <br>
-            ANEXOS OCULARES NORMALES SEGMENTO ANTERIOR CONJUNTIVA PTERIGION NASAL OJO IZQUIERDO, CORNEA, IRIS, CRISTALINO, SIN ALTERACIONES. SEGMENTO POSTERIOR VITREO, NERVIO OPTICO, MACULA SIN ALTERACIONES.
+            <strong>
+                PADECIMIENTO ACTUAL. 
+            </strong>
+            <br>
+            <?php echo $resultados->PADECIMIENTO; ?><br>
 
         </p>
         <p>
-
-            FORIAS NO PRESENTES
+            <strong>
+                AGUDEZA VISUAL SIN CORRECCIÓN: 
+            </strong>
+            <?php $resultados->TABLA;?>  TABLA DE SNELLEN <br>
+            <strong>
+                OD: 
+            </strong>
+            <?php echo $resultados->OD; ?><br>
+            <strong>
+                OI:  
+            </strong>
+            <?php echo $resultados->OI; ?> <br>
+            <strong>
+                JAEGER: 
+            </strong>
+            <?php echo $resultados->JAEGER;?> <br>
+        </p>
+        <p>
+            <strong>
+                REFRACCIÓN: 
+            </strong>
+            <br>
+            <?php echo $resultados->REFRACCION; ?>
+        </p>
+        <p>
+            <strong>
+                PRUEBA: 
+            </strong>
+            <?php $resultados->CROMATICA;?> 
 
         </p>
         <p>
-            CAMPIMETRtA POR CONFRONTACION NORMAL.
+            <strong>
+    }           EXPLORACIÓN OFTALMOLOGICA: 
+            </strong>
+            <br>
+            <?php echo $resultados->OFTAMOLOGICA;?>
+        </p>
+        <p>
+            <strong>
+                FORIAS:  
+            </strong>
+            <?php echo $resultados->FORIAS;?>
 
         </p>
         <p>
-            PRESION INTRAOCULAR. <br>
-            OD: 10 MMHG
-            OI: 10 MMHG
-
+            <strong>
+                CAMPIMETRIA:
+            </strong>
+            <?php echo $resultados->CAMPIMETRIA; ?>
         </p>
         <p>
-            DIAGNOSTICO. <br>
-            VALORACION VISUAL NORMAL + PTERIGION NASAL OJO IZQUIERDO NO INVOLUCRO EJE VISUAL
-
+            <strong>
+                PRESION INTRAOCULAR. 
+            </strong>
+            <br>
+            <strong>
+                OD: 
+            </strong>
+            <?php echo $resultados->PRESION_OD?>
+            <strong>
+                OI: 
+            </strong>
+            <?php echo $resultados->PRESION_OI?>
         </p>
         <p>
-            PLAN: <br>
-            OBSERVACION ANUAL
+            <strong>
+                DIAG NOSTICO. 
+            </strong>
+            <br>
+            <?php echo $resultados->DIAGNOSTICO?>
+        </p>
+        <p>
+            <strong>
+                PLAN: 
+            </strong>
+            <br>
+            <?php echo $resultados->PLAN?>
         </p>
     </div>
 </body>
