@@ -394,7 +394,7 @@ class Miscelaneus
             return $r;
         });
 
-        $carreraPrincipal['ESPECIALIDADES'] = $especialidades;
+        $carreraPrincipal[0]['ESPECIALIDADES'] = $especialidades;
 
         return $carreraPrincipal;
     }
