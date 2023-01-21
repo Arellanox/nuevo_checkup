@@ -22,9 +22,9 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $respnse = $master->getByProcedure("sp_universidades_b", [$id_universidad]);
+        $response = $master->getByProcedure("sp_universidades_b", [$id_universidad]);
         break;
-    case 3:
+    case 4:
         #eliminar
         $response = $master->deleteByProcedure("sp_universidades_e", [$id_universidad]);
 
