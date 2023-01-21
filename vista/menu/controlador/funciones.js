@@ -209,12 +209,6 @@ function firstMayus(str) {
 }
 //Especifico para areas dinamicas de un valor
 function deletePositionString(str, position) {
-  switch (str) {
-    case 'universidades':
-    case '':
-      return str;
-  }
-
   str = str.slice(0, position);
   return str;
 }
@@ -1283,7 +1277,7 @@ function selectedTrTable(text, column = 1, table) {
 
 
 //Vista de un solo valor
-function getAreaUnValor(titulo, api_url, registro_id, divContenedor) {
+function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContenedor) {
   html = '<div class="modal fade" id="modalRegistrar' + titulo + '" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"' +
     'data-bs-keyboard="false">' +
     '<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">' +
@@ -1311,11 +1305,11 @@ function getAreaUnValor(titulo, api_url, registro_id, divContenedor) {
     //
     '</div>' +
     '<div class="col-6" id="RegistrarMetodo' + titulo + '">' +
-    '<p>Crear nuevo ' + titulo + ':</p>' +
+    '<p>Crear ' + titulo + ':</p>' +
     //Registrar
     '<form class="row" id="formRegistrar' + titulo + '">' +
     '<div class="col-12">' +
-    '<label for="descripcion" class="form-label">Nombre del ' + deletePositionString(titulo, -1) + '</label>' +
+    '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
     '<input type="text" name="descripcion" required value="" class="form-control input-form">' +
     '</div>' +
     '<div class="text-center">' +
@@ -1331,7 +1325,7 @@ function getAreaUnValor(titulo, api_url, registro_id, divContenedor) {
     //Editar
     '<form class="row" id="formEditar' + titulo + '">' +
     '<div class="col-12">' +
-    '<label for="descripcion" class="form-label">Nombre del ' + deletePositionString(titulo, -1) + '</label>' +
+    '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
     '<input type="text" name="descripcion" required id="edit-' + titulo + '-descripcion" ' +
     'class="form-control input-form">' +
     '</div>' +
