@@ -209,6 +209,12 @@ function firstMayus(str) {
 }
 //Especifico para areas dinamicas de un valor
 function deletePositionString(str, position) {
+  switch (str) {
+    case 'universidades':
+    case '':
+      return str;
+  }
+
   str = str.slice(0, position);
   return str;
 }
@@ -668,32 +674,54 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
   })
 }
 
-function alertMensajeConfirm(options, callback) {
+function alertMensajeConfirm(options, callback, set = 0) {
 
   //Options si existe
-  if (!options['title'])
-    options['title'] = "¿Desea realizar esta acción?"
-  if (!options['text'])
-    options['text'] = "Probablemente no podrá revertirlo"
-  if (!options['icon'])
-    options['icon'] = 'warning'
-  if (!options['showCancelButton'])
-    options['showCancelButton'] = true
-  if (!options['confirmButtonColor'])
-    options['confirmButtonColor'] = '#3085d6'
-  if (!options['cancelButtonColor'])
-    options['cancelButtonColor'] = '#d33'
-  if (!options['confirmButtonText'])
-    options['confirmButtonText'] = 'Aceptar'
-  if (!options['cancelButtonText'])
-    options['cancelButtonText'] = 'Cancelar'
-  if (!options['allowOutsideClick'])
-    options['allowOutsideClick'] = false
-  if (!options['timer'])
-    options['timer'] = 4000
-  if (!options['timerProgressBar'])
-    options['timerProgressBar'] = true
-  //
+  switch (set) {
+    case 1:
+      if (!options['title'])
+        options['title'] = "¿Desea realizar esta acción?"
+      if (!options['text'])
+        options['text'] = "Probablemente no podrá revertirlo"
+      if (!options['icon'])
+        options['icon'] = 'warning'
+      if (!options['showCancelButton'])
+        options['showCancelButton'] = true
+      if (!options['confirmButtonColor'])
+        options['confirmButtonColor'] = '#3085d6'
+      if (!options['cancelButtonColor'])
+        options['cancelButtonColor'] = '#d33'
+      if (!options['confirmButtonText'])
+        options['confirmButtonText'] = 'Aceptar'
+      if (!options['cancelButtonText'])
+        options['cancelButtonText'] = 'Cancelar'
+      if (!options['allowOutsideClick'])
+        options['allowOutsideClick'] = false
+      if (!options['timer'])
+        options['timer'] = 4000
+      if (!options['timerProgressBar'])
+        options['timerProgressBar'] = true
+      //
+      break;
+    default:
+      if (!options) {
+        options = {
+          title: "¿Desea realizar esta acción?",
+          text: "Probablemente no podrá revertirlo",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Aceptar",
+          cancelButtonText: "Cancelar",
+          // allowOutsideClick: false
+          // timer: 4000,
+          // timerProgressBar: true,
+        }
+      }
+      break;
+  }
+
 
   Swal.fire(options).then((result) => {
     if (result.isConfirmed || result.dismiss === "timer") {
@@ -738,6 +766,7 @@ function mensajeAjax(data) {
         icon: "info",
         confirmButtonColor: "#d33",
         confirmButtonText: "Aceptar",
+        cancelButtonText: false,
         allowOutsideClick: false,
         timer: 4000,
         timerProgressBar: true,
@@ -1365,6 +1394,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
       method: 'POST',
       url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
       beforeSend: function () { },
+      success: function (data) { mensajeAjax(data) },
       complete: function () { cambiarFormMetodo(0, titulo, "formEditar" + titulo); },
       dataSrc: 'response.data'
     },
@@ -1476,7 +1506,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
           }
         },
       });
-    })
+    }, 1)
     event.preventDefault();
   });
 
@@ -1514,7 +1544,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
           }
         },
       });
-    })
+    }, 1)
     event.preventDefault();
   });
 
@@ -1544,7 +1574,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
             }
           },
         });
-      })
+      }, 1)
     } else {
       alertSelectTable();
     }
@@ -1576,7 +1606,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
             }
           },
         });
-      })
+      }, 1)
     } else {
       alertSelectTable();
     }
