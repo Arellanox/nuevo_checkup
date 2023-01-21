@@ -2,10 +2,23 @@
 include "../clases/master_class.php";
 
 $master = new Master();
+#api case
 $api = $_POST['api'];
 
-$id_titulo = $_POST['id_titulo'];
+#buscar y eliminar
+$id = $_POST['id'];
+$activo = isset($_POST['ACTIVO']) ? null : 1;
+
+#insertar
+$id_titulo = $_POST['ID_U_TITULO'];
 $descripcion = $_POST['descripcion'];
+
+$parametros = array(
+    $id_titulo,
+    $descripcion
+);
+
+
 
 switch ($api) {
     case 1:
@@ -14,11 +27,11 @@ switch ($api) {
         break;
     case 2:
         #buscar
-        $response = $master->getByProcedure("sp_u_titulos_b", [$id_titulo]);
+        $response = $master->getByProcedure("sp_u_titulos_b", [$id, $activo]);
         break;
-    case 3:
-        # eliminar
-        $response = $master->deleteByProcedure("sp_u_titulos_e", [$id_titulo]);
+    case 4:
+        # desactivar o activar
+        $response = $master->deleteByProcedure("sp_u_titulos_e", [$id, $activo]);
         break;
 
     default:

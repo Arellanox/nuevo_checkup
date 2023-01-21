@@ -14,7 +14,7 @@ $('#modalRegistrarCargo').on('shown.bs.modal', function (e) {
 })
 
 //Formulario de registro de cargo
-$("#formRegistrar").submit(function (event) {
+$("#formRegistrarCargo").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarCargo");

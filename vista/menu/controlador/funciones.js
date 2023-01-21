@@ -3,8 +3,6 @@ function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
 
-
-
 function formatoFechaSQL(fecha, formato) {
   const map = {
     dd: fecha.getDate(),
@@ -198,12 +196,21 @@ function checkNumber(x) {
     return 2
   }
 }
-//servicios: 
-// 85, 354, 355, 356, 84
+
+
 function ifnull(data) {
   if (typeof data === 'undefined') return '';
   if (data) return data;
   return '';
+}
+function firstMayus(str) {
+  str = str.charAt(0).toUpperCase() + str.slice(1);
+  return str
+}
+//Especifico para areas dinamicas de un valor
+function deletePositionString(str, position) {
+  str = str.slice(0, position);
+  return str;
 }
 
 //Devuelve la area
@@ -577,8 +584,8 @@ $(window).on('hashchange', function (e) {
   var hash = window.location.hash.substring(1);
   switch (hash) {
     case 'LogOut':
-      window.location.hash = '';
-      window.location.href = http + servidor + '/nuevo_checkup/vista/login/?page=' + window.location;
+      // window.location.hash = '';
+      window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
       break;
     default:
       break;
@@ -642,7 +649,7 @@ function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'e
   });
 }
 
-function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
+function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 3000) {
   Toast.fire({
     icon: icon,
     title: msj,
@@ -662,21 +669,32 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
 }
 
 function alertMensajeConfirm(options, callback) {
-  if (!options) {
-    options = {
-      title: "¿Desea realizar esta acción?",
-      text: "Probablemente no podrá revertirlo",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
-      // allowOutsideClick: false
-      // timer: 4000,
-      // timerProgressBar: true,
-    }
-  }
+
+  //Options si existe
+  if (!options['title'])
+    options['title'] = "¿Desea realizar esta acción?"
+  if (!options['text'])
+    options['text'] = "Probablemente no podrá revertirlo"
+  if (!options['icon'])
+    options['icon'] = 'warning'
+  if (!options['showCancelButton'])
+    options['showCancelButton'] = true
+  if (!options['confirmButtonColor'])
+    options['confirmButtonColor'] = '#3085d6'
+  if (!options['cancelButtonColor'])
+    options['cancelButtonColor'] = '#d33'
+  if (!options['confirmButtonText'])
+    options['confirmButtonText'] = 'Aceptar'
+  if (!options['cancelButtonText'])
+    options['cancelButtonText'] = 'Cancelar'
+  if (!options['allowOutsideClick'])
+    options['allowOutsideClick'] = false
+  if (!options['timer'])
+    options['timer'] = 4000
+  if (!options['timerProgressBar'])
+    options['timerProgressBar'] = true
+  //
+
   Swal.fire(options).then((result) => {
     if (result.isConfirmed || result.dismiss === "timer") {
       callback()
@@ -744,6 +762,19 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
   // Seleccion del registro
   $(tablename).on('dblclick', 'tr', function () {
     callback(datatable.row(this).data())
+  });
+}
+
+function selectDatatabledblclick(callback = function () { }, tablename, datatable) {
+  $(tablename).on('dblclick', 'tr', function () {
+    if ($(this).hasClass('selected')) {
+      $(this).removeClass('selected');
+      callback(0, null);
+    } else {
+      datatable.$('tr.selected').removeClass('selected');
+      $(this).addClass('selected');
+      callback(1, datatable.row(this).data())
+    }
   });
 }
 
@@ -854,7 +885,7 @@ function bugGetPanel(divClass, loader, loaderDiv1) {
   }
 }
 
-
+// Antecedentes del paciente
 function obtenerAntecedentesPaciente(id) {
   return new Promise(resolve => {
     let arrayDivs = new Array;
@@ -953,6 +984,7 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
     });
   })
 }
+//
 
 function select2(select, modal = null, placeholder = 'Selecciona una opción') {
   if (!modal) modal = 'body-controlador';
@@ -964,6 +996,9 @@ function select2(select, modal = null, placeholder = 'Selecciona una opción') {
   });
 }
 
+
+
+//Creador vistas
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null) {
   return new Promise(resolve => {
     var html = "";
@@ -1213,5 +1248,354 @@ function selectedTrTable(text, column = 1, table) {
         return tr[i];
       }
     }
+  }
+}
+
+
+
+//Vista de un solo valor
+function getAreaUnValor(titulo, api_url, registro_id, divContenedor) {
+  html = '<div class="modal fade" id="modalRegistrar' + titulo + '" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"' +
+    'data-bs-keyboard="false">' +
+    '<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">' +
+    '<div class="modal-content">' +
+    '<div class="modal-header header-modal">' +
+    '<h5 class="modal-title">' + firstMayus(titulo) + '</h5>' +
+    '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+    '</div>' +
+    '<div class="modal-body" id="' + titulo + '-body">' +
+    '<p class="none-p">Doble click para editar <i class="bi bi-pencil"></i></p>' +
+    '<div class="row mt-3">' +
+    '<div class="col-6">' +
+    //Tabla contenido
+    '<table class="table table-hover tableContenido" id="Tabla' + titulo + '" style="width:100%">' +
+    '<thead class="">' +
+    '<tr>' +
+    '<th scope="col d-flex justify-content-center">#</th>' +
+    '<th scope="col d-flex justify-content-center">' + firstMayus(titulo) + '</th>' +
+    '<th scope="col d-flex justify-content-center"><i class="bi bi-collection"></i></th>' +
+    '</tr>' +
+    '</thead>' +
+    '<tbody>' +
+    '</tbody>' +
+    '</table>' +
+    //
+    '</div>' +
+    '<div class="col-6" id="RegistrarMetodo' + titulo + '">' +
+    '<p>Crear nuevo ' + titulo + ':</p>' +
+    //Registrar
+    '<form class="row" id="formRegistrar' + titulo + '">' +
+    '<div class="col-12">' +
+    '<label for="descripcion" class="form-label">Nombre del ' + deletePositionString(titulo, -1) + '</label>' +
+    '<input type="text" name="descripcion" required value="" class="form-control input-form">' +
+    '</div>' +
+    '<div class="text-center">' +
+    '<button type="submit" class="btn btn-hover me-2" style="margin-bottom:4px">' +
+    '<i class="bi bi-send-plus"></i> Guardar' +
+    '</button>' +
+    '</div>' +
+    '</form>' +
+    //
+    '</div>' +
+    '<div class="col-6" id="editarMetodo' + titulo + '" style="display:none">' +
+    '<p>Actualizar ' + titulo + ':</p>' +
+    //Editar
+    '<form class="row" id="formEditar' + titulo + '">' +
+    '<div class="col-12">' +
+    '<label for="descripcion" class="form-label">Nombre del ' + deletePositionString(titulo, -1) + '</label>' +
+    '<input type="text" name="descripcion" required id="edit-' + titulo + '-descripcion" ' +
+    'class="form-control input-form">' +
+    '</div>' +
+    '<div class="text-center">' +
+    '<button type="submit" class="btn btn-hover me-2" style="margin-bottom:4px">' +
+    '<i class="bi bi-pencil-square"></i> Actualizar' +
+    '</button>' +
+    '<button type="button" class="btn btn-hover btn-activo me-2" style="margin-bottom:4px; display: none" id="desactivar-' + titulo + '">' +
+    '<i class="bi bi-collection"></i> Desactivar' +
+    '</button>' +
+    '<button type="button" class="btn btn-hover btn-activo me-2" style="margin-bottom:4px; display: none" id="activar-' + titulo + '">' +
+    '<i class="bi bi-collection"></i> Activar' +
+    '</button>' +
+    '</div>' +
+    '</form>' +
+    //
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '<div class="modal-footer">' +
+    '<button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>' +
+    'Cerrar</button>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>';
+
+  //Crea el html en DOM
+  $(divContenedor).html(html);
+
+  vistaAreaUnValor(api_url, '#Tabla' + titulo, registro_id, titulo)
+
+
+}
+
+function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
+  let dataAreaValor;
+  //Vista table {-
+  let TablaContenido = $(tabla_id).DataTable({
+    processing: true,
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+      loadingRecords: '&nbsp;',
+      processing: '<div class="spinner"></div>'
+    },
+    lengthMenu: [
+      [5, 10, -1],
+      [5, 10, "All"]
+    ],
+    autoWidth: false,
+    searching: false,
+    lengthChange: false,
+    info: false,
+    paging: false,
+    scrollY: "30vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: 'json',
+      data: { api: 2, ACTIVO: 1 },
+      method: 'POST',
+      url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+      beforeSend: function () { },
+      complete: function () { cambiarFormMetodo(0, titulo, "formEditar" + titulo); },
+      dataSrc: 'response.data'
+    },
+    createdRow: function (row, data, dataIndex) {
+      if (data.ACTIVO == 1) {
+        $(row).addClass('bg-success text-white');
+      } else {
+        $(row).addClass('bg-danger text-white');
+      }
+    },
+    columns: [
+      { data: 'COUNT' },
+      { data: 'DESCRIPCION' },
+      {
+        data: 'ACTIVO', render: function (data) {
+          if (data == 1) {
+            return '<i class="bi bi-check-circle"></i>';
+          } else {
+            return '<i class="bi bi-x-circle"></i>';
+          }
+        }
+      },
+    ],
+    columnDefs: [{
+      "width": "3px",
+      "targets": 0
+    },],
+
+  });
+
+
+  selectDatatabledblclick(function (select, data) {
+    dataAreaValor = data;
+    $('.btn-activo').fadeOut()
+    $('.btn-activo').prop('disabled', true);
+    if (!select) {
+      cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+    } else {
+      switch (dataAreaValor.ACTIVO) {
+        case 1: case '1':
+          $('#desactivar-' + titulo).fadeIn(100);
+          setTimeout(() => {
+            $('#desactivar-' + titulo).prop('disabled', false);
+          }, 100);
+          break;
+        case 0: case '0':
+          $('#activar-' + titulo).fadeIn(100);
+          setTimeout(() => {
+            $('#activar-' + titulo).prop('disabled', false);
+          }, 100);
+          break;
+      }
+      document.getElementById("edit-" + titulo + "-descripcion").value = dataAreaValor['DESCRIPCION'];
+      cambiarFormMetodo(1, titulo);
+    }
+  }, tabla_id, TablaContenido)
+  // -}
+
+
+  //Modal vista {-
+  // let modal = document.getElementById('modalRegistrar' + titulo)
+  // modal.addEventListener('show.bs.modal', event => {
+  //     TablaContenido.ajax.reload();
+  // })
+
+  //Ajusta el ancho del encabezado cuando es dinamico
+  let modal = $('#modalRegistrar' + titulo);
+  modal.on('shown.bs.modal', function (e) {
+    TablaContenido.ajax.reload();
+    $.fn.dataTable
+      .tables({
+        visible: true,
+        api: true
+      })
+      .columns.adjust();
+  })
+
+
+
+  // -}
+
+  //Formulario de registro de cargo
+  $("#formRegistrar" + titulo).submit(function (event) {
+    event.preventDefault();
+    /*DATOS Y VALIDACION DEL REGISTRO*/
+    var form = document.getElementById("formRegistrar" + titulo);
+    var formData = new FormData(form);
+    formData.set('api', 1);
+
+    alertMensajeConfirm({
+      title: '¿Está seguro que todos los datos están correctos?',
+      text: "No podrá eliminar el registro",
+      icon: 'warning'
+    }, function () {
+      $.ajax({
+        data: formData,
+        url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (data) {
+          if (mensajeAjax(data)) {
+            alertToast('¡' + firstMayus(titulo) + ' registrado!', 'success')
+            document.getElementById("formRegistrar" + titulo).reset();
+            TablaContenido.ajax.reload();
+            cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+            // selectMetodo()
+          }
+        },
+      });
+    })
+    event.preventDefault();
+  });
+
+
+  //Formulario de actualizar cargo
+  $("#formEditar" + titulo).submit(function (event) {
+    event.preventDefault();
+    /*DATOS Y VALIDACION DEL REGISTRO*/
+    var form = document.getElementById("formEditar" + titulo);
+    var formData = new FormData(form);
+    formData.set(registro_id, dataAreaValor[registro_id])
+    formData.set('api', 1);
+
+    alertMensajeConfirm({
+      title: '¿Está seguro de cambiar la descripcion?',
+      text: "¡Se cambiará en todas las vistas!",
+      icon: 'warning'
+    }, function () {
+      //$("#btn-registrarse").prop('disabled', true);
+      // Esto va dentro del AJAX
+      $.ajax({
+        data: formData,
+        url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (data) {
+          if (mensajeAjax(data)) {
+            alertToast('¡' + firstMayus(titulo) + ' actualizado!', 'success')
+            document.getElementById("formEditar" + titulo).reset();
+            TablaContenido.ajax.reload();
+            cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+            // selectMetodo()
+          }
+        },
+      });
+    })
+    event.preventDefault();
+  });
+
+  //Desactivar valor
+  $('#desactivar-' + titulo).click(function () {
+    if (dataAreaValor != null) {
+      alertMensajeConfirm({
+        title: "¿Está seguro que desea desactivar este registro?",
+        text: "No podrán volver a elegir el registro",
+        icon: 'warning',
+      }, function () {
+        $.ajax({
+          data: {
+            id: dataAreaValor[registro_id],
+            api: 4,
+            ACTIVO: 0
+          },
+          url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+          type: "POST",
+          dataType: 'json',
+          success: function (data) {
+            if (mensajeAjax(data)) {
+              alertToast('¡' + firstMayus(titulo) + ' eliminado!', 'success')
+              document.getElementById("formEditar" + titulo).reset();
+              TablaContenido.ajax.reload();
+              cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+            }
+          },
+        });
+      })
+    } else {
+      alertSelectTable();
+    }
+  })
+
+  //Desactivar valor
+  $('#activar-' + titulo).click(function () {
+    if (dataAreaValor != null) {
+      alertMensajeConfirm({
+        title: "¿Está seguro que desea desactivar este registro?",
+        text: "No podrán volver a elegir el registro",
+        icon: 'warning',
+      }, function () {
+        $.ajax({
+          data: {
+            id: dataAreaValor[registro_id],
+            api: 4,
+            ACTIVO: 1
+          },
+          url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+          type: "POST",
+          dataType: 'json',
+          success: function (data) {
+            if (mensajeAjax(data)) {
+              alertToast('¡' + firstMayus(titulo) + ' eliminado!', 'success')
+              document.getElementById("formEditar" + titulo).reset();
+              TablaContenido.ajax.reload();
+              cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+            }
+          },
+        });
+      })
+    } else {
+      alertSelectTable();
+    }
+  })
+
+}
+
+//Metodo global
+function cambiarFormMetodo(fade, titulo, form = "formEditar") {
+  if (fade == 1) {
+    $('#RegistrarMetodo' + titulo).fadeOut();
+    setTimeout(function () {
+      $('#editarMetodo' + titulo).fadeIn();
+    }, 400);
+  } else {
+    document.getElementById(form).reset();
+    $('#editarMetodo' + titulo).fadeOut();
+    setTimeout(function () {
+      $('#RegistrarMetodo' + titulo).fadeIn();
+    }, 400);
   }
 }
