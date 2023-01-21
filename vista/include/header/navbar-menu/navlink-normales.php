@@ -54,8 +54,18 @@ if ($menu != "Recepción") : ?>
 
 <?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1) : ?>
   <li class="nav-item">
-    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarCargo">
-      <i class="bi bi-briefcase"></i> Nuevo cargo
+    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
+      <i class="bi bi-briefcase"></i> Cargos
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
+      <i class="bi bi-briefcase"></i> Titulos
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
+      <i class="bi bi-briefcase"></i> Universidades
     </a>
   </li>
   <li class="nav-item">

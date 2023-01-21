@@ -29,13 +29,13 @@ $paterno = $_POST['paterno'];
 $materno = $_POST['materno'];
 $username = $_POST['usuario'];
 $contrasenia = $_POST['contraseña'];
-$profesion = $_POST['profesion'];
-$cedula = $_POST['cedula'];
 $telefono = $_POST['telefono'];
 $correo = $_POST['correo'];
 $bloqueado = $_POST['bloqueado'];
-$titulo_id= $_POST['titulo_id'];
+$titulo_id = $_POST['titulo'];
 $universidad = $_POST['universidad'];
+$profesion = $_POST['profesion'];
+$cedula = $_POST['cedula'];
 
 $params = array(
     $id_usuario,
@@ -77,9 +77,9 @@ switch ($api) {
         $opciones = [
             'cost' => 12,
         ];
-        $contrasenia = password_hash($contrasenia,PASSWORD_BCRYPT, $opciones);
+        $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, $opciones);
 
-        $response = $master->insertByProcedure('sp_usuarios_g',$params);
+        $response = $master->insertByProcedure('sp_usuarios_g', $params);
 
         echo $master->returnApi($response);
         break;
@@ -202,14 +202,14 @@ switch ($api) {
         break;
     case 10:
         #insertar especialidades para medicos/ actualizar especialidades
-        $response = $master->insertByProcedure("sp_u_especialidades_g", [$id_u_especialidad,$id_usuario,$especialidad_id,$cedula,$universidad,$certificado_por]);
+        $response = $master->insertByProcedure("sp_u_especialidades_g", [$id_u_especialidad, $id_usuario, $especialidad_id, $cedula, $universidad, $certificado_por]);
 
         echo $master->returnApi($response);
         break;
 
     case 11:
         # buscar especialidades
-        $response = $master->getByProcedure("sp_u_especialidades_b", [$id_u_especialidad,$id_usuario]);
+        $response = $master->getByProcedure("sp_u_especialidades_b", [$id_u_especialidad, $id_usuario]);
 
         echo $master->returnApi($response);
         break;

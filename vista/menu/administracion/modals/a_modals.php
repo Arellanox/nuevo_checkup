@@ -2,7 +2,6 @@
 // Usuario
 include "user_agregar_usuario.php";
 include "user_editar_usuario.php";
-include "cargo_crear.html";
 include "user_editar_permisos.php";
 include "user_editar_vista.php";
 
@@ -13,3 +12,6 @@ include "user_editar_vista.php";
 
 //Segmento
 include "segmento-agregar.php";
+
+//Cargos, titulos, universidades
+include "oneValue_crear.html";

@@ -12,12 +12,13 @@ if (!$tokenValido) {
 #api
 $api = $_POST['api'];
 
-#buscar
+#buscar y eliminar
 $id = $_POST['id'];
 
 #insertar
-$id_cargo = $_POST['id_cargo'];
+$id_cargo = $_POST['ID_CARGO'];
 $descripcion = $_POST['descripcion'];
+$activo = isset($_POST['ACTIVO']) ? null : 1;
 
 $parametros = array(
     $id_cargo,
@@ -33,15 +34,15 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_cargos_b", [$id]);
+        $response = $master->getByProcedure("sp_cargos_b", [$id, $activo]);
         break;
-    case 3:
-        # actualizar
-        $response = $master->updateByProcedure("sp_cargos_g", $parametros);
-        break;
+        // case 3:
+        //     # actualizar
+        //     $response = $master->updateByProcedure("sp_cargos_g", $parametros);
+        //     break;
     case 4:
-        # desactivar
-        $response = $master->deleteByProcedure("sp_cargos_e", [$id]);
+        # desactivar o activar
+        $response = $master->deleteByProcedure("sp_cargos_e", [$id, $activo]);
         break;
 
     default:

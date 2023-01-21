@@ -38,6 +38,7 @@ switch ($api) {
         break;
 
     default:
-        echo "reporte no existente";
+        echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
+
         break;
 }
