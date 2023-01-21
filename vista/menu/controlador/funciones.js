@@ -205,7 +205,7 @@ function ifnull(data) {
 }
 function firstMayus(str) {
   str = str.charAt(0).toUpperCase() + str.slice(1);
-  return str
+  return str;
 }
 //Especifico para areas dinamicas de un valor
 function deletePositionString(str, position) {
@@ -1305,7 +1305,7 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     //
     '</div>' +
     '<div class="col-6" id="RegistrarMetodo' + titulo + '">' +
-    '<p>Crear ' + titulo + ':</p>' +
+    '<p>Crear nuevo registro:</p>' +
     //Registrar
     '<form class="row" id="formRegistrar' + titulo + '">' +
     '<div class="col-12">' +
@@ -1321,7 +1321,7 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     //
     '</div>' +
     '<div class="col-6" id="editarMetodo' + titulo + '" style="display:none">' +
-    '<p>Actualizar ' + titulo + ':</p>' +
+    '<p>Actualizar registro:</p>' +
     //Editar
     '<form class="row" id="formEditar' + titulo + '">' +
     '<div class="col-12">' +
@@ -1388,11 +1388,12 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
       method: 'POST',
       url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
       beforeSend: function () { },
-      success: function (data) { mensajeAjax(data) },
+      // success: function (data) { mensajeAjax(data) },
       complete: function () { cambiarFormMetodo(0, titulo, "formEditar" + titulo); },
       dataSrc: 'response.data'
     },
     createdRow: function (row, data, dataIndex) {
+      // mensajeAjax(data)
       if (data.ACTIVO == 1) {
         $(row).addClass('bg-success text-white');
       } else {

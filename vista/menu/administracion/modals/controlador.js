@@ -13,12 +13,6 @@ $.post("modals/a_modals.php", function (html) {
    // $.getScript('modals/js/cargo_crear.js');
    // $.getScript('modals/js/cargo_modal.js');
    // $.getScript('modals/js/modal_html.js');
-   // Modal para registrar cargo
-   $.getScript('modals/js/ser_agregar_servicio.js');
-
-
-
-
 
    //Cargos, Universidades, Titulos
    getAreaUnValor('cargos', 'cargo', 'cargos_api', 'ID_CARGO', '#MODAL_CARGOS_VISTA')
