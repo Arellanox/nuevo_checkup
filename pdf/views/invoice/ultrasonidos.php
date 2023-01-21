@@ -322,19 +322,35 @@ $encode_firma = base64_encode($ruta_firma);
                     <td colspan="10">
                     </td>
                     <td colspan="2" style="text-align: left;">
-                        <?php echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
+                        <?php
+                            if($preview == 0){
+                                echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                            }
+                        ?>
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
-                        <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+                        <?php
+                            if($preview == 0){
+                                echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                            }
+                        ?>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
-                            Dra. Zoila Aideé Quiroz Colorado <br>
+                            <?php
+                                if($preview ==0){
+                                    echo "Dra. " .$encabezado->DOCTORA ."<br>";
+                                    echo $encabezado->CEDULA . "<br>";
+                                    echo $encabezado->ESPECIALIDAD . "<br>";
+                                    echo $encabezado->SUBESPECIALIDAD;
+                                }
+                            ?>
+                            <!-- Dra. Zoila Aideé Quiroz Colorado <br>
                             Cédula profesional <br>
                             Radiologia e imagen <br>
-                            Subespecialista en radiología pediátrica
+                            Subespecialista en radiología pediátrica -->
                         </strong>
                     </td>
                 </tr>

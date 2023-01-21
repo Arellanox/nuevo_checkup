@@ -303,35 +303,39 @@
         <div class="footer">
             <table>
                 <tbody>
-                    <tr class="col-foot-one">
-                        <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
-                    </tr>
-                    <tr class="col-foot-two" >
-                        <td colspan="10">
-                        </td>
-                        <td colspan="2" style="text-align: left;">
+                <tr class="col-foot-one">
+                    <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
+                </tr>
+                <tr class="col-foot-two">
+                    <td colspan="10">
+                    </td>
+                    <td colspan="2" style="text-align: left;">
+                        <?php
+                            if($preview == 0){
+                                echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                            }
+                        ?>
+                    </td>
+                </tr>
+                <tr class="col-foot-three" style="font-size: 13px;">
+                    <td colspan="6" style="text-align: center; width: 50%">
+                        <?php
+                            if($preview == 0){
+                                echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                            }
+                        ?>
+                    </td>
+                    <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
+                        <strong style="font-size: 12px;">
                             <?php
-                                if($encode_firma !=null){
-                                    echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                                if($preview ==0){
+                                    echo  "Q.F.B. ". $encabezado->LABORATORISTA . "<br>"; 
+                                    echo $encabezado->UNIVERSIDAD . " - Cédula profesional: " . $encabezado->CEDULA;
                                 }
                             ?>
-                        </td>
-                    </tr>
-                    <tr class="col-foot-three"  style="font-size: 13px;">
-                        <td colspan="6" style="text-align: center; width: 50%">
-                            <?php
-                                if($qr!= null){
-                                    echo "<a target='_blank' href='#'> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>";
-                                }
-                            ?>
-                        </td>
-                        <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                            <strong  style="font-size: 12px;">
-                            Q.F.B. <?php echo $encabezado->LABORATORISTA ?>NERY FABIOLA ORNELAS RESENDIZ;<br> 
-                            <?php echo $encabezado->UNIVERSIDAD;?> - Cédula profesional: <?php echo $encabezado->CEDULA; ?>
                         </strong>
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
