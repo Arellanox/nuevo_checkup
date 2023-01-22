@@ -346,8 +346,8 @@ class Miscelaneus
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11, "datos_medicos" => $datos_medicos);
         // echo 1;
         print_r([json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview]);
-        // $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
-        // return $pdf->build();
+        //$pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
+        //return $pdf->build();
     }
 
     private function getBodyInfoImg($master, $turno_id, $area_id)
@@ -404,10 +404,9 @@ class Miscelaneus
         #recuperar la informacion del Reporte de interpretacion de oftalmología
         # recuperar los resultados de oftalmología
         $response1 = $master->getByProcedure('sp_oftalmo_resultados_b', [null, $turno_id]);
-
         $arrayoftalmo = [];
 
-        for ($i = 0; $i < count($response1[1]); $i++) {
+        for ($i = 0; $i < count($response1[0]); $i++) {
 
             $antecedentes_personales = $response1[$i]['ANTECEDENTES_PERSONALES'];
             $antecedentes_oftalmologicos = $response1[$i]['ANTECEDENTES_OFTALMOLOGICOS'];
@@ -449,7 +448,7 @@ class Miscelaneus
         }
 
         return array(
-            'ESTUDIOS' => $arrayoftalmo
+            'ESTUDIOS' => $arrayoftalmo[0]
         );
     }
 
