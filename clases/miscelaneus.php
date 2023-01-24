@@ -283,7 +283,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0,$usuario=0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $usuario = 0)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -306,7 +306,7 @@ class Miscelaneus
             case 8:
             case '8':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
-                $info = $master->getByProcedure("sp_info_medicos",[$turno_id,$area_id]);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
@@ -315,7 +315,7 @@ class Miscelaneus
             case 11:
             case '11':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
-                $info = $master->getByProcedure("sp_info_medicos",[$turno_id,$area_id]);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
@@ -382,7 +382,8 @@ class Miscelaneus
         );
     }
 
-    private function getMedicalCarrier($info = array()){
+    private function getMedicalCarrier($info = array())
+    {
 
         $carreraPrincipal = array_filter($info, function ($obj) {
             $r = $obj['ESPECIALIDAD'] == 0;

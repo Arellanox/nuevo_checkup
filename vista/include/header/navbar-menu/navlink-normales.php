@@ -69,6 +69,11 @@ if ($menu != "Recepción") : ?>
     </a>
   </li>
   <li class="nav-item">
+    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
+      <i class="bi bi-briefcase"></i> Especialidades
+    </a>
+  </li>
+  <li class="nav-item">
     <a href="#Usuarios" data-bs-dismiss="offcanvas" class="">
       <i class="bi bi-person-lines-fill"></i> Usuarios
     </a>
