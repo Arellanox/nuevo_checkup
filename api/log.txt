@@ -50,3 +50,4 @@
 11/01/23 16:40:35 [function guardarFiles][reportes] El archivo esta vacio, error al subir archivo.
 24/01/23 11:04:24 sp_oftalmo_resultados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ANTECEDENTES_PERSONALES' in 'field list'
 24/01/23 11:06:11 sp_oftalmo_resultados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ANTECEDENTES_PERSONALES' in 'field list'
+24/01/23 13:32:26 sp_oftalmo_resultados_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_oftalmo_resultados_g; expected 23, got 22
