@@ -190,19 +190,29 @@
         </style>
     </head>
 
-    <?php 
-        
-        // para el path del logo 
-        $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
-        $encode = base64_encode($ruta);
+    
+    <?php
 
-        // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
-        //los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
-        // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
-        
-        // path firma
-        $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
+    // para el path del logo 
+    $ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
+    $encode = base64_encode($ruta);
+
+    // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
+    //los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
+    // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
+
+    // path firma
+    // Verifica si mandan firma o si existe en el arreglo
+    if(isset($encabezado->FIRMA)){
+        $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
         $encode_firma = base64_encode($ruta_firma);
+    }else{
+        $encode_firma = null;
+    }
+
+    if(!isset($qr)){
+        $qr = null;
+    }
 
     ?>
     <body>
@@ -293,24 +303,39 @@
         <div class="footer">
             <table>
                 <tbody>
-                    <tr class="col-foot-one">
-                        <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
-                    </tr>
-                    <tr class="col-foot-two" >
-                        <td colspan="10">
-                        </td>
-                        <td colspan="2" style="text-align: left;">
-                            <?php echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
-                        </td>
-                    </tr>
-                    <tr class="col-foot-three"  style="font-size: 13px;">
-                        <td colspan="6" style="text-align: center; width: 50%">
-                            <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
-                        </td>
-                        <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                            <strong  style="font-size: 12px;">Q.F.B. NERY FABIOLA ORNELAS RESENDIZ    <br>UPCH - Cédula profesional: 09291445</strong>
-                        </td>
-                    </tr>
+                <tr class="col-foot-one">
+                    <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
+                </tr>
+                <tr class="col-foot-two">
+                    <td colspan="10">
+                    </td>
+                    <td colspan="2" style="text-align: left;">
+                        <?php
+                            if($preview == 0){
+                                echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                            }
+                        ?>
+                    </td>
+                </tr>
+                <tr class="col-foot-three" style="font-size: 13px;">
+                    <td colspan="6" style="text-align: center; width: 50%">
+                        <?php
+                            if($preview == 0){
+                                echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                            }
+                        ?>
+                    </td>
+                    <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
+                        <strong style="font-size: 12px;">
+                            <?php
+                                if($preview ==0){
+                                    echo  "Q.F.B. ". $encabezado->LABORATORISTA . "<br>"; 
+                                    echo $encabezado->UNIVERSIDAD . " - Cédula profesional: " . $encabezado->CEDULA;
+                                }
+                            ?>
+                        </strong>
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
