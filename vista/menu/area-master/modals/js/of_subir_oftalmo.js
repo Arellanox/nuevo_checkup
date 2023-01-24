@@ -47,40 +47,48 @@ $("#formSubirInterpretacionOftalmo").submit(function (event) {
   event.preventDefault();
 });
 
-//Formulario Para Subir Interpretacion
+
+//Confirmacion de reporte
 $('#btn-confirmar-reporte').click(function (event) {
+  // alert(areaActiva)
+  event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
-  alertMensajeConfirm({
-    title: "¿Está seguro guardar la interpretación?",
-    text: "Una vez guardado, podrá visualizar el reporte",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Aceptar",
-  }, function () {
-    // $('#submit-registrarEstudio').prop('disabled', true);
-    // Esto va dentro del AJAX
-    $.ajax({
-      data: {
-        tunro_id: dataSelect.array['tunro'],
-        api: 1,
-        confirmado: 1
-      },
-      url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",
-      type: "POST",
-      beforeSend: function () {
-        $("#formSubirInterpretacion:submit").prop('disabled', true)
-        alertMensaje('info', 'Subiendo información', 'Espere un momento mientras se guarda la información')
-      },
-      success: function (data) {
-        data = jQuery.parseJSON(data);
-        if (mensajeAjax(data)) {
-          alertMensaje('success', 'Interpretación guardada', 'Ya puede visualizar el reporte', 'Es necesario confirmar la interpretación');
-          estadoFormulario(1) //Desactiva el formulario
-          obtenerServicios(3)
+  if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
+
+    alertMensajeConfirm({
+      title: "¿Está seguro de confirmar este reporte?",
+      text: "¡No podrá actualizar los datos de reporte!",
+      icon: "warning",
+    }, function () {
+      $.ajax({
+        data: {
+          id_area: areaActiva,
+          api: api_interpretacion,
+          id_turno: dataSelect.array['turno'],
+          confirmado: 1
+        },
+        url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",
+        type: "POST",
+        beforeSend: function () {
+          $("#formSubirInterpretacion:submit").prop('disabled', true)
+          alertMensaje('info', 'Confirmando reporte', 'Espere un momento mientras se genera el reporte en el sistema');
+        },
+        success: function (data) {
+          data = jQuery.parseJSON(data);
+          if (mensajeAjax(data)) {
+            alertMensaje('success', '¡Interpretación confirmada!', 'El formulario ha sido cerrado');
+            $('#modalSubirInterpretacion').modal('hide')
+            estadoFormulario(1)
+            obtenerServicios(areaActiva, dataSelect.array['turno'])
+          }
+        },
+        complete: function () {
+          $("#formSubirInterpretacion:submit").prop('disabled', false)
         }
-      },
-    });
-  })
-});
+      });
+    }, 1)
+  } else {
+    alertMensaje('info', 'EL resultado ya ha sido guardado', 'No puede cargar mas resultados a este paciente');
+  }
+  event.preventDefault();
+})

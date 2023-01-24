@@ -322,7 +322,7 @@ class Miscelaneus
                 $carpeta_guardado = 'rayosx';
                 break;
             case 3:
-            case '3':
+            case '3': #Oftalmologia
                 $arregloPaciente = $this->getBodyInfoOftal($master, $turno_id);
                 $datos_medicos = array();
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_OFTALMO'];
@@ -345,9 +345,9 @@ class Miscelaneus
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11, "datos_medicos" => $datos_medicos);
         // echo 1;
-        print_r([json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview]);
-        //$pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
-        //return $pdf->build();
+        // print_r([json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview]);
+        $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
+        return $pdf->build();
     }
 
     private function getBodyInfoImg($master, $turno_id, $area_id)
@@ -448,9 +448,7 @@ class Miscelaneus
             array_push($arrayoftalmo, $array1);
         }
 
-        return array(
-            'ESTUDIOS' => $arrayoftalmo[0]
-        );
+        return $arrayoftalmo[0];
     }
 
     private function getBodyInfoLab($master, $id_turno)
