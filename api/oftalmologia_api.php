@@ -76,7 +76,7 @@ switch ($api) {
             $url = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'url');
 
             # actualizar la url del reporte
-            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $url, null, null]);
+            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, null]);
         }
 
 
