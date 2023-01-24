@@ -213,30 +213,30 @@
 </head>
 
 
-    <?php
+<?php
 
-    // para el path del logo 
-    $ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
-    $encode = base64_encode($ruta);
+// para el path del logo 
+$ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
+$encode = base64_encode($ruta);
 
-    // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
-    //los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
-    // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
+// Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
+//los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
+// echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
-    // path firma
-    // Verifica si mandan firma o si existe en el arreglo
-    if(isset($encabezado->FIRMA)){
-        $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
-        $encode_firma = base64_encode($ruta_firma);
-    }else{
-        $encode_firma = null;
-    }
+// path firma
+// Verifica si mandan firma o si existe en el arreglo
+if (isset($encabezado->FIRMA)) {
+    $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
+    $encode_firma = base64_encode($ruta_firma);
+} else {
+    $encode_firma = null;
+}
 
-    if(!isset($qr)){
-        $qr = null;
-    }
+if (!isset($qr)) {
+    $qr = null;
+}
 
-    ?>
+?>
 
 <body>
     <div class="header">
@@ -333,29 +333,29 @@
                     </td>
                     <td colspan="2" style="text-align: left;">
                         <?php
-                            if($preview == 0){
-                                echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
-                            }
+                        if ($preview == 0) {
+                            echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                        }
                         ?>
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
                         <?php
-                            if($preview == 0){
-                                echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                            }
+                        if ($preview == 0) {
+                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                        }
                         ?>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
                             <?php
-                                if($preview ==0){
-                                    echo "Dra. " .$encabezado->DOCTORA ."<br>";
-                                    echo $encabezado->CEDULA . "<br>";
-                                    echo $encabezado->ESPECIALIDAD . "<br>";
-                                    echo $encabezado->SUBESPECIALIDAD;
-                                }
+                            if ($preview == 0) {
+                                echo "Dra. " . $encabezado->DOCTORA . "<br>";
+                                echo $encabezado->CEDULA . "<br>";
+                                echo $encabezado->ESPECIALIDAD . "<br>";
+                                echo $encabezado->SUBESPECIALIDAD;
+                            }
                             ?>
                             <!-- Dra. Zoila Aideé Quiroz Colorado <br>
                             Cédula profesional <br>
@@ -367,113 +367,122 @@
             </tbody>
         </table>
         <hr style="height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red; font-size: 12px;"> 993 131 00 42 </strong> </br> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
+        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> <strong style="font-size: 12px;"> Teléfonos: 993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; </strong> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
     </div>
 
     <!-- body -->
     <div class="invoice-content">
         <p>
             <strong>
-                ANTECEDENTES PERSONALES 
+                ANTECEDENTES PERSONALES
             </strong>
             <br>
-            <?php echo $resultados->PERSONALES; ?> <br>
+            <?php echo $resultados->ANTECEDENTES_PERSONALES; ?> <br>
         </p>
         <p>
             <strong>
-                ANTECEDENTES OFTALMOLOGICOS 
+                ANTECEDENTES OFTALMOLÓGICOS
             </strong>
             <br>
-            <?php echo $resultados->OFTAMOLOGICOS;?> <br>
+            <?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?> <br>
 
         </p>
         <p>
             <strong>
-                PADECIMIENTO ACTUAL. 
+                PADECIMIENTO ACTUAL.
             </strong>
             <br>
-            <?php echo $resultados->PADECIMIENTO; ?><br>
+            <?php echo $resultados->PADECIMIENTO_ACTUAL; ?><br>
 
         </p>
         <p>
             <strong>
-                AGUDEZA VISUAL SIN CORRECCIÓN: 
+                AGUDEZA VISUAL SIN CORRECCIÓN:
             </strong>
-            <?php $resultados->TABLA;?>  TABLA DE SNELLEN <br>
+            <?php echo $resultados->AGUDEZA_VISUAL; ?> <br>
             <strong>
-                OD: 
+                OD:
             </strong>
             <?php echo $resultados->OD; ?><br>
             <strong>
-                OI:  
+                OI:
             </strong>
             <?php echo $resultados->OI; ?> <br>
             <strong>
-                JAEGER: 
+                JAEGER:
             </strong>
-            <?php echo $resultados->JAEGER;?> <br>
+            <?php echo $resultados->JAEGER; ?> <br>
         </p>
         <p>
             <strong>
-                REFRACCIÓN: 
+                REFRACCIÓN:
             </strong>
             <br>
             <?php echo $resultados->REFRACCION; ?>
         </p>
         <p>
             <strong>
-                PRUEBA: 
+                PRUEBA:
             </strong>
-            <?php $resultados->CROMATICA;?> 
+            <?php $resultados->PRUEBA; ?>
 
         </p>
         <p>
             <strong>
-    }           EXPLORACIÓN OFTALMOLOGICA: 
+                EXPLORACIÓN OFTALMOLÓGICA:
             </strong>
             <br>
-            <?php echo $resultados->OFTAMOLOGICA;?>
+            <?php echo $resultados->EXPLORACION_OFTALMOLOGICA; ?>
         </p>
         <p>
             <strong>
-                FORIAS:  
+                FORIAS:
             </strong>
-            <?php echo $resultados->FORIAS;?>
+            <?php echo $resultados->FORIAS; ?>
 
         </p>
         <p>
             <strong>
-                CAMPIMETRIA:
+                CAMPIMETRÍA:
             </strong>
             <?php echo $resultados->CAMPIMETRIA; ?>
         </p>
         <p>
             <strong>
-                PRESION INTRAOCULAR. 
+                PRESIÓN INTRAOCULAR.
             </strong>
             <br>
             <strong>
-                OD: 
+                OD:
             </strong>
-            <?php echo $resultados->PRESION_OD?>
+            <?php echo $resultados->PRESION_INTRAOCULAR_OD ?>
             <strong>
-                OI: 
+                OI:
             </strong>
-            <?php echo $resultados->PRESION_OI?>
+            <?php echo $resultados->PRESION_INTRAOCULAR_OI ?>
         </p>
         <p>
             <strong>
-                DIAG NOSTICO. 
+                DIAGNÓSTICO.
             </strong>
             <br>
-            <?php echo $resultados->DIAGNOSTICO?>
+            <?php echo $resultados->DIAGNOSTICO ?>
         </p>
         <p>
             <strong>
-                PLAN: 
+                PLAN:
             </strong>
             <br>
-            <?php echo $resultados->PLAN?>
+            <?php echo $resultados->PLAN ?>
+        </p>
+        <p>
+            <?php if ($resultados->OBSERVACIONES) { ?>
+                <strong>
+                    OBSERVACIONES:
+                </strong>
+                <br>
+            <?php echo $resultados->OBSERVACIONES;
+            } ?>
         </p>
     </div>
 </body>

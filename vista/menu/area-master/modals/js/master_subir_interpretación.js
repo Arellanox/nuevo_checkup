@@ -47,45 +47,35 @@ $("#formSubirInterpretacion").submit(function (event) {
 
         //Api y url sacada desde el controlador
         formData.set('api', api_interpretacion);
-
-
-        Swal.fire({
+        alertMensajeConfirm({
             title: "¿Está seguro de subir la interpretación?",
             text: "Podrá visualizarlo una vez guardado...",
             icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Aceptar",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // $('#submit-registrarEstudio').prop('disabled', true);
-                // Esto va dentro del AJAX
-
-                $.ajax({
-                    data: formData,
-                    url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
-                    type: "POST",
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function () {
-                        $("#formSubirInterpretacion:submit").prop('disabled', true)
-                        alertMensaje('info', 'Cargando datos de interpretación', 'Espere un momento mientras el sistema registra todos los datos');
-                    },
-                    success: function (data) {
-                        data = jQuery.parseJSON(data);
-                        if (mensajeAjax(data)) {
-                            alertMensaje('success', '¡Interpretación guardada!', 'Consulte o confirme el reporte despues de guardar');
-                            estadoFormulario(2)
-                            obtenerServicios(areaActiva, dataSelect.array['turno'])
-                        }
-                    },
-                    complete: function () {
-                        $("#formSubirInterpretacion:submit").prop('disabled', false)
+        }, function () {
+            $.ajax({
+                data: formData,
+                url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    $("#formSubirInterpretacion:submit").prop('disabled', true)
+                    alertMensaje('info', 'Cargando datos de interpretación', 'Espere un momento mientras el sistema registra todos los datos');
+                },
+                success: function (data) {
+                    data = jQuery.parseJSON(data);
+                    if (mensajeAjax(data)) {
+                        alertMensaje('success', '¡Interpretación guardada!', 'Consulte o confirme el reporte despues de guardar');
+                        estadoFormulario(2)
+                        obtenerServicios(areaActiva, dataSelect.array['turno'])
                     }
-                });
-            }
-        });
+                },
+                complete: function () {
+                    $("#formSubirInterpretacion:submit").prop('disabled', false)
+                }
+            });
+        }, 1);
+
 
     } else {
         alertMensaje('info', 'EL resultado ya ha sido guardado', 'No puede cargar mas resultados a este paciente');
@@ -98,48 +88,39 @@ $('#btn-confirmar-reporte').click(function (event) {
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
     if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
-        Swal.fire({
+
+        alertMensajeConfirm({
             title: "¿Está seguro de confirmar este reporte?",
             text: "¡No podrá actualizar los datos de reporte!",
             icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Aceptar",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // $('#submit-registrarEstudio').prop('disabled', true);
-                // Esto va dentro del AJAX
-
-                $.ajax({
-                    data: {
-                        id_area: areaActiva,
-                        api: api_interpretacion,
-                        id_turno: dataSelect.array['turno'],
-                        confirmado: 1
-                    },
-                    url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
-                    type: "POST",
-                    beforeSend: function () {
-                        $("#formSubirInterpretacion:submit").prop('disabled', true)
-                        alertMensaje('info', 'Confirmando reporte', 'Espere un momento mientras se genera el reporte en el sistema');
-                    },
-                    success: function (data) {
-                        data = jQuery.parseJSON(data);
-                        if (mensajeAjax(data)) {
-                            alertMensaje('success', '¡Interpretación confirmada!', 'El formulario ha sido cerrado');
-                            $('#modalSubirInterpretacion').modal('hide')
-                            estadoFormulario(1)
-                            obtenerServicios(areaActiva, dataSelect.array['turno'])
-                        }
-                    },
-                    complete: function () {
-                        $("#formSubirInterpretacion:submit").prop('disabled', false)
+        }, function () {
+            $.ajax({
+                data: {
+                    id_area: areaActiva,
+                    api: api_interpretacion,
+                    id_turno: dataSelect.array['turno'],
+                    confirmado: 1
+                },
+                url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
+                type: "POST",
+                beforeSend: function () {
+                    $("#formSubirInterpretacion:submit").prop('disabled', true)
+                    alertMensaje('info', 'Confirmando reporte', 'Espere un momento mientras se genera el reporte en el sistema');
+                },
+                success: function (data) {
+                    data = jQuery.parseJSON(data);
+                    if (mensajeAjax(data)) {
+                        alertMensaje('success', '¡Interpretación confirmada!', 'El formulario ha sido cerrado');
+                        $('#modalSubirInterpretacion').modal('hide')
+                        estadoFormulario(1)
+                        obtenerServicios(areaActiva, dataSelect.array['turno'])
                     }
-                });
-            }
-        });
-
+                },
+                complete: function () {
+                    $("#formSubirInterpretacion:submit").prop('disabled', false)
+                }
+            });
+        }, 1)
     } else {
         alertMensaje('info', 'EL resultado ya ha sido guardado', 'No puede cargar mas resultados a este paciente');
     }

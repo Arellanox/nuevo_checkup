@@ -283,7 +283,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0,$usuario=0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $usuario = 0)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -306,7 +306,7 @@ class Miscelaneus
             case 8:
             case '8':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
-                $info = $master->getByProcedure("sp_info_medicos",[$turno_id,$area_id]);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
@@ -315,14 +315,14 @@ class Miscelaneus
             case 11:
             case '11':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
-                $info = $master->getByProcedure("sp_info_medicos",[$turno_id,$area_id]);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
                 $carpeta_guardado = 'rayosx';
                 break;
             case 3:
-            case '3':
+            case '3': #Oftalmologia
                 $arregloPaciente = $this->getBodyInfoOftal($master, $turno_id);
                 $datos_medicos = array();
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_OFTALMO'];
@@ -345,9 +345,9 @@ class Miscelaneus
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11, "datos_medicos" => $datos_medicos);
         // echo 1;
-        print_r([json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview]);
-        // $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
-        // return $pdf->build();
+        // print_r([json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview]);
+        $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
+        return $pdf->build();
     }
 
     private function getBodyInfoImg($master, $turno_id, $area_id)
@@ -382,7 +382,8 @@ class Miscelaneus
         );
     }
 
-    private function getMedicalCarrier($info = array()){
+    private function getMedicalCarrier($info = array())
+    {
 
         $carreraPrincipal = array_filter($info, function ($obj) {
             $r = $obj['ESPECIALIDAD'] == 0;
@@ -404,10 +405,9 @@ class Miscelaneus
         #recuperar la informacion del Reporte de interpretacion de oftalmología
         # recuperar los resultados de oftalmología
         $response1 = $master->getByProcedure('sp_oftalmo_resultados_b', [null, $turno_id]);
-
         $arrayoftalmo = [];
 
-        for ($i = 0; $i < count($response1[1]); $i++) {
+        for ($i = 0; $i < count($response1[0]); $i++) {
 
             $antecedentes_personales = $response1[$i]['ANTECEDENTES_PERSONALES'];
             $antecedentes_oftalmologicos = $response1[$i]['ANTECEDENTES_OFTALMOLOGICOS'];
@@ -448,9 +448,7 @@ class Miscelaneus
             array_push($arrayoftalmo, $array1);
         }
 
-        return array(
-            'ESTUDIOS' => $arrayoftalmo
-        );
+        return $arrayoftalmo[0];
     }
 
     private function getBodyInfoLab($master, $id_turno)

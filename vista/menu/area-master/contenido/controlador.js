@@ -56,6 +56,7 @@ function hasLocation() {
         break;
       case "OFTALMOLOGIA":
         url_api = 'oftalmologia_api';
+        api_interpretacion = 1;
         formulario = "formSubirInterpretacionOftalmo";
         obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_modal.php');
         break;

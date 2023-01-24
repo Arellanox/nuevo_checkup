@@ -48,3 +48,6 @@
 05/01/23 14:14:07 sp_capturas_imagen_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`capturas_imagen`, CONSTRAINT `fk_capturas_imagen_turnos_1` FOREIGN KEY (`TURNO_ID`) REFERENCES `turnos` (`ID_TURNO`) ON DELETE NO ACTION ON UPDATE NO ACTION)
 10/01/23 15:02:20 [function guardarFiles][reportes] El archivo esta vacio, error al subir archivo.
 11/01/23 16:40:35 [function guardarFiles][reportes] El archivo esta vacio, error al subir archivo.
+24/01/23 11:04:24 sp_oftalmo_resultados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ANTECEDENTES_PERSONALES' in 'field list'
+24/01/23 11:06:11 sp_oftalmo_resultados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ANTECEDENTES_PERSONALES' in 'field list'
+24/01/23 13:32:26 sp_oftalmo_resultados_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_oftalmo_resultados_g; expected 23, got 22
