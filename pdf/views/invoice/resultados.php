@@ -222,14 +222,14 @@ $encode = base64_encode($ruta);
 
 // path firma
 // Verifica si mandan firma o si existe en el arreglo
-if(isset($encabezado->FIRMA)){
+if (isset($encabezado->FIRMA)) {
     $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
     $encode_firma = base64_encode($ruta_firma);
-}else{
+} else {
     $encode_firma = null;
 }
 
-if(!isset($qr)){
+if (!isset($qr)) {
     $qr = null;
 }
 
@@ -326,27 +326,27 @@ if(!isset($qr)){
                     </td>
                     <td colspan="2" style="text-align: left;">
                         <?php
-                            if($preview == 0){
-                                echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
-                            }
+                        if ($preview == 0) {
+                            echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                        }
                         ?>
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
-                            <?php
-                                if($preview == 0){
-                                    echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                                }
-                            ?>
+                        <?php
+                        if ($preview == 0) {
+                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                        }
+                        ?>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
                             <?php
-                                if($preview ==0){
-                                    echo  "Q.F.B. ". $encabezado->LABORATORISTA . "<br>"; 
-                                    echo $encabezado->UNIVERSIDAD . " - Cédula profesional: " . $encabezado->CEDULA;
-                                }
+                            if ($preview == 0) {
+                                echo  "Q.F.B. " . $encabezado->LABORATORISTA . "<br>";
+                                echo $encabezado->UNIVERSIDAD . " - Cédula profesional: " . $encabezado->CEDULA;
+                            }
                             ?>
                         </strong>
                     </td>
@@ -354,7 +354,7 @@ if(!isset($qr)){
             </tbody>
         </table>
         <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red; font-size: 12px;"> 993 131 00 42 </strong> </br> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
+        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> <strong style="font-size: 12px;"> Teléfonos: 993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; </strong> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
     </div>
 
     <!-- body -->
@@ -529,7 +529,7 @@ if(!isset($qr)){
                     }
                     ?>
                 </div>
-            <?php
+                <?php
 
             }
             $i++;
@@ -545,11 +545,11 @@ if(!isset($qr)){
             // echo $a;
             if ($a <= 15) {
             } else {
-                if($i < $count){
+                if ($i < $count) {
 
-                // echo "salto de linea";
-            ?>
-                <div class="break"></div>
+                    // echo "salto de linea";
+                ?>
+                    <div class="break"></div>
             <?php
                 }
                 // echo '<div class="break">';

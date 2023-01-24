@@ -64,7 +64,7 @@ $('#btn-confirmar-reporte').click(function (event) {
         data: {
           id_area: areaActiva,
           api: api_interpretacion,
-          id_turno: dataSelect.array['turno'],
+          turno_id: dataSelect.array['turno'],
           confirmado: 1
         },
         url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",

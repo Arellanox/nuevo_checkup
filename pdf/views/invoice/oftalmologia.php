@@ -367,7 +367,7 @@ if (!isset($qr)) {
             </tbody>
         </table>
         <hr style="height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079, Teléfono:</strong> <strong style="color:red; font-size: 12px;"> 993 131 00 42 </strong> </br> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
+        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> <strong style="font-size: 12px;"> Teléfonos: 993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; </strong> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
     </div>
 
     <!-- body -->
