@@ -22,15 +22,14 @@
             /* background-color: gray; */
         }
 
-        .header {
+        /* .header {
             position: fixed;
             top: -165px;
             left: 25px;
             right: 25px;
             height: 220px;
             margin-top: 0;
-            /* background-color: cadetblue; */
-        }
+        } */
 
         .footer {
             position: fixed;
@@ -340,12 +339,14 @@ $encode_firma = base64_encode($ruta_firma);
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
                             <?php
-                            if ($preview == 0) {
-                                echo "Dra. " . $encabezado->DOCTORA . "<br>";
-                                echo $encabezado->CEDULA . "<br>";
-                                echo $encabezado->ESPECIALIDAD . "<br>";
-                                echo $encabezado->SUBESPECIALIDAD;
-                            }
+                                echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                                $indice = 1;
+                                foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
+                                    // $contador = count($value);
+                                    $indice ++;
+                                    echo '<br>'. $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
+                                    echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
+                                }
                             ?>
                             <!-- Dra. Zoila Aideé Quiroz Colorado <br>
                             Cédula profesional <br>
@@ -386,5 +387,21 @@ $encode_firma = base64_encode($ruta_firma);
         ?>
     </div>
 </body>
-
+<?php
+    $altura = 200;
+    
+    for ($i=2; $i < $indice; $i++) { 
+        $altura = $altura + 50;
+    }
+?>
+<style>    
+    .footer {
+            position: fixed;
+            bottom: -165px;
+            left: 25px;
+            right: 25px;
+            height: <?php echo $altura.'px'?>;
+            /* background-color: pink; */
+        }
+</style>
 </html>

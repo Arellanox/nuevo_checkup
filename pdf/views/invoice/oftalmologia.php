@@ -33,15 +33,6 @@
             /* background-color: cadetblue; */
         }
 
-        .footer {
-            position: fixed;
-            bottom: -165px;
-            left: 25px;
-            right: 25px;
-            height: 200px;
-            /* background-color: pink; */
-        }
-
         .footer .page:after {
             content: counter(page);
         }
@@ -348,26 +339,38 @@ if (!isset($qr)) {
                         ?>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                        <strong style="font-size: 12px;">
+                        <strong style="font-size: 10px;"> 
                             <?php
-                            if ($preview == 0) {
-                                echo "Dra. " . $encabezado->DOCTORA . "<br>";
-                                echo $encabezado->CEDULA . "<br>";
-                                echo $encabezado->ESPECIALIDAD . "<br>";
-                                echo $encabezado->SUBESPECIALIDAD;
-                            }
+                                echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                                $indice = 1;
+                                foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
+                                    // $contador = count($value);
+                                    $indice ++;
+                                    echo '<br>'. $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
+                                    echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
+                                }
                             ?>
-                            <!-- Dra. Zoila Aideé Quiroz Colorado <br>
-                            Cédula profesional <br>
-                            Radiologia e imagen <br>
-                            Subespecialista en radiología pediátrica -->
+
+                            <?php
+                                // echo $pie['datos_medicos'];
+                            ?>
+                            <!-- Dra. Zoila Aideé Quiroz Colorado <br> 
+                            Universidad - Cedula <br>
+                            Radiologia / Universidad / Cedula <br>
+                            Certificado por: Quien certifica <br>
+                            Subespecialista en radiología pediátrica / Universidad / Cedula<br>
+                            Certificado por: escuela de doctores <br> -->
                         </strong>
                     </td>
                 </tr>
             </tbody>
         </table>
         <hr style="height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> <strong style="font-size: 12px;"> Teléfonos: 993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; </strong> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
+        <p style="text-align: center;"><small>
+            <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> 
+            <strong style="font-size: 11px;">Teléfonos: </strong>993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; 
+            <strong style="font-size: 11px;">Correo electrónico:</strong> 
+            <strong style="color:red; font-size: 11px;">hola@bimo.com.mx</strong></small></p>
     </div>
 
     <!-- body -->
@@ -487,4 +490,21 @@ if (!isset($qr)) {
     </div>
 </body>
 
+<?php
+    $altura = 200;
+    
+    for ($i=2; $i < $indice; $i++) { 
+        $altura = $altura + 50;
+    }
+?>
+<style>    
+    .footer {
+            position: fixed;
+            bottom: -165px;
+            left: 25px;
+            right: 25px;
+            height: <?php echo $altura.'px'?>;
+            /* background-color: pink; */
+        }
+</style>
 </html>
