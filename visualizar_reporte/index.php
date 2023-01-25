@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once "../clases/token_auth.php";
 include_once '../clases/master_class.php';

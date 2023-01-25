@@ -78,13 +78,14 @@ class Reporte
         // Path del dominio
         $path = $archivo['ruta'] . $archivo['nombre_archivo'] . ".pdf";
         // $path    = 'pdf/public/resultados/E-00001.pdf';
-        // echo $path;
+        // print_r($pie['datos_medicos'][0]['ESPECIALIDADES']);
         // print_r($path);
 
         session_start();
         $view_vars = array(
             "resultados"            => $response,
             "encabezado"            => $data,
+            "pie"                   => isset($pie) ? $pie : null,
             "qr"                    => isset($prueba) ? $prueba : null,
             "barcode"               => isset($barcode) ? $barcode : null,
             "preview"               => $preview
@@ -142,7 +143,6 @@ class Reporte
                 break;
         }
         // session_destroy();
-
         // Recibe la orden de que tipo de  modo de visualizacion quiere
         switch ($orden) {
             case 'descargar':
