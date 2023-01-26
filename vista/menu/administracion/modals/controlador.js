@@ -21,5 +21,6 @@ $.post("modals/a_modals.php", function (html) {
    getAreaUnValor('cargos', 'cargo', 'cargos_api', 'ID_CARGO', '#MODAL_CARGOS_VISTA')
    getAreaUnValor('titulos', 'titulo', 'titulos_api', 'ID_U_TITULO', '#MODAL_TITULOS_VISTA')
    getAreaUnValor('universidades', 'universidad', 'universidades_api', 'ID_UNIVERSIDAD', '#MODAL_UNIVERSIDADES_VISTA')
+   getAreaUnValor('especialidades', 'especialidad', 'especialidades_api', 'ID_ESPECIALIDAD', '#MODAL_ESPECIALIDAD_VISTA')
 
 });

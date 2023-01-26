@@ -57,7 +57,7 @@ $params = array(
 
 # especialidades
 $id_u_especialidad = $_POST['id_u_especialidad'];
-$especialidades = $_POST['especialidades'];#especialidad,universidad,cedula,certificado,certificado_num
+$especialidades = $_POST['especialidades']; #especialidad,universidad,cedula,certificado,certificado_num
 
 
 switch ($api) {
@@ -79,8 +79,8 @@ switch ($api) {
         $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, $opciones);
 
         $last_id = $master->insertByProcedure('sp_usuarios_g', $params);
-        foreach($especialidades as $current){
-            $response = $master->insertByProcedure("sp_u_especialidades_g", [null, $last_id, $current['especialidad'], $current['cedula'], $current['universidad'], $current['certificado'],$current['certificado_num']]); 
+        foreach ($especialidades as $current) {
+            $response = $master->insertByProcedure("sp_u_especialidades_g", [null, $last_id, $current['especialidad'], $current['cedula'], $current['universidad'], $current['certificado'], $current['certificado_num']]);
         }
 
         echo $master->returnApi($response);

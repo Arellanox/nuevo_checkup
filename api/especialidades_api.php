@@ -4,10 +4,10 @@ require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
-}
+// if (!$tokenValido) {
+//     $tokenVerification->logout();
+//     exit;
+// }
 
 $master = new Master();
 $api = $_POST['api'];
@@ -36,5 +36,3 @@ switch($api){
 }
 
 echo $response = $master->returnApi($response);
-
-?>

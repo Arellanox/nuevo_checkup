@@ -16,9 +16,19 @@ ModalFormUsuario.addEventListener('show.bs.modal', event => {
 
 })
 
+let Especialidades;
+//Cargar selects 
+// rellenarSelect('#especialidades-usuario', 'especialidades_api', 2, 'ID_ESPECIALIDAD', 'DESCRIPCION', {}, function (data) {
+//     Especialidades = new GuardarArreglo(data);
+// })
+
 async function getInfo(tip) {
 
-    //Cargar selects 
+    //Cargar selects
+    // await rellenarSelect('#especialidades-usuario', 'especialidades_api', 2, 'ID_ESPECIALIDAD', 'DESCRIPCION', {}, function (data) {
+    //     Especialidades = new GuardarArreglo(data);
+    //     // setSelectContent(Especialidades, '#')
+    // })
     await rellenarSelect('#cargo-usuario', 'cargos_api', 2, 'ID_CARGO', 'DESCRIPCION');
     await rellenarSelect('#tipo-usuario', 'tipos_usuarios_api', 2, 'ID_TIPO', 'DESCRIPCION');
     await rellenarSelect('#universidad-usuario', 'universidades_api', 2, 'ID_UNIVERSIDAD', 'DESCRIPCION')
@@ -101,43 +111,45 @@ $('#nueva-especialidad').click(function () {
 
 
 function setContenido(div) {
-
+    let numberID = getRandomInt(1000);
+    let idselect = 'especialidad-usuario' + numberID;
     let html = '<div class="row" id="contenedor"> <hr>' +
         '<p>Nueva especialidad</p>' +
         '<div class="col-6">' +
-        '<label for="universidad" class="form-label">Especialidad cursada</label>' +
-        '<input type="text" name="especialidad[]especialidad[]" class="form-control input-form"' +
-        'required>' +
+        '<label for="especialidad" class="form-label">Especialidad cursada</label>' +
+        '<select name="especialidades[' + numberID + '][especialidad]" id="' + idselect + '" class="input-form selectEspecialidades" required> </select>' +
+        // '<input type="text" name="especialidad[]especialidad[]" class="form-control input-form"' +
+        // 'required>' +
         '</div>' +
         '<div class="col-6">' +
         '<label for="titulo_id" class="form-label">Universidad de la especialidad' +
         '</label>' +
-        '<input type="text" name="titulo_id" class="form-control input-form"' +
+        '<input type="text" name="especialidades[' + numberID + '][universidad]" class="form-control input-form"' +
         'required>' +
         '</div>' +
         '<div class="col-6">' +
-        '<label for="cedula" class="form-label">Cédula profesional de la' +
+        '<label for="cedula" class="form-label">Cédula profesional de la ' +
         'especialidad</label >' +
-        '<input type="text" name="cedula" class="form-control input-form"' +
+        '<input type="text" name="especialidades[' + numberID + '][cedula]" class="form-control input-form"' +
         'required>' +
         '</div>' +
         '<div class="col-6">' +
-        '<label for="profesion" class="form-label">Certificado por</label>' +
-        '<input type="text" name="profesion" class="form-control input-form"' +
+        '<label for="profesion" class="form-label">Certificado por:</label>' +
+        '<input type="text" name="especialidades[' + numberID + '][certificado]" class="form-control input-form"' +
         'placeholder="Consejo que corresponda" required>' +
         '</div>' +
         '<div class="col-6">' +
-        '<label for="profesion" class="form-label">Numero de cerfiticado' +
+        '<label for="profesion" class="form-label">Numero de cerfiticado:' +
         'por</label>' +
-        '<input type="text" name="profesion" class="form-control input-form"' +
+        '<input type="text" name="especialidades[' + numberID + '][certificado_num]" class="form-control input-form"' +
         'placeholder="Consejo que corresponda" required>' +
         '</div>' +
         '<div class="col-6 d-flex justify-content-end align-items-end">' +
         '<button type="button" class="btn btn-hover me-2 eliminarEspecialidad" data-bs-id="1"> <i class="bi bi-trash"></i> </button>' +
         '</div>' +
         '</div>';
-
     $(div).append(html);
+    // setSelectContent(Especialidades.array, '#' + idselect)
 }
 
 $(document).on('click', '.eliminarEspecialidad', function () {

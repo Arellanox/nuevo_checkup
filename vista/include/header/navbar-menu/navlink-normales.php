@@ -54,24 +54,25 @@ if ($menu != "Recepción") : ?>
 
 <?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1) : ?>
   <li class="nav-item">
-    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
-      <i class="bi bi-briefcase"></i> Cargos
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
-      <i class="bi bi-briefcase"></i> Titulos
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
-      <i class="bi bi-briefcase"></i> Universidades
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
-      <i class="bi bi-briefcase"></i> Especialidades
-    </a>
+    <div class="dropdown ">
+      <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-journals"></i> Catalogos
+      </a>
+      <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
+        <a class="dropdown-a align-items-center rounded" type="button" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
+          <i class="bi bi-person-badge"></i> Cargos
+        </a>
+        <a class="dropdown-a align-items-center rounded" type="button" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
+          <i class="bi bi-briefcase"></i> Titulos
+        </a>
+        <a class="dropdown-a align-items-center rounded" type="button" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
+          <i class="bi bi-mortarboard"></i> Universidades
+        </a>
+        <a class="dropdown-a align-items-center rounded" type="button" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
+          <i class="bi bi-postcard"></i> Especialidades
+        </a>
+      </ul>
+    </div>
   </li>
   <li class="nav-item">
     <a href="#Usuarios" data-bs-dismiss="offcanvas" class="">

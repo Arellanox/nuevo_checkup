@@ -571,6 +571,20 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
   });
 }
 
+function setSelectContent(array, select, v, c, reset = 1, selected) {
+  console.log(array);
+  if (reset) $(select).find('option').remove().end()
+  for (const key in object) {
+    if (Object.hasOwnProperty.call(object, key)) {
+      const element = object[key];
+      console.log(element)
+      var o = new Option("option text", element[v]);
+      $(o).html(element[c]);
+      $(select).append(o);
+    }
+  }
+}
+
 
 function optionElement(select, value, content) {
   var o = new Option("option text", value);
