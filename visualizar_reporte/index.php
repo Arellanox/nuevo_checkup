@@ -29,10 +29,10 @@ $usuario_id = $_SESSION['id'];
 switch ($api) {
     case 'imagenologia':
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', 'mostrar');
+        $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', 'mostrar', 1);
         break;
     case 'oftalmo':
-        $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'mostrar', 0);
+        $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'mostrar', 1);
         break;
 
     case 'laboratorio':

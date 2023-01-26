@@ -574,9 +574,9 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
 function setSelectContent(array, select, v, c, reset = 1, selected) {
   console.log(array);
   if (reset) $(select).find('option').remove().end()
-  for (const key in object) {
-    if (Object.hasOwnProperty.call(object, key)) {
-      const element = object[key];
+  for (const key in array) {
+    if (Object.hasOwnProperty.call(array, key)) {
+      const element = array[key];
       console.log(element)
       var o = new Option("option text", element[v]);
       $(o).html(element[c]);

@@ -16,22 +16,25 @@ ModalFormUsuario.addEventListener('show.bs.modal', event => {
 
 })
 
-let Especialidades;
+let Especialidades, Universidades;
 //Cargar selects 
-// rellenarSelect('#especialidades-usuario', 'especialidades_api', 2, 'ID_ESPECIALIDAD', 'DESCRIPCION', {}, function (data) {
+// rellenarSelect('#e', 'especialidades_api', 2, 'ID_ESPECIALIDAD', 'DESCRIPCION', {}, function (data) {
 //     Especialidades = new GuardarArreglo(data);
 // })
 
 async function getInfo(tip) {
 
     //Cargar selects
-    // await rellenarSelect('#especialidades-usuario', 'especialidades_api', 2, 'ID_ESPECIALIDAD', 'DESCRIPCION', {}, function (data) {
-    //     Especialidades = new GuardarArreglo(data);
-    //     // setSelectContent(Especialidades, '#')
-    // })
+    await rellenarSelect('#e', 'especialidades_api', 2, 'ID_ESPECIALIDAD', 'DESCRIPCION', {}, function (data) {
+        Especialidades = new GuardarArreglo(data);
+        // setSelectContent(Especialidades, '#')
+    })
+    await rellenarSelect('#universidad-usuario', 'universidades_api', 2, 'ID_UNIVERSIDAD', 'DESCRIPCION', {}, function (data) {
+        Universidades = new GuardarArreglo(data);
+        // setSelectContent(Especialidades, '#')
+    })
     await rellenarSelect('#cargo-usuario', 'cargos_api', 2, 'ID_CARGO', 'DESCRIPCION');
     await rellenarSelect('#tipo-usuario', 'tipos_usuarios_api', 2, 'ID_TIPO', 'DESCRIPCION');
-    await rellenarSelect('#universidad-usuario', 'universidades_api', 2, 'ID_UNIVERSIDAD', 'DESCRIPCION')
     await rellenarSelect('#titulo-usuario', 'titulos_api', 2, 'ID_U_TITULO', 'DESCRIPCION')
 
 
@@ -112,20 +115,22 @@ $('#nueva-especialidad').click(function () {
 
 function setContenido(div) {
     let numberID = getRandomInt(1000);
-    let idselect = 'especialidad-usuario' + numberID;
+    let idselectespe = 'especialidad-usuario' + numberID;
+    let idselectuni = 'universidad-usuario' + numberID;
     let html = '<div class="row" id="contenedor"> <hr>' +
         '<p>Nueva especialidad</p>' +
         '<div class="col-6">' +
         '<label for="especialidad" class="form-label">Especialidad cursada</label>' +
-        '<select name="especialidades[' + numberID + '][especialidad]" id="' + idselect + '" class="input-form selectEspecialidades" required> </select>' +
+        '<select name="especialidades[' + numberID + '][especialidad]" id="' + idselectespe + '" class="input-form selectEspecialidades" required> </select>' +
         // '<input type="text" name="especialidad[]especialidad[]" class="form-control input-form"' +
         // 'required>' +
         '</div>' +
         '<div class="col-6">' +
         '<label for="titulo_id" class="form-label">Universidad de la especialidad' +
         '</label>' +
-        '<input type="text" name="especialidades[' + numberID + '][universidad]" class="form-control input-form"' +
-        'required>' +
+        '<select name="especialidades[' + numberID + '][universidad]" id="' + idselectuni + '" class="input-form selectEspecialidades" required> </select>' +
+        // '<input type="text" name="especialidades[' + numberID + '][universidad]" class="form-control input-form"' +
+        // 'required>' +
         '</div>' +
         '<div class="col-6">' +
         '<label for="cedula" class="form-label">Cédula profesional de la ' +
@@ -149,7 +154,8 @@ function setContenido(div) {
         '</div>' +
         '</div>';
     $(div).append(html);
-    // setSelectContent(Especialidades.array, '#' + idselect)
+    setSelectContent(Especialidades.array, '#' + idselectespe, 'ID_ESPECIALIDAD', 'DESCRIPCION', 1)
+    setSelectContent(Universidades.array, '#' + idselectuni, 'ID_UNIVERSIDAD', 'DESCRIPCION', 1)
 }
 
 $(document).on('click', '.eliminarEspecialidad', function () {

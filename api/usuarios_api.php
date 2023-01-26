@@ -37,23 +37,7 @@ $universidad = $_POST['universidad'];
 $profesion = $_POST['profesion'];
 $cedula = $_POST['cedula'];
 
-$params = array(
-    $id_usuario,
-    $cargo_id,
-    $tipo_id,
-    $nombre,
-    $paterno,
-    $materno,
-    $username,
-    $contrasenia,
-    $profesion,
-    $cedula,
-    $telefono,
-    $correo,
-    $bloqueado,
-    $titulo_id,
-    $universidad
-);
+
 
 # especialidades
 $id_u_especialidad = $_POST['id_u_especialidad'];
@@ -78,9 +62,29 @@ switch ($api) {
         ];
         $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, $opciones);
 
+        $params = array(
+            $id_usuario,
+            $cargo_id,
+            $tipo_id,
+            $nombre,
+            $paterno,
+            $materno,
+            $username,
+            $contrasenia,
+            $profesion,
+            $cedula,
+            $telefono,
+            $correo,
+            $bloqueado,
+            $titulo_id,
+            $universidad
+        );
+
         $last_id = $master->insertByProcedure('sp_usuarios_g', $params);
-        foreach ($especialidades as $current) {
-            $response = $master->insertByProcedure("sp_u_especialidades_g", [null, $last_id, $current['especialidad'], $current['cedula'], $current['universidad'], $current['certificado'], $current['certificado_num']]);
+        if (count($especialidades)) {
+            foreach ($especialidades as $current) {
+                $response = $master->insertByProcedure("sp_u_especialidades_g", [null, $last_id, $current['especialidad'], $current['cedula'], $current['universidad'], $current['certificado'], $current['certificado_num']]);
+            }
         }
 
         echo $master->returnApi($response);
