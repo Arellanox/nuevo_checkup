@@ -7,9 +7,9 @@ tablaMain = $('#TablaListaConsultorio').DataTable({
   lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
     dataType: 'json',
-    data: { api: 1, estado: 1 },
+    data: { api: 5, area_id: 1 },
     method: 'POST',
-    url: '../../../api/recepcion_api.php',
+    url: '../../../api/turnos_api.php',
     beforeSend: function () { loader("In") },
     complete: function () { loader("Out") },
     dataSrc: 'response.data'

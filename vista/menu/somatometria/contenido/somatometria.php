@@ -57,7 +57,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">cm</span>
                 </div>
               </div>
@@ -70,7 +70,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">kg</span>
                 </div>
               </div>
@@ -83,7 +83,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">kg/m2</span>
                 </div>
               </div>
@@ -96,7 +96,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">C</span>
                 </div>
               </div>
@@ -109,7 +109,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">r/m</span>
                 </div>
               </div>
@@ -122,7 +122,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">mmHg</span>
                 </div>
               </div>
@@ -135,7 +135,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">mmHg</span>
                 </div>
               </div>
@@ -148,7 +148,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">bpm</span>
                 </div>
               </div>
@@ -161,7 +161,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">kg</span>
                 </div>
               </div>
@@ -174,7 +174,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">cm</span>
                 </div>
               </div>
@@ -187,7 +187,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">%</span>
                 </div>
               </div>
@@ -200,7 +200,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">%</span>
                 </div>
               </div>
@@ -213,7 +213,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">%</span>
                 </div>
               </div>
@@ -226,7 +226,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">mm</span>
                 </div>
               </div>
@@ -239,7 +239,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">tmb</span>
                 </div>
               </div>
@@ -252,7 +252,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">%</span>
                 </div>
               </div>
@@ -265,7 +265,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="number" class="form-control input-form" name="medidas[]resultado[]" placeholder=""  > <!-- required -->
+                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">años</span>
                 </div>
               </div>
@@ -282,7 +282,7 @@
   </div>
 </div>
 <style media="screen">
-  #TablaSignos_filter{
+  #TablaSignos_filter {
     display: none
   }
 </style>

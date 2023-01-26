@@ -324,7 +324,8 @@ class Miscelaneus
             case 3:
             case '3': #Oftalmologia
                 $arregloPaciente = $this->getBodyInfoOftal($master, $turno_id);
-                $datos_medicos = array();
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
+                $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_OFTALMO'];
                 $carpeta_guardado = 'oftalmologia';
                 break;
@@ -385,7 +386,7 @@ class Miscelaneus
 
     private function getMedicalCarrier($info = array())
     {
-
+        // print_r($info);
         $carreraPrincipal = array_filter($info, function ($obj) {
             $r = $obj['ESPECIALIDAD'] == 0;
             return $r;

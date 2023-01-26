@@ -41,6 +41,8 @@ class GuardarArreglo {
 
 }
 
+const objectoArreglo = new GuardarArreglo([1, 2, 3, 4])
+
 var Base64 = (function () {
 
   var ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';

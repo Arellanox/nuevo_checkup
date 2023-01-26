@@ -12,3 +12,7 @@ include "user_editar_vista.html";
 
 //Cargos, titulos, universidades
 include "oneValue_crear.html";
+
+
+//Form nuevo usuario
+include "user_form_usuario.html";

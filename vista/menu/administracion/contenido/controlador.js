@@ -4,6 +4,10 @@ hasLocation();
 $(window).on("hashchange", function (e) {
   hasLocation();
 });
+
+
+
+selectFormUsuario = 0;
 // ObtenerTabla o cambiar
 function obtenerContenidoUsuarios() {
   obtenerTitulo("Usuarios"); //Aqui mandar el nombre de la area
@@ -41,6 +45,9 @@ function obtenerContenidoUsuarios() {
 //     $.getScript("contenido/js/botones-segmento.js");
 //   });
 // }
+
+
+
 
 function hasLocation() {
   if (validarVista('ADMINISTRACIÓN')) {

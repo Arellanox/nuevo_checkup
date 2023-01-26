@@ -3,6 +3,9 @@ $.post("modals/a_modals.php", function (html) {
 }).done(function () {
    // Modal para registrar usuario
    $.getScript('modals/js/user_agregar_usuario.js');
+   //Modal para form usuario
+   $.getScript('modals/js/user_form_usuario.js');
+
    // Modal para registrar usuario
    $.getScript('modals/js/user_editar_usuario.js');
    // Modal para editar areas

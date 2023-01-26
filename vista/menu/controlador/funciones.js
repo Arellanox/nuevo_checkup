@@ -691,10 +691,10 @@ function alertMensajeConfirm(options, callback, set = 0) {
         options['cancelButtonText'] = 'Cancelar'
       if (!options['allowOutsideClick'])
         options['allowOutsideClick'] = false
-      if (!options['timer'])
-        options['timer'] = 4000
-      if (!options['timerProgressBar'])
-        options['timerProgressBar'] = true
+      // if (!options['timer'])
+      //   options['timer'] = 4000
+      // if (!options['timerProgressBar'])
+      //   options['timerProgressBar'] = true
       //
       break;
     default:
