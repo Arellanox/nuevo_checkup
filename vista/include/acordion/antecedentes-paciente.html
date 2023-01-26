@@ -1651,10 +1651,12 @@
 
 <script type="text/javascript">
   jQuery(document).on("change ,  keyup", "input[type='radio']", function () {
-    var parent_element = jQuery(this).closest("div[class='row']");
+    var parent_element = jQuery(this).closest("div[class='row d-flex justify-content-center']");
+    console.log(parent_element)
     if (this.value == true) {
       var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
       console.log(collapID)
+      //HTML
       if (typeof collapID === "undefined") {
         // alert('indefinido')
         var collapID = jQuery(parent_element).children("div[class='onlyMedico collapse']").attr("id");
