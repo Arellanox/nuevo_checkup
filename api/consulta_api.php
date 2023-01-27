@@ -4,9 +4,9 @@ require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
+    // $tokenVerification->logout();
+    // exit;
 }
 
 #api
