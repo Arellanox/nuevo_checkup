@@ -25,8 +25,8 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
-$api = 'etiquetas';
-$turno_id = 193;
+// $api = 'etiquetas';
+// $turno_id = 193;
 
 switch ($api) {
     case 'imagenologia':
@@ -41,7 +41,7 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, 6, 'resultados', 'mostrar', 1);
         break;
     case 'etiquetas':
-        $r = $master->reportador($master, $turno_id, 0,"etiquetas", "mostrar", 1);
+        $r = $master->reportador($master, $turno_id, 0, "etiquetas", "mostrar", 1);
         break;
 
     default:
