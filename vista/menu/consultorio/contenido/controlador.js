@@ -37,7 +37,7 @@ function obtenerContenidoAntecedentes(data) {
     // $.getScript("modals/controlador-perfilPaciente.js");
     // Funciones
     $.getScript('contenido/js/consultorio-paciente.js').done(function () {
-      obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'], pacienteActivo.array['CLIENTE'])
+      obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'], pacienteActivo.array['CLIENTE'], pacienteActivo.array['CURP'])
       // Botones
       $.getScript("contenido/js/consultorio-paciente-botones.js");
     });
@@ -80,7 +80,7 @@ function obtenerContenidoConsulta(data, idconsulta) {
 
 // METODOS
 // Rellena la plantilla con metodos de espera Async Await
-async function obtenerConsultorio(id, idTurno, cliente) {
+async function obtenerConsultorio(id, idTurno, cliente, curp) {
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   // alert("Antes de antecedentes")
@@ -93,7 +93,8 @@ async function obtenerConsultorio(id, idTurno, cliente) {
   $('.div-btn-guardarPsico').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
-  await obtenerAntecedentesPaciente(idTurno);
+  await obtenerAntecedentesPaciente(null, curp);
+  console.log("si");
   // setValues(idTurno) //llamar los valores para los antecedentes
 
   // alert("Antes de notas historial")
