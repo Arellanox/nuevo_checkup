@@ -93,7 +93,7 @@ async function obtenerConsultorio(id, idTurno, cliente) {
   $('.div-btn-guardarPsico').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
-  await obtenerAntecedentesPaciente(idTurno, 'ANT');
+  await obtenerAntecedentesPaciente(idTurno);
   // setValues(idTurno) //llamar los valores para los antecedentes
 
   // alert("Antes de notas historial")

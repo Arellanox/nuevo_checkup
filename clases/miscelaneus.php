@@ -283,7 +283,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $usuario = 0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -338,7 +338,7 @@ class Miscelaneus
                 break;
         }
 
-        if($area_id==0){
+        if ($area_id == 0) {
             $area_id = 6;
         }
         $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
@@ -358,10 +358,16 @@ class Miscelaneus
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
-        return $pdf->build();
+        $renderpdf = $pdf->build();
+
+        if ($lab == 1 && $tipo == 'url') {
+            $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
+        }
+        return $renderpdf;
     }
 
-    private function getBodyInfoLabels($master, $id_turno){
+    private function getBodyInfoLabels($master, $id_turno)
+    {
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
         $infoEtiqueta = $master->getByProcedure('sp_toma_de_muestra_servicios_b', [null, 6, $id_turno]);
@@ -415,7 +421,6 @@ class Miscelaneus
         );
 
         return $arregloPaciente;
-
     }
 
     private function getBodyInfoImg($master, $turno_id, $area_id)
