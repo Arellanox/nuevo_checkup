@@ -30,7 +30,7 @@ $('#agregar-nota-historial').on('click', function () {
 $(document).on('click', '.eliminarNota', function () {
   let id = $(this).attr('data-bs-id');
   let button = $(this);
-  button.prop('disabled',true);
+  button.prop('disabled', true);
   $.ajax({
     url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
     type: "POST",
@@ -76,7 +76,7 @@ $(document).on('click', '.guardarAnt ', function (event) {
   // console.log(parent_element);
   let formData = new FormData(document.getElementById(parent_element));
   // console.log(formData);
-  formData.set('api', 17);
+  formData.set('api', 16);
   formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
 
   $.ajax({
@@ -86,7 +86,7 @@ $(document).on('click', '.guardarAnt ', function (event) {
     processData: false,
     contentType: false,
     dataType: 'json',
-    beforeSend: function() {
+    beforeSend: function () {
       // alert('Enviando')
       alertToast('Guardando...', 'info')
     },
