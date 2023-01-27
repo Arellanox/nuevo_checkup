@@ -304,7 +304,8 @@ class Miscelaneus
             case 6:
             case '6':
                 $arregloPaciente = $this->getBodyInfoLab($master, $turno_id);
-                $infoPaciente[0]['CLAVE_IMAGEN'] = $arregloPaciente['clave'];
+                $clave = $master->getByProcedure("sp_generar_clave", []);
+                $infoPaciente[0]['CLAVE_IMAGEN'] = $clave[0]['TOKEN'];
                 $arregloPaciente = $arregloPaciente['global'];
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
                 $carpeta_guardado = 'lab';

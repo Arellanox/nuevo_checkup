@@ -34,7 +34,7 @@
             bottom: -220px;
             left: 25px;
             right: 25px;
-            height: 260px;
+            height: 250px;
             /* background-color: moccasin; */
         }
 
@@ -221,18 +221,8 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-// Verifica si mandan firma o si existe en el arreglo
-if (isset($encabezado->FIRMA)) {
-    $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
-    $encode_firma = base64_encode($ruta_firma);
-} else {
-    $encode_firma = null;
-}
-
-if (!isset($qr)) {
-    $qr = null;
-}
-
+$ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
+$encode_firma = base64_encode($ruta_firma);
 ?>
 
 <body>
@@ -325,30 +315,15 @@ if (!isset($qr)) {
                     <td colspan="10">
                     </td>
                     <td colspan="2" style="text-align: left;">
-                        <?php
-                        if ($preview == 0) {
-                            echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
-                        }
-                        ?>
+                        <?php echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
-                        <?php
-                        if ($preview == 0) {
-                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                        }
-                        ?>
+                        <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                        <strong style="font-size: 12px;">
-                            <?php
-                            if ($preview == 0) {
-                                echo  "Q.F.B. " . $encabezado->LABORATORISTA . "<br>";
-                                echo $encabezado->UNIVERSIDAD . " - Cédula profesional: " . $encabezado->CEDULA;
-                            }
-                            ?>
-                        </strong>
+                        <strong style="font-size: 12px;">Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445</strong>
                     </td>
                 </tr>
             </tbody>
@@ -370,10 +345,10 @@ if (!isset($qr)) {
 
             foreach ($area->estudios as $key => $estudio) {
 
-                echo "<h4 style='padding-top: 15px'>" . $estudio->estudio . "</h4>";
+                echo "<h4 style='padding-top: 12px'>" . $estudio->estudio . "</h4>";
 
         ?>
-                <table class="result" style="padding-top: 7px;">
+                <table class="result" style="padding-top: 5px;">
                     <thead>
                         <tr>
                             <th class="col-one">Nombre</th>
