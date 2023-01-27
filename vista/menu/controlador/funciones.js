@@ -923,7 +923,7 @@ function bugGetPanel(divClass, loader, loaderDiv1) {
 }
 
 // Antecedentes del paciente
-function obtenerAntecedentesPaciente(id) {
+function obtenerAntecedentesPaciente(id, curp = 0) {
   return new Promise(resolve => {
     let arrayDivs = new Array;
     var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row']")
@@ -938,7 +938,8 @@ function obtenerAntecedentesPaciente(id) {
       url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
       data: {
         api: 10,
-        turno_id: id
+        turno_id: id,
+        curp: curp
       },
       type: "POST",
       dataType: "json",
