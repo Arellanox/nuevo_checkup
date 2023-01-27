@@ -216,12 +216,13 @@ function mostrarAntecedente(btn, form) {
 
 var tipoPaciente = "0"; //Particular por defecto
 $('#actualizarForm').click(function () {
-
+  curp = $('#curp-paciente').val();
   if (ant) {
     $('#cuestionadioRegistro').fadeOut(100);
     // $('input[type="radio"]').prop("checked", true)
   } else {
     obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
+    obtenerAntecedentesPaciente(null, curp);
     console.log(ant)
   }
 
@@ -234,7 +235,7 @@ $('#actualizarForm').click(function () {
   // $('#formDIV *').prop('disabled',false);
 
   // $('#btn-formregistrar-agenda').prop('disabled',false);
-  curp = $('#curp-paciente').val();
+
   if (curp.length > 0) {
     $.ajax({
       data: getDataAjax(curp),
