@@ -185,40 +185,40 @@ tablaRecetas = $('#tablaListaRecetas').DataTable({
         dataSrc: 'response.data'
     },
     columns: [{
-            data: 'NOMBRE_GENERICO'
-        },
-        {
-            data: 'FORMA_FARMACEUTICA'
-        },
-        {
-            data: 'DOSIS'
-        },
-        {
-            data: 'PRESENTACION'
-        },
-        {
-            data: 'FRECUENCIA'
-        },
-        {
-            data: 'VIA_DE_ADMINISTRACION'
-        },
-        {
-            data: 'FORMA_FARMACEUTICA'
-        },
-        {
-            data: 'INDICACIONES_PARA_EL_USO'
-        },
-        {
-            data: 'ID_RECETA',
-            render: function (data) {
-                return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarRecetaTabla" style="margin: -15px;" data-bs-id ="' + data + '"> <i class="bi bi-trash"></i> </button> </div>';
-            }
+        data: 'NOMBRE_GENERICO'
+    },
+    {
+        data: 'FORMA_FARMACEUTICA'
+    },
+    {
+        data: 'DOSIS'
+    },
+    {
+        data: 'PRESENTACION'
+    },
+    {
+        data: 'FRECUENCIA'
+    },
+    {
+        data: 'VIA_DE_ADMINISTRACION'
+    },
+    {
+        data: 'FORMA_FARMACEUTICA'
+    },
+    {
+        data: 'INDICACIONES_PARA_EL_USO'
+    },
+    {
+        data: 'ID_RECETA',
+        render: function (data) {
+            return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarRecetaTabla" style="margin: -15px;" data-bs-id ="' + data + '"> <i class="bi bi-trash"></i> </button> </div>';
         }
+    }
     ],
     columnDefs: [{
         "width": "5px",
         "targets": 8
-    }, ],
+    },],
 })
 
 tablaOdontograma = $('#tablaOdontograma').DataTable({
@@ -244,38 +244,38 @@ tablaOdontograma = $('#tablaOdontograma').DataTable({
     },
 
     columns: [{
-            data: 'DIAGNOSTICO'
-        },
-        {
-            data: 'TRATAMIENTO'
-        },
-        {
-            data: 'PIEZA_DENTAL'
-        },
-        {
-            data: 'CARA'
-        },
-        {
-            data: 'COMENTARIOS'
-        },
-        {
-            data: 'ID_ODONTOGRAMA',
-            render: function (data) {
-                return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarOdontograma" style="margin: -15px;" data-bs-id ="' + data + '"> <i class="bi bi-trash"></i> </button> </div>';
-            }
+        data: 'DIAGNOSTICO'
+    },
+    {
+        data: 'TRATAMIENTO'
+    },
+    {
+        data: 'PIEZA_DENTAL'
+    },
+    {
+        data: 'CARA'
+    },
+    {
+        data: 'COMENTARIOS'
+    },
+    {
+        data: 'ID_ODONTOGRAMA',
+        render: function (data) {
+            return '<div class=" d-flex justify-content-center m-2"> <button type="button" class="btn btn-hover eliminarOdontograma" style="margin: -15px;" data-bs-id ="' + data + '"> <i class="bi bi-trash"></i> </button> </div>';
         }
-        
+    }
+
 
 
     ],
     columnDefs: [{
-            "width": "10%",
-            "target": 3
-        },
-        {
-            "width": "10%",
-            "target": 4
-        }
+        "width": "10%",
+        "target": 3
+    },
+    {
+        "width": "10%",
+        "target": 4
+    }
     ]
 })
 

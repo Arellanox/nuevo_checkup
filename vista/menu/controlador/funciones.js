@@ -926,12 +926,12 @@ function bugGetPanel(divClass, loader, loaderDiv1) {
 function obtenerAntecedentesPaciente(id, curp = 0) {
   return new Promise(resolve => {
     let arrayDivs = new Array;
-    var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row']")
-    var divNoPatologicos = $('#collapse-nopatologicos-Target').find("div[class='row']")
-    var divHeredofamiliares = $('#collapse-anteHeredo-Target').find("div[class='row']")
-    var divPsicologicos = $('#collapse-antPsico-Target').find("div[class='row']")
-    var divNutricionales = $('#collapse-antNutri-Target').find("div[class='row']")
-    var divLaboral = $('#collapse-MedLabo-Target').find("div[class='row']")
+    var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row d-flex justify-content-center']")
+    var divNoPatologicos = $('#collapse-nopatologicos-Target').find("div[class='row d-flex justify-content-center']")
+    var divHeredofamiliares = $('#collapse-anteHeredo-Target').find("div[class='row d-flex justify-content-center']")
+    var divPsicologicos = $('#collapse-antPsico-Target').find("div[class='row d-flex justify-content-center']")
+    var divNutricionales = $('#collapse-antNutri-Target').find("div[class='row d-flex justify-content-center']")
+    var divLaboral = $('#collapse-MedLabo-Target').find("div[class='row d-flex justify-content-center']")
     arrayDivs.push(divPatologicos, divNoPatologicos, divHeredofamiliares, divPsicologicos, divNutricionales, divLaboral)
 
     $.ajax({
@@ -986,8 +986,8 @@ function setValuesAntecedentesMetodo(DIV, array) {
 
     }
   } else {
-    // console.log(DIV)
-    // console.log(array);
+    console.log(DIV)
+    console.log(array);
     alertSelectTable('Algunos antecedentes no se cargaron correctamente', 'info', 6000)
   }
 }

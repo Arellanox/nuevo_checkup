@@ -215,14 +215,14 @@ function mostrarAntecedente(btn, form) {
 }
 
 var tipoPaciente = "0"; //Particular por defecto
-$('#actualizarForm').click(function () {
+$('#actualizarForm').click(async function () {
   curp = $('#curp-paciente').val();
   if (ant) {
     $('#cuestionadioRegistro').fadeOut(100);
     // $('input[type="radio"]').prop("checked", true)
   } else {
-    obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
-    obtenerAntecedentesPaciente(null, curp);
+    await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
+    await obtenerAntecedentesPaciente(null, curp);
     console.log(ant)
   }
 
@@ -258,7 +258,7 @@ $('#actualizarForm').click(function () {
             $('#curp-paciente').prop('readonly', true);
             $('#eliminarForm').prop('disabled', false);
             document.getElementById("mensaje").innerHTML = '<div class="alert alert-success" role="alert">' +
-              'CURP aceptada, concluya su registro seleccionando el estudio a realizar.' +
+              'CURP aceptada, concluya su registro y verifiqué los siguientes campos a continuación.' +
               '</div>';
 
 

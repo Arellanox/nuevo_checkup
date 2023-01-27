@@ -14,6 +14,7 @@ $api = $_POST['api'];
 
 #buscar
 $id_paciente = $_POST['id_paciente'];
+$curp = $_POST['curp'];
 
 #insertar   
 $id_consulta = $_POST['id_consulta'];
@@ -53,7 +54,8 @@ $nutricionParams = array(
     $cintura,
     $agua,
     $musculo,
-    $abdomen);
+    $abdomen
+);
 
 
 # exploracion clinica
@@ -113,7 +115,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_consultorio_consulta_b", [$id_consulta,$turno_id,$id_paciente]);
+        $response = $master->getByProcedure("sp_consultorio_consulta_b", [$id_consulta, $turno_id, $id_paciente]);
         break;
     case 3:
         # actualizar
@@ -126,22 +128,22 @@ switch ($api) {
         break;
     case 5:
         # guardar consulta / nutricion tabla
-        $response = $master->insertByProcedure("sp_consultorio_nutricion_g",$nutricionParams);
+        $response = $master->insertByProcedure("sp_consultorio_nutricion_g", $nutricionParams);
         break;
     case 6:
         # insertar exploracion clinica
-        $response = $master->insertByProcedure("sp_consultorio_exploracion_clinica_g",[$id_exploracion_clinica,$turno_id,$exploracion_tipo_id,$exploracion]);
+        $response = $master->insertByProcedure("sp_consultorio_exploracion_clinica_g", [$id_exploracion_clinica, $turno_id, $exploracion_tipo_id, $exploracion]);
         break;
     case 7:
         # eliminar exploracion clinica
-        $response = $master->deleteByProcedure("sp_consultorio_exploracion_clinica_e",[$id_exploracion_clinica]);
+        $response = $master->deleteByProcedure("sp_consultorio_exploracion_clinica_e", [$id_exploracion_clinica]);
         break;
     case 8:
         # insertar y/o actualizar  anamnesis-aparatos
-        $anamnesis = array_slice($_POST,0,count($_POST)-2);
+        $anamnesis = array_slice($_POST, 0, count($_POST) - 2);
         //    print_r($payload);
         foreach ($anamnesis as $key => $value) {
-            if(count($value)==3){
+            if (count($value) == 3) {
                 $new = array(
                     $turno_id,
                     $value[0], # id subtipo
@@ -149,7 +151,7 @@ switch ($api) {
                     $value[2] #notas
                 );
             } else {
-                if(is_numeric($value[1])){
+                if (is_numeric($value[1])) {
                     $new = array(
                         $turno_id,
                         $value[0], # id subtipo
@@ -163,30 +165,28 @@ switch ($api) {
                         null, # id respuesta
                         $value[1] #notas
                     );
-
                 }
             }
 
             $response = $master->insertByProcedure("sp_consultorio_anamnesis_aparatos_g", $new);
-
         }
         break;
     case 9:
         # insetar receta
-        $response = $master->insertByProcedure("sp_consultorio_recetas_g",$recetaParams);
+        $response = $master->insertByProcedure("sp_consultorio_recetas_g", $recetaParams);
         break;
 
     case 10:
         # recuperar los antecedentes del turno
-        $response = $master->getByProcedure('sp_consultorio_antecedentes_b',[$turno_id,$curp]);
-
+        $response = $master->getByProcedure('sp_consultorio_antecedentes_b', [$turno_id, $curp]);
+        // print_r(($response));
         $antecedentes = array();
         $idTipo = 1;
         $count = 0;
         $tipoArray = array();
 
-        foreach($response as $ante){
-            if($ante['ID_TIPO']==$idTipo){
+        foreach ($response as $ante) {
+            if ($ante['ID_TIPO'] == $idTipo) {
                 $subtipoArray = array(
                     $ante['ID_RESPUESTA'],
                     $ante['NOTAS'],
@@ -200,9 +200,9 @@ switch ($api) {
                 $tipoArray  = array();
 
                 $subtipoArray = array(
-                  $ante['ID_RESPUESTA'],
-                  $ante['NOTAS'],
-                  $ante['ID_SUBTIPO']  
+                    $ante['ID_RESPUESTA'],
+                    $ante['NOTAS'],
+                    $ante['ID_SUBTIPO']
                 );
 
                 $tipoArray[] = $subtipoArray;
@@ -215,41 +215,41 @@ switch ($api) {
 
     case 11:
         # terminar consulta
-        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta',[$id_consulta]);
+        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta]);
         break;
     case 12:
         # buscar las exploraciones clinicas.
-        $response = $master->getByProcedure('sp_consultorio_exploracion_clinica_b',[$turno_id]);
-        
+        $response = $master->getByProcedure('sp_consultorio_exploracion_clinica_b', [$turno_id]);
+
         break;
     case 13:
         # recuperar los datos nutricionales
-        $response = $master->getByProcedure('sp_consultorio_nutricion_b',[$turno_id]);
+        $response = $master->getByProcedure('sp_consultorio_nutricion_b', [$turno_id]);
         break;
     case 14:
         # recuperar los datos de la receta
-        $response = $master->getByProcedure('sp_consultorio_recetas_b',[$turno_id]);
+        $response = $master->getByProcedure('sp_consultorio_recetas_b', [$turno_id]);
         break;
     case 15:
         # recuperar anamnesis por aparatos  
-        $response = $master->getByProcedure('sp_consultorio_anamnesis_aparatos_b',[$turno_id]);
+        $response = $master->getByProcedure('sp_consultorio_anamnesis_aparatos_b', [$turno_id]);
         break;
     case 16:
         # actualizar los antecedentes del turno
-        $antecedentes = array_slice($_POST,0,count($_POST)-2);
+        $antecedentes = array_slice($_POST, 0, count($_POST) - 2);
 
-        foreach($antecedentes as $current){
-            $response = $master->updateByProcedure('sp_consultorio_antecedentes_a',[$turno_id,$current[0],$current[1],$current[2]]);
+        foreach ($antecedentes as $current) {
+            $response = $master->updateByProcedure('sp_consultorio_antecedentes_a', [$turno_id, $current[0], $current[1], $current[2]]);
         }
 
         break;
     case 17:
         # eliminar receta
-        $response = $master->deleteByProcedure('sp_consultorio_recetas_e',[$id_receta]);
+        $response = $master->deleteByProcedure('sp_consultorio_recetas_e', [$id_receta]);
         break;
     case 18:
         #insertar resultado del odontograma
-        $response = $master->insertByProcedure("sp_consultorio_odontograma_g",$odonto_array);
+        $response = $master->insertByProcedure("sp_consultorio_odontograma_g", $odonto_array);
         break;
     case 19:
         # recuperar detalles de odontograma
@@ -257,10 +257,10 @@ switch ($api) {
         break;
     case 20:
         # eliminar odontograma
-        $response = $master->deleteByProcedure('sp_consultorio_odontograma_e',[$id_odontograma]);
+        $response = $master->deleteByProcedure('sp_consultorio_odontograma_e', [$id_odontograma]);
         break;
     default:
-    $response = "api no reconocida";
+        $response = "api no reconocida";
         break;
 }
 
