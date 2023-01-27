@@ -283,10 +283,10 @@ $(document).on('click', 'eliminarOdontograma', function (event) {
 $(document).on('click', '.guardarAnamn ', function (event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
-  button = $('.guardarAnamn')
+  button = $(this)
   button.prop('disabled', true);
   var parent_element = button.closest("form").attr('id');
-  // console.log(parent_element);
+  console.log(parent_element);
   let formData = new FormData(document.getElementById(parent_element));
   // console.log(formData);
   formData.set('api', 8);

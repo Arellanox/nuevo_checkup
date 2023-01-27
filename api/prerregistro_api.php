@@ -115,7 +115,7 @@ switch($api){
         exit;
 
         break;
-    case 2:
+    case 2: #No se usa
      # recuperar de los ultimos antecedentes registrardos de un paciente por medio de la curp
         #buscar el paciente por medio de la curp
         $paciente = $master->getByProcedure('sp_pacientes_b',array(null,$curp,$pasaporte));
@@ -191,4 +191,3 @@ switch($api){
         echo "La selección actual no esta disponible. (API).";
     break;
 }
-?>
