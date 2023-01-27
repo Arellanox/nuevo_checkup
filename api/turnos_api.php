@@ -171,9 +171,9 @@ switch ($api) {
         //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
 
         if (isset($confirmar)) {
-            # generar el reporte
-
-            crearReporteLaboratorio($id_area, $id_turno);
+            # generar el reporte de laboratorio
+            $r = $master->reportador($master,$id_turno,$id_area,'resultados','url');
+            //crearReporteLaboratorio($id_area, $id_turno);
         }
 
         break;

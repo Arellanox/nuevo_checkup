@@ -178,7 +178,7 @@ switch ($api) {
 
     case 10:
         # recuperar los antecedentes del turno
-        $response = $master->getByProcedure('sp_consultorio_antecedentes_b',[$turno_id]);
+        $response = $master->getByProcedure('sp_consultorio_antecedentes_b',[$turno_id,$curp]);
 
         $antecedentes = array();
         $idTipo = 1;

@@ -294,6 +294,13 @@ class Miscelaneus
 
         #Recuperamos el cuerpo y asignamos titulo si es necesario
         switch ($area_id) {
+            case 0:
+                # para las etiquetas
+                $arregloPaciente = $this->getBodyInfoLabels($master, $turno_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
+                $carpeta_guardado = "etiquetas";
+                $datos_medicos = array();
+                break;
             case 6:
             case '6':
                 $arregloPaciente = $this->getBodyInfoLab($master, $turno_id);
@@ -330,6 +337,10 @@ class Miscelaneus
                 $carpeta_guardado = 'oftalmologia';
                 break;
         }
+
+        if($area_id==0){
+            $area_id = 6;
+        }
         $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
         #Crear directorio
@@ -344,12 +355,67 @@ class Miscelaneus
         # Crear el directorio si no existe
         $r = $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
-        $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11, "datos_medicos" => $datos_medicos);
-        // echo 1;
-        // print_r($pie_pagina['datos_medicos'][0]['ESPECIALIDADES']);
-        // print_r([json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview]);
+        $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
         return $pdf->build();
+    }
+
+    private function getBodyInfoLabels($master, $id_turno){
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
+        $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+        $infoEtiqueta = $master->getByProcedure('sp_toma_de_muestra_servicios_b', [null, 6, $id_turno]);
+
+        $arrayEtiqueta = [];
+        $arrayEtiquetaEstudios = [];
+        $content = "";
+        $muestra = "";
+        for ($i = 0; $i < count($infoEtiqueta); $i++) {
+
+            for ($e = 0; $e < count($infoEtiqueta); $e++) {
+
+                if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
+                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
+                    array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
+                }
+            }
+
+
+            if ($content !== $infoEtiqueta[$i]['CONTENEDOR']) {
+                $content = $infoEtiqueta[$i]['CONTENEDOR'];
+                $muestra = $infoEtiqueta[$i]['MUESTRA'];
+                $array1 = array(
+                    'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
+                    'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
+                    'ESTUDIOS' => $arrayEtiquetaEstudios,
+                );
+                array_push($arrayEtiqueta, $array1);
+                $arrayEtiquetaEstudios = [];
+            } else if ($muestra !== $infoEtiqueta[$i]['MUESTRA']) {
+                $content = $infoEtiqueta[$i]['CONTENEDOR'];
+                $muestra = $infoEtiqueta[$i]['MUESTRA'];
+                $array1 = array(
+                    'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
+                    'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
+                    'ESTUDIOS' => $arrayEtiquetaEstudios,
+                );
+                array_push($arrayEtiqueta, $array1);
+                $arrayEtiquetaEstudios = [];
+            }
+        }
+
+        $arregloPaciente = array(
+            'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+            'FECHA_TOMA' => $infoPaciente[0]['FECHA_TOMA'],
+            "FOLIO" => $infoPaciente[0]['FOLIO'],
+            "EDAD" => $infoPaciente[0]['EDAD'],
+            'SEXO' => $infoPaciente[0]['SEXO'],
+            'BARRAS' => $infoPaciente[0]['CODIGO_BARRAS'],
+            'CONTENEDORES' => $arrayEtiqueta
+        );
+
+        return $arregloPaciente;
+
     }
 
     private function getBodyInfoImg($master, $turno_id, $area_id)

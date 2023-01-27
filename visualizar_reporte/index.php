@@ -25,7 +25,9 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
-// $api = 'oftalmo';
+$api = 'etiquetas';
+$turno_id = 193;
+
 switch ($api) {
     case 'imagenologia':
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
@@ -37,6 +39,9 @@ switch ($api) {
 
     case 'laboratorio':
         $r = $master->reportador($master, $turno_id, 6, 'resultados', 'mostrar', 1);
+        break;
+    case 'etiquetas':
+        $r = $master->reportador($master, $turno_id, 0,"etiquetas", "mostrar", 1);
         break;
 
     default:
