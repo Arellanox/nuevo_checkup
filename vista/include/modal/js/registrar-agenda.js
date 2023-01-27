@@ -134,9 +134,10 @@ $("#formRegistrarAgenda").submit(function (event) {
           if (mensajeAjax(data)) {
             if (data.response.code == 1) {
               //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
-              alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
-
-              $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)</div>')
+              // alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
+              alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, identifique con el siguiente prefolio(' + data.response.data + ')')
+              // $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)</div>')
+              $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, identifiquese con el siguiente prefolio(<strong class="bg-danger">(' + data.response.data + ') en bimo</strong>)</div>')
 
 
 
