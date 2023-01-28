@@ -221,7 +221,7 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
+$ruta_firma = file_get_contents('../pdf/public/assets/firma_quiroz.png');
 $encode_firma = base64_encode($ruta_firma);
 
 ?>
@@ -323,6 +323,7 @@ $encode_firma = base64_encode($ruta_firma);
                     <td colspan="2" style="text-align: left;">
                         <?php
                         if ($preview == 0) {
+
                             echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
                         }
                         ?>
