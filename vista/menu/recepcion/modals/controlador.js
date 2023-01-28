@@ -15,4 +15,5 @@ $.post("modals/m_recepcion.php", function (html) {
   $.getScript('modals/js/p_registro.js');
   $.getScript(http + servidor + "/nuevo_checkup/vista/include/modal/js/registrar-agenda.js");
   $.getScript(http + servidor + "/nuevo_checkup/vista/include/modal/js/registrar-paciente.js");
+  $.getScript(http + servidor + "/nuevo_checkup/vista/include/modal/js/editar-paciente.js");
 });
