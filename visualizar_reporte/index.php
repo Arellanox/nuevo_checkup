@@ -25,8 +25,8 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
-// $api = 'etiquetas';
-// $turno_id = 193;
+// $api = 'imagenologia';
+// $turno_id = 221;
 
 switch ($api) {
     case 'imagenologia':
