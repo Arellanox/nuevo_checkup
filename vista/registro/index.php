@@ -137,7 +137,7 @@ $menu = "Prerregistro";
     if (id == 1)
       ant = false;
     //Desactiva cuestionario para la empresa desde la base
-    if (!antecedentes) ant = false;
+    if (antecedentes == 0) ant = false;
 
     //Mostrar Vista
     vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
