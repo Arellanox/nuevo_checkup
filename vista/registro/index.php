@@ -131,10 +131,13 @@ $menu = "Prerregistro";
     clienteRegistro = id
     idtoken = id_registro
 
+    //Activa por defecto
+    ant = true;
+    //Desactiva cuestionario para particulares
     if (id == 1)
-      ant = false; //Desactiva cuestionario
-
-    if (antecedentes == false) ant = false; //Desactiva cuestionario
+      ant = false;
+    //Desactiva cuestionario para la empresa desde la base
+    if (!antecedentes) ant = false;
 
     //Mostrar Vista
     vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
