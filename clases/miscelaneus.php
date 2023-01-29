@@ -310,6 +310,7 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
                 $carpeta_guardado = 'lab';
                 $datos_medicos = array(); #Mandar vacio
+                $folio = $infoPaciente[0]['FOLIO'];
                 break;
             case 8:
             case '8':
@@ -319,6 +320,9 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
                 $carpeta_guardado = 'ultrasonido';
+
+                //Folio
+                $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
             case 11:
             case '11':
@@ -328,6 +332,8 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
                 $carpeta_guardado = 'rayosx';
+                //Folio
+                $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
             case 3:
             case '3': #Oftalmologia
@@ -336,6 +342,7 @@ class Miscelaneus
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_OFTALMO'];
                 $carpeta_guardado = 'oftalmologia';
+                $folio = $infoPaciente[0]['FOLIO_OFTALMO'];
                 break;
         }
 
@@ -356,7 +363,9 @@ class Miscelaneus
         # Crear el directorio si no existe
         $r = $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
-        $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+        $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+
+        // print_r($infoPaciente[0]);
 
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
         $renderpdf = $pdf->build();
@@ -527,11 +536,7 @@ class Miscelaneus
 
     private function getBodyInfoLab($master, $id_turno)
     {
-        #Creamos el folio
-        # dar de alta primero el folio en la tabla de reportes_areas
-        $folio = $master->insertByProcedure('sp_generar_folio_laboratorio', []);
 
-        $res = $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, 6, null, null, $folio]);
         # informacion general del paciente
 
         #Estudios solicitados por el paciente

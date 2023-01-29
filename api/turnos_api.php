@@ -171,6 +171,12 @@ switch ($api) {
         //echo json_encode(array("response" => array("code" => 1, "msj" => "Termina la carga de datos.")));
 
         if (isset($confirmar)) {
+            #Creamos el folio
+            # dar de alta primero el folio en la tabla de reportes_areas
+
+            $folio = $master->insertByProcedure('sp_generar_folio_laboratorio', []);
+
+            $res = $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, 6, null, null, $folio]);
             # generar el reporte de laboratorio
             $r = $master->reportador($master, $id_turno, $id_area, 'resultados', 'url', 0, 1);
             //crearReporteLaboratorio($id_area, $id_turno);
