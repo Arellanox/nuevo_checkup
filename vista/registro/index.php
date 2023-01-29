@@ -17,7 +17,7 @@ $menu = "Prerregistro";
 </head>
 <footer>
   <script>
-    function redireccionarPrerregistro(){
+    function redireccionarPrerregistro() {
       $('#body-controlador').html('');
       // alertMensajeConfirm({
 
@@ -27,15 +27,15 @@ $menu = "Prerregistro";
 
       setTimeout(() => {
         Swal.fire({
-            title: "¡No tiene permitido estar aqui!",
-            text: "El token de su registro ya caducó o ha sido vencido",
-            footer: "Cerrando ventana...",
-            icon: "info",
-            confirmButtonColor: "#d33",
-            confirmButtonText: "Aceptar",
-            allowOutsideClick: false,
-            timer: 4000,
-            timerProgressBar: true,
+          title: "¡No tiene permitido estar aqui!",
+          text: "El token de su registro ya caducó o ha sido vencido",
+          footer: "Cerrando ventana...",
+          icon: "info",
+          confirmButtonColor: "#d33",
+          confirmButtonText: "Aceptar",
+          allowOutsideClick: false,
+          timer: 4000,
+          timerProgressBar: true,
         }).then((result) => {
           if (result.isConfirmed || result.dismiss === "timer") {
             // destroySession();
@@ -44,95 +44,101 @@ $menu = "Prerregistro";
         })
       }, 100);
 
-      }
+    }
   </script>
 </footer>
+
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">
-  var logeo = 1, registroAgendaProcedencia = 0;
+  var logeo = 1,
+    registroAgendaProcedencia = 0;
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
   // console.log(token)
   let ant = '<?php echo $ant; ?>';
   let tip = '<?php echo $tip; ?>';
   let clienteRegistro, nombreCliente, idtoken;
-  var registroAgendaRecepcion  = 0;
+  var registroAgendaRecepcion = 0;
   // console.log(codigo);
   if (codigo != token) {
     validarToken()
-  }else{
+  } else {
     redireccionarPrerregistro()
   }
 
 
   function vista(menu, url, tip) {
     $.post(url, {
-      menu: menu, tipoUrl: 3, tip: tip
+      menu: menu,
+      tipoUrl: 3,
+      tip: tip
     }, function(html) {
       $("#body-controlador").html(html);
-    }).done(function(){
+    }).done(function() {
       // validarToken();
     });
   }
 
-  function validarToken(){
+  function validarToken() {
     if (codigo != null && codigo != '') {
-        $.ajax({
-          data: {
-            qr: codigo,
-            api: 2
-          },
-          url: "../../api/clientes_api.php",
-          type: "POST",
-          success: function(data) {
-            data = jQuery.parseJSON(data);
-            row = data.response.data[0];
-            // console.log(row);
-            if (data.response.data[0]) {
-              completarCliente(row['ID_CLIENTE'], row['NOMBRE_COMERCIAL'], data.response.data[0]['ID_PREREGISTRO'])
-            }else {
-              redireccionarPrerregistro()
-            }
+      $.ajax({
+        data: {
+          qr: codigo,
+          api: 2
+        },
+        url: "../../api/clientes_api.php",
+        type: "POST",
+        success: function(data) {
+          data = jQuery.parseJSON(data);
+          row = data.response.data[0];
+          // console.log(row);
+          if (data.response.data[0]) {
+            completarCliente(row['ID_CLIENTE'], row['NOMBRE_COMERCIAL'], data.response.data[0]['ID_PREREGISTRO'], row['ANTECEDENTES'])
+          } else {
+            redireccionarPrerregistro()
+          }
 
-          },
-        });
-    }else if (token != null) {
+        },
+      });
+    } else if (token != null) {
       console.log(token);
       $.ajax({
-          data: {
-            token: token,
-            api: 2
-          },
-          url: "../../api/preregistro_correo_token_api.php",
-          type: "POST",
-          success: function(data) {
-            data = jQuery.parseJSON(data);
-            if (data.response.data[0]) {
-              completarCliente(1, 'PARTICULAR')
-            }else {
-              redireccionarPrerregistro()
-            }
-          },
-        });
-    }else{
+        data: {
+          token: token,
+          api: 2
+        },
+        url: "../../api/preregistro_correo_token_api.php",
+        type: "POST",
+        success: function(data) {
+          data = jQuery.parseJSON(data);
+          if (data.response.data[0]) {
+            completarCliente(1, 'PARTICULAR')
+          } else {
+            redireccionarPrerregistro()
+          }
+        },
+      });
+    } else {
       // alert(1);
       redireccionarPrerregistro()
       return;
     }
   }
-  
-  function completarCliente(id, name, id_registro){
+
+  function completarCliente(id, name, id_registro, antecedentes) {
     // alert(name)
     nombreCliente = name
     clienteRegistro = id
     idtoken = id_registro
-    
-    if(id == 1)
-    ant = true;
-    
+
+    if (id == 1)
+      ant = false; //Desactiva cuestionario
+
+    if (antecedentes == false) ant = false; //Desactiva cuestionario
+
     //Mostrar Vista
     vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
-}
+  }
 
 
 
@@ -147,4 +153,3 @@ $menu = "Prerregistro";
 </script>
 
 </html>
-

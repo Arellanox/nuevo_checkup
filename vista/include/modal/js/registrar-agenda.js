@@ -25,7 +25,7 @@ $("#formRegistrarAgenda").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   // var form = document.getElementById("formRegistrarAgenda");
   var formData = new FormData();
-  if (!ant) {
+  if (ant) {
     var formAntPersonalPato = jQuery(document.forms['formAntPersonalPato']).serializeArray();
     // var formAntNoPatologicos = document.getElementById('formAntNoPatologicos');
     var formAntNoPatologicos = jQuery(document.forms['formAntNoPatologicos']).serializeArray();
@@ -219,12 +219,12 @@ var tipoPaciente = "0"; //Particular por defecto
 $('#actualizarForm').click(async function () {
   curp = $('#curp-paciente').val();
   if (ant) {
-    $('#cuestionadioRegistro').fadeOut(100);
-    // $('input[type="radio"]').prop("checked", true)
-  } else {
     await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
     await obtenerAntecedentesPaciente(null, curp);
     console.log(ant)
+  } else {
+    $('#cuestionadioRegistro').fadeOut(100);
+    // $('input[type="radio"]').prop("checked", true)
   }
 
   //Solicitar si la curp existe
