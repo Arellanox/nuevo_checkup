@@ -56,7 +56,8 @@ CapturasdeArea.addEventListener('show.bs.modal', event => {
                             '</div>';
                         break;
 
-                    case 'png': case 'jpg': case 'jpeg':
+                    // case 'png': case 'jpg': case 'jpeg':
+                    default:
                         img = 1;
                         htmlimg += '<div class="col-12 d-flex justify-content-center"><img src="' + rowImg[im]['url'] + '" class="img-thumbnail" alt=""></div>';
                         break;
