@@ -377,7 +377,7 @@ class Miscelaneus
 
         // print_r($infoPaciente[0]);
 
-        $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
+        $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
 
         if ($lab == 1 && $tipo == 'url') {

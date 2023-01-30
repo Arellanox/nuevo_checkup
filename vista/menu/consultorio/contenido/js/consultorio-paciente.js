@@ -102,7 +102,7 @@ function obtenerHistorialConsultas(id) {
             let motivo = row[i]['MOTIVO_CONSULTA'];
             $('#historial-consultas-paciente').append('<div class="row line-top" style="margin:0px">' +
               '<div class="col-3 line-right">' + fecha + '</div>' +
-              '<div class="col-9"><p>' + nombre + '</p> <p>' + motivo + '</p>' +
+              '<div class="col-9"><p>' + nombre + '</p> <p class="none-p">' + motivo + '</p>' +
               '</div> </div>')
           }
         }

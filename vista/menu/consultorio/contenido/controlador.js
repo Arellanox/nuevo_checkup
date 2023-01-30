@@ -115,8 +115,6 @@ async function obtenerConsulta(data, idconsulta) {
   await obtenerNutricion(data['ID_TURNO'])
   await obtenerExploracion(data['ID_TURNO'])
   await obtenerAnamnesisApartados(data['ID_TURNO']);
-
-
   loader("Out")
 }
 

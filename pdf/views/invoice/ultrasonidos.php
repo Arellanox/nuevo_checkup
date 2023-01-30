@@ -370,7 +370,11 @@ $encode_firma = base64_encode($ruta_firma);
         $count = 0;
         $conteo = count($resultados->ESTUDIOS);
         foreach ($resultados->ESTUDIOS as $key => $resultado) {
-            echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'> US " . $resultado->ESTUDIO . "</h2>";
+            if ($area == 11) {
+                echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'> US " . $resultado->ESTUDIO . "</h2>";
+            } else {
+                echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'>" . $resultado->ESTUDIO . "</h2>";
+            }
             echo "<p style='margin-bottom: 0;'><strong>Técnica: </strong>" . $resultado->TECNICA . "</p><br>";
             echo "<h5 style='line-height: 1.5;'>Hallazgos</h5>";
             echo "<p style='line-height: 1.5; margin-top: 1px;'>" . $resultado->HALLAZGO . "</p>";
