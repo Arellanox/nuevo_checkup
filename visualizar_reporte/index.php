@@ -43,6 +43,9 @@ switch ($api) {
     case 'etiquetas':
         $r = $master->reportador($master, $turno_id, 0, "etiquetas", "mostrar", 1);
         break;
+    case 'consultorio':
+        $r = $master->reportador($master,$turno_id,0,'consultorio','mostrar',1);
+        break;
 
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

@@ -283,7 +283,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0,$id_consulta=0)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -344,6 +344,16 @@ class Miscelaneus
                 $carpeta_guardado = 'oftalmologia';
                 $folio = $infoPaciente[0]['FOLIO_OFTALMO'];
                 break;
+            case 1:
+            case '1':
+                # CONSULTORIO
+                $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
+                $datos_medicos = $this->getMedicalCarrier($info);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
+                $carpeta_guardado = 'consultorio';
+                $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
+                break;
         }
 
         if ($area_id == 0) {
@@ -374,6 +384,50 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyInfoConsultorio($master,$id_turno,$id_consulta){
+        # json reporte consultorio.
+        $response = $master->getByNext('sp_reporte_consultorio',[$id_turno,$id_consulta]);
+       
+        $productoFinal = [];
+        if (is_array($response)) {
+            # recorremos el arreglo de las consultas [6 queries]
+            for ($i = 0; $i < count($response); $i++) {
+                switch($i){
+                    case 0:
+                        # DATOS DE CONSULTA
+                        foreach($response[$i][0] as $key=>$value){
+                            if(is_string($key)){
+                                $productoFinal[$key] = $value;
+                            }
+                        }
+                        break;
+                    case 1:
+                        # ANTECEDENTES
+                        $productoFinal['ANTECEDENTES'] =$master->checkArray($response[$i]);
+                        break;
+                    case 2:
+                        # ANAMNESIS
+                        $productoFinal['ANAMNESIS'] = $master->checkArray($response[$i]);
+                        break;
+                    case 3:
+                        # ODONTOGRAMA
+                        $productoFinal['ODONTOGRAMA'] =$master->checkArray($response[$i]);
+                        break;
+                    case 4:
+                        # NUTRICION
+                        $productoFinal['NUTRICION'] = $master->checkArray($response[$i][0]);
+                        break;
+                    case 5:
+                        # EXPLORACION FISICA
+                        $productoFinal['EXPLORACION_FISICA'] = $master->checkArray($response[$i]);
+                        break;
+                }
+            }
+        }
+
+        return $productoFinal;
     }
 
     private function getBodyInfoLabels($master, $id_turno)
