@@ -16,43 +16,27 @@ $area_id = 4; #$_POST['area_id']; # el id 4 es para el area de AUDIOMETRIA
 $master = new Master();
 $api = isset($_POST['api']) ? $_POST['api'] : '';
 # Datos para la interpretacion
-$id_imagen = isset($_POST['id_imagen']) ? $_POST['id_imagen'] : null;
-$turno_id = isset($_POST['turno_id']) ? $_POST['turno_id'] : '';
-$interpretacion = isset($_POST['interpretacion']) ? $_POST['interpretacion'] : '';
-$fecha_registro = isset($_POST['fecha_registro']) ? $_POST['fecha_registro'] : '';
-$registrado_por = isset($_POST['registrado_por']) ? $_POST['registrado_por'] : '';
-$folio = isset($_POST['folio']) ? $_POST['folio'] : '';
-$usuario = $_SESSION['id'];
+$id_audiometria = $_POST['id_audiometria'];
+$turno_id = $_POST['turno_id'];
+$registrado_por =  $_SESSION['id'];
+$motivo_de_la_consulta = $_POST['motivo_consulta'];
+$antecedentes = $_POST['antecedentes'];
+$exploracion_fisica = $_POST['exploracion'];
+$otoscopia = $_POST['otoscopia'];
+$oido_derecho = $_POST['oido_derecho'];
+$oido_izquierdo = $_POST['oido_izquierdo'];
+$confirmado = $_POST['confirmado'];
+$estudio_od = $_POST['estudio_od'];
+$estudio_oi = $_POST['estudio_oi'];
 
 switch($api){
     case 1:
-        # insertar la interpretacion
-        #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/audiometria/$date/$turno_id/interpretacion/";
-        $r = $master->createDir("../".$ruta_saved);
+        if (isset ($confirmado)) {
+            
+        }else{
+            $response = $master -> insertByProcedure('sp_audiometria_resultados_g',[$id_audiometria, $turno_id, $registrado_por, $motivo_de_la_consulta, $antecedentes, $exploracion_fisica, $otoscopia, $oido_derecho, $oido_izquierdo, $confirmado]);
+            }
 
-        if($r!=1){
-            $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
-            break;
-        }
-
-        #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_AUDIOMETRIA_$turno_id");
-
-        $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
-
-        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [null, $turno_id, $ruta_archivo, $usuario, $area_id, null]);
-
-        # insertar el formulario de bimo.
-        foreach($formulario as $id_servicio => $item){
-             $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id]);
-        }
-        
-        #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
-
-        $url = crearReporteUltrasonido($turno_id, $area_id);
-        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
-        $response = $last_id;
         break;
     case 2:
         $serv = str_replace(" ", "_", $nombre_servicio);
