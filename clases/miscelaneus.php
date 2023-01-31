@@ -283,7 +283,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0,$id_consulta=0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -376,6 +376,7 @@ class Miscelaneus
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
         // print_r($infoPaciente[0]);
+        // exit;
 
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
@@ -386,26 +387,27 @@ class Miscelaneus
         return $renderpdf;
     }
 
-    private function getBodyInfoConsultorio($master,$id_turno,$id_consulta){
+    private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)
+    {
         # json reporte consultorio.
-        $response = $master->getByNext('sp_reporte_consultorio',[$id_turno,$id_consulta]);
-       
+        $response = $master->getByNext('sp_reporte_consultorio', [$id_turno, $id_consulta]);
+
         $productoFinal = [];
         if (is_array($response)) {
             # recorremos el arreglo de las consultas [6 queries]
             for ($i = 0; $i < count($response); $i++) {
-                switch($i){
+                switch ($i) {
                     case 0:
                         # DATOS DE CONSULTA
-                        foreach($response[$i][0] as $key=>$value){
-                            if(is_string($key)){
+                        foreach ($response[$i][0] as $key => $value) {
+                            if (is_string($key)) {
                                 $productoFinal[$key] = $value;
                             }
                         }
                         break;
                     case 1:
                         # ANTECEDENTES
-                        $productoFinal['ANTECEDENTES'] =$master->checkArray($response[$i]);
+                        $productoFinal['ANTECEDENTES'] = $master->checkArray($response[$i]);
                         break;
                     case 2:
                         # ANAMNESIS
@@ -413,7 +415,7 @@ class Miscelaneus
                         break;
                     case 3:
                         # ODONTOGRAMA
-                        $productoFinal['ODONTOGRAMA'] =$master->checkArray($response[$i]);
+                        $productoFinal['ODONTOGRAMA'] = $master->checkArray($response[$i]);
                         break;
                     case 4:
                         # NUTRICION

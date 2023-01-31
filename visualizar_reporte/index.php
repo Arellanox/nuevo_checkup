@@ -25,8 +25,10 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
-// $api = 'imagenologia';
+// Imagenologia --> 8 para rayos y 11 para ultrasonido
+// $api = 'consultorio';
 // $turno_id = 221;
+// $area_id = 8;
 
 switch ($api) {
     case 'imagenologia':
@@ -36,7 +38,6 @@ switch ($api) {
     case 'oftalmo':
         $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'mostrar', 1);
         break;
-
     case 'laboratorio':
         $r = $master->reportador($master, $turno_id, 6, 'resultados', 'mostrar', 1);
         break;
@@ -44,11 +45,10 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, 0, "etiquetas", "mostrar", 1);
         break;
     case 'consultorio':
-        $r = $master->reportador($master,$turno_id,0,'consultorio','mostrar',1);
+        $r = $master->reportador($master, $turno_id, 0, 'consultorio', 'mostrar', 1);
         break;
 
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
-
         break;
 }
