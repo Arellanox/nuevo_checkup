@@ -26,8 +26,8 @@ $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
-$api = 'laboratorio';
-$turno_id = 230;
+// $api = 'laboratorio';
+// $turno_id = 233;
 // $area_id = 8;
 
 switch ($api) {
