@@ -1,3 +1,7 @@
+<?php
+$generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+// echo '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode('081231723897', $generator::TYPE_CODE_128)) . '">';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,7 +110,7 @@
                 }
                 echo    "   
                                     <p style='text-align:center; padding-top: 4px; padding-bottom: 4px;'> 
-                                        <!-- <img src='data:image/png;base64," .  $barcode .  " width='65px' height='30px'> -->
+                                        <img src='data:image/png;base64," .  $generator->getBarcode($barcode, $generator::TYPE_CODE_128)  .  " width='65px' height='30px'>
                                     </p> 
                                     <p style='font-size: 9px; padding-right:2px;'>" . $etiqueta . "</p>
                                 </td>
