@@ -216,13 +216,13 @@ $encode = base64_encode($ruta);
 
 // path firma
 // Verifica si mandan firma o si existe en el arreglo
-if (isset($encabezado->FIRMA)) {
-    $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
+if (isset($encabezado->FIRMA_URL)) {
+    $ruta_firma = file_get_contents($encabezado->FIRMA_URL); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
     $encode_firma = base64_encode($ruta_firma);
 } else {
     $encode_firma = null;
 }
-$ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
+// $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
 
 if (!isset($qr)) {
     $qr = null;
@@ -326,7 +326,7 @@ if (!isset($qr)) {
                     <td colspan="2" style="text-align: left;">
                         <?php
                         if ($preview == 0) {
-                            // echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                            echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
                         }
                         ?>
                     </td>
@@ -342,10 +342,9 @@ if (!isset($qr)) {
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 10px;">
                             <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> - ' . $pie['datos_medicos'][0]['PROFESION'] .' -' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
                             $indice = 1;
                             foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
-                                // $contador = count($value);
                                 $indice++;
                                 echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
                                 echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
@@ -401,7 +400,7 @@ if (!isset($qr)) {
         </p>
         <p>
             <strong>
-                AGUDEZA VISUAL SIN CORRECCIÓN:
+                AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN:
             </strong>
             <?php echo $resultados->AGUDEZA_VISUAL; //_CON 
             ?> <br>
@@ -414,9 +413,28 @@ if (!isset($qr)) {
             </strong>
             <?php echo $resultados->OI; ?> <br>
             <strong>
-                JAEGER:
+                VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE RESENBAUM:
             </strong>
             <?php echo $resultados->JAEGER; ?> <br>
+        </p>
+        <p>
+            <strong>
+                AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN:
+            </strong>
+            <?php echo $resultados->AGUDEZA_VISUAL_CON; //_CON 
+            ?> <br>
+            <strong>
+                OD:
+            </strong>
+            <?php echo $resultados->OD; ?><br>
+            <strong>
+                OI:
+            </strong>
+            <?php echo $resultados->OI; ?> <br>
+            <strong>
+                VISIÓN CERCANA CON CORRECCIÓN TARJETA DE RESENBAUM:
+            </strong>
+            <?php echo $resultados->JAEGER_CON; ?> <br>
         </p>
         <p>
             <strong>
@@ -427,7 +445,7 @@ if (!isset($qr)) {
         </p>
         <p>
             <strong>
-                PRUEBA:
+                PRUEBA ISHIHARA:
             </strong>
             <?php $resultados->PRUEBA; ?>
 
