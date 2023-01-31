@@ -565,6 +565,11 @@ class Miscelaneus
             $diagnostico = $response1[$i]['DIAGNOSTICO'];
             $plan = $response1[$i]['PLAN'];
             $observaciones = $response1[$i]['OBSERVACIONES'];
+            $confirmado = $_POST['confirmado'];
+            $con_agudeza_visual = $_POST['con_agudeza_visual'];
+            $con_oi = $_POST['con_oi'];
+            $con_od = $_POST['con_od'];
+            $con_jaeger = $_POST['con_jaeger'];
             $array1 = array(
                 "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
                 "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,
@@ -582,7 +587,12 @@ class Miscelaneus
                 "PRESION_INTRAOCULAR_OI" => $presion_intraocular_oi,
                 "DIAGNOSTICO" => $diagnostico,
                 "PLAN" => $plan,
-                "OBSERVACIONES" => $observaciones
+                "OBSERVACIONES" => $observaciones,
+                "CONFIRMADO" => $confirmado,
+                "AGUDEZA_VISUAL_CON_CORRECCION" => $con_agudeza_visual,
+                "CON_OD" => $con_oi,
+                "CON_OI" => $con_od,
+                "CON_JAEGER" => $con_jaeger
             );
             array_push($arrayoftalmo, $array1);
         }

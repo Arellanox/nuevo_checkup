@@ -37,6 +37,7 @@ $diagnostico = $_POST['diagnostico'];
 $plan = $_POST['plan'];
 $observaciones = $_POST['observaciones'];
 $confirmado = $_POST['confirmado'];
+$con_agudeza_visual = $_POST['con_agudeza_visual'];
 $con_oi = $_POST['con_oi'];
 $con_od = $_POST['con_od'];
 $con_jaeger = $_POST['con_jaeger'];
@@ -63,7 +64,12 @@ $params = array(
     $_SESSION['id'], # id del usuario que esta subiendo la informacion,
     null, # esta es la ruta del reporte, que posteriormente se tiene que actualizar
     $observaciones,
-    $confirmado
+    $confirmado,
+    $con_agudeza_visual,
+    $con_oi,
+    $con_od,
+    $con_jaeger
+#creacion de array.
 );
 
 switch ($api) {
@@ -79,7 +85,7 @@ switch ($api) {
             $url = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'url');
 
             # actualizar la url del reporte
-            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, $confirmado]);
+            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, $confirmado, NULL, NULL,NULL, NULL]);
         }
 
 
