@@ -216,8 +216,8 @@ $encode = base64_encode($ruta);
 
 // path firma
 // Verifica si mandan firma o si existe en el arreglo
-if (isset($encabezado->FIRMA_URL)) {
-    $ruta_firma = file_get_contents($encabezado->FIRMA_URL); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
+if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
+    $ruta_firma = file_get_contents($pie['datos_medicos'][0]['FIRMA_URL']); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
     $encode_firma = base64_encode($ruta_firma);
 } else {
     $encode_firma = null;
@@ -426,11 +426,11 @@ if (!isset($qr)) {
             <strong>
                 OD:
             </strong>
-            <?php echo $resultados->OD; ?><br>
+            <?php echo $resultados->OD_CON; ?><br>
             <strong>
                 OI:
             </strong>
-            <?php echo $resultados->OI; ?> <br>
+            <?php echo $resultados->OI_CON; ?> <br>
             <strong>
                 VISIÓN CERCANA CON CORRECCIÓN TARJETA DE RESENBAUM:
             </strong>
