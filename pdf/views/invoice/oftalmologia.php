@@ -403,7 +403,8 @@ if (!isset($qr)) {
             <strong>
                 AGUDEZA VISUAL SIN CORRECCIÓN:
             </strong>
-            <?php echo $resultados->AGUDEZA_VISUAL; ?> <br>
+            <?php echo $resultados->AGUDEZA_VISUAL; //_CON 
+            ?> <br>
             <strong>
                 OD:
             </strong>
