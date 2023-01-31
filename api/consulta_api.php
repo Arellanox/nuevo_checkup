@@ -180,37 +180,8 @@ switch ($api) {
         # recuperar los antecedentes del turno
         $response = $master->getByProcedure('sp_consultorio_antecedentes_b', [$turno_id, $curp]);
         // print_r(($response));
-        $antecedentes = array();
-        $idTipo = 1;
-        $count = 0;
-        $tipoArray = array();
-
-        foreach ($response as $ante) {
-            if ($ante['ID_TIPO'] == $idTipo) {
-                $subtipoArray = array(
-                    $ante['ID_RESPUESTA'],
-                    $ante['NOTAS'],
-                    $ante['ID_SUBTIPO']
-                );
-
-                $tipoArray[] = $subtipoArray;
-            } else {
-                $idTipo = $ante['ID_TIPO'];
-                $antecedentes[] = $tipoArray;
-                $tipoArray  = array();
-
-                $subtipoArray = array(
-                    $ante['ID_RESPUESTA'],
-                    $ante['NOTAS'],
-                    $ante['ID_SUBTIPO']
-                );
-
-                $tipoArray[] = $subtipoArray;
-            }
-        }
-
-        $antecedentes[] = $tipoArray;
-        echo json_encode($antecedentes);
+        $ordenado =ordenarCuestionario ($response);
+        echo json_encode($ordenado);
         exit;
 
     case 11:
@@ -233,6 +204,9 @@ switch ($api) {
     case 15:
         # recuperar anamnesis por aparatos  
         $response = $master->getByProcedure('sp_consultorio_anamnesis_aparatos_b', [$turno_id]);
+        $ordenado =ordenarCuestionario ($response);
+        echo json_encode($ordenado);
+        exit;
         break;
     case 16:
         # actualizar los antecedentes del turno
@@ -269,3 +243,38 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
+
+function ordenarCuestionario($response)
+{
+    $antecedentes = array();
+        $idTipo = 1;
+        $count = 0;
+        $tipoArray = array();
+
+        foreach ($response as $ante) {
+            if ($ante['ID_TIPO'] == $idTipo) {
+                $subtipoArray = array(
+                    $ante['ID_RESPUESTA'],
+                    $ante['NOTAS'],
+                    $ante['ID_SUBTIPO']
+                );
+
+                $tipoArray[] = $subtipoArray;
+            } else {
+                $idTipo = $ante['ID_TIPO'];
+                $antecedentes[] = $tipoArray;
+                $tipoArray  = array();
+
+                $subtipoArray = array(
+                    $ante['ID_RESPUESTA'],
+                    $ante['NOTAS'],
+                    $ante['ID_SUBTIPO']
+                );
+
+                $tipoArray[] = $subtipoArray;
+            }
+        }
+
+        $antecedentes[] = $tipoArray;
+        return $antecedentes;
+}

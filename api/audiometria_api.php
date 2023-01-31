@@ -26,8 +26,13 @@ $otoscopia = $_POST['otoscopia'];
 $oido_derecho = $_POST['oido_derecho'];
 $oido_izquierdo = $_POST['oido_izquierdo'];
 $confirmado = $_POST['confirmado'];
+
+#Variables de estudio audiologico
 $estudio_od = $_POST['estudio_od'];
 $estudio_oi = $_POST['estudio_oi'];
+#Variables para logoaudiometría
+
+
 
 switch($api){
     case 1:
@@ -36,7 +41,7 @@ switch($api){
         }else{
             $response = $master -> insertByProcedure('sp_audiometria_resultados_g',[$id_audiometria, $turno_id, $registrado_por, $motivo_de_la_consulta, $antecedentes, $exploracion_fisica, $otoscopia, $oido_derecho, $oido_izquierdo, $confirmado]);
             }
-
+        
         break;
     case 2:
         $serv = str_replace(" ", "_", $nombre_servicio);

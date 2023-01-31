@@ -37,6 +37,9 @@ $diagnostico = $_POST['diagnostico'];
 $plan = $_POST['plan'];
 $observaciones = $_POST['observaciones'];
 $confirmado = $_POST['confirmado'];
+$con_oi = $_POST['con_oi'];
+$con_od = $_POST['con_od'];
+$con_jaeger = $_POST['con_jaeger'];
 #creacion de array.
 $params = array(
     $id_oftalmo,
