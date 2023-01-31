@@ -6,11 +6,11 @@ include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-// if (!$tokenValido) {
+if (!$tokenValido) {
 
-//     $tokenVerification->logout();
-//     exit;
-// }
+    $tokenVerification->logout();
+    exit;
+}
 
 $master = new Master();
 $api = $_POST['api'];
