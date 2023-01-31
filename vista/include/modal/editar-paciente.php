@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="text-center" >Actualice la información requerida, no podrá regresar estos cambios</p>
+        <p class="text-center">Actualice la información requerida, no podrá regresar estos cambios</p>
         <form class="row" id="formEditarPaciente">
           <div class="col-12 col-lg-4">
             <label for="nombre" class="form-label">Nombres</label>
@@ -33,7 +33,7 @@
           </div>
           <div class="col-7 col-lg-4">
             <label for="curp" class="form-label">CURP</label>
-            <input type="text" class="form-control input-form" name="curp"  placeholder="" required id="editar-curp"> <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
+            <input type="text" class="form-control input-form" name="curp" placeholder="" required id="editar-curp"> <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
           </div>
           <div class="col-5 col-lg-3">
             <label for="telefono" class="form-label">Télefono</label>
@@ -41,7 +41,7 @@
           </div>
           <div class="col-6 col-lg-4">
             <label for="correo" class="form-label">Correo</label>
-            <input type="email" class="form-control input-form" name="correo" id="editar-correo" placeholder="" >
+            <input type="email" class="form-control input-form" name="correo" id="editar-correo" placeholder="">
           </div>
           <div class="col-6 col-lg-2">
             <label for="postal" class="form-label">Código postal</label>
@@ -62,7 +62,7 @@
           <div class="col-6 col-lg-4">
             <label for="exterior" class="form-label">No. Exterior</label>
             <div class="input-group">
-            <span class="input-span">No.</span>
+              <span class="input-span">No.</span>
               <input type="text" class="form-control input-form" name="exterior" placeholder="" id="editar-exterior">
             </div>
           </div>
@@ -93,52 +93,52 @@
           <div class="col-6 col-lg-3">
             <label for="vacuna" class="form-label">Vacuna</label>
             <select class="input-form" name="vacuna" id="editar-vacuna">
-                <option value="1" >Ninguno...</opcion>
-                <option value="PFIZER">PFIZER</opcion>
-                <option value="ASTRA ZENECA" >ASTRA ZENECA</opcion>
-                <option value="SPUTNIK V" >SPUTNIK V</opcion>
-                <option value="SINOVAC" >SINOVAC</opcion>
-                <option value="CANSINO" >CANSINO</opcion>
-                <option value="MODERNA" >MODERNA</opcion>
-                <option value="COVAX" >COVAX</opcion>
-                <option value="JOHNSON & JOHNSON" >JOHNSON & JOHNSON</opcion>
-                <option value="SINOPHARM" >SINOPHARM</opcion>
-                <option value="OTRA">OTRA (ESPECIFIQUE)</opcion>
+              <option value="1">Ninguno...</opcion>
+              <option value="PFIZER">PFIZER</opcion>
+              <option value="ASTRA ZENECA">ASTRA ZENECA</opcion>
+              <option value="SPUTNIK V">SPUTNIK V</opcion>
+              <option value="SINOVAC">SINOVAC</opcion>
+              <option value="CANSINO">CANSINO</opcion>
+              <option value="MODERNA">MODERNA</opcion>
+              <option value="COVAX">COVAX</opcion>
+              <option value="JOHNSON & JOHNSON">JOHNSON & JOHNSON</opcion>
+              <option value="SINOPHARM">SINOPHARM</opcion>
+              <option value="OTRA">OTRA (ESPECIFIQUE)</opcion>
             </select>
           </div>
           <div class="col-6 col-lg-3" id="editar-extra">
             <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
-            <input type="text" class="form-control input-form" name="vacunaExtra" id="editar-vacunaExtra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"  readonly>
+            <input type="text" class="form-control input-form" name="vacunaExtra" id="editar-vacunaExtra" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" readonly>
           </div>
 
 
           <div class="col-6 col-lg-3">
             <label for="inputDosis" class="form-label">Dosis</label>
             <select class="input-form" name="inputDosis" id="editar-inputDosis">
-                <option value="1" >Ninguno...</opcion>
-                <option value="1RA" >1RA DOSIS</opcion>
-                <option value="2DA">2DA DOSIS</opcion>
-                <option value="3RA" >3RA DOSIS</opcion>
-                <option value="REFUERZO" >REFUERZO</opcion>
+              <option value="1">Ninguno...</opcion>
+              <option value="1RA">1RA DOSIS</opcion>
+              <option value="2DA">2DA DOSIS</opcion>
+              <option value="3RA">3RA DOSIS</opcion>
+              <option value="REFUERZO">REFUERZO</opcion>
             </select>
           </div>
 
           <div class="col-12 col-lg-6" style="margin-top: 30px;margin-bottom: 15px;">
-              <div class="container">
-                <div class="row"style="zoom:110%;">
-                  <div class="col-md-auto">
-                    <label for="" >Genero: </label>
-                  </div>
-                  <div class="col">
-                      <input type="radio" id="edit-mascuCues" name="genero" value="MASCULINO" required>
-                      <label for="edit-mascuCues">Masculino</label>
-                  </div>
-                  <div class="col">
-                      <input type="radio"  id="edit-femenCues" name="genero" value="FEMENINO" required>
-                      <label for="edit-emeCues" >Femenino</label>
-                  </div>
+            <div class="container">
+              <div class="row" style="zoom:110%;">
+                <div class="col-md-auto">
+                  <label for="">Genero: </label>
+                </div>
+                <div class="col">
+                  <input type="radio" id="edit-mascuCues" name="genero" value="MASCULINO" required>
+                  <label for="edit-mascuCues">Masculino</label>
+                </div>
+                <div class="col">
+                  <input type="radio" id="edit-femenCues" name="genero" value="FEMENINO" required>
+                  <label for="edit-emeCues">Femenino</label>
                 </div>
               </div>
+            </div>
           </div>
         </form>
       </div>
@@ -151,6 +151,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-    $.getScript('http://localhost/nuevo_checkup/vista/include/modal/js/editar-paciente.js');
-</script>

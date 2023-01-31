@@ -259,17 +259,55 @@ $('#formAgregarOdontograma').submit(function (event) {
     url: http + servidor + '/nuevo_checkup/api/consulta_api.php',
     success: function (data) {
       // alert("antes de la nota")
-
+      console.log(data);
+      document.getElementById("formAgregarOdontograma").reset();
+      button.prop('disabled', false)
+      tablaOdontograma.ajax.reload()
       // alert("despues de la nota")
     },
   });
 })
 //Eliminar odontograma
-$(document).on('click', 'eliminarOdontograma', function (event) {
-  event.stopPropagation();
-  event.stopImmediatePropagation();
-  button = $('.guardarAnamn')
-  button.prop('disabled', true);
+$(document).on('click', '.eliminarOdontograma', function () {
+  // alert(1);
+  // event.stopPropagation();
+  // event.stopImmediatePropagation();
+  let id = $(this).attr('data-bs-id');
+  let button = $(this);
+  // alert(id);
+  alertMensajeConfirm({
+    title: "¿Está seguro de eliminar este registro?",
+    text: "¡No podrá regresar los cambios!",
+    icon: "warning",
+    showCancelButton: true,
+    cancelButtonColor: "#3085d6",
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+  }, function () {
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        api: 20,
+        id_odontograma: id
+      },
+      beforeSend: function () {
+        button.prop('disabled', true)
+      },
+      success: function (data) {
+        if (mensajeAjax(data)) {
+          button.prop('disabled', false)
+
+          // alertMensaje('info', 'Eliminado', 'ELIMINADO')
+          alertToast('Odontograma elimando', 'success')
+          tablaOdontograma.ajax.reload()
+        }
+      }
+
+    })
+  })
 })
 
 
@@ -281,12 +319,12 @@ $(document).on('click', 'eliminarOdontograma', function (event) {
 
 //Guardar antecedentes
 $(document).on('click', '.guardarAnamn ', function (event) {
-  event.stopPropagation();
-  event.stopImmediatePropagation();
-  button = $('.guardarAnamn')
+  event.stopPropagation();;
+  event.stopImmediatePropagation()
+  button = $(this)
   button.prop('disabled', true);
   var parent_element = button.closest("form").attr('id');
-  // console.log(parent_element);
+  console.log(parent_element);
   let formData = new FormData(document.getElementById(parent_element));
   // console.log(formData);
   formData.set('api', 8);
@@ -368,7 +406,7 @@ $('#formNuevaReceta').submit(function (event) {
 $(document).on('click', '.eliminarRecetaTabla', function () {
   let id = $(this).attr('data-bs-id');
   let button = $(this);
-  alert(id);
+  // alert(id);
   alertMensajeConfirm({
     title: "¿Está seguro de eliminar esta receta?",
     text: "¡No podrá regresar los cambios!",
@@ -387,8 +425,12 @@ $(document).on('click', '.eliminarRecetaTabla', function () {
         api: 17,
         id_receta: id
       },
+      beforeSend: function () {
+        button.prop('disabled', true)
+      },
       success: function (data) {
         if (mensajeAjax(data)) {
+          button.prop('disabled', false)
           // alertMensaje('info', 'Eliminado', 'ELIMINADO')
           alertToast('Receta elimanda', 'success')
           tablaRecetas.ajax.reload()

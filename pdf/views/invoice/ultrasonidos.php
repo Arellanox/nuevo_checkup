@@ -221,7 +221,7 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
+$ruta_firma = file_get_contents('../pdf/public/assets/firma_quiroz.png');
 $encode_firma = base64_encode($ruta_firma);
 
 ?>
@@ -323,7 +323,8 @@ $encode_firma = base64_encode($ruta_firma);
                     <td colspan="2" style="text-align: left;">
                         <?php
                         if ($preview == 0) {
-                            echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+
+                            echo "<img style='position:absolute; right:25px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
                         }
                         ?>
                     </td>
@@ -339,7 +340,7 @@ $encode_firma = base64_encode($ruta_firma);
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
                             <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> Médico Radiódiologo - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
                             $indice = 1;
                             foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
                                 // $contador = count($value);
@@ -369,7 +370,11 @@ $encode_firma = base64_encode($ruta_firma);
         $count = 0;
         $conteo = count($resultados->ESTUDIOS);
         foreach ($resultados->ESTUDIOS as $key => $resultado) {
-            echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'> US " . $resultado->ESTUDIO . "</h2>";
+            if ($area == 11) {
+                echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'> US " . $resultado->ESTUDIO . "</h2>";
+            } else {
+                echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'>" . $resultado->ESTUDIO . "</h2>";
+            }
             echo "<p style='margin-bottom: 0;'><strong>Técnica: </strong>" . $resultado->TECNICA . "</p><br>";
             echo "<h5 style='line-height: 1.5;'>Hallazgos</h5>";
             echo "<p style='line-height: 1.5; margin-top: 1px;'>" . $resultado->HALLAZGO . "</p>";

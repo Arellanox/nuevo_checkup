@@ -19,13 +19,14 @@ class Reporte
     public $tipo;
     public $orden;
     public $preview;
+    public $area;
 
     /**
      * Create a new instance.
      *
      * @return void
      */
-    public function __construct($response, $data, $pie, $archivo, $tipo, $orden, $preview = 0)
+    public function __construct($response, $data, $pie, $archivo, $tipo, $orden, $preview = 0, $area)
     {
         $this->response = $response; //cuerpo
         $this->data     = $data; //Ecabezado
@@ -34,6 +35,7 @@ class Reporte
         $this->tipo     = $tipo; //Tipo de resultado
         $this->orden    = $orden; //Forma de visualizar
         $this->preview = $preview;
+        $this->area = $area;
     }
 
     public function build()
@@ -45,6 +47,7 @@ class Reporte
         $tipo       = $this->tipo;
         $orden      = $this->orden;
         $preview    = $this->preview;
+        $area       = $this->area;
 
         switch ($tipo) {
             // case 'etiquetas':
@@ -90,7 +93,8 @@ class Reporte
             "pie"                   => isset($pie) ? $pie : null,
             "qr"                    => isset($prueba) ? $prueba : null,
             "barcode"               => isset($barcode) ? $barcode : null,
-            "preview"               => $preview
+            "preview"               => $preview,
+            "area"                  => isset($area) ? $area : null
         );
 
 

@@ -10,25 +10,25 @@ ModalSubirCapturas.addEventListener('show.bs.modal', event => {
 })
 
 $('#inputFilesCapturasArea').on('change', function () {
-  var fileList = $(this)[0].files || [] //registra todos los archivos
-  let aviso = 0;
-  for (file of fileList) { //una iteración de toda la vida
-    ext = file.name.split('.').pop()
-    console.log('>ARCHIVO: ', file.name)
-    switch (ext) {
-      case 'png': case 'jpg': case 'jpeg': case 'pdf':
-        console.log('>>TIPO DE ARCHIVO CORRECTO: ')
-        break;
-      default:
-        aviso = 1;
-        console.log('>>TIPO DE ARCHIVO INCORRECTO', ext)
-        break;
-    }
-  }
-  if (aviso == 1) {
-    $(this).val('')
-    alertMensaje('error', 'Archivo incorrecto', 'Algunos archivos no son correctos')
-  }
+  // var fileList = $(this)[0].files || [] //registra todos los archivos
+  // let aviso = 0;
+  // for (file of fileList) { //una iteración de toda la vida
+  //   ext = file.name.split('.').pop()
+  //   console.log('>ARCHIVO: ', file.name)
+  //   switch (ext) {
+  //     case 'png': case 'jpg': case 'jpeg': case 'pdf':
+  //       console.log('>>TIPO DE ARCHIVO CORRECTO: ')
+  //       break;
+  //     default:
+  //       aviso = 1;
+  //       console.log('>>TIPO DE ARCHIVO INCORRECTO', ext)
+  //       break;
+  //   }
+  // }
+  // if (aviso == 1) {
+  //   $(this).val('')
+  //   alertMensaje('error', 'Archivo incorrecto', 'Algunos archivos no son correctos')
+  // }
 });
 
 //Formulario Para Subir Interpretacion

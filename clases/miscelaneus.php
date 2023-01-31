@@ -283,7 +283,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -310,6 +310,7 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
                 $carpeta_guardado = 'lab';
                 $datos_medicos = array(); #Mandar vacio
+                $folio = $infoPaciente[0]['FOLIO'];
                 break;
             case 8:
             case '8':
@@ -319,6 +320,9 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
                 $carpeta_guardado = 'ultrasonido';
+
+                //Folio
+                $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
             case 11:
             case '11':
@@ -328,6 +332,8 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
                 $carpeta_guardado = 'rayosx';
+                //Folio
+                $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
             case 3:
             case '3': #Oftalmologia
@@ -336,6 +342,17 @@ class Miscelaneus
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_OFTALMO'];
                 $carpeta_guardado = 'oftalmologia';
+                $folio = $infoPaciente[0]['FOLIO_OFTALMO'];
+                break;
+            case 1:
+            case '1':
+                # CONSULTORIO
+                $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
+                $datos_medicos = $this->getMedicalCarrier($info);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
+                $carpeta_guardado = 'consultorio';
+                $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 break;
         }
 
@@ -356,15 +373,63 @@ class Miscelaneus
         # Crear el directorio si no existe
         $r = $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
-        $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+        $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
-        $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview);
+        // print_r($infoPaciente[0]);
+        // exit;
+
+        $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
 
         if ($lab == 1 && $tipo == 'url') {
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)
+    {
+        # json reporte consultorio.
+        $response = $master->getByNext('sp_reporte_consultorio', [$id_turno, $id_consulta]);
+
+        $productoFinal = [];
+        if (is_array($response)) {
+            # recorremos el arreglo de las consultas [6 queries]
+            for ($i = 0; $i < count($response); $i++) {
+                switch ($i) {
+                    case 0:
+                        # DATOS DE CONSULTA
+                        foreach ($response[$i][0] as $key => $value) {
+                            if (is_string($key)) {
+                                $productoFinal[$key] = $value;
+                            }
+                        }
+                        break;
+                    case 1:
+                        # ANTECEDENTES
+                        $productoFinal['ANTECEDENTES'] = $master->checkArray($response[$i]);
+                        break;
+                    case 2:
+                        # ANAMNESIS
+                        $productoFinal['ANAMNESIS'] = $master->checkArray($response[$i]);
+                        break;
+                    case 3:
+                        # ODONTOGRAMA
+                        $productoFinal['ODONTOGRAMA'] = $master->checkArray($response[$i]);
+                        break;
+                    case 4:
+                        # NUTRICION
+                        $productoFinal['NUTRICION'] = $master->checkArray($response[$i][0]);
+                        break;
+                    case 5:
+                        # EXPLORACION FISICA
+                        $productoFinal['EXPLORACION_FISICA'] = $master->checkArray($response[$i]);
+                        break;
+                }
+            }
+        }
+
+        return $productoFinal;
     }
 
     private function getBodyInfoLabels($master, $id_turno)
@@ -527,11 +592,7 @@ class Miscelaneus
 
     private function getBodyInfoLab($master, $id_turno)
     {
-        #Creamos el folio
-        # dar de alta primero el folio en la tabla de reportes_areas
-        $folio = $master->insertByProcedure('sp_generar_folio_laboratorio', []);
 
-        $res = $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, 6, null, null, $folio]);
         # informacion general del paciente
 
         #Estudios solicitados por el paciente

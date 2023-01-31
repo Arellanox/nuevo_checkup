@@ -53,7 +53,7 @@ $form = $_POST['form'];
             <h4>Lista de pacientes</h4>
             <div class="text-center">
                 <label for="inputBuscarTableListaNuevos">Buscar:</label>
-                <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaPacientes" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaMuestras">
+                <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaPacientes" value="" style="width:80%" autocomplete="off" id="inputBuscarTableListaPacientes">
             </div>
             <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
                 <thead class="" style="width: 100%">

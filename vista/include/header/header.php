@@ -1,4 +1,4 @@
-<?php 
+<?php
 $menu = $_POST['menu'];
 $tip = $_POST['tip'];
 session_start();
@@ -17,10 +17,10 @@ session_start();
           <h2 class="text-center"><?php echo $menu; ?></h2> <!-- Dinamico -->
         </div>
         <div class="text-center" id="botones-menu-js">
-          <?php 
-            if ($tip != 'pie') {
-              include "botones.php";
-            }
+          <?php
+          if ($tip != 'pie') {
+            include "botones.php";
+          }
           ?>
         </div>
       </div>
@@ -29,6 +29,15 @@ session_start();
     break;
   case 'Login'
   ?>
+  <nav class="navbar border-3 border-bottom border-dark bg-navbar">
+    <div class="container-fluid d-flex justify-content-center">
+      <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
+    </div>
+  </nav>
+<?php
+    break;
+  case 'validador':
+?>
   <nav class="navbar border-3 border-bottom border-dark bg-navbar">
     <div class="container-fluid d-flex justify-content-center">
       <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>

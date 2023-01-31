@@ -9,8 +9,8 @@ include_once "../clases/master_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    #$tokenVerification->logout();
+    #exit;
 }
 
 $usuario = new Usuarios();
@@ -225,6 +225,16 @@ switch ($api) {
         # eliminar especialidad
         $response = $master->deleteByProcedure("sp_u_especialidades_e", [$id_u_especialidad]);
 
+        echo $master->returnApi($response);
+        break;
+
+    case 13:
+        # Actualizar contrasenia
+        $opciones = [
+            'cost' => 12,
+        ];
+        $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, $opciones);
+        $response = $master->updateByProcedure('sp_usuarios_actualizar_password', [$id_usuario,$contrasenia]);
         echo $master->returnApi($response);
         break;
     default:

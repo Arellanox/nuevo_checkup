@@ -66,7 +66,7 @@ function consultarConsulta(id) {
           if (row[0]['COMPLETADO'] == 0) {
             $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, ' + row[0]['ID_CONSULTA'] + ')" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Continuar consulta </button>')
           } else if (row[0]['COMPLETADO'] == 1) {
-            $('#btn-ir-consulta').html('<button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Consulta terminada </button>')
+            $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, ' + row[0]['ID_CONSULTA'] + ')" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Consulta terminada </button>')
           }
 
           // }
@@ -102,7 +102,7 @@ function obtenerHistorialConsultas(id) {
             let motivo = row[i]['MOTIVO_CONSULTA'];
             $('#historial-consultas-paciente').append('<div class="row line-top" style="margin:0px">' +
               '<div class="col-3 line-right">' + fecha + '</div>' +
-              '<div class="col-9"><p>' + nombre + '</p> <p>' + motivo + '</p>' +
+              '<div class="col-9"><p>' + nombre + '</p> <p class="none-p">' + motivo + '</p>' +
               '</div> </div>')
           }
         }

@@ -36,7 +36,8 @@ class Master extends Miscelaneus
     function connectDb()
     {
         // require_once 'pdoconfig.php';
-        $host = "212.1.208.201";
+        // $host = "212.1.208.201";
+        $host = 'localhost'; //Servidor
         $dbname = "u808450138_checkup";
         $username = "u808450138_bimo";
         $password = "I?6m7]Pe0";
@@ -71,7 +72,7 @@ class Master extends Miscelaneus
 
             $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
             $sentencia = $conexion->prepare($sp);
-            
+
             $sentencia = $this->bindParams($sentencia, $parametros);
 
             if (!$sentencia->execute()) {
@@ -91,13 +92,14 @@ class Master extends Miscelaneus
         }
     }
 
-    public function getByNext($nombreProcedimiento,$parametros){
+    public function getByNext($nombreProcedimiento, $parametros)
+    {
         try {
             $conexion = $this->connectDb();
 
             $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
             $sentencia = $conexion->prepare($sp);
-            
+
             $sentencia = $this->bindParams($sentencia, $parametros);
 
             if (!$sentencia->execute()) {
@@ -111,7 +113,7 @@ class Master extends Miscelaneus
                 $resultSet = $sentencia->fetchAll();
                 $global[] = $resultSet;
             } while ($sentencia->nextRowset());
-            
+
             $sentencia->closeCursor();
 
             return $global;
@@ -150,13 +152,14 @@ class Master extends Miscelaneus
         return $retorno;
     }
 
-    private function trimmer($trimming = array()){
+    private function trimmer($trimming = array())
+    {
         $trimed = array();
         // for ($i = 0; $i < count($trimming); $i++) {
         //     $trimed[] = trim( $trimming[$i] );
         // }
 
-        foreach ($trimming as $key =>$current){
+        foreach ($trimming as $key => $current) {
             $trimed[$key] = isset($current) ? trim($current) : $current;
         }
 
