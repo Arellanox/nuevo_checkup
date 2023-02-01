@@ -574,7 +574,7 @@ class Miscelaneus
             $con_oi = $response1[$i]['CON_OD'];
             $con_od = $response1[$i]['CON_OI'];
             $con_jaeger = $response1[$i]['CON_JAEGER'];
-            $clave = $response1[$i]['CLAVE'];
+            $clave = $response1[$i]['TOKEN'];
             $fecha_resultado = $response1[$i]['FECHA_RESULTADO'];
             $array1 = array(
                 "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
