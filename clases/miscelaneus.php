@@ -574,6 +574,8 @@ class Miscelaneus
             $con_oi = $response1[$i]['CON_OD'];
             $con_od = $response1[$i]['CON_OI'];
             $con_jaeger = $response1[$i]['CON_JAEGER'];
+            $clave = $response1[$i]['CLAVE'];
+            $fecha_resultado = $response1[$i]['FECHA_RESULTADO'];
             $array1 = array(
                 "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
                 "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,
@@ -596,7 +598,9 @@ class Miscelaneus
                 "AGUDEZA_VISUAL_CON_CORRECCION" => $con_agudeza_visual,
                 "CON_OD" => $con_oi,
                 "CON_OI" => $con_od,
-                "CON_JAEGER" => $con_jaeger
+                "CON_JAEGER" => $con_jaeger,
+                "CLAVE" => $clave,
+                "FECHA_RESULTADO" => $fecha_resultado
             );
             array_push($arrayoftalmo, $array1);
         }
