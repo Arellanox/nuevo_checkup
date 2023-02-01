@@ -448,7 +448,7 @@ if (!isset($qr)) {
             <strong>
                 PRUEBA ISHIHARA:
             </strong>
-            <?php $resultados->PRUEBA; ?>
+            <?php echo $resultados->PRUEBA; ?>
 
         </p>
         <p>
