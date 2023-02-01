@@ -50,13 +50,13 @@ class Reporte
         $area       = $this->area;
 
         switch ($tipo) {
-            // case 'etiquetas':
-            //     // $generator = null;
-            //     // $barcode = null;
-            //     $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-            //     // $barcode  = base64_encode($generator->getBarcode($response->BARRAS, $generator::TYPE_CODE_128));
-            //     $barcode  = base64_encode($generator->getBarcode('750169978916', $generator::TYPE_CODE_128));
-            //     break;
+                // case 'etiquetas':
+                //     // $generator = null;
+                //     // $barcode = null;
+                //     $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+                //     // $barcode  = base64_encode($generator->getBarcode($response->BARRAS, $generator::TYPE_CODE_128));
+                //     $barcode  = base64_encode($generator->getBarcode('750169978916', $generator::TYPE_CODE_128));
+                //     break;
             case 'resultados':
                 // Qrcode
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
@@ -75,7 +75,6 @@ class Reporte
                 break;
             default:
                 $barcode = null;
-                return $barcode;
                 break;
         }
 
@@ -109,9 +108,9 @@ class Reporte
                 $ancho = (5.1 / 2.54) * 72;
                 $alto  = (2.5 / 2.54) * 72;
 
-                // $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
-                $pdf->setPaper('letter', 'portrait');
-                $path    = 'pdf/public/etiquetas/00001.pdf';
+                $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
+                // $pdf->setPaper('letter', 'portrait');
+                // $path    = 'pdf/public/etiquetas/00001.pdf';
                 break;
 
             case 'resultados':
@@ -173,7 +172,7 @@ class Reporte
                 return $pdf->stream('documento.pdf', array("Attachment" => false));
                 break;
 
-        session_write_close();
+                session_write_close();
         }
     }
 }

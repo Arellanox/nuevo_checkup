@@ -608,6 +608,7 @@ function cargarForm(campo, id, campoAjax, texto) {
 }
 
 async function obtenerResultadosOftalmo(data) {
+    document.getElementById(formulario).reset()
     let row = data[0]
     $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
     $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);

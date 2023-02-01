@@ -342,7 +342,7 @@ class Miscelaneus
             case '3': #Oftalmologia
                 $arregloPaciente = $this->getBodyInfoOftal($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
-                $infoPaciente[0]['CLAVE_IMAGEN'] = $arregloPaciente['TOKEN'];
+                $infoPaciente[0]['CLAVE_IMAGEN'] = $arregloPaciente['CLAVE'];
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_OFTALMO'];
                 $carpeta_guardado = 'oftalmologia';
