@@ -69,7 +69,7 @@ $params = array(
     $con_oi,
     $con_od,
     $con_jaeger
-#creacion de array.
+    #creacion de array.
 );
 
 switch ($api) {
@@ -85,7 +85,7 @@ switch ($api) {
             $url = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'url');
 
             # actualizar la url del reporte
-            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, $confirmado, NULL, NULL,NULL, NULL]);
+            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, $confirmado, NULL, NULL, NULL, NULL]);
         }
 
 
@@ -198,84 +198,84 @@ switch ($api) {
 }
 echo $master->returnApi($response);
 
-function crearReporteOftalmologia($turno_id, $viz = 'url')
-{
-    $master = new Master();
-    #Recuperar info paciente
-    $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
-    $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-    $infoPaciente[0]['TITULO'] = 'OFTALMOLOGIA';
-    $infoPaciente[0]['SUBTITULO'] = 'OFTALMOLOGIA';
+// function crearReporteOftalmologia($turno_id, $viz = 'url')
+// {
+//     $master = new Master();
+//     #Recuperar info paciente
+//     $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
+//     $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+//     $infoPaciente[0]['TITULO'] = 'OFTALMOLOGIA';
+//     $infoPaciente[0]['SUBTITULO'] = 'OFTALMOLOGIA';
 
-    #recuperar la informacion del Reporte de interpretacion de oftalmología
-    # recuperar los resultados de oftalmología
-    $response1 = $master->getByProcedure('sp_oftalmo_resultados_b', [null, $turno_id]);
+//     #recuperar la informacion del Reporte de interpretacion de oftalmología
+//     # recuperar los resultados de oftalmología
+//     $response1 = $master->getByProcedure('sp_oftalmo_resultados_b', [null, $turno_id]);
 
-    $arrayoftalmo = [];
+//     $arrayoftalmo = [];
 
-    for ($i = 0; $i < count($response1[1]); $i++) {
+//     for ($i = 0; $i < count($response1[1]); $i++) {
 
-        $antecedentes_personales = $response1[$i]['ANTECEDENTES_PERSONALES'];
-        $antecedentes_oftalmologicos = $response1[$i]['ANTECEDENTES_OFTALMOLOGICOS'];
-        $pacedimiento_actual = $response1[$i]['PADECIMIENTO_ACTUAL'];
-        $agudeza_visual = $response1[$i]['AGUDEZA_VISUAL_SIN_CORRECCION'];
-        $od = $response1[$i]['OD'];
-        $oi = $response1[$i]['OI'];
-        $jaeger = $response1[$i]['JAEGER'];
-        $refraccion = $response1[$i]['REFRACCION'];
-        $prueba = $response1[$i]['PRUEBA'];
-        $exploracion_oftalmologica = $response1[$i]['EXPLORACION_OFTALMOLOGICA'];
-        $forias = $response1[$i]['FORIAS'];
-        $campimetria = $response1[$i]['CAMPIMETRIA'];
-        $presion_intraocular_od = $response1[$i]['PRESION_INTRAOCULAR_OD'];
-        $presion_intraocular_oi = $response1[$i]['PRESION_INTRAOCULAR_OI'];
-        $diagnostico = $response1[$i]['DIAGNOSTICO'];
-        $plan = $response1[$i]['PLAN'];
-        $observaciones = $response1[$i]['OBSERVACIONES'];
-        $array1 = array(
-            "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
-            "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,
-            "PADECIMIENTO_ACTUAL" => $pacedimiento_actual,
-            "AGUDEZA_VISUAL" => $agudeza_visual,
-            "OD" => $od,
-            "OI" => $oi,
-            "JAEGER" => $jaeger,
-            "REFRACCION" =>  $refraccion,
-            "PRUEBA" => $prueba,
-            "EXPLORACION_OFTALMOLOGICA" => $exploracion_oftalmologica,
-            "FORIAS" => $forias,
-            "CAMPIMETRIA" => $campimetria,
-            "PRESION_INTRAOCULAR_OD" => $presion_intraocular_od,
-            "PRESION_INTRAOCULAR_OI" => $presion_intraocular_oi,
-            "DIAGNOSTICO" => $diagnostico,
-            "PLAN" => $plan,
-            "OBSERVACIONES" => $observaciones
-        );
-        array_push($arrayoftalmo, $array1);
-    }
+//         $antecedentes_personales = $response1[$i]['ANTECEDENTES_PERSONALES'];
+//         $antecedentes_oftalmologicos = $response1[$i]['ANTECEDENTES_OFTALMOLOGICOS'];
+//         $pacedimiento_actual = $response1[$i]['PADECIMIENTO_ACTUAL'];
+//         $agudeza_visual = $response1[$i]['AGUDEZA_VISUAL_SIN_CORRECCION'];
+//         $od = $response1[$i]['OD'];
+//         $oi = $response1[$i]['OI'];
+//         $jaeger = $response1[$i]['JAEGER'];
+//         $refraccion = $response1[$i]['REFRACCION'];
+//         $prueba = $response1[$i]['PRUEBA'];
+//         $exploracion_oftalmologica = $response1[$i]['EXPLORACION_OFTALMOLOGICA'];
+//         $forias = $response1[$i]['FORIAS'];
+//         $campimetria = $response1[$i]['CAMPIMETRIA'];
+//         $presion_intraocular_od = $response1[$i]['PRESION_INTRAOCULAR_OD'];
+//         $presion_intraocular_oi = $response1[$i]['PRESION_INTRAOCULAR_OI'];
+//         $diagnostico = $response1[$i]['DIAGNOSTICO'];
+//         $plan = $response1[$i]['PLAN'];
+//         $observaciones = $response1[$i]['OBSERVACIONES'];
+//         $array1 = array(
+//             "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
+//             "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,
+//             "PADECIMIENTO_ACTUAL" => $pacedimiento_actual,
+//             "AGUDEZA_VISUAL" => $agudeza_visual,
+//             "OD" => $od,
+//             "OI" => $oi,
+//             "JAEGER" => $jaeger,
+//             "REFRACCION" =>  $refraccion,
+//             "PRUEBA" => $prueba,
+//             "EXPLORACION_OFTALMOLOGICA" => $exploracion_oftalmologica,
+//             "FORIAS" => $forias,
+//             "CAMPIMETRIA" => $campimetria,
+//             "PRESION_INTRAOCULAR_OD" => $presion_intraocular_od,
+//             "PRESION_INTRAOCULAR_OI" => $presion_intraocular_oi,
+//             "DIAGNOSTICO" => $diagnostico,
+//             "PLAN" => $plan,
+//             "OBSERVACIONES" => $observaciones
+//         );
+//         array_push($arrayoftalmo, $array1);
+//     }
 
-    $arregloPaciente = array(
-        'ESTUDIOS' => $arrayoftalmo
-    );
+//     $arregloPaciente = array(
+//         'ESTUDIOS' => $arrayoftalmo
+//     );
 
-    # pie de pagina
-    $fecha_resultado = $infoPaciente[0]['FECHA_RESULTADO_OFTALMO'];
-    $nombre_paciente = $infoPaciente[0]['NOMBRE'];
-    $nombre = str_replace(" ", "_", $nombre_paciente);
+//     # pie de pagina
+//     $fecha_resultado = $infoPaciente[0]['FECHA_RESULTADO_OFTALMO'];
+//     $nombre_paciente = $infoPaciente[0]['NOMBRE'];
+//     $nombre = str_replace(" ", "_", $nombre_paciente);
 
-    $ruta_saved = "reportes/modulo/oftalmo/$fecha_resultado/$turno_id/";
+//     $ruta_saved = "reportes/modulo/oftalmo/$fecha_resultado/$turno_id/";
 
-    # Crear el directorio si no existe
-    $r = $master->createDir("../" . $ruta_saved);
-    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
+//     # Crear el directorio si no existe
+//     $r = $master->createDir("../" . $ruta_saved);
+//     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
 
-    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_OFTALMO'], "modulo" => 8);
-    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'oftalmologia', $viz);
-    return $pdf->build();
+//     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE'], "folio" => $infoPaciente[0]['FOLIO_OFTALMO'], "modulo" => 8);
+//     $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'oftalmologia', $viz);
+//     return $pdf->build();
 
-    print_r($arregloPaciente);
-    #return $arregloPaciente;
-}
+//     print_r($arregloPaciente);
+//     #return $arregloPaciente;
+// }
 
 /*
     #primero recuperamos la informacion del paciente en responsePac
