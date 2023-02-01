@@ -37,10 +37,10 @@ $diagnostico = $_POST['diagnostico'];
 $plan = $_POST['plan'];
 $observaciones = $_POST['observaciones'];
 $confirmado = $_POST['confirmado'];
-$con_agudeza_visual = $_POST['con_agudeza_visual'];
-$con_oi = $_POST['con_oi'];
-$con_od = $_POST['con_od'];
-$con_jaeger = $_POST['con_jaeger'];
+$con_agudeza_visual = $_POST['agudeza_visual_con'];
+$con_oi = $_POST['oi_con'];
+$con_od = $_POST['od_con'];
+$con_jaeger = $_POST['jaeger_con'];
 #creacion de array.
 $params = array(
     $id_oftalmo,
