@@ -565,11 +565,11 @@ class Miscelaneus
             $diagnostico = $response1[$i]['DIAGNOSTICO'];
             $plan = $response1[$i]['PLAN'];
             $observaciones = $response1[$i]['OBSERVACIONES'];
-            $confirmado = $_POST['confirmado'];
-            $con_agudeza_visual = $_POST['con_agudeza_visual'];
-            $con_oi = $_POST['con_oi'];
-            $con_od = $_POST['con_od'];
-            $con_jaeger = $_POST['con_jaeger'];
+            $confirmado = ['confirmado'];
+            $con_agudeza_visual = ['con_agudeza_visual'];
+            $con_oi = ['con_oi'];
+            $con_od = ['con_od'];
+            $con_jaeger = ['con_jaeger'];
             $array1 = array(
                 "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
                 "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,
