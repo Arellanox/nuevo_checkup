@@ -220,7 +220,8 @@ if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
     $ruta_firma = file_get_contents($pie['datos_medicos'][0]['FIRMA_URL']); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
     $encode_firma = base64_encode($ruta_firma);
 } else {
-    $encode_firma = null;
+    $ruta_firma = file_get_contents('../pdf/public/assets/firma_adrian.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
+    $encode_firma = base64_encode($ruta_firma); #IMPORTANTE RECIBIRLO 
 }
 // $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
 
@@ -293,7 +294,7 @@ if (!isset($qr)) {
                         <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_IMAGEN; ?> </strong>
+                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_OFTALMO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -326,7 +327,7 @@ if (!isset($qr)) {
                     <td colspan="2" style="text-align: left;">
                         <?php
                         if ($preview == 0) {
-                            echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                            echo "<img style='position:absolute; right:5px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
                         }
                         ?>
                     </td>
@@ -342,7 +343,7 @@ if (!isset($qr)) {
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 10px;">
                             <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> - ' . $pie['datos_medicos'][0]['PROFESION'] .' -' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> - ' . $pie['datos_medicos'][0]['CARRERA'] . ' -' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
                             $indice = 1;
                             foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
                                 $indice++;
@@ -421,20 +422,20 @@ if (!isset($qr)) {
             <strong>
                 AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN:
             </strong>
-            <?php echo $resultados->AGUDEZA_VISUAL_CON; //_CON 
+            <?php echo $resultados->AGUDEZA_VISUAL_CON_CORRECCION; //_CON 
             ?> <br>
             <strong>
                 OD:
             </strong>
-            <?php echo $resultados->OD_CON; ?><br>
+            <?php echo $resultados->CON_OD; ?><br>
             <strong>
                 OI:
             </strong>
-            <?php echo $resultados->OI_CON; ?> <br>
+            <?php echo $resultados->CON_OI; ?> <br>
             <strong>
                 VISIÓN CERCANA CON CORRECCIÓN TARJETA DE RESENBAUM:
             </strong>
-            <?php echo $resultados->JAEGER_CON; ?> <br>
+            <?php echo $resultados->CON_JAEGER; ?> <br>
         </p>
         <p>
             <strong>

@@ -36,7 +36,7 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', 'mostrar', 1);
         break;
     case 'oftalmo':
-        $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'mostrar', 1);
+        $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'mostrar', 0);
         break;
     case 'laboratorio':
         $r = $master->reportador($master, $turno_id, 6, 'resultados', 'mostrar', 1);

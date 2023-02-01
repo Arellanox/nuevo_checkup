@@ -322,6 +322,7 @@ class Miscelaneus
                 $carpeta_guardado = 'ultrasonido';
 
                 //Folio
+                $infoPaciente[0]['FOLIO_IMAGEN'] = $infoPaciente[0]['FOLIO_IMAGEN_US'];
                 $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
             case 11:
@@ -332,13 +333,16 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
                 $carpeta_guardado = 'rayosx';
+
                 //Folio
+                $infoPaciente[0]['FOLIO_IMAGEN'] = $infoPaciente[0]['FOLIO_IMAGEN_RX'];
                 $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
             case 3:
             case '3': #Oftalmologia
                 $arregloPaciente = $this->getBodyInfoOftal($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
+                $infoPaciente[0]['CLAVE_IMAGEN'] = $arregloPaciente['TOKEN'];
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_OFTALMO'];
                 $carpeta_guardado = 'oftalmologia';
@@ -375,16 +379,16 @@ class Miscelaneus
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
-        // print_r($infoPaciente[0]);
-        // exit;
+        print_r(json_encode($arregloPaciente));
+        exit;
 
-        $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
-        $renderpdf = $pdf->build();
+        // $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
+        // $renderpdf = $pdf->build();
 
-        if ($lab == 1 && $tipo == 'url') {
-            $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
-        }
-        return $renderpdf;
+        // if ($lab == 1 && $tipo == 'url') {
+        //     $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
+        // }
+        // return $renderpdf;
     }
 
     private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)
@@ -565,11 +569,11 @@ class Miscelaneus
             $diagnostico = $response1[$i]['DIAGNOSTICO'];
             $plan = $response1[$i]['PLAN'];
             $observaciones = $response1[$i]['OBSERVACIONES'];
-            $confirmado = ['confirmado'];
-            $con_agudeza_visual = ['con_agudeza_visual'];
-            $con_oi = ['con_oi'];
-            $con_od = ['con_od'];
-            $con_jaeger = ['con_jaeger'];
+            $confirmado = $response1[$i]['CONFIRMADO'];
+            $con_agudeza_visual = $response1[$i]['AGUDEZA_VISUAL_CON_CORRECCION'];
+            $con_oi = $response1[$i]['CON_OD'];
+            $con_od = $response1[$i]['CON_OI'];
+            $con_jaeger = $response1[$i]['CON_JAEGER'];
             $array1 = array(
                 "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
                 "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,

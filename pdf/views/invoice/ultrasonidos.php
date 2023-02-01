@@ -266,6 +266,7 @@ $encode_firma = base64_encode($ruta_firma);
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
+
                         No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_IMAGEN; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
