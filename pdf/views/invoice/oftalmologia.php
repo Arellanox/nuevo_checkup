@@ -343,7 +343,7 @@ if (!isset($qr)) {
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 10px;">
                             <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> - ' . $pie['datos_medicos'][0]['CARRERA'] . ' -' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['CARRERA'] . ' - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
                             $indice = 1;
                             foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
                                 $indice++;
