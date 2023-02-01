@@ -31,7 +31,7 @@ switch ($api) {
         # buscar
         $response = $master->getByProcedure('sp_mesometria_signos_vitales_b',[$id_turno]);
         if(is_array($response)){
-            $response['FECHA_REGISTRO'] = $response[count($repons)]
+            $response['FECHA_REGISTRO'] = $response[count($response) - 1]['FECHA_REGISTRO'];
         }
         break;
     case 3:
