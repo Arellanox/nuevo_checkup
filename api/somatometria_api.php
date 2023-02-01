@@ -30,6 +30,9 @@ switch ($api) {
     case 2:
         # buscar
         $response = $master->getByProcedure('sp_mesometria_signos_vitales_b',[$id_turno]);
+        if(is_array($response)){
+            $response['FECHA_REGISTRO'] = $response[count($repons)]
+        }
         break;
     case 3:
         # reservado para actualizar
