@@ -92,8 +92,13 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     break;
                 case 8: //Rayos X
                     $('#btn-inter-areas').fadeIn(0);
-                    await GeenerarReporteImagenologia(selectEstudio.array);
-                    if (datalist.CONFIRMADO_RX == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                    if (session['cargo'] == 5) {
+                        await GenerarListaCapturasImagenologia(selectEstudio.array);
+                        // console.log("lista");
+                    } else {
+                        await GeenerarReporteImagenologia(selectEstudio.array);
+                        if (datalist.CONFIRMADO_RX == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                    }
                     break;
                 case 11: //Ultrasonido
                     $('#btn-inter-areas').fadeIn(0);
@@ -109,8 +114,8 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     botonesResultados('activar');
                     break;
             }
-            if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2)
-                a = ''
+            // if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2)
+            //     a = ''
             estadoFormulario(2)
             bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
         })
@@ -605,6 +610,47 @@ function cargarForm(campo, id, campoAjax, texto) {
     html += endDiv;
     html += '</li>';
     return html;
+}
+
+//Lista de estudios imagen  
+async function GenerarListaCapturasImagenologia(row) {
+    return new Promise(resolve => {
+        let html = '';
+        console.log(row);
+        for (var i = 0; i < row.length; i++) {
+            if (row[i]['CAPTURAS'].length == 0) {
+                html += `<li class="list-group-item d-flex justify-content-between align-items-start">` +
+                    `<div class="ms-2 me-auto">` +
+                    `<div class="fw-bold">` + row[i]['SERVICIO'] + `</div>` +
+                    `` +
+                    `</div>` +
+                    `<span class="badge rounded-pill">` +
+                    `<button type="button" onClick="estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '#ModalSubirCapturas', '` + row[i]['SERVICIO'] + `')"  class="btn me-2" style="margin-bottom:4px">` +
+                    `<i class="bi bi-clipboard2-plus"></i>` +
+                    `</button>` +
+                    `</span>` +
+                    `</li>`;
+            } else {
+                html += `<li class="list-group-item d-flex justify-content-between align-items-start">` +
+                    `<div class="ms-2 me-auto">` +
+                    `<div class="fw-bold">` + row[i]['SERVICIO'] + `</div>` +
+                    `` +
+                    `</div>` +
+                    `<span class="badge rounded-pill">` +
+                    '<a type="button" class="btn me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
+                    '<i class="bi bi-images"></i>' +
+                    '</a>' +
+                    // `<button type="button" onClick="alertToast('Capturas cargadas', 'info')"  class="btn me-2" style="margin-bottom:4px">` +
+                    `<i class="bi bi-clipboard2-check"></i>` +
+                    `</button>` +
+                    `</span>` +
+                    `</li>`;
+            }
+
+        }
+        $('#vistaEstudiosImagenes').html(html);
+        resolve(1);
+    })
 }
 
 async function obtenerResultadosOftalmo(data) {

@@ -43,6 +43,11 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
     <i class="bi bi-universal-access"></i> Rayos X
   </a>
 <?php endif; ?>
+<?php if ($_SESSION['vista']['RXTOMA'] == 1) : ?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RXTOMA'; ?>">
+    <i class="bi bi-universal-access"></i> Rayos X (Imagenes)
+  </a>
+<?php endif; ?>
 <?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
     <i class="bi bi-activity"></i> Electrocardiograma

@@ -71,9 +71,10 @@ CapturasdeArea.addEventListener('show.bs.modal', event => {
             }
             if (img == 1) {
                 html += htmlimg;
+                html += '<hr class="dropdown-divider">';
             }
         }
-        html += '<hr>'
+
     }
     $('#capturasIMG').html(html)
     // for (let i = 0; i < rowImg.length; i++) {

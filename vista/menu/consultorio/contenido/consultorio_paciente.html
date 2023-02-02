@@ -2,31 +2,25 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 <div class="row mt-2">
-  <div class="col-12 col-lg-3 col-xxl-3">
-    <div class="info-detalle card" id="panel-informacion">
-
-    </div>
-    <div class="card mt-2" id="signos-vitales">
-
-    </div>
-  </div>
-  <div class="col-12 col-lg-8 col-xxl-6 overflow-auto" style="max-width: 100%; max-height: 78vh;margin-bottom:10px;">
-    <div id="antecedentes-paciente">
-
-    </div>
+  <div class="col-12 col-lg-4">
+    <div class="info-detalle card" id="panel-informacion"> <!-- Informacion del paciente --> </div>
     <div id="crear-notas" class="card mt-3">
       <h4 class="m-3">Notas de historial clinica</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas" id="nota-historial-paciente"></textarea>
+      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"
+        id="nota-historial-paciente"></textarea>
       <div class="d-flex justify-content-end p-2">
         <button type="button" class="btn btn-confirmar m-1" id="agregar-nota-historial">
           <i class="bi bi-plus"></i> Agregar
         </button>
       </div>
     </div>
-    <div id="notas-historial">
+    <div id="notas-historial"> <!-- Notas --> </div>
+  </div>
+  <div class="col-12 col-lg-4" style="margin-bottom:10px;">
 
-    </div>
+    <div class="card mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
+
     <!-- <div  class="card mt-3">
       <h4 class="m-3">@Usuario actual <p style="font-size: 14px;margin-left: 5px;">xx:xx Septiembre dia, año</p></h4>
       <div style="margin: -1px 30px 20px 30px;">
@@ -34,10 +28,11 @@
       </div>
     </div> -->
   </div>
-  <div class="col-12 col-lg-12 col-xxl-3">
+  <div class="col-12  col-lg-4">
     <div class="card">
       <div id="btn-ir-consulta">
-        <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
+        <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
+          data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
           <i class="bi bi-person-plus-fill"></i> Iniciar Consulta
         </button>
       </div>

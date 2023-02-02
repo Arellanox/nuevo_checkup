@@ -1,15 +1,15 @@
 <?php
 session_start();
-include "../clases/master_class.php";  
+include "../clases/master_class.php";
 $api = $_POST['api'];
 switch ($api) {
     case 1:
-        $_SESSION=array();
-        $response =login($_POST['user'], $_POST['pass']);        
+        $_SESSION = array();
+        $response = login($_POST['user'], $_POST['pass']);
         if (is_array($response)) {
             $token = generarToken($_SESSION['id']);
             // echo json_encode([$token]);
-            if (! is_null($token)) {
+            if (!is_null($token)) {
                 echo json_encode(array("response" => array("code" => 1, "data" => $response, "token" => $token)));
             } else {
                 echo json_encode(array("response" => array("code" => 'login', "msj" => "token no generado")));
@@ -17,9 +17,9 @@ switch ($api) {
         } else {
             echo json_encode(array("response" => array("code" => 'login', "msj" => $response)));
         }
-    break;
+        break;
     case 2:
-        $_SESSION=array();
+        $_SESSION = array();
 
         // if(init_get("session.use_cookies")){
         //     $params = session_get_cookie_params();
@@ -29,7 +29,7 @@ switch ($api) {
 
         unset($_COOKIE);
 
-        if(session_destroy()){
+        if (session_destroy()) {
             echo json_encode(array("response" => array("code" => '1', "msj" => "logout")));
         } else {
             echo json_encode(array("response" => array("code" => '2', "msj" => "errors")));
@@ -44,7 +44,7 @@ function generarToken($id_usuario)
     $tokenArray = array("id_usuario" => $id_usuario, "token" => uniqid());
     $token = hash("sha1", implode("_", $tokenArray), false);
 
-    if (guardarUserToken($id_usuario,$token)) {
+    if (guardarUserToken($id_usuario, $token)) {
         //setcookie("token", $token);
         $_SESSION['token'] = $token;
         return $token;
@@ -67,21 +67,23 @@ function guardarUserToken($token, $id_usuario)
 }
 
 
-function login($user,$password){ 
+function login($user, $password)
+{
     $master = new Master();
     $activo = 1;
     $bloqueado = 0;
-    $parametros = [$user,$activo,$bloqueado]; 
-    $result = $master->getByProcedure("sp_usuarios_login_b",$parametros); 
+    $parametros = [$user, $activo, $bloqueado];
+    $result = $master->getByProcedure("sp_usuarios_login_b", $parametros);
 
-    if(count($result)>0){
-        if(password_verify($password,$result[0]['CONTRASENIA'])){
+    if (count($result) > 0) {
+        if (password_verify($password, $result[0]['CONTRASENIA'])) {
             $conn = $master->connectDb();
             $_SESSION['id'] = $result[0]['ID_USUARIO'];
             $_SESSION['nombre'] = $result[0]['NOMBRE'];
-            $_SESSION['apellidos'] = $result[0]['PATERNO']." ".$result[0]['MATERNO'];
+            $_SESSION['apellidos'] = $result[0]['PATERNO'] . " " . $result[0]['MATERNO'];
             $_SESSION['user'] = $result[0]['USUARIO'];
             $_SESSION['perfil'] = $result[0]['TIPO_ID'];
+            $_SESSION['cargo'] = $result[0]['CARGO_ID'];
 
             //Permisos
             $sql = "SELECT pertip.DESCRIPCION, permisos.activo
@@ -89,12 +91,12 @@ function login($user,$password){
                     LEFT JOIN permisos as pertip ON pertip.ID_PERMISO = permisos.PERMISO_ID
                     WHERE permisos.USUARIO_ID = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1,$_SESSION['id']);
+            $stmt->bindParam(1, $_SESSION['id']);
             $stmt->execute();
             $permisos = array();
             $result = $stmt->fetchAll();
-            for ($i=0; $i < count($result); $i++) {
-              $permisos[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+            for ($i = 0; $i < count($result); $i++) {
+                $permisos[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
             }
             $_SESSION['permisos'] = $permisos;
 
@@ -104,12 +106,12 @@ function login($user,$password){
             LEFT JOIN modulos  as areatip ON areatip.ID_MODULO = modulo.MODULO_ID
             WHERE modulo.USUARIO_ID = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1,$_SESSION['id']);
+            $stmt->bindParam(1, $_SESSION['id']);
             $stmt->execute();
             $vista = array();
             $result = $stmt->fetchAll();
-            for ($i=0; $i < count($result); $i++) {
-              $vista[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+            for ($i = 0; $i < count($result); $i++) {
+                $vista[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
             }
             $_SESSION['vista'] = $vista;
             return $_SESSION;

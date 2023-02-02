@@ -215,24 +215,35 @@ $(document).on('click', '.eliminarExploracion', function () {
   let id = $(this).attr('data-bs-id');
   let comentario = $(this);
 
-  $.ajax({
-    data: {
-      id_exploracion_clinica: id,
-      api: 7
-    },
-    url: "../../../api/consulta_api.php",
-    type: "POST",
-    success: function (data) {
-      // alert("antes de la nota")
-      // if (mensajeAjax(data)) {
-      var parent_element = $(comentario).closest("div[class='card mt-3']");
-      console.log(parent_element)
-      $(parent_element).remove()
-      // }
+  alertMensajeConfirm({
+    title: "¿Está seguro de eliminar este registro?",
+    text: "¡No podrá revertir esta acción!",
+    icon: "warning",
+    showCancelButton: true,
+    cancelButtonColor: "#3085d6",
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Aceptar",
+    cancelButtonText: "Cancelar",
+  }, function () {
+    $.ajax({
+      data: {
+        id_exploracion_clinica: id,
+        api: 7
+      },
+      url: "../../../api/consulta_api.php",
+      type: "POST",
+      success: function (data) {
+        // alert("antes de la nota")
+        // if (mensajeAjax(data)) {
+        var parent_element = $(comentario).closest("div[class='card mt-3']");
+        console.log(parent_element)
+        $(parent_element).remove()
+        // }
 
-      // alert("despues de la nota")
-    },
-  });
+        // alert("despues de la nota")
+      },
+    });
+  })
   // eliminarElementoArray(id);
   // console.log(id);
 });

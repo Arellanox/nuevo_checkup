@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalPacienteAceptar" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-fullscreen-xxl-down modal-dialog-centered">
+  <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header header-modal">
         <h5 class="modal-title" id="title-paciente_aceptar">Nombre paciente</h5>
@@ -19,43 +19,6 @@
           </div>
           <p> <strong></strong> </p>
           <div class="row">
-            <div class="col-12 col-lg-4">
-              <h4 class="mt-2">Buscar un paquete</h4>
-              <div class="col-12">
-                <label for="paquete" class="form-label">Selecciona un paquete</label>
-                <select class="" id="select-paquetes">
-                </select>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="checkPaqueteAceptar">
-                  <label class="form-check-label" for="checkPaqueteAceptar">
-                    Sin paquete
-                  </label>
-                </div>
-                <h4 class="mt-3">Cargar información</h4>
-                <div class="col-12 mt-3">
-                  <label for="paquete" class="form-label">Suba credencial:</label>
-                  <input type="file" name="credencial" id="file-credencial" class="form-control input-form" value="">
-                </div>
-                <div class="mt-3">
-                  <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones" id="Observaciones-aceptar"></textarea>
-                </div>
-                <div class="col-12 mt-3">
-                  <p>Formas de pago: </p>
-                  <p>Total del paquete: <strong>$1200.00</strong></p>
-                  <p>Total de estudios individuales: <strong>$600.00</strong></p>
-                </div>
-              </div>
-              <!-- <div class="overflow-auto" style="max-width: 100%; max-height: 220px;margin-bottom:10px;">
-                <ul class="list-group" id="list-estudiosPaciente">
-                  <li class="list-group-item">An item</li>
-                  <li class="list-group-item">A second item</li>
-                  <li class="list-group-item">A third item</li>
-                </ul>
-              </div> -->
-              <div class="col-12">
-
-              </div>
-            </div>
             <div class="col-12 col-lg-8">
               <h4 class="mt-2">Cargar estudios</h4>
               <p>Busqué y agregue estudios para las areas si es necesario</p>
@@ -192,6 +155,43 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <h4 class="mt-2">Buscar un paquete</h4>
+              <div class="col-12">
+                <label for="paquete" class="form-label">Selecciona un paquete</label>
+                <select class="" id="select-paquetes">
+                </select>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="checkPaqueteAceptar">
+                  <label class="form-check-label" for="checkPaqueteAceptar">
+                    Sin paquete
+                  </label>
+                </div>
+                <h4 class="mt-3">Cargar información</h4>
+                <div class="col-12 mt-3">
+                  <label for="paquete" class="form-label">Suba credencial:</label>
+                  <input type="file" name="credencial" id="file-credencial" class="form-control input-form" value="">
+                </div>
+                <div class="mt-3">
+                  <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones" id="Observaciones-aceptar"></textarea>
+                </div>
+                <div class="col-12 mt-3">
+                  <p>Formas de pago: </p>
+                  <p>Total del paquete: <strong>$1200.00</strong></p>
+                  <p>Total de estudios individuales: <strong>$600.00</strong></p>
+                </div>
+              </div>
+              <!-- <div class="overflow-auto" style="max-width: 100%; max-height: 220px;margin-bottom:10px;">
+                <ul class="list-group" id="list-estudiosPaciente">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                </ul>
+              </div> -->
+              <div class="col-12">
+
               </div>
             </div>
             <!-- <div class="col-12 col-lg-6">

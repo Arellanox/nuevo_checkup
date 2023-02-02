@@ -1,5 +1,7 @@
 <?php
 $form = $_POST['form'];
+$tipovista = $_POST['tipovista'];
+session_start();
 
 ?>
 <!-- <div class="col-12 loader" id="loader" style="">
@@ -87,31 +89,50 @@ $form = $_POST['form'];
                 <div class="row">
                     <div class="col-12">
                         <h4>Resultados</h4>
-                        <p class="none-p">Cargué o visualice el reporte de interpretación del paciente</p>
+                        <?php
+                        if ($tipovista == 'tomarRX') {
+                            echo '<p class="none-p">Cargue las imagenes de cada estudio</p>';
+                        } else {
+                            echo '<p class="none-p">Cargué o visualice el reporte de interpretación del paciente</p>';
+                        } ?>
                     </div>
                     <div class="row">
-                        <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
-                            <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
-                                <i class="bi bi-clipboard2-plus"></i> Imágenes
-                            </button>
-                        </div>
-                        <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">
-                            <!-- Subir por areas -->
-                            <button type="button" id="abrirModalResultados" class="btn btn-confirmar me-2" style="margin-bottom:4px">
-                                <i class="bi bi-clipboard2-plus"></i> Interpretación
-                            </button>
-                        </div>
+                        <?php if ($tipovista != 'tomarRX') : ?>
+                            <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
+                                <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
+                                    <i class="bi bi-clipboard2-plus"></i> Imágenes
+                                </button>
+                            </div>
+                            <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">
+                                <!-- Subir por areas -->
+                                <button type="button" id="abrirModalResultados" class="btn btn-confirmar me-2" style="margin-bottom:4px">
+                                    <i class="bi bi-clipboard2-plus"></i> Interpretación
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <div id="spamResultado">
+                <?php if ($tipovista == 'tomarRX') { ?>
+                    <!-- Visualizar imagenes por vista -->
+                    <div class="vistaImagenesCargo5 mt-4 m-3">
+                        <ol class="list-group list-group-numbered" id="vistaEstudiosImagenes">
+                            <!-- Lista de estudios a subir -->
 
-                </div>
-                <div id="mostrarResultado" style="display: none;">
-                    <h5>Resultados del paciente:</h5>
-                    <div class="" id="resultadosServicios-areas">
+                        </ol>
+                    </div>
+                <?php } else { ?>
+                    <div id="spamResultado">
 
                     </div>
-                </div>
+                    <div id="mostrarResultado" style="display: none;">
+
+                        <h5>Resultados del paciente:</h5>
+                        <div class="" id="resultadosServicios-areas">
+
+                        </div>
+
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>

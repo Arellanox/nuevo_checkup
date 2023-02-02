@@ -617,9 +617,15 @@ function getParameterByName(name) {
 function loader(fade) {
   if (fade == 'Out') {
     $("#loader").fadeOut(100);
+    $('body').removeClass('overflow-hidden');
+    // let alturanav = $('nav [class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar"]').height()
+    // console.log(alturanav)
+    // $("html, body").animate({ scrollTop: alturanav + "px" });
     // alert("salir");
   } else if (fade == 'In') {
+    $("html, body").animate({ scrollTop: "0px" });
     $("#loader").fadeIn(100);
+    $('body').addClass('overflow-hidden')
     // alert("entrar");
   }
 }
@@ -659,7 +665,8 @@ function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'e
   Toast.fire({
     icon: icon,
     title: msj,
-    timer: timer
+    timer: timer,
+    width: 'auto'
   });
 }
 
@@ -667,7 +674,8 @@ function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error',
   Toast.fire({
     icon: icon,
     title: msj,
-    timer: timer
+    timer: timer,
+    width: 'auto'
   });
 }
 // 
@@ -678,7 +686,8 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
     title: title,
     text: text,
     html: html,
-    footer: footer
+    footer: footer,
+    width: 'auto'
   })
 }
 
@@ -923,30 +932,63 @@ function bugGetPanel(divClass, loader, loaderDiv1) {
 }
 
 // Antecedentes del paciente
-function obtenerAntecedentesPaciente(id, curp = 0) {
+function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
   return new Promise(resolve => {
     let arrayDivs = new Array;
+    let api = 10;
+    //Antecedentes
     var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row d-flex justify-content-center']")
+    arrayDivs['ANTECEDENTES PERSONALES PATOLOGICOS'] = divPatologicos
     var divNoPatologicos = $('#collapse-nopatologicos-Target').find("div[class='row d-flex justify-content-center']")
+    arrayDivs['ANTECEDENTES NO PATOLOGICOS'] = divNoPatologicos
     var divHeredofamiliares = $('#collapse-anteHeredo-Target').find("div[class='row d-flex justify-content-center']")
+    arrayDivs['ANTECEDENTES HEREDOFAMILIARES'] = divHeredofamiliares
     var divPsicologicos = $('#collapse-antPsico-Target').find("div[class='row d-flex justify-content-center']")
+    arrayDivs['ANTECEDENTES PSICOLOGICOS/PSIQUIATRICOS'] = divPsicologicos
     var divNutricionales = $('#collapse-antNutri-Target').find("div[class='row d-flex justify-content-center']")
+    arrayDivs['ANTECEDENTES NUTRICIONALES'] = divNutricionales
     var divLaboral = $('#collapse-MedLabo-Target').find("div[class='row d-flex justify-content-center']")
-    arrayDivs.push(divPatologicos, divNoPatologicos, divHeredofamiliares, divPsicologicos, divNutricionales, divLaboral)
+    arrayDivs['MEDIO LABORAL'] = divLaboral
+
+    var divsisteCardio = $('#collapse-sub-sisteCardio-Target').find("div[class='row']")
+    arrayDivs['SISTEMA CARDIOVASCULAR'] = divsisteCardio
+    var divAparaRespiratorio = $('#collapse-sub-AparaRespiratorio-Target').find("div[class='row']")
+    arrayDivs['APARATO RESPIRATORIO'] = divAparaRespiratorio
+    var divaparatoDigestivo = $('#collapse-sub-aparatoDigestivo-Target').find("div[class='row']")
+    arrayDivs['APARATO DIGESTIVO'] = divaparatoDigestivo
+    var divaparatoGenitourina = $('#collapse-sub-aparatoGenitourina-Target').find("div[class='row']")
+    arrayDivs['APARATO GENITOURINARIO'] = divaparatoGenitourina
+    var divsistemNervios = $('#collapse-sub-sistemNervios-Target').find("div[class='row']")
+    arrayDivs['SISTEMA NERVIOSO'] = divsistemNervios
+    var divEndrocrinoloMetabolism = $('#collapse-sub-EndrocrinoloMetabolism-Target').find("div[class='row']")
+    arrayDivs['ENDOCRINOLOGIA Y METABOLISMO'] = divEndrocrinoloMetabolism
+    var divaparatoLocomot = $('#collapse-sub-aparatoLocomot-Target').find("div[class='row']")
+    arrayDivs['APARATO LOCOMOTOR'] = divaparatoLocomot
+    var divTermoregulacin = $('#collapse-sub-Termoregulacin-Target').find("div[class='row']")
+    arrayDivs['TERMOREGULACION'] = divTermoregulacin
+    var divpiel = $('#collapse-sub-piel-Target').find("div[class='row']")
+    arrayDivs['PIEL'] = divpiel
+    // console.log(arrayDivs)
+
+    // arrayDivs.push(divPatologicos, divNoPatologicos, divHeredofamiliares, divPsicologicos, divNutricionales, divLaboral)
+    if (tipo == 2)
+      api = 15
 
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
       data: {
-        api: 10,
+        api: api,
         turno_id: id,
         curp: curp
       },
       type: "POST",
       dataType: "json",
       success: function (data) {
-        checkbox = data;
-        for (var i = 0; i < checkbox.length; i++) {
-          setValuesAntecedentesMetodo(arrayDivs[i], checkbox[i])
+
+        for (const key in data) {
+          const element = data[key];
+          // console.log(key)
+          setValuesAntAnnameMetodo(arrayDivs[key], element, key)
         }
         // console.log(data);
         // console.log(arrayDivs)
@@ -967,28 +1009,36 @@ function obtenerAntecedentesPaciente(id, curp = 0) {
 //   })
 // }
 
-function setValuesAntecedentesMetodo(DIV, array) {
-  if (DIV.length == array.length) {
+function setValuesAntAnnameMetodo(DIV, array, key) {
+  // console.log(DIV)
+  if (array) {
+    if (DIV.length != array.length)
+      alertToast('Algunos datos de ' + key + ' se han perdido...', 'info')
+
     for (var i = 0; i < DIV.length; i++) {
 
-      $(DIV[i]).find("input[value='" + array[i][0] + "']").prop("checked", true);
-      var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
-      // console.log(collapID)
-      if (array[i][0] == 1) {
-        $('#' + collapID).collapse("show")
-      }
+      try {
+        $(DIV[i]).find("input[value='" + array[i][0] + "']").prop("checked", true);
+        var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
+        // console.log(collapID)
+        if (array[i][0] == 1) {
+          $('#' + collapID).collapse("show")
+        }
 
-      if (array[i][0] == 1) {
-        $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
-      } else {
-        $(DIV[i]).find("textarea[class='form-control input-form']").val('')
+        if (array[i][0] == 1 || array[i][0] == null) {
+          $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
+        } else {
+          $(DIV[i]).find("textarea[class='form-control input-form']").val('')
+        }
+      } catch (error) {
+        console.log(error);
       }
 
     }
   } else {
-    console.log(DIV)
-    console.log(array);
-    alertSelectTable('Algunos antecedentes no se cargaron correctamente', 'info', 6000)
+    // console.log(DIV)
+    // console.log(array);
+    // alertSelectTable('La seccion ' + key + ' no cargó correctamente', 'info', 6000)
   }
 }
 

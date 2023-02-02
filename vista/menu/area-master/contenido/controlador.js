@@ -33,6 +33,13 @@ function hasLocation() {
         url_api = 'rayosx_api';
         obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_modal.php');
         break;
+      case "RXTOMA":
+        formulario = "1";
+        api_capturas = 2;
+        api_interpretacion = 0;
+        url_api = 'rayosx_api';
+        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_modal.php', 'tomarRX');
+        break;
       case "ESPIROMETRIA":
         formulario = "formSubirInterpretacion";
         api_capturas = 2;
@@ -79,10 +86,10 @@ function hasLocation() {
 
 
 */
-function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.html') {
+function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.html', tipovista) {
   areaActiva = area;
   $.post("contenido/" + contenidoHTML, {
-    form: formulario
+    form: formulario, tipovista: tipovista
   }, function (html) {
     $("#body-js").html(html);
   }).done(async function () {

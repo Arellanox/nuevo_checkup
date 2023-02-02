@@ -143,9 +143,9 @@ if ($menu != "Recepción") : ?>
 
   <li class="nav-item">
     <div class="dropdown ">
-      <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <!-- <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-clipboard-heart"></i> Estudios del area
-      </a>
+      </a> -->
       <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
         <a class="dropdown-a align-items-center rounded" type="button" href="" onclick="cargarVistaServiciosPorArea('Estudios')">
           <i class="bi bi-dot"></i> Estudios

@@ -17,6 +17,7 @@ function obtenerInformacionConsulta(id) {
                     $('#fechaConsulta-consulta').html(formatoFecha2(row.FECHA_CONSULTA, [0, 1, 2, 2, 0, 0, 0]))
                     if (row.NOTAS_PADECIMIENTO) $('#nota-notas-padecimiento').val(row.NOTAS_PADECIMIENTO);
                     if (row.DIAGNOSTICO) $('#diagnostico-campo-consulta').val(row.DIAGNOSTICO);
+                    if (row.COMPLETADO == 1) CerrarConsultorio(1)
                 }
             },
             complete: function () {
@@ -101,45 +102,77 @@ function obtenerAnamnesisApartados(turno) {
     return new Promise(resolve => {
         $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/anamnesis-aparatos.html", function (html) {
             $('#divANAMNESISAPARATOS').html(html);
-        }).done(function () {
-            let arrayDivs = new Array();
-            var divsisteCardio = $('#collapse-sub-sisteCardio-Target').find("div[class='row']")
-            var divAparaRespiratorio = $('#collapse-sub-AparaRespiratorio-Target').find("div[class='row']")
-            var divaparatoDigestivo = $('#collapse-sub-aparatoDigestivo-Target').find("div[class='row']")
-            var divaparatoGenitourina = $('#collapse-sub-aparatoGenitourina-Target').find("div[class='row']")
-            var divsistemNervios = $('#collapse-sub-sistemNervios-Target').find("div[class='row']")
-            var divEndrocrinoloMetabolism = $('#collapse-sub-EndrocrinoloMetabolism-Target').find("div[class='row']")
-            var divaparatoLocomot = $('#collapse-sub-aparatoLocomot-Target').find("div[class='row']")
-            var divTermoregulacin = $('#collapse-sub-Termoregulacin-Target').find("div[class='row']")
-            var divpiel = $('#collapse-sub-piel-Target').find("div[class='row']")
-            arrayDivs.push(divsisteCardio,
-                divAparaRespiratorio,
-                divaparatoDigestivo,
-                divaparatoGenitourina,
-                divsistemNervios,
-                divEndrocrinoloMetabolism,
-                divaparatoLocomot,
-                divTermoregulacin,
-                divpiel)
+        }).done(async function () {
+            await obtenerAntecedentesPaciente(turno, null, 2)
+            resolve(1);
+            // let arrayDivs = new Array();
+            // var divsisteCardio = $('#collapse-sub-sisteCardio-Target').find("div[class='row']")
+            // var divAparaRespiratorio = $('#collapse-sub-AparaRespiratorio-Target').find("div[class='row']")
+            // var divaparatoDigestivo = $('#collapse-sub-aparatoDigestivo-Target').find("div[class='row']")
+            // var divaparatoGenitourina = $('#collapse-sub-aparatoGenitourina-Target').find("div[class='row']")
+            // var divsistemNervios = $('#collapse-sub-sistemNervios-Target').find("div[class='row']")
+            // var divEndrocrinoloMetabolism = $('#collapse-sub-EndrocrinoloMetabolism-Target').find("div[class='row']")
+            // var divaparatoLocomot = $('#collapse-sub-aparatoLocomot-Target').find("div[class='row']")
+            // var divTermoregulacin = $('#collapse-sub-Termoregulacin-Target').find("div[class='row']")
+            // var divpiel = $('#collapse-sub-piel-Target').find("div[class='row']")
+            // arrayDivs.push(divsisteCardio,
+            //     divAparaRespiratorio,
+            //     divaparatoDigestivo,
+            //     divaparatoGenitourina,
+            //     divsistemNervios,
+            //     divEndrocrinoloMetabolism,
+            //     divaparatoLocomot,
+            //     divTermoregulacin,
+            //     divpiel)
 
-            $.ajax({
-                url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
-                method: 'POST',
-                dataType: 'json',
-                data: {
-                    api: 15,
-                    turno_id: turno
-                },
-                success: function (data) {
-                    checkbox = data;
-                    console.log(data);
-                },
-                complete: function () {
-                    resolve(1);
-                }
-            })
+            // $.ajax({
+            //     url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+            //     method: 'POST',
+            //     dataType: 'json',
+            //     data: {
+            //         api: 15,
+            //         turno_id: turno
+            //     },
+            //     success: function (data) {
+            //         checkbox = data;
+            //         console.log(data);
+            //     },
+            //     complete: function () {
+            //         resolve(1);
+            //     }
+            // })
         });
     })
+}
+
+function CerrarConsultorio(activo) {
+    if (activo == 1) {
+        $('#btn-consulta-terminar').prop('disabled', true);
+        $('.guardarAnt').prop('disabled', true);
+        $('.guardarAnamn').prop('disabled', true);
+        $('#btn-agregar-exploracion-clinina').prop('disabled', true);
+        $('.eliminarExploracion').prop('disabled', true);
+        $('button[type="submit"][form="formAgregarOdontograma"]').prop('disabled', true);
+        $('#btn-guardar-Nutricion').prop('disabled', true);
+        $('#btn-guardar-Diagnostico').prop('disabled', true);
+        $('#btn-guardar-notaPadecimiento').prop('disabled', true);
+        $('button[type="submit"][form="formNuevaReceta"]').prop('disabled', true);
+        $('input').prop('disabled', true);
+    } else {
+        $('#btn-consulta-terminar').prop('disabled', false);
+        $('.guardarAnt').prop('disabled', false);
+        $('.guardarAnamn').prop('disabled', false);
+        $('#btn-agregar-exploracion-clinina').prop('disabled', false);
+        $('.eliminarExploracion').prop('disabled', false);
+        $('button[type="submit"][form="formAgregarOdontograma"]').prop('disabled', false);
+        $('#btn-guardar-Nutricion').prop('disabled', false);
+        $('#btn-guardar-Diagnostico').prop('disabled', false);
+        $('#btn-guardar-notaPadecimiento').prop('disabled', false);
+        $('button[type="submit"][form="formNuevaReceta"]').prop('disabled', false);
+        $('input').prop('disabled', false);
+        // $('#btn-consulta-terminar').prop('disabled', false);
+        // $('input').prop('disabled', false);
+    }
 }
 
 

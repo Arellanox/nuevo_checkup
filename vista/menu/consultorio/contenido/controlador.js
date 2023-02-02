@@ -84,17 +84,6 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   // alert("Antes de antecedentes")
-  // await obtenerAntecedentes('#antecedentes-paciente', idTurno);
-  await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', cliente)
-  $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
-  $('.div-btn-guardarAntPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
-  $('.div-btn-guardarAntNoPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
-  $('.div-btn-guardarHeredoFami').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
-  $('.div-btn-guardarPsico').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
-  $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
-  $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
-  await obtenerAntecedentesPaciente(null, curp);
-  console.log("si");
   // setValues(idTurno) //llamar los valores para los antecedentes
 
   // alert("Antes de notas historial")
@@ -110,11 +99,21 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
 
 async function obtenerConsulta(data, idconsulta) {
   console.log(data, idconsulta)
-  await obtenerInformacionConsulta(idconsulta)
+  await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
+  $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
+  $('.div-btn-guardarAntPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarAntNoPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarHeredoFami').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarPsico').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  await obtenerAntecedentesPaciente(data['ID_TURNO']);
+  console.log("si");
   await obtenerInformacionPaciente(data)
   await obtenerNutricion(data['ID_TURNO'])
   await obtenerExploracion(data['ID_TURNO'])
   await obtenerAnamnesisApartados(data['ID_TURNO']);
+  await obtenerInformacionConsulta(idconsulta)
   loader("Out")
 }
 

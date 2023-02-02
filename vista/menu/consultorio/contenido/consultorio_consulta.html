@@ -49,13 +49,10 @@
       <nav id="navbar-menu-consultorio" class="navbar navbar-light bg-light px-3">
         <ul class="nav nav-tabs nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="#notas-padecimiento">NOTAS DE PADECIMIENTO</a> <!-- active -->
+            <a class="nav-link" href="#card-antecedentes">ANTECEDENTES PERSONALES</a> <!-- active -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#card-diagnostico">DIAGNÓSTICO</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#card-nutricion">NUTRICIÓN</a>
+            <a class="nav-link" href="#card-anamnesis-aparatos">ANAMNESIS POR APARATOS</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#card-exploracion-clinica">EXPLORACIÓN CLÍNICA</a>
@@ -64,7 +61,16 @@
             <a class="nav-link" href="#card-odontograma">ODONTOGRAMA</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#card-anamnesis-aparatos">ANAMNESIS POR APARATOS</a>
+            <a class="nav-link" href="#card-nutricion">NUTRICIÓN</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#card-diagnostico">DIAGNÓSTICO</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#card-receta">RECETA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#notas-padecimiento">NOTAS DE PADECIMIENTO</a> <!-- active -->
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#card-motivo-consulta">MOTIVO DE CONSULTA</a>
@@ -72,9 +78,6 @@
           <li class="nav-item">
             <a class="nav-link" href="#card-terapeutico">MANEJO TERAPÉUTICO</a>
           </li> -->
-          <li class="nav-item">
-            <a class="nav-link" href="#card-receta">RECETA</a>
-          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#card-solicitud-estudios">SOLICITUD DE ESTUDIOS</a>
           </li> -->
@@ -87,137 +90,15 @@
 <div class="overflow-auto" style="max-height:70vh; margin-bottom: 50px">
   <div class="container" style="max-width: 80%;">
 
-
-    <section id="notas-padecimiento" class="card mt-3">
-      <h4 class="m-3">Notas de padecimiento</h4>
-      <hr class="dropdown-divider m-2">
-      <textarea name="name-notas-padecimiento" rows="10" cols="90" class="form-textarea-content"
-        placeholder="Escriba aquí sus notas" id="nota-notas-padecimiento"></textarea>
-      <div class=" d-flex justify-content-start m-2">
-        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px"
-          id="btn-guardar-notaPadecimiento">
-          <i class="bi bi-paperclip"></i> Guardar
-        </button>
-      </div>
+    <section id="card-antecedentes" class="card mt-3">
+      <div id="antecedentes-paciente"> <!-- ANTECEDENTES PACIENTE (POR FUNCION) --> </div>
     </section>
 
-
-    <section id="card-diagnostico" class="card mt-3">
-      <h4 class="m-3">Diagnóstico</h4>
+    <section id="card-anamnesis-aparatos" class="card mt-3">
+      <h4 class="m-3">ANAMNESIS POR APARATOS</h4>
       <hr class="dropdown-divider m-2">
-      <textarea name="name-diagnostico" rows="10" cols="90" class="form-textarea-content"
-        placeholder="Escriba aquí sus notas" id="diagnostico-campo-consulta"></textarea>
-      <div class=" d-flex justify-content-start m-2">
-        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-Diagnostico">
-          <i class="bi bi-paperclip"></i> Guardar
-        </button>
-      </div>
+      <div id="divANAMNESISAPARATOS" class="p-3"> </div>
     </section>
-
-
-    <section id="card-nutricion" class="card mt-3">
-      <h4 class="m-3">Nutrición</h4>
-      <hr class="dropdown-divider m-2">
-      <div class="row m-4">
-        <div class="col-6">
-          <ul class="list-group info-detalle">
-            <li class="list-group-item">
-              <div class="row d-flex align-items-center">
-                <div class="col-6 col-lg-8 ">
-                  <p>
-                    <i class="bi bi-heart-half"></i>
-                    Peso perdido
-                  </p>
-                </div>
-                <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required
-                    id="input-pesosPerdido">
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row d-flex align-items-center">
-                <div class="col-6 col-lg-8 ">
-                  <p>
-                    <i class="bi bi-heart-half"></i>
-                    Grasa
-                  </p>
-                </div>
-                <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-grasa">
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row d-flex align-items-center">
-                <div class="col-6 col-lg-8 ">
-                  <p>
-                    <i class="bi bi-heart-half"></i>
-                    Cintura
-                  </p>
-                </div>
-                <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required
-                    id="input-cintura">
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="col-6">
-          <ul class="list-group info-detalle">
-            <li class="list-group-item">
-              <div class="row d-flex align-items-center">
-                <div class="col-6 col-lg-8 ">
-                  <p>
-                    <i class="bi bi-heart-half"></i>
-                    Agua
-                  </p>
-                </div>
-                <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-agua">
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row d-flex align-items-center">
-                <div class="col-6 col-lg-8">
-                  <p>
-                    <i class="bi bi-heart-half"></i>
-                    Músculo
-                  </p>
-                </div>
-                <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required
-                    id="input-musculo">
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row d-flex align-items-center">
-                <div class="col-6 col-lg-8">
-                  <p>
-                    <i class="bi bi-heart-half"></i>
-                    Abdomen
-                  </p>
-                </div>
-                <div class="col-6 col-lg-4">
-                  <input type="number" class="form-control input-form" name="" placeholder="" required
-                    id="input-abdomen">
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class=" d-flex justify-content-start m-2">
-        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-Nutricion">
-          <i class="bi bi-paperclip"></i> Guardar
-        </button>
-      </div>
-    </section>
-
-
 
     <section id="card-exploracion-clinica" class="card mt-3">
       <h4 class="m-3">Exploración clinica</h4>
@@ -264,7 +145,6 @@
         </div>
       </div>
     </section>
-
 
     <section id="card-odontograma" class="card mt-3">
       <h4 class="m-3">ODONTOGRAMA</h4>
@@ -382,12 +262,140 @@
       </div>
     </section>
 
-
-    <section id="card-anamnesis-aparatos" class="card mt-3">
-      <h4 class="m-3">ANAMNESIS POR APARATOS</h4>
+    <section id="card-nutricion" class="card mt-3">
+      <h4 class="m-3">Nutrición</h4>
       <hr class="dropdown-divider m-2">
-      <div id="divANAMNESISAPARATOS" class="p-3"> </div>
+      <div class="row m-4">
+        <div class="col-6">
+          <ul class="list-group info-detalle">
+            <li class="list-group-item">
+              <div class="row d-flex align-items-center">
+                <div class="col-6 col-lg-8 ">
+                  <p>
+                    <i class="bi bi-heart-half"></i>
+                    Peso perdido
+                  </p>
+                </div>
+                <div class="col-6 col-lg-4">
+                  <input type="number" class="form-control input-form" name="" placeholder="" required
+                    id="input-pesosPerdido">
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row d-flex align-items-center">
+                <div class="col-6 col-lg-8 ">
+                  <p>
+                    <i class="bi bi-heart-half"></i>
+                    Grasa
+                  </p>
+                </div>
+                <div class="col-6 col-lg-4">
+                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-grasa">
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row d-flex align-items-center">
+                <div class="col-6 col-lg-8 ">
+                  <p>
+                    <i class="bi bi-heart-half"></i>
+                    Cintura
+                  </p>
+                </div>
+                <div class="col-6 col-lg-4">
+                  <input type="number" class="form-control input-form" name="" placeholder="" required
+                    id="input-cintura">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <ul class="list-group info-detalle">
+            <li class="list-group-item">
+              <div class="row d-flex align-items-center">
+                <div class="col-6 col-lg-8 ">
+                  <p>
+                    <i class="bi bi-heart-half"></i>
+                    Agua
+                  </p>
+                </div>
+                <div class="col-6 col-lg-4">
+                  <input type="number" class="form-control input-form" name="" placeholder="" required id="input-agua">
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row d-flex align-items-center">
+                <div class="col-6 col-lg-8">
+                  <p>
+                    <i class="bi bi-heart-half"></i>
+                    Músculo
+                  </p>
+                </div>
+                <div class="col-6 col-lg-4">
+                  <input type="number" class="form-control input-form" name="" placeholder="" required
+                    id="input-musculo">
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row d-flex align-items-center">
+                <div class="col-6 col-lg-8">
+                  <p>
+                    <i class="bi bi-heart-half"></i>
+                    Abdomen
+                  </p>
+                </div>
+                <div class="col-6 col-lg-4">
+                  <input type="number" class="form-control input-form" name="" placeholder="" required
+                    id="input-abdomen">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class=" d-flex justify-content-start m-2">
+        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-Nutricion">
+          <i class="bi bi-paperclip"></i> Guardar
+        </button>
+      </div>
     </section>
+
+    <section id="card-diagnostico" class="card mt-3">
+      <h4 class="m-3">Diagnóstico</h4>
+
+      <hr class="dropdown-divider m-2">
+      <textarea name="name-diagnostico" rows="10" cols="90" class="form-textarea-content"
+        placeholder="Escriba aquí sus notas" id="diagnostico-campo-consulta"></textarea>
+      <div class=" d-flex justify-content-start m-2">
+        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px" id="btn-guardar-Diagnostico">
+          <i class="bi bi-paperclip"></i> Guardar
+        </button>
+      </div>
+    </section>
+
+    <section id="notas-padecimiento" class="card mt-3">
+      <h4 class="m-3">Notas de padecimiento</h4>
+      <hr class="dropdown-divider m-2">
+      <textarea name="name-notas-padecimiento" rows="10" cols="90" class="form-textarea-content"
+        placeholder="Escriba aquí sus notas" id="nota-notas-padecimiento"></textarea>
+      <div class=" d-flex justify-content-start m-2">
+        <button type="button" class="btn btn-confirmar me-2" style="margin-bottom:4px"
+          id="btn-guardar-notaPadecimiento">
+          <i class="bi bi-paperclip"></i> Guardar
+        </button>
+      </div>
+    </section>
+
+
+
+
+
+
+
 
     <!-- <section id="card-motivo-consulta" class="card mt-3">
       <h4 class="m-3">Motivo de consulta</h4>
