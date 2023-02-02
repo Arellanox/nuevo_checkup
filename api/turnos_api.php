@@ -92,7 +92,7 @@ switch ($api) {
         # recuperar la lista de trabajo por area
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area));
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, NULL));
         break;
     case 10:
         #historial de servicios
@@ -202,6 +202,12 @@ switch ($api) {
         # Crear reporte de puertas
         crearReporteLaboratorio($id_area, $id_turno);
         exit;
+        break;
+    case 12:
+        # Cargar lista de trabajo para la segunda validacion de laboratorio
+        $area = $_POST['area_id'];
+        $fecha = $_POST['fecha_busqueda'];
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, 6, 1));
         break;
 
     default:
