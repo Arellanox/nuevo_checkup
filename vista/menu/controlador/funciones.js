@@ -1250,10 +1250,12 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     row = data['response']['data'];
                     // console.log(data);
                     if (mensajeAjax(data) && row.length != 0) {
-                      for (let i = 0; i < row.length; i++) {
-                        $('#info-signos-' + i).html(row[i]['VALOR'] + " <strong>" + row[i]['UNIDAD_MEDIDA'] + "</strong>")
+                      for (const i in row) {
+                        // console.log(row[i])
+                        if (i != 'FECHA_REGISTRO')
+                          $('#info-signos-' + i).html(row[i]['VALOR'] + " <strong>" + row[i]['UNIDAD_MEDIDA'] + "</strong>")
                       }
-                      $('#fecha-signos').html(formatoFecha2('2022/11/24', [0, 1, 4, 1, 0, 0, 0]))
+                      $('#fecha-signos').html(formatoFecha2(row['FECHA_REGISTRO'], [0, 1, 4, 1, 0, 0, 0]))
                     } else {
                       $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
                     }
