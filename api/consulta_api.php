@@ -24,7 +24,7 @@ $motivo_consulta = $_POST['motivo_consulta'];
 $notas_padecimiento = $_POST['notas_padecimiento'];
 $consulta_subsecuente = $_POST['consulta_subsecuente'];
 $diagnostico = $_POST['diagnostico'];
-$registrado_por = $_POST["registrado_por"];
+$registrado_por = $_SESSION['id'];
 
 
 $parametros = array(
