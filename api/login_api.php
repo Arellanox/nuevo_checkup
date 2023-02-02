@@ -111,7 +111,8 @@ function login($user, $password)
             $vista = array();
             $result = $stmt->fetchAll();
             for ($i = 0; $i < count($result); $i++) {
-                $vista[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+                $vista[$result[$i]['DESCRIPCION']] = $result[$i]['activo']; //Eliminar luego
+                $vista[$result[$i]['permiso']] = $result[$i]['activo'];
             }
             $_SESSION['vista'] = $vista;
             return $_SESSION;

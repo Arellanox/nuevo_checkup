@@ -1,0 +1,66 @@
+<div class="col-12 loader" id="loader" style="">
+    <div class="preloader" id="preloader"> </div>
+</div>
+<div class="row">
+    <div class="col-3 col-lg-3" style="margin-right: -5px !important;">
+        <div class="card mt-3 p-3" id="lista-pacientes">
+            <h4>Lista de pacientes</h4>
+            <div class="text-center">
+                <label for="inputBuscarTableListaNuevos">Buscar:</label>
+                <input type="text" class="form-control input-color"
+                    style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value=""
+                    style="width:80%" autocomplete="off" id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip"
+                    data-bs-placement="bottom" title="Filtra la lista de pacientes">
+            </div>
+            <table class="table display responsive" id="TablaLaboratorio" style="width: 100%">
+                <thead class="">
+                    <tr>
+                        <th scope="col d-flex justify-content-center" class="all">#</th>
+                        <th scope="col d-flex justify-content-center" class="all">Nombre</th>
+                        <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
+                        <th scope="col d-flex justify-content-center" class="none">Cliente</th>
+                        <th scope="col d-flex justify-content-center" class="none">Segmento</th>
+                        <th scope="col d-flex justify-content-center" class="none">Turno</th>
+                        <th scope="col d-flex justify-content-center" class="none">Sexo</th>
+                        <th scope="col d-flex justify-content-center" class="none">Expendiente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-lg-9 informacion-labo" style="margin-right: -5px !important;display:none">
+        <div id="adobe-dc-view"></div>
+        <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
+        <script type="text/javascript">
+            document.addEventListener("adobe_dc_view_sdk.ready", function () {
+                var adobeDCView = new AdobeDC.View({ clientId: "fb405f6361f24d709719cf51a27191e8", divId: "adobe-dc-view" });
+                adobeDCView.previewFile({
+                    content: { location: { url: "https://bimo-lab.com/nuevo_checkup/reportes/modulo/lab/020223/240/MARIA_INES_NADER_VALDES-PBC2-020223.pdf" } },
+                    metaData: { fileName: "Bodea Brochure.pdf" }
+                }, {});
+            });
+        </script>
+    </div>
+    <style media="screen">
+        #TablaLaboratorio_filter {
+            display: none
+        }
+
+        li:first-child {
+            border-top-left-radius: 10px !important;
+            border-top-right-radius: 10px !important;
+        }
+
+        li:last-child {
+            border-bottom-left-radius: 10px !important;
+            border-bottom-right-radius: 10px !important;
+        }
+    </style>
+    <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivLab'
+        style="max-height: 75vh; display:none">
+        <div class="preloader" id="loader-Lab"></div>
+    </div>
+</div>

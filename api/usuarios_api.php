@@ -234,7 +234,7 @@ switch ($api) {
             'cost' => 12,
         ];
         $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, $opciones);
-        $response = $master->updateByProcedure('sp_usuarios_actualizar_password', [$id_usuario,$contrasenia]);
+        $response = $master->updateByProcedure('sp_usuarios_actualizar_password', [$id_usuario, $contrasenia]);
         echo $master->returnApi($response);
         break;
     default:

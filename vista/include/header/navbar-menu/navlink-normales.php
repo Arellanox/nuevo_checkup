@@ -140,7 +140,13 @@ if ($menu != "Recepción") : ?>
 <?php endif; ?>
 
 <?php if ($menu == "Laboratorio" || $menu == "AreaMaster") : ?>
-
+  <?php if ($_SESSION['vista']['CORREOSLAB'] == 1) : ?>
+    <li class="nav-item">
+      <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/correos/#CORREOSLAB'; ?>" data-bs-dismiss="offcanvas">
+        <i class="bi bi-envelope-paper"></i> Correos
+      </a>
+    </li>
+  <?php endif; ?>
   <li class="nav-item">
     <div class="dropdown ">
       <!-- <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">

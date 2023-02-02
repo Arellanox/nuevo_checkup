@@ -666,7 +666,7 @@ function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'e
     icon: icon,
     title: msj,
     timer: timer,
-    width: 'auto'
+    // width: 'auto'
   });
 }
 
@@ -675,7 +675,7 @@ function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error',
     icon: icon,
     title: msj,
     timer: timer,
-    width: 'auto'
+    // width: 'auto'
   });
 }
 // 
@@ -687,7 +687,7 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
     text: text,
     html: html,
     footer: footer,
-    width: 'auto'
+    // width: 'auto'
   })
 }
 
