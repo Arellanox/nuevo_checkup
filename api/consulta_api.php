@@ -24,6 +24,7 @@ $motivo_consulta = $_POST['motivo_consulta'];
 $notas_padecimiento = $_POST['notas_padecimiento'];
 $consulta_subsecuente = $_POST['consulta_subsecuente'];
 $diagnostico = $_POST['diagnostico'];
+$registrado_por = $_POST["registrado_por"];
 
 
 $parametros = array(
@@ -33,7 +34,8 @@ $parametros = array(
     $motivo_consulta,
     $notas_padecimiento,
     $consulta_subsecuente,
-    $diagnostico
+    $diagnostico,
+    $registrado_por
 );
 
 #nutricion
