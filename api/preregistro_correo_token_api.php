@@ -74,7 +74,8 @@ switch ($api) {
                 // }
 
                 $correo_obj = new Correo();
-                $respuesta_mail = $correo_obj->sendLinkByEmail($correo, $token);
+                //$respuesta_mail = $correo_obj->sendLinkByEmail($correo, $token);
+                $respuesta_mail = $correo_obj->sendEmail("token", "Agende su cita en bimo.", [$correo], $token);
 
                 if ($respuesta_mail) {
                     $response = 1;

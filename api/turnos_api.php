@@ -2,6 +2,7 @@
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/Pdf.php";
+include "../clases/correo_class.php";
 
 
 $tokenVerification = new TokenVerificacion();
@@ -208,6 +209,17 @@ switch ($api) {
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
         $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, 6, 1));
+        break;
+    case 13:
+        # Dar el 2 check en resultados de laboratorio [particulares]
+        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno,$_SESSION['id']]);
+        $mail = new Correo();
+
+        if($response > 1){
+            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
+
+            $r = $mail->sendEmail("resultados", "Resultados", [],null,[]);
+        }
         break;
 
     default:
