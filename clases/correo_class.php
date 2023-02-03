@@ -96,14 +96,21 @@ class Correo {
     }
 
 
-    function sendEmail($bodySelected,$subject,$emails = array(),$token=null,$reportes =array()){
+    function sendEmail($bodySelected,$subject,$emails = array(),$token=null,$reportes =array(),$resultados=0){
           #creamos un objeto de la clase phpmailer
           $mail = new PHPMailer(true);
 
           #configuramos el correo de donde saldran los mensajes, la cabecer, etc
-          $username = 'hola@bimo-lab.com';
-          $password = 'Bimo&2022';
-          $fromName = 'bimo';
+          if($resultados==0){
+            $username = 'hola@bimo-lab.com';
+            $password = 'Bimo&2022';
+            $fromName = 'bimo';
+          } else {
+            $username = 'resultados@bimo-lab.com';
+            $password = 'Bimo2023!';
+            $fromName = 'Resultados [bimo]';
+          }
+         
           
           $img = 'bimo.png';
           $descripcion = 'Laboratorio de Biología Molecular';

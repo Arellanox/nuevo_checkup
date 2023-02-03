@@ -220,7 +220,7 @@ switch ($api) {
             $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
             $files = cleanAttachingFiles($response);
             if(!empty($files)){
-                $r = $mail->sendEmail("resultados", "Resultados", [$response[0]['CORREO']],null,$files);
+                $r = $mail->sendEmail("resultados", "Resultados", [$response[0]['CORREO']],null,$files,1);
                 if($r){
                     $response = 1;
                 } else {
