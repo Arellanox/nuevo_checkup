@@ -208,18 +208,33 @@ switch ($api) {
         # Cargar lista de trabajo para la segunda validacion de laboratorio
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, 6, 1));
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, 6, 1)); #fecha deseada, id_area, id_cliente.
         break;
     case 13:
         # Dar el 2 check en resultados de laboratorio [particulares]
-        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno,$_SESSION['id']]);
+        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno,1]);
         $mail = new Correo();
 
-        if($response > 1){
+        if($response > -1){
+            # si se confirmo en la base de datos, enviamos el correo
             $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
-
-            $r = $mail->sendEmail("resultados", "Resultados", [],null,[]);
+            $files = cleanAttachingFiles($response);
+            if(!empty($files)){
+                $r = $mail->sendEmail("resultados", "Resultados", [$response[0]['CORREO']],null,$files);
+                if($r){
+                    $response = 1;
+                } else {
+                    $response = "No se envió el resultado.";
+                }
+            } else {
+                $response = "No hay archivos para enviar.";
+            }
+           
+         
         }
+        break;
+    case 14:
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
         break;
 
     default:
@@ -228,6 +243,15 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
+
+function cleanAttachingFiles($files_array){
+    $files = [];
+    foreach($files_array as $file){
+        $files[] = $file['RUTA'];
+    }
+
+    return $files;
+}
 
 
 function crearReporteLaboratorio($id_area, $id_turno)

@@ -129,7 +129,8 @@ class Correo {
 
               # attach files
               foreach($reportes as $file){
-                $mail->addAttachment($file);
+                $f = explode("nuevo_checkup", $file);
+                $mail->addAttachment("..".$f[1]);
               }
               
   
@@ -144,7 +145,8 @@ class Correo {
                 case "resultados":
                     $mail->Body = $this->cuerpoCorreoLaboratorio();
                     break;
-              }      
+              }
+
               # send email
               $mail->send();
   
@@ -157,7 +159,7 @@ class Correo {
 
 
     private function cuerpoCorreoLaboratorio(){
-        $html = "";
+        $html = "<h1>Estos son tus resultados</h1>";
         return $html;
     }
 

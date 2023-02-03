@@ -25,7 +25,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
         dataSrc: 'response.data'
     },
     createdRow: function (row, data, dataIndex) {
-        if (data.CONFIRMADO == 1) {
+        if (data.DOBLE_CHECK == 1) {
             $(row).addClass('bg-success text-white');
         } else {
             $(row).addClass('bg-warning');
@@ -58,7 +58,7 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
                 // await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
                 // await generarFormularioPaciente(selectListaLab['ID_TURNO'])
 
-                if (selectListaLab.CONFIRMADO == 1) {
+                if (selectListaLab.DOBLE_CHECK == 1) {
                     $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
                     $('#formAnalisisLaboratorio :input').prop('disabled', true)
                 } else {
