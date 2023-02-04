@@ -212,16 +212,16 @@ switch ($api) {
         break;
     case 13:
         # Dar el 2 check en resultados de laboratorio [particulares]
-        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno,1]);
+        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno, 1]);
         $mail = new Correo();
 
-        if($response > -1){
+        if ($response > -1) {
             # si se confirmo en la base de datos, enviamos el correo
-            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
+            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1]);
             $files = $master->cleanAttachingFiles($response);
-            if(!empty($files)){
-                $r = $mail->sendEmail("resultados", "[bimo] Resultados de laboratorio", [$response[0]['CORREO']],null,$files,1);
-                if($r){
+            if (!empty($files)) {
+                $r = $mail->sendEmail("resultados", "Resultados de laboratorio", [$response[0]['CORREO']], null, $files, 1);
+                if ($r) {
                     $response = 1;
                 } else {
                     $response = "No se envió el resultado.";
@@ -229,12 +229,11 @@ switch ($api) {
             } else {
                 $response = "No hay archivos para enviar.";
             }
-           
-         
         }
         break;
     case 14:
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
+
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1]);
         $response = $response[count($response) - 1];
         //$response = $master->cleanAttachingFiles($response);
         break;

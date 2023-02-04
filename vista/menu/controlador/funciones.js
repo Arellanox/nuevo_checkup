@@ -132,8 +132,8 @@ function loggin(callback, tipoUrl = 1) {
       data: {
         api: 8
       },
+      dataType: 'json',
       success: function (data) {
-        var data = jQuery.parseJSON(data);
         if (mensajeAjax(data)) {
           // console.log(data);
           if (data['response']['code'] == 1) {
@@ -157,7 +157,10 @@ function loggin(callback, tipoUrl = 1) {
             }
           }
         }
-      }
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
     });
   } else {
     validar = true
@@ -283,6 +286,9 @@ function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback) {
             callback(data)
           }
         },
+        error: function (jqXHR, exception, data) {
+          alertErrorAJAX(jqXHR, exception, data)
+        },
       });
     }
   });
@@ -300,6 +306,9 @@ function buscarPaciente(id_area, callback) {
     success: function (data) {
       data = jQuery.parseJSON(data);
       callback(data);
+    },
+    error: function (jqXHR, exception, data) {
+      alertErrorAJAX(jqXHR, exception, data)
     },
   });
 }
@@ -398,7 +407,10 @@ function getSegmentoByProcedencia(id, select) {
       },
       complete: function () {
         resolve(1);
-      }
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
     });
   });
 }
@@ -441,7 +453,10 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
           select.appendChild(el);
         }
       }
-    }
+    },
+    error: function (jqXHR, exception, data) {
+      alertErrorAJAX(jqXHR, exception, data)
+    },
   });
 
   return true;
@@ -470,7 +485,10 @@ function getProcedencias(select) {
       },
       complete: function () {
         resolve(1);
-      }
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
     })
   });
 }
@@ -504,7 +522,10 @@ function setProcedenciaOption(select, idProcedencia) {
 
         }
       }
-    }
+    },
+    error: function (jqXHR, exception, data) {
+      alertErrorAJAX(jqXHR, exception, data)
+    },
   });
   return true;
 }
@@ -566,7 +587,10 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
       },
       complete: function (data) {
         resolve(1);
-      }
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
     })
   });
 }
@@ -775,7 +799,7 @@ function mensajeAjax(data) {
         text: 'Codigo: ' + data['response']['msj']
       })
       break;
-    case "Token":
+    case "Token": case "Usernovalid":
       alertMensajeConfirm({
         title: "¡Sesión no valida!",
         text: "El token de su sesión ha caducado, vuelva iniciar sesión",
@@ -803,6 +827,26 @@ function mensajeAjax(data) {
   }
   return 0;
 }
+
+function alertErrorAJAX(jqXHR, exception, data) {
+  var msg = '';
+  //Status AJAX
+  switch (jqXHR.status) {
+    case 0: alertToast('Sin conexión a internet', 'warning'); return 0;
+    case 404: console.log('Requested page not found. [404]'); return 0;
+    case 500: alertToast('Internal Server Error', 'info'); return 0;
+  }
+
+  switch (exception) {
+    case 'parsererror': alertMensaje('info', 'Error del servidor', 'Algo ha pasado, estamos trabajando para resolverlo', 'Mensaje de error: ' + data); return 0
+    case 'timeout': console.log('timeout'); return 0
+    case 'abort': return 0
+  }
+
+  console.log(jqXHR.responseText);
+
+}
+
 
 function dblclickDatatable(tablename, datatable, callback = function () { }) {
   // Seleccion del registro
@@ -912,7 +956,6 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) { /
       // $(divClass).fadeIn(100)
       break;
     default:
-      comentario_capturas
       return 0
   }
   return 1
@@ -995,7 +1038,10 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
       },
       complete: function () {
         resolve(1);
-      }
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
     })
   });
   // $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
@@ -1161,7 +1207,10 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     complete: function () {
                       $(panel).fadeIn(100);
                       resolve(1);
-                    }
+                    },
+                    error: function (jqXHR, exception, data) {
+                      alertErrorAJAX(jqXHR, exception, data)
+                    },
                   })
                 }
                 break;
@@ -1198,7 +1247,10 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   complete: function () {
                     $(panel).fadeIn(100);
                     resolve(1);
-                  }
+                  },
+                  error: function (jqXHR, exception, data) {
+                    alertErrorAJAX(jqXHR, exception, data)
+                  },
                 })
                 break;
               case 'estudio':
@@ -1263,7 +1315,10 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   complete: function () {
                     $(panel).fadeIn(100);
                     resolve(1);
-                  }
+                  },
+                  error: function (jqXHR, exception, data) {
+                    alertErrorAJAX(jqXHR, exception, data)
+                  },
                 })
                 break;
               case 'cliente':
@@ -1567,6 +1622,9 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
             // selectMetodo()
           }
         },
+        error: function (jqXHR, exception, data) {
+          alertErrorAJAX(jqXHR, exception, data)
+        },
       });
     }, 1)
     event.preventDefault();
@@ -1605,6 +1663,9 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
             // selectMetodo()
           }
         },
+        error: function (jqXHR, exception, data) {
+          alertErrorAJAX(jqXHR, exception, data)
+        },
       });
     }, 1)
     event.preventDefault();
@@ -1634,6 +1695,9 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
               TablaContenido.ajax.reload();
               cambiarFormMetodo(0, titulo, "formEditar" + titulo);
             }
+          },
+          error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
           },
         });
       }, 1)
@@ -1667,6 +1731,9 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
               cambiarFormMetodo(0, titulo, "formEditar" + titulo);
             }
           },
+          error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
+          },
         });
       }, 1)
     } else {
@@ -1674,6 +1741,18 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
     }
   })
 
+}
+
+function vistaPDF(div, url, nombreArchivo) {
+  console.log(1);
+  document.addEventListener("adobe_dc_view_sdk.ready", function () {
+    var adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: div });
+    adobeDCView.previewFile(
+      {
+        content: { location: { url: url } },
+        metaData: { fileName: nombreArchivo }
+      });
+  });
 }
 
 //Metodo global

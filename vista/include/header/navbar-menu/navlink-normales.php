@@ -139,7 +139,8 @@ if ($menu != "Recepción") : ?>
 
 <?php endif; ?>
 
-<?php if ($menu == "Laboratorio" || $menu == "AreaMaster") : ?>
+<?php if ($menu == "Laboratorio") : #$menu == "AreaMaster" 
+?>
   <?php if ($_SESSION['vista']['CORREOSLAB'] == 1) : ?>
     <li class="nav-item">
       <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/correos/#CORREOSLAB'; ?>" data-bs-dismiss="offcanvas">

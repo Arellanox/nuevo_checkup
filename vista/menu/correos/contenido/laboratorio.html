@@ -32,18 +32,28 @@
     </div>
 
     <div class="col-lg-9 informacion-labo" style="margin-right: -5px !important;display:none">
-        <div id="adobe-dc-view"></div>
-        <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
-        <script type="text/javascript">
-            document.addEventListener("adobe_dc_view_sdk.ready", function () {
-                var adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
-                adobeDCView.previewFile(
-                    {
-                        content: { location: { url: "https://bimo-lab.com/nuevo_checkup/reportes/modulo/lab/020223/240/MARIA_INES_NADER_VALDES-PBC2-020223.pdf" } },
-                        metaData: { fileName: "Bodea Brochure.pdf" }
-                    });
-            });
-        </script>
+        <div class="card mt-3 p-3">
+            <div class="row">
+                <div class="col-12 col-lg-7">
+                    <h4>Resultado del paciente</h4>
+                    <p class="none-p">Confirme el resultado para enviarse por correo o rechace el mismo para poder
+                        modificar
+                        nuevamente el resultado
+                    </p>
+                </div>
+                <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
+                    <button type="button" data-attribute="guardar" class="btn btn-hover" style="margin-bottom:4px"
+                        id="btn-rechazar-resultado">
+                        <i class="bi bi-clipboard2-pulse"></i> Rechazar
+                    </button>
+                    <button type="button" data-attribute="confirmar" class="btn btn-hover" style="margin-bottom:4px"
+                        id="btn-confirmarenviar-resultado">
+                        <i class="bi bi-clipboard2-pulse"></i> Confirmar y enviar
+                    </button>
+                </div>
+            </div>
+            <div id="adobe-dc-view"></div>
+        </div>
     </div>
     <style media="screen">
         #TablaLaboratorio_filter {

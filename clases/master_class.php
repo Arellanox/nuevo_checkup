@@ -36,8 +36,8 @@ class Master extends Miscelaneus
     function connectDb()
     {
         // require_once 'pdoconfig.php';
-        $host = "212.1.208.201";
-        // $host = 'localhost'; //Servidor
+        // $host = "212.1.208.201";
+        $host = 'localhost'; //Servidor
         $dbname = "u808450138_checkup";
         $username = "u808450138_bimo";
         $password = "I?6m7]Pe0";
@@ -59,7 +59,8 @@ class Master extends Miscelaneus
             //echo "Connected to $dbname at $host successfully.";
         } catch (PDOException $pe) {
             $this->mis->setLog("Could not connect to the database $dbname :" . $pe->getMessage(), 'fn_connect_db');
-            die("Could not connect to the database $dbname :" . $pe->getMessage());
+            // die("Could not connect to the database $dbname :" . $pe->getMessage());
+            die('Could not connect to the database');
         }
 
         return $conn;

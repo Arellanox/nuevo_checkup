@@ -1,4 +1,6 @@
 
+
+var datalist, dataListaPaciente, selectEstudio;
 async function obtenerVistaCorreosLaboratorio(cliente) {
     await obtenerTitulo("Envio de correos laboratorio");
     $.post("contenido/laboratorio.html", function (html) {
@@ -11,6 +13,9 @@ async function obtenerVistaCorreosLaboratorio(cliente) {
         $.getScript('contenido/js/correo-lab-botones.js')
     });
 }
+
+
+
 
 
 hasLocation()
@@ -27,15 +32,12 @@ function hasLocation() {
             case "CORREOSLAB":
                 obtenerVistaCorreosLaboratorio('particular');
                 break;
-            case "ingresados":
-                obtenerContenidoAceptados();
-                break;
-            case "pendientes":
-                obtenerContenidoEspera();
-                dataRecepcion = { api: 1 };
-                break;
             default:
-                window.location.hash = 'pendientes';
+                alertMensajeConfirm({
+                    title: 'Area no disponible',
+                    message: 'Probablemente no ha seleccionado un area',
+                    icon: 'info'
+                })
                 break;
         }
     }

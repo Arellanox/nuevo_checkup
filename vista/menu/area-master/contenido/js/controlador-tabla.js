@@ -92,7 +92,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     break;
                 case 8: //Rayos X
                     $('#btn-inter-areas').fadeIn(0);
-                    if (session['cargo'] == 5) {
+                    if (formulario == 1) {
                         await GenerarListaCapturasImagenologia(selectEstudio.array);
                         // console.log("lista");
                     } else {
@@ -625,7 +625,7 @@ async function GenerarListaCapturasImagenologia(row) {
                     `` +
                     `</div>` +
                     `<span class="badge rounded-pill">` +
-                    `<button type="button" onClick="estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '#ModalSubirCapturas', '` + row[i]['SERVICIO'] + `')"  class="btn me-2" style="margin-bottom:4px">` +
+                    `<button type="button" onClick="estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '#ModalSubirCapturas', '` + row[i]['SERVICIO'] + `')"  class="btn btn-primary me-2" style="margin-bottom:4px">` +
                     `<i class="bi bi-clipboard2-plus"></i>` +
                     `</button>` +
                     `</span>` +

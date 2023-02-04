@@ -182,7 +182,7 @@ switch ($api) {
         if ($response != 0) {
             echo json_encode(array("response" => array("code" => 1, "data" => $response)));
         } else {
-            echo json_encode(array("response" => array("code" => 2, "data" => $response)));
+            echo json_encode(array("response" => array("code" => 'Usernovalid', "data" => $response)));
         }
         break;
 

@@ -34,7 +34,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_modal.php');
         break;
       case "RXTOMA":
-        formulario = "1";
+        formulario = "1"; // Para toma de RX
         api_capturas = 2;
         api_interpretacion = 0;
         url_api = 'rayosx_api';

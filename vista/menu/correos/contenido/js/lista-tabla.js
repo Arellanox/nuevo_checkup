@@ -50,35 +50,87 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
 selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (selectTR = null, array = null) {
-    selectListaLab = array;
+    datalist = array;
+    dataSelect = new GuardarArreglo({
+        select: true,
+        nombre_paciente: datalist['NOMBRE_COMPLETO'],
+        turno: datalist['ID_TURNO']
+    })
     if (selectTR == 1) {
+        estadoBotones(0) //Habilitar botones
         try {
-            getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'In', async function (divClass) {
-                await obtenerPanelInformacion(selectListaLab['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
-                // await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
-                // await generarFormularioPaciente(selectListaLab['ID_TURNO'])
+            getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'In', async function (divClass) {
+                vistaPDF('adobe-dc-view', 'url', 'resultado_laboratorio_test.pdf')
+                await obtenerPanelInformacion(datalist['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
+                // await generarHistorialResultados(datalist['ID_PACIENTE'])
+                await getResultadoPaciente(datalist['ID_TURNO']);
 
-                if (selectListaLab.DOBLE_CHECK == 1) {
-                    $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
-                    $('#formAnalisisLaboratorio :input').prop('disabled', true)
-                } else {
-                    $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', false)
-                    $('#formAnalisisLaboratorio :input').prop('disabled', false)
-                }
+                // await generarFormularioPaciente(datalist['ID_TURNO'])
+
+                if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
+                    estadoBotones(1) //Desactivar si ya fue enviado
+
+                document.addEventListener("adobe_dc_view_sdk.ready", function () {
+                    var adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: 'adobe-dc-view' });
+                    adobeDCView.previewFile(
+                        {
+                            content: { location: { url: selectEstudio.RUTA } },
+                            metaData: { fileName: electEstudio.NOMBRE_ARCHIVO }
+                        });
+                });
+                // vistaPDF('adobe-dc-view', selectEstudio.RUTA, selectEstudio.NOMBRE_ARCHIVO)
 
                 bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
 
             });
-            // getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
+            // getPanelLab('In', datalist['ID_TURNO'], datalist['ID_PACIENTE'])
         } catch (error) {
             console.log(error)
         }
     } else {
         // console.log('rechazado')
-        getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
+        getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
         // getPanelLab('Out', 0, 0)
     }
 })
+
+
 $("#BuscarTablaListaLaboratorio").keyup(function () {
     tablaListaPaciente.search($(this).val()).draw();
 });
+
+
+function getResultadoPaciente(turno) {
+    return new Promise(resolve => {
+        $.ajax({
+            url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+            dataType: 'json',
+            data: { id_turno: turno, api: 14 },
+            method: "POST",
+            success: function (data) {
+                selectEstudio = new GuardarArreglo(data.response.data);
+                let row = [data.response.data];
+
+                if (row['DOBLE_CHECK'])
+                    selectEstudio.setguardado(1)
+            },
+            complete: function () {
+                resolve(1);
+            }
+        })
+    })
+}
+
+function estadoBotones(estado) {
+    switch (estado) {
+        case 1:
+            $('#btn-rechazar-resultado').prop('disabled', true);
+            $('#btn-confirmarenviar-resultado').prop('disabled', true);
+            break;
+        case 0:
+            $('#btn-rechazar-resultado').prop('disabled', false);
+            $('#btn-confirmarenviar-resultado').prop('disabled', false);
+        default:
+            break;
+    }
+}
