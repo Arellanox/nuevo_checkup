@@ -9,8 +9,8 @@ include "../clases/correo_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 $master = new Master();
@@ -236,6 +236,18 @@ switch ($api) {
 
         # como no modifica la fecha y el turno es el mismo, debe reemplazar el archivo anterior.
         $url = crearReporteUltrasonido($turno_id, $area_id);
+        break;
+    case 9:
+        # probar capturas mail
+        $response = $master->getByProcedure("sp_capturas_imagen_b",[$turno_id,11]);
+        for ($i=0; $i < count($response); $i++) { 
+            for ($j=0; $j <count($response[$i]) ; $j++) { 
+                // if(is_array($response[$i][$j])){
+                //     $response[$i][$j] = json_decode($response[$i][$j],true);
+                // }
+                $response[$i][$j] = json_decode($response[$i][$j],true);
+            }
+        }
         break;
     default:
         $response = "Api no definida.";

@@ -235,7 +235,8 @@ switch ($api) {
         break;
     case 14:
         $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
-        $response = $master->cleanAttachingFiles($response);
+        $response = $response[count($response) - 1];
+        //$response = $master->cleanAttachingFiles($response);
         break;
 
     default:
