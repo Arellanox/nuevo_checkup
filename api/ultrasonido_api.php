@@ -303,8 +303,8 @@ function crearReporteUltrasonido1($turno_id, $area_id, $viz = 'url')
 
     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $infoPaciente[0]['FOLIO_IMAGEN'], "modulo" => 11);
     // print_r($infoPaciente);
-    $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', $viz);
-    return $pdf->build();
+    // $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, 'ultrasonido', $viz);
+    // return $pdf->build();
 
     # print_r($arregloPaciente);
 }
