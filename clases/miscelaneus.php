@@ -797,4 +797,13 @@ class Miscelaneus
 
         return $response;
     }
+
+    function cleanAttachingFiles($files_array){
+        $files = [];
+        foreach($files_array as $file){
+            $files[] = $file['RUTA'];
+        }
+    
+        return $files;
+    }
 }

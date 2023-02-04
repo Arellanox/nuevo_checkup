@@ -1,4 +1,5 @@
-<?php 
+<?php
+include_once("miscelaneus.php");
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
@@ -97,71 +98,73 @@ class Correo {
 
 
     function sendEmail($bodySelected,$subject,$emails = array(),$token=null,$reportes =array(),$resultados=0){
-          #creamos un objeto de la clase phpmailer
-          $mail = new PHPMailer(true);
+        #creamos un objeto de la clase phpmailer
+        $mail = new PHPMailer(true);
+        $mis = new Miscelaneus();
 
-          #configuramos el correo de donde saldran los mensajes, la cabecer, etc
-          if($resultados==0){
-            $username = 'hola@bimo-lab.com';
-            $password = 'Bimo&2022';
-            $fromName = 'bimo';
-          } else {
-            $username = 'resultados@bimo-lab.com';
-            $password = 'Bimo2023!';
-            $fromName = 'Resultados [bimo]';
-          }
-         
-          
-          $img = 'bimo.png';
-          $descripcion = 'Laboratorio de Biología Molecular';
-          // $fromName = utf8_decode('Biologia Molecular | Diagnóstico Biomolecular');
-          // $descripcion = 'Laboratorio de Biología Molecular';
-  
-          try{
-              # server settings
-              // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-              $mail->isSMTP();                                            //Send using SMTP
-              $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
-              $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-              $mail->Username   = $username;                     //SMTP username
-              $mail->Password   = $password;                               //SMTP password
-              $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-              $mail->Port       = 465;        
-              
-              # recipients
-              $mail->setFrom($username, $fromName);
-              foreach($emails as $email){
-                $mail->addAddress($email);
-              }
+        #configuramos el correo de donde saldran los mensajes, la cabecer, etc
+        if($resultados==0){
+        $username = 'hola@bimo-lab.com';
+        $password = 'Bimo&2022';
+        $fromName = 'bimo';
+        } else {
+        $username = 'resultados@bimo-lab.com';
+        $password = 'Bimo2023!';
+        $fromName = 'Resultados [bimo]';
+        }
+        
+        
+        $img = 'bimo.png';
+        $descripcion = 'Laboratorio de Biología Molecular';
+        // $fromName = utf8_decode('Biologia Molecular | Diagnóstico Biomolecular');
+        // $descripcion = 'Laboratorio de Biología Molecular';
 
-              # attach files
-              foreach($reportes as $file){
-                $f = explode("nuevo_checkup", $file);
-                $mail->addAttachment("..".$f[1]);
-              }
-              
-  
-              # content
-              $mail->isHTML(true);                                  //Set email format to HTML
-              $mail->Subject = utf8_decode($subject);
+        try{
+            # server settings
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = $username;                     //SMTP username
+            $mail->Password   = $password;                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;        
+            
+            # recipients
+            $mail->setFrom($username, $fromName);
+            foreach($emails as $email){
+            $mail->addAddress($email);
+            }
 
-              switch($bodySelected){
-                case "token":
-                    $mail->Body = $this->cuerpoCorreoToken($token);
-                    break;
-                case "resultados":
-                    $mail->Body = $this->cuerpoCorreoLaboratorio();
-                    break;
-              }
+            # attach files
+            foreach($reportes as $file){
+            $f = explode("nuevo_checkup", $file);
+            $mail->addAttachment("..".$f[1]);
+            }
+            
 
-              # send email
-              $mail->send();
-  
-              return true;
-  
-          } catch (Exception $e){
-              return false;
-          }
+            # content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = utf8_decode($subject);
+
+            switch($bodySelected){
+            case "token":
+                $mail->Body = $this->cuerpoCorreoToken($token);
+                break;
+            case "resultados":
+                $mail->Body = $this->cuerpoCorreoLaboratorio();
+                break;
+            }
+
+            # send email
+            $mail->send();
+
+            return true;
+
+        } catch (Exception $e){
+            $mis->setLog($e, "Clase correo [sendMail]");
+            return false;
+        }
     }
 
 

@@ -3,6 +3,8 @@ session_start();
 require_once "../clases/token_auth.php";
 include_once '../clases/master_class.php';
 include_once "../clases/Pdf.php";
+include "../clases/correo_class.php";
+
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -79,6 +81,14 @@ switch ($api) {
             $url = crearReporteImageonologia($turno_id, $area_id);
 
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
+
+            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id,8,1]);
+            $response = $master->cleanAttachingFiles($response);
+            if(!empty($response)){
+                $mail = new Correo();
+                //$r = $mail->sendEmail("resultados", "[bimo] Resultados de Rayos X", [$response[0]['CORREO']],null,$files,1);
+            }
+
         }
 
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.\

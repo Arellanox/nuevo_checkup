@@ -218,9 +218,9 @@ switch ($api) {
         if($response > -1){
             # si se confirmo en la base de datos, enviamos el correo
             $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
-            $files = cleanAttachingFiles($response);
+            $files = $master->cleanAttachingFiles($response);
             if(!empty($files)){
-                $r = $mail->sendEmail("resultados", "Resultados", [$response[0]['CORREO']],null,$files,1);
+                $r = $mail->sendEmail("resultados", "[bimo] Resultados de laboratorio", [$response[0]['CORREO']],null,$files,1);
                 if($r){
                     $response = 1;
                 } else {
@@ -235,7 +235,7 @@ switch ($api) {
         break;
     case 14:
         $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno,6,1]);
-        $response = cleanAttachingFiles($response);
+        $response = $master->cleanAttachingFiles($response);
         break;
 
     default:
@@ -245,14 +245,7 @@ switch ($api) {
 
 echo $master->returnApi($response);
 
-function cleanAttachingFiles($files_array){
-    $files = [];
-    foreach($files_array as $file){
-        $files[] = $file['RUTA'];
-    }
 
-    return $files;
-}
 
 
 function crearReporteLaboratorio($id_area, $id_turno)
