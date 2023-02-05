@@ -1744,7 +1744,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
 }
 
 function vistaPDF(divContenedor, div, url, nombreArchivo) {
-  let htmlPDF = '<div id="adobe-dc-view"></div>' +
+  let htmlPDF = '<div id="adobe-dc-view" style="height: 100%"></div>' +
     '<script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>' +
     '<script type="text/javascript">' +
     'document.addEventListener("adobe_dc_view_sdk.ready", function(){ ' +
@@ -1752,7 +1752,7 @@ function vistaPDF(divContenedor, div, url, nombreArchivo) {
     'adobeDCView.previewFile({' +
     'content:{location: {url: "' + url + '"}},' +
     'metaData:{fileName: "' + nombreArchivo + '"}' +
-    '}, {showFullScreen: true, embedMode: "SIZED_CONTAINER"});' +
+    '});' +
     '});' +
     '</script>';
   $(divContenedor).html(htmlPDF);
