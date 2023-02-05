@@ -1752,7 +1752,7 @@ function vistaPDF(divContenedor, div, url, nombreArchivo) {
     'adobeDCView.previewFile({' +
     'content:{location: {url: "' + url + '"}},' +
     'metaData:{fileName: "' + nombreArchivo + '"}' +
-    '}, {embedMode: "SIZED_CONTAINER"});' +
+    '}, {});' +
     '});' +
     '</script>';
   $(divContenedor).html(htmlPDF);
