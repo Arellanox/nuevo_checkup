@@ -67,18 +67,11 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
 
                 // await generarFormularioPaciente(datalist['ID_TURNO'])
 
+                console.log(selectEstudio)
                 if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
                     estadoBotones(1) //Desactivar si ya fue enviado
 
-                document.addEventListener("adobe_dc_view_sdk.ready", function () {
-                    var adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: 'adobe-dc-view' });
-                    adobeDCView.previewFile(
-                        {
-                            content: { location: { url: selectEstudio.RUTA } },
-                            metaData: { fileName: electEstudio.NOMBRE_ARCHIVO }
-                        });
-                });
-                // vistaPDF('adobe-dc-view', selectEstudio.RUTA, selectEstudio.NOMBRE_ARCHIVO)
+                vistaPDF('#pdfviewer', 'adobe-dc-view', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
 
                 bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
 
@@ -109,6 +102,7 @@ function getResultadoPaciente(turno) {
             method: "POST",
             success: function (data) {
                 selectEstudio = new GuardarArreglo(data.response.data);
+                console.log(selectEstudio)
                 let row = [data.response.data];
 
                 if (row['DOBLE_CHECK'])

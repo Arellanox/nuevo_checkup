@@ -12,7 +12,6 @@
 
 <!-- Frameworks -->
 <script src="<?php echo 'http://' . $url . '\nuevo_checkup\js\framework\autosize\dist\autosize.min.js'; ?>"></script>
-<script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script> <!-- Adobe API Embed -->
 <script src="<?php echo 'http://' . $url . '\nuevo_checkup\js\framework\sweetalert2.all.min.js'; ?>"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
