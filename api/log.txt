@@ -51,3 +51,6 @@
 24/01/23 11:04:24 sp_oftalmo_resultados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ANTECEDENTES_PERSONALES' in 'field list'
 24/01/23 11:06:11 sp_oftalmo_resultados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ANTECEDENTES_PERSONALES' in 'field list'
 24/01/23 13:32:26 sp_oftalmo_resultados_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_oftalmo_resultados_g; expected 23, got 22
+03/02/23 12:43:41  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+03/02/23 13:09:52  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+04/02/23 13:08:14 sp_recuperar_reportes_confirmados Ha ocurrido un error(21S01). 21S01 1136 Column count doesn't match value count at row 1

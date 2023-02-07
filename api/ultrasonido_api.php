@@ -240,14 +240,14 @@ switch ($api) {
     case 9:
         # probar capturas mail
         $response = $master->getByProcedure("sp_capturas_imagen_b",[$turno_id,11]);
-        for ($i=0; $i < count($response); $i++) { 
-            for ($j=0; $j <count($response[$i]) ; $j++) { 
-                // if(is_array($response[$i][$j])){
-                //     $response[$i][$j] = json_decode($response[$i][$j],true);
-                // }
-                $response[$i][$j] = json_decode($response[$i][$j],true);
-            }
-        }
+        // $response[0]['CAPTURAS'] = json_decode($response[0]['CAPTURAS'], true);
+        // $response[0]['CAPTURAS'][0] = json_decode($response[0]['CAPTURAS'][0], true);
+        // print_r($response);
+        // exit;
+        $x = decodeJson($response[0]);
+
+        print_r($x);
+        exit;
         break;
     default:
         $response = "Api no definida.";
@@ -255,6 +255,31 @@ switch ($api) {
 }
 echo $master->returnApi($response);
 
+function decodeJson($parsing){
+    $decoded = array();
+
+    foreach ($parsing as $key => $value) {
+        $aux = json_decode($value,true);
+
+        if (is_array($aux)) {
+            echo "original";
+            print_r($aux);
+            $aux = decodeJson($aux);
+            echo "segundo";
+            print_r($aux);
+            echo "-----";
+            $decoded[$key] = $aux;
+        } else{
+            $decoded[$key] = $aux;
+        }
+       
+    }
+
+    // echo "---";
+    // print_r($decoded);
+
+    return $decoded;
+}
 function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url', $preview = 0){
     $master = new Master();
     $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview,$_SESSION['id']);
