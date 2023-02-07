@@ -86,6 +86,7 @@ $('#btn-ver-reporte').click(function () {
 
 function chooseEstudio(row, modal, tip) {
   let html = '';
+
   console.log(row)
   switch (tip) {
     case 1:

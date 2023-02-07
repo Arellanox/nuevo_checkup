@@ -110,6 +110,7 @@ function bloquearBotones(val) {
             $('#omitir-paciente').prop('disabled', false);
             $('#btn-form-resultado').prop('disabled', false);
             $('#form-resultados-somatometria :input').prop('disabled', false);
+            $('input[data-id="calculoMasaCorpo"]').prop('disabled', true);
             $('#form-resultados-somatometria :input').val('');
             break;
 

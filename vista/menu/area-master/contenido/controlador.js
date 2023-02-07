@@ -3,6 +3,7 @@ var dataListaPaciente = {
   api: 7
 };
 var hash, servicio_nombre, formulario, api, url_api, selecta, nombre_paciente;
+var subtipo; //Para la tabla de lista de trabajo
 //Variable para guardar los servicios de un paciente seleccionado
 var selectEstudio = new GuardarArreglo(), dataSelect = new GuardarArreglo();
 var selectrue = 0,
@@ -38,7 +39,8 @@ function hasLocation() {
         api_capturas = 2;
         api_interpretacion = 0;
         url_api = 'rayosx_api';
-        obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_modal.php', 'tomarRX');
+        subtipo = 'RXTOMA';
+        obtenerContenidoVistaMaster(8, 'Carga de placas de Rayos X', 'contenido_modal.php', 'tomarRX');
         break;
       case "ESPIROMETRIA":
         formulario = "formSubirInterpretacion";

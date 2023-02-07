@@ -99,8 +99,8 @@ session_start();
                     <div class="row">
                         <?php if ($tipovista != 'tomarRX') : ?>
                             <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
-                                <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
-                                    <i class="bi bi-clipboard2-plus"></i> Imágenes
+                                <button type="button" class="btn btn-primary me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
+                                    <i class="bi bi-plus-lg"></i> Imágenes
                                 </button>
                             </div>
                             <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">

@@ -29,7 +29,13 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
     createdRow: function (row, data, dataIndex) {
         switch (areaActiva) {
             case 3: if (data.CONFIRMADO_OFTAL == 1) $(row).addClass('bg-success text-white'); break;
-            case 8: if (data.CONFIRMADO_RX == 1) $(row).addClass('bg-success text-white'); break;
+            case 8:
+                if (subtipo == 'RXTOMA' && data.CONFIRMADO_RXCAPTURAS == 1) {
+                    $(row).addClass('bg-success text-white');
+                } else if (subtipo != 'RXTOMA' && data.CONFIRMADO_RX == 1) {
+                    $(row).addClass('bg-success text-white');
+                }
+                break;
             case 11: if (data.CONFIRMADO_ULTRASO == 1) $(row).addClass('bg-success text-white'); break;
 
             default:
@@ -619,29 +625,29 @@ async function GenerarListaCapturasImagenologia(row) {
         console.log(row);
         for (var i = 0; i < row.length; i++) {
             if (row[i]['CAPTURAS'].length == 0) {
-                html += `<li class="list-group-item d-flex justify-content-between align-items-start">` +
+                html += `<li class="list-group-item d-flex justify-content-between align-items-start d-flex align-items-center text-danger">` +
                     `<div class="ms-2 me-auto">` +
                     `<div class="fw-bold">` + row[i]['SERVICIO'] + `</div>` +
                     `` +
                     `</div>` +
                     `<span class="badge rounded-pill">` +
                     `<button type="button" onClick="estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '#ModalSubirCapturas', '` + row[i]['SERVICIO'] + `')"  class="btn btn-primary me-2" style="margin-bottom:4px">` +
-                    `<i class="bi bi-clipboard2-plus"></i>` +
+                    `<i class="bi bi-plus-lg"></i>` +
                     `</button>` +
                     `</span>` +
                     `</li>`;
             } else {
-                html += `<li class="list-group-item d-flex justify-content-between align-items-start">` +
+                html += `<li class="list-group-item d-flex justify-content-between align-items-start d-flex align-items-center">` +
                     `<div class="ms-2 me-auto">` +
                     `<div class="fw-bold">` + row[i]['SERVICIO'] + `</div>` +
                     `` +
                     `</div>` +
                     `<span class="badge rounded-pill">` +
-                    '<a type="button" class="btn me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
+                    '<a type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
                     '<i class="bi bi-images"></i>' +
                     '</a>' +
                     // `<button type="button" onClick="alertToast('Capturas cargadas', 'info')"  class="btn me-2" style="margin-bottom:4px">` +
-                    `<i class="bi bi-clipboard2-check"></i>` +
+                    //`<i class="bi bi-clipboard2-check"></i>` +
                     `</button>` +
                     `</span>` +
                     `</li>`;

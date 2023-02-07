@@ -57,7 +57,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
+                  <input type="text" class="form-control input-form" data-id='calculoEstaturaMasaCorpo' name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">cm</span>
                 </div>
               </div>
@@ -70,7 +70,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
+                  <input type="text" class="form-control input-form" data-id='calculoPesoMasaCorpo' name="medidas[]resultado[]" placeholder=""> <!-- required -->
                   <span class="input-span">kg</span>
                 </div>
               </div>
@@ -83,12 +83,26 @@
               </div>
               <div class="col-6 col-lg-4">
                 <div class="input-group">
-                  <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
+                  <input type="text" class="form-control input-form" data-id="calculoMasaCorpo" name="medidas[]resultado[]" placeholder="" disabled> <!-- required -->
                   <span class="input-span">kg/m2</span>
                 </div>
               </div>
             </div>
           </li>
+          <script>
+            $(document).on("change keyup", "input[data-id='calculoEstaturaMasaCorpo'] , input[data-id='calculoPesoMasaCorpo']", function() {
+              console.log($(this).val());
+              if ($("input[data-id='calculoEstaturaMasaCorpo']").val() && $("input[data-id='calculoPesoMasaCorpo']").val()) {
+                let estatura = (parseFloat($("input[data-id='calculoEstaturaMasaCorpo']").val()) / 100);
+                estatura = estatura * estatura;
+                console.log(estatura)
+                let peso = parseFloat($("input[data-id='calculoPesoMasaCorpo']").val())
+                $("input[data-id='calculoMasaCorpo").val((peso / estatura).toFixed(2))
+              } else {
+                $("input[data-id='calculoMasaCorpo']").val('');
+              }
+            })
+          </script>
           <li class="list-group-item">
             <div class="row d-flex align-items-center">
               <div class="col-6 col-lg-8">
@@ -110,7 +124,7 @@
               <div class="col-6 col-lg-4">
                 <div class="input-group">
                   <input type="text" class="form-control input-form" name="medidas[]resultado[]" placeholder=""> <!-- required -->
-                  <span class="input-span">r/m</span>
+                  <span class="input-span">rpm</span>
                 </div>
               </div>
             </div>
