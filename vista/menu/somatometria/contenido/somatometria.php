@@ -246,7 +246,7 @@
   </div>
 
 
-  <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivSignos' style="max-height: 75vh; display:none">
+  <div class="col-4 col-lg-8 col-xxl-9 d-flex justify-content-center align-items-center" id='loaderDivSignos' style="max-height: 75vh; display:none">
     <div class="preloader" id="loader-Signos"></div>
   </div>
 </div>

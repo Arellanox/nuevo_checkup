@@ -2,7 +2,7 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 <div class="row">
-  <div class="col-3 col-lg-3" style="margin-right: -5px !important;">
+  <div class="col-4 col-lg-3 col-xxl-3" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
       <h4>Lista de pacientes</h4>
       <div class="text-center">
@@ -27,15 +27,15 @@
       </table>
     </div>
   </div>
-  <div class="col-3 col-lg-4 informacion-labo" style="margin-right: -5px !important;display:none">
-    <div class="card m-3" id="panel-informacion"> </div>
-    <div class="card m-3 p-4">
+  <div class="col-4 col-lg-4 col-xxl-4 informacion-labo" style="margin-right: -5px !important;display:none">
+    <div class="card mt-3" id="panel-informacion"> </div>
+    <div class="card mt-3 p-4">
       <h4>Estudios anteriores</h4>
       <div class="accordion" id="accordionResultadosAnteriores">
       </div>
     </div>
   </div>
-  <div class="col-lg-5 informacion-labo" style="margin-right: -5px !important;display:none">
+  <div class="col-lg-5 col-xxl-5 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card mt-3 p-3">
       <div class="row">
         <div class="col-12 col-lg-7">
@@ -76,7 +76,7 @@
       border-bottom-right-radius: 10px !important;
     }
   </style>
-  <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivLab' style="max-height: 75vh; display:none">
+  <div class="col-4 col-lg-8 col-xxl-9 d-flex justify-content-center align-items-center" id='loaderDivLab' style="max-height: 75vh; display:none">
     <div class="preloader" id="loader-Lab"></div>
   </div>
 </div>
