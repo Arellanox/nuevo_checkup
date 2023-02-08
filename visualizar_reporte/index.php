@@ -45,7 +45,7 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, 0, "etiquetas", "mostrar", 1);
         break;
     case 'consultorio':
-        $r = $master->reportador($master, $turno_id, 0, 'consultorio', 'mostrar', 1);
+        $r = $master->reportador($master, $turno_id, 1, 'consultorio', 'mostrar', 1);
         break;
 
     default:
