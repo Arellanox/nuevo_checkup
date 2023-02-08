@@ -5,7 +5,7 @@ obtenerConsultorioMain()
 
 function obtenerConsultorioMain() {
   // loader("In")
-  obtenerTitulo('Consultorio');
+  obtenerTitulo('Historia Clinica');
   $.post("contenido/consultorio_main.html", function (html) {
     var idrow;
     $("#body-js").html(html) // Rellenar la plantilla de consulta

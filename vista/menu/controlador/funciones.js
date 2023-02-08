@@ -1300,16 +1300,31 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   success: function (data) {
                     // data = jQuery.parseJSON(data);
                     row = data['response']['data'];
-                    // console.log(data);
-                    if (mensajeAjax(data) && row.length != 0) {
-                      for (const i in row) {
-                        // console.log(row[i])
-                        if (i != 'FECHA_REGISTRO')
-                          $('#info-signos-' + i).html(row[i]['VALOR'] + " <strong>" + row[i]['UNIDAD_MEDIDA'] + "</strong>")
+                    console.log(row);
+
+                    if (mensajeAjax(data)) {
+                      if (Object.keys(row).length > 1) {
+
+                        $('#frecuenciaCardiaca').html(row['FRECUENCIA CARDIACA']['VALOR'] + " <strong>" + row['FRECUENCIA CARDIACA']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#frecuenciaRespiratoria').html(row['FRECUENCIA RESPIRATORIA']['VALOR'] + " <strong>" + row['FRECUENCIA RESPIRATORIA']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#sistolica').html(row['SISTOLICA']['VALOR'] + " <strong>" + row['SISTOLICA']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#diastolica').html(row['DIASTOLICA']['VALOR'] + " <strong>" + row['DIASTOLICA']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#saturacionOxigeno').html(row['SATURACION DE OXIGENO']['VALOR'] + " <strong>" + row['SATURACION DE OXIGENO']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#temperatura').html(row['TEMPERATURA']['VALOR'] + " <strong>" + row['TEMPERATURA']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#estatura').html(row['ESTATURA']['VALOR'] + " <strong>" + row['ESTATURA']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#peso').html(row['PESO']['VALOR'] + " <strong>" + row['PESO']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#masaCorporal').html(row['MASA CORPORAL']['VALOR'] + " <strong>" + row['MASA CORPORAL']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#masaMuscular').html(row['MASA MUSCULAR']['VALOR'] + " <strong>" + row['MASA MUSCULAR']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#porcentajeGrasaVisceral').html(row['PORCENTAJE DE GRASA VISCERAL']['VALOR'] + " <strong>" + row['PORCENTAJE DE GRASA VISCERAL']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#huesos').html(row['HUESOS']['VALOR'] + " <strong>" + row['HUESOS']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#metabolismo').html(row['METABOLISMO']['VALOR'] + " <strong>" + row['METABOLISMO']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#edadCuerpo').html(row['EDAD DEL CUERPO']['VALOR'] + " <strong>" + row['EDAD DEL CUERPO']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#perimetroCefalico').html(row['PERIMETRO CEFALICO']['VALOR'] + " <strong>" + row['PERIMETRO CEFALICO']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#porcentajeProteinas').html(row['PORCENTAJE DE PROTEINAS']['VALOR'] + " <strong>" + row['PORCENTAJE DE PROTEINAS']['UNIDAD_MEDIDA'] + "</strong>")
+                        $('#porcentajeAgua').html(row['PORCENTAJE DE AGUA']['VALOR'] + " <strong>" + row['PORCENTAJE DE AGUA']['UNIDAD_MEDIDA'] + "</strong>")
+                      } else {
+                        $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
                       }
-                      $('#fecha-signos').html(formatoFecha2(row['FECHA_REGISTRO'], [0, 1, 4, 1, 0, 0, 0]))
-                    } else {
-                      $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
                     }
                   },
                   complete: function () {

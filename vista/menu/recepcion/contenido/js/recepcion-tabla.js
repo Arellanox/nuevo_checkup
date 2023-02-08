@@ -27,7 +27,12 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     { data: 'PREFOLIO' },
     { data: 'NOMBRE_COMERCIAL' },
     { data: 'DESCRIPCION_SEGMENTO' },
-    { data: 'FECHA_AGENDA' },
+    {
+      data: 'FECHA_AGENDA',
+      render: function (data) {
+        return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+      }
+    },
     { data: 'GENERO' }
     // {defaultContent: 'En progreso...'}
   ],
