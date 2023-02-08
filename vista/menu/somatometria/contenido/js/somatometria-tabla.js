@@ -22,11 +22,11 @@ tablaSignos = $('#TablaSignos').DataTable({
         },
         dataSrc: 'response.data'
     },
-    // createdRow: function( row, data, dataIndex ){
-    //     if ( data.MUESTRA_TOMADA == 1 ){
-    //         $(row).addClass('bg-success text-white');
-    //     }
-    // },
+    createdRow: function (row, data, dataIndex) {
+        if (data.CONFIRMADO_SOMA == 1) {
+            $(row).addClass('bg-success text-white');
+        }
+    },
     columns: [
         { data: 'COUNT' },
         { data: 'NOMBRE_COMPLETO' },
@@ -80,13 +80,27 @@ async function obtenerResultadosSignos(id) {
             data: { id_turno: id, api: 2 },
             success: function (data) {
                 if (mensajeAjax(data)) {
-                    let datarow = data.response.data;
-                    if (datarow.length > 0) {
-                        for (let i = 0; i < datarow.length; i++) {
-                            const row = datarow[i];
-                            $("#form-resultados-somatometria :input").eq(i).val(row['VALOR']);
-                        }
+                    let row = data.response.data;
+                    if (Object.keys(row).length > 1) {
                         bloquearBotones(1)
+                        $('#frecuenciaCardiaca').val(row['FRECUENCIA CARDIACA']['VALOR'])
+                        $('#frecuenciaRespiratoria').val(row['FRECUENCIA RESPIRATORIA']['VALOR'])
+                        $('#sistolica').val(row['SISTOLICA']['VALOR'])
+                        $('#diastolica').val(row['DIASTOLICA']['VALOR'])
+                        $('#saturacionOxigeno').val(row['SATURACION DE OXIGENO']['VALOR'])
+                        $('#temperatura').val(row['TEMPERATURA']['VALOR'])
+                        $('#estatura').val(row['ESTATURA']['VALOR'])
+                        $('#peso').val(row['PESO']['VALOR'])
+                        $('#masaCorporal').val(row['MASA CORPORAL']['VALOR'])
+                        $('#masaMuscular').val(row['MASA MUSCULAR']['VALOR'])
+                        $('#porcentajeGrasaVisceral').val(row['PORCENTAJE DE GRASA VISCERAL']['VALOR'])
+                        $('#huesos').val(row['HUESOS']['VALOR'])
+                        $('#metabolismo').val(row['METABOLISMO']['VALOR'])
+                        $('#edadCuerpo').val(row['EDAD DEL CUERPO']['VALOR'])
+                        $('#perimetroCefalico').val(row['PERIMETRO CEFALICO']['VALOR'])
+                        $('#porcentajeProteinas').val(row['PORCENTAJE DE PROTEINAS']['VALOR'])
+                        $('#porcentajeAgua').val(row['PORCENTAJE DE AGUA']['VALOR'])
+                        $('#sistolica').val(row['SISTOLICA']['VALOR'])
                     } else {
                         bloquearBotones(2)
                     }
@@ -105,6 +119,7 @@ function bloquearBotones(val) {
             $('#omitir-paciente').prop('disabled', true);
             $('#btn-form-resultado').prop('disabled', true);
             $('#form-resultados-somatometria :input').prop('disabled', true);
+            $('#collapseSOMATOMETRIABOTON').prop('disabled', false);
             break;
         case 2:
             $('#omitir-paciente').prop('disabled', false);
@@ -112,6 +127,7 @@ function bloquearBotones(val) {
             $('#form-resultados-somatometria :input').prop('disabled', false);
             $('input[data-id="calculoMasaCorpo"]').prop('disabled', true);
             $('#form-resultados-somatometria :input').val('');
+            $('#collapseSOMATOMETRIABOTON').prop('disabled', false);
             break;
 
         default:

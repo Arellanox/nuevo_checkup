@@ -2,12 +2,12 @@
 date_default_timezone_set('America/Mexico_City');
 if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>">
-    <i class="bi bi-clipboard2-pulse"></i> Consultorio
+    <i class="bi bi-clipboard2-pulse"></i> Historia Clinica
   </a>
 <?php endif; ?>
 <?php if ($_SESSION['vista']['SOMATOMETRIA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>">
-    <i class="bi bi-heart-pulse"></i> Somatometría
+    <i class="bi bi-heart-pulse"></i> Somatometría | Signos vitales
   </a>
 <?php endif; ?>
 <!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
