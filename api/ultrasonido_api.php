@@ -87,6 +87,15 @@ switch ($api) {
                 $mail = new Correo();
                 //$r = $mail->sendEmail("resultados", "[bimo] Resultados de Ultrasonido", [$response[0]['CORREO'], NULL, $files, 1]);
             }
+
+
+            #Enviar por correo el reporte y las imagenes.
+            $capturas = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id,11]);
+            $decodedArray = $master->decodeJson($capturas[0]);
+            $imagenes = array();
+            foreach($decodedArray['CAPTURAS'][0] as $item){
+                $imagenes[] = $item['url'];
+            }
         }
 
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.\
@@ -240,13 +249,15 @@ switch ($api) {
     case 9:
         # probar capturas mail
         $response = $master->getByProcedure("sp_capturas_imagen_b",[$turno_id,11]);
+        // var_dump(is_string($response[0]['CAPTURAS']));
+        // exit;
         // $response[0]['CAPTURAS'] = json_decode($response[0]['CAPTURAS'], true);
         // $response[0]['CAPTURAS'][0] = json_decode($response[0]['CAPTURAS'][0], true);
         // print_r($response);
         // exit;
-        $x = decodeJson($response[0]);
-
-        print_r($x);
+        $decodedArray = $master->decodeJson($response[0]);
+        var_dump(is_string($decodedArray['CAPTURAS'][0][0]['url']));
+        print_r($decodedArray);
         exit;
         break;
     default:
@@ -260,14 +271,17 @@ function decodeJson($parsing){
 
     foreach ($parsing as $key => $value) {
         $aux = json_decode($value,true);
+        $s = 0;
 
         if (is_array($aux)) {
-            echo "original";
-            print_r($aux);
-            $aux = decodeJson($aux);
-            echo "segundo";
-            print_r($aux);
-            echo "-----";
+            foreach($aux as $a){
+                if (is_string($a)) {
+                    $s = $s +1;
+                }
+            }
+            if ($s > 0) {
+                $aux = decodeJson($aux);
+            }
             $decoded[$key] = $aux;
         } else{
             $decoded[$key] = $aux;

@@ -806,4 +806,31 @@ class Miscelaneus
     
         return $files;
     }
+
+    function decodeJson($parsing){
+        $decoded = array();
+    
+        foreach ($parsing as $key => $value) {
+            $aux = json_decode($value,true);
+            $s = 0;
+    
+            if (is_array($aux)) {
+                foreach($aux as $a){
+                    if (is_string($a)) {
+                        $s = $s +1;
+                    }
+                }
+                if ($s > 0) {
+                    $aux = $this->decodeJson($aux);
+                }
+                
+                $decoded[$key] = $aux;
+            } else{
+                $decoded[$key] = $aux;
+            }
+           
+        }
+    
+        return $decoded;
+    }
 }
