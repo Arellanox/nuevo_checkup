@@ -190,7 +190,7 @@ class Correo
                 <div id="contenido" style="background-color:#f6fdff">
                     <div style="overflow:auto;text-align:left;background-color:rgb(000,078,089);padding:5px;color:white">
                         <img src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/icono_reporte_checkup.png" alt="img" style="border-radius:15px;height:55px;float:left;padding:8px" class="CToWUd a6T" data-bit="iit" tabindex="0">
-                        <p style="font-size:20px">Resultado de análisis</p>
+                        <p style="font-size:20px">Resultado</p>
                     </div>
                     <div style="padding:5px 20px 15px 20px;color:black;font-size:14px;background-color:#f6fdff">
                         <h2>
@@ -202,7 +202,7 @@ class Correo
                         
                         <div style="text-align:right">
                         <p>Atentamente</p>
-                        <p>bimo</br>Checkup</br>Clinica y Preventivo</p>
+                        <p>bimo<br>Checkup Clinico y Preventivo</p>
                         </div>
                     </div>
                 </div>
