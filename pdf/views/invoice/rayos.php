@@ -343,14 +343,14 @@ if (!isset($qr)) {
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
                             <?php
-                                echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
-                                $indice = 1;
-                                foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
-                                    // $contador = count($value);
-                                    $indice ++;
-                                    echo '<br>'. $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
-                                    echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
-                                }
+                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            $indice = 1;
+                            foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
+                                // $contador = count($value);
+                                $indice++;
+                                echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
+                                echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
+                            }
                             ?>
                         </strong>
                     </td>
@@ -358,7 +358,7 @@ if (!isset($qr)) {
             </tbody>
         </table>
         <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> <strong style="font-size: 12px;"> Teléfonos: 993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; </strong> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="color:red; font-size: 12px;">hola@bimo.com.mx</strong></small></p>
+        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> <strong style="font-size: 12px;"> Teléfonos: 993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; </strong> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="font-size: 12px;">hola@bimo.com.mx</strong></small></p>
     </div>
 
     <!-- body -->
@@ -385,20 +385,21 @@ if (!isset($qr)) {
     </div>
 </body>
 <?php
-    $altura = 200;
-    
-    for ($i=2; $i < $indice; $i++) { 
-        $altura = $altura + 50;
-    }
+$altura = 200;
+
+for ($i = 2; $i < $indice; $i++) {
+    $altura = $altura + 50;
+}
 ?>
-<style>    
+<style>
     .footer {
-            position: fixed;
-            bottom: -165px;
-            left: 25px;
-            right: 25px;
-            height: <?php echo $altura.'px'?>;
-            /* background-color: pink; */
-        }
+        position: fixed;
+        bottom: -165px;
+        left: 25px;
+        right: 25px;
+        height: <?php echo $altura . 'px' ?>;
+        /* background-color: pink; */
+    }
 </style>
+
 </html>
