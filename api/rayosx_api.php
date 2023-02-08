@@ -82,11 +82,14 @@ switch ($api) {
 
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
 
-            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id,8,1]);
-            $response = $master->cleanAttachingFiles($response);
-            if(!empty($response)){
+            # enviar el correo con el reporte y las imagenes capturadas
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 8, 1);
+            
+            if(!empty($attachment[0])){
                 $mail = new Correo();
-                //$r = $mail->sendEmail("resultados", "[bimo] Resultados de Rayos X", [$response[0]['CORREO']],null,$files,1);
+                if($mail->sendEmail('resultados', 'Resultados Rayos X', [$attachment[1]], null, $attachment[0], 1)){
+                    $master->setLog("Correo enviado. turno $turno_id.", "[rayos x]");
+                }
             }
 
         }
