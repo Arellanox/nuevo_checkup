@@ -319,7 +319,7 @@ class Miscelaneus
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Rayos X';
-                $carpeta_guardado = 'ultrasonido';
+                $carpeta_guardado = 'rayosx';
 
                 //Folio
                 $infoPaciente[0]['FOLIO_IMAGEN'] = $infoPaciente[0]['FOLIO_IMAGEN_US'];
@@ -332,7 +332,7 @@ class Miscelaneus
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_IMAGEN'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Ultrasonido';
-                $carpeta_guardado = 'rayosx';
+                $carpeta_guardado = 'ultrasonido';
 
                 //Folio
                 $infoPaciente[0]['FOLIO_IMAGEN'] = $infoPaciente[0]['FOLIO_IMAGEN_RX'];
@@ -832,5 +832,33 @@ class Miscelaneus
         }
     
         return $decoded;
+    }
+
+
+    function cleanAttachFilesImage($master,$turno_id,$area_id,$cliente){
+        # reporte
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente]);
+        $reporte = $this->cleanAttachingFiles($response);
+
+        # imagenes.
+        $capturas = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id,$area_id]);
+        $decodedArray = []; 
+        foreach($capturas as $cap){
+            $decodedArray[] = $this->decodeJson($cap);
+        }
+        // print_r($decodedArray);        // $decodedArray = $this->decodeJson($capturas[0]);
+        $imagenes = array();
+        foreach($decodedArray as $item){
+            foreach($item['CAPTURAS'][0] as $i){
+                $imagenes[] = $i['url'];
+            }
+            
+        }
+
+        # unimos ambos arreglos
+        $attachment = array_merge($reporte, $imagenes);
+
+
+        return [$attachment,$response[0]['CORREO']];
     }
 }

@@ -81,20 +81,14 @@ switch ($api) {
 
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
 
-            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id,11,1]);
-            $files = $master->cleanAttachingFiles($response);
-            if(!empty($response)){
+            # enviar el correo con el reporte y las imagenes capturadas
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
+            
+            if(!empty($attachment[0])){
                 $mail = new Correo();
-                //$r = $mail->sendEmail("resultados", "[bimo] Resultados de Ultrasonido", [$response[0]['CORREO'], NULL, $files, 1]);
-            }
-
-
-            #Enviar por correo el reporte y las imagenes.
-            $capturas = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id,11]);
-            $decodedArray = $master->decodeJson($capturas[0]);
-            $imagenes = array();
-            foreach($decodedArray['CAPTURAS'][0] as $item){
-                $imagenes[] = $item['url'];
+                if($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)){
+                    $master->setLog("Correo enviado.", "ultrasonido");
+                }
             }
         }
 
@@ -248,16 +242,17 @@ switch ($api) {
         break;
     case 9:
         # probar capturas mail
-        $response = $master->getByProcedure("sp_capturas_imagen_b",[$turno_id,11]);
-        // var_dump(is_string($response[0]['CAPTURAS']));
-        // exit;
-        // $response[0]['CAPTURAS'] = json_decode($response[0]['CAPTURAS'], true);
-        // $response[0]['CAPTURAS'][0] = json_decode($response[0]['CAPTURAS'][0], true);
-        // print_r($response);
-        // exit;
-        $decodedArray = $master->decodeJson($response[0]);
-        var_dump(is_string($decodedArray['CAPTURAS'][0][0]['url']));
-        print_r($decodedArray);
+         # enviar el correo con el reporte y las imagenes capturadas
+         $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
+
+        print_r($attachment);
+            
+         if(!empty($attachment[0])){
+             $mail = new Correo();
+             if($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)){
+                 $master->setLog("Correo enviado.", "ultrasonido");
+             }
+         }
         exit;
         break;
     default:

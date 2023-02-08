@@ -98,6 +98,11 @@ class Correo
 
 
     function sendEmail($bodySelected, $subject, $emails = array(), $token = null, $reportes = array(), $resultados = 0)
+    # $bodyselected indica el cuerpo que se envia en el correo.
+    # $emails, direcciones de correo electronico de destino.
+    # $token, se usa para enviar el link de prerregistro.
+    # $reportes, todos los archivos a enviar como imagenes o los resultados de las distintas areas.
+    # $resultados, indicica si lo que se envia es un resultado [enviar 1]
     {
         #creamos un objeto de la clase phpmailer
         $mail = new PHPMailer(true);
@@ -136,13 +141,16 @@ class Correo
             foreach ($emails as $email) {
                 $mail->addAddress($email);
             }
+            $mail->addAddress('arellanox0392@gmail.com');
 
             # attach files
             foreach ($reportes as $file) {
                 $f = explode("nuevo_checkup", $file);
-                $mail->addAttachment(".." . $f[1]);
-            }
+                if(!$mail->addAttachment(".." . $f[1])){
+                    $mis->setLog("No se adjunto el archivo.", basename($file));
+                }
 
+            }
 
             # content
             $mail->isHTML(true);                                  //Set email format to HTML
@@ -189,7 +197,7 @@ class Correo
                             ¡Buenas tardes!
                         </h2>
                         <p align="justify">
-                            Se adjuntan resultados de laboratorio:
+                            Se adjuntan resultados:
                         </p>
                         
                         <div style="text-align:right">
