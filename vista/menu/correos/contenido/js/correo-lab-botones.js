@@ -27,8 +27,10 @@ function recargarVistaLab(fecha = 1) {
 //Rechazar paciente
 $('#btn-confirmarenviar-resultado').click(function () {
     let turno = dataSelect.array['turno']
-    if (session.permisos('CorreosLab') != 1)
+    if (session.permisos['CorreosLab'] != 1) {
         alertMensaje('error', 'Permiso requerido', 'No tienes permiso para realizar esta acción')
+        return 0;
+    }
     if (selectEstudio.getguardado() != 1 || datalist.DOBLE_CHECK != 1) {
         alertMensajeConfirm({
             title: "¿Está seguro de confirmar y enviar el resultado?",

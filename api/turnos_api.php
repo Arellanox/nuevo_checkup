@@ -212,7 +212,7 @@ switch ($api) {
         break;
     case 13:
         # Dar el 2 check en resultados de laboratorio [particulares]
-        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno, 1]);
+        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno, $_SESSION['id']]);
 
         $mail = new Correo();
 
