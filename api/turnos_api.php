@@ -212,8 +212,7 @@ switch ($api) {
         break;
     case 13:
         # Dar el 2 check en resultados de laboratorio [particulares]
-        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno, $_SESSION['id']]);
-
+        $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno, 1]);
         $mail = new Correo();
 
         if ($response > -1) {
@@ -233,14 +232,23 @@ switch ($api) {
         }
         break;
     case 14:
-        # Devuelve la ruta del reporte del turno para laboratorio clinico.
+
         $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1]);
-        $response = $master->cleanAttachingFiles($response);
+        $response = $response[count($response) - 1];
+        //$response = $master->cleanAttachingFiles($response);
+        break;
+
+    #case 15 . Desconfirmar resultados
+        case 15:
+
+            $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por]);
+
         break;
 
     default:
         $response = "api no reconocida";
         break;
+
 }
 
 echo $master->returnApi($response);
