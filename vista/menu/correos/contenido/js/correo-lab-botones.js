@@ -31,7 +31,7 @@ $('#btn-confirmarenviar-resultado').click(function () {
         alertMensaje('error', 'Permiso requerido', 'No tienes permiso para realizar esta acción')
         return 0;
     }
-    if (selectEstudio.getguardado() != 1 || datalist.DOBLE_CHECK != 1) {
+    if (selectEstudio.getguardado() != 1 || datalist.DOBLE_CHECK != 1 || 1) {
         alertMensajeConfirm({
             title: "¿Está seguro de confirmar y enviar el resultado?",
             text: "¡No podrá revertir esta acción!",
@@ -66,7 +66,11 @@ $('#btn-confirmarenviar-resultado').click(function () {
 
 //Aceptar paciente
 $('#btn-rechazar-resultado').click(function () {
-    let turno = dataSelect.array['turno'];
+    let turno = dataSelect.array['turno']
+    if (session.permisos['CorreosLab'] != 1) {
+        alertMensaje('error', 'Permiso requerido', 'No tienes permiso para realizar esta acción')
+        return 0;
+    }
     alertMensajeConfirm({
         title: "¿Está seguro rechazar y deshacer el confirmado de este resultado?",
         text: "¡No podrá revertir esta acción!",
@@ -77,7 +81,7 @@ $('#btn-rechazar-resultado').click(function () {
             type: "POST",
             data: {
                 id_turno: turno,
-                api: 0
+                api: 15
             },
             dataType: "json",
             beforeSend: function () {

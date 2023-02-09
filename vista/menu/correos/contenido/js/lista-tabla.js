@@ -119,8 +119,8 @@ function getResultadoPaciente(turno) {
 function estadoBotones(estado) {
     switch (estado) {
         case 1:
-            $('#btn-rechazar-resultado').prop('disabled', true);
-            $('#btn-confirmarenviar-resultado').prop('disabled', true);
+            // $('#btn-rechazar-resultado').prop('disabled', true);
+            // $('#btn-confirmarenviar-resultado').prop('disabled', true);
             break;
         case 0:
             $('#btn-rechazar-resultado').prop('disabled', false);
