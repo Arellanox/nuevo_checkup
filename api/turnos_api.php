@@ -235,7 +235,7 @@ switch ($api) {
     case 14:
         # Devuelve la ruta del reporte del turno para laboratorio clinico.
         $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1]);
-        $response = $master->cleanAttachingFiles($response);
+        //$response = $master->cleanAttachingFiles($response);
         break;
 
     default:
