@@ -51,10 +51,10 @@ class Reporte
 
         switch ($tipo) {
             case 'etiquetas':
-                // $generator = null;
-                // $barcode = null;
-                $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                $barcode  = base64_encode($generator->getBarcode($response->BARRAS, $generator::TYPE_CODE_128));
+                $generator = null;
+                $barcode = null;
+                // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+                // $barcode  = base64_encode($generator->getBarcode($response->BARRAS, $generator::TYPE_CODE_128));
                 // $barcode  = base64_encode($generator->getBarcode('750169978916', $generator::TYPE_CODE_128));
                 break;
             case 'resultados':
@@ -106,7 +106,7 @@ class Reporte
                 $pdf->loadHtml($template);
 
                 $ancho = (5 / 2.54) * 72;
-                $alto  = (2.5/ 2.54) * 72;
+                $alto  = (2.5 / 2.54) * 72;
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
                 // $pdf->setPaper('letter', 'portrait');
