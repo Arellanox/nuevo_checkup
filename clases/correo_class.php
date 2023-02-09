@@ -180,35 +180,38 @@ class Correo
 
 
         $html = '<!DOCTYPE html>
-        <html lang="es">
-            <head>
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>bimo checkups</title>
-            </head>
-            <body>
-                <div id="contenido" style="background-color:#f6fdff">
-                    <div style="overflow:auto;text-align:left;background-color:rgb(000,078,089);padding:5px;color:white">
-                        <p style="font-size:20px">Diagnóstico Biomolecular S.A. de C.V.</p>
-                        <img src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/icono_administrativo.png" alt="img" style="border-radius:15px;height:55px;float:right;padding:8px" class="CToWUd a6T" data-bit="iit" tabindex="0">
-                    </div>
-                    <div style="padding:5px 20px 15px 20px;color:black;font-size:14px;background-color:#f6fdff">
-                        <h2>
-                            ¡Buenas tardes!
-                        </h2>
-                        <p align="justify">
-                            Se adjuntan resultados.
-                        </p>
-                        
-                        <div style="text-align:right">
-                        <p>Atentamente</p>
-                        <p>bimo<br>Checkup Clinico y Preventivo</p>
+                    <html lang="es">
+
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>bimo checkups</title>
+                    </head>
+
+               <body>
+                    <div id="contenido" style="background-color:#f6fdff">
+                        <div style="overflow:auto;text-align:left;background-color:rgb(000,078,089);padding:5px;color:white">
+                            <img src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/icono_administrativo.jpeg" alt="img"
+                            style="border-radius:15px;height:55px;float:left;padding:8px">
+                            <p style="font-size: 20px; color:white">Diagnóstico Biomolecular S.A. de C.V.</p>
+                        </div>
+                        <div style="padding:5px 20px 15px 20px;color:black;font-size:14px;background-color:#f6fdff">
+                            <h2>
+                                ¡Buenas tardes!
+                            </h2>
+                            <p>
+                                Se adjuntan resultados.
+                            </p>
+
+                            <div style="text-align:right">
+                                <p>Atentamente</p>
+                                <p>bimo<br>Checkup Clinico y Preventivo</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </body>
-        </html>';
+                </body>
+                    </html>';
         return $html;
     }
 
@@ -225,8 +228,9 @@ class Correo
             <body>
                 <div id="contenido" style="background-color:#f6fdff">
                     <div style="overflow:auto;text-align:left;background-color:rgb(000,078,089);padding:5px;color:white">
-                        <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" alt="img" style="border-radius:15px;height:55px;float:left;padding:8px" class="CToWUd a6T" data-bit="iit" tabindex="0">
-                        <p style="font-size:20px">Laboratorio Biologia Molecular</p>
+                        <img src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/icono_administrativo.jpeg" alt="img"
+                        style="border-radius:15px;height:55px;float:left;padding:8px">
+                        <p style="font-size: 20px; color:white">Diagnóstico Biomolecular S.A. de C.V.</p>
                     </div>
                     <div style="padding:5px 20px 15px 20px;color:black;font-size:14px;background-color:#f6fdff">
                         <h2>
