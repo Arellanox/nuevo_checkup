@@ -56,7 +56,7 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
         nombre_paciente: datalist['NOMBRE_COMPLETO'],
         turno: datalist['ID_TURNO']
     })
-    console.log(dataSelect)
+    // console.log(dataSelect)
     if (selectTR == 1) {
         estadoBotones(0) //Habilitar botones
         try {
@@ -68,10 +68,10 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
 
                 // await generarFormularioPaciente(datalist['ID_TURNO'])
 
-                console.log(selectEstudio)
+                // console.log(selectEstudio)
                 if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
                     estadoBotones(1) //Desactivar si ya fue enviado
-
+                // console.log(selectEstudio.array.RUTA)
                 vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
 
                 bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
@@ -102,9 +102,9 @@ function getResultadoPaciente(turno) {
             data: { id_turno: turno, api: 14 },
             method: "POST",
             success: function (data) {
-                selectEstudio = new GuardarArreglo(data.response.data);
-                console.log(selectEstudio)
-                let row = [data.response.data];
+                selectEstudio = new GuardarArreglo(data.response.data[0]);
+                // console.log(selectEstudio)
+                let row = [data.response.data[0]];
 
                 if (row['DOBLE_CHECK'])
                     selectEstudio.setguardado(1)
