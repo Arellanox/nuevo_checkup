@@ -86,7 +86,7 @@ function login($user, $password)
             $_SESSION['cargo'] = $result[0]['CARGO_ID'];
 
             //Permisos
-            $sql = "SELECT pertip.DESCRIPCION, permisos.activo
+            $sql = "SELECT pertip.DESCRIPCION, permisos.activo, pertip.permiso
                     FROM usuarios_permisos as permisos
                     LEFT JOIN permisos as pertip ON pertip.ID_PERMISO = permisos.PERMISO_ID
                     WHERE permisos.USUARIO_ID = ?";
@@ -97,6 +97,7 @@ function login($user, $password)
             $result = $stmt->fetchAll();
             for ($i = 0; $i < count($result); $i++) {
                 $permisos[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+                $permisos[$result[$i]['permiso']] = $result[$i]['activo'];
             }
             $_SESSION['permisos'] = $permisos;
 

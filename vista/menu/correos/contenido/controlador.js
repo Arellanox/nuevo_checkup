@@ -1,6 +1,6 @@
 
 
-var datalist, dataListaPaciente, selectEstudio;
+var datalist, dataListaPaciente, selectEstudio, dataSelect;
 async function obtenerVistaCorreosLaboratorio(cliente) {
     await obtenerTitulo("Envio de correos laboratorio");
     $.post("contenido/laboratorio.html", function (html) {

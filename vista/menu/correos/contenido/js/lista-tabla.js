@@ -56,6 +56,7 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
         nombre_paciente: datalist['NOMBRE_COMPLETO'],
         turno: datalist['ID_TURNO']
     })
+    console.log(dataSelect)
     if (selectTR == 1) {
         estadoBotones(0) //Habilitar botones
         try {

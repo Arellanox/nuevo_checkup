@@ -1,4 +1,9 @@
-<?php $menu = $_POST['menu']; ?>
+<?php
+
+date_default_timezone_set('America/Mexico_City');
+
+
+$menu = $_POST['menu']; ?>
 <?php if ($menu == "Recepción | Espera" || $menu == "Recepción | Ingresados" || $menu == "Recepción | Rechazados") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
     <i class="bi bi-pencil-square"></i> Actualizar información del paciente
