@@ -96,8 +96,8 @@ function login($user, $password)
             $permisos = array();
             $result = $stmt->fetchAll();
             for ($i = 0; $i < count($result); $i++) {
-                $permisos[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
-                $permisos[$result[$i]['permiso']] = $result[$i]['activo'];
+                // $permisos[$result[$i]['DESCRIPCION']] = $result[$i]['activo'];
+                $permisos[$result[$i]['permiso']] = $result[$i]['activo']; //ABREVIATURA COMO IDENTIFICADOR DEL PERMISO
             }
             $_SESSION['permisos'] = $permisos;
 
