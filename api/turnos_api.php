@@ -234,19 +234,15 @@ switch ($api) {
     case 14:
 
         $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1]);
-<<<<<<< HEAD
         $response = $response[count($response) - 1];
         //$response = $master->cleanAttachingFiles($response);
         break;
 
-    #case 15 . Desconfirmar resultados
-        case 15:
-
-            $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por]);
-
-=======
+   
+    case 15:
+        #case 15 . Desconfirmar resultados
+        $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por]);
         //$response = $master->cleanAttachingFiles($response);
->>>>>>> ed7ae29908be81e1abe4fa8bfdc1ae417a33e2cd
         break;
 
     default:
