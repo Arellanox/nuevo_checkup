@@ -1031,7 +1031,8 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
         for (const key in data) {
           const element = data[key];
           // console.log(key)
-          setValuesAntAnnameMetodo(arrayDivs[key], element, key)
+          if (key)
+            setValuesAntAnnameMetodo(arrayDivs[key], element, key)
         }
         // console.log(data);
         // console.log(arrayDivs)
