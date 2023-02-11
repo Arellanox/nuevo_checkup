@@ -684,6 +684,12 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50) {
   }
 }
 
+//Poder ajustar responsivamente una ventana en windows
+function autoHeightDiv(div, resta) {
+  var ventana_alto = $(window).height();
+  $(div).height(ventana_alto - resta);
+}
+
 // Mismas funciones, diferentes nombres por no querer cambiar el nombre donde lo llaman xd
 function alertSelectTable(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 2000) {
   Toast.fire({
