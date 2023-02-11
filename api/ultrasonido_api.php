@@ -291,7 +291,7 @@ function decodeJson($parsing){
 }
 function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url', $preview = 0){
     $master = new Master();
-    $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview,$_SESSION['id']);
+    $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview);
     return $url;
 
 }

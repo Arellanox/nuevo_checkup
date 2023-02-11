@@ -835,25 +835,52 @@ class Miscelaneus
     }
 
 
-    function cleanAttachFilesImage($master,$turno_id,$area_id,$cliente){
+    function cleanAttachFilesImage($master,$turno_id,$area_id,$cliente,$reenviar=0){
         # reporte
         $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente]);
-        $reporte = $this->cleanAttachingFiles($response);
 
+        #reportes filtrados, solo los que estan validados
+        if($reenviar!=0){
+            $reportes_validados = array_filter($response, function($obj){
+                $r = $obj['DOUBLE_CHECK'] == 1;
+                return $r;
+            });
+            $response = $reportes_validados;
+        }        
+
+        $reporte = $this->cleanAttachingFiles($response);
+       
         # imagenes.
         $capturas = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id,$area_id]);
+
+        if($reenviar!=0){           
+            # imagenes filtradas
+            $imagenes_array = [];
+            foreach($response as $item){
+                $area = $item['AREA'];
+                $img = array_filter($capturas,function($obj) use ($area){
+                    $r = $obj['AREA_ID'] == $area && isset($obj['RUTA']);
+                    return $r;
+                });
+                array_push($imagenes_array,$img);
+            }
+
+            $capturas = $imagenes_array;
+        }
+        print_r($capturas);
+
         $decodedArray = []; 
         foreach($capturas as $cap){
             $decodedArray[] = $this->decodeJson($cap);
         }
-        // print_r($decodedArray);        // $decodedArray = $this->decodeJson($capturas[0]);
+
         $imagenes = array();
         foreach($decodedArray as $item){
             foreach($item['CAPTURAS'][0] as $i){
                 $imagenes[] = $i['url'];
             }
-            
         }
+     
 
         # unimos ambos arreglos
         $attachment = array_merge($reporte, $imagenes);

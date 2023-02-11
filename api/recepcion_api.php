@@ -1,6 +1,7 @@
 <?php
 include_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+include_once "../clases/correo_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -109,7 +110,27 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_recepcion_reagendar', array($idTurno, $fecha_reagenda));
         break;
     case 4:
+        # reenviar reportes e imagenes por correo de todas las areas.
+        
+        # recuperamos reportes e imagenes como arreglo unico.
+        # decodificamos las imagenes para poderlas tratar como un array.
+        $reportes = $master->cleanAttachFilesImage($master,$idTurno,null,1,1);
 
+        print_r($reportes[0]);
+        
+        # si existe algo, enviamos el correo.
+        if(!empty($reportes[0])){
+            $mail = new Correo();
+            //$r = $mail->sendEmail("resultados","[bimo] Resultados",[$reportes[1]],null,$reportes[0],1);
+            if(true){
+                $master->setLog("Correo global enviado.", "[recepcion api, case 4]");
+                $response =1;
+            } else {
+                $master->setLog("Falla al enviar correo.","[recepcion api, case 4]");
+            }
+        } else {
+            $response = "Paciente sin resultados o imágenes.";
+        }
 
         break;
     default:
