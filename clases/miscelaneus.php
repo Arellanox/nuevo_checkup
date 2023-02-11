@@ -862,12 +862,18 @@ class Miscelaneus
                     $r = $obj['AREA_ID'] == $area && isset($obj['RUTA']);
                     return $r;
                 });
-                array_push($imagenes_array,$img);
+            
+                if(!empty($img)){
+                    foreach($img as $item){
+                        array_push($imagenes_array,$item);
+                    }
+                  
+                }
+                
             }
 
             $capturas = $imagenes_array;
         }
-        print_r($capturas);
 
         $decodedArray = []; 
         foreach($capturas as $cap){
@@ -878,13 +884,14 @@ class Miscelaneus
         foreach($decodedArray as $item){
             foreach($item['CAPTURAS'][0] as $i){
                 $imagenes[] = $i['url'];
+                
             }
         }
      
 
         # unimos ambos arreglos
         $attachment = array_merge($reporte, $imagenes);
-
+        $attachment = array_unique($attachment);
 
         return [$attachment,$response[0]['CORREO']];
     }

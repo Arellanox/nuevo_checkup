@@ -121,8 +121,8 @@ switch ($api) {
         # si existe algo, enviamos el correo.
         if(!empty($reportes[0])){
             $mail = new Correo();
-            //$r = $mail->sendEmail("resultados","[bimo] Resultados",[$reportes[1]],null,$reportes[0],1);
-            if(true){
+            $r = $mail->sendEmail("resultados","[bimo] Resultados",[$reportes[1]],null,$reportes[0],1);
+            if($r){
                 $master->setLog("Correo global enviado.", "[recepcion api, case 4]");
                 $response =1;
             } else {
