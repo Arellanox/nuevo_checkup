@@ -129,13 +129,7 @@ include "../../variables.php";
               if (validar == true) {
                 // <!-- Aqui controlar e incluir los tablas -->
                 $.getScript('modals/controlador.js').done(function() {
-                  //tooltips para todos (source: https://getbootstrap.com/docs/5.0/components/tooltips/)
-                  $(document).ready(function() {
-                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-                    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                      return new bootstrap.Tooltip(tooltipTriggerEl)
-                    })
-                  });
+                  ontooltip(); // <-- Ejecutar los tooltip en todo momento
                 }); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!
               }
             });
@@ -144,4 +138,32 @@ include "../../variables.php";
       }, <?php echo $tipoUrl; ?>)
     });
   });
+
+  function ontooltip() {
+    //tooltips para todos (source: https://getbootstrap.com/docs/5.0/components/tooltips/)
+
+    //Code source: https://stackoverflow.com/users/6679820/hooman (https://stackoverflow.com/questions/24655291/how-to-bind-bootstrap-tooltip-on-dynamic-elements#:~:text=%3C%3D%20Bootstrap%20v5.x%2C%20tooltip()%20doesn%27t%20exist%20in%20JQuery%20object.)
+    var body = $('body');
+    body.on('mouseover', '[data-bs-toggle="tooltip"]', function(e) {
+      e.stopPropagation();
+      return new bootstrap.Tooltip(this).show();
+    });
+
+    body.on('mouseleave', '[data-bs-toggle="tooltip"]', function(e) {
+      $('[role="tooltip"]').fadeOut(100, function() {
+        e.stopPropagation();
+        $(this).remove();
+      });
+    });
+
+    $(document).ready(function() {
+      // $('body').tooltip({
+      //   selector: '[data-toggle="tooltip"]'
+      // });
+      // var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      // var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+      //   return new bootstrap.Tooltip(tooltipTriggerEl)
+      // })
+    });
+  }
 </script>

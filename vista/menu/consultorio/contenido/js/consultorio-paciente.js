@@ -71,9 +71,9 @@ function consultarConsulta(id) {
           if (row.length) {
             // for (let i = 0; i < row.length; i++) {
             if (row[0]['COMPLETADO'] == 0) {
-              $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, ' + row[0]['ID_CONSULTA'] + ')" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Continuar consulta </button>')
+              $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, ' + row[0]['ID_CONSULTA'] + ')" class="btn btn-warning me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Continuar Historia Clínica </button>')
             } else if (row[0]['COMPLETADO'] == 1) {
-              $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, ' + row[0]['ID_CONSULTA'] + ')" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> <i class="bi bi-clipboard-heart"></i> Consulta terminada </button>')
+              $('#btn-ir-consulta').html('<button type="button" onclick="obtenerContenidoConsulta(pacienteActivo.array, ' + row[0]['ID_CONSULTA'] + ')" class="btn btn-success me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="tooltip" data-bs-placement="top" title="¿Consultar la historia Clínica?"> <i class="bi bi-clipboard-heart"></i> Historia Clínica Terminada </button>')
             }
 
             // }
