@@ -33,8 +33,8 @@ $('#btn-confirmarenviar-resultado').click(function () {
     }
     if (selectEstudio.getguardado() != 1 || datalist.DOBLE_CHECK != 1 || 1) {
         alertMensajeConfirm({
-            title: "¿Está seguro de confirmar y enviar el resultado?",
-            text: "¡No podrá revertir esta acción!",
+            title: "¿Está seguro de validar y enviar el resultado?",
+            text: "¡Se enviará al correo (" + selectEstudio.array.CORREO + ") del paciente!",
             icon: "warning",
         }, function () {
             $.ajax({
@@ -46,11 +46,11 @@ $('#btn-confirmarenviar-resultado').click(function () {
                 },
                 dataType: "json",
                 beforeSend: function () {
-                    alertMensaje('info', 'Confirmando resultado', 'Espere un momento mientras confirmamos y enviamos el resultado al paciente')
+                    alertMensaje('info', 'Validando reporte', 'Espere un momento mientras validamos y enviamos el reporte al paciente')
                 },
                 success: function (data) {
                     if (mensajeAjax(data)) {
-                        alertMensaje('success', '¡Resultado confirmado y enviado!', 'El resultado a sido enviado excitosamente')
+                        alertMensaje('success', '¡Reporte validado y enviado!', 'El reporte a sido enviado excitosamente')
                     }
                 },
                 error: function (jqXHR, exception, data) {

@@ -26,14 +26,18 @@
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
+            <th scope="col d-flex justify-content-center" class="none">Prefolio</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>
             <th scope="col d-flex justify-content-center" class="desktop">Segmento</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Turno</th>
+            <th scope="col d-flex justify-content-center" class="none">Turno</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Area Actual</th>
+
+            <th scope="col d-flex justify-content-center" class="min-tablet">Análisis</th>
+            <th scope="col d-flex justify-content-center" class="min-tablet">Muestra</th>
+
             <th scope="col d-flex justify-content-center" class="min-tablet">Recepción</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Agenda</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Re-agenda</th>
+            <th scope="col d-flex justify-content-center" class="none">Re-agenda</th>
             <th scope="col d-flex justify-content-center" class="none">Sexo</th>
           </tr>
         </thead>

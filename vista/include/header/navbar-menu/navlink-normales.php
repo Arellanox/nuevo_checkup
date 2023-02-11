@@ -144,7 +144,7 @@ if ($menu != "Recepción") : ?>
   <?php if ($_SESSION['vista']['CORREOSLAB'] == 1) : ?>
     <li class="nav-item">
       <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/correos/#CORREOSLAB'; ?>" data-bs-dismiss="offcanvas">
-        <i class="bi bi-envelope-paper"></i> Correos
+        <i class="bi bi-envelope-paper"></i> Validación
       </a>
     </li>
   <?php endif; ?>
