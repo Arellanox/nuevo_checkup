@@ -94,6 +94,7 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
 
   await obtenerHistorialConsultas(id);
   // alert("Funcion terminada")
+  ontooltip();
   loader("Out")
 }
 

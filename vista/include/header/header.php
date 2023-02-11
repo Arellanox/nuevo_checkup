@@ -61,11 +61,11 @@ session_start();
             <li class="nav-item Recepción">
               <div class="dropdown ">
                 <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-plus"></i> Áreas
+                  <i class="bi bi-window-stack"></i> Áreas
                 </a>
                 <!-- Estos botones se cargan en el servidor desde el archivo del include -->
                 <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-                  <?php include "navbar-menu/navlink-droplist.php"; ?>
+                  <?php include "navbar-menu/navlink-droplist-areas.php"; ?>
                 </ul>
               </div>
             </li>
