@@ -116,6 +116,8 @@ async function obtenerConsulta(data, idconsulta) {
   await obtenerAnamnesisApartados(data['ID_TURNO']);
   await obtenerInformacionConsulta(idconsulta)
   loader("Out")
+  let altura = $(document).height();
+  $("html, body").animate({ scrollTop: altura + "px" });
 }
 
 function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, clase, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;') {

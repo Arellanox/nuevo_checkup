@@ -58,7 +58,7 @@
             <a class="nav-link" href="#card-anamnesis-aparatos">ANAMNESIS POR APARATOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#card-exploracion-clinica">EXPLORACIÓN CLÍNICA</a>
+            <a class="nav-link" href="#card-exploracion-clinica">EXPLORACIÓN FÍSICA</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#card-odontograma">ODONTOGRAMA</a>
@@ -69,9 +69,9 @@
           <li class="nav-item">
             <a class="nav-link" href="#card-diagnostico">DIAGNÓSTICO</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#card-receta">RECETA</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="#notas-padecimiento">NOTAS DE PADECIMIENTO</a> <!-- active -->
           </li>
@@ -90,7 +90,7 @@
   </div>
 </div>
 
-<div class="overflow-auto" style="max-height:70vh; margin-bottom: 50px">
+<div class="overflow-auto" style="margin-bottom: 10px" id="vista-valoracion">
   <div class="container" style="max-width: 80%;">
 
     <section id="card-antecedentes" class="card mt-3">
@@ -414,7 +414,7 @@
     </section> -->
 
 
-    <section id="card-receta" class="card mt-3">
+    <!-- <section id="card-receta" class="card mt-3">
       <h4 class="m-3">Receta</h4>
       <hr class="dropdown-divider m-2">
       <p class="none-p m-3">Receta de médicamento(s)</p>
@@ -471,32 +471,32 @@
           <i class="bi bi-clipboard-plus"></i> Agregar
         </button>
       </div> -->
-      <div class="col-12">
-        <div class="card m-3 p-3">
-          <h3>Recetas guardadas de consulta</h3>
-          <table class="table table-hover display responsive" id="tablaListaRecetas" style="width: 100%;">
-            <thead>
-              <tr>
-                <!-- <th scope="col d-flex justify-content-center" class="all">#</th> -->
-                <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-                <th scope="col d-flex justify-content-center" class="all">For. Farmaceutica</th>
-                <th scope="col d-flex justify-content-center" class="all">Dosis</th>
-                <th scope="col d-flex justify-content-center" class="none">Presentación</th>
-                <th scope="col d-flex justify-content-center" class="all">Frecuencia</th>
-                <th scope="col d-flex justify-content-center" class="none">Vía de Administración</th>
-                <th scope="col d-flex justify-content-center" class="all">Duración</th>
-                <th scope="col d-flex justify-content-center" class="none">Indicaciones</th>
-                <th scope="col d-flex justify-content-center" class="all">Eliminar</th>
-                <!-- <i class="bi bi-trash"></i> -->
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
+    <div class="col-12">
+      <div class="card m-3 p-3">
+        <h3>Recetas guardadas de consulta</h3>
+        <table class="table table-hover display responsive" id="tablaListaRecetas" style="width: 100%;">
+          <thead>
+            <tr>
+              <!-- <th scope="col d-flex justify-content-center" class="all">#</th> -->
+              <th scope="col d-flex justify-content-center" class="all">Nombre</th>
+              <th scope="col d-flex justify-content-center" class="all">For. Farmaceutica</th>
+              <th scope="col d-flex justify-content-center" class="all">Dosis</th>
+              <th scope="col d-flex justify-content-center" class="none">Presentación</th>
+              <th scope="col d-flex justify-content-center" class="all">Frecuencia</th>
+              <th scope="col d-flex justify-content-center" class="none">Vía de Administración</th>
+              <th scope="col d-flex justify-content-center" class="all">Duración</th>
+              <th scope="col d-flex justify-content-center" class="none">Indicaciones</th>
+              <th scope="col d-flex justify-content-center" class="all">Eliminar</th>
+              <!-- <i class="bi bi-trash"></i> -->
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
+    </div>
 
-    </section>
+    </section> -->
 
 
     <!-- <section id="card-solicitud-estudios" class="card mt-3">
@@ -505,6 +505,12 @@
       <textarea name="name" rows="10" cols="90" class="form-textarea-content" id="solicitud-estudios-valoraciones" placeholder="Escriba aquí sus notas"></textarea>
     </section> -->
   </div>
+
+
+  <script>
+    var ventana_alto = $(window).height();
+    $('#vista-valoracion').height(ventana_alto - 157);
+  </script>
 </div>
 
 <style>

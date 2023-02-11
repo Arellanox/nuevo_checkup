@@ -102,9 +102,9 @@ function getResultadoPaciente(turno) {
             data: { id_turno: turno, api: 14 },
             method: "POST",
             success: function (data) {
-                selectEstudio = new GuardarArreglo(data.response.data[0]);
+                selectEstudio = new GuardarArreglo(data.response.data);
                 // console.log(selectEstudio)
-                let row = [data.response.data[0]];
+                let row = [data.response.data];
 
                 if (row['DOBLE_CHECK'])
                     selectEstudio.setguardado(1)
