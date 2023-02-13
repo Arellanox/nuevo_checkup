@@ -18,11 +18,11 @@
               <label for="tipo_paquete" class="form-label">Tipo de Paquete</label>
               <input type="text" name="tipo_paquete" class="form-control input-form" required>
             </div>
-            <div class="col-12">
+            <!-- <div class="col-12">
               <label for="concepto_id" class="form-label">Concepto de Facturacion</label>
               <select name="concepto_id" id="facturacion-paquete" class="input-form" required>
               </select>
-            </div>
+            </div> -->
             <div class="col-12">
               <label for="cliente_id" class="form-label">Cliente del paquete:</label>
               <select id="relacion-cliente" name="cliente_id" class="form-control input-form"> </select>

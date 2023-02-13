@@ -31,14 +31,56 @@ $cliente_id = $_POST['cliente_id'];
 #filtrar servicios y grupos 
 $tipgrupo = isset($_POST['tipgrupo']) ? $_POST['tipgrupo'] : null;
 
+$id_servicio = $_POST['id_servicio'];
+$descripcion = $_POST['descripcion'];
+$abreviatura = $_POST['abreviatura'];
+$area = $_POST['area'];
+$clasificacion_id = $_POST['clasificacion_id'];
+$metodo_id = $_POST['metodo_id'];
+$medida_id = $_POST['medida_id'];
+
+$dias_entrega = $_POST['dias_entrega'];
+$codigo_sat_id = $_POST['codigo_sat_id'];
+$indicaciones = $_POST['indicaciones'];
+$muestra_valores = $_POST['muestra_valores'];
+$local = $_POST['local'];
+
+$es_grupo = $_POST['es_grupo'];
+$es_producto = $_POST['es_producto'];
+$seleccionable = $_POST['seleccionable'];
+$es_para = $_POST['es_para'];
+$costo = $_POST['costo'];
+$utilidad = $_POST['utilidad'];
+$precio_venta = $_POST['precio_venta'];
+
+$parametros = array(
+    $id_servicio,
+    $descripcion,
+    $abreviatura,
+    $area,
+    $clasificacion_id,
+    $metodo_id,
+    $medida_id,
+    $dias_entrega,
+    $codigo_sat_id,
+    $indicaciones,
+    $muestra_valores,
+    $local,
+    $es_grupo,
+    $es_producto,
+    $seleccionable,
+    $es_para,
+    $costo,
+    $utilidad,
+    $precio_venta
+);
+
 
 
 switch ($api) {
     case 1:
         #insert
-        $array_slice = array_slice($_POST, 0, 19);
-        $values = $master->mis->getFormValues($array_slice);
-        $response = $master->insertByProcedure("sp_servicios_g", $values);
+        $response = $master->insertByProcedure("sp_servicios_g", $parametros);
         if (is_numeric($response)) {
             echo json_encode(array(
                 'response' => array(
@@ -353,7 +395,7 @@ switch ($api) {
             echo "vacio";
         }
         break;
-    case 13:
+    case 13: #NO USAR
         # para crear los reportes de LABORATORIO
 
         # informacion general del paciente
@@ -452,7 +494,7 @@ switch ($api) {
                 )
             )
         );
-
+        #Case incompleto
         $pdf = new Reporte(json_encode($arrayGlobal), json_encode($responsePac[0]), null, null, 'resultados', 'url');
         $pdf->build();
 

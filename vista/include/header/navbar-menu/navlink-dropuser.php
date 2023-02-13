@@ -7,12 +7,12 @@ if ($_SESSION['vista']['SERVICIOS'] == 1  || $_SESSION['vista']['SERVICIOS (EQUI
   </a>
   <div class="collapse" id="board-servicios">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
-      <!-- <?php if ($_SESSION['vista']['SERVICIOS (SERVICIOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1) : ?>
+      <?php if ($_SESSION['vista']['SERVICIOS (SERVICIOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1) : ?>
         <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Estudios'; ?>"><i class="bi bi-dot"></i> Estudios</a></li>
       <?php endif; ?>
       <?php if ($_SESSION['vista']['SERVICIOS (GRUPOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1) : ?>
         <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Grupos'; ?>"><i class="bi bi-dot"></i> Grupos de examenes</a></li>
-      <?php endif; ?> -->
+      <?php endif; ?>
       <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1) : ?>
         <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/servicios/#Equipos'; ?>"><i class="bi bi-dot"></i> Equipos</a></li>
       <?php endif; ?>

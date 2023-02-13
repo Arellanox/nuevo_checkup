@@ -546,15 +546,19 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
       url: http + servidor + "/nuevo_checkup/api/" + api + ".php",
       data: values,
       type: "POST",
+      // dataType: "json",
       success: function (data) {
 
         if (typeof data == "string" && data.indexOf('response') > -1) {
           data = JSON.parse(data);
+          // if (!mensajeAjax(data))
+          //   return false;
           data = data['response']['data'];
           // data = data['data'];
         } else {
           data = JSON.parse(data);
         }
+
 
         for (var i = 0; i < data.length; i++) {
 
@@ -584,6 +588,7 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
         }
         // console.log(data);
         callback(data);
+
       },
       complete: function (data) {
         resolve(1);

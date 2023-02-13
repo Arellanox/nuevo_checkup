@@ -1,11 +1,11 @@
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
-  rellenarSelect("#registrar-clasificacion-estudio","laboratorio_clasificacion_api",2,0,1);
-  rellenarSelect("#registrar-metodos-estudio","laboratorio_metodos_api",2,0,1);
-  rellenarSelect("#registrar-medidas-estudio","laboratorio_medidas_api",2,0,1);
+  rellenarSelect("#registrar-clasificacion-estudio", "laboratorio_clasificacion_api", 2, 0, 1);
+  rellenarSelect("#registrar-metodos-estudio", "laboratorio_metodos_api", 2, 0, 1);
+  rellenarSelect("#registrar-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1);
   rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 'DESCRIPCION');
   rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
-  rellenarSelect('#registrar-concepto-facturacion','sat_catalogo_api', 2,0,'COMPLETO');
+  rellenarSelect('#registrar-concepto-facturacion', 'sat_catalogo_api', 2, 0, 'COMPLETO');
 })
 
 //Formulario de Preregistro
@@ -14,16 +14,28 @@ $("#formRegistrarEstudio").submit(function (event) {
   /*DATOS Y VALIDACION DEL REGISTRO*/
   var form = document.getElementById("formRegistrarEstudio");
   var formData = new FormData(form);
-  var padre = formData.get("grupo");
-  formData.delete("grupo");
-  formData.set("padre", padre);
+
+  if ($('#sin_clasificacion').is(":checked"))
+    formData.delete('clasificacion_id')
+  if ($('#sin_metodo').is(":checked"))
+    formData.delete('metodo_id')
+  if ($('#sin_medida').is(":checked"))
+    formData.delete('medida_id')
+
+
+
+
+
+  // var padre = formData.get("grupo");
+  // formData.delete("grupo");
+  // formData.set("padre", padre);
   formData.set("grupos", 0);
   formData.set("producto", 1);
-  formData.set("seleccionable", null);
-  formData.set("para", 3);
-  formData.set("costos", null);
-  formData.set("utilidad", null);
-  formData.set("venta", null);
+  // formData.set("seleccionable", null);
+  // formData.set("para", 3);
+  // formData.set("costos", null);
+  // formData.set("utilidad", null);
+  // formData.set("venta", null);
   formData.set("api", 1);
 
   Swal.fire({
@@ -66,26 +78,40 @@ $("#formRegistrarEstudio").submit(function (event) {
 });
 
 
-// Nuevo contenedores
- $('#nuevo-contenedor').on('click', function(){
-   numberContenedor += 1;
-   agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
- })
+function getValueCheck(tip, val) {
+  switch (key) {
+    case 'clasexamen':
+      if ($('#sin_clasificacion').is(":checked"))
+        return val;
+      return
+      break;
 
- $(document).on('click', '.eliminarContenerMuestra1', function () {
-   var parent_element = $(this).closest("div[class='row']");
-   // console.log(parent_element)
-   // numberContenedor -= 1;
-   parent_element.remove();
+    default:
+      break;
+  }
+}
+
+
+// Nuevo contenedores
+$('#nuevo-contenedor').on('click', function () {
+  numberContenedor += 1;
+  agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
+})
+
+$(document).on('click', '.eliminarContenerMuestra1', function () {
+  var parent_element = $(this).closest("div[class='row']");
+  // console.log(parent_element)
+  // numberContenedor -= 1;
+  parent_element.remove();
 });
 
- // $('.eliminarContenerMuestra').on('click', function(event){
- //   event.stopPropagation();
- //   event.stopImmediatePropagation();
- //   var parent_element = $(this).closest("div[class='row']");
- //   console.log(parent_element)
- //   parent_element.remove();
- // })
+// $('.eliminarContenerMuestra').on('click', function(event){
+//   event.stopPropagation();
+//   event.stopImmediatePropagation();
+//   var parent_element = $(this).closest("div[class='row']");
+//   console.log(parent_element)
+//   parent_element.remove();
+// })
 
 
 
