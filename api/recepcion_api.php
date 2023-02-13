@@ -41,6 +41,9 @@ $ordenes = array(
 
 $ordenes = $master->checkArray($ordenes,1);
 
+# para envio de correo de empresaas
+$cliente_id = $_POST['cliente_id'];
+
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
@@ -116,8 +119,6 @@ switch ($api) {
         # decodificamos las imagenes para poderlas tratar como un array.
         $reportes = $master->cleanAttachFilesImage($master,$idTurno,null,1,1);
 
-        print_r($reportes[0]);
-        
         # si existe algo, enviamos el correo.
         if(!empty($reportes[0])){
             $mail = new Correo();
@@ -131,6 +132,20 @@ switch ($api) {
         } else {
             $response = "Paciente sin resultados o imágenes.";
         }
+
+        break;
+    case 5:
+        # Enzipar por paciente reportes e imagenes por cliente y enviarlo por correo eletronico
+        
+        #creamos la carpeta temporal
+        if(!is_dir("../tmp")){
+            if(!mkdir("../tmp")){
+                $master->setLog("No se pudo crear la carpeta temporal","recepcion api [case 5]");
+            }
+        }
+
+        #recuperamos el los reportes y las imgenes de los clientes
+        $reportes = $master->cleanAttachFilesImage($master,null,null,$cliente_id);
 
         break;
     default:

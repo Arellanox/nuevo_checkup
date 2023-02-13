@@ -893,6 +893,6 @@ class Miscelaneus
         $attachment = array_merge($reporte, $imagenes);
         $attachment = array_unique($attachment);
 
-        return [$attachment,$response[0]['CORREO']];
+        return [$attachment,$response[array_key_first($response)]['CORREO']];
     }
 }
