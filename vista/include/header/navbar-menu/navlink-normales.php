@@ -82,7 +82,7 @@ if ($menu != "Recepción") : ?>
 <?php endif; ?>
 
 <?php if ($menu == "Servicios" || $menu == "ServiciosLab") : ?>
-  <!-- <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
+  <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
     <li class="nav-item">
       <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
         <i class="bi bi-box"></i> Metodos
@@ -102,8 +102,8 @@ if ($menu != "Recepción") : ?>
         <i class="bi bi-collection"></i> Grupos de examenes
       </a>
     </li>
-  <?php endif; ?> -->
-  <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 2) : ?>
+  <?php endif; ?>
+  <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     <li class="nav-item">
       <a href="#Equipos" data-bs-dismiss="offcanvas">
         <i class="bi bi-thunderbolt"></i> Equipos
