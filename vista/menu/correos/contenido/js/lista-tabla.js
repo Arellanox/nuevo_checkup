@@ -61,7 +61,7 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
         estadoBotones(0) //Habilitar botones
         try {
             getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'In', async function (divClass) {
-                vistaPDF('adobe-dc-view', 'url', 'resultado_laboratorio_test.pdf')
+                // vistaPDF('adobe-dc-view', 'url', 'resultado_laboratorio_test.pdf')
                 await obtenerPanelInformacion(datalist['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
                 // await generarHistorialResultados(datalist['ID_PACIENTE'])
                 await getResultadoPaciente(datalist['ID_TURNO']);
