@@ -835,9 +835,9 @@ class Miscelaneus
     }
 
 
-    function cleanAttachFilesImage($master,$turno_id,$area_id,$cliente,$reenviar=0){
+    function cleanAttachFilesImage($master,$turno_id,$area_id,$cliente,$reenviar=0,$fecha_busqueda=null){
         # reporte
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente,$fecha_busqueda]);
 
         #reportes filtrados, solo los que estan validados
         if($reenviar!=0){
@@ -853,13 +853,14 @@ class Miscelaneus
         # imagenes.
         $capturas = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id,$area_id]);
 
-        if($reenviar!=0){           
+        if($reenviar!=0 || !is_null($fecha_busqueda)){           
             # imagenes filtradas
             $imagenes_array = [];
             foreach($response as $item){
                 $area = $item['AREA'];
-                $img = array_filter($capturas,function($obj) use ($area){
-                    $r = $obj['AREA_ID'] == $area && isset($obj['RUTA']);
+                $turno = $item['TURNO_ID'];
+                $img = array_filter($capturas,function($obj) use ($area,$turno){
+                    $r = $obj['TURNO_ID']==$turno && $obj['AREA_ID'] == $area && isset($obj['RUTA']);
                     return $r;
                 });
             
@@ -893,6 +894,6 @@ class Miscelaneus
         $attachment = array_merge($reporte, $imagenes);
         $attachment = array_unique($attachment);
 
-        return [$attachment,$response[array_key_first($response)]['CORREO']];
+        return [$attachment,$response[array_key_first($response)]['CORREO'],array_map(function($obj){return $obj['TURNO_ID'];},$response),array_map(function($obj){return $obj['NOMBRE_ARCHIVO'];},$response)];
     }
 }

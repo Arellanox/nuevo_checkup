@@ -43,6 +43,7 @@ $ordenes = $master->checkArray($ordenes,1);
 
 # para envio de correo de empresaas
 $cliente_id = $_POST['cliente_id'];
+$fecha_ingreso = $_POST['fecha_ingreso'];
 
 switch ($api) {
     case 1:
@@ -136,16 +137,97 @@ switch ($api) {
         break;
     case 5:
         # Enzipar por paciente reportes e imagenes por cliente y enviarlo por correo eletronico
-        
-        #creamos la carpeta temporal
-        if(!is_dir("../tmp")){
-            if(!mkdir("../tmp")){
-                $master->setLog("No se pudo crear la carpeta temporal","recepcion api [case 5]");
-            }
-        }
+        $zip = new ZipArchive;
+        $mail = new Correo();
+        #recuperamos el los reportes y las imagenes de los pacientes del cliente seleccionado.
+        $reportes = $master->cleanAttachFilesImage($master,null,null,$cliente_id,0,$fecha_ingreso);
 
-        #recuperamos el los reportes y las imgenes de los clientes
-        $reportes = $master->cleanAttachFilesImage($master,null,null,$cliente_id);
+        if(!empty($reportes[0])){
+            #si hay algo, continuamos con el proceso.
+            
+            #creamos la carpeta temporal
+            if(!is_dir("../tmp")){
+                if(!mkdir("../tmp")){
+                    $master->setLog("No se pudo crear la carpeta temporal","recepcion api [case 5]");
+                    $response = "No se pudo crear la carpeta temporal.";
+                    break;
+                }
+            }
+
+            # creamos el zip por cada paciente.
+            for($i=0;$i<count($reportes[3]);$i++){
+                $nombre_zip = $explode = explode(".",$reportes[3][$i]);
+
+                #creamos el archivo zip dentro de la carpeta temporal
+                $fh = fopen("../tmp/".$nombre_zip[0].".zip", 'a');
+                // fwrite($fh, '<h1>Hello world!</h1>');
+                fclose($fh);
+
+                # Filtramos todos los archivos del paciente
+                $str = "/".$reportes[2][$i]."/";
+                $archivos_paciente = [];
+                foreach($reportes[0] as $ruta_archivo){
+                   
+                    $pos = strpos($ruta_archivo,$str);
+               
+                    try{
+                        if($pos!==false){
+                            array_push($archivos_paciente,$ruta_archivo);
+                        }
+                    }catch (Exception $e){
+                        print_r($e);
+                    }
+                   
+                }
+
+                # enzipamos los archivos correspondientes al zip actual.
+                foreach($archivos_paciente as $a){
+                    $ruta = explode("nuevo_checkup",$a);
+                    $ruta = "..".$ruta[1];
+
+                    // if ($zip->open("../tmp/".$nombre_zip[0].".zip") === TRUE) {
+                    //     $zip->addFile($ruta, basename($ruta));
+                    //     $zip->close();
+                    // } else {
+                    //     echo 'failed';
+                    // }
+                    if ($zip->open("../tmp/".$nombre_zip[0].".zip") === TRUE) {
+                        $zip->addFile("../checkup.sql", basename($ruta));
+                        $zip->close();
+                    } else {
+                        echo 'failed';
+                    }
+                }
+                
+            }    
+
+            $archivos_enviar = [];
+
+             
+            if ($gestor = opendir('../tmp/')) {
+                echo "Gestor de directorio: $gestor\n";
+                echo "Entradas:\n";
+            
+                /* Esta es la forma correcta de iterar sobre el directorio. */
+                $count = 0;
+                while (false !== ($entrada = readdir($gestor))) {
+                    if($count >1){
+                        array_push($archivos_enviar,"nuevo_checkup/tmp/".$entrada);
+                    }
+                    $count++;
+                }
+            
+                closedir($gestor);
+            }
+            print_r($archivos_enviar);
+            
+            $r = $mail->sendEmail("resultados","Envio de resultados [bimo]",["arellanox0392@gmail.com"],null,$archivos_enviar,1);
+
+        } else {
+            $response = "No hay archivos disponible para el cliente seleccionado.";
+        }
+        
+     
 
         break;
     default:
