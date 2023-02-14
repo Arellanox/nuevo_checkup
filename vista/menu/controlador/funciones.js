@@ -1427,19 +1427,25 @@ function selectedTrTable(text, column = 1, table) {
 
 //Vista de un solo valor
 function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContenedor) {
+  //Plantilla 
   html = '<div class="modal fade" id="modalRegistrar' + titulo + '" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"' +
     'data-bs-keyboard="false">' +
     '<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">' +
-    '<div class="modal-content">' +
-    '<div class="modal-header header-modal">' +
+    '<div class="modal-content">';
+
+  //Header
+  html += '<div class="modal-header header-modal">' +
     '<h5 class="modal-title">' + firstMayus(titulo) + '</h5>' +
     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-    '</div>' +
-    '<div class="modal-body" id="' + titulo + '-body">' +
+    '</div>';
+
+  //Cuerpo
+  html += '<div class="modal-body" id="' + titulo + '-body">' +
     '<p class="none-p">Doble click para editar <i class="bi bi-pencil"></i></p>' +
     '<div class="row mt-3">' +
-    '<div class="col-6">' +
+
     //Tabla contenido
+    '<div class="col-6">' +
     '<table class="table table-hover tableContenido" id="Tabla' + titulo + '" style="width:100%">' +
     '<thead class="">' +
     '<tr>' +
@@ -1451,11 +1457,12 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     '<tbody>' +
     '</tbody>' +
     '</table>' +
-    //
     '</div>' +
+    //
+
+    //Formularios Registrar
     '<div class="col-6" id="RegistrarMetodo' + titulo + '">' +
     '<p>Crear nuevo registro:</p>' +
-    //Registrar
     '<form class="row" id="formRegistrar' + titulo + '">' +
     '<div class="col-12">' +
     '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
@@ -1467,11 +1474,12 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     '</button>' +
     '</div>' +
     '</form>' +
-    //
     '</div>' +
+    //
+
+    //Formulario Actualizar
     '<div class="col-6" id="editarMetodo' + titulo + '" style="display:none">' +
     '<p>Actualizar registro:</p>' +
-    //Editar
     '<form class="row" id="formEditar' + titulo + '">' +
     '<div class="col-12">' +
     '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
@@ -1490,11 +1498,14 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     '</button>' +
     '</div>' +
     '</form>' +
+    '</div>' +
     //
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '<div class="modal-footer">' +
+
+    '</div>' + // Etiquetas de cierres
+    '</div>';
+
+  //Footer
+  html += '<div class="modal-footer">' +
     '<button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>' +
     'Cerrar</button>' +
     '</div>' +
@@ -1769,6 +1780,13 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
   })
 
 }
+
+
+
+
+
+
+
 
 function vistaPDF(divContenedor, url, nombreArchivo, callback = function () { }) {
   $.post(http + servidor + '/nuevo_checkup/vista/include/funciones/viewer-pdf.php', {

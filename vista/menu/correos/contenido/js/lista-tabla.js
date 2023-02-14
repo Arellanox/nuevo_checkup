@@ -72,8 +72,11 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
                 if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
                     estadoBotones(1) //Desactivar si ya fue enviado
                 // console.log(selectEstudio.array.RUTA)
-                vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
+                try {
+                    vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
+                } catch (error) {
 
+                }
                 bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
 
             });

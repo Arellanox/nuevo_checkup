@@ -90,11 +90,12 @@ $('#btn-rechazar-resultado').click(function () {
             success: function (data) {
                 if (mensajeAjax(data)) {
                     alertMensaje('success', '¡Resultado confirmado y enviado!', 'El resultado a sido enviado excitosamente')
+                    tablaListaPaciente.ajax.reaload()
                 }
             },
             error: function (jqXHR, exception, data) {
                 alertErrorAJAX(jqXHR, exception, data)
             },
-        }, 1)
-    })
+        })
+    }, 1)
 })
