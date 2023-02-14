@@ -16,10 +16,11 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
         url: '../../../api/turnos_api.php',
         beforeSend: function () {
             loader("In")
+            getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
         },
         complete: function () {
             loader("Out")
-            loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);
+            getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
             $('.informacion-labo').fadeOut()
         },
         dataSrc: 'response.data'

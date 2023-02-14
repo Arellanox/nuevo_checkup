@@ -2,6 +2,11 @@ class CatalogoModal {
 
     CONTENT;
     dataSelect;
+    columnsData;
+    ajax;
+    columnsDefData;
+    tagTable;
+    createdRow;
 
     constructor(
         CONTENT = {
@@ -41,13 +46,70 @@ class CatalogoModal {
                 MODALCLASS: 'modal-lg modal-dialog-centered modal-dialog-scrollable',
             },
         },
+        columnsData = [
+            { data: 'COUNT' },
+            { data: 'DESCRIPCION' },
+            {
+                data: 'ACTIVO', render: function (data) {
+                    if (data == 1) {
+                        return '<i class="bi bi-check-circle"></i>';
+                    } else {
+                        return '<i class="bi bi-x-circle"></i>';
+                    }
+                }
+            }
+        ],
+
+        //Automatico
+        ajax = {
+            data: {
+                api: 2, ACTIVO: 1
+            },
+            api_url: '',
+            dataSrc: 'response.data',
+        },
+        ID
+        columnsDefData = [
+            {
+                "width": "3px",
+                "targets": 0
+            },
+        ],
+        tagTable = {
+            table_id: `Tabla${this.CONTENT['titulos']['IDSDIVS']}`,
+            titulo: `${this.CONTENT['titulos']['IDSDIVS']}`
+
+        },
+        configTable = {
+            processing: true,
+            autoWidth: false,
+            searching: false,
+            info: false,
+            paging: false,
+            scrollY: '30vh',
+            scrollCollapse: true,
+        },
+
+        createdRow = {
+            IDCOMPARADOR: 'ACTIVO',
+            VALUE: 1,
+            CLASSTRUE: 'bg-success text-white',
+            CLASSFALSE: 'bg-danger text-white'
+        }
 
     ) {
         this.CONTENT = CONTENT;
+        this.columnsData = columnsData;
+        this.ajax = ajax;
+        this.columnsDefData = columnsDefData;
+        this.tagTable = tagTable;
+        this.createdRow = createdRow;
+
+
         this.getHTMLCatalogo(this.CONTENT['divContenedor'], this.CONTENT['titulos'], this.CONTENT['formLabels'], this.CONTENT['tableContent'], this.CONTENT['diseño'])
 
         setTimeout(() => {
-            this.getTableControlador()
+            this.getTableControlador(this.tagTable, this.ajax, this.createdRow, this.columnsData, this.columnsDefData)
         }, 200);
     }
 
@@ -172,58 +234,7 @@ class CatalogoModal {
         })
     }
 
-    getTableControlador(
-        columnsData = [
-            { data: 'COUNT' },
-            { data: 'DESCRIPCION' },
-            {
-                data: 'ACTIVO', render: function (data) {
-                    if (data == 1) {
-                        return '<i class="bi bi-check-circle"></i>';
-                    } else {
-                        return '<i class="bi bi-x-circle"></i>';
-                    }
-                }
-            }
-        ],
-
-        //Automatico
-        ajax = {
-            data: {
-                api: 2, ACTIVO: 1
-            },
-            api_url: '',
-            dataSrc: 'response.data',
-        },
-        columnsDefData = [
-            {
-                "width": "3px",
-                "targets": 0
-            },
-        ],
-        tagTable = {
-            table_id: `Tabla${this.CONTENT['titulos']['IDSDIVS']}`,
-            titulo: `${this.CONTENT['titulos']['IDSDIVS']}`
-
-        },
-        configTable = {
-            processing: true,
-            autoWidth: false,
-            searching: false,
-            info: false,
-            paging: false,
-            scrollY: '30vh',
-            scrollCollapse: true,
-        },
-
-        createdRow = {
-            IDCOMPARADOR: 'ACTIVO',
-            VALUE: 1,
-            CLASSTRUE: 'bg-success text-white',
-            CLASSFALSE: 'bg-danger text-white'
-        }
-
-    ) {
+    getTableControlador(tagTable, ajax, createdRow, columnsData, columnsDefData) {
         let TablaContenido = $(tagTable['table_id']).DataTable({
             processing: configTable['processing'],
             language: {
@@ -291,7 +302,171 @@ class CatalogoModal {
                 this.cambiarFormMetodo(1, tagTable['titulo']);
             }
         }, tagTable['table_id'], TablaContenido)
+
+        //Correccion de header
+        let modal = $('#modalRegistrar' + tagTable['titulo']);
+        modal.on('shown.bs.modal', function (e) {
+            TablaContenido.ajax.reload();
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+        })
     }
+
+
+    getButtonAccion(titulo, api_url,) {
+        //Formulario de registro de cargo
+        $("#formRegistrar" + titulo).submit(function (event) {
+            event.preventDefault();
+            /*DATOS Y VALIDACION DEL REGISTRO*/
+            var form = document.getElementById("formRegistrar" + titulo);
+            var formData = new FormData(form);
+            formData.set('api', 1);
+
+            alertMensajeConfirm({
+                title: '¿Está seguro que todos los datos están correctos?',
+                text: "No podrá eliminar el registro",
+                icon: 'warning'
+            }, function () {
+                $.ajax({
+                    data: formData,
+                    url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (mensajeAjax(data)) {
+                            alertToast('¡' + firstMayus(titulo) + ' registrado!', 'success')
+                            document.getElementById("formRegistrar" + titulo).reset();
+                            TablaContenido.ajax.reload();
+                            cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+                            // selectMetodo()
+                        }
+                    },
+                    error: function (jqXHR, exception, data) {
+                        alertErrorAJAX(jqXHR, exception, data)
+                    },
+                });
+            }, 1)
+            event.preventDefault();
+        });
+
+
+        //Formulario de actualizar cargo
+        $("#formEditar" + titulo).submit(function (event) {
+            event.preventDefault();
+            /*DATOS Y VALIDACION DEL REGISTRO*/
+            var form = document.getElementById("formEditar" + titulo);
+            var formData = new FormData(form);
+            formData.set(registro_id, this.dataSelect[registro_id])
+            formData.set('api', 1);
+
+            alertMensajeConfirm({
+                title: '¿Está seguro de cambiar la descripcion?',
+                text: "¡Se cambiará en todas las vistas!",
+                icon: 'warning'
+            }, function () {
+                //$("#btn-registrarse").prop('disabled', true);
+                // Esto va dentro del AJAX
+                $.ajax({
+                    data: formData,
+                    url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (mensajeAjax(data)) {
+                            alertToast('¡' + firstMayus(titulo) + ' actualizado!', 'success')
+                            document.getElementById("formEditar" + titulo).reset();
+                            TablaContenido.ajax.reload();
+                            cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+                            // selectMetodo()
+                        }
+                    },
+                    error: function (jqXHR, exception, data) {
+                        alertErrorAJAX(jqXHR, exception, data)
+                    },
+                });
+            }, 1)
+            event.preventDefault();
+        });
+
+        //Desactivar valor
+        $('#desactivar-' + titulo).click(function () {
+            if (this.dataSelect != null) {
+                alertMensajeConfirm({
+                    title: "¿Está seguro que desea desactivar este registro?",
+                    text: "No podrán volver a elegir el registro",
+                    icon: 'warning',
+                }, function () {
+                    $.ajax({
+                        data: {
+                            id: this.dataSelect[registro_id],
+                            api: 4,
+                            ACTIVO: 0
+                        },
+                        url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (data) {
+                            if (mensajeAjax(data)) {
+                                alertToast('¡' + firstMayus(titulo) + ' eliminado!', 'success')
+                                document.getElementById("formEditar" + titulo).reset();
+                                TablaContenido.ajax.reload();
+                                cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+                            }
+                        },
+                        error: function (jqXHR, exception, data) {
+                            alertErrorAJAX(jqXHR, exception, data)
+                        },
+                    });
+                }, 1)
+            } else {
+                alertSelectTable();
+            }
+        })
+
+        //Desactivar valor
+        $('#activar-' + titulo).click(function () {
+            if (this.dataSelect != null) {
+                alertMensajeConfirm({
+                    title: "¿Está seguro que desea desactivar este registro?",
+                    text: "No podrán volver a elegir el registro",
+                    icon: 'warning',
+                }, function () {
+                    $.ajax({
+                        data: {
+                            id: this.dataSelect[registro_id],
+                            api: 4,
+                            ACTIVO: 1
+                        },
+                        url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (data) {
+                            if (mensajeAjax(data)) {
+                                alertToast('¡' + firstMayus(titulo) + ' eliminado!', 'success')
+                                document.getElementById("formEditar" + titulo).reset();
+                                TablaContenido.ajax.reload();
+                                cambiarFormMetodo(0, titulo, "formEditar" + titulo);
+                            }
+                        },
+                        error: function (jqXHR, exception, data) {
+                            alertErrorAJAX(jqXHR, exception, data)
+                        },
+                    });
+                }, 1)
+            } else {
+                alertSelectTable();
+            }
+        })
+    }
+
 
     cambiarFormMetodo(fade, titulo, form = "formEditar") {
         if (fade == 1) {

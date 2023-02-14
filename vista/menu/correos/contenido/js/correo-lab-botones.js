@@ -85,11 +85,11 @@ $('#btn-rechazar-resultado').click(function () {
             },
             dataType: "json",
             beforeSend: function () {
-                alertMensaje('info', 'Confirmando resultado', 'Espere un momento mientras confirmamos y enviamos el resultado por correo')
+                alertMensaje('info', 'Invalidando resultado', 'Espere un momento mientras hacemos cambios en el reporte')
             },
             success: function (data) {
                 if (mensajeAjax(data)) {
-                    alertMensaje('success', '¡Resultado confirmado y enviado!', 'El resultado a sido enviado excitosamente')
+                    alertMensaje('success', '¡Reporte invalidado!', 'Ahora el formulario de resultado de este reporte ha sido abierto nuevamente')
                     tablaListaPaciente.ajax.reaload()
                 }
             },
