@@ -33,7 +33,7 @@ function hasLocation() {
         api_interpretacion = 0;
         url_api = 'ultrasonido_api';
         subtipo = 'ULTRATOMA';
-        obtenerContenidoVistaMaster(8, 'Carga de imagenes de Ultrasonido', 'contenido_modal.php', 'tomaCapturas');
+        obtenerContenidoVistaMaster(11, 'Carga de imagenes de Ultrasonido', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "RX":
         formulario = "formSubirInterpretacion";
