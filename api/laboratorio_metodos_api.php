@@ -15,9 +15,10 @@ $api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api
 
 #buscar
 $id = $_POST['id'];
+$activo = isset($_POST['ACTIVO']) ? null : 1;
 
 #insertar 
-$id_metodo = $_POST['id_metodo'];
+$id_metodo = $_POST['ID_METODO'];
 $descripcion = $_POST['descripcion'];
 
 $parametros = array(
@@ -35,7 +36,7 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_laboratorio_metodos_b", [$id]);
+        $response = $master->getByProcedure("sp_laboratorio_metodos_b", [$id, $activo]);
         break;
 
     case 3:

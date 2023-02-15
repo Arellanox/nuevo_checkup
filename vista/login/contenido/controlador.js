@@ -40,5 +40,12 @@ function obtenerContenido(tabla) {
         },
       });
     })
+
+    $('#cambiar-contraseña').click(function () {
+      alertMensajeFormConfirm({
+        title: '¿Desea cambiar su contraseña?',
+        text: ''
+      })
+    })
   });
 }

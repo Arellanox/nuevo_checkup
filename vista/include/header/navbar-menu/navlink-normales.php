@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set('America/Mexico_City');
-if ($menu != "Recepción") : ?>
+if ($menu != "PrincipalMenu") : ?>
   <li class="nav-item">
-    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
-      <i class="bi bi-people-fill"></i> Recepción
+    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/principal/'; ?>" data-bs-dismiss="offcanvas">
+      <i class="bi bi-people-fill"></i> Menu
     </a>
   </li>
 <?php endif; ?>
@@ -84,7 +84,7 @@ if ($menu != "Recepción") : ?>
 <?php if ($menu == "Servicios" || $menu == "ServiciosLab") : ?>
   <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
     <li class="nav-item">
-      <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
+      <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos" data-bs-dismiss="offcanvas">
         <i class="bi bi-box"></i> Metodos
       </a>
     </li>
@@ -120,7 +120,7 @@ if ($menu != "Recepción") : ?>
   </li> -->
 
   <li class="nav-item">
-    <a href="" data-bs-toggle="modal" data-bs-target="#ModalVistaMetodos" data-bs-dismiss="offcanvas">
+    <a href="" data-bs-toggle="modal" data-bs-target="#modalVistametodo" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Metodos
     </a>
   </li>

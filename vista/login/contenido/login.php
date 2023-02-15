@@ -12,7 +12,7 @@
           <br>
           <input type="password" class="input-form" placeholder="Contraseña" name="pass">
         </div>
-        <a href="#" >¿No te acuerdas de la contraseña?</a>
+        <a href="#" id="cambiar-contraseña">¿No te acuerdas de la contraseña?</a>
         <div class="d-flex justify-content-center" style="margin:20px">
           <button type="submit" class="btn btn-confirmar" id="">Iniciar sesión</button>
         </div>
