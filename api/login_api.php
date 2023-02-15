@@ -35,6 +35,16 @@ switch ($api) {
             echo json_encode(array("response" => array("code" => '2', "msj" => "errors")));
         }
         break;
+    case 3:
+        # recuperar password olvidada
+        $master = new Master();
+        $response = $master->getByProcedure("sp_usuarios_b",[null,$_POST['correo']]);
+        
+        if(is_array($response)){
+            
+        }
+
+        break;
 }
 
 

@@ -6,8 +6,8 @@ include_once "../clases/correo_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 $master = new Master();
@@ -18,9 +18,8 @@ $fecha = $_POST['fecha'];
 switch($api){
     case 1:
         #recuperar el status del paciente
+        $response= $master->getByProcedure('sp_status_paciente',[$fecha]);
 
-        $response= $master->insertByProcedure('sp_status_paciente',[$fecha]);
-        
         break;
     default:
         break;

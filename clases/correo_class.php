@@ -259,4 +259,44 @@ class Correo
 
         return $html;
     }
+
+    private function cuerpoRecuperarPassword($token,$usuario){
+        $html = '<!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+            </head>
+            <body>
+                <div id="contenido" style="background-color:#f6fdff">
+                    <div style="overflow:auto;text-align:left;background-color:rgb(000,078,089);padding:5px;color:white">
+                        <img src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/icono_administrativo.jpeg" alt="img"
+                        style="border-radius:15px;height:55px;float:left;padding:8px">
+                        <p style="font-size: 20px; color:white">Diagnóstico Biomolecular S.A. de C.V.</p>
+                    </div>
+                    <div style="padding:5px 20px 15px 20px;color:black;font-size:14px;background-color:#f6fdff">
+                        <h2>
+                            ¡Buenas tardes!
+                        </h2>
+                        <p align="justify">
+                            Se ha generado un nuevo token para su Pre-registro en bimo:
+                        </p>
+                        <p>
+                            <a href="https://bimo-lab.com/nuevo_checkup/vista/registro/?token=' . $token . '" target="_blank"> Registrar aqui </a>
+                        </p>
+                        <!-- <p> 
+                            Guarde su nuevo prefolio de identificación (<strong>("FOLIO")</strong>) para el ingreso a _bimo checkup_
+                        </p> -->
+
+                        <div style="text-align:right">
+                        <p>Atentamente</p>
+                        <p>Laboratorio de Biología Molecular</p>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </html>';
+    }
 }
