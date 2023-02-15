@@ -217,7 +217,7 @@ switch ($api) {
 
         if ($response >=0) {
             # si se confirmo en la base de datos, enviamos el correo
-            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1]);
+            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1,null]);
             $files = $master->cleanAttachingFiles($response);
             if (!empty($files)) {
                 $r = $mail->sendEmail("resultados", "Resultados de laboratorio", [$response[0]['CORREO']], null, $files, 1);
