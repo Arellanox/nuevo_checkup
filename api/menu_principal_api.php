@@ -13,12 +13,17 @@ if (!$tokenValido) {
 $master = new Master();
 $api = $_POST['api'];
 
+$fecha = $_POST['fecha'];
+
 switch($api){
     case 1:
         #recuperar el status del paciente
+
+        $response= $master->insertByProcedure('sp_status_paciente',[$fecha]);
         
         break;
     default:
         break;
 }
+echo $master->returnApi($response);
 ?>
