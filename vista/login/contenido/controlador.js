@@ -27,17 +27,18 @@ function obtenerContenido(tabla) {
           // data = jQuery.parseJSON(data);
           console.log(data);
           if (mensajeAjax(data)) {
-            let session = data.response.data['session'];
+            let session = data.response['session'];
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const page = urlParams.get('page')
             if (page) {
               $(location).attr('href', page);
             } else {
+              // console.log(data.response.data)
 
               switch (session['cargo']) {
                 case '10': case 10:
-                  $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/principal/');
+                  $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/recepcion/');
                   return true;
 
                 default:
