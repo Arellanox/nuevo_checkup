@@ -2,7 +2,11 @@
 session_start();
 include "../clases/master_class.php";
 include "../clases/correo_class.php";
+
 $api = $_POST['api'];
+$master = new Master();
+$id_usuario = $_POST['id_usuario'];
+$contrasenia = $_POST['contraseña'];
 switch ($api) {
     case 1:
         $_SESSION = array();
@@ -53,6 +57,16 @@ switch ($api) {
 
         echo $master->returnApi(1);
 
+        break;
+
+    case 4:
+        # Actualizar contrasenia
+        $opciones = [
+            'cost' => 12,
+        ];
+        $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, $opciones);
+        $response = $master->updateByProcedure('sp_usuarios_actualizar_password', [$id_usuario, $contrasenia]);
+        echo $master->returnApi($response);
         break;
 }
 
