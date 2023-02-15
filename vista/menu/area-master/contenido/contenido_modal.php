@@ -90,14 +90,14 @@ session_start();
                     <div class="col-12">
                         <h4>Resultados</h4>
                         <?php
-                        if ($tipovista == 'tomarRX') {
+                        if ($tipovista == 'tomaCapturas') {
                             echo '<p class="none-p">Cargue las imagenes de cada estudio</p>';
                         } else {
                             echo '<p class="none-p">Cargué o visualice el reporte de interpretación del paciente</p>';
                         } ?>
                     </div>
                     <div class="row">
-                        <?php if ($tipovista != 'tomarRX') : ?>
+                        <?php if ($tipovista != 'tomaCapturas') : ?>
                             <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
                                 <button type="button" class="btn btn-primary me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
                                     <i class="bi bi-plus-lg"></i> Imágenes
@@ -112,7 +112,7 @@ session_start();
                         <?php endif; ?>
                     </div>
                 </div>
-                <?php if ($tipovista == 'tomarRX') { ?>
+                <?php if ($tipovista == 'tomaCapturas') { ?>
                     <!-- Visualizar imagenes por vista -->
                     <div class="vistaImagenesCargo5 mt-4 m-3">
                         <ol class="list-group list-group-numbered" id="vistaEstudiosImagenes">

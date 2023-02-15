@@ -36,7 +36,14 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
                     $(row).addClass('bg-success text-white');
                 }
                 break;
-            case 11: if (data.CONFIRMADO_ULTRASO == 1) $(row).addClass('bg-success text-white'); break;
+            case 11:
+                if (subtipo == 'ULTRATOMA' && data.CONFIRMADO_ULTRACAPTURAS == 1) {
+                    $(row).addClass('bg-success text-white');
+                } else if (subtipo != 'ULTRATOMA' && data.CONFIRMADO_ULTRASO == 1) {
+                    $(row).addClass('bg-success text-white');
+                }
+
+            // if (data.CONFIRMADO_ULTRASO == 1) $(row).addClass('bg-success text-white'); break;
 
             default:
                 break;
@@ -108,8 +115,13 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     break;
                 case 11: //Ultrasonido
                     $('#btn-inter-areas').fadeIn(0);
-                    await GeenerarReporteImagenologia(selectEstudio.array);
-                    if (datalist.CONFIRMADO_ULTRASO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                    if (formulario == 1) {
+                        await GenerarListaCapturasImagenologia(selectEstudio.array);
+                        // console.log("lista");
+                    } else {
+                        await GeenerarReporteImagenologia(selectEstudio.array);
+                        if (datalist.CONFIRMADO_ULTRASO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                    }
                     break;
                 case 10: //Electrocardiograma
                     $('#btn-inter-areas').fadeIn(0);
