@@ -84,14 +84,13 @@ switch ($api) {
 
             # enviar el correo con el reporte y las imagenes capturadas
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 8, 1);
-            
-            if(!empty($attachment[0])){
+
+            if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if($mail->sendEmail('resultados', 'Resultados Rayos X', [$attachment[1]], null, $attachment[0], 1)){
+                if ($mail->sendEmail('resultados', 'Resultados Rayos X', [$attachment[1]], null, $attachment[0], 1)) {
                     $master->setLog("Correo enviado. turno $turno_id.", "[rayos x]");
                 }
             }
-
         }
 
         #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.\
@@ -226,7 +225,7 @@ switch ($api) {
 
     case 7:
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = crearReporteImageonologia($turno_id, $area_id, "mostrar",1);
+        $r = crearReporteImageonologia($turno_id, $area_id, "mostrar", 1);
         exit;
     case 8:
         # actualizar reporte bimo [solo administradores]
@@ -244,7 +243,8 @@ switch ($api) {
 echo $master->returnApi($response);
 
 
-function crearReporteImageonologia($turno_id, $area_id, $viz = 'url', $preview = 0){
+function crearReporteImageonologia($turno_id, $area_id, $viz = 'url', $preview = 0)
+{
     $master = new Master();
     $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview);
     return $url;

@@ -2,7 +2,7 @@
 
 
 
-$('#muestra-tomado').on('click', function(){
+$('#muestra-tomado').on('click', function () {
   if (selectListaMuestras['MUESTRA_TOMADA'] == 0) {
     Swal.fire({
       title: "¿Está seguro de confirmar la muestra?",
@@ -19,7 +19,7 @@ $('#muestra-tomado').on('click', function(){
         // Esto va dentro del AJAX
 
         $.ajax({
-          data: {api: 3, id_turno: selectListaMuestras['ID_TURNO']},
+          data: { api: 3, id_turno: selectListaMuestras['ID_TURNO'] },
           url: "../../../api/toma_de_muestra_api.php",
           type: "POST",
           success: function (data) {
@@ -39,13 +39,40 @@ $('#muestra-tomado').on('click', function(){
   }
 })
 
-$('#omitir-paciente').on('click', function(){
+$('#omitir-paciente').on('click', function () {
   pasarPacienteTurno(selectListaMuestras['ID_TURNO']);
 })
 
+// // cambiar fecha de la Lista
+// $('#fechaListadoAreaMaster').change(function () {
+//   dataListaPaciente = { api: 1, fecha_agenda: $(this).val(), area_id: 6 }
+//   tablaMuestras.ajax.reload();
+//   // getPanelLab('Out', 0)
+// })
+
+
 // cambiar fecha de la Lista
-$('#fechaListadoAreaMaster').change(function(){
-  dataListaPaciente = {api:1, fecha_agenda: $(this).val(), area_id: 6}
-  tablaMuestras.ajax.reload();
-  // getPanelLab('Out', 0)
+$('#fechaListadoAreaMaster').change(function () {
+  recargarVistaLab();
 })
+
+$('#checkDiaAnalisis').click(function () {
+  if ($(this).is(':checked')) {
+    recargarVistaLab(0)
+    $('#fechaListadoAreaMaster').prop('disabled', true)
+  } else {
+    recargarVistaLab();
+    $('#fechaListadoAreaMaster').prop('disabled', false)
+  }
+})
+
+function recargarVistaLab(fecha = 1) {
+  dataListaPaciente = {
+    api: 1,
+    area_id: 6
+  }
+  if (fecha) dataListaPaciente['fecha_agenda'] = $('#fechaListadoAreaMaster').val();
+
+  tablaMuestras.ajax.reload();
+  // getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
+}

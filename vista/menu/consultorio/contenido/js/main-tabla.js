@@ -2,7 +2,7 @@ tablaMain = $('#TablaListaConsultorio').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  scrollY: "70vh",
+  scrollY: autoHeightDiv(0, 400),
   lengthChange: false,
   scrollCollapse: true,
   paging: false,

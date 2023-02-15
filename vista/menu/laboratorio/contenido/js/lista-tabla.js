@@ -5,7 +5,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
   lengthChange: false,
   info: false,
   paging: false,
-  scrollY: "55vh",
+  scrollY: autoHeightDiv(0, 244),
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
@@ -18,7 +18,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
       loader("In")
     },
     complete: function () {
-      loader("Out")
+      loader("Out", 'bottom')
       loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);
       $('.informacion-labo').fadeOut()
     },
@@ -68,6 +68,7 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
 
 
         bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
+
 
       });
       // getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])

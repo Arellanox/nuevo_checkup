@@ -5,7 +5,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: "55vh",
+    scrollY: autoHeightDiv(0, 244),
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -19,7 +19,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
             getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
         },
         complete: function () {
-            loader("Out")
+            loader("Out", 'bottom')
             getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
             $('.informacion-labo').fadeOut()
         },
@@ -60,6 +60,7 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
     // console.log(dataSelect)
     if (selectTR == 1) {
         estadoBotones(0) //Habilitar botones
+        $('#height-card-pdf').css('height', autoHeightDiv(0, 100))
         try {
             getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'In', async function (divClass) {
                 // vistaPDF('adobe-dc-view', 'url', 'resultado_laboratorio_test.pdf')

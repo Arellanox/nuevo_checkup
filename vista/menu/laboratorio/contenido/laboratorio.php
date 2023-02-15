@@ -9,7 +9,7 @@
         <label for="inputBuscarTableListaNuevos">Buscar:</label>
         <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Filtra la lista de pacientes">
       </div>
-      <table class="table display responsive" id="TablaLaboratorio" style="width: 100%">
+      <table class="table display responsive" id="TablaLaboratorio" style="width: 100%; zoom: 90%">
         <thead class="">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>

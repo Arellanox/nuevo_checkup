@@ -5,39 +5,39 @@ tablaMuestras = $('#TablaMuestras').DataTable({
   lengthChange: false,
   info: false,
   paging: false,
-  scrollY: "55vh",
+  scrollY: autoHeightDiv(0, 244),
   scrollCollapse: true,
   ajax: {
-      dataType: 'json',
-      data: function (d) {
-        return $.extend(d, dataListaPaciente);
-      },
-      method: 'POST',
-      url: '../../../api/toma_de_muestra_api.php',
-      beforeSend: function() { loader("In") },
-      complete: function(){
-        loader("Out")
-        loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras', 0);
-        $('.informacion-muestras').fadeOut()
-      },
-      dataSrc:'response.data'
+    dataType: 'json',
+    data: function (d) {
+      return $.extend(d, dataListaPaciente);
+    },
+    method: 'POST',
+    url: '../../../api/toma_de_muestra_api.php',
+    beforeSend: function () { loader("In") },
+    complete: function () {
+      loader("Out", 'bottom')
+      loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras', 0);
+      $('.informacion-muestras').fadeOut()
+    },
+    dataSrc: 'response.data'
   },
-  createdRow: function( row, data, dataIndex ){
-      if ( data.MUESTRA_TOMADA == 1 ){
-          $(row).addClass('bg-success text-white');
+  createdRow: function (row, data, dataIndex) {
+    if (data.MUESTRA_TOMADA == 1) {
+      $(row).addClass('bg-success text-white');
+    }
+  },
+  columns: [
+    {
+      data: 'ID_PACIENTE', render: function (data) {
+        return '';
       }
-  },
-  columns:[
-      {
-        data: 'ID_PACIENTE', render: function(data){
-          return '';
-        }
-      },
-      {data: 'NOMBRE_COMPLETO'},
-      {data: 'PREFOLIO'},
-      {data: 'EDAD'},
-      {data: 'EDAD'},
-      // {defaultContent: 'En progreso...'}
+    },
+    { data: 'NOMBRE_COMPLETO' },
+    { data: 'PREFOLIO' },
+    { data: 'EDAD' },
+    { data: 'EDAD' },
+    // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
     { "width": "10px", "targets": 0 },
@@ -46,25 +46,25 @@ tablaMuestras = $('#TablaMuestras').DataTable({
 })
 
 loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
-selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function(selectTR = null, array = null){
+selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR = null, array = null) {
   selectListaMuestras = array;
   // console.log(selectListaMuestras)
   if (selectTR == 1) {
     if (selectListaMuestras.MUESTRA_TOMADA == 1) {
       $('#muestra-tomado').prop('disabled', true)
       $('#omitir-paciente').prop('disabled', true)
-    }else {
+    } else {
       $('#muestra-tomado').prop('disabled', false)
       $('#omitir-paciente').prop('disabled', false)
     }
-    getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras', selectListaMuestras, 'In', async function(divClass){
+    getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras', selectListaMuestras, 'In', async function (divClass) {
       await obtenerPanelInformacion(selectListaMuestras['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
       await obtenerListaEstudiosContenedores(selectListaMuestras['ID_TURNO'])
       // console.log(divClass)
       $(divClass).fadeIn(100);
     });
-  }else{
-    getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras',selectListaMuestras, 'Out')
+  } else {
+    getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras', selectListaMuestras, 'Out')
   }
 })
 
@@ -72,7 +72,8 @@ $("#BuscarTablaListaMuestras").keyup(function () {
   tablaMuestras.search($(this).val()).draw();
 });
 
-function obtenerListaEstudiosContenedores(idturno = null){return new Promise(resolve => {
+function obtenerListaEstudiosContenedores(idturno = null) {
+  return new Promise(resolve => {
     $.ajax({
       url: http + servidor + "/nuevo_checkup/api/toma_de_muestra_api.php",
       type: "POST",
@@ -86,9 +87,9 @@ function obtenerListaEstudiosContenedores(idturno = null){return new Promise(res
         let html = '';
         for (var i = 0; i < row.length; i++) {
           // console.log(row[i]);
-          html +=  '<li class="list-group-item">';
+          html += '<li class="list-group-item">';
           html += row[i]['GRUPO'];
-          html += '<i class="bi bi-arrow-right-short"></i><strong>'+ row[i]['MUESTRA'] +'</strong> - <strong>'+ row[i]['CONTENEDOR'] + '</strong></li>';
+          html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong></li>';
 
         }
         $('#lista-estudios-paciente').html(html);
@@ -97,7 +98,7 @@ function obtenerListaEstudiosContenedores(idturno = null){return new Promise(res
 
 
       },
-      complete: function(){
+      complete: function () {
         loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
         resolve(1);
       }

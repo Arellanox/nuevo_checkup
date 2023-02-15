@@ -5,7 +5,7 @@ tablaSignos = $('#TablaSignos').DataTable({
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: "55vh",
+    scrollY: autoHeightDiv(0, 330),
     scrollCollapse: true,
     ajax: {
         dataType: 'json',

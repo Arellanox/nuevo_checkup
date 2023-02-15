@@ -53,7 +53,7 @@ function hasLocation() {
 
       case "ESPIROMETRIA":
         formulario = "formSubirInterpretacion";
-        api_capturas = 2;
+        api_capturas = 3;
         api_interpretacion = 1;
         url_api = 'espirometria_api';
         obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_new.php');

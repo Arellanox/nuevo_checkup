@@ -643,7 +643,7 @@ function getParameterByName(name) {
 }
 
 
-function loader(fade) {
+function loader(fade, scroll = null) {
   if (fade == 'Out') {
     $("#loader").fadeOut(100);
     $('body').removeClass('overflow-hidden');
@@ -657,9 +657,13 @@ function loader(fade) {
     $('body').addClass('overflow-hidden')
     // alert("entrar");
   }
+  if (scroll == 'bottom') {
+    let altura = $(document).height();
+    $("html, body").animate({ scrollTop: altura + "px" });
+  }
 }
 
-function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50) {
+function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50, scroll = 0) {
   switch (fade) {
     case "Out":
       if (div != null) {
@@ -686,6 +690,10 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50) {
 
     default:
     // console.log('LoaderDiv se perdió...')
+  }
+  if (scroll == 'bottom') {
+    let altura = $(document).height();
+    $("html, body").animate({ scrollTop: altura + "px" });
   }
 }
 
@@ -1052,12 +1060,13 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) { /
   return 1
 }
 
-function bugGetPanel(divClass, loader, loaderDiv1) {
-  loaderDiv("Out", null, loader, loaderDiv1, 0);
+function bugGetPanel(divClass, loaderLo, loaderDiv1) {
+  loaderDiv("Out", null, loaderLo, loaderDiv1, 0, 'bottom');
   while (!$(divClass).is(':visible')) {
     if (!$(divClass).is(':visible')) {
       setTimeout(function () {
         $(divClass).fadeIn(0)
+        // loader(0, 'bottom')
         // console.log("Visible!")
       }, 100)
     }
