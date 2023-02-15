@@ -2,18 +2,17 @@ tablaRecepcionPacientesIngrersados = $('#TablaEstatusTurnos').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    scrollY: autoHeightDiv(0, 315),
+    scrollY: "60vh",
     scrollCollapse: true,
-    paging: false,
     lengthMenu: [
         [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
         [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]
     ],
     ajax: {
         dataType: 'json',
-        data: { api: 1 },
+        data: { api: 1, estado: 1 },
         method: 'POST',
-        url: '../../../api/menu_principal_api.php',
+        url: '../../../api/recepcion_api.php',
         beforeSend: function () {
             loader("In"), array_selected = null
         },

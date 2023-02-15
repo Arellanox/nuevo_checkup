@@ -25,3 +25,4 @@ switch($api){
         break;
 }
 echo $master->returnApi($response);
+?>

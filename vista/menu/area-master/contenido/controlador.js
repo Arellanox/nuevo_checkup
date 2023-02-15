@@ -27,14 +27,6 @@ function hasLocation() {
         url_api = 'ultrasonido_api';
         obtenerContenidoVistaMaster(11, 'Resultados de Ultrasonido', 'contenido_modal.php');
         break;
-      case "ULTRASONIDOTOMA":
-        formulario = "1"; // Para toma capturas
-        api_capturas = 2;
-        api_interpretacion = 0;
-        url_api = 'ultrasonido_api';
-        subtipo = 'ULTRATOMA';
-        obtenerContenidoVistaMaster(8, 'Carga de imagenes de Ultrasonido', 'contenido_modal.php', 'tomaCapturas');
-        break;
       case "RX":
         formulario = "formSubirInterpretacion";
         api_capturas = 2;
@@ -43,14 +35,13 @@ function hasLocation() {
         obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_modal.php');
         break;
       case "RXTOMA":
-        formulario = "1"; // Para toma capturas
+        formulario = "1"; // Para toma de RX
         api_capturas = 2;
         api_interpretacion = 0;
         url_api = 'rayosx_api';
         subtipo = 'RXTOMA';
-        obtenerContenidoVistaMaster(8, 'Carga de placas de Rayos X', 'contenido_modal.php', 'tomaCapturas');
+        obtenerContenidoVistaMaster(8, 'Carga de placas de Rayos X', 'contenido_modal.php', 'tomarRX');
         break;
-
       case "ESPIROMETRIA":
         formulario = "formSubirInterpretacion";
         api_capturas = 2;

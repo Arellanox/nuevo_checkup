@@ -128,7 +128,6 @@ $menu = $_POST['menu']; ?>
 
 <?php if (
   $menu == 'Resultados de Ultrasonido'
-  || $menu == 'Carga de imagenes de Ultrasonido'
   || $menu == 'Resultados de Rayos X'
   || $menu == 'Carga de placas de Rayos X'
   || $menu == 'Resultados de Espirometría'
