@@ -215,9 +215,7 @@ switch ($api) {
         $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno, $_SESSION['id']]);
         $mail = new Correo();
 
-        print_r($id_turno);
-
-        if ($response > -1) {
+        if ($response >=0) {
             # si se confirmo en la base de datos, enviamos el correo
             $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1]);
             $files = $master->cleanAttachingFiles($response);
