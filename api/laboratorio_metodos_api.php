@@ -15,7 +15,7 @@ $api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api
 
 #buscar
 $id = $_POST['id'];
-$activo = isset($_POST['ACTIVO']) ? null : 1;
+$activo = !isset($_POST['ACTIVO']) ? null : 1;
 
 #insertar 
 $id_metodo = $_POST['ID_METODO'];

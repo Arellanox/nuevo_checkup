@@ -692,7 +692,12 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50) {
 //Poder ajustar responsivamente una ventana en windows
 function autoHeightDiv(div, resta) {
   var ventana_alto = $(window).height();
-  $(div).height(ventana_alto - resta);
+  if (div == 0) {
+    return (ventana_alto - resta);
+  } else {
+    $(div).height(ventana_alto - resta);
+    return 0;
+  }
 }
 
 // Mismas funciones, diferentes nombres por no querer cambiar el nombre donde lo llaman xd
@@ -1517,7 +1522,19 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
 
   //Cuerpo
   html += '<div class="modal-body" id="' + titulo + '-body">' +
-    '<p class="none-p">Doble click para editar <i class="bi bi-pencil"></i></p>' +
+    // '<p class="none-p">Doble click para editar <i class="bi bi-pencil"></i></p>' +
+    '<div class="text-center mt-2">' +
+    '<div class="input-group flex-nowrap">' +
+    '<input type="text" class="form-control input-color" style="display: unset !important;"' +
+    'name="inputBuscarTable' + titulo + '" placeholder="Filtrar tabla" autocomplete="off" id="BuscarTabla' + titulo + '"' +
+    'data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">' +
+    // '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top"'+
+    //   'title="Seleccione un paciente para visualizar su información">'+
+    //   '<i class="bi bi-info-circle"></i> </span>'+
+    '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top"' +
+    'title="Doble click a un registro para modificarlo">' +
+    '<i class="bi bi-pencil"></i> </span>' +
+    '</div> </div>' +
     '<div class="row mt-3">' +
 
     //Tabla contenido
@@ -1577,6 +1594,12 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     '</div>' +
     //
 
+    '<style>' +
+    '#Tabla' + titulo + '_filter {' +
+    'display: none;' +
+    '}' +
+    '</style>' +
+
     '</div>' + // Etiquetas de cierres
     '</div>';
 
@@ -1612,11 +1635,11 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
       [5, 10, "All"]
     ],
     autoWidth: false,
-    searching: false,
+    // searching: false,
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: "30vh",
+    scrollY: autoHeightDiv(0, 342),
     scrollCollapse: true,
     ajax: {
       dataType: 'json',
@@ -1656,6 +1679,11 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
 
   });
 
+  //Buscador
+  $('#BuscarTabla' + titulo).keyup(function () {
+    // console.log($(this).val())
+    TablaContenido.search($(this).val()).draw();
+  });
 
   selectDatatabledblclick(function (select, data) {
     dataAreaValor = data;
