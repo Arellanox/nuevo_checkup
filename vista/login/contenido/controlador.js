@@ -22,10 +22,12 @@ function obtenerContenido(tabla) {
         beforeSend: function () {
           alertMensaje('info', 'Espere un momento', 'Validando datos...');
         },
+        dataType: 'json',
         success: function (data) {
-          data = jQuery.parseJSON(data);
+          // data = jQuery.parseJSON(data);
           console.log(data);
           if (mensajeAjax(data)) {
+            let session = data.response.data['session'];
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const page = urlParams.get('page')
@@ -33,15 +35,16 @@ function obtenerContenido(tabla) {
               $(location).attr('href', page);
             } else {
 
-              switch (session.) {
-                case value:
-
-                  break;
+              switch (session['cargo']) {
+                case '10': case 10:
+                  $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/principal/');
+                  return true;
 
                 default:
-                  break;
+                  $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/principal/');
+                  return false;
+                // break;
               }
-              $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/principal/');
             }
           } else {
             $(this).find('button :submit').prop('disabled', false)

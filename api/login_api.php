@@ -15,7 +15,7 @@ switch ($api) {
             $token = generarToken($_SESSION['id']);
             // echo json_encode([$token]);
             if (!is_null($token)) {
-                echo json_encode(array("response" => array("code" => 1, "data" => $response, "token" => $token)));
+                echo json_encode(array("response" => array("code" => 1, "data" => $response, "token" => $token, "session" => $_SESSION)));
             } else {
                 echo json_encode(array("response" => array("code" => 'login', "msj" => "token no generado")));
             }
@@ -44,14 +44,14 @@ switch ($api) {
         # recuperar password olvidada
         $master = new Master();
         $correo = $_POST['correo'];
-        $response = $master->getByProcedure("sp_usuarios_b",[null,$correo]);
-        
-        if(is_array($response)){
-            $mail = new Correo();
-            $r = $mail->sendEmail("password","¡Bimer! Recupera tu password",[$correo],$response[array_key_first($response)]["ID_USUARIO"]);
+        $response = $master->getByProcedure("sp_usuarios_b", [null, $correo]);
 
-            if($r){
-                $master->setLog("Correo para recuperar password enviado.","[logina_api case 3]");
+        if (is_array($response)) {
+            $mail = new Correo();
+            $r = $mail->sendEmail("password", "¡Bimer! Recupera tu password", [$correo], $response[array_key_first($response)]["ID_USUARIO"]);
+
+            if ($r) {
+                $master->setLog("Correo para recuperar password enviado.", "[logina_api case 3]");
             }
         }
 
