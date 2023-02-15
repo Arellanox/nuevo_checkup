@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set('America/Mexico_City');
-if ($menu != "PrincipalMenu") : ?>
+if ($menu != "Recepcion") : ?>
   <li class="nav-item">
-    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/principal/'; ?>" data-bs-dismiss="offcanvas">
-      <i class="bi bi-people-fill"></i> Menu
+    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>" data-bs-dismiss="offcanvas">
+      <i class="bi bi-people-fill"></i> Recepción
     </a>
   </li>
 <?php endif; ?>
