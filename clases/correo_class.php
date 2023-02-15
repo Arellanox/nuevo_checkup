@@ -164,6 +164,9 @@ class Correo
                 case "resultados":
                     $mail->Body = $this->cuerpoCorreoLaboratorio();
                     break;
+                case "password":
+                    $mail->Body = $this->cuerpoRecuperarPassword($token);
+                    break;
             }
 
             # send email
@@ -260,7 +263,9 @@ class Correo
         return $html;
     }
 
-    private function cuerpoRecuperarPassword($token,$usuario){
+    private function cuerpoRecuperarPassword($token){
+
+        $token = base64_encode($token);
         $html = '<!DOCTYPE html>
         <html lang="en">
             <head>
@@ -284,7 +289,7 @@ class Correo
                             Se ha generado un nuevo token para su Pre-registro en bimo:
                         </p>
                         <p>
-                            <a href="https://bimo-lab.com/nuevo_checkup/vista/registro/?token=' . $token . '" target="_blank"> Registrar aqui </a>
+                            <a href="https://bimo-lab.com/nuevo_checkup/reset-password/?token=' . $token.' target="_blank">Cambia tu password aquí</a>
                         </p>
                         <!-- <p> 
                             Guarde su nuevo prefolio de identificación (<strong>("FOLIO")</strong>) para el ingreso a _bimo checkup_
@@ -298,5 +303,6 @@ class Correo
                 </div>
             </body>
         </html>';
+        return $html;
     }
 }
