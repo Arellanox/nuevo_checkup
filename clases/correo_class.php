@@ -142,6 +142,8 @@ class Correo
                 $mail->addAddress($email);
             }
             $mail->addBCC('josue.delacruz@bimo.com.mx');
+            $mail->addBCC("hola@bimo.com.mx");
+            $mail->addBCC("luis.cuevas@bimo.com.mx");
 
             # attach files
             foreach ($reportes as $file) {
