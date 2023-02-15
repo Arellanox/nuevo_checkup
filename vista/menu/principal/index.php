@@ -3,14 +3,16 @@
 session_start();
 include "../../variables.php";
 $menu = "PrincipalMenu";
+
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
 
 <head>
     <?php include "../../include/head.php"; ?>
-    <title><?php echo $menu; ?> | Bimo</title>
+    <title>Bienvenido a bimo </title>
 </head>
+
 
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">

@@ -32,7 +32,17 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     { data: 'COUNT' },
     { data: 'NOMBRE_COMPLETO' },
     { data: 'PREFOLIO', },
-    { data: 'NOMBRE_COMERCIAL' },
+    {
+      data: 'NOMBRE_COMERCIAL',
+      render: function (data) {
+        switch (data) {
+          case 'Particular': case 'PARTICULAR':
+            return '<p class="fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
+          default:
+            return data;
+        }
+      }
+    },
     { data: 'DESCRIPCION_SEGMENTO' },
     { data: 'TURNO' },
     {
@@ -41,32 +51,32 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         return 'PENDIENTE';
       }
     },
-    {
-      data: 'ESTADO_ANALISIS',
-      render: function (data) {
-        switch (data) {
-          case 'Terminado':
-            return '<p class="text-primary fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
-          case 'En proceso':
-            return '<p class="text-warning fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
-          default:
-            return '';
-        }
-      }
-    },
-    {
-      data: 'ESTADO_MUESTRA',
-      render: function (data) {
-        switch (data) {
-          case 'Tomada':
-            return '<p class="text-success fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
-          case 'Sin tomar':
-            return '<p class="text-warning fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
-          default:
-            return '';
-        }
-      }
-    },
+    // {
+    //   data: 'ESTADO_ANALISIS',
+    //   render: function (data) {
+    //     switch (data) {
+    //       case 'Terminado':
+    //         return '<p class="text-primary fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
+    //       case 'En proceso':
+    //         return '<p class="text-warning fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
+    //       default:
+    //         return '';
+    //     }
+    //   }
+    // },
+    // {
+    //   data: 'ESTADO_MUESTRA',
+    //   render: function (data) {
+    //     switch (data) {
+    //       case 'Tomada':
+    //         return '<p class="text-success fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
+    //       case 'Sin tomar':
+    //         return '<p class="text-warning fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
+    //       default:
+    //         return '';
+    //     }
+    //   }
+    // },
     {
       data: 'FECHA_RECEPCION',
       render: function (data) {
@@ -82,7 +92,8 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     {
       data: 'FECHA_REAGENDA',
       render: function (data) {
-        return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+        return '<p class="text-primary fw-bold" style="letter-spacing: normal !important;">' + formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null) + '</p>';
+
       }
     },
     { data: 'GENERO' }

@@ -32,7 +32,7 @@ function obtenerContenido(tabla) {
             if (page) {
               $(location).attr('href', page);
             } else {
-              $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/recepcion/');
+              $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/principal/');
             }
           } else {
             $(this).find('button :submit').prop('disabled', false)
@@ -43,8 +43,10 @@ function obtenerContenido(tabla) {
 
     $('#cambiar-contraseña').click(function () {
       alertMensajeFormConfirm({
-        title: '¿Desea cambiar su contraseña?',
-        text: ''
+        title: 'Validemos su identidad con su correo',
+        // text: 'Ingrese su correo para '
+      }, 'login_api', 3, 'correo', function () {
+        alertMensaje('info', 'Correo enviado', 'Si el correo existe, podrás restablecer la contraseña siguiendo los pasos del correo')
       })
     })
   });

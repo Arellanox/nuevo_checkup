@@ -727,7 +727,7 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
     text: text,
     html: html,
     footer: footer,
-    // width: 'auto'
+    // width: 'auto',
   })
 }
 
@@ -795,7 +795,7 @@ function alertMensajeConfirm(options, callback, set = 0) {
   })
 }
 
-function alertMensajeFormConfirm(options, api_url, api, campo, callback) {
+function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInput) {
 
   if (!options['title'])
     options['title'] = "¿Desea realizar esta acción?"
@@ -827,16 +827,14 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback) {
   if (!options['showLoaderOnConfirm'])
     options['showLoaderOnConfirm'] = true
 
-  if (tipeInput == 'password') {
-    htmlInput = '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder=""></form>'
-  } else {
-    htmlInput = '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="text" id="text-confirmar" class="form-control input-color" autocomplete="off" placeholder=""></form>'
-  }
+  if (!options['html'])
+    options['html'] = htmlInput = '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="' + tipeInput + '" id="text-confirmar" class="form-control input-color" autocomplete="off" placeholder="Escriba aquí..."></form>'
+
 
   options['focusConfirm'] = false;
   options['preConfirm'] = () => {
     const text = Swal.getPopup().querySelector('#text-confirmar').value;
-    return fetch(`${http + servidor}/nuevo_checkup/api/${api_url}?api=${api}&${campo}=${text}`)
+    return fetch(`${http + servidor}/nuevo_checkup/api/${api_url}.php?api=${api}&${campo}=${text}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(response.statusText)
@@ -845,7 +843,8 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback) {
       })
       .catch(error => {
         Swal.showValidationMessage(
-          `Request failed: ${error}`
+          // `Request failed: ${error}`
+          `Hubo un problema...`
         )
       })
   }
@@ -854,7 +853,7 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback) {
   Swal.fire(options).then((result) => {
     if (result.isConfirmed) {
       if (result.value.status == 1) {
-        callback()
+        callback(result)
       } else {
         alertSelectTable(result, 'error')
       }

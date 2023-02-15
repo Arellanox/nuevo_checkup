@@ -2,41 +2,41 @@
 
 // ObtenerTabla o cambiar
 // obtenerContenidoRecepcion();
-var tablaRecepcionPacientes, dataRecepcion = {api: 1};
+var tablaRecepcionPacientes, dataRecepcion = { api: 1 };
 
 
-function obtenerContenidoEspera(){
+function obtenerContenidoEspera() {
   obtenerTitulo('Recepción | Espera'); //Aqui mandar el nombre de la area
-  $.post("contenido/recepcion.php", function(html){
-     $("#body-js").html(html);
-     // Datatable
-     $.getScript("contenido/js/recepcion-tabla.js");
-     // Botones
-     $.getScript("contenido/js/recepcion-botones.js");
+  $.post("contenido/recepcion.html", function (html) {
+    $("#body-js").html(html);
+    // Datatable
+    $.getScript("contenido/js/recepcion-tabla.js");
+    // Botones
+    $.getScript("contenido/js/recepcion-botones.js");
   });
 }
 
-function obtenerContenidoAceptados(){
+function obtenerContenidoAceptados() {
   obtenerTitulo('Recepción | Ingresados'); //Aqui mandar el nombre de la area
-  $.post("contenido/recepcion-ingresados.php", function(html){
-     $("#body-js").html(html);
-     dataRecepcion = {api: 1, estado:1};
-     // Datatable
-     $.getScript("contenido/js/recepcion-aceptados-tabla.js");
-     // Botones
-     $.getScript("contenido/js/recepcion-botones.js");
+  $.post("contenido/recepcion-ingresados.html", function (html) {
+    $("#body-js").html(html);
+    dataRecepcion = { api: 1, estado: 1 };
+    // Datatable
+    $.getScript("contenido/js/recepcion-aceptados-tabla.js");
+    // Botones
+    $.getScript("contenido/js/recepcion-botones.js");
   });
 }
 
-function obtenerContenidoRechazados(){
+function obtenerContenidoRechazados() {
   obtenerTitulo('Recepción | Rechazados'); //Aqui mandar el nombre de la area
-  $.post("contenido/recepcion-rechazados.php", function(html){
-     $("#body-js").html(html);
-     dataRecepcion = {api: 1, estado:0};
-     // Datatable
-     $.getScript("contenido/js/recepcion-tabla.js");
-     // Botones
-     $.getScript("contenido/js/recepcion-botones.js");
+  $.post("contenido/recepcion-rechazados.html", function (html) {
+    $("#body-js").html(html);
+    dataRecepcion = { api: 1, estado: 0 };
+    // Datatable
+    $.getScript("contenido/js/recepcion-tabla.js");
+    // Botones
+    $.getScript("contenido/js/recepcion-botones.js");
   });
 }
 
@@ -52,23 +52,23 @@ function hasLocation() {
   switch (hash) {
     case "rechazados":
       obtenerContenidoRechazados();
-    break;
+      break;
     case "ingresados":
       obtenerContenidoAceptados();
-    break;
+      break;
     case "pendientes":
       obtenerContenidoEspera();
-      dataRecepcion = {api: 1};
-    break;
+      dataRecepcion = { api: 1 };
+      break;
     default:
       window.location.hash = 'pendientes';
       break;
   }
 }
 
-function recepciónPaciente(estatus, id){
+function recepciónPaciente(estatus, id) {
   Swal.fire({
-    title: '¿Estás seguro de '+estatus+' este paciente?',
+    title: '¿Estás seguro de ' + estatus + ' este paciente?',
     text: "",
     icon: 'warning',
     showCancelButton: true,
@@ -81,12 +81,12 @@ function recepciónPaciente(estatus, id){
       switch (estatus) {
         case 'aceptar':
           Swal.fire({
-             icon: 'success',
-             title: 'Aceptado!',
-             text: 'El pase del paciente se está generando...'
+            icon: 'success',
+            title: 'Aceptado!',
+            text: 'El pase del paciente se está generando...'
           })
           // Ajax para generar TURNO y generar pase
-        break;
+          break;
         case 'rechazar':
           Swal.fire(
             'Rechazado!',

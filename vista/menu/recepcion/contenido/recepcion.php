@@ -2,7 +2,7 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 <div class="row">
-  <div class="col-12 col-lg-3 info-detalle card pt-5" >
+  <div class="col-12 col-lg-3 info-detalle card pt-5">
     <div class="" id="panel-informacion">
     </div>
   </div>
@@ -14,6 +14,9 @@
         </button>
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-rechazar">
           <i class="bi bi-x"></i> Rechazar paciente
+        </button>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
+          <i class="bi bi-pencil-square"></i> Actualizar información del paciente
         </button>
       </div>
       <div style=" margin: 25px;">
