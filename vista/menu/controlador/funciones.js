@@ -691,10 +691,10 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50, sc
     default:
     // console.log('LoaderDiv se perdió...')
   }
-  if (scroll == 'bottom') {
-    let altura = $(document).height();
-    $("html, body").animate({ scrollTop: altura + "px" });
-  }
+  // if (scroll == 'bottom') {
+  //   let altura = $(document).height();
+  //   $("html, body").animate({ scrollTop: altura + "px" });
+  // }
 }
 
 //Poder ajustar responsivamente una ventana en windows
@@ -1061,7 +1061,7 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) { /
 }
 
 function bugGetPanel(divClass, loaderLo, loaderDiv1) {
-  loaderDiv("Out", null, loaderLo, loaderDiv1, 0, 'bottom');
+  loaderDiv("Out", null, loaderLo, loaderDiv1, 0);
   while (!$(divClass).is(':visible')) {
     if (!$(divClass).is(':visible')) {
       setTimeout(function () {
