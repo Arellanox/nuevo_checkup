@@ -32,6 +32,15 @@ function obtenerContenido(tabla) {
             if (page) {
               $(location).attr('href', page);
             } else {
+
+              switch (session.) {
+                case value:
+
+                  break;
+
+                default:
+                  break;
+              }
               $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/principal/');
             }
           } else {
