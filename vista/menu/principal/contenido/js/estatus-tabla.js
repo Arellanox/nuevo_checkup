@@ -11,9 +11,9 @@ tablaRecepcionPacientesIngrersados = $('#TablaEstatusTurnos').DataTable({
     ],
     ajax: {
         dataType: 'json',
-        data: { api: 1 },
+        data: { api: 1, estado: 1 },
         method: 'POST',
-        url: '../../../api/menu_principal_api.php',
+        url: '../../../api/recepcion_api.php',
         beforeSend: function () {
             loader("In"), array_selected = null
         },
