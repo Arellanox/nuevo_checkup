@@ -166,9 +166,9 @@ function generarFormularioPaciente(id) {
         $('#formulario-estudios').html('')
         data = data.response.data;
 
-        let colStart = '<div class="col-auto col-lg-6">';
+        let colStart = '<div class="col-auto col-lg-7">';
         let endDiv = '</div>';
-        let colreStart = '<div class="col-auto col-lg-6 d-flex justify-content-end align-items-center">';
+        let colreStart = '<div class="col-auto col-lg-5 d-flex justify-content-end align-items-center">';
         let html = '';
 
         // <ul class = "list-group m-4 overflow-auto hover-list info-detalle"
@@ -189,7 +189,7 @@ function generarFormularioPaciente(id) {
             console.log(k, row[k])
             if (Number.isInteger(parseInt(k))) {
               // console.log(2)
-              html += '<li class="list-group-item">';
+              html += '<li class="list-group-item" style="zoom: 95%">';
               html += '<div class="row d-flex align-items-center">';
               html += colStart;
               html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';

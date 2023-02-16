@@ -21,7 +21,7 @@
 
         .header {
             position: fixed;
-            top: -165px;
+            top: -175px;
             left: 25px;
             right: 25px;
             height: 220px;
@@ -50,7 +50,7 @@
         /* Content */
         .invoice-content {
             border-radius: 4px;
-            padding-bottom: 15px;
+            padding-bottom: 5px;
             padding-right: 30px;
             padding-left: 30px;
             text-align: justify;
@@ -268,7 +268,7 @@ $encode_firma = base64_encode($ruta_firma);
                         No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 100) . " meses": $encabezado->EDAD . " años"; ?></strong>
+                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 100) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
@@ -345,10 +345,10 @@ $encode_firma = base64_encode($ruta_firma);
 
             foreach ($area->estudios as $key => $estudio) {
 
-                echo "<h4 style='padding-top: 12px'>" . $estudio->estudio . "</h4>";
+                echo "<h4 style='padding-top: 9px'>" . $estudio->estudio . "</h4>";
 
         ?>
-                <table class="result" style="padding-top: 5px;">
+                <table class="result" style="padding-top: 1px;">
                     <thead>
                         <tr>
                             <th class="col-one">Nombre</th>

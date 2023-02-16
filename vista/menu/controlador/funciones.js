@@ -701,9 +701,10 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50, sc
 function autoHeightDiv(div, resta) {
   var ventana_alto = $(window).height();
   if (div == 0) {
-    return (ventana_alto - resta);
+    return (ventana_alto - resta + 10);
   } else {
-    $(div).height(ventana_alto - resta);
+    console.log('si')
+    $(div).height(ventana_alto - resta + 10);
     return 0;
   }
 }

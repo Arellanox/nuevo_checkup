@@ -38,29 +38,34 @@
   <div class="col-lg-5 col-xxl-5 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card mt-3 p-3">
       <div class="row">
-        <div class="col-12 col-lg-7">
+        <div class="col-12 col-lg-6">
           <h4>Formulario de resultados</h4>
-          <p class="none-p">Estudios a subir, recuerde mostrar como resultado N/A si necesita ocultar la prueba</p>
+          <p class="none-p">Estudios cargados del paciente </p>
         </div>
-        <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
-          <button type="button" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
+        <div class="col-12 col-lg-6 d-flex justify-content-end align-items-start">
+          <button type="button" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarde su progreso">
             <i class="bi bi-clipboard2-pulse"></i> Guardar
           </button>
-          <button type="button" data-attribute="confirmar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px">
+          <button type="button" data-attribute="confirmar" class="btn btn-confirmar subir-resultado-lab" style="margin-bottom:4px" data-bs-toggle="tooltip" data-bs-placement="top" title="Reporte como N/A para ocultar el reporte : )">
             <i class="bi bi-clipboard2-pulse"></i> Confirmar
           </button>
-          <button type="submit" form="formAnalisisLaboratorio" data-attribute="confirmar" id="btnConfirmarResultados" class="btn btn-hover" style="margin-bottom:4px; display: none;">
+          <button type="submit" form="formAnalisisLaboratorio" data-attribute="confirmar" id="btnConfirmarResultados" class="btn btn-hover" style="margin-bottom:4px; display: none;" disabled="">
             <i class="bi bi-clipboard2-pulse"></i> submit
           </button>
         </div>
       </div>
       <form class="" id="formAnalisisLaboratorio">
-        <div id="formulario-estudios" class="overflow-auto" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
+
+        <div id="formulario-estudios" class="overflow-auto" style="max-width: 100%; margin-bottom:10px;">
           <!-- <p class="mt-3">BIOMETRIA HEMATICA</p> -->
         </div>
       </form>
     </div>
   </div>
+  <script>
+    autoHeightDiv($('#formulario-estudios'), 223);
+    autoHeightDiv($('#'), 117)
+  </script>
   <style media="screen">
     #TablaLaboratorio_filter {
       display: none
