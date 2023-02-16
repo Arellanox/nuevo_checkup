@@ -466,7 +466,7 @@ class Miscelaneus
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
                 );
                 array_push($arrayEtiqueta, $array1);
-                $arrayEtiquetaEstudios = [];
+                
             } else if ($muestra !== $infoEtiqueta[$i]['MUESTRA']) {
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
                 $muestra = $infoEtiqueta[$i]['MUESTRA'];
@@ -476,7 +476,7 @@ class Miscelaneus
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
                 );
                 array_push($arrayEtiqueta, $array1);
-                $arrayEtiquetaEstudios = [];
+            
             }
             $arrayEtiquetaEstudios = [];
         }
