@@ -478,6 +478,7 @@ class Miscelaneus
                 array_push($arrayEtiqueta, $array1);
                 $arrayEtiquetaEstudios = [];
             }
+            $arrayEtiquetaEstudios = [];
         }
 
         $arregloPaciente = array(
