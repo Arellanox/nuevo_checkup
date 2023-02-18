@@ -405,9 +405,9 @@ if (!isset($qr)) {
         </p>
         <p>
             <strong>
-                AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN:
+                AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN
             </strong>
-            <?php echo $resultados->AGUDEZA_VISUAL; //_CON 
+            <?php //echo $resultados->AGUDEZA_VISUAL; //_CON 
             ?> <br>
             <strong>
                 OD:
@@ -424,9 +424,9 @@ if (!isset($qr)) {
         </p>
         <p>
             <strong>
-                AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN:
+                AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN
             </strong>
-            <?php echo $resultados->AGUDEZA_VISUAL_CON_CORRECCION; //_CON 
+            <?php //echo $resultados->AGUDEZA_VISUAL_CON_CORRECCION; //_CON 
             ?> <br>
             <strong>
                 OD:
@@ -445,8 +445,7 @@ if (!isset($qr)) {
             <strong>
                 REFRACCIÓN:
             </strong>
-            <br>
-            <?php echo $resultados->REFRACCION; ?>
+            <?php echo "$resultados->REFRACCION"; ?>
         </p>
         <p>
             <strong>
@@ -471,7 +470,7 @@ if (!isset($qr)) {
         </p>
         <p>
             <strong>
-                CAMPIMETRÍA:
+                CAMPIMETRÍA POR CONFRONTACIÓN:
             </strong>
             <?php echo $resultados->CAMPIMETRIA; ?>
         </p>
@@ -500,16 +499,14 @@ if (!isset($qr)) {
             <strong>
                 PLAN:
             </strong>
-            <br>
-            <?php echo $resultados->PLAN ?>
+            <?php echo " $resultados->PLAN" ?>
         </p>
         <p>
             <?php if ($resultados->OBSERVACIONES) { ?>
                 <strong>
                     OBSERVACIONES:
                 </strong>
-                <br>
-            <?php echo $resultados->OBSERVACIONES;
+            <?php echo " $resultados->OBSERVACIONES";
             } ?>
         </p>
     </div>

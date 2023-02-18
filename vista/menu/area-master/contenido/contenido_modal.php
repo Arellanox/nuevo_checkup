@@ -183,7 +183,7 @@ session_start();
                                     //<!-- Resultados de oftalmologia -->
                                 case 'formSubirInterpretacionOftalmo':
                                     echo '<form id="formSubirInterpretacionOftalmo">';
-                                    include 'forms/oftalmo.html';
+                                    include 'forms/oftalmo.php';
                                     echo '</form>';
                                     break;
 

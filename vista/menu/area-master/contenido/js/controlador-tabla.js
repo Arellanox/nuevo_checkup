@@ -91,6 +91,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                 case 3:
                     // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster', '_version2')
                     $('#btn-inter-oftal').fadeIn(0);
+                    document.getElementById(formulario).reset()
                     if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
                     if (selectEstudio.array.length)
                         await obtenerResultadosOftalmo(selectEstudio.array)
