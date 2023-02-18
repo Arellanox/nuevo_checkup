@@ -3,7 +3,7 @@ date_default_timezone_set('America/Mexico_City');
 if ($menu != "PrincipalMenu") : ?>
   <li class="nav-item">
     <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/principal/'; ?>" data-bs-dismiss="offcanvas">
-      <i class="bi bi-window"></i> Menu
+      <i class="bi bi-window"></i> Menú
     </a>
   </li>
 <?php endif; ?>
@@ -183,7 +183,7 @@ if ($menu != "PrincipalMenu") : ?>
 <?php if ($menu == "Consultorio") : ?>
   <li class="nav-item">
     <a href="#" type="button" onclick="obtenerConsultorioMain()">
-      <i class="bi bi-thunderbolt"></i> Menú
+      <i class="bi bi-thunderbolt"></i> Menú Historia Clínica
     </a>
   </li>
   <!-- <li class="nav-item">

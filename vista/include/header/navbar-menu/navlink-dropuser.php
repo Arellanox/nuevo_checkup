@@ -71,7 +71,7 @@ if ($_SESSION['vista']['SERVICIOS'] == 1  || $_SESSION['vista']['SERVICIOS (EQUI
 <?php endif; ?>
 <?php if ($_SESSION['vista']['ADMINISTRACIÓN'] == 1 || $_SESSION['vista']['CLIENTES'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-admin" aria-expanded="false">
-    <i class="bi bi-person-check"></i> Adminitración
+    <i class="bi bi-person-check"></i> Administración
   </a>
   <div class="collapse" id="board-admin">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -79,6 +79,13 @@ if ($_SESSION['vista']['SERVICIOS'] == 1  || $_SESSION['vista']['SERVICIOS (EQUI
         <li>
           <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/clientes/'; ?>">
             <i class="bi bi-dot"></i> Clientes
+          </a>
+        </li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
+        <li>
+          <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/cursos-bimo/'; ?>" class="dropdown-a" type="button">
+            <i class="bi bi-dot"></i> Cursos
           </a>
         </li>
       <?php endif; ?>
