@@ -380,7 +380,7 @@ $encode_firma = base64_encode($ruta_firma);
         $conteo = count($resultados->ESTUDIOS);
         foreach ($resultados->ESTUDIOS as $key => $resultado) {
             if ($area == 11) {
-                echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'> US " . $resultado->ESTUDIO . "</h2>";
+                echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'>" . $resultado->ESTUDIO . "</h2>";
             } else {
                 echo "<h2 style='padding-bottom: 6px; padding-top: 6px;'>" . $resultado->ESTUDIO . "</h2>";
             }
