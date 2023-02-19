@@ -15,7 +15,12 @@
       include "navbar-menu/navlink-normales.php"; ?>
       <hr><?php
           // navlink-list
-          include "navbar-menu/navlink-droplist-areas.php"; ?>
+          #include "navbar-menu/navlink-droplist-areas.php";
+          include "areas-windows-float.php";
+          ?>
+
+
+
     </ul>
     <hr>
     <div class="dropdown">

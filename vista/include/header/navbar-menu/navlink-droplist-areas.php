@@ -21,43 +21,65 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   </div> -->
 
 
-<?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
-  <!-- Laboratorio -->
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
-    <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
-  </a>
-  <?php if ($_SESSION['vista']['CORREOSLAB'] == 1) : ?>
-    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/correos/#CORREOSLAB'; ?>" data-bs-dismiss="offcanvas">
-      <i class="bi bi-envelope-paper"></i> Validación Laboratorio Clínico
-    </a>
-  <?php endif; ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/muestras/'; ?>">
+<?php   # if ($_SESSION['vista']['LABORATORIO'] == 1) : 
+?>
+<!-- Laboratorio -->
+<!-- <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/muestras/'; 
+                                                                          ?>">
     <i class="bi bi-droplet-half"></i> Toma de muestras
   </a>
-<?php endif; ?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; 
+                                                                        ?>">
+    <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
+  </a>
+  <?php # if ($_SESSION['vista']['CORREOSLAB'] == 1) : 
+  ?>
+    <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/correos/#CORREOSLAB'; 
+                                                                          ?>" data-bs-dismiss="offcanvas">
+      <i class="bi bi-envelope-paper"></i> Validación Laboratorio Clínico
+    </a>
+  <?php # endif; 
+  ?> -->
+<?php # endif; 
+?>
 
 
 <!-- Areas master -->
-<?php if ($_SESSION['vista']['ULTRASONIDO'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDO'; ?>">
+<!-- Imagenologia
+<?php # if ($_SESSION['vista']['ULTRASONIDO'] == 1) : 
+?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDO'; 
+                                                                        ?>">
     <i class="bi bi-person-video"></i> Ultrasonido
   </a>
-<?php endif; ?>
-<?php if ($_SESSION['vista']['ULTRASONIDOTOMA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDOTOMA'; ?>">
+<?php # endif; 
+?>
+<?php # if ($_SESSION['vista']['ULTRASONIDOTOMA'] == 1) : 
+?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDOTOMA'; 
+                                                                        ?>">
     <i class="bi bi-person-video"></i> Ultrasonido (Imagenes)
   </a>
-<?php endif; ?>
-<?php if ($_SESSION['vista']['RX'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; ?>">
+<?php # endif; 
+?>
+<?php # if ($_SESSION['vista']['RX'] == 1) : 
+?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; 
+                                                                        ?>">
     <i class="bi bi-universal-access"></i> Rayos X
   </a>
-<?php endif; ?>
-<?php if ($_SESSION['vista']['RXTOMA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RXTOMA'; ?>">
+<?php # endif; 
+?>
+<?php # if ($_SESSION['vista']['RXTOMA'] == 1) : 
+?>
+  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RXTOMA'; 
+                                                                        ?>">
     <i class="bi bi-universal-access"></i> Rayos X (Imagenes)
   </a>
-<?php endif; ?>
+<?php # endif; 
+?> -->
+
+<!-- Otras Areas -->
 <?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
     <i class="bi bi-activity"></i> Electrocardiograma

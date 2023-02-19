@@ -56,20 +56,11 @@ session_start();
       </button>
       <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav" id="navbar-js">
-          <?php include "navbar-menu/navlink-normales.php"; ?>
-          <?php if ($menu != null) : ?>
-            <li class="nav-item Recepción">
-              <div class="dropdown ">
-                <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-window-stack"></i> Áreas
-                </a>
-                <!-- Estos botones se cargan en el servidor desde el archivo del include -->
-                <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-                  <?php include "navbar-menu/navlink-droplist-areas.php"; ?>
-                </ul>
-              </div>
-            </li>
-          <?php endif; ?>
+          <?php
+          include "navbar-menu/navlink-normales.php";
+          include "areas-windows-float.php";
+          ?>
+
         </ul>
         <ul class="nav navbar-nav ms-auto">
           <li class="nav-item dropdown">
