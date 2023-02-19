@@ -2,7 +2,7 @@
   <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-navbar" style="width: 100%;height:100%">
     <div class="offcanvas-header">
       <div class="d-flex align-items-center mb-md-0 me-md-auto text-white text-decoration-none">
-        <img src="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png" style="height: 36px;margin-right: 20px;"/>
+        <img src="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png" style="height: 36px;margin-right: 20px;" />
         <span class="fs-4">Bimo-lab</span>
       </div>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -12,9 +12,10 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto dropdown-lu">
       <?php // navlink-normales
-        include "navbar-menu/navlink-normales.php"; ?><hr><?php
-        // navlink-list
-        include "navbar-menu/navlink-droplist.php"; ?>
+      include "navbar-menu/navlink-normales.php"; ?>
+      <hr><?php
+          // navlink-list
+          include "navbar-menu/navlink-droplist-areas.php"; ?>
     </ul>
     <hr>
     <div class="dropdown">
