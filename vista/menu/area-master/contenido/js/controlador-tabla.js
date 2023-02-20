@@ -517,6 +517,7 @@ function estadoFormulario(estado) {
             $('#btn-ver-reporte').fadeOut()
             $('#btn-confirmar-reporte').fadeOut()
             confirmado = 0;
+            $('#btn-confirmar-reporte').prop('disabled', false);
             $('button[type="submit"][form="' + formulario + '"]').prop('disabled', false)
             $('#' + formulario + '').find('textarea').prop('disabled', false)
             $('#' + formulario + '').find('input').prop('disabled', false)
@@ -678,10 +679,17 @@ async function obtenerResultadosOftalmo(data) {
     $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
     $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);
     $('#padecimiento_actual').val(row.PADECIMIENTO_ACTUAL);
-    $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
+    // $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
     $('#od').val(row.OD);
     $('#oi').val(row.OI);
     $('#jaeger').val(row.JAEGER);
+
+    $('#od_con').val(row.CON_OD);
+    $('#oi_con').val(row.CON_OI);
+    $('#jaeger_con').val(row.CON_JAEGER);
+
+
+
     $('#refraccion').val(row.REFRACCION);
     $('#prueba').val(row.PRUEBA);
     $('#exploracion_oftalmologica').val(row.EXPLORACION_OFTALMOLOGICA);

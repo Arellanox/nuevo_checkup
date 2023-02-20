@@ -166,9 +166,9 @@ function generarFormularioPaciente(id) {
         $('#formulario-estudios').html('')
         data = data.response.data;
 
-        let colStart = '<div class="col-auto col-lg-7">';
+        let colStart = '<div class="col-auto col-lg-6">';
         let endDiv = '</div>';
-        let colreStart = '<div class="col-auto col-lg-5 d-flex justify-content-end align-items-center">';
+        let colreStart = '<div class="col-auto col-lg-6 d-flex justify-content-end align-items-center">';
         let html = '';
 
         // <ul class = "list-group m-4 overflow-auto hover-list info-detalle"
