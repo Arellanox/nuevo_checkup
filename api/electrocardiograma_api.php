@@ -37,40 +37,29 @@ switch($api){
             break;
         }
 
-        #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
         $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_ELECTROCARDIOGRAMA_$turno_id");
 
         $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
         $last_id = $master->insertByProcedure("sp_electro_resultados_g", [null, $turno_id, $ruta_archivo, $usuario, $comentario]);
 
-        // # insertar el formulario de bimo.  
-        // foreach($formulario as $id_servicio => $item){
-        //      $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id]);
-        // }
-        
-        #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
 
-        // $url = crearReporteUltrasonido($turno_id, $comentario);
-        // $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
         $response = $last_id;
     break;
     case 3: 
-        # recuperar las capturas
-        // $response = array();
-        #recupera la interpretacion.
-        $response = $master->getByProcedure('sp_electro_resultados_b', [$id_electro,$turno_id]);
+        # recuperar los electros de la carpeta global
+        $folder = "../electro_img/";
 
-        # recupera los archivos del turno.
-        # necesitamos enviarle el area del estudio para hacer el filtro.
-       // $response2 = $master->getByProcedure('sp_electro_archivos_b', [$turno_id]);
+        $electros = scandir($folder);
 
-        // $capturas = [];
-        // foreach ($response2 as $current) {
-        //     $capturas[] = $current['ARCHIVO'];
-        // }
-
-        // $response = $capturas;
+        $files = [];
+        for($i = 0; $i < count($electros); $i++){
+            if($i > 1){
+                $path = $host."electro_img/".$electros[$i];
+                $files[] = [$path,$electros[$i]];
+            }
+        }
+        $response = $files;
         break;
     case 4: 
         $response1 = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, null, null, null, $comentario]);
