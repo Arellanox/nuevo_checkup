@@ -133,6 +133,8 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     botonesResultados('activar');
                     break;
             }
+            if (selectEstudio.getguardado() == 1)
+                estadoFormulario(2)
             // if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2)
             //     a = ''
             // estadoFormulario(2)
@@ -228,17 +230,37 @@ async function obtenerServicios(area, turno) {
 
                     //Saber si tiene resultados
                     trueResultados = 0;
+                    // for (const key in row[0]) {
+                    //     console.log(key, row[0][key])
+                    //     if (row[0][key]['GUARDADO'] == 1)
+                    //         trueResultados = 1
+                    //     if (row[0][key]['CONFIRMADO'] == 1)
+                    //         trueResultados = 2
+                    // }
+
+                    // for (const key in object) {
+                    //     if (Object.hasOwnProperty.call(object, key)) {
+                    //         const element = object[key];
+                    //         console.log(element)
+
+                    //     }
+                    // }
+                    console.log(selectEstudio)
                     for (const key in row[0]) {
-                        console.log(key, row[0][key])
-                        if (row[0][key]['GUARDADO'] == 1)
-                            trueResultados = 1
-                        if (row[0][key]['CONFIRMADO'] == 1)
-                            trueResultados = 2
+                        if (Object.hasOwnProperty.call(row[0], key)) {
+                            console.log(key, row[0][key]['GUARDADO'], row[0][key]['CONFIRMADO'])
+                            if (row[0][key]['GUARDADO'] == 1)
+                                trueResultados = 1
+                            if (row[0][key]['CONFIRMADO'] == 1)
+                                trueResultados = 2
+
+                        }
                     }
 
                     if (trueResultados)
                         selectEstudio.setguardado(trueResultados)
                     //
+                    console.log(selectEstudio)
 
                     if (row.length)
                         panelResultadoPaciente(row, area);
@@ -497,8 +519,8 @@ function estadoFormulario(estado) {
     switch (estado) {
         case 1:
             confirmado = 1
-            // $('#btn-ver-reporte').fadeIn()
-            // $('#btn-confirmar-reporte').fadeIn()
+            $('#btn-ver-reporte').fadeIn()
+            $('#btn-confirmar-reporte').fadeIn()
             if (session.permisos['Actualizar reportes'] != 1) {
 
                 $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
@@ -517,8 +539,8 @@ function estadoFormulario(estado) {
             break;
 
         default:
-            // $('#btn-ver-reporte').fadeOut()
-            // $('#btn-confirmar-reporte').fadeOut()
+            $('#btn-ver-reporte').fadeOut()
+            $('#btn-confirmar-reporte').fadeOut()
             confirmado = 0;
             $('#btn-confirmar-reporte').prop('disabled', false);
             $('button[type="submit"][form="' + formulario + '"]').prop('disabled', false)
