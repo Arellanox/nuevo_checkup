@@ -11,40 +11,53 @@ if (!$tokenValido) {
     // exit;
 }
 
-$comentario = isset($_POST['comentario']) ? $_POST['comentario'] : '';# el id 10 es para el area de ELECTROCARDIOGRAMA
-
 $master = new Master();
-$api = isset($_POST['api']) ? $_POST['api'] : '';
+$api = $_POST['api'];
+
 # Datos para la interpretacion
-$id_electro = isset($_POST['id_electro']) ? $_POST['id_electro'] : null;
-$turno_id = isset($_POST['turno_id']) ? $_POST['turno_id'] : '';
-$fecha_registro = isset($_POST['fecha_registro']) ? $_POST['fecha_registro'] : '';
-$registrado_por = isset($_POST['registrado_por']) ? $_POST['registrado_por'] : '';
-$folio = isset($_POST['folio']) ? $_POST['folio'] : '';
+$turno_id = $_POST['turno_id'];
+$id_electro = $_POST['id_electro'];
+$comentario = $_POST['comentario'];
+$tecnica = $_POST['tecnica'];
+$hallazgo = $_POST['hallazgo'];
+$interpretacion = $_POST['interpretacion'];
 $usuario = $_SESSION['id'];
+$confirmado = $_POST['confirmado'];
+$archivo = $_POST['electro_pdf'];
+
+# Datos para el sistema
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 $date = date("dmY_His");
 
 switch($api){
     case 1:
         # insertar la interpretacion
-        #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/electrocardiograma/$date/$turno_id/interpretacion/";
-        $r = $master->createDir("../".$ruta_saved);
+        // #creamos el directorio donde se va a guardar la informacion del turno
+        // $ruta_saved = "reportes/modulo/electrocardiograma/$date/$turno_id/interpretacion/";
+        // $r = $master->createDir("../".$ruta_saved);
 
-        if($r!=1){
-            $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
-            break;
+        // if($r!=1){
+        //     $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
+        //     break;
+        // }
+
+        // $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_ELECTROCARDIOGRAMA_$turno_id");
+
+        // $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
+
+        // $last_id = $master->insertByProcedure("sp_electro_resultados_g", [null, $turno_id, $ruta_archivo, $usuario, $comentario]);
+
+
+        // $response = $last_id;
+        if(isset($confirmado)){
+            // confirmamos y creamos el reporte.
+            $url = $master->reportador($master,$turno_id,10,"electro","url",0,0,0);
+
+        } else {
+            // solo guardamos la informacion del reporte. Sin confirmar
+            $response = $master->insertByProcedure("sp_electro_resultados_g",[$id_electro,$turno_id,$archivo,null,$comentario,$interpretacion,$tecnica,$hallazgo,null,null,$usuario]);
+
         }
-
-        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_ELECTROCARDIOGRAMA_$turno_id");
-
-        $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
-
-        $last_id = $master->insertByProcedure("sp_electro_resultados_g", [null, $turno_id, $ruta_archivo, $usuario, $comentario]);
-
-
-        $response = $last_id;
     break;
     case 3: 
         # recuperar los electros de la carpeta global
