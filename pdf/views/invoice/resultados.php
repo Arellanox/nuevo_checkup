@@ -428,8 +428,8 @@ $encode_firma = base64_encode($ruta_firma);
                                 if (isset($analito->metodo) && $analito->metodo != null || $analito->metodo != '') {
                                 ?>
                                     <tr>
-                                        <td class="col-one">
-                                            <?php echo "<strong>Método: </strong>" . $analito->metodo ?>
+                                        <td class="col-one" style="font-size: 12px">
+                                            <?php echo "<strong style='font-size: 12px'>Método: </strong>" . $analito->metodo ?>
                                         </td>
                                         <td class="col-two">
                                         </td>
@@ -446,8 +446,8 @@ $encode_firma = base64_encode($ruta_firma);
                                 if (isset($analito->equipo) && $analito->equipo != null || $analito->equipo != '') {
                                 ?>
                                     <tr>
-                                        <td class="col-one">
-                                            <?php echo "<strong>Equipo: </strong>" . $analito->equipo ?>
+                                        <td class="col-one" style="font-size: 12px">
+                                            <?php echo "<strong style='font-size: 12px'>Equipo: </strong>" . $analito->equipo ?>
                                         </td>
                                         <td class="col-two">
                                         </td>
@@ -462,8 +462,8 @@ $encode_firma = base64_encode($ruta_firma);
                                 if (isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '') {
                                 ?>
                                     <tr>
-                                        <td class="col-one">
-                                            <?php echo "<strong>Observaciones: </strong>" . $analito->observaciones ?>
+                                        <td class="col-one" style="font-size: 12px">
+                                            <?php echo "<strong style='font-size: 12px'>Observaciones: </strong>" . $analito->observaciones ?>
                                         </td>
                                         <td class="col-two">
                                         </td>
@@ -485,30 +485,30 @@ $encode_firma = base64_encode($ruta_firma);
 
                     </tbody>
                 </table>
-                <div>
+                <div style="font-size: 12px">
 
                     <?php
                     if ($estudio->metodo == '' || $estudio->metodo == null) {
                     } else {
-                        echo "<strong>Método: </strong>" . $estudio->metodo;
+                        echo "<strong style='font-size: 12px'>Método: </strong>" . $estudio->metodo;
                     }
                     ?>
                 </div>
-                <div>
+                <div style="font-size: 12px">
 
                     <?php
                     if ($estudio->equipo == '' || $estudio->equipo == null) {
                     } else {
-                        echo "<strong>Equipo: </strong>" . $estudio->equipo;
+                        echo "<strong style='font-size: 12px'>Equipo: </strong>" . $estudio->equipo;
                     }
                     ?>
                 </div>
-                <div>
+                <div style="font-size: 12px">
 
                     <?php
                     if ($estudio->observaciones == '' || $estudio->observaciones == null) {
                     } else {
-                        echo "<strong>Observaciones: </strong>" . $estudio->observaciones;
+                        echo "<strong style='font-size: 12px'>Observaciones: </strong>" . $estudio->observaciones;
                     }
                     ?>
                 </div>
