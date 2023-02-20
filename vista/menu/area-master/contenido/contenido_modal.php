@@ -91,9 +91,9 @@ session_start();
                         <h4>Resultados</h4>
                         <?php
                         if ($tipovista == 'tomaCapturas') {
-                            echo '<p class="none-p">Cargue las imagenes de cada estudio</p>';
+                            echo '<p class="none-p">Capture las imagenes cada estudio</p>';
                         } else {
-                            echo '<p class="none-p">Cargué o visualice el reporte de interpretación del paciente</p>';
+                            echo '<p class="none-p">Interprete o visualice el reporte del paciente</p>';
                         } ?>
                     </div>
                     <div class="row">
@@ -147,7 +147,7 @@ session_start();
             <div class="modal-content">
                 <div class="modal-header header-modal">
                     <h5 class="modal-title" id="title-paciente_aceptar">Reporte de interpretación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -200,17 +200,12 @@ session_start();
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Regresar</button>
                     <!-- <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button> -->
 
                     <button type="button" class="btn btn-borrar btnResultados" id="btn-ver-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa del reporte una vez guardado los cambios">
                         <i class="bi bi-file-earmark-pdf"></i> Vista previa
                     </button>
-
-                    <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirme el reporte una vez guardado los cambios">
-                        <i class="bi bi-file-earmark-pdf"></i> Confirmar reporte
-                    </button>
-
                     <!-- BTN oftalmo -->
                     <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar btnResultados" id="btn-inter-oftal" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
                         <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
@@ -218,6 +213,10 @@ session_start();
                     <!-- BTN GLOBAL -->
                     <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar btnResultados" id="btn-inter-areas" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
                         <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
+                    </button>
+
+                    <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirme el reporte una vez guardado los cambios">
+                        <i class="bi bi-file-earmark-pdf"></i> Confirmar reporte
                     </button>
                 </div>
             </div>

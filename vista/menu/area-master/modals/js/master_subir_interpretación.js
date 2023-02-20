@@ -112,8 +112,8 @@ $('#btn-confirmar-reporte').click(function (event) {
                     if (mensajeAjax(data)) {
                         alertMensaje('success', '¡Interpretación confirmada!', 'El formulario ha sido cerrado');
                         $('#modalSubirInterpretacion').modal('hide')
-                        estadoFormulario(1)
                         obtenerServicios(areaActiva, dataSelect.array['turno'])
+                        estadoFormulario(1)
                     }
                 },
                 complete: function () {

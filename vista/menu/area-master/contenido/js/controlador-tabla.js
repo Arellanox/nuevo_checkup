@@ -135,7 +135,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
             }
             // if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2)
             //     a = ''
-            estadoFormulario(2)
+            // estadoFormulario(2)
             bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
         })
     } else {
@@ -497,7 +497,10 @@ function estadoFormulario(estado) {
     switch (estado) {
         case 1:
             confirmado = 1
+            $('#btn-ver-reporte').fadeIn()
+            $('#btn-confirmar-reporte').fadeIn()
             if (session.permisos['Actualizar reportes'] != 1) {
+
                 $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
                 $('#btn-confirmar-reporte').prop('disabled', true);
                 $('#' + formulario + '').find('textarea').prop('disabled', true)
