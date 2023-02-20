@@ -497,8 +497,8 @@ function estadoFormulario(estado) {
     switch (estado) {
         case 1:
             confirmado = 1
-            $('#btn-ver-reporte').fadeIn()
-            $('#btn-confirmar-reporte').fadeIn()
+            // $('#btn-ver-reporte').fadeIn()
+            // $('#btn-confirmar-reporte').fadeIn()
             if (session.permisos['Actualizar reportes'] != 1) {
 
                 $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
@@ -517,8 +517,8 @@ function estadoFormulario(estado) {
             break;
 
         default:
-            $('#btn-ver-reporte').fadeOut()
-            $('#btn-confirmar-reporte').fadeOut()
+            // $('#btn-ver-reporte').fadeOut()
+            // $('#btn-confirmar-reporte').fadeOut()
             confirmado = 0;
             $('#btn-confirmar-reporte').prop('disabled', false);
             $('button[type="submit"][form="' + formulario + '"]').prop('disabled', false)
