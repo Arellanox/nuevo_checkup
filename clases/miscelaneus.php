@@ -412,7 +412,7 @@ class Miscelaneus
             "COMENTARIO" => $response[array_key_first($response)]['COMENTARIO']
         );
 
-        return ["ESTUDIOS" =>$arregloPaciente];
+        return [["ESTUDIOS" =>$arregloPaciente]];
     }
 
     private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)
