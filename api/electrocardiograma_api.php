@@ -39,10 +39,36 @@ switch($api){
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro,$turno_id,null,$usuario,$comentario,$interpretacion,$tecnica,$hallazgo,$url,$confirmado,null]);
         } else {
             // solo guardamos la informacion del reporte. Sin confirmar
-            $response = $master->insertByProcedure("sp_electro_resultados_g",[$id_electro,$turno_id,$archivo,null,$comentario,$interpretacion,$tecnica,$hallazgo,null,null,$usuario]);
+            $response = $master->getByProcedure("sp_electro_resultados_b",[null,$turno_id,null]);
+
+            if(isset($response[0]['ARCHIVO'])){
+                $response = "Ya existe un electrocardiograma para este paciente.";
+                break;
+            }
+
+            //mover el archivo con la imagen de electro a la caperta del turno.
+            if(isset($archivo)){
+                $destination = "../reportes/modulo/electro/$turno_id/";
+                $r = $master->createDir($destination);
+                $dir = explode("nuevo_checkup",$archivo);
+                if(copy("..".$dir[1],$destination.basename($archivo))){
+                    # si se copia correctamente, borramos el archivo de la carpeta global.
+                    unlink($destination);
+                    
+                    #guardarmos la direccion del electro.
+                    $response = $master->insertByProcedure("sp_electro_resultados_g",[$id_electro,$turno_id,$host."reportes/modulo/electro/$turno_id",null,$comentario,$interpretacion,$tecnica,$hallazgo,null,null,$usuario]);
+                }
+            } else {
+                 #guardarmos la direccion del electro.
+                 $response = $master->insertByProcedure("sp_electro_resultados_g",[$id_electro,$turno_id,null,null,$comentario,$interpretacion,$tecnica,$hallazgo,null,null,$usuario]);
+            }
 
         }
     break;
+    case 2:
+        #seleccionar el pdf del paciente
+
+        break;
     case 3: 
         # recuperar los electros de la carpeta global
         $folder = "../electro_img/";

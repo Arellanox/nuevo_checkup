@@ -5,6 +5,7 @@ date_default_timezone_set('America/Mexico_City');
 
 class Miscelaneus
 {
+    public $ruta_reporte;
 
     function getFormValues($values)
     {
@@ -28,6 +29,14 @@ class Miscelaneus
         }
 
         return $form;
+    }
+
+    function setRutaReporte($ruta){
+        $this->ruta_reporte = $ruta;
+    }
+
+    function getRutaReporte(){
+        return $this->ruta_reporte;
     }
 
     function escaparDatos($datos, $conexion)
@@ -383,6 +392,9 @@ class Miscelaneus
         );
 
         $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
+
+        # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
+        $this->setRutaReporte($ruta_saved);
 
         # Crear el directorio si no existe
         $r = $master->createDir("../" . $ruta_saved);
