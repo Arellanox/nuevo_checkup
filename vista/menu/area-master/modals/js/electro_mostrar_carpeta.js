@@ -63,7 +63,7 @@ $('#cargarElectroCaptura').click(function (e) {
                     data: {
                         api: api_capturas,
                         id_turno: dataSelect.array['turno'],
-                        url: $('input[type="radio"][name="RadioSelectElectro"]:checked').attr('data')
+                        electro_pdf: $('input[type="radio"][name="RadioSelectElectro"]:checked').attr('data')
                     },
                     beforeSend: function () {
                         $("#cargarElectroCaptura").prop('disabled', true)
