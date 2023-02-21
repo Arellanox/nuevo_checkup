@@ -2,13 +2,17 @@
 require_once("lib/libmergpdf/vendor/autoload.php");
 use iio\libmergepdf\Merger;
 use iio\libmergepdf\Pages;
-$merger = new Merger;
-
-$merger->addFile("electro_img/Brochure Empresarial TGC.pdf");
-$merger->addFile("electro_img/CONSTANCIA BLANCA E. BARRERA FIGUEROA.pdf");
+$merger = new Merger();
+echo "hola";
+$merger->addFile("electro_img/bimo_20230202141033.pdf");
 $merger->addFile("electro_img/nery_20230201104901.pdf");
 
-$createpdf = $merger->merge();
+try{
+    $createpdf = $merger->merge();
+    echo "combinado";
+}catch(Exception $e){
+    echo $e;
+}
 
 // echo $_SERVER['DOCUMENT_ROOT'];
 
