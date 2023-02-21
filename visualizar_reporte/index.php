@@ -22,7 +22,7 @@ if (!$tokenValido) {
 $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
-$usuario_id = $_SESSION['id'];
+// $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
@@ -46,6 +46,9 @@ switch ($api) {
         break;
     case 'consultorio':
         $r = $master->reportador($master, $turno_id, 1, 'consultorio', 'mostrar', 1);
+        break;
+    case 'electro':
+        $r = $master->reportador($master, $turno_id, $area_id, 'electro', 'mostrar', 1);
         break;
 
     default:
