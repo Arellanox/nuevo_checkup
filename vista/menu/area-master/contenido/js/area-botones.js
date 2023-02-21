@@ -39,7 +39,15 @@ $("#btn-analisis-pdf").click(function () {
 $('#btn-capturas-pdf').click(function () {
   if (dataSelect.array['select']) {
     // $("#ModalSubirCapturas").modal("show");
-    chooseEstudio(selectEstudio.array, '#ModalSubirCapturas', 2)
+    switch (areaActiva) {
+      case 10:
+        $('#MostrarCapturasElectro').modal('show');
+        break;
+
+      default:
+        chooseEstudio(selectEstudio.array, '#ModalSubirCapturas', 2)
+        break;
+    }
   } else {
     alertSelectTable();
   }
@@ -71,6 +79,10 @@ $('#btn-ver-reporte').click(function () {
     case 8: case 11: case '8': case '11':
       area_nombre = 'imagenologia'
       break;
+    case 10: case '10':
+      area_nombre = 'electro'
+      break;
+
 
     default:
       break;
@@ -109,8 +121,12 @@ function chooseEstudio(row, modal, tip) {
       break;
     case 2:
       for (var i = 0; i < row.length; i++) {
-        if (row[i]['CAPTURAS'].length == 0) {
-          html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `', '` + row[i]['SERVICIO'] + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
+        try {
+          if (row[i]['CAPTURAS'].length == 0) {
+            html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `', '` + row[i]['SERVICIO'] + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
+          }
+        } catch (error) {
+          // alertMensaje('error', 'Oops...', 'Hubo un error con las capturas, intentelo mas tarde', 'Reporte este mensaje a la area de TI : )')
         }
       }
       if (html) {

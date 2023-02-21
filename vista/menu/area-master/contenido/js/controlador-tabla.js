@@ -29,6 +29,13 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
     createdRow: function (row, data, dataIndex) {
         switch (areaActiva) {
             case 3: if (data.CONFIRMADO_OFTAL == 1) $(row).addClass('bg-success text-white'); break;
+            case 10:
+                if (subtipo == 'ELECTROTOMA' && data.CONFIRMADO_ELECTROCAPTURAS == 1) {
+                    $(row).addClass('bg-success text-white');
+                } else if (subtipo != 'ELECTROTOMA' && data.CONFIRMADO_ELECTRO == 1) {
+                    $(row).addClass('bg-success text-white');
+                }
+                break;
             case 8:
                 if (subtipo == 'RXTOMA' && data.CONFIRMADO_RXCAPTURAS == 1) {
                     $(row).addClass('bg-success text-white');
@@ -88,7 +95,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
             //Obtener resultado de cada area 
             estadoFormulario(0) //Activa el formulario
             switch (areaActiva) {
-                case 3:
+                case 3: //Oftalmo
                     // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster', '_version2')
                     $('#btn-inter-oftal').fadeIn(0);
                     document.getElementById(formulario).reset()
@@ -126,7 +133,11 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     break;
                 case 10: //Electrocardiograma
                     $('#btn-inter-areas').fadeIn(0);
-                    if (datalist.CONFIRMADO_ELECTRO == 1) estadoFormulario(1)
+                    document.getElementById(formulario).reset()
+                    if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                    if (selectEstudio.array.length)
+                        1
+                    // await obtenerResultadosOftalmo(selectEstudio.array)
                     // ObtenerResultadosUltrsonido(selectEstudio.array);
                     break;
                 default:
@@ -206,7 +217,7 @@ function limpiarCampos() {
 
 async function obtenerServicios(area, turno) {
     return new Promise(resolve => {
-        if (area == 3) {
+        if (area == 3 || area == 10) {
             // url = 'oftalmologia_api';
             data = {
                 turno_id: turno,
@@ -265,6 +276,11 @@ async function obtenerServicios(area, turno) {
 
                     if (row.length)
                         panelResultadoPaciente(row, area);
+
+
+                    // if (area == 10) {
+                    //     vistaPDF()
+                    // }
                     botonesResultados('activar', area)
                 }
             },
@@ -289,7 +305,7 @@ async function panelResultadoPaciente(row, area) {
     $('#mostrarResultado').fadeOut()
 
     switch (area) {
-        case 3:
+        case 3: case 10:
             if (row[0].length) {
                 for (const i in row) {
 

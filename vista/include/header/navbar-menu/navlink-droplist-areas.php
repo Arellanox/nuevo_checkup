@@ -80,10 +80,34 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 ?> -->
 
 <!-- Otras Areas -->
-<?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
+<?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1 || $_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1) : ?>
+  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-electro" aria-expanded="false">
     <i class="bi bi-activity"></i> Electrocardiograma
   </a>
+  <div class="collapse" id="board-electro">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1) : ?>
+        <li>
+          <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
+            <i class="bi bi-dot"></i> Interpretación
+          </a>
+        </li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1) : ?>
+        <li>
+          <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA_CAPTURAS'; ?>" class="dropdown-a align-items-center rounded" type="button">
+            <i class="bi bi-dot"></i> Captura
+          </a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+
+
+
+  <!-- <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
+    <i class="bi bi-activity"></i> Electrocardiograma
+  </a> -->
 <?php endif; ?>
 <?php if ($_SESSION['vista']['ESPIROMETRIA'] == 1) : ?>
   <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ESPIROMETRIA'; ?>">

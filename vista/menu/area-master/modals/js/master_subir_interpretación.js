@@ -31,12 +31,12 @@ $('#inputFilesInterpreArea').on('change', function () {
 
 
 //Formulario Para Subir Interpretacion
-$("#formSubirInterpretacion").submit(function (event) {
+$(`#${formulario}`).submit(function (event) {
     // alert(areaActiva)
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
     if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
-        var form = document.getElementById("formSubirInterpretacion");
+        var form = document.getElementById(`${formulario}`);
         var formData = new FormData(form);
         formData.set('id_turno', dataSelect.array['turno'])
         // formData.set('id_servicio', selectEstudio.selectID)

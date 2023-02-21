@@ -134,6 +134,8 @@ $menu = $_POST['menu']; ?>
   || $menu == 'Resultados de Espirometría'
   || $menu == 'Resultados de Audiometría'
   || $menu == 'Resultados de Oftalmología'
+  || $menu == 'Resultados de Electrocardiograma'
+  || $menu == 'Carga de Electrocardiograma'
   || $menu == 'Toma de muestras'
   || $menu == 'Somatometría | Signos Vitales'
 ) : ?>

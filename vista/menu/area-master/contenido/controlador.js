@@ -19,6 +19,7 @@ function hasLocation() {
   // $("a").removeClass("navlinkactive");
   // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   if (validarVista(hash) == true) {
+    subtipo = false;
     switch (hash) {
       case "ULTRASONIDO":
         formulario = "formSubirInterpretacion";
@@ -59,11 +60,19 @@ function hasLocation() {
         obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_new.php');
         break;
       case "ELECTROCARDIOGRAMA":
-        formulario = "SinForm";
-        api_capturas = 2;
+        formulario = "formSubirInterpretacionElectro";
+        api_capturas = 1;
         api_interpretacion = 1;
         url_api = 'electrocardiograma_api';
         obtenerContenidoVistaMaster(10, 'Resultados de Electrocardiograma', 'contenido_modal.php');
+        break;
+      case "ELECTROCARDIOGRAMA_CAPTURAS":
+        formulario = "1"; // Para toma capturas
+        api_capturas = 1;
+        api_interpretacion = 1;
+        url_api = 'electrocardiograma_api';
+        subtipo = 'ELECTROTOMA';
+        obtenerContenidoVistaMaster(10, 'Carga de Electrocardiograma', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "AUDIOMETRIA":
         formulario = "formSubirInterpretacion";
@@ -113,13 +122,13 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
 
     // Cambiar aspecto
     $('.btnResultados').fadeOut(0)
+    // Datatable
+    $.getScript("contenido/js/controlador-tabla.js");
     switch (area) {
 
       case 3: //Oftalmología
         $('#btn-analisis-oftalmo').fadeIn(0)
         $('#formSubirInterpretacionOftalmo').fadeIn(0)
-        // Datatable
-        $.getScript("contenido/js/controlador-tabla.js")
         // Subir resultado
         $.getScript("modals/js/of_subir_oftalmo.js");
         break;
@@ -128,10 +137,26 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $('#btn-analisis').fadeIn(0)
         $('#btn-capturas-pdf').fadeIn(0)
         $('#formSubirInterpretacion').fadeIn(0)
-        // Datatable
-        $.getScript("contenido/js/controlador-tabla.js")
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
+        break;
+
+      case 10:
+        $('#btn-analisis').fadeIn(0)
+        $('#btn-capturas-pdf').fadeIn(0)
+        $('#formSubirInterpretacion').fadeIn(0)
+
+        // Subir resultado
+        $.getScript("modals/js/master_subir_interpretación.js");
+
+        // Boton  de imagenes
+        if (session['permisos']['CaptuElectro'] == 1) {
+          $('#vistaCapturasAreas').html('<div class="row"> <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">' +
+            '<button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">' +
+            '<i class="bi bi-plus-lg"></i> Capturar Electro del  paciente' +
+            '</button> </div> </div>')
+          $('#vistaCapturasAreas').fadeIn(0)
+        }
         break;
 
       // Versión anterior (Absoleta)

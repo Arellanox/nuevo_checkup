@@ -998,8 +998,6 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
       if ($(this).hasClass('selected')) {
         dobleClickSelecTable = false
         $(this).removeClass('selected');
-        array_selected = null;
-        // obtenerPanelInformacion(0, api, tipPanel)
         for (var i = 0; i < Object.keys(tipPanel).length; i++) {
           obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
         }
@@ -2370,9 +2368,9 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
 
 
 
-function vistaPDF(divContenedor, url, nombreArchivo, callback = function () { }) {
+function vistaPDF(divContenedor, url, nombreArchivo, callback = function () { }, tipo = {}) {
   $.post(http + servidor + '/nuevo_checkup/vista/include/funciones/viewer-pdf.php', {
-    url: url, nombreArchivo: nombreArchivo
+    url: url, nombreArchivo: nombreArchivo, tipo: tipo
   }, function (html) {
     $(divContenedor).html(html);
   }).done(async function () {

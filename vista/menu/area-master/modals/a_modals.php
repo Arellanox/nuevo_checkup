@@ -7,3 +7,7 @@ include 'ar_subircapturas-area.html';
 // include 'of_subir_oftalmo.html';
 //Mostrar fotos
 include 'ar_mostrar-capturas.html';
+
+
+//Electro
+include 'ar_mostrar_electro.html';

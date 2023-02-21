@@ -84,14 +84,14 @@ session_start();
     </div> -->
     </div>
     <div class="col-lg-4 informacion-paciente" style="margin-right: -5px !important;display:none">
-        <div class="card mt-3 p-2" id="panel">
+        <div class="card mt-3 p-3" id="panel">
             <div class="" id="divAreaMasterResultados">
                 <div class="row">
                     <div class="col-12">
                         <h4>Resultados</h4>
                         <?php
                         if ($tipovista == 'tomaCapturas') {
-                            echo '<p class="none-p">Capture las imagenes cada estudio</p>';
+                            echo '<p class="none-p">Capture las imagenes del paciente</p>';
                         } else {
                             echo '<p class="none-p">Interprete o visualice el reporte del paciente</p>';
                         } ?>
@@ -114,7 +114,7 @@ session_start();
                 </div>
                 <?php if ($tipovista == 'tomaCapturas') { ?>
                     <!-- Visualizar imagenes por vista -->
-                    <div class="vistaImagenesCargo5 mt-4 m-3">
+                    <div class="vistaImagenesCargo5 mt-4 m-3" id="vistaCapturasAreas">
                         <ol class="list-group list-group-numbered" id="vistaEstudiosImagenes">
                             <!-- Lista de estudios a subir -->
 
@@ -183,7 +183,14 @@ session_start();
                                     //<!-- Resultados de oftalmologia -->
                                 case 'formSubirInterpretacionOftalmo':
                                     echo '<form id="formSubirInterpretacionOftalmo">';
-                                    include 'forms/oftalmo.php';
+                                    include 'forms/oftalmo.html';
+                                    echo '</form>';
+                                    break;
+
+                                    //<!-- Resultados de oftalmologia -->
+                                case 'formSubirInterpretacionElectro':
+                                    echo '<form id="formSubirInterpretacionElectro">';
+                                    include 'forms/electro.html';
                                     echo '</form>';
                                     break;
 
@@ -211,7 +218,7 @@ session_start();
                         <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
                     </button>
                     <!-- BTN GLOBAL -->
-                    <button type="submit" form="formSubirInterpretacion" class="btn btn-confirmar btnResultados" id="btn-inter-areas" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
+                    <button type="submit" form="<?php echo $form; ?>" class="btn btn-confirmar btnResultados" id="btn-inter-areas" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
                         <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
                     </button>
 
