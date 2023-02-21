@@ -2,14 +2,27 @@
 require_once("lib/libmergpdf/vendor/autoload.php");
 use iio\libmergepdf\Merger;
 use iio\libmergepdf\Pages;
-$merger = new Merger();
-echo "hola";
-$merger->addFile("electro_img/bimo_20230202141033.pdf");
-$merger->addFile("electro_img/nery_20230201104901.pdf");
+use iio\libmergepdf\Driver\TcpdiDriver;
+use iio\libmergepdf\Driver\Fpdi2Driver;
+use iio\libmergepdf\Source\FileSource;
+
+$merger = new Merger;
+$files = ["electro_img/bimo_20230202141033.pdf","electro_img/nery_20230201104901.pdf"];
+// $merger->addFile();
+// $merger->addFile("electro_img/bimo_20230202141033.pd    f");
+$merger->addIterator($files);
 
 try{
     $createpdf = $merger->merge();
-    echo "combinado";
+    $fh = fopen('test.pdf', 'a');
+    if(fwrite($fh, $createpdf)){
+        echo "combinado";
+    } else {
+        echo "error. probablemente esta siendo usado";
+    }
+    fclose($fh);
+
+
 }catch(Exception $e){
     echo $e;
 }

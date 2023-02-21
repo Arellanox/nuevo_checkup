@@ -937,4 +937,8 @@ class Miscelaneus
             return $obj['NOMBRE_ARCHIVO'];
         }, $response)];
     }
+
+    public function joinPdf(){
+        
+    }
 }

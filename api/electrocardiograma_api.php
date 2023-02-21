@@ -36,6 +36,9 @@ switch ($api) {
             // confirmamos y creamos el reporte.
             $url = $master->reportador($master, $turno_id, 10, "electro", "url", 0, 0, 0);
 
+            # combinar el reporte de bimo con el pdf del electro y guardarlo en la misma ruta
+            $reporte_final = "combinacion de reporte bimo con el electrocargiograma";
+            
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, $comentario, $interpretacion, $tecnica, $hallazgo, $url, $confirmado, null]);
         } else {
             // solo guardamos la informacion del reporte. Sin confirmar
