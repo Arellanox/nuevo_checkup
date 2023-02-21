@@ -57,23 +57,23 @@ $('#cargarElectroCaptura').click(function (e) {
                 icon: 'info'
             }, function () {
                 $.ajax({
-                    url: http + servidor + "/nuevo_checkup/api/" + electrocardiograma_api + ".php",
+                    url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
                     dataType: 'json',
+                    method: 'POST',
                     data: {
                         api: api_capturas,
-                        turno: dataSelect['turno'],
-                        url: $('input[type="radio"][name="RadioSelectElectro"]:checked').attr('data')
+                        id_turno: dataSelect.array['turno'],
+                        electro_pdf: $('input[type="radio"][name="RadioSelectElectro"]:checked').attr('data')
                     },
                     beforeSend: function () {
                         $("#cargarElectroCaptura").prop('disabled', true)
                         alertMensaje('info', 'Cargando electro', 'Espere un momento');
                     },
                     success: function (data) {
-                        data = jQuery.parseJSON(data);
                         if (mensajeAjax(data)) {
                             alertMensaje('success', '¡Electro cargado!', 'Podrás consultar el documento cargado en la ventana de resultados');
                             $('#MostrarCapturasElectro').modal('hide')
-                            obtenerServicios(areaActiva, dataSelect['turno'])
+                            obtenerServicios(areaActiva, dataSelect.array['turno'])
                             // estadoFormulario(1)
 
                         }

@@ -31,11 +31,13 @@ class Miscelaneus
         return $form;
     }
 
-    function setRutaReporte($ruta){
+    function setRutaReporte($ruta)
+    {
         $this->ruta_reporte = $ruta;
     }
 
-    function getRutaReporte(){
+    function getRutaReporte()
+    {
         return $this->ruta_reporte;
     }
 
@@ -369,8 +371,8 @@ class Miscelaneus
                 break;
             case 10:
             case '10':
-                $arregloPaciente = $this->getBodyInfoElectro($master,$turno_id);
-                $info = $master->getByProcedure("sp_info_medicos",[$turno_id,$area_id]);
+                $arregloPaciente = $this->getBodyInfoElectro($master, $turno_id);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_RESULTADO_ELECTRO'];
                 $carpeta_guardado = "electro";
@@ -413,18 +415,19 @@ class Miscelaneus
         return $renderpdf;
     }
 
-    private function getBodyInfoElectro($master, $id_turno){   
-        $response = $master->getById("sp_electro_resultados_b", [null,$id_turno,null]);
+    private function getBodyInfoElectro($master, $id_turno)
+    {
+        $response = $master->getById("sp_electro_resultados_b", [null, $id_turno, null]);
 
         $arregloPaciente = array(
             "ESTUDIO" => "ELECTROCARDIOGRAMA",
             "TECNICA" => $response[array_key_first($response)]["TECNICA"],
             "HALLAZGO" => $response[array_key_first($response)]['HALLAZGO'],
-            "INTERPRETACION"=> $response[array_key_first($response)]['INTERPRETACION'],
+            "INTERPRETACION" => $response[array_key_first($response)]['INTERPRETACION'],
             "COMENTARIO" => $response[array_key_first($response)]['COMENTARIO']
         );
 
-        return [["ESTUDIOS" =>$arregloPaciente]];
+        return [["ESTUDIOS" => $arregloPaciente]];
     }
 
     private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)
@@ -502,7 +505,6 @@ class Miscelaneus
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
                 );
                 array_push($arrayEtiqueta, $array1);
-                
             } else if ($muestra !== $infoEtiqueta[$i]['MUESTRA']) {
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
                 $muestra = $infoEtiqueta[$i]['MUESTRA'];
@@ -512,7 +514,6 @@ class Miscelaneus
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
                 );
                 array_push($arrayEtiqueta, $array1);
-            
             }
             $arrayEtiquetaEstudios = [];
         }
@@ -835,102 +836,105 @@ class Miscelaneus
         return $response;
     }
 
-    function cleanAttachingFiles($files_array){
+    function cleanAttachingFiles($files_array)
+    {
         $files = [];
-        foreach($files_array as $file){
+        foreach ($files_array as $file) {
             $files[] = $file['RUTA'];
         }
-    
+
         return $files;
     }
 
-    function decodeJson($parsing){
+    function decodeJson($parsing)
+    {
         $decoded = array();
-    
+
         foreach ($parsing as $key => $value) {
-            $aux = json_decode($value,true);
+            $aux = json_decode($value, true);
             $s = 0;
-    
+
             if (is_array($aux)) {
-                foreach($aux as $a){
+                foreach ($aux as $a) {
                     if (is_string($a)) {
-                        $s = $s +1;
+                        $s = $s + 1;
                     }
                 }
                 if ($s > 0) {
                     $aux = $this->decodeJson($aux);
                 }
-                
+
                 $decoded[$key] = $aux;
-            } else{
+            } else {
                 $decoded[$key] = $aux;
             }
-           
         }
-    
+
         return $decoded;
     }
 
 
-    function cleanAttachFilesImage($master,$turno_id,$area_id,$cliente,$reenviar=0,$fecha_busqueda=null){
+    function cleanAttachFilesImage($master, $turno_id, $area_id, $cliente, $reenviar = 0, $fecha_busqueda = null)
+    {
         # reporte
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente,$fecha_busqueda]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente, $fecha_busqueda]);
 
         #reportes filtrados, solo los que estan validados
-        if($reenviar!=0){
-            $reportes_validados = array_filter($response, function($obj){
+        if ($reenviar != 0) {
+            $reportes_validados = array_filter($response, function ($obj) {
                 $r = $obj['DOUBLE_CHECK'] == 1;
                 return $r;
             });
             $response = $reportes_validados;
-        }        
+        }
 
         $reporte = $this->cleanAttachingFiles($response);
-       
-        # imagenes.
-        $capturas = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id,$area_id]);
 
-        if($reenviar!=0 || !is_null($fecha_busqueda)){           
+        # imagenes.
+        $capturas = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id, $area_id]);
+
+        if ($reenviar != 0 || !is_null($fecha_busqueda)) {
             # imagenes filtradas
             $imagenes_array = [];
-            foreach($response as $item){
+            foreach ($response as $item) {
                 $area = $item['AREA'];
                 $turno = $item['TURNO_ID'];
-                $img = array_filter($capturas,function($obj) use ($area,$turno){
-                    $r = $obj['TURNO_ID']==$turno && $obj['AREA_ID'] == $area && isset($obj['RUTA']);
+                $img = array_filter($capturas, function ($obj) use ($area, $turno) {
+                    $r = $obj['TURNO_ID'] == $turno && $obj['AREA_ID'] == $area && isset($obj['RUTA']);
                     return $r;
                 });
-            
-                if(!empty($img)){
-                    foreach($img as $item){
-                        array_push($imagenes_array,$item);
+
+                if (!empty($img)) {
+                    foreach ($img as $item) {
+                        array_push($imagenes_array, $item);
                     }
-                  
                 }
-                
             }
 
             $capturas = $imagenes_array;
         }
 
-        $decodedArray = []; 
-        foreach($capturas as $cap){
+        $decodedArray = [];
+        foreach ($capturas as $cap) {
             $decodedArray[] = $this->decodeJson($cap);
         }
 
         $imagenes = array();
-        foreach($decodedArray as $item){
-            foreach($item['CAPTURAS'][0] as $i){
+        foreach ($decodedArray as $item) {
+            foreach ($item['CAPTURAS'][0] as $i) {
                 $imagenes[] = $i['url'];
-                
             }
         }
-     
+
 
         # unimos ambos arreglos
         $attachment = array_merge($reporte, $imagenes);
         $attachment = array_unique($attachment);
 
-        return [$attachment,$response[array_key_first($response)]['CORREO'],array_map(function($obj){return $obj['TURNO_ID'];},$response),array_map(function($obj){return $obj['NOMBRE_ARCHIVO'];},$response)];
+        return [$attachment, $response[array_key_first($response)]['CORREO'], array_map(function ($obj) {
+            return $obj['TURNO_ID'];
+        }, $response), array_map(function ($obj) {
+            return $obj['NOMBRE_ARCHIVO'];
+        }, $response)];
     }
 }
