@@ -139,14 +139,15 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
             //     a = ''
             // estadoFormulario(2)
             bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
+            // estatusTable('#TablaContenidoResultados')
         })
     } else {
+
         dataSelect = new GuardarArreglo({
             select: false,
             nombre_paciente: 'Sin paciente',
             turno: 0
         })
-
         $('#btnResultados').fadeOut('100');
         getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'Out')
     }
@@ -726,3 +727,5 @@ async function obtenerResultadosOftalmo(data) {
     $('#plan').val(row.PLAN);
     $('#observaciones').val(row.OBSERVACIONES);
 }
+
+

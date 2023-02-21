@@ -968,6 +968,7 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
   });
 }
 
+var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {
   0: "#panel-informacion"
 }, callback = null, tipclick = 'click') {
@@ -993,41 +994,47 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
   // console.log(tablename)
   // console.log(idPanel)
   $(tablename).on('click', 'tr', function () {
-    if ($(this).hasClass('selected')) {
-      $(this).removeClass('selected');
-      array_selected = null;
-      // obtenerPanelInformacion(0, api, tipPanel)
-      for (var i = 0; i < Object.keys(tipPanel).length; i++) {
-        obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
-      }
-      if (callback != null) {
-        callback(0, null);
-      }
-    } else {
-      datatable.$('tr.selected').removeClass('selected');
-      $(this).addClass('selected');
-      array_selected = datatable.row(this).data();
-      if (array_selected != null) {
-        if (panel) {
-          // Lee los 3 objetos para llamar a la funcion
-          for (var i = 0; i < Object.keys(tipPanel).length; i++) {
-            obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
-          }
-        }
-        if (callback != null) {
-          // alert('select')
-          // console.log(array_selected)
-          callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
-        }
-      } else {
+    if (dobleClickSelecTable != datatable.row(this).data()) {
+      if ($(this).hasClass('selected')) {
+        dobleClickSelecTable = false
+        $(this).removeClass('selected');
+        array_selected = null;
+        // obtenerPanelInformacion(0, api, tipPanel)
         for (var i = 0; i < Object.keys(tipPanel).length; i++) {
           obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
         }
         if (callback != null) {
-          callback(0, array_selected);
+          callback(0, null);
         }
-      }
+      } else {
+        dobleClickSelecTable = datatable.row(this).data();
+        datatable.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+        array_selected = datatable.row(this).data();
+        if (array_selected != null) {
+          if (panel) {
+            // Lee los 3 objetos para llamar a la funcion
+            for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+              obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
+            }
+          }
+          if (callback != null) {
+            // alert('select')
+            // console.log(array_selected)
+            callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
+          }
+        } else {
+          for (var i = 0; i < Object.keys(tipPanel).length; i++) {
+            obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
+          }
+          if (callback != null) {
+            callback(0, array_selected);
+          }
+        }
 
+      }
+    } else {
+      // console.log(false)
     }
   })
 }
@@ -1061,7 +1068,7 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) { /
   return 1
 }
 
-function bugGetPanel(divClass, loaderLo, loaderDiv1) {
+function bugGetPanel(divClass, loaderLo, loaderDiv1, table = '') {
   loaderDiv("Out", null, loaderLo, loaderDiv1, 0);
   while (!$(divClass).is(':visible')) {
     if (!$(divClass).is(':visible')) {
