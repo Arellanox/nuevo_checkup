@@ -358,6 +358,16 @@ class Miscelaneus
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 break;
+            case 10:
+            case '10':
+                $arregloPaciente = $this->getBodyInfoElectro($master,$turno_id);
+                $info = $master->getByProcedure("sp_info_medicos",[$turno_id,$area_id]);
+                $datos_medicos = $this->getMedicalCarrier($info);
+                $fecha_resultado = $infoPaciente[0]['FECHA_RESULTADO_ELECTRO'];
+                $carpeta_guardado = "electro";
+                $folio = $infoPaciente[0]['FOLIO_ELECTRO'];
+                $infoPaciente[0]['TITULO'] = 'Reporte de Electrocardiograma';
+                break;
         }
 
         if ($area_id == 0) {
@@ -389,6 +399,20 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyInfoElectro($master, $id_turno){   
+        $response = $master->getById("sp_electro_resultados_b", [null,$id_turno,null]);
+
+        $arregloPaciente = array(
+            "ESTUDIO" => "ELECTROCARDIOGRAMA",
+            "TECNICA" => $response[array_key_first($response)]["TECNICA"],
+            "HALLAZGO" => $response[array_key_first($response)]['HALLAZGO'],
+            "INTERPRETACION"=> $response[array_key_first($response)]['INTERPRETACION'],
+            "COMENTARIO" => $response[array_key_first($response)]['COMENTARIO']
+        );
+
+        return ["ESTUDIOS" =>$arregloPaciente];
     }
 
     private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)

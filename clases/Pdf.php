@@ -73,6 +73,9 @@ class Reporte
                 // Ultrasonidos //rayos piu piu
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
+            case 'electro':
+                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
+                break;
             default:
                 $barcode = null;
                 break;
@@ -136,6 +139,12 @@ class Reporte
 
             case 'rayos':
                 $template = render_view('invoice/rayos.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+
+            case 'electro':
+                $template = render_view('invoice/electro.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;
