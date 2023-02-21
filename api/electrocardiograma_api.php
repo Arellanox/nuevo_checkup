@@ -15,7 +15,7 @@ $master = new Master();
 $api = $_POST['api'];
 
 # Datos para la interpretacion
-$id_turno = $_POST['id_turno'];
+$turno_id = $_POST['id_turno'];
 $id_electro = $_POST['id_electro'];
 $comentario = $_POST['comentario'];
 $tecnica = $_POST['tecnica'];
