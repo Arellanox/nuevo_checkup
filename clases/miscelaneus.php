@@ -1,5 +1,7 @@
 <?php
 require_once('../php/phpqrcode/qrlib.php');
+require_once("../lib/libmergpdf/vendor/autoload.php");
+use iio\libmergepdf\Merger;
 include_once "Pdf.php";
 date_default_timezone_set('America/Mexico_City');
 
@@ -938,7 +940,20 @@ class Miscelaneus
         }, $response)];
     }
 
-    public function joinPdf(){
-        
+    public function joinPdf($files = []){
+        $merger = new Merger;
+        if(!empty($files)) {
+            $merger->addIterator($files);
+            
+            try{
+                $createpdf = $merger->merge();
+                return $createpdf;
+
+            }catch(Exception $e){
+                echo $e;
+            }
+
+        }
+        return null;
     }
 }

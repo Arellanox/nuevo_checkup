@@ -40,6 +40,15 @@ switch ($api) {
         break;
     case 3:
         # reservado para actualizar
+        $ids = array();
+        $valores = array();
+        foreach($medidas as $key => $value){
+            // array_push($ids,$key);
+            // array_push($valores,$value);
+            $ids[] = $key;
+            $valores[] = $value;
+        }
+        $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g",[$id_turno,json_encode($ids),json_encode($valores)]);
         break;
     case 4:
         # eliminar

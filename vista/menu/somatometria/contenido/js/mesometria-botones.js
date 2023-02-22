@@ -3,7 +3,7 @@ $('#form-resultados-somatometria').submit(function (event) {
     var form = document.getElementById("form-resultados-somatometria");
     var formData = new FormData(form);
     formData.set('id_turno', turno)
-    formData.set('api', 1);
+    formData.set('api', 3);
 
     Swal.fire({
       title: "¿Está seguro que todos los datos están correctos?",

@@ -37,6 +37,9 @@ switch ($api) {
             $url = $master->reportador($master, $turno_id, 10, "electro", "url", 0, 0, 0);
 
             # combinar el reporte de bimo con el pdf del electro y guardarlo en la misma ruta
+            $electro_search = $master->getByProcedure("sp_electro_resultados_b",[null,$turno_id,null]);
+            $img_electro = $electro_search[array_key_first($electro_search)]['ARCHIVO'];
+            
             $reporte_final = "combinacion de reporte bimo con el electrocargiograma";
             
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, $comentario, $interpretacion, $tecnica, $hallazgo, $url, $confirmado, null]);
@@ -56,7 +59,7 @@ switch ($api) {
                 $dir = explode("nuevo_checkup", $archivo);
                 if (copy(".." . $dir[1], $destination . basename($archivo))) {
                     # si se copia correctamente, borramos el archivo de la carpeta global.
-                    unlink($destination);
+                    unlink($destination.basename($archivo));
 
                     #guardarmos la direccion del electro.
                     $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
