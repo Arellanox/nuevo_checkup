@@ -50,7 +50,7 @@ session_start();
   <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar">
     <div class="container-fluid">
       <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" /> </a>
-      <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 8%; z-index: 99; position: absolute; left: 50px; top: 12px; transform: rotate(0.04turn);" />
+      <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 7%; z-index: 99; position: absolute; left: 39px; top: 8px; transform: rotate(0.04turn);" />
 
       <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
         <!-- onclick="openNav()" -->
