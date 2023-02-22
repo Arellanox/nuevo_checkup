@@ -4,6 +4,8 @@ $('#form-resultados-somatometria').submit(function (event) {
   var form = document.getElementById("form-resultados-somatometria");
   var formData = new FormData(form);
   formData.set('id_turno', selectListaSignos['ID_TURNO'])
+  formData.set('medidas[3]', $('#masaMuscular').val())
+
   formData.set('api', 3);
 
   Swal.fire({
