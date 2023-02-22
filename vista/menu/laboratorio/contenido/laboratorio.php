@@ -85,7 +85,10 @@
     <div class="preloader" id="loader-Lab"></div>
   </div>
 </div>
-<a href="#" class="btn-flotante" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-question-diamond"></i></a>
+<a href="#" class="btn-flotante" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+  <!-- <i class="bi bi-question-diamond"></i> -->
+  <img src="https://bimo-lab.com/nuevo_checkup/931950.png" alt="" style="height: 23px;">
+</a>
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -124,7 +127,7 @@
     /* Espacio entre letras */
     background-color: #E91E63;
     /* Color de fondo */
-    padding: 7px 10px 7px 10px;
+    padding: 4px 7px 8px 7px;
     /* Relleno del boton */
     position: fixed;
     bottom: 40px;
