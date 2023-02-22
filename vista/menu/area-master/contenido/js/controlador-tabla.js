@@ -133,10 +133,13 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     break;
                 case 10: //Electrocardiograma
                     $('#btn-inter-areas').fadeIn(0);
-                    document.getElementById(formulario).reset()
-                    if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-                    if (selectEstudio.array.length)
-                        1
+                    if (formulario != 1) {
+                        document.getElementById(formulario).reset()
+                        if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                        if (selectEstudio.array.length)
+                            1
+                    }
+
                     // await obtenerResultadosOftalmo(selectEstudio.array)
                     // ObtenerResultadosUltrsonido(selectEstudio.array);
                     break;

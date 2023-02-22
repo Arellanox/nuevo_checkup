@@ -84,5 +84,7 @@ $('#cargarElectroCaptura').click(function (e) {
         } else {
             alertToast('Por favor seleccione una opción')
         }
+    } else {
+        alertMensaje('info', 'Oops...', 'No tienes permiso para realizar esta acción')
     }
 })

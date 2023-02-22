@@ -1,9 +1,9 @@
-.modal-header{
+.modal-header {
   background-color: rgb(000, 078, 089);
   color: white;
 }
 
-.modal-body{
+.modal-body {
   background-color: #f6fdff;
   color: rgb(000, 078, 089);
   padding-left: 30px;
@@ -11,19 +11,19 @@
 }
 
 
-.modal-body label{
+.modal-body label {
   background-color: #f6fdff;
   color: black;
   font-weight: 500;
 }
 
-.modal-body p{
+.modal-body p {
   color: rgb(000, 175, 170);
-  font-weight:normal;
+  font-weight: normal;
   letter-spacing: 1px;
 }
 
-.input-form{
+.input-form {
   width: 100%;
   padding: 7px 15px;
   margin: 0px 0px 10px 0px;
@@ -55,23 +55,24 @@
   color: rgb(0 78 89);
   height: 39px;
 }
-.select2-selection--multiple{
+
+.select2-selection--multiple {
   /* padding: 7px 15px; */
   margin: 0px 0px 10px 0px;
   /* display: inline-block; */
-  border-bottom: 2px solid #000  !important;
-  border-left: 0px  !important;
-  border-right: 0px  !important;
-  border-top: 0px  !important;
-  border-radius: 4px  !important;
-  box-sizing: border-box  !important;
-  background-color: rgb(216 223 225 / 38%)  !important;
-  color: rgb(0 78 89)  !important;
+  border-bottom: 2px solid #000 !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  border-top: 0px !important;
+  border-radius: 4px !important;
+  box-sizing: border-box !important;
+  background-color: rgb(216 223 225 / 38%) !important;
+  color: rgb(0 78 89) !important;
   min-height: 40px !important;
 
 }
 
-.input-span{
+.input-span {
   display: flex;
   align-items: center;
   padding: 0.375rem 0.75rem;
@@ -87,11 +88,11 @@
   margin-bottom: 10px;
 }
 
-.modal-footer{
+.modal-footer {
   background-color: rgb(216 223 225);
 }
 
-.btn-cancelar{
+.btn-cancelar {
   background-color: rgb(194 204 209);
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
@@ -99,11 +100,12 @@
   border-bottom: 2px solid #0000002b;
   border-radius: 4px;
 }
-.btn-cancelar:hover{
+
+.btn-cancelar:hover {
   background-color: rgb(224 233 237);
 }
 
-.btn-confirmar{
+.btn-confirmar {
   background-color: rgb(247 190 0);
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
@@ -111,11 +113,12 @@
   border-bottom: 2px solid #0000002b;
   border-radius: 4px;
 }
-.btn-confirmar:hover{
+
+.btn-confirmar:hover {
   background-color: rgb(247 190 0 / 50%);
 }
 
-.btn-option{
+.btn-option {
   background-color: rgb(0, 115, 247);
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
@@ -124,12 +127,13 @@
   border-radius: 4px;
   color: white;
 }
-.btn-option:hover{
+
+.btn-option:hover {
   background-color: rgba(0, 115, 247, 0.5);
   color: white !important;
 }
 
-.btn-borrar{
+.btn-borrar {
   background-color: rgb(247 0 0);
   border-left: 2px solid #0000002b;
   border-right: 2px solid #0000002b;
@@ -138,12 +142,28 @@
   border-radius: 4px;
   color: white;
 }
-.btn-borrar:hover{
+
+.btn-borrar:hover {
   background-color: rgb(247 0 0 / 70%);
   color: white !important;
 }
 
-.label-span{
+.btn-turquesa {
+  background-color: rgb(000, 175, 170);
+  border-left: 2px solid #0000002b;
+  border-right: 2px solid #0000002b;
+  border-top: 1px solid #0000002b;
+  border-bottom: 2px solid #0000002b;
+  border-radius: 4px;
+  color: white;
+}
+
+.btn-turquesa:hover {
+  background-color: rgba(0, 175, 169, 0.637);
+  color: white !important;
+}
+
+.label-span {
   background-color: #f6fdff;
   color: black;
   text-align: justify;
@@ -152,20 +172,21 @@
 }
 
 
-.bg-acordion{
+.bg-acordion {
   background-color: #f6fdff;
   color: rgb(000, 078, 089);
 }
 
-.bg-acordion button{
+.bg-acordion button {
   background-color: #f6fdff;
   color: rgb(000, 078, 089);
 }
 
-.bg-acordion label{
+.bg-acordion label {
   background-color: #f6fdff;
   color: rgb(000, 078, 089);
-  background-color:rgb(0 0 0 / 0);padding-left:5px;
+  background-color: rgb(0 0 0 / 0);
+  padding-left: 5px;
   font-size: 16px;
   font-weight: bold;
 }

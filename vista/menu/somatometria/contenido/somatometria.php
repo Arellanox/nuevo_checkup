@@ -54,7 +54,7 @@
             <li class="list-group-item">
               <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Frecuencia Cardiaca</p>
               <div class="input-group">
-                <input type="text" class="form-control input-form" id="frecuenciaCardiaca" name="medidas[]resultado[]" placeholder="">
+                <input type="text" class="form-control input-form" id="frecuenciaCardiaca" name="medidas[8]" placeholder="">
                 <span class="input-span">bpm</span>
               </div>
             </li>
@@ -62,7 +62,7 @@
             <li class="list-group-item">
               <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Frecuencia Respiratoria</p>
               <div class="input-group">
-                <input type="text" class="form-control input-form" id="frecuenciaRespiratoria" name="medidas[]resultado[]" placeholder="">
+                <input type="text" class="form-control input-form" id="frecuenciaRespiratoria" name="medidas[5]" placeholder="">
                 <span class="input-span">rpm</span>
               </div>
 
@@ -71,7 +71,7 @@
             <li class="list-group-item">
               <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Sistólica</p>
               <div class="input-group">
-                <input type="text" class="form-control input-form" id="sistolica" name="medidas[]resultado[]" placeholder="">
+                <input type="text" class="form-control input-form" id="sistolica" name="medidas[6]" placeholder="">
                 <span class="input-span">mmHg</span>
               </div>
             </li>
@@ -82,7 +82,7 @@
             <li class="list-group-item">
               <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Diastólica</p>
               <div class="input-group">
-                <input type="text" class="form-control input-form" id="diastolica" name="medidas[]resultado[]" placeholder="">
+                <input type="text" class="form-control input-form" id="diastolica" name="medidas[7]" placeholder="">
                 <span class="input-span">mmHg</span>
               </div>
             </li>
@@ -90,7 +90,7 @@
             <li class="list-group-item">
               <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Saturación de Oxígeno</p>
               <div class="input-group">
-                <input type="text" class="form-control input-form" id="saturacionOxigeno" name="medidas[]resultado[]" placeholder="">
+                <input type="text" class="form-control input-form" id="saturacionOxigeno" name="medidas[11]" placeholder="">
                 <span class="input-span">%</span>
               </div>
             </li>
@@ -98,7 +98,7 @@
             <li class="list-group-item">
               <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Temperatura</p>
               <div class="input-group">
-                <input type="text" class="form-control input-form" id="temperatura" name="medidas[]resultado[]" placeholder="">
+                <input type="text" class="form-control input-form" id="temperatura" name="medidas[4]" placeholder="">
                 <span class="input-span">C</span>
               </div>
             </li>
@@ -120,7 +120,7 @@
 
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Estatura</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" data-id='calculoEstaturaMasaCorpo' id="estatura" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" data-id='calculoEstaturaMasaCorpo' id="estatura" name="medidas[1]" placeholder="">
                         <span class="input-span">cm</span>
                       </div>
 
@@ -128,7 +128,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Peso</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" data-id='calculoPesoMasaCorpo' id="peso" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" data-id='calculoPesoMasaCorpo' id="peso" name="medidas[2]" placeholder="">
                         <span class="input-span">kg</span>
                       </div>
 
@@ -136,7 +136,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Masa Corporal</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" data-id="calculoMasaCorpo" id="masaCorporal" name="medidas[]resultado[]" placeholder="" disabled>
+                        <input type="text" class="form-control input-form" data-id="calculoMasaCorpo" id="masaCorporal" name="medidas[3]" placeholder="" disabled>
                         <span class="input-span">kg/m2</span>
                       </div>
 
@@ -159,7 +159,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Masa Muscular</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" id="masaMuscular" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" id="masaMuscular" name="medidas[9]" placeholder="">
                         <span class="input-span">kg</span>
                       </div>
 
@@ -167,7 +167,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Porcentaje de Grasa Visceral</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" id="porcentajeGrasaVisceral" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" id="porcentajeGrasaVisceral" name="medidas[13]" placeholder="">
                         <span class="input-span">%</span>
                       </div>
 
@@ -181,7 +181,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Huesos</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" id="huesos" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" id="huesos" name="medidas[14]" placeholder="">
                         <span class="input-span">mm</span>
                       </div>
 
@@ -189,7 +189,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Metabolismo</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" id="metabolismo" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" id="metabolismo" name="medidas[15]" placeholder="">
                         <span class="input-span">tmb</span>
                       </div>
 
@@ -198,7 +198,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Edad del cuerpo</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" id="edadCuerpo" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" id="edadCuerpo" name="medidas[17]" placeholder="">
                         <span class="input-span">años</span>
                       </div>
 
@@ -206,7 +206,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Perímetro Cefálico</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" id="perimetroCefalico" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" id="perimetroCefalico" name="medidas[10]" placeholder="">
                         <span class="input-span">cm</span>
                       </div>
 
@@ -214,7 +214,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Porcentaje de Proteínas</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" id="porcentajeProteinas" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" id="porcentajeProteinas" name="medidas[16]" placeholder="">
                         <span class="input-span">%</span>
                       </div>
 
@@ -222,7 +222,7 @@
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Porcentaje de Agua</p>
                       <div class="input-group">
-                        <input type="text" class="form-control input-form" id="porcentajeAgua" name="medidas[]resultado[]" placeholder="">
+                        <input type="text" class="form-control input-form" id="porcentajeAgua" name="medidas[12]" placeholder="">
                         <span class="input-span">%</span>
                       </div>
 
