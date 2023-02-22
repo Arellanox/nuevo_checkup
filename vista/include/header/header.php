@@ -50,7 +50,7 @@ session_start();
   <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar">
     <div class="container-fluid">
       <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" /> </a>
-      <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" />
+      <!-- <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" /> -->
 
       <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
         <!-- onclick="openNav()" -->
@@ -67,6 +67,16 @@ session_start();
         <ul class="nav navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a>
+
+            <!-- <a data-bs-toggle="dropdown" type="button" class="">
+              <div class=" container-avatar">
+                <img src="http://localhost/nuevo_checkup/archivos/sistema/istockphoto-1270987867-612x612%20(1)%20(1).jpg" alt="Avatar" class="image-avatar">
+                <div class="overlay-avatar">
+                  <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
+                </div>
+              </div>
+            </a> -->
+
             <ul class="dropdown-menu dropdown-menu-lg-end bg-navbar-drop">
               <?php include "navbar-menu/navlink-dropuser.php"; ?>
             </ul>
@@ -76,6 +86,7 @@ session_start();
       </div>
     </div>
   </nav>
+
 <?php include "offcanvas.php";
     break;
 } ?>
