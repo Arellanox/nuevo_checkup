@@ -203,7 +203,13 @@ function checkNumber(x) {
 
 function ifnull(data) {
   if (typeof data === 'undefined') return '';
-  if (data) return data;
+  if (data) {
+    data = data.replace(/["]+/g, '&quot');
+    data = data.replace(/["]+/g, '&#44;');
+
+
+    return data;
+  }
   return '';
 }
 function firstMayus(str) {

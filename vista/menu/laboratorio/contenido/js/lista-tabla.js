@@ -198,11 +198,8 @@ function generarFormularioPaciente(id) {
               html += '<div class="input-group">';
 
               //Formulario
-              if (row[k]['RESULTADO'] == null) {
-                html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" autocomplete="off">';
-              } else {
-                html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][RESULTADO]" value="' + row[k]['RESULTADO'] + '" autocomplete="off">';
-              }
+              html += `<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" autocomplete="off" value="` + ifnull(row[k]['RESULTADO']) + `" >`;
+
 
               if (row[k]['MEDIDA']) {
                 if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
@@ -222,11 +219,9 @@ function generarFormularioPaciente(id) {
                 html += endDiv;
                 html += colreStart;
                 html += '<div class="input-group">';
-                if (row[k]['RESULTADO'] == null) {
-                  html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" autocomplete="off">';
-                } else {
-                  html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" value="' + row[k]['VALOR_ABSOLUTO'] + '" autocomplete="off">';
-                }
+
+                html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" value="' + ifnull(row[k]['VALOR_ABSOLUTO']) + '" autocomplete="off">';
+
                 if (row[k]['MEDIDA_ABS']) {
                   html += '<span class="input-span">' + row[k]['MEDIDA_ABS'] + '</span>';
                 }
@@ -254,7 +249,7 @@ function generarFormularioPaciente(id) {
             }
             html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
               '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
-              '<textarea name="observacionesGrupos[' + row['ID_GRUPO'] + ']" rows="2;" cols="90" class="input-form">' + row['OBSERVACIONES'] + '</textarea></div ></div > ';
+              '<textarea name="observacionesGrupos[' + row['ID_GRUPO'] + ']" rows="2;" cols="90" class="input-form">' + ifnull(row['OBSERVACIONES']) + '</textarea></div ></div > ';
           }
           html += '</ul>';
 
