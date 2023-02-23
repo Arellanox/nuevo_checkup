@@ -1659,7 +1659,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: autoHeightDiv(0, 342),
+    scrollY: autoHeightDiv(0, 348),
     scrollCollapse: true,
     ajax: {
       dataType: 'json',

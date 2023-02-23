@@ -87,6 +87,7 @@ p {
 
 .span-info {
   color: rgb(247, 190, 000);
+  text-shadow: 0px 0px 0px black;
 }
 
 .none-p {

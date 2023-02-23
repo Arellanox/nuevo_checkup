@@ -89,7 +89,7 @@ if ($menu != "PrincipalMenu") : ?>
   </li>
 <?php endif; ?>
 
-<?php if ($menu == "Servicios" || $menu == "ServiciosLab") : ?>
+<?php if ($menu == "Servicios") : ?>
   <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
     <li class="nav-item">
       <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos" data-bs-dismiss="offcanvas">
@@ -128,19 +128,19 @@ if ($menu != "PrincipalMenu") : ?>
   </li> -->
 
   <li class="nav-item">
-    <a href="" data-bs-toggle="modal" data-bs-target="#modalVistametodo" data-bs-dismiss="offcanvas">
+    <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Metodos
     </a>
   </li>
 
   <li class="nav-item">
-    <a href="#Estudios" data-bs-dismiss="offcanvas">
+    <a href="#EstudiosLab" data-bs-dismiss="offcanvas">
       <i class="bi bi-box"></i> Estudios
     </a>
   </li>
 
   <li class="nav-item">
-    <a href="#Grupos" data-bs-dismiss="offcanvas">
+    <a href="#GruposLab" data-bs-dismiss="offcanvas">
       <i class="bi bi-collection"></i> Grupos de examenes
     </a>
   </li>

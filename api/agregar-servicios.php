@@ -496,7 +496,7 @@ function agregarServicio($parametros)
     return $response;
 }
 
-function agregarGrupoExamen($parametros)
+function agregarGrupoExamen($parametros) #Pueden ser vacios
 {
     $master = new Master();
     $response = $master->insertByProcedure('sp_detalle_grupo_g', $parametros);
@@ -511,7 +511,7 @@ function agregarValoresReferencia($parametros)
     echo "referencia </br>";
 }
 
-function agregarMetodo($parametros)
+function agregarMetodo($parametros) #pueden ser varios
 {
     $master = new Master();
     $master->insertByProcedure('sp_laboratorio_metodo_servicio_g', $parametros);
