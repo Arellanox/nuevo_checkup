@@ -15,7 +15,7 @@ $master = new Master();
 $api = $_POST['api'];
 
 # Datos para la interpretacion
-$turno_id = $_POST['id_turno'];
+$turno_id = isset($_POST['turno_id']) ? $_POST['turno_id'] : $_POST['id_turno'] ;
 $id_electro = $_POST['id_electro'];
 $comentario = $_POST['comentario'];
 $tecnica = $_POST['tecnica'];
@@ -41,10 +41,16 @@ switch ($api) {
             
             $reporte_bimo = explode("nuevo_checkup",$url);
             $img_electro = explode("nuevo_checkup",$img_electro);
-
-            $reporte_final = $master->joinPdf(["..".$reporte_bimo[1],"..".$img_electro[1]]);
  
-            file_put_contents("..".$master->getRutaReporte().basename($url),$reporte_final);
+            $reporte_final = $master->joinPdf(["..".$reporte_bimo[1],"..".$img_electro[1]]);
+    
+            $fh = fopen("..".$master->getRutaReporte().basename($url), 'a');
+            if(fwrite($fh, $createpdf)){
+                echo "combinado";
+            } else {
+                echo "error. probablemente esta siendo usado";
+            }
+            fclose($fh);
 
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, null, null, null, null, $url, $confirmado, null]);
         } else {

@@ -2,6 +2,10 @@
 require_once('../php/phpqrcode/qrlib.php');
 require_once("../lib/libmergpdf/vendor/autoload.php");
 use iio\libmergepdf\Merger;
+use iio\libmergepdf\Pages;
+use iio\libmergepdf\Driver\TcpdiDriver;
+use iio\libmergepdf\Driver\Fpdi2Driver;
+use iio\libmergepdf\Source\FileSource;
 include_once "Pdf.php";
 date_default_timezone_set('America/Mexico_City');
 
@@ -376,7 +380,7 @@ class Miscelaneus
                 $arregloPaciente = $this->getBodyInfoElectro($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
-                $fecha_resultado = $infoPaciente[0]['FECHA_RESULTADO_ELECTRO'];
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_ELECTRO'];
                 $carpeta_guardado = "electro";
                 $folio = $infoPaciente[0]['FOLIO_ELECTRO'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Electrocardiograma';
@@ -942,9 +946,10 @@ class Miscelaneus
 
     public function joinPdf($files = []){
         $merger = new Merger;
+        print_r($files);
         if(!empty($files)) {
             $merger->addIterator($files);
-            
+            echo "objeto";
             try{
                 $createpdf = $merger->merge();
                 return $createpdf;
