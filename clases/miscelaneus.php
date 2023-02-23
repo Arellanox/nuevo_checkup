@@ -946,10 +946,8 @@ class Miscelaneus
 
     public function joinPdf($files = []){
         $merger = new Merger;
-        print_r($files);
         if(!empty($files)) {
             $merger->addIterator($files);
-            echo "objeto";
             try{
                 $createpdf = $merger->merge();
                 return $createpdf;
