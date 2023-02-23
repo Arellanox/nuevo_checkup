@@ -101,7 +101,8 @@ switch ($api) {
         $response = $files;
         break;
     case 4:
-        print_r($master->scanDirectory('../electro_img/'));
+       # eliminar
+       $response = $master->deleteByProcedure("sp_electro_resultados_e",[$turno_id]);
         break;
     case 5:
         $response1 = $master->deleteByProcedure("sp_electro_resultados_e", [$id_electro]);
