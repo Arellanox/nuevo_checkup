@@ -48,6 +48,11 @@ switch ($api) {
             fwrite($fh, $reporte_final);
             fclose($fh);
 
+            #eliminamos el archivo de electro
+            unlink("../reportes/modulo/electro/$turno_id/".basename($img_electro[1]));
+            # eliminamos la carpeta
+            rmdir("../reportes/modulo/electro/$turno_id");
+
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, null, null, null, null, $url, $confirmado, null]);
         } else {
             // solo guardamos la informacion del reporte. Sin confirmar          
