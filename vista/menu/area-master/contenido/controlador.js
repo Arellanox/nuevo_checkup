@@ -68,7 +68,7 @@ function hasLocation() {
         break;
       case "ELECTROCARDIOGRAMA_CAPTURAS":
         formulario = "1"; // Para toma capturas
-        api_capturas = 1;
+        api_capturas = 5;
         api_interpretacion = 1;
         url_api = 'electrocardiograma_api';
         subtipo = 'ELECTROTOMA';
