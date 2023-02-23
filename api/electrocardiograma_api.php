@@ -45,11 +45,7 @@ switch ($api) {
             $reporte_final = $master->joinPdf(["..".$reporte_bimo[1],"..".$img_electro[1]]);
     
             $fh = fopen("..".$master->getRutaReporte().basename($url), 'a');
-            if(fwrite($fh, $createpdf)){
-                echo "combinado";
-            } else {
-                echo "error. probablemente esta siendo usado";
-            }
+            fwrite($fh, $$reporte_final);
             fclose($fh);
 
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, null, null, null, null, $url, $confirmado, null]);
