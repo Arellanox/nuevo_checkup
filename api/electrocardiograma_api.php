@@ -39,7 +39,7 @@ switch ($api) {
             # combinar el reporte de bimo con el pdf del electro y guardarlo en la misma ruta
             $electro_search = $master->getByProcedure("sp_electro_resultados_b",[null,$turno_id,null]);
             $img_electro = $electro_search[array_key_first($electro_search)]['ARCHIVO'];
-            
+
             $reporte_final = "combinacion de reporte bimo con el electrocargiograma";
             
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, $comentario, $interpretacion, $tecnica, $hallazgo, $url, $confirmado, null]);
@@ -57,13 +57,24 @@ switch ($api) {
                 $destination = "../reportes/modulo/electro/$turno_id/";
                 $r = $master->createDir($destination);
                 $dir = explode("nuevo_checkup", $archivo);
-                if (copy(".." . $dir[1], $destination . basename($archivo))) {
-                    # si se copia correctamente, borramos el archivo de la carpeta global.
-                    unlink($destination.basename($archivo));
 
-                    #guardarmos la direccion del electro.
-                    $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
+                $folder = $master->scanDirectory($destination);
+               
+                //borrar el archivo anterior, si existe
+                if(!empty($folder)){
+                    foreach($folder as $file){
+                        unlink($file);
+                    }
                 }
+
+                if (copy(".." . $dir[1], $destination . basename($archivo))) {
+                    # si se copia correctamente, borramos el archivo de la carpeta generica.
+                    unlink('..'.$dir[1]);
+        
+                    #guardarmos la direccion del electro.
+                    $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id/".basename($archivo), null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
+                }
+               
             } else {
                 #guardarmos la direccion del electro.
                 $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
@@ -71,9 +82,9 @@ switch ($api) {
         }
         break;
     case 2:
-        #seleccionar el pdf del paciente
-        $response = 1;
-        break;
+        #buscar
+        $response = $master->getByProcedure("sp_electro_resultados_b", [null,$turno_id,null] );
+         break;
     case 3:
         # recuperar los electros de la carpeta global
         $folder = "../electro_img/";
@@ -90,8 +101,7 @@ switch ($api) {
         $response = $files;
         break;
     case 4:
-        $response1 = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, null, null, null, $comentario]);
-        $response = $response1;
+        print_r($master->scanDirectory('../electro_img/'));
         break;
     case 5:
         $response1 = $master->deleteByProcedure("sp_electro_resultados_e", [$id_electro]);

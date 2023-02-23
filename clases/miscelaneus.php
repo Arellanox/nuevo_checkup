@@ -956,4 +956,44 @@ class Miscelaneus
         }
         return null;
     }
+
+    // public function changeLocationFile($old_directory,$new_directory){
+    //     // if (copy(".." . $dir[1], $destination . basename($archivo))) {
+    //     //     # si se copia correctamente, borramos el archivo de la carpeta generica.
+    //     //     unlink('..'.$dir[1]);
+
+    //     //     #guardarmos la direccion del electro.
+    //     //     $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
+    //     // }
+
+    //     if (copy($old_directory,$new_directory)) {
+    //         # si se copia correctamente, borramos el archivo de la carpeta generica.
+    //         unlink($old_directory);
+
+    //         #guardarmos la direccion del electro.
+    //         $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
+    //     }
+    // }
+
+    public function  scanDirectory($directory){
+        #enviar los dos puntos [../] basandose en el archivo de miscelaneus
+        $files = array();
+        if ($gestor = opendir($directory)) {
+            // echo "Gestor de directorio: $gestor\n";
+            // echo "Entradas:\n";
+        
+            /* Esta es la forma correcta de iterar sobre el directorio. */
+            $count = 0;
+            while (false !== ($entrada = readdir($gestor))) {
+                if($count >1){
+                    array_push($files,$directory.$entrada);
+                }
+                $count++;
+            }
+        
+            closedir($gestor);
+        }
+
+        return $files;
+    }
 }
