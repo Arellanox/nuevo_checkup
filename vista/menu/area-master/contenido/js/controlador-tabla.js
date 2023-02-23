@@ -262,10 +262,10 @@ async function obtenerServicios(area, turno) {
 
                     //     }
                     // }
-                    console.log(selectEstudio)
+                    // console.log(selectEstudio)
                     for (const key in row[0]) {
                         if (Object.hasOwnProperty.call(row[0], key)) {
-                            console.log(key, row[0][key]['GUARDADO'], row[0][key]['CONFIRMADO'])
+                            // console.log(key, row[0][key]['GUARDADO'], row[0][key]['CONFIRMADO'])
                             if (row[0][key]['GUARDADO'] == 1)
                                 trueResultados = 1
                             if (row[0][key]['CONFIRMADO'] == 1)
@@ -277,7 +277,7 @@ async function obtenerServicios(area, turno) {
                     if (trueResultados)
                         selectEstudio.setguardado(trueResultados)
                     //
-                    console.log(selectEstudio)
+                    // console.log(selectEstudio)
 
                     if (row.length)
                         panelResultadoPaciente(row, area);
@@ -296,7 +296,7 @@ async function obtenerServicios(area, turno) {
     })
 }
 async function panelResultadoPaciente(row, area) {
-    console.log(row)
+
     let html = '';
     let itemStart = '<div class="accordion-item bg-acordion">';
     let itemEnd = '</div>';
@@ -312,6 +312,7 @@ async function panelResultadoPaciente(row, area) {
     switch (area) {
         case 3: case 10:
             if (row[0].length) {
+                // console.log(row[0])
                 for (const i in row) {
 
                     // console.log(row[i]);
@@ -466,7 +467,7 @@ async function panelResultadoPaciente(row, area) {
                     truehtml = true;
                 }
 
-                console.log(truehtml);
+                // console.log(truehtml);
                 html += bodyEnd + '</div>';
                 html += itemEnd;
             }
@@ -543,7 +544,7 @@ function estadoFormulario(estado) {
             confirmado = 1
             $('#btn-ver-reporte').fadeIn()
             $('#btn-confirmar-reporte').fadeIn()
-            if (session.permisos['Actualizar reportes'] != 1) {
+            if (session.permisos['ActuaReportIm'] != 1) {
 
                 $('button[type="submit"][form="' + formulario + '"]').prop('disabled', true)
                 $('#btn-confirmar-reporte').prop('disabled', true);
@@ -554,7 +555,7 @@ function estadoFormulario(estado) {
         case 2:
             $('#btn-ver-reporte').fadeIn()
             $('#btn-confirmar-reporte').fadeIn()
-            console.log('si')
+            // console.log('si')
             break;
         case 3:
 
@@ -683,7 +684,7 @@ function cargarForm(campo, id, campoAjax, texto) {
 async function GenerarListaCapturasImagenologia(row) {
     return new Promise(resolve => {
         let html = '';
-        console.log(row);
+        // console.log(row);
         for (var i = 0; i < row.length; i++) {
             if (row[i]['CAPTURAS'].length == 0) {
                 html += `<li class="list-group-item d-flex justify-content-between align-items-start d-flex align-items-center text-danger">` +
@@ -759,7 +760,7 @@ async function obtenerResultadosElectro(data) {
 }
 
 async function mostrarElectroInterpretacion(url) {
-    console.log(url)
+    // console.log(url)
     $('#capturaElectro').html('<object data="' + url + '"' +
         'type="application/pdf" width="100%" style="height: 82vh;">' +
         '<iframe src="' + url + '"' +
