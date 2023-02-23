@@ -61,7 +61,7 @@ function hasLocation() {
         break;
       case "ELECTROCARDIOGRAMA":
         formulario = "formSubirInterpretacionElectro";
-        api_capturas = 1;
+        api_capturas = 5;
         api_interpretacion = 1;
         url_api = 'electrocardiograma_api';
         obtenerContenidoVistaMaster(10, 'Resultados de Electrocardiograma', 'contenido_modal.php');
