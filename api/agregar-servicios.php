@@ -55,7 +55,7 @@ $servicios = [
         'medida_id' => null,
 
         //Valores de referencia 
-        'valor_minimo' => '≥ 7.2',
+        'valor_minimo' => '&gt;=  7.2',
         'valor_maximo' => null,
 
     ],
@@ -75,7 +75,7 @@ $servicios = [
         'medida_id' => 9,
 
         //Valores de referencia 
-        'valor_minimo' => '< 2 CM',
+        'valor_minimo' => '&lt; 2 CM',
         'valor_maximo' => null,
 
     ],
@@ -118,7 +118,7 @@ $servicios = [
         'medida_id' => 17,
 
         //Valores de referencia 
-        'valor_minimo' => '≤ 8%',
+        'valor_minimo' => '&lt;= 8%',
         'valor_maximo' => null,
 
     ],
@@ -138,7 +138,7 @@ $servicios = [
         'medida_id' => 17,
 
         //Valores de referencia 
-        'valor_minimo' => '≤ 38%',
+        'valor_minimo' => '&lt;= 38%',
         'valor_maximo' => null,
 
     ],
@@ -250,7 +250,7 @@ $servicios = [
         'medida_id' => 77,
 
         //Valores de referencia 
-        'valor_minimo' => '12 ML',
+        'valor_minimo' => '12',
         'valor_maximo' => '15 X10^6 ML',
 
     ],
@@ -473,6 +473,20 @@ foreach ($servicios as $key => $value) {
     $orden++;
     sleep(5);
 };
+
+
+foreach ($metodos as $key2 => $idMetodo) {
+    agregarMetodo([
+        $idMetodo,
+        305
+    ]);
+}
+
+agregarEquipoExamenes([
+    null,
+    7,
+    305
+]);
 
 
 function agregarServicio($parametros)
