@@ -69,11 +69,14 @@ $('#cargarElectroCaptura').click(function (e) {
                         $("#cargarElectroCaptura").prop('disabled', true)
                         alertMensaje('info', 'Cargando electro', 'Espere un momento');
                     },
-                    success: function (data) {
+                    success: async function (data) {
                         if (mensajeAjax(data)) {
                             alertMensaje('success', '¡Electro cargado!', 'Podrás consultar el documento cargado en la ventana de resultados');
                             $('#MostrarCapturasElectro').modal('hide')
-                            obtenerServicios(areaActiva, dataSelect.array['turno'])
+                            await obtenerServicios(areaActiva, dataSelect.array['turno'])
+                            await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
+
+                            $("#cargarElectroCaptura").prop('disabled', false)
                             // estadoFormulario(1)
 
                         }
