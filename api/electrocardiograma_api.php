@@ -43,9 +43,9 @@ switch ($api) {
             $img_electro = explode("nuevo_checkup",$img_electro);
  
             $reporte_final = $master->joinPdf(["..".$reporte_bimo[1],"..".$img_electro[1]]);
-    
-            $fh = fopen("..".$master->getRutaReporte().basename($url), 'a');
-            fwrite($fh, $$reporte_final);
+
+            $fh = fopen("../".$master->getRutaReporte().basename($url), 'a');
+            fwrite($fh, $reporte_final);
             fclose($fh);
 
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, null, null, null, null, $url, $confirmado, null]);
