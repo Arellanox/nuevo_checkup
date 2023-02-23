@@ -135,13 +135,15 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                     $('#btn-inter-areas').fadeIn(0);
                     if (formulario != 1) {
                         document.getElementById(formulario).reset()
+                        $('#capturaElectro').html('')
                         if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-                        if (selectEstudio.array.length)
-                            1
-                    }
 
-                    // await obtenerResultadosOftalmo(selectEstudio.array)
-                    // ObtenerResultadosUltrsonido(selectEstudio.array);
+                        if (selectEstudio.array.length) {
+                            await obtenerResultadosElectro(selectEstudio.array)
+                            if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
+                                await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
+                        }
+                    }
                     break;
                 default:
                     botonesResultados('activar');
@@ -721,30 +723,53 @@ async function GenerarListaCapturasImagenologia(row) {
 async function obtenerResultadosOftalmo(data) {
     document.getElementById(formulario).reset()
     let row = data[0]
-    $('#antecedentes_personales').val(row.ANTECEDENTES_PERSONALES);
-    $('#antecedentes_oftalmologicos').val(row.ANTECEDENTES_OFTALMOLOGICOS);
-    $('#padecimiento_actual').val(row.PADECIMIENTO_ACTUAL);
-    // $('#agudeza_visual').val(row.AGUDEZA_VISUAL_SIN_CORRECCION);
-    $('#od').val(row.OD);
-    $('#oi').val(row.OI);
-    $('#jaeger').val(row.JAEGER);
+    $('#antecedentes_personales').val(ifnull(row.ANTECEDENTES_PERSONALES));
+    $('#antecedentes_oftalmologicos').val(ifnull(row.ANTECEDENTES_OFTALMOLOGICOS));
+    $('#padecimiento_actual').val(ifnull(row.PADECIMIENTO_ACTUAL));
+    // $('#agudeza_visual').val(ifnull(row.AGUDEZA_VISUAL_SIN_CORRECCION));
+    $('#od').val(ifnull(row.OD));
+    $('#oi').val(ifnull(row.OI));
+    $('#jaeger').val(ifnull(row.JAEGER));
 
-    $('#od_con').val(row.CON_OD);
-    $('#oi_con').val(row.CON_OI);
-    $('#jaeger_con').val(row.CON_JAEGER);
+    $('#od_con').val(ifnull(row.CON_OD));
+    $('#oi_con').val(ifnull(row.CON_OI));
+    $('#jaeger_con').val(ifnull(row.CON_JAEGER));
 
 
 
-    $('#refraccion').val(row.REFRACCION);
-    $('#prueba').val(row.PRUEBA);
-    $('#exploracion_oftalmologica').val(row.EXPLORACION_OFTALMOLOGICA);
-    $('#forias').val(row.FORIAS);
-    $('#campimetria').val(row.CAMPIMETRIA);
-    $('#presion_intraocular_od').val(row.PRESION_INTRAOCULAR_OD);
-    $('#presion_intraocular_oi').val(row.PRESION_INTRAOCULAR_OI);
-    $('#diagnostico').val(row.DIAGNOSTICO);
-    $('#plan').val(row.PLAN);
-    $('#observaciones').val(row.OBSERVACIONES);
+    $('#refraccion').val(ifnull(row.REFRACCION));
+    $('#prueba').val(ifnull(row.PRUEBA));
+    $('#exploracion_oftalmologica').val(ifnull(row.EXPLORACION_OFTALMOLOGICA));
+    $('#forias').val(ifnull(row.FORIAS));
+    $('#campimetria').val(ifnull(row.CAMPIMETRIA));
+    $('#presion_intraocular_od').val(ifnull(row.PRESION_INTRAOCULAR_OD));
+    $('#presion_intraocular_oi').val(ifnull(row.PRESION_INTRAOCULAR_OI));
+    $('#diagnostico').val(ifnull(row.DIAGNOSTICO));
+    $('#plan').val(ifnull(row.PLAN));
+    $('#observaciones').val(ifnull(row.OBSERVACIONES));
 }
 
+async function obtenerResultadosElectro(data) {
+    document.getElementById(formulario).reset()
+    let row = data[0]
 
+    $('#tecnica_electro').val(ifnull(row.TECNICA))
+    $('#hallazgo_electro').val(ifnull(row.HALLAZGO))
+    $('#interpretacion_electro').val(ifnull(row.INTERPRETACION))
+}
+
+async function mostrarElectroInterpretacion(url) {
+    console.log(url)
+    $('#capturaElectro').html('<object data="' + url + '"' +
+        'type="application/pdf" width="100%" style="height: 82vh;">' +
+        '<iframe src="' + url + '"' +
+        'width="100%" height="100%" style="border: none;">' +
+        '<p>' +
+        'Your browser does not support PDFs.' +
+        '<a href="' + url + '">Download' +
+        'the PDF</a>' +
+        '.' +
+        '</p>' +
+        '</iframe>' +
+        '</object>')
+}
