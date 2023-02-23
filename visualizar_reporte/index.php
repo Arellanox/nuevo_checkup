@@ -26,9 +26,10 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
-// $api = 'laboratorio';
-// $turno_id = 278;
-// $area_id = 8;
+// $api = 'electro';
+// $turno_id = 288;
+// $area_id = 10;
+
 
 switch ($api) {
     case 'imagenologia':

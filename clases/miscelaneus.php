@@ -380,6 +380,7 @@ class Miscelaneus
                 $carpeta_guardado = "electro";
                 $folio = $infoPaciente[0]['FOLIO_ELECTRO'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Electrocardiograma';
+                
                 break;
         }
 
@@ -419,8 +420,7 @@ class Miscelaneus
 
     private function getBodyInfoElectro($master, $id_turno)
     {
-        $response = $master->getById("sp_electro_resultados_b", [null, $id_turno, null]);
-
+        $response = $master->getByProcedure("sp_electro_resultados_b", [null, $id_turno, null]);
         $arregloPaciente = array(
             "ESTUDIO" => "ELECTROCARDIOGRAMA",
             "TECNICA" => $response[array_key_first($response)]["TECNICA"],
@@ -429,7 +429,7 @@ class Miscelaneus
             "COMENTARIO" => $response[array_key_first($response)]['COMENTARIO']
         );
 
-        return [["ESTUDIOS" => $arregloPaciente]];
+        return $arregloPaciente;
     }
 
     private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)

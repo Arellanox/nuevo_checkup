@@ -35,55 +35,72 @@ switch ($api) {
         if (isset($confirmado)) {
             // confirmamos y creamos el reporte.
             $url = $master->reportador($master, $turno_id, 10, "electro", "url", 0, 0, 0);
-
             # combinar el reporte de bimo con el pdf del electro y guardarlo en la misma ruta
             $electro_search = $master->getByProcedure("sp_electro_resultados_b",[null,$turno_id,null]);
-            $img_electro = $electro_search[array_key_first($electro_search)]['ARCHIVO'];
-
-            $reporte_final = "combinacion de reporte bimo con el electrocargiograma";
+            $img_electro = $electro_search[array_key_first($electro_search)]['ELECTRO_PDF'];
             
-            $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, $comentario, $interpretacion, $tecnica, $hallazgo, $url, $confirmado, null]);
+            $reporte_bimo = explode("nuevo_checkup",$url);
+            $img_electro = explode("nuevo_checkup",$img_electro);
+
+            $reporte_final = $master->joinPdf(["..".$reporte_bimo[1],"..".$img_electro[1]]);
+ 
+            file_put_contents("..".$master->getRutaReporte().basename($url),$reporte_final);
+
+            $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, null, null, null, null, $url, $confirmado, null]);
         } else {
-            // solo guardamos la informacion del reporte. Sin confirmar
-            $response = $master->getByProcedure("sp_electro_resultados_b", [null, $turno_id, null]);
-
-            if (isset($response[0]['ARCHIVO'])) {
-                $response = "Ya existe un electrocardiograma para este paciente.";
-                break;
-            }
-
-            //mover el archivo con la imagen de electro a la caperta del turno.
-            if (isset($archivo)) {
-                $destination = "../reportes/modulo/electro/$turno_id/";
-                $r = $master->createDir($destination);
-                $dir = explode("nuevo_checkup", $archivo);
-
-                $folder = $master->scanDirectory($destination);
-               
-                //borrar el archivo anterior, si existe
-                if(!empty($folder)){
-                    foreach($folder as $file){
-                        unlink($file);
-                    }
-                }
-
-                if (copy(".." . $dir[1], $destination . basename($archivo))) {
-                    # si se copia correctamente, borramos el archivo de la carpeta generica.
-                    unlink('..'.$dir[1]);
+            // solo guardamos la informacion del reporte. Sin confirmar          
+            #guardarmos
+            $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, null]);
         
-                    #guardarmos la direccion del electro.
-                    $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id/".basename($archivo), null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
-                }
-               
-            } else {
-                #guardarmos la direccion del electro.
-                $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
-            }
         }
+        break;
+    case 5:
+        # captutas electro
+        // solo guardamos la informacion del reporte. Sin confirmar
+        $response = $master->getByProcedure("sp_electro_resultados_b", [null, $turno_id, null]);
+
+        if (isset($response[0]['ELECTRO_PDF']) && $_SESSION['permisos']["ActuaCap"]==0) {
+            $response = "Ya existe un electrocardiograma para este paciente.";
+            break;
+        }
+
+        //mover el archivo con la imagen de electro a la caperta del turno.
+        if (isset($archivo)) {
+            $destination = "../reportes/modulo/electro/$turno_id/";
+            $r = $master->createDir($destination);
+            $dir = explode("nuevo_checkup", $archivo);
+
+            $folder = $master->scanDirectory($destination);
+           
+            //borrar el archivo anterior, si existe
+            if(!empty($folder)){
+                foreach($folder as $file){
+                    unlink($file);
+                }
+            }
+
+            if (copy(".." . $dir[1], $destination . basename($archivo))) {
+                # si se copia correctamente, borramos el archivo de la carpeta generica.
+                unlink('..'.$dir[1]);
+    
+                #guardarmos la direccion del electro.
+                $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id/".basename($archivo), null, null, null, null, null, null, null, $usuario]);
+            }
+           
+        } else {
+            $response = "No se recibió archivo.";
+        }
+
         break;
     case 2:
         #buscar
         $response = $master->getByProcedure("sp_electro_resultados_b", [null,$turno_id,null] );
+        if(!empty($response)){
+            foreach ($response as $key =>$item){
+               // $response[$key]['GUARDADO'] = 1;
+                $response[$key]['CAPTURAS'] = array();
+            }
+        }
          break;
     case 3:
         # recuperar los electros de la carpeta global
@@ -103,11 +120,6 @@ switch ($api) {
     case 4:
        # eliminar
        $response = $master->deleteByProcedure("sp_electro_resultados_e",[$turno_id]);
-        break;
-    case 5:
-        $response1 = $master->deleteByProcedure("sp_electro_resultados_e", [$id_electro]);
-
-        $response = $response1;
         break;
     default:
         $response = "Api no definida.";
