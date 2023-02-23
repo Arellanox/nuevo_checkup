@@ -1,0 +1,520 @@
+<?php
+require_once "../clases/master_class.php";
+
+
+
+
+$response = "";
+// $master = new Master();
+
+$servicios = [
+    [
+        //Subir servicio
+        'descripcion' => 'HORA DE EMISIÓN',
+        'medida_id' => null,
+
+        //Valores de referencia 
+        'valor_minimo' => 'PROCESAMIENTO INMEDIATO',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'HORA DE INICIO DEL EXAMEN',
+        'medida_id' => null,
+
+        //Valores de referencia 
+        'valor_minimo' => 'PROCESAMIENTO INMEDIATO',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'ASPECTO',
+        'medida_id' => null,
+
+        //Valores de referencia 
+        'valor_minimo' => 'LIGERAMENTE TURBIO',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'COLOR',
+        'medida_id' => null,
+
+        //Valores de referencia 
+        'valor_minimo' => 'BLANCO GRISASEO',
+        'valor_maximo' => 'BLANCO AMARILLENTO',
+
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'pH',
+        'medida_id' => null,
+
+        //Valores de referencia 
+        'valor_minimo' => '≥ 7.2',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'TURBIDEZ',
+        'medida_id' => null,
+
+        //Valores de referencia 
+        'valor_minimo' => 'MARCADA',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'VISCOCIDAD',
+        'medida_id' => 9,
+
+        //Valores de referencia 
+        'valor_minimo' => '< 2 CM',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'VOLUMEN',
+        'medida_id' => 77,
+
+        //Valores de referencia 
+        'valor_minimo' => '1.4',
+        'valor_maximo' => '4.0',
+
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'LICUEFACCIÓN',
+        'medida_id' => 76,
+
+        //Valores de referencia 
+        'valor_minimo' => 'TOTAL A LOS 60 MIN',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'MOTILIDAD PROGRESIVA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => '31%',
+        'valor_maximo' => '34%',
+
+    ],
+
+
+    [
+        //Subir servicio
+        'descripcion' => 'MOTILIDAD NO PROGRESIVA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => '≤ 8%',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'MOTILIDAD TOTAL',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => '38%',
+        'valor_maximo' => '42%',
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'INMOVILES',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => '≤ 38%',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'MACROCEFALIA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'MICROCEFALIA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'CABEZA ALARGADA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'DOBLE CABEZA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'DOBLE COLA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'COLA CORTA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'COLA LARGA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+
+
+    [
+        //Subir servicio
+        'descripcion' => 'NORMALES',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'ESPERMATOZOIDES MUERTOS',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => '< 43%',
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'ESPERMATOZOIDES VIVOS MOVILES',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => '55%',
+        'valor_maximo' => '63%',
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'ESPERMATOZOIDES POR MILILITRO',
+        'medida_id' => 77,
+
+        //Valores de referencia 
+        'valor_minimo' => '12 ML',
+        'valor_maximo' => '15 X10^6 ML',
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'ESPERMATOZOIDES POR EYACULACIÓN',
+        'medida_id' => null,
+
+        //Valores de referencia 
+        'valor_minimo' => '33',
+        'valor_maximo' => '46 X10^6',
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'AGLUTINACION CABEZA CON CABEZA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'AGLUTINACION SEGMENTO',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'INTERMEDIO CON SEGMENTO',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'INTERMEDIO',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'AGUTINACION COLA CON COLA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+
+
+    [
+        //Subir servicio
+        'descripcion' => 'AGLUTINACION MIXTA',
+        'medida_id' => 17,
+
+        //Valores de referencia 
+        'valor_minimo' => null,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'LEUCOCITOS',
+        'medida_id' => 159,
+
+        //Valores de referencia 
+        'valor_minimo' => 0,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'ERITROCITOS',
+        'medida_id' => 159,
+
+        //Valores de referencia 
+        'valor_minimo' => 0,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'CELULAS EPITELIALES',
+        'medida_id' => 159,
+
+        //Valores de referencia 
+        'valor_minimo' => 0,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'BACTERIAS',
+        'medida_id' => 159,
+
+        //Valores de referencia 
+        'valor_minimo' => 0,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'CRISTALES',
+        'medida_id' => 159,
+
+        //Valores de referencia 
+        'valor_minimo' => 0,
+        'valor_maximo' => null,
+
+    ],
+    [
+        //Subir servicio
+        'descripcion' => 'OTROS',
+        'medida_id' => 159,
+
+        //Valores de referencia 
+        'valor_minimo' => 0,
+        'valor_maximo' => null,
+
+    ],
+];
+
+$area = 6;
+$clasificacion_id = 6;
+$grupo_id = 305;
+$metodos = [2, 6];
+// echo 1;
+
+$orden = 1;
+foreach ($servicios as $key => $value) {
+    echo 1;
+    $id = agregarServicio([
+        null,
+        $value['descripcion'],
+        null,
+        $area,
+        $clasificacion_id,
+        null,
+        $value['medida_id'],
+
+        1,
+        null,
+        null,
+        1,
+        1,
+
+        0,
+        0,
+        null,
+        'Hombre',
+        1,
+        1,
+        1
+    ]);
+
+
+    echo $id . '</br>';
+
+    agregarGrupoExamen([
+        $grupo_id,
+        $id,
+        $orden
+    ]);
+
+
+    agregarValoresReferencia([
+        null,
+        $id,
+        $value['valor_minimo'],
+        $value['valor_maximo'],
+        'HOMBRE',
+        1,
+        100,
+        null
+    ]);
+
+
+    foreach ($metodos as $key2 => $idMetodo) {
+        agregarMetodo([
+            $idMetodo,
+            $id
+        ]);
+    }
+
+
+
+    agregarEquipoExamenes([
+        null,
+        7,
+        $id
+    ]);
+
+
+    agregarContenedorExamenes([
+        $id,
+        1,
+        4
+    ]);
+
+
+
+    // echo $id;
+    // print_r($id);
+
+    $orden++;
+    sleep(5);
+};
+
+
+function agregarServicio($parametros)
+{
+    $master = new Master();
+    $response = $master->insertByProcedure('sp_servicios_g', $parametros);
+    return $response;
+}
+
+function agregarGrupoExamen($parametros)
+{
+    $master = new Master();
+    $response = $master->insertByProcedure('sp_detalle_grupo_g', $parametros);
+    echo "referencia </br>";
+}
+
+function agregarValoresReferencia($parametros)
+{
+    $master = new Master();
+    $response = $master->insertByProcedure('sp_laboratorio_valores_referencia_g', $parametros);
+    echo $response;
+    echo "referencia </br>";
+}
+
+function agregarMetodo($parametros)
+{
+    $master = new Master();
+    $master->insertByProcedure('sp_laboratorio_metodo_servicio_g', $parametros);
+    echo "metodo </br>";
+}
+
+function agregarEquipoExamenes($paramEX)
+{
+    $master = new Master();
+    $master->insertByProcedure('sp_equipos_examenes_g', $paramEX);
+    echo "Equipo </br>";
+}
+
+
+function agregarContenedorExamenes($parametros)
+{
+    $master = new Master();
+    $master->insertByProcedure('sp_contenedores_examenes_g', $parametros);
+    echo "Contenedor </br>";
+}
