@@ -1489,7 +1489,41 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 $(panel).fadeIn(100);
                 resolve(1);
                 break;
+              case 'estudios_muestras':
+                $.ajax({
+                  url: http + servidor + "/nuevo_checkup/api/toma_de_muestra_api.php",
+                  type: "POST",
+                  dataType: 'json',
+                  data: { api: 2, id_turno: row['ID_TURNO'] },
+                  success: function (data) {
+                    let row = data.response.data
 
+                    // $(panel).html('');
+
+
+                    let html = '';
+                    for (var i = 0; i < row.length; i++) {
+                      console.log(row[i]);
+                      html += '<li class="list-group-item">';
+                      html += row[i]['GRUPO'];
+                      html += '</li>';
+                      //<i class="bi bi-arrow-right-short"></i>
+                      //<strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong>
+                    }
+                    $('#lista-estudios-paciente').html(html);
+
+
+                    $(panel).fadeIn(100);
+                    resolve(1);
+
+
+                  },
+                  complete: function () {
+                    loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
+                    resolve(1);
+                  }
+                });
+                break;
               default:
                 console.log('Sin opción panel')
                 setTimeout(function () {

@@ -2,7 +2,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  scrollY: autoHeightDiv(0, 374), //347px
+  scrollY: autoHeightDiv(0, 339), //347px
   scrollCollapse: true,
   lengthMenu: [
     [20, 25, 30, 35, 40, 45, 50, -1],
@@ -16,10 +16,10 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     method: 'POST',
     url: '../../../api/recepcion_api.php',
     beforeSend: function () {
-      loader("In"), array_selected = null
+      loader("In", 'bottom'), array_selected = null
     },
     complete: function () {
-      loader("Out")
+      loader("Out", 'bottom')
     },
     dataSrc: 'response.data'
   },
@@ -109,11 +109,19 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 
 selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, {
   0: "pacientes_api",
-  1: "documentos_api"
+  1: "documentos_api",
+  3: "toma_de_muestra_api"
 }, {
   0: "paciente",
-  1: "documentos-paciente"
+  1: "documentos-paciente",
+  2: "estudios_muestras"
 }, {
   0: "#panel-informacion",
-  1: "#panel-documentos-paciente"
+  1: "#panel-documentos-paciente",
+  2: "#panel-muestras-estudios"
 })
+
+
+$('')
+
+autoHeightDiv('#panel-informacion-pacientesTurnos', 174)
