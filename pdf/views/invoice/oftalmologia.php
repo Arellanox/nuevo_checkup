@@ -207,7 +207,7 @@
 <?php
 
 // para el path del logo 
-$ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
+$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
 
 // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
