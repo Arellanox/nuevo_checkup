@@ -143,6 +143,12 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                             if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
                                 await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
                         }
+                    } else {
+                        botonElectroCaptura(0);
+
+                        if (selectEstudio.array.length)
+                            if (selectEstudio.array[0].ELECTRO_PDF)
+                                botonElectroCaptura(1)
                     }
                     break;
                 default:
@@ -363,6 +369,16 @@ async function panelResultadoPaciente(row, area) {
                     if (img) {
                         html += '<div class="col-12 d-flex justify-content-center">' +
                             '<a type="button" class="btn btn-option me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
+                            '<i class="bi bi-images"></i> Capturas' +
+                            '</a>' +
+                            '</div>';
+                        //Busca si existe interpretación o imagen
+                        truehtml = true;
+                    }
+
+                    if (ifnull(row[i][0]['ELECTRO_PDF'])) {
+                        html += '<div class="col-12 d-flex justify-content-center">' +
+                            '<a type="button" href="' + row[i][0]['ELECTRO_PDF'] + '" class="btn btn-option me-2" style="margin-bottom:4px">' +
                             '<i class="bi bi-images"></i> Capturas' +
                             '</a>' +
                             '</div>';
@@ -759,7 +775,7 @@ async function obtenerResultadosElectro(data) {
     $('#interpretacion_electro').val(ifnull(row.INTERPRETACION))
 }
 
-async function mostrarElectroInterpretacion(url) {
+function mostrarElectroInterpretacion(url) {
     // console.log(url)
     $('#capturaElectro').html('<object data="' + url + '"' +
         'type="application/pdf" width="100%" style="height: 82vh;">' +
@@ -772,5 +788,22 @@ async function mostrarElectroInterpretacion(url) {
         '.' +
         '</p>' +
         '</iframe>' +
-        '</object>')
+        '</object>');
+
+}
+
+function botonElectroCaptura(e) {
+    if (e) {
+        $('#vistaCapturasAreas').html('<div class="row"> <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">' +
+            '<button type="button" class="btn btn-primary me-2 btnResultados" style="margin-bottom:4px" disabled>' +
+            '<i class="bi bi-plus-lg"></i> Captura cargada' +
+            '</button> </div> </div>')
+    } else {
+        $('#vistaCapturasAreas').html('<div class="row"> <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">' +
+            '<button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">' +
+            '<i class="bi bi-plus-lg"></i> Capturar Electro' +
+            '</button> </div> </div>')
+    }
+
+    $('#vistaCapturasAreas').fadeIn(0)
 }

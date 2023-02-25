@@ -151,11 +151,11 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
 
         // Boton  de imagenes
         if (session['permisos']['CaptuElectro'] == 1) {
-          $('#vistaCapturasAreas').html('<div class="row"> <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">' +
-            '<button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">' +
-            '<i class="bi bi-plus-lg"></i> Capturar Electro del  paciente' +
-            '</button> </div> </div>')
-          $('#vistaCapturasAreas').fadeIn(0)
+          // $('#vistaCapturasAreas').html('<div class="row"> <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">' +
+          //   '<button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">' +
+          //   '<i class="bi bi-plus-lg"></i> Capturar Electro del  paciente' +
+          //   '</button> </div> </div>')
+          // $('#vistaCapturasAreas').fadeIn(0)
         }
         break;
 

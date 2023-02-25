@@ -36,7 +36,8 @@ $("#btn-analisis-pdf").click(function () {
   }
 });
 
-$('#btn-capturas-pdf').click(function () {
+
+$(document).on('click', '#btn-capturas-pdf', function () {
   if (dataSelect.array['select']) {
     // $("#ModalSubirCapturas").modal("show");
     switch (areaActiva) {
@@ -52,6 +53,10 @@ $('#btn-capturas-pdf').click(function () {
     alertSelectTable();
   }
 })
+
+// $('').click(function () {
+
+// })
 
 $('#btn-analisis-oftalmo').click(function () {
   if (dataSelect.array['select']) {
