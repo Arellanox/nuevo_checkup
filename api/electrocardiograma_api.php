@@ -48,10 +48,10 @@ switch ($api) {
             fwrite($fh, $reporte_final);
             fclose($fh);
 
-            #eliminamos el archivo de electro
-            unlink("../reportes/modulo/electro/$turno_id/".basename($img_electro[1]));
-            # eliminamos la carpeta
-            rmdir("../reportes/modulo/electro/$turno_id");
+            // #eliminamos el archivo de electro
+            // unlink("../reportes/modulo/electro/$turno_id/".basename($img_electro[1]));
+            // # eliminamos la carpeta
+            // rmdir("../reportes/modulo/electro/$turno_id");
 
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, null, null, null, null, $url, $confirmado, null]);
         } else {
@@ -91,7 +91,8 @@ switch ($api) {
                 unlink('..'.$dir[1]);
     
                 #guardarmos la direccion del electro.
-                $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id/".basename($archivo), null, null, null, null, null, null, null, $usuario]);
+                $electro = $host . "reportes/modulo/electro/$turno_id/".basename($archivo);
+                $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $electro, null, null, null, null, null, null, null, $usuario]);
             }
            
         } else {

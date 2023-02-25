@@ -383,6 +383,7 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_ELECTRO'];
                 $carpeta_guardado = "electro";
                 $folio = $infoPaciente[0]['FOLIO_ELECTRO'];
+                $clave = $infoPaciente[0]['CLAVE_ELECTRO'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Electrocardiograma';
                 
                 break;
@@ -408,8 +409,8 @@ class Miscelaneus
         # Crear el directorio si no existe
         $r = $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
-        $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
-
+        $pie_pagina = array("clave" => is_null($infoPaciente[0]['CLAVE_IMAGEN'])?$clave:$infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+  
         // print_r(json_encode($arregloPaciente));
         // exit;
 
