@@ -53,10 +53,23 @@ session_start();
     <div class="col-3 col-lg-4" style="margin-right: -5px !important;">
         <div class="card mt-3 p-3" id="lista-pacientes">
             <h4>Lista de pacientes</h4>
-            <div class="text-center">
+            <div class="text-center mt-2">
+                <div class="input-group flex-nowrap">
+                    <!-- <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left" title="Los iconos representan el estado del paciente a las areas">
+                        <i class="bi bi-info-circle"></i>
+                    </span> -->
+                    <input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important" name="inputBuscarTableListaPacientes" placeholder="Filtrar coincidencias" id="inputBuscarTableListaPacientes" data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">
+                    <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top" title="Una vez cargado o confirmado el reporte de un registro de esta area, aparecerán en verde">
+                        <i class="bi bi-info-circle"></i>
+                    </span>
+
+                </div>
+            </div>
+            <!-- <div class="text-center">
+
                 <label for="inputBuscarTableListaNuevos">Buscar:</label>
                 <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaPacientes" value="" style="width:80%" autocomplete="off" id="inputBuscarTableListaPacientes">
-            </div>
+            </div> -->
             <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
                 <thead class="" style="width: 100%">
                     <tr>
