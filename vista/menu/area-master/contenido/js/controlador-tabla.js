@@ -378,7 +378,7 @@ async function panelResultadoPaciente(row, area) {
 
                     if (ifnull(row[i][0]['ELECTRO_PDF'])) {
                         html += '<div class="col-12 d-flex justify-content-center">' +
-                            '<a type="button" href="' + row[i][0]['ELECTRO_PDF'] + '" class="btn btn-option me-2" style="margin-bottom:4px">' +
+                            '<a type="button" target="_blank" href="' + row[i][0]['ELECTRO_PDF'] + '" class="btn btn-option me-2" style="margin-bottom:4px">' +
                             '<i class="bi bi-images"></i> Capturas' +
                             '</a>' +
                             '</div>';
