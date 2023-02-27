@@ -858,9 +858,20 @@ class Miscelaneus
         $decoded = array();
 
         foreach ($parsing as $key => $value) {
-            $aux = json_decode($value, true);
-            $s = 0;
-
+            
+            if(!is_int($value)){
+                if($this->str_ends_with($value,'}') || $this->str_ends_with($value,']')){
+                    $aux = json_decode($value, true);
+                    $s = 0;
+                } else {
+                    $aux = $value;
+                }
+            } else {
+             
+                $aux = $value;
+            }            
+            // $aux = json_decode($value, true);
+            // $s = 0;
             if (is_array($aux)) {
                 foreach ($aux as $a) {
                     if (is_string($a)) {
@@ -878,6 +889,9 @@ class Miscelaneus
         }
 
         return $decoded;
+    }
+    function str_ends_with($haystack,$needle){
+        return (@substr_compare($haystack,$needle,-strlen($needle))==0);
     }
 
 

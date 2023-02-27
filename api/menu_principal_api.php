@@ -20,8 +20,18 @@ switch($api){
         #recuperar el status del paciente
         $response= $master->getByProcedure('sp_status_paciente',[$fecha]);
 
-        break;
+        $decoded = array();
+
+        
+     
+        foreach($response as $item){
+            $decoded[] = $master->decodeJson($item);
+        }
+        $response = $decoded;
+        break;  
     default:
         break;
 }
 echo $master->returnApi($response);
+
+
