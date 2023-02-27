@@ -12,7 +12,8 @@
              </a>
              <!-- Estos botones se cargan en el servidor desde el archivo del include -->
              <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropLaboratorio">
-                 <?php include "navbar-menu/navlink-droplist-laboratorio.php"; ?>
+                 <?php include "navbar-menu/navlink-droplist-laboratorio.php";
+                    ?>
              </ul>
          </div>
      </li>

@@ -11,7 +11,7 @@ include "../../variables.php";
 <header id="header-js"></header>
 <div id="titulo-js"></div>
 <div class="container-fluid " id="body-js">
-  <div class="col-12 loader" id="loader" style="">
+  <div class="col-12 loader" id="loader">
     <div class="preloader" id="preloader"> </div>
   </div>
 </div>

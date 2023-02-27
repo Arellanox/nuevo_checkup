@@ -1,21 +1,57 @@
-<div class="table-responsive card p-3 m-2">
-    <table class="table table-hover display responsive" id="TablaEstatusTurnos" style="width: 100%;">
+<div class="table-responsive mt-2">
+    <div>
+        Mostrar Columnas:
+        <a href="" class="toggle-vis" data-column="3">Laboratorio</a> -
+        <a href="" class="toggle-vis" data-column="4">Ultrasonido</a> -
+        <a href="" class="toggle-vis" data-column="5">Rayos X</a> -
+        <a href="" class="toggle-vis" data-column="6">Oftalmología</a> -
+        <a href="" class="toggle-vis" data-column="7">Historia Clínica</a> -
+        <a href="" class="toggle-vis" data-column="8">Electrocardiograma</a> -
+        <a href="" class="toggle-vis" data-column="9">Espirometría</a> -
+        <a href="" class="toggle-vis" data-column="10">Audiometría</a>
+
+    </div>
+
+    <table class="table table-hover display responsive" id="TablaEstatusTurnos">
         <thead class="">
             <tr>
                 <th scope="col d-flex justify-content-center" class="all">#</th>
                 <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-                <th scope="col d-flex justify-content-center" class="none">Prefolio</th>
                 <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>
-                <th scope="col d-flex justify-content-center" class="desktop">Segmento</th>
-                <th scope="col d-flex justify-content-center" class="none">Turno</th>
-                <th scope="col d-flex justify-content-center" class="min-tablet">Area Actual</th>
 
-                <th scope="col d-flex justify-content-center" class="min-tablet">Análisis</th>
-                <th scope="col d-flex justify-content-center" class="min-tablet">Muestra</th>
+                <!-- Laboratorio -->
+                <th scope="col d-flex justify-content-center" class="min-tablet">Lab. Cli.</th>
+
+                <!-- Ultrasonido -->
+                <th scope="col d-flex justify-content-center" class="min-tablet">Ultra.</th>
+
+                <!-- Rayos X -->
+                <th scope="col d-flex justify-content-center" class="min-tablet">RX.</th>
+
+                <!-- Oftalmología -->
+                <th scope="col d-flex justify-content-center" class="min-tablet">Oft.</th>
+
+                <!-- Historia Clínica -->
+                <th scope="col d-flex justify-content-center" class="min-tablet">Hist. Cli.</th>
+
+                <!-- Electrocardiograma -->
+                <th scope="col d-flex justify-content-center" class="min-tablet">Electro.</th>
+
+                <!-- Espirometría -->
+                <th scope="col d-flex justify-content-center" class="min-tablet">Espiro.</th>
+
+                <!-- Audiometría -->
+                <th scope="col d-flex justify-content-center" class="min-tablet">Audio.</th>
+
 
                 <th scope="col d-flex justify-content-center" class="min-tablet">Recepción</th>
-                <th scope="col d-flex justify-content-center" class="min-tablet">Agenda</th>
+
+                <th scope="col d-flex justify-content-center" class="none">Agenda</th>
                 <th scope="col d-flex justify-content-center" class="none">Re-agenda</th>
+                <th scope="col d-flex justify-content-center" class="none">Segmento</th>
+                <th scope="col d-flex justify-content-center" class="none">Turno</th>
+                <th scope="col d-flex justify-content-center" class="none">Area Actual</th>
+                <th scope="col d-flex justify-content-center" class="none">Prefolio</th>
                 <th scope="col d-flex justify-content-center" class="none">Sexo</th>
             </tr>
         </thead>
