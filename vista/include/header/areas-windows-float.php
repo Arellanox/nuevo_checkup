@@ -40,8 +40,8 @@
  <?php endif; ?>
 
  <?php if (
-        $menu != null ||
         $_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1 ||
+        $_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1 ||
         $_SESSION['vista']['ESPIROMETRIA'] == 1 ||
         $_SESSION['vista']['AUDIOMETRIA'] == 1 ||
         $_SESSION['vista']['OFTALMOLOGIA'] == 1 ||
