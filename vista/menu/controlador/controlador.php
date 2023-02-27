@@ -78,7 +78,9 @@ include "../../variables.php";
     event.preventDefault()
     subarea = obtenerAreaActiva()
     // Si existe la variable
-
+    // var base64 = new Base64();
+    // areaActual = base64.decode(areaActual);
+    // $area = isset($_GET['var'])? $_GET['var']: 0;
     switch (subarea) {
       case 6:
         cargarVistaServiciosPorAreaURL(hash, 'laboratorio-servicios');
@@ -119,25 +121,23 @@ include "../../variables.php";
   session['token'] = '';
   $.getScript("<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/class.js'; ?>").done(function() {
     $.getScript("<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/funciones.js'; ?>").done(function() {
-      $.getScript("<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/class_dependientes.js'; ?>").done(function() {
-        loggin(function(val) {
-          if (val) {
-            $(function() {
-              // console.log(session)
-              // <!-- Aqui controlar e incluir las modals -->
-              $.getScript('contenido/controlador.js').done(function(data) {
-                console.log(validar);
-                if (validar == true) {
-                  // <!-- Aqui controlar e incluir los tablas -->
-                  $.getScript('modals/controlador.js').done(function() {
-                    ontooltip(); // <-- Ejecutar los tooltip en todo momento
-                  }); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!
-                }
-              });
-            })
-          }
-        }, <?php echo $tipoUrl; ?>)
-      })
+      loggin(function(val) {
+        if (val) {
+          $(function() {
+            // console.log(session)
+            // <!-- Aqui controlar e incluir las modals -->
+            $.getScript('contenido/controlador.js').done(function(data) {
+              console.log(validar);
+              if (validar == true) {
+                // <!-- Aqui controlar e incluir los tablas -->
+                $.getScript('modals/controlador.js').done(function() {
+                  ontooltip(); // <-- Ejecutar los tooltip en todo momento
+                }); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!
+              }
+            });
+          })
+        }
+      }, <?php echo $tipoUrl; ?>)
     });
   });
 
