@@ -1,5 +1,10 @@
  <!-- Laboratorio -->
- <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
+ <?php if (
+        $_SESSION['vista']['LABORATORIO'] == 1 ||
+        $_SESSION['vista']['LABORATORIO_MUESTRA'] == 1 ||
+        $_SESSION['vista']['CORREOSLAB'] == 1 ||
+        $_SESSION['vista']['LABORATORIO_ESTUDIOS'] == 1
+    ) : ?>
      <li class="nav-item Recepción">
          <div class="dropdown ">
              <a class="dropdown-toggle" id="dropLaboratorio" role="button" data-bs-toggle="dropdown" aria-expanded="false">
