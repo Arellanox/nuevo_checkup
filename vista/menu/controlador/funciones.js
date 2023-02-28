@@ -704,13 +704,20 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50, sc
 }
 
 //Poder ajustar responsivamente una ventana en windows
-function autoHeightDiv(div, resta) {
+function autoHeightDiv(div, resta, tipe = 'px') {
   var ventana_alto = $(window).height();
+  ventana_alto_porcentaje = Math.floor(ventana_alto * resta) / 100;
+
   if (div == 0) {
-    return (ventana_alto - resta + 10);
+    if (tipe == 'px')
+      return (ventana_alto - resta + 10);
+    if (tipe == '%')
+      return (ventana_alto_porcentaje);
   } else {
-    console.log('si')
-    $(div).height(ventana_alto - resta + 10);
+    if (tipe == 'px')
+      $(div).height(ventana_alto - resta + 10);
+    if (tipe == '%')
+      $(div).height(ventana_alto_porcentaje);
     return 0;
   }
 }
