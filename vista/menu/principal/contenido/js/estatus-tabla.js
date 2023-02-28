@@ -276,13 +276,13 @@ function elegirIconStatus(tipo, key) {
         console.log(key, tipo[key])
         switch (tipo[key]) {
             case 'muestra_sin_tomar': return '<i class="bi bi-droplet text-secondary" style="zoom:170%;"></i>';
-            case 'muestra_tomada': return '<i class="bi bi-droplet-fill" style="zoom:170%; color: rgb(000, 078, 089)"></i>';
+            case 'muestra_tomada': return '<i class="bi bi-droplet-fill" style="zoom:170%; color: rgb(223 0 0)"></i>';
             case 'captura_sin_tomar': return '<i class="bi bi-card-image text-secondary" style="zoom:170%;"></i>';
-            case 'captura_tomada': return '<i class="bi bi-images" style="zoom:170%; color: rgb(000, 078, 089)"></i>';
+            case 'captura_tomada': return '<i class="bi bi-image-fill" style="zoom:170%; color: rgb(223 0 0)"></i>';
             case 'reporte_sin': return '<i class="bi bi-clipboard-x text-secondary" style="zoom:170%;"></i>';
-            case 'reportado': return '<i class="bi bi-clipboard2-check-fill" style="zoom:170%; color: rgb(000, 078, 089)"></i>';
+            case 'reportado': return '<i class="bi bi-clipboard2-check-fill" style="zoom:170%; color: rgb(247, 190, 0)"></i>';
             case 'correo_sin': return '<i class="bi bi-send-x text-secondary" style="zoom:170%;"></i>';
-            case 'correo_enviado': return '<i class="bi bi-send-check-fill" style="zoom:170%; color: rgb(000, 078, 089)"></i>';
+            case 'correo_enviado': return '<i class="bi bi-send-check-fill" style="zoom:170%; color: rgb(000, 175, 170)"></i>';
             case 'N/A': return '';
         }
         console.log('vacio')
