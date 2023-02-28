@@ -8,15 +8,6 @@
 
       <div class="text-center mt-2">
         <div class="input-group flex-nowrap">
-          <!-- <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left" title="Los iconos representan el estado del paciente a las areas">
-                        <i class="bi bi-info-circle"></i>
-                      </span> -->
-          <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top" title="¡Hola! Soy un tooltip, sirvo para mensajes de ayuda :)">
-            <i class="bi bi-info-circle"></i>
-          </span>
-          <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top" title="Si Aurora si te cambie tu vista, son mejoras pequeñas que vas a ir notando JAJJA">
-            <i class="bi bi-info-circle"></i>
-          </span>
           <input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important" name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">
           <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top" title="Una vez confirmado el reporte, el registro se dibujará en verde">
             <i class="bi bi-info-circle"></i>
