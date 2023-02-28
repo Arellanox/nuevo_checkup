@@ -11,7 +11,7 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    scrollY: autoHeightDiv(0, 186),
+    scrollY: autoHeightDiv(0, 280),
     scrollCollapse: true,
     // paging: false,
     lengthMenu: [
@@ -45,97 +45,50 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         //Laboratorio
         {
             data: 'LABORATORIO_CLINICO', render: function (data) {
-                html = '<i class="bi bi-droplet-fill" style="zoom:170%; color: rgb(000, 078, 089)"></i>' +
-                    '<i class="bi bi-clipboard-x text-secondary" style="zoom:170%"></i>' +
-                    '<i class="bi bi-send-x text-secondary" style="zoom:170%"></i>';
-                return html
-                // $(cell).addClass('bg-success');
-                return '<i class="bi bi-droplet"></i><i class="bi bi-droplet-fill"></i>' +
-                    '<i class="bi bi-clipboard-x"></i><i class="bi bi-clipboard2-check-fill">' +
-                    '</i><i class="bi bi-send-x"></i><i class="bi bi-send-check-fill"></i>'
-                // return drawRowTable(data, 'principal', {
-                //     1: 'Terminado',
-                //     2: 'En proceso'
-                // });
+                html = drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' });
+                return html;
             }
         },
         //Ultrasonido
         {
             data: 'ULTRASONIDO', render: function (data) {
-
-                //gris, azul, 
-                return '<i class="bi bi-card-image"></i><i class="bi bi-images"></i><i class="bi bi-clipboard-x"></i><i class="bi bi-clipboard-check-fill"></i><i class="bi bi-send-x"></i><i class="bi bi-send-check-fill"></i>'
-                // return drawRowTable(data, 'principal', {
-                //     1: 'Terminado',
-                //     2: 'En proceso',
-                // });
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
             }
         },
         //Rayos X
         {
             data: 'RAYOS_X', render: function (data) {
-
-                return '<i class="bi bi-card-image"></i><i class="bi bi-images"></i><i class="bi bi-clipboard-x"></i><i class="bi bi-clipboard-check-fill"></i><i class="bi bi-send-x"></i><i class="bi bi-send-check-fill"></i>'
-
-                // return drawRowTable(data, 'principal', {
-                //     1: 'Terminado',
-                //     2: 'En proceso',
-                // });
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
             }
         },
         //Oftalmo
         {
             data: 'OFTALMOLOGIA', render: function (data) {
-                return '<i class="bi bi-clipboard-x"></i><i class="bi bi-clipboard-check-fill"></i><i class="bi bi-send-x"></i><i class="bi bi-send-check-fill"></i>'
-
-                // return drawRowTable(data, 'principal', {
-                //     1: 'Terminado',
-                //     2: 'En proceso',
-                // });
+                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' });
             }
         },
         //HistoriaClinica
         {
             data: 'CONSULTORIO', render: function (data) {
-                return '<i class="bi bi-heart-pulse"></i><i class="bi bi-heart-pulse-fill"></i><i class="bi bi-clipboard2"></i><i class="bi bi-clipboard2-pulse-fill"></i>'
-
-                // return drawRowTable(data, 'principal', {
-                //     1: 'Terminado',
-                //     2: 'En proceso',
-                // });
+                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' });
             }
         },
         //Electrocardiograma
         {
             data: 'ELECTROCARDIOGRAMA', render: function (data) {
-                return '<i class="bi bi-card-image"></i><i class="bi bi-images"></i><i class="bi bi-clipboard-x"></i><i class="bi bi-clipboard-check-fill"></i><i class="bi bi-send-x"></i><i class="bi bi-send-check-fill"></i>'
-
-                // return drawRowTable(data, 'principal', {
-                //     1: 'Terminado',
-                //     2: 'En proceso',
-                // });
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
             }
         },
         //Espirometría
         {
             data: 'ESPIROMETRIA', render: function (data) {
-                return '<i class="bi bi-clipboard-x"></i><i class="bi bi-clipboard-check-fill"></i><i class="bi bi-send-x"></i><i class="bi bi-send-check-fill"></i>'
-
-                // return drawRowTable(data, 'principal', {
-                //     1: 'Terminado',
-                //     2: 'En proceso',
-                // });
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
             }
         },
         //Audiometria
         {
             data: 'AUDIOMETRIA', render: function (data) {
-                return '<i class="bi bi-clipboard-x"></i><i class="bi bi-clipboard-check-fill"></i><i class="bi bi-send-x"></i><i class="bi bi-send-check-fill"></i>'
-
-                // return drawRowTable(data, 'principal', {
-                //     1: 'Terminado',
-                //     2: 'En proceso',
-                // });
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
             }
         },
         //Menu
@@ -158,7 +111,6 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
             }
         },
 
-
         { data: 'DESCRIPCION_SEGMENTO' },
         { data: 'TURNO' },
         {
@@ -172,13 +124,11 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-
-        { width: "180px", targets: 1 },
-        { width: "5px", targets: 0 },
-
-        { targets: [7, 9, 10], visible: false }
+        { width: "20%", targets: 1 },
+        { width: "1%", targets: 0 },
+        { width: "10%", targets: [3, 4, 5, 6, 7, 8, 9, 10] },
+        { targets: [7, 9, 10, 16], visible: false }
         // { visible: false, title: "AreaActual", targets: 20, searchable: false }
-
     ],
 
 })
@@ -237,7 +187,7 @@ setTimeout(() => {
         '<i class="bi bi-info-circle"></i>' +
         '</span>' +
         '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
-        'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaLista"' +
+        'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaTurnos"' +
         'data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">' +
 
         '</div>' +
@@ -249,13 +199,19 @@ setTimeout(() => {
 
     //Diseño de registros
     $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
+
+
+    $("#BuscarTablaListaTurnos").keyup(function () {
+        tablaMenuPrincipal.search($(this).val()).draw();
+    });
+
 }, 200);
 
 
 
 
 
-function drawRowTable(data, tipo, msj = {}) {
+function drawRowTable(data, tipo, msj = { 0: '', 1: '', 2: '' }) {
     switch (data) {
         case 1: case '1':
             html = '<p class="text-success fw-bold style="letter-spacing: normal !important; text-shadow: 0 0 1px #000000;">' + msj[1] + '</p>'
@@ -269,6 +225,71 @@ function drawRowTable(data, tipo, msj = {}) {
             return '?';
     }
 }
+
+function drawStatusMenuTable(data, iconObject = { 0: 'muestra', 1: 'reporte', 2: 'correo', 3: 'captura' }) {
+    //Icons
+    html = '';
+    // console.log(data)
+
+    if (data) {
+        // console.log(data);
+        for (const key in iconObject) {
+            if (iconObject.hasOwnProperty.call(iconObject, key)) {
+                const val = iconObject[key];
+                // if (data[val])
+                html += analizarIconStatus(data[val], val);
+            }
+        }
+    }
+    return html;
+
+};
+
+function analizarIconStatus(data, tipo) {
+    icons = {
+        muestra: {
+            0: 'muestra_sin_tomar',
+            1: 'muestra_tomada',
+            'N/A': '',
+        },
+        reporte: {
+            0: 'reporte_sin',
+            1: 'reportado',
+            'N/A': '',
+        },
+        correo: {
+            0: 'correo_sin',
+            1: 'correo_enviado',
+            'N/A': '',
+        },
+        capturas: {
+            0: 'captura_sin_tomar',
+            1: 'captura_tomada',
+            'N/A': '',
+        }
+    }
+    return elegirIconStatus(icons[tipo], data)
+}
+
+function elegirIconStatus(tipo, key) {
+    if (tipo) {
+        console.log(key, tipo[key])
+        switch (tipo[key]) {
+            case 'muestra_sin_tomar': return '<i class="bi bi-droplet text-secondary" style="zoom:170%;"></i>';
+            case 'muestra_tomada': return '<i class="bi bi-droplet-fill" style="zoom:170%; color: rgb(000, 078, 089)"></i>';
+            case 'captura_sin_tomar': return '<i class="bi bi-card-image text-secondary" style="zoom:170%;"></i>';
+            case 'captura_tomada': return '<i class="bi bi-images" style="zoom:170%; color: rgb(000, 078, 089)"></i>';
+            case 'reporte_sin': return '<i class="bi bi-clipboard-x text-secondary" style="zoom:170%;"></i>';
+            case 'reportado': return '<i class="bi bi-clipboard2-check-fill" style="zoom:170%; color: rgb(000, 078, 089)"></i>';
+            case 'correo_sin': return '<i class="bi bi-send-x text-secondary" style="zoom:170%;"></i>';
+            case 'correo_enviado': return '<i class="bi bi-send-check-fill" style="zoom:170%; color: rgb(000, 078, 089)"></i>';
+            case 'N/A': return '';
+        }
+        console.log('vacio')
+        return '';
+    }
+}
+
 
 // AUDIOMETRIA: "N/A"
 // : "N/A"
