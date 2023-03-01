@@ -710,12 +710,12 @@ function autoHeightDiv(div, resta, tipe = 'px') {
 
   if (div == 0) {
     if (tipe == 'px')
-      return (ventana_alto - resta + 10);
+      return (ventana_alto - resta);
     if (tipe == '%')
       return (ventana_alto_porcentaje);
   } else {
     if (tipe == 'px')
-      $(div).height(ventana_alto - resta + 10);
+      $(div).height(ventana_alto - resta);
     if (tipe == '%')
       $(div).height(ventana_alto_porcentaje);
     return 0;

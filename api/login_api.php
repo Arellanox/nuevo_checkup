@@ -149,6 +149,14 @@ function login($user, $password)
                 $vista[$result[$i]['permiso']] = $result[$i]['activo'];
             }
             $_SESSION['vista'] = $vista;
+
+            //Avatar
+            if ($result[0]['avatar']) {
+                $_SESSION['avatar'] = $result[0]['avatar'];
+            } else {
+                $_SESSION['avatar'] = 'https:bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
+            }
+
             return $_SESSION;
         } else {
             return "Oops! Tu contraseña es incorrecta.";

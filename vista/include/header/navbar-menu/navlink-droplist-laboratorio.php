@@ -21,3 +21,10 @@
         <i class="bi bi-envelope-paper"></i> Estudios
     </a>
 <?php endif; ?>
+
+<!-- Bio -->
+<?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
+    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio-biomolecular/'; ?>">
+        <i class="bi bi-heart-pulse"></i> Laboratorio Biomolecular
+    </a>
+<?php endif; ?>

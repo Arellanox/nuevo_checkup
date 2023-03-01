@@ -25,16 +25,19 @@
     <hr>
     <div class="dropdown">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-person-circle" style="zoom:110%; margin-right:30px;"></i>
-        <strong><?php echo $_SESSION['user'] ?></strong>
+        <!-- <i class="bi bi-person-circle" style="zoom:110%; margin-right:30px;"></i>
+        <strong><?php //echo $_SESSION['user'] 
+                ?></strong> -->
 
-        <!-- <div class=" container-avatar">
-          <img src="http://localhost/nuevo_checkup/archivos/sistema/istockphoto-1270987867-612x612%20(1)%20(1).jpg" alt="Avatar" class="image-avatar">
-          <div class="overlay-avatar">
-            <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
+        <a data-bs-toggle="dropdown" type="button" class="">
+          <div class=" container-avatar">
+            <img src="<?php echo $_SESSION['avatar']; ?>" alt="Avatar" class="image-avatar">
+            <div class="overlay-avatar">
+              <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
+            </div>
           </div>
-        </div>
-        <p class="none-p text-white" style="margin-left: 10px"></p><?php echo $_SESSION['user'] ?></p> -->
+        </a>
+        <p class="none-p text-white" style="margin-left: 10px"></p><?php echo $_SESSION['user'] ?></p>
 
       </a>
       <ul class="dropdown-menu text-small shadow bg-navbar-drop" aria-labelledby="dropdownUser1">
