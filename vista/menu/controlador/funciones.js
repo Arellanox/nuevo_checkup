@@ -1540,30 +1540,89 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 break;
               case 'estudios_muestras':
                 $.ajax({
-                  url: http + servidor + "/nuevo_checkup/api/toma_de_muestra_api.php",
+                  url: http + servidor + "/nuevo_checkup/api/recepcion_api.php",
                   type: "POST",
                   dataType: 'json',
-                  data: { api: 2, id_turno: row['ID_TURNO'] },
+                  data: { api: 6, id_turno: row['ID_TURNO'] },
                   success: function (data) {
                     let row = data.response.data
+                    let html = '';
 
                     // $(panel).html('');
 
-
-                    let html = '';
-                    for (var i = 0; i < row.length; i++) {
-                      console.log(row[i]);
-                      html += '<li class="list-group-item">';
-                      html += row[i]['GRUPO'];
-                      html += '</li>';
-                      //<i class="bi bi-arrow-right-short"></i>
-                      //<strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong>
+                    function htmlLI(texto) {
+                      return '<li class="list-group-item">' + texto + '</li>';
                     }
+
+                    function crearDIV(grupo, id, row) {
+                      let html = '';
+                      html += '<a class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-' + id + '" aria-expanded="false">';
+                      html += '<div style = "display: block"><div style="margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
+                      html += '</a>'
+
+                      html += '<div class="collapse" id="board-' + id + '">'
+                      let area = 0;
+                      for (const key in row) {
+                        const element = row[key];
+                        console.log(element)
+                        if (element['AREA_ID'] == id) {
+                          area = 1;
+                          html += htmlLI(element['GRUPO']);
+                        }
+
+                        if (
+                          element['AREA_ID'] != '6' &&
+                          element['AREA_ID'] != '12' &&
+                          element['AREA_ID'] != '8' &&
+                          element['AREA_ID'] != '11' &&
+                          id == 0
+                        ) {
+                          area = 1;
+                          html += htmlLI(element['GRUPO']);
+                        }
+                      }
+                      html += '</div>';
+
+                      if (area)
+                        return html;
+                      return '';
+                    }
+
+                    //Lab
+                    html += crearDIV('Laboratorio Clínico', 6, row);
+                    //Lab Bio
+                    html += crearDIV('Laboratorio Biomolecular', 12, row);
+                    //Ultrasonido
+                    html += crearDIV('Ultrasonido', 11, row);
+                    //RayosX
+                    html += crearDIV('Rayos X', 8, row);
+                    //Otros
+                    html += crearDIV('Otros Servicios', 0, row);
+
+
+
                     $('#lista-estudios-paciente').html(html);
 
 
                     $(panel).fadeIn(100);
                     resolve(1);
+
+
+
+                    // let html = '';
+                    // for (var i = 0; i < row.length; i++) {
+                    //   console.log(row[i]);
+                    //   html += '<li class="list-group-item">';
+                    //   html += row[i]['GRUPO'];
+                    //   html += '</li>';
+                    //   //<i class="bi bi-arrow-right-short"></i>
+                    //   //<strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong>
+                    // }
+                    // $('#lista-estudios-paciente').html(html);
+
+
+                    // $(panel).fadeIn(100);
+                    // resolve(1);
 
 
                   },
@@ -1589,6 +1648,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
     // resolve(0);
   });
 }
+
+
 
 
 function selectedTrTable(text, column = 1, table) {

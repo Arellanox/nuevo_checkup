@@ -40,7 +40,7 @@ $ordenes = array(
     'ORDEN_ULTRASONIDO' => $orden_ultrasonido
 );
 
-$ordenes = $master->checkArray($ordenes,1);
+$ordenes = $master->checkArray($ordenes, 1);
 
 # para envio de correo de empresaas
 $cliente_id = $_POST['cliente_id'];
@@ -71,25 +71,25 @@ switch ($api) {
             #aqui subir las ordenes medicas si las hay
             #crear la carpeta de tunos dentro de 
 
-            if(count($ordenes)>0){ 
-                $dir = $master->urlComodin.$master->urlOrdenesMedicas."$idTurno/";
+            if (count($ordenes) > 0) {
+                $dir = $master->urlComodin . $master->urlOrdenesMedicas . "$idTurno/";
                 $r = $master->createDir($dir);
-                if ($r==1) {
+                if ($r == 1) {
                     #movemos las ordenes medicas
-                    $return = $master->guardarFiles($_FILES,'orden-medica-laboratorio',$dir,"ORDEN_MEDICA_LABORATORIO_$idTurno");
-                    $return2 = $master->guardarFiles($_FILES,'orden-medica-rx',$dir,"ORDEN_MEDICA_RX_$idTurno");
-                    $return3 = $master->guardarFiles($_FILES,'orden-medica-us',$dir,"ORDEN_MEDICA_ULTRASONIDO_$idTurno");
-                    
-                    $merge = array_merge($return,$return2,$return3);
-                
+                    $return = $master->guardarFiles($_FILES, 'orden-medica-laboratorio', $dir, "ORDEN_MEDICA_LABORATORIO_$idTurno");
+                    $return2 = $master->guardarFiles($_FILES, 'orden-medica-rx', $dir, "ORDEN_MEDICA_RX_$idTurno");
+                    $return3 = $master->guardarFiles($_FILES, 'orden-medica-us', $dir, "ORDEN_MEDICA_ULTRASONIDO_$idTurno");
+
+                    $merge = array_merge($return, $return2, $return3);
+
                     #insertarmos las ordenes medicas en la base de datos
-                    foreach ($merge as $item){
-                        if(!empty($item['tipo'])){
-                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g',[1,$idTurno,$item['url'],$item['tipo']]);
+                    foreach ($merge as $item) {
+                        if (!empty($item['tipo'])) {
+                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [1, $idTurno, $item['url'], $item['tipo']]);
                         }
                     }
-                }else {
-                    $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas","recepcion_api.php [case 2]");
+                } else {
+                    $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas", "recepcion_api.php [case 2]");
                 }
             }
         } else {
@@ -116,20 +116,20 @@ switch ($api) {
         break;
     case 4:
         # reenviar reportes e imagenes por correo de todas las areas.
-        
+
         # recuperamos reportes e imagenes como arreglo unico.
         # decodificamos las imagenes para poderlas tratar como un array.
-        $reportes = $master->cleanAttachFilesImage($master,$idTurno,null,1,1);
+        $reportes = $master->cleanAttachFilesImage($master, $idTurno, null, 1, 1);
 
         # si existe algo, enviamos el correo.
-        if(!empty($reportes[0])){
+        if (!empty($reportes[0])) {
             $mail = new Correo();
-            $r = $mail->sendEmail("resultados","[bimo] Resultados",[$reportes[1]],null,$reportes[0],1);
-            if($r){
+            $r = $mail->sendEmail("resultados", "[bimo] Resultados", [$reportes[1]], null, $reportes[0], 1);
+            if ($r) {
                 $master->setLog("Correo global enviado.", "[recepcion api, case 4]");
-                $response =1;
+                $response = 1;
             } else {
-                $master->setLog("Falla al enviar correo.","[recepcion api, case 4]");
+                $master->setLog("Falla al enviar correo.", "[recepcion api, case 4]");
             }
         } else {
             $response = "Paciente sin resultados o imágenes.";
@@ -141,50 +141,49 @@ switch ($api) {
         $zip = new ZipArchive;
         $mail = new Correo();
         #recuperamos el los reportes y las imagenes de los pacientes del cliente seleccionado.
-        $reportes = $master->cleanAttachFilesImage($master,null,null,$cliente_id,0,$fecha_ingreso);
+        $reportes = $master->cleanAttachFilesImage($master, null, null, $cliente_id, 0, $fecha_ingreso);
 
-        if(!empty($reportes[0])){
+        if (!empty($reportes[0])) {
             #si hay algo, continuamos con el proceso.
-            
+
             #creamos la carpeta temporal
-            if(!is_dir("../tmp")){
-                if(!mkdir("../tmp")){
-                    $master->setLog("No se pudo crear la carpeta temporal","recepcion api [case 5]");
+            if (!is_dir("../tmp")) {
+                if (!mkdir("../tmp")) {
+                    $master->setLog("No se pudo crear la carpeta temporal", "recepcion api [case 5]");
                     $response = "No se pudo crear la carpeta temporal.";
                     break;
                 }
             }
 
             # creamos el zip por cada paciente.
-            for($i=0;$i<count($reportes[3]);$i++){
-                $nombre_zip = $explode = explode(".",$reportes[3][$i]);
+            for ($i = 0; $i < count($reportes[3]); $i++) {
+                $nombre_zip = $explode = explode(".", $reportes[3][$i]);
 
                 #creamos el archivo zip dentro de la carpeta temporal
-                $fh = fopen("../tmp/".$nombre_zip[0].".zip", 'a');
+                $fh = fopen("../tmp/" . $nombre_zip[0] . ".zip", 'a');
                 // fwrite($fh, '<h1>Hello world!</h1>');
                 fclose($fh);
 
                 # Filtramos todos los archivos del paciente
-                $str = "/".$reportes[2][$i]."/";
+                $str = "/" . $reportes[2][$i] . "/";
                 $archivos_paciente = [];
-                foreach($reportes[0] as $ruta_archivo){
-                   
-                    $pos = strpos($ruta_archivo,$str);
-               
-                    try{
-                        if($pos!==false){
-                            array_push($archivos_paciente,$ruta_archivo);
+                foreach ($reportes[0] as $ruta_archivo) {
+
+                    $pos = strpos($ruta_archivo, $str);
+
+                    try {
+                        if ($pos !== false) {
+                            array_push($archivos_paciente, $ruta_archivo);
                         }
-                    }catch (Exception $e){
+                    } catch (Exception $e) {
                         print_r($e);
                     }
-                   
                 }
 
                 # enzipamos los archivos correspondientes al zip actual.
-                foreach($archivos_paciente as $a){
-                    $ruta = explode("nuevo_checkup",$a);
-                    $ruta = "..".$ruta[1];
+                foreach ($archivos_paciente as $a) {
+                    $ruta = explode("nuevo_checkup", $a);
+                    $ruta = ".." . $ruta[1];
 
                     // if ($zip->open("../tmp/".$nombre_zip[0].".zip") === TRUE) {
                     //     $zip->addFile($ruta, basename($ruta));
@@ -192,46 +191,45 @@ switch ($api) {
                     // } else {
                     //     echo 'failed';
                     // }
-                    if ($zip->open("../tmp/".$nombre_zip[0].".zip") === TRUE) {
+                    if ($zip->open("../tmp/" . $nombre_zip[0] . ".zip") === TRUE) {
                         $zip->addFile("../checkup.sql", basename($ruta));
                         $zip->close();
                     } else {
                         echo 'failed';
                     }
                 }
-                
-            }    
+            }
 
             $archivos_enviar = [];
 
-             
+
             if ($gestor = opendir('../tmp/')) {
                 echo "Gestor de directorio: $gestor\n";
                 echo "Entradas:\n";
-            
+
                 /* Esta es la forma correcta de iterar sobre el directorio. */
                 $count = 0;
                 while (false !== ($entrada = readdir($gestor))) {
-                    if($count >1){
-                        array_push($archivos_enviar,"nuevo_checkup/tmp/".$entrada);
+                    if ($count > 1) {
+                        array_push($archivos_enviar, "nuevo_checkup/tmp/" . $entrada);
                     }
                     $count++;
                 }
-            
+
                 closedir($gestor);
             }
             print_r($archivos_enviar);
-            
-            $r = $mail->sendEmail("resultados","Envio de resultados [bimo]",["arellanox0392@gmail.com"],null,$archivos_enviar,1);
 
+            $r = $mail->sendEmail("resultados", "Envio de resultados [bimo]", ["arellanox0392@gmail.com"], null, $archivos_enviar, 1);
         } else {
             $response = "No hay archivos disponible para el cliente seleccionado.";
         }
 
         break;
-    case 6 :
+    case 6:
         # detalle del estudios cargados al paciente.
-        $response = $master->getByProcedure("sp_paciente_servicios_cargados",[$idTurno,$area_id]);
+        $response = $master->getByProcedure("sp_paciente_servicios_cargados", [$idTurno, $area_id]);
+
         break;
     default:
         # code...

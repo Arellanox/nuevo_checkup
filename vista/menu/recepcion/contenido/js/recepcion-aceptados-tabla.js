@@ -2,7 +2,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  scrollY: autoHeightDiv(0, 339), //347px
+  scrollY: autoHeightDiv(0, 332), //347px
   scrollCollapse: true,
   lengthMenu: [
     [20, 25, 30, 35, 40, 45, 50, -1],
@@ -124,4 +124,4 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
 
 $('')
 
-autoHeightDiv('#panel-informacion-pacientesTurnos', 174)
+autoHeightDiv('#panel-informacion-pacientesTurnos', 188)
