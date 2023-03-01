@@ -173,6 +173,20 @@ $('a.toggle-vis').each(function () {
         $(this).addClass('span-info');
 })
 
+selectDatatabledblclick(async function (select, data) {
+    let dataInfo = data;
+    if (select) {
+        await obtenerPanelInformacion(1, 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
+        var myOffcanvas = document.getElementById('offcanvasInfoPrincipal')
+        var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+        bsOffcanvas.show()
+
+    }
+}, '#TablaEstatusTurnos', tablaMenuPrincipal)
+
+
+
+
 
 setTimeout(() => {
     $('#TablaEstatusTurnos_filter').html(
@@ -273,7 +287,7 @@ function analizarIconStatus(data, tipo) {
 
 function elegirIconStatus(tipo, key) {
     if (tipo) {
-        console.log(key, tipo[key])
+        // console.log(key, tipo[key])
         switch (tipo[key]) {
             case 'muestra_sin_tomar': return '<i class="bi bi-droplet text-secondary" style="zoom:170%;"></i>';
             case 'muestra_tomada': return '<i class="bi bi-droplet-fill" style="zoom:170%; color: rgb(162 0 0)"></i>'; // zoom: 170%; color: rgb(255 255 255); border - radius: 50 %; padding: 0px 2px 0px 2px; background - color: rgb(162, 0, 0); background: linear-gradient(to bottom right, rgb(161 0 0), rgb(162 0 0));
@@ -285,7 +299,7 @@ function elegirIconStatus(tipo, key) {
             case 'correo_enviado': return '<i class="bi bi-send-check-fill" style="zoom:170%; color: rgb(000, 175, 170)"></i>';
             case 'N/A': return '';
         }
-        console.log('vacio')
+        // console.log('vacio')
         return '';
     }
 }

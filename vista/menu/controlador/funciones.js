@@ -960,7 +960,27 @@ function alertErrorAJAX(jqXHR, exception, data) {
 
 }
 
+var touchtimeFunction
+function detectDobleclick() {
+  if (touchtimeFunction == 0) {
+    // set first click
+    touchtimeFunction = new Date().getTime();
+  } else {
+    // compare first click to this click and see if they occurred within double click threshold
+    if (((new Date().getTime()) - touchtimeFunction) < 800) {
+      // double click occurred
+      touchtimeFunction = 0;
+      return true;
+    } else {
+      // not a double click so set as a new first click
+      touchtimeFunction = new Date().getTime();
+      return false;
+    }
+  }
+}
 
+
+//FUNCTION OBSOLETA PARA MOBILE
 //Control de tablas
 function dblclickDatatable(tablename, datatable, callback = function () { }) {
   // Seleccion del registro
@@ -968,24 +988,36 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
     callback(datatable.row(this).data())
   });
 }
+//
 
+var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatabledblclick(callback = function () { }, tablename, datatable) {
-  $(tablename).on('dblclick', 'tr', function () {
-    if ($(this).hasClass('selected')) {
-      $(this).removeClass('selected');
-      callback(0, null);
-    } else {
-      datatable.$('tr.selected').removeClass('selected');
-      $(this).addClass('selected');
-      callback(1, datatable.row(this).data())
+  console.log(tablename)
+  $(tablename).on('click', 'tr', function () {
+    if (!detectDobleclick())
+      return false;
+    //Funcion
+    if (dobleClickSelecTable != datatable.row(this).data()) {
+      if ($(this).hasClass('selected')) {
+        dobleClickSelecTable = false
+        $(this).removeClass('selected');
+        // array_selected = datatable.row(this).data()
+        callback(0, null);
+      }
     }
+    dobleClickSelecTable = datatable.row(this).data()
+    datatable.$('tr.selected').removeClass('selected');
+    $(this).addClass('selected');
+    array_selected = datatable.row(this).data()
+    callback(1, array_selected)
+
   });
 }
 
 var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {
   0: "#panel-informacion"
-}, callback = null, tipclick = 'click') {
+}, callback = null, callbackDoubleclick = null) {
   //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
   // console.log(typeof tipPanel);
   if (typeof tipPanel == "string") {
@@ -1008,7 +1040,17 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
   // console.log(tablename)
   // console.log(idPanel)
   $(tablename).on('click', 'tr', function () {
+
+    //Doble Click
+    if (detectDobleclick()) {
+      if (dobleClickSelecTable == datatable.row(this).data())
+        callbackDoubleclick(datatable.row(this).data())
+    }
+
+    //Solo un click
     if (dobleClickSelecTable != datatable.row(this).data()) {
+
+
       if ($(this).hasClass('selected')) {
         dobleClickSelecTable = false
         $(this).removeClass('selected');
@@ -1557,14 +1599,14 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     function crearDIV(grupo, id, row) {
                       let html = '';
                       html += '<a class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-' + id + '" aria-expanded="false">';
-                      html += '<div style = "display: block"><div style="margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
+                      html += '<div style = "display: block"><div style="margin:0px;background: rgb(0 0 0 / 25%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
                       html += '</a>'
 
-                      html += '<div class="collapse" id="board-' + id + '">'
+                      html += '<div class="collapse bg-white-canvas" id="board-' + id + '">'
                       let area = 0;
                       for (const key in row) {
                         const element = row[key];
-                        console.log(element)
+                        // console.log(element)
                         if (element['AREA_ID'] == id) {
                           area = 1;
                           html += htmlLI(element['GRUPO']);
@@ -1589,15 +1631,15 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     }
 
                     //Lab
-                    html += crearDIV('Laboratorio Clínico', 6, row);
+                    html += crearDIV('<i class="bi bi-heart-pulse"></i> Laboratorio Clínico', 6, row);
                     //Lab Bio
-                    html += crearDIV('Laboratorio Biomolecular', 12, row);
+                    html += crearDIV('<i class="bi bi-heart-pulse"></i> Laboratorio Biomolecular', 12, row);
                     //Ultrasonido
-                    html += crearDIV('Ultrasonido', 11, row);
+                    html += crearDIV('<i class="bi bi-person-video"></i>  Ultrasonido', 11, row);
                     //RayosX
-                    html += crearDIV('Rayos X', 8, row);
+                    html += crearDIV('<i class="bi bi-universal-access"></i>  Rayos X', 8, row);
                     //Otros
-                    html += crearDIV('Otros Servicios', 0, row);
+                    html += crearDIV('<i class="bi bi-window-stack"></i> Otros Servicios', 0, row);
 
 
 

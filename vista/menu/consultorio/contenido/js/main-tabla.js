@@ -58,12 +58,15 @@ selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (select
     // getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
     // getPanelLab('Out', 0, 0)
   }
-})
-
-//DobleClik para funcionalidad
-dblclickDatatable('#TablaListaConsultorio', tablaMain, function (data) {
-  // console.log(data);
+  //DobleClik para funcionalidad
+}, function (data) {
   obtenerContenidoAntecedentes(data);
 })
+
+// //DobleClik para funcionalidad
+// dblclickDatatable('#TablaListaConsultorio', tablaMain, function (data) {
+//   // console.log(data);
+
+// })
 
 
