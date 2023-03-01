@@ -990,6 +990,7 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
 }
 //
 
+//Solo doble click
 var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatabledblclick(callback = function () { }, tablename, datatable) {
   console.log(tablename)
@@ -1014,10 +1015,11 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
   });
 }
 
+//Doble y de solo un click
 var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {
   0: "#panel-informacion"
-}, callback = null, callbackDoubleclick = null) {
+}, callback = null, callbackDoubleclick = function (data) { console.log('hAzZ dAdo dobBlE cLIk aLa TabBlLa') }) {
   //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
   // console.log(typeof tipPanel);
   if (typeof tipPanel == "string") {
