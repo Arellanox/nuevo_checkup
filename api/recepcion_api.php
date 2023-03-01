@@ -18,6 +18,7 @@ $idTurno = $_POST['id_turno'];
 $idPaquete = $_POST['id_paquete']; #
 $comentarioRechazo = $_POST['comentario_rechazo'];
 $identificacion = $_POST['identificacion']; #url
+$area_id = $_POST['area_id'];
 
 # reagendar
 $fecha_reagenda = $_POST['fecha_reagenda'];
@@ -226,9 +227,11 @@ switch ($api) {
         } else {
             $response = "No hay archivos disponible para el cliente seleccionado.";
         }
-        
-     
 
+        break;
+    case 6 :
+        # detalle del estudios cargados al paciente.
+        $response = $master->getByProcedure("sp_paciente_servicios_cargados",[$idTurno,$area_id]);
         break;
     default:
         # code...
