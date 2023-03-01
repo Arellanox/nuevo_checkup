@@ -1045,14 +1045,13 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
 
     //Doble Click
     if (detectDobleclick()) {
-      if (dobleClickSelecTable == datatable.row(this).data())
+      if (dobleClickSelecTable == datatable.row(this).data()) {
         callbackDoubleclick(datatable.row(this).data())
+      }
     }
 
     //Solo un click
     if (dobleClickSelecTable != datatable.row(this).data()) {
-
-
       if ($(this).hasClass('selected')) {
         dobleClickSelecTable = false
         $(this).removeClass('selected');
@@ -1589,6 +1588,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   dataType: 'json',
                   data: { api: 6, id_turno: row['ID_TURNO'] },
                   success: function (data) {
+                    if (!mensajeAjax(data))
+                      return false;
                     let row = data.response.data
                     let html = '';
 
