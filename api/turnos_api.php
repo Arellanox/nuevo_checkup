@@ -177,9 +177,11 @@ switch ($api) {
 
             $folio = $master->insertByProcedure('sp_generar_folio_laboratorio', []);
 
-            $res = $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, 6, null, null, $folio]);
+            $res = $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, $id_area, null, null, $folio]);
             # generar el reporte de laboratorio
-            $r = $master->reportador($master, $id_turno, $id_area, 'resultados', 'url', 0, 1);
+            if ($id_area  == 12)
+
+                $r = $master->reportador($master, $id_turno, $id_area, 'resultados', 'url', 0, 1);
             //crearReporteLaboratorio($id_area, $id_turno);
         }
 
@@ -215,9 +217,9 @@ switch ($api) {
         $response = $master->updateByProcedure("sp_db_check_laboratorio", [$id_turno, $_SESSION['id']]);
         $mail = new Correo();
 
-        if ($response >=0) {
+        if ($response >= 0) {
             # si se confirmo en la base de datos, enviamos el correo
-            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1,null]);
+            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null]);
             $files = $master->cleanAttachingFiles($response);
             if (!empty($files)) {
                 $r = $mail->sendEmail("resultados", "Resultados de laboratorio", [$response[0]['CORREO']], null, $files, 1);
@@ -233,12 +235,12 @@ switch ($api) {
         break;
     case 14:
 
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1,null]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null]);
         $response = $response[count($response) - 1];
         //$response = $master->cleanAttachingFiles($response);
         break;
 
-   
+
     case 15:
         #case 15 . Desconfirmar resultados
         $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por]);
@@ -248,7 +250,6 @@ switch ($api) {
     default:
         $response = "api no reconocida";
         break;
-
 }
 
 echo $master->returnApi($response);

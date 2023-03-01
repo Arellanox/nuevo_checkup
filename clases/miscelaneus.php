@@ -1,11 +1,13 @@
 <?php
 require_once('../php/phpqrcode/qrlib.php');
 require_once("../lib/libmergpdf/vendor/autoload.php");
+
 use iio\libmergepdf\Merger;
 use iio\libmergepdf\Pages;
 use iio\libmergepdf\Driver\TcpdiDriver;
 use iio\libmergepdf\Driver\Fpdi2Driver;
 use iio\libmergepdf\Source\FileSource;
+
 include_once "Pdf.php";
 date_default_timezone_set('America/Mexico_City');
 
@@ -385,7 +387,12 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_ELECTRO'];
                 $clave = $infoPaciente[0]['CLAVE_ELECTRO'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Electrocardiograma';
-                
+
+                break;
+
+            case 12:
+                $reporte = 'pcr';
+
                 break;
         }
 
@@ -409,8 +416,8 @@ class Miscelaneus
         # Crear el directorio si no existe
         $r = $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
-        $pie_pagina = array("clave" => is_null($infoPaciente[0]['CLAVE_IMAGEN'])?$clave:$infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
-  
+        $pie_pagina = array("clave" => is_null($infoPaciente[0]['CLAVE_IMAGEN']) ? $clave : $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+
         // print_r(json_encode($arregloPaciente));
         // exit;
 
@@ -858,18 +865,18 @@ class Miscelaneus
         $decoded = array();
 
         foreach ($parsing as $key => $value) {
-            
-            if(!is_int($value)){
-                if($this->str_ends_with($value,'}') || $this->str_ends_with($value,']')){
+
+            if (!is_int($value)) {
+                if ($this->str_ends_with($value, '}') || $this->str_ends_with($value, ']')) {
                     $aux = json_decode($value, true);
                     $s = 0;
                 } else {
                     $aux = $value;
                 }
             } else {
-             
+
                 $aux = $value;
-            }            
+            }
             // $aux = json_decode($value, true);
             // $s = 0;
             if (is_array($aux)) {
@@ -890,8 +897,9 @@ class Miscelaneus
 
         return $decoded;
     }
-    function str_ends_with($haystack,$needle){
-        return (@substr_compare($haystack,$needle,-strlen($needle))==0);
+    function str_ends_with($haystack, $needle)
+    {
+        return (@substr_compare($haystack, $needle, -strlen($needle)) == 0);
     }
 
 
@@ -959,18 +967,17 @@ class Miscelaneus
         }, $response)];
     }
 
-    public function joinPdf($files = []){
+    public function joinPdf($files = [])
+    {
         $merger = new Merger;
-        if(!empty($files)) {
+        if (!empty($files)) {
             $merger->addIterator($files);
-            try{
+            try {
                 $createpdf = $merger->merge();
                 return $createpdf;
-
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 echo $e;
             }
-
         }
         return null;
     }
@@ -993,22 +1000,23 @@ class Miscelaneus
     //     }
     // }
 
-    public function  scanDirectory($directory){
+    public function  scanDirectory($directory)
+    {
         #enviar los dos puntos [../] basandose en el archivo de miscelaneus
         $files = array();
         if ($gestor = opendir($directory)) {
             // echo "Gestor de directorio: $gestor\n";
             // echo "Entradas:\n";
-        
+
             /* Esta es la forma correcta de iterar sobre el directorio. */
             $count = 0;
             while (false !== ($entrada = readdir($gestor))) {
-                if($count >1){
-                    array_push($files,$directory.$entrada);
+                if ($count > 1) {
+                    array_push($files, $directory . $entrada);
                 }
                 $count++;
             }
-        
+
             closedir($gestor);
         }
 

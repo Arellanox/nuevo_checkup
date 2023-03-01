@@ -146,7 +146,7 @@ $('#checkDiaAnalisis').click(function () {
 function recargarVistaLab(fecha = 1) {
   dataListaPaciente = {
     api: 5,
-    area_id: 6
+    area_id: 12
   }
   if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
 

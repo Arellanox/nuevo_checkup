@@ -39,11 +39,11 @@
   </div>
   <div class="col-4 col-lg-4 col-xxl-4 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card mt-3" id="panel-informacion"> </div>
-    <div class="card mt-3 p-4">
+    <!-- <div class="card mt-3 p-4">
       <h4>Estudios anteriores</h4>
       <div class="accordion" id="accordionResultadosAnteriores">
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="col-lg-5 col-xxl-5 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card mt-3 p-3">
@@ -67,7 +67,7 @@
       <form class="" id="formAnalisisLaboratorio">
 
         <div id="formulario-estudios" class="overflow-auto" style="max-width: 100%; margin-bottom:10px;">
-          <!-- <p class="mt-3">BIOMETRIA HEMATICA</p> -->
+
         </div>
       </form>
     </div>

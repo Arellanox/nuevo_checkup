@@ -55,9 +55,10 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
     try {
       getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'In', async function (divClass) {
         await obtenerPanelInformacion(selectListaLab['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
+        await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
+        await generarFormularioPaciente(selectListaLab['ID_TURNO'])
 
-
-        if (selectListaLab.CONFIRMADO_LAB_BIO == 1) {
+        if (selectListaLab.CONFIRMADO == 1) {
           $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
           $('#formAnalisisLaboratorio :input').prop('disabled', true)
         } else {
@@ -85,3 +86,180 @@ $("#BuscarTablaListaLaboratorio").keyup(function () {
   tablaListaPaciente.search($(this).val()).draw();
 });
 
+function generarHistorialResultados(id) {
+  return new Promise(resolve => {
+    // $('#accordionResultadosAnteriores').html('')
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+      type: "POST",
+      dataType: 'json',
+      data: {
+        id_paciente: id,
+        api: 6,
+        id_area: 12
+      },
+      success: function (data) {
+        row = data.response.data;
+        console.log("Haciendo el historial de resultados")
+        console.log(data.response.data)
+        console.log(row)
+        let itemStart = '<div class="accordion-item bg-acordion">';
+        let itemEnd = '</div>';
+
+        let bodyStart = '<div class="accordion-body">' +
+          '<div class="row">';
+        let bodyEnd = '</div>' +
+          '</div>';
+        let html = '';
+
+        for (var i = 0; i < row.length; i++) {
+          html += itemStart;
+          html += '<h2 class="accordion-header" id="collap-historial-estudios' + i + '">' +
+            '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio' + i + '-Target" aria-expanded="false" aria-controls="accordionEstudios">' +
+            '<div class="row">' +
+            '<div class="col-12">' +
+            '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + row[i]['NOMBRE_COMPLETO'] + '</strong>' +
+            '</div>' +
+            '<div class="col-12">' +
+            '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>' + formatoFecha2(row[i]['FECHA_CONFIRMADO']) + '</strong> ' + //<strong>12:00 '+i+'</strong>
+            '</div>' +
+            '</div>' +
+            '</button>' +
+            '</h2>' +
+            '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse overflow-auto" aria-labelledby="collap-historial-estudios' + i + '" style="max-height: 70vh"> ';
+          html += '<p class="none-p" style="margin: 12px 0px 0px 15px;">Ver <a class="" href="' + row[i]['RUTA_REPORTE'] + '" target="_blank" data-bs-id="' + row[i]['ID_TURNO '] + '">RESULTADO</a> aquí</p>';
+          html += bodyStart;
+          for (var k in row[i]['servicios']) {
+            console.log(k)
+            html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][k]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][k]['RESULTADO'] + ' ' + row[i]['servicios'][k]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
+          }
+          // for (var l = 0; l < row[i]['servicios'].length; l++) {
+          //   html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][l]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][l]['RESULTADO'] + ' ' + row[i]['servicios'][l]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
+          // }
+          html += bodyEnd + '</div>';
+          html += itemEnd;
+        }
+        $('#accordionResultadosAnteriores').html(html);
+
+      },
+      complete: function () {
+        resolve(1);
+      }
+    });
+  });
+}
+
+function generarFormularioPaciente(id) {
+  return new Promise(resolve => {
+    // $('#accordionResultadosAnteriores').html('')
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+      type: "POST",
+      dataType: 'json',
+      data: {
+        id_turno: id,
+        api: 8,
+        id_area: 12,
+        tipo: 1
+      },
+      success: function (data) {
+        $('#formulario-estudios').html('')
+        data = data.response.data;
+
+        let colStart = '<div class="col-auto col-lg-6">';
+        let endDiv = '</div>';
+        let colreStart = '<div class="col-auto col-lg-6 d-flex justify-content-end align-items-center">';
+        let html = '';
+
+        // <ul class = "list-group m-4 overflow-auto hover-list info-detalle"
+        // style = "max-width: 100%; max-height: 70vh;margin-bottom:10px;"
+        // id = "list-group-form-resultado-laboro" >
+
+        //   </ul>
+
+        for (var i = 0; i < data.length; i++) {
+          console.log('FOR')
+          let row = data[i]
+          // console.log(row)
+          var count = Object.keys(row).length;
+          console.log(count);
+          html += '<ul class = "list-group card hover-list info-detalle" style="margin: 15px;padding: 15px;" >';
+          html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
+          for (var k in row) {
+            console.log(k, row[k])
+            if (Number.isInteger(parseInt(k))) {
+              // console.log(2)
+              html += '<li class="list-group-item" style="zoom: 95%">';
+              html += '<div class="row d-flex align-items-center">';
+              html += colStart;
+              html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
+              html += endDiv;
+              html += colreStart;
+              html += '<div class="input-group">';
+
+              //Formulario
+              html += `<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" autocomplete="off" value="` + ifnull(row[k]['RESULTADO']) + `" >`;
+
+
+              if (row[k]['MEDIDA']) {
+                if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
+                  html += '<span class="input-span">%</span>';
+                } else {
+                  html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';
+                }
+              }
+
+              html += '</div>';
+              html += endDiv;
+
+              //Valor Absoluto
+              if (row[k]['TIENE_VALOR_ABSOLUTO'] == 1) {
+                html += colStart;
+                html += '<p  style="padding-left: 40px;"><i class="bi bi-box-arrow-in-right"></i> Valor absoluto</p>';
+                html += endDiv;
+                html += colreStart;
+                html += '<div class="input-group">';
+
+                html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" value="' + ifnull(row[k]['VALOR_ABSOLUTO']) + '" autocomplete="off">';
+
+                if (row[k]['MEDIDA_ABS']) {
+                  html += '<span class="input-span">' + row[k]['MEDIDA_ABS'] + '</span>';
+                }
+                html += '</div>';
+                html += endDiv;
+              }
+              html += endDiv;
+              html += '</li>';
+
+              if (row[k]['LLEVA_COMENTARIO'] == true) {
+                if (row[k]['OBSERVACIONES'] == null) {
+                  row[k]['OBSERVACIONES'] = '';
+                }
+                html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
+                  '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
+                  '<textarea name="observacionesServicios[' + row[k]['ID_SERVICIO'] + ']" rows="2;" cols="90" class="input-form" value="">' + row[k]['OBSERVACIONES'] + '</textarea></div ></div > ';
+
+              }
+            }
+
+          }
+          if (row['ID_GRUPO'] != null) {
+            if (row['OBSERVACIONES'] == null) {
+              row['OBSERVACIONES'] = '';
+            }
+            html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
+              '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
+              '<textarea name="observacionesGrupos[' + row['ID_GRUPO'] + ']" rows="2;" cols="90" class="input-form">' + ifnull(row['OBSERVACIONES']) + '</textarea></div ></div > ';
+          }
+          html += '</ul>';
+
+          // idsEstudios.push[data[i]['ID_SERVICIO']]
+        }
+        $('#formulario-estudios').html(html)
+      },
+      complete: function () {
+        resolve(1);
+      }
+    });
+  });
+}
