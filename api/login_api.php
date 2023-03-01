@@ -154,7 +154,7 @@ function login($user, $password)
             if ($result[0]['avatar']) {
                 $_SESSION['avatar'] = $result[0]['avatar'];
             } else {
-                $_SESSION['avatar'] = 'https:bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
+                $_SESSION['avatar'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
             }
 
             return $_SESSION;
