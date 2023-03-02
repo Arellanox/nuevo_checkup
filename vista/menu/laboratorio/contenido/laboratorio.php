@@ -2,7 +2,7 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 <div class="row">
-  <div class="col-4 col-lg-3 col-xxl-3" style="margin-right: -5px !important;">
+  <div class="col-4 col-lg-3 col-xxl-4" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
       <h4>Lista de pacientes</h4>
 
@@ -37,7 +37,7 @@
       </table>
     </div>
   </div>
-  <div class="col-4 col-lg-4 col-xxl-4 informacion-labo" style="margin-right: -5px !important;display:none">
+  <div class="col-4 col-lg-4 col-xxl-3 informacion-labo" style="margin-right: -5px !important;display:none">
     <div class="card mt-3" id="panel-informacion"> </div>
     <div class="card mt-3 p-4">
       <h4>Estudios anteriores</h4>

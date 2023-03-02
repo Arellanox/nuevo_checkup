@@ -51,6 +51,9 @@ function obtenerContenido(tabla) {
             $(this).find('button :submit').prop('disabled', false)
           }
         },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
       });
     })
 

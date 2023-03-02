@@ -11,7 +11,7 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    scrollY: autoHeightDiv(0, 55, '%'),
+    scrollY: autoHeightDiv(0, 263),
     scrollCollapse: true,
     // paging: false,
     lengthMenu: [

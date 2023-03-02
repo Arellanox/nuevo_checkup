@@ -222,6 +222,22 @@ function deletePositionString(str, position) {
   return str;
 }
 
+
+$(window).resize(function () {
+  //aqui el codigo que se ejecutara cuando se redimencione la ventana
+  // var alto=$(window).height();
+  // var ancho=$(window).width();
+  // alert("alto: "+alto+" ancho:"+ancho);
+
+  $.fn.dataTable
+    .tables({
+      visible: true,
+      api: true
+    })
+    .columns.adjust();
+})
+
+
 //Devuelve la area
 function getAreaActiva() {
   hash = window.location.hash.substring(1);
@@ -1175,6 +1191,8 @@ function bugGetPanel(divClass, loaderLo, loaderDiv1, table = '') {
     }
     $(divClass).fadeIn(0)
   }
+  // let altura = $(document).height();
+  // $("html, body").animate({ scrollTop: altura + "px" });
 }
 //
 

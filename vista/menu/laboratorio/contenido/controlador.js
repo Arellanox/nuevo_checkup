@@ -7,7 +7,7 @@ if (validarVista('LABORATORIO')) {
 }
 
 async function obtenerContenidoLaboratorio() {
-  await obtenerTitulo("Laboratorio Clínico");
+  await obtenerTitulo("Resultados de Laboratorio Clinico");
   $.post("contenido/laboratorio.php", function (html) {
     $("#body-js").html(html);
   }).done(function () {

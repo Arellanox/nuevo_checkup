@@ -477,50 +477,50 @@ $servicios = [
 $servicios = [
     [
         'descripcion' => 'Valor CT N1',
-        'grupo_id' => [703]
+        'grupo_id' => [684]
     ],
     [
         'descripcion' => 'Valor CT N2',
-        'grupo_id' => [703, 704]
+        'grupo_id' => [684, 685]
     ],
     [
         'descripcion' => 'Valor CT N3',
-        'grupo_id' => [703]
+        'grupo_id' => [684]
     ],
     [
         'descripcion' => 'RP',
-        'grupo_id' => [703, 704]
+        'grupo_id' => [684, 685]
     ],
     [
         'descripcion' => 'Influenza A',
-        'grupo_id' => [704]
+        'grupo_id' => [685]
     ],
     [
         'descripcion' => 'Influenza B',
-        'grupo_id' => [704]
+        'grupo_id' => [685]
     ],
     [
         'descripcion' => 'Kit de diagnóstico',
-        'grupo_id' => [703, 704]
+        'grupo_id' => [684, 685]
     ],
     [
         'descripcion' => 'Número de aurotrización',
-        'grupo_id' => [703, 704]
+        'grupo_id' => [684, 685]
     ],
     [
         'descripcion' => 'No. lote',
-        'grupo_id' => [703, 704]
+        'grupo_id' => [684, 685]
     ],
     [
         'descripcion' => 'Tipo de muestra',
-        'grupo_id' => [703, 704]
+        'grupo_id' => [684, 685]
     ]
 ];
 
 
 $area = 12;
 // $clasificacion_id = 2;
-$grupo_id = 703;
+$grupo_id = 684;
 
 $orden = 1;
 foreach ($servicios as $key => $value) {
@@ -730,46 +730,46 @@ foreach ($servicios as $key => $value) {
 // ]);
 
 
-function agregarServicio($parametros)
-{
-    $master = new Master();
-    $response = $master->insertByProcedure('sp_servicios_g', $parametros);
-    return $response;
-}
+// function agregarServicio($parametros)
+// {
+//     $master = new Master();
+//     $response = $master->insertByProcedure('sp_servicios_g', $parametros);
+//     return $response;
+// }
 
-function agregarGrupoExamen($parametros) #Pueden ser vacios
-{
-    $master = new Master();
-    $response = $master->insertByProcedure('sp_detalle_grupo_g', $parametros);
-    echo "Grupo </br>";
-}
+// function agregarGrupoExamen($parametros) #Pueden ser vacios
+// {
+//     $master = new Master();
+//     $response = $master->insertByProcedure('sp_detalle_grupo_g', $parametros);
+//     echo "Grupo </br>";
+// }
 
-function agregarValoresReferencia($parametros)
-{
-    $master = new Master();
-    $response = $master->insertByProcedure('sp_laboratorio_valores_referencia_g', $parametros);
-    // echo $response;
-    echo "referencia </br>";
-}
+// function agregarValoresReferencia($parametros)
+// {
+//     $master = new Master();
+//     $response = $master->insertByProcedure('sp_laboratorio_valores_referencia_g', $parametros);
+//     // echo $response;
+//     echo "referencia </br>";
+// }
 
-function agregarMetodo($parametros) #pueden ser varios
-{
-    $master = new Master();
-    $master->insertByProcedure('sp_laboratorio_metodo_servicio_g', $parametros);
-    echo "metodo </br>";
-}
+// function agregarMetodo($parametros) #pueden ser varios
+// {
+//     $master = new Master();
+//     $master->insertByProcedure('sp_laboratorio_metodo_servicio_g', $parametros);
+//     echo "metodo </br>";
+// }
 
-function agregarEquipoExamenes($paramEX)
-{
-    $master = new Master();
-    $master->insertByProcedure('sp_equipos_examenes_g', $paramEX);
-    echo "Equipo </br>";
-}
+// function agregarEquipoExamenes($paramEX)
+// {
+//     $master = new Master();
+//     $master->insertByProcedure('sp_equipos_examenes_g', $paramEX);
+//     echo "Equipo </br>";
+// }
 
 
-function agregarContenedorExamenes($parametros)
-{
-    $master = new Master();
-    $master->insertByProcedure('sp_contenedores_examenes_g', $parametros);
-    echo "Contenedor </br>";
-}
+// function agregarContenedorExamenes($parametros)
+// {
+//     $master = new Master();
+//     $master->insertByProcedure('sp_contenedores_examenes_g', $parametros);
+//     echo "Contenedor </br>";
+// }

@@ -116,7 +116,14 @@ $menu = $_POST['menu']; ?>
   </button>
 <?php endif; ?>
 
-<?php if ($menu == 'Resultados de laboratorio' || $menu == 'Validación y envio de resultados de laboratorio') : ?>
+<?php if (
+  $menu == 'Reportes de Laboratorio Clínico' ||
+  $menu == 'Validación y envio de resultados de laboratorio' ||
+  $menu == 'Laboratorio Clínico' ||
+  $menu == 'Resultados de Laboratorio Clinico' ||
+  $menu == 'Resultados de Laboratorio Biomolecular' ||
+  $menu == 'Laboratorio Biomolecular'
+) : ?>
   <div class="row">
     <div class="col-auto d-flex align-items-center">
       <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>

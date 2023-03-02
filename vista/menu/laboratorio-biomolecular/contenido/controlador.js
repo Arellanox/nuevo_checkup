@@ -2,12 +2,12 @@
 var tablaListaPaciente, dataListaPaciente = { api: 5, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: 12 };
 var idsEstudiosa, selectListaLab;
 
-if (validarVista('LABORATORIO')) {
+if (validarVista('LABORATORIO_MOLECULAR')) {
   obtenerContenidoLaboratorio();
 }
 
 async function obtenerContenidoLaboratorio() {
-  await obtenerTitulo("Laboratorio Biomolecular");
+  await obtenerTitulo("Resultados de Laboratorio Biomolecular");
   $.post("contenido/laboratorio.php", function (html) {
     $("#body-js").html(html);
   }).done(function () {
