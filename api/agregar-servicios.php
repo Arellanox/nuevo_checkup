@@ -437,94 +437,146 @@ $servicios = [
 // ]);
 
 
-$serviciosSolos = [
-    [
-        //Subir servicio
-        'descripcion' => '25-HIDROXI VITAMINA D',
-        'id' => 680,
-        'medida_id' => 94,
-        'clasificacion_id' => 6,
+// $serviciosSolos = [
+//     [
+//         //Subir servicio
+//         'descripcion' => '25-HIDROXI VITAMINA D',
+//         'id' => 680,
+//         'medida_id' => 94,
+//         'clasificacion_id' => 6,
 
-        //Valores de referencia 
-        'valor_minimo' => 20,
-        'valor_maximo' => 40,
+//         //Valores de referencia 
+//         'valor_minimo' => 20,
+//         'valor_maximo' => 40,
+//     ],
+//     [
+//         //Subir servicio
+//         'descripcion' => 'VITAMINA B12',
+//         'id' => 681,
+//         'medida_id' => 94,
+//         'clasificacion_id' => 6,
+
+//         //Valores de referencia 
+//         'valor_minimo' => '&gt;20',
+//         'valor_maximo' => null,
+//     ],
+//     [
+//         //Subir servicio
+//         'descripcion' => 'ACIDO FÓLICO',
+//         'id' => 682,
+//         'medida_id' => 94,
+//         'clasificacion_id' => 6,
+
+//         //Valores de referencia 
+//         'valor_minimo' => '2.7',
+//         'valor_maximo' => '17.0',
+//     ],
+
+// ];
+
+$servicios = [
+    [
+        'descripcion' => 'Valor CT N1',
+        'grupo_id' => [703]
     ],
     [
-        //Subir servicio
-        'descripcion' => 'VITAMINA B12',
-        'id' => 681,
-        'medida_id' => 94,
-        'clasificacion_id' => 6,
-
-        //Valores de referencia 
-        'valor_minimo' => '&gt;20',
-        'valor_maximo' => null,
+        'descripcion' => 'Valor CT N2',
+        'grupo_id' => [703, 704]
     ],
     [
-        //Subir servicio
-        'descripcion' => 'ACIDO FÓLICO',
-        'id' => 682,
-        'medida_id' => 94,
-        'clasificacion_id' => 6,
-
-        //Valores de referencia 
-        'valor_minimo' => '2.7',
-        'valor_maximo' => '17.0',
+        'descripcion' => 'Valor CT N3',
+        'grupo_id' => [703]
     ],
-
-
+    [
+        'descripcion' => 'RP',
+        'grupo_id' => [703, 704]
+    ],
+    [
+        'descripcion' => 'Influenza A',
+        'grupo_id' => [704]
+    ],
+    [
+        'descripcion' => 'Influenza B',
+        'grupo_id' => [704]
+    ],
+    [
+        'descripcion' => 'Kit de diagnóstico',
+        'grupo_id' => [703, 704]
+    ],
+    [
+        'descripcion' => 'Número de aurotrización',
+        'grupo_id' => [703, 704]
+    ],
+    [
+        'descripcion' => 'No. lote',
+        'grupo_id' => [703, 704]
+    ],
+    [
+        'descripcion' => 'Tipo de muestra',
+        'grupo_id' => [703, 704]
+    ]
 ];
 
 
-$area = 6;
+$area = 12;
 // $clasificacion_id = 2;
-// $grupo_id = 312;
-$metodos = null;
+$grupo_id = 703;
+
+$orden = 1;
+foreach ($servicios as $key => $value) {
+    $id = agregarServicio([
+        null,
+        $value['descripcion'],
+        null,
+        $area,
+        null,
+        null,
+        null,
+
+        1,
+        null,
+        null,
+        1,
+        1,
+
+        0,
+        0,
+        null,
+        'TODOS',
+        1,
+        1,
+        1
+    ]);
+
+    foreach ($value['grupo_id'] as $key => $value) {
+        agregarGrupoExamen([
+            $value,
+            $id,
+            $orden
+        ]);
+    }
+
+    $orden++;
 
 
-// foreach ($serviciosSolos as $key => $value) {
-//     // $id = agregarServicio([
-//     //     null,
-//     //     $value['descripcion'],
-//     //     null,
-//     //     $area,
-//     //     $value['clasificacion_id'],
-//     //     null,
-//     //     $value['medida_id'],
 
-//     //     1,
-//     //     null,
-//     //     null,
-//     //     1,
-//     //     1,
+    // agregarContenedorExamenes([
+    //     $id,
+    //     1,
+    //     4
+    // ]);
 
-//     //     0,
-//     //     0,
-//     //     null,
-//     //     'TODOS',
-//     //     1,
-//     //     1,
-//     //     1
-//     // ]);
-
-
-//     // agregarContenedorExamenes([
-//     //     $id,
-//     //     1,
-//     //     4
-//     // ]);
-
-//     // agregarValoresReferencia([
-//     //     null,
-//     //     $value['id'],
-//     //     $value['valor_minimo'],
-//     //     $value['valor_maximo'],
-//     //     'HOMBRE',
-//     //     1,
-//     //     100,
-//     //     null
-//     // ]);
-// }
+    // agregarValoresReferencia([
+    //     null,
+    //     $value['id'],
+    //     $value['valor_minimo'],
+    //     $value['valor_maximo'],
+    //     'HOMBRE',
+    //     1,
+    //     100,
+    //     null
+    // ]);
+}
 
 
 // $id = agregarServicio([
@@ -689,7 +741,7 @@ function agregarGrupoExamen($parametros) #Pueden ser vacios
 {
     $master = new Master();
     $response = $master->insertByProcedure('sp_detalle_grupo_g', $parametros);
-    echo "referencia </br>";
+    echo "Grupo </br>";
 }
 
 function agregarValoresReferencia($parametros)
