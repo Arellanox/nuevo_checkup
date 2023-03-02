@@ -198,6 +198,8 @@ function generarFormularioPaciente(id) {
               html += '<div class="input-group">';
 
               //Formulario
+
+
               html += `<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" autocomplete="off" value="` + ifnull(row[k]['RESULTADO']) + `" >`;
 
 

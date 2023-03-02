@@ -46,6 +46,9 @@
           <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="omitir-paciente" style="margin-bottom:4px">
             <i class="bi bi-clipboard-x"></i> Saltar paciente
           </button>
+          <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="llamar-paciente" style="margin-bottom:4px">
+            <i class="bi bi-clipboard-x"></i> Siguiente paciente
+          </button>
         </div>
       </div>
       <div class="row mt-3">
@@ -67,7 +70,7 @@
   </div>
 </div>
 <style media="screen">
-  #TablaMuestras_filter{
+  #TablaMuestras_filter {
     display: none
   }
 </style>

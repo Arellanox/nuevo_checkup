@@ -40,7 +40,11 @@ $('#muestra-tomado').on('click', function () {
 })
 
 $('#omitir-paciente').on('click', function () {
-  pasarPacienteTurno(selectListaMuestras['ID_TURNO']);
+  pasarPacienteTurno(6);
+})
+
+$('#llamar-paciente').on('click', function () {
+  buscarPaciente(6);
 })
 
 // // cambiar fecha de la Lista

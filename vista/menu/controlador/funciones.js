@@ -290,8 +290,7 @@ function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback) {
       // Esto va dentro del AJAX
       $.ajax({
         data: {
-          api: 7,
-          id_turno: id_turno,
+          api: 3,
           id_area: id_area,
           liberar: liberar
         },
@@ -317,13 +316,21 @@ function pasarPacienteTurno(id_turno, id_area, liberar = 0, callback) {
 }
 
 //Obtener paciente actual
-function buscarPaciente(id_area, callback) {
-  $.ajax({
+function buscarPaciente(id_area, callback = function (data) { }) {
+  alertMensajeConfirm({
+    title: '¿Desea llamar al siguiente paciente?',
+    text: "",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+  }, $.ajax({
     data: {
-      api: 7,
+      api: 2,
       id_area: id_area
     },
-    url: "../../../api/turnos_api.php",
+    url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+    // url: "../../../api/turneador_api.php",
     type: "POST",
     success: function (data) {
       data = jQuery.parseJSON(data);
@@ -332,7 +339,7 @@ function buscarPaciente(id_area, callback) {
     error: function (jqXHR, exception, data) {
       alertErrorAJAX(jqXHR, exception, data)
     },
-  });
+  }), 1)
 }
 
 // Validar la vista (OBSOLETOXD)
