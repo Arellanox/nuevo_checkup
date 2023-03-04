@@ -61,8 +61,13 @@ switch ($api) {
     case 4:
         # pantalla turnero
         $response = $master->getByProcedure('sp_turnero_pantalla', []);
-        while ($response) {
+
+        $object = array();
+        foreach($response as $item) {
+            $object['TURNO'] = $item;
         }
+        $response = $object;
+
         break;
     default:
         $response = "api no reconocida";
