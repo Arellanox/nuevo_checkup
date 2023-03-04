@@ -64,7 +64,7 @@ switch ($api) {
 
         $object = array();
         foreach($response as $item) {
-            $object['TURNO'] = $item;
+            $object[]['TURNO'] = $item;
         }
         $response = $object;
 
