@@ -151,6 +151,9 @@ switch ($api) {
         # subir resultados
         $setResultados = $_POST['servicios'];
         $id_turno = $_POST['id_turno'];
+        if ($id_area) {
+            $id_area = 6;
+        }
 
         foreach ($setResultados as $servicio_id => $resultado) {
             #determinamos si el estudio de laboratorio tiene valor absoluto.
