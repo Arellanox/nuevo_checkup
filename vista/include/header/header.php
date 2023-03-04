@@ -67,6 +67,13 @@ session_start();
         <ul class="nav navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
+            <?php
+            if (!$_SESSION['avatar']) {
+              $_SESSION['avatar'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
+            }
+
+            ?>
+
 
             <a data-bs-toggle="dropdown" type="button" class="">
               <div class=" container-avatar">
