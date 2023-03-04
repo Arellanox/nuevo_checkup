@@ -4,13 +4,13 @@
     </a>
 <?php endif; ?>
 <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
-    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; ?>">
+    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/#LABORATORIO'; ?>">
         <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
     </a>
 <?php endif; ?>
 <!-- Bio -->
 <?php if ($_SESSION['vista']['LABORATORIO_MOLECULAR'] == 1) : ?>
-    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio-biomolecular/'; ?>">
+    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/#LABORATORIO_MOLECULAR'; ?>">
         <i class="bi bi-virus"></i> Laboratorio Biomolecular
     </a>
 <?php endif; ?>

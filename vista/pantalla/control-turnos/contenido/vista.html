@@ -8,7 +8,7 @@
                 </tr> -->
             </thead>
             <tbody class="">
-                <tr class="odd">
+                <!-- <tr class="odd">
                     <div class="turnoActivo alert-success" role="alert">
                         bimo1 - Consultorio 1
                     </div>
@@ -39,7 +39,7 @@
                 </tr>
                 <tr class="odd">
                     <td>bimo4 - Ultrasonido</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
@@ -82,5 +82,27 @@
         color: white;
         font-weight: bolder;
         font-size: 38px
+    }
+
+    tbody tr td:first-child {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+    .dataTables_scrollHead {
+        display: none;
+    }
+
+    table.dataTable {
+        clear: both;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+        max-width: none !important;
+        border-collapse: collapse !important;
+        border-spacing: 0;
     }
 </style>

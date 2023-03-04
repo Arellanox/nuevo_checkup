@@ -96,7 +96,7 @@ function generarHistorialResultados(id) {
       data: {
         id_paciente: id,
         api: 6,
-        id_area: 6
+        id_area: areaActiva
       },
       success: function (data) {
         row = data.response.data;
@@ -159,7 +159,7 @@ function generarFormularioPaciente(id) {
       data: {
         id_turno: id,
         api: 8,
-        id_area: 6,
+        id_area: areaActiva,
         tipo: 1
       },
       success: function (data) {

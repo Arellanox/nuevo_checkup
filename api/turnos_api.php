@@ -188,7 +188,7 @@ switch ($api) {
 
     case 6:
         #servicios por turno
-        $response = $master->getByProcedure('sp_turnos_historial', [$id, $id_paciente]);
+        $response = $master->getByProcedure('sp_turnos_historial', [$id, $id_paciente, $id_area]);
         $hijo = $master->getByProcedure('sp_turnos_historial_detalle', [$id, $id_paciente, $id_area]);
         for ($i = 0; $i < count($response); $i++) {
             $id_turno_padre = $response[$i]['ID_TURNO'];
@@ -209,7 +209,7 @@ switch ($api) {
         # Cargar lista de trabajo para la segunda validacion de laboratorio
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, 6, 1)); #fecha deseada, id_area, id_cliente.
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, 1)); #fecha deseada, id_area, id_cliente.
         break;
     case 13:
         # Dar el 2 check en resultados de laboratorio [particulares]

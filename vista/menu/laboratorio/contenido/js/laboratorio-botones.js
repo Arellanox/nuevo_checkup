@@ -6,7 +6,7 @@ $('#formAnalisisLaboratorio').submit(function (event) {
     var form = document.getElementById("formAnalisisLaboratorio");
     var formData = new FormData(form);
     formData.set('id_turno', selectListaLab['ID_TURNO']);
-    formData.set('id_area', 6)
+    formData.set('id_area', areaActiva)
     formData.set('api', 9);
     // console.log(formData);
     if ($('.subir-resultado-lab:focus').attr('data-attribute') == 'confirmar') {
@@ -146,7 +146,7 @@ $('#checkDiaAnalisis').click(function () {
 function recargarVistaLab(fecha = 1) {
   dataListaPaciente = {
     api: 5,
-    area_id: 6
+    area_id: areaActiva
   }
   if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
 
