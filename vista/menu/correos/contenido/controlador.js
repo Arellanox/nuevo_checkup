@@ -29,7 +29,7 @@ function hasLocation() {
     $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
     if (validarVista(hash)) {
         switch (hash) {
-            case "LABCLINICO":
+            case "CORREOSLAB":
                 obtenerVistaCorreosLaboratorio('particular');
                 break;
             default:
