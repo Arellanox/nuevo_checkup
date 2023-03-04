@@ -180,6 +180,37 @@ function generarFormularioPaciente(id) {
         for (var i = 0; i < data.length; i++) {
           console.log('FOR')
           let row = data[i]
+
+          //Biomolecular 
+          switch (row['ID_GRUPO']) {
+            case 685: case '685':
+              kitDiag = {
+                0: {
+                  'descripcion': 'DeCoV19 Kit Triplex',
+                  'clave': 'DGE-DSAT-02874-2020'
+                },
+                1: {
+                  'descripcion': 'CoviFlu Kit Multiplex',
+                  'clave': 'DGE-DSAT-01498-2021'
+                }
+              }
+              muestras = {
+                0: 'Nasofaringeo',
+                1: 'Faríngea',
+                2: 'Nasal',
+                3: 'Lavado bronqueoalveolar'
+              }
+
+              break;
+
+            default:
+              break;
+          }
+
+
+
+
+
           // console.log(row)
           var count = Object.keys(row).length;
           console.log(count);
@@ -199,6 +230,15 @@ function generarFormularioPaciente(id) {
 
               //Formulario
 
+              switch (row[k]['ID_SERVICIO']) {
+                case 'value':
+
+                  break;
+
+                default:
+                  break;
+              }
+
 
               html += `<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" autocomplete="off" value="` + ifnull(row[k]['RESULTADO']) + `" >`;
 
@@ -214,22 +254,7 @@ function generarFormularioPaciente(id) {
               html += '</div>';
               html += endDiv;
 
-              //Valor Absoluto
-              if (row[k]['TIENE_VALOR_ABSOLUTO'] == 1) {
-                html += colStart;
-                html += '<p  style="padding-left: 40px;"><i class="bi bi-box-arrow-in-right"></i> Valor absoluto</p>';
-                html += endDiv;
-                html += colreStart;
-                html += '<div class="input-group">';
 
-                html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" value="' + ifnull(row[k]['VALOR_ABSOLUTO']) + '" autocomplete="off">';
-
-                if (row[k]['MEDIDA_ABS']) {
-                  html += '<span class="input-span">' + row[k]['MEDIDA_ABS'] + '</span>';
-                }
-                html += '</div>';
-                html += endDiv;
-              }
               html += endDiv;
               html += '</li>';
 
