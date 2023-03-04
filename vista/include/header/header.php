@@ -3,7 +3,8 @@ $menu = $_POST['menu'];
 $tip = $_POST['tip'];
 session_start();
 ?>
-<?php switch ($menu) {
+<?php
+switch ($menu) {
   case 'Prerregistro':
 ?>
     <nav class="navbar border-3 border-bottom border-dark bg-navbar">
@@ -41,6 +42,15 @@ session_start();
   <nav class="navbar border-3 border-bottom border-dark bg-navbar">
     <div class="container-fluid d-flex justify-content-center">
       <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
+    </div>
+  </nav>
+<?php
+    break;
+  case 'TURNERO':
+?>
+  <nav class="navbar border-dark bg-navbar">
+    <div class="container-fluid d-flex justify-content-center divTurnoNav">
+      Turnos- Areas
     </div>
   </nav>
 <?php
@@ -94,9 +104,11 @@ session_start();
     </div>
   </nav>
 
-<?php include "offcanvas.php";
+<?php
+    include "offcanvas.php";
     break;
-} ?>
+}
+?>
 
 <script type="text/javascript">
   $('.dropdown-menu').on('click', function(e) {
