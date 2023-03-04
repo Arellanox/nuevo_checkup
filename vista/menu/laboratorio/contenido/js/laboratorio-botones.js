@@ -6,7 +6,7 @@ $('#formAnalisisLaboratorio').submit(function (event) {
     var form = document.getElementById("formAnalisisLaboratorio");
     var formData = new FormData(form);
     formData.set('id_turno', selectListaLab['ID_TURNO']);
-    formData.set('id_area', 12)
+    formData.set('id_area', 6)
     formData.set('api', 9);
     // console.log(formData);
     if ($('.subir-resultado-lab:focus').attr('data-attribute') == 'confirmar') {
