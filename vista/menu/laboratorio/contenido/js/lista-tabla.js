@@ -191,6 +191,7 @@ function generarFormularioPaciente(id) {
               'descripcion': 'POSITIVO',
             }
           }
+
           switch (row['ID_GRUPO']) {
             case '685': case '684': // <-- PCR -->
               kitDiag = {
@@ -266,8 +267,6 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
-
-
             default: input = null; break;
           }
 
@@ -396,6 +395,8 @@ function generarFormularioPaciente(id) {
             }
 
           }
+
+
           if (row['ID_GRUPO'] != null) {
             if (row['OBSERVACIONES'] == null) {
               row['OBSERVACIONES'] = '';
@@ -418,16 +419,19 @@ function generarFormularioPaciente(id) {
 }
 
 function crearSelectCamposMolecular(data, nameInput, valueInput, classInput = '') {
-  value = '';
-  if (valueInput)
-    value = `value="${valueInput}"`;
-  value = '';
 
-  let selectHtml = `<select name="${nameInput}" class="input-form selectMolecular ${classInput}" required="" ${value}>`
+
+  let selectHtml = `<select name="${nameInput}" class="input-form selectMolecular ${classInput}" required="">`
   for (const key in data) {
     if (Object.hasOwnProperty.call(data, key)) {
       const element = data[key];
-      selectHtml += '<option value="' + element['descripcion'] + '" claveOption = "' + ifnull(element['clave']) + '">' + element['descripcion'] + '</option>'
+      let optionSelect = '';
+      if (valueInput == element['descripcion'])
+        optionSelect = 'selected';
+
+      console.log(valueInput == element['descripcion'])
+
+      selectHtml += '<option value="' + element['descripcion'] + '" claveOption = "' + ifnull(element['clave']) + '" ' + optionSelect + '>' + element['descripcion'] + '</option>'
     }
   }
   selectHtml += '</select>';
