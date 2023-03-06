@@ -1,12 +1,13 @@
 
 
 var datalist, dataListaPaciente, selectEstudio, dataSelect;
+var areaActiva;
 async function obtenerVistaCorreosLaboratorio(cliente) {
     await obtenerTitulo("Validación y envio de resultados de laboratorio");
     $.post("contenido/laboratorio.html", function (html) {
         $("#body-js").html(html);
     }).done(function () {
-        dataListaPaciente = { api: 12, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: 6 }
+        dataListaPaciente = { api: 12, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: areaActiva }
         // DataTable
         $.getScript('contenido/js/lista-tabla.js')
         // Botones
@@ -30,6 +31,11 @@ function hasLocation() {
     if (validarVista(hash)) {
         switch (hash) {
             case "CORREOSLAB":
+                areaActiva = 6
+                obtenerVistaCorreosLaboratorio('particular');
+                break;
+            case "CORREOSLABBIO":
+                areaActiva = 12
                 obtenerVistaCorreosLaboratorio('particular');
                 break;
             default:
