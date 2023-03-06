@@ -192,7 +192,7 @@ function generarFormularioPaciente(id) {
             }
           }
           switch (row['ID_GRUPO']) {
-            case '685': case '684':
+            case '685': case '684': // <-- PCR -->
               kitDiag = {
                 0: {
                   'descripcion': 'CoviFlu Kit Multiplex',
@@ -203,6 +203,7 @@ function generarFormularioPaciente(id) {
                   'clave': 'DGE-DSAT-02874-2020'
                 }
               }
+              classSelect = 'selectTipoMuestraPCR';
               muestras = {
                 0: {
                   'descripcion': 'NASOFARINGEO',
@@ -219,7 +220,7 @@ function generarFormularioPaciente(id) {
               }
               break;
 
-            case '697':
+            case '697': // <-- ANTIGENO -->
               muestras = {
                 0: {
                   'descripcion': 'HISOPADO NASAL',
@@ -227,7 +228,14 @@ function generarFormularioPaciente(id) {
               }
               break;
 
-            case '698':
+            case '698': // <-- VPH -->
+              kitDiag = {
+                0: {
+                  'descripcion': 'GeneProof para el virus del papiloma humano (VPH)',
+                  'clave': '2002R2019 SSA'
+                }
+              }
+              classSelect = 'selectTipoMuestraVPH';
               muestras = {
                 0: {
                   'descripcion': 'CERVICAL',
@@ -244,7 +252,14 @@ function generarFormularioPaciente(id) {
               }
               break;
 
-            case '709':
+            case '709': // <-- PANEL21 -->
+              kitDiag = {
+                0: {
+                  'descripcion': 'FTD™ Respiratory Pathogens 21',
+                  'clave': 'N/A'
+                }
+              }
+              classSelect = 'selectTipoMuestraPanel21';
               muestras = {
                 0: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO',
@@ -279,6 +294,7 @@ function generarFormularioPaciente(id) {
 
 
               //Formulario
+              //Configuracion para biomolecular por ID_SERVICIO
               let nameInput = `servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]`;
               let onlyLabel = false;
               let anotherValue = '';
@@ -294,18 +310,24 @@ function generarFormularioPaciente(id) {
                 case '713': case '714': case '716': case '717': case '718': case '731':
                 case '719': case '721': case '722': case '723': case '733': case '730':
                 case '725':
-                  anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO'], 'selectTipoMuestraPCR'); break;
+                  anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 case '710': case '715': case '720': case '724': case '729':
                   onlyLabel = true; break;
 
                 case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
                 case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
-                case '692': anotherInput = crearSelectCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], 'selectTipoMuestraPCR'); break;
-                case '693': anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
+
+                case '692': case '706': case '734':
+                  anotherInput = crearSelectCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], ifnull(classSelect)); break;
+                case '693': case '707': case '735':
+                  anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
+
+
                 case '695': case '700': case '708': case '736': anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
                 default: anotherValue = ''; break;
               }
+              //
 
               if (!onlyLabel) {
                 html += colStart;
@@ -317,7 +339,8 @@ function generarFormularioPaciente(id) {
                 if (anotherInput) {
                   html += anotherInput;
                 } else {
-                  html += `<input ${anotherAttr}  class="form-control input-form text-end inputFormRequired ${anotherClassInput}" name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`;
+                  console.log(`<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`)
+                  html += `<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`;
                 }
 
 
