@@ -421,7 +421,7 @@ function generarFormularioPaciente(id) {
 function crearSelectCamposMolecular(data, nameInput, valueInput, classInput = '') {
 
 
-  let selectHtml = `<select name="${nameInput}" class="input-form selectMolecular ${classInput}" required="">`
+  let selectHtml = `<select name="${nameInput}" class="input-form selectMolecular ${classInput} text-end" required="">`
   for (const key in data) {
     if (Object.hasOwnProperty.call(data, key)) {
       const element = data[key];
