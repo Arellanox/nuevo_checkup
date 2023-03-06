@@ -34,14 +34,14 @@ function hasLocation() {
                 areaActiva = 6
                 obtenerVistaCorreosLaboratorio('particular');
                 break;
-            case "CORREOSLABBIO":
+            case "CORREOSLABBIOMOLECULAR":
                 areaActiva = 12
                 obtenerVistaCorreosLaboratorio('particular');
                 break;
             default:
                 alertMensajeConfirm({
                     title: 'Area no disponible',
-                    message: 'Probablemente no ha seleccionado un area',
+                    message: 'Probablemente no ha seleccionado un area correcta',
                     icon: 'info'
                 })
                 break;
