@@ -201,8 +201,8 @@ function checkNumber(x) {
 }
 
 
-function ifnull(data) {
-  if (typeof data === 'undefined') return '';
+function ifnull(data, siNull = '') {
+  if (typeof data === 'undefined') return siNull;
   if (data) {
     data = data.replace(/["]+/g, '&quot');
     data = data.replace(/["]+/g, '&#44;');
@@ -210,7 +210,7 @@ function ifnull(data) {
 
     return data;
   }
-  return '';
+  return siNull;
 }
 function firstMayus(str) {
   str = str.charAt(0).toUpperCase() + str.slice(1);

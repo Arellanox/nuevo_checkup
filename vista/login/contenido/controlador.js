@@ -49,11 +49,17 @@ function obtenerContenido(tabla) {
             }
           } else {
             $(this).find('button :submit').prop('disabled', false)
+            if (data.response.msj == 'Oops! Tu contraseña es incorrecta.') {
+              $('#formIniciarSesion input[name="pass"]').addClass('is-invalid')
+            } else {
+              $('#formIniciarSesion input').addClass('is-invalid')
+
+            }
           }
         },
-      error: function (jqXHR, exception, data) {
-        alertErrorAJAX(jqXHR, exception, data)
-      },
+        error: function (jqXHR, exception, data) {
+          alertErrorAJAX(jqXHR, exception, data)
+        },
       });
     })
 

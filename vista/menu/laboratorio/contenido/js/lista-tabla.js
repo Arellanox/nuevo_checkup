@@ -180,6 +180,91 @@ function generarFormularioPaciente(id) {
         for (var i = 0; i < data.length; i++) {
           console.log('FOR')
           let row = data[i]
+
+          //Biomolecular 
+          let kitDiag = null;
+          resultado = {
+            0: {
+              'descripcion': 'NEGATIVO',
+            },
+            1: {
+              'descripcion': 'POSITIVO',
+            }
+          }
+          switch (row['ID_GRUPO']) {
+            case '685': case '684':
+              kitDiag = {
+                0: {
+                  'descripcion': 'CoviFlu Kit Multiplex',
+                  'clave': 'DGE-DSAT-01498-2021'
+                },
+                1: {
+                  'descripcion': 'DeCoV19 Kit Triplex',
+                  'clave': 'DGE-DSAT-02874-2020'
+                }
+              }
+              muestras = {
+                0: {
+                  'descripcion': 'NASOFARINGEO',
+                },
+                1: {
+                  'descripcion': 'FARÍNGEA',
+                },
+                2: {
+                  'descripcion': 'NASAL',
+                },
+                3: {
+                  'descripcion': 'LAVADO BRONQUEOALVEOLAR',
+                }
+              }
+              break;
+
+            case '697':
+              muestras = {
+                0: {
+                  'descripcion': 'HISOPADO NASAL',
+                }
+              }
+              break;
+
+            case '698':
+              muestras = {
+                0: {
+                  'descripcion': 'CERVICAL',
+                },
+                1: {
+                  'descripcion': 'ANAL'
+                },
+                2: {
+                  'descripcion': 'URETRAL'
+                },
+                3: {
+                  'descripcion': 'LBC'
+                }
+              }
+              break;
+
+            case '709':
+              muestras = {
+                0: {
+                  'descripcion': 'HISOPADO NASOFARÍNGEO',
+                }
+              }
+              break;
+
+
+            default: input = null; break;
+          }
+
+
+
+
+
+
+
+
+
+
           // console.log(row)
           var count = Object.keys(row).length;
           console.log(count);
@@ -191,43 +276,88 @@ function generarFormularioPaciente(id) {
               // console.log(2)
               html += '<li class="list-group-item" style="zoom: 95%">';
               html += '<div class="row d-flex align-items-center">';
-              html += colStart;
-              html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
-              html += endDiv;
-              html += colreStart;
-              html += '<div class="input-group">';
+
 
               //Formulario
-              html += `<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" autocomplete="off" value="` + ifnull(row[k]['RESULTADO']) + `" >`;
+              let nameInput = `servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]`;
+              let onlyLabel = false;
+              let anotherValue = '';
+              let anotherInput = null;
+              let anotherClassInput = null;
+              let anotherAttr = '';
+              switch (row[k]['ID_SERVICIO']) {
+                case '686': case '687': case '688':
+                  anotherValue = 'NEGATIVO'; break;
 
+                case '690': case '699': case '702': case '726': case '727': case '728':
+                case '703': case '704': case '705': case '711': case '712': case '732':
+                case '713': case '714': case '716': case '717': case '718': case '731':
+                case '719': case '721': case '722': case '723': case '733': case '730':
+                case '725':
+                  anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO'], 'selectTipoMuestraPCR'); break;
 
-              if (row[k]['MEDIDA']) {
-                if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
-                  html += '<span class="input-span">%</span>';
-                } else {
-                  html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';
-                }
+                case '710': case '715': case '720': case '724': case '729':
+                  onlyLabel = true; break;
+
+                case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
+                case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
+                case '692': anotherInput = crearSelectCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], 'selectTipoMuestraPCR'); break;
+                case '693': anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
+                case '695': case '700': case '708': case '736': anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
+                default: anotherValue = ''; break;
               }
 
-              html += '</div>';
-              html += endDiv;
-
-              //Valor Absoluto
-              if (row[k]['TIENE_VALOR_ABSOLUTO'] == 1) {
+              if (!onlyLabel) {
                 html += colStart;
-                html += '<p  style="padding-left: 40px;"><i class="bi bi-box-arrow-in-right"></i> Valor absoluto</p>';
+                html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
                 html += endDiv;
                 html += colreStart;
                 html += '<div class="input-group">';
 
-                html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" value="' + ifnull(row[k]['VALOR_ABSOLUTO']) + '" autocomplete="off">';
-
-                if (row[k]['MEDIDA_ABS']) {
-                  html += '<span class="input-span">' + row[k]['MEDIDA_ABS'] + '</span>';
+                if (anotherInput) {
+                  html += anotherInput;
+                } else {
+                  html += `<input ${anotherAttr}  class="form-control input-form text-end inputFormRequired ${anotherClassInput}" name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`;
                 }
+
+
+
+
+                if (row[k]['MEDIDA']) {
+                  if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
+                    html += '<span class="input-span">%</span>';
+                  } else {
+                    html += '<span class="input-span">' + row[k]['MEDIDA'] + '</span>';
+                  }
+                }
+
                 html += '</div>';
                 html += endDiv;
+
+                //Valor Absoluto
+                if (row[k]['TIENE_VALOR_ABSOLUTO'] == 1) {
+                  html += colStart;
+                  html += '<p  style="padding-left: 40px;"><i class="bi bi-box-arrow-in-right"></i> Valor absoluto</p>';
+                  html += endDiv;
+                  html += colreStart;
+                  html += '<div class="input-group">';
+
+                  html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" value="' + ifnull(row[k]['VALOR_ABSOLUTO']) + '" autocomplete="off">';
+
+                  if (row[k]['MEDIDA_ABS']) {
+                    html += '<span class="input-span">' + row[k]['MEDIDA_ABS'] + '</span>';
+                  }
+                  html += '</div>';
+                  html += endDiv;
+                }
+
+              } else {
+                html += '<div class="col-auto col-lg-12 text-center">';
+                html += '<p style="font-size: 19px; font-wieght: bolder">' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
+                html += endDiv;
               }
+
+
               html += endDiv;
               html += '</li>';
 
@@ -263,3 +393,38 @@ function generarFormularioPaciente(id) {
     });
   });
 }
+
+function crearSelectCamposMolecular(data, nameInput, valueInput, classInput = '') {
+  value = '';
+  if (valueInput)
+    value = `value="${valueInput}"`;
+  value = '';
+
+  let selectHtml = `<select name="${nameInput}" class="input-form selectMolecular ${classInput}" required="" ${value}>`
+  for (const key in data) {
+    if (Object.hasOwnProperty.call(data, key)) {
+      const element = data[key];
+      selectHtml += '<option value="' + element['descripcion'] + '" claveOption = "' + ifnull(element['clave']) + '">' + element['descripcion'] + '</option>'
+    }
+  }
+  selectHtml += '</select>';
+
+  return selectHtml;
+}
+
+$(document).on('click', '.selectMolecular', function () {
+  value = $(this).find(':selected').attr('claveOption')
+  if (value) {
+    let parent_element = $(this).closest("ul");
+    input = $(parent_element).find('input[class="form-control input-form text-end inputFormRequired ClaveAutorizacion"]');
+    input.val(value)
+  }
+  // let id = $(this).attr('data-bs-id');
+  // eliminarElementoArray(id);
+  // console.log(id);
+  // var parent_element = $(this).closest("li[class='list-group-item']");
+  // $(parent_element).remove()
+
+});
+
+
