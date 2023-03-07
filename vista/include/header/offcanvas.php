@@ -24,19 +24,11 @@
     </ul>
     <hr>
     <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-        <!-- <i class="bi bi-person-circle" style="zoom:110%; margin-right:30px;"></i>
-        <strong><?php //echo $_SESSION['user'] 
-                ?></strong> -->
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px">
 
-        <a data-bs-toggle="dropdown" type="button" class="">
-          <div class=" container-avatar">
-            <img src="<?php echo $_SESSION['avatar']; ?>" alt="Avatar" class="image-avatar">
-            <div class="overlay-avatar">
-              <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
-            </div>
-          </div>
-        </a>
+        <div class="container-avatar" style="zoom: 130%">
+          <img src="<?php echo $_SESSION['AVATAR']; ?>" alt="Avatar" class="image-avatar">
+        </div>
         <p class="none-p text-white" style="margin-left: 10px"></p><?php echo $_SESSION['user'] ?></p>
 
       </a>

@@ -118,6 +118,14 @@ function login($user, $password)
             $_SESSION['perfil'] = $result[0]['TIPO_ID'];
             $_SESSION['cargo'] = $result[0]['CARGO_ID'];
 
+            //Avatar
+            if (isset($result[0]['AVATAR'])) {
+                $_SESSION['AVATAR'] = $result[0]['AVATAR'];
+            } else {
+                $_SESSION['AVATAR'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
+            }
+
+
             //Permisos
             $sql = "SELECT pertip.DESCRIPCION, permisos.activo, pertip.permiso
                     FROM usuarios_permisos as permisos
@@ -149,13 +157,6 @@ function login($user, $password)
                 $vista[$result[$i]['permiso']] = $result[$i]['activo'];
             }
             $_SESSION['vista'] = $vista;
-
-            //Avatar
-            if ($result[0]['avatar']) {
-                $_SESSION['avatar'] = $result[0]['avatar'];
-            } else {
-                $_SESSION['avatar'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
-            }
 
             return $_SESSION;
         } else {
