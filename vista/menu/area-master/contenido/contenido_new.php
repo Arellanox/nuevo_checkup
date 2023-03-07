@@ -110,6 +110,9 @@ $form = $_POST['form'];
               <i class="bi bi-clipboard2-plus"></i> Subir Reporte
               <!-- BTN para formulario global -->
             </button>
+
+            <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="omitir-paciente" style="margin-bottom:4px">
+
           </div>
         </div>
       </div>

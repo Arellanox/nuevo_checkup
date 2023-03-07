@@ -238,6 +238,12 @@ session_start();
                     <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirme el reporte una vez guardado los cambios">
                         <i class="bi bi-file-earmark-pdf"></i> Confirmar reporte
                     </button>
+
+                    <i class="bi bi-clipboard-x"></i> Saltar paciente
+                    </button>
+                    <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="llamar-paciente" style="margin-bottom:4px">
+                        <i class="bi bi-clipboard-x"></i> Siguiente paciente
+                    </button>
                 </div>
             </div>
         </div>

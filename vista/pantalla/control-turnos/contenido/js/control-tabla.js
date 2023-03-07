@@ -6,41 +6,44 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
     // scrollY: autoHeightDiv(0, 90),
     // scrollCollapse: false,
     searching: false,
-    ajax: {
-        dataType: 'json',
-        data: function (d) {
-            return $.extend(d, dataTurnos);
-        },
-        method: 'POST',
-        // url: '../../../api/tunero_api.php',
-        url: http + servidor + '/nuevo_checkup/api/turnero_api.php',
-        beforeSend: function () {
-            loader("In"), array_selected = null
-        },
-        complete: function () {
-            loader("Out"), rowdrawalert()
-        },
-        dataSrc: 'response.data'
-    },
-    columns: [
-        {
-            data: 'TURNO', render: function (data, row) {
-                // console.log(data);
-                // console.log(meta);
-                if (data['first'] == 1) {
-                    let html = `<div class="turnoActivo alert-success" role="alert"> ${data.ETIQUETA_TURNO} - ${data.MODULO} </div>`;
-                    return html;
-                } else {
-                    let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
-                    return html;
-                    // let html = '<div class="turnoActivo alert-success" role="alert"> bimo1 - Consultorio 1 </div>'
-                }
-            }
-        },
-        // {defaultContent: 'En progreso...'}
-    ],
+    // ajax: {
+    //     dataType: 'json',
+    //     data: function (d) {
+    //         return $.extend(d, dataTurnos);
+    //     },
+    //     method: 'POST',
+    //     // url: '../../../api/tunero_api.php',
+    //     url: http + servidor + '/nuevo_checkup/api/turnero_api.php',
+    //     beforeSend: function () {
+    //         loader("In"), array_selected = null
+    //     },
+    //     complete: function () {
+    //         loader("Out"), rowdrawalert()
+    //     },
+    //     dataSrc: 'response.data'
+    // },
+    // columns: [
+    //     {
+    //         data: 'TURNO.COUNT'
+    //     },
+    //     {
+    //         data: 'TURNO', render: function (data, row) {
+    //             // console.log(data);
+    //             // console.log(meta);
+    //             if (data['first'] == 1) {
+    //                 let html = `<div class="turnoActivo alert-success" role="alert"> ${data.ETIQUETA_TURNO} - ${data.MODULO} </div>`;
+    //                 return html;
+    //             } else {
+    //                 let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
+    //                 return html;
+    //                 // let html = '<div class="turnoActivo alert-success" role="alert"> bimo1 - Consultorio 1 </div>'
+    //             }
+    //         }
+    //     },
+    //     // {defaultContent: 'En progreso...'}
+    // ],
     columnDefs: [
-        { width: "5px", targets: 0 },
+        { targets: 0, visible: false },
     ],
     drawCallback: function () {
         $("table thead").remove();
