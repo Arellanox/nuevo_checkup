@@ -156,7 +156,7 @@ function login($user, $password)
                 $vista[$result[$i]['DESCRIPCION']] = $result[$i]['activo']; //Eliminar luego
                 $vista[$result[$i]['permiso']] = $result[$i]['activo'];
             }
-
+            $_SESSION['vista'] = $vista;
 
             return $_SESSION;
         } else {
