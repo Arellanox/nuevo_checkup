@@ -151,10 +151,10 @@ function login($user, $password)
             $_SESSION['vista'] = $vista;
 
             //Avatar
-            if ($result[0]['avatar']) {
-                $_SESSION['avatar'] = $result[0]['avatar'];
+            if ($result[0]['AVATAR']) {
+                $_SESSION['AVATAR'] = $result[0]['AVATAR'];
             } else {
-                $_SESSION['avatar'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
+                $_SESSION['AVATAR'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
             }
 
             return $_SESSION;
