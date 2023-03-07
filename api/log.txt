@@ -54,3 +54,40 @@
 03/02/23 12:43:41  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
 03/02/23 13:09:52  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
 04/02/23 13:08:14 sp_recuperar_reportes_confirmados Ha ocurrido un error(21S01). 21S01 1136 Column count doesn't match value count at row 1
+<<<<<<< Updated upstream
+=======
+28/02/23 17:54:19 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+28/02/23 17:54:27 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+01/03/23 12:15:51  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+01/03/23 13:08:50 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_paquetes_1` FOREIGN KEY (`PAQUETE_ID`) REFERENCES `paquetes` (`ID_PAQUETE`) ON DELETE CASCADE ON UPDATE CASCADE)
+01/03/23 13:28:10 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_paquetes_1` FOREIGN KEY (`PAQUETE_ID`) REFERENCES `paquetes` (`ID_PAQUETE`) ON DELETE CASCADE ON UPDATE CASCADE)
+01/03/23 14:03:16 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2006] MySQL server has gone away
+01/03/23 14:03:16 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2006] MySQL server has gone away
+04/03/23 14:37:38 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+04/03/23 14:37:42 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+04/03/23 15:09:55 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 09:50:09 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 10:35:06 Clase correo [sendMail] PHPMailer\PHPMailer\Exception: Could not access file: ../reportes/modulo/oftalmologia/200223/210/JOSUE_DE_LA_CRUZ_ARELLANO-bimo4-200223.pdf in C:\AppServ\www\nuevo_checkup\clases\PHPMailer\src\PHPMailer.php:3181
+Stack trace:
+#0 C:\AppServ\www\nuevo_checkup\clases\correo_class.php(151): PHPMailer\PHPMailer\PHPMailer->addAttachment('../reportes/mod...')
+#1 C:\AppServ\www\nuevo_checkup\api\recepcion_api.php(127): Correo->sendEmail('resultados', '[bimo] Resultad...', Array, NULL, Array, 1)
+#2 {main}
+07/03/23 10:35:06 [recepcion api, case 4] Falla al enviar correo.
+07/03/23 10:46:57 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 10:47:22 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 10:47:40 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 10:47:51 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 11:21:33 sp_info_medicos Ha ocurrido un error(20000). 20000 1339 Case not found for CASE statement
+07/03/23 13:08:43 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+07/03/23 13:08:46 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+07/03/23 13:08:48 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+07/03/23 13:08:50 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+07/03/23 13:08:52 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+07/03/23 13:08:58 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+>>>>>>> Stashed changes

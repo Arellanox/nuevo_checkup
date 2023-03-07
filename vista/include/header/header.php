@@ -78,8 +78,8 @@ switch ($menu) {
           <li class="nav-item dropdown">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
             <?php
-            if (!$_SESSION['avatar']) {
-              $_SESSION['avatar'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
+            if (!$_SESSION['AVATAR']) {
+              $_SESSION['AVATAR'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
             }
 
             ?>
@@ -87,7 +87,7 @@ switch ($menu) {
 
             <a data-bs-toggle="dropdown" type="button" class="">
               <div class=" container-avatar">
-                <img src="<?php echo $_SESSION['avatar']; ?>" alt="Avatar" class="image-avatar">
+                <img src="<?php echo $_SESSION['AVATAR']; ?>" alt="Avatar" class="image-avatar">
                 <div class="overlay-avatar">
                   <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
                 </div>
