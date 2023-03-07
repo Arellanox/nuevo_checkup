@@ -151,7 +151,7 @@ function login($user, $password)
             $_SESSION['vista'] = $vista;
 
             //Avatar
-            if ($result[0]['AVATAR']) {
+            if (isset($result[0]['AVATAR'])) {
                 $_SESSION['AVATAR'] = $result[0]['AVATAR'];
             } else {
                 $_SESSION['AVATAR'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
