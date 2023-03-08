@@ -14,6 +14,7 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
+control_turnos = null;
 function hasLocation() {
   hash = window.location.hash.substring(1);
   // $("a").removeClass("navlinkactive");
@@ -22,6 +23,7 @@ function hasLocation() {
     subtipo = false;
     switch (hash) {
       case "ULTRASONIDO":
+        control_turnos = null;
         formulario = "formSubirInterpretacion";
         api_capturas = 2;
         api_interpretacion = 1;
@@ -29,6 +31,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(11, 'Resultados de Ultrasonido', 'contenido_modal.php');
         break;
       case "ULTRASONIDOTOMA":
+        control_turnos = 8;
         formulario = "1"; // Para toma capturas
         api_capturas = 2;
         api_interpretacion = 0;
@@ -37,6 +40,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(11, 'Carga de imagenes de Ultrasonido', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "RX":
+        control_turnos = null;
         formulario = "formSubirInterpretacion";
         api_capturas = 2;
         api_interpretacion = 1;
@@ -44,6 +48,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_modal.php');
         break;
       case "RXTOMA":
+        control_turnos = 11
         formulario = "1"; // Para toma capturas
         api_capturas = 2;
         api_interpretacion = 0;
@@ -53,13 +58,15 @@ function hasLocation() {
         break;
 
       case "ESPIROMETRIA":
-        formulario = "formSubirInterpretacion";
+        control_turnos = 6;
+        formulario = "formSubirInterpretacionPRUEBA";
         api_capturas = 3;
         api_interpretacion = 1;
         url_api = 'espirometria_api';
-        obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_new.php');
+        obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_modal.php');
         break;
       case "ELECTROCARDIOGRAMA":
+        control_turnos = null;
         formulario = "formSubirInterpretacionElectro";
         api_capturas = 5;
         api_interpretacion = 1;
@@ -67,6 +74,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(10, 'Resultados de Electrocardiograma', 'contenido_modal.php');
         break;
       case "ELECTROCARDIOGRAMA_CAPTURAS":
+        control_turnos = 10;
         formulario = "1"; // Para toma capturas
         api_capturas = 5;
         api_interpretacion = 1;
@@ -75,13 +83,15 @@ function hasLocation() {
         obtenerContenidoVistaMaster(10, 'Carga de Electrocardiograma', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "AUDIOMETRIA":
-        formulario = "formSubirInterpretacion";
+        control_turnos = 6
+        formulario = "formSubirInterpretacionPRUEBA";
         api_capturas = 2;
         api_interpretacion = 1;
         url_api = 'audiometria_api';
-        obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_new.php');
+        obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_modal.php');
         break;
       case "OFTALMOLOGIA":
+        control_turnos = 4
         url_api = 'oftalmologia_api';
         api_interpretacion = 1;
         formulario = "formSubirInterpretacionOftalmo";
@@ -109,7 +119,7 @@ function hasLocation() {
 function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.html', tipovista) {
   areaActiva = area;
   $.post("contenido/" + contenidoHTML, {
-    form: formulario, tipovista: tipovista
+    form: formulario, tipovista: tipovista, control_turnos: control_turnos
   }, function (html) {
     $("#body-js").html(html);
   }).done(async function () {
@@ -172,6 +182,10 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     }
     // Botones
     $.getScript("contenido/js/area-botones.js")
+
+    // Botones turnero
+    if (control_turnos)
+      $.getScript("contenido/js/area-botones-turnero.js")
 
   });
 }

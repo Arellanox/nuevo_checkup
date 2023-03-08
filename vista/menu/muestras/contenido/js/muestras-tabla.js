@@ -52,10 +52,10 @@ selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR =
   if (selectTR == 1) {
     if (selectListaMuestras.MUESTRA_TOMADA == 1) {
       $('#muestra-tomado').prop('disabled', true)
-      $('#omitir-paciente').prop('disabled', true)
+      // $('#omitir-paciente').prop('disabled', true)
     } else {
       $('#muestra-tomado').prop('disabled', false)
-      $('#omitir-paciente').prop('disabled', false)
+      // $('#omitir-paciente').prop('disabled', false)
     }
     getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras', selectListaMuestras, 'In', async function (divClass) {
       await obtenerPanelInformacion(selectListaMuestras['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')

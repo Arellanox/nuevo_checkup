@@ -19,10 +19,20 @@
         </button> -->
       </div>
 
-      <div class="text-center">
-        <label for="inputBuscarTableListaNuevos">Buscar:</label>
-        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaMuestras">
+      <div class="text-center mt-2">
+        <div class="input-group flex-nowrap">
+          <!-- <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left" title="Los iconos representan el estado del paciente a las areas">
+                        <i class="bi bi-info-circle"></i>
+                    </span> -->
+          <input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important" name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaMuestras" data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">
+          <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top" title="Los pacientes con muestras tomadas se visualizarán confirmados de color verde">
+            <i class="bi bi-info-circle"></i>
+          </span>
+
+        </div>
       </div>
+
+
       <table class="table display responsive" id="TablaMuestras" style="width: 100%">
         <thead class="">
           <tr>

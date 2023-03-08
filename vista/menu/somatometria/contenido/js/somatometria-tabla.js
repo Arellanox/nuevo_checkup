@@ -116,13 +116,13 @@ async function obtenerResultadosSignos(id) {
 function bloquearBotones(val) {
     switch (val) {
         case 1:
-            $('#omitir-paciente').prop('disabled', true);
+            // $('#omitir-paciente').prop('disabled', true);
             $('#btn-form-resultado').prop('disabled', true);
             $('#form-resultados-somatometria :input').prop('disabled', true);
             $('#collapseSOMATOMETRIABOTON').prop('disabled', false);
             break;
         case 2:
-            $('#omitir-paciente').prop('disabled', false);
+            // $('#omitir-paciente').prop('disabled', false);
             $('#btn-form-resultado').prop('disabled', false);
             $('#form-resultados-somatometria :input').prop('disabled', false);
             $('input[data-id="calculoMasaCorpo"]').prop('disabled', true);

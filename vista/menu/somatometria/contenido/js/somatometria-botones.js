@@ -42,10 +42,21 @@ $('#form-resultados-somatometria').submit(function (event) {
   // }
 })
 
-$('#omitir-paciente').click(function () {
-  pasarPacienteTurno(selectListaSignos['ID_TURNO'], 2, 0, function () {
-    console.log('EXITO')
-  })
+// Control de turnos
+$('#omitir-paciente').on('click', function () {
+  omitirPaciente(3); //case 3
+})
+
+$('#llamar-paciente').on('click', function () {
+  llamarPaciente(3); //case 2
+})
+
+$('#liberar-paciente').on('click', function () {
+  if (selectListaMuestras) {
+    liberarPaciente(3, tablaSignos['ID_TURNO']); //case 1
+  } else {
+    alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
+  }
 })
 
 // // cambiar fecha de la Lista

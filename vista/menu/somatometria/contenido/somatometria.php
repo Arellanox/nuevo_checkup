@@ -5,10 +5,39 @@
   <div class="col-4 col-lg-4 col-xxl-3" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
       <h4>Lista de pacientes</h4>
-      <div class="text-center">
+
+      <!-- Control de turnos -->
+      <div class="d-flex justify-content-center ">
+        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-7408 m-1" id="omitir-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Omite el paciente actual">
+          <i class="bi bi-person-fill-down"></i> Saltar
+        </button>
+        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-3165 m-1" id="llamar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Avisa al siguiente paciente a pasar">
+          <i class="bi bi-person-fill-up"></i> Llamar
+        </button>
+        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-325 m-1" id="liberar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Libere el turno del paciente para otras areas">
+          <i class="bi bi-person-fill-dash"></i> Liberar
+        </button>
+      </div>
+
+      <div class="text-center mt-2">
+        <div class="input-group flex-nowrap">
+          <!-- <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left" title="Los iconos representan el estado del paciente a las areas">
+                        <i class="bi bi-info-circle"></i>
+                    </span> -->
+          <input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important" name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaSignos" data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">
+          <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top" title="Los pacientes con muestras tomadas se visualizarán confirmados de color verde">
+            <i class="bi bi-info-circle"></i>
+          </span>
+
+        </div>
+      </div>
+
+
+      <!-- <div class="text-center">
         <label for="inputBuscarTableListaNuevos">Buscar:</label>
         <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaSignos">
-      </div>
+      </div> -->
+
       <table class="table display responsive" id="TablaSignos" style="width: 100%">
         <thead class="">
           <tr>
