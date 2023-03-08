@@ -38,13 +38,7 @@ function hasLocation() {
                 areaActiva = 12
                 obtenerVistaCorreosLaboratorio('particular');
                 break;
-            default:
-                alertMensajeConfirm({
-                    title: 'Area no disponible',
-                    message: 'Probablemente no ha seleccionado un area correcta',
-                    icon: 'info'
-                })
-                break;
+            default: avisoArea(); break;
         }
     }
 }

@@ -123,6 +123,20 @@ function validarVista(area) {
   }
 }
 
+//Mensaje para area 
+function avisoArea(tip = 0) {
+  if (tip == 0) {
+    alertMensajeConfirm({
+      title: 'Area no disponible',
+      message: 'Probablemente no ha seleccionado un area correcta',
+      icon: 'info'
+    })
+  }
+}
+
+
+
+
 // Verificar si tiene una sesión activa
 function loggin(callback, tipoUrl = 1) {
   if (tipoUrl != 3) {
@@ -342,6 +356,85 @@ function buscarPaciente(id_area, callback = function (data) { }) {
   }), 1)
 }
 
+
+//Control de turnos 
+function omitirPaciente(areaFisica) {
+  alertMensajeConfirm({
+    title: '¿Desea llamar al siguiente paciente?',
+    text: "",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+  }, function () {
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+      type: 'POST',
+      dataType: 'json',
+      data: { api: 3, id_area: areaFisica },
+      success: function (data) {
+        alertMensaje('', '', '', '', data)
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
+    })
+  }, 1)
+}
+
+function llamarPaciente(areaFisica) {
+  alertMensajeConfirm({
+    title: '¿Desea llamar al siguiente paciente?',
+    text: "",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+  }, function () {
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+      type: 'POST',
+      dataType: 'json',
+      data: { api: 2, id_area: areaFisica },
+      success: function (data) {
+        alertMensaje('', '', '', '', data)
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
+    })
+  }, 1)
+}
+
+function liberarPaciente(areaFisica, turnos) {
+  alertMensajeConfirm({
+    title: '¿Desea llamar al siguiente paciente?',
+    text: "",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+  }, function () {
+    $.ajax({
+      url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+      type: 'POST',
+      dataType: 'json',
+      data: { api: 1, id_area: areaFisica },
+      success: function (data) {
+        alertMensaje('', '', '', '', data)
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
+    })
+  }, 1)
+}
+
+
+
+
+
+
 // Validar la vista (OBSOLETOXD)
 function redireccionarVista(vista, callback) {
   if (session.vista[vista] == 1 ? true : false) {
@@ -350,6 +443,7 @@ function redireccionarVista(vista, callback) {
     window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
   }
 }
+
 
 
 function DownloadFromUrl(fileURL, fileName) {

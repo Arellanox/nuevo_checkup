@@ -131,7 +131,7 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   $_SESSION['vista']['CONTROL_TURNOS'] == 1
 ) : ?>
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-turnos" aria-expanded="false">
-    <i class="bi bi-123"></i> Control de Turnos
+    <i class="bi bi-back"></i> Control de Turnos
   </a>
   <div class="collapse" id="board-turnos">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">

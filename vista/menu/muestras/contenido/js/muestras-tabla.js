@@ -5,7 +5,7 @@ tablaMuestras = $('#TablaMuestras').DataTable({
   lengthChange: false,
   info: false,
   paging: false,
-  scrollY: autoHeightDiv(0, 244),
+  scrollY: autoHeightDiv(0, 284),
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
@@ -64,6 +64,7 @@ selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR =
       $(divClass).fadeIn(100);
     });
   } else {
+    selectListaMuestras = null;
     getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras', selectListaMuestras, 'Out')
   }
 })

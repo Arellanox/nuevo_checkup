@@ -39,17 +39,29 @@ $('#muestra-tomado').on('click', function () {
   }
 })
 
+
+
+
+// Control de turnos
 $('#omitir-paciente').on('click', function () {
-  pasarPacienteTurno(6);
+  omitirPaciente(6); //case 3
 })
 
 $('#llamar-paciente').on('click', function () {
-  buscarPaciente(6);
+  llamarPaciente(6); //case 2
 })
+
+// $('#liberar-paciente').on('click', function () {
+//   if (selectListaMuestras) {
+//     liberarPaciente(6, selectListaMuestras['ID_TURNO']); //case 1
+//   } else {
+//     alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
+//   }
+// })
 
 // // cambiar fecha de la Lista
 // $('#fechaListadoAreaMaster').change(function () {
-//   dataListaPaciente = { api: 1, fecha_agenda: $(this).val(), area_id: 6 }
+//   dataListaPaciente = { api: 1, fecha_agenda: $(this).val(), id_area: 6 }
 //   tablaMuestras.ajax.reload();
 //   // getPanelLab('Out', 0)
 // })
@@ -73,7 +85,7 @@ $('#checkDiaAnalisis').click(function () {
 function recargarVistaLab(fecha = 1) {
   dataListaPaciente = {
     api: 1,
-    area_id: 6
+    id_area: 6
   }
   if (fecha) dataListaPaciente['fecha_agenda'] = $('#fechaListadoAreaMaster').val();
 

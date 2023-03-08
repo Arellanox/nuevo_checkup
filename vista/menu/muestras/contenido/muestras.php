@@ -5,6 +5,20 @@
   <div class="col-3 col-lg-3" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
       <h4>Lista de pacientes</h4>
+
+      <!-- Control de turnos -->
+      <div class="d-flex justify-content-center ">
+        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-7408 m-1" id="omitir-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Omite el paciente actual">
+          <i class="bi bi-person-fill-down"></i> Saltar
+        </button>
+        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-3165 m-1" id="llamar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Avisa al siguiente paciente a pasar">
+          <i class="bi bi-person-fill-up"></i> Llamar
+        </button>
+        <!-- <button type="submit" data-attribute="confirmar" class="btn btn-pantone-325 m-1" id="liberar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Libere el turno del paciente para otras areas">
+          <i class="bi bi-person-fill-dash"></i> Liberar
+        </button> -->
+      </div>
+
       <div class="text-center">
         <label for="inputBuscarTableListaNuevos">Buscar:</label>
         <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaMuestras">
@@ -42,12 +56,6 @@
         <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
           <button type="submit" data-attribute="guardar" class="btn btn-hover" id="muestra-tomado" style="margin-bottom:4px">
             <i class="bi bi-droplet-fill"></i> Muestra tomada
-          </button>
-          <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="omitir-paciente" style="margin-bottom:4px">
-            <i class="bi bi-clipboard-x"></i> Saltar paciente
-          </button>
-          <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="llamar-paciente" style="margin-bottom:4px">
-            <i class="bi bi-clipboard-x"></i> Siguiente paciente
           </button>
         </div>
       </div>

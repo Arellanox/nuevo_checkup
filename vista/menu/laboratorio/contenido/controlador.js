@@ -38,9 +38,7 @@ function hasLocation() {
         areaActiva = 12;
         obtenerContenidoLaboratorio("Resultados de Laboratorio Biomolecular");
         break;
-      default:
-        window.location.hash = '';
-        break;
+      default: avisoArea(); break;
     }
   }
 }

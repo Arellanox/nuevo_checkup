@@ -71,5 +71,15 @@ function obtenerContenido(tabla) {
         alertMensaje('info', 'Correo enviado', 'Si el correo existe, podrás restablecer la contraseña siguiendo los pasos del correo')
       })
     })
+
+
+    $('#formulario').click(function () {
+      $('#modalSubirInterpretacion').modal('show')
+    })
+
+
   });
+
+
+
 }

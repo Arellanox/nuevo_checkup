@@ -1,6 +1,6 @@
-if (validarVista('LISTA DE PRECIOS')) {
-  hasLocation();
-}
+// if (validarVista('LISTA DE PRECIOS')) {
+//   hasLocation();
+// }
 
 $(window).on("hashchange", function (e) {
   hasLocation();
@@ -294,15 +294,19 @@ function hasLocation() {
   var hash = window.location.hash.substring(1);
   $("a").removeClass("navlinkactive");
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-  switch (hash) {
-    case "PreciosEstudios":
-      obtenerContenidoPrecios();
-      break;
-    case "PaquetesClientes":
-      obtenerContenidoPaquetes();
-      break;
-    default:
-      obtenerContenidoPrecios();
-      break;
+  if (validarVista(hash)) {
+    switch (hash) {
+      case "LISTA_PRECIOS":
+        obtenerContenidoPrecios();
+        break;
+      case "PAQUETES_ESTUDIOS":
+        obtenerContenidoPaquetes();
+        break;
+      case "PRESUPUESTO_ESTUDIOS":
+        obtenerContenidoPresupuesto();
+        break;
+      default: avisoArea(); break;
+    }
+
   }
 }
