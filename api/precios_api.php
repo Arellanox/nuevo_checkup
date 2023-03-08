@@ -125,7 +125,6 @@ switch ($api) {
         break;
     case 7:
         # recuperar la lista de precio de un cliente
-
         $response = $master->getByProcedure('sp_precios_b',[$cliente_id,$area_id,$paquete_id]);
         echo $master->returnApi($response);
         break;
@@ -176,4 +175,3 @@ switch ($api) {
         echo "Api no reconocida.";
         break;
 }
-?>

@@ -16,6 +16,13 @@ tablaMain = $('#TablaListaConsultorio').DataTable({
     complete: function () { loader("Out") },
     dataSrc: 'response.data'
   },
+  createdRow: function (row, data, dataIndex) {
+    if (data.CONFIRMADO_HISTORIA == 1) {
+      $(row).addClass('bg-success text-white');
+    }
+    // $(row).addClass('text-white');
+
+  },
   columns: [
     { data: 'COUNT' },
     { data: 'NOMBRE_COMPLETO' },

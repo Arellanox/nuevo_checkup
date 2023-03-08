@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-   // $tokenVerification->logout();
-   // exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 #api
@@ -69,16 +69,15 @@ switch ($api) {
         $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr]);
 
         // si buscan solo un cliente se le agrega los segmentos disponibles
-        if(count($response)==1){
-            $segmentosResponse = $master->getByProcedure('fillSelect_segmentos',array($response[0]['ID_CLIENTE']));
-            if(count($segmentosResponse)>0){
+        if (count($response) == 1) {
+            $segmentosResponse = $master->getByProcedure('fillSelect_segmentos', array($response[0]['ID_CLIENTE']));
+            if (count($segmentosResponse) > 0) {
                 $response[0][] = $segmentosResponse;
                 $response['SEGMENTOS'] = $segmentosResponse;
             } else {
                 $response[0][] = "Sin segmentos";
                 $response[0]['SEGMENTOS'] = "Sin segmentos";
             }
-            
         }
         break;
     case 3:
@@ -94,14 +93,14 @@ switch ($api) {
         #puedes buscar el cliente por codigo o por el id del cliente
         # enviar null para la variable que no se vaya a usar
 
-        $cliente = array($id_cliente,$codigo,$qr);
+        $cliente = array($id_cliente, $codigo, $qr);
 
-        $result = $master->getByProcedure('sp_clientes_b',$cliente);
+        $result = $master->getByProcedure('sp_clientes_b', $cliente);
         $nombreCliente = $result[0]['NOMBRE_COMERCIAL'];
-        $qr = "https://bimo-lab.com/nuevo_checkup/vista/registro/?codigo=".$result[0]['QR'];
+        $qr = "https://bimo-lab.com/nuevo_checkup/vista/registro/?codigo=" . $result[0]['QR'];
 
-        $url = $master->generarQRURL("cliente",$qr,$nombreCliente, QR_ECLEVEL_H, 10);
-        echo json_encode(array("url"=>$url));
+        $url = $master->generarQRURL("cliente", $qr, $nombreCliente, QR_ECLEVEL_H, 10);
+        echo json_encode(array("url" => $url));
         exit;
 
     default:

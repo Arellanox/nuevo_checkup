@@ -2,6 +2,7 @@
 //   hasLocation();
 // }
 
+hasLocation()
 $(window).on("hashchange", function (e) {
   hasLocation();
 });
@@ -288,6 +289,31 @@ function tablaMantenimiento(url = 'paquetes_api') {
     ],
   });
 }
+
+
+function obtenerContenidoPresupuesto() {
+  obtenerTitulo("Presupuesto de estudios"); //Aqui mandar el nombre de la area
+  // Funciones js
+  $.post("contenido/presupuesto.php", function (html) {
+    $("#body-js").html(html);
+  }).done(function () {
+    tablePaquetesHTML = $("#TablaListaPaquetes")
+    $.getScript("contenido/js/funciones-presupuesto.js").done(function () {
+      tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable()
+      contenidoPaquete(1)
+      // Datatable
+      $.getScript("contenido/js/presupuesto-tabla.js");
+      // Botones
+      $.getScript("contenido/js/presupuesto-botones.js");
+    })
+  });
+}
+
+
+
+
+
+
 
 //Cambia la vista de la pagina
 function hasLocation() {

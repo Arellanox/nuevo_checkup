@@ -46,7 +46,7 @@
 <?php endif; ?>
 
 <?php if ($_SESSION['vista']['LABORATORIO_ESTUDIOS'] == 1) : ?>
-    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio-estudios/#EstudiosLab'; ?>" data-bs-dismiss="offcanvas">
+    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio-estudios/#EstudiosLab'; ?>">
         <i class="bi bi-envelope-paper"></i> Estudios
     </a>
 <?php endif; ?>

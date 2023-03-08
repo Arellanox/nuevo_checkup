@@ -125,6 +125,12 @@ $menu = $_POST['menu']; ?>
   $menu == 'Laboratorio Biomolecular'
 ) : ?>
   <div class="row">
+    <!-- <div class="col-auto">
+      <div class="form-floating">
+        <input type="date" class="form-control input-form" placeholder="fecha" id="fechaListadoLaboratorio" value="<?php echo date('Y-m-d') ?>">
+        <label for="fechaListadoLaboratorio">Día de análisis</label>
+      </div>
+    </div> -->
     <div class="col-auto d-flex align-items-center">
       <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>
     </div>
