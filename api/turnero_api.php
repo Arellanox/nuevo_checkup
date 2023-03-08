@@ -14,49 +14,91 @@ if (!$tokenValido) {
 #api
 $api = $_POST['api'];
 
-$area = $_POST['area_id'];
+$turno_id = $_POST['turno_id'];
+$area_fisica_id = $_POST['area_fisica_id'];
 
 $master = new Master();
-$listaGlobal = null;
+$listaGlobal;
 switch ($api) {
     case 1:
-        $master = new Master();
-        #Recuperar info turnos a pasar
-        $infoPaciente = $master->getByProcedure('sp_pantalla_turnero', [null]);
-        print_r($infoPaciente);
+        # Liberar paciente.
+
+        // $infoPaciente = $master->getByProcedure('sp_pantalla_turnero', [null]);
+        // print_r($infoPaciente);
+
+        $response = $master->updateByProcedure("sp_turnero_liberar_paciente",[$turno_id,$area_fisica_id]);
         break;
     case 2:
         # llamar paciente
-        if (empty($listaGlobal)) {
-            # si la listaGlobal$listaGlobal esta vacia, la llenamos
-            fillSessionList($master, $area);
 
-            if (empty($listaGlobal)) {
-                # si la lista sigue vacia despues de llamar el sp,
-                # significa que no hay pacientes para esa area.
-                $response = "Nada por aquí, nada por allá.";
-            } else {
-                # si la lista no esta vacia, llamamos al primer paciente aceptado.
-                $response = current($listaGlobal->getPacientes());
-            }
-        }
+        # si la listaGlobal$listaGlobal esta vacia, la llenamos
+       $response = llamarPaciente($master,$area_fisica_id);
+        
         break;
     case 3:
         # saltar paciente
+
+        # Actualizamos la lista por si existe algun cambio
+        fillSessionList($master,$area_fisica_id);
+
         if (empty($listaGlobal)) {
-            fillSessionList($master, $area);
-            if (empty($listaGlobal)) {
-                $response = "Nada por aquí.";
-            } else {
-                $listaGlobal->setPosition($listaGlobal->getPosition() + 1);
-                setcookie("position", $listaGlobal->getPosition() + 1);
-                $response = $listaGlobal->getNextPatient();
-            }
+            # si la lista esta vacia puede significar 2 cosas:
+            # 1. Que no haya pacientes para esa area el dia actual.
+            # 2. Que aun los pacientes no hayan pasado a toma de muestras o somatometria.
+            # Si sucede lo anterior, enviamos un mensaje coqueto.
+            $response = $master->decodeJson(['{"mensaje":"Nada por aquí."}']);
         } else {
-            $listaGlobal->setPosition($listaGlobal->getPosition() + 1);
-            setcookie("position", $listaGlobal->getPosition() + 1);
-            $response = $listaGlobal->getNextPatient($listaGlobal->getPosition);
+            # si no esta vacia.
+            # verificamos que el turnero en session este iniciado
+            if(empty($_SESSION['turnero']) || !isset($_SESSION['turnero'])){
+                # si esta vacio o no existe el turnero en session no podemos saltar paciente, necesitamos llamarlo.
+                $response = llamarPaciente($master,$area_fisica_id);
+            } else {
+                # si ya existe el turnero, debemos verificar
+                # si el paciente que estamos saltando es el correcto.
+                $x = $master->deleteByProcedure("sp_turnero_saltar_paciente",[$_SESSION['turnero']['turno'],$area_fisica_id]);
+
+                if($x > 0){
+                    #refresamos la listea para regresar al paciente que acabamos de saltar
+                    fillSessionList($master,$area_fisica_id);
+                    # buscar la posicion del turno que acabas de borrar
+                    $position = 0;
+                    foreach($listaGlobal as $pat){
+                        if($pat->getTurnoId()==$_SESSION['tunero']['turno']){
+                            $listaGlobal->setPosition($position);
+                            break;
+                        }
+                        $position++;
+                    }
+
+                    $listaGlobal->setPosition($listaGlobal->getPosition() + 1);
+
+                    # llamamos al paciente que sigue
+                    $response = $listaGlobal->getNextPatient();
+                    
+                    # y finalmente actualizamos los datos por si hay que saltarlo de nuevo.
+                    $_SESSION['turnero']['turno'] = $response->getTurnoId();
+                }
+
+
+                // if(current($listaGlobal->getPacientes())->getTurnoId()==$_SESSION['turnero']['turno']){
+                //     # como el turno en la session coincide con la actualizacion de la lista,
+                //     # incrementamos la posicion un lugar.
+                //     $listaGlobal->setPosition($listaGlobal->getPosition() + 1);
+
+                //     # llamamos al paciente que sigue
+                //     $response = $listaGlobal->getNextPatient();
+
+                //     # y finalmente actualizamos los datos por si hay que saltarlo de nuevo.
+                //     $_SESSION['turnero']['turno'] = $response->getTurnoId();
+                // } else {
+                //     # en caso de que no sea el mismo
+                //     # significa que fue llamado por otra area.
+
+                // }
+            }
         }
+        
         break;
     case 4:
         # pantalla turnero
@@ -76,6 +118,24 @@ switch ($api) {
 
 echo $master->returnApi($response);
 
+function llamarPaciente($master,$area_fisica_id){
+    global $listaGlobal;
+    fillSessionList($master, $area_fisica_id);
+
+    if (empty($listaGlobal)) {
+        # si la lista sigue vacia despues de llamar el sp,
+        # significa que no hay pacientes para esa area.
+        $response = "Nada por aquí, nada por allá.";
+    } else {
+        # si la lista no esta vacia, llamamos al primer paciente aceptado.
+        $object = current($listaGlobal->getPacientes());
+        $response2 = $master->updateByProcedure("sp_turnero_llamar_paciente",[$object->getTurnoId(),$area_fisica_id]);
+        $response = $master->decodeJson([$response2]);
+        
+       $_SESSION['turnero'] = array("turno"=>$object->getTurnoId());
+    }
+    return $response;
+}
 
 function fillSessionList($master, $area)
 {

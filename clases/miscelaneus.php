@@ -184,7 +184,7 @@ class Miscelaneus
     function returnApi($response)
     {
 
-        if (is_array($response) || is_numeric($response)) {
+        if (is_array($response) || is_numeric($response) || is_object($response)) {
             $json = json_encode(
                 array("response" => array(
                     'code' => 1,
