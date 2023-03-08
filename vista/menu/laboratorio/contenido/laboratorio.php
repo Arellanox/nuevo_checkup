@@ -91,7 +91,7 @@
       border-bottom-right-radius: 10px !important;
     }
   </style>
-  <div class="col-4 col-lg-8 col-xxl-9 d-flex justify-content-center align-items-center" id='loaderDivLab' style="max-height: 75vh; display:none">
+  <div class="col-4 col-lg-9 col-xxl-8 d-flex justify-content-center align-items-center" id='loaderDivLab' style="max-height: 75vh; display:none">
     <div class="preloader" id="loader-Lab"></div>
   </div>
 </div>

@@ -91,7 +91,7 @@ session_start();
                 <label for="inputBuscarTableListaNuevos">Buscar:</label>
                 <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaPacientes" value="" style="width:80%" autocomplete="off" id="inputBuscarTableListaPacientes">
             </div> -->
-            <table class="table table-hover display responsive tableContenido" id="TablaContenidoResultados" style="width: 100%">
+            <table class="table display responsive" id="TablaContenidoResultados" style="width: 100%">
                 <thead class="" style="width: 100%">
                     <tr>
                         <th scope="col d-flex justify-content-center" class="all">#</th>
@@ -161,7 +161,7 @@ session_start();
                     <div id="mostrarResultado" style="display: none;">
 
                         <h5>Resultados del paciente:</h5>
-                        <div class="" id="resultadosServicios-areas">
+                        <div class="accordion" id="resultadosServicios-areas">
 
                         </div>
 
