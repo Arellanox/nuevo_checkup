@@ -85,7 +85,7 @@
 
 .btn-pantone-3165:hover {
   background-color: rgba(000, 078, 89, 0.637);
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 
@@ -102,7 +102,7 @@
 
 .btn-pantone-326:hover {
   background-color: rgba(000, 175, 170, 0.637);
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 
@@ -154,5 +154,5 @@
 
 .btn-pantone-7408:hover {
   background-color: rgba(247, 190, 000, 0.637);
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
 }
