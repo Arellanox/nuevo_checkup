@@ -152,7 +152,7 @@ include "../../variables.php";
     });
 
     body.on('mouseleave', '[data-bs-toggle="tooltip"]', function(e) {
-      $('[role="tooltip"]').fadeOut(100, function() {
+      $('[role="tooltip"]').fadeOut(0, function() {
         e.stopPropagation();
         $(this).remove();
       });
