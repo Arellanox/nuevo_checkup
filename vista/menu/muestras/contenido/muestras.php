@@ -14,9 +14,9 @@
         <button type="submit" data-attribute="confirmar" class="btn btn-pantone-3165 m-1" id="llamar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Avisa al siguiente paciente a pasar">
           <i class="bi bi-person-fill-up"></i> Llamar
         </button>
-        <!-- <button type="submit" data-attribute="confirmar" class="btn btn-pantone-325 m-1" id="liberar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Libere el turno del paciente para otras areas">
+        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-325 m-1" id="liberar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Libere el turno del paciente para otras areas">
           <i class="bi bi-person-fill-dash"></i> Liberar
-        </button> -->
+        </button>
       </div>
 
       <div class="text-center mt-2">

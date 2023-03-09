@@ -373,7 +373,14 @@ function omitirPaciente(areaFisica) {
       dataType: 'json',
       data: { api: 3, area_fisica_id: areaFisica },
       success: function (data) {
-        alertMensaje('', '', '', '', data)
+        if (mensajeAjax(data)) {
+          if (data.response.data['mensaje']) {
+            alertMensaje('info', data.response.data['mensaje'])
+          } else {
+            let row = data.response.data[0];
+            alertMensaje('info', row['PACIENTE'] + " " + row['ETIQUETA_TURNO'], 'Es su siguiente paciente')
+          }
+        }
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
@@ -397,7 +404,14 @@ function llamarPaciente(areaFisica) {
       dataType: 'json',
       data: { api: 2, area_fisica_id: areaFisica },
       success: function (data) {
-        alertMensaje('', '', '', '', data)
+        if (mensajeAjax(data)) {
+          if (data.response.data['mensaje']) {
+            alertMensaje('info', data.response.data['mensaje'])
+          } else {
+            let row = data.response.data[0];
+            alertMensaje('info', row['PACIENTE'] + " " + row['ETIQUETA_TURNO'], 'Es su siguiente paciente')
+          }
+        }
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
@@ -406,7 +420,7 @@ function llamarPaciente(areaFisica) {
   }, 1)
 }
 
-function liberarPaciente(areaFisica, turnos) {
+function liberarPaciente(areaFisica, turno) {
   alertMensajeConfirm({
     title: '¿Desea llamar al siguiente paciente?',
     text: "",
@@ -419,9 +433,16 @@ function liberarPaciente(areaFisica, turnos) {
       url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
       type: 'POST',
       dataType: 'json',
-      data: { api: 1, area_fisica_id: areaFisica },
+      data: { api: 1, area_fisica_id: areaFisica, turno_id: turno },
       success: function (data) {
-        alertMensaje('', '', '', '', data)
+        if (mensajeAjax) {
+          if (data.response.data['mensaje']) {
+            alertMensaje('info', data.response.data['mensaje'])
+          } else {
+            let row = data.response.data[0];
+            alertMensaje('info', row['PACIENTE'] + " " + row['ETIQUETA_TURNO'], 'Es su siguiente paciente')
+          }
+        }
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
