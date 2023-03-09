@@ -7,7 +7,7 @@
 @import "framework/datatables.min.css";
 @import "list-group.css";
 @import "imagen-equipo.css";
-@import "forms.css";
+@import "forms.css?v=2";
 @import "perfil-usuario.css?v=2";
 @import "offcanvas.css?v=1";
 @import "buttons.css?v=4";

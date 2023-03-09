@@ -371,7 +371,7 @@ function omitirPaciente(areaFisica) {
       url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
       type: 'POST',
       dataType: 'json',
-      data: { api: 3, id_area: areaFisica },
+      data: { api: 3, area_fisica_id: areaFisica },
       success: function (data) {
         alertMensaje('', '', '', '', data)
       },
@@ -395,7 +395,7 @@ function llamarPaciente(areaFisica) {
       url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
       type: 'POST',
       dataType: 'json',
-      data: { api: 2, id_area: areaFisica },
+      data: { api: 2, area_fisica_id: areaFisica },
       success: function (data) {
         alertMensaje('', '', '', '', data)
       },
@@ -419,7 +419,7 @@ function liberarPaciente(areaFisica, turnos) {
       url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
       type: 'POST',
       dataType: 'json',
-      data: { api: 1, id_area: areaFisica },
+      data: { api: 1, area_fisica_id: areaFisica },
       success: function (data) {
         alertMensaje('', '', '', '', data)
       },

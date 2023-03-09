@@ -148,15 +148,19 @@ include "../../variables.php";
     var body = $('body');
     body.on('mouseover', '[data-bs-toggle="tooltip"]', function(e) {
       e.stopPropagation();
-      return new bootstrap.Tooltip(this).show();
+      tooltip = new bootstrap.Tooltip(this).show();
+      istooltipHover(tooltip)
+      return tooltip
     });
 
     body.on('mouseleave', '[data-bs-toggle="tooltip"]', function(e) {
-      $('[role="tooltip"]').fadeOut(0, function() {
+      $('[role="tooltip"]').fadeOut(100, function() {
         e.stopPropagation();
         $(this).remove();
       });
     });
+
+
 
     $(document).ready(function() {
       // $('body').tooltip({

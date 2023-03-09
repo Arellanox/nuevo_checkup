@@ -90,9 +90,9 @@
             <label for="rfc" class="form-label">RFC</label>
             <input type="text" class="form-control input-form" name="rfc" placeholder="" id="editar-rfc">
           </div>
-          <div class="col-6 col-lg-3">
+          <!-- <div class="col-6 col-lg-3">
             <label for="vacuna" class="form-label">Vacuna</label>
-            <select class="input-form" name="vacuna" id="editar-vacuna">
+            <select class="input-form form-select" name="vacuna" id="editar-vacuna">
               <option value="1">Ninguno...</opcion>
               <option value="PFIZER">PFIZER</opcion>
               <option value="ASTRA ZENECA">ASTRA ZENECA</opcion>
@@ -114,14 +114,14 @@
 
           <div class="col-6 col-lg-3">
             <label for="inputDosis" class="form-label">Dosis</label>
-            <select class="input-form" name="inputDosis" id="editar-inputDosis">
+            <select class="input-form form-select" name="inputDosis" id="editar-inputDosis">
               <option value="1">Ninguno...</opcion>
               <option value="1RA">1RA DOSIS</opcion>
               <option value="2DA">2DA DOSIS</opcion>
               <option value="3RA">3RA DOSIS</opcion>
               <option value="REFUERZO">REFUERZO</opcion>
             </select>
-          </div>
+          </div> -->
 
           <div class="col-12 col-lg-6" style="margin-top: 30px;margin-bottom: 15px;">
             <div class="container">
