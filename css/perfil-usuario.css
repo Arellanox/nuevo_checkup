@@ -24,7 +24,7 @@
     background-color: #000000a8;
 }
 
-.container-avatar:hover .overlay-avatar {
+.container-avatar:hover .overlay-avatar  {
     opacity: 50;
 }
 

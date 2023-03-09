@@ -146,30 +146,31 @@ include "../../variables.php";
 
     //Code source: https://stackoverflow.com/users/6679820/hooman (https://stackoverflow.com/questions/24655291/how-to-bind-bootstrap-tooltip-on-dynamic-elements#:~:text=%3C%3D%20Bootstrap%20v5.x%2C%20tooltip()%20doesn%27t%20exist%20in%20JQuery%20object.)
     var body = $('body');
-    body.on('mouseover', '[data-bs-toggle="tooltip"]', function(e) {
-      e.stopPropagation();
-      tooltip = new bootstrap.Tooltip(this).show();
-      istooltipHover(tooltip)
-      return tooltip
-    });
+    // body.on('mouseover', '[data-bs-toggle="tooltip"]', function(e) {
 
-    body.on('mouseleave', '[data-bs-toggle="tooltip"]', function(e) {
-      $('[role="tooltip"]').fadeOut(100, function() {
+    // });
+
+    // body.on('mouseleave', '[data-bs-toggle="tooltip"]', function(e) {
+
+    // });
+
+    var delay = 100,
+      setTimeoutConst;
+    body.on({
+      mouseenter: function(e) {
+        tool = this;
         e.stopPropagation();
-        $(this).remove();
-      });
-    });
+        setTimeotConst = setTimeout(function() {
+          return new bootstrap.Tooltip(tool).show();
+        }, delay)
+      },
+      mouseleave: function(e) {
+        clearTimeout(setTimeotConst)
+        $('[role="tooltip"]').fadeOut(100, function() {
+          $(this).remove();
+        });
+      },
+    }, '[data-bs-toggle="tooltip"]')
 
-
-
-    $(document).ready(function() {
-      // $('body').tooltip({
-      //   selector: '[data-toggle="tooltip"]'
-      // });
-      // var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-      // var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-      //   return new bootstrap.Tooltip(tooltipTriggerEl)
-      // })
-    });
   }
 </script>

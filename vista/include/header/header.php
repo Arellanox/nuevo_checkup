@@ -4,7 +4,7 @@ $tip = $_POST['tip'];
 session_start();
 ?>
 <?php
-switch ($menu) {
+switch ($variable) {
   case 'Prerregistro':
 ?>
     <nav class="navbar border-3 border-bottom border-dark bg-navbar">
@@ -19,9 +19,9 @@ switch ($menu) {
         </div>
         <div class="text-center" id="botones-menu-js">
           <?php
-          if ($tip != 'pie') {
+          if ($tip != 'pie')
             include "botones.php";
-          }
+
           ?>
         </div>
       </div>
@@ -78,8 +78,8 @@ switch ($menu) {
         <ul class="nav navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
-            <a data-bs-toggle="dropdown" type="button" class="">
-              <div class=" container-avatar">
+            <a data-bs-toggle="dropdown" type="button">
+              <div class="container-avatar">
                 <img src="<?php echo $_SESSION['AVATAR']; ?>" alt="Avatar" class="image-avatar">
                 <div class="overlay-avatar">
                   <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
