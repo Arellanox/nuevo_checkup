@@ -389,7 +389,7 @@ function omitirPaciente(areaFisica) {
   }, 1)
 }
 
-function llamarPaciente(areaFisica) {
+function llamarPaciente(areaFisica, trsearch, callback = function () { }) {
   alertMensajeConfirm({
     title: '¿Desea llamar al siguiente paciente?',
     text: "",
@@ -410,6 +410,7 @@ function llamarPaciente(areaFisica) {
           } else {
             let row = data.response.data[0];
             alertMensaje('info', row['PACIENTE'] + " " + row['ETIQUETA_TURNO'], 'Es su siguiente paciente')
+
           }
         }
       },

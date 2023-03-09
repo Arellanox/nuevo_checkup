@@ -184,8 +184,8 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     $.getScript("contenido/js/area-botones.js")
 
     // Botones turnero
-    if (control_turnos)
-      $.getScript("contenido/js/area-botones-turnero.js")
+    // if (control_turnos)
+    $.getScript("contenido/js/area-botones-turnero.js")
 
   });
 }
