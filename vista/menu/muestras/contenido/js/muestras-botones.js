@@ -44,11 +44,11 @@ $('#muestra-tomado').on('click', function () {
 
 // Control de turnos
 $('#omitir-paciente').on('click', function () {
-  omitirPaciente(6); //case 3
+  omitirPaciente(7); //case 3
 })
 
 $('#llamar-paciente').on('click', function () {
-  llamarPaciente(6); //case 2
+  llamarPaciente(7); //case 2
 })
 
 // $('#liberar-paciente').on('click', function () {
