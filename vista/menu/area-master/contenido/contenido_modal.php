@@ -239,6 +239,7 @@ session_start();
                             ?>
                         </div>
                     </div>
+                    <img id="full" class="hideimg" src="http://localhost/nuevo_checkup/archivos/sistema/temp/transparent.png" border="0" onclick="this.className='hideimg'">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Regresar</button>
@@ -266,6 +267,51 @@ session_start();
     </div>
 </div>
 
+
+
+<script>
+    function popimg(URL, DAT) {
+        console.log(document.body.clientWidth)
+
+        // if (document.body.clientWidth < 480) return false;
+        var full = document.getElementById("full");
+        full.className = "showimg";
+        full.title = DAT;
+        full.src = URL;
+        return true;
+    }
+
+    var body = $('body');
+
+    body.on({
+        click: function() {
+            var src = $(this).attr('src');
+            let div = $('<div class="slide" title="Teclea enter para salir de la imagen">');
+            div.css({
+                background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
+                backgroundSize: 'contain',
+                width: '100%',
+                height: '100%',
+                position: 'fixed',
+                zIndex: '10000',
+                top: '0',
+                left: '0',
+                cursor: 'pointer'
+            }).appendTo('body');
+            body.keyup(function(e) {
+                if (e.key === "Enter") {
+                    // img.remove();
+                    div.remove();
+                }
+            })
+            var scroll_zoom = new ScrollZoom(div, 5, 0.5)
+        }
+    }, 'img[data-enlargable]')
+
+    // $('img[data-enlargable]').addClass('img-enlargable').click(function() {
+
+    // });
+</script>
 <style>
     #TablaContenidoResultados_filter {
         display: none
