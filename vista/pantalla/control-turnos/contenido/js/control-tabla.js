@@ -31,12 +31,12 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
                 // console.log(data);
                 // console.log(meta);
                 if (data['first'] == 1) {
-                    let html = `<div class="turnoActivo alert-success" role="alert"> ${data.ETIQUETA_TURNO} - ${data.MODULO} </div>`;
+                    let html = `<div class="turnoActivo alert-success"> ${data.ETIQUETA_TURNO} - ${data.MODULO} </div>`;
                     return html;
                 } else {
                     let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
                     return html;
-                    // let html = '<div class="turnoActivo alert-success" role="alert"> bimo1 - Consultorio 1 </div>'
+                    // let html = '<div class="turnoActivo alert-success"> bimo1 - Consultorio 1 </div>'
                 }
             }
         }, {
@@ -44,12 +44,12 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
                 // console.log(data);
                 // console.log(meta);
                 if (data['first'] == 1) {
-                    let html = `<div class="turnoActivo alert-success" role="alert"> ${data.ETIQUETA_TURNO} </div>`;
+                    let html = `<div class="turnoActivo alert-success"> ${data.ETIQUETA_TURNO} </div>`;
                     return html;
                 } else {
                     let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
                     return html;
-                    // let html = '<div class="turnoActivo alert-success" role="alert"> bimo1 - Consultorio 1 </div>'
+                    // let html = '<div class="turnoActivo alert-success"> bimo1 - Consultorio 1 </div>'
                 }
             }
         }, {
@@ -57,19 +57,21 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
                 // console.log(data);
                 // console.log(meta);
                 if (data['first'] == 1) {
-                    let html = `<div class="turnoActivo alert-success" role="alert"> ${data.MODULO} </div>`;
+                    let html = `<div class="turnoActivo alert-success"> ${data.MODULO} </div>`;
                     return html;
                 } else {
                     let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
                     return html;
-                    // let html = '<div class="turnoActivo alert-success" role="alert"> bimo1 - Consultorio 1 </div>'
+                    // let html = '<div class="turnoActivo alert-success"> bimo1 - Consultorio 1 </div>'
                 }
             }
         }
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        { targets: 0, visible: false },
+        {
+            targets: 0, visible: true
+        },
     ],
     // drawCallback: function () {
     //     $("table thead").remove();
@@ -82,7 +84,8 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
 
 function rowdrawalert() {
     var temp = tablaControlTurnos.row(0).data();
+    $('#TablaControlTurnos tbody tr').addClass('selected');
     temp['TURNO']['first'] = 1;
-    console.log(temp);
+    // console.log(temp);
     $('#TablaControlTurnos').dataTable().fnUpdate(temp, 0, undefined, false);
 }

@@ -68,7 +68,7 @@
     }
 
     .turnoActivo {
-        font-size: 65px;
+        font-size: 45px;
         text-align: center;
         padding-top: 35px;
         padding-bottom: 35px;
@@ -87,9 +87,9 @@
         font-size: 38px
     }
 
-    tbody tr td:first-child {
-        margin: 0px;
-        padding: 0px;
+    tbody tr td:first-child,
+    thead tr th:first-child {
+        display: none
     }
 
     body {
@@ -107,5 +107,15 @@
         max-width: none !important;
         border-collapse: collapse !important;
         border-spacing: 0;
+    }
+
+
+    table.dataTable.table-striped>tbody>tr.odd.selected>* {
+        box-shadow: inset 0 0 0 9999px #1ABC9C !important;
+    }
+
+    table tbody tr.selected {
+        color: white !important;
+        box-shadow: inset 0 0 0 9999px rgb(0 130 148) !important;
     }
 </style>

@@ -603,7 +603,7 @@ async function GeenerarReporteImagenologia(data) {
             // console.log(data[k]);
             let row = data[k];
 
-            html += '<div class="col-12 col-md-6 col-xxl-4"><div class="row card p-3 m-1">' +
+            html += '<div class="col-12 col-md-6 col-xxl-6"><div class="row card p-3 m-1">' +
                 '<h4>' + row['SERVICIO'] + '</h4>';
             html += textAreaIMG('Técnica', row['ID_SERVICIO'], 'tecnica', row['TECNICA'], 1);
             html += textAreaIMG('Hallazgos', row['ID_SERVICIO'], 'hallazgo', row['HALLAZGO'], 2);
@@ -613,53 +613,57 @@ async function GeenerarReporteImagenologia(data) {
             html += endDiv + endDiv;
             console.log(row);
 
-            capturas = row['CAPTURAS'][0]['CAPTURAS'][0];
-            capturasID = row['CAPTURAS'][0]['ID_CAPTURA'];
+            try {
+                capturas = row['CAPTURAS'][0]['CAPTURAS'][0];
+                capturasID = row['CAPTURAS'][0]['ID_CAPTURA'];
 
-            //Carrusel
-            html += '<div class="col-md-6 col-xxl-8 d-none d-lg-block d-md-block d-xl-block d-xxl-block">' +
-                '<div id="CapturasImagen' + capturasID + '" class="carousel slide">' +
-                '<div class="carousel-indicators">';
+                //Carrusel
+                html += '<div class="col-md-6 col-xxl-6 d-none d-lg-block d-md-block d-xl-block d-xxl-block">' +
+                    '<div id="CapturasImagen' + capturasID + '" class="carousel slide">' +
+                    '<div class="carousel-indicators">';
 
-            let current = '';
-            for (const key in capturas) {
-                if (Object.hasOwnProperty.call(capturas, key)) {
-                    const element = capturas[key];
-                    if (key == 0) {
-                        current = 'class="active" aria-current="true"';
-                    } else {
-                        current = '';
+                let current = '';
+                for (const key in capturas) {
+                    if (Object.hasOwnProperty.call(capturas, key)) {
+                        const element = capturas[key];
+                        if (key == 0) {
+                            current = 'class="active" aria-current="true"';
+                        } else {
+                            current = '';
+                        }
+                        html += `<button type="button" data-bs-target="#CapturasImagen${capturasID}" data-bs-slide-to="${key}" ${current} aria-label="Slide ${(key) + 1}"></button>`;
                     }
-                    html += `<button type="button" data-bs-target="#CapturasImagen${capturasID}" data-bs-slide-to="${key}" ${current} aria-label="Slide ${(key) + 1}"></button>`;
                 }
-            }
-            html += '</div>' +
-                '<div class="carousel-inner">';
-            let active = '';
+                html += '</div>' +
+                    '<div class="carousel-inner">';
+                let active = '';
 
-            for (const key in capturas) {
-                if (Object.hasOwnProperty.call(capturas, key)) {
-                    const element = capturas[key];
-                    if (key == 0) {
-                        active = 'active';
-                    } else {
-                        active = '';
+                for (const key in capturas) {
+                    if (Object.hasOwnProperty.call(capturas, key)) {
+                        const element = capturas[key];
+                        if (key == 0) {
+                            active = 'active';
+                        } else {
+                            active = '';
+                        }
+                        html += `<div class="carousel-item ${active}"><img src="${element['url']}" class="d-block w-100" alt="img" data-enlargable></div>`;
                     }
-                    html += `<div class="carousel-item ${active}"><img src="${element['url']}" class="d-block w-100" alt="img" data-enlargable></div>`;
                 }
+
+
+                html += '</div>' +
+                    '<button class="carousel-control-prev" type="button" data-bs-target="#CapturasImagen' + capturasID + '" data-bs-slide="prev">' +
+                    '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
+                    '<span class="visually-hidden">Previous</span>' +
+                    '</button>' +
+                    '<button class="carousel-control-next" type="button" data-bs-target="#CapturasImagen' + capturasID + '" data-bs-slide="next">' +
+                    '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
+                    '<span class="visually-hidden">Next</span>' +
+                    '</button>' +
+                    '</div> </div>';
+            } catch (error) {
+                console.log(error);
             }
-
-
-            html += '</div>' +
-                '<button class="carousel-control-prev" type="button" data-bs-target="#CapturasImagen' + capturasID + '" data-bs-slide="prev">' +
-                '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
-                '<span class="visually-hidden">Previous</span>' +
-                '</button>' +
-                '<button class="carousel-control-next" type="button" data-bs-target="#CapturasImagen' + capturasID + '" data-bs-slide="next">' +
-                '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
-                '<span class="visually-hidden">Next</span>' +
-                '</button>' +
-                '</div> </div>';
         }
 
         $('#formulario-estudios').html(html)
