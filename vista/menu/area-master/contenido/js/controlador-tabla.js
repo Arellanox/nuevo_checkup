@@ -630,7 +630,7 @@ async function GeenerarReporteImagenologia(data) {
                     } else {
                         current = '';
                     }
-                    html += `<button type="button" data-bs-target="#CapturasImagen${capturasID}" data-bs-slide-to="${key + capturasID}" ${current} aria-label="Slide ${(parseInt(key) + 1).toString() + capturasID}"></button>`;
+                    html += `<button type="button" data-bs-target="#CapturasImagen${capturasID}" data-bs-slide-to="${key}" ${current} aria-label="Slide ${(key) + 1}"></button>`;
                 }
             }
             html += '</div>' +
