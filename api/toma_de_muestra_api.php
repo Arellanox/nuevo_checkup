@@ -39,6 +39,7 @@ switch ($api) {
         # actualizar toma de muestra
         # indicar que la muestra ya ha sido tomada.
         $response = $master->updateByProcedure("sp_toma_de_muestra_servicios_g", [$id_turno]);
+        $_SESSION['turnero'] = null;
         break;
     default:
         $response = "api no reconocida";

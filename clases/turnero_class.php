@@ -68,7 +68,11 @@ class ListaPacientes {
 
     function getNextPatient(){
         $patientList = $this->getPacientes();
-
+        
+        # comprobar que la posicion exista
+        if(!isset($patientList[$this->getPosition()])){
+            $this->setPosition(0);
+        } 
         return $patientList[$this->getPosition()];
     }
 }

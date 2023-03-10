@@ -18,6 +18,7 @@ $turno_id = $_POST['turno_id'];
 $area_fisica_id = $_POST['area_fisica_id'];
 
 $master = new Master();
+
 $listaGlobal;
 switch ($api) {
     case 1:
@@ -27,6 +28,7 @@ switch ($api) {
         // print_r($infoPaciente);
 
         $response = $master->updateByProcedure("sp_turnero_liberar_paciente",[$turno_id,$area_fisica_id]);
+        $_SESSION['turnero'] = null;
         break;
     case 2:
         # llamar paciente
@@ -63,19 +65,23 @@ switch ($api) {
                     fillSessionList($master,$area_fisica_id);
                     # buscar la posicion del turno que acabas de borrar
                     $position = 0;
-                    foreach($listaGlobal as $pat){
-                        if($pat->getTurnoId()==$_SESSION['tunero']['turno']){
+                    foreach($listaGlobal->getPacientes() as $pat){
+                    
+                        if($pat->getTurnoId()==$_SESSION['turnero']['turno']){
                             $listaGlobal->setPosition($position);
                             break;
                         }
                         $position++;
+
                     }
 
                     $listaGlobal->setPosition($listaGlobal->getPosition() + 1);
 
                     # llamamos al paciente que sigue
                     $response = $listaGlobal->getNextPatient();
-                    
+                    # Reservamos el turno para el area correspondiente.
+                    $sp = $master->insertByProcedure("sp_turnero_llamar_paciente",[$response->getTurnoId(),$area_fisica_id]);
+                                        
                     # y finalmente actualizamos los datos por si hay que saltarlo de nuevo.
                     $_SESSION['turnero']['turno'] = $response->getTurnoId();
                 }
@@ -129,10 +135,15 @@ function llamarPaciente($master,$area_fisica_id){
     } else {
         # si la lista no esta vacia, llamamos al primer paciente aceptado.
         $object = current($listaGlobal->getPacientes());
-        $response2 = $master->updateByProcedure("sp_turnero_llamar_paciente",[$object->getTurnoId(),$area_fisica_id]);
-        $response = $master->decodeJson([$response2]);
+        $response = $master->getByProcedure("sp_turnero_llamar_paciente",[$object->getTurnoId(),$area_fisica_id]);
+
+        if(!is_array($response)){
+            $response = $master->decodeJson([$response]);
+            $response = isset($response[0]['mensaje']) ? $response : $response[0];
+        }
         
-       $_SESSION['turnero'] = array("turno"=>$object->getTurnoId());
+        
+        $_SESSION['turnero'] = array("turno"=>$object->getTurnoId());
     }
     return $response;
 }
