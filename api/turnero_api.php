@@ -108,14 +108,17 @@ switch ($api) {
         break;
     case 4:
         # pantalla turnero
-        $response = $master->getByProcedure('sp_turnero_pantalla', []);
+        $response = $master->getByNext('sp_turnero_pantalla', [isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0]);
 
         $object = array();
-        foreach($response as $item) {
+
+        foreach($response[0] as $item) {
             $object[]['TURNO'] = $item;
         }
-        $response = $object;
 
+        $response = $object;
+        
+        $_SESSION['pacientes_llamados'] = $response[1][0]["PACIENTES_LLAMADOS"];
         break;
     default:
         $response = "api no reconocida";
