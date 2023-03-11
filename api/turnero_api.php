@@ -145,8 +145,10 @@ function llamarPaciente($master, $area_fisica_id)
     } else {
         # si la lista no esta vacia, llamamos al primer paciente aceptado.
         $object = current($listaGlobal->getPacientes());
-        $response = $master->getByProcedure("sp_turnero_llamar_paciente", [$object->getTurnoId(), $area_fisica_id]);
-
+        // echo $object->getTurnoId();
+        sleep(1);
+        $response = $master->insertByProcedure("sp_turnero_llamar_paciente", [$object->getTurnoId(), $area_fisica_id]);
+    
         if (isset($response[0]['MSJ'])) {
             if ($master->str_ends_with($response[0]['MSJ'], "}")) {
                 $response = $master->decodeJson([$response]);
