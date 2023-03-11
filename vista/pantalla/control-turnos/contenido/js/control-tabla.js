@@ -28,50 +28,26 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
             data: 'TURNO.COUNT'
         }, {
             data: 'TURNO', render: function (data, row) {
-                // console.log(data);
-                // console.log(meta);
-                if (data['first'] == 1) {
-                    let html = `<div class="turnoActivo alert-success"> ${data.ETIQUETA_TURNO} - ${data.MODULO} </div>`;
-                    return html;
-                } else {
-                    let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
-                    return html;
-                    // let html = '<div class="turnoActivo alert-success"> bimo1 - Consultorio 1 </div>'
-                }
+                let html = `${data.PACIENTE}`;
+                return 'Cuevas González Luis Gerardo';
             }
         }, {
             data: 'TURNO', render: function (data, row) {
-                // console.log(data);
-                // console.log(meta);
-                if (data['first'] == 1) {
-                    let html = `<div class="turnoActivo alert-success"> ${data.ETIQUETA_TURNO} </div>`;
-                    return html;
-                } else {
-                    let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
-                    return html;
-                    // let html = '<div class="turnoActivo alert-success"> bimo1 - Consultorio 1 </div>'
-                }
+                let html = `${data.ETIQUETA_TURNO}`;
+                return html;
             }
         }, {
             data: 'TURNO', render: function (data, row) {
-                // console.log(data);
-                // console.log(meta);
-                if (data['first'] == 1) {
-                    let html = `<div class="turnoActivo alert-success"> ${data.MODULO} </div>`;
-                    return html;
-                } else {
-                    let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
-                    return html;
-                    // let html = '<div class="turnoActivo alert-success"> bimo1 - Consultorio 1 </div>'
-                }
+                let html = `${data.MODULO}`;
+                return html;
             }
         }
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        {
-            targets: 0, visible: true
-        },
+        { targets: 0, visible: true },
+        { targets: 2, width: '20px' }
+
     ],
     // drawCallback: function () {
     //     $("table thead").remove();
@@ -84,8 +60,26 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
 
 function rowdrawalert() {
     var temp = tablaControlTurnos.row(0).data();
-    $('#TablaControlTurnos tbody tr').addClass('selected');
+    tablaControlTurnos.row(0)
+    $('#TablaControlTurnos tbody tr:first').addClass('selected');
+    $('#TablaControlTurnos tbody tr:first').addClass('firstSelect')
     temp['TURNO']['first'] = 1;
     // console.log(temp);
     $('#TablaControlTurnos').dataTable().fnUpdate(temp, 0, undefined, false);
+}
+
+
+// console.log(data);
+// console.log(meta);
+// if (data['first'] == 1) {
+//     let html = `<div class="turnoActivo alert-success"> ${data.MODULO} </div>`;
+//     return html;
+// } else {
+//     let html = `${data.ETIQUETA_TURNO} - ${data.MODULO}`
+//     return html;
+//     // let html = '<div class="turnoActivo alert-success"> bimo1 - Consultorio 1 </div>'
+// }
+
+function controlListadoTurnos() {
+    document.getElementById('alert-paciente').play() //Tono de aviso
 }
