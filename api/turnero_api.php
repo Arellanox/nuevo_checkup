@@ -118,7 +118,7 @@ switch ($api) {
 
         $response = $object;
 
-        $_SESSION['pacientes_llamados'] = $response1[1]["PACIENTES_LLAMADOS"];
+        $_SESSION['pacientes_llamados'] = $response1[1][0]["PACIENTES_LLAMADOS"];
         break;
     case 5:
         # Muestra el sitio actual en el que se encuentra el paciente.
