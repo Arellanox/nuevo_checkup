@@ -147,9 +147,13 @@ function llamarPaciente($master, $area_fisica_id)
         $object = current($listaGlobal->getPacientes());
         $response = $master->getByProcedure("sp_turnero_llamar_paciente", [$object->getTurnoId(), $area_fisica_id]);
 
-        if (!is_array($response)) {
-            $response = $master->decodeJson([$response]);
-            $response = isset($response[0]['mensaje']) ? $response : $response[0];
+        if (isset($response[0]['MSJ'])) {
+            if ($master->str_ends_with($response[0]['MSJ'], "}")) {
+                $response = $master->decodeJson([$response]);
+                #$response = isset($response[0]['mensaje']) ? $response : $response[0];
+            } else {
+                $response = $response[0]['MSJ'];
+            }
         }
 
 

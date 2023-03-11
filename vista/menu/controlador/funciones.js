@@ -424,7 +424,7 @@ function llamarPaciente(areaFisica, trsearch = null, callback = function () { })
           // let msj = data.response.data[0];
           // if (msj[0][0])
           //   if (msj[0] == 'No se recibió ningún paciente.') {
-          //     msj = 'No se recibió ningún paciente.';
+          //     msj['MSJ'] = 'No se recibió ningún paciente.';
           //   } else {
           //     msj = jQuery.parseJSON(msj[0]);
           //   }
