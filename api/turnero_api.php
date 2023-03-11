@@ -108,17 +108,23 @@ switch ($api) {
         break;
     case 4:
         # pantalla turnero
-        $response = $master->getByNext('sp_turnero_pantalla', [isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0]);
+        $response1 = $master->getByNext('sp_turnero_pantalla', [isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0]);
 
         $object = array();
 
-        foreach($response[0] as $item) {
+        foreach($response1[0] as $item) {
             $object[]['TURNO'] = $item;
         }
 
         $response = $object;
-        
-        $_SESSION['pacientes_llamados'] = $response[1][0]["PACIENTES_LLAMADOS"];
+
+        $_SESSION['pacientes_llamados'] = $response1[1]["PACIENTES_LLAMADOS"];
+        break;
+    case 5:
+        # Muestra el sitio actual en el que se encuentra el paciente.
+        # En sala de espera, o el nombre del area.
+
+        $response = $master->getByProcedure("sp_turnero_paciente_area_actual",[]);
         break;
     default:
         $response = "api no reconocida";
