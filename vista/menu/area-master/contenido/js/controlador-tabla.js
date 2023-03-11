@@ -77,10 +77,10 @@ $("#inputBuscarTableListaPacientes").keyup(function () {
     tablaContenido.search($(this).val()).draw();
 });
 
-
+dataTurnero = null;
 selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function (selectTR = null, array = null) {
     let datalist = array;
-
+    dataTurnero = array;
     if (selectTR == 1) {
         dataSelect = new GuardarArreglo({
             select: true,
@@ -163,8 +163,11 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
             bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
             // estatusTable('#TablaContenidoResultados')
         })
-    } else {
 
+
+
+    } else {
+        dataTurnero = null;
         dataSelect = new GuardarArreglo({
             select: false,
             nombre_paciente: 'Sin paciente',
@@ -215,6 +218,24 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
     // } else {
     //     limpiarCampos()
     // }
+})
+
+
+// Control de turnos
+btnOmitir.on('click', function () {
+    omitirPaciente(control_turnos); //case 3
+})
+
+btnLlamar.on('click', function () {
+    llamarPaciente(control_turnos); //case 2
+})
+
+btnLiberar.on('click', function () {
+    if (dataTurnero) {
+        liberarPaciente(control_turnos, dataTurnero['ID_TURNO']); //case 1
+    } else {
+        alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
+    }
 })
 
 

@@ -73,14 +73,12 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
 
 
 function rowdrawalert() {
-    var temp = tablaControlTurnos.row(0).data();
-    tablaControlTurnos.row(0)
+    // var temp = tablaControlTurnos.row(0).data();
+    // tablaControlTurnos.row(0)
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
-    $('#TablaControlTurnos tbody tr:first').addClass('firstSelect')
-
-    temp['TURNO']['first'] = 1;
+    $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
     // console.log(temp);
-    $('#TablaControlTurnos').dataTable().fnUpdate(temp, 0, undefined, false);
+    // $('#TablaControlTurnos').dataTable().fnUpdate(temp, 0, undefined, false);
 }
 
 
@@ -104,9 +102,7 @@ function controlListadoTurnos() {
     // setTimeout(() => {
     dataActual = tablaControlTurnos.row(0).data();
     if (data['TURNOS'] != dataActual['TURNOS']) {
-        // if ($('#TablaControlTurnos tbody tr:first').exists())
         data = tablaControlTurnos.row(0).data();
-        console.log(data);
     } else {
         data = false;
         document.getElementById('alert-paciente').play()

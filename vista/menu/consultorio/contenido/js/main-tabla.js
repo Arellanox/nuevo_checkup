@@ -54,7 +54,7 @@ $("#BuscarTablaLista").keyup(function () {
 //Seleccion del paciente
 // selectDatatable('TablaListaConsultorio', tablaMain, 1, "pacientes_api", 'paciente',)
 selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (selectTR = null, data = null) {
-  selectPaciente
+  selectPaciente = data;
   if (selectTR == 1) {
     obtenerPanelInformacion(data['ID_PACIENTE'], 'pacientes_api', 'paciente')
     obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
@@ -65,6 +65,7 @@ selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (select
     // console.log('rechazado')
     // getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
     // getPanelLab('Out', 0, 0)
+    selectPaciente = null;
   }
 
   //DobleClik para funcionalidad
@@ -80,3 +81,19 @@ selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (select
 
 
 
+// Control de turnos
+$('#omitir-paciente').on('click', function () {
+  omitirPaciente(1); //case 3
+})
+
+$('#llamar-paciente').on('click', function () {
+  llamarPaciente(1); //case 2
+})
+
+$('#liberar-paciente').on('click', function () {
+  if (selectPaciente) {
+    liberarPaciente(1, selectPaciente['ID_TURNO']); //case 1
+  } else {
+    alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
+  }
+})

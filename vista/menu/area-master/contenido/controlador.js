@@ -14,7 +14,7 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
-control_turnos = null;
+var control_turnos;
 function hasLocation() {
   hash = window.location.hash.substring(1);
   // $("a").removeClass("navlinkactive");
@@ -48,7 +48,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(8, 'Resultados de Rayos X', 'contenido_modal.php');
         break;
       case "RXTOMA":
-        control_turnos = 11
+        control_turnos = 9
         formulario = "1"; // Para toma capturas
         api_capturas = 2;
         api_interpretacion = 0;
@@ -91,7 +91,8 @@ function hasLocation() {
         obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_modal.php');
         break;
       case "OFTALMOLOGIA":
-        control_turnos = 4
+        control_turnos = 4;
+        // console.log(control_turnos)
         url_api = 'oftalmologia_api';
         api_interpretacion = 1;
         formulario = "formSubirInterpretacionOftalmo";
@@ -124,6 +125,12 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     $("#body-js").html(html);
   }).done(async function () {
     await obtenerTitulo(titulo);
+
+    btnOmitir = $('#omitir-paciente');
+    btnLlamar = $('#llamar-paciente');
+    btnLiberar = $('#liberar-paciente')
+
+
     dataListaPaciente = {
       api: 5,
       fecha_busqueda: $('#fechaListadoAreaMaster').val(),
@@ -183,9 +190,6 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     // Botones
     $.getScript("contenido/js/area-botones.js")
 
-    // Botones turnero
-    // if (control_turnos)
-    $.getScript("contenido/js/area-botones-turnero.js")
 
   });
 }

@@ -1,6 +1,7 @@
 //Menú principal para consultorio
 var id, idturno, idconsulta, dataConsulta = new Array,
-  tablaMain;
+  tablaMain
+var selectPaciente;
 obtenerConsultorioMain()
 
 function obtenerConsultorioMain() {

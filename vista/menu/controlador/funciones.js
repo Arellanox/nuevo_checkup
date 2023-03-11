@@ -374,12 +374,26 @@ function omitirPaciente(areaFisica) {
       data: { api: 3, area_fisica_id: areaFisica },
       success: function (data) {
         if (mensajeAjax(data)) {
-          if (data.response.data['mensaje']) {
-            alertMensaje('info', data.response.data['mensaje'])
-          } else {
-            let row = data.response.data[0];
-            alertMensaje('info', row['PACIENTE'] + " " + row['ETIQUETA_TURNO'], 'Es su siguiente paciente')
-          }
+          // console.log();
+          // let msj = data.response.data[0];
+          // if (msj[0][0])
+          //   if (msj[0] == 'No se recibió ningún paciente.') {
+          //     msj = 'No se recibió ningún paciente.';
+          //   } else {
+          //     msj = jQuery.parseJSON(msj[0]);
+          //   }
+
+          // if (msj['MSJ'] || msj)
+          //   msj['mensaje'] = msj['MSJ']
+
+          // if (msj) {
+          //   alertMensaje('info', msj['mensaje'], '')
+          // } else {
+          //   let row = data.response.data[0];
+          //   paciente = `${row['PACIENTE']} ${row['ETIQUETA_TURNO']}`;
+          //   alertMensaje('info', paciente, 'Es su siguiente paciente')
+          // }
+          alertMensaje('info', 'ButtonTurnero', '')
         }
       },
       error: function (jqXHR, exception, data) {
@@ -407,20 +421,25 @@ function llamarPaciente(areaFisica, trsearch = null, callback = function () { })
       success: function (data) {
         if (mensajeAjax(data)) {
           // console.log();
-          let msj = data.response.data[0];
-          if (msj[0][0])
-            msj = jQuery.parseJSON(msj[0]);
+          // let msj = data.response.data[0];
+          // if (msj[0][0])
+          //   if (msj[0] == 'No se recibió ningún paciente.') {
+          //     msj = 'No se recibió ningún paciente.';
+          //   } else {
+          //     msj = jQuery.parseJSON(msj[0]);
+          //   }
 
-          if (msj['MSJ'])
-            msj['mensaje'] = msj['MSJ']
+          // if (msj['MSJ'] || msj)
+          //   msj['mensaje'] = msj['MSJ']
 
-          if (msj) {
-            alertMensaje('info', msj['mensaje'], '')
-          } else {
-            let row = data.response.data[0];
-            alertMensaje('info', `${row['PACIENTE']} ${row['ETIQUETA_TURNO']}`, 'Es su siguiente paciente')
-
-          }
+          // if (msj) {
+          //   alertMensaje('info', msj['mensaje'], '')
+          // } else {
+          //   let row = data.response.data[0];
+          //   paciente = `${row['PACIENTE']} ${row['ETIQUETA_TURNO']}`;
+          //   alertMensaje('info', paciente, 'Es su siguiente paciente')
+          // }
+          alertMensaje('info', 'ButtonTurnero', '')
         }
       },
       error: function (jqXHR, exception, data) {
@@ -446,12 +465,26 @@ function liberarPaciente(areaFisica, turno) {
       data: { api: 1, area_fisica_id: areaFisica, turno_id: turno },
       success: function (data) {
         if (mensajeAjax) {
-          if (data.response.data['mensaje']) {
-            alertMensaje('info', data.response.data['mensaje'])
-          } else {
-            let row = data.response.data[0];
-            alertMensaje('info', row['PACIENTE'] + " " + row['ETIQUETA_TURNO'], 'Es su siguiente paciente')
-          }
+          // console.log();
+          // let msj = data.response.data[0];
+          // if (msj[0][0])
+          //   if (msj[0] == 'No se recibió ningún paciente.') {
+          //     msj = 'No se recibió ningún paciente.';
+          //   } else {
+          //     msj = jQuery.parseJSON(msj[0]);
+          //   }
+
+          // if (msj['MSJ'] || msj)
+          //   msj['mensaje'] = msj['MSJ']
+
+          // if (msj) {
+          //   alertMensaje('info', msj['mensaje'], '')
+          // } else {
+          //   let row = data.response.data[0];
+          //   paciente = `${row['PACIENTE']} ${row['ETIQUETA_TURNO']}`;
+          //   alertMensaje('info', paciente, 'Es su siguiente paciente')
+          // }
+          alertMensaje('info', 'ButtonTurnero', '')
         }
       },
       error: function (jqXHR, exception, data) {

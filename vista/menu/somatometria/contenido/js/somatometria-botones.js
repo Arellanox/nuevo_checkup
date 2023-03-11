@@ -52,8 +52,8 @@ $('#llamar-paciente').on('click', function () {
 })
 
 $('#liberar-paciente').on('click', function () {
-  if (selectListaMuestras) {
-    liberarPaciente(3, tablaSignos['ID_TURNO']); //case 1
+  if (selectListaSignos) {
+    liberarPaciente(3, selectListaSignos['ID_TURNO']); //case 1
   } else {
     alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
   }
