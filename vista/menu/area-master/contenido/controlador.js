@@ -23,7 +23,7 @@ function hasLocation() {
     subtipo = false;
     switch (hash) {
       case "ULTRASONIDO":
-        control_turnos = null;
+        control_turnos = 8;
         formulario = "formSubirInterpretacion";
         api_capturas = 2;
         api_interpretacion = 1;

@@ -47,7 +47,7 @@
         text.addEventListener('keydown', function({
             code
         }) {
-            if (['Space', 'NumpadEnter'].includes(code)) {
+            if (['Enter', 'NumpadEnter'].includes(code)) {
                 const lastWord = this.value.split('\n');
                 renderText.innerHTML += `<div>${this.value}</div>`;
                 this.value = '';

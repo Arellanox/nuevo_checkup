@@ -2,7 +2,7 @@ tablaMain = $('#TablaListaConsultorio').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  scrollY: autoHeightDiv(0, 400),
+  scrollY: autoHeightDiv(0, 450),
   lengthChange: false,
   scrollCollapse: true,
   paging: false,
@@ -54,6 +54,7 @@ $("#BuscarTablaLista").keyup(function () {
 //Seleccion del paciente
 // selectDatatable('TablaListaConsultorio', tablaMain, 1, "pacientes_api", 'paciente',)
 selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (selectTR = null, data = null) {
+  selectPaciente
   if (selectTR == 1) {
     obtenerPanelInformacion(data['ID_PACIENTE'], 'pacientes_api', 'paciente')
     obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
@@ -65,6 +66,7 @@ selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (select
     // getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
     // getPanelLab('Out', 0, 0)
   }
+
   //DobleClik para funcionalidad
 }, function (data) {
   obtenerContenidoAntecedentes(data);
@@ -75,5 +77,6 @@ selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (select
 //   // console.log(data);
 
 // })
+
 
 

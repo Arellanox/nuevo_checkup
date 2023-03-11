@@ -157,7 +157,7 @@ function login($user, $password)
                 $vista[$result[$i]['permiso']] = $result[$i]['activo'];
             }
             $_SESSION['vista'] = $vista;
-
+            $_SESSION['pacientes_llamados'] = null;
             return $_SESSION;
         } else {
             return "Oops! Tu contraseña es incorrecta.";

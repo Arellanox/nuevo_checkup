@@ -27,21 +27,21 @@ switch ($api) {
         // $infoPaciente = $master->getByProcedure('sp_pantalla_turnero', [null]);
         // print_r($infoPaciente);
 
-        $response = $master->updateByProcedure("sp_turnero_liberar_paciente",[$turno_id,$area_fisica_id]);
+        $response = $master->updateByProcedure("sp_turnero_liberar_paciente", [$turno_id, $area_fisica_id]);
         $_SESSION['turnero'] = null;
         break;
     case 2:
         # llamar paciente
 
         # si la listaGlobal$listaGlobal esta vacia, la llenamos
-       $response = llamarPaciente($master,$area_fisica_id);
-        
+        $response = llamarPaciente($master, $area_fisica_id);
+
         break;
     case 3:
         # saltar paciente
 
         # Actualizamos la lista por si existe algun cambio
-        fillSessionList($master,$area_fisica_id);
+        fillSessionList($master, $area_fisica_id);
 
         if (empty($listaGlobal)) {
             # si la lista esta vacia puede significar 2 cosas:
@@ -52,27 +52,26 @@ switch ($api) {
         } else {
             # si no esta vacia.
             # verificamos que el turnero en session este iniciado
-            if(empty($_SESSION['turnero']) || !isset($_SESSION['turnero'])){
+            if (empty($_SESSION['turnero']) || !isset($_SESSION['turnero'])) {
                 # si esta vacio o no existe el turnero en session no podemos saltar paciente, necesitamos llamarlo.
-                $response = llamarPaciente($master,$area_fisica_id);
+                $response = llamarPaciente($master, $area_fisica_id);
             } else {
                 # si ya existe el turnero, debemos verificar
                 # si el paciente que estamos saltando es el correcto.
-                $x = $master->deleteByProcedure("sp_turnero_saltar_paciente",[$_SESSION['turnero']['turno'],$area_fisica_id]);
+                $x = $master->deleteByProcedure("sp_turnero_saltar_paciente", [$_SESSION['turnero']['turno'], $area_fisica_id]);
 
-                if($x > 0){
+                if ($x > 0) {
                     #refresamos la listea para regresar al paciente que acabamos de saltar
-                    fillSessionList($master,$area_fisica_id);
+                    fillSessionList($master, $area_fisica_id);
                     # buscar la posicion del turno que acabas de borrar
                     $position = 0;
-                    foreach($listaGlobal->getPacientes() as $pat){
-                    
-                        if($pat->getTurnoId()==$_SESSION['turnero']['turno']){
+                    foreach ($listaGlobal->getPacientes() as $pat) {
+
+                        if ($pat->getTurnoId() == $_SESSION['turnero']['turno']) {
                             $listaGlobal->setPosition($position);
                             break;
                         }
                         $position++;
-
                     }
 
                     $listaGlobal->setPosition($listaGlobal->getPosition() + 1);
@@ -80,8 +79,8 @@ switch ($api) {
                     # llamamos al paciente que sigue
                     $response = $listaGlobal->getNextPatient();
                     # Reservamos el turno para el area correspondiente.
-                    $sp = $master->insertByProcedure("sp_turnero_llamar_paciente",[$response->getTurnoId(),$area_fisica_id]);
-                                        
+                    $sp = $master->insertByProcedure("sp_turnero_llamar_paciente", [$response->getTurnoId(), $area_fisica_id]);
+
                     # y finalmente actualizamos los datos por si hay que saltarlo de nuevo.
                     $_SESSION['turnero']['turno'] = $response->getTurnoId();
                 }
@@ -104,15 +103,16 @@ switch ($api) {
                 // }
             }
         }
-        
+
         break;
     case 4:
         # pantalla turnero
+        // echo $_SESSION['pacientes_llamados'];
         $response1 = $master->getByNext('sp_turnero_pantalla', [isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0]);
 
         $object = array();
 
-        foreach($response1[0] as $item) {
+        foreach ($response1[0] as $item) {
             $object[]['TURNO'] = $item;
         }
 
@@ -124,7 +124,7 @@ switch ($api) {
         # Muestra el sitio actual en el que se encuentra el paciente.
         # En sala de espera, o el nombre del area.
 
-        $response = $master->getByProcedure("sp_turnero_paciente_area_actual",[]);
+        $response = $master->getByProcedure("sp_turnero_paciente_area_actual", []);
         break;
     default:
         $response = "api no reconocida";
@@ -133,7 +133,8 @@ switch ($api) {
 
 echo $master->returnApi($response);
 
-function llamarPaciente($master,$area_fisica_id){
+function llamarPaciente($master, $area_fisica_id)
+{
     global $listaGlobal;
     fillSessionList($master, $area_fisica_id);
 
@@ -144,15 +145,15 @@ function llamarPaciente($master,$area_fisica_id){
     } else {
         # si la lista no esta vacia, llamamos al primer paciente aceptado.
         $object = current($listaGlobal->getPacientes());
-        $response = $master->getByProcedure("sp_turnero_llamar_paciente",[$object->getTurnoId(),$area_fisica_id]);
+        $response = $master->getByProcedure("sp_turnero_llamar_paciente", [$object->getTurnoId(), $area_fisica_id]);
 
-        if(!is_array($response)){
+        if (!is_array($response)) {
             $response = $master->decodeJson([$response]);
             $response = isset($response[0]['mensaje']) ? $response : $response[0];
         }
-        
-        
-        $_SESSION['turnero'] = array("turno"=>$object->getTurnoId());
+
+
+        $_SESSION['turnero'] = array("turno" => $object->getTurnoId());
     }
     return $response;
 }

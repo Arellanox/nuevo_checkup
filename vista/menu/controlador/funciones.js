@@ -11,7 +11,7 @@ function formatoFechaSQL(fecha, formato) {
     yy: fecha.getFullYear()
   }
 
-  return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched])
+  return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched]);
 }
 
 function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
@@ -389,7 +389,8 @@ function omitirPaciente(areaFisica) {
   }, 1)
 }
 
-function llamarPaciente(areaFisica, trsearch, callback = function () { }) {
+function llamarPaciente(areaFisica, trsearch = null, callback = function () { }) {
+  console.log(areaFisica)
   alertMensajeConfirm({
     title: '¿Desea llamar al siguiente paciente?',
     text: "",
@@ -405,11 +406,19 @@ function llamarPaciente(areaFisica, trsearch, callback = function () { }) {
       data: { api: 2, area_fisica_id: areaFisica },
       success: function (data) {
         if (mensajeAjax(data)) {
-          if (data.response.data['mensaje']) {
-            alertMensaje('info', data.response.data['mensaje'])
+          // console.log();
+          let msj = data.response.data[0];
+          if (msj[0][0])
+            msj = jQuery.parseJSON(msj[0]);
+
+          if (msj['MSJ'])
+            msj['mensaje'] = msj['MSJ']
+
+          if (msj) {
+            alertMensaje('info', msj['mensaje'], '')
           } else {
             let row = data.response.data[0];
-            alertMensaje('info', row['PACIENTE'] + " " + row['ETIQUETA_TURNO'], 'Es su siguiente paciente')
+            alertMensaje('info', `${row['PACIENTE']} ${row['ETIQUETA_TURNO']}`, 'Es su siguiente paciente')
 
           }
         }
