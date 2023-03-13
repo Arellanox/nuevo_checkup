@@ -21,40 +21,22 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
         complete: function () {
             loader("Out"), rowdrawalert(), controlListadoTurnos()
         },
+        error: function (jqXHR, exception, data) {
+            // alertErrorAJAX(jqXHR, exception, data)
+            // controlListadoTurnos();
+            errorLoadAjaxPantalla(jqXHR, exception, data)
+        },
         dataSrc: 'response.data'
     },
     columns: [
         {
-            data: 'TURNO.COUNT'
+            data: 'COUNT'
         }, {
-            data: 'TURNO', render: function (data, row) {
-                if (data) {
-                    let html = `${data.PACIENTE}`;
-                    return html;
-                } else {
-                    return ''
-                }
-            }
+            data: 'PACIENTE'
         }, {
-            data: 'TURNO', render: function (data, row) {
-                if (data) {
-
-                    let html = `${data.ETIQUETA_TURNO}`;
-                    return html;
-                } else {
-                    return ''
-                }
-            }
+            data: 'ETIQUETA_TURNO'
         }, {
-            data: 'TURNO', render: function (data, row) {
-                if (data) {
-
-                    let html = `${data.MODULO}`;
-                    return html;
-                } else {
-                    return ''
-                }
-            }
+            data: 'MODULO'
         }
         // {defaultContent: 'En progreso...'}
     ],
@@ -68,6 +50,7 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
     // }
 
 })
+
 
 // $('#table-info-row #results-table_info, #table-info-row .dt-buttons, #results-table thead').show();
 
@@ -93,24 +76,31 @@ function rowdrawalert() {
 //     // let html = '<div class="turnoActivo alert-success"> bimo1 - Consultorio 1 </div>'
 // }
 
-var data = 1;
+// document.getElementById('alert-paciente').play()
 function controlListadoTurnos() {
     // document.getElementById('alert-paciente').play() //Tono de aviso
-    if (data == 1)
-        document.getElementById('alert-paciente').play()
 
-    // setTimeout(() => {
-    dataActual = tablaControlTurnos.row(0).data();
-    if (data['TURNOS'] != dataActual['TURNOS']) {
-        data = tablaControlTurnos.row(0).data();
-    } else {
-        data = false;
-        document.getElementById('alert-paciente').play()
-    }
+    setTimeout(() => {
+        dataActual = tablaControlTurnos.row(0).data();
+        if (data['TURNOS'] != dataActual['TURNOS']) {
+            data = dataActual;
+        } else {
+            data = false;
+            document.getElementById('alert-paciente').play()
+        }
 
-    tablaControlTurnos.ajax.reload();
+        tablaControlTurnos.ajax.reload();
 
-    // }, 4000);
+    }, 500);
+}
+
+function errorLoadAjaxPantalla(jqXHR, exception, data) {
+    console.log(jqXHR);
+    console.log(exception);
+    console.log(data);
+    setTimeout(() => {
+        controlListadoTurnos()
+    }, 1000);
 }
 
 

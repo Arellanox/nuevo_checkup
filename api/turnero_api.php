@@ -110,13 +110,13 @@ switch ($api) {
         // echo $_SESSION['pacientes_llamados'];
         $response1 = $master->getByNext('sp_turnero_pantalla', [isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0]);
 
-        $object = array();
+        // $object = array();
 
-        foreach ($response1[0] as $item) {
-            $object[]['TURNO'] = $item;
-        }
+        // foreach ($response1[0] as $item) {
+        //     $object[]['TURNO'] = $item;
+        // }
 
-        $response = $object;
+        $response = $response1[0];
 
         $_SESSION['pacientes_llamados'] = $response1[1][0]["PACIENTES_LLAMADOS"];
         break;
@@ -148,7 +148,7 @@ function llamarPaciente($master, $area_fisica_id)
         // echo $object->getTurnoId();
         sleep(1);
         $response = $master->insertByProcedure("sp_turnero_llamar_paciente", [$object->getTurnoId(), $area_fisica_id]);
-    
+
         if (isset($response[0]['MSJ'])) {
             if ($master->str_ends_with($response[0]['MSJ'], "}")) {
                 $response = $master->decodeJson([$response]);
