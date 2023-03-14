@@ -111,7 +111,7 @@ class Correo
         #configuramos el correo de donde saldran los mensajes, la cabecer, etc
         if ($resultados == 0) {
             $username = 'hola@bimo-lab.com';
-            $password = 'Bimo&2022';
+            $password = 'X@96ck6B1V4&tm!4QZp3F';
             $fromName = 'bimo';
         } else {
             $username = 'resultados@bimo-lab.com';
