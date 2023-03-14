@@ -370,7 +370,7 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small>
                 <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
                 <strong style="font-size: 11px;">Teléfonos: </strong>
-                <strong style="font-size: 11px;color: rgb(247, 190, 000)">993 634 1483, 993 634 0250, 993 634 1469</strong>
+                <strong style="font-size: 11px;color: rgb(247, 190, 000)">993 634 1483, 993 634 0250, 993 634 1469, 993 634 6245</strong>
                 <strong style="font-size: 11px;">Correo electrónico:</strong>
                 <strong style="font-size: 11px;color: rgb(000, 175, 170); margin-left: -1.5px; margin-right: -1.5px">resultados@</strong>
                 <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
