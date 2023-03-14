@@ -8,7 +8,7 @@ include_once "../clases/master_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (! $tokenValido){
+if (!$tokenValido) {
     $tokenVerification->logout();
     exit;
 }
@@ -28,24 +28,22 @@ $margen_global = $_POST['margen_global'];
 switch ($api) {
     case 1:
         $precios = $_POST['contenedorListaPrecios']; #Nombre similar para la cantidad de paquetes
-        for ($i=0; $i < count($precios); $i++) {
-          $new = $precios[$i];
-          $response = $master->updateByProcedure('sp_servicios_lista_de_precios_g',$new);
-
-
+        for ($i = 0; $i < count($precios); $i++) {
+            $new = $precios[$i];
+            $response = $master->updateByProcedure('sp_servicios_lista_de_precios_g', $new);
         }
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"lastId"=>$response)));
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "lastId" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
         }
         break;
     case 2:
         $response = $precio->getAll();
 
-        if(is_array($response)){
+        if (is_array($response)) {
             $dataset = array();
-            foreach($response as $data){
+            foreach ($response as $data) {
                 $cliente = new Clientes();
                 $servicio = new Servicios();
 
@@ -59,16 +57,16 @@ switch ($api) {
 
                 $dataset[] = $data;
             }
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$dataset)));
+            echo json_encode(array("response" => array("code" => 1, "data" => $dataset)));
         } else {
-            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
         }
         break;
     case 3:
         $response = $precio->getById(1);
-        if(is_array($response)){
+        if (is_array($response)) {
             $dataset = array();
-            foreach($response as $data){
+            foreach ($response as $data) {
                 $cliente = new Clientes();
                 $servicio = new Servicios();
 
@@ -82,27 +80,27 @@ switch ($api) {
 
                 $dataset[] = $data;
             }
-            echo json_encode(array("response"=>array("code"=>1,"data"=>$dataset)));
+            echo json_encode(array("response" => array("code" => 1, "data" => $dataset)));
         } else {
-            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
         }
         break;
     case 4:
         $response = $precio->update($values);
 
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
         }
         break;
 
     case 5:
         $response = $precio->delete(1);
-        if(is_numeric($response)){
-            echo json_encode(array("response"=>array("code"=>1,"affected"=>$response)));
+        if (is_numeric($response)) {
+            echo json_encode(array("response" => array("code" => 1, "affected" => $response)));
         } else {
-            echo json_encode(array("response"=>array("code"=>2,"msj"=>$response)));
+            echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
         }
         break;
     case 6:
@@ -111,37 +109,37 @@ switch ($api) {
         $fails = array();
         $oks = 0;
 
-        foreach($datos as $data){
-            $response = $master->insertByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total'],$data['costo']]);
-            if(is_numeric($response)){
+        foreach ($datos as $data) {
+            $response = $master->insertByProcedure('sp_precios_g', [$cliente_id, $data['id'], $data['utilidad'], $data['total'], $data['costo']]);
+            if (is_numeric($response)) {
                 $oks++;
             } else {
                 $fails[] = $data['servicio_id'];
             }
         }
 
-        echo json_encode(array("response"=>array("code"=>(count($datos)==$oks ? 1 : $fails))));
+        echo json_encode(array("response" => array("code" => (count($datos) == $oks ? 1 : $fails))));
 
         break;
     case 7:
         # recuperar la lista de precio de un cliente
-        $response = $master->getByProcedure('sp_precios_b',[$cliente_id,$area_id,$paquete_id]);
+        $response = $master->getByProcedure('sp_precios_b', [$cliente_id, $area_id, $paquete_id]);
         echo $master->returnApi($response);
         break;
     case 8:
         # actualizar lista de precios
-        if(is_null($margen_global)){
+        if (is_null($margen_global)) {
             # si no proporcionan un margen de utilidad para todos,
             # se actualiza uno por uno
             $fails = array();
             $oks = 0;
 
-            foreach($datos as $data){
-                if($data['utilidad']==0){
+            foreach ($datos as $data) {
+                if ($data['utilidad'] == 0) {
                     $oks++;
                 } else {
-                    $response = $master->updateByProcedure('sp_precios_g',[$cliente_id,$data['id'],$data['utilidad'],$data['total']]);
-                    if(is_numeric($response)){
+                    $response = $master->updateByProcedure('sp_precios_g', [$cliente_id, $data['id'], $data['utilidad'], $data['total']]);
+                    if (is_numeric($response)) {
                         $oks++;
                     } else {
                         $fails[] = $data['servicio_id'];
@@ -149,13 +147,12 @@ switch ($api) {
                 }
             }
 
-            echo json_encode(array("response"=>(count($datos)==$oks ? 1 : $fails)));
+            echo json_encode(array("response" => (count($datos) == $oks ? 1 : $fails)));
             exit;
-
         } else {
             # si el margen de utilidad para todos es el mismo
             # solo se necesita el id del cliente
-            $response = $master->updateByProcedure('sp_precios_a',[$cliente_id,null,null,null,$margen_global]);
+            $response = $master->updateByProcedure('sp_precios_a', [$cliente_id, null, null, null, $margen_global]);
             echo $master->returnApi($response);
         }
         break;
@@ -166,7 +163,7 @@ switch ($api) {
         # Si se quiere recuperar los servicios de todas las areas enviar null en $area_id,
         # si se quiere recuperar "otros servicios" enviar 0, de lo contrario enviar el id del area
         # que corresponda.
-        $response = $master->getByProcedure('sp_servicios_gral_precio_clientes_b',[$cliente_id,$area_id]);
+        $response = $master->getByProcedure('sp_servicios_gral_precio_clientes_b', [$cliente_id, $area_id]);
         echo $master->returnApi($response);
         break;
 

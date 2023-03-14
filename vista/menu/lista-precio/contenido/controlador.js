@@ -291,6 +291,8 @@ function tablaMantenimiento(url = 'paquetes_api') {
 }
 
 
+
+var cliente_id;
 function obtenerContenidoPresupuesto() {
   obtenerTitulo("Presupuesto de estudios"); //Aqui mandar el nombre de la area
   // Funciones js

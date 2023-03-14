@@ -1,5 +1,3 @@
-                <strong style="font-size: 11px;color: rgb(247, 190, 000)">993 634 1483, 993 634 0250, 993 634 1469, 993 634 6245</strong>
-
                 <head>
                     <link rel="preconnect" href="https://fonts.googleapis.com">
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

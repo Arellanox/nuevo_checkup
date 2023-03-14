@@ -41,6 +41,9 @@ $('#UsarPaquete').on('click', function () {
   $("#formPaqueteSelectEstudio").removeClass("disable-element");
   $("#informacionPaquete").removeClass("disable-element");
 
+
+
+
   switch ($('input[type=radio][name=selectPaquete]:checked').val()) {
     case '2': //Lista de precios para clientes
       tablaContenido();
@@ -95,16 +98,16 @@ $('input[type=radio][name=selectChecko]').change(function () {
 
   if ($(this).val() != 0) {
     // selectData = null;
-    rellenarSelect("#seleccion-estudio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-      id_area: this.value,
-      paquete_id: $('#seleccion-paquete').val()
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+      area_id: this.value,
+      cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
       selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   } else {
-    rellenarSelect("#seleccion-estudio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-      id_area: this.value,
-      paquete_id: $('#seleccion-paquete').val()
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+      area_id: this.value,
+      cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
       selectEstudio = new GuardarArreglo(listaEstudios);
     });
