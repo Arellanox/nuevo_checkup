@@ -34,8 +34,11 @@ switch ($api) {
         # llamar paciente
 
         # si la listaGlobal$listaGlobal esta vacia, la llenamos
-        $response = llamarPaciente($master, $area_fisica_id);
+        #$response = llamarPaciente($master, $area_fisica_id);
 
+        # cambiar el estado de la solicitud en turnero_data.json
+        changeStatusRequest();
+        exit;
         break;
     case 3:
         # saltar paciente
@@ -101,6 +104,7 @@ switch ($api) {
 
                 // }
             }
+            changeStatusRequest();
         }
 
         break;
@@ -185,4 +189,11 @@ function fillListPatient($query)
     }
 
     return $lista;
+}
+
+function changeStatusRequest(){
+    $data = file_get_contents("../turnero_data.json");
+    $request = json_decode($data,true);
+    $request['request'] = true;
+    file_put_contents("../turnero_data.json",json_encode($request));
 }
