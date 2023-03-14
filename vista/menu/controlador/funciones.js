@@ -1125,7 +1125,7 @@ function mensajeAjax(data) {
         icon: 'error',
         title: 'Oops...',
         text: 'Hubo un problema!',
-        footer: 'Reporte este error con el personal :)'
+        footer: 'No sabemos que pasó, reporta este problema...'
       })
   }
   return 0;

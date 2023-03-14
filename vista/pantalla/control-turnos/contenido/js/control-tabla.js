@@ -80,6 +80,10 @@ function rowdrawalert() {
 // }
 
 // document.getElementById('alert-paciente').play()
+
+// tablaControlTurnos.settings()[0].jqXHR
+
+
 var data = '';
 function controlListadoTurnos() {
     // document.getElementById('alert-paciente').play() //Tono de aviso
