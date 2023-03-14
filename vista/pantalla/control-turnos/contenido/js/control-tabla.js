@@ -21,13 +21,13 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
             complete = false
         },
         complete: function () {
-            loader("Out"), rowdrawalert(), controlListadoTurnos()
+            loader("Out"), rowdrawalert()
             complete = true;
         },
         error: function (jqXHR, exception, data) {
             // alertErrorAJAX(jqXHR, exception, data)
             // controlListadoTurnos();
-            errorLoadAjaxPantalla(jqXHR, exception, data)
+            // errorLoadAjaxPantalla(jqXHR, exception, data)
         },
         dataSrc: 'response.data'
     },
@@ -85,41 +85,50 @@ function rowdrawalert() {
 
 
 var data = '';
+function recargaLista() {
+    $.ajax({
+        url: http + servidor + '/nuevo_checkup/turnero_data.json',
+        type: 'POST',
+        dataType: 'JSON',
+        success: function (data) {
+            // let data = JSON.parse(data);
+            // console.log(data)
+            if (data.request) {
+                controlListadoTurnos()
+            }
+
+            setTimeout(() => {
+                recargaLista()
+            }, 1000);
+        }
+    })
+}
+
 function controlListadoTurnos() {
     // document.getElementById('alert-paciente').play() //Tono de aviso
-    if (complete) {
-        setTimeout(() => {
-            try {
-                dataActual = tablaControlTurnos.row(0).data();
-                if (data['TURNOS'] != dataActual['TURNOS']) {
-                    data = dataActual;
-                } else {
-                    data = false;
-                    document.getElementById('alert-paciente').play()
-                }
-            } catch (error) {
-                console.log(error)
-            }
-            tablaControlTurnos.ajax.reload();
-
-        }, 100);
-    } else {
-        setTimeout(() => {
-            controlListadoTurnos()
-        }, 1000);
+    try {
+        dataActual = tablaControlTurnos.row(0).data();
+        if (data['TURNOS'] != dataActual['TURNOS']) {
+            data = dataActual;
+        } else {
+            data = false;
+            document.getElementById('alert-paciente').play()
+        }
+    } catch (error) {
+        console.log(error)
     }
-
+    tablaControlTurnos.ajax.reload();
 
 }
 
-function errorLoadAjaxPantalla(jqXHR, exception, data) {
-    console.log(jqXHR);
-    console.log(exception);
-    console.log(data);
-    setTimeout(() => {
-        controlListadoTurnos()
-    }, 1000);
-}
+// function errorLoadAjaxPantalla(jqXHR, exception, data) {
+//     console.log(jqXHR);
+//     console.log(exception);
+//     console.log(data);
+//     setTimeout(() => {
+//         // controlListadoTurnos()
+//     }, 1000);
+// }
 
 
 jQuery.fn.exists = function () { return this.length > 0; }

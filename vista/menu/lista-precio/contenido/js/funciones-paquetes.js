@@ -4,6 +4,8 @@ async function mantenimientoPaquete() {
     contenido: 1
   });
   tablaContenido();
+
+
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
@@ -64,32 +66,31 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, ID_SERVICIO, ABR
 function calcularFilasTR() {
   subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;
   var paqueteEstudios = new Array();
-  $('#TablaListaPaquetes tbody tr').each(function () {
-    var arregloEstudios = new Array();
-    let id_servicio;
-    let calculo = caluloFila(this)
-    subtotalCosto += calculo[0];
-    subtotalPrecioventa += calculo[1];
-    tabledata = tablaContenidoPaquete.row(this).data();
-    // console.log(tabledata);
-    // console.log(tabledata['ID_SERVICIO']);
-    if (typeof tabledata['ID_SERVICIO'] === "undefined") {
-      id_servicio = tabledata[7]
-    } else {
+  try {
+    $('#TablaListaPaquetes tbody tr').each(function () {
+      var arregloEstudios = new Array();
+      let id_servicio;
+      let calculo = caluloFila(this)
+      subtotalCosto += calculo[0];
+      subtotalPrecioventa += calculo[1];
+      tabledata = tablaContenidoPaquete.row(this).data();
+      // console.log(tabledata);
+      // console.log(tabledata['ID_SERVICIO']);
       id_servicio = tabledata['ID_SERVICIO']
-    }
+      arregloEstudios = {
+        'id': id_servicio,
+        'cantidad': calculo[2],
+        'costo': calculo[3],
+        'costototal': calculo[0],
+        'precioventa': calculo[4],
+        'subtotal': calculo[1]
+      }
+      // console.log(arregloEstudios)
+      paqueteEstudios.push(arregloEstudios)
+    });
+  } catch (error) {
 
-    arregloEstudios = {
-      'id': id_servicio,
-      'cantidad': calculo[2],
-      'costo': calculo[3],
-      'costototal': calculo[0],
-      'precioventa': calculo[4],
-      'subtotal': calculo[1]
-    }
-    // console.log(arregloEstudios)
-    paqueteEstudios.push(arregloEstudios)
-  });
+  }
   // console.log(paqueteEstudios);
   iva = (subtotalPrecioventa * 16) / 100;
   total = subtotalPrecioventa + iva;

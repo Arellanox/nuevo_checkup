@@ -1,5 +1,6 @@
 select2('#seleccion-paquete', 'form-select-paquetes')
 select2('#seleccion-estudio', 'form-select-paquetes')
+select2('#select-presupuestos', 'form-select-paquetes')
 
 //Declarar variable para la clase
 var selectEstudio;
@@ -10,7 +11,7 @@ $('#agregar-estudio-paquete').click(function () {
   // console.log(selectData)
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
   console.log(selectData)
-  meterDato(selectData['DESCRIPCION'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
+  meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
 })
 
 
@@ -22,7 +23,7 @@ $('#agregar-estudio-paquete').click(function () {
 //       data: { id: $('#seleccion-estudio').val(), api: 3},
 //       success: function (data) {
 //             data = data.response.data[0];
-//             meterDato(data.DESCRIPCION, data.ABREVIATURA, data.COSTO, data.PRECIO_VENTA, data.ID_SERVICIO, data.ABREVIATURA, tablaPaquete);
+//             meterDato(data.SERVICIO, data.ABREVIATURA, data.COSTO, data.PRECIO_VENTA, data.ID_SERVICIO, data.ABREVIATURA, tablaPaquete);
 //         }
 //       }
 //     );
@@ -34,6 +35,17 @@ $("#formPaqueteSelectEstudio").addClass("disable-element");
 $("#informacionPaquete").addClass("disable-element");
 
 $('#UsarPaquete').on('click', function () {
+
+  if ($('input[type=radio][name=selectPaquete]:checked').val() == 2) {
+    if (!$('#select-presupuestos').val()) {
+      alertToast('Necesitas seleccionar un presupuesto de este cliente', 'error', '5000')
+      return false;
+    }
+    rellenarSelect("#select-presupuestos", "xxx", 0, 'ID_PRESUPUESTO', 'PRESUPUESTO', {
+      cliente_id: $('#seleccion-paquete').val()
+    });
+  }
+
   $('#seleccion-paquete').prop('disabled', true);
   $("#selectDisabled").addClass("disable-element");
   // $('.formContenidoPaquete').prop('disabled', false);
@@ -98,14 +110,14 @@ $('input[type=radio][name=selectChecko]').change(function () {
 
   if ($(this).val() != 0) {
     // selectData = null;
-    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
       selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   } else {
-    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {

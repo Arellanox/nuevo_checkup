@@ -2,6 +2,7 @@ async function mantenimientoPaquete() {
   loader("In");
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
   tablaContenido();
+
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
@@ -10,11 +11,14 @@ async function mantenimientoPaquete() {
 
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   $("#seleccion-estudio").find('option').remove().end()
+  $('.listaPresupuestos').show();
+
   loader("Out");
 }
 
 async function contenidoPaquete(select = null) {
   loader("In");
+
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
@@ -24,6 +28,8 @@ async function contenidoPaquete(select = null) {
 
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   $("#seleccion-estudio").find('option').remove().end()
+  $('.listaPresupuestos').hide();
+
   tablaContenido()
 }
 
@@ -60,36 +66,34 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, ID_SERVICIO, ABR
 function calcularFilasTR() {
   subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;
   var paqueteEstudios = new Array();
-  $('#TablaListaPaquetes tbody tr').each(function () {
-    var arregloEstudios = new Array();
-    let id_servicio;
-    let calculo = caluloFila(this)
-    subtotalCosto += calculo[0];
-    subtotalPrecioventa += calculo[1];
-    tabledata = tablaContenidoPaquete.row(this).data();
-    // console.log(tabledata);
-    // console.log(tabledata['ID_SERVICIO']);
-    if (typeof tabledata['ID_SERVICIO'] === "undefined") {
-      id_servicio = tabledata[7]
-    } else {
+  try {
+    $('#TablaListaPaquetes tbody tr').each(function () {
+      var arregloEstudios = new Array();
+      let id_servicio;
+      let calculo = caluloFila(this)
+      subtotalCosto += calculo[0];
+      subtotalPrecioventa += calculo[1];
+      tabledata = tablaContenidoPaquete.row(this).data();
+      // console.log(tabledata);
+      // console.log(tabledata['ID_SERVICIO']);
       id_servicio = tabledata['ID_SERVICIO']
-    }
+      arregloEstudios = {
+        'id': id_servicio,
+        'cantidad': calculo[2],
+        'costo': calculo[3],
+        'costototal': calculo[0],
+        'precioventa': calculo[4],
+        'subtotal': calculo[1]
+      }
+      // console.log(arregloEstudios)
+      paqueteEstudios.push(arregloEstudios)
+    });
+  } catch (error) {
 
-    arregloEstudios = {
-      'id': id_servicio,
-      'cantidad': calculo[2],
-      'costo': calculo[3],
-      'costototal': calculo[0],
-      'precioventa': calculo[4],
-      'subtotal': calculo[1]
-    }
-    // console.log(arregloEstudios)
-    paqueteEstudios.push(arregloEstudios)
-  });
+  }
   // console.log(paqueteEstudios);
   iva = (subtotalPrecioventa * 16) / 100;
   total = subtotalPrecioventa + iva;
-
   if (!checkNumber(subtotalCosto)) {
     subtotalCosto = 0;
   } else {
@@ -105,9 +109,10 @@ function calcularFilasTR() {
   } else {
     total = total;
   }
-  $('#subtotal-costo-paquete').html('$' + subtotalCosto);
-  $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa);
-  $('#total-paquete').html('$' + total);
+  $('#subtotal-costo-paquete').html('$' + subtotalCosto.toFixed(2));
+  $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa.toFixed(2));
+  $('#total-paquete').html('$' + total.toFixed(2));
+  // console.log(typeof total.toFixed(2))
   paqueteEstudios.push({
     'total': total,
     'subtotal-costo': subtotalCosto,
@@ -121,18 +126,21 @@ function calcularFilasTR() {
 function caluloFila(parent_element) {
   // Calcula la fila de una tabla
   let cantidad = parseFloat($(parent_element).find("input[name='cantidad-paquete']").val());
+  // cantidad = cantidad
   let costo = parseFloat($(parent_element).find("div[class='costo-paquete text-center']").text().slice(1));
+  // costo = costo
   let precioventa = parseFloat($(parent_element).find("div[class='precioventa-paquete text-center']").text().slice(1));
+  // precioventa = precioventa
   // Dar valor a costo total
   let costoTotal = cantidad * costo;
   if (checkNumber(costoTotal)) {
-    $(parent_element).find("div[class='costototal-paquete text-center']").html('$' + costoTotal)
+    $(parent_element).find("div[class='costototal-paquete text-center']").html('$' + costoTotal.toFixed(2))
   } else {
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$0')
   }
   let subtotal = cantidad * precioventa;
   if (checkNumber(subtotal)) {
-    $(parent_element).find("div[class='subtotal-paquete text-center']").html('$' + subtotal)
+    $(parent_element).find("div[class='subtotal-paquete text-center']").html('$' + subtotal.toFixed(2))
   } else {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$0')
   }
