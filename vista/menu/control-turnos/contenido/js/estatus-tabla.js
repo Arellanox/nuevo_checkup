@@ -20,9 +20,9 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
     ],
     ajax: {
         dataType: 'json',
-        data: { api: 1 },
+        data: { api: 5 },
         method: 'POST',
-        url: '../../../api/menu_principal_api.php',
+        url: '../../../api/turnero_api.php',
         beforeSend: function () {
             loader("In", 'bottom'), array_selected = null
         },
@@ -42,92 +42,12 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         { data: 'COUNT' },
         { data: 'NOMBRE_COMPLETO' },
         { data: 'PROCEDENCIA' },
-        //Laboratorio
-        {
-            data: 'LABORATORIO_CLINICO', render: function (data) {
-                html = drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' });
-                return html;
-            }
-        },
-        //Ultrasonido
-        {
-            data: 'ULTRASONIDO', render: function (data) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-            }
-        },
-        //Rayos X
-        {
-            data: 'RAYOS_X', render: function (data) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-            }
-        },
-        //Oftalmo
-        {
-            data: 'OFTALMOLOGIA', render: function (data) {
-                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' });
-            }
-        },
-        //HistoriaClinica
-        {
-            data: 'CONSULTORIO', render: function (data) {
-                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' });
-            }
-        },
-        //Electrocardiograma
-        {
-            data: 'ELECTROCARDIOGRAMA', render: function (data) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-            }
-        },
-        //Espirometría
-        {
-            data: 'ESPIROMETRIA', render: function (data) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-            }
-        },
-        //Audiometria
-        {
-            data: 'AUDIOMETRIA', render: function (data) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-            }
-        },
-        //Menu
-        {
-            data: 'FECHA_RECEPCION',
-            render: function (data) {
-                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
-            }
-        },
-        {
-            data: 'FECHA_AGENDA',
-            render: function (data) {
-                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
-            }
-        },
-        {
-            data: 'FECHA_REAGENDA',
-            render: function (data) {
-                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
-            }
-        },
 
-        { data: 'DESCRIPCION_SEGMENTO' },
-        { data: 'TURNO' },
-        {
-            data: 'ACTIVO',
-            render: function (data) {
-                return 'PENDIENTE';
-            }
-        },
-        { data: 'PREFOLIO' },
-        { data: 'GENERO' }
+
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        { width: "20%", targets: 1 },
-        { width: "1%", targets: 0 },
-        { width: "10%", targets: [3, 4, 5, 6, 7, 8, 9, 10] },
-        { targets: [7, 9, 10, 16], visible: false }
+        { width: "5px", targets: 1 },
         // { visible: false, title: "AreaActual", targets: 20, searchable: false }
     ],
 

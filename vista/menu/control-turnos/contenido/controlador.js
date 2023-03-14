@@ -6,7 +6,7 @@ var tablaEstatusTurnos;
 obtenerContenidoPrincipal()
 
 function obtenerContenidoPrincipal() {
-    obtenerTitulo('Menú bimo Checkup'); //Nombre cambiante, no usar botones
+    obtenerTitulo('Pacientes turnos'); //Nombre cambiante, no usar botones
     $.post("contenido/turnos_dia.html", function (html) {
         $("#body-js").html(html);
         // Datatable
