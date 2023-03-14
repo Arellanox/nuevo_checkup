@@ -1111,6 +1111,15 @@ function mensajeAjax(data) {
       })
 
       break;
+    case "turnero":
+      alertMensajeConfirm({
+        title: "Oops",
+        text: `${data['response']['msj']}`,
+        footer: "Tal vez deberias intentarlo nuevamente",
+        icon: "warning",
+      })
+
+      break;
     default:
       Swal.fire({
         icon: 'error',
