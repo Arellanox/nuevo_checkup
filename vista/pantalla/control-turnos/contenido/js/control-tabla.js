@@ -85,6 +85,7 @@ function rowdrawalert() {
 
 
 var data = '';
+recargaLista();
 function recargaLista() {
     $.ajax({
         url: http + servidor + '/nuevo_checkup/turnero_data.json',
