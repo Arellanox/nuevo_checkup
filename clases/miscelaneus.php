@@ -181,20 +181,27 @@ class Miscelaneus
         fclose($fp);
     }
 
-    function returnApi($response)
+    function returnApi($response, $specialCode = null)
     {
 
-        if (is_array($response) || is_numeric($response) || is_object($response)) {
+        if (is_array($response) || is_numeric($response) || is_object($response) && !isset($specialCode)) {
             $json = json_encode(
                 array("response" => array(
                     'code' => 1,
                     'data' => $response
                 ))
             );
-        } else {
+        } else if(!isset($specialCode)){
             $json = json_encode(
                 array("response" => array(
                     'code' => 2,
+                    'msj' => $response
+                ))
+            );
+        } else {
+            $json = json_encode(
+                array("response" => array(
+                    'code' => 'turnero',
                     'msj' => $response
                 ))
             );

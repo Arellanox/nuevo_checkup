@@ -59,7 +59,6 @@ switch ($api) {
                 # si ya existe el turnero, debemos verificar
                 # si el paciente que estamos saltando es el correcto.
                 $x = $master->deleteByProcedure("sp_turnero_saltar_paciente", [$_SESSION['turnero']['turno'], $area_fisica_id]);
-
                 if ($x > 0) {
                     #refresamos la listea para regresar al paciente que acabamos de saltar
                     fillSessionList($master, $area_fisica_id);
@@ -131,7 +130,7 @@ switch ($api) {
         break;
 }
 
-echo $master->returnApi($response);
+echo $master->returnApi($response,3);
 
 function llamarPaciente($master, $area_fisica_id)
 {
