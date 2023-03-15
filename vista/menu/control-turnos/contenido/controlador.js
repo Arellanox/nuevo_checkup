@@ -6,7 +6,7 @@ var tablaEstatusTurnos;
 obtenerContenidoPrincipal()
 
 function obtenerContenidoPrincipal() {
-    obtenerTitulo('Pacientes turnos'); //Nombre cambiante, no usar botones
+    obtenerTitulo('Estado actual del paciente'); //Nombre cambiante, no usar botones
     $.post("contenido/turnos_dia.html", function (html) {
         $("#body-js").html(html);
         // Datatable

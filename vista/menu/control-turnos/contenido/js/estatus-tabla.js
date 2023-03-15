@@ -117,7 +117,7 @@ setTimeout(() => {
         '<i class="bi bi-info-circle"></i>' +
         '</span>' +
         '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-        'title="Los iconos representan el estado del paciente a las areas">' +
+        'title="Existe un delay de 20 segundos para refrescar cambios...">' +
         '<i class="bi bi-info-circle"></i>' +
         '</span>' +
         '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
@@ -143,106 +143,3 @@ setTimeout(() => {
 
 
 
-
-
-function drawRowTable(data, tipo, msj = { 0: '', 1: '', 2: '' }) {
-    switch (data) {
-        case 1: case '1':
-            html = '<p class="text-success fw-bold style="letter-spacing: normal !important; text-shadow: 0 0 1px #000000;">' + msj[1] + '</p>'
-            return html;
-        case 0: case '0':
-            html = '<p class="text-info fw-bold style="letter-spacing: normal !important; text-shadow: 0 0 1px #000000;">' + msj[2] + '</p>'
-            return html
-        case 'N/A':
-            return '';
-        default:
-            return '?';
-    }
-}
-
-function drawStatusMenuTable(data, iconObject = { 0: 'muestra', 1: 'reporte', 2: 'correo', 3: 'captura' }) {
-    //Icons
-    html = '';
-    // console.log(data)
-
-    if (data) {
-        // console.log(data);
-        for (const key in iconObject) {
-            if (iconObject.hasOwnProperty.call(iconObject, key)) {
-                const val = iconObject[key];
-                // if (data[val])
-                html += analizarIconStatus(data[val], val);
-            }
-        }
-    }
-    return html;
-
-};
-
-function analizarIconStatus(data, tipo) {
-    icons = {
-        muestra: {
-            0: 'muestra_sin_tomar',
-            1: 'muestra_tomada',
-            'N/A': '',
-        },
-        reporte: {
-            0: 'reporte_sin',
-            1: 'reportado',
-            'N/A': '',
-        },
-        correo: {
-            0: 'correo_sin',
-            1: 'correo_enviado',
-            'N/A': '',
-        },
-        capturas: {
-            0: 'captura_sin_tomar',
-            1: 'captura_tomada',
-            'N/A': '',
-        }
-    }
-    return elegirIconStatus(icons[tipo], data)
-}
-
-function elegirIconStatus(tipo, key) {
-    if (tipo) {
-        // console.log(key, tipo[key])
-        switch (tipo[key]) {
-            case 'muestra_sin_tomar': return '<i class="bi bi-droplet text-secondary" style="zoom:170%;"></i>';
-            case 'muestra_tomada': return '<i class="bi bi-droplet-fill" style="zoom:170%; color: rgb(162 0 0)"></i>'; // zoom: 170%; color: rgb(255 255 255); border - radius: 50 %; padding: 0px 2px 0px 2px; background - color: rgb(162, 0, 0); background: linear-gradient(to bottom right, rgb(161 0 0), rgb(162 0 0));
-            case 'captura_sin_tomar': return '<i class="bi bi-card-image text-secondary" style="zoom:170%;"></i>';
-            case 'captura_tomada': return '<i class="bi bi-image-fill" style="zoom:170%; color: rgb(162 0 0)"></i>';
-            case 'reporte_sin': return '<i class="bi bi-clipboard-x text-secondary" style="zoom:170%;"></i>';
-            case 'reportado': return '<i class="bi bi-clipboard2-check-fill" style="zoom:170%; color: rgb(247, 190, 0)"></i>';
-            case 'correo_sin': return '<i class="bi bi-send-x text-secondary" style="zoom:170%;"></i>';
-            case 'correo_enviado': return '<i class="bi bi-send-check-fill" style="zoom:170%; color: rgb(000, 175, 170)"></i>';
-            case 'N/A': return '';
-        }
-        // console.log('vacio')
-        return '';
-    }
-}
-
-
-// AUDIOMETRIA: "N/A"
-// : "N/A"
-// CORREO: "hola@bimo.com.mx"
-// CURP: "BAMS630125MTCRLR00"
-// ESPIROMETRIA: "N/A"
-// ETIQUETA_TURNO: "PAR2"
-// EXPEDIENTE: "000085"
-// FECHA_RECEPCION: "2023-02-16 09:14:54"
-// ID_TURNO: "275"
-// IMG_RX: "1"
-// IMG_ULTRA: "1"
-// LABORATORIO_CLINICO: "0"
-// MUESTRA: "1"
-// NOMBRE_COMPLETO: "BARRERA MOLLINEDO SARA DEL CARMEN"
-// : "N/A"
-// PROCEDENCIA: "Particular"
-// RAYOS_X: "N/A"
-// SEGMENTO: null
-// SEXO: "FEMENINO"
-// SOMATOMETRIA: "N/A"
-// ULTRASONIDO: "N/A"
