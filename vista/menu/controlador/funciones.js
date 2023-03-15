@@ -464,7 +464,7 @@ function liberarPaciente(areaFisica, turno) {
       dataType: 'json',
       data: { api: 1, area_fisica_id: areaFisica, turno_id: turno },
       success: function (data) {
-        if (mensajeAjax) {
+        if (mensajeAjax(data)) {
           // console.log();
           // let msj = data.response.data[0];
           // if (msj[0][0])

@@ -105,8 +105,8 @@ $menu = $_POST['menu']; ?>
 <?php endif; ?>
 
 <?php if ($menu == 'Estado actual del paciente') : ?>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaquete">
-    <i class="bi bi-save"></i> Re-cargar tabla
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="recargarTabla">
+    <i class="bi bi-arrow-clockwise"></i> Re-cargar tabla
   </button>
 <?php endif; ?>
 

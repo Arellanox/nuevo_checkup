@@ -39,19 +39,37 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         // $('td', row).addClass('bg-info');
     },
     columns: [
-        { data: 'COUNT' },
-        { data: 'NOMBRE_COMPLETO' },
-        { data: 'PROCEDENCIA' },
+        {
+            data: 'AREA_FISICA_ID', render: function () {
+                return '';
+            }
+        },
+        { data: 'PACIENTE' },
+        { data: 'MODULO' },
 
 
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        { width: "5px", targets: 1 },
+        { width: "5px", targets: 0 },
         // { visible: false, title: "AreaActual", targets: 20, searchable: false }
     ],
 
 })
+
+
+// AREA_FISICA_ID
+// :
+// null
+// MODULO
+// :
+// "EN ESPERA"
+// PACIENTE
+// :
+// "CUEVAS GONZÁLEZ LUIS GERARDO"
+// TURNO_ID
+// :
+// "291"
 
 // tablaMenuPrincipal.columns().every(function () {
 //     var that = this;
@@ -143,3 +161,8 @@ setTimeout(() => {
 
 
 
+var carga = false;
+
+function cargarTabla() {
+
+}
