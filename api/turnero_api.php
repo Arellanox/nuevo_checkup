@@ -56,6 +56,7 @@ switch ($api) {
         break;
     case 3:
         # saltar paciente
+        # modificado el 15 de marzo 2023
 
         # Actualizamos la lista por si existe algun cambio
         fillSessionList($master, $area_fisica_id);
