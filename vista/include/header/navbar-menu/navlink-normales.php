@@ -15,7 +15,7 @@ if ($menu != "PrincipalMenu") : ?>
   </li>
 <?php endif; ?> -->
 
-<?php if ($menu == 'PrincipalMenu') : ?>
+<?php if ($menu == 'PrincipalMenu' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
   <li class="nav-item">
     <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>">
       <i class="bi bi-people-fill"></i> Recepción

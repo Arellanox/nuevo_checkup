@@ -4,6 +4,13 @@
 // obtenerContenidoRecepcion();
 var tablaRecepcionPacientes, dataRecepcion = { api: 1 };
 
+if (validarVista('RECEPCIÓN')) {
+  hasLocation()
+  $(window).on("hashchange", function (e) {
+    hasLocation();
+  });
+}
+
 
 function obtenerContenidoEspera() {
   obtenerTitulo('Recepción | Espera'); //Aqui mandar el nombre de la area
@@ -40,10 +47,7 @@ function obtenerContenidoRechazados() {
   });
 }
 
-hasLocation()
-$(window).on("hashchange", function (e) {
-  hasLocation();
-});
+
 
 function hasLocation() {
   var hash = window.location.hash.substring(1);
