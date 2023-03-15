@@ -95,7 +95,9 @@ function recargaLista() {
             // let data = JSON.parse(data);
             // console.log(data)
             if (data.request) {
-                controlListadoTurnos()
+                setTimeout(() => {
+                    controlListadoTurnos()
+                }, 300);
             }
 
             setTimeout(() => {
@@ -107,17 +109,17 @@ function recargaLista() {
 
 function controlListadoTurnos() {
     // document.getElementById('alert-paciente').play() //Tono de aviso
-    try {
-        dataActual = tablaControlTurnos.row(0).data();
-        if (data['TURNOS'] != dataActual['TURNOS']) {
-            data = dataActual;
-        } else {
-            data = false;
-            document.getElementById('alert-paciente').play()
-        }
-    } catch (error) {
-        console.log(error)
-    }
+    // try {
+    //     dataActual = tablaControlTurnos.row(0).data();
+    //     if (data['TURNOS'] != dataActual['TURNOS']) {
+    //         data = dataActual;
+    //     } else {
+    //         data = false;
+    //     }
+    // } catch (error) {
+    //     console.log(error)
+    // }
+    document.getElementById('alert-paciente').play()
     tablaControlTurnos.ajax.reload();
 
 }

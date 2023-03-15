@@ -37,7 +37,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       render: function (data) {
         switch (data) {
           case 'Particular': case 'PARTICULAR':
-            return '<p class="fw-bold" style="letter-spacing: normal !important;">' + data + '</p>';
+            return `<p class="fw-bold" style="letter-spacing: normal !important;">${data}</p>`;
           default:
             return data;
         }

@@ -465,26 +465,16 @@ function liberarPaciente(areaFisica, turno) {
       data: { api: 1, area_fisica_id: areaFisica, turno_id: turno },
       success: function (data) {
         if (mensajeAjax(data)) {
-          // console.log();
-          // let msj = data.response.data[0];
-          // if (msj[0][0])
-          //   if (msj[0] == 'No se recibió ningún paciente.') {
-          //     msj = 'No se recibió ningún paciente.';
-          //   } else {
-          //     msj = jQuery.parseJSON(msj[0]);
-          //   }
-
-          // if (msj['MSJ'] || msj)
-          //   msj['mensaje'] = msj['MSJ']
-
-          // if (msj) {
-          //   alertMensaje('info', msj['mensaje'], '')
-          // } else {
-          //   let row = data.response.data[0];
-          //   paciente = `${row['PACIENTE']} ${row['ETIQUETA_TURNO']}`;
-          //   alertMensaje('info', paciente, 'Es su siguiente paciente')
-          // }
-          alertMensaje('info', 'ButtonTurnero', '')
+          if (data.response.data == 1) {
+            alertMsj({
+              title: "¡Paciente liberado!",
+              text: "Ya puedes llamar a un nuevo paciente al area : )",
+              icon: "success",
+              showCancelButton: false,
+              timer: 8000,
+              timerProgressBar: true,
+            })
+          }
         }
       },
       error: function (jqXHR, exception, data) {
@@ -934,40 +924,76 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
   })
 }
 
+function alertMsj(options) {
+
+  if (!options.hasOwnProperty('title'))
+    options['title'] = "¿Desea realizar esta acción?"
+
+  if (!options.hasOwnProperty('text'))
+    options['text'] = "Probablemente no podrá revertirlo"
+
+  if (!options.hasOwnProperty('icon'))
+    options['icon'] = 'warning'
+
+  if (!options.hasOwnProperty('showCancelButton'))
+    options['showCancelButton'] = true
+
+  if (!options.hasOwnProperty('confirmButtonColor'))
+    options['confirmButtonColor'] = '#3085d6'
+
+  if (!options.hasOwnProperty('cancelButtonColor'))
+    options['cancelButtonColor'] = '#d33'
+
+  if (!options.hasOwnProperty('confirmButtonText'))
+    options['confirmButtonText'] = 'Aceptar'
+
+  if (!options.hasOwnProperty('cancelButtonText'))
+    options['cancelButtonText'] = 'Cancelar'
+
+  if (!options.hasOwnProperty('allowOutsideClick'))
+    options['allowOutsideClick'] = false
+  // if (!options.hasOwnProperty('timer'))
+  //   options['timer'] = 4000
+  // if (!options.hasOwnProperty('timerProgressBar'))
+  //   options['timerProgressBar'] = true
+  //
+  Swal.fire(options)
+}
+
 function alertMensajeConfirm(options, callback, set = 0) {
 
   //Options si existe
   switch (set) {
     case 1:
-      if (!options['title'])
+      if (!options.hasOwnProperty('title'))
         options['title'] = "¿Desea realizar esta acción?"
 
-      if (!options['text'])
+      if (!options.hasOwnProperty('text'))
         options['text'] = "Probablemente no podrá revertirlo"
 
-      if (!options['icon'])
+      if (!options.hasOwnProperty('icon'))
         options['icon'] = 'warning'
 
-      if (!options['showCancelButton'])
+      if (!options.hasOwnProperty('showCancelButton'))
         options['showCancelButton'] = true
 
-      if (!options['confirmButtonColor'])
+      if (!options.hasOwnProperty('confirmButtonColor'))
         options['confirmButtonColor'] = '#3085d6'
 
-      if (!options['cancelButtonColor'])
+      if (!options.hasOwnProperty('cancelButtonColor'))
         options['cancelButtonColor'] = '#d33'
 
-      if (!options['confirmButtonText'])
+      if (!options.hasOwnProperty('confirmButtonText'))
         options['confirmButtonText'] = 'Aceptar'
 
-      if (!options['cancelButtonText'])
+      if (!options.hasOwnProperty('cancelButtonText'))
         options['cancelButtonText'] = 'Cancelar'
 
-      if (!options['allowOutsideClick'])
+      if (!options.hasOwnProperty('allowOutsideClick'))
         options['allowOutsideClick'] = false
-      // if (!options['timer'])
+      // if (options.hasOwnProperty('timer'))
       //   options['timer'] = 4000
-      // if (!options['timerProgressBar'])
+      // if (options.hasOwnProperty('timerProgressBar'))
       //   options['timerProgressBar'] = true
       //
       break;

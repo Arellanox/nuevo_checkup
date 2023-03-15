@@ -24,10 +24,10 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         method: 'POST',
         url: '../../../api/turnero_api.php',
         beforeSend: function () {
-            loader("In", 'bottom'), array_selected = null
+            array_selected = null, carga = false;
         },
         complete: function () {
-            loader("Out", 'bottom')
+            carga = true
         },
         dataSrc: 'response.data'
     },
@@ -45,7 +45,21 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
             }
         },
         { data: 'PACIENTE' },
-        { data: 'MODULO' },
+        {
+            data: 'ETIQUETA_TURNO', render: function (data) {
+                return `<p class="fw-bold" style="letter-spacing: normal !important;">${data}</p>`;
+            }
+        },
+        {
+            data: 'MODULO', render: function (data) {
+                switch (data) {
+                    case 'EN ESPERA':
+                        return `<p class="fw-bold" style="letter-spacing: normal !important;color:#E74C3C;">${data}</p>`;
+                    default:
+                        return `<p class="fw-bold pantone-3165-color" style="letter-spacing: normal !important;">${data}</p>`;
+                }
+            }
+        },
 
 
         // {defaultContent: 'En progreso...'}
@@ -135,7 +149,7 @@ setTimeout(() => {
         '<i class="bi bi-info-circle"></i>' +
         '</span>' +
         '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-        'title="Existe un delay de 20 segundos para refrescar cambios...">' +
+        'title="Existe un delay de 4 segundos para visualizar algun cambio de estatus">' +
         '<i class="bi bi-info-circle"></i>' +
         '</span>' +
         '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
@@ -162,7 +176,21 @@ setTimeout(() => {
 
 
 var carga = false;
-
+cargarTabla();
 function cargarTabla() {
+    setTimeout(() => {
+        if (carga) {
+            tablaMenuPrincipal.ajax.reload()
+            carga = false
+        }
 
+        cargarTabla()
+        return 1;
+
+    }, 4000);
 }
+
+$('#recargarTabla').click(function () {
+    tablaMenuPrincipal.ajax.reload()
+    carga = false
+})
