@@ -154,7 +154,7 @@ function llamarPaciente($master, $area_fisica_id)
         # si la lista no esta vacia, llamamos al primer paciente aceptado.
         $object = current($listaGlobal->getPacientes());
         // echo $object->getTurnoId();
-        sleep(1);
+        
         $response = $master->insertByProcedure("sp_turnero_llamar_paciente", [$object->getTurnoId(), $area_fisica_id]);
 
         if (isset($response[0]['MSJ'])) {
@@ -167,12 +167,17 @@ function llamarPaciente($master, $area_fisica_id)
         }
 
         # verificar si ya existe, lo reemplazamos
+        if(isset($_SESSION['turnero'])){
+            $_SESSION['turnero'][$area_fisica_id] = array("turno" => $object->getTurnoId());
+        } else {
+            $_SESSION['turnero'] = array($area_fisica_id => array("turno" => $object->getTurnoId()));
+        }
         // if(array_key_exists($area_fisica_id,$_SESSION['turnero'])){
         //     $_SESSION['turnero'][$area_fisica_id]['turno']= $object->getTurnoId();
         // }else{
         //     array_push($_SESSION['turnero'],array($area_fisica_id=>$object->getTurnoId()));
         // }
-        $_SESSION['turnero'] = array($area_fisica_id => array("turno" => $object->getTurnoId()));
+        
         # si no esta 
         # un array push 
     }
