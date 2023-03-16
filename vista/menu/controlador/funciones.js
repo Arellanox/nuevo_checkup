@@ -368,32 +368,29 @@ function omitirPaciente(areaFisica) {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+      url: `${http}${servidor}/nuevo_checkup/api/turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 3, area_fisica_id: areaFisica },
       success: function (data) {
         if (mensajeAjax(data)) {
-          // console.log();
-          // let msj = data.response.data[0];
-          // if (msj[0][0])
-          //   if (msj[0] == 'No se recibió ningún paciente.') {
-          //     msj = 'No se recibió ningún paciente.';
-          //   } else {
-          //     msj = jQuery.parseJSON(msj[0]);
-          //   }
+          let row = data.response.data;
+          alertMsj({
+            title: row['NEXT']['paciente'],
+            text: `Es su siguiente paciente, acabas de omitir al paciente ${row['OMITTED']['paciente']}`,
+            footer: 'Los pacientes omitidos serán saltados al final de la fila',
+            icon: 'success',
+            timer: 5000,
+            showCancelButton: false,
+            timerProgressBar: true,
+          })
 
-          // if (msj['MSJ'] || msj)
-          //   msj['mensaje'] = msj['MSJ']
-
-          // if (msj) {
-          //   alertMensaje('info', msj['mensaje'], '')
-          // } else {
-          //   let row = data.response.data[0];
-          //   paciente = `${row['PACIENTE']} ${row['ETIQUETA_TURNO']}`;
-          //   alertMensaje('info', paciente, 'Es su siguiente paciente')
-          // }
-          alertMensaje('info', 'ButtonTurnero', '')
+          // NEXT
+          // :
+          // { area_id: "3", turno_id: "298", etiqueta_turno: "PAR2", paciente: "CUPIL GARCÍA EDER" }
+          // OMITTED
+          // :
+          // { area_id: "3", turno_id: "297", etiqueta_turno: "PAR1", paciente: "CADENA PADRÓN LAURA JEMIMA" }
         }
       },
       error: function (jqXHR, exception, data) {
@@ -422,8 +419,12 @@ function llamarPaciente(areaFisica, trsearch = null, callback = function () { })
         if (mensajeAjax(data)) {
           let row = data.response.data[0];
           alertMsj({
-            title: 'PACIENTE',
-            text: 'Es su siguiente paciente,'
+            title: row['PACIENTE'],
+            text: 'Es su siguiente paciente',
+            icon: 'success',
+            timer: 5000,
+            showCancelButton: false,
+            timerProgressBar: true,
           })
         }
       },
@@ -945,7 +946,7 @@ function alertMsj(options) {
   Swal.fire(options)
 }
 
-function alertMensajeConfirm(options, callback, set = 0) {
+function alertMensajeConfirm(options, callback = function () { }, set = 0) {
 
   //Options si existe
   switch (set) {

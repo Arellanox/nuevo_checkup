@@ -107,6 +107,8 @@ function recargaLista() {
     })
 }
 
+document.getElementById('alert-paciente').play()
+
 function controlListadoTurnos() {
     // document.getElementById('alert-paciente').play() //Tono de aviso
     // try {
