@@ -175,32 +175,19 @@ setTimeout(() => {
 
 
 
-
-recargaLista();
-function recargaLista() {
-    $.ajax({
-        url: http + servidor + '/nuevo_checkup/turnero_data.json',
-        type: 'POST',
-        dataType: 'JSON',
-        success: function (data) {
-            // let data = JSON.parse(data);
-            // console.log(data)
-            if (data.request) {
-                setTimeout(() => {
-                    cargarTabla()
-                }, 300);
-            }
-
-            setTimeout(() => {
-                recargaLista()
-            }, 1000);
-        }
-    })
-}
-
-
+var carga = false;
+cargarTabla();
 function cargarTabla() {
-    tablaMenuPrincipal.ajax.reload()
+    setTimeout(() => {
+        if (carga) {
+            tablaMenuPrincipal.ajax.reload()
+            carga = false
+        }
+
+        cargarTabla()
+        return 1;
+
+    }, 4000);
 }
 
 $('#recargarTabla').click(function () {

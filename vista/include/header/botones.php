@@ -164,13 +164,14 @@ $menu = $_POST['menu']; ?>
   || $menu == 'Carga de Electrocardiograma'
   || $menu == 'Toma de muestras'
   || $menu == 'Somatometría | Signos Vitales'
+  || $menu == 'Consultorio'
 ) : ?>
   <div class="row">
     <div class="col-auto d-flex align-items-center">
-      <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>
+      <label for="fechaListadoAreaMaster" class="form-label">Día de análisis</label>
     </div>
     <div class="col-auto d-flex align-items-center">
-      <input type="date" class="form-control input-form" name="fechaListadoLaboratorio" value="<?php echo date('Y-m-d') ?>" required id="fechaListadoAreaMaster">
+      <input type="date" class="form-control input-form" name="fechaListadoAreaMaster" value="<?php echo date('Y-m-d') ?>" required id="fechaListadoAreaMaster">
     </div>
     <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visualiza todos los pacientes del area">
       <input class="form-check-input" type="checkbox" value="" id="checkDiaAnalisis" style="margin: 5px">
