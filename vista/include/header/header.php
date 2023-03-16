@@ -51,7 +51,7 @@ switch ($menu) {
   <nav class="navbar border-dark bg-navbar">
     <div class="container-fluid d-flex justify-content-center divTurnoNav">
       <!-- Turnos- Areas -->
-      <a href="<?php echo $http . $servidor . '/nuevo_checkup/vista/menu/principal/'; ?>" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
+      <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
     </div>
   </nav>
 <?php

@@ -137,3 +137,38 @@ function controlListadoTurnos() {
 
 
 jQuery.fn.exists = function () { return this.length > 0; }
+
+var touch = false
+$('#logo_empresa_login').click(function () {
+    SetFullScreen(document.getElementById("body-controlador"));
+
+})
+
+function FullScreenSupportEnabled() {
+    return (document.fullscreenEnabled ||
+        document.webkitFullscreenEnabled ||
+        document.mozFullScreenEnabled ||
+        document.msFullscreenEnabled);
+}
+
+
+function SetFullScreen(elto) {
+    //Si no se soporta la API, ya ni lo intentamos
+    if (!FullScreenSupportEnabled()) return;
+    //Se prueba la variante apropiada según el navegador
+    try {
+        if (elto.requestFullscreen) {    //Empezando por la estándar
+            elto.requestFullscreen();
+        } else if (elto.webkitRequestFullscreen) {    //Webkit (Safari, Chrome y Opera 15+)
+            elto.webkitRequestFullscreen();
+        } else if (elto.mozRequestFullScreen) {    //Firefox
+            elto.mozRequestFullScreen();
+        } else if (elto.msRequestFullscreen) {    //Internet Explorer 11+
+            elto.msRequestFullscreen();
+        }
+    }
+    catch (ex) {
+        return false;
+    }
+    return true;
+}
