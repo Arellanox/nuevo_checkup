@@ -140,7 +140,7 @@ jQuery.fn.exists = function () { return this.length > 0; }
 
 var touch = false
 $('#logo_empresa_login').click(function () {
-    SetFullScreen(document.getElementById("body-controlador"));
+    SetFullScreen(Document);
 
 })
 
