@@ -1,5 +1,5 @@
-<?php if ($_SESSION['vista']['LABORATORIO_MUESTRA'] == 1) : ?>
-    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/muestras/'; ?>">
+<?php if ($_SESSION['vista']['LABORATORIO_MUESTRA_1'] == 1) : ?>
+    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/muestras/#LABORATORIO_MUESTRA_1'; ?>">
         <i class="bi bi-droplet-half"></i> Toma de muestras
     </a>
 <?php endif; ?>
