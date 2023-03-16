@@ -420,26 +420,11 @@ function llamarPaciente(areaFisica, trsearch = null, callback = function () { })
       data: { api: 2, area_fisica_id: areaFisica },
       success: function (data) {
         if (mensajeAjax(data)) {
-          // console.log();
-          // let msj = data.response.data[0];
-          // if (msj[0][0])
-          //   if (msj[0] == 'No se recibió ningún paciente.') {
-          //     msj['MSJ'] = 'No se recibió ningún paciente.';
-          //   } else {
-          //     msj = jQuery.parseJSON(msj[0]);
-          //   }
-
-          // if (msj['MSJ'] || msj)
-          //   msj['mensaje'] = msj['MSJ']
-
-          // if (msj) {
-          //   alertMensaje('info', msj['mensaje'], '')
-          // } else {
-          //   let row = data.response.data[0];
-          //   paciente = `${row['PACIENTE']} ${row['ETIQUETA_TURNO']}`;
-          //   alertMensaje('info', paciente, 'Es su siguiente paciente')
-          // }
-          alertMensaje('info', 'ButtonTurnero', '')
+          let row = data.response.data[0];
+          alertMsj({
+            title: 'PACIENTE',
+            text: 'Es su siguiente paciente,'
+          })
         }
       },
       error: function (jqXHR, exception, data) {

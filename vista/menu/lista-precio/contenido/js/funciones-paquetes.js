@@ -34,7 +34,7 @@ async function contenidoPaquete(select = null) {
 }
 
 // Agrega Un nuevo TR a la tabla de paquetes
-function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete) {
+function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete) {
   let longitud = dataSet.length + 1;
   if (costo_total == null) {
     costo_total = 0;
@@ -47,15 +47,15 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, ID_SERVICIO, ABR
   } else {
     precio_venta = precio_venta;
   }
-  console.log(DESCRIPCION)
+  console.log(ID_SERVICIO)
   tablaContenidoPaquete.row.add([
     DESCRIPCION,
     CVE,
-    '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="1" style="margin: 0;padding: 0;height: 35px;">',
-    '<div class="costo-paquete text-center">$' + costo_total + '</div>',
-    '<div class="costototal-paquete text-center">$' + costo_total + '</div>',
-    '<div class="precioventa-paquete text-center">$' + precio_venta + '</div>',
-    '<div class="subtotal-paquete text-center">$0</div>', ID_SERVICIO
+    `<div class="input-group"><input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="0%" value="${CANTIDAD}"><span class="input-span">ud</span></div>`,
+    `<div class="costo-paquete text-center">$${costo_total}</div>`,
+    `<div class="costototal-paquete text-center">$${costo_total}</div>`,
+    `<div class="precioventa-paquete text-center">$${precio_venta}</div>`,
+    `<div class="subtotal-paquete text-center">$0</div>`, ID_SERVICIO
   ]).draw();
   // $('#TablaListaPaquetes tbody').append(html);
 
@@ -74,9 +74,7 @@ function calcularFilasTR() {
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
       tabledata = tablaContenidoPaquete.row(this).data();
-      // console.log(tabledata);
-      // console.log(tabledata['ID_SERVICIO']);
-      id_servicio = tabledata['ID_SERVICIO']
+      id_servicio = tabledata[7]
       arregloEstudios = {
         'id': id_servicio,
         'cantidad': calculo[2],

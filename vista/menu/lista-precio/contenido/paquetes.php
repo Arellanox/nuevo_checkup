@@ -30,7 +30,7 @@
               <button class="btn btn-sm btn-confirmar" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Usar</button>
             </div>
             <div class="col-auto">
-              <button class="btn btn-sm btn-borrar" type="button" id="CambiarPaquete"data-bs-toggle="tooltip" data-bs-placement="top" title="Borrará todo la tabla" ><i class="bi bi-eraser"></i> Cambiar</button>
+              <button class="btn btn-sm btn-borrar" type="button" id="CambiarPaquete" data-bs-toggle="tooltip" data-bs-placement="top" title="Borrará todo la tabla"><i class="bi bi-eraser"></i> Cambiar</button>
             </div>
           </div>
           <div class="text-start formContenidoPaquete" id="formPaqueteBotonesArea" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
@@ -108,7 +108,7 @@
             <th scope="col d-flex justify-content-center" class="min-tablet">Costo Total</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Precio Venta</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Subtotal</th>
-            <th scope="col d-flex justify-content-center" class="all" style="display:none">ID</th>
+            <th scope="col d-flex justify-content-center" class="all">ID</th>
           </tr>
         </thead>
         <tbody>

@@ -57,7 +57,7 @@ if ($_SESSION['vista']['SERVICIOS'] == 1  || $_SESSION['vista']['SERVICIOS (EQUI
 <?php if (
   $_SESSION['vista']['LISTA_PRECIOS'] == 1 ||
   $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1 ||
-  $_SESSION['vista']['PRESUPUESTO_ESTUDIOS'] == 1
+  $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1
 ) : ?>
   <!-- Contaduria -->
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
@@ -79,10 +79,10 @@ if ($_SESSION['vista']['SERVICIOS'] == 1  || $_SESSION['vista']['SERVICIOS (EQUI
           </a>
         </li>
       <?php endif; ?>
-      <?php if ($_SESSION['vista']['PRESUPUESTO_ESTUDIOS'] == 1) : ?>
+      <?php if ($_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1) : ?>
         <li>
-          <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#PRESUPUESTO_ESTUDIOS'; ?>">
-            <i class="bi bi-dot"></i> Presupuesto
+          <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/lista-precio/#COTIZACIONES_ESTUDIOS'; ?>">
+            <i class="bi bi-dot"></i> Cotizaciones
           </a>
         </li>
       <?php endif; ?>

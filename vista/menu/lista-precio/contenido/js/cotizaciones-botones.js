@@ -10,8 +10,7 @@ $('#agregar-estudio-paquete').click(function () {
   // console.log($("#seleccion-estudio").prop('selectedIndex'))
   // console.log(selectData)
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
-  console.log(selectData)
-  meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
+  meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], 1, null, selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
 })
 
 
@@ -71,7 +70,7 @@ $('#UsarPaquete').on('click', function () {
           console.log(data);
           row = data.response.data;
           for (var i = 0; i < row.length; i++) {
-            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_TOTAL, row[i].SUBTOTAL, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
+            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_TOTAL, row[i].SUBTOTAL, row[i].CANTIDAD, null, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
 
           }
         }
@@ -210,6 +209,6 @@ function formpassword() {
   //No submit form with enter
 }
 
-$(document).on("change ,  keyup", "input[name='cantidad-paquete']", function () {
+$(document).on("change ,  keyup", "input[name='cantidad-paquete'], input[name='descuento-paquete']", function () {
   calcularFilasTR()
 });

@@ -1,5 +1,5 @@
 $(tablePaquetesHTML).on('dblclick', 'tr', function () {
-  if (!$("input[name='cantidad-paquete']").is(":focus")) {
+  if (!$("input[name='cantidad-paquete'], input[name='descuento-paquete']").is(":focus")) {
     let data = tablaContenidoPaquete.row($(this)).data()
 
     dataEliminados.push(data[7])

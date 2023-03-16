@@ -179,8 +179,8 @@ if ($menu != "PrincipalMenu") : ?>
     </a>
   </li>
   <li class="nav-item">
-    <a href="#PRESUPUESTO_ESTUDIOS">
-      <i class="bi bi-inbox"></i> Presupuestos
+    <a href="#COTIZACIONES_ESTUDIOS">
+      <i class="bi bi-inbox"></i> Cotizaciones
     </a>
   </li>
 <?php endif; ?>

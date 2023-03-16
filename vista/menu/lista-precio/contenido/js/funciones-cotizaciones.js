@@ -34,7 +34,7 @@ async function contenidoPaquete(select = null) {
 }
 
 // Agrega Un nuevo TR a la tabla de paquetes
-function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete) {
+function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, DESCUENTO, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete) {
   let longitud = dataSet.length + 1;
   if (costo_total == null) {
     costo_total = 0;
@@ -47,15 +47,16 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, ID_SERVICIO, ABR
   } else {
     precio_venta = precio_venta;
   }
-  console.log(DESCRIPCION)
+
   tablaContenidoPaquete.row.add([
     DESCRIPCION,
     CVE,
-    '<input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="" value="1" style="margin: 0;padding: 0;height: 35px;">',
-    '<div class="costo-paquete text-center">$' + costo_total + '</div>',
-    '<div class="costototal-paquete text-center">$' + costo_total + '</div>',
-    '<div class="precioventa-paquete text-center">$' + precio_venta + '</div>',
-    '<div class="subtotal-paquete text-center">$0</div>', ID_SERVICIO
+    `<div class="input-group"><input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="0%" value="${CANTIDAD}"><span class="input-span">ud</span></div>`,
+    `<div class="costo-paquete text-center">$${costo_total}</div>`,
+    `<div class="costototal-paquete text-center">$${costo_total}</div>`,
+    `<div class="input-group"><input type="number" class="form-control input-form descuento-paquete text-center" name="descuento-paquete" placeholder="0%" value="${DESCUENTO}"><span class="input-span">%</span></div>`,
+    `<div class="precioventa-paquete text-center">$${precio_venta}</div>`,
+    `<div class="subtotal-paquete text-center">$0</div>`, ID_SERVICIO
   ]).draw();
   // $('#TablaListaPaquetes tbody').append(html);
 
@@ -126,11 +127,10 @@ function calcularFilasTR() {
 function caluloFila(parent_element) {
   // Calcula la fila de una tabla
   let cantidad = parseFloat($(parent_element).find("input[name='cantidad-paquete']").val());
-  // cantidad = cantidad
+  let descuento = parseFloat($(parent_element).find("input[name='descuento-paquete']").val());
   let costo = parseFloat($(parent_element).find("div[class='costo-paquete text-center']").text().slice(1));
-  // costo = costo
   let precioventa = parseFloat($(parent_element).find("div[class='precioventa-paquete text-center']").text().slice(1));
-  // precioventa = precioventa
+
   // Dar valor a costo total
   let costoTotal = cantidad * costo;
   if (checkNumber(costoTotal)) {
@@ -139,6 +139,9 @@ function caluloFila(parent_element) {
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$0')
   }
   let subtotal = cantidad * precioventa;
+  if (descuento > 0) {
+    subtotal = subtotal - (subtotal * descuento)
+  }
   if (checkNumber(subtotal)) {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$' + subtotal.toFixed(2))
   } else {
