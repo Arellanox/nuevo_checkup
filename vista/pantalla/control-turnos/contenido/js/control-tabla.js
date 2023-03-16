@@ -97,7 +97,7 @@ function recargaLista() {
             if (data.request) {
                 setTimeout(() => {
                     controlListadoTurnos()
-                }, 300);
+                }, 500);
             }
 
             setTimeout(() => {
@@ -140,8 +140,8 @@ jQuery.fn.exists = function () { return this.length > 0; }
 
 var touch = false
 $('#logo_empresa_login').click(function () {
-    SetFullScreen(Document);
-
+    SetFullScreen(document.getElementById('body-controlador'));
+    console.log('logo_empresa_login')
 })
 
 function FullScreenSupportEnabled() {

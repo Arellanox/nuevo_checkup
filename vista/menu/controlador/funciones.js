@@ -2597,9 +2597,6 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
       cambiarFormMetodo(1, tagTable['titulo']);
     }
   }, tagTable['table_id'], TablaContenido)
-
-  //Correccion de header
-  // console.log($('#modalRegistrar' + tagTable['titulo']))
   let modal = $('#modalVista' + tagTable['titulo']);
   console.log('#modalVista' + tagTable['titulo'])
   modal.on('shown.bs.modal', function (e) {
@@ -2612,8 +2609,6 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
       })
       .columns.adjust();
   })
-
-
   $("#formRegistrar" + CONTENT['titulos']['IDSDIVS']).submit(function (event) {
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
