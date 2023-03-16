@@ -26,9 +26,9 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
-// $api = 'laboratorio';
-// $turno_id = 305;
-// $area_id = 10;
+$api = 'soma';
+$turno_id = 305;
+$area_id = 10;
 
 
 switch ($api) {
@@ -50,6 +50,9 @@ switch ($api) {
         break;
     case 'electro':
         $r = $master->reportador($master, $turno_id, $area_id, 'electro', 'mostrar', 1);
+        break;
+    case 'soma':
+        $r = $master->reportador($master, $turno_id, $area_id, 'reporte_masometria', 'mostrar', 1);
         break;
 
     default:

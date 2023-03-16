@@ -149,6 +149,12 @@ class Reporte
                 $pdf->setPaper('letter', 'portrait');
                 break;
 
+            case 'reporte_masometria':
+                $template = render_view('invoice/reporte_masometria.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
