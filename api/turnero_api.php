@@ -38,18 +38,23 @@ switch ($api) {
         # si la listaGlobal$listaGlobal esta vacia, la llenamos
         $request = llamarPaciente($master, $area_fisica_id);
         # cambiar el estado de la solicitud en turnero_data.json
-        
-        if($master->str_ends_with($request,"}")){
-            $req = json_decode($request,true);
 
-            $response = $req['mensaje'];
-            echo $master->returnApi($response,3);
-            exit;
+        if(!is_array($request)){
+            if($master->str_ends_with($request,"}")){
+                $req = json_decode($request,true);
+    
+                $response = $req['mensaje'];
+                echo $master->returnApi($response,3);
+                exit;
+            } else {
+                $response = $request;
+            }
         } else {
             $response = $request;
         }
+      
         
-        if($request > 0){
+        if($request > 0 || is_array($request)){
             changeStatusRequest(true);
         }
         
@@ -77,17 +82,22 @@ switch ($api) {
                 # si esta vacio o no existe el turnero en session no podemos saltar paciente, necesitamos llamarlo.
                 $request = llamarPaciente($master, $area_fisica_id);
                
-                if($master->str_ends_with($request,"}")){
-                    $req = json_decode($request,true);
-        
-                    $response = $req['mensaje'];
-                    echo $master->returnApi($response,3);
-                    exit;
+                if(!is_array($request)){
+                    if($master->str_ends_with($request,"}")){
+                        $req = json_decode($request,true);
+            
+                        $response = $req['mensaje'];
+                        echo $master->returnApi($response,3);
+                        exit;
+                    } else {
+                        $response = $request;
+                    }
                 } else {
                     $response = $request;
                 }
-
-                if ($request > 0){
+              
+                
+                if($request > 0 || is_array($request)){
                     changeStatusRequest(true);
                 }
             } else {
@@ -165,11 +175,16 @@ function llamarPaciente($master, $area_fisica_id)
         $object = current($listaGlobal->getPacientes());
         // echo $object->getTurnoId();
         
-        $response = $master->insertByProcedure("sp_turnero_llamar_paciente", [$object->getTurnoId(), $area_fisica_id]);
-
+        $response = $master->getByProcedure("sp_turnero_llamar_paciente", [$object->getTurnoId(), $area_fisica_id]);
+       
+        if(isset( $response[0]['MSJ'])){
+            $response = $response[0]['MSJ'];
+        }
+       
         // if (isset($response[0]['MSJ'])) {
         //     if ($master->str_ends_with($response[0]['MSJ'], "}")) {
-        //         $response = $master->decodeJson([$response]);
+        //         $response = $master->decodeJson([$response[0]['MSJ']]);
+               
         //         #$response = isset($response[0]['mensaje']) ? $response : $response[0];
         //     } else {
         //         $response = $response[0]['MSJ'];
@@ -198,7 +213,12 @@ function fillSessionList($master, $area)
 {
     global $listaGlobal;
     $response = $master->getByProcedure('sp_turnero_lista_pacientes', [$area]);
-    $listaGlobal = fillListPatient($response);
+    
+    if(!isset($response[0]['MSJ'])){
+        $listaGlobal = fillListPatient($response);
+    } else {
+        $listaGlobal = null;
+    }
 }
 function fillListPatient($query)
 {
