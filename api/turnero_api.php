@@ -18,6 +18,7 @@ $turno_id = $_POST['turno_id'];
 $area_fisica_id = $_POST['area_fisica_id'];
 
 $master = new Master();
+$jsonData = new JsonData();
 
 $listaGlobal;
 
@@ -37,7 +38,6 @@ switch ($api) {
 
         # si la listaGlobal$listaGlobal esta vacia, la llenamos
         $request = llamarPaciente($master, $area_fisica_id);
-        # cambiar el estado de la solicitud en turnero_data.json
 
         if(!is_array($request)){
             if($master->str_ends_with($request,"}")){
@@ -53,7 +53,7 @@ switch ($api) {
             $response = $request;
         }
       
-        
+        # cambiar el estado de la solicitud en turnero_data.json
         if($request > 0 || is_array($request)){
             changeStatusRequest(true);
         }
@@ -71,14 +71,15 @@ switch ($api) {
             # 1. Que no haya pacientes para esa area el dia actual.
             # 2. Que aun los pacientes no hayan pasado a toma de muestras o somatometria.
             # Si sucede lo anterior, enviamos un mensaje coqueto.
-            $response = "Nada por aquí.";
+            $response = "Ya tienes un paciente en atención o no hay nada por aquí.";
             echo $master->returnApi($response,3);
             exit;
         } else {
             # si no esta vacia.
             # verificamos que el turnero en session este iniciado
-            if (empty($_SESSION['turnero']) || !isset($_SESSION['turnero'])) {
-                
+            #if (empty($_SESSION['turnero']) || !isset($_SESSION['turnero'])) {
+            $aux = $jsonData->getJson();
+            if (empty($aux) || !isset( $aux )) {    
                 # si esta vacio o no existe el turnero en session no podemos saltar paciente, necesitamos llamarlo.
                 $request = llamarPaciente($master, $area_fisica_id);
                
@@ -104,7 +105,8 @@ switch ($api) {
                 # si ya existe el turnero, debemos verificar
                 # si el paciente que estamos saltando es el correcto.
                 
-                $x = $master->deleteByProcedure("sp_turnero_saltar_paciente", [$_SESSION['turnero'][$area_fisica_id]['turno'], $area_fisica_id]);
+                #$x = $master->deleteByProcedure("sp_turnero_saltar_paciente", [$_SESSION['turnero'][$area_fisica_id]['turno'], $area_fisica_id]);
+                $x = $master->deleteByProcedure("sp_turnero_saltar_paciente", [$jsonData->getData($area_fisica_id), $area_fisica_id]);
                 if ($x > 0) {
                     #refresamos la listea para regresar al paciente que acabamos de saltar
                     fillSessionList($master, $area_fisica_id);
@@ -112,7 +114,8 @@ switch ($api) {
                     $position = 0;
                     foreach ($listaGlobal->getPacientes() as $pat) {
 
-                        if ($pat->getTurnoId() == $_SESSION['turnero'][$area_fisica_id]['turno']) {
+                        # if ($pat->getTurnoId() == $_SESSION['turnero'][$area_fisica_id]['turno']) {
+                        if ($pat->getTurnoId() == $jsonData->getData($area_fisica_id)) {
                             $listaGlobal->setPosition($position);
                             break;
                         }
@@ -131,7 +134,8 @@ switch ($api) {
                     $sp = $master->insertByProcedure("sp_turnero_llamar_paciente", [$next->getTurnoId(), $area_fisica_id]);
 
                     # y finalmente actualizamos los datos por si hay que saltarlo de nuevo.
-                    $_SESSION['turnero'][$area_fisica_id]['turno'] = $next->getTurnoId();
+                    #$_SESSION['turnero'][$area_fisica_id]['turno'] = $next->getTurnoId();
+                    $jsonData->setData( $area_fisica_id, $next->getTurnoId() );
                     changeStatusRequest(true);
                 }
             }
@@ -164,6 +168,7 @@ echo $master->returnApi($response);
 function llamarPaciente($master, $area_fisica_id)
 {
     global $listaGlobal;
+    global $jsonData;
     fillSessionList($master, $area_fisica_id);
 
     if (empty($listaGlobal)) {
@@ -181,32 +186,30 @@ function llamarPaciente($master, $area_fisica_id)
             $response = $response[0]['MSJ'];
         }
        
-        // if (isset($response[0]['MSJ'])) {
-        //     if ($master->str_ends_with($response[0]['MSJ'], "}")) {
-        //         $response = $master->decodeJson([$response[0]['MSJ']]);
-               
-        //         #$response = isset($response[0]['mensaje']) ? $response : $response[0];
-        //     } else {
-        //         $response = $response[0]['MSJ'];
-        //     }
-        // }
 
         # verificar si ya existe, lo reemplazamos
-        if(isset($_SESSION['turnero'])){
-            $_SESSION['turnero'][$area_fisica_id] = array("turno" => $object->getTurnoId());
-        } else {
-            $_SESSION['turnero'] = array($area_fisica_id => array("turno" => $object->getTurnoId()));
-        }
-        // if(array_key_exists($area_fisica_id,$_SESSION['turnero'])){
-        //     $_SESSION['turnero'][$area_fisica_id]['turno']= $object->getTurnoId();
-        // }else{
-        //     array_push($_SESSION['turnero'],array($area_fisica_id=>$object->getTurnoId()));
+        $jsonData->setData( $area_fisica_id, $object->getTurnoId());
+        // if(isset($_SESSION['turnero'])){
+        //     $_SESSION['turnero'][$area_fisica_id] = array("turno" => $object->getTurnoId());
+        // } else {
+        //     $_SESSION['turnero'] = array($area_fisica_id => array("turno" => $object->getTurnoId()));
         // }
-        
-        # si no esta 
-        # un array push 
+    
     }
     return $response;
+}
+
+function setDataJson($area, $turno){
+    # recuperamos la informacion del archivo
+    $data = file_get_contents("../data.json");
+    # decodificamos la cadena
+    $json = json_decode($data, true);
+
+    # verificamos si ya se encuentra el area
+    $json[$area] = $turno;
+
+    # colocamos el nuevo dato en el archivo
+    file_put_contents( "../data.json", json_encode( $json, JSON_PRETTY_PRINT ) );
 }
 
 function fillSessionList($master, $area)

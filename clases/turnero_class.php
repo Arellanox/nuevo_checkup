@@ -76,4 +76,26 @@ class ListaPacientes {
         return $patientList[$this->getPosition()];
     }
 }
+
+class JsonData {
+    public $json;
+    function JsonData(){
+        # recuperamos la informacion del archivo
+        $data = file_get_contents("../data.json");
+        # decodificamos la cadena para convertirla en arreglo.
+        $this->json = json_decode($data, true);
+    }
+
+    public function getJson(){
+        return $this->json;
+    }
+    public function setData($area,$turno){
+        $this->json[ $area ] = $turno;
+        file_put_contents( "../data.json", json_encode( $this->json, JSON_PRETTY_PRINT ) );
+    }
+
+    public function getData($area){
+        return $this->json[ $area ];
+    }
+}
 ?>
