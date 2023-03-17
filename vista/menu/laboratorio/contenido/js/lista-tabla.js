@@ -267,6 +267,24 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
+            case '743':
+              classSelect = 'selectTipoMuestraCitologia';
+              muestras = {
+                0: {
+                  'descripcion': 'CERVICAL',
+                },
+                1: {
+                  'descripcion': 'ANAL'
+                },
+                2: {
+                  'descripcion': 'URETRAL'
+                },
+                3: {
+                  'descripcion': 'LBC'
+                }
+              }
+
+              break;
             default: input = null; break;
           }
 
@@ -323,7 +341,7 @@ function generarFormularioPaciente(id) {
                   anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
 
 
-                case '695': case '700': case '708': case '736': anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
+                case '695': case '700': case '708': case '736': case '756': anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
                 default: anotherValue = ''; break;
               }
               //
