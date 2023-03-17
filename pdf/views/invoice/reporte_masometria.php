@@ -415,46 +415,60 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="12">PRESIÓN ARTERIAL:
-                                        <?php echo $signos->PRESION_ARTERIAL; ?>
+                                        <?php echo $signos->PRESION_SISTOLICA; ?>
+                                        <?php echo $signos->PRESION_DIASTOLICA; ?>
                                     </th>
                                 </tr>
                             </thead>
-                            <?php foreach ($signos->PRESION_ARTERIAL as $pa) : ?>
-                                <tr>
-                                    <td colspan="3">Óptima</td>
-                                    <td colspan="3">≤120/≤80</td>
-                                </tr>
-                                </tr>
-                                <tr style="background-color: green;">
-                                    <td colspan="3">Normal</td>
-                                    <td colspan="3">120-129 / 80-84</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Hipotensión</td>
-                                    <td colspan="3">&lt 80 / &lt 60</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Normal alta</td>
-                                    <td colspan="3">130-139 / 85-89</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Hipertensión G1</td>
-                                    <td colspan="3">140-159 / 90-99</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Hipertensión G2</td>
-                                    <td colspan="3">160-179 / 100-109</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Hipertensión G3</td>
-                                    <td colspan="3">180 / ≥110</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Hipertensión sistólica</td>
-                                    <td colspan="3">≥140 / ≤90</td>
-                                </tr>
-                                </tr>
-                            <?php endforeach; ?>
+                            <tr <?php if ($signos->PRESION_SISTOLICA <= 120 && $signos->PRESION_DIASTOLICA < 80) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
+                                <td colspan="3">Óptima</td>
+                                <td colspan="3">≤120/≤80</td>
+                            </tr>
+                            <tr <?php if (($signos->PRESION_SISTOLICA >= 120 && $signos->PRESION_SISTOLICA <= 129) && ($signos->PRESION_DIASTOLICA >= 80 && $signos->PRESION_DIASTOLICA <= 84)) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
+                                <td colspan="3">Normal</td>
+                                <td colspan="3">120-129 / 80-84</td>
+                            </tr>
+                            <tr <?php if ($signos->PRESION_SISTOLICA < 80  && $signos->PRESION_DIASTOLICA < 60) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
+                                <td colspan="3">Hipotensión</td>
+                                <td colspan="3">&lt 80 / &lt 60</td>
+                            </tr>
+                            <tr <?php if (($signos->PRESION_SISTOLICA >= 130 && $signos->PRESION_SISTOLICA >= 129) && ($signos->PRESION_DIASTOLICA >= 85 && $signos->PRESION_DIASTOLICA <= 89)) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
+                                <td colspan="3">Normal alta</td>
+                                <td colspan="3">130-139 / 85-89</td>
+                            </tr>
+                            <tr <?php if (($signos->PRESION_SISTOLICA >= 140 && $signos->PRESION_SISTOLICA <= 159) && ($signos->PRESION_DIASTOLICA >= 90 && $signos->PRESION_DIASTOLICA <= 99)) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
+                                <td colspan="3">Hipertensión G1</td>
+                                <td colspan="3">140-159 / 90-99</td>
+                            </tr>
+                            <tr <?php if (($signos->PRESION_SISTOLICA >= 160 && $signos->PRESION_SISTOLICA <= 179) && ($signos->PRESION_DIASTOLICA >= 100 && $signos->PRESION_DIASTOLICA <= 109)) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
+                                <td colspan="3">Hipertensión G2</td>
+                                <td colspan="3">160-179 / 100-109</td>
+                            </tr>
+                            <tr <?php if (($signos->PRESION_SISTOLICA >= 180 &&  $signos->PRESION_DIASTOLICA >= 110)) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
+                                <td colspan="3">Hipertensión G3</td>
+                                <td colspan="3">180 / ≥110</td>
+                            </tr>
+                            <tr <?php if (($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90)) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
+                                <td colspan="3">Hipertensión sistólica</td>
+                                <td colspan="3">≥140 / ≤90</td>
+                            </tr>
+                            </tr>
                         </table>
                         <table style="width: 48%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
@@ -592,15 +606,19 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="12">FRECUENCIA CARDÍACA:
-                                        <?php echo $signos->FRECUENCIA_CARDIACA; ?>lpm
+                                        <?php echo $signos->OXIMETRO_PULSO; ?>%
                                     </th>
                                 </tr>
                             </thead>
-                            <tr>
+                            <tr <?php if ($signos->OXIMETRO_PULSO >= 95 && $signos->OXIMETRO_PULSO <= 99) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
                                 <td colspan="3">Normal</td>
                                 <td colspan="3">95-99%</td>
                             </tr>
-                            <tr>
+                            <tr <?php if ($signos->OXIMETRO_PULSO >= 91 && $signos->OXIMETRO_PULSO <= 94) {
+                                    echo 'style="background-color: green;"';
+                                } ?>>
                                 <td colspan="3">Hipoxia leve</td>
                                 <td colspan="3">91-94%</td>
                             </tr>
