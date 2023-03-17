@@ -5,7 +5,7 @@ use Dompdf\Dompdf;
 
 $pdf = new Dompdf();
 
-$html = file_get_contents("./reporte_masometria.html");
+$html = file_get_contents("./reporte_masometria.php");
 
 // Definimos el tamaño y orientación del papel que queremos.
 //$options = $pdf->getOptions();

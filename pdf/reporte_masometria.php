@@ -332,8 +332,8 @@ if (!isset($qr)) {
                 <table style="width: 100%; border-collapse: collapse; text-align: center;">
                     <tr style="background-color: darkgrey;" class="bold">
                         <td colspan="12" style="text-justify: left;">SOMATOMETRíA Y SIGNOS VITALES</td>
-                        <td colspan="12">&nbsp;</td>
                     </tr>
+                    <td colspan="12">&nbsp;</td>
                     <tr style="background-color: darkgrey;" class="bold">
                         <td colspan="12" style="text-align: left;">SOMATOMETRíA</td>
                     </tr>
@@ -402,13 +402,13 @@ if (!isset($qr)) {
                             <td colspan="2" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $somatomatria->HUESOS; ?> hs</strong>
                             </td>
-                            <td colspan="12">&nbsp;</td>
                         </tr>
                         <!--signos vitales-->
+                        <td colspan="12">&nbsp;</td>
                         <tr style="background-color: darkgrey;" class="bold">
                             <td colspan="12" style="text-align: left;">SIGNOS VITALES</td>
-                            <td colspan="12">&nbsp;</td>
                         </tr>
+                        <td colspan="12">&nbsp;</td>
                     </table>
                     <div style="display: flex; justify-content: space-between;">
                         <table style="width: 48%; border-collapse: collapse; text-align: center;" border="2">
@@ -468,6 +468,7 @@ if (!isset($qr)) {
                                 <td colspan="3">Hipertensión sistólica</td>
                                 <td colspan="3">≥140 / ≤90</td>
                             </tr>
+                            </tr>
                         </table>
                         <table style="width: 48%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
@@ -525,6 +526,7 @@ if (!isset($qr)) {
                                 <td colspan="3">Hiperpirexia </td>
                                 <td colspan="3">&gt; 41.5 °C</td>
                             </tr>
+                            </tr>
                         </table>
                     </div>
 
@@ -576,6 +578,7 @@ if (!isset($qr)) {
                                 <td colspan="3">Normal (Eupnea)</td>
                                 <td colspan="3">12-18 rpm</td>
                             </tr>
+                            </tr>
                             <tr <?php if ($signos->FRECUENCIA_RESPIRATORIA < 10) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
@@ -593,6 +596,7 @@ if (!isset($qr)) {
                                 } ?>>
                                 <td colspan="3">Apnea</td>
                                 <td colspan="3">ausencia respiratoria</td>
+                            </tr>
                             </tr>
                         </table>
                     </div>
@@ -643,6 +647,7 @@ if (!isset($qr)) {
                             biologia.molecular@hguadalupe.com</strong></small></p>
             </div>
         </div>
+    </div>
 </body>
 
 <?php
