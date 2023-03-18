@@ -346,10 +346,9 @@ if (!isset($qr)) {
                         </tr>
                         <tr>
                             <td colspan="3" style="text-align: left;" class="cursive"> Estatura </td>
-                            <td colspan="1" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> </strong>
                             </td>
-                            <td colspan="2"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Metabolismo</td>
                             <td colspan="3" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->METABOLISMO; ?> </strong>
@@ -368,10 +367,9 @@ if (!isset($qr)) {
                         </tr>
                         <tr>
                             <td colspan="3" style="text-align: left;" class="cursive">Masa corporal</td>
-                            <td colspan="1" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
                             </td>
-                            <td colspan="2"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Perímetro cefálico</td>
                             <td colspan="3" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->PERIMETRO_CEFALICO; ?> cm</strong>
