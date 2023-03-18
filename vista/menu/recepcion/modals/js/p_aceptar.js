@@ -20,7 +20,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
     cliente_id: array_selected['CLIENTE_ID']
   });
   //Pruebas
-  rellenarSelect("#select-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+  rellenarSelect("#select-labbio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
     id_area: 12,
     cliente_id: array_selected['CLIENTE_ID']
   });
@@ -233,7 +233,7 @@ var ObserOtros = new MutationObserver(function (mutations) {
   }
 });
 // Pass in the target node, as well as the observer options.
-ObserOtros.observe(document.querySelector('#list-estudios-biomolecular'), {
+ObserOtros.observe(document.querySelector('#list-estudios-laboratorio-biomolecular'), {
   attributes: true,
   childList: true,
   characterData: true

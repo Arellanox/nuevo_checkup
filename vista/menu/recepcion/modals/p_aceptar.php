@@ -57,31 +57,34 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingBio">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#headingBio" aria-expanded="true" aria-controls="headingBio">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                       Estudios de Laboratorio Biomolecular
                     </button>
                   </h2>
-                  <div id="headingBio" class="accordion-collapse collapse show" aria-labelledby="headingBio" data-bs-parent="#accordionExample">
+                  <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-6">
-                          <div class="row">
-                            <div class="col-12">
-                              <select class="" id="select-labbio">
-                              </select>
-                            </div>
-                            <div class="col-12">
-                              <button type="button" class="btn btn-confirmar" id="btn-AgregarEstudioLabBio">
-                                <i class="bi bi-person-badge"></i> Agregar
-                              </button>
+                      <div class="accordion-body">
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="row">
+                              <div class="col-12">
+                                <select class="" id="select-labbio">
+                                </select>
+                              </div>
+                              <div class="col-12">
+                                <button type="button" class="btn btn-confirmar" id="btn-AgregarEstudioLabBio">
+                                  <i class="bi bi-person-badge"></i> Agregar
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-6">
-                          <ul class="list-group" id="list-estudios-laboratorio-biomolecular">
-                          </ul>
+                          <div class="col-6">
+                            <ul class="list-group" id="list-estudios-laboratorio-biomolecular">
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
