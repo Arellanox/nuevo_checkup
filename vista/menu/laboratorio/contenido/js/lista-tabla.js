@@ -326,7 +326,7 @@ function generarFormularioPaciente(id) {
                 case '703': case '704': case '705': case '711': case '712': case '732':
                 case '713': case '714': case '716': case '717': case '718': case '731':
                 case '719': case '721': case '722': case '723': case '733': case '730':
-                case '725':
+                case '725': case '744':
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 case '710': case '715': case '720': case '724': case '729':
@@ -340,6 +340,9 @@ function generarFormularioPaciente(id) {
                 case '693': case '707': case '735':
                   anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
 
+                case '743':
+                  anotherValue = ifnull(row[k]['RESULTADO'], 'A QUIEN CORRESPONDA')
+                  break;
 
                 case '695': case '700': case '708': case '736': case '756': anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
                 default: anotherValue = ''; break;
