@@ -38,6 +38,8 @@ include "../../variables.php";
       break;
 
     default:
+    var http = "https://";
+      var servidor = "drjb.com.mx";
       break;
   }
   // <!-- Aqui controlar e incluir las modals -->
