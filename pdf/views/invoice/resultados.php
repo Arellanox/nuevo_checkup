@@ -301,6 +301,7 @@
                                 </tr>
                             </tbody>
                         </table>
+
                     </div>
 
                     <div class="footer">

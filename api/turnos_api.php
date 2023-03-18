@@ -179,8 +179,11 @@ switch ($api) {
 
             $res = $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, $id_area, null, null, $folio]);
             # generar el reporte de laboratorio
-            if ($id_area  == 6)
+            if ($id_area == 6) {
                 $r = $master->reportador($master, $id_turno, $id_area, 'resultados', 'url', 0, 1);
+            } elseif ($id_area == 12) {
+                $r = $master->reportador($master, $id_turno, $id_area, 'biomolecular', 'url', 0, 1);
+            }
             //crearReporteLaboratorio($id_area, $id_turno);
         }
 

@@ -19,6 +19,11 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
     id_area: 6,
     cliente_id: array_selected['CLIENTE_ID']
   });
+  //Pruebas
+  rellenarSelect("#select-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    id_area: 12,
+    cliente_id: array_selected['CLIENTE_ID']
+  });
   rellenarSelect('#select-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
     id_area: 11,
     cliente_id: array_selected['CLIENTE_ID']
@@ -216,6 +221,27 @@ ObserOtros.observe(document.querySelector('#list-estudios-otros'), {
 });
 
 
+$('#btn-AgregarEstudioLabBio').on('click', function () {
+  let text = $("#select-labbio option:selected").text();
+  let id = $("#select-labbio").val();
+  agregarFilaDiv('#list-estudios-biomolecular', text, id)
+})
+// Create an observer instance.
+var ObserOtros = new MutationObserver(function (mutations) {
+  if ($('#list-estudios-biomolecular').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
+    validarEstudiosOtros = 0;
+  }
+});
+// Pass in the target node, as well as the observer options.
+ObserOtros.observe(document.querySelector('#list-estudios-biomolecular'), {
+  attributes: true,
+  childList: true,
+  characterData: true
+});
+
+
+
+
 function agregarFilaDiv(appendDiv, text, id) {
   estudiosEnviar.push(id)
   let html = '<li class="list-group-item">' +
@@ -272,6 +298,7 @@ function limpiarFormAceptar() {
 
 select2("#select-paquetes", "modalPacienteAceptar", 'Seleccione un paquete');
 select2("#select-lab", "modalPacienteAceptar", 'Seleccione un estudio');
+select2("#select-labbio", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-rx", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-us", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-otros", "modalPacienteAceptar", 'Seleccione un estudio');

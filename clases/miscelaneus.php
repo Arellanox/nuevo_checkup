@@ -191,7 +191,7 @@ class Miscelaneus
                     'data' => $response
                 ))
             );
-        } else if(!isset($specialCode)){
+        } else if (!isset($specialCode)) {
             $json = json_encode(
                 array("response" => array(
                     'code' => 2,
@@ -329,7 +329,9 @@ class Miscelaneus
                 break;
             case 6:
             case '6':
-                $arregloPaciente = $this->getBodyInfoLab($master, $turno_id);
+            case 12: //<-- Biomolecular
+            case '12':
+                $arregloPaciente = $this->getBodyInfoLab($master, $turno_id, $area_id);
                 $clave = $master->getByProcedure("sp_generar_clave", []);
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $clave[0]['TOKEN'];
                 $arregloPaciente = $arregloPaciente['global'];
@@ -337,6 +339,10 @@ class Miscelaneus
                 $carpeta_guardado = 'lab';
                 $datos_medicos = array(); #Mandar vacio
                 $folio = $infoPaciente[0]['FOLIO'];
+                if ($area_id == 12) {
+                    $carpeta_guardado = 'lab-molecular';
+                    $folio = $infoPaciente[0]['FOLIO_BIOMOLECULAR'];
+                }
                 break;
             case 8:
             case '8':
@@ -397,15 +403,10 @@ class Miscelaneus
                 $infoPaciente[0]['TITULO'] = 'Reporte de Electrocardiograma';
 
                 break;
-
-            case 12:
-                $reporte = 'pcr';
-
-                break;
             case 2:
             case "2":
                 # SOMATOMETRIA
-                $arregloPaciente = $this->getBodyInfoSoma( $master, $turno_id);
+                $arregloPaciente = $this->getBodyInfoSoma($master, $turno_id);
                 $carpeta_guardado = "somatometria";
                 break;
         }
@@ -433,6 +434,7 @@ class Miscelaneus
         $pie_pagina = array("clave" => is_null($infoPaciente[0]['CLAVE_IMAGEN']) ? $clave : $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
         // print_r(json_encode($arregloPaciente));
+        // print_r(json_encode($infoPaciente[0]));
         // exit;
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
@@ -443,16 +445,17 @@ class Miscelaneus
         return $renderpdf;
     }
 
-    private function getBodyInfoSoma( $master, $id_turno){
+    private function getBodyInfoSoma($master, $id_turno)
+    {
         # recuperamos los datos del paciente
-        $response = $master->getByProcedure( "sp_mesometria_signos_vitales_b", [ $id_turno ]);
+        $response = $master->getByProcedure("sp_mesometria_signos_vitales_b", [$id_turno]);
 
         # declaramos el array final 
         $arregloPaciente = array();
 
         # convertimos los tipo de signos en claves y su resultado en el valor del arreglo
-        foreach($response as $sign){
-            $clave = str_replace(" ","_",$sign['TIPO_SIGNO']);
+        foreach ($response as $sign) {
+            $clave = str_replace(" ", "_", $sign['TIPO_SIGNO']);
             $arregloPaciente[$clave] = $sign['VALOR'];
         }
         $arregloPaciente['FECHA_REGISTRO'] = $response[0]['FECHA_REGISTRO'];
@@ -691,14 +694,14 @@ class Miscelaneus
         return $arrayoftalmo[0];
     }
 
-    private function getBodyInfoLab($master, $id_turno)
+    private function getBodyInfoLab($master, $id_turno, $area_id)
     {
 
         # informacion general del paciente
 
         #Estudios solicitados por el paciente
-        $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', [null, 6]);
-        $response = $master->getByProcedure("sp_cargar_estudios", [$id_turno, 6]);
+        $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', [null, $area_id]);
+        $response = $master->getByProcedure("sp_cargar_estudios", [$id_turno, $area_id]);
 
         #Generar clave de resultado
         $clave = $master->getByProcedure("sp_generar_clave", []);
@@ -714,7 +717,7 @@ class Miscelaneus
             return $return;
         });
 
-        $serv_var_abs = $this->ordernarBodyLab($serv_var_abs_obj, "VALORES ABSOLUTOS", $id_turno);
+        $serv_var_abs = $this->ordernarBodyLab($serv_var_abs_obj, "VALORES ABSOLUTOS", $id_turno, $area_id);
         $valores_absolutos = $serv_var_abs['estudios'][0]['analitos'];
 
         for ($i = 0; $i < count($clasificaciones); $i++) {
@@ -730,7 +733,7 @@ class Miscelaneus
 
             if (!empty($servicios)) {
 
-                $aux = $this->ordernarBodyLab($servicios, $clasificaciones[$i]['DESCRIPCION'], $id_turno);
+                $aux = $this->ordernarBodyLab($servicios, $clasificaciones[$i]['DESCRIPCION'], $id_turno, $area_id);
 
                 $arrayGlobal['areas'][] = $aux;
             }
@@ -749,14 +752,14 @@ class Miscelaneus
 
         if (!empty($servicios)) {
 
-            $aux = $this->ordernarBodyLab($servicios, "NINGUNA", $id_turno);
+            $aux = $this->ordernarBodyLab($servicios, "NINGUNA", $id_turno, $area_id);
             $arrayGlobal['areas'][] = $aux;
         }
 
         return array('global' => $arrayGlobal, 'clave' => $clave);
     }
 
-    private function ordernarBodyLab($servicios, $clasificacion, $turno)
+    private function ordernarBodyLab($servicios, $clasificacion, $turno, $area_id)
     {
         #obtener los valores absolutos
         $absoluto_array = array();
@@ -791,7 +794,7 @@ class Miscelaneus
         }
 
         $master = new Master();
-        $grupos = $master->getByProcedure('sp_cargar_grupos', [$turno, 6]);
+        $grupos = $master->getByProcedure('sp_cargar_grupos', [$turno, $area_id]);
         $estudios = array();
         $analitos = array();
         for ($i = 0; $i < count($grupos); $i++) {
