@@ -476,7 +476,7 @@ if (!isset($qr)) {
                 <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
                     <thead>
                         <tr style="text-align: center; background-color: darkgrey;">
-                            <th colspan="12">TEMPERATURA:
+                            <th colspan="6">TEMPERATURA:
                                 <?php echo $resultados->TEMPERATURA; ?>°C
                             </th>
                         </tr>
