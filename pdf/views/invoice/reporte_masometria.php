@@ -405,6 +405,9 @@ if (!isset($qr)) {
                             </td>
                             <td colspan="12">&nbsp;</td>
                         </tr>
+
+                    </table>
+                    <table>
                         <!--signos vitales-->
                         <tr style="background-color: darkgrey;" class="bold">
                             <td colspan="12" style="text-align: left;">SIGNOS VITALES</td>
