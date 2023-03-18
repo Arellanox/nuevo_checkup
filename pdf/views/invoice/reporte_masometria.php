@@ -330,9 +330,9 @@ if (!isset($qr)) {
             <br>
             <div>
                 <table style="width: 100%; border-collapse: collapse; text-align: center;">
-                    <tr style="background-color: darkgrey;" class="bold">
+                    <!-- <tr style="background-color: darkgrey;" class="bold">
                         <td colspan="12" style="text-justify: left;">SOMATOMETRíA Y SIGNOS VITALES</td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td colspan="12">&nbsp;</td>
                     </tr>
