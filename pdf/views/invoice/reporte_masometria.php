@@ -345,62 +345,62 @@ if (!isset($qr)) {
                         <tr>
                             <td colspan="2" style="text-align: left;" class="cursive"> Estatura </td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->ESTATURA; ?> </strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> </strong>
                             </td>
                             <td colspan="3"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Metabolismo</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->METABOLISMO; ?> </strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->METABOLISMO; ?> </strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align: left;" class="cursive">Peso</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->PESO; ?> </strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> </strong>
                             </td>
                             <td colspan="3"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Edad del cuerpo</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->EDAD_DEL_CUERPO; ?> </strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->EDAD_DEL_CUERPO; ?> </strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align: left;" class="cursive">Masa corporal</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->MASA_CORPORAL; ?> kg/m2</strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
                             </td>
                             <td colspan="3"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Perímetro cefálico</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->PERIMETRO_CEFALICO; ?> cm</strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->PERIMETRO_CEFALICO; ?> cm</strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align: left;" class="cursive">Masa muscular</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->MASA_MUSCULAR; ?> ms</strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> ms</strong>
                             </td>
                             <td colspan="3"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de proteínas</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->PORCENTAJE_PROTEINAS; ?> %</strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_PROTEINAS; ?> %</strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align: left;" class="cursive">Porcentaje de grasa viseral</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->PORCENTAJE_GRASA_VISERAL; ?> %</strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_GRASA_VISERAL; ?> %</strong>
                             </td>
                             <td colspan="3"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de agua</td>
                             <td colspan=" 2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->PORCENTAJE_AGUA; ?> %</strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_AGUA; ?> %</strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
                             <td colspan="2" style="text-align: left;">
-                                <strong style="font-size: 12px;"><?php echo $somatomatria->HUESOS; ?> hs</strong>
+                                <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> hs</strong>
                             </td>
                             <td colspan="12">&nbsp;</td>
                         </tr>
@@ -415,54 +415,54 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="12">PRESIÓN ARTERIAL:
-                                        <?php echo $signos->PRESION_SISTOLICA; ?>
-                                        <?php echo $signos->PRESION_DIASTOLICA; ?>
+                                        <?php echo $resultados->SISTOLICA; ?> /
+                                        <?php echo $resultados->DIASTOLICA; ?>
                                     </th>
                                 </tr>
                             </thead>
-                            <tr <?php if ($signos->PRESION_SISTOLICA <= 120 && $signos->PRESION_DIASTOLICA < 80) {
+                            <tr <?php if ($resultados->SISTOLICA <= 120 && $resultados->DIASTOLICA < 80) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Óptima</td>
                                 <td colspan="3">≤120/≤80</td>
                             </tr>
-                            <tr <?php if (($signos->PRESION_SISTOLICA >= 120 && $signos->PRESION_SISTOLICA <= 129) && ($signos->PRESION_DIASTOLICA >= 80 && $signos->PRESION_DIASTOLICA <= 84)) {
+                            <tr <?php if (($resultados->SISTOLICA >= 120 && $resultados->SISTOLICA <= 129) && ($resultados->DIASTOLICA >= 80 && $resultados->DIASTOLICA <= 84)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal</td>
                                 <td colspan="3">120-129 / 80-84</td>
                             </tr>
-                            <tr <?php if ($signos->PRESION_SISTOLICA < 80  && $signos->PRESION_DIASTOLICA < 60) {
+                            <tr <?php if ($resultados->SISTOLICA < 80  && $resultados->DIASTOLICA < 60) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipotensión</td>
                                 <td colspan="3">&lt 80 / &lt 60</td>
                             </tr>
-                            <tr <?php if (($signos->PRESION_SISTOLICA >= 130 && $signos->PRESION_SISTOLICA >= 129) && ($signos->PRESION_DIASTOLICA >= 85 && $signos->PRESION_DIASTOLICA <= 89)) {
+                            <tr <?php if (($resultados->SISTOLICA >= 130 && $resultados->SISTOLICA >= 129) && ($resultados->DIASTOLICA >= 85 && $resultados->DIASTOLICA <= 89)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal alta</td>
                                 <td colspan="3">130-139 / 85-89</td>
                             </tr>
-                            <tr <?php if (($signos->PRESION_SISTOLICA >= 140 && $signos->PRESION_SISTOLICA <= 159) && ($signos->PRESION_DIASTOLICA >= 90 && $signos->PRESION_DIASTOLICA <= 99)) {
+                            <tr <?php if (($resultados->SISTOLICA >= 140 && $resultados->SISTOLICA <= 159) && ($resultados->DIASTOLICA >= 90 && $resultados->DIASTOLICA <= 99)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión G1</td>
                                 <td colspan="3">140-159 / 90-99</td>
                             </tr>
-                            <tr <?php if (($signos->PRESION_SISTOLICA >= 160 && $signos->PRESION_SISTOLICA <= 179) && ($signos->PRESION_DIASTOLICA >= 100 && $signos->PRESION_DIASTOLICA <= 109)) {
+                            <tr <?php if (($resultados->SISTOLICA >= 160 && $resultados->SISTOLICA <= 179) && ($resultados->DIASTOLICA >= 100 && $resultados->DIASTOLICA <= 109)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión G2</td>
                                 <td colspan="3">160-179 / 100-109</td>
                             </tr>
-                            <tr <?php if (($signos->PRESION_SISTOLICA >= 180 &&  $signos->PRESION_DIASTOLICA >= 110)) {
+                            <tr <?php if (($resultados->SISTOLICA >= 180 &&  $resultados->DIASTOLICA >= 110)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión G3</td>
                                 <td colspan="3">180 / ≥110</td>
                             </tr>
-                            <tr <?php if (($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90)) {
+                            <tr <?php if (($resultados->SISTOLICA >= 140 &&  $resultados->DIASTOLICA <= 90)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión sistólica</td>
@@ -473,53 +473,53 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="12">TEMPERATURA:
-                                        <?php echo $signos->TEMPERATURA; ?>°C
+                                        <?php echo $resultados->TEMPERATURA; ?>°C
                                     </th>
                                 </tr>
                             </thead>
-                            <tr <?php if ($signos->TEMPERATURA >= 17 && $signos->TEMPERATURA < 28) {
+                            <tr <?php if ($resultados->TEMPERATURA >= 17 && $resultados->TEMPERATURA < 28) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipotermia profunda</td>
                                 <td colspan="3">entre 17 °C - 28 °C</td>
                             </tr>
-                            <tr <?php if ($signos->TEMPERATURA >= 28 && $signos->TEMPERATURA <= 35) {
+                            <tr <?php if ($resultados->TEMPERATURA >= 28 && $resultados->TEMPERATURA <= 35) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipotermia ligera</td>
                                 <td colspan="3">entre 28 °C - 35 °C</td>
                             </tr>
-                            <tr <?php if ($signos->TEMPERATURA >= 36 && $signos->TEMPERATURA <= 37) {
+                            <tr <?php if ($resultados->TEMPERATURA >= 36 && $resultados->TEMPERATURA <= 37) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Temperatura normal</td>
                                 <td colspan="3">entre 36 °C - 37 °C</td>
                             </tr>
-                            <tr <?php if ($signos->TEMPERATURA >= 37.4 && $signos->TEMPERATURA <= 37.9) {
+                            <tr <?php if ($resultados->TEMPERATURA >= 37.4 && $resultados->TEMPERATURA <= 37.9) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Febrícula</td>
                                 <td colspan="3">entre 37.4 °C - 37.9 °C</td>
                             </tr>
-                            <tr <?php if ($signos->TEMPERATURA >= 38 && $signos->TEMPERATURA <= 38.9) {
+                            <tr <?php if ($resultados->TEMPERATURA >= 38 && $resultados->TEMPERATURA <= 38.9) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Fiebre moderada</td>
                                 <td colspan="3">entre 38 °C - 38.9°C</td>
                             </tr>
-                            <tr <?php if ($signos->TEMPERATURA >= 39 && $signos->TEMPERATURA <= 39.9) {
+                            <tr <?php if ($resultados->TEMPERATURA >= 39 && $resultados->TEMPERATURA <= 39.9) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Fiebre alta</td>
                                 <td colspan="3">entre 39 °C - 39.9 °C</td>
                             </tr>
-                            <tr <?php if ($signos->TEMPERATURA >= 40 && $signos->TEMPERATURA <= 41.5) {
+                            <tr <?php if ($resultados->TEMPERATURA >= 40 && $resultados->TEMPERATURA <= 41.5) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Fiebre muy alta</td>
                                 <td colspan="3">entre 40 °C - 41.5 °C</td>
                             </tr>
-                            <tr <?php if ($signos->TEMPERATURA > 41.5) {
+                            <tr <?php if ($resultados->TEMPERATURA > 41.5) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hiperpirexia </td>
@@ -533,29 +533,29 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="12">OXIMETRÍA DEL PULSO:
-                                        <?php echo $signos->OXIMETRIA; ?>%
+                                        <?php echo $resultados->OXIMETRIA; ?>%
                                     </th>
                                 </tr>
                             </thead>
-                            <tr <?php if ($signos->OXIMETRIA >= 95 && $signos->OXIMETRIA <= 99) {
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 95 && $resultados->SATURACION_DE_OXIGENO <= 99) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal</td>
                                 <td colspan="3">95-99%</td>
                             </tr>
-                            <tr <?php if ($signos->OXIMETRIA >= 91 && $signos->OXIMETRIA <= 94) {
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 91 && $resultados->SATURACION_DE_OXIGENO <= 94) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipoxia leve</td>
                                 <td colspan="3">91-94%</td>
                             </tr>
-                            <tr <?php if ($signos->OXIMETRIA >= 85 && $signos->OXIMETRIA <= 90) {
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 85 && $resultados->SATURACION_DE_OXIGENO <= 90) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipoxia moderada</td>
                                 <td colspan="3">85-90%</td>
                             </tr>
-                            <tr <?php if ($signos->OXIMETRIA < 85) {
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO < 85) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipoxia severa</td>
@@ -566,29 +566,29 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="12">RECUENCIA RESPIRATORIA:
-                                        <?php echo $signos->FRECUENCIA_RESPIRATORIA; ?>rpm
+                                        <?php echo $resultados->FRECUENCIA_RESPIRATORIA; ?>rpm
                                     </th>
                                 </tr>
                             </thead>
-                            <tr <?php if ($signos->FRECUENCIA_RESPIRATORIA >= 12 && $signos->FRECUENCIA_RESPIRATORIA <= 18) {
+                            <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA >= 12 && $resultados->FRECUENCIA_RESPIRATORIA <= 18) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal (Eupnea)</td>
                                 <td colspan="3">12-18 rpm</td>
                             </tr>
-                            <tr <?php if ($signos->FRECUENCIA_RESPIRATORIA < 10) {
+                            <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA < 10) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Bradipnea</td>
                                 <td colspan="3">&lt; 10 rpm</td>
                             </tr>
-                            <tr <?php if ($signos->FRECUENCIA_RESPIRATORIA > 20) {
+                            <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA > 20) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Taquipnea</td>
                                 <td colspan="3">&lt; 20 rpm</td>
                             </tr>
-                            <tr <?php if ($signos->FRECUENCIA_RESPIRATORIA = 0) {
+                            <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA = 0) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Apnea</td>
@@ -602,17 +602,17 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="12">FRECUENCIA CARDÍACA:
-                                        <?php echo $signos->OXIMETRO_PULSO; ?>%
+                                        <?php echo $resultados->FRECUENCIA_CARDIACA; ?>%
                                     </th>
                                 </tr>
                             </thead>
-                            <tr <?php if ($signos->OXIMETRO_PULSO >= 95 && $signos->OXIMETRO_PULSO <= 99) {
+                            <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 95 && $resultados->FRECUENCIA_CARDIACA <= 99) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal</td>
                                 <td colspan="3">95-99%</td>
                             </tr>
-                            <tr <?php if ($signos->OXIMETRO_PULSO >= 91 && $signos->OXIMETRO_PULSO <= 94) {
+                            <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 91 && $resultados->FRECUENCIA_CARDIACA <= 94) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipoxia leve</td>
