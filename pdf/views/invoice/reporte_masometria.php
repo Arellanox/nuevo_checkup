@@ -417,7 +417,7 @@ if (!isset($qr)) {
                 <table style="margin-right: 5%; border-collapse: collapse; text-align: center;" border="2">
                     <thead>
                         <tr style="text-align: center; background-color: darkgrey;">
-                            <th>PRESIÓN ARTERIAL:
+                            <th colspan="6">PRESIÓN ARTERIAL:
                                 <?php echo $resultados->SISTOLICA; ?> /
                                 <?php echo $resultados->DIASTOLICA; ?>
                             </th>
