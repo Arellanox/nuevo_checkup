@@ -412,9 +412,9 @@ if (!isset($qr)) {
                     <td colspan="12" style="text-align: left;">SIGNOS VITALES</td>
                 </tr>
             </table>
-            <div style="display: flex; justify-content: space-between;">
+            <div style="display: flex;">
                 <p colspan="12" style="padding-top: 8px;"> &nbsp;</p>
-                <table style="width: 45%; text-align: center;" border="2">
+                <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
                     <thead>
                         <tr style="text-align: center; background-color: darkgrey;">
                             <th colspan="6">PRESIÓN ARTERIAL:
