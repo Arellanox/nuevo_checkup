@@ -386,6 +386,7 @@ class Miscelaneus
                 break;
             case 10:
             case '10':
+                # ELECTROCARDIOGRAMA
                 $arregloPaciente = $this->getBodyInfoElectro($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
@@ -400,6 +401,12 @@ class Miscelaneus
             case 12:
                 $reporte = 'pcr';
 
+                break;
+            case 2:
+            case "2":
+                # SOMATOMETRIA
+                $arregloPaciente = $this->getBodyInfoSoma( $master, $turno_id);
+                $carpeta_guardado = "somatometria";
                 break;
         }
 
@@ -427,7 +434,6 @@ class Miscelaneus
 
         // print_r(json_encode($arregloPaciente));
         // exit;
-
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
 
@@ -435,6 +441,24 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyInfoSoma( $master, $id_turno){
+        # recuperamos los datos del paciente
+        $response = $master->getByProcedure( "sp_mesometria_signos_vitales_b", [ $id_turno ]);
+
+        # declaramos el array final 
+        $arregloPaciente = array();
+
+        # convertimos los tipo de signos en claves y su resultado en el valor del arreglo
+        foreach($response as $sign){
+            $clave = str_replace(" ","_",$sign['TIPO_SIGNO']);
+            $arregloPaciente[$clave] = $sign['VALOR'];
+        }
+        $arregloPaciente['FECHA_REGISTRO'] = $response[0]['FECHA_REGISTRO'];
+
+
+        return $arregloPaciente;
     }
 
     private function getBodyInfoElectro($master, $id_turno)
