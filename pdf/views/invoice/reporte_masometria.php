@@ -356,52 +356,52 @@ if (!isset($qr)) {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align: left;" class="cursive">Peso</td>
-                            <td colspan="2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;" class="cursive">Peso</td>
+                            <td colspan="1" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> </strong>
                             </td>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Edad del cuerpo</td>
-                            <td colspan="2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->EDAD_DEL_CUERPO; ?> </strong>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align: left;" class="cursive">Masa corporal</td>
-                            <td colspan="2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;" class="cursive">Masa corporal</td>
+                            <td colspan="1" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
                             </td>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Perímetro cefálico</td>
-                            <td colspan="2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->PERIMETRO_CEFALICO; ?> cm</strong>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align: left;" class="cursive">Masa muscular</td>
-                            <td colspan="2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;" class="cursive">Masa muscular</td>
+                            <td colspan="1" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> ms</strong>
                             </td>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de proteínas</td>
-                            <td colspan="2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_PROTEINAS; ?> %</strong>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align: left;" class="cursive">Porcentaje de grasa viseral</td>
-                            <td colspan="2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de grasa viseral</td>
+                            <td colspan="1" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_GRASA_VISERAL; ?> %</strong>
                             </td>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de agua</td>
-                            <td colspan=" 2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_AGUA; ?> %</strong>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
-                            <td colspan="2" style="text-align: left;">
+                            <td colspan="3" style="text-align: left;" class="cursive">Huesos</td>
+                            <td colspan="1" style="text-align: left;">
                                 <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> hs</strong>
                             </td>
                             <td colspan="12">&nbsp;</td>
