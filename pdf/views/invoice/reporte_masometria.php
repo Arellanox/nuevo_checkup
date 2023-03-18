@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado de interpretación de Oftalmologia</title>
+    <title>Resultado de Somatometría y Signos Vitales</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <title>reporte_masometría</title>
+    <title>Somatometria</title>
 
     <style>
         .header {
@@ -263,7 +263,7 @@ if (!isset($qr)) {
                             <h4>
                                 DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
                                 Checkup Clínica y Prevención<br>
-                                Reporte de masometría
+                                Reporte de Somatometría
                             </h4>
                         </td>
                         <td class="col-izq" style="border-bottom: none; text-align:center;">
