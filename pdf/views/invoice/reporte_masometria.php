@@ -438,7 +438,7 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipotensión</td>
-                                <td colspan="3">&lt 80 / &lt 60</td>
+                                <td colspan="3">&lt; 80 / &lt; 60</td>
                             </tr>
                             <tr <?php if (($resultados->SISTOLICA >= 130 && $resultados->SISTOLICA >= 129) && ($resultados->DIASTOLICA >= 85 && $resultados->DIASTOLICA <= 89)) {
                                     echo 'style="background-color: #f7be16;"';
