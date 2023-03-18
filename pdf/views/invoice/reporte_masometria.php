@@ -328,10 +328,12 @@ if (!isset($qr)) {
             </table>
             <!-- <p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> -->
             <br>
-            <div class="invoice-content">
+            <div>
                 <table style="width: 100%; border-collapse: collapse; text-align: center;">
                     <tr style="background-color: darkgrey;" class="bold">
                         <td colspan="12" style="text-justify: left;">SOMATOMETRíA Y SIGNOS VITALES</td>
+                    </tr>
+                    <tr>
                         <td colspan="12">&nbsp;</td>
                     </tr>
                     <tr style="background-color: darkgrey;" class="bold">
@@ -462,7 +464,7 @@ if (!isset($qr)) {
                                 <td colspan="3">Hipertensión G3</td>
                                 <td colspan="3">180 / ≥110</td>
                             </tr>
-                            <tr <?php if (($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90)) {
+                            <tr <?php if ($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión sistólica</td>
@@ -644,7 +646,6 @@ if (!isset($qr)) {
             </div>
         </div>
 </body>
-
 <?php
 $altura = 200;
 
@@ -659,7 +660,6 @@ for ($i = 2; $i < $indice; $i++) {
         left: 25px;
         right: 25px;
         height: <?php echo $altura . 'px' ?>;
-        /* background-color: pink; */
     }
 </style>
 
