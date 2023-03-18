@@ -414,7 +414,7 @@ if (!isset($qr)) {
             </table>
             <div style="display: flex; justify-content: space-between;">
                 <p colspan="12" style="padding-top: 12px;"> &nbsp;</p>
-                <table colspan="12" style="border-collapse: collapse; text-align: center;" border="2">
+                <table style="margin-right: 5%; border-collapse: collapse; text-align: center;" border="2">
                     <thead>
                         <tr style="text-align: center; background-color: darkgrey;">
                             <th colspan="12">PRESIÓN ARTERIAL:
@@ -473,7 +473,7 @@ if (!isset($qr)) {
                     </tr>
                 </table>
 
-                <table colspan="12" style="border-collapse: collapse; text-align: center;" border="2">
+                <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
                     <thead>
                         <tr style="text-align: center; background-color: darkgrey;">
                             <th colspan="12">TEMPERATURA:
