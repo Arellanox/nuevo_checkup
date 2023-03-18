@@ -413,7 +413,7 @@ if (!isset($qr)) {
                 </tr>
             </table>
             <div style="display: flex; justify-content: space-between;">
-                <p colspan="12" style="padding-top: 12px;"> &nbsp;</p>
+                <p colspan="12" style="padding-top: 8px;"> &nbsp;</p>
                 <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
                     <thead>
                         <tr style="text-align: center; background-color: darkgrey;">
