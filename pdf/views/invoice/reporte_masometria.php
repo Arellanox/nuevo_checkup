@@ -646,7 +646,7 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>
-
+    </div>
 </body>
 <?php
 $altura = 200;
