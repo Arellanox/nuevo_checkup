@@ -1902,11 +1902,14 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   dataType: 'json',
                   data: { api: 6, area_fisica_id: id },
                   success: function (data) {
-                    console.log(data);
-                    if (miStorage.getItem('paciente_actual_nombre') === null) {
+                    let row = data.response.data[0];
+                    console.log(row);
+
+
+                    if (row['PACIENTE'] === null) {
                       $('#paciente_turno').html('Ninguno')
                     } else {
-                      $('#paciente_turno').html(miStorage.getItem('paciente_actual_nombre'))
+                      $('#paciente_turno').html(row['PACIENTE'])
                     }
 
                     // Control de turnos
@@ -1917,6 +1920,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     $('#llamar-paciente').on('click', function () {
                       llamarPaciente(id); //case 2
                     })
+
+                    miStorage.setItem('paciente_actual_turno', row['ID_TURNO']);
 
                     $('#liberar-paciente').on('click', function () {
                       if (miStorage.getItem('paciente_actual_turno') === null) {
