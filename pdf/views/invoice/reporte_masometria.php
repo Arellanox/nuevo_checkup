@@ -415,123 +415,134 @@ if (!isset($qr)) {
         </table>
         <div style="display: flex; justify-content: space-between; flex-basis: auto;">
             <p colspan="12"> &nbsp;</p>
-            <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
-                <thead>
-                    <tr style="text-align: center; background-color: darkgrey;">
-                        <th colspan="6">PRESIÓN ARTERIAL:
-                            <?php echo $resultados->SISTOLICA; ?> /
-                            <?php echo $resultados->DIASTOLICA; ?>
-                        </th>
-                    </tr>
-                </thead>
-                <tr <?php if ($resultados->SISTOLICA <= 120 && $resultados->DIASTOLICA < 80) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Óptima</td>
-                    <td colspan="3">≤120/≤80</td>
-                </tr>
-                <tr <?php if (($resultados->SISTOLICA >= 120 && $resultados->SISTOLICA <= 129) && ($resultados->DIASTOLICA >= 80 && $resultados->DIASTOLICA <= 84)) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Normal</td>
-                    <td colspan="3">120-129 / 80-84</td>
-                </tr>
-                <tr <?php if ($resultados->SISTOLICA < 80  && $resultados->DIASTOLICA < 60) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipotensión</td>
-                    <td colspan="3">&lt; 80 / &lt; 60</td>
-                </tr>
-                <tr <?php if (($resultados->SISTOLICA >= 130 && $resultados->SISTOLICA >= 129) && ($resultados->DIASTOLICA >= 85 && $resultados->DIASTOLICA <= 89)) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Normal alta</td>
-                    <td colspan="3">130-139 / 85-89</td>
-                </tr>
-                <tr <?php if (($resultados->SISTOLICA >= 140 && $resultados->SISTOLICA <= 159) && ($resultados->DIASTOLICA >= 90 && $resultados->DIASTOLICA <= 99)) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipertensión G1</td>
-                    <td colspan="3">140-159 / 90-99</td>
-                </tr>
-                <tr <?php if (($resultados->SISTOLICA >= 160 && $resultados->SISTOLICA <= 179) && ($resultados->DIASTOLICA >= 100 && $resultados->DIASTOLICA <= 109)) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipertensión G2</td>
-                    <td colspan="3">160-179 / 100-109</td>
-                </tr>
-                <tr <?php if ($resultados->SISTOLICA >= 180 &&  $resultados->DIASTOLICA >= 110) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipertensión G3</td>
-                    <td colspan="3">180 / ≥110</td>
-                </tr>
-                <tr <?php if ($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipertensión sistólica</td>
-                    <td colspan="3">≥140 / ≤90</td>
+            <table>
+                <tr>
+                    <td>
+                        <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
+                            <thead>
+                                <tr style="text-align: center; background-color: darkgrey;">
+                                    <th colspan="6">PRESIÓN ARTERIAL:
+                                        <?php echo $resultados->SISTOLICA; ?> /
+                                        <?php echo $resultados->DIASTOLICA; ?>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tr <?php if ($resultados->SISTOLICA <= 120 && $resultados->DIASTOLICA < 80) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Óptima</td>
+                                <td colspan="3">≤120/≤80</td>
+                            </tr>
+                            <tr <?php if (($resultados->SISTOLICA >= 120 && $resultados->SISTOLICA <= 129) && ($resultados->DIASTOLICA >= 80 && $resultados->DIASTOLICA <= 84)) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Normal</td>
+                                <td colspan="3">120-129 / 80-84</td>
+                            </tr>
+                            <tr <?php if ($resultados->SISTOLICA < 80  && $resultados->DIASTOLICA < 60) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipotensión</td>
+                                <td colspan="3">&lt; 80 / &lt; 60</td>
+                            </tr>
+                            <tr <?php if (($resultados->SISTOLICA >= 130 && $resultados->SISTOLICA >= 129) && ($resultados->DIASTOLICA >= 85 && $resultados->DIASTOLICA <= 89)) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Normal alta</td>
+                                <td colspan="3">130-139 / 85-89</td>
+                            </tr>
+                            <tr <?php if (($resultados->SISTOLICA >= 140 && $resultados->SISTOLICA <= 159) && ($resultados->DIASTOLICA >= 90 && $resultados->DIASTOLICA <= 99)) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipertensión G1</td>
+                                <td colspan="3">140-159 / 90-99</td>
+                            </tr>
+                            <tr <?php if (($resultados->SISTOLICA >= 160 && $resultados->SISTOLICA <= 179) && ($resultados->DIASTOLICA >= 100 && $resultados->DIASTOLICA <= 109)) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipertensión G2</td>
+                                <td colspan="3">160-179 / 100-109</td>
+                            </tr>
+                            <tr <?php if ($resultados->SISTOLICA >= 180 &&  $resultados->DIASTOLICA >= 110) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipertensión G3</td>
+                                <td colspan="3">180 / ≥110</td>
+                            </tr>
+                            <tr <?php if ($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipertensión sistólica</td>
+                                <td colspan="3">≥140 / ≤90</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
+                            <thead>
+                                <tr style="text-align: center; background-color: darkgrey;">
+                                    <th colspan="6">TEMPERATURA:
+                                        <?php echo $resultados->TEMPERATURA; ?>°C
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tr <?php if ($resultados->TEMPERATURA >= 17 && $resultados->TEMPERATURA < 28) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipotermia profunda</td>
+                                <td colspan="3">entre 17 °C - 28 °C</td>
+                            </tr>
+                            <tr <?php if ($resultados->TEMPERATURA >= 28 && $resultados->TEMPERATURA <= 35) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipotermia ligera</td>
+                                <td colspan="3">entre 28 °C - 35 °C</td>
+                            </tr>
+                            <tr <?php if ($resultados->TEMPERATURA >= 36 && $resultados->TEMPERATURA <= 37) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Temperatura normal</td>
+                                <td colspan="3">entre 36 °C - 37 °C</td>
+                            </tr>
+                            <tr <?php if ($resultados->TEMPERATURA >= 37.4 && $resultados->TEMPERATURA <= 37.9) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Febrícula</td>
+                                <td colspan="3">entre 37.4 °C - 37.9 °C</td>
+                            </tr>
+                            <tr <?php if ($resultados->TEMPERATURA >= 38 && $resultados->TEMPERATURA <= 38.9) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Fiebre moderada</td>
+                                <td colspan="3">entre 38 °C - 38.9°C</td>
+                            </tr>
+                            <tr <?php if ($resultados->TEMPERATURA >= 39 && $resultados->TEMPERATURA <= 39.9) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Fiebre alta</td>
+                                <td colspan="3">entre 39 °C - 39.9 °C</td>
+                            </tr>
+                            <tr <?php if ($resultados->TEMPERATURA >= 40 && $resultados->TEMPERATURA <= 41.5) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Fiebre muy alta</td>
+                                <td colspan="3">entre 40 °C - 41.5 °C</td>
+                            </tr>
+                            <tr <?php if ($resultados->TEMPERATURA > 41.5) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hiperpirexia </td>
+                                <td colspan="3">&gt; 41.5 °C</td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
             </table>
 
-            <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
-                <thead>
-                    <tr style="text-align: center; background-color: darkgrey;">
-                        <th colspan="6">TEMPERATURA:
-                            <?php echo $resultados->TEMPERATURA; ?>°C
-                        </th>
-                    </tr>
-                </thead>
-                <tr <?php if ($resultados->TEMPERATURA >= 17 && $resultados->TEMPERATURA < 28) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipotermia profunda</td>
-                    <td colspan="3">entre 17 °C - 28 °C</td>
-                </tr>
-                <tr <?php if ($resultados->TEMPERATURA >= 28 && $resultados->TEMPERATURA <= 35) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipotermia ligera</td>
-                    <td colspan="3">entre 28 °C - 35 °C</td>
-                </tr>
-                <tr <?php if ($resultados->TEMPERATURA >= 36 && $resultados->TEMPERATURA <= 37) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Temperatura normal</td>
-                    <td colspan="3">entre 36 °C - 37 °C</td>
-                </tr>
-                <tr <?php if ($resultados->TEMPERATURA >= 37.4 && $resultados->TEMPERATURA <= 37.9) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Febrícula</td>
-                    <td colspan="3">entre 37.4 °C - 37.9 °C</td>
-                </tr>
-                <tr <?php if ($resultados->TEMPERATURA >= 38 && $resultados->TEMPERATURA <= 38.9) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Fiebre moderada</td>
-                    <td colspan="3">entre 38 °C - 38.9°C</td>
-                </tr>
-                <tr <?php if ($resultados->TEMPERATURA >= 39 && $resultados->TEMPERATURA <= 39.9) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Fiebre alta</td>
-                    <td colspan="3">entre 39 °C - 39.9 °C</td>
-                </tr>
-                <tr <?php if ($resultados->TEMPERATURA >= 40 && $resultados->TEMPERATURA <= 41.5) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Fiebre muy alta</td>
-                    <td colspan="3">entre 40 °C - 41.5 °C</td>
-                </tr>
-                <tr <?php if ($resultados->TEMPERATURA > 41.5) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hiperpirexia </td>
-                    <td colspan="3">&gt; 41.5 °C</td>
-                </tr>
-            </table>
 
+        </div>
+
+        <div style="display: flex; justify-content: space-between;  margin-top: 13px;">
             <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
                 <thead>
                     <tr style="text-align: center; background-color: darkgrey;">
