@@ -58,12 +58,13 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
 // $('#table-info-row #results-table_info, #table-info-row .dt-buttons, #results-table thead').show();
 
 
+VozActiva = false;
+
 function rowdrawalert() {
     // tablaControlTurnos.row(0)
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
     $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
-    // console.log(temp);
-    // $('#TablaControlTurnos').dataTable().fnUpdate(temp, 0, undefined, false);
+    say()
 }
 
 
@@ -86,24 +87,29 @@ function rowdrawalert() {
 var data = '';
 recargaLista();
 function recargaLista() {
-    $.ajax({
-        url: http + servidor + '/nuevo_checkup/turnero_data.json',
-        type: 'POST',
-        dataType: 'JSON',
-        success: function (data) {
-            // let data = JSON.parse(data);
-            // console.log(data)
-            if (data.request) {
+    if (!VozActiva) {
+        $.ajax({
+            url: http + servidor + '/nuevo_checkup/turnero_data.json',
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+                // let data = JSON.parse(data);
+                // console.log(data)
+                if (data.request) {
+                    setTimeout(() => {
+                        controlListadoTurnos()
+                    }, 500);
+                }
                 setTimeout(() => {
-                    controlListadoTurnos()
-                }, 500);
+                    recargaLista()
+                }, 1000);
             }
-
-            setTimeout(() => {
-                recargaLista()
-            }, 1000);
-        }
-    })
+        })
+    } else {
+        setTimeout(() => {
+            recargaLista()
+        }, 1000);
+    }
 }
 
 document.getElementById('alert-paciente').play()
@@ -122,44 +128,32 @@ const playVoice = text => {
     voice.text = text;
     jarvis.speak(voice);
 };
-const select = document.getElementById("voices");
-
-// Obtenemos todas las voces soportadas
-const getVoices = function () {
-    const voices = jarvis.getVoices();
-    voices.forEach(item => {
-        const { name, lang } = item;
-        const option = document.createElement('option');
-        option.textContent = `${name} - [${lang}]`;
-        option.setAttribute('data-language', lang);
-        option.setAttribute('data-name', name);
-        select.appendChild(option);
-        console.log(option)
-    });
-    playVoice('Paciente con el turno P. A. R. 1, favor de pasar al área de Ultrasonido')
-};
-
-getVoices();
-jarvis.onvoiceschanged = getVoices;
-select.addEventListener('input', getVoices);
 
 function controlListadoTurnos() {
-
-    // document.getElementById('alert-paciente').play() //Tono de aviso
-    // try {
-    //     dataActual = tablaControlTurnos.row(0).data();
-    //     if (data['TURNOS'] != dataActual['TURNOS']) {
-    //         data = dataActual;
-    //     } else {
-    //         data = false;
-    //     }
-    // } catch (error) {
-    //     console.log(error)
-    // }
-    var temp = tablaControlTurnos.row(0).data();
-
-    document.getElementById('alert-paciente').play()
     tablaControlTurnos.ajax.reload();
+}
+
+function say() {
+    VozActiva = true;
+    var temp = tablaControlTurnos.row(0).data();
+    turno = temp['ETIQUETA_TURNO'];
+    area = temp['MODULO']
+    turno = turno.split('');
+    etiqueta = ''
+    for (const key in turno) {
+        if (Object.hasOwnProperty.call(turno, key)) {
+            const element = turno[key];
+            etiqueta += `${element}. `;
+        }
+    }
+    document.getElementById('alert-paciente').play();
+    setTimeout(() => {
+        playVoice(`Paciente con el turno ${etiqueta}, favor de pasar al área de ${area}`)
+    }, 1000);
+
+    setTimeout(() => {
+        VozActiva = false;
+    }, 7000);
 
 }
 
