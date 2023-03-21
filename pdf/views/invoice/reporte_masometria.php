@@ -657,6 +657,137 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>
+        <div class="invoice-content">
+            <p>
+                <strong>
+                    ANTECEDENTES PERSONALES
+                </strong>
+                <br>
+                <?php echo $resultados->ANTECEDENTES_PERSONALES; ?> <br>
+            </p>
+            <p>
+                <strong>
+                    ANTECEDENTES OFTALMOLÓGICOS
+                </strong>
+                <br>
+                <?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?> <br>
+
+            </p>
+            <p>
+                <strong>
+                    PADECIMIENTO ACTUAL.
+                </strong>
+                <br>
+                <?php echo $resultados->PADECIMIENTO_ACTUAL; ?><br>
+
+            </p>
+            <p>
+                <strong>
+                    AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN
+                </strong>
+                <?php //echo $resultados->AGUDEZA_VISUAL; //_CON 
+                ?> <br>
+                <strong>
+                    OD:
+                </strong>
+                <?php echo $resultados->OD; ?><br>
+                <strong>
+                    OI:
+                </strong>
+                <?php echo $resultados->OI; ?> <br>
+                <strong>
+                    VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE RESENBAUM:
+                </strong>
+                <?php echo $resultados->JAEGER; ?> <br>
+            </p>
+            <p>
+                <strong>
+                    AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN
+                </strong>
+                <?php //echo $resultados->AGUDEZA_VISUAL_CON_CORRECCION; //_CON 
+                ?> <br>
+                <strong>
+                    OD:
+                </strong>
+                <?php echo $resultados->CON_OD; ?><br>
+                <strong>
+                    OI:
+                </strong>
+                <?php echo $resultados->CON_OI; ?> <br>
+                <strong>
+                    VISIÓN CERCANA CON CORRECCIÓN TARJETA DE RESENBAUM:
+                </strong>
+                <?php echo $resultados->CON_JAEGER; ?> <br>
+            </p>
+            <p>
+                <strong>
+                    REFRACCIÓN:
+                </strong>
+                <?php echo "$resultados->REFRACCION"; ?>
+            </p>
+            <p>
+                <strong>
+                    PRUEBA ISHIHARA:
+                </strong>
+                <?php echo $resultados->PRUEBA; ?>
+
+            </p>
+            <p>
+                <strong>
+                    EXPLORACIÓN OFTALMOLÓGICA:
+                </strong>
+                <br>
+                <?php echo $resultados->EXPLORACION_OFTALMOLOGICA; ?>
+            </p>
+            <p>
+                <strong>
+                    FORIAS:
+                </strong>
+                <?php echo $resultados->FORIAS; ?>
+
+            </p>
+            <p>
+                <strong>
+                    CAMPIMETRÍA POR CONFRONTACIÓN:
+                </strong>
+                <?php echo $resultados->CAMPIMETRIA; ?>
+            </p>
+            <p>
+                <strong>
+                    PRESIÓN INTRAOCULAR.
+                </strong>
+                <br>
+                <strong>
+                    OD:
+                </strong>
+                <?php echo $resultados->PRESION_INTRAOCULAR_OD ?>
+                <strong>
+                    OI:
+                </strong>
+                <?php echo $resultados->PRESION_INTRAOCULAR_OI ?>
+            </p>
+            <p>
+                <strong>
+                    DIAGNÓSTICO.
+                </strong>
+                <br>
+                <?php echo $resultados->DIAGNOSTICO ?>
+            </p>
+            <p>
+                <strong>
+                    PLAN:
+                </strong>
+                <?php echo " $resultados->PLAN" ?>
+            </p>
+            <p>
+                <?php if ($resultados->OBSERVACIONES) { ?>
+                    <strong>
+                        OBSERVACIONES:
+                    </strong>
+                <?php echo " $resultados->OBSERVACIONES";
+                } ?>
+            </p>
+        </div>
 </body>
 <?php
 $altura = 200;
