@@ -473,12 +473,41 @@ function liberarPaciente(areaFisica, turno) {
   }, 1)
 }
 
-var paciente = new GuardarArreglo()
-function pacienteActual(data) {
-  paciente = new GuardarArreglo(data)
-  $('#label-paciente-actual').html(
-    ''
-  )
+function pasarPaciente() {
+  alertMensajeConfirm({
+    title: '¿Deseas enviar un paciente en otra area disponible?',
+    text: "No podrás revertir esta opción",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+  }, function () {
+    $.ajax({
+      url: `${http}${servidor}/nuevo_checkup/api/turnero_api.php`,
+      type: 'POST',
+      dataType: 'json',
+      data: { api: 7, area_fisica_id: areaFisica },
+      success: function (data) {
+        if (mensajeAjax(data)) {
+          let row = data.response.data[0];
+          miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
+          miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          // $('#paciente_turno').html(row['PACIENTE'])
+          alertMsj({
+            title: row['PACIENTE'],
+            text: `Es el siguiente paciente en el  area de ${row['AREA_FISICA_ID']}`,
+            icon: 'success',
+            timer: 5000,
+            showCancelButton: false,
+            timerProgressBar: true,
+          })
+        }
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
+    })
+  }, 1)
 }
 
 
@@ -1896,48 +1925,81 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
               case 'turnos_panel':
                 // id <-- area fisica
-                $.ajax({
-                  url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
-                  type: "POST",
-                  dataType: 'json',
-                  data: { api: 6, area_fisica_id: id },
-                  success: function (data) {
-                    let row = data.response.data;
-                    console.log(row);
-                    if (row[0]) {
-                      $('#paciente_turno').html(row[0]['PACIENTE'])
-                      miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
-                    } else {
-                      $('#paciente_turno').html('Ninguno')
-                      miStorage.setItem('paciente_actual_turno', null);
-                    }
+                ajaxTurnosActualArea()
+                getStatusOptimizador()
 
-                    // Control de turnos
-                    $('#omitir-paciente').on('click', function () {
-                      omitirPaciente(id); //case 3
-                    })
-
-                    $('#llamar-paciente').on('click', function () {
-                      llamarPaciente(id); //case 2
-                    })
-
-
-                    $('#liberar-paciente').on('click', function () {
-                      if (miStorage.getItem('paciente_actual_turno') === null) {
-                        alertMensaje('info', 'Paciente no disponible', 'No has llamado ningún paciente o no hay paciente en tu area')
-                      } else {
-                        liberarPaciente(id, miStorage.getItem('paciente_actual_turno')); //case 1
+                function getStatusOptimizador() {
+                  $.ajax({
+                    url: http + servidor + '/nuevo_checkup/turnero_data.json',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (data) {
+                      // let data = JSON.parse(data);
+                      // console.log(data)
+                      if (data['Optimizador'][id]) {
+                        setTimeout(() => {
+                          ajaxTurnosActualArea()
+                        }, 500);
                       }
-                    })
-                  }, complete: function () {
-                    $(panel).fadeIn(100);
-                    resolve(1);
-                  },
-                  error: function (jqXHR, exception, data) {
-                    alertErrorAJAX(jqXHR, exception, data)
-                  },
-                })
+                      setTimeout(() => {
+                        getStatusOptimizador()
+                      }, 1000);
+                    }
+                  })
+                }
 
+
+                function ajaxTurnosActualArea() {
+                  $.ajax({
+                    url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+                    type: "POST",
+                    dataType: 'json',
+                    data: { api: 6, area_fisica_id: id },
+                    success: function (data) {
+                      let row = data.response.data;
+                      console.log(row);
+                      if (row[0]) {
+                        $('#paciente_turno').html(row[0]['PACIENTE'])
+                        miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
+                        alertMsj({
+                          title: row[0]['PACIENTE'],
+                          text: 'Es su siguiente paciente',
+                          icon: 'success',
+                          timer: 5000,
+                          showCancelButton: false,
+                          timerProgressBar: true,
+                        })
+                      } else {
+                        $('#paciente_turno').html('Ninguno')
+                        miStorage.setItem('paciente_actual_turno', null);
+                      }
+
+                      // Control de turnos
+                      $('#omitir-paciente').on('click', function () {
+                        omitirPaciente(id); //case 3
+                      })
+
+                      $('#llamar-paciente').on('click', function () {
+                        llamarPaciente(id); //case 2
+                      })
+
+
+                      $('#liberar-paciente').on('click', function () {
+                        if (miStorage.getItem('paciente_actual_turno') === null) {
+                          alertMensaje('info', 'Paciente no disponible', 'No has llamado ningún paciente o no hay paciente en tu area')
+                        } else {
+                          liberarPaciente(id, miStorage.getItem('paciente_actual_turno')); //case 1
+                        }
+                      })
+                    }, complete: function () {
+                      $(panel).fadeIn(100);
+                      resolve(1);
+                    },
+                    error: function (jqXHR, exception, data) {
+                      alertErrorAJAX(jqXHR, exception, data)
+                    },
+                  })
+                }
 
 
 
