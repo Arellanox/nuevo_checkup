@@ -531,9 +531,7 @@ if (!isset($qr)) {
                     <td colspan="3">&gt; 41.5 °C</td>
                 </tr>
             </table>
-        </div>
 
-        <div style="display: flex; justify-content: space-between;  margin-top: 13px;">
             <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
                 <thead>
                     <tr style="text-align: center; background-color: darkgrey;">
