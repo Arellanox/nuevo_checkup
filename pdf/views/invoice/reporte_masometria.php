@@ -602,8 +602,8 @@ if (!isset($qr)) {
             </table>
         </div>
 
-        <!--      <div style="display: flex;  margin-top: 13px; justify-content: center;">
-            <table style="width: 45%; border-collapse: collapse;" border="2"> 
+        <div style="display: flex;  margin-top: 13px; justify-content: center;">
+            <table style="width: 45%; border-collapse: collapse;" border="2">
                 <thead>
                     <tr style="text-align: center; background-color: darkgrey;">
                         <th colspan="6">FRECUENCIA CARDÍACA:
@@ -624,7 +624,7 @@ if (!isset($qr)) {
                     <td colspan="3">91-94%</td>
                 </tr>
             </table>
-        </div>-->
+        </div>
 
         <table style="width: 100%;">
             <tr>
