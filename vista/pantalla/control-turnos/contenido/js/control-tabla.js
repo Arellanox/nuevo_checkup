@@ -131,6 +131,8 @@ const playVoice = text => {
 
 function controlListadoTurnos() {
     tablaControlTurnos.ajax.reload();
+    // alert('cargando');
+    alertToast('cargando');
 }
 
 function say() {
@@ -148,7 +150,11 @@ function say() {
     }
     document.getElementById('alert-paciente').play();
     setTimeout(() => {
-        playVoice(`Paciente con el turno ${etiqueta}, favor de pasar al área de ${area}`)
+        try {
+            playVoice(`Paciente con el turno ${temp['ETIQUETA_TURNO']}, favor de pasar al área de ${area}`)
+        } catch (error) {
+            alert(error);
+        }
     }, 1000);
 
     setTimeout(() => {
