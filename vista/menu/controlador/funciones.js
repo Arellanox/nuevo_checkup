@@ -1904,7 +1904,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   success: function (data) {
                     let row = data.response.data;
                     console.log(row);
-                    if (row) {
+                    if (row[0]) {
                       $('#paciente_turno').html(row[0]['PACIENTE'])
                       miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
                     } else {
