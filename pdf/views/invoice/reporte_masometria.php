@@ -415,6 +415,7 @@ if (!isset($qr)) {
         </table>
         <div style="display: flex; justify-content: space-between; flex-basis: auto;">
             <!-- <p colspan="12"> &nbsp;</p> -->
+
             <table style="width: 100%;">
                 <tr>
                     <td style="text-align: left;">
