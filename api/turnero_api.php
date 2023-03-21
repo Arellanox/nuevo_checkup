@@ -158,6 +158,10 @@ switch ($api) {
 
         $response = $master->getByProcedure("sp_turnero_paciente_area_actual", []);
         break;
+    case 6:
+        # paciente actual en el area.
+        $response = $master->getByProcedure("sp_turnero_paciente_actual", [$area_fisica_id]);
+        break;
     default:
         $response = "api no reconocida";
         break;
