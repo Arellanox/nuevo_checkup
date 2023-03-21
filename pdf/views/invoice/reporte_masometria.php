@@ -657,69 +657,71 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>
-</body>
-<div class="footer">
-    <table>
-        <tbody>
-            <tr class="col-foot-one">
-                <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
-            </tr>
-            <tr class="col-foot-two">
-                <td colspan="10">
-                </td>
-                <td colspan="2" style="text-align: left;">
-                    <?php
-                    if ($preview == 0) {
-                        echo "<img style='position:absolute; right:5px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
-                    }
-                    ?>
-                </td>
-            </tr>
-            <tr class="col-foot-three" style="font-size: 13px;">
-                <td colspan="6" style="text-align: center; width: 50%">
-                    <?php
-                    if ($preview == 0) {
-                        echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                    }
-                    ?>
-                </td>
-                <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                    <strong style="font-size: 10px;">
-                        <?php
-                        echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['CARRERA'] . ' - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
-                        $indice = 1;
-                        foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
-                            $indice++;
-                            echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
-                            echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
-                        }
-                        ?>
 
-                        <?php
-                        // echo $pie['datos_medicos'];
-                        ?>
-                        <!-- Dra. Zoila Aideé Quiroz Colorado <br> 
+        <div class="footer">
+            <table>
+                <tbody>
+                    <tr class="col-foot-one">
+                        <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
+                    </tr>
+                    <tr class="col-foot-two">
+                        <td colspan="10">
+                        </td>
+                        <td colspan="2" style="text-align: left;">
+                            <?php
+                            if ($preview == 0) {
+                                echo "<img style='position:absolute; right:5px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <tr class="col-foot-three" style="font-size: 13px;">
+                        <td colspan="6" style="text-align: center; width: 50%">
+                            <?php
+                            if ($preview == 0) {
+                                echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                            }
+                            ?>
+                        </td>
+                        <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
+                            <strong style="font-size: 10px;">
+                                <?php
+                                echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['CARRERA'] . ' - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                                $indice = 1;
+                                foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
+                                    $indice++;
+                                    echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
+                                    echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
+                                }
+                                ?>
+
+                                <?php
+                                // echo $pie['datos_medicos'];
+                                ?>
+                                <!-- Dra. Zoila Aideé Quiroz Colorado <br> 
                             Universidad - Cedula <br>
                             Radiologia / Universidad / Cedula <br>
                             Certificado por: Quien certifica <br>
                             Subespecialista en radiología pediátrica / Universidad / Cedula<br>
                             Certificado por: escuela de doctores <br> -->
-                    </strong>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <hr style="height: 0.5px; background-color: black ;">
-    <p style="text-align: center;"><small>
-            <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
-            <strong style="font-size: 11px;">Teléfonos: </strong>
-            <strong style="font-size: 11px;color: rgb(247, 190, 000)">993 634 1483, 993 634 0250, 993 634 1469, 993 634 6245</strong>
-            <strong style="font-size: 11px;">Correo electrónico:</strong>
-            <strong style="font-size: 11px;color: rgb(000, 175, 170); margin-left: -1.5px; margin-right: -1.5px">resultados@</strong>
-            <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
-            <strong style="font-size: 11px;color: rgb(247, 190, 000); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
-        </small></p>
-</div>
+                            </strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="height: 0.5px; background-color: black ;">
+            <p style="text-align: center;"><small>
+                    <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
+                    <strong style="font-size: 11px;">Teléfonos: </strong>
+                    <strong style="font-size: 11px;color: rgb(247, 190, 000)">993 634 1483, 993 634 0250, 993 634 1469, 993 634 6245</strong>
+                    <strong style="font-size: 11px;">Correo electrónico:</strong>
+                    <strong style="font-size: 11px;color: rgb(000, 175, 170); margin-left: -1.5px; margin-right: -1.5px">resultados@</strong>
+                    <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
+                    <strong style="font-size: 11px;color: rgb(247, 190, 000); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
+                </small></p>
+        </div>
+</body>
+
 <?php
 $altura = 200;
 
