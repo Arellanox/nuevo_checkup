@@ -118,6 +118,7 @@ let jarvis = window.speechSynthesis;
 
 const playVoice = text => {
     // Reproduce la voz
+    voice.lang = 'es_ES';
     voice.text = text;
     jarvis.speak(voice);
 };
@@ -135,11 +136,6 @@ const getVoices = function () {
         select.appendChild(option);
         console.log(option)
     });
-    voice.lang = this.selectedOptions?.[0]?.dataset.language.split('-')[0] || 'es';
-    alert(this.selectedOptions?.[0]?.dataset.language.split('-')[0] || 'es')
-    console.log(this.selectedOptions?.[0]?.dataset.language.split('-')[0] || 'es')
-    alert(voice.lang)
-    console.log(voice.lang)
     playVoice('Paciente con el turno P. A. R. 1, favor de pasar al área de Ultrasonido')
 };
 
