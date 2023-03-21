@@ -136,6 +136,10 @@ const getVoices = function () {
         console.log(option)
     });
     voice.lang = this.selectedOptions?.[0]?.dataset.language.split('-')[0] || 'es';
+    alert(this.selectedOptions?.[0]?.dataset.language.split('-')[0] || 'es')
+    console.log(this.selectedOptions?.[0]?.dataset.language.split('-')[0] || 'es')
+    alert(voice.lang)
+    console.log(voice.lang)
     playVoice('Paciente con el turno P. A. R. 1, favor de pasar al área de Ultrasonido')
 };
 
