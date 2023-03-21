@@ -539,7 +539,7 @@ if (!isset($qr)) {
                 </tr>
                 <tr>
                     <td>
-                        <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
+                        <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="6">OXIMETRÍA DEL PULSO:
@@ -574,7 +574,7 @@ if (!isset($qr)) {
                         </table>
                     </td>
                     <td>
-                        <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
+                        <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="6">RECUENCIA RESPIRATORIA:
