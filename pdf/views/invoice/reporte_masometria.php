@@ -415,10 +415,10 @@ if (!isset($qr)) {
         </table>
         <div style="display: flex; justify-content: space-between; flex-basis: auto;">
             <p colspan="12"> &nbsp;</p>
-            <table>
+            <table style="width: 100%;">
                 <tr>
-                    <td>
-                        <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
+                    <td style="text-align: left;">
+                        <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="6">PRESIÓN ARTERIAL:
@@ -477,8 +477,8 @@ if (!isset($qr)) {
                             </tr>
                         </table>
                     </td>
-                    <td>
-                        <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
+                    <td style="text-align: right;">
+                        <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="6">TEMPERATURA:
@@ -537,78 +537,80 @@ if (!isset($qr)) {
                         </table>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
+                            <thead>
+                                <tr style="text-align: center; background-color: darkgrey;">
+                                    <th colspan="6">OXIMETRÍA DEL PULSO:
+                                        <?php echo $resultados->OXIMETRIA; ?>%
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 95 && $resultados->SATURACION_DE_OXIGENO <= 99) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Normal</td>
+                                <td colspan="3">95-99%</td>
+                            </tr>
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 91 && $resultados->SATURACION_DE_OXIGENO <= 94) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipoxia leve</td>
+                                <td colspan="3">91-94%</td>
+                            </tr>
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 85 && $resultados->SATURACION_DE_OXIGENO <= 90) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipoxia moderada</td>
+                                <td colspan="3">85-90%</td>
+                            </tr>
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO < 85) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Hipoxia severa</td>
+                                <td colspan="3">&lt; 85%</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
+                            <thead>
+                                <tr style="text-align: center; background-color: darkgrey;">
+                                    <th colspan="6">RECUENCIA RESPIRATORIA:
+                                        <?php echo $resultados->FRECUENCIA_RESPIRATORIA; ?>rpm
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA >= 12 && $resultados->FRECUENCIA_RESPIRATORIA <= 18) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Normal (Eupnea)</td>
+                                <td colspan="3">12-18 rpm</td>
+                            </tr>
+                            <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA < 10) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Bradipnea</td>
+                                <td colspan="3">&lt; 10 rpm</td>
+                            </tr>
+                            <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA > 20) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Taquipnea</td>
+                                <td colspan="3">&lt; 20 rpm</td>
+                            </tr>
+                            <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA = 0) {
+                                    echo 'style="background-color: #f7be16;"';
+                                } ?>>
+                                <td colspan="3">Apnea</td>
+                                <td colspan="3">ausencia respiratoria</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </table>
 
-
-        </div>
-
-        <div style="display: flex; justify-content: space-between;  margin-top: 13px;">
-            <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
-                <thead>
-                    <tr style="text-align: center; background-color: darkgrey;">
-                        <th colspan="6">OXIMETRÍA DEL PULSO:
-                            <?php echo $resultados->OXIMETRIA; ?>%
-                        </th>
-                    </tr>
-                </thead>
-                <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 95 && $resultados->SATURACION_DE_OXIGENO <= 99) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Normal</td>
-                    <td colspan="3">95-99%</td>
-                </tr>
-                <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 91 && $resultados->SATURACION_DE_OXIGENO <= 94) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipoxia leve</td>
-                    <td colspan="3">91-94%</td>
-                </tr>
-                <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 85 && $resultados->SATURACION_DE_OXIGENO <= 90) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipoxia moderada</td>
-                    <td colspan="3">85-90%</td>
-                </tr>
-                <tr <?php if ($resultados->SATURACION_DE_OXIGENO < 85) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Hipoxia severa</td>
-                    <td colspan="3">&lt; 85%</td>
-                </tr>
-            </table>
-            <table style="width: 45%; border-collapse: collapse; text-align: center;" border="2">
-                <thead>
-                    <tr style="text-align: center; background-color: darkgrey;">
-                        <th colspan="6">RECUENCIA RESPIRATORIA:
-                            <?php echo $resultados->FRECUENCIA_RESPIRATORIA; ?>rpm
-                        </th>
-                    </tr>
-                </thead>
-                <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA >= 12 && $resultados->FRECUENCIA_RESPIRATORIA <= 18) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Normal (Eupnea)</td>
-                    <td colspan="3">12-18 rpm</td>
-                </tr>
-                <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA < 10) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Bradipnea</td>
-                    <td colspan="3">&lt; 10 rpm</td>
-                </tr>
-                <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA > 20) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Taquipnea</td>
-                    <td colspan="3">&lt; 20 rpm</td>
-                </tr>
-                <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA = 0) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Apnea</td>
-                    <td colspan="3">ausencia respiratoria</td>
-                </tr>
-            </table>
         </div>
 
         <div style="display: flex;  margin-top: 13px; justify-content: center;">
