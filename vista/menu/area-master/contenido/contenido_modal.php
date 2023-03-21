@@ -234,6 +234,11 @@ session_start();
                                     include 'forms/form_general.html';
                                     echo '</form>';
                                     break;
+                                case 'formSubirInterpretacionCitologia':
+                                    echo '<form id="formSubirInterpretacionCitologia">';
+                                    include 'forms/form_citologia.html';
+                                    echo '</form>';
+                                    break;
                             }
 
                             ?>

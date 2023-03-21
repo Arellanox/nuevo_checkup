@@ -45,6 +45,10 @@ $(document).on('click', '#btn-capturas-pdf', function () {
         $('#MostrarCapturasElectro').modal('show');
         break;
 
+      case 13:
+        servicio_nombre = 'Citología'; // <--Nombrar la ventana
+        $("#ModalSubirCapturas").modal("show");
+        break;
       default:
         chooseEstudio(selectEstudio.array, '#ModalSubirCapturas', 2)
         break;

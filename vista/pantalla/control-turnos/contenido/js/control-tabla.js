@@ -59,7 +59,6 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
 
 
 function rowdrawalert() {
-    // var temp = tablaControlTurnos.row(0).data();
     // tablaControlTurnos.row(0)
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
     $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
@@ -109,7 +108,43 @@ function recargaLista() {
 
 document.getElementById('alert-paciente').play()
 
+
+
+// Interface de la API
+let voice = new SpeechSynthesisUtterance();
+
+// Objeto de la API
+let jarvis = window.speechSynthesis;
+
+const playVoice = text => {
+    // Reproduce la voz
+    voice.text = text;
+    jarvis.speak(voice);
+};
+const select = document.getElementById("voices");
+
+// Obtenemos todas las voces soportadas
+const getVoices = function () {
+    const voices = jarvis.getVoices();
+    voices.forEach(item => {
+        const { name, lang } = item;
+        const option = document.createElement('option');
+        option.textContent = `${name} - [${lang}]`;
+        option.setAttribute('data-language', lang);
+        option.setAttribute('data-name', name);
+        select.appendChild(option);
+        console.log(option)
+    });
+    voice.lang = this.selectedOptions?.[0]?.dataset.language.split('-')[0] || 'es';
+    playVoice('Paciente con el turno P. A. R. 1, favor de pasar al área de Ultrasonido')
+};
+
+getVoices();
+jarvis.onvoiceschanged = getVoices;
+select.addEventListener('input', getVoices);
+
 function controlListadoTurnos() {
+
     // document.getElementById('alert-paciente').play() //Tono de aviso
     // try {
     //     dataActual = tablaControlTurnos.row(0).data();
@@ -121,6 +156,8 @@ function controlListadoTurnos() {
     // } catch (error) {
     //     console.log(error)
     // }
+    var temp = tablaControlTurnos.row(0).data();
+
     document.getElementById('alert-paciente').play()
     tablaControlTurnos.ajax.reload();
 

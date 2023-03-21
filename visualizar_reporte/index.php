@@ -30,9 +30,11 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
-$api = 'soma';
-$turno_id = 220;
-$area_id = 2;
+
+// $api = 'soma';
+// $turno_id = 220;
+// $area_id = 2;
+
 
 
 switch ($api) {
@@ -45,6 +47,9 @@ switch ($api) {
         break;
     case 'laboratorio':
         $r = $master->reportador($master, $turno_id, 6, 'resultados', 'mostrar', 1);
+        break;
+    case 'biomolecular':
+        $r = $master->reportador($master, $turno_id, 12, 'biomolecular', 'mostrar', 1);
         break;
     case 'etiquetas':
         $r = $master->reportador($master, $turno_id, 0, "etiquetas", "mostrar", 1);

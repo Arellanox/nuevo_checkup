@@ -13,6 +13,9 @@
     <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/#LABORATORIO_MOLECULAR'; ?>">
         <i class="bi bi-virus"></i> Laboratorio Biomolecular
     </a>
+    <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#CITALOGIA'; ?>">
+        <i class="bi bi-gender-female"></i> Citología
+    </a>
 <?php endif; ?>
 
 

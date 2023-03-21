@@ -10,6 +10,8 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
     <i class="bi bi-heart-pulse"></i> Somatometría | Signos vitales
   </a>
 <?php endif; ?>
+
+
 <!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>

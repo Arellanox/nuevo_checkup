@@ -151,6 +151,26 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                                 botonElectroCaptura(1)
                     }
                     break;
+                case 13: //Electrocardiograma
+                    $('#btn-inter-areas').fadeIn(0);
+                    if (formulario != 1) {
+                        document.getElementById(formulario).reset()
+                        $('#capturaElectro').html('')
+                        if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+
+                        if (selectEstudio.array.length) {
+                            await obtenerResultadosElectro(selectEstudio.array)
+                            if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
+                                await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
+                        }
+                    } else {
+                        botonElectroCaptura(0);
+
+                        if (selectEstudio.array.length)
+                            if (selectEstudio.array[0].ELECTRO_PDF)
+                                botonElectroCaptura(1)
+                    }
+                    break;
                 default:
                     botonesResultados('activar');
                     break;
@@ -337,7 +357,7 @@ async function panelResultadoPaciente(row, area) {
     $('#mostrarResultado').fadeOut()
 
     switch (area) {
-        case 3: case 10:
+        case 3: case 10: case 13:
             if (row[0].length) {
                 // console.log(row[0])
                 for (const i in row) {

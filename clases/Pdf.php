@@ -58,21 +58,10 @@ class Reporte
                 // $barcode  = base64_encode($generator->getBarcode('750169978916', $generator::TYPE_CODE_128));
                 break;
             case 'resultados':
-                // Qrcode
-                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
-                break;
+            case 'biomolecular':
             case 'oftalmologia':
-                // Qrcode
-                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
-                break;
             case 'ultrasonido':
-                // Ultrasonidos
-                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
-                break;
-            case 'rayos':
-                // Ultrasonidos //rayos piu piu
-                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
-                break;
+            case 'rayos': //rayos piu piu
             case 'electro':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
@@ -151,6 +140,12 @@ class Reporte
 
             case 'reporte_masometria':
                 $template = render_view('invoice/reporte_masometria.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+
+            case 'biomolecular':
+                $template = render_view('invoice/biomolecular.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;

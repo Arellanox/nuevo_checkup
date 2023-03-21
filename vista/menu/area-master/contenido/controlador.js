@@ -98,6 +98,14 @@ function hasLocation() {
         formulario = "formSubirInterpretacionOftalmo";
         obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_modal.php');
         break;
+      case "CITALOGIA":
+        control_turnos = null;
+        formulario = "formSubirInterpretacionCitologia";
+        api_capturas = 5;
+        api_interpretacion = 1;
+        url_api = 'electrocardiograma_api';
+        obtenerContenidoVistaMaster(13, 'Resultados de Citología', 'contenido_modal.php');
+        break;
       default:
         // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
         break;

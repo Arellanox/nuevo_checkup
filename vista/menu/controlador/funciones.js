@@ -470,6 +470,13 @@ function liberarPaciente(areaFisica, turno) {
   }, 1)
 }
 
+var paciente = new GuardarArreglo()
+function pacienteActual(data) {
+  paciente = new GuardarArreglo(data)
+  $('#label-paciente-actual').html(
+    ''
+  )
+}
 
 
 
