@@ -415,7 +415,7 @@ function llamarPaciente(areaFisica) {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data[0];
-          miStorage.setItem('paciente_actual_turno', row['TUNRO_ID'])
+          miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
           miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
           $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
