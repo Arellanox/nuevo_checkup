@@ -375,7 +375,7 @@ function omitirPaciente(areaFisica) {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data;
-          miStorage.setItem('paciente_actual_turno', row['NEXT']['TUNRO_ID'])
+          miStorage.setItem('paciente_actual_turno', row['NEXT']['turno_id'])
           miStorage.setItem('paciente_actual_nombre', row['NEXT']['paciente'])
           $('#paciente_turno').html(row['NEXT']['paciente'])
           alertMsj({
@@ -388,12 +388,6 @@ function omitirPaciente(areaFisica) {
             timerProgressBar: true,
           })
 
-          // NEXT
-          // :
-          // { area_id: "3", turno_id: "298", etiqueta_turno: "PAR2", paciente: "CUPIL GARCÍA EDER" }
-          // OMITTED
-          // :
-          // { area_id: "3", turno_id: "297", etiqueta_turno: "PAR1", paciente: "CADENA PADRÓN LAURA JEMIMA" }
         }
       },
       error: function (jqXHR, exception, data) {
@@ -403,7 +397,7 @@ function omitirPaciente(areaFisica) {
   }, 1)
 }
 
-function llamarPaciente(areaFisica, trsearch = null, callback = function () { }) {
+function llamarPaciente(areaFisica) {
   console.log(areaFisica)
   alertMensajeConfirm({
     title: '¿Deseas liberar el area y llamar a un paciente?',
@@ -1908,7 +1902,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   dataType: 'json',
                   data: { api: 6, area_fisica_id: id },
                   success: function (data) {
-
+                    console.log(data);
                     if (miStorage.getItem('paciente_actual_nombre') === null) {
                       $('#paciente_turno').html('Ninguno')
                     } else {
