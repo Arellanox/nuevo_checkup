@@ -5,19 +5,8 @@
   <div class="col-4 col-lg-4 col-xxl-3" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
       <h4>Lista de pacientes</h4>
-
       <!-- Control de turnos -->
-      <div class="d-flex justify-content-center ">
-        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-7408 m-1" id="omitir-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Omite el paciente actual">
-          <i class="bi bi-person-fill-down"></i> Saltar
-        </button>
-        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-3165 m-1" id="llamar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Avisa al siguiente paciente a pasar">
-          <i class="bi bi-person-fill-up"></i> Llamar
-        </button>
-        <button type="submit" data-attribute="confirmar" class="btn btn-pantone-325 m-1" id="liberar-paciente" data-bs-toggle="tooltip" data-bs-placement="top" title="Libere el turno del paciente para otras areas">
-          <i class="bi bi-person-fill-dash"></i> Liberar
-        </button>
-      </div>
+      <div id="turnos_panel"></div>
 
       <div class="text-center mt-2">
         <div class="input-group flex-nowrap">

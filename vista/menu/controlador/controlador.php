@@ -38,10 +38,13 @@ include "../../variables.php";
       break;
 
     default:
-    var http = "https://";
+      var http = "https://";
       var servidor = "drjb.com.mx";
       break;
   }
+
+  miStorage = window.localStorage;
+  miStorage.setItem("Olakace", "HOLA MUNDO XD");
   // <!-- Aqui controlar e incluir las modals -->
   obtenerHeader('<?php echo $menu ?>', '<?php echo $tip ?>');
 

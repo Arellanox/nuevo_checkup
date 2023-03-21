@@ -132,28 +132,20 @@ const playVoice = text => {
 function controlListadoTurnos() {
     tablaControlTurnos.ajax.reload();
     // alert('cargando');
-    alertToast('cargando');
+    // alertToast('cargando');
 }
 
 function say() {
     VozActiva = true;
     var temp = tablaControlTurnos.row(0).data();
     turno = temp['ETIQUETA_TURNO'];
-    area = temp['MODULO']
-    turno = turno.split('');
-    etiqueta = ''
-    for (const key in turno) {
-        if (Object.hasOwnProperty.call(turno, key)) {
-            const element = turno[key];
-            etiqueta += `${element}. `;
-        }
-    }
+    area = temp['MODULO'];
     document.getElementById('alert-paciente').play();
     setTimeout(() => {
         try {
-            playVoice(`Paciente con el turno ${temp['ETIQUETA_TURNO']}, favor de pasar al área de ${area}`)
+            playVoice(`Paciente con el turno ${temp['ETIQUETA_TURNO']}, favor de pasar al área de ${area}, turno ${temp['ETIQUETA_TURNO']}`)
         } catch (error) {
-            alert(error);
+            // alert(error);
         }
     }, 1000);
 

@@ -42,22 +42,7 @@ $('#muestra-tomado').on('click', function () {
 
 
 
-// Control de turnos
-$('#omitir-paciente').on('click', function () {
-  omitirPaciente(7); //case 3
-})
 
-$('#llamar-paciente').on('click', function () {
-  llamarPaciente(7); //case 2
-})
-
-$('#liberar-paciente').on('click', function () {
-  if (selectListaMuestras) {
-    liberarPaciente(7, selectListaMuestras['ID_TURNO']); //case 1
-  } else {
-    alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
-  }
-})
 
 // // cambiar fecha de la Lista
 // $('#fechaListadoAreaMaster').change(function () {

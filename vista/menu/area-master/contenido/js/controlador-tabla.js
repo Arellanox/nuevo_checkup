@@ -241,22 +241,10 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
 })
 
 
-// Control de turnos
-btnOmitir.on('click', function () {
-    omitirPaciente(control_turnos); //case 3
-})
 
-btnLlamar.on('click', function () {
-    llamarPaciente(control_turnos); //case 2
-})
+//Panel turnos, mandar id fisica al  principio
+obtenerPanelInformacion(control_turnos, null, "turnos_panel", '#turnos_panel')
 
-btnLiberar.on('click', function () {
-    if (dataTurnero) {
-        liberarPaciente(control_turnos, dataTurnero['ID_TURNO']); //case 1
-    } else {
-        alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
-    }
-})
 
 
 function limpiarCampos() {
