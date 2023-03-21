@@ -58,7 +58,7 @@ switch ($menu) {
     break;
   default:
 ?>
-  <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar" style="padding-top: 5px; padding-bottom: 5px;">
+  <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar" style="padding-top: 5px; padding-bottom: 5px;" id="navbar_principal">
     <div class="container-fluid">
       <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" /> </a>
       <!-- <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" /> -->

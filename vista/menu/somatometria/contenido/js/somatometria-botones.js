@@ -42,22 +42,8 @@ $('#form-resultados-somatometria').submit(function (event) {
   // }
 })
 
-// Control de turnos
-$('#omitir-paciente').on('click', function () {
-  omitirPaciente(3); //case 3
-})
-
-$('#llamar-paciente').on('click', function () {
-  llamarPaciente(3); //case 2
-})
-
-$('#liberar-paciente').on('click', function () {
-  if (selectListaSignos) {
-    liberarPaciente(3, selectListaSignos['ID_TURNO']); //case 1
-  } else {
-    alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
-  }
-})
+//Panel turnos, mandar id fisica al  principio
+obtenerPanelInformacion(3, null, "turnos_panel", '#turnos_panel')
 
 // // cambiar fecha de la Lista
 // $('#fechaListadoAreaMaster').change(function () {

@@ -121,3 +121,19 @@ p {
 .info-detalle a {
   text-decoration: underline !important;
 }
+
+
+@media (min-height: 500px) and (max-height: 800px) {
+  #navbar_principal {
+    zoom: 80%;
+    font-size: 17px;
+  }
+
+  a {
+    font-size: 17px;
+  }
+
+  .container-avatar {
+    zoom: 120%
+  }
+}
