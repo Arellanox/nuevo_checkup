@@ -336,7 +336,7 @@ if (!isset($qr)) {
     </div>
     <div>
         <table style="width: 100%; border-collapse: collapse; text-align: center;">
-            <tr style="background-color: #b5bac9;" class="bold">
+            <tr style="background-color: #d8e0e2;" class="bold">
                 <td colspan="12" style="text-justify: left;">SOMATOMETRíA Y SIGNOS VITALES</td>
             </tr>
             <tr>
@@ -414,7 +414,7 @@ if (!isset($qr)) {
                 <td colspan="12">&nbsp;</td>
             </tr>
             <!--signos vitales-->
-            <tr style="background-color: #b5bac9;" class="bold">
+            <tr style="background-color: #d8e0e2;" class="bold">
                 <td colspan="12" style="text-align: left;">SIGNOS VITALES</td>
             </tr>
         </table>
@@ -426,7 +426,7 @@ if (!isset($qr)) {
                     <td style="text-align: left;">
                         <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: darkgrey;">
+                                <tr style="text-align: center; background-color: #d8e0e2;">
                                     <th colspan="6">PRESIÓN ARTERIAL:
                                         <?php echo $resultados->SISTOLICA; ?> /
                                         <?php echo $resultados->DIASTOLICA; ?>
@@ -486,7 +486,7 @@ if (!isset($qr)) {
                     <td style="text-align: right;">
                         <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: #b5bac9;">
+                                <tr style="text-align: center; background-color: #d8e0e2;">
                                     <th colspan="6">TEMPERATURA:
                                         <?php echo $resultados->TEMPERATURA; ?>°C
                                     </th>
@@ -547,7 +547,7 @@ if (!isset($qr)) {
                     <td>
                         <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: #b5bac9;">
+                                <tr style="text-align: center; background-color: #d8e0e2;">
                                     <th colspan="6">OXIMETRÍA DEL PULSO:
                                         <?php echo $resultados->SATURACION_DE_OXIGENO; ?>%
                                     </th>
@@ -582,7 +582,7 @@ if (!isset($qr)) {
                     <td>
                         <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: #b5bac9;">
+                                <tr style="text-align: center; background-color: #d8e0e2;">
                                     <th colspan="6">FRECUENCIA RESPIRATORIA:
                                         <?php echo $resultados->FRECUENCIA_RESPIRATORIA; ?>rpm
                                     </th>
@@ -622,7 +622,7 @@ if (!isset($qr)) {
         <div style="display: flex;  margin-top: 13px; justify-content: center;">
             <table style="width: 45%; text-align: center; border-collapse: collapse;" border="2">
                 <thead>
-                    <tr style="text-align: center; background-color: #b5bac9;">
+                    <tr style="text-align: center; background-color: #d8e0e2;">
                         <th colspan="6">FRECUENCIA CARDÍACA:
                             <?php echo $resultados->FRECUENCIA_CARDIACA; ?> lpm
                         </th>
