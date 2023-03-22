@@ -432,7 +432,7 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Óptima</td>
-                                <td colspan="3">&le;;120/&le;80</td>
+                                <td colspan="3">&lt;;120/&lt;80</td>
                             </tr>
                             <tr <?php if (($resultados->SISTOLICA >= 120 && $resultados->SISTOLICA <= 129) && ($resultados->DIASTOLICA >= 80 && $resultados->DIASTOLICA <= 84)) {
                                     echo 'style="background-color: #f7be16;"';
@@ -468,7 +468,7 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión G3</td>
-                                <td colspan="3">180 / &gt;;110</td>
+                                <td colspan="3">180 / &gt;110</td>
                             </tr>
                             <tr <?php if ($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90) {
                                     echo 'style="background-color: #f7be16;"';
