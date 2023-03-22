@@ -99,6 +99,12 @@ $menu = $_POST['menu']; ?>
 <?php endif; ?>
 
 
+<?php if ($menu == "Perfil del paciente") : ?>
+  <!-- <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px" id="entrarConsultaMedica">
+    <i class="bi bi-box-arrow-in-right"></i> Consulta Médica
+  </button> -->
+<?php endif; ?>
+
 
 <?php if ($menu == "Paquetes de clientes") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaquete">

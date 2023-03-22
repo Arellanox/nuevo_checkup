@@ -375,8 +375,10 @@ function omitirPaciente(areaFisica) {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data;
-          miStorage.setItem('paciente_actual_turno', row['NEXT']['turno_id'])
-          miStorage.setItem('paciente_actual_nombre', row['NEXT']['paciente'])
+          // miStorage.setItem('paciente_actual_turno', row['NEXT']['turno_id'])
+          // miStorage.setItem('paciente_actual_nombre', row['NEXT']['paciente'])
+          pacienteTurnoActivo.selectID = row['NEXT']['ID_TURNO'];
+          pacienteTurnoActivo.setguardado(row['NEXT']['PACIENTE']);
           $('#paciente_turno').html(row['NEXT']['paciente'])
           alertMsj({
             title: row['NEXT']['paciente'],
@@ -415,8 +417,10 @@ function llamarPaciente(areaFisica) {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data[0];
-          miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
-          miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          // miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
+          // miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          pacienteTurnoActivo.selectID = row['ID_TURNO'];
+          pacienteTurnoActivo.setguardado(row['PACIENTE']);
           $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
             title: row['PACIENTE'],
@@ -452,8 +456,10 @@ function liberarPaciente(areaFisica, turno) {
       success: function (data) {
         if (mensajeAjax(data)) {
           if (data.response.data == 1) {
-            miStorage.removeItem('paciente_actual_turno')
-            miStorage.removeItem('paciente_actual_nombre')
+            // miStorage.removeItem('paciente_actual_turno')
+            // miStorage.removeItem('paciente_actual_nombre')
+            pacienteTurnoActivo.selectID = null;
+            pacienteTurnoActivo.setguardado(null);
             $('#paciente_turno').html('Liberado')
             alertMsj({
               title: "¡Paciente liberado!",
@@ -490,8 +496,10 @@ function pasarPaciente() {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data;
-          miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
-          miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          // miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
+          // miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          pacienteTurnoActivo.selectID = row['ID_TURNO'];
+          pacienteTurnoActivo.setguardado(row['PACIENTE']);
           // $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
             title: row['PACIENTE'],
@@ -1580,6 +1588,7 @@ function select2(select, modal = null, placeholder = 'Selecciona una opción') {
 
 
 //Creador vistas
+pacienteTurnoActivo = new GuardarArreglo();
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null) {
   return new Promise(resolve => {
     var html = "";
@@ -1959,8 +1968,14 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       let row = data.response.data;
                       console.log(row);
                       if (row[0]) {
+
+
+                        pacienteTurnoActivo.selectID = row[0]['ID_TURNO'];
+                        pacienteTurnoActivo.setguardado(row[0]['PACIENTE']);
+
+
                         $('#paciente_turno').html(row[0]['PACIENTE'])
-                        miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
+                        // miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
                         alertMsj({
                           title: row[0]['PACIENTE'],
                           text: 'Es su siguiente paciente',
@@ -1971,7 +1986,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         })
                       } else {
                         $('#paciente_turno').html('Ninguno')
-                        miStorage.setItem('paciente_actual_turno', null);
+                        // miStorage.setItem('paciente_actual_turno', null);
                       }
 
                       // Control de turnos
@@ -1985,10 +2000,10 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
 
                       $('#liberar-paciente').on('click', function () {
-                        if (miStorage.getItem('paciente_actual_turno') === null) {
+                        if (pacienteTurnoActivo.selectID === null) {
                           alertMensaje('info', 'Paciente no disponible', 'No has llamado ningún paciente o no hay paciente en tu area')
                         } else {
-                          liberarPaciente(id, miStorage.getItem('paciente_actual_turno')); //case 1
+                          liberarPaciente(id, pacienteTurnoActivo.selectID); //case 1
                         }
                       })
                     }, complete: function () {

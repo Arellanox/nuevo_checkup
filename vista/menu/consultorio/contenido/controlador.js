@@ -2,15 +2,21 @@
 var id, idturno, idconsulta, dataConsulta = new Array,
   tablaMain
 var selectPaciente;
+var dataListaPaciente;
 obtenerConsultorioMain()
 
-function obtenerConsultorioMain() {
+async function obtenerConsultorioMain() {
   // loader("In")
-  obtenerTitulo('Consultorio');
+  await obtenerTitulo('Consultorio');
   $.post("contenido/consultorio_main.html", function (html) {
     var idrow;
     $("#body-js").html(html) // Rellenar la plantilla de consulta
   }).done(function () {
+    dataListaPaciente = {
+      api: 5,
+      fecha_busqueda: $('#fechaListadoAreaMaster').val(),
+      area_id: 1
+    }
     // Datatable
     $.getScript("contenido/js/main-tabla.js");
     // // Botones
@@ -132,4 +138,26 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, clase, cl
     '<div style="' + style + '">' +
     '<p class="none-p">' + text + '<p> </div> </div>';
   $(appendDiv).append(html);
+}
+
+
+
+
+
+
+
+
+
+
+//AREA CONSULTA MEDICA
+//Posible solucion en ios
+$('#entrarConsultaMedica').css('cursor', 'pointer');
+$(document).on('click', '#entrarConsultaMedica', function (event) {
+  event.preventDefault();
+  obtenerConsultorioConsultaMedica(pacienteActivo.array);
+});
+
+
+function obtenerConsultorioConsultaMedica(data) {
+
 }
