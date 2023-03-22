@@ -468,13 +468,13 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión G3</td>
-                                <td colspan="3">180 / &#8805;110</td>
+                                <td colspan="3">180 / &ge;110</td>
                             </tr>
                             <tr <?php if ($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión sistólica</td>
-                                <td colspan="3">&#8805;140 / &#8804;90</td>
+                                <td colspan="3">&ge;140 / &le; &#8804;90</td>
                             </tr>
                         </table>
                     </td>
