@@ -138,9 +138,10 @@ function controlListadoTurnos() {
 }
 
 function say() {
-    VozActiva = true;
-    var temp = tablaControlTurnos.row(0).data();
-    if (temp) {
+    try {
+        VozActiva = true;
+        var temp = tablaControlTurnos.row(0).data();
+
         turno = temp['ETIQUETA_TURNO'];
         area = temp['MODULO'];
         document.getElementById('alert-paciente').play();
@@ -155,9 +156,10 @@ function say() {
         setTimeout(() => {
             VozActiva = false;
         }, 7000);
-    } else {
-        alertToast('No hay pacientes...', 'info')
+    } catch (error) {
+
     }
+
 
 }
 
