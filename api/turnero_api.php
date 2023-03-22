@@ -279,8 +279,8 @@ function changeStatusOptimizador($param, $area)
 {
     $data = file_get_contents("../archivos/sistema/json/turnero_optimizador.json");
     $request = json_decode($data, true);
+    $master = new Master();
+    $master->setLog("Area: $area", null);
     $request['Optimizador'][$area] = $param;
     file_put_contents("../archivos/sistema/json/turnero_optimizador.json", json_encode($request));
-    sleep(1);
-    changeStatusRequest(false);
 }
