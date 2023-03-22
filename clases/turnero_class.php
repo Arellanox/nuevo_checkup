@@ -99,6 +99,7 @@ class JsonData {
     }
 
     public function removeArea($area){
+        # remueve la posicion del area en el data.json
         
     }
 }
