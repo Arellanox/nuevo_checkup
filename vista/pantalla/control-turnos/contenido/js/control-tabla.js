@@ -138,20 +138,24 @@ function controlListadoTurnos() {
 function say() {
     VozActiva = true;
     var temp = tablaControlTurnos.row(0).data();
-    turno = temp['ETIQUETA_TURNO'];
-    area = temp['MODULO'];
-    document.getElementById('alert-paciente').play();
-    setTimeout(() => {
-        try {
-            playVoice(`Paciente con el turno ${temp['ETIQUETA_TURNO']}, favor de pasar al área de ${area}, turno ${temp['ETIQUETA_TURNO']}`)
-        } catch (error) {
-            // alert(error);
-        }
-    }, 1000);
+    if (temp.length) {
+        turno = temp['ETIQUETA_TURNO'];
+        area = temp['MODULO'];
+        document.getElementById('alert-paciente').play();
+        setTimeout(() => {
+            try {
+                playVoice(`Paciente con el turno ${temp['ETIQUETA_TURNO']}, favor de pasar al área de ${area}, turno ${temp['ETIQUETA_TURNO']}`)
+            } catch (error) {
+                // alert(error);
+            }
+        }, 1000);
 
-    setTimeout(() => {
-        VozActiva = false;
-    }, 7000);
+        setTimeout(() => {
+            VozActiva = false;
+        }, 7000);
+    } else {
+        alertToast('No hay pacientes...', 'info')
+    }
 
 }
 
