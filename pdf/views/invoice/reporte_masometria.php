@@ -627,13 +627,13 @@ if (!isset($qr)) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
                     <td colspan="3">Bradicardia</td>
-                    <td colspan="3">&gl; 60 lpm</td>
+                    <td colspan="3">&lt; 60 lpm</td>
                 </tr>
                 <tr <?php if ($signos->FRECUENCIA_CARDIACA >= 90) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
                     <td colspan="3">Taquicardia</td>
-                    <td colspan="3">&ltcc; 90 lpm</td>
+                    <td colspan="3">&lt; 90 lpm</td>
                 </tr>
 
             </table>
