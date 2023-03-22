@@ -1,4 +1,7 @@
 <?php
+
+use Masterminds\HTML5\Parser\CharacterReference;
+
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/Pdf.php";
@@ -160,6 +163,22 @@ switch ($api) {
     case 6:
         # paciente actual en el area.
         $response = $master->getByProcedure("sp_turnero_paciente_actual", [$area_fisica_id]);
+        break;
+    case 7:
+        # ignorar los candados de laboratorio y somatometria,
+        # y coloccar al siguiente paciente disponible
+        # en la siguiente area disponible
+        $response = $master->getByNext("sp_turnero_ignorar_candados", []);
+
+        if(isset($response[0][0]['MSJ'])){
+            echo $master->returnApi($response[0][0]['MSJ'],3);
+            exit;
+        } else {
+            $jsonData->setData($response[0][0]['AREA_FISICA_ID'],$response[0][0]['ID_TURNO']);
+            $response = $response[0][0];
+            changeStatusRequest(true);
+        }        
+        
         break;
     default:
         $response = "api no reconocida";

@@ -97,5 +97,9 @@ class JsonData {
     public function getData($area){
         return $this->json[ $area ];
     }
+
+    public function removeArea($area){
+        
+    }
 }
 ?>
