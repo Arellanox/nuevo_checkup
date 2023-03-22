@@ -489,13 +489,13 @@ function pasarPaciente() {
       data: { api: 7 },
       success: function (data) {
         if (mensajeAjax(data)) {
-          let row = data.response.data[0];
+          let row = data.response.data;
           miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
           miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
           // $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
             title: row['PACIENTE'],
-            text: `Es el siguiente paciente en el  area de ${row['AREA_FISICA_ID']}`,
+            text: `Es el siguiente paciente en el  area de ${row['AREA_FISICA']}`,
             icon: 'success',
             timer: 5000,
             showCancelButton: false,
