@@ -486,7 +486,7 @@ function pasarPaciente() {
       url: `${http}${servidor}/nuevo_checkup/api/turnero_api.php`,
       type: 'POST',
       dataType: 'json',
-      data: { api: 7, area_fisica_id: areaFisica },
+      data: { api: 7 },
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data[0];
