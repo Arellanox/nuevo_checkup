@@ -51,3 +51,89 @@
 24/01/23 11:04:24 sp_oftalmo_resultados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ANTECEDENTES_PERSONALES' in 'field list'
 24/01/23 11:06:11 sp_oftalmo_resultados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ANTECEDENTES_PERSONALES' in 'field list'
 24/01/23 13:32:26 sp_oftalmo_resultados_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup.sp_oftalmo_resultados_g; expected 23, got 22
+<<<<<<< Updated upstream
+=======
+03/02/23 12:43:41  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+03/02/23 13:09:52  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+04/02/23 13:08:14 sp_recuperar_reportes_confirmados Ha ocurrido un error(21S01). 21S01 1136 Column count doesn't match value count at row 1
+28/02/23 17:54:19 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+28/02/23 17:54:27 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+01/03/23 12:15:51  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+01/03/23 13:08:50 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_paquetes_1` FOREIGN KEY (`PAQUETE_ID`) REFERENCES `paquetes` (`ID_PAQUETE`) ON DELETE CASCADE ON UPDATE CASCADE)
+01/03/23 13:28:10 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_paquetes_1` FOREIGN KEY (`PAQUETE_ID`) REFERENCES `paquetes` (`ID_PAQUETE`) ON DELETE CASCADE ON UPDATE CASCADE)
+01/03/23 14:03:16 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2006] MySQL server has gone away
+01/03/23 14:03:16 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2006] MySQL server has gone away
+04/03/23 14:37:38 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+04/03/23 14:37:42 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+04/03/23 15:09:55 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 09:50:09 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 10:35:06 Clase correo [sendMail] PHPMailer\PHPMailer\Exception: Could not access file: ../reportes/modulo/oftalmologia/200223/210/JOSUE_DE_LA_CRUZ_ARELLANO-bimo4-200223.pdf in C:\AppServ\www\nuevo_checkup\clases\PHPMailer\src\PHPMailer.php:3181
+Stack trace:
+#0 C:\AppServ\www\nuevo_checkup\clases\correo_class.php(151): PHPMailer\PHPMailer\PHPMailer->addAttachment('../reportes/mod...')
+#1 C:\AppServ\www\nuevo_checkup\api\recepcion_api.php(127): Correo->sendEmail('resultados', '[bimo] Resultad...', Array, NULL, Array, 1)
+#2 {main}
+07/03/23 10:35:06 [recepcion api, case 4] Falla al enviar correo.
+07/03/23 10:46:57 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 10:47:22 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 10:47:40 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 10:47:51 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+07/03/23 11:21:33 sp_info_medicos Ha ocurrido un error(20000). 20000 1339 Case not found for CASE statement
+09/03/23 11:30:39  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+09/03/23 11:32:45  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+09/03/23 11:32:54 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+11/03/23 12:51:21  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+11/03/23 12:51:48  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+11/03/23 12:52:15  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+11/03/23 12:52:37 sp_imagen_detalle_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`imagen_detalle`, CONSTRAINT `fk_imagen_detalle_imagenologia_resultados_1` FOREIGN KEY (`IMAGEN_ID`) REFERENCES `imagenologia_resultados` (`ID_IMAGENOLOGIA`) ON DELE)
+11/03/23 13:09:11 sp_turnero_llamar_paciente Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`control_turnos_en_curso`, CONSTRAINT `fk_control_turnos_en_curso_areas_fisicas_1` FOREIGN KEY (`AREA_FISICA_ID`) REFERENCES `areas_fisicas` (`ID_AREA_FISICA`) ON DE)
+11/03/23 18:07:59 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+11/03/23 18:08:00 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+11/03/23 18:08:01 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en un host no accesible.
+
+13/03/23 08:26:21  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+14/03/23 09:44:09 sp_turnero_pantalla Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_turnero_pantalla does not exist
+15/03/23 14:34:35  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:19:40  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:19:51  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:20:21  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:22:09  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:23:09  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:25:16  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:25:40  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:26:59  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+15/03/23 15:30:25  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+16/03/23 09:20:12 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_servicios_1` FOREIGN KEY (`SERVICIO_ID`) REFERENCES `servicios` (`ID_SERVICIO`) ON DELETE CASCADE ON UPDATE CASCADE)
+16/03/23 09:42:54  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+16/03/23 09:46:10  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+16/03/23 09:47:42  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+16/03/23 12:49:02 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+16/03/23 12:49:12 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+16/03/23 14:10:56 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+18/03/23 08:51:20 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [1045] Access denied for user 'u808450138_bimo'@'localhost' (using password: YES)
+18/03/23 13:36:01  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+20/03/23 19:03:08 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_paquetes_1` FOREIGN KEY (`PAQUETE_ID`) REFERENCES `paquetes` (`ID_PAQUETE`) ON DELETE CASCADE ON UPDATE CASCADE)
+20/03/23 19:03:08 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_servicios_1` FOREIGN KEY (`SERVICIO_ID`) REFERENCES `servicios` (`ID_SERVICIO`) ON DELETE CASCADE ON UPDATE CASCADE)
+20/03/23 19:06:53 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_paquetes_1` FOREIGN KEY (`PAQUETE_ID`) REFERENCES `paquetes` (`ID_PAQUETE`) ON DELETE CASCADE ON UPDATE CASCADE)
+21/03/23 09:41:46  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+21/03/23 10:27:44 sp_toma_de_muestra_lista_de_trabajo Ha ocurrido un error(HY000). HY000 2006 MySQL server has gone away
+21/03/23 10:36:34 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+21/03/23 10:41:19 fn_connect_db Could not connect to the database u808450138_checkup :SQLSTATE[HY000] [2006] MySQL server has gone away
+21/03/23 11:45:06 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_paquetes_1` FOREIGN KEY (`PAQUETE_ID`) REFERENCES `paquetes` (`ID_PAQUETE`) ON DELETE CASCADE ON UPDATE CASCADE)
+21/03/23 15:05:42 sp_recepcion_detalle_paciente_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup`.`cargos_turno`, CONSTRAINT `fk_cargos_turno_paquetes_1` FOREIGN KEY (`PAQUETE_ID`) REFERENCES `paquetes` (`ID_PAQUETE`) ON DELETE CASCADE ON UPDATE CASCADE)
+22/03/23 12:04:57  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:10:21  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:12:08  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:19:48  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:20:31  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:22:04  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:23:46  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:24:52  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:25:47  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:26:50  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:28:45  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:29:32  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+22/03/23 12:30:13  Ha ocurrido un error(42000). 42000 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()' at line 1
+>>>>>>> Stashed changes

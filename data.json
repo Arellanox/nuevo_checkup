@@ -1,0 +1,7 @@
+{
+    "__comment__": "Sustituye la variable session que es la que probablemenete tenga el bug.",
+    "__comment2__": "la clave es el id del area fisica, el valor el es l id del turno",
+    "9": "323",
+    "8": "322",
+    "7": "327"
+}

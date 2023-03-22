@@ -283,7 +283,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = null)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -375,9 +375,15 @@ class Miscelaneus
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
+<<<<<<< Updated upstream
         // print_r($infoPaciente[0]);
         // exit;
 
+=======
+        print_r(json_encode($arregloPaciente));
+        // print_r(json_encode($infoPaciente[0]));
+        exit;
+>>>>>>> Stashed changes
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
 

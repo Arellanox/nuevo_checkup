@@ -26,9 +26,22 @@ $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
+<<<<<<< Updated upstream
 // $api = 'consultorio';
 // $turno_id = 221;
 // $area_id = 8;
+=======
+
+
+
+// decomentar las siguientes 3 lineas para hacer las pruebas
+
+$api = 'consultorio';
+$turno_id = 197;
+// $area_id = 2;
+
+
+>>>>>>> Stashed changes
 
 switch ($api) {
     case 'imagenologia':
