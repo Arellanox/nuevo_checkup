@@ -14,7 +14,9 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
     method: 'POST',
     url: '../../../api/usuarios_api.php',
     beforeSend: function () { loader("In") },
-    complete: function () { loader("Out"); },
+    complete: function () {
+      completeTable()
+    },
     dataSrc: ''
   },
   columns: [
@@ -23,6 +25,11 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
     { data: 'USUARIO' },
     { data: 'cargo.0.DESCRIPCION' },
     { data: 'tipo.0.DESCRIPCION' },
+    {
+      data: 'ID_USUARIO', render: function (data) {
+        return `<select name="area_fisica" class="input-form area_fisica-usuario" data-bs-id ="${data}"></select>`;
+      }
+    },
     { data: 'ACTIVO' },
     { data: 'PROFESION' },
     { data: 'CEDULA' },
@@ -31,8 +38,16 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
-    { "width": "3px", "targets": 0 },
+    { width: "3px", targets: 0 },
+    { width: "3px", targets: 6 },
+    { width: "20%", targets: 1 },
+    { width: "150px", targets: 5 }
   ],
 
 })
 selectDatatable("TablaUsuariosAdmin", tablaUsuarios)
+
+async function completeTable() {
+  await rellenarSelect('.area_fisica-usuario', 'tipos_usuarios_api', 2, 0, 1); // <-- Rellena los select de los usuarios
+  loader("Out");
+}
