@@ -1965,47 +1965,49 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     dataType: 'json',
                     data: { api: 6, area_fisica_id: id },
                     success: function (data) {
-                      let row = data.response.data;
-                      console.log(row);
-                      if (row[0]) {
+                      if (mensajeAjax(data)) {
+                        let row = data.response.data;
+                        console.log(row);
+                        if (row[0]) {
 
 
-                        pacienteTurnoActivo.selectID = row[0]['ID_TURNO'];
-                        pacienteTurnoActivo.setguardado(row[0]['PACIENTE']);
+                          pacienteTurnoActivo.selectID = row[0]['ID_TURNO'];
+                          pacienteTurnoActivo.setguardado(row[0]['PACIENTE']);
 
 
-                        $('#paciente_turno').html(row[0]['PACIENTE'])
-                        // miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
-                        alertMsj({
-                          title: row[0]['PACIENTE'],
-                          text: 'Es su siguiente paciente',
-                          icon: 'success',
-                          timer: 5000,
-                          showCancelButton: false,
-                          timerProgressBar: true,
-                        })
-                      } else {
-                        $('#paciente_turno').html('Ninguno')
-                        // miStorage.setItem('paciente_actual_turno', null);
-                      }
-
-                      // Control de turnos
-                      $('#omitir-paciente').on('click', function () {
-                        omitirPaciente(id); //case 3
-                      })
-
-                      $('#llamar-paciente').on('click', function () {
-                        llamarPaciente(id); //case 2
-                      })
-
-
-                      $('#liberar-paciente').on('click', function () {
-                        if (pacienteTurnoActivo.selectID === null) {
-                          alertMensaje('info', 'Paciente no disponible', 'No has llamado ningún paciente o no hay paciente en tu area')
+                          $('#paciente_turno').html(row[0]['PACIENTE'])
+                          // miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
+                          alertMsj({
+                            title: row[0]['PACIENTE'],
+                            text: 'Es su siguiente paciente',
+                            icon: 'success',
+                            timer: 5000,
+                            showCancelButton: false,
+                            timerProgressBar: true,
+                          })
                         } else {
-                          liberarPaciente(id, pacienteTurnoActivo.selectID); //case 1
+                          $('#paciente_turno').html('Ninguno')
+                          // miStorage.setItem('paciente_actual_turno', null);
                         }
-                      })
+
+                        // Control de turnos
+                        $('#omitir-paciente').on('click', function () {
+                          omitirPaciente(id); //case 3
+                        })
+
+                        $('#llamar-paciente').on('click', function () {
+                          llamarPaciente(id); //case 2
+                        })
+
+
+                        $('#liberar-paciente').on('click', function () {
+                          if (pacienteTurnoActivo.selectID === null) {
+                            alertMensaje('info', 'Paciente no disponible', 'No has llamado ningún paciente o no hay paciente en tu area')
+                          } else {
+                            liberarPaciente(id, pacienteTurnoActivo.selectID); //case 1
+                          }
+                        })
+                      }
                     }, complete: function () {
                       $(panel).fadeIn(100);
                       resolve(1);
