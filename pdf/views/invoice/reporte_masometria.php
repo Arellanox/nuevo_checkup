@@ -282,7 +282,7 @@ if (!isset($qr)) {
             </tbody>
         </table>
         <hr style="height: 3px; background-color: black ;">
-        <p style="text-align: center; margin: -4px;"><strong>Biología Molecular</strong></p>
+        <p style="text-align: center; margin: -4px; font-size: 15px;"><strong>DATOS DEL PACIENTE</strong></p>
         <hr style="height: 3px; background-color: black ;">
         <br>
         <table style="width: 100%;">
