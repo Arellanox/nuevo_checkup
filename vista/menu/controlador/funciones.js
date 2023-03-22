@@ -1930,7 +1930,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                 function getStatusOptimizador() {
                   $.ajax({
-                    url: http + servidor + '/nuevo_checkup/turnero_data.json',
+                    url: http + servidor + '/nuevo_checkup/archivos/sistema/json/turnero_optimizador.json',
                     type: 'POST',
                     dataType: 'JSON',
                     success: function (data) {

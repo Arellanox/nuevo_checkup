@@ -163,6 +163,7 @@ switch ($api) {
     case 6:
         # paciente actual en el area.
         $response = $master->getByProcedure("sp_turnero_paciente_actual", [$area_fisica_id]);
+        changeStatusOptimizador(false, $area_fisica_id);
         break;
     case 7:
         # ignorar los candados de laboratorio y somatometria,
@@ -170,15 +171,16 @@ switch ($api) {
         # en la siguiente area disponible
         $response = $master->getByNext("sp_turnero_ignorar_candados", []);
 
-        if(isset($response[0][0]['MSJ'])){
-            echo $master->returnApi($response[0][0]['MSJ'],3);
+        if (isset($response[0][0]['MSJ'])) {
+            echo $master->returnApi($response[0][0]['MSJ'], 3);
             exit;
         } else {
-            $jsonData->setData($response[0][0]['AREA_FISICA_ID'],$response[0][0]['ID_TURNO']);
+            $jsonData->setData($response[0][0]['AREA_FISICA_ID'], $response[0][0]['ID_TURNO']);
             $response = $response[0][0];
             changeStatusRequest(true);
-        }        
-        
+            changeStatusOptimizador(true, $response[0][0]['AREA_FISICA_ID']);
+        }
+
         break;
     default:
         $response = "api no reconocida";
@@ -275,7 +277,7 @@ function changeStatusRequest($param)
 
 function changeStatusOptimizador($param, $area)
 {
-    $data = file_get_contents("../turnero_data.json");
+    $data = file_get_contents("../archivos/sistema/json/turnero_optimizador.json");
     $request = json_decode($data, true);
     $request['Optimizador'][$area] = $param;
     file_put_contents("../turnero_data.json", json_encode($request));
