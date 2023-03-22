@@ -64,7 +64,9 @@ function rowdrawalert() {
     // tablaControlTurnos.row(0)
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
     $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
-    say()
+    setTimeout(() => {
+        say()
+    }, 300);
 }
 
 
@@ -138,7 +140,7 @@ function controlListadoTurnos() {
 function say() {
     VozActiva = true;
     var temp = tablaControlTurnos.row(0).data();
-    if (temp.length) {
+    if (temp) {
         turno = temp['ETIQUETA_TURNO'];
         area = temp['MODULO'];
         document.getElementById('alert-paciente').play();
