@@ -342,7 +342,7 @@ if (!isset($qr)) {
             <tr>
                 <td colspan="12">&nbsp;</td>
             </tr>
-            <tr style="background-color: #b5bac9;" class="bold">
+            <tr style="background-color: #d8e0e2;" class="bold">
                 <td colspan="12" style="text-align: left;">SOMATOMETRíA</td>
             </tr>
         </table>
