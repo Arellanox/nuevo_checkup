@@ -12,6 +12,13 @@
     <title>Somatometria</title>
 
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            font-size: 10px;
+        }
+
         .header {
             position: fixed;
             top: -165px;
@@ -544,7 +551,7 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="6">OXIMETRÍA DEL PULSO:
-                                        <?php echo $resultados->OXIMETRIA; ?>%
+                                        <?php echo $resultados->SATURACION_DE_OXIGENO; ?>%
                                     </th>
                                 </tr>
                             </thead>
@@ -578,7 +585,7 @@ if (!isset($qr)) {
                         <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
-                                    <th colspan="6">RECUENCIA RESPIRATORIA:
+                                    <th colspan="6">FRECUENCIA RESPIRATORIA:
                                         <?php echo $resultados->FRECUENCIA_RESPIRATORIA; ?>rpm
                                     </th>
                                 </tr>
@@ -619,17 +626,17 @@ if (!isset($qr)) {
                 <thead>
                     <tr style="text-align: center; background-color: darkgrey;">
                         <th colspan="6">FRECUENCIA CARDÍACA:
-                            <?php echo $signos->FRECUENCIA_CARDIACA; ?> lpm
+                            <?php echo $resultados->FRECUENCIA_CARDIACA; ?> lpm
                         </th>
                     </tr>
                 </thead>
-                <tr <?php if ($signos->FRECUENCIA_CARDIACA <= 60) {
+                <tr <?php if ($resultados->FRECUENCIA_CARDIACA <= 60) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
                     <td colspan="3">Bradicardia</td>
                     <td colspan="3">&lt; 60 lpm</td>
                 </tr>
-                <tr <?php if ($signos->FRECUENCIA_CARDIACA >= 90) {
+                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 90) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
                     <td colspan="3">Taquicardia</td>
