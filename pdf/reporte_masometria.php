@@ -308,7 +308,7 @@ if (!isset($qr)) {
                             <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
                         </td>
                         <td class="col-center" style="border-bottom: none">
-                            Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_OFTALMO; ?> </strong>
+                            Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_MESO; ?> </strong>
                         </td>
                         <td class="col-right" style="border-bottom: none">
                             <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -606,21 +606,21 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: darkgrey;">
                                     <th colspan="12">FRECUENCIA CARDÍACA:
-                                        <?php echo $signos->OXIMETRO_PULSO; ?>%
+                                        <?php echo $signos->FRECUENCIA_CARDIACA; ?>%
                                     </th>
                                 </tr>
                             </thead>
-                            <tr <?php if ($signos->OXIMETRO_PULSO >= 95 && $signos->OXIMETRO_PULSO <= 99) {
+                            <tr <?php if ($signos->FRECUENCIA_CARDIACA <= 60) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
-                                <td colspan="3">Normal</td>
-                                <td colspan="3">95-99%</td>
+                                <td colspan="3">Bradicardia</td>
+                                <td colspan="3">&gl; 60 lpm</td>
                             </tr>
-                            <tr <?php if ($signos->OXIMETRO_PULSO >= 91 && $signos->OXIMETRO_PULSO <= 94) {
+                            <tr <?php if ($signos->FRECUENCIA_CARDIACA >= 90) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
-                                <td colspan="3">Hipoxia leve</td>
-                                <td colspan="3">91-94%</td>
+                                <td colspan="3">Taquicardia</td>
+                                <td colspan="3">&ltcc; 90 lpm</td>
                             </tr>
                         </table>
                     </div>
