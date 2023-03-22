@@ -354,7 +354,7 @@ if (!isset($qr)) {
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive"> Estatura </td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Metabolismo</td>
@@ -365,7 +365,7 @@ if (!isset($qr)) {
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Peso</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> kg</strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Edad del cuerpo</td>
@@ -620,7 +620,7 @@ if (!isset($qr)) {
         </div>
 
         <div style="display: flex;  margin-top: 13px; justify-content: center;">
-            <table style="width: 45%; border-collapse: collapse;" border="2">
+            <table style="width: 45%; text-align: center; border-collapse: collapse;" border="2">
                 <thead>
                     <tr style="text-align: center; background-color: darkgrey;">
                         <th colspan="6">FRECUENCIA CARDÍACA:
