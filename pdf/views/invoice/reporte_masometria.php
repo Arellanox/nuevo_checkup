@@ -619,22 +619,23 @@ if (!isset($qr)) {
                 <thead>
                     <tr style="text-align: center; background-color: darkgrey;">
                         <th colspan="6">FRECUENCIA CARDÍACA:
-                            <?php echo $resultados->FRECUENCIA_CARDIACA; ?>%
+                            <?php echo $signos->FRECUENCIA_CARDIACA; ?> lpm
                         </th>
                     </tr>
                 </thead>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 95 && $resultados->FRECUENCIA_CARDIACA <= 99) {
+                <tr <?php if ($signos->FRECUENCIA_CARDIACA <= 60) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
-                    <td colspan="3">Normal</td>
-                    <td colspan="3">95-99%</td>
+                    <td colspan="3">Bradicardia</td>
+                    <td colspan="3">&gl; 60 lpm</td>
                 </tr>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 91 && $resultados->FRECUENCIA_CARDIACA <= 94) {
+                <tr <?php if ($signos->FRECUENCIA_CARDIACA >= 90) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
-                    <td colspan="3">Hipoxia leve</td>
-                    <td colspan="3">91-94%</td>
+                    <td colspan="3">Taquicardia</td>
+                    <td colspan="3">&ltcc; 90 lpm</td>
                 </tr>
+
             </table>
         </div>
 
