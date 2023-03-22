@@ -281,9 +281,9 @@ if (!isset($qr)) {
                 </tr>
             </tbody>
         </table>
-        <hr style="height: 3px; background-color: black ;">
-        <p style="text-align: center; margin: -4px; font-size: 15px;"><strong>DATOS DEL PACIENTE</strong></p>
-        <hr style="height: 3px; background-color: black ;">
+        <hr style="height: 1px; background-color: black ;">
+        <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>DATOS DEL PACIENTE</strong></p>
+        <hr style="height: 1px; background-color: black ;">
         <br>
         <table style="width: 100%;">
             <tbody>
@@ -336,13 +336,13 @@ if (!isset($qr)) {
     </div>
     <div>
         <table style="width: 100%; border-collapse: collapse; text-align: center;">
-            <tr style="background-color: darkgrey;" class="bold">
+            <tr style="background-color: #b5bac9;" class="bold">
                 <td colspan="12" style="text-justify: left;">SOMATOMETRíA Y SIGNOS VITALES</td>
             </tr>
             <tr>
                 <td colspan="12">&nbsp;</td>
             </tr>
-            <tr style="background-color: darkgrey;" class="bold">
+            <tr style="background-color: #b5bac9;" class="bold">
                 <td colspan="12" style="text-align: left;">SOMATOMETRíA</td>
             </tr>
         </table>
@@ -414,7 +414,7 @@ if (!isset($qr)) {
                 <td colspan="12">&nbsp;</td>
             </tr>
             <!--signos vitales-->
-            <tr style="background-color: darkgrey;" class="bold">
+            <tr style="background-color: #b5bac9;" class="bold">
                 <td colspan="12" style="text-align: left;">SIGNOS VITALES</td>
             </tr>
         </table>
@@ -486,7 +486,7 @@ if (!isset($qr)) {
                     <td style="text-align: right;">
                         <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: darkgrey;">
+                                <tr style="text-align: center; background-color: #b5bac9;">
                                     <th colspan="6">TEMPERATURA:
                                         <?php echo $resultados->TEMPERATURA; ?>°C
                                     </th>
@@ -547,7 +547,7 @@ if (!isset($qr)) {
                     <td>
                         <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: darkgrey;">
+                                <tr style="text-align: center; background-color: #b5bac9;">
                                     <th colspan="6">OXIMETRÍA DEL PULSO:
                                         <?php echo $resultados->SATURACION_DE_OXIGENO; ?>%
                                     </th>
@@ -582,7 +582,7 @@ if (!isset($qr)) {
                     <td>
                         <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: darkgrey;">
+                                <tr style="text-align: center; background-color: #b5bac9;">
                                     <th colspan="6">FRECUENCIA RESPIRATORIA:
                                         <?php echo $resultados->FRECUENCIA_RESPIRATORIA; ?>rpm
                                     </th>
@@ -622,7 +622,7 @@ if (!isset($qr)) {
         <div style="display: flex;  margin-top: 13px; justify-content: center;">
             <table style="width: 45%; text-align: center; border-collapse: collapse;" border="2">
                 <thead>
-                    <tr style="text-align: center; background-color: darkgrey;">
+                    <tr style="text-align: center; background-color: #b5bac9;">
                         <th colspan="6">FRECUENCIA CARDÍACA:
                             <?php echo $resultados->FRECUENCIA_CARDIACA; ?> lpm
                         </th>
