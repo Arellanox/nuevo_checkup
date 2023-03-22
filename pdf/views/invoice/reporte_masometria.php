@@ -308,7 +308,7 @@ if (!isset($qr)) {
                         <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_OFTALMO; ?> </strong>
+                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_MESO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -413,7 +413,7 @@ if (!isset($qr)) {
                 <td colspan="12" style="text-align: left;">SIGNOS VITALES</td>
             </tr>
         </table>
-        <div style="display: flex; justify-content: space-between; flex-basis: auto;">
+        <div style="display: flex; justify-content: space-between; flex-basis: auto; padding-top: 8px;">
             <!-- <p colspan="12"> &nbsp;</p> -->
 
             <table style="width: 100%;">
