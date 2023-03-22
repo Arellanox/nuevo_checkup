@@ -2,3 +2,5 @@
 log.txt
 *.pdf
 *.txt
+archivos/sistema/json/turnero_optimizador.json
+turnero_data.json
