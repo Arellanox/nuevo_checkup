@@ -486,16 +486,16 @@ function pasarPaciente() {
       url: `${http}${servidor}/nuevo_checkup/api/turnero_api.php`,
       type: 'POST',
       dataType: 'json',
-      data: { api: 7, area_fisica_id: areaFisica },
+      data: { api: 7 },
       success: function (data) {
         if (mensajeAjax(data)) {
-          let row = data.response.data[0];
+          let row = data.response.data;
           miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
           miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
           // $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
             title: row['PACIENTE'],
-            text: `Es el siguiente paciente en el  area de ${row['AREA_FISICA_ID']}`,
+            text: `Es el siguiente paciente en el  area de ${row['AREA_FISICA']}`,
             icon: 'success',
             timer: 5000,
             showCancelButton: false,
@@ -1930,7 +1930,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                 function getStatusOptimizador() {
                   $.ajax({
-                    url: http + servidor + '/nuevo_checkup/turnero_data.json',
+                    url: http + servidor + '/nuevo_checkup/archivos/sistema/json/turnero_optimizador.json',
                     type: 'POST',
                     dataType: 'JSON',
                     success: function (data) {

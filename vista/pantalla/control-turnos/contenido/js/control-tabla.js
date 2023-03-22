@@ -64,7 +64,9 @@ function rowdrawalert() {
     // tablaControlTurnos.row(0)
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
     $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
-    say()
+    setTimeout(() => {
+        say()
+    }, 300);
 }
 
 
@@ -136,22 +138,28 @@ function controlListadoTurnos() {
 }
 
 function say() {
-    VozActiva = true;
-    var temp = tablaControlTurnos.row(0).data();
-    turno = temp['ETIQUETA_TURNO'];
-    area = temp['MODULO'];
-    document.getElementById('alert-paciente').play();
-    setTimeout(() => {
-        try {
-            playVoice(`Paciente con el turno ${temp['ETIQUETA_TURNO']}, favor de pasar al área de ${area}, turno ${temp['ETIQUETA_TURNO']}`)
-        } catch (error) {
-            // alert(error);
-        }
-    }, 1000);
+    try {
+        VozActiva = true;
+        var temp = tablaControlTurnos.row(0).data();
 
-    setTimeout(() => {
-        VozActiva = false;
-    }, 7000);
+        turno = temp['ETIQUETA_TURNO'];
+        area = temp['MODULO'];
+        document.getElementById('alert-paciente').play();
+        setTimeout(() => {
+            try {
+                playVoice(`Paciente con el turno ${temp['ETIQUETA_TURNO']}, favor de pasar al área de ${area}, turno ${temp['ETIQUETA_TURNO']}`)
+            } catch (error) {
+                // alert(error);
+            }
+        }, 1000);
+
+        setTimeout(() => {
+            VozActiva = false;
+        }, 7000);
+    } catch (error) {
+
+    }
+
 
 }
 

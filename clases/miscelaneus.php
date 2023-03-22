@@ -407,6 +407,7 @@ class Miscelaneus
             case "2":
                 # SOMATOMETRIA
                 $arregloPaciente = $this->getBodyInfoSoma($master, $turno_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_RESULTADO_MESO'];
                 $carpeta_guardado = "somatometria";
                 break;
         }

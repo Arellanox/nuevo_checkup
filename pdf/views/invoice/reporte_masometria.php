@@ -284,7 +284,7 @@ if (!isset($qr)) {
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_OFTALMO; ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo "N/A"; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?> años</strong>
