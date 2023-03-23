@@ -190,17 +190,17 @@ selectDatatabledblclick(async function (select, data) {
 
 setTimeout(() => {
     $('#TablaEstatusTurnos_filter').html(
-        '<div class="text-center mt-2">' +
+        '<div class="text-center mt-2" style="padding-right: 5%">' +
         '<div class="input-group flex-nowrap">' +
-        '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-        'title="Filtra la tabla con palabras u oraciones que coincidan">' +
+        '<span class="input-span" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
+        'title="Filtra la tabla con palabras u oraciones que coincidan" style="margin-bottom: 0px !important">' +
         '<i class="bi bi-info-circle"></i>' +
         '</span>' +
-        '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-        'title="Los iconos representan el estado del paciente a las areas">' +
+        '<span class="input-span" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
+        'title="Los iconos representan el estado del paciente a las areas" style="margin-bottom: 0px !important">' +
         '<i class="bi bi-info-circle"></i>' +
         '</span>' +
-        '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
+        '<input type="search" class="input-form form-control" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important; margin-bottom: 0px !important"' +
         'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaTurnos"' +
         'data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">' +
 

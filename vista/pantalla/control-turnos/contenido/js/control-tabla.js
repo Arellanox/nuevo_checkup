@@ -64,6 +64,7 @@ function rowdrawalert() {
     // tablaControlTurnos.row(0)
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
     $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
+    VozActiva = true;
     setTimeout(() => {
         say()
     }, 300);
@@ -104,7 +105,6 @@ function recargaLista() {
                     }, 500);
                 }
             }, complete: function () {
-                console.log(1);
                 setTimeout(() => {
                     recargaLista()
                 }, 500);
@@ -143,7 +143,6 @@ function controlListadoTurnos() {
 
 function say() {
     try {
-        VozActiva = true;
         var temp = tablaControlTurnos.row(0).data();
 
         turno = temp['ETIQUETA_TURNO'];

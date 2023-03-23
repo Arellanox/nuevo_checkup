@@ -1,4 +1,4 @@
-.form-textarea-content{
+.form-textarea-content {
   margin: 10px 20px 15px 20px;
   background-color: transparent;
   font-size: 18px;
@@ -6,12 +6,12 @@
   border: 0px;
 }
 
-.form-input-content{
+.form-input-content {
   background-color: transparent;
   border: 0px;
 }
 
-.form-input-content:focus{
+.form-input-content:focus {
   background-color: transparent;
   border: 0px;
 }
@@ -22,33 +22,33 @@
   box-shadow: unset !important;
 } */
 
-.form-textarea-content:focus-visible{
-    outline: 3px solid #00000012;
+.form-textarea-content:focus-visible {
+  outline: 3px solid #00000012;
 }
 
 .accordion-button:focus {
-    z-index: 0 !important;
-    border-color: transparent !important;
-    box-shadow: unset !important;
+  z-index: 0 !important;
+  border-color: transparent !important;
+  box-shadow: unset !important;
 }
 
-.line-left{
+.line-left {
   border-left: 1px solid #00000021;
 }
 
-.line-right{
+.line-right {
   border-right: 1px solid #00000021;
 }
 
-.line-top{
+.line-top {
   border-top: 1px solid #00000021;
 }
 
-.line-bottom{
+.line-bottom {
   border-bottom: 1px solid #00000021;
 }
 
-.line-div{
+.line-div {
   border: 1px solid #00000021;
 }
 
@@ -59,7 +59,8 @@
 
 
 /* Inputs */
-.input-form {
+.input-form,
+.form-select {
   width: 100%;
   padding: 7px 15px;
   margin: 0px 0px 10px 0px;
@@ -76,11 +77,11 @@
 }
 
 .input-form:focus {
-    color: var(--bs-body-color);
-    background-color: var(--bs-form-control-bg);
-    border-color: #86b7fe;
-    outline: 0;
-    box-shadow: 0 0 5px 0.1rem rgb(98 203 201 / 50%);
+  color: var(--bs-body-color);
+  background-color: var(--bs-form-control-bg);
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 5px 0.1rem rgb(98 203 201 / 50%);
 }
 
 
@@ -117,9 +118,9 @@
 }
 
 .form-select:focus .select2-selection--multiple:focus .select2-container:focus .select2-selection--single:focus {
-    border-color: rgb(098, 203, 201);
-    outline: 0;
-    box-shadow: 0 0 5px 0.1rem rgb(98 203 201 / 50%);
+  border-color: rgb(098, 203, 201);
+  outline: 0;
+  box-shadow: 0 0 5px 0.1rem rgb(98 203 201 / 50%);
 }
 
 

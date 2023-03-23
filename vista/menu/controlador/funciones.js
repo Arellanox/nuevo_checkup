@@ -1347,39 +1347,54 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
 }
 
 function inputBusquedaTable(
+  tablename, //<-- Sin #
+  tooltipinput = [
+    {
+      msj: 'Filtra la lista por coincidencias',
+      place: 'top'
+    }
+  ],
   tooltip = [
     {
-      msj: 'Filtra la tabla con coincidencias',
+      msj: 'Hola, soy un tooltip por defecto :)',
       place: 'bottom'
     }
   ], //<- tooltips
-  nombre
 ) {
-  setTimeout(() => {
-    $('#TablaEstatusTurnos_filter').html(
-      '<div class="text-center mt-2">' +
-      '<div class="input-group flex-nowrap">' +
-      '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-      'title="Filtra la tabla con palabras u oraciones que coincidan">' +
-      '<i class="bi bi-info-circle"></i>' +
-      '</span>' +
-      '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-      'title="Los iconos representan el estado del paciente a las areas">' +
-      '<i class="bi bi-info-circle"></i>' +
-      '</span>' +
-      '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
-      'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaLista"' +
-      'data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">' +
 
+  htmlTooltip = '';
+  for (const key in tooltip) {
+    if (Object.hasOwnProperty.call(tooltip, key)) {
+      const element = tooltip[key];
+      htmlTooltip += '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="' + element['place'] + '"' +
+        'title="' + element['msj'] + '" style="margin-bottom: 0px !important">' +
+        '<i class="bi bi-info-circle"></i>' +
+        '</span>';
+    }
+  }
+
+
+
+
+
+
+  setTimeout(() => {
+    $(`#${tablename}_filter`).html(
+      '<div class="text-center mt-2" style="padding-right: 5%">' +
+      '<div class="input-group flex-nowrap">' +
+      htmlTooltip +
+      '<input type="search" class="form-control input-color" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important"' +
+      'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaLista"' +
+      'data-bs-toggle="tooltip" data-bs-placement="' + tooltipinput['place'] + '" title="' + tooltipinput['msj'] + '">' +
       '</div>' +
       '</div>'
     )
 
     //Zoom table
-    $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(1).css('zoom', '90%')
+    $(`#${tablename}_wrapper`).children('div [class="row"]').eq(1).css('zoom', '90%')
 
     //Diseño de registros
-    $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
+    $(`#${tablename}_wrapper`).children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
   }, 200);
 }
 //
