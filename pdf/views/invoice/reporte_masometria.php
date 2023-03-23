@@ -213,7 +213,7 @@
 
         .footer {
             position: fixed;
-            bottom: -40px;
+            bottom: 0px;
             left: 0px;
             right: 0px;
         }
@@ -663,7 +663,7 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>-->
-        <div>
+        <div class="footer">
             <table>
                 <tbody>
                     <tr class="col-foot-one">
@@ -692,7 +692,7 @@ if (!isset($qr)) {
                         <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                             <strong style="font-size: 12px;">
                                 <?php
-                                echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> Médico Radiódiologo - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                                echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> Médico Responsable ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
                                 $indice = 1;
                                 foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
                                     // $contador = count($value);
