@@ -81,10 +81,12 @@ switch ($api) {
         );
 
         $last_id = $master->insertByProcedure('sp_usuarios_g', $params);
-        if (count($especialidades)) {
+        if (count($especialidades) > 0) {
             foreach ($especialidades as $current) {
                 $response = $master->insertByProcedure("sp_u_especialidades_g", [null, $last_id, $current['especialidad'], $current['cedula'], $current['universidad'], $current['certificado'], $current['certificado_num']]);
             }
+        } else {
+            $response = $last_id;
         }
 
         echo $master->returnApi($response);
