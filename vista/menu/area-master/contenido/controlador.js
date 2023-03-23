@@ -83,7 +83,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(10, 'Carga de Electrocardiograma', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "AUDIOMETRIA":
-        control_turnos = 6
+        control_turnos = 5
         formulario = "formSubirInterpretacionPRUEBA";
         api_capturas = 2;
         api_interpretacion = 1;
