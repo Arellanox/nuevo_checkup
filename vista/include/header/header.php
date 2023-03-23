@@ -76,7 +76,8 @@ switch ($menu) {
 
         </ul>
         <ul class="nav navbar-nav ms-auto">
-          <li class="nav-item dropdown">
+
+          <li class="nav-item dropstart">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
             <a data-bs-toggle="dropdown" type="button" class="">
               <div class=" container-avatar">
@@ -87,8 +88,25 @@ switch ($menu) {
               </div>
             </a>
 
-            <ul class="dropdown-menu dropdown-menu-lg-end bg-navbar-drop">
-              <?php include "navbar-menu/navlink-dropuser.php"; ?>
+            <ul class="dropdown-menu dropdown-menu-lg-end bg-navbar-drop" style="background-color: #ffffff00; padding:0px">
+              <div class="" style="width: 100%">
+
+                <div class="profile-card-4"><img src="<?php echo $_SESSION['AVATAR']; ?>" class="img img-responsive">
+                  <div class="profile-content">
+                    <div class="profile-name text-center"> <?php echo "$_SESSION[nombre] $_SESSION[apellidos]"; ?>
+                      <p><?php echo "$_SESSION[cargo_descripcion]"; ?></p>
+                    </div>
+                    <div class="profile-description text-center">Hola, ¡buen día! :)</div>
+                    <div class="profile-description text-center">
+                      <a href="https://sites.google.com/bimo.com.mx/bimo-talentoh/newsletter-bimo/newsletter?authuser=0" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> LAST NEWSLETTER BIMO</a>
+                    </div>
+
+                    <div class="row" style="padding-right: 5%; padding-left: 5%;">
+                      <?php include "navbar-menu/navlink-dropuser.php"; ?>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </ul>
           </li>
         </ul>
@@ -108,3 +126,89 @@ switch ($menu) {
     e.stopPropagation();
   });
 </script>
+
+
+
+<style>
+  .card-container {
+    padding: 100px 0px;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+
+  .profile-card-4 {
+    /* max-width: 300px; */
+    background-color: #FFF;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    /* margin: 10px auto; */
+    /* cursor: pointer; */
+  }
+
+  .profile-card-4 img {
+    transition: all 0.25s linear;
+    width: 325px;
+  }
+
+  .profile-card-4 .profile-content {
+    position: relative;
+    padding: 15px;
+    background-color: #FFF;
+  }
+
+  .profile-card-4 .profile-name {
+    font-weight: bold;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: -70px;
+    color: #FFF;
+    font-size: 17px;
+  }
+
+  .profile-card-4 .profile-name p {
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+  }
+
+  .profile-card-4 .profile-description {
+    color: #777;
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .profile-card-4 .profile-overview {
+    padding: 15px 0px;
+  }
+
+  .profile-card-4 .profile-overview p {
+    font-size: 10px;
+    font-weight: 600;
+    color: #777;
+  }
+
+  .profile-card-4 .profile-overview h4 {
+    color: #273751;
+    font-weight: bold;
+  }
+
+  .profile-card-4 .profile-content::before {
+    content: "";
+    position: absolute;
+    height: 25px;
+    top: -10px;
+    left: 0px;
+    right: 0px;
+    background-color: #FFF;
+    z-index: 0;
+    transform: skewY(3deg);
+  }
+
+  .profile-card-4:hover img {
+    transform: rotate(2deg) scale(1.04, 1.04);
+    filter: brightness(60%);
+  }
+</style>

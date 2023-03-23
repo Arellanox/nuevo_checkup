@@ -1,48 +1,49 @@
-
-.btn-hover:hover{
+.btn-hover:hover {
   background-color: rgb(236, 182, 000, .5);
 }
 
 /* Colores */
 /* Pantone 3165 */
-.bg-navbar{
+.bg-navbar {
   background-color: rgb(000, 078, 089);
 }
 
-.bg-navbar-drop{
+.bg-navbar-drop {
   background-color: white;
 }
-.bg-navbar-drop a{
+
+.bg-navbar-drop a {
   color: black !important;
 }
 
-.bg-navbar a{
+.bg-navbar a {
   text-decoration: none;
-  color: rgba(255,255,255);
+  color: rgba(255, 255, 255);
   display: block;
   padding: 0.5rem 1rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
 }
 
-.bg-navbar ul{
+.bg-navbar ul {
   color: black;
 }
 
-.bg-navbar, a:hover{
+.bg-navbar,
+a:hover {
+  color: rgb(247, 190, 000) !important;
+}
+
+.bg-navbar .navlinkactive {
   color: rgb(247, 190, 000);
 }
 
-.bg-navbar .navlinkactive{
+.bg-navbar-active-a {
   color: rgb(247, 190, 000);
 }
 
-.bg-navbar-active-a{
-  color: rgb(247, 190, 000);
-}
-
-.dropdown-a{
+.dropdown-a {
   width: 100%;
   clear: both;
   font-weight: 400;
@@ -51,16 +52,16 @@
   border: 0;
 }
 
-.dropdown-lu ul{
+.dropdown-lu ul {
   width: 100%;
 }
 
-.dropdown-a:hover{
+.dropdown-a:hover {
   color: white;
   background-color: rgb(247, 190, 000);
 }
 
-.btn-navbar{
+.btn-navbar {
   padding: 0.25rem 0.75rem;
   font-size: 1.25rem;
   line-height: 1;
