@@ -233,7 +233,6 @@
 </head>
 
 <?php
-
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
@@ -722,7 +721,6 @@ if (!isset($qr)) {
                     <strong style="font-size: 11px;color: rgb(247, 190, 000); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
                 </small></p>
         </div>
-
 </body>
 
 <?php
