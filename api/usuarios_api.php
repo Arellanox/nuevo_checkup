@@ -92,31 +92,33 @@ switch ($api) {
         echo $master->returnApi($response);
         break;
     case 2:
-        $response = $usuario->getAll();
+        $response = $master->getByProcedure("sp_usuarios_b",[$id_usuario,$correo]);
+        echo $master->returnApi($response);
+        // $response = $usuario->getAll();
 
-        if (is_array($response)) {
-            $completedUser = array();
-            $i = 1;
-            foreach ($response as $user) {
-                $cargo = new Cargos();
-                $tipo = new TiposUsuarios();
-                $labelCargo = $cargo->getById($user["CARGO_ID"]);
-                $labelTipo = $tipo->getById($user['TIPO_ID']);
+        // if (is_array($response)) {
+        //     $completedUser = array();
+        //     $i = 1;
+        //     foreach ($response as $user) {
+        //         $cargo = new Cargos();
+        //         $tipo = new TiposUsuarios();
+        //         $labelCargo = $cargo->getById($user["CARGO_ID"]);
+        //         $labelTipo = $tipo->getById($user['TIPO_ID']);
 
-                $user['cargo'] = $labelCargo;
-                $user['tipo'] = $labelTipo;
-                $user['nombrecompleto'] = $user['NOMBRE'] . " " . $user['PATERNO'] . " " . $user['MATERNO'];
-                $user['count'] = $i;
-                $user['ACTIVO'] = $user['BLOQUEADO'] ? "INACTIVO" : "ACTIVO";
-                $i++;
-                $completedUser[] = $user;
-            }
-            echo json_encode($completedUser);
-        } else {
-            echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
-        }
+        //         $user['cargo'] = $labelCargo;
+        //         $user['tipo'] = $labelTipo;
+        //         $user['nombrecompleto'] = $user['NOMBRE'] . " " . $user['PATERNO'] . " " . $user['MATERNO'];
+        //         $user['count'] = $i;
+        //         $user['ACTIVO'] = $user['BLOQUEADO'] ? "INACTIVO" : "ACTIVO";
+        //         $i++;
+        //         $completedUser[] = $user;
+        //     }
+        //     echo json_encode($completedUser);
+        // } else {
+        //     echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
+        // }
 
-        $response = $master->getByProcedure('', []);
+        // $response = $master->getByProcedure('', []);
         break;
 
     case 3:
