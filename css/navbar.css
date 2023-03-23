@@ -32,7 +32,7 @@
 
 .bg-navbar,
 a:hover {
-  color: rgb(0, 0, 0) important;
+  color: rgb(247, 190, 000);
 }
 
 .bg-navbar .navlinkactive {
@@ -41,10 +41,6 @@ a:hover {
 
 .bg-navbar-active-a {
   color: rgb(247, 190, 000);
-}
-
-.a-hover {
-  color: rgb(247, 190, 000) !important;
 }
 
 .dropdown-a {
