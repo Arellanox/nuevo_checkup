@@ -212,10 +212,11 @@
         }
 
         .footer {
-            position: fixed;
+            /* position: fixed;
             bottom: 0px;
             left: 0px;
-            right: 0px;
+            right: 0px; */
+            height: 4rem;
         }
 
         .bold {
