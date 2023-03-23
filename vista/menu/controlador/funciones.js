@@ -1123,7 +1123,11 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInp
 }
 
 
-function mensajeAjax(data) {
+function mensajeAjax(data, modulo = null) {
+  if (modulo != null) {
+    text = ' No pudimos cargar'
+  }
+
   switch (data['response']['code']) {
     case 1:
       return 1;
@@ -1965,7 +1969,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     dataType: 'json',
                     data: { api: 6, area_fisica_id: id },
                     success: function (data) {
-                      if (mensajeAjax(data)) {
+                      if (mensajeAjax(data, 'Turnero')) {
                         let row = data.response.data;
                         console.log(row);
                         if (row[0]) {
