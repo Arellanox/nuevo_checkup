@@ -98,9 +98,15 @@ class JsonData {
         return $this->json[ $area ];
     }
 
-    public function removeArea($area){
+    public function removeArea($turno){
         # remueve la posicion del area en el data.json
-        
+
+        $newJson = array_filter($this->json, function($obj) use ($turno){
+            $r = $obj != $turno;
+            return $r;
+        });
+
+        file_put_contents("../data.json", json_encode($newJson, JSON_PRETTY_PRINT));
     }
 }
 ?>
