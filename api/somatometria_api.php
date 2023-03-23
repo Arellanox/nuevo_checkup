@@ -42,17 +42,22 @@ switch ($api) {
         # reservado para actualizar
         $ids = array();
         $valores = array();
-        foreach($medidas as $key => $value){
+        foreach ($medidas as $key => $value) {
             // array_push($ids,$key);
             // array_push($valores,$value);
             $ids[] = $key;
             $valores[] = $value;
         }
-        $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g",[$id_turno,json_encode($ids),json_encode($valores)]);
-        
+        $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, json_encode($ids), json_encode($valores), null]);
+
         #Generar el reporte de somatometria.
         # evaluar si el response es numerico, si es numerico es que si se guardo.
         # si se guardo, generar el reporte
+        if (is_numeric($response)) {
+            $url = $master->reportador($master, $id_turno, 2, "soma", "url", 0, 0, 0);
+            $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, null, null, $url]);
+        }
+
         break;
     case 4:
         # eliminar
