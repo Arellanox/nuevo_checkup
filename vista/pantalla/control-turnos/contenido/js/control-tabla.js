@@ -87,7 +87,10 @@ function rowdrawalert() {
 
 
 var data = '';
-recargaLista();
+setTimeout(() => {
+    recargaLista();
+}, 1000);
+
 function recargaLista() {
     if (!VozActiva) {
         $.ajax({
@@ -95,28 +98,31 @@ function recargaLista() {
             type: 'POST',
             dataType: 'JSON',
             success: function (data) {
-                // let data = JSON.parse(data);
-                // console.log(data)
                 if (data.request) {
                     setTimeout(() => {
                         controlListadoTurnos()
                     }, 500);
                 }
+            }, complete: function () {
+                console.log(1);
                 setTimeout(() => {
                     recargaLista()
-                }, 1000);
+                }, 500);
             }
         })
     } else {
         setTimeout(() => {
             recargaLista()
         }, 1000);
+
     }
 }
 
-document.getElementById('alert-paciente').play()
+try {
+    document.getElementById('alert-paciente').play()
+} catch (error) {
 
-
+}
 
 // Interface de la API
 let voice = new SpeechSynthesisUtterance();
@@ -133,8 +139,6 @@ const playVoice = text => {
 
 function controlListadoTurnos() {
     tablaControlTurnos.ajax.reload();
-    // alert('cargando');
-    // alertToast('cargando');
 }
 
 function say() {
@@ -157,7 +161,8 @@ function say() {
             VozActiva = false;
         }, 7000);
     } catch (error) {
-
+        console.error(error);
+        VozActiva = false;
     }
 
 
