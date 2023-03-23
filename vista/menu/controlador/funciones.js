@@ -3,6 +3,8 @@ function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
 
+jQuery.fn.exists = function () { return this.length > 0; }
+
 function formatoFechaSQL(fecha, formato) {
   const map = {
     dd: fecha.getDate(),
@@ -1348,54 +1350,63 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
 
 function inputBusquedaTable(
   tablename, //<-- Sin #
-  tooltipinput = [
-    {
-      msj: 'Filtra la lista por coincidencias',
-      place: 'top'
-    }
-  ],
+  datatable, //<-- TablaObjeto
   tooltip = [
     {
       msj: 'Hola, soy un tooltip por defecto :)',
       place: 'bottom'
     }
   ], //<- tooltips
+  tooltipinput =
+    {
+      msj: 'Filtra la lista por coincidencias',
+      place: 'top'
+    }
 ) {
 
   htmlTooltip = '';
   for (const key in tooltip) {
     if (Object.hasOwnProperty.call(tooltip, key)) {
       const element = tooltip[key];
-      htmlTooltip += '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="' + element['place'] + '"' +
+      htmlTooltip += '<span class="input-span" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="' + element['place'] + '"' +
         'title="' + element['msj'] + '" style="margin-bottom: 0px !important">' +
         '<i class="bi bi-info-circle"></i>' +
         '</span>';
     }
   }
 
+  if (!$(`#${tablename}_filter`).exists()) {
+    setTimeout(() => {
+      inputBusquedaTable(tablename, datatable, tooltip, tooltipinput)
+    }, 200);
+    return false;
+  }
 
 
 
+  $(`#${tablename}_filter`).html(
+    '<div class="text-center mt-2" style="padding-right: 5%">' +
+    '<div class="input-group flex-nowrap">' +
+    htmlTooltip +
+    '<input type="search" class="input-form form-control" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important"' +
+    'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="' + tablename + 'BuscarTablaLista"' +
+    'data-bs-toggle="tooltip" data-bs-placement="' + tooltipinput['place'] + '" title="' + tooltipinput['msj'] + '">' +
+    '</div></div>'
+  )
 
+  //Zoom table
+  $(`#${tablename}_wrapper`).children('div [class="row"]').eq(1).css('zoom', '90%')
 
-  setTimeout(() => {
-    $(`#${tablename}_filter`).html(
-      '<div class="text-center mt-2" style="padding-right: 5%">' +
-      '<div class="input-group flex-nowrap">' +
-      htmlTooltip +
-      '<input type="search" class="form-control input-color" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important"' +
-      'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaLista"' +
-      'data-bs-toggle="tooltip" data-bs-placement="' + tooltipinput['place'] + '" title="' + tooltipinput['msj'] + '">' +
-      '</div>' +
-      '</div>'
-    )
+  //Diseño de registros
+  $(`#${tablename}_wrapper`).children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
 
-    //Zoom table
-    $(`#${tablename}_wrapper`).children('div [class="row"]').eq(1).css('zoom', '90%')
+  $('#' + tablename + 'BuscarTablaLista').keyup(function () {
+    datatable.search($(this).val()).draw();
+  });
+  $('select[name="' + tablename + '_length"]').removeClass('form-select form-select-sm');
+  $('select[name="' + tablename + '_length"]').addClass('select-form input-form');
+  $('select[name="' + tablename + '_length"]').css('margin-bottom', '0px')
 
-    //Diseño de registros
-    $(`#${tablename}_wrapper`).children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
-  }, 200);
 }
 //
 

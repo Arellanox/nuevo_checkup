@@ -221,6 +221,18 @@ setTimeout(() => {
 
 }, 200);
 
+inputBusquedaTable('TablaEstatusTurnos', tablaMenuPrincipal, [
+    {
+        msj: 'Filtra la tabla con palabras u oraciones que coincidan',
+        place: 'left'
+    },
+    {
+        msj: 'Los iconos representan el estado del paciente a las areas',
+        place: 'left'
+    },
+])
+
+
 
 
 
