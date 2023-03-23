@@ -131,22 +131,22 @@
 
         /* divisiones de 3 footer */
         .col-foot-one {
-            /* width: 30%;
-            max-width: 30%; */
+            width: 30%;
+            max-width: 30%;
             text-align: left;
             font-size: 12px;
         }
 
         .col-foot-two {
-            /* width: 40%;
-            max-width: 40%; */
+            width: 40%;
+            max-width: 40%;
             text-align: center;
             font-size: 12px;
         }
 
         .col-foot-three {
-            /* width: 30%;
-            max-width: 30%; */
+            width: 30%;
+            max-width: 30%;
             text-align: right;
             font-size: 12px;
         }
@@ -233,7 +233,6 @@
 </head>
 
 <?php
-
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
@@ -722,7 +721,6 @@ if (!isset($qr)) {
                     <strong style="font-size: 11px;color: rgb(247, 190, 000); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
                 </small></p>
         </div>
-
 </body>
 
 <?php
