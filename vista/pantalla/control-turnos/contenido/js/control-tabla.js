@@ -107,7 +107,7 @@ function recargaLista() {
             }, complete: function () {
                 setTimeout(() => {
                     recargaLista()
-                }, 500);
+                }, 1000);
             }
         })
     } else {
