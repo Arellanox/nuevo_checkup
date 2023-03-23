@@ -131,22 +131,22 @@
 
         /* divisiones de 3 footer */
         .col-foot-one {
-            width: 30%;
-            max-width: 30%;
+            /* width: 30%;
+            max-width: 30%; */
             text-align: left;
             font-size: 12px;
         }
 
         .col-foot-two {
-            width: 40%;
-            max-width: 40%;
+            /* width: 40%;
+            max-width: 40%; */
             text-align: center;
             font-size: 12px;
         }
 
         .col-foot-three {
-            width: 30%;
-            max-width: 30%;
+            /* width: 30%;
+            max-width: 30%; */
             text-align: right;
             font-size: 12px;
         }
