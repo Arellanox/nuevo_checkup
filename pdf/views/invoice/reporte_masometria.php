@@ -644,7 +644,7 @@ if (!isset($qr)) {
             </table>
         </div>
 
-        <table style="width: 100%;">
+        <!--    <table style="width: 100%;">
             <tr>
                 <td colspan="12" style="text-align: right;"><strong>&nbsp;</strong></td>
             </tr>
@@ -663,8 +663,7 @@ if (!isset($qr)) {
         <hr style="height: 2px; background-color: black ;">
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
-                    biologia.molecular@hguadalupe.com</strong></small></p>
-
+                    biologia.molecular@hguadalupe.com</strong></small></p>-->
         <div class="footer">
             <table>
                 <tbody>
