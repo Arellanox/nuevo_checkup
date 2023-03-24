@@ -57,7 +57,7 @@ switch ($api) {
         if (is_numeric($response)) {
             $url = $master->reportador($master, $id_turno, 2, "reporte_masometria", "url", 0, 0, 0);
             $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, null, null, $url]);
-            print_r($response);
+            // print_r($response);
         }
 
         break;
