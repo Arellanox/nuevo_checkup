@@ -55,7 +55,7 @@ switch ($api) {
         # evaluar si el response es numerico, si es numerico es que si se guardo.
         # si se guardo, generar el reporte
         if (is_numeric($response)) {
-            $url = $master->reportador($master, $id_turno, 2, "soma", "url", 0, 0, 0);
+            $url = $master->reportador($master, $id_turno, 2, "reporte_masometria", "url", 0, 0, 0);
             $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, null, null, $url]);
             print_r($response);
         }
