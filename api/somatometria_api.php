@@ -49,7 +49,7 @@ switch ($api) {
             $valores[] = $value;
         }
         $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, json_encode($ids), json_encode($valores), null]);
-        print_r($response);
+        //print_r($response);
 
         #Generar el reporte de somatometria.
         # evaluar si el response es numerico, si es numerico es que si se guardo.
