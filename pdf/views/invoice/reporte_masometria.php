@@ -391,18 +391,18 @@ if (!isset($qr)) {
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de proteínas</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_PROTEINAS; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_PROTEINAS; ?> %</strong>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Porcentaje de grasa viseral</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_GRASA_VISERAL; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_GRASA_VISERAL; ?> %</strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de agua</td>
                 <td colspan=" 2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_AGUA; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_AGUA; ?> %</strong>
                 </td>
             </tr>
             <tr>
