@@ -603,7 +603,7 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Taquipnea</td>
-                                <td colspan="3">&lt; 20 rpm</td>
+                                <td colspan="3">&gt; 20 rpm</td>
                             </tr>
                             <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA = 0) {
                                     echo 'style="background-color: #f7be16;"';
