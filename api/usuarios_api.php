@@ -40,6 +40,7 @@ $cedula = $_POST['cedula'];
 
 
 # especialidades
+$id_especialidad = $_POST['id_especialidad'];
 $id_u_especialidad = $_POST['id_u_especialidad'];
 $especialidades = $_POST['especialidades']; #especialidad,universidad,cedula,certificado,certificado_num
 
@@ -122,26 +123,30 @@ switch ($api) {
         break;
 
     case 3:
-        $response  = $usuario->getById($_POST['id']);
-        if (is_array($response)) {
-            $completedUser = array();
+        # eliminar especialidad de una usuario
+        $response = $master->deleteByProcedure("sp_usuarios_especialidades_e", [$id_usuario,$id_especialidad]);
+        echo $master->returnApi($response);
 
-            foreach ($response as $user) {
-                $cargo = new Cargos();
-                $tipo = new TiposUsuarios();
-                $labelCargo = $cargo->getById($user["CARGO_ID"]);
-                $labelTipo = $tipo->getById($user['TIPO_ID']);
+        // $response  = $usuario->getById($_POST['id']);
+        // if (is_array($response)) {
+        //     $completedUser = array();
 
-                $user['cargo'] = $labelCargo;
-                $user['tipo'] = $labelTipo;
+        //     foreach ($response as $user) {
+        //         $cargo = new Cargos();
+        //         $tipo = new TiposUsuarios();
+        //         $labelCargo = $cargo->getById($user["CARGO_ID"]);
+        //         $labelTipo = $tipo->getById($user['TIPO_ID']);
 
-                $completedUser[] = $user;
-            }
-            echo json_encode(array("response" => array("code" => 1, "data" => $completedUser)));
-        } else {
-            echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
-        }
-        break;
+        //         $user['cargo'] = $labelCargo;
+        //         $user['tipo'] = $labelTipo;
+
+        //         $completedUser[] = $user;
+        //     }
+        //     echo json_encode(array("response" => array("code" => 1, "data" => $completedUser)));
+        // } else {
+        //     echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
+        // }
+        // break;
 
     case 4:
         $array_slice = array_slice($_POST, 0, 11);
