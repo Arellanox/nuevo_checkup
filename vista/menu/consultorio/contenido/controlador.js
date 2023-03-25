@@ -55,26 +55,25 @@ function obtenerContenidoAntecedentes(data) {
 
 
 var tablaRecetas;
-// obtenerContenidoConsulta()
-function obtenerContenidoConsulta(data, idconsulta) {
+// obtenerContenidoConsulta() --- Valoracion medica ---
+function obtenerContenidoConsulta(data, idvaloracion) {
   loader("In")
   console.log(data)
   // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
   $("#titulo-js").html(''); //Vaciar la cabeza de titulo
-  $.post("contenido/consultorio_consulta.html", function (html) {
-    var idrow;
+  $.post("contenido/consultorio_valoracion.html", function (html) {
     $("#body-js").html(html);
     pacienteActivo = new GuardarArreglo(data)
-    pacienteActivo.selectID = idconsulta;
+    pacienteActivo.selectID = idvaloracion;
     // Datatable
     // $.getScript("contenido/js/estudio-tabla.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
   }).done(function () {
     // Obtener metodos para el dom
-    $.getScript("contenido/js/consulta-paciente.js").done(function () {
+    $.getScript("contenido/js/valoracion-paciente.js").done(function () {
       // Botones
-      $.getScript("contenido/js/consulta-paciente-botones.js");
-      obtenerConsulta(data, idconsulta);
+      $.getScript("contenido/js/valoracion-paciente-botones.js");
+      obtenerValoracion(data, idvaloracion);
     });
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   })
@@ -105,7 +104,7 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
   loader("Out")
 }
 
-async function obtenerConsulta(data, idconsulta) {
+async function obtenerValoracion(data, idconsulta) {
   console.log(data, idconsulta)
   await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
   await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_col3');
@@ -159,5 +158,18 @@ $(document).on('click', '#entrarConsultaMedica', function (event) {
 
 
 function obtenerConsultorioConsultaMedica(data) {
-
+  loader("In")
+  $("#titulo-js").html(''); //Vaciar la cabeza de titulo
+  $.post("contenido/consulta-medica-paciente.html", function (html) {
+    $("#body-js").html(html);
+    pacienteActivo = new GuardarArreglo(data);
+  }).done(function () {
+    // Obtener metodos para el dom
+    $.getScript("contenido/js/consulta-paciente.js").done(function () {
+      // Botones
+      $.getScript("contenido/js/consulta-paciente-botones.js");
+      obtenerValoracion(data, idconsulta);
+    });
+    // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
+  });
 }

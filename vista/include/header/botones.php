@@ -100,9 +100,9 @@ $menu = $_POST['menu']; ?>
 
 
 <?php if ($menu == "Perfil del paciente") : ?>
-  <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px" id="entrarConsultaMedica">
+  <!-- <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px" id="entrarConsultaMedica">
     <i class="bi bi-box-arrow-in-right"></i> Consulta Médica
-  </button>
+  </button> -->
 <?php endif; ?>
 
 
