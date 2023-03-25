@@ -35,6 +35,7 @@ switch ($api) {
                 $array[$response[$key]['TIPO_SIGNO']] = $signo;
             }
             $array['FECHA_REGISTRO'] = $response[count($response) - 1]['FECHA_REGISTRO'];
+            $array['RUTA_REPORTE'] = $response[0]['RUTA_REPORTE'];
             $response = $array;
         }
         break;
