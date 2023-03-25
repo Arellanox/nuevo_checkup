@@ -227,7 +227,8 @@
         }
 
         .content {
-            border: 2px solid #f7be16;
+            border-radius: 3px;
+            background-color: #f7be16;
         }
 
         .rojo {
@@ -552,7 +553,7 @@ if (!isset($qr)) {
                             <thead>
                                 <tr style="text-align: center; background-color: #d8e0e2;">
                                     <th colspan="6">OXIMETRÍA DEL PULSO:
-                                        <p class="content"><?php echo $resultados->SATURACION_DE_OXIGENO; ?>%</p>
+                                        <?php echo $resultados->SATURACION_DE_OXIGENO; ?>%
                                     </th>
                                 </tr>
                             </thead>
