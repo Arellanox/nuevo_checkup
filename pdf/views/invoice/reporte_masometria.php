@@ -557,11 +557,11 @@ if (!isset($qr)) {
                                     </th>
                                 </tr>
                             </thead>
-                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 95 && $resultados->SATURACION_DE_OXIGENO <= 99) {
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 95 && $resultados->SATURACION_DE_OXIGENO <= 100) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal</td>
-                                <td colspan="3">95-99%</td>
+                                <td colspan="3">95-100%</td>
                             </tr>
                             <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 91 && $resultados->SATURACION_DE_OXIGENO <= 94) {
                                     echo 'style="background-color: #f7be16;"';
@@ -638,13 +638,18 @@ if (!isset($qr)) {
                     <td colspan="3">Bradicardia</td>
                     <td colspan="3">&lt; 60 lpm</td>
                 </tr>
+                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 60 && $resultados->FRECUENCIA_CARDIACA <= 90) {
+                        echo 'style="background-color: #f7be16;"';
+                    } ?>>
+                    <td colspan="3">Normal</td>
+                    <td colspan="3">&gt; 90 lpm</td>
+                </tr>
                 <tr <?php if ($resultados->FRECUENCIA_CARDIACA > 90) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
                     <td colspan="3">Taquicardia</td>
                     <td colspan="3">&gt; 90 lpm</td>
                 </tr>
-
             </table>
         </div>
     </div>
@@ -668,7 +673,7 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>-->
-    <div style="padding-top: 97px;">
+    <div style="padding-top: 96px;">
         <table>
             <tbody>
                 <tr class="col-foot-one">
