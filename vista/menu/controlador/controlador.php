@@ -37,7 +37,7 @@ include "../../variables.php";
       var servidor = "bimo-lab.com";
       break;
 
-    default:
+    case 'drjb.com.mx':
       var http = "https://";
       var servidor = "drjb.com.mx";
       break;
