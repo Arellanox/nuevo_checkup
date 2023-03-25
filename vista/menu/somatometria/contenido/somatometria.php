@@ -61,9 +61,7 @@
           <button type="submit" class="btn btn-hover me-2" form="form-resultados-somatometria" id="btn-form-resultado" style="margin-bottom:4px">
             <i class="bi bi-save"></i> Guardar resultados
           </button>
-          <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="omitir-paciente" style="margin-bottom:4px">
-            <i class="bi bi-clipboard-x"></i> Saltar paciente
-          </button>
+          <div id="button_reporte"></div>
         </div>
       </div>
       <form id="form-resultados-somatometria" class="row overflow-auto" style="max-height: 70vh;margin-bottom:10px;">
