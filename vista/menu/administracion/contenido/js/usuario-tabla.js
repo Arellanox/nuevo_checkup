@@ -17,14 +17,14 @@ var tablaUsuarios = $('#TablaUsuariosAdmin').DataTable({
     complete: function () {
       completeTable()
     },
-    dataSrc: ''
+    dataSrc: 'response.data'
   },
   columns: [
     { data: 'count' },
     { data: 'nombrecompleto' },
     { data: 'USUARIO' },
-    { data: 'cargo.0.DESCRIPCION' },
-    { data: 'tipo.0.DESCRIPCION' },
+    { data: 'cargo' },
+    { data: 'tipo' },
     {
       data: 'ID_USUARIO', render: function (data) {
         return `<select name="area_fisica" class="input-form area_fisica-usuario" data-bs-id ="${data}"></select>`;

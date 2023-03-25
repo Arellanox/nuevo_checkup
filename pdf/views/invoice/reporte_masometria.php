@@ -226,6 +226,11 @@
             font-style: italic;
         }
 
+        .content {
+            border-radius: 3px;
+            background-color: #f7be16;
+        }
+
         .rojo {
             color: red;
         }
@@ -358,7 +363,7 @@ if (!isset($qr)) {
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Metabolismo</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->METABOLISMO; ?> </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->METABOLISMO; ?> tmb</strong>
                 </td>
             </tr>
             <tr>
@@ -369,7 +374,7 @@ if (!isset($qr)) {
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Edad del cuerpo</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->EDAD_DEL_CUERPO; ?> </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->EDAD_DEL_CUERPO; ?> años </strong>
                 </td>
             </tr>
             <tr>
@@ -386,7 +391,7 @@ if (!isset($qr)) {
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Masa muscular</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> ms</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> kg </strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de proteínas</td>
@@ -408,7 +413,7 @@ if (!isset($qr)) {
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> hs</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> mm</strong>
                 </td>
                 <td colspan="12">&nbsp;</td>
             </tr>
@@ -436,9 +441,9 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Óptima</td>
-                                <td colspan="3">&lt;120/&lt;80</td>
+                                <td colspan="3">&lt;= 120/&lt;= 80</td>
                             </tr>
-                            <tr <?php if (($resultados->SISTOLICA >= 120 && $resultados->SISTOLICA <= 129) && ($resultados->DIASTOLICA >= 80 && $resultados->DIASTOLICA <= 84)) {
+                            <tr <?php if (($resultados->SISTOLICA >= 121 && $resultados->SISTOLICA <= 129) && ($resultados->DIASTOLICA >= 81 && $resultados->DIASTOLICA <= 84)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal</td>
@@ -472,13 +477,13 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión G3</td>
-                                <td colspan="3">180 / &gt;110</td>
+                                <td colspan="3">180 / &gt;= 110</td>
                             </tr>
                             <tr <?php if ($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión sistólica</td>
-                                <td colspan="3">&gt;140 / &lt;90</td>
+                                <td colspan="3">&gt;= 140 / &lt;= 90</td>
                             </tr>
                         </table>
                     </td>
@@ -627,13 +632,13 @@ if (!isset($qr)) {
                         </th>
                     </tr>
                 </thead>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA <= 60) {
+                <tr <?php if ($resultados->FRECUENCIA_CARDIACA < 60) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
                     <td colspan="3">Bradicardia</td>
                     <td colspan="3">&lt; 60 lpm</td>
                 </tr>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 90) {
+                <tr <?php if ($resultados->FRECUENCIA_CARDIACA > 90) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
                     <td colspan="3">Taquicardia</td>
