@@ -158,6 +158,11 @@ switch ($api) {
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
             $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto));
+
+            if(!is_numeric($response)){
+                echo $master->returnApi($response);
+                exit;
+            }
         }
 
         // actualizamos las observaciones por los grupos en casa hijo de la tabla paciente detalle
