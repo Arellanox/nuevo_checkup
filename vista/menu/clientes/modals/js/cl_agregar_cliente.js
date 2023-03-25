@@ -1,7 +1,7 @@
 const ModalRegistrarCliente = document.getElementById("ModalRegistrarCliente");
 ModalRegistrarCliente.addEventListener("show.bs.modal", (event) => {
-  rellenarSelect('#select-cfdi-agregar', 'cfdi_api', 1, 0, 1)
-  rellenarSelect('#selectRegimenFiscal-agregar', 'sat_regimen_api', 1, 0, 1);
+  rellenarSelect('#select-cfdi-agregar', 'cfdi_api', 1, 0, 'CLAVE.DESCRIPCION')
+  rellenarSelect('#selectRegimenFiscal-agregar', 'sat_regimen_api', 1, 0, 'CLAVE.DESCRIPCION');
   // rellenarSelect('#selectConvenio-agregar', 'sat_regimen_api', 1, 0, 1);
 });
 // select2('#selectRegimenFiscal-agregar', 'ModalRegistrarCliente');

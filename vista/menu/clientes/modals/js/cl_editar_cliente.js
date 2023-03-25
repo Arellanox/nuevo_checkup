@@ -11,8 +11,8 @@ ModalActualizarCliente.addEventListener("show.bs.modal", (event) => {
 // select2('#select-cfdi-editar', 'ModalActualizarCliente');
 
 async function cargarDatos() {
-  await rellenarSelect('#select-cfdi-editar', 'cfdi_api', 1, 0, 1)
-  await rellenarSelect('#selectRegimenFiscal-editar', 'sat_regimen_api', 1, 0, 1);
+  await rellenarSelect('#select-cfdi-editar', 'cfdi_api', 1, 'ID_CFDI', 'CLAVE.DESCRIPCION')
+  await rellenarSelect('#selectRegimenFiscal-editar', 'sat_regimen_api', 1, 'ID_REGIMEN', 'CLAVE.DESCRIPCION');
 
 
   $("#nombre_cliente").val(array_selected["NOMBRE_COMERCIAL"]);

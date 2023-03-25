@@ -17,9 +17,9 @@
               <label for="cve_cliente" class="form-label">Razon Social</label>
               <input type="text" name="razon_social" id="razon_social" class="form-control input-form" required>
             </div>
-            <div class="col-6 col-md-6">
+            <div class="col-6 col-md-6" style="display: none">
               <label for="grupo" class="form-label">Nombre del Sistema</label>
-              <input name="nombre_sistema" id="nombre_sistema" class="form-control input-form" required>
+              <input name="nombre_sistema" id="nombre_sistema" value="none" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="rfc" class="form-label">RFC</label>
@@ -49,19 +49,19 @@
             </div>
             <div class="col-6">
               <label for="regimen" class="form-label">Régimen fiscal</label>
-              <select class="form-control input-form" name = "regimen" id="selectRegimenFiscal-editar" required>
+              <select class="form-control input-form" name="regimen" id="selectRegimenFiscal-editar" required>
 
               </select>
             </div>
             <div class="col-6">
-              <label for="cfdi" class="form-label">CFDI</label>
-              <select class="form-control input-form" name = "cfdi" id="select-cfdi-editar" required>
+              <label for="cfdi" class="form-label">Uso de CFDI</label>
+              <select class="form-control input-form" name="cfdi" id="select-cfdi-editar" required>
 
               </select>
             </div>
             <div class="col-6">
               <label for="convenio" class="form-label">Convenio</label>
-              <select class="form-control input-form" name = "convenio" id="selectConvenio-editar" required>
+              <select class="form-control input-form" name="convenio" id="selectConvenio-editar" required>
                 <option value="1">ASEGURADORAS </option>
                 <option value="2">INSTITUCIONES PUBLICAS </option>
                 <option value="3">INSTITUCIONES PRIVADAS </option>

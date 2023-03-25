@@ -123,6 +123,10 @@
                 </div>
               </div>
             </div>
+            <div class="col-4 card m-2 p-3">
+              <h5>Informacion Valores de referencia</h5>
+
+            </div>
           </div>
         </form>
       </div>
