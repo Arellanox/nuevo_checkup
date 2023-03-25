@@ -32,7 +32,7 @@ include "../../variables.php";
       var http = "http://";
       var servidor = "localhost";
       break;
-    case 'bimo-lab.com':
+    default:
       var http = "https://";
       var servidor = "bimo-lab.com";
       break;
