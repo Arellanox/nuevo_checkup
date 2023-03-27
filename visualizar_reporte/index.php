@@ -36,7 +36,7 @@ $turno_id = 197;
 $area_id =2;
 
 
-switch ($api) {
+switch ('consultorio') {
     case 'imagenologia':
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
         $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', 'mostrar', 1);

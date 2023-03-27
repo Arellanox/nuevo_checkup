@@ -244,11 +244,13 @@ $encode_firma = base64_encode($ruta_firma);
         <hr>
 
         <?php
-            foreach ($resultados->ANTECEDENTES as $antecedente) {
-                echo "<strong>". $antecedente->ANTECEDENTE ."</strong>";
-                echo "<p>". $antecedente->RESPUESTA ."</p>";
-                if (isset($antecedente->NOTAS)) {
-                    echo "<p><strong>Nota: </strong>". $antecedente->NOTAS . "</p>";
+            foreach ($resultados->ANTECEDENTES as $key => $antecedente) {
+                foreach ($antecedente as $espoque) { //No se que sea el espoque (si es que así se escribe), pero me dicen que es algo parecido a la iguana
+                    echo "<strong>". $espoque->ANTECEDENTE ."</strong>";
+                    echo "<p>". $espoque->RESPUESTA ."</p>";
+                    if (isset($espoque->NOTAS)) {
+                        echo "<p><strong>Nota: </strong>". $espoque->NOTAS . "</p>";
+                    }
                 }
             }
         ?>
