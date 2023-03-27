@@ -385,7 +385,7 @@ class Miscelaneus
                 # CONSULTORIO
                 $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
-                $datos_medicos = $this->getMedicalCarrier($info);
+                // $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
@@ -431,10 +431,12 @@ class Miscelaneus
         # Crear el directorio si no existe
         $r = $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
-        $pie_pagina = array("clave" => is_null($infoPaciente[0]['CLAVE_IMAGEN']) ? $clave : $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
-
-        // print_r(json_encode($arregloPaciente));
-        // print_r(json_encode($infoPaciente[0]));
+        // $pie_pagina = array("clave" => is_null($infoPaciente[0]['CLAVE_IMAGEN']) ? $clave : $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+        $pie_pagina = null;
+        
+        // print_r(json_encode($arregloPaciente)); // datos 
+        // print_r(json_encode($infoPaciente[0])); // encabezado 
+        // print_r($tipo);
         // exit;
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();

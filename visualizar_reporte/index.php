@@ -6,12 +6,12 @@ include_once '../clases/master_class.php';
 include_once "../clases/Pdf.php";
 
 $master = new Master();
-$tokenVerification = new TokenVerificacion();
-$tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    // $tokenVerification->logout();
-    // exit;
-}
+// $tokenVerification = new TokenVerificacion();
+// $tokenValido = $tokenVerification->verificar();
+// if (!$tokenValido) {
+//     // $tokenVerification->logout();
+//     // exit;
+// }
 #Visualizar los reportes de ultrasonido y rayos X aqui
 //Recibir las variables codificadas
 
@@ -19,9 +19,9 @@ if (!$tokenValido) {
 // var token = encodeURIComponent(window.btoa(myStr));
 
 
-$api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
-$turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
-$area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
+// $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
+// $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
+// $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 // $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
@@ -31,8 +31,9 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
-// $api = 'soma';
-// $turno_id = 220;
+$api = 'consultorio';
+$turno_id = 197;
+
 // $area_id = 2;
 
 
