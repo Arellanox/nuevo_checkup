@@ -12,6 +12,11 @@
     <title>Somatometria</title>
 
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 10px;
+        }
+
         .header {
             position: fixed;
             top: -165px;
@@ -221,6 +226,11 @@
             font-style: italic;
         }
 
+        .content {
+            border-radius: 3px;
+            background-color: #f7be16;
+        }
+
         .rojo {
             color: red;
         }
@@ -228,7 +238,6 @@
 </head>
 
 <?php
-
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
@@ -276,18 +285,18 @@ if (!isset($qr)) {
                 </tr>
             </tbody>
         </table>
-        <hr style="height: 3px; background-color: black ;">
-        <p style="text-align: center; margin: -4px;"><strong>Biología Molecular</strong></p>
-        <hr style="height: 3px; background-color: black ;">
+        <hr style="height: 1px; background-color: black ;">
+        <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>DATOS DEL PACIENTE</strong></p>
+        <hr style="height: 1px; background-color: black ;">
         <br>
         <table style="width: 100%;">
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_OFTALMO; ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo "N/A"; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?> años</strong>
+                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
@@ -308,7 +317,7 @@ if (!isset($qr)) {
                         <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_OFTALMO; ?> </strong>
+                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_MESO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -331,13 +340,13 @@ if (!isset($qr)) {
     </div>
     <div>
         <table style="width: 100%; border-collapse: collapse; text-align: center;">
-            <tr style="background-color: darkgrey;" class="bold">
+            <tr style="background-color: #d8e0e2;" class="bold">
                 <td colspan="12" style="text-justify: left;">SOMATOMETRíA Y SIGNOS VITALES</td>
             </tr>
             <tr>
                 <td colspan="12">&nbsp;</td>
             </tr>
-            <tr style="background-color: darkgrey;" class="bold">
+            <tr style="background-color: #d8e0e2;" class="bold">
                 <td colspan="12" style="text-align: left;">SOMATOMETRíA</td>
             </tr>
         </table>
@@ -349,23 +358,23 @@ if (!isset($qr)) {
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive"> Estatura </td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Metabolismo</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->METABOLISMO; ?> </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->METABOLISMO; ?> tmb</strong>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Peso</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> kg</strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Edad del cuerpo</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->EDAD_DEL_CUERPO; ?> </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->EDAD_DEL_CUERPO; ?> años </strong>
                 </td>
             </tr>
             <tr>
@@ -382,38 +391,38 @@ if (!isset($qr)) {
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Masa muscular</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> ms</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> kg </strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de proteínas</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_PROTEINAS; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_PROTEINAS; ?> %</strong>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Porcentaje de grasa viseral</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_GRASA_VISERAL; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_GRASA_VISCERAL; ?> %</strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de agua</td>
                 <td colspan=" 2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_AGUA; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_AGUA; ?> %</strong>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> hs</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> mm</strong>
                 </td>
                 <td colspan="12">&nbsp;</td>
             </tr>
             <!--signos vitales-->
-            <tr style="background-color: darkgrey;" class="bold">
+            <tr style="background-color: #d8e0e2;" class="bold">
                 <td colspan="12" style="text-align: left;">SIGNOS VITALES</td>
             </tr>
         </table>
-        <div style="display: flex; justify-content: space-between; flex-basis: auto;">
+        <div style="display: flex; justify-content: space-between; flex-basis: auto; padding-top: 8px;">
             <!-- <p colspan="12"> &nbsp;</p> -->
 
             <table style="width: 100%;">
@@ -421,7 +430,7 @@ if (!isset($qr)) {
                     <td style="text-align: left;">
                         <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: darkgrey;">
+                                <tr style="text-align: center; background-color: #d8e0e2;">
                                     <th colspan="6">PRESIÓN ARTERIAL:
                                         <?php echo $resultados->SISTOLICA; ?> /
                                         <?php echo $resultados->DIASTOLICA; ?>
@@ -432,9 +441,9 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Óptima</td>
-                                <td colspan="3">&#8804;120/&#8804;80</td>
+                                <td colspan="3">&lt;= 120/&lt;= 80</td>
                             </tr>
-                            <tr <?php if (($resultados->SISTOLICA >= 120 && $resultados->SISTOLICA <= 129) && ($resultados->DIASTOLICA >= 80 && $resultados->DIASTOLICA <= 84)) {
+                            <tr <?php if (($resultados->SISTOLICA >= 121 && $resultados->SISTOLICA <= 129) && ($resultados->DIASTOLICA >= 81 && $resultados->DIASTOLICA <= 84)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal</td>
@@ -468,20 +477,20 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión G3</td>
-                                <td colspan="3">180 / &#8805;110</td>
+                                <td colspan="3">180 / &gt;= 110</td>
                             </tr>
                             <tr <?php if ($signos->PRESION_SISTOLICA >= 140 &&  $signos->PRESION_DIASTOLICA <= 90) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipertensión sistólica</td>
-                                <td colspan="3">&#8805;140 / &#8804;90</td>
+                                <td colspan="3">&gt;= 140 / &lt;= 90</td>
                             </tr>
                         </table>
                     </td>
                     <td style="text-align: right;">
                         <table style="width: 95%; border-collapse: collapse; text-align: center;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: darkgrey;">
+                                <tr style="text-align: center; background-color: #d8e0e2;">
                                     <th colspan="6">TEMPERATURA:
                                         <?php echo $resultados->TEMPERATURA; ?>°C
                                     </th>
@@ -542,17 +551,17 @@ if (!isset($qr)) {
                     <td>
                         <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: darkgrey;">
+                                <tr style="text-align: center; background-color: #d8e0e2;">
                                     <th colspan="6">OXIMETRÍA DEL PULSO:
-                                        <?php echo $resultados->OXIMETRIA; ?>%
+                                        <?php echo $resultados->SATURACION_DE_OXIGENO; ?>%
                                     </th>
                                 </tr>
                             </thead>
-                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 95 && $resultados->SATURACION_DE_OXIGENO <= 99) {
+                            <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 95 && $resultados->SATURACION_DE_OXIGENO <= 100) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Normal</td>
-                                <td colspan="3">95-99%</td>
+                                <td colspan="3">95-100%</td>
                             </tr>
                             <tr <?php if ($resultados->SATURACION_DE_OXIGENO >= 91 && $resultados->SATURACION_DE_OXIGENO <= 94) {
                                     echo 'style="background-color: #f7be16;"';
@@ -577,8 +586,8 @@ if (!isset($qr)) {
                     <td>
                         <table style="width: 95%; border-collapse: collapse; text-align: center; padding-top: 5px;" border="2">
                             <thead>
-                                <tr style="text-align: center; background-color: darkgrey;">
-                                    <th colspan="6">RECUENCIA RESPIRATORIA:
+                                <tr style="text-align: center; background-color: #d8e0e2;">
+                                    <th colspan="6">FRECUENCIA RESPIRATORIA:
                                         <?php echo $resultados->FRECUENCIA_RESPIRATORIA; ?>rpm
                                     </th>
                                 </tr>
@@ -599,7 +608,7 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Taquipnea</td>
-                                <td colspan="3">&lt; 20 rpm</td>
+                                <td colspan="3">&gt; 20 rpm</td>
                             </tr>
                             <tr <?php if ($resultados->FRECUENCIA_RESPIRATORIA = 0) {
                                     echo 'style="background-color: #f7be16;"';
@@ -615,30 +624,36 @@ if (!isset($qr)) {
         </div>
 
         <div style="display: flex;  margin-top: 13px; justify-content: center;">
-            <table style="width: 45%; border-collapse: collapse;" border="2">
+            <table style="width: 45%; text-align: center; border-collapse: collapse;" border="2">
                 <thead>
-                    <tr style="text-align: center; background-color: darkgrey;">
+                    <tr style="text-align: center; background-color: #d8e0e2;">
                         <th colspan="6">FRECUENCIA CARDÍACA:
-                            <?php echo $resultados->FRECUENCIA_CARDIACA; ?>%
+                            <?php echo $resultados->FRECUENCIA_CARDIACA; ?> lpm
                         </th>
                     </tr>
                 </thead>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 95 && $resultados->FRECUENCIA_CARDIACA <= 99) {
+                <tr <?php if ($resultados->FRECUENCIA_CARDIACA < 60) {
+                        echo 'style="background-color: #f7be16;"';
+                    } ?>>
+                    <td colspan="3">Bradicardia</td>
+                    <td colspan="3">&lt; 60 lpm</td>
+                </tr>
+                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 60 && $resultados->FRECUENCIA_CARDIACA <= 90) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
                     <td colspan="3">Normal</td>
-                    <td colspan="3">95-99%</td>
+                    <td colspan="3">&gt; 90 lpm</td>
                 </tr>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 91 && $resultados->FRECUENCIA_CARDIACA <= 94) {
+                <tr <?php if ($resultados->FRECUENCIA_CARDIACA > 90) {
                         echo 'style="background-color: #f7be16;"';
                     } ?>>
-                    <td colspan="3">Hipoxia leve</td>
-                    <td colspan="3">91-94%</td>
+                    <td colspan="3">Taquicardia</td>
+                    <td colspan="3">&gt; 90 lpm</td>
                 </tr>
             </table>
         </div>
-
-        <table style="width: 100%;">
+    </div>
+    <!--    <table style="width: 100%;">
             <tr>
                 <td colspan="12" style="text-align: right;"><strong>&nbsp;</strong></td>
             </tr>
@@ -657,9 +672,65 @@ if (!isset($qr)) {
         <hr style="height: 2px; background-color: black ;">
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
-                    biologia.molecular@hguadalupe.com</strong></small></p>
+                    biologia.molecular@hguadalupe.com</strong></small></p>-->
+    <div style="padding-top: 96px;">
+        <table>
+            <tbody>
+                <tr class="col-foot-one">
+                    <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
+                </tr>
+                <tr class="col-foot-two">
+                    <td colspan="10">
+                    </td>
+                    <td colspan="2" style="text-align: left;">
+                        <?php
+                        if ($preview == 0) {
 
-
+                            echo "<img style='position:absolute; right:25px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr class="col-foot-three" style="font-size: 13px;">
+                    <td colspan="6" style="text-align: center; width: 50%">
+                        <?php
+                        if ($preview == 0) {
+                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                        }
+                        ?>
+                    </td>
+                    <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
+                        <strong style="font-size: 12px;">
+                            <?php
+                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> Médico Responsable ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            $indice = 1;
+                            foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
+                                // $contador = count($value);
+                                $indice++;
+                                echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
+                                echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
+                            }
+                            ?>
+                            <!-- Dra. Zoila Aideé Quiroz Colorado <br>
+                            Cédula profesional <br>
+                            Radiologia e imagen <br>
+                            Subespecialista en radiología pediátrica -->
+                        </strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr style="height: 0.5px; background-color: black ;">
+        <p style="text-align: center;"><small>
+                <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
+                <strong style="font-size: 11px;">Teléfonos: </strong>
+                <strong style="font-size: 11px;">993 634 1483, 993 634 0250, 993 634 1469, 993 634 6245</strong>
+                <strong style="font-size: 11px;">Correo electrónico:</strong>
+                <strong style="font-size: 11px;color: rgb(000, 175, 170); margin-left: -1.5px; margin-right: -1.5px">resultados@</strong>
+                <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
+                <strong style="font-size: 11px;color: rgb(247, 190, 000); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
+            </small></p>
+    </div>
 </body>
 
 <?php

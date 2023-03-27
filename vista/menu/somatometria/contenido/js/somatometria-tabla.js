@@ -101,6 +101,13 @@ async function obtenerResultadosSignos(id) {
                         $('#porcentajeProteinas').val(row['PORCENTAJE DE PROTEINAS']['VALOR'])
                         $('#porcentajeAgua').val(row['PORCENTAJE DE AGUA']['VALOR'])
                         $('#sistolica').val(row['SISTOLICA']['VALOR'])
+                        if (row['RUTA_REPORTE']) {
+                            $('#button_reporte').html('<a type="button" target="_blank" class="btn btn-borrar me-2" href="' + row['RUTA_REPORTE'] + '" style="margin-bottom:4px">' +
+                                '<i class="bi bi-file-earmark-pdf"></i>' +
+                                '</a>');
+                        } else {
+                            $('#button_reporte').html('');
+                        }
                     } else {
                         bloquearBotones(2)
                     }

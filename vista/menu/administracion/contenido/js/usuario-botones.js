@@ -81,3 +81,25 @@ function estadoUsuarioAlert(modo) {
   })
 
 }
+
+//Cambiar area fisica
+$(document).on('click', '.area_fisica-usuario', function (e) {
+  e.stopPropagation();
+  let id = $(this).attr('data-bs-id');
+  let area = $(this).val();
+  $.ajax({
+    url: http + servidor + '/nuevo_checkup/api/area_fisica_api.php',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      id_usuario: id,
+      area_fisica_id: area
+    },
+    success: function (data) {
+      if (mensajeAjax(data)) {
+        // Por ahora devolver nada
+      }
+    }
+  })
+
+});

@@ -107,6 +107,13 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 
 })
 
+inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
+  {
+    msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
+    place: 'left'
+  },
+])
+
 selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, {
   0: "pacientes_api",
   1: "documentos_api",

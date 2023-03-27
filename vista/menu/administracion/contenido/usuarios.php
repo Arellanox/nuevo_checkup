@@ -24,6 +24,7 @@
         <th scope="col d-flex justify-content-center" class="min-tablet">Usuario</th>
         <th scope="col d-flex justify-content-center" class="min-tablet">Cargo</th>
         <th scope="col d-flex justify-content-center" class="desktop">Tipo</th>
+        <th scope="col d-flex justify-content-center" class="desktop">Area (Física)</th>
         <th scope="col d-flex justify-content-center" class="min-tablet">Estado</th>
         <th scope="col d-flex justify-content-center" class="none">Profesión</th>
         <th scope="col d-flex justify-content-center" class="none">Cédula</th>

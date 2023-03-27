@@ -407,6 +407,7 @@ class Miscelaneus
             case "2":
                 # SOMATOMETRIA
                 $arregloPaciente = $this->getBodyInfoSoma($master, $turno_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_MESO'];
                 $carpeta_guardado = "somatometria";
                 break;
         }
@@ -500,7 +501,26 @@ class Miscelaneus
                         break;
                     case 1:
                         # ANTECEDENTES
-                        $productoFinal['ANTECEDENTES'] = $master->checkArray($response[$i]);
+                        # $productoFinal['ANTECEDENTES'] = $master->checkArray($response[$i]);
+                        $antecedentes = $master->checkArray($response[$i]);
+                        $tipos = array();
+
+                        # obtenemos el nombre del tipo de antecedente principal
+                        foreach ($antecedentes as $item) {
+                            $tipos[] = $item['TIPO'];
+                        }
+
+                        # eliminamos las duplicidades
+                        $tipos = array_unique($tipos);
+
+
+                        # filtramos los subtipos dado el nuevo arreglo $tipo.
+                        $productoFinal['ANTECEDENTES'] = array();
+                        foreach ($tipos as $tipo) {
+                            $productoFinal['ANTECEDENTES'][$tipo] = array_filter($antecedentes, function ($obj) use ($tipo) {
+                                return $obj['TIPO'] === $tipo;
+                            });
+                        }
                         break;
                     case 2:
                         # ANAMNESIS

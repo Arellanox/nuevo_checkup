@@ -33,7 +33,7 @@ switch ($api) {
         // print_r($infoPaciente);
 
         $response = $master->updateByProcedure("sp_turnero_liberar_paciente", [$turno_id, $area_fisica_id]);
-
+        $jsonData->removeArea($turno_id);
         $_SESSION['turnero'] = null;
         break;
     case 2:

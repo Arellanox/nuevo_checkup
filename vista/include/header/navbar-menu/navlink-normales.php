@@ -67,16 +67,16 @@ if ($menu != "PrincipalMenu") : ?>
         <i class="bi bi-journals"></i> Catalogos
       </a>
       <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-        <a class="dropdown-a align-items-center rounded" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
+        <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
           <i class="bi bi-person-badge"></i> Cargos
         </a>
-        <a class="dropdown-a align-items-center rounded" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
+        <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
           <i class="bi bi-briefcase"></i> Titulos
         </a>
-        <a class="dropdown-a align-items-center rounded" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
+        <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
           <i class="bi bi-mortarboard"></i> Universidades
         </a>
-        <a class="dropdown-a align-items-center rounded" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
+        <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
           <i class="bi bi-postcard"></i> Especialidades
         </a>
       </ul>
@@ -156,10 +156,10 @@ if ($menu != "PrincipalMenu") : ?>
         <i class="bi bi-clipboard-heart"></i> Estudios del area
       </a> -->
       <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-        <a class="dropdown-a align-items-center rounded" type="button" href="" onclick="cargarVistaServiciosPorArea('Estudios')">
+        <a class="dropdown-a align-items-center" type="button" href="" onclick="cargarVistaServiciosPorArea('Estudios')">
           <i class="bi bi-dot"></i> Estudios
         </a>
-        <a class="dropdown-a align-items-center rounded" type="button" href="" onclick="cargarVistaServiciosPorArea('Grupos')">
+        <a class="dropdown-a align-items-center" type="button" href="" onclick="cargarVistaServiciosPorArea('Grupos')">
           <i class="bi bi-dot"></i> Grupos
         </a>
       </ul>

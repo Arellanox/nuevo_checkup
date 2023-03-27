@@ -3,6 +3,8 @@ function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
 
+jQuery.fn.exists = function () { return this.length > 0; }
+
 function formatoFechaSQL(fecha, formato) {
   const map = {
     dd: fecha.getDate(),
@@ -375,8 +377,10 @@ function omitirPaciente(areaFisica) {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data;
-          miStorage.setItem('paciente_actual_turno', row['NEXT']['turno_id'])
-          miStorage.setItem('paciente_actual_nombre', row['NEXT']['paciente'])
+          // miStorage.setItem('paciente_actual_turno', row['NEXT']['turno_id'])
+          // miStorage.setItem('paciente_actual_nombre', row['NEXT']['paciente'])
+          pacienteTurnoActivo.selectID = row['NEXT']['ID_TURNO'];
+          pacienteTurnoActivo.setguardado(row['NEXT']['PACIENTE']);
           $('#paciente_turno').html(row['NEXT']['paciente'])
           alertMsj({
             title: row['NEXT']['paciente'],
@@ -415,8 +419,10 @@ function llamarPaciente(areaFisica) {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data[0];
-          miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
-          miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          // miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
+          // miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          pacienteTurnoActivo.selectID = row['ID_TURNO'];
+          pacienteTurnoActivo.setguardado(row['PACIENTE']);
           $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
             title: row['PACIENTE'],
@@ -452,8 +458,10 @@ function liberarPaciente(areaFisica, turno) {
       success: function (data) {
         if (mensajeAjax(data)) {
           if (data.response.data == 1) {
-            miStorage.removeItem('paciente_actual_turno')
-            miStorage.removeItem('paciente_actual_nombre')
+            // miStorage.removeItem('paciente_actual_turno')
+            // miStorage.removeItem('paciente_actual_nombre')
+            pacienteTurnoActivo.selectID = null;
+            pacienteTurnoActivo.setguardado(null);
             $('#paciente_turno').html('Liberado')
             alertMsj({
               title: "¡Paciente liberado!",
@@ -490,8 +498,10 @@ function pasarPaciente() {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data;
-          miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
-          miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          // miStorage.setItem('paciente_actual_turno', row['ID_TURNO'])
+          // miStorage.setItem('paciente_actual_nombre', row['PACIENTE'])
+          pacienteTurnoActivo.selectID = row['ID_TURNO'];
+          pacienteTurnoActivo.setguardado(row['PACIENTE']);
           // $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
             title: row['PACIENTE'],
@@ -1115,7 +1125,11 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInp
 }
 
 
-function mensajeAjax(data) {
+function mensajeAjax(data, modulo = null) {
+  if (modulo != null) {
+    text = ' No pudimos cargar'
+  }
+
   switch (data['response']['code']) {
     case 1:
       return 1;
@@ -1335,40 +1349,64 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
 }
 
 function inputBusquedaTable(
+  tablename, //<-- Sin #
+  datatable, //<-- TablaObjeto
   tooltip = [
     {
-      msj: 'Filtra la tabla con coincidencias',
+      msj: 'Hola, soy un tooltip por defecto :)',
       place: 'bottom'
     }
   ], //<- tooltips
-  nombre
+  tooltipinput =
+    {
+      msj: 'Filtra la lista por coincidencias',
+      place: 'top'
+    }
 ) {
-  setTimeout(() => {
-    $('#TablaEstatusTurnos_filter').html(
-      '<div class="text-center mt-2">' +
-      '<div class="input-group flex-nowrap">' +
-      '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-      'title="Filtra la tabla con palabras u oraciones que coincidan">' +
-      '<i class="bi bi-info-circle"></i>' +
-      '</span>' +
-      '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-      'title="Los iconos representan el estado del paciente a las areas">' +
-      '<i class="bi bi-info-circle"></i>' +
-      '</span>' +
-      '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
-      'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaLista"' +
-      'data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">' +
 
-      '</div>' +
-      '</div>'
-    )
+  htmlTooltip = '';
+  for (const key in tooltip) {
+    if (Object.hasOwnProperty.call(tooltip, key)) {
+      const element = tooltip[key];
+      htmlTooltip += '<span class="input-span" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="' + element['place'] + '"' +
+        'title="' + element['msj'] + '" style="margin-bottom: 0px !important">' +
+        '<i class="bi bi-info-circle"></i>' +
+        '</span>';
+    }
+  }
 
-    //Zoom table
-    $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(1).css('zoom', '90%')
+  if (!$(`#${tablename}_filter`).exists()) {
+    setTimeout(() => {
+      inputBusquedaTable(tablename, datatable, tooltip, tooltipinput)
+    }, 200);
+    return false;
+  }
 
-    //Diseño de registros
-    $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
-  }, 200);
+
+
+  $(`#${tablename}_filter`).html(
+    '<div class="text-center mt-2" style="padding-right: 5%">' +
+    '<div class="input-group flex-nowrap">' +
+    htmlTooltip +
+    '<input type="search" class="input-form form-control" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important"' +
+    'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="' + tablename + 'BuscarTablaLista"' +
+    'data-bs-toggle="tooltip" data-bs-placement="' + tooltipinput['place'] + '" title="' + tooltipinput['msj'] + '">' +
+    '</div></div>'
+  )
+
+  //Zoom table
+  $(`#${tablename}_wrapper`).children('div [class="row"]').eq(1).css('zoom', '90%')
+
+  //Diseño de registros
+  $(`#${tablename}_wrapper`).children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
+
+  $('#' + tablename + 'BuscarTablaLista').keyup(function () {
+    datatable.search($(this).val()).draw();
+  });
+  $('select[name="' + tablename + '_length"]').removeClass('form-select form-select-sm');
+  $('select[name="' + tablename + '_length"]').addClass('select-form input-form');
+  $('select[name="' + tablename + '_length"]').css('margin-bottom', '0px')
+
 }
 //
 
@@ -1580,6 +1618,7 @@ function select2(select, modal = null, placeholder = 'Selecciona una opción') {
 
 
 //Creador vistas
+pacienteTurnoActivo = new GuardarArreglo();
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null) {
   return new Promise(resolve => {
     var html = "";
@@ -1956,41 +1995,49 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     dataType: 'json',
                     data: { api: 6, area_fisica_id: id },
                     success: function (data) {
-                      let row = data.response.data;
-                      console.log(row);
-                      if (row[0]) {
-                        $('#paciente_turno').html(row[0]['PACIENTE'])
-                        miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
-                        alertMsj({
-                          title: row[0]['PACIENTE'],
-                          text: 'Es su siguiente paciente',
-                          icon: 'success',
-                          timer: 5000,
-                          showCancelButton: false,
-                          timerProgressBar: true,
-                        })
-                      } else {
-                        $('#paciente_turno').html('Ninguno')
-                        miStorage.setItem('paciente_actual_turno', null);
-                      }
-
-                      // Control de turnos
-                      $('#omitir-paciente').on('click', function () {
-                        omitirPaciente(id); //case 3
-                      })
-
-                      $('#llamar-paciente').on('click', function () {
-                        llamarPaciente(id); //case 2
-                      })
+                      if (mensajeAjax(data, 'Turnero')) {
+                        let row = data.response.data;
+                        console.log(row);
+                        if (row[0]) {
 
 
-                      $('#liberar-paciente').on('click', function () {
-                        if (miStorage.getItem('paciente_actual_turno') === null) {
-                          alertMensaje('info', 'Paciente no disponible', 'No has llamado ningún paciente o no hay paciente en tu area')
+                          pacienteTurnoActivo.selectID = row[0]['ID_TURNO'];
+                          pacienteTurnoActivo.setguardado(row[0]['PACIENTE']);
+
+
+                          $('#paciente_turno').html(row[0]['PACIENTE'])
+                          // miStorage.setItem('paciente_actual_turno', row[0]['ID_TURNO']);
+                          alertMsj({
+                            title: row[0]['PACIENTE'],
+                            text: 'Es su siguiente paciente',
+                            icon: 'success',
+                            timer: 5000,
+                            showCancelButton: false,
+                            timerProgressBar: true,
+                          })
                         } else {
-                          liberarPaciente(id, miStorage.getItem('paciente_actual_turno')); //case 1
+                          $('#paciente_turno').html('Ninguno')
+                          // miStorage.setItem('paciente_actual_turno', null);
                         }
-                      })
+
+                        // Control de turnos
+                        $('#omitir-paciente').on('click', function () {
+                          omitirPaciente(id); //case 3
+                        })
+
+                        $('#llamar-paciente').on('click', function () {
+                          llamarPaciente(id); //case 2
+                        })
+
+
+                        $('#liberar-paciente').on('click', function () {
+                          if (pacienteTurnoActivo.selectID === null) {
+                            alertMensaje('info', 'Paciente no disponible', 'No has llamado ningún paciente o no hay paciente en tu area')
+                          } else {
+                            liberarPaciente(id, pacienteTurnoActivo.selectID); //case 1
+                          }
+                        })
+                      }
                     }, complete: function () {
                       $(panel).fadeIn(100);
                       resolve(1);

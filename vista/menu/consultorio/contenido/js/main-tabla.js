@@ -9,7 +9,9 @@ tablaMain = $('#TablaListaConsultorio').DataTable({
   lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
     dataType: 'json',
-    data: { api: 5, area_id: 1 },
+    data: function (d) {
+      return $.extend(d, dataListaPaciente);
+    },
     method: 'POST',
     url: '../../../api/turnos_api.php',
     beforeSend: function () { loader("In") },
@@ -80,20 +82,35 @@ selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (select
 // })
 
 
+//Panel turnos, mandar id fisica al  principio
+obtenerPanelInformacion(1, null, "turnos_panel", '#turnos_panel')
 
-// Control de turnos
-$('#omitir-paciente').on('click', function () {
-  omitirPaciente(1); //case 3
+
+
+$('#fechaListadoAreaMaster').change(function () {
+  console.log(1)
+  recargarVistaLab();
 })
 
-$('#llamar-paciente').on('click', function () {
-  llamarPaciente(1); //case 2
-})
-
-$('#liberar-paciente').on('click', function () {
-  if (selectPaciente) {
-    liberarPaciente(1, selectPaciente['ID_TURNO']); //case 1
+$('#checkDiaAnalisis').click(function () {
+  console.log(1)
+  if ($(this).is(':checked')) {
+    recargarVistaLab(0)
+    $('#fechaListadoAreaMaster').prop('disabled', true)
   } else {
-    alertMensaje('info', 'Paciente no seleccionado', 'Necesita seleccionar el paciente actual para liberar su turno')
+    recargarVistaLab();
+    $('#fechaListadoAreaMaster').prop('disabled', false)
   }
 })
+
+function recargarVistaLab(fecha = 1) {
+  dataListaPaciente = {
+    api: 5,
+    // fecha_busqueda: $('#fechaListadoAreaMaster').val(),
+    area_id: 1
+  }
+
+  if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
+
+  tablaMain.ajax.reload()
+}

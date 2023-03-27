@@ -118,6 +118,9 @@ function login($user, $password)
             $_SESSION['perfil'] = $result[0]['TIPO_ID'];
             $_SESSION['cargo'] = $result[0]['CARGO_ID'];
 
+
+            $_SESSION['cargo_descripcion'] = $result[0]['DESCRIPCION'];
+
             //Avatar
             if (isset($result[0]['AVATAR'])) {
                 $_SESSION['AVATAR'] = $result[0]['AVATAR'];

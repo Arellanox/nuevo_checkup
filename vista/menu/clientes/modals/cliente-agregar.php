@@ -17,9 +17,9 @@
               <label for="cve_estudio" class="form-label">Razon Social</label>
               <input type="text" name="razon_social" class="form-control input-form" required>
             </div>
-            <div class="col-6 col-md-6">
+            <div class="col-6 col-md-6" style="display: none;">
               <label for="grupo" class="form-label">Nombre del Sistema</label>
-              <input name="nombre_sistema" class="form-control input-form" required>
+              <input name="nombre_sistema" value="none" class="form-control input-form" required>
             </div>
             <div class="col-6 col-md-6">
               <label for="rfc" class="form-label">RFC</label>
@@ -44,22 +44,22 @@
             </div>
             <div class="col-3 col-md-3">
               <label for="cuenta_contable" class="form-label">Cuenta Contable</label>
-              <input type="number" name="cuenta_contable" class="form-control input-form" required>
+              <input type="text" name="cuenta_contable" class="form-control input-form" required>
             </div>
             <div class="col-6">
               <label for="regimen" class="form-label">Régimen fiscal</label>
-              <select class="form-control input-form" name = "regimen" id="selectRegimenFiscal-agregar" required>
+              <select class="form-control input-form" name="regimen" id="selectRegimenFiscal-agregar" required>
               </select>
             </div>
             <div class="col-6">
-              <label for="cfdi" class="form-label">CFDI</label>
-              <select class="form-control input-form" name = "cfdi" id="select-cfdi-agregar" required>
+              <label for="cfdi" class="form-label">Uso de CFDI</label>
+              <select class="form-control input-form" name="cfdi" id="select-cfdi-agregar" required>
 
               </select>
             </div>
             <div class="col-6">
               <label for="convenio" class="form-label">Convenio</label>
-              <select class="form-control input-form" name = "convenio" id="selectConvenio-agregar" required>
+              <select class="form-control input-form" name="convenio" id="selectConvenio-agregar" required>
                 <option value="1">ASEGURADORAS </option>
                 <option value="2">INSTITUCIONES PUBLICAS </option>
                 <option value="3">INSTITUCIONES PRIVADAS </option>

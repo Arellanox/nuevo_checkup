@@ -31,11 +31,9 @@ $master = new Master();
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
-$api = 'consultorio';
+// $api = 'laboratorio';
 $turno_id = 197;
-
-// $area_id = 2;
-
+$area_id =2;
 
 
 switch ($api) {

@@ -23,7 +23,7 @@
           <div class="col-6 col-lg-2">
             <label for="edad" class="form-label">Edad</label>
             <div class="input-group">
-              <input type="number" class="form-control input-form" name="edad" placeholder="" min="0" max="150" required id="editar-edad">
+              <input type="number" class="form-control input-form" step="0.01" name="edad" placeholder="" min="0" max="150" required id="editar-edad">
               <span class="input-span">años</span>
             </div>
           </div>

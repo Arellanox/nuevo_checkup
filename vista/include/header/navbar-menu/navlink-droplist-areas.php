@@ -1,18 +1,18 @@
 <?php
 date_default_timezone_set('America/Mexico_City');
 if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
 <?php endif; ?>
 <?php if ($_SESSION['vista']['SOMATOMETRIA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/somatometria/'; ?>">
     <i class="bi bi-heart-pulse"></i> Somatometría | Signos vitales
   </a>
 <?php endif; ?>
 
 
-<!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
+<!-- <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
     <i class="bi bi-clipboard2-pulse"></i> Consultorio
   </a>
   <div class="collapse" id="board-consultorio">
@@ -26,18 +26,18 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 <?php   # if ($_SESSION['vista']['LABORATORIO'] == 1) : 
 ?>
 <!-- Laboratorio -->
-<!-- <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/muestras/'; 
-                                                                          ?>">
+<!-- <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/muestras/'; 
+                                                                  ?>">
     <i class="bi bi-droplet-half"></i> Toma de muestras
   </a>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; 
-                                                                        ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/laboratorio/'; 
+                                                                ?>">
     <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
   </a>
   <?php # if ($_SESSION['vista']['CORREOSLAB'] == 1) : 
   ?>
-    <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/correos/#CORREOSLAB'; 
-                                                                          ?>">
+    <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/correos/#CORREOSLAB'; 
+                                                                  ?>">
       <i class="bi bi-envelope-paper"></i> Validación Laboratorio Clínico
     </a>
   <?php # endif; 
@@ -50,32 +50,32 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 <!-- Imagenologia
 <?php # if ($_SESSION['vista']['ULTRASONIDO'] == 1) : 
 ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDO'; 
-                                                                        ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDO'; 
+                                                                ?>">
     <i class="bi bi-person-video"></i> Ultrasonido
   </a>
 <?php # endif; 
 ?>
 <?php # if ($_SESSION['vista']['ULTRASONIDOTOMA'] == 1) : 
 ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDOTOMA'; 
-                                                                        ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ULTRASONIDOTOMA'; 
+                                                                ?>">
     <i class="bi bi-person-video"></i> Ultrasonido (Imagenes)
   </a>
 <?php # endif; 
 ?>
 <?php # if ($_SESSION['vista']['RX'] == 1) : 
 ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; 
-                                                                        ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RX'; 
+                                                                ?>">
     <i class="bi bi-universal-access"></i> Rayos X
   </a>
 <?php # endif; 
 ?>
 <?php # if ($_SESSION['vista']['RXTOMA'] == 1) : 
 ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RXTOMA'; 
-                                                                        ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#RXTOMA'; 
+                                                                ?>">
     <i class="bi bi-universal-access"></i> Rayos X (Imagenes)
   </a>
 <?php # endif; 
@@ -83,21 +83,21 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 
 <!-- Otras Areas -->
 <?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1 || $_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-electro" aria-expanded="false">
+  <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-electro" aria-expanded="false">
     <i class="bi bi-activity"></i> Electrocardiograma
   </a>
   <div class="collapse" id="board-electro">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
       <?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1) : ?>
         <li>
-          <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
+          <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
             <i class="bi bi-dot"></i> Interpretación
           </a>
         </li>
       <?php endif; ?>
       <?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1) : ?>
         <li>
-          <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA_CAPTURAS'; ?>" class="dropdown-a align-items-center rounded" type="button">
+          <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA_CAPTURAS'; ?>" class="dropdown-a align-items-center" type="button">
             <i class="bi bi-dot"></i> Captura
           </a>
         </li>
@@ -105,22 +105,22 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
     </ul>
   </div>
 
-  <!-- <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
+  <!-- <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
     <i class="bi bi-activity"></i> Electrocardiograma
   </a> -->
 <?php endif; ?>
 <?php if ($_SESSION['vista']['ESPIROMETRIA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ESPIROMETRIA'; ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#ESPIROMETRIA'; ?>">
     <i class="bi bi-lungs"></i> Espirometría
   </a>
 <?php endif; ?>
 <?php if ($_SESSION['vista']['AUDIOMETRIA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#AUDIOMETRIA'; ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#AUDIOMETRIA'; ?>">
     <i class="bi bi-ear"></i> Audiometría
   </a>
 <?php endif; ?>
 <?php if ($_SESSION['vista']['OFTALMOLOGIA'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#OFTALMOLOGIA'; ?>">
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#OFTALMOLOGIA'; ?>">
     <i class="bi bi-eye"></i> Oftalmología
   </a>
 <?php endif; ?>
@@ -132,21 +132,21 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   $_SESSION['vista']['CONTROL_TURNOS_PANTALLA'] == 1 ||
   $_SESSION['vista']['CONTROL_TURNOS'] == 1
 ) : ?>
-  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-turnos" aria-expanded="false">
+  <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-turnos" aria-expanded="false">
     <i class="bi bi-back"></i> Control de Turnos
   </a>
   <div class="collapse" id="board-turnos">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
       <?php if ($_SESSION['vista']['CONTROL_TURNOS'] == 1) : ?>
         <li>
-          <a class="dropdown-a align-items-center rounded" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/control-turnos/'; ?>">
+          <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/control-turnos/'; ?>">
             <i class="bi bi-dot"></i> Menú
           </a>
         </li>
       <?php endif; ?>
       <?php if ($_SESSION['vista']['CONTROL_TURNOS_PANTALLA'] == 1) : ?>
         <li>
-          <a href="<?php echo $https . $url . '/nuevo_checkup/vista/pantalla/control-turnos/'; ?>" class="dropdown-a align-items-center rounded" type="button">
+          <a href="<?php echo $https . $url . '/nuevo_checkup/vista/pantalla/control-turnos/'; ?>" class="dropdown-a align-items-center" type="button">
             <i class="bi bi-dot"></i> Pantalla
           </a>
         </li>

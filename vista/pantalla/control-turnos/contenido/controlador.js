@@ -13,6 +13,6 @@ function obtenerVistaTurnero() {
             $.getScript("contenido/js/control-tabla.js");
             // // Botones
             // $.getScript("contenido/js/usuario-botones.js");
-        }, 200);
+        }, 1000);
     });
 }

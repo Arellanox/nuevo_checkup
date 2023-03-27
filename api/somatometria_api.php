@@ -35,6 +35,7 @@ switch ($api) {
                 $array[$response[$key]['TIPO_SIGNO']] = $signo;
             }
             $array['FECHA_REGISTRO'] = $response[count($response) - 1]['FECHA_REGISTRO'];
+            $array['RUTA_REPORTE'] = $response[0]['RUTA_REPORTE'];
             $response = $array;
         }
         break;
@@ -42,13 +43,25 @@ switch ($api) {
         # reservado para actualizar
         $ids = array();
         $valores = array();
-        foreach($medidas as $key => $value){
+        foreach ($medidas as $key => $value) {
             // array_push($ids,$key);
             // array_push($valores,$value);
             $ids[] = $key;
             $valores[] = $value;
         }
-        $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g",[$id_turno,json_encode($ids),json_encode($valores)]);
+        $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, json_encode($ids), json_encode($valores), null]);
+        //print_r($response);
+
+        #Generar el reporte de somatometria.
+        # evaluar si el response es numerico, si es numerico es que si se guardo.
+        # si se guardo, generar el reporte
+        if (is_numeric($response)) {
+            $url = $master->reportador($master, $id_turno, 2, "reporte_masometria", "url", 0, 0, 0);
+            //echo $url;
+            $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, null, null, $url]);
+            // print_r($response);
+        }
+
         break;
     case 4:
         # eliminar

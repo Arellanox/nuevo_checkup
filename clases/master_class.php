@@ -217,7 +217,6 @@ class Master extends Miscelaneus
         $columns = $this->concatAttributesToInsert($attributes, count($attributes));
         $sql .= "($columns VALUES (";
         $sql = $this->concatQuestionMarkToInsert($sql, count($attributes));
-
         //Prepara la consulta para enviar SQl injection
         try {
             $stmt = $conn->prepare($sql);
@@ -227,12 +226,10 @@ class Master extends Miscelaneus
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-
         //verifica que los tipos de datos proporcionados por el usuario sean correctos
         //devuelve un arreglo con las posiciones en que los datos no coinciden
         //con el tipo de dato
         $error_tipo_dato = $this->mis->validarDatos($values, $intergers, $strings, $doubles, $nulls);
-
         //si el arreglo $error_tipo_dato contiene valores, devuelve un error al usuario
         if (count($error_tipo_dato) > 0) {
             $posiciones = implode(",", $error_tipo_dato);

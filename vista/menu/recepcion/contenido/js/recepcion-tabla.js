@@ -43,6 +43,12 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
 
 })
 
+inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
+  {
+    msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
+    place: 'left'
+  },
+])
 
 
 selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente')
