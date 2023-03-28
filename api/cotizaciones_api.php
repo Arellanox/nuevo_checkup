@@ -47,6 +47,11 @@ switch($api){
         # eliminar cotizacion
         $response = $master->deleteByProcedure( "sp_cotizaciones_e", [$id_cotizacion] );
         break;
+
+    case 4:
+        # solo cotizacinoes sin detalle.
+        $response = $master->getByProcedure("sp_cotizaciones_gral",[$cliente_id]);
+        break;
     default:
         $response = "Api no definida. Api ".$api;
         break;
