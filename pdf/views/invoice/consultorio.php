@@ -95,10 +95,15 @@
 
         p {
             font-size: 12px;
+            line-height: 1;
         }
 
         strong {
             font-size: 12px;
+            /* line-height: 0.9; */
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+
         }
 
         .align-center {
