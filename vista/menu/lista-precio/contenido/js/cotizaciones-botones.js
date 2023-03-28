@@ -70,8 +70,7 @@ $('#UsarPaquete').on('click', function () {
           console.log(data);
           row = data.response.data;
           for (var i = 0; i < row.length; i++) {
-            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_TOTAL, row[i].SUBTOTAL, row[i].CANTIDAD, null, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
-
+            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].COSTO_TOTAL, row[i].CANTIDAD, null, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
           }
         }
       })

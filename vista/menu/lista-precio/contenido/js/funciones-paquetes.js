@@ -53,7 +53,7 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SER
     CVE,
     `<div class="input-group"><input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="0%" value="${CANTIDAD}"><span class="input-span">ud</span></div>`,
     `<div class="costo-paquete text-center">$${costo_total}</div>`,
-    `<div class="costototal-paquete text-center">$${costo_total}</div>`,
+    `<div class="costototal-paquete text-center">$${costo_total}</div>`, null,
     `<div class="precioventa-paquete text-center">$${precio_venta}</div>`,
     `<div class="subtotal-paquete text-center">$0</div>`, ID_SERVICIO
   ]).draw();
@@ -74,7 +74,7 @@ function calcularFilasTR() {
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
       tabledata = tablaContenidoPaquete.row(this).data();
-      id_servicio = tabledata[7]
+      id_servicio = tabledata[8]
       arregloEstudios = {
         'id': id_servicio,
         'cantidad': calculo[2],
@@ -108,9 +108,9 @@ function calcularFilasTR() {
   } else {
     total = total;
   }
-  $('#subtotal-costo-paquete').html('$' + subtotalCosto);
-  $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa);
-  $('#total-paquete').html('$' + total);
+  $('#subtotal-costo-paquete').html('$' + subtotalCosto.toFixed(2));
+  $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa.toFixed(2));
+  $('#total-paquete').html(`$${total.toFixed(2)}`);
   paqueteEstudios.push({
     'total': total,
     'subtotal-costo': subtotalCosto,
@@ -129,13 +129,13 @@ function caluloFila(parent_element) {
   // Dar valor a costo total
   let costoTotal = cantidad * costo;
   if (checkNumber(costoTotal)) {
-    $(parent_element).find("div[class='costototal-paquete text-center']").html('$' + costoTotal)
+    $(parent_element).find("div[class='costototal-paquete text-center']").html('$' + costoTotal.toFixed(2))
   } else {
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$0')
   }
   let subtotal = cantidad * precioventa;
   if (checkNumber(subtotal)) {
-    $(parent_element).find("div[class='subtotal-paquete text-center']").html('$' + subtotal)
+    $(parent_element).find("div[class='subtotal-paquete text-center']").html('$' + subtotal.toFixed(2))
   } else {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$0')
   }

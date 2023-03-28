@@ -1,7 +1,7 @@
 async function mantenimientoPaquete() {
   loader("In");
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
-  tablaContenido();
+  tablaContenido(true);
 
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
@@ -18,8 +18,8 @@ async function mantenimientoPaquete() {
 
 async function contenidoPaquete(select = null) {
   loader("In");
-
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
+
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
@@ -30,7 +30,7 @@ async function contenidoPaquete(select = null) {
   $("#seleccion-estudio").find('option').remove().end()
   $('.listaPresupuestos').hide();
 
-  tablaContenido()
+  tablaContenido(true)
 }
 
 // Agrega Un nuevo TR a la tabla de paquetes
@@ -75,9 +75,7 @@ function calcularFilasTR() {
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
       tabledata = tablaContenidoPaquete.row(this).data();
-      // console.log(tabledata);
-      // console.log(tabledata['ID_SERVICIO']);
-      id_servicio = tabledata['ID_SERVICIO']
+      id_servicio = tabledata[8]
       arregloEstudios = {
         'id': id_servicio,
         'cantidad': calculo[2],
@@ -112,7 +110,7 @@ function calcularFilasTR() {
   }
   $('#subtotal-costo-paquete').html('$' + subtotalCosto.toFixed(2));
   $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa.toFixed(2));
-  $('#total-paquete').html('$' + total.toFixed(2));
+  $('#total-paquete').html(`$${total.toFixed(2)}`);
   // console.log(typeof total.toFixed(2))
   paqueteEstudios.push({
     'total': total,

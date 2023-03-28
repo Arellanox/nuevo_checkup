@@ -9,8 +9,7 @@ $('#agregar-estudio-paquete').click(function () {
   // console.log($("#seleccion-estudio").prop('selectedIndex'))
   // console.log(selectData)
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
-  console.log(selectData)
-  meterDato(selectData['DESCRIPCION'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], 1, selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
+  meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], 1, selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
 })
 
 
@@ -56,7 +55,7 @@ $('#UsarPaquete').on('click', function () {
           console.log(data);
           row = data.response.data;
           for (var i = 0; i < row.length; i++) {
-            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_TOTAL, row[i].SUBTOTAL, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
+            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].COSTO_TOTAL, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
 
           }
         }
@@ -95,15 +94,15 @@ $('input[type=radio][name=selectChecko]').change(function () {
 
   if ($(this).val() != 0) {
     // selectData = null;
-    rellenarSelect("#seleccion-estudio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-      id_area: this.value,
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+      area_id: this.value,
       paquete_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
       selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   } else {
-    rellenarSelect("#seleccion-estudio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-      id_area: this.value,
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+      area_id: this.value,
       paquete_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
       selectEstudio = new GuardarArreglo(listaEstudios);

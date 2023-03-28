@@ -115,7 +115,7 @@ function obtenerContenidoPaquetes(tabla) {
 }
 
 //Vacia la tabla, para el poder rellenar en paquetes
-function tablaContenido() {
+function tablaContenido(descuento = false) {
   tablaContenidoPaquete.destroy();
   $('#TablaListaPaquetes').empty();
   dataEliminados = new Array()
@@ -152,19 +152,26 @@ function tablaContenido() {
       targets: 4
     },
     {
+      width: "90.516px",
+      title: "Descuento",
+      targets: 5,
+      orderable: false,
+      visible: descuento
+    },
+    {
       width: "99.344px",
       title: "Precio Venta",
-      targets: 5
+      targets: 6
     },
     {
       width: "64.75px",
       title: "Subtotal",
-      targets: 6
+      targets: 7
     },
     {
       visible: false,
       title: "?",
-      targets: 7,
+      targets: 8,
       searchable: false,
     },
     ],

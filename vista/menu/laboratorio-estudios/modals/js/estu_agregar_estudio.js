@@ -19,6 +19,7 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
 
   rellenarSelect('.select-contenedor-equipo', 'laboratorio_equipos_api', 2, 'ID_EQUIPO', 'DESCRIPCION.MODELO.MARCA', {}, function (data, o) {
     rellenoEquipoSelect = o
+
   })
 
 
