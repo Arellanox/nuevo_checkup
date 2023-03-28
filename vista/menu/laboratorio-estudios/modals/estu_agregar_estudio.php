@@ -131,13 +131,16 @@
                   <p>Seleccione o agregue los grupo de examen del estudio</p>
                   <div class="" id="div-select-grupo">
                     <div class="row">
-                      <div class="col-10 col-md-10"><label for="Grupo[0]" class="form-label">Grupo</label>
-                        <select name="Grupo[0]" class="input-form select-contenedor-grupo">
-
-                        </select>
+                      <div class="col-6 col-md-6">
+                        <label for="grupo_examen[0][grupo_id]" class="form-label">Grupo</label>
+                        <select name="grupo_examen[0][grupo_id]" class="input-form select-contenedor-Grupo" required=""></select>
+                      </div>
+                      <div class="col-4">
+                        <label for="grupo_examen[0][orden]" class="form-label">Posicion del grupo</label>
+                        <input type="text" placerholder="Orden del servicio para el grupo" name="grupo_examen[0][orden]" value="" class="form-control input-form">
                       </div>
                       <div class="col-2 d-flex justify-content-start align-items-center">
-                        <button type="button" class="btn btn-hover eliminarContenerMuestra1" style="margin-top: 20px;">
+                        <button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;">
                           <i class="bi bi-trash"></i>
                         </button>
                       </div>

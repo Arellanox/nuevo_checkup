@@ -124,7 +124,7 @@ $('#nuevo-contenedor-muestra').on('click', function () {
 // Nuevo grupo
 $(document).on('click', '#nuevo-select-grupo', function (event) {
   event.preventDefault();
-  agregarHTMLSelector('#div-select-grupo', 'Grupo', rellenoGrupoSelect)
+  agregarHTMLSelectorInput('#div-select-grupo', 'Grupo', rellenoGrupoSelect)
 })
 
 // Nuevo metodo
