@@ -84,6 +84,32 @@ function agregarContenedorMuestra(div, numeroSelect, tipo) {
   $(div).append(html);
 }
 
+function agregarHTMLSelectorInput(div, label, relleno) {
+  console.log(relleno)
+  let id = getRandomString();
+  html = '<div class="row">' +
+    '<div class="col-6 col-md-6">' +
+    '<label for="grupoExamen[' + id + '][grupo_id]" class="form-label">' + label + '</label>' +
+    '<select name="grupoExamen[' + id + '][grupo_id]" class="input-form select-contenedor-' + label + '" required="">';
+
+  html += `${relleno}`;
+
+  html += '</select>' +
+    '</div>' +
+    '<div class="col-4">' +
+    '<label for="grupoExamen[' + id + '][orden]" class="form-label">Posicion del grupo</label>' +
+    '<input type="text" placerholder="Orden del servicio para el grupo" name="grupoExamen[' + id + '][orden]" value=""' +
+    'class="form-control input-form">' +
+    '</div>' +
+    '<div class="col-2 d-flex justify-content-start align-items-center">' +
+    '<button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;">' +
+    '<i class="bi bi-trash"></i>' +
+    '</button>' +
+    '</div>' +
+    '</div>';
+  $(div).append(html);
+}
+
 function agregarHTMLSelector(div, label, relleno) {
   console.log(relleno)
   let id = getRandomString();

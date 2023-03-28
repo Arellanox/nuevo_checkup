@@ -35,6 +35,7 @@ async function contenidoPaquete(select = null) {
 
 // Agrega Un nuevo TR a la tabla de paquetes
 function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, DESCUENTO, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete) {
+  if (DESCUENTO === null) DESCUENTO = ''
   let longitud = dataSet.length + 1;
   if (costo_total == null) {
     costo_total = 0;
