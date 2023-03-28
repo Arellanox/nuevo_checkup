@@ -245,6 +245,7 @@ $encode_firma = base64_encode($ruta_firma);
 
         <?php
             foreach ($resultados->ANTECEDENTES as $key => $antecedente) {
+                // print_r($antecedente);
                 foreach ($antecedente as $espoque) { //No se que sea el espoque (si es que así se escribe), pero me dicen que es algo parecido a la iguana
                     echo "<strong>". $espoque->ANTECEDENTE ."</strong>";
                     echo "<p>". $espoque->RESPUESTA ."</p>";
