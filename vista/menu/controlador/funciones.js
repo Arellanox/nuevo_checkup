@@ -200,6 +200,13 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+function getRandomString() {
+  var n = Math.floor(Math.random() * 11);
+  var k = Math.floor(Math.random() * 1000000);
+  var m = String.fromCharCode(n) + k;
+  return m;
+}
+
 // Checa si es un numero
 function checkNumber(x) {
   // check if the passed value is a number
@@ -742,7 +749,7 @@ function setProcedenciaOption(select, idProcedencia) {
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select, api, apinum, v, c, values = {}, callback = function (array) { }) {
+function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback = function (array) { }) {
   return new Promise(resolve => {
     values.api = apinum;
 
@@ -770,35 +777,43 @@ function rellenarSelect(select, api, apinum, v, c, values = {}, callback = funct
           data = JSON.parse(data);
         }
 
+        let selectHTML = '';
+        for (const key in data) {
+          if (Object.hasOwnProperty.call(data, key)) {
+            const element = data[key];
+            // Crear el contenido del select por numero o arreglo
+            if (Array.isArray(htmlContent)) {
+              datao = "";
+              for (var a = 0; a < htmlContent.length; a++) {
+                if (element[htmlContent[a]] != null) {
+                  if (datao == '') {
 
+                    datao += element[htmlContent[a]];
+                  } else {
+                    datao += " - " + element[htmlContent[a]];
+                  }
+                }
+                // console.log(datao)
+
+              }
+            } else {
+              datao = element[c];
+            }
+            // Rellenar select con Jquery
+            var o = new Option("option text", element[v]);
+            $(o).html(datao);
+            selectHTML += $(o)[0].outerHTML
+            if (select) {
+              $(select).append(o);
+            }
+          }
+        }
         for (var i = 0; i < data.length; i++) {
 
-          // Crear el contenido del select por numero o arreglo
-          if (Array.isArray(htmlContent)) {
-            datao = "";
-            for (var a = 0; a < htmlContent.length; a++) {
-              if (data[i][htmlContent[a]] != null) {
-                if (datao == '') {
-
-                  datao += data[i][htmlContent[a]];
-                } else {
-                  datao += " - " + data[i][htmlContent[a]];
-                }
-              }
-              // console.log(datao)
-
-            }
-          } else {
-            datao = data[i][c];
-          }
-          // Rellenar select con Jquery
-          var o = new Option("option text", data[i][v]);
-          $(o).html(datao);
-          $(select).append(o);
 
         }
         // console.log(data);
-        callback(data);
+        callback(data, selectHTML);
 
       },
       complete: function (data) {

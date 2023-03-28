@@ -75,7 +75,17 @@ $parametros = array(
     $precio_venta
 );
 
+// print_r($_POST['contenedores']);
 
+// foreach ($_POST['contenedores'] as $key => $value) {
+//     echo $key;
+//     echo "</br>";
+//     print_r($value);
+//     echo "</br>";
+// }
+
+// print_r($_POST);
+// return false;
 
 switch ($api) {
     case 1:

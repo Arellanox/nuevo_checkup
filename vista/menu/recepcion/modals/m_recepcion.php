@@ -8,3 +8,6 @@ include "../../../include/modal/registrar-pruebas.php";
 include "../../../include/modal/registrar-paciente.php";
 include "../../../include/modal/editar-paciente.php";
 include "solicitud-ingreso.php";
+
+//UJAT
+include "ujat-beneficiarios.html";

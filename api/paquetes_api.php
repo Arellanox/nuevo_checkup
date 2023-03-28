@@ -108,6 +108,7 @@ switch ($api) {
                     $det['costototal'],
                     $det['precioventa'],
                     $det['subtotal'],
+                    //descuento
                     0 #resetear contenido
                 );
                 $response =  $master->returnApi($master->insertByProcedure('sp_detalle_paquete_g', $newDet));

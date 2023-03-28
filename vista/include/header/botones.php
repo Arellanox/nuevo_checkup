@@ -34,6 +34,7 @@ $menu = $_POST['menu']; ?>
     </button>
   </span>
 
+
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" onclick="pasarPaciente()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manda a un paciente a una area disponible">
     <i class="bi bi-arrow-repeat"></i> Optimizar Turnero
   </button>
