@@ -1,11 +1,27 @@
+let rellenoGrupoSelect, rellenoMetodoSelect, rellenoEquipoSelect;
+
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
   rellenarSelect("#registrar-clasificacion-estudio", "laboratorio_clasificacion_api", 2, 0, 1);
-  rellenarSelect("#registrar-metodos-estudio", "laboratorio_metodos_api", 2, 0, 1);
+  // rellenarSelect("#registrar-metodos-estudio", "laboratorio_metodos_api", 2, 0, 1);
   rellenarSelect("#registrar-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1);
-  rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 'DESCRIPCION');
-  rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
+  // rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 'DESCRIPCION');
+  // rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
   rellenarSelect('#registrar-concepto-facturacion', 'sat_catalogo_api', 2, 0, 'COMPLETO');
+
+  rellenarSelect('.select-contenedor-Método', 'laboratorio_metodos_api', 2, 'ID_METODO', 'DESCRIPCION', {}, function (data, o) {
+    rellenoMetodoSelect = o
+  })
+
+  rellenarSelect('.select-contenedor-grupo', 'servicios_api', 7, 0, 'DESCRIPCION', {}, function (data, o) {
+    rellenoGrupoSelect = o
+  })
+
+  rellenarSelect('.select-contenedor-equipo', 'laboratorio_equipos_api', 2, 'ID_EQUIPO', 'DESCRIPCION.MODELO.MARCA', {}, function (data, o) {
+    rellenoEquipoSelect = o
+  })
+
+
 })
 
 //Formulario de Preregistro
@@ -17,8 +33,7 @@ $("#formRegistrarEstudio").submit(function (event) {
 
   if ($('#sin_clasificacion').is(":checked"))
     formData.delete('clasificacion_id')
-  if ($('#sin_metodo').is(":checked"))
-    formData.delete('metodo_id')
+
   if ($('#sin_medida').is(":checked"))
     formData.delete('medida_id')
 
@@ -31,15 +46,18 @@ $("#formRegistrarEstudio").submit(function (event) {
   // formData.set("padre", padre);
   formData.set("grupos", 0);
   formData.set("producto", 1);
-  // formData.set("seleccionable", null);
-  // formData.set("para", 3);
-  // formData.set("costos", null);
+  formData.set("area", 6);
+
+
+  formData.set("seleccionable", 1);
+  formData.set("para", 3);
+  formData.set("costos", 1);
   // formData.set("utilidad", null);
   // formData.set("venta", null);
-  formData.set("api", 1);
+  formData.set("api", 0);
 
   Swal.fire({
-    title: "¿Está seguro que todos los datos están correctos?",
+    title: "¿Está seguro que todos los datos del estudio están correctos?",
     text: "Verifique la Informacion antes de Continuar!",
     icon: "warning",
     showCancelButton: true,
@@ -57,6 +75,7 @@ $("#formRegistrarEstudio").submit(function (event) {
         type: "POST",
         processData: false,
         contentType: false,
+        cache: false,
         success: function (data) {
           data = jQuery.parseJSON(data);
           if (mensajeAjax(data)) {
@@ -70,6 +89,9 @@ $("#formRegistrarEstudio").submit(function (event) {
             $("#ModalRegistrarEstudio").modal("hide");
             tablaServicio.ajax.reload();
           }
+        },
+        error: function (jqXHR, exception, data) {
+          alertErrorAJAX(jqXHR, exception, data)
         },
       });
     }
@@ -93,9 +115,27 @@ function getValueCheck(tip, val) {
 
 
 // Nuevo contenedores
-$('#nuevo-contenedor').on('click', function () {
+$('#nuevo-contenedor-muestra').on('click', function () {
   numberContenedor += 1;
   agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
+})
+
+// Nuevo grupo
+$(document).on('click', '#nuevo-select-grupo', function (event) {
+  event.preventDefault();
+  agregarHTMLSelector('#div-select-grupo', 'Grupo', rellenoGrupoSelect)
+})
+
+// Nuevo metodo
+$(document).on('click', '#nuevo-select-metodo', function (event) {
+  event.preventDefault();
+  agregarHTMLSelector('#div-select-metodo', 'Método', rellenoMetodoSelect)
+})
+
+// Nuevo equipo
+$(document).on('click', '#nuevo-select-equipo', function (event) {
+  event.preventDefault();
+  agregarHTMLSelector('#div-select-equipo', 'Equipo', rellenoEquipoSelect)
 })
 
 $(document).on('click', '.eliminarContenerMuestra1', function () {
@@ -103,6 +143,15 @@ $(document).on('click', '.eliminarContenerMuestra1', function () {
   // console.log(parent_element)
   // numberContenedor -= 1;
   parent_element.remove();
+});
+
+$('input[type=radio][name=local]').change(function () {
+  if (this.value == '1') {
+    $('#div-maquila').fadeIn()
+  }
+  else if (this.value == '0') {
+    $('#div-maquila').fadeOut()
+  }
 });
 
 // $('.eliminarContenerMuestra').on('click', function(event){
@@ -120,11 +169,13 @@ $(document).on('click', '.eliminarContenerMuestra1', function () {
 
 
 select2("#registrar-clasificacion-estudio", "ModalRegistrarEstudio");
-select2("#registrar-metodos-estudio", "ModalRegistrarEstudio");
+
 select2("#registrar-medidas-estudio", "ModalRegistrarEstudio");
 select2("#registrar-concepto-facturacion", "ModalRegistrarEstudio");
-select2("#registrar-grupo-estudio", "ModalRegistrarEstudio");
-select2("#registrar-area-estudio", "ModalRegistrarEstudio");
 
 select2("#registrar-contenedor1-estudio", "ModalRegistrarEstudio");
 select2("#registrar-muestraCont1-estudio", "ModalRegistrarEstudio");
+
+// select2('.select-contenedor-equipo', 'ModalRegistrarEstudio');
+// select2('.select-contenedor-Método', 'ModalRegistrarEstudio');
+// select2('.select-contenedor-grupo', 'ModalRegistrarEstudio');

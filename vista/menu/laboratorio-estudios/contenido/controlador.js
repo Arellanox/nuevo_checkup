@@ -64,18 +64,48 @@ function agregarContenedorMuestra(div, numeroSelect, tipo) {
   // <label for="contenedores[contenedor-uno[]]" class="form-label">Contenedor</label>
   // <select name="contenedores[contenedor-uno[]]" id="registrar-contenedor1-estudio" required></select>
 
-  html = startRow + startDivSelect + '<label for="contenedores[contenedor-' + numeroSelect + '[]]" class="form-label select-contenedor">Contenedor</label>' +
-    '<select name="contenedores[' + numeroSelect + '[]]" id="registrar-contenedor' + numeroSelect + '-estudio" class="input-form" required>' +
+  html = startRow + startDivSelect + '<label for="contenedores[' + numeroSelect + '][contenedor]" class="form-label select-contenedor">Contenedor</label>' +
+    '<select name="contenedores[' + numeroSelect + '][contenedor]" id="registrar-contenedor' + numeroSelect + '-estudio" class="input-form" required>' +
     '<option value="1">Frasco</option><option value="2">Tubo azul</option><option value="3">Tubo lila</option><option value="4">Tubo rojo</option>' +
     '<option value="5">Tubo negro</option><option value="6">Tubo verde</option><option value="7">Transcult</option>' +
     '</select>' + endDiv + startDivSelect +
-    '<label for="contenedores[' + numeroSelect + '[]]" class="form-label select-contenedor">Tipo o muestra</label>' +
-    '<select name="contenedores[' + numeroSelect + '[]]"  id="registrar-muestraCont' + numeroSelect + '-estudio" class="input-form" required placeholder="Seleccione un contenedor">' +
-    '<option value="1">Sangre</option><option value="2">Saliva</option><option value="3">...</option>' +
+    '<label for="contenedores[' + numeroSelect + '][muestra]" class="form-label select-contenedor">Tipo o muestra</label>' +
+    '<select name="contenedores[' + numeroSelect + '][muestra]"  id="registrar-muestraCont' + numeroSelect + '-estudio" class="input-form" required placeholder="Seleccione un contenedor">' +
+    '<option value="1">EXPECTORACIÓN</option>' +
+    '<option value="2">EXUDADO</option>' +
+    '<option value="3">HECES</option>' +
+    '<option value="4">LÍQUIDO</option>' +
+    '<option value="5">ORINA</option>' +
+    '<option value="6">SANGRE</option>' +
+    '<option value="7">SEMEN</option>' +
+    '<option value="8">UÑAS</option>' +
     '</select>' + endDiv +
     startDivButton + '<button type="button" class="btn btn-hover eliminarContenerMuestra' + tipo + '" data-bs-contenedor="' + numeroSelect + '" style="margin-top: 20px;"><i class="bi bi-trash"></i></button>' + endDiv + endDiv;
   $(div).append(html);
 }
+
+function agregarHTMLSelector(div, label, relleno) {
+  console.log(relleno)
+  let id = getRandomString();
+  html = '<div class="row">' +
+    '<div class="col-10 col-md-10">' +
+    '<label for="' + label + '[' + id + ']" class="form-label">' + label + '</label>' +
+    '<select name="' + label + '[' + id + ']" class="input-form select-contenedor-' + label + '" required="">';
+
+  html += `${relleno}`;
+
+  html += '</select>' +
+    '</div>' +
+    '<div class="col-2 d-flex justify-content-start align-items-center">' +
+    '<button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;">' +
+    '<i class="bi bi-trash"></i>' +
+    '</button>' +
+    '</div>' +
+    '</div>';
+  $(div).append(html);
+}
+
+
 
 function hasLocation() {
   var hash = window.location.hash.substring(1);
