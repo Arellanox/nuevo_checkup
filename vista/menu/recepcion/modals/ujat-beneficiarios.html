@@ -1,5 +1,5 @@
 <div class="modal fade" id="ModalBeneficiario" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl modal-fullscreen-xxl-down modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <h5 class="modal-title" id="title-beneficiario">Carga de datos de beneficiario UJAT</h5>
@@ -7,54 +7,55 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12 col-lg-6">
-                        <div class="card p-3">
-                            <div class="row">
-                                <p>Información del paciente beneficiado</p>
-                                <div class="col-6 col-lg-6">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card p-3 m-1" style="min-width: 310px;">
+                                    <p>Información del paciente beneficiado</p>
+
                                     <label for="clave_beneficiado" class="form-label">Clave de beneficiado</label>
                                     <input type="text" name="clave_beneficiado" value=""
                                         class="form-control input-form">
-                                </div>
-                                <div class="col-6 col-lg-6">
+
                                     <label for="parentesco" class="form-label">Parentesco</label>
                                     <input type="text" name="parentesco" value="" class="form-control input-form">
-                                </div>
-                                <div class="col-6 col-lg-6">
+
                                     <label for="diagnostico" class="form-label">Diagnóstico</label>
                                     <input type="text" name="diagnostico" value="" class="form-control input-form">
                                 </div>
+                            </div>
 
-                                <hr>
+                            <div class="col">
+                                <div class="card p-3 m-1" style="min-width: 310px;">
+                                    <p>Información del trabajador</p>
+                                    <label for="curp" class="form-label" id="label-identificacion">
+                                        Trabajador
+                                    </label>
+                                    <input type="text" name="curp" value="" class="form-control input-form"
+                                        id="paciente-beneficia" required>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="checkPacienteBeneficia">
+                                        <label class="form-check-label" for="checkPacienteBeneficia">
+                                            No existe el trabajador
+                                        </label>
+                                    </div>
 
-                                <p>Información del paciente qué beneficia</p>
-                                <div class="col-6">
                                     <label for="ures" class="form-label">Ures</label>
                                     <input type="text" name="ures" value="" class="form-control input-form">
-                                </div>
-                                <div class="col-6">
+
+
                                     <label for="categoria" class="form-label">Categoría</label>
                                     <input type="text" name="categoria" value="" class="form-control input-form">
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6 col-xl6">
+
+                    <div class="col-8" style="display: none;" id="datos-nuevo-trabajador">
                         <div class="card p-3">
-                            <label for="curp" class="form-label" id="label-identificacion">
-                                Paciente que beneficia
-                            </label>
-                            <input type="text" name="curp" value="" class="form-control input-form"
-                                id="paciente-beneficia" required>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="checkPacienteBeneficia">
-                                <label class="form-check-label" for="checkPacienteBeneficia">
-                                    No existe el paciente en el sistema
-                                </label>
-                            </div>
-                            <hr>
-                            <p>Suba los datos necesarios para continuar</p>
+                            <p>Alta de trabajador</p>
                             <div class="row">
                                 <div class="col-12">
                                     <label for="nombre" class="form-label">Nombre(s)</label>
@@ -71,53 +72,66 @@
                                 <div class="col-6">
                                     <label for="edad" class="form-label">Edad</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control input-form" step="0.01" name="edad"
-                                            placeholder="" min="0" max="150" required>
+                                        <input type="number" class="form-control input-form edadTrabajador" step="0.01"
+                                            name="edad" placeholder="" min="0" max="150" required>
                                         <span class="input-span">años</span>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
                                     <input type="date" class="form-control input-form" name="nacimiento" placeholder=""
+                                        onchange="$(`input[class='form-control input-form edadTrabajador']`).val(calcularEdad(this.value))"
                                         required>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="curp" class="form-label">CURP</label>
-                                <input type="text" class="form-control input-form" name="curp" placeholder="" required
-                                    id="curp-registro-infor">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte">
-                                    <label class="form-check-label" for="checkCurpPasaporte">
-                                        Extranjero
-                                    </label>
+                                <div class="col-12">
+                                    <label for="numero_trabajador" class="form-label">Número del trabajador</label>
+                                    <input type="text" name="numero_trabajador" value=""
+                                        class="form-control input-form">
                                 </div>
-                                <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
-                            </div>
-                            <div class="col-12" style="margin-top: 30px;margin-bottom: 15px;">
-                                <div class="container">
-                                    <div class="row" style="zoom:110%;">
-                                        <div class="col-md-auto">
-                                            <label for="">Género: </label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="radio" id="mascuCues" name="genero" value="MASCULINO" required>
-                                            <label for="mascuCues">Masculino</label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="radio" id="FemeCues" name="genero" value="FEMENINO" required>
-                                            <label for="FemeCues">Femenino</label>
+                                <div class="col-6">
+                                    <label for="curp" class="form-label">CURP</label>
+                                    <input type="text" class="form-control input-form" name="curp" placeholder=""
+                                        required id="curp-trabajador">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="check2CurpPasa">
+                                        <label class="form-check-label" for="check2CurpPasa">
+                                            Extranjero
+                                        </label>
+                                    </div>
+                                    <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
+                                </div>
+                                <div class="col-6">
+                                    <label for="pasaporte" class="form-label">Pasaporte</label>
+                                    <input type="text" class="form-control input-form" name="pasaporte" placeholder=""
+                                        id="pasaporte-trabajador">
+                                    <!-- Requerido si no tiene curp -->
+                                </div>
+
+                                <div class="col-12" style="margin-top: 30px;margin-bottom: 15px;">
+                                    <div class="container">
+                                        <div class="row" style="zoom:110%;">
+                                            <div class="col-md-auto">
+                                                <label for="">Género: </label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="radio" id="mascuCues-trabajador" name="genero"
+                                                    value="MASCULINO" required>
+                                                <label for="mascuCues-trabajador">Masculino</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="radio" id="FemeCues-trabajador" name="genero"
+                                                    value="FEMENINO" required>
+                                                <label for="FemeCues-trabajador">Femenino</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
 
+
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
             <div class="modal-footer" style="zoom:90%">

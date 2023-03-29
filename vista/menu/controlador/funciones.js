@@ -104,6 +104,16 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
   return date.toLocaleDateString('es-MX', options)
 }
 
+function calcularEdad(fecha) {
+  var hoy = new Date(), cumpleanos = new Date(fecha);
+  var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+  var m = hoy.getMonth() - cumpleanos.getMonth();
+
+  if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate()))
+    edad--;
+  return edad;
+}
+
 // Revisar sesión
 function validarVista(area) {
   if (session['vista'][area] == 1) {
@@ -1997,7 +2007,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       }
                       setTimeout(() => {
                         getStatusOptimizador()
-                      }, 1000);
+                      }, 2000);
                     }
                   })
                 }
