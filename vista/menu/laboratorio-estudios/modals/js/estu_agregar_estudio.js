@@ -55,7 +55,7 @@ $("#formRegistrarEstudio").submit(function (event) {
   formData.set("costos", 1);
   // formData.set("utilidad", null);
   // formData.set("venta", null);
-  formData.set("api", 0);
+  formData.set("api", 1);
 
   Swal.fire({
     title: "¿Está seguro que todos los datos del estudio están correctos?",
@@ -72,7 +72,7 @@ $("#formRegistrarEstudio").submit(function (event) {
       // Esto va dentro del AJAX
       $.ajax({
         data: formData,
-        url: "../../../api/servicios_api.php",
+        url: http + servidor + '/nuevo_checkup/api/laboratorio_servicios_api.php',
         type: "POST",
         processData: false,
         contentType: false,
