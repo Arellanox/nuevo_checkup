@@ -77,10 +77,14 @@ $api = $_POST['api'];
 $Grupo = $_POST['grupoExamen'];
 $contenedores = $_POST['contenedores'];
 $Equipo = $_POST['Equipo'];
+$Método = $_POST['Método';]
 
 switch ($api) {
     case 1:
         print_r($master->getFormValues($Equipo));
         echo json_encode($master->getFormValues($Equipo));
+
+        print_r($master->getFormValues($Método));
+        echo json_encode($master->getFormValues($Método));
         break;
 }
