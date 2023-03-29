@@ -1,4 +1,7 @@
 <?php
+
+use FontLib\Table\Type\post;
+
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
@@ -10,7 +13,7 @@ $tokenValido = $tokenVerification->verificar();
 // }
 
 $master = new Master();
-$api = $_POST['api']; 
+$api = $_POST['api'];
 
 /*$parametros = Array
 (
@@ -71,11 +74,12 @@ $api = $_POST['api'];
     [costos] => 1
     [api] => 0
         );*/
-$Grupo = $_POST['grupoExamen'];    
+$Grupo = $_POST['grupoExamen'];
+$contenedores = $_POST['contenedores'];
 
-switch($api){
+switch ($api) {
     case 1:
-        print_r($master->getFormValues( $Grupo));
-        echo json_encode($master->getFormValues($Grupo));
-    break;
+        print_r($master->getFormValues($contenedores));
+        echo json_encode($master->getFormValues($contenedores));
+        break;
 }
