@@ -76,7 +76,7 @@ $api = $_POST['api'];
         );*/
 $Grupo = $_POST['grupoExamen'];
 $contenedores = $_POST['contenedores'];
-$Equipo = $POST['Equipo'];
+$Equipo = $_POST['Equipo'];
 
 switch ($api) {
     case 1:
