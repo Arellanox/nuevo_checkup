@@ -105,11 +105,11 @@
                       <label for="">¿Se subroga?: </label>
                     </div>
                     <div class="col-3">
-                      <input type="radio" name="local" id="registrar-subrogaSi" value="1" required>
+                      <input type="radio" name="local" id="registrar-subrogaSi" value="0" required>
                       <label for="registrar-subrogaSi">Si</label>
                     </div>
                     <div class="col-3">
-                      <input type="radio" name="local" id="registrar-subrogaNo" value="0" required>
+                      <input type="radio" name="local" id="registrar-subrogaNo" value="1" required>
                       <label for="registrar-subrogaNo">No</label>
                     </div>
                   </div>
