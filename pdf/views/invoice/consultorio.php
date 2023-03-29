@@ -85,6 +85,7 @@
             font-size: 14px;
             margin-top: 2px;
             margin-bottom: 2px;
+            line-height: 1;
         }
 
         h5 {
@@ -100,7 +101,7 @@
 
         strong {
             font-size: 12px;
-            /* line-height: 0.9; */
+            /* line-height: 1.3; */
             margin-top: 0.5em;
             margin-bottom: 0.5em;
 
@@ -245,11 +246,12 @@ $encode_firma = base64_encode($ruta_firma);
     <!-- body -->
     <div class="invoice-content">
         <!-- ANTECEDENTES -->
-        <h4>ANTECEDENTES</h4>
-        <hr>
+        <!-- <h4>ANTECEDENTES</h4> -->
 
         <?php
             foreach ($resultados->ANTECEDENTES as $key => $antecedente) {
+                $titulo = str_replace("_", " ", $key);
+                echo "<h4>". $titulo ."</h4> <hr>";
                 // print_r($antecedente);
                 foreach ($antecedente as $espoque) { //No se que sea el espoque (si es que así se escribe), pero me dicen que es algo parecido a la iguana
                     echo "<strong>". $espoque->ANTECEDENTE ."</strong>";
