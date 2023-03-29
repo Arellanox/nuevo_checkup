@@ -179,7 +179,7 @@
         .col-izq {
             width: 30%;
             max-width: 30%;
-            text-align: left;
+            text-align: right;
         }
 
         .col-der {
