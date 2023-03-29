@@ -115,7 +115,7 @@
                   </div>
                   <div class="col-12 col-md-12" id="div-maquila" style="display:none">
                     <label for="maquila_lab_id" class="form-label">Prueba a maquilar: </label>
-                    <select name="maquila_lab_id" class="input-form" required>
+                    <select name="maquila_lab_id" class="input-form" id="maquila_agregar_estudio">
                     </select>
                   </div>
 

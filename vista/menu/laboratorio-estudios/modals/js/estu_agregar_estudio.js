@@ -21,7 +21,7 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
     rellenoEquipoSelect = o
   })
 
-  rellenarSelect('select[name="maquila_lab_id"]', 'laboratorio_maquila_api', 0, 'ID_LABORATORIO', 'NOMBRE', {}, function (data, o) {
+  rellenarSelect('#maquila_agregar_estudio', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION', {}, function (data, o) {
     rellenoMaquilaSelect = o;
   })
 

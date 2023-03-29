@@ -818,10 +818,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
             }
           }
         }
-        for (var i = 0; i < data.length; i++) {
 
-
-        }
         // console.log(data);
         callback(data, selectHTML);
 

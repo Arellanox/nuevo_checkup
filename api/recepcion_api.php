@@ -231,6 +231,17 @@ switch ($api) {
         $response = $master->getByProcedure("sp_paciente_servicios_cargados", [$idTurno, $area_id]);
 
         break;
+    case 7:
+        #Datos de beneficiario
+        break;
+    case 8:
+        #lista de trabajadores
+        #Front necesita: 
+        #'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR'
+        #Del trabajador para enviarte la ID
+
+        break;
+
     default:
         # code...
         break;

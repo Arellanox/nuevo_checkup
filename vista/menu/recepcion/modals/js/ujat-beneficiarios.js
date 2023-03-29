@@ -1,3 +1,14 @@
+
+// Obtener datos del paciente seleccionado
+const ModalBeneficiario = document.getElementById('ModalBeneficiario')
+ModalBeneficiario.addEventListener('show.bs.modal', event => {
+    rellenarSelect('#lista-pacientes-trabajadores', 'recepcion', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
+
+})
+
+
+
+
 var hash = window.location.hash.substring(1);
 var tableData;
 
@@ -30,7 +41,8 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
     }
     var form = document.getElementById("formRegistrarPaciente");
     var formData = new FormData(form);
-    formData.set('api', 1);
+    formData.set('turno_id', array_selected['ID_TURNO'])
+    formData.set('api', 7);
     /*DATOS Y VALIDACION DEL REGISTRO*/
     $.ajax({
         data: formData,
@@ -43,7 +55,7 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
             if (mensajeAjax(data)) {
                 alertMensaje('info', '¡Paciente rechazado!', 'El paciente está en la lista de rechazados.');
                 document.getElementById("btn-rechazar-paciente").disabled = false;
-                $("#modalPacienteRechazar").modal("hide");
+                $("#ModalBeneficiario").modal("hide");
                 tablaRecepcionPacientes.ajax.reload();
             }
         }
