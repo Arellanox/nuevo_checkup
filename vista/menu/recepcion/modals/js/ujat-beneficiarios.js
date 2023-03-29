@@ -35,31 +35,37 @@ $('#checkPacienteBeneficia').change(function () {
 //Rechazados
 $("#formBeneficiadoTrabajador").submit(function (event) {
     event.preventDefault();
-    if (array_selected['CLIENTE_ID'] == 18) {
-        alertMensaje('info', 'No tienes permtido hacer esta acción', '?')
+    if (array_selected['CLIENTE_ID'] != '18') {
+        alertMensaje('info', 'No tienes permtido hacer esta acción')
         return false
     }
-    var form = document.getElementById("formRegistrarPaciente");
+    var form = document.getElementById("formBeneficiadoTrabajador");
     var formData = new FormData(form);
     formData.set('turno_id', array_selected['ID_TURNO'])
     formData.set('api', 7);
     /*DATOS Y VALIDACION DEL REGISTRO*/
-    $.ajax({
-        data: formData,
-        processData: false,
-        contentType: false,
-        url: "../../../api/recepcion_api.php",
-        type: "POST",
-        success: function (data) {
-            data = jQuery.parseJSON(data);
-            if (mensajeAjax(data)) {
-                alertMensaje('info', '¡Paciente rechazado!', 'El paciente está en la lista de rechazados.');
-                document.getElementById("btn-rechazar-paciente").disabled = false;
-                $("#ModalBeneficiario").modal("hide");
-                tablaRecepcionPacientes.ajax.reload();
+    alertMensajeConfirm({
+        tittle: '¿Estás seguro de que todos los datos están correctos?',
+        text: '¡No podrás revertir estos cambios!',
+        icon: 'warning'
+    }, function () {
+        $.ajax({
+            data: formData,
+            processData: false,
+            contentType: false,
+            url: "../../../api/recepcion_api.php",
+            type: "POST",
+            success: function (data) {
+                data = jQuery.parseJSON(data);
+                if (mensajeAjax(data)) {
+                    alertMensaje('info', '¡Paciente rechazado!', 'El paciente está en la lista de rechazados.');
+                    document.getElementById("btn-rechazar-paciente").disabled = false;
+                    $("#ModalBeneficiario").modal("hide");
+                    tablaRecepcionPacientes.ajax.reload();
+                }
             }
-        }
-    });
+        });
+    })
     event.preventDefault();
 });
 
