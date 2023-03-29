@@ -47,7 +47,7 @@ $costos = $_POST['costos'];
 
 switch ($api) {
     case 1:
-        $response = $master->insertByProcedure("sp_laboratorio_servicios_g",[
+        $response = $master->insertByProcedure("sp_servicio_laboratorio_g",[
             $id_servicio,
             $descripcion,
             $abreviatura,
