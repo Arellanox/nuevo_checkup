@@ -298,7 +298,7 @@ $encode_firma = base64_encode($ruta_firma);
                             </strong>
                         </td>
                         <td class="col-izq" style="border-bottom: none">
-                            <?php echo (isset($anamnesis->RESPUESTA)) ? $anamnesis->RESPUESTA : 'null' ; ?>
+                            <?php echo (isset($anamnesis->RESPUESTA)) ? $anamnesis->RESPUESTA : '' ; ?>
                         </td>
                     </tr>
                 <?php   if (isset($anamnesis->NOTAS)) { ?>
