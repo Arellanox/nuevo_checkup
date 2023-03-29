@@ -14,6 +14,9 @@ $.post("modals/a_modals.php", function (html) {
 
   getAreaUnValor('metodos', 'metodo', 'laboratorio_metodos_api', 'ID_METODO', '#MODAL_METODOS_VISTA')
 
+  getAreaUnValor('maquila', 'maquila', 'laboratorio_maquila_api', 'ID_LABORATORIO', '#MODAL_MAQUILA_VISTA')
+
+
 
   //METODOS
   // generarCatalogoModal(

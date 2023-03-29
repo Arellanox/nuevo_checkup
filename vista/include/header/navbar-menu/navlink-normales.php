@@ -134,6 +134,12 @@ if ($menu != "PrincipalMenu") : ?>
   </li>
 
   <li class="nav-item">
+    <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmaquila">
+      <i class="bi bi-box"></i> Laboratorios Maquila
+    </a>
+  </li>
+
+  <li class="nav-item">
     <a href="#EstudiosLab">
       <i class="bi bi-box"></i> Estudios
     </a>

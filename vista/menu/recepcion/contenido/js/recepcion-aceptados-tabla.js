@@ -126,6 +126,8 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
   0: "#panel-informacion",
   1: "#panel-documentos-paciente",
   2: "#panel-muestras-estudios"
+}, function () {
+  console.log(array_selected);
 })
 
 

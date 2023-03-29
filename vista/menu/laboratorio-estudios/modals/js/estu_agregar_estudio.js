@@ -1,4 +1,4 @@
-let rellenoGrupoSelect, rellenoMetodoSelect, rellenoEquipoSelect;
+let rellenoGrupoSelect, rellenoMetodoSelect, rellenoEquipoSelect, rellenoMaquilaSelect;
 
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
@@ -19,7 +19,10 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
 
   rellenarSelect('.select-contenedor-equipo', 'laboratorio_equipos_api', 2, 'ID_EQUIPO', 'DESCRIPCION.MODELO.MARCA', {}, function (data, o) {
     rellenoEquipoSelect = o
+  })
 
+  rellenarSelect('select[name="maquila_lab_id"]', 'laboratorio_maquila_api', 0, 'ID_LABORATORIO', 'NOMBRE', {}, function (data, o) {
+    rellenoMaquilaSelect = o;
   })
 
 
@@ -39,7 +42,9 @@ $("#formRegistrarEstudio").submit(function (event) {
     formData.delete('medida_id')
 
 
-
+  if ($('input[type=radio][name=local]').value == 0) {
+    formData.delete('maquila_lab_id')
+  }
 
 
   // var padre = formData.get("grupo");
@@ -147,10 +152,10 @@ $(document).on('click', '.eliminarContenerMuestra1', function () {
 });
 
 $('input[type=radio][name=local]').change(function () {
-  if (this.value == '1') {
+  if (this.value == '0') {
     $('#div-maquila').fadeIn()
   }
-  else if (this.value == '0') {
+  else if (this.value == '1') {
     $('#div-maquila').fadeOut()
   }
 });
