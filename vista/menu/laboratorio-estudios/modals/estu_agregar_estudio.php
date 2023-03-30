@@ -68,7 +68,7 @@
                   </div>
                   <div class="col-6 col-md-6">
                     <label for="dias_entrega" class="form-label">Día de entrega</label>
-                    <input type="text" name="dias_entrega" class="input-form" value="" required>
+                    <input type="text" name="dias_entrega" class="input-form" value="">
                   </div>
                   <div class="col-12 col-md-12">
                     <label for="codigo_sat_id" class="form-label">Clave SAT</label>
@@ -84,7 +84,7 @@
                     <select name="es_para" class="input-form" required="">
                       <option value="1">HOMBRE</option>
                       <option value="2">MUJER</option>
-                      <option value="3">TODOS</option>
+                      <option value="3" selected>TODOS</option>
                     </select>
                   </div>
                   <div class="row" style="zoom:100%;">
@@ -131,13 +131,13 @@
                   <p>Seleccione o agregue los grupo de examen del estudio</p>
                   <div class="" id="div-select-grupo">
                     <div class="row">
-                      <div class="col-6 col-md-6">
+                      <div class="col-12 col-lg-12 col-xxl-6">
                         <label for="grupo_examen[0][grupo_id]" class="form-label">Grupo</label>
                         <select name="grupo_examen[0][grupo_id]" class="input-form select-contenedor-Grupo" required=""></select>
                       </div>
-                      <div class="col-4">
+                      <div class="col-12 col-lg-8 col-xxl-4">
                         <label for="grupo_examen[0][orden]" class="form-label">Posicion del grupo</label>
-                        <input type="text" placerholder="Orden del servicio para el grupo" name="grupo_examen[0][orden]" value="" class="form-control input-form">
+                        <input type="text" placerholder="Orden del servicio para el grupo" name="grupo_examen[0][orden]" required value="" class="form-control input-form">
                       </div>
                       <div class="col-2 d-flex justify-content-start align-items-center">
                         <button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;">
@@ -279,16 +279,16 @@
                     <select name="sexo_enum" class="input-form" required="">
                       <option value="1">HOMBRE</option>
                       <option value="2">MUJER</option>
-                      <option value="3">AMBOS</option>
+                      <option value="3" selected>AMBOS</option>
                     </select>
                   </div>
                   <div class="col-4">
                     <label for="edad_inicial" class="form-label">Edad inicial:</label>
-                    <input type="text" name="edad_inicial" class="form-control input-form" required>
+                    <input type="text" name="edad_inicial" class="form-control input-form">
                   </div>
                   <div class="col-4">
                     <label for="edad_final" class="form-label">Edad final</label>
-                    <input type="text" name="edad_final" class="form-control input-form" required>
+                    <input type="text" name="edad_final" class="form-control input-form">
                   </div>
                 </div>
               </div>

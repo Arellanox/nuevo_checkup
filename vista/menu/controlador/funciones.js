@@ -578,11 +578,12 @@ function desactivarCampo(div, fade) {
   }
 }
 
-// Notifiació  movil
+// Notifiación  movil
 if (window.innerWidth <= 768) {
   position = 'top';
 } else {
-  position = 'top-start';
+  position = 'top';
+  // position = 'top-start';
 }
 
 const Toast = Swal.mixin({

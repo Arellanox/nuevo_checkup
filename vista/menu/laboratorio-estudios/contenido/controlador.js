@@ -82,13 +82,14 @@ function agregarContenedorMuestra(div, numeroSelect, tipo) {
     '</select>' + endDiv +
     startDivButton + '<button type="button" class="btn btn-hover eliminarContenerMuestra' + tipo + '" data-bs-contenedor="' + numeroSelect + '" style="margin-top: 20px;"><i class="bi bi-trash"></i></button>' + endDiv + endDiv;
   $(div).append(html);
+  recargarSelects()
 }
 
 function agregarHTMLSelectorInput(div, label, relleno) {
   console.log(relleno)
   let id = getRandomString();
   html = '<div class="row">' +
-    '<div class="col-6 col-md-6">' +
+    '<div class="col-12 col-lg-12 col-xxl-6">' +
     '<label for="grupoExamen[' + id + '][grupo_id]" class="form-label">' + label + '</label>' +
     '<select name="grupoExamen[' + id + '][grupo_id]" class="input-form select-contenedor-' + label + '" required="">';
 
@@ -96,7 +97,7 @@ function agregarHTMLSelectorInput(div, label, relleno) {
 
   html += '</select>' +
     '</div>' +
-    '<div class="col-4">' +
+    '<div class="col-12 col-lg-8 col-xxl-4">' +
     '<label for="grupoExamen[' + id + '][orden]" class="form-label">Posicion del grupo</label>' +
     '<input type="text" placerholder="Orden del servicio para el grupo" name="grupoExamen[' + id + '][orden]" value=""' +
     'class="form-control input-form">' +
@@ -108,6 +109,9 @@ function agregarHTMLSelectorInput(div, label, relleno) {
     '</div>' +
     '</div>';
   $(div).append(html);
+  recargarSelects()
+
+
 }
 
 function agregarHTMLSelector(div, label, relleno) {
@@ -129,6 +133,18 @@ function agregarHTMLSelector(div, label, relleno) {
     '</div>' +
     '</div>';
   $(div).append(html);
+  recargarSelects()
+}
+
+function recargarSelects(grupo = false) {
+  if (grupo) {
+    rellenarSelect('.select-contenedor-Grupo', 'servicios_api', 7, 0, 'DESCRIPCION', { id_area: 6 }, function (data, o) {
+      rellenoGrupoSelect = o
+    })
+  }
+  select2('.select-contenedor-equipo', 'ModalRegistrarEstudio');
+  select2('.select-contenedor-Método', 'ModalRegistrarEstudio');
+  select2('.select-contenedor-Grupo', 'ModalRegistrarEstudio');
 }
 
 

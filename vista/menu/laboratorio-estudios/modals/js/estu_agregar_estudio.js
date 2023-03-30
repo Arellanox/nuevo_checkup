@@ -13,7 +13,7 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
     rellenoMetodoSelect = o
   })
 
-  rellenarSelect('.select-contenedor-grupo', 'servicios_api', 7, 0, 'DESCRIPCION', {}, function (data, o) {
+  rellenarSelect('.select-contenedor-Grupo', 'servicios_api', 7, 0, 'DESCRIPCION', { id_area: 6 }, function (data, o) {
     rellenoGrupoSelect = o
   })
 
@@ -50,7 +50,11 @@ $("#formRegistrarEstudio").submit(function (event) {
   // var padre = formData.get("grupo");
   // formData.delete("grupo");
   // formData.set("padre", padre);
-  formData.set("grupos", 0);
+  // formData.set("grupos", 0);
+
+
+
+
   formData.set("producto", 1);
   formData.set("area", 6);
 
@@ -90,10 +94,17 @@ $("#formRegistrarEstudio").submit(function (event) {
               title: "¡Estudio registrado!",
               timer: 2000,
             });
-            document.getElementById("formRegistrarEstudio").reset();
-            $('##div-select-contenedores').empty();
-            $("#ModalRegistrarEstudio").modal("hide");
-            tablaServicio.ajax.reload();
+
+            recargarSelects(formData.get("grupo"));
+
+            try { tablaServicio.ajax.reload(); } catch (error) { }
+            try { tablaGrupos.ajax.reload(); } catch (error) { }
+
+            $('input[name="descripcion"]').val('');
+            $('input[name="abreviatura"]').val('');
+            $('input[name="muestra_valores"], input[name="grupos"]').prop('checked', false);
+
+
           }
         },
         error: function (jqXHR, exception, data) {
@@ -182,6 +193,6 @@ select2("#registrar-concepto-facturacion", "ModalRegistrarEstudio");
 select2("#registrar-contenedor1-estudio", "ModalRegistrarEstudio");
 select2("#registrar-muestraCont1-estudio", "ModalRegistrarEstudio");
 
-// select2('.select-contenedor-equipo', 'ModalRegistrarEstudio');
-// select2('.select-contenedor-Método', 'ModalRegistrarEstudio');
-// select2('.select-contenedor-grupo', 'ModalRegistrarEstudio');
+select2('.select-contenedor-equipo', 'ModalRegistrarEstudio');
+select2('.select-contenedor-Método', 'ModalRegistrarEstudio');
+select2('.select-contenedor-Grupo', 'ModalRegistrarEstudio');
