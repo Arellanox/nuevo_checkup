@@ -127,13 +127,12 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
   1: "#panel-documentos-paciente",
   2: "#panel-muestras-estudios"
 }, function () {
+
+
   if (array_selected['CLIENTE_ID'] == 18) {
-    $('#buttonBeneficiario').html(`<button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal"
-            data-bs-target="#ModalBeneficiario">
-            <i class="bi bi-save"></i> Beneficiario
-          </button>`)
+    $('#buttonBeneficiario').fadeIn(200)
   } else {
-    $('#buttonBeneficiario').html('');
+    $('#buttonBeneficiario').fadeOut(200);
   }
 
 

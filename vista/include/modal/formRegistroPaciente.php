@@ -10,16 +10,16 @@
   <label for="materno" class="form-label">Apellido materno</label>
   <input type="text" name="materno" value="" class="form-control input-form">
 </div>
+<div class="col-6 col-lg-3">
+  <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
+  <input type="date" class="form-control input-form" name="nacimiento" placeholder="" required onchange="$(`input[class='form-control input-form edadPacienteRegistro']`).val(calcularEdad(this.value))">
+</div>
 <div class="col-6 col-lg-2">
   <label for="edad" class="form-label">Edad</label>
   <div class="input-group">
-    <input type="number" class="form-control input-form" step="0.01" name="edad" placeholder="" min="0" max="150" required>
+    <input type="number" class="form-control input-form edadPacienteRegistro" step="0.01" name="edad" placeholder="" min="0" max="150" required>
     <span class="input-span">años</span>
   </div>
-</div>
-<div class="col-6 col-lg-3">
-  <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
-  <input type="date" class="form-control input-form" name="nacimiento" placeholder="" required>
 </div>
 <div class="col-7 col-lg-4">
   <label for="curp" class="form-label">CURP</label>

@@ -229,7 +229,7 @@ function checkNumber(x) {
     }
 
   } else {
-    return 2
+    return 0
   }
 }
 

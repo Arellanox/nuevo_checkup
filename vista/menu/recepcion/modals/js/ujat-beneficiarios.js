@@ -2,7 +2,7 @@
 // Obtener datos del paciente seleccionado
 const ModalBeneficiario = document.getElementById('ModalBeneficiario')
 ModalBeneficiario.addEventListener('show.bs.modal', event => {
-    rellenarSelect('#lista-pacientes-trabajadores', 'recepcion', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
+    rellenarSelect('#lista-pacientes-trabajadores', 'recepcion_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
 
 })
 
@@ -35,14 +35,34 @@ $('#checkPacienteBeneficia').change(function () {
 //Rechazados
 $("#formBeneficiadoTrabajador").submit(function (event) {
     event.preventDefault();
-    if (array_selected['CLIENTE_ID'] != '18') {
-        alertMensaje('info', 'No tienes permtido hacer esta acción')
-        return false
+
+    if (isJson(array_selected)) {
+        alertMensaje('error', 'No ha seleccionado ningun paciente', 'No puedes continuar con esta accion');
+        return false;
     }
+
     var form = document.getElementById("formBeneficiadoTrabajador");
     var formData = new FormData(form);
     formData.set('turno_id', array_selected['ID_TURNO'])
     formData.set('api', 7);
+
+    console.log(checkNumber(formData.get('trabajador_id')))
+    if (!checkNumber(formData.get('trabajador_id')) && !document.getElementById('checkPacienteBeneficia').checked) {
+        alertMensaje('warning', 'No puedes agregar estos datos', 'No ha seleccionado el trabajador')
+        return false;
+    }
+
+    if (document.getElementById('checkPacienteBeneficia').checked) {
+        formData.set('trabajador_id', false);
+    }
+
+
+    if (array_selected['CLIENTE_ID'] != '18') {
+        alertMensaje('info', 'No tienes permtido hacer esta acción')
+        return false
+    }
+
+
     /*DATOS Y VALIDACION DEL REGISTRO*/
     alertMensajeConfirm({
         tittle: '¿Estás seguro de que todos los datos están correctos?',
@@ -65,7 +85,7 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
                 }
             }
         });
-    })
+    }, 1)
     event.preventDefault();
 });
 

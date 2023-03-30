@@ -34,7 +34,8 @@
                                     <select name="trabajador_id" class="form-control input-form"
                                         id="lista-pacientes-trabajadores"></select>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="checkPacienteBeneficia">
+                                        <input class="form-check-input" type="checkbox" id="checkPacienteBeneficia"
+                                            name="nuevo-trabajador">
                                         <label class="form-check-label" for="checkPacienteBeneficia">
                                             No existe el trabajador
                                         </label>
@@ -57,8 +58,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <label for="nombre" class="form-label">Nombre(s)</label>
-                                        <input type="text" name="nombre" value="" class="form-control input-form"
-                                            required>
+                                        <input type="text" name="nombre" value="" class="form-control input-form">
                                     </div>
                                     <div class="col-6">
                                         <label for="paterno" class="form-label">Apellido paterno</label>
@@ -69,19 +69,18 @@
                                         <input type="text" name="materno" value="" class="form-control input-form">
                                     </div>
                                     <div class="col-6">
-                                        <label for="edad" class="form-label">Edad</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control input-form edadTrabajador"
-                                                step="0.01" name="edad" placeholder="" min="0" max="150" required>
-                                            <span class="input-span">años</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
                                         <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
                                         <input type="date" class="form-control input-form" name="nacimiento"
                                             placeholder=""
-                                            onchange="$(`input[class='form-control input-form edadTrabajador']`).val(calcularEdad(this.value))"
-                                            required>
+                                            onchange="$(`input[class='form-control input-form edadTrabajador']`).val(calcularEdad(this.value))">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="edad" class="form-label">Edad</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control input-form edadTrabajador"
+                                                step="0.01" name="edad" placeholder="" min="0" max="150">
+                                            <span class="input-span">años</span>
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <label for="numero_trabajador" class="form-label">Número del trabajador</label>
@@ -91,7 +90,7 @@
                                     <div class="col-6">
                                         <label for="curp" class="form-label">CURP</label>
                                         <input type="text" class="form-control input-form" name="curp" placeholder=""
-                                            required id="curp-trabajador">
+                                            id="curp-trabajador">
                                         <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
                                     </div>
                                     <div class="col-6">
@@ -109,12 +108,12 @@
                                                 </div>
                                                 <div class="col">
                                                     <input type="radio" id="mascuCues-trabajador" name="genero"
-                                                        value="MASCULINO" required>
+                                                        value="MASCULINO">
                                                     <label for="mascuCues-trabajador">Masculino</label>
                                                 </div>
                                                 <div class="col">
                                                     <input type="radio" id="FemeCues-trabajador" name="genero"
-                                                        value="FEMENINO" required>
+                                                        value="FEMENINO">
                                                     <label for="FemeCues-trabajador">Femenino</label>
                                                 </div>
                                             </div>
