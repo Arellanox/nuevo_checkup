@@ -121,9 +121,9 @@ $menu = $_POST['menu']; ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarCliente">
     <i class="bi bi-people"></i> Agregar Nuevo Cliente
   </button>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="generar-codigoqr">
+  <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="generar-codigoqr">
     <i class="bi bi-qr-code"></i> Generar QR Prerregistro
-  </button>
+  </button> -->
 <?php endif; ?>
 
 <?php if (

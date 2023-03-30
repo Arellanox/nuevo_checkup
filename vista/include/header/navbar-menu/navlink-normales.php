@@ -127,6 +127,23 @@ if ($menu != "PrincipalMenu") : ?>
     </a>
   </li> -->
 
+
+  <li class="nav-item">
+    <div class="dropdown ">
+      <a class="dropdown-toggle" id="dropCatalogosLab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-journals"></i> Catalogos
+      </a>
+      <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropCatalogosLab">
+        <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos">
+          <i class="bi bi-box"></i> Métodos
+        </a>
+        <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarmaquila">
+          <i class="bi bi-box"></i> Laboratorio Maquila
+        </a>
+      </ul>
+    </div>
+  </li>
+
   <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos">
       <i class="bi bi-box"></i> Metodos
