@@ -144,7 +144,7 @@ if ($menu != "PrincipalMenu") : ?>
     </div>
   </li>
 
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos">
       <i class="bi bi-box"></i> Metodos
     </a>
@@ -154,7 +154,7 @@ if ($menu != "PrincipalMenu") : ?>
     <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmaquila">
       <i class="bi bi-box"></i> Laboratorios Maquila
     </a>
-  </li>
+  </li> -->
 
   <li class="nav-item">
     <a href="#EstudiosLab">

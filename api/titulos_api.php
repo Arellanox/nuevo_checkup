@@ -15,7 +15,7 @@ $api = $_POST['api'];
 
 #buscar y eliminar
 $id = $_POST['id'];
-$activo = !isset($_POST['ACTIVO']) ? null : 1;
+$activo = isset($_POST['ACTIVO']) ? null : 1;
 
 #insertar
 $id_titulo = $_POST['ID_U_TITULO'];

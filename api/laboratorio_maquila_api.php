@@ -18,7 +18,7 @@ $nombre = $_POST['descripcion'];
 
 #buscar y eliminar
 $id = $_POST['id'];
-$activo = !isset($_POST['ACTIVO']) ? null : 1;
+$activo = isset($_POST['ACTIVO']) ? null : 1;
 
 switch ($api) {
     case 1:
