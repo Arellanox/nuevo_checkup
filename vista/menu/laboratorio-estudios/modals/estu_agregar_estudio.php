@@ -154,6 +154,22 @@
                     </div>
                   </div>
 
+
+                  <div class="row mb-2" style="zoom:100%;">
+                    <div class="col-6">
+                      <label for="">¿Es un estudio o un grupo de estudios?</label>
+                    </div>
+                    <div class="col-3">
+                      <input type="radio" name="grupos" id="registrar-grupoEstudio" value="0" required>
+                      <label for="registrar-grupoEstudio">Estudio</label>
+                    </div>
+                    <div class="col-3">
+                      <input type="radio" name="grupos" id="registrar-grupoGrupo" value="1" required>
+                      <label for="registrar-grupoGrupo">Grupo</label>
+                    </div>
+                  </div>
+
+
                   <h5>Método</h5>
                   <p>Seleccione o agregue los metodos del estudio</p>
                   <div class="" id="div-select-metodo">
