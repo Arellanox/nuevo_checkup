@@ -262,7 +262,7 @@ switch ($api) {
 
         if(isset($is_worker) && $is_worker== "on"){
             $e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
-
+            $e_genero = ($e_genero == "MASCULINO") ? 1 : 2;
             $response = $master->insertByProcedure("sp_trabajadores_empresas_g",[
                 $e_id_trabajador,
                 $e_nombre,
