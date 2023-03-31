@@ -6,7 +6,7 @@
                                     <td class="col-der" style="border-bottom: none">
                                         <h4>
                                             DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
-                                            <?php echo $encabezado; ?> <br>
+                                            <?php echo $titulo; ?> <br>
                                             Resultado de Exámenes
                                         </h4>
                                     </td>

@@ -2,7 +2,7 @@
 // Obtener datos del paciente seleccionado
 const ModalBeneficiario = document.getElementById('ModalBeneficiario')
 ModalBeneficiario.addEventListener('show.bs.modal', event => {
-    rellenarSelect('#lista-pacientes-trabajadores', 'recepcion_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
+    rellenarSelect('#lista-pacientes-trabajadores', 'recepcion_api', 8, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
 
 })
 

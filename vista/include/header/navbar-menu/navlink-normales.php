@@ -198,7 +198,7 @@ if ($menu != "PrincipalMenu") : ?>
   </li>
   <li class="nav-item">
     <a href="#PAQUETES_ESTUDIOS">
-      <i class="bi bi-box-fill"></i> Paquetes Estudios
+      <i class="bi bi-box-fill"></i> Paquetes
     </a>
   </li>
   <li class="nav-item">

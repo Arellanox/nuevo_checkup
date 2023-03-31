@@ -233,7 +233,7 @@ $areas = $resultados->areas[0];
     <!-- header -->
     <div class="header">
         <?php
-        $encabezado = 'Laboratorio de Biología Molecular';
+        $titulo = 'Laboratorio de Biología Molecular';
         $tituloPersonales = 'Biología Molecular';
         include 'includes/header.php'; ?>
     </div>
