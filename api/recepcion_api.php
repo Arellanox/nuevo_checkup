@@ -21,23 +21,26 @@ $identificacion = $_POST['identificacion']; #url
 $area_id = $_POST['area_id'];
 
 # trabajadores de la ujat
-$is_worker = $_POST['nuevo_trabajador']; # bit para saber si es ujat y se debe agregar la info del trabajador
-$e_id_trabajador = $_POST['id_trabajador'];
+$is_worker = $_POST['nuevo-trabajador']; # bit para saber si es ujat y se debe agregar la info del trabajador
+$e_id_trabajador = $_POST['trabajador_id'];
 $e_nombre = $_POST['nombre'];
 $e_paterno = $_POST['paterno'];
 $e_materno = $_POST['materno'];
 $e_edad = $_POST['edad'];
-$e_fecha_nacimiento = $_POST['fecha_nacimiento'];
-$e_num_trabajador = $_POST['num_trabajador'];
+$e_fecha_nacimiento = $_POST['nacimiento'];
+$e_num_trabajador = $_POST['numero_trabajador'];
 $e_curp = $_POST['curp'];
 $e_pasaporte = $_POST['pasaporte'];
 $e_extranjero = $_POST['extranjero'];
 $e_genero = $_POST['genero'];
 $e_ures = $_POST['ures'];
-$e_categoria = $_POST['categoria'];
+$e_categoria = $_POST['trabajador-categoria'];
 $e_parentesco = $_POST['parentesco'];
 $e_diagnostico = $_POST['diagnostico'];
+$e_turno_id = $_POST['turno_id'];
+$e_clave_beneficiario = $_POST['clave_beneficiado'];
 $parametro = $_POST['parametro'];
+
 
 # reagendar
 $fecha_reagenda = $_POST['fecha_reagenda'];
@@ -78,31 +81,6 @@ switch ($api) {
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
         // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
-
-        #========================================================================================
-        ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
-
-        if(isset($is_worker) && $is_worker==1 && is_numeric($is_worker)){
-            $employee = $master->insertByProcedure("sp_trabajadores_empresas_g",[
-                $e_id_trabajador,
-                $e_nombre,
-                $e_paterno,
-                $e_materno,
-                $e_edad,
-                $e_fecha_nacimiento,
-                $e_num_trabajador,
-                $e_curp,
-                $e_pasaporte,
-                $e_extranjero,
-                $e_genero,
-                $e_ures,
-                $e_categoria,
-                $idTurno,
-                $e_parentesco,
-                $e_diagnostico
-                ]);
-        }
-        #========================================================================================
 
         $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
 
@@ -278,6 +256,36 @@ switch ($api) {
         break;
     case 7:
         #Datos de beneficiario
+          #========================================================================================
+        ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
+
+
+        if(isset($is_worker) && $is_worker== "on"){
+            $e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
+
+            $response = $master->insertByProcedure("sp_trabajadores_empresas_g",[
+                $e_id_trabajador,
+                $e_nombre,
+                $e_paterno,
+                $e_materno,
+                $e_edad,
+                $e_fecha_nacimiento,
+                $e_num_trabajador,
+                $e_curp,
+                $e_pasaporte,
+                $e_extranjero,
+                $e_genero,
+                $e_ures,
+                $e_categoria,
+                $e_turno_id,
+                $e_parentesco,
+                $e_diagnostico,
+                $e_clave_beneficiario
+                ]);
+        } else {
+            $response = "nuevo-trabajador: off";
+        }
+        #========================================================================================
         break;
     case 8:
         #lista de trabajadores
