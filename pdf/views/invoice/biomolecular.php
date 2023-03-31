@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado de interpretación de Electrocardiograma</title>
+    <title>Resultado de Laboratorio Biomolecular</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
@@ -232,7 +232,10 @@ $areas = $resultados->areas[0];
 <body>
     <!-- header -->
     <div class="header">
-        <?php include 'includes/header.php'; ?>
+        <?php
+        $encabezado = 'Laboratorio de Biología Molecular';
+        $tituloPersonales = 'Biología Molecular';
+        include 'includes/header.php'; ?>
     </div>
 
     <div class="footer">
@@ -245,37 +248,50 @@ $areas = $resultados->areas[0];
     <div class="invoice-content">
         <?php
         foreach ($areas->estudios as $key => $json) {
-            echo passdata($json->estudio, 1);
+            $body = $json->analitos;
+            // print_r($body[0]);
+
+
+
+            include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
+
+
+
             if (count($areas->estudios) - 1 > $key)
                 echo '<div class="break"></div>';
         }
         ?>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var el = document.querySelector(".muestraBiomolecular");
+                el.value = <?php echo $body[7]->resultado; ?>
+            });
+        </script>
     </div>
 </body>
 
 
 <?php
 
-function passdata($indice, $analitos)
+function passdata($indice)
 {
     $estudios = [
-        "PCR SARS-CoV-2" => getPDF('pcr'),
-        "PCR SARS-CoV-2/INFLUENZA A Y B" => getPDF('pcr'),
-        "PANEL RESPIRATORIO POR PCR" => getPDF('PANEL21'),
-        "ANTIGENO" => getPDF('ANTIGENO'),
-        "VPH" => getPDF('VPH'),
-        "CITOLOGÍA" => getPDF('CITOLOGIA'),
+        "PCR SARS-CoV-2" => 'pcr',
+        "PCR SARS-CoV-2/INFLUENZA A Y B" => 'pcr',
+        "PANEL RESPIRATORIO POR PCR" => 'PANEL21',
+        "ANTIGENO" => 'ANTIGENO',
+        "VPH" => 'vph',
+        "CITOLOGÍA" => 'CITOLOGIA',
     ];
 
     return $estudios[$indice];
 }
-function getPDF($name)
-{
-    ob_start();
-    include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . $name . ".php";
-    return ob_get_clean();
-    // return $htmlPCR;
-}
+// function getPDF($name)
+// {
+//     ob_start();
+//     return ob_get_clean();
+//     // return $htmlPCR;
+// }
 
 
 
