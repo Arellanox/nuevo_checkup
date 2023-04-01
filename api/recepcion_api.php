@@ -39,6 +39,9 @@ $e_parentesco = $_POST['parentesco'];
 $e_diagnostico = $_POST['diagnostico'];
 $e_turno_id = $_POST['turno_id'];
 $e_clave_beneficiario = $_POST['clave_beneficiado'];
+$e_medico = $_POST['medico'];
+$e_cedula = $_POST['cedula-medico'];
+$e_pase = $_POST['pase'];
 $parametro = $_POST['parametro'];
 
 
@@ -280,7 +283,10 @@ switch ($api) {
                 $e_turno_id,
                 $e_parentesco,
                 $e_diagnostico,
-                $e_clave_beneficiario
+                $e_clave_beneficiario,
+                $e_medico,
+                $e_cedula,
+                $e_pase
                 ]);
         } else {
             $response = "nuevo-trabajador: off";
