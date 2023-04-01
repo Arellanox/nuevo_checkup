@@ -98,7 +98,7 @@ switch ($menu) {
                     </div>
                     <div class="profile-description text-center">Hola, ¡buen día! :)</div>
                     <div class="profile-description text-center">
-                      <a href="https://sites.google.com/bimo.com.mx/bimo-talentoh/newsletter-bimo/newsletter?authuser=0" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> LAST NEWSLETTER BIMO</a>
+                      <a href="https://sites.google.com/bimo.com.mx/bimo-talentoh/newsletter-bimo/newsletter-abril" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> NEWSLETTER ABRIL 2023</a>
                     </div>
 
                     <div class="row" style="padding-right: 5%; padding-left: 5%;">

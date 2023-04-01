@@ -78,7 +78,7 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
             success: function (data) {
                 data = jQuery.parseJSON(data);
                 if (mensajeAjax(data)) {
-                    alertMensaje('info', '¡Paciente rechazado!', 'El paciente está en la lista de rechazados.');
+                    alertMensaje('success', '¡Información cargada!', 'Los datos de beneficiario ya estan listos.');
                     document.getElementById("btn-rechazar-paciente").disabled = false;
                     $("#ModalBeneficiario").modal("hide");
                     tablaRecepcionPacientes.ajax.reload();
