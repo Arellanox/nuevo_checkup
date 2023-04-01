@@ -294,8 +294,14 @@ switch ($api) {
         #Del trabajador para enviarte la ID
 
         # recuperar la lista de lost trabajadores
-        $response = $master->getByProcedure("sp_trabajdores_empresas_b",[$e_id_trabajador,$parametro]);
+        # Enviar el id del trabajdor para recuperar un solo registro.
+        # Enviar cualquier palabra en $parametro para recuperar un set de datos
+        # que coincidan con el nombre completo, categoria, num trabajador, etc.
+        # Enviar solo la id del turno para recuperar la informacion del trabajador que
+        # depende el beneficiario.
+        $response = $master->getByProcedure("sp_trabajdores_empresas_b",[$e_id_trabajador,$parametro,$e_turno_id]);
         break;
+
     default:
         $response = "Api no definida.";
         break;
