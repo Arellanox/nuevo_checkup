@@ -6,6 +6,33 @@ ModalBeneficiario.addEventListener('show.bs.modal', event => {
 
 })
 
+await function datosPacienteBeneficiado(turno) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: 'POST',
+            url: https + servidor + '/nuevo_checkup/api/recepcion_api.php',
+            dataType: 'json',
+            data: {
+
+            },
+            beforeSend: function () {
+                alertToast('Verificando si existen datos previos...', 'info', 4000);
+            },
+            success: function (data) {
+                if (mensajeAjax(data)) {
+
+
+                    alertToast('Datos ')
+                }
+            },
+            complete: function () {
+                resolve(1);
+            }
+        })
+    })
+
+}
+
 
 
 
@@ -66,7 +93,7 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
     /*DATOS Y VALIDACION DEL REGISTRO*/
     alertMensajeConfirm({
         tittle: '¿Estás seguro de que todos los datos están correctos?',
-        text: '¡No podrás revertir estos cambios!',
+        text: '¡Probablemente no podrás revertir los cambios!',
         icon: 'warning'
     }, function () {
         $.ajax({
@@ -79,9 +106,10 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
                 data = jQuery.parseJSON(data);
                 if (mensajeAjax(data)) {
                     alertMensaje('success', '¡Información cargada!', 'Los datos de beneficiario ya estan listos.');
+                    rellenarSelect('#lista-pacientes-trabajadores', 'recepcion_api', 8, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
                     document.getElementById("btn-rechazar-paciente").disabled = false;
                     $("#ModalBeneficiario").modal("hide");
-                    tablaRecepcionPacientes.ajax.reload();
+                    // tablaRecepcionPacientes.ajax.reload();
                 }
             }
         });

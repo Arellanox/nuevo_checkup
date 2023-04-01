@@ -296,11 +296,11 @@
                                 </tr>
                                 <tr>
                                     <td class="col-left" style="border-bottom: none">
-                                        Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong></p>
 
                     </div>
 

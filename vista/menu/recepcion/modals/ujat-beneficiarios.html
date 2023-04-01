@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl modal-fullscreen-xxl-down modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
-                <h5 class="modal-title" id="title-beneficiario">Carga de datos de beneficiario UJAT</h5>
+                <h5 class="modal-title" id="title-beneficiario">Carga de Datos de beneficiario UJAT</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -15,6 +15,7 @@
 
                                     <label for="clave_beneficiado" class="form-label">Clave de beneficiado</label>
                                     <input type="text" name="clave_beneficiado" value=""
+                                        placeholder="Ejemplo: 1, 2, 3, después del - de la clave del trabajador"
                                         class="form-control input-form">
 
                                     <label for="parentesco" class="form-label">Parentesco</label>
@@ -27,8 +28,22 @@
                                         <option value="5">Hijo (a)</option>
                                     </select>
 
+                                    <label for="pase" class="form-label">Número de Pase</label>
+                                    <input type="text" name="pase" class="form-control input-form">
+
+                                    <label for="medico" class="form-label">Médico que Envía</label>
+                                    <input type="text" name="medico" value="" class="form-control input-form">
+
+                                    <label for="cedula-medico" class="form-label">Cédula</label>
+                                    <input type="text" name="cedula-medico" class="form-control input-form">
+
                                     <label for="diagnostico" class="form-label">Diagnóstico</label>
                                     <input type="text" name="diagnostico" value="" class="form-control input-form">
+
+                                    <label for="ures" class="form-label">Ures</label>
+                                    <input type="text" name="ures" class="form-control input-form">
+
+
                                 </div>
                             </div>
 
@@ -47,9 +62,6 @@
                                             No existe el trabajador
                                         </label>
                                     </div>
-
-                                    <label for="trabajador-ures" class="form-label">Ures</label>
-                                    <input type="text" name="ures" class="form-control input-form">
 
 
                                     <label for="categoria" class="form-label">Categoría</label>
