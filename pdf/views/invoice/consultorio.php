@@ -281,7 +281,8 @@ $encode_firma = base64_encode($ruta_firma);
                 }
             }
         ?>
-        
+
+        <div class="break">        </div>
         
         <!-- ANAMNESIS -->
         <h2 style="padding-bottom: 6px; padding-top: 6px;">ANAMNESIS </h2>
@@ -315,13 +316,23 @@ $encode_firma = base64_encode($ruta_firma);
             </tbody>
         </table>
         
-
         <!-- ODONTOGRAMA -->
         <h2 style="padding-bottom: 6px; padding-top: 6px;">ODONTOGRAMA</h2>
 
+        
         <?php
-            if (isset($resultados->ODONTROGRAMA)) {
+            if (isset($resultados->ODONTOGRAMA)) {
                 foreach ($resultados->ODONTOGRAMA as $dientes) {
+                    echo "<p>";
+                    echo "<strong>". $dientes->PIEZA_DENTAL ."</strong>";
+                    echo $dientes->TRATAMIENTO ."<br>";
+                    if (isset($dientes->DIAGNOSTICO)) {
+                        echo "<strong>Diagnóstico: </strong>". $dientes->DIAGNOSTICO . "<br>";
+                    }
+                    if (isset($dientes->COMENTARIOS)) {
+                        echo "<strong>Comentario: </strong>". $dientes->COMENTARIOS . "";
+                    }
+                    echo "</p>";
                 }
             }
         ?>
@@ -334,7 +345,7 @@ $encode_firma = base64_encode($ruta_firma);
             echo "<table class='result' style='padding-top: 1px;'><thead><tr><th class='col-one'></th><th class='col-two'></th><th class='col-three'></th><th class='col-four'></th></tr></thead><tbody><tr><td><strong>Peso perdido: </strong>". $nutriLeche->PESO_PERDIDO ." </td><td><strong> Grasa: </strong>" .$nutriLeche->GRASA . "</td><td><strong>Cintura: </strong> " .$nutriLeche->CINTURA ." </td><td><strong>Agua:</strong> ".$nutriLeche->AGUA."</td></tr><tr><td colspan='2'><strong>Musculo:</strong>".$nutriLeche->ABDOMEN." </td><td colspan='2'><strong>Abdomen:</strong> ".$nutriLeche->ABDOMEN."</td></tr></tbody></table>";
             }
         ?>
-
+        <div class="break;"></div>
         
         
         <!-- EXPLORACION_FISICA -->

@@ -90,7 +90,7 @@ class Reporte
             "area"                  => isset($area) ? $area : null
         );
 
-        // print_r($view_vars['resultados']);
+        print_r($view_vars['resultados']->ODONTOGRAMA);
 
         $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
