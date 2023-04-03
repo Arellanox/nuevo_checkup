@@ -339,7 +339,7 @@ class Miscelaneus
                 $carpeta_guardado = 'lab';
                 $datos_medicos = array(); #Mandar vacio
                 $folio = $infoPaciente[0]['FOLIO'];
-                if ($area_id == 12) {
+                if ($area_id == 12 || $area_id == '12') {
                     $carpeta_guardado = 'lab-molecular';
                     $folio = $infoPaciente[0]['FOLIO_BIOMOLECULAR'];
                 }

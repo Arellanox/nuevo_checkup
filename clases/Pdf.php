@@ -30,7 +30,7 @@ class Reporte
     {
         $this->response = $response; //cuerpo
         $this->data     = $data; //Ecabezado
-        $this->pie      = $pie; //Footer
+        $this->pie      = $pie; //Footer <-- Se manda folio
         $this->archivo  = $archivo; //Ruta de reporte
         $this->tipo     = $tipo; //Tipo de resultado
         $this->orden    = $orden; //Forma de visualizar
