@@ -63,7 +63,7 @@ $("#formRegistrarPaciente").submit(function (event) {
 
                 AgendaData.set('pacienteId', data.response.data);
 
-                AgendaData.set('cliente_id', 1)
+                AgendaData.set('cliente_id', $('#selectIngresoProcedencia').val())
                 // AgendaData.set('segmento_id', null) //$('#selectSegmentos').val()
                 // const tiempoTranscurrido = Date.now();
                 // const hoy = new Date(tempoTranscurrido);
@@ -161,6 +161,19 @@ $('#formRegistrarPaciente input[type=text]').on('change keyup', function () {
     return this.value.toUpperCase();
   })
 })
+
+
+if (registroAgendaRecepcion == 1) {
+  $('#contenido-procedencia').html(`<label for="selectIngresoProcedencia" class="form-label">Selecciona procedencia</label>
+  <select class="form-control input-form dataIdProcedencias" id="selectIngresoProcedencia">
+  </select>`)
+
+  select2('#selectIngresoProcedencia', "ModalRegistrarPaciente", 'Cargando...')
+  rellenarSelect('#selectIngresoProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+
+}
+
+
 //  this.value=this.value.toUpperCase();
 
 

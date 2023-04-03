@@ -12,3 +12,4 @@ modalRegistrarPrueba.addEventListener('show.bs.modal', event => {
 
     select2('#selectProcedencia', "ModalRegistrarPrueba", 'Cargando...')
 })
+
