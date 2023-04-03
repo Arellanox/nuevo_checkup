@@ -321,21 +321,31 @@ $encode_firma = base64_encode($ruta_firma);
 
         
         <?php
-            if (isset($resultados->ODONTOGRAMA)) {
-                foreach ($resultados->ODONTOGRAMA as $dientes) {
-                    echo "<p>";
-                    echo "<strong>". $dientes->PIEZA_DENTAL ."</strong>";
-                    echo $dientes->TRATAMIENTO ."<br>";
-                    if (isset($dientes->DIAGNOSTICO)) {
-                        echo "<strong>Diagnóstico: </strong>". $dientes->DIAGNOSTICO . "<br>";
+        if (isset($resultados->ODONTOGRAMA)) {
+            $dientes_chunks = array_chunk($resultados->ODONTOGRAMA, 2);
+            
+            echo "<table>";
+            foreach ($dientes_chunks as $chunk) {
+                echo "<tr>";
+                foreach ($chunk as $dientes) {
+                    $diagnostico = isset($dientes->DIAGNOSTICO) ? $dientes->DIAGNOSTICO : '';
+                    echo "<td>";
+                    echo "<strong>". $dientes->PIEZA_DENTAL . " - " . $dientes->CARA . "</strong><br>";
+                    echo "<strong>Diagnóstico: " . $diagnostico ."<br>";
+                    if (isset($dientes->TRATAMIENTO)) {
+                        echo "<strong>Diagnostico:</strong> ". $dientes->TRATAMIENTO ."<br>";
                     }
                     if (isset($dientes->COMENTARIOS)) {
-                        echo "<strong>Comentario: </strong>". $dientes->COMENTARIOS . "";
+                        echo "<strong>Nota:</strong> ". $dientes->COMENTARIOS ."<br>";
                     }
-                    echo "</p>";
+                    echo "</td>";
                 }
+                echo "</tr>";
             }
+            echo "</table>";
+        }
         ?>
+
 
         <!-- NUTRICION -->
         <h2 style="padding-bottom: 6px; padding-top: 6px;">NUTRICION</h2>
