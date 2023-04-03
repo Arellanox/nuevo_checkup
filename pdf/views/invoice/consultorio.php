@@ -330,7 +330,7 @@ $encode_firma = base64_encode($ruta_firma);
                 foreach ($chunk as $dientes) {
                     $diagnostico = isset($dientes->DIAGNOSTICO) ? $dientes->DIAGNOSTICO : '';
                     echo "<td>";
-                    echo "<strong>". $dientes->PIEZA_DENTAL . " - " . $dientes->CARA . "</strong><br>";
+                    echo "<strong>". $dientes->PIEZA_DENTAL . " - CARA" . $dientes->CARA . "</strong><br>";
                     echo "<strong>Diagnóstico: " . $diagnostico ."<br>";
                     if (isset($dientes->TRATAMIENTO)) {
                         echo "<strong>Diagnostico:</strong> ". $dientes->TRATAMIENTO ."<br>";
