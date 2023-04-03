@@ -259,14 +259,14 @@ switch ($api) {
         break;
     case 7:
         #Datos de beneficiario
-          #========================================================================================
+        #========================================================================================
         ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
 
 
         // if(isset($is_worker) && $is_worker== "on"){
         $e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
         $e_genero = ($e_genero == "MASCULINO") ? 1 : 2;
-        $response = $master->insertByProcedure("sp_trabajadores_empresas_g",[
+        $response = $master->insertByProcedure("sp_trabajadores_empresas_g", [
             $e_id_trabajador,
             $e_nombre,
             $e_paterno,
@@ -287,7 +287,7 @@ switch ($api) {
             $e_medico,
             $e_cedula,
             $e_pase
-            ]);
+        ]);
         // } else {
         //     $response = "nuevo-trabajador: off";
         // }
@@ -305,7 +305,7 @@ switch ($api) {
         # que coincidan con el nombre completo, categoria, num trabajador, etc.
         # Enviar solo la id del turno para recuperar la informacion del trabajador que
         # depende el beneficiario.
-        $response = $master->getByProcedure("sp_trabajdores_empresas_b",[$e_id_trabajador,$parametro,$e_turno_id]);
+        $response = $master->getByProcedure("sp_trabajdores_empresas_b", [$e_id_trabajador, $parametro, $e_turno_id]);
         break;
 
     default:

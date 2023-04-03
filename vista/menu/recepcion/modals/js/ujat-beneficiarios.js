@@ -2,27 +2,64 @@
 // Obtener datos del paciente seleccionado
 const ModalBeneficiario = document.getElementById('ModalBeneficiario')
 ModalBeneficiario.addEventListener('show.bs.modal', event => {
-    rellenarSelect('#lista-pacientes-trabajadores', 'recepcion_api', 8, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
-
+    cargarModal()
 })
 
-await function datosPacienteBeneficiado(turno) {
-    return new Promise(function (resolve, reject) {
+async function cargarModal() {
+    await rellenarSelect('#lista-pacientes-trabajadores', 'recepcion_api', 8, 'ID_TRABAJADOR', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
+    if (array_selected['ID_TURNO'])
+        await datosPacienteBeneficiado(array_selected['ID_TURNO']);
+}
+
+
+async function datosPacienteBeneficiado(turno) {
+    return new Promise(function (resolve) {
         $.ajax({
             type: 'POST',
-            url: https + servidor + '/nuevo_checkup/api/recepcion_api.php',
+            url: http + servidor + '/nuevo_checkup/api/recepcion_api.php',
             dataType: 'json',
             data: {
-
+                api: 8,
+                turno_id: turno
             },
             beforeSend: function () {
                 alertToast('Verificando si existen datos previos...', 'info', 4000);
             },
             success: function (data) {
                 if (mensajeAjax(data)) {
+                    if (data.response.data.length > 0) {
+                        let row = data.response.data[0];
+
+                        $('#clave_beneficiado').val(row.CLAVE_BENEFICIARIO)
+                        $('#parentesco_beneficiado option').prop('selected', false);
+                        $("#parentesco_beneficiado option").filter(function () {
+                            //may want to use $.trim in here
+                            return $(this).text() == row.PARENTESCO;
+                        }).prop('selected', true)
+
+                        $('#numero_pase').val(row.NUMERO_PASE);
+                        $('#medico_envia').val(row.MEDICO_QUE_ENVIA);
+                        $('#cedula_medico').val(row.CEDULA_MEDICO);
+                        $('#diagnostico_beneficiado').val(row.DIAGNOSTICO);
+                        $('#ures_beneficiado').val(row.URES);
 
 
-                    alertToast('Datos ')
+                        $("#lista-pacientes-trabajadores").val(row.ID_TRABAJADOR).trigger('change'); // <-- trabajador
+
+                        $("#lista-pacientes-trabajadores option").filter(function () {
+                            //may want to use $.trim in here
+                            return $(this).text() == row.ID_TRABAJADOR;
+                        }).prop('selected', true).trigger('change');
+
+                        $('#categoria_trabajador').val(row.CATEGORIA);
+
+
+                        // alertMensaje('success')
+                        alertToast('Datos completos', 'success', 4000)
+                    } else {
+                        alertToast('No existe datos previos...', 'info', 4000);
+                    }
+
                 }
             },
             complete: function () {
@@ -73,8 +110,8 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
     formData.set('turno_id', array_selected['ID_TURNO'])
     formData.set('api', 7);
 
-    console.log(checkNumber(formData.get('trabajador_id')))
-    if (!checkNumber(formData.get('trabajador_id')) && !document.getElementById('checkPacienteBeneficia').checked) {
+    // console.log(checkNumber(formData.get('trabajador_id'), 1))
+    if (!formData.get('trabajador_id') && !document.getElementById('checkPacienteBeneficia').checked) {
         alertMensaje('warning', 'No puedes agregar estos datos', 'No ha seleccionado el trabajador')
         return false;
     }
@@ -117,5 +154,5 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
     event.preventDefault();
 });
 
-// select2('#lista-pacientes-trabajadores', "ModalBeneficiario")
+select2('#lista-pacientes-trabajadores', "ModalBeneficiario")
 // rellenarSelect('#lista-pacientes-trabajadores', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE', { cliente_id: 1, onlyTrabajadores: true })

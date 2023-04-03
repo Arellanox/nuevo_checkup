@@ -161,6 +161,24 @@ function login($user, $password)
             }
             $_SESSION['vista'] = $vista;
             $_SESSION['pacientes_llamados'] = null;
+
+
+            #Newsletter dinamico
+            $sql = "SELECT URL, DESCRIPCION
+                    FROM NEWSLETTER_BIMO WHERE ACTIVO_BOTON = 1 ORDER BY id_newsletter_bimo ASC LIMIT 1";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(1, $_SESSION['id']);
+            $stmt->execute();
+            $vista = array();
+            $result = $stmt->fetchAll();
+            $_SESSION['newsletter'] = [
+                'button_usuario' => [
+                    'url' => $result[0]['url'],
+                    'tittle_button' => $result[0]['DESCRIPCION'],
+                ]
+            ];
+
+
             return $_SESSION;
         } else {
             return "Oops! Tu contraseña es incorrecta.";

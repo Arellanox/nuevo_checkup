@@ -218,7 +218,7 @@ function getRandomString() {
 }
 
 // Checa si es un numero
-function checkNumber(x) {
+function checkNumber(x, transform = 0) {
   // check if the passed value is a number
   if (typeof x == 'number' && !isNaN(x)) {
     // check if it is integer
@@ -229,6 +229,8 @@ function checkNumber(x) {
     }
 
   } else {
+    if (transform)
+      return parseInt(x); //Entero
     return 0
   }
 }
