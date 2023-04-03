@@ -90,7 +90,7 @@ function hasLocation() {
         url_api = 'electrocardiograma_api';
         obtenerContenidoVistaMaster(10, 'Nutrición', 'contenido_modal.php');
         break;
-      case "NUTRICON_CAPTURAS":
+      case "NUTRICION_CAPTURAS":
         control_turnos = 10;
         formulario = "1"; // Para toma capturas
         api_capturas = 5;
