@@ -21,6 +21,9 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     complete: function () {
       loader("Out", 'bottom')
     },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
     dataSrc: 'response.data'
   },
   createdRow: function (row, data, dataIndex) {

@@ -19,6 +19,10 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     complete: function () {
       loader("Out")
     },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert(1);
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
     dataSrc: 'response.data'
   },
   columns: [
@@ -42,6 +46,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   ],
 
 })
+
 
 inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
   {

@@ -1291,7 +1291,7 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
 
   });
 }
-
+$.fn.dataTable.ext.errMode = 'throw';
 //Doble y de solo un click
 var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {

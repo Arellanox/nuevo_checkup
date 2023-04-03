@@ -60,7 +60,7 @@
                                         Fecha de Toma de Muestra: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_TOMA; ?> </strong>
                                     </td>
                                     <td class="col-center" style="border-bottom: none">
-                                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
+                                        Fecha de Resultado: <strong style="font-size: 10.3px;"><?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
                                     </td>
                                     <td class="col-right" style="border-bottom: none">
                                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -68,8 +68,9 @@
                                 </tr>
                                 <tr>
                                     <td class="col-left" style="border-bottom: none">
-                                        Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong>
+                                        <!-- Procedencia -->
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong></p>
