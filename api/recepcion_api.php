@@ -263,34 +263,34 @@ switch ($api) {
         ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
 
 
-        if(isset($is_worker) && $is_worker== "on"){
-            $e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
-            $e_genero = ($e_genero == "MASCULINO") ? 1 : 2;
-            $response = $master->insertByProcedure("sp_trabajadores_empresas_g",[
-                $e_id_trabajador,
-                $e_nombre,
-                $e_paterno,
-                $e_materno,
-                $e_edad,
-                $e_fecha_nacimiento,
-                $e_num_trabajador,
-                $e_curp,
-                $e_pasaporte,
-                $e_extranjero,
-                $e_genero,
-                $e_ures,
-                $e_categoria,
-                $e_turno_id,
-                $e_parentesco,
-                $e_diagnostico,
-                $e_clave_beneficiario,
-                $e_medico,
-                $e_cedula,
-                $e_pase
-                ]);
-        } else {
-            $response = "nuevo-trabajador: off";
-        }
+        // if(isset($is_worker) && $is_worker== "on"){
+        $e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
+        $e_genero = ($e_genero == "MASCULINO") ? 1 : 2;
+        $response = $master->insertByProcedure("sp_trabajadores_empresas_g",[
+            $e_id_trabajador,
+            $e_nombre,
+            $e_paterno,
+            $e_materno,
+            $e_edad,
+            $e_fecha_nacimiento,
+            $e_num_trabajador,
+            $e_curp,
+            $e_pasaporte,
+            $e_extranjero,
+            $e_genero,
+            $e_ures,
+            $e_categoria,
+            $e_turno_id,
+            $e_parentesco,
+            $e_diagnostico,
+            $e_clave_beneficiario,
+            $e_medico,
+            $e_cedula,
+            $e_pase
+            ]);
+        // } else {
+        //     $response = "nuevo-trabajador: off";
+        // }
         #========================================================================================
         break;
     case 8:
