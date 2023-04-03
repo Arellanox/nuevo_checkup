@@ -82,22 +82,22 @@ function hasLocation() {
         subtipo = 'ELECTROTOMA';
         obtenerContenidoVistaMaster(10, 'Carga de Electrocardiograma', 'contenido_modal.php', 'tomaCapturas');
         break;
-      case "ELECTROCARDIOGRAMA":
+      case "NUTRICION":
         control_turnos = null;
         formulario = "formSubirInterpretacionElectro";
         api_capturas = 5;
         api_interpretacion = 1;
         url_api = 'electrocardiograma_api';
-        obtenerContenidoVistaMaster(10, 'Resultados de Electrocardiograma', 'contenido_modal.php');
+        obtenerContenidoVistaMaster(10, 'Nutrición', 'contenido_modal.php');
         break;
-      case "ELECTROCARDIOGRAMA_CAPTURAS":
+      case "NUTRICON_CAPTURAS":
         control_turnos = 10;
         formulario = "1"; // Para toma capturas
         api_capturas = 5;
         api_interpretacion = 1;
         url_api = 'electrocardiograma_api';
         subtipo = 'ELECTROTOMA';
-        obtenerContenidoVistaMaster(10, 'Carga de Electrocardiograma', 'contenido_modal.php', 'tomaCapturas');
+        obtenerContenidoVistaMaster(10, 'Carga de capturas', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "AUDIOMETRIA":
         control_turnos = 5
