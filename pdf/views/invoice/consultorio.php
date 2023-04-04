@@ -286,7 +286,6 @@ $encode_firma = base64_encode($ruta_firma);
             }
         ?>
 
-        <div class="break">        </div>
         
         <!-- ANAMNESIS -->
         <h2 style="padding-bottom: 6px; padding-top: 6px;">ANAMNESIS </h2>
@@ -325,6 +324,8 @@ $encode_firma = base64_encode($ruta_firma);
             </tbody>
         </table>
         
+        <div class="break">        </div>
+
         <!-- ODONTOGRAMA -->
         <h2 style="padding-bottom: 6px; padding-top: 6px;">ODONTOGRAMA</h2>
 
