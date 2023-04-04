@@ -68,88 +68,6 @@ echo "api ".$api;
 switch ($api) {
     case 1:
         $response = $master->insertByProcedure("sp_servicio_laboratorio_g",[
-            $descripcion,
-            $abreviatura,
-            $clasificacion_id,
-            $medida_id,
-            $dias_entrega,
-            $codigo_sat_id,
-            $indicaciones,
-            $muestra_valores,
-            $local,
-            $maquila_lab_id,
-            json_encode($master->getFormValues($grupo)),
-            json_encode($master->getFormValues($metodo)),
-            json_encode($master->getFormValues($contenedores)),
-            json_encode($master->getFormValues($equipo)),
-            $valor_minimo,
-            $valor_maximo,
-            $sexo,
-            $edad_inicial,
-            $edad_final,
-            $es_grupo,
-            $es_producto,
-            $area_id,
-            $seleccionable,
-            $es_para,
-            $costos,
-            $_SESSION['id']
-        ]);
-        break;
-    case 2:
-        $response = $master->getByProcedure('sp_servicio_laboratorio_b', [$id_servicio]);
-        $arrayGrupo = [];
-        $arrayOrden = [];
-        $arrayEquipo = [];
-        $arrayMetodo = [];
-        $arrayContenedores = [];
-        $arrayMuestras = [];
-        
-
-        for ($i = 0; $i < count($response); $i++) {
-            if(!in_array($response[$i]['GRUPO_ID'], $arrayGrupo)){
-                $grupo = $response[$i]['GRUPO_ID'];
-                array_push($arrayGrupo, $grupo);
-            }
-            if(!in_array($response[$i]['ORDEN'], $arrayOrden)){
-                $orden = $response[$i]['ORDEN'];
-                array_push($arrayOrden, $orden);
-            }
-            if(!in_array($response[$i]['EQUIPO_ID'], $arrayEquipo)){
-                $equipo = $response[$i]['EQUIPO_ID'];
-                array_push($arrayEquipo, $equipo);
-            }
-            if(!in_array($response[$i]['METODO_ID'], $arrayMetodo)){
-                $metodo = $response[$i]['METODO_ID'];
-                array_push($arrayMetodo, $metodo);
-            }
-            if(!in_array($response[$i]['CONTENEDOR_ID'], $arrayContenedores)){
-                $contenedores = $response[$i]['CONTENEDOR_ID'];
-                array_push($arrayContenedores, $contenedores);
-            }
-            if(!in_array($response[$i]['MUESTRA_ID'], $arrayMuestras)){
-                $muestras = $response[$i]['MUESTRA_ID'];
-                array_push($arrayMuestras, $muestras);
-            }
-        }
-
-        $response = array(
-            "DESCRIPCION" => $response[0]['DESCRIPCION'],
-            "ABREVIATURA" => $response[0]['ABREVIATURA'],
-            "CLASIFICACION_ID" => $response[0]['CLASIFICACION_ID'],
-            "MEDIDA_ID" => $response[0]['MEDIDA_ID'],
-            "DIAS_DE_ENTREGA"=> $response[0]['DIAS_DE_ENTREGA'],
-            "GRUPOS" => array( "GRUPO_ID" => $arrayGrupo, "ORDEN" => $arrayOrden),
-            "EQUIPO_ID" => $arrayEquipo,
-            "METODO_ID" => $arrayMetodo,
-            "CONTENEDORES" => array( "CONTENEDOR_ID" => $arrayContenedores, "MUESTRA_ID" => $arrayMuestras)
-
-        );
-          
-
-    break;
-    case 3:
-        $response =  $master ->updateByProcedure('sp_servicio_laboratorio_g', [
             $id_servicio,
             $descripcion,
             $abreviatura,
@@ -178,8 +96,79 @@ switch ($api) {
             $costos,
             $_SESSION['id']
         ]);
-        break;
+    break;
+    case 2:
+        $response = $master->getByProcedure('sp_servicio_laboratorio_b', [$id_servicio]);
+        $arrayGrupo = [];
+        $arrayGrupoOrden = [];
+        $arrayOrden = [];
+        $arrayEquipo = [];
+        $arrayMetodo = [];
+        $arrayContenedores = [];
+        $arrayMuestras = [];
+        $arrayContenedoryMuestra = [];
+
+        
+
+        for ($i = 0; $i < count($response); $i++) {
+
+            if(!in_array($response[$i]['GRUPO_ID'], $arrayGrupo) || !in_array($response[$i]['ORDEN'], $arrayOrden)){
+                $grupo = $response[$i]['GRUPO_ID'];
+                $orden = $response[$i]['ORDEN'];
+                array_push($arrayGrupo, $grupo);
+                array_push($arrayOrden, $orden);
+                array_push($arrayGrupoOrden, array("GRUPO" => $grupo, "ORDEN" => $orden));
+            }
+
+            if(!in_array($response[$i]['EQUIPO_ID'], $arrayEquipo)){
+                $equipo = $response[$i]['EQUIPO_ID'];
+                array_push($arrayEquipo, $equipo);
+            }
+            if(!in_array($response[$i]['METODO_ID'], $arrayMetodo)){
+                $metodo = $response[$i]['METODO_ID'];
+                array_push($arrayMetodo, $metodo);
+            }
+            if(!in_array($response[$i]['CONTENEDOR_ID'], $arrayContenedores) || !in_array($response[$i]['MUESTRA_ID'], $arrayMuestras)){
+                $contenedores = $response[$i]['CONTENEDOR_ID'];
+                $muestras = $response[$i]['MUESTRA_ID'];
+                array_push($arrayContenedores,$contenedores);
+                array_push($arrayMuestras, $muestras);
+                array_push($arrayContenedoryMuestra, array('CONTENEDOR_ID' => $contenedores, 'MUESTRA_ID' =>  $muestras));
+            }
+        //     if(!in_array($response[$i]['MUESTRA_ID'], $arrayMuestras)){
+        //         $muestras = $response[$i]['MUESTRA_ID'];
+        //         array_push($arrayMuestras, $muestras);
+        //     }
+        }
+
+        $response = array(
+            "DESCRIPCION" => $response[0]['DESCRIPCION'],
+            "ABREVIATURA" => $response[0]['ABREVIATURA'],
+            "CLASIFICACION_ID" => $response[0]['CLASIFICACION_ID'],
+            "MEDIDA_ID" => $response[0]['MEDIDA_ID'],
+            "DIAS_DE_ENTREGA"=> $response[0]['DIAS_DE_ENTREGA'],
+            "CODIGO_SAT_ID" => $response[0]['CODIGO_SAT_ID'],
+            "INDICACIONES" => $response[0]['INDICACIONES'],
+            "ES_PARA" => $response[0]['ES_PARA'],
+            "GRUPOS" => array( "GRUPO_ID" => $arrayGrupoOrden),
+            "EQUIPO_ID" => $arrayEquipo,
+            "METODO_ID" => $arrayMetodo,
+            "CONTENEDORES" => array( "CONTENEDOR_ID" => $arrayContenedoryMuestra),
+            "LOCAL" => $response[0]['LOCAL'],
+            "ES_GRUPO" =>    $response[0]['ES_GRUPO'],
+            "ES_PRODUCTO" => $response[0]['ES_PRODUCTO'],
+            "SELECCIONABLE" => $response[0]['SELECCIONABLE'],
+            "MUESTRA_VALORES_REFERENCIA" => $response[0]['MUESTRA_VALORES_REFERENCIA'],
+            "REGISTRADO_POR" => $response[0]['REGISTRADO_POR'],
+            "VALOR_MINIMO" => $response[0]['VALOR_MINIMO'],
+            "VALOR_MAXIMO" => $response[0]['VALOR_MAXIMO'],
+            "SEXO" => $response[0]['SEXO'],
+            "EDAD_INICIAL" => $response[0]['EDAD_INICIAL'],
+            "EDAD_FINAL" => $response[0]['EDAD_FINAL']
+        );
+    break;
     default:
+
         $response = "Api no definida.";
         break;
 }

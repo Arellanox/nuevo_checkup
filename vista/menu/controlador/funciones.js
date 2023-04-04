@@ -2077,6 +2077,67 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                 break;
 
+              case 'listado_resultados':
+                $.ajax({
+                  url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+                  type: "POST",
+                  dataType: 'json',
+                  data: { api: 21, turno_id: id },
+                  success: function (data) {
+                    if (mensajeAjax(data)) {
+                      console.log(data)
+
+                      let array = {
+                        1: 'CONSULTORIO',
+                        2: 'SOMATOMETRÍA',
+                        3: 'OFTALMOLOGÍA',
+                        4: 'AUDIOMETRÍA',
+                        5: 'ESPIROMETRÍA',
+                        6: 'LABORATORIO CLÍNICO',
+                        7: 'IMAGENOLOGÍA',
+                        8: 'RAYOS X',
+                        9: 'PRUEBA DE ESFUERZO',
+                        10: 'ELECTROCARDIOGRAMA',
+                        11: 'ULTRASONIDO',
+                        12: 'LABORATORIO BIOMOLECULAR',
+                        13: 'CITOLOGÍA',
+                        14: 'NUTRICIÓN',
+                      }
+                      let row = data.response.data;
+                      for (const key in array) {
+                        if (Object.hasOwnProperty.call(array, key)) {
+                          const element = array[key];
+
+                          let arrayArea = $.grep(row, function (n, i) {
+                            return n.AREA === key;
+                          });
+
+                          console.log(element, arrayArea)
+                        }
+                      }
+
+
+
+                    }
+                    $(panel).fadeIn(100);
+                    resolve(1);
+                  },
+                  complete: function () {
+                    resolve(1);
+                  },
+                  error: function (jqXHR, exception, data) {
+                    alertErrorAJAX(jqXHR, exception, data)
+                  },
+                });
+
+                function setListResultadosAreas(array, titulo) {
+
+                }
+
+                break;
+
+
+
               default:
                 console.log('Sin opción panel')
                 setTimeout(function () {
