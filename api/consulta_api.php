@@ -236,8 +236,9 @@ switch ($api) {
         $response = $master->deleteByProcedure('sp_consultorio_odontograma_e', [$id_odontograma]);
         break;
     case 21:
+        # recuperar reportes de paciente por el turno
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados",[$turno_id,null,null,null,1]);
         
-        exit;
         break;
     default:
         $response = "api no reconocida";
