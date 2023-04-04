@@ -384,8 +384,8 @@ class Miscelaneus
             case '1':
                 # CONSULTORIO
                 $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
-                print_r($arregloPaciente);
-                exit;
+                // print_r($arregloPaciente);
+                // exit;
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 // $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];

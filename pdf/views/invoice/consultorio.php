@@ -236,7 +236,11 @@ $encode_firma = base64_encode($ruta_firma);
 <body>
     <!-- header -->
     <div class="header">
-        <?php include 'includes/header.php'; ?>
+        <?php 
+            $titulo = 'Laboratorio de Biología Molecular';
+            $tituloPersonales = 'Biología Molecular';
+            include 'includes/header.php'; 
+        ?>
     </div>
 
     <div class="footer">
@@ -292,25 +296,29 @@ $encode_firma = base64_encode($ruta_firma);
                 <?php
                     foreach ($resultados->ANAMNESIS as $key=>$anamnesis) {
                     echo "<tr><td colspan='2'><h4>". str_replace("_", " ", $key) ."</h4><hr></td></tr>";
+                    foreach ($anamnesis as $key => $value) {
+                    
                 ?>
                     <tr>
                         <td class="col-der" style="border-bottom: none; ">
                             <strong>
-                                <?php echo $anamnesis->SUBTIPO; ?>
+                                <?php echo $value->SUBTIPO; ?>
                             </strong>
                         </td>
                         <td class="col-izq" style="border-bottom: none">
-                            <?php echo (isset($anamnesis->RESPUESTA)) ? $anamnesis->RESPUESTA : '' ; ?>
+                            <?php echo (isset($value->RESPUESTA)) ? $value->RESPUESTA : '' ; ?>
                         </td>
                     </tr>
-                <?php   if (isset($anamnesis->NOTAS)) { ?>
-                        <tr>
-                            <td class="col-der" style="text-align:justify;"> 
-                                <strong>Nota: </strong> <?php echo $anamnesis->NOTAS; ?>
-                            </td>
-                            <td class="col-izq"></td>
-                        </tr>
+                <?php       if (isset($value->NOTAS)) { ?>
+                    <tr>
+                        <td class="col-der" style="text-align:justify;"> 
+                            <strong>Nota: </strong> <?php echo $value->NOTAS; ?>
+                        </td>
+                        <td class="col-izq"></td>
+                    </tr>
                 <?php
+                            }
+                            # code...
                         }
                     }
                 ?>

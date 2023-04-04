@@ -91,6 +91,7 @@ class Reporte
         );
 
         // print_r($view_vars['resultados']->ANAMNESIS);
+        print_r($data);
 
         $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
