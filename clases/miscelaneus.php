@@ -384,6 +384,8 @@ class Miscelaneus
             case '1':
                 # CONSULTORIO
                 $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
+                print_r($arregloPaciente);
+                exit;
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
@@ -522,7 +524,24 @@ class Miscelaneus
                         break;
                     case 2:
                         # ANAMNESIS
-                        $productoFinal['ANAMNESIS'] = $master->checkArray($response[$i]);
+                        #$productoFinal['ANAMNESIS'] = $master->checkArray($response[$i]);
+                        $anamnesis = $master->checkArray($response[$i]);
+                        #obtenenmos la clase
+                        $clase = array();
+                        foreach($anamnesis as $current){
+                            $clase[] = $current['CLASE'];
+                        }
+                        # quitmos la duplicidad de las clases
+                        $clase = array_unique($clase);
+
+                        $newAnamnesis = array();
+                        foreach($clase as $current){
+                            $replace = str_replace(" ","_",$current);
+                            $newAnamnesis[$replace] = array_filter($anamnesis, function($obj) use ($current){
+                                return $obj['CLASE'] == $current;
+                            });
+                        }
+                        $productoFinal['ANAMNESIS'] = $newAnamnesis;
                         break;
                     case 3:
                         # ODONTOGRAMA
