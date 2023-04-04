@@ -179,7 +179,7 @@
         .col-izq {
             width: 30%;
             max-width: 30%;
-            text-align: left;
+            text-align: center;
         }
 
         .col-der {
@@ -330,10 +330,10 @@ $encode_firma = base64_encode($ruta_firma);
                 foreach ($chunk as $dientes) {
                     $diagnostico = isset($dientes->DIAGNOSTICO) ? $dientes->DIAGNOSTICO : '';
                     echo "<td>";
-                    echo "<strong>". $dientes->PIEZA_DENTAL . " - CARA" . $dientes->CARA . "</strong><br>";
-                    echo "<strong>Diagnóstico: " . $diagnostico ."<br>";
+                    echo $dientes->PIEZA_DENTAL . " - CARA" . $dientes->CARA . "<br>";
+                    echo "<strong>Diagnóstico: </strong>" . $diagnostico ."<br>";
                     if (isset($dientes->TRATAMIENTO)) {
-                        echo "<strong>Diagnostico:</strong> ". $dientes->TRATAMIENTO ."<br>";
+                        echo "<strong>Tratamiento:</strong> ". $dientes->TRATAMIENTO ."<br>";
                     }
                     if (isset($dientes->COMENTARIOS)) {
                         echo "<strong>Nota:</strong> ". $dientes->COMENTARIOS ."<br>";
