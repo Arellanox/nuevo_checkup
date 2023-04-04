@@ -20,6 +20,31 @@ $comentarioRechazo = $_POST['comentario_rechazo'];
 $identificacion = $_POST['identificacion']; #url
 $area_id = $_POST['area_id'];
 
+# trabajadores de la ujat
+$is_worker = $_POST['nuevo-trabajador']; # bit para saber si es ujat y se debe agregar la info del trabajador
+$e_id_trabajador = $_POST['trabajador_id'];
+$e_nombre = $_POST['nombre'];
+$e_paterno = $_POST['paterno'];
+$e_materno = $_POST['materno'];
+$e_edad = $_POST['edad'];
+$e_fecha_nacimiento = $_POST['nacimiento'];
+$e_num_trabajador = $_POST['numero_trabajador'];
+$e_curp = $_POST['curp'];
+$e_pasaporte = $_POST['pasaporte'];
+$e_extranjero = $_POST['extranjero'];
+$e_genero = $_POST['genero'];
+$e_ures = $_POST['ures'];
+$e_categoria = $_POST['trabajador-categoria'];
+$e_parentesco = $_POST['parentesco'];
+$e_diagnostico = $_POST['diagnostico'];
+$e_turno_id = $_POST['turno_id'];
+$e_clave_beneficiario = $_POST['clave_beneficiado'];
+$e_medico = $_POST['medico'];
+$e_cedula = $_POST['cedula-medico'];
+$e_pase = $_POST['pase'];
+$parametro = $_POST['parametro'];
+
+
 # reagendar
 $fecha_reagenda = $_POST['fecha_reagenda'];
 
@@ -59,6 +84,7 @@ switch ($api) {
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
         // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
+
         $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
 
         $etiqueta_turno = $response[1];
@@ -231,8 +257,59 @@ switch ($api) {
         $response = $master->getByProcedure("sp_paciente_servicios_cargados", [$idTurno, $area_id]);
 
         break;
+    case 7:
+        #Datos de beneficiario
+        #========================================================================================
+        ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
+
+
+        // if(isset($is_worker) && $is_worker== "on"){
+        $e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
+        $e_genero = ($e_genero == "MASCULINO") ? 1 : 2;
+        $response = $master->insertByProcedure("sp_trabajadores_empresas_g", [
+            $e_id_trabajador,
+            $e_nombre,
+            $e_paterno,
+            $e_materno,
+            $e_edad,
+            $e_fecha_nacimiento,
+            $e_num_trabajador,
+            $e_curp,
+            $e_pasaporte,
+            $e_extranjero,
+            $e_genero,
+            $e_ures,
+            $e_categoria,
+            $e_turno_id,
+            $e_parentesco,
+            $e_diagnostico,
+            $e_clave_beneficiario,
+            $e_medico,
+            $e_cedula,
+            $e_pase
+        ]);
+        // } else {
+        //     $response = "nuevo-trabajador: off";
+        // }
+        #========================================================================================
+        break;
+    case 8:
+        #lista de trabajadores
+        #Front necesita: 
+        #'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR'
+        #Del trabajador para enviarte la ID
+
+        # recuperar la lista de lost trabajadores
+        # Enviar el id del trabajdor para recuperar un solo registro.
+        # Enviar cualquier palabra en $parametro para recuperar un set de datos
+        # que coincidan con el nombre completo, categoria, num trabajador, etc.
+        # Enviar solo la id del turno para recuperar la informacion del trabajador que
+        # depende el beneficiario.
+        $response = $master->getByProcedure("sp_trabajdores_empresas_b", [$e_id_trabajador, $parametro, $e_turno_id]);
+        break;
+
     default:
-        # code...
+        $response = "Api no definida.";
         break;
 }
 

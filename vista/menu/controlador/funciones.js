@@ -104,6 +104,16 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
   return date.toLocaleDateString('es-MX', options)
 }
 
+function calcularEdad(fecha) {
+  var hoy = new Date(), cumpleanos = new Date(fecha);
+  var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+  var m = hoy.getMonth() - cumpleanos.getMonth();
+
+  if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate()))
+    edad--;
+  return edad;
+}
+
 // Revisar sesión
 function validarVista(area) {
   if (session['vista'][area] == 1) {
@@ -208,7 +218,7 @@ function getRandomString() {
 }
 
 // Checa si es un numero
-function checkNumber(x) {
+function checkNumber(x, transform = 0) {
   // check if the passed value is a number
   if (typeof x == 'number' && !isNaN(x)) {
     // check if it is integer
@@ -219,7 +229,9 @@ function checkNumber(x) {
     }
 
   } else {
-    return 2
+    if (transform)
+      return parseInt(x); //Entero
+    return 0
   }
 }
 
@@ -568,11 +580,12 @@ function desactivarCampo(div, fade) {
   }
 }
 
-// Notifiació  movil
+// Notifiación  movil
 if (window.innerWidth <= 768) {
   position = 'top';
 } else {
-  position = 'top-start';
+  position = 'top';
+  // position = 'top-start';
 }
 
 const Toast = Swal.mixin({
@@ -808,10 +821,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
             }
           }
         }
-        for (var i = 0; i < data.length; i++) {
 
-
-        }
         // console.log(data);
         callback(data, selectHTML);
 
@@ -1283,7 +1293,7 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
 
   });
 }
-
+$.fn.dataTable.ext.errMode = 'throw';
 //Doble y de solo un click
 var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {
@@ -1997,7 +2007,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       }
                       setTimeout(() => {
                         getStatusOptimizador()
-                      }, 1000);
+                      }, 2000);
                     }
                   })
                 }

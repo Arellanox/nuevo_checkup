@@ -32,6 +32,8 @@ $master = new Master();
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 // $api = 'laboratorio';
+// $turno_id = 382;
+// $area_id =2;
 $turno_id = 197;
 $area_id =2;
 

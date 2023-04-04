@@ -21,6 +21,9 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     complete: function () {
       loader("Out", 'bottom')
     },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
     dataSrc: 'response.data'
   },
   createdRow: function (row, data, dataIndex) {
@@ -126,6 +129,16 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
   0: "#panel-informacion",
   1: "#panel-documentos-paciente",
   2: "#panel-muestras-estudios"
+}, function () {
+
+
+  if (array_selected['CLIENTE_ID'] == 18) {
+    $('#buttonBeneficiario').fadeIn(200)
+  } else {
+    $('#buttonBeneficiario').fadeOut(200);
+  }
+
+
 })
 
 

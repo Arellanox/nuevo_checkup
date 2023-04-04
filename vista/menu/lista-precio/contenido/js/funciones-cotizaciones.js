@@ -1,7 +1,7 @@
 async function mantenimientoPaquete() {
   loader("In");
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
-  tablaContenido();
+  tablaContenido(true);
 
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
@@ -18,8 +18,8 @@ async function mantenimientoPaquete() {
 
 async function contenidoPaquete(select = null) {
   loader("In");
-
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
+
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
@@ -30,11 +30,12 @@ async function contenidoPaquete(select = null) {
   $("#seleccion-estudio").find('option').remove().end()
   $('.listaPresupuestos').hide();
 
-  tablaContenido()
+  tablaContenido(true)
 }
 
 // Agrega Un nuevo TR a la tabla de paquetes
 function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, DESCUENTO, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete) {
+  if (DESCUENTO === null) DESCUENTO = ''
   let longitud = dataSet.length + 1;
   if (costo_total == null) {
     costo_total = 0;
@@ -67,6 +68,7 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, DESCUE
 function calcularFilasTR() {
   subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;
   var paqueteEstudios = new Array();
+  var CotizacionDetalle = new Array();
   try {
     $('#TablaListaPaquetes tbody tr').each(function () {
       var arregloEstudios = new Array();
@@ -75,16 +77,17 @@ function calcularFilasTR() {
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
       tabledata = tablaContenidoPaquete.row(this).data();
-      // console.log(tabledata);
-      // console.log(tabledata['ID_SERVICIO']);
-      id_servicio = tabledata['ID_SERVICIO']
+      id_servicio = tabledata[8]
       arregloEstudios = {
         'id': id_servicio,
         'cantidad': calculo[2],
         'costo': calculo[3],
         'costototal': calculo[0],
         'precioventa': calculo[4],
-        'subtotal': calculo[1]
+        'subtotal': calculo[1],
+        'descuento': calculo[5],
+        'descuento_precio': calculo[6],
+        'subtotal_sin_descuento': calculo[7]
       }
       // console.log(arregloEstudios)
       paqueteEstudios.push(arregloEstudios)
@@ -94,7 +97,7 @@ function calcularFilasTR() {
   }
   // console.log(paqueteEstudios);
   iva = (subtotalPrecioventa * 16) / 100;
-  total = subtotalPrecioventa + iva;
+
   if (!checkNumber(subtotalCosto)) {
     subtotalCosto = 0;
   } else {
@@ -103,8 +106,16 @@ function calcularFilasTR() {
   if (!checkNumber(subtotalPrecioventa)) {
     subtotalPrecioventa = 0;
   } else {
-    subtotalPrecioventa = subtotalPrecioventa;
+    descuento = $('#descuento-paquete').val();
+    if (descuento > 0) {
+      subtotalPrecioventa = subtotalPrecioventa - (subtotalPrecioventa * descuento) / 100;
+      descuento = subtotalPrecioventa * descuento / 100;
+    } else {
+      subtotalPrecioventa = subtotalPrecioventa;
+    }
   }
+  descuento = 0;
+  total = subtotalPrecioventa + iva;
   if (!checkNumber(total)) {
     total = 0;
   } else {
@@ -112,16 +123,17 @@ function calcularFilasTR() {
   }
   $('#subtotal-costo-paquete').html('$' + subtotalCosto.toFixed(2));
   $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa.toFixed(2));
-  $('#total-paquete').html('$' + total.toFixed(2));
+  $('#total-paquete').html(`$${total.toFixed(2)}`);
   // console.log(typeof total.toFixed(2))
-  paqueteEstudios.push({
+  CotizacionDetalle = {
     'total': total,
     'subtotal-costo': subtotalCosto,
-    'subtotal.precioventa': subtotalPrecioventa,
+    'subtotal': subtotalPrecioventa,
     'iva': iva,
-    'id_paquete': $('#seleccion-paquete').val()
-  })
-  return paqueteEstudios
+    'cliente_id': $('#seleccion-paquete').val(),
+    'descuento': descuento,
+  }
+  return [paqueteEstudios, CotizacionDetalle]
 }
 
 function caluloFila(parent_element) {
@@ -140,14 +152,20 @@ function caluloFila(parent_element) {
   }
   let subtotal = cantidad * precioventa;
   if (descuento > 0) {
-    subtotal = subtotal - (subtotal * descuento)
+    subtotal_sin_descuento = subtotal;
+    descuento_precio = subtotal * descuento / 100;
+    subtotal = subtotal - (subtotal * descuento) / 100
+  } else {
+    subtotal_sin_descuento = subtotal;
+    descuento_precio = 0;
+    subtotal = subtotal;
   }
   if (checkNumber(subtotal)) {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$' + subtotal.toFixed(2))
   } else {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$0')
   }
-  return data = [costoTotal, subtotal, cantidad, costo, precioventa]
+  return data = [costoTotal, subtotal, cantidad, costo, precioventa, descuento, descuento_precio, subtotal_sin_descuento]
 }
 
 // Precargar listado

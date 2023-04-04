@@ -11,7 +11,6 @@ if (validarVista('RECEPCIÓN')) {
   });
 }
 
-
 function obtenerContenidoEspera() {
   obtenerTitulo('Recepción | Espera'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion.html", function (html) {

@@ -30,7 +30,7 @@ class Reporte
     {
         $this->response = $response; //cuerpo
         $this->data     = $data; //Ecabezado
-        $this->pie      = $pie; //Footer
+        $this->pie      = $pie; //Footer <-- Se manda folio
         $this->archivo  = $archivo; //Ruta de reporte
         $this->tipo     = $tipo; //Tipo de resultado
         $this->orden    = $orden; //Forma de visualizar
@@ -90,7 +90,7 @@ class Reporte
             "area"                  => isset($area) ? $area : null
         );
 
-        print_r($view_vars['resultados']->ANAMNESIS);
+        // print_r($view_vars['resultados']->ANAMNESIS);
 
         $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere

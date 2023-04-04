@@ -79,12 +79,18 @@
           <div class="col-12 text-center">
             <h5>Calculo del paquete</h5>
           </div>
+          <div class="col-12">
+            <div class="input-group">
+              <input type="number" class="form-control input-form text-center" name="" placeholder="Descuento total %" id="descuento-paquete">
+              <span class="input-span">%</span>
+            </div>
+          </div>
           <div class="col-6 text-end info-detalle">
-            <p>Subtotal Costo:</p>
+            <p>Subtotal (Costo):</p>
           </div>
           <div class="col-6" id="subtotal-costo-paquete"></div>
           <div class="col-6 text-end info-detalle">
-            <p>Subtotal precioventa:</p>
+            <p>Subtotal (Precio Venta):</p>
           </div>
           <div class="col-6" id="subtotal-precioventa-paquete"></div>
           <div class="col-6 text-end info-detalle">
@@ -101,10 +107,11 @@
   </div>
   <div class="card col-9 pt-3" style="margin-bottom:5px;">
     <div class="col-12 d-flex align-items-center d-flex justify-content-center">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="guardar-contenido-paquete">
-        <i class="bi bi-person-plus-fill"></i> Guardar paquete
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalInfoDetalleCotizacion">
+        <i class="bi bi-person-plus-fill"></i> Crear Cotización
       </button>
     </div>
+
     <div id="tabla-Paquetes">
       <table class="table table-hover display responsive " id="TablaListaPaquetes" style="width: 100%">
         <thead style="width: 100%">

@@ -17,11 +17,11 @@
                   <p>Rellene la información basica del estudio</p>
                   <div class="col-8">
                     <label for="descripcion" class="form-label">Nombre del Estudio</label>
-                    <input type="text" name="descripcion" class="form-control input-form" required>
+                    <input type="text" name="descripcion" class="form-control input-form" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <div class="col-4">
                     <label for="abreviatura" class="form-label">CVE</label>
-                    <input type="text" name="abreviatura" class="form-control input-form" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario">
+                    <input type="text" name="abreviatura" class="form-control input-form" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <!-- <div class="col-12 col-md-12">
                     <label for="grupo" class="form-label">Grupo de exámen</label>
@@ -68,7 +68,7 @@
                   </div>
                   <div class="col-6 col-md-6">
                     <label for="dias_entrega" class="form-label">Día de entrega</label>
-                    <input type="text" name="dias_entrega" class="input-form" value="" required>
+                    <input type="number" name="dias_entrega" class="input-form" value="">
                   </div>
                   <div class="col-12 col-md-12">
                     <label for="codigo_sat_id" class="form-label">Clave SAT</label>
@@ -84,38 +84,25 @@
                     <select name="es_para" class="input-form" required="">
                       <option value="1">HOMBRE</option>
                       <option value="2">MUJER</option>
-                      <option value="3">TODOS</option>
+                      <option value="3" selected>TODOS</option>
                     </select>
-                  </div>
-                  <div class="row" style="zoom:100%;">
-                    <div class="col-6">
-                      <label for="">¿Mostrar valores de referencia? </label>
-                    </div>
-                    <div class="col-3">
-                      <input type="radio" name="muestra_valores" id="registrar-varepoSi" value="1" checked required>
-                      <label for="registrar-varepoSi">Si</label>
-                    </div>
-                    <div class="col-3">
-                      <input type="radio" name="muestra_valores" id="registrar-varepoNo" value="0" required>
-                      <label for="registrar-varepoNo">No</label>
-                    </div>
                   </div>
                   <div class="row" style="zoom:100%;">
                     <div class="col-6">
                       <label for="">¿Se subroga?: </label>
                     </div>
                     <div class="col-3">
-                      <input type="radio" name="local" id="registrar-subrogaSi" value="1" required>
+                      <input type="radio" name="local" id="registrar-subrogaSi" value="0" required>
                       <label for="registrar-subrogaSi">Si</label>
                     </div>
                     <div class="col-3">
-                      <input type="radio" name="local" id="registrar-subrogaNo" value="0" required>
+                      <input type="radio" name="local" id="registrar-subrogaNo" value="1" required>
                       <label for="registrar-subrogaNo">No</label>
                     </div>
                   </div>
                   <div class="col-12 col-md-12" id="div-maquila" style="display:none">
                     <label for="maquila_lab_id" class="form-label">Prueba a maquilar: </label>
-                    <select name="maquila_lab_id" class="input-form" required>
+                    <select name="maquila_lab_id" class="input-form" id="maquila_agregar_estudio">
                     </select>
                   </div>
 
@@ -131,13 +118,16 @@
                   <p>Seleccione o agregue los grupo de examen del estudio</p>
                   <div class="" id="div-select-grupo">
                     <div class="row">
-                      <div class="col-10 col-md-10"><label for="Grupo[0]" class="form-label">Grupo</label>
-                        <select name="Grupo[0]" class="input-form select-contenedor-grupo">
-
-                        </select>
+                      <div class="col-12 col-lg-12 col-xxl-6">
+                        <label for="grupo_examen[0][grupo_id]" class="form-label">Grupo</label>
+                        <select name="grupo_examen[0][grupo_id]" class="input-form select-contenedor-Grupo" required=""></select>
+                      </div>
+                      <div class="col-12 col-lg-8 col-xxl-4">
+                        <label for="grupo_examen[0][orden]" class="form-label">Posicion del grupo</label>
+                        <input type="text" placerholder="Orden del servicio para el grupo" name="grupo_examen[0][orden]" required value="" class="form-control input-form">
                       </div>
                       <div class="col-2 d-flex justify-content-start align-items-center">
-                        <button type="button" class="btn btn-hover eliminarContenerMuestra1" style="margin-top: 20px;">
+                        <button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;">
                           <i class="bi bi-trash"></i>
                         </button>
                       </div>
@@ -150,6 +140,22 @@
                       </button>
                     </div>
                   </div>
+
+
+                  <div class="row mb-2" style="zoom:100%;">
+                    <div class="col-6">
+                      <label for="">¿Es un estudio o un grupo de estudios?</label>
+                    </div>
+                    <div class="col-3">
+                      <input type="radio" name="grupos" id="registrar-grupoEstudio" value="0" required>
+                      <label for="registrar-grupoEstudio">Estudio</label>
+                    </div>
+                    <div class="col-3">
+                      <input type="radio" name="grupos" id="registrar-grupoGrupo" value="1" required>
+                      <label for="registrar-grupoGrupo">Grupo</label>
+                    </div>
+                  </div>
+
 
                   <h5>Método</h5>
                   <p>Seleccione o agregue los metodos del estudio</p>
@@ -246,6 +252,19 @@
                 </div>
                 <h5>Informacion Valores de referencia</h5>
                 <p>Escriba el valor de referencia para el reporte...</p>
+                <div class="row" style="zoom:100%;">
+                  <div class="col-6">
+                    <label for="">¿Mostrar valores de referencia? </label>
+                  </div>
+                  <div class="col-3">
+                    <input type="radio" name="muestra_valores" id="registrar-varepoSi" value="1" checked required>
+                    <label for="registrar-varepoSi">Si</label>
+                  </div>
+                  <div class="col-3">
+                    <input type="radio" name="muestra_valores" id="registrar-varepoNo" value="0" required>
+                    <label for="registrar-varepoNo">No</label>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-12">
                     <label for="valor_minimo" class="form-label">Valor minimo</label>
@@ -260,16 +279,16 @@
                     <select name="sexo_enum" class="input-form" required="">
                       <option value="1">HOMBRE</option>
                       <option value="2">MUJER</option>
-                      <option value="3">AMBOS</option>
+                      <option value="3" selected>AMBOS</option>
                     </select>
                   </div>
                   <div class="col-4">
                     <label for="edad_inicial" class="form-label">Edad inicial:</label>
-                    <input type="text" name="edad_inicial" class="form-control input-form" required>
+                    <input type="text" name="edad_inicial" class="form-control input-form">
                   </div>
                   <div class="col-4">
                     <label for="edad_final" class="form-label">Edad final</label>
-                    <input type="text" name="edad_final" class="form-control input-form" required>
+                    <input type="text" name="edad_final" class="form-control input-form">
                   </div>
                 </div>
               </div>
@@ -280,7 +299,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
         <button type="submit" form="formRegistrarEstudio" class="btn btn-confirmar" id="submit-registrarEstudio">
-          <i class="bi bi-person-plus"></i> Crear
+          <i class="bi bi-plus-square"></i> Crear
         </button>
       </div>
     </div>

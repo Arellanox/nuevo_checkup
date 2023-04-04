@@ -2,15 +2,16 @@
   <div class="preloader" id="preloader"> </div>
 </div>
 <div class="row d-flex justify-content-center">
-  <div class="col-3 col-lg-3" style="margin-right: -5px !important;">
-    <div class="card mt-3 p-3" id="informacion-segmento">
-
-    </div>
-  </div>
   <div class="col-6 col-lg-6" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3">
       <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-cliente-editar">
+          <i class="bi bi-pencil-square"></i> Editar Cliente
+        </button>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="agregar-direccion" data-bs-toggle="modal" data-bs-target="#modalRegistrarNuevaDirecciónñ">
+          <i class="bi bi-pencil-square"></i> Agregar Nueva Direccion
+        </button>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="generar-codigoqr">
           <i class="bi bi-pencil-square"></i> Editar Cliente
         </button>
       </div>
@@ -30,6 +31,13 @@
       </table>
     </div>
   </div>
+
+  <div class="col-3 col-lg-3" style="margin-right: -5px !important;">
+    <div class="card mt-3 p-3" id="informacion-segmento">
+
+    </div>
+  </div>
+
   <div class="col-lg-3" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="informacion-cliente">
 
@@ -42,7 +50,8 @@
   #TablaContacto_filter {
     display: none;
   }
-  #TablaSegmentosAdmin_filter{
-    display:none;
+
+  #TablaSegmentosAdmin_filter {
+    display: none;
   }
 </style>

@@ -6,7 +6,7 @@
                                     <td class="col-der" style="border-bottom: none">
                                         <h4>
                                             DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
-                                            Laboratorio de Análisis Clínicos <br>
+                                            <?php echo $titulo; ?> <br>
                                             Resultado de Exámenes
                                         </h4>
                                     </td>
@@ -25,7 +25,7 @@
                                 <tr>
                                     <td style="text-align: center; border-style: solid none solid none; ">
                                         <h3>
-                                            Laboratorio de Análisis Clínicos
+                                            <?php echo $tituloPersonales; ?>
                                         </h3>
                                     </td>
                                 </tr>
@@ -35,7 +35,7 @@
                             <tbody>
                                 <tr>
                                     <td class="col-left" style="border-bottom: none">
-                                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO; ?> </strong>
+                                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $pie->folio; ?> </strong>
                                     </td>
                                     <td class="col-center" style="border-bottom: none">
                                         Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
@@ -60,7 +60,7 @@
                                         Fecha de Toma de Muestra: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_TOMA; ?> </strong>
                                     </td>
                                     <td class="col-center" style="border-bottom: none">
-                                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
+                                        Fecha de Resultado: <strong style="font-size: 10.3px;"><?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
                                     </td>
                                     <td class="col-right" style="border-bottom: none">
                                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -68,8 +68,9 @@
                                 </tr>
                                 <tr>
                                     <td class="col-left" style="border-bottom: none">
-                                        Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong>
+                                        <!-- Procedencia -->
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong></p>

@@ -224,11 +224,11 @@ ObserOtros.observe(document.querySelector('#list-estudios-otros'), {
 $('#btn-AgregarEstudioLabBio').on('click', function () {
   let text = $("#select-labbio option:selected").text();
   let id = $("#select-labbio").val();
-  agregarFilaDiv('#list-estudios-biomolecular', text, id)
+  agregarFilaDiv('#list-estudios-laboratorio-biomolecular', text, id)
 })
 // Create an observer instance.
 var ObserOtros = new MutationObserver(function (mutations) {
-  if ($('#list-estudios-biomolecular').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
+  if ($('#list-estudios-laboratorio-biomolecular').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
     validarEstudiosOtros = 0;
   }
 });

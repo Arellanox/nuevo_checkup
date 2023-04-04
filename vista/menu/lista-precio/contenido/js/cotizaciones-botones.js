@@ -70,8 +70,7 @@ $('#UsarPaquete').on('click', function () {
           console.log(data);
           row = data.response.data;
           for (var i = 0; i < row.length; i++) {
-            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_TOTAL, row[i].SUBTOTAL, row[i].CANTIDAD, null, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
-
+            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].COSTO_TOTAL, row[i].CANTIDAD, null, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
           }
         }
       })
@@ -126,7 +125,10 @@ $('input[type=radio][name=selectChecko]').change(function () {
 });
 
 $('#guardar-contenido-paquete').on('click', function () {
-  let dataAjax = calcularFilasTR();
+  let data = calcularFilasTR();
+  console.log(data);
+  let dataAjax = data[0];
+  let dataAjaxDetalleCotizacion = data[1];
   let tableData = tablaContenidoPaquete.rows().data().toArray();
   if (tableData.length > 0) {
 
@@ -163,21 +165,21 @@ $('#guardar-contenido-paquete').on('click', function () {
     }).then((result) => {
       if (result.isConfirmed) {
         if (result.value.status == 1) {
-          if ($('input[type=radio][name=selectPaquete]:checked').val() == 1) {
-            ajaxDataSend = {
-              api: 6,
-              paquete_detalle: dataAjax
-            };
-          } else {
-            ajaxDataSend = {
-              api: 6,
-              paquete_detalle: dataAjax,
-              eliminados: dataEliminados
-            };
-          }
-          console.log(dataEliminados);
+          ajaxDataSend = {
+            api: 1,
+            detalle: dataAjax,
+            total: dataAjaxDetalleCotizacion['total'],
+            subtotal: dataAjaxDetalleCotizacion['subtotal'],
+            iva: dataAjaxDetalleCotizacion['iva'],
+            descuento: dataAjaxDetalleCotizacion['descuento'],
+            cliente_id: dataAjaxDetalleCotizacion['cliente_id'],
+            atencion: $('#input-atencion-cortizaciones').val(),
+            correo: $('#input-correo-cortizaciones').val(),
+            observaciones: $('#input-observaciones-cortizaciones').val()
+          };
+          // console.log(dataEliminados);
           $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/paquetes_api.php",
+            url: http + servidor + "/nuevo_checkup/api/cotizaciones_api.php",
             data: ajaxDataSend,
             type: "POST",
             datatype: 'json',
@@ -209,6 +211,6 @@ function formpassword() {
   //No submit form with enter
 }
 
-$(document).on("change ,  keyup", "input[name='cantidad-paquete'], input[name='descuento-paquete']", function () {
+$(document).on("change ,  keyup", "input[name='cantidad-paquete'], input[name='descuento-paquete'], #descuento-paquete", function () {
   calcularFilasTR()
 });

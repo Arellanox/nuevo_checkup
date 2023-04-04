@@ -19,6 +19,10 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     complete: function () {
       loader("Out")
     },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert(1);
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
     dataSrc: 'response.data'
   },
   columns: [
@@ -43,6 +47,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
 
 })
 
+
 inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
   {
     msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
@@ -51,4 +56,12 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
 ])
 
 
-selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente')
+selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: null }, function () {
+  if (array_selected['CLIENTE_ID'] == 18) {
+    $('#buttonBeneficiario').fadeIn(200)
+  } else {
+    $('#buttonBeneficiario').fadeOut(200);
+  }
+
+
+})

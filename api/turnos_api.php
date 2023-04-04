@@ -180,7 +180,7 @@ switch ($api) {
             #Creamos el folio
             # dar de alta primero el folio en la tabla de reportes_areas
 
-            $folio = $master->insertByProcedure('sp_generar_folio_laboratorio', []);
+            $folio = $master->insertByProcedure('sp_generar_folio_laboratorio', [$id_area]);
 
             $res = $master->insertByProcedure('sp_reportes_areas_g', [null, $id_turno, $id_area, null, null, $folio]);
             # generar el reporte de laboratorio

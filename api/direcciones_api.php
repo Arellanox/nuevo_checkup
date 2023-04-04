@@ -18,6 +18,7 @@ $id = $_POST['id'];
 #insertar
 $id_direccion = $_POST['id_direccion'];
 $cliente_id = $_POST['cliente_id'];
+$tipo = $_POST['tipo']; # <-- Tipo de direccion (fiscal, envio de documentos...)
 $calle = $_POST['calle'];
 $num_exterior = $_POST['num_exterior'];
 $num_interior = $_POST['num_interior'];
@@ -31,6 +32,7 @@ $pais = $_POST['pais'];
 $parametros = array(
     $id_direccion,
     $cliente_id,
+    $tipo,
     $calle,
     $num_exterior,
     $num_interior,
@@ -42,7 +44,7 @@ $parametros = array(
     $pais
 );
 
-$response = ""; 
+$response = "";
 
 $master = new Master();
 switch ($api) {

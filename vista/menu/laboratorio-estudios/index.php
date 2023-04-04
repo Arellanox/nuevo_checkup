@@ -9,7 +9,7 @@ $menu = "ServiciosLab";
 
 <head>
   <?php include "../../include/head.php"; ?>
-  <title><?php echo $menu; ?> | Bimo</title>
+  <title>Estudios Laboratorio Clinico| Bimo</title>
 </head>
 
 <body class="" id="body-controlador"> </body>

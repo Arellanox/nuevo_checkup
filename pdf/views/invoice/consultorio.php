@@ -290,7 +290,8 @@ $encode_firma = base64_encode($ruta_firma);
         <table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
             <tbody>
                 <?php
-                    foreach ($resultados->ANAMNESIS as $anamnesis) {
+                    foreach ($resultados->ANAMNESIS as $key=>$anamnesis) {
+                    echo "<tr><td colspan='2'><h4>". str_replace("_", " ", $key) ."</h4><hr></td></tr>";
                 ?>
                     <tr>
                         <td class="col-der" style="border-bottom: none; ">

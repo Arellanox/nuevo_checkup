@@ -124,6 +124,34 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
     <i class="bi bi-eye"></i> Oftalmología
   </a>
 <?php endif; ?>
+<!-- Otras Areas -->
+<?php if ($_SESSION['vista']['NUTRICION'] == 1 || $_SESSION['vista']['NUTRICION_CAPTURAS'] == 1) : ?>
+  <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-nutricion" aria-expanded="false">
+    <img src="../../../archivos/sistema/nutrientes.svg" alt="" style="margin-top: -4px;    width: 17px;"> Nutrición
+  </a>
+  <div class="collapse" id="board-nutricion">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <?php if ($_SESSION['vista']['NUTRICION'] == 1) : ?>
+        <li>
+          <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#NUTRICION'; ?>">
+            <i class="bi bi-dot"></i> Interpretación
+          </a>
+        </li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['NUTRICION_CAPTURAS'] == 1) : ?>
+        <li>
+          <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#NUTRICION_CAPTURAS'; ?>" class="dropdown-a align-items-center" type="button">
+            <i class="bi bi-dot"></i> Captura
+          </a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+
+  <!-- <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#NUTRICION'; ?>">
+    <i class="bi bi-activity"></i> NUTRICIÓN
+  </a> -->
+<?php endif; ?>
 
 
 
