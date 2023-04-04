@@ -16,7 +16,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            margin-top: 60px;
+            margin-top: 70px;
             margin-bottom: 40px;
             font-size: 10px;
             /* background-color: gray; */
@@ -295,7 +295,7 @@ $encode_firma = base64_encode($ruta_firma);
             <tbody>
                 <?php
                     foreach ($resultados->ANAMNESIS as $key=>$anamnesis) {
-                    echo "<tr><td colspan='2'><h4>". str_replace("_", " ", $key) ."</h4><hr></td></tr>";
+                    echo "<tr><td colspan='2'><br><h4>". str_replace("_", " ", $key) ."</h4><hr></td></tr>";
                     foreach ($anamnesis as $key => $value) {
                     
                 ?>
@@ -339,7 +339,7 @@ $encode_firma = base64_encode($ruta_firma);
                 foreach ($chunk as $dientes) {
                     $diagnostico = isset($dientes->DIAGNOSTICO) ? $dientes->DIAGNOSTICO : '';
                     echo "<td>";
-                    echo $dientes->PIEZA_DENTAL . " - CARA" . $dientes->CARA . "<br>";
+                    echo "<strong>" .$dientes->PIEZA_DENTAL . "</strong> - CARA" . $dientes->CARA . "<br>";
                     echo "<strong>Diagnóstico: </strong>" . $diagnostico ."<br>";
                     if (isset($dientes->TRATAMIENTO)) {
                         echo "<strong>Tratamiento:</strong> ". $dientes->TRATAMIENTO ."<br>";
@@ -347,7 +347,7 @@ $encode_firma = base64_encode($ruta_firma);
                     if (isset($dientes->COMENTARIOS)) {
                         echo "<strong>Nota:</strong> ". $dientes->COMENTARIOS ."<br>";
                     }
-                    echo "</td>";
+                    echo "<br></td>";
                 }
                 echo "</tr>";
             }
