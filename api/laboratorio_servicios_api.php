@@ -99,6 +99,7 @@ switch ($api) {
     case 2:
         $response = $master->getByProcedure('sp_servicio_laboratorio_b', [$id_servicio]);
         $arrayGrupo = [];
+        $arrayOrden = [];
         $arrayEquipo = [];
         $arrayMetodo = [];
         $arrayContenedores = [];
@@ -109,6 +110,10 @@ switch ($api) {
             if(!in_array($response[$i]['GRUPO_ID'], $arrayGrupo)){
                 $grupo = $response[$i]['GRUPO_ID'];
                 array_push($arrayGrupo, $grupo);
+            }
+            if(!in_array($response[$i]['ORDEN'], $arrayOrden)){
+                $orden = $response[$i]['ORDEN'];
+                array_push($arrayOrden, $orden);
             }
             if(!in_array($response[$i]['EQUIPO_ID'], $arrayEquipo)){
                 $equipo = $response[$i]['EQUIPO_ID'];
@@ -134,7 +139,7 @@ switch ($api) {
             "CLASIFICACION_ID" => $response[0]['CLASIFICACION_ID'],
             "MEDIDA_ID" => $response[0]['MEDIDA_ID'],
             "DIAS_DE_ENTREGA"=> $response[0]['DIAS_DE_ENTREGA'],
-            "GRUPO_ID" => $arrayGrupo,
+            "GRUPOS" => array( "GRUPO_ID" => $arrayGrupo, "ORDEN" => $arrayOrden),
             "EQUIPO_ID" => $arrayEquipo,
             "METODO_ID" => $arrayMetodo,
             "CONTENEDORES" => array( "CONTENEDOR_ID" => $arrayContenedores, "MUESTRA_ID" => $arrayMuestras)
