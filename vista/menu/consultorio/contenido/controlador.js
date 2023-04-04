@@ -88,7 +88,8 @@ function obtenerContenidoConsulta(data, idvaloracion) {
 // Rellena la plantilla con metodos de espera Async Await
 async function obtenerConsultorio(id, idTurno, cliente, curp) {
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
-  await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
+  await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_comprimido');
+  await obtenerPanelInformacion(idTurno, 'consulta_api', 'listado_resultados', '#listado-resultados',)
   // alert("Antes de antecedentes")
   // setValues(idTurno) //llamar los valores para los antecedentes
 
