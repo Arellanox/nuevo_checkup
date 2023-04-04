@@ -622,7 +622,7 @@ if (!isset($qr)) {
             </table>
 
         </div>
-        <!--                        
+                       
         <div style="display: flex;  margin-top: 13px; justify-content: center;">
             <table style="width: 45%; text-align: center; border-collapse: collapse;" border="2">
                 <thead>
@@ -652,7 +652,7 @@ if (!isset($qr)) {
                 </tr>
             </table>
         </div>
-                -->
+                
     </div>
     <!--    <table style="width: 100%;">
             <tr>
