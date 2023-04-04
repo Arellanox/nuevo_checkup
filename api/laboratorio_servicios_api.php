@@ -1,13 +1,13 @@
 <?php
 require_once "../clases/master_class.php";
-require_once "../clases/token_auth.php";
+// require_once "../clases/token_auth.php";
 
-$tokenVerification = new TokenVerificacion();
-$tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
-}
+// $tokenVerification = new TokenVerificacion();
+// $tokenValido = $tokenVerification->verificar();
+// if (!$tokenValido) {
+//     $tokenVerification->logout();
+//     exit;
+// }
 
 $master = new Master();
 $api = $_POST['api'];
@@ -44,11 +44,30 @@ $seleccionable = $_POST['selecionable'];
 $es_para = $_POST['para'];
 $costos = $_POST['costos'];
 
-
+$parametros = array(
+    $descripcion,
+    $abreviatura,
+    // $area,
+    $clasificacion_id,
+    // $metodo_id,
+    $medida_id,
+    $dias_entrega,
+    $codigo_sat_id,
+    $indicaciones,
+    $muestra_valores,
+    $local,
+    $es_grupo,
+    $es_producto,
+    $seleccionable,
+    $es_para,
+    $costo,
+    $utilidad,
+    $precio_venta
+);
+echo "api ".$api;
 switch ($api) {
     case 1:
         $response = $master->insertByProcedure("sp_servicio_laboratorio_g",[
-            $id_servicio,
             $descripcion,
             $abreviatura,
             $clasificacion_id,
@@ -78,8 +97,83 @@ switch ($api) {
         ]);
         break;
     case 2:
-        # buscar servicio
+        $response = $master->getByProcedure('sp_servicio_laboratorio_b', [$id_servicio]);
+        $arrayGrupo = [];
+        $arrayEquipo = [];
+        $arrayMetodo = [];
+        $arrayContenedores = [];
+        $arrayMuestras = [];
         
+
+        for ($i = 0; $i < count($response); $i++) {
+            if(!in_array($response[$i]['GRUPO_ID'], $arrayGrupo)){
+                $grupo = $response[$i]['GRUPO_ID'];
+                array_push($arrayGrupo, $grupo);
+            }
+            if(!in_array($response[$i]['EQUIPO_ID'], $arrayEquipo)){
+                $equipo = $response[$i]['EQUIPO_ID'];
+                array_push($arrayEquipo, $equipo);
+            }
+            if(!in_array($response[$i]['METODO_ID'], $arrayMetodo)){
+                $metodo = $response[$i]['METODO_ID'];
+                array_push($arrayMetodo, $metodo);
+            }
+            if(!in_array($response[$i]['CONTENEDOR_ID'], $arrayContenedores)){
+                $contenedores = $response[$i]['CONTENEDOR_ID'];
+                array_push($arrayContenedores, $contenedores);
+            }
+            if(!in_array($response[$i]['MUESTRA_ID'], $arrayMuestras)){
+                $muestras = $response[$i]['MUESTRA_ID'];
+                array_push($arrayMuestras, $muestras);
+            }
+        }
+
+        $response = array(
+            "DESCRIPCION" => $response[0]['DESCRIPCION'],
+            "ABREVIATURA" => $response[0]['ABREVIATURA'],
+            "CLASIFICACION_ID" => $response[0]['CLASIFICACION_ID'],
+            "MEDIDA_ID" => $response[0]['MEDIDA_ID'],
+            "DIAS_DE_ENTREGA"=> $response[0]['DIAS_DE_ENTREGA'],
+            "GRUPO_ID" => $arrayGrupo,
+            "EQUIPO_ID" => $arrayEquipo,
+            "METODO_ID" => $arrayMetodo,
+            "CONTENEDORES" => array( "CONTENEDOR_ID" => $arrayContenedores, "MUESTRA_ID" => $arrayMuestras)
+
+        );
+          
+
+    break;
+    case 3:
+        $response =  $master ->updateByProcedure('sp_servicio_laboratorio_g', [
+            $id_servicio,
+            $descripcion,
+            $abreviatura,
+            $clasificacion_id,
+            $medida_id,
+            $dias_entrega,
+            $codigo_sat_id,
+            $indicaciones,
+            $muestra_valores,
+            $local,
+            $maquila_lab_id,
+            json_encode($master->getFormValues($grupo)),
+            json_encode($master->getFormValues($metodo)),
+            json_encode($master->getFormValues($contenedores)),
+            json_encode($master->getFormValues($equipo)),
+            $valor_minimo,
+            $valor_maximo,
+            $sexo,
+            $edad_inicial,
+            $edad_final,
+            $es_grupo,
+            $es_producto,
+            $area_id,
+            $seleccionable,
+            $es_para,
+            $costos,
+            $_SESSION['id']
+        ]);
+        break;
     default:
         $response = "Api no definida.";
         break;

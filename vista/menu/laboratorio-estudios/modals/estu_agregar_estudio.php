@@ -17,11 +17,11 @@
                   <p>Rellene la información basica del estudio</p>
                   <div class="col-8">
                     <label for="descripcion" class="form-label">Nombre del Estudio</label>
-                    <input type="text" name="descripcion" class="form-control input-form" required>
+                    <input type="text" name="descripcion" class="form-control input-form" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <div class="col-4">
                     <label for="abreviatura" class="form-label">CVE</label>
-                    <input type="text" name="abreviatura" class="form-control input-form" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario">
+                    <input type="text" name="abreviatura" class="form-control input-form" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <!-- <div class="col-12 col-md-12">
                     <label for="grupo" class="form-label">Grupo de exámen</label>
@@ -68,7 +68,7 @@
                   </div>
                   <div class="col-6 col-md-6">
                     <label for="dias_entrega" class="form-label">Día de entrega</label>
-                    <input type="text" name="dias_entrega" class="input-form" value="">
+                    <input type="number" name="dias_entrega" class="input-form" value="">
                   </div>
                   <div class="col-12 col-md-12">
                     <label for="codigo_sat_id" class="form-label">Clave SAT</label>
@@ -86,19 +86,6 @@
                       <option value="2">MUJER</option>
                       <option value="3" selected>TODOS</option>
                     </select>
-                  </div>
-                  <div class="row" style="zoom:100%;">
-                    <div class="col-6">
-                      <label for="">¿Mostrar valores de referencia? </label>
-                    </div>
-                    <div class="col-3">
-                      <input type="radio" name="muestra_valores" id="registrar-varepoSi" value="1" checked required>
-                      <label for="registrar-varepoSi">Si</label>
-                    </div>
-                    <div class="col-3">
-                      <input type="radio" name="muestra_valores" id="registrar-varepoNo" value="0" required>
-                      <label for="registrar-varepoNo">No</label>
-                    </div>
                   </div>
                   <div class="row" style="zoom:100%;">
                     <div class="col-6">
@@ -265,6 +252,19 @@
                 </div>
                 <h5>Informacion Valores de referencia</h5>
                 <p>Escriba el valor de referencia para el reporte...</p>
+                <div class="row" style="zoom:100%;">
+                  <div class="col-6">
+                    <label for="">¿Mostrar valores de referencia? </label>
+                  </div>
+                  <div class="col-3">
+                    <input type="radio" name="muestra_valores" id="registrar-varepoSi" value="1" checked required>
+                    <label for="registrar-varepoSi">Si</label>
+                  </div>
+                  <div class="col-3">
+                    <input type="radio" name="muestra_valores" id="registrar-varepoNo" value="0" required>
+                    <label for="registrar-varepoNo">No</label>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-12">
                     <label for="valor_minimo" class="form-label">Valor minimo</label>

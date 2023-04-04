@@ -31,8 +31,8 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
-// $api = 'biomolecular';
-// $turno_id = 381;
+// $api = 'laboratorio';
+// $turno_id = 382;
 // $area_id =2;
 
 
