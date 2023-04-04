@@ -383,9 +383,9 @@ if (!isset($qr)) {
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
                 </td>
                 <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">Perímetro cefálico</td>
+                <td colspan="3" style="text-align: left;" class="cursive">Masa grasa corporal</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PERIMETRO_CEFALICO; ?> cm</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_CORPORAL; ?> cm</strong>
                 </td>
             </tr>
             <tr>
@@ -394,20 +394,20 @@ if (!isset($qr)) {
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> kg </strong>
                 </td>
                 <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de proteínas</td>
+                <td colspan="3" style="text-align: left;" class="cursive">indice de masa corporal</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_PROTEINAS; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->INDICE_DE_MASA_CORPORAL; ?> %</strong>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: left;" class="cursive">Porcentaje de grasa viseral</td>
+                <td colspan="2" style="text-align: left;" class="cursive">Porcentaje de grasa visceral</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_GRASA_VISCERAL; ?> %</strong>
                 </td>
                 <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de agua</td>
+                <td colspan="3" style="text-align: left;" class="cursive">Mineral</td>
                 <td colspan=" 2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_AGUA; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->Mineral; ?> %</strong>
                 </td>
             </tr>
             <tr>
@@ -622,7 +622,7 @@ if (!isset($qr)) {
             </table>
 
         </div>
-
+        <!--                        
         <div style="display: flex;  margin-top: 13px; justify-content: center;">
             <table style="width: 45%; text-align: center; border-collapse: collapse;" border="2">
                 <thead>
@@ -652,6 +652,7 @@ if (!isset($qr)) {
                 </tr>
             </table>
         </div>
+                -->
     </div>
     <!--    <table style="width: 100%;">
             <tr>
