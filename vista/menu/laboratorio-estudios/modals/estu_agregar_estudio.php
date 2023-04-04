@@ -17,11 +17,11 @@
                   <p>Rellene la información basica del estudio</p>
                   <div class="col-8">
                     <label for="descripcion" class="form-label">Nombre del Estudio</label>
-                    <input type="text" name="descripcion" class="form-control input-form" required>
+                    <input type="text" name="descripcion" class="form-control input-form" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <div class="col-4">
                     <label for="abreviatura" class="form-label">CVE</label>
-                    <input type="text" name="abreviatura" class="form-control input-form" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario">
+                    <input type="text" name="abreviatura" class="form-control input-form" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <!-- <div class="col-12 col-md-12">
                     <label for="grupo" class="form-label">Grupo de exámen</label>
