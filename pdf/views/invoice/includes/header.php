@@ -3,7 +3,7 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <td class="col-der" style="border-bottom: none">
+                                    <td class="col-der" style="border-bottom: none; text-align: center">
                                         <h4>
                                             DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
                                             <?php echo $titulo; ?> <br>
