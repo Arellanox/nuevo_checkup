@@ -62,15 +62,17 @@ class Reporte
             case 'oftalmologia':
             case 'ultrasonido':
             case 'rayos': //rayos piu piu
+            case 'consultorio':
             case 'electro':
-                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
+                // $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
             default:
                 $barcode = null;
                 break;
         }
 
-        $host = /* isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : */ "https://bimo-lab.com/nuevo_checkup/";
+        // $host = /* isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : */ "https://bimo-lab.com/nuevo_checkup/";
+        $host = 'http://localhost/nuevo_checkup/';
         // Path del dominio
         $path = $archivo['ruta'] . $archivo['nombre_archivo'] . ".pdf";
         // $path    = 'pdf/public/resultados/E-00001.pdf';
@@ -88,7 +90,8 @@ class Reporte
             "area"                  => isset($area) ? $area : null
         );
 
-
+        // print_r($view_vars['resultados']->ANAMNESIS);
+        print_r($data);
 
         $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
@@ -150,6 +153,12 @@ class Reporte
                 $pdf->setPaper('letter', 'portrait');
                 break;
 
+            case 'consultorio':
+                $template = render_view('invoice/consultorio.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
@@ -159,7 +168,7 @@ class Reporte
         }
         // session_destroy();
         // Recibe la orden de que tipo de  modo de visualizacion quiere
-        switch ($orden) {
+        switch ('url') {
             case 'descargar':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
@@ -173,9 +182,8 @@ class Reporte
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
                 // return 'https://bimo-lab.com/nuevo_checkup/'. $path;
-                return $host . $path;
-                // echo $path;
-                // return $path;
+                print_r($path);
+                // return $host . $path;
                 break;
             default:
                 $pdf->render();
