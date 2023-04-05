@@ -181,7 +181,7 @@ class Reporte
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                return 'https:/w/bimo-lab.com/nuevo_checkup/' . $path;
+                return 'https://bimo-lab.com/nuevo_checkup/' . $path;
                 // print_r($path);
                 // return $host . $path;
                 break;
