@@ -293,7 +293,7 @@ if (!isset($qr)) {
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->IDENTIFICACION ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
@@ -360,32 +360,26 @@ if (!isset($qr)) {
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
                 </td>
-               <!-- <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">Metabolismo</td>
+                <td colspan="3"></td>
+                <td colspan="3" style="text-align: left;" class="cursive">Masa grasa corporal</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php //echo $resultados->METABOLISMO; ?> tmb</strong>
-                </td>-->
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_CORPORAL; ?> cm</strong>
+                </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Peso</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> kg</strong>
                 </td>
-               <!-- <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">Edad del cuerpo</td>
+                <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php// echo $resultados->EDAD_DEL_CUERPO; ?> años </strong>
-                </td>-->
+                    <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> mm</strong>
+                </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Masa corporal</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
-                </td>
-                <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">Masa grasa corporal</td>
-                <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_CORPORAL; ?> cm</strong>
                 </td>
             </tr>
             <tr>
@@ -411,10 +405,6 @@ if (!isset($qr)) {
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
-                <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> mm</strong>
-                </td>
                 <td colspan="12">&nbsp;</td>
             </tr>
             <!--signos vitales-->
