@@ -257,6 +257,10 @@ function deletePositionString(str, position) {
   return str;
 }
 
+function deleteSpace(str) {
+  return str.replace(/ /g, "")
+}
+
 
 $(window).resize(function () {
   //aqui el codigo que se ejecutara cuando se redimencione la ventana
@@ -2104,6 +2108,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         14: 'NUTRICIÓN',
                       }
                       let row = data.response.data;
+                      $('#append-html-historial-estudios').html('');
+
                       for (const key in array) {
                         if (Object.hasOwnProperty.call(array, key)) {
                           const element = array[key];
@@ -2113,6 +2119,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                           });
 
                           console.log(element, arrayArea)
+                          setListResultadosAreas('#append-html-historial-estudios', element, arrayArea)
                         }
                       }
 
@@ -2130,7 +2137,39 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   },
                 });
 
-                function setListResultadosAreas(array, titulo) {
+                function setListResultadosAreas(div, titulo, array) {
+                  let html = '';
+                  //titulo
+                  let lenghtArray = array.length;
+                  if (!lenghtArray)
+                    return false;
+                  html += `<li class="list-group-item d-flex justify-content-between align-items-start">
+                              <div class="ms-2 me-auto">`
+                  html += `<div class="fw-bold">
+                                <a class="" data-bs-toggle="collapse" href="#collapseEstudios${deleteSpace(titulo)}" role="button"
+                                    aria-expanded="false" aria-controls="collapseEstudios${deleteSpace(titulo)}">
+                                    ${titulo}
+                                </a>
+                            </div>`
+                  //Body 
+                  html += `<div class="collapse" id="collapseEstudios${deleteSpace(titulo)}">
+                                <ul style="list-style: disc;">`
+
+                  for (const key in array) {
+                    if (Object.hasOwnProperty.call(array, key)) {
+                      const element = array[key];
+                      html += `<li><a href="${element['RUTA']}" target="_blank">${formatoFecha2(element['FECHA_RECEPCION'], [0, 1, 2, 2, 0, 0, 0])}</a></li>`
+                    }
+                  }
+
+                  html += `</ul> </div>`
+
+                  //Finish and number span 
+                  html += `</div>
+                        <span class="badge bg-primary rounded-pill">${lenghtArray}</span>
+                    </li>`
+
+                  $(div).append(html);
 
                 }
 

@@ -31,6 +31,7 @@ async function datosPacienteBeneficiado(turno) {
                         let row = data.response.data[0];
 
                         $('#clave_beneficiado').val(row.CLAVE_BENEFICIARIO)
+
                         $('#parentesco_beneficiado option').prop('selected', false);
                         $("#parentesco_beneficiado option").filter(function () {
                             //may want to use $.trim in here
@@ -42,7 +43,6 @@ async function datosPacienteBeneficiado(turno) {
                         $('#cedula_medico').val(row.CEDULA_MEDICO);
                         $('#diagnostico_beneficiado').val(row.DIAGNOSTICO);
                         $('#ures_beneficiado').val(row.URES);
-
 
                         $("#lista-pacientes-trabajadores").val(row.ID_TRABAJADOR).trigger('change'); // <-- trabajador
 
