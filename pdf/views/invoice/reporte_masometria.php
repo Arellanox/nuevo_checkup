@@ -569,7 +569,7 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipoxia severa</td>
-                                <td colspan="3">&lt; 85%</td>
+                                <td colspan="3">&lt; 95%</td>
                             </tr>
                         </table>
                     </td>
