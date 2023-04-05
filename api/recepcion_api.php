@@ -116,7 +116,7 @@ switch ($api) {
                     #insertarmos las ordenes medicas en la base de datos
                     foreach ($merge as $item) {
                         if (!empty($item['tipo'])) {
-                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [1, $idTurno, $item['url'], $item['tipo']]);
+                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [1, $idTurno, $item['url'], $item['tipo'],$item['area_id']]);
                         }
                     }
                 } else {
