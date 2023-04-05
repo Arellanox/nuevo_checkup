@@ -9,7 +9,7 @@ class Master extends Miscelaneus
     public $urlComodin;
     public $urlOrdenesMedicas;
     public $urlEquiposLaboratorio;
-
+    public $urlPases;
     function Master()
     {
         $this->mis = new Miscelaneus();
@@ -18,6 +18,7 @@ class Master extends Miscelaneus
         $this->urlComodin = '../';
         $this->urlOrdenesMedicas = 'archivos/ordenes_medicas/';
         $this->urlEquiposLaboratorio = "archivos/laboratorio_equipos/";
+        $this->urlPases = "archivos/pases/";
     }
 
     function connection()
@@ -36,11 +37,11 @@ class Master extends Miscelaneus
     function connectDb()
     {
         // require_once 'pdoconfig.php';
-        // $host = "212.1.208.201";
-        // $host = 'localhost'; //Servidor
-        // $dbname = "u808450138_checkup";
-        // $username = "u808450138_bimo";
-        // $password = "I?6m7]Pe0";
+        $host = "212.1.208.201";
+        $host = 'localhost'; //Servidor
+        $dbname = "u808450138_checkup";
+        $username = "u808450138_bimo";
+        $password = "I?6m7]Pe0";
 
         #local
         // $host = "localhost";
@@ -49,10 +50,10 @@ class Master extends Miscelaneus
         // $password = "12345678";
 
         # nube. conexion de pruebas
-        $host = "212.1.208.201";
-        $dbname = "u808450138_checkup_copio";
-        $username = "u808450138_hola";
-        $password = ":N1TFmb0z";
+        // $host = "212.1.208.201";
+        // $dbname = "u808450138_checkup_copio";
+        // $username = "u808450138_hola";
+        // $password = ":N1TFmb0z";
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

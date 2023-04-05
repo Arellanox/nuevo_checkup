@@ -59,6 +59,10 @@ $orden_laboratorio = $_FILES['orden-medica-laboratorio'];
 $orden_rayos_x = $_FILES['orden-medica-rx'];
 $orden_ultrasonido = $_FILES['orden-medica-us'];
 
+# Pases de los pacientes de la ujat
+
+$pase_ujat = $_FILES['pase-ujat'];
+
 $ordenes = array(
     'ORDEN_LABORATORIO' => $orden_laboratorio,
     'ORDEN_RAYOS_X' => $orden_rayos_x,
@@ -127,6 +131,16 @@ switch ($api) {
             # si el paciente es rechazado, se desactivan los resultados de su turno.
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
         }
+
+        # insertar la ruta del pase para los pacientes de la ujat
+        $dir = $master->urlComodin . $master->urlPases . "$idTurno/";
+        $r = $master->createDir($dir);
+        $pase = $master->guardarFiles($_FILES,"pase-ujat",$dir,"PASE_$idTurno");
+        if(!empty($pase[0]['tipo'])){
+            $url_pase = str_replace("../","https://bimo-lab.com/nuevo_checkup/",$pase[0]['url']);
+            $r = $master->updateByProcedure("sp_actualizar_pase_empresas",[$idTurno, $pase[0]["url"]]);
+        }
+        
 
         # Insertar servicios extrar para pacientes empresas o servicios para particulares
         if (is_array($servicios)) {
