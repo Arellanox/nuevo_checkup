@@ -363,7 +363,7 @@ if (!isset($qr)) {
                <!-- <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Metabolismo</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->METABOLISMO; ?> tmb</strong>
+                    <strong style="font-size: 12px;"><?php //echo $resultados->METABOLISMO; ?> tmb</strong>
                 </td>-->
             </tr>
             <tr>
