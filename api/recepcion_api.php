@@ -106,6 +106,11 @@ switch ($api) {
                     $return2 = $master->guardarFiles($_FILES, 'orden-medica-rx', $dir, "ORDEN_MEDICA_RX_$idTurno");
                     $return3 = $master->guardarFiles($_FILES, 'orden-medica-us', $dir, "ORDEN_MEDICA_ULTRASONIDO_$idTurno");
 
+                    # metemos el area al que pertenece
+                    $return[0]['area_id'] = 6;
+                    $return2[0]['area_id'] = 8;
+                    $return3[0]['area_id'] = 11;
+
                     $merge = array_merge($return, $return2, $return3);
 
                     #insertarmos las ordenes medicas en la base de datos
