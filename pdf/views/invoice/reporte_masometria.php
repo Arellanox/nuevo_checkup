@@ -356,6 +356,10 @@ if (!isset($qr)) {
                 <td colspan="12">&nbsp;</td>
             </tr>
             <tr>
+                <td colspan="2" style="text-align: left;" class="cursive"> Folio </td>
+                <td colspan="2" style="text-align: left;">
+                    <strong style="font-size: 12px;"><?php echo $resultados->FOLIO; ?> cm </strong>
+                </td>
                 <td colspan="2" style="text-align: left;" class="cursive"> Estatura </td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
