@@ -381,12 +381,6 @@ if (!isset($qr)) {
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: left;" class="cursive">Masa muscular</td>
-                <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> kg </strong>
-                </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">indice de masa corporal</td>
                 <td colspan="2" style="text-align: left;">
@@ -394,10 +388,16 @@ if (!isset($qr)) {
                 </td>
             </tr>
             <tr>
+                <td colspan="2" style="text-align: left;" class="cursive">Masa muscular</td>
+                <td colspan="2" style="text-align: left;">
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> kg </strong>
+                </td>
                 <td colspan="2" style="text-align: left;" class="cursive">Porcentaje de grasa visceral</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_GRASA_VISCERAL; ?> %</strong>
                 </td>
+            </tr>
+            <tr>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Mineral</td>
                 <td colspan=" 2" style="text-align: left;">
@@ -569,7 +569,7 @@ if (!isset($qr)) {
                                     echo 'style="background-color: #f7be16;"';
                                 } ?>>
                                 <td colspan="3">Hipoxia severa</td>
-                                <td colspan="3">&lt; 95%</td>
+                                <td colspan="3">&lt; 85%</td>
                             </tr>
                         </table>
                     </td>
@@ -634,7 +634,7 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>-->
-    <div style="padding-top: 96px;">
+    <div style="padding-top: 110px;">
         <table>
             <tbody>
                 <tr class="col-foot-one">
