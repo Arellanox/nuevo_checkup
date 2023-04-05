@@ -81,7 +81,7 @@ async function obtenerResultadosSignos(id) {
             success: function (data) {
                 if (mensajeAjax(data)) {
                     let row = data.response.data;
-                    if (Object.keys(row).length > 1) {
+                    if (Object.keys(row).length > 2) {
                         bloquearBotones(1)
                         $('#frecuenciaCardiaca').val(row['FRECUENCIA CARDIACA']['VALOR'])
                         $('#frecuenciaRespiratoria').val(row['FRECUENCIA RESPIRATORIA']['VALOR'])
