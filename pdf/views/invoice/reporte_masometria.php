@@ -293,7 +293,7 @@ if (!isset($qr)) {
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_SOMA ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
@@ -400,10 +400,9 @@ if (!isset($qr)) {
                 </td>
             </tr>
             <tr>
-                <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">Mineral</td>
+                <td colspan="2" style="text-align: left;" class="cursive">Mineral</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->Mineral; ?> %</strong>
+                    <strong style="font-size: 10px;"><?php echo $resultados->Mineral; ?> %</strong>
                 </td>
             </tr>
             <tr>

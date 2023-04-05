@@ -409,6 +409,7 @@ class Miscelaneus
                 $arregloPaciente = $this->getBodyInfoSoma($master, $turno_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_MESO'];
                 $carpeta_guardado = "somatometria";
+                $folio = $infoPaciente[0]['FOLIO_SOMA'];
                 break;
         }
 
