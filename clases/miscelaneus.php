@@ -526,16 +526,16 @@ class Miscelaneus
                         $anamnesis = $master->checkArray($response[$i]);
                         #obtenenmos la clase
                         $clase = array();
-                        foreach($anamnesis as $current){
+                        foreach ($anamnesis as $current) {
                             $clase[] = $current['CLASE'];
                         }
                         # quitmos la duplicidad de las clases
                         $clase = array_unique($clase);
 
                         $newAnamnesis = array();
-                        foreach($clase as $current){
-                            $replace = str_replace(" ","_",$current);
-                            $newAnamnesis[$replace] = array_filter($anamnesis, function($obj) use ($current){
+                        foreach ($clase as $current) {
+                            $replace = str_replace(" ", "_", $current);
+                            $newAnamnesis[$replace] = array_filter($anamnesis, function ($obj) use ($current) {
                                 return $obj['CLASE'] == $current;
                             });
                         }
