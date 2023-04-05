@@ -43,6 +43,8 @@ function obtenerContenidoAntecedentes(data) {
     pacienteActivo = new GuardarArreglo(data)
     // $.getScript("modals/controlador-perfilPaciente.js");
     // Funciones
+    $.getScript("contenido/js/funciones_globales.js").done(function () { })
+
     $.getScript('contenido/js/consultorio-paciente.js').done(function () {
       obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'], pacienteActivo.array['CLIENTE'], pacienteActivo.array['CURP'])
       // Botones
@@ -69,6 +71,8 @@ function obtenerContenidoConsulta(data, idvaloracion) {
     // $.getScript("contenido/js/estudio-tabla.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
   }).done(function () {
+    $.getScript("contenido/js/funciones_globales.js").done(function () { })
+
     // Obtener metodos para el dom
     $.getScript("contenido/js/valoracion-paciente.js").done(function () {
       // Botones
@@ -89,7 +93,7 @@ function obtenerContenidoConsulta(data, idvaloracion) {
 async function obtenerConsultorio(id, idTurno, cliente, curp) {
   await obtenerPanelInformacion(id, "pacientes_api", 'paciente')
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_comprimido');
-  await obtenerPanelInformacion(idTurno, 'consulta_api', 'listado_resultados', '#listado-resultados',)
+  await obtenerPanelInformacion(idTurno, 'consulta_api', 'listado_resultados', '#listado-resultados')
   // alert("Antes de antecedentes")
   // setValues(idTurno) //llamar los valores para los antecedentes
 
@@ -106,7 +110,7 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
 }
 
 async function obtenerValoracion(data, idconsulta) {
-  console.log(data, idconsulta)
+  // console.log(data, idconsulta)
   await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
   await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_col3');
   $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
@@ -117,7 +121,7 @@ async function obtenerValoracion(data, idconsulta) {
   $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   await obtenerAntecedentesPaciente(data['ID_TURNO']);
-  console.log("si");
+  // console.log("si");
   await obtenerInformacionPaciente(data)
   await obtenerNutricion(data['ID_TURNO'])
   await obtenerExploracion(data['ID_TURNO'])
@@ -151,14 +155,15 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, clase, cl
 
 //AREA CONSULTA MEDICA
 //Posible solucion en ios
-$('#entrarConsultaMedica').css('cursor', 'pointer');
-$(document).on('click', '#entrarConsultaMedica', function (event) {
-  event.preventDefault();
-  obtenerConsultorioConsultaMedica(pacienteActivo.array);
-});
+// $('#entrarConsultaMedica').css('cursor', 'pointer');
+// $(document).on('click', '#entrarConsultaMedica', function (event) {
+//   event.preventDefault();
+//   obtenerConsultorioConsultaMedica(pacienteActivo.array, idConsultaMedica);
+// });
 
 
-function obtenerConsultorioConsultaMedica(data) {
+
+function obtenerConsultorioConsultaMedica(data, idConsultaMedica) {
   loader("In")
   $("#titulo-js").html(''); //Vaciar la cabeza de titulo
   $.post("contenido/consulta-medica-paciente.html", function (html) {
@@ -166,11 +171,20 @@ function obtenerConsultorioConsultaMedica(data) {
     pacienteActivo = new GuardarArreglo(data);
   }).done(function () {
     // Obtener metodos para el dom
+    $.getScript("contenido/js/funciones_globales.js").done(function () { })
+
     $.getScript("contenido/js/consulta-paciente.js").done(function () {
       // Botones
       $.getScript("contenido/js/consulta-paciente-botones.js");
-      obtenerValoracion(data, idconsulta);
+      obtenerConsultaMedica(data, idConsultaMedica);
     });
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   });
+}
+
+async function obtenerConsultaMedica(data, idConsultaMedica) {
+  // await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
+  await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_col3');
+  await obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
+  loader("Out", 'bottom')
 }
