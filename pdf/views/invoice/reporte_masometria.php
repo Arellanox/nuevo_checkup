@@ -293,10 +293,7 @@ if (!isset($qr)) {
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Folio: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO; ?> </strong>
-                    </td>
-                    <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo "N/A"; ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->IDENTIFICACION ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
@@ -363,22 +360,22 @@ if (!isset($qr)) {
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
                 </td>
-                <td colspan="3"></td>
+               <!-- <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Metabolismo</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->METABOLISMO; ?> tmb</strong>
-                </td>
+                </td>-->
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Peso</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> kg</strong>
                 </td>
-                <td colspan="3"></td>
+               <!-- <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive">Edad del cuerpo</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->EDAD_DEL_CUERPO; ?> años </strong>
-                </td>
+                    <strong style="font-size: 12px;"><?php// echo $resultados->EDAD_DEL_CUERPO; ?> años </strong>
+                </td>-->
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Masa corporal</td>
@@ -626,36 +623,6 @@ if (!isset($qr)) {
 
         </div>
                        
-        <div style="display: flex;  margin-top: 13px; justify-content: center;">
-            <table style="width: 45%; text-align: center; border-collapse: collapse;" border="2">
-                <thead>
-                    <tr style="text-align: center; background-color: #d8e0e2;">
-                        <th colspan="6">FRECUENCIA CARDÍACA:
-                            <?php echo $resultados->FRECUENCIA_CARDIACA; ?> lpm
-                        </th>
-                    </tr>
-                </thead>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA < 60) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Bradicardia</td>
-                    <td colspan="3">&lt; 60 lpm</td>
-                </tr>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA >= 60 && $resultados->FRECUENCIA_CARDIACA <= 90) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Normal</td>
-                    <td colspan="3">&gt; 90 lpm</td>
-                </tr>
-                <tr <?php if ($resultados->FRECUENCIA_CARDIACA > 90) {
-                        echo 'style="background-color: #f7be16;"';
-                    } ?>>
-                    <td colspan="3">Taquicardia</td>
-                    <td colspan="3">&gt; 90 lpm</td>
-                </tr>
-            </table>
-        </div>
-                
     </div>
     <!--    <table style="width: 100%;">
             <tr>
