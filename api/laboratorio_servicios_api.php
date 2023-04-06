@@ -164,7 +164,9 @@ switch ($api) {
             "VALOR_MAXIMO" => $response[0]['VALOR_MAXIMO'],
             "SEXO_REFERENCIA" => $response[0]['SEXO'],
             "EDAD_INICIAL" => $response[0]['EDAD_INICIAL'],
-            "EDAD_FINAL" => $response[0]['EDAD_FINAL']
+            "EDAD_FINAL" => $response[0]['EDAD_FINAL'],
+            "MAQUILA_ID" => $response[0]['MAQUILA_ID'],
+            "LABORATORIO_MAQUILA" => $response[0]['LABORATORIO_MAQUILA']
         );
         break;
     default:
