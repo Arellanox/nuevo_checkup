@@ -114,13 +114,12 @@ switch ($api) {
                     $return[0]['area_id'] = 6;
                     $return2[0]['area_id'] = 8;
                     $return3[0]['area_id'] = 11;
-
                     $merge = array_merge($return, $return2, $return3);
 
                     #insertarmos las ordenes medicas en la base de datos
                     foreach ($merge as $item) {
                         if (!empty($item['tipo'])) {
-                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [1, $idTurno, $item['url'], $item['tipo'], $item['area_id']]);
+                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $idTurno, $item['url'], $item['tipo'], $item['area_id']]);
                         }
                     }
                 } else {
@@ -275,9 +274,10 @@ switch ($api) {
         $dir = $master->urlComodin . $master->urlPases . "$e_turno_id/";
         $r = $master->createDir($dir);
         $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id");
+      
         if (!empty($pase[0]['tipo'])) {
             $url_pase = str_replace("../", "https://bimo-lab.com/nuevo_checkup/", $pase[0]['url']);
-            $r = $master->updateByProcedure("sp_actualizar_pase_empresas", [$e_turno_id, $pase[0]["url"]]);
+            $r = $master->updateByProcedure("sp_actualizar_pase_empresas", [$e_turno_id, $url_pase]);
         }
 
 
