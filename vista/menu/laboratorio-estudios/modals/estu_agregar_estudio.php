@@ -17,11 +17,11 @@
                   <p>Rellene la información basica del estudio</p>
                   <div class="col-8">
                     <label for="descripcion" class="form-label">Nombre del Estudio</label>
-                    <input type="text" name="descripcion" class="form-control input-form" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <input type="text" name="descripcion" class="form-control input-form" id="input-descripcion" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <div class="col-4">
                     <label for="abreviatura" class="form-label">CVE</label>
-                    <input type="text" name="abreviatura" class="form-control input-form" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <input type="text" name="abreviatura" class="form-control input-form" id="input-abreviatura" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <!-- <div class="col-12 col-md-12">
                     <label for="grupo" class="form-label">Grupo de exámen</label>
@@ -57,7 +57,7 @@
                   </div> -->
                   <div class="col-6 col-md-6">
                     <label for="medida_id" class="form-label">Medida</label>
-                    <select name="medida_id" class="input-form" id="registrar-medidas-estudio" required>
+                    <select name="medida_id" class="input-form" id="registrar-medidas-estudio">
                     </select>
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" value="" id="sin_medida">
@@ -68,7 +68,7 @@
                   </div>
                   <div class="col-6 col-md-6">
                     <label for="dias_entrega" class="form-label">Día de entrega</label>
-                    <input type="number" name="dias_entrega" class="input-form" value="">
+                    <input type="number" name="dias_entrega" class="input-form" id="input-dias_entrega">
                   </div>
                   <div class="col-12 col-md-12">
                     <label for="codigo_sat_id" class="form-label">Clave SAT</label>
@@ -77,14 +77,14 @@
                   </div>
                   <div class="col-12 col-md-12">
                     <label for="indicaciones" class="form-label">Indicaciones</label>
-                    <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder=""></textarea>
+                    <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2" di="input-indicaciones"></textarea>
                   </div>
                   <div class="col-12">
                     <label for="es_para" class="form-label select-contenedor">Dirigido a:</label>
-                    <select name="es_para" class="input-form" required="">
-                      <option value="1">HOMBRE</option>
-                      <option value="2">MUJER</option>
-                      <option value="3" selected>TODOS</option>
+                    <select name="es_para" class="input-form" required="" id="input-dirigido-sexo-servicio">
+                      <option value="1">Hombre</option>
+                      <option value="2">Mujer</option>
+                      <option value="3" selected>Todos</option>
                     </select>
                   </div>
                   <div class="row" style="zoom:100%;">
@@ -268,15 +268,15 @@
                 <div class="row">
                   <div class="col-12">
                     <label for="valor_minimo" class="form-label">Valor minimo</label>
-                    <textarea name="valor_minimo" class="input-form" rows="2" cols="20"></textarea>
+                    <textarea name="valor_minimo" class="input-form" rows="2" cols="20" id="valor_minimo_referencia"></textarea>
                   </div>
                   <div class="col-12">
                     <label for="valor_maximo" class="form-label">Valor maximo</label>
-                    <textarea name="valor_maximo" class="input-form" rows="2" cols="20"></textarea>
+                    <textarea name="valor_maximo" class="input-form" rows="2" cols="20" id="valor_maximo_referencia"></textarea>
                   </div>
                   <div class="col-4">
                     <label for="sexo_enum" class="form-label select-contenedor">Dirigido a:</label>
-                    <select name="sexo_enum" class="input-form" required="">
+                    <select name="sexo_enum" class="input-form" required="" id="input-dirigido-sexo-referencia">
                       <option value="1">HOMBRE</option>
                       <option value="2">MUJER</option>
                       <option value="3" selected>AMBOS</option>
@@ -284,11 +284,11 @@
                   </div>
                   <div class="col-4">
                     <label for="edad_inicial" class="form-label">Edad inicial:</label>
-                    <input type="text" name="edad_inicial" class="form-control input-form">
+                    <input type="text" name="edad_inicial" class="form-control input-form" id="input-edad-inicial-referencia">
                   </div>
                   <div class="col-4">
                     <label for="edad_final" class="form-label">Edad final</label>
-                    <input type="text" name="edad_final" class="form-control input-form">
+                    <input type="text" name="edad_final" class="form-control input-form" id="input-edad-final-referencia">
                   </div>
                 </div>
               </div>
@@ -305,3 +305,6 @@
     </div>
   </div>
 </div>
+<script>
+  formEstudios = $('#formRegistrarEstudio').html()
+</script>

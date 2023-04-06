@@ -10,7 +10,7 @@ if (validarVista('LABORATORIO_ESTUDIOS')) {
 // Variable de seleccion de metodo
 var array_metodo, numberContenedor = 0, numberContenedorEdit = 0, numberContenedorGrupo = 0, numberContenedorGrupoEdit = 0;
 var idMetodo = null;
-
+var modalEdit, formEstudios;
 function obtenerContenidoEstudios(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/estudios.php", function (html) {
@@ -60,6 +60,7 @@ function agregarContenedorMuestra(div, numeroSelect, tipo) {
   let startDivSelect = '<div class="col-5 col-md-5">';
   let startDivButton = '<div class="col-2 d-flex justify-content-start align-items-center">';
   let endDiv = '</div>';
+  numeroSelect = getRandomInt(10000000000000)
 
   // <label for="contenedores[contenedor-uno[]]" class="form-label">Contenedor</label>
   // <select name="contenedores[contenedor-uno[]]" id="registrar-contenedor1-estudio" required></select>
@@ -83,40 +84,43 @@ function agregarContenedorMuestra(div, numeroSelect, tipo) {
     startDivButton + '<button type="button" class="btn btn-hover eliminarContenerMuestra' + tipo + '" data-bs-contenedor="' + numeroSelect + '" style="margin-top: 20px;"><i class="bi bi-trash"></i></button>' + endDiv + endDiv;
   $(div).append(html);
   recargarSelects()
+  return {
+    0: `${'contenedores[' + numeroSelect + '][contenedor]'}`,
+    1: `contenedores[${numeroSelect}][muestra]`
+  };
 }
 
-function agregarHTMLSelectorInput(div, label, relleno) {
-  console.log(relleno)
-  let id = getRandomString();
+function agregarHTMLSelectorInput(div, label, relleno, editID = null, cantidad = null) {
+  let id = getRandomInt(1000000000)
+  classSelect = `input-form select-contenedor-${label}`
   html = '<div class="row">' +
     '<div class="col-12 col-lg-12 col-xxl-6">' +
     '<label for="grupoExamen[' + id + '][grupo_id]" class="form-label">' + label + '</label>' +
-    '<select name="grupoExamen[' + id + '][grupo_id]" class="input-form select-contenedor-' + label + '" required="">';
+    '<select name="grupoExamen[' + id + '][grupo_id]" class="' + classSelect + '" required="">';
 
   html += `${relleno}`;
-
+  // console.log(cantidad, editID)
+  let classInput = `form-control input-form`;
   html += '</select>' +
     '</div>' +
     '<div class="col-12 col-lg-8 col-xxl-4">' +
     '<label for="grupoExamen[' + id + '][orden]" class="form-label">Posicion del grupo</label>' +
-    '<input type="text" placerholder="Orden del servicio para el grupo" name="grupoExamen[' + id + '][orden]" value=""' +
-    'class="form-control input-form">' +
+    '<input type="text" placerholder="Orden del servicio para el grupo" name="grupoExamen[' + id + '][orden]" ' +
+    'class="' + classInput + '" value="' + ifnull(cantidad, '') + '" required>' +
     '</div>' +
     '<div class="col-2 d-flex justify-content-start align-items-center">' +
-    '<button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;">' +
+    '<button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;" >' +
     '<i class="bi bi-trash"></i>' +
     '</button>' +
     '</div>' +
     '</div>';
   $(div).append(html);
   recargarSelects()
-
-
+  return 'grupoExamen[' + id + '][grupo_id]';
 }
 
 function agregarHTMLSelector(div, label, relleno) {
-  console.log(relleno)
-  let id = getRandomString();
+  let id = getRandomInt(1000000000)
   html = '<div class="row">' +
     '<div class="col-10 col-md-10">' +
     '<label for="' + label + '[' + id + ']" class="form-label">' + label + '</label>' +
@@ -133,7 +137,8 @@ function agregarHTMLSelector(div, label, relleno) {
     '</div>' +
     '</div>';
   $(div).append(html);
-  recargarSelects()
+  recargarSelects();
+  return `${label}[${id}]`;
 }
 
 function recargarSelects(grupo = false) {
@@ -141,10 +146,18 @@ function recargarSelects(grupo = false) {
     rellenarSelect('.select-contenedor-Grupo', 'servicios_api', 7, 0, 'DESCRIPCION', { id_area: 6 }, function (data, o) {
       rellenoGrupoSelect = o
     })
-  }
+  } select2("#registrar-clasificacion-estudio", "ModalRegistrarEstudio");
+
+  select2("#registrar-medidas-estudio", "ModalRegistrarEstudio");
+  select2("#registrar-concepto-facturacion", "ModalRegistrarEstudio");
+
+  select2("#registrar-contenedor1-estudio", "ModalRegistrarEstudio");
+  select2("#registrar-muestraCont1-estudio", "ModalRegistrarEstudio");
+
   select2('.select-contenedor-equipo', 'ModalRegistrarEstudio');
   select2('.select-contenedor-Método', 'ModalRegistrarEstudio');
   select2('.select-contenedor-Grupo', 'ModalRegistrarEstudio');
+
 }
 
 
