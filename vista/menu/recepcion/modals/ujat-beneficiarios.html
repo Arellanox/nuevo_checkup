@@ -11,46 +11,63 @@
                         <div class="col row">
                             <div class="col">
                                 <div class="card p-3 mb-2" style="min-width: 310px;">
-                                    <p>Información del paciente beneficiado</p>
+                                    <div class="row">
+                                        <p>Información del paciente beneficiado</p>
 
-                                    <label for="clave_beneficiado" class="form-label">Clave de beneficiado</label>
-                                    <input type="text" name="clave_beneficiado" value=""
-                                        placeholder="Ejemplo: 1, 2, 3, después del - de la clave del trabajador"
-                                        class="form-control input-form" id="clave_beneficiado">
+                                        <div class="col-4">
+                                            <label for="clave_beneficiado" class="form-label">Clave</label>
+                                            <input type="text" name="clave_beneficiado" value=""
+                                                placeholder="Ejemplo: 1, 2, 3, después del - de la clave del trabajador"
+                                                class="form-control input-form" id="clave_beneficiado">
+                                        </div>
 
-                                    <label for="parentesco" class="form-label">Parentesco</label>
-                                    <!-- <input type="text" name="parentesco" value="" class="form-control input-form"> -->
-                                    <select name="parentesco" class="input-form " id="parentesco_beneficiado">
-                                        <option value="1">TRABAJADOR</option>
-                                        <option value="2">MADRE</option>
-                                        <option value="3">PADRE</option>
-                                        <option value="4">ESPOSO (A)</option>
-                                        <option value="5">HIJO (A)</option>
-                                    </select>
+                                        <div class="col-4">
+                                            <label for="parentesco" class="form-label">Parentesco</label>
+                                            <!-- <input type="text" name="parentesco" value="" class="form-control input-form"> -->
+                                            <select name="parentesco" class="input-form " id="parentesco_beneficiado">
+                                                <option value="1">TRABAJADOR</option>
+                                                <option value="2">MADRE</option>
+                                                <option value="3">PADRE</option>
+                                                <option value="4">ESPOSO (A)</option>
+                                                <option value="5">HIJO (A)</option>
+                                            </select>
+                                        </div>
 
-                                    <label for="pase" class="form-label">Número de Pase</label>
-                                    <input type="text" name="pase" class="form-control input-form" id="numero_pase">
+                                        <div class="col-4">
+                                            <label for="pase" class="form-label">Número de Pase</label>
+                                            <input type="text" name="pase" class="form-control input-form"
+                                                id="numero_pase">
+                                        </div>
 
-                                    <label for="medico" class="form-label">Médico que Envía</label>
-                                    <input type="text" name="medico" value="" class="form-control input-form"
-                                        id="medico_envia">
+                                        <div class="col-8">
+                                            <label for="medico" class="form-label">Médico que Envía</label>
+                                            <input type="text" name="medico" value="" class="form-control input-form"
+                                                id="medico_envia">
+                                        </div>
 
-                                    <label for="cedula-medico" class="form-label">Cédula médico</label>
-                                    <input type="text" name="cedula-medico" class="form-control input-form"
-                                        id="cedula_medico">
+                                        <div class="col-4">
+                                            <label for="cedula-medico" class="form-label">Cédula médico</label>
+                                            <input type="text" name="cedula-medico" class="form-control input-form"
+                                                id="cedula_medico">
+                                        </div>
 
-                                    <label for="diagnostico" class="form-label">Diagnóstico</label>
-                                    <input type="text" name="diagnostico" value="" class="form-control input-form"
-                                        id="diagnostico_beneficiado">
+                                        <div class="col-8">
+                                            <label for="diagnostico" class="form-label">Diagnóstico</label>
+                                            <input type="text" name="diagnostico" value=""
+                                                class="form-control input-form" id="diagnostico_beneficiado">
+                                        </div>
 
-                                    <label for="ures" class="form-label">Ures</label>
-                                    <input type="text" name="ures" class="form-control input-form"
-                                        id="ures_beneficiado">
+                                        <div class="col-4">
+                                            <label for="ures" class="form-label">Ures</label>
+                                            <input type="text" name="ures" class="form-control input-form"
+                                                id="ures_beneficiado">
+                                        </div>
 
-                                    <div class="col-12 mt-3" id="contenedor-pase-ujat">
-                                        <label for="pase-ujat" class="form-label">Pase UJAT:</label>
-                                        <input type="file" name="pase-ujat[]" id="pase-ujat"
-                                            class="form-control input-form" value="">
+                                        <div class="col-12 mt-3" id="contenedor-pase-ujat">
+                                            <label for="pase-ujat" class="form-label">Pase UJAT:</label>
+                                            <input type="file" name="pase-ujat[]" id="pase-ujat"
+                                                class="form-control input-form" value="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +96,7 @@
                             </div>
                         </div>
 
-                        <div class="col-8" style="display: none;" id="datos-nuevo-trabajador">
+                        <div class="col-8" style="display: none;width: 528px;" id="datos-nuevo-trabajador">
                             <div class="card p-3">
                                 <p>Alta de trabajador</p>
                                 <div class="row">
