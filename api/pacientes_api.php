@@ -41,6 +41,7 @@ $vacuna = $_POST['vacuna'];
 $otravacuna = $_POST['vacunaExtra'];
 $dosis = $_POST['inputDosis'];
 $genero = $_POST['genero'];
+$id_turno = $_POST['turno_id'];
 
 $parametros = array(
     $id_paciente,
@@ -80,7 +81,7 @@ switch ($api) {
     case 2:
         # buscar pacientes
         // echo $id_paciente;
-        $response = $master->getByProcedure("sp_pacientes_b", [$id_paciente, $curp,$pasaporte]);
+        $response = $master->getByProcedure("sp_pacientes_b", [$id_paciente, $curp,$pasaporte,$id_turno]);
         break;
     case 3:
         # actualizar pacientes
