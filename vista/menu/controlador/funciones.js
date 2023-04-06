@@ -604,12 +604,21 @@ const Toast = Swal.mixin({
 });
 
 function isJson(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
+
+  // console.log(typeof str)
+
+  if (typeof str === 'object') {
+    return true;
+  } else {
     return false;
   }
-  return true;
+  // return false;
+  // try {
+  //   JSON.parse(str);
+  // } catch (e) {
+  //   return false;
+  // }
+  // return true;
 }
 
 
@@ -1768,28 +1777,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   },
                 })
                 break;
-              case 'estudio':
-                $('#nombre-estudio').html(row['DESCRIPCION']);
-                $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
-                $('#estudio-metodo').html(row.METODO);
-                $('#estudio-medida').html(row.MEDIDA);
-                $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
-                if (row.LOCAL == 1) {
-                  $('#estudio-subroga').html('Si');
-                } else {
-                  $('#estudio-subroga').html('No');
-                }
-                if (row.MUESTRA_VALORES_REFERENCIA == 1) {
-                  $('#estudio-valorvista').html('Si');
-                } else {
-                  $('#estudio-valorvista').html('No');
-                }
-                $('#estudio-indicaciones').html(row.INDICACIONES);
-                $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
-                $('#estudio-venta').html(row.PRECIO_VENTA);
-                $(panel).fadeIn(100);
-                resolve(1);
-                break;
               case 'equipo':
                 $('#nombre-equipo').html(row.MARCA + "-" + row.MODELO);
                 // $('#equipo-equipo').html(row.);
@@ -2175,7 +2162,34 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                 break;
 
+              //Antiguo por datatable
+              case 'estudio':
+                $('#nombre-estudio').html(row['DESCRIPCION']);
+                $('#clasificacion-estudio').html(row.CLASIFICACION_EXAMEN);
+                $('#estudio-metodo').html(row.METODO);
+                $('#estudio-medida').html(row.MEDIDA);
+                $('#estudio-entrega').html(row.DIAS_DE_ENTREGA);
+                if (row.LOCAL == 1) {
+                  $('#estudio-subroga').html('Si');
+                } else {
+                  $('#estudio-subroga').html('No');
+                }
+                if (row.MUESTRA_VALORES_REFERENCIA == 1) {
+                  $('#estudio-valorvista').html('Si');
+                } else {
+                  $('#estudio-valorvista').html('No');
+                }
+                $('#estudio-indicaciones').html(row.INDICACIONES);
+                $('#estudio-codigo-sat').html(row.DESCRIPCION_SAT);
+                $('#estudio-venta').html(row.PRECIO_VENTA);
+                $(panel).fadeIn(100);
+                resolve(1);
+                break;
+              //Renovado para laboratorio
+              case 'info-estudio-lab-clinico':
 
+
+                break;
 
               default:
                 console.log('Sin opción panel')

@@ -11,6 +11,8 @@ if (validarVista('LABORATORIO_ESTUDIOS')) {
 var array_metodo, numberContenedor = 0, numberContenedorEdit = 0, numberContenedorGrupo = 0, numberContenedorGrupoEdit = 0;
 var idMetodo = null;
 var modalEdit, formEstudios;
+var infoServicioEdit = false;
+
 function obtenerContenidoEstudios(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/estudios.php", function (html) {

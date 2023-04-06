@@ -10,9 +10,11 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
     $('input[type=radio][name=local]').change(function () {
       if (this.value == '0') {
         $('#div-maquila').fadeIn()
+        $('#maquila_agregar_estudio').prop('required', true)
       }
       else if (this.value == '1') {
         $('#div-maquila').fadeOut()
+        $('#maquila_agregar_estudio').prop('required', false)
       }
     });
   }, 500);
@@ -28,6 +30,8 @@ $("#ModalRegistrarEstudio").on("hidden.bs.modal", function () {
     agregarHTMLSelectorInput('#div-select-grupo', 'Grupo', rellenoGrupoSelect)
     agregarHTMLSelector('#div-select-metodo', 'Método', rellenoMetodoSelect)
     agregarHTMLSelector('#div-select-equipo', 'Equipo', rellenoEquipoSelect)
+
+    $('#maquila_agregar_estudio').html(rellenoMaquilaSelect)
 
     $('input[name="muestra_valores"]').prop('checked', false);
     $('#input-dirigido-sexo-referencia option').removeClass('selected');
@@ -54,6 +58,7 @@ async function getValueEstudio(id) {
         $('#registrar-clasificacion-estudio').html(rellenoClasificacion)
         $('#registrar-medidas-estudio').html(rellenoMedidas)
         $('#registrar-concepto-facturacion').html(rellenoSatFacturacion)
+        $('#maquila_agregar_estudio').html(rellenoMaquilaSelect)
 
         // alertMensaje('info', 'Cargando información...', 'Espere un momento mientras se cargan los datos');
       },
@@ -94,6 +99,17 @@ async function getValueEstudio(id) {
           }).prop('selected', true);
 
           $(`input[name="local"][value="${row.LOCAL}"]`).prop('checked', true);
+          if (row.LOCAL == '0') {
+            $('#div-maquila').fadeIn()
+            $('#maquila_agregar_estudio').val(row.LABORATORIO_MAQUILA);
+            $('#maquila_agregar_estudio').prop('required', true);
+
+          } else {
+            $('#div-maquila').fadeOut()
+            $('#maquila_agregar_estudio').val(1);
+            $('#maquila_agregar_estudio').prop('required', false);
+
+          }
 
           try {
             let grupos = row.GRUPOS.GRUPO_ID

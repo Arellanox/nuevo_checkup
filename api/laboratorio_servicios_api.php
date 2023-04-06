@@ -169,6 +169,12 @@ switch ($api) {
             "LABORATORIO_MAQUILA" => $response[0]['LABORATORIO_MAQUILA']
         );
         break;
+    case 3:
+        #obtener lista de estudios por id_grupo
+        $grupo_id = $_POST['grupo_id'];
+
+        $response = $master->getByProcedure('sp_servicios_por_grupo_b', [$grupo_id, $servicio_id]); #<-- Falta obtener grupos por servicio 
+        break;
     default:
 
         $response = "Api no definida.";

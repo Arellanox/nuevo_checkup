@@ -28,4 +28,23 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
 
 })
 
+selectDatatable("TablaEstudioServicio", tablaServicio, 1, 'servicios_api', 'estudio', '#panel-informacion', function (select, selectData) {
+
+  if (select) {
+    obtenerPanelInformacion(1, 'servicios_api', 'estudio');
+
+    //   console.log(select);
+    //   infoServicioEdit = getInfoServicioLab(select['ID_SERVICIO']);
+    //   console.log(infoServicioEdit)
+    //   // obtenerPanelInformacion(1, infoServicioEdit, 'signos-vitales', '#signos-vitales'); //<-- en la opcion 2 mando arreglo, pero deberia estar la api donde ira, pero el case necesita la info, no busca en ajax
+  } else {
+
+    //   infoServicioEdit = false;
+    //   // obtenerPanelInformacion(0, null, 'signos-vitales', '#signos-vitales'); //<-- en la opcion 2 mando arreglo, pero deberia estar la api donde ira, pero el case necesita la info, no busca en ajax
+
+  }
+
+})
+
 selectDatatable("TablaEstudioServicio", tablaServicio, 1, 'servicios_api', 'estudio')
+
