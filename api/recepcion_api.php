@@ -130,17 +130,7 @@ switch ($api) {
         } else {
             # si el paciente es rechazado, se desactivan los resultados de su turno.
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
-        }
-
-        # insertar la ruta del pase para los pacientes de la ujat
-        $dir = $master->urlComodin . $master->urlPases . "$idTurno/";
-        $r = $master->createDir($dir);
-        $pase = $master->guardarFiles($_FILES,"pase-ujat",$dir,"PASE_$idTurno");
-        if(!empty($pase[0]['tipo'])){
-            $url_pase = str_replace("../","https://bimo-lab.com/nuevo_checkup/",$pase[0]['url']);
-            $r = $master->updateByProcedure("sp_actualizar_pase_empresas",[$idTurno, $pase[0]["url"]]);
-        }
-        
+        }        
 
         # Insertar servicios extrar para pacientes empresas o servicios para particulares
         if (is_array($servicios)) {
@@ -307,6 +297,15 @@ switch ($api) {
             $e_cedula,
             $e_pase
         ]);
+
+        # insertar la ruta del pase para los pacientes de la ujat
+        $dir = $master->urlComodin . $master->urlPases . "$idTurno/";
+        $r = $master->createDir($dir);
+        $pase = $master->guardarFiles($_FILES,"pase-ujat",$dir,"PASE_$idTurno");
+        if(!empty($pase[0]['tipo'])){
+            $url_pase = str_replace("../","https://bimo-lab.com/nuevo_checkup/",$pase[0]['url']);
+            $r = $master->updateByProcedure("sp_actualizar_pase_empresas",[$idTurno, $pase[0]["url"]]);
+        }
         // } else {
         //     $response = "nuevo-trabajador: off";
         // }
