@@ -357,11 +357,11 @@ if (!isset($qr)) {
             </tr>
             <tr>
                 <td colspan="4" style="text-align: left;" class="cursive"> Estatura </td>
-                <td colspan="3" style="text-align: left;">
+                <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
                 </td>
                <!-- <td colspan="1"> </td>-->
-                <td colspan="3" style="text-align: left;" class="cursive">Masa grasa corporal</td>
+                <td colspan="4" style="text-align: left;" class="cursive">Masa grasa corporal</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_CORPORAL; ?> cm</strong>
                 </td>
