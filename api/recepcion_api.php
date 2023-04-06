@@ -132,17 +132,7 @@ switch ($api) {
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
         }
 
-        # insertar la ruta del pase para los pacientes de la ujat
-        $dir = $master->urlComodin . $master->urlPases . "$idTurno/";
-        $r = $master->createDir($dir);
-        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$idTurno");
-        if (!empty($pase[0]['tipo'])) {
-            $url_pase = str_replace("../", "https://bimo-lab.com/nuevo_checkup/", $pase[0]['url']);
-            $r = $master->updateByProcedure("sp_actualizar_pase_empresas", [$idTurno, $pase[0]["url"]]);
-        }
-
-
-        # Insertar servicios extrar para pacientes empresas o servicios para particulares
+       # Insertar servicios extrar para pacientes empresas o servicios para particulares
         if (is_array($servicios)) {
             if (count($servicios) > 0) {
                 # si hay algo en el arreglo lo insertamos
@@ -280,6 +270,15 @@ switch ($api) {
         #Datos de beneficiario
         #========================================================================================
         ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
+
+        # insertar la ruta del pase para los pacientes de la ujat
+        $dir = $master->urlComodin . $master->urlPases . "$e_turno_id/";
+        $r = $master->createDir($dir);
+        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id");
+        if (!empty($pase[0]['tipo'])) {
+            $url_pase = str_replace("../", "https://bimo-lab.com/nuevo_checkup/", $pase[0]['url']);
+            $r = $master->updateByProcedure("sp_actualizar_pase_empresas", [$e_turno_id, $pase[0]["url"]]);
+        }
 
 
         // if(isset($is_worker) && $is_worker== "on"){
