@@ -91,6 +91,9 @@ switch ($api) {
         # desactivr paciente
         $response = $master->deleteByProcedure("sp_pacientes_e", [$id_paciente]);
         break;
+    case 5:
+        $response = $master->getByProcedure("sp_ordenes_medicas_b",[$turno_id,$area_id]);
+        break;
     default:
         $response = "api no reconocida";
         break;
