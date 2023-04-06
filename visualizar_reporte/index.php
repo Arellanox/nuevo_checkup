@@ -19,10 +19,10 @@ $master = new Master();
 // var token = encodeURIComponent(window.btoa(myStr));
 
 
-// $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
-// $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
-// $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
-// $usuario_id = $_SESSION['id'];
+$api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
+$turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
+$area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
+$usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
@@ -31,11 +31,11 @@ $master = new Master();
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
-$api = 'consultorio';
-// $turno_id = 382;
-// $area_id =2;
-$turno_id = 197;
-$area_id = 2;
+// $api = 'consultorio';
+// // $turno_id = 382;
+// // $area_id =2;
+// $turno_id = 197;
+// $area_id = 2;
 
 
 switch ($api) {
