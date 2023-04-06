@@ -372,19 +372,19 @@ if (!isset($qr)) {
                     <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> kg</strong>
                 </td>
                 <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">Huesos</td>
+                <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> mm</strong>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Masa corporal</td>
-                <td colspan="2" style="text-align: left;">
+                <td colspan="3" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
                 </td>
                 <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive">indice de masa corporal</td>
-                <td colspan="2" style="text-align: left;">
+                <td colspan="2" style="text-align: left;" class="cursive">indice de masa corporal</td>
+                <td colspan="3" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->INDICE_DE_MASA_CORPORAL; ?> %</strong>
                 </td>
             </tr>
