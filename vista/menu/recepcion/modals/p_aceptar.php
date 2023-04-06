@@ -210,10 +210,7 @@
                 <div class="mt-3">
                   <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones" id="Observaciones-aceptar"></textarea>
                 </div>
-                <div class="col-12 mt-3" id="contenedor-pase-ujat" style="display:none">
-                  <label for="pase-ujat" class="form-label">Pase UJAT:</label>
-                  <input type="file" name="pase-ujat" id="pase-ujat" class="form-control input-form" value="">
-                </div>
+
                 <div class="col-12 mt-3">
                   <p>Formas de pago: </p>
                   <p>Total del paquete: <strong>$1200.00</strong></p>

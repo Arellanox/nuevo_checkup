@@ -10,11 +10,12 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
   // document.getElementById("btn-confirmar-paciente").disabled = true;
 
-  if (array_selected['CLIENTE_ID'] == 18) {
-    $('#contenedor-pase-ujat').fadeIn(100);
-  } else {
-    $('#contenedor-pase-ujat').fadeOut(100);
-  }
+  // if (array_selected['CLIENTE_ID'] == 18) {
+  //   $('#contenedor-pase-ujat').fadeIn(100);
+  // } else {
+  //   $('#pase-ujat').val(null)
+  //   $('#contenedor-pase-ujat').fadeOut(100);
+  // }
 
   rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
     'cliente_id': array_selected['CLIENTE_ID']
