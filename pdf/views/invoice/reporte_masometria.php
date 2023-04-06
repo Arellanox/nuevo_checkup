@@ -357,18 +357,18 @@ if (!isset($qr)) {
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive"> Estatura </td>
-                <td colspan="2" style="text-align: right;">
+                <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
                 </td>
-                <td colspan="3"></td>
+                <td colspan="2"> </td>
                 <td colspan="3" style="text-align: left;" class="cursive">Masa grasa corporal</td>
-                <td colspan="2" style="text-align: left;">
+                <td colspan="3" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_CORPORAL; ?> cm</strong>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Peso</td>
-                <td colspan="2" style="text-align: right;">
+                <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> kg</strong>
                 </td>
                 <td colspan="3"></td>
@@ -379,7 +379,7 @@ if (!isset($qr)) {
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Masa corporal</td>
-                <td colspan="2" style="text-align: right;">
+                <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
                 </td>
                 <td colspan="3"></td>
@@ -390,7 +390,7 @@ if (!isset($qr)) {
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Masa muscular</td>
-                <td colspan="2" style="text-align: right;">
+                <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> kg </strong>
                 </td>
                 <td colspan="3"></td>
@@ -401,7 +401,7 @@ if (!isset($qr)) {
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Mineral</td>
-                <td colspan="2" style="text-align: right;">
+                <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 10px;"><?php echo $resultados->Mineral; ?> %</strong>
                 </td>
             </tr>
