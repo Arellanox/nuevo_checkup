@@ -41,6 +41,7 @@ $vacuna = $_POST['vacuna'];
 $otravacuna = $_POST['vacunaExtra'];
 $dosis = $_POST['inputDosis'];
 $genero = $_POST['genero'];
+$id_turno = $_POST['turno_id'];
 
 $parametros = array(
     $id_paciente,
