@@ -89,7 +89,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
   selectPacienteArea = array;
   console.log(selectPacienteArea)
   if (selectTR == 1) {
-    obtenerPanelInformacion(selectPacienteArea['ID_PACIENTE'], 'pacientes_api', 'paciente')
+    obtenerPanelInformacion(selectPacienteArea['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
     if (areaActiva == 3) {
       url = 'oftalmologia_api';
       data = {

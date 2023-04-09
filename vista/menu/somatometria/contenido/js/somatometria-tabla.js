@@ -54,7 +54,7 @@ selectDatatable('TablaSignos', tablaSignos, 0, 0, 0, 0, function (selectTR = nul
         //     $('#omitir-paciente').prop('disabled', false)
         //   }
         getPanel('.informacion-Signos', '#loader-Signos', '#loaderDivSignos', selectListaSignos, 'In', async function (divClass) {
-            await obtenerPanelInformacion(selectListaSignos['ID_PACIENTE'], 'pacientes_api', 'paciente')
+            await obtenerPanelInformacion(selectListaSignos['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
             await obtenerResultadosSignos(selectListaSignos['ID_TURNO'])
             loaderDiv("Out", null, "#loader-Signos", '#loaderDivSignos');
             // console.log(divClass)

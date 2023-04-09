@@ -1362,7 +1362,7 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
           if (panel) {
             // Lee los 3 objetos para llamar a la funcion
             for (var i = 0; i < Object.keys(tipPanel).length; i++) {
-              obtenerPanelInformacion(array_selected[0], api[i], tipPanel[i], idPanel[i])
+              obtenerPanelInformacion(array_selected['ID_TURNO'], api[i], tipPanel[i], idPanel[i])
             }
           }
           if (callback != null) {
@@ -1675,75 +1675,11 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
             row = array_selected;
             switch (tipPanel) {
               case 'paciente':
-                if (array_selected != null) {
-                  $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                  $('#edad-persona').html(formatoFecha(row.EDAD))
-                  $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO))
-                  $('#info-paci-curp').html(row.CURP);
-                  $('#info-paci-telefono').html(row.CELULAR);
-                  $('#info-paci-correo').html(row.CORREO);
-                  $('#info-paci-sexo').html(row.GENERO);
-                  if (row.TURNO) {
-                    $('#info-paci-turno').html(row.TURNO);
-                  } else {
-                    $('#info-paci-turno').html('Sin generar');
-                  }
-                  $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
-                    row.MUNICIPIO + ", " + row.ESTADO);
-                  $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
-                  if (row.FECHA_REAGENDA != null) {
-                    $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
-                  }
-                  $(panel).fadeIn(100);
-                  resolve(1);
-                } else {
-                  $.ajax({
-                    url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
-                    data: {
-                      api: 2,
-                      id: id
-                    },
-                    type: "POST",
-                    dataType: 'json',
-                    success: function (data) {
-                      if (mensajeAjax(data)) {
-                        row = data['response']['data'][0];
-                        $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                        $('#edad-persona').html(formatoFecha(row.EDAD))
-                        $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
-                        $('#info-paci-curp').html(row.CURP);
-                        $('#info-paci-telefono').html(row.CELULAR);
-                        $('#info-paci-correo').html(row.CORREO);
-                        $('#info-paci-sexo').html(row.GENERO);
-                        if (row.TURNO) {
-                          $('#info-paci-turno').html(row.TURNO);
-                        } else {
-                          $('#info-paci-turno').html('Sin generar');
-                        }
-                        $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
-                          row.MUNICIPIO + ", " + row.ESTADO);
-                        $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
-                        if (row.FECHA_REAGENDA != null) {
-                          $('#info-paci-agenda').html(formatoFecha(row.FECHA_REAGENDA));
-                        }
-                      }
-                    },
-                    complete: function () {
-                      $(panel).fadeIn(100);
-                      resolve(1);
-                    },
-                    error: function (jqXHR, exception, data) {
-                      alertErrorAJAX(jqXHR, exception, data)
-                    },
-                  })
-                }
-                break;
-              case 'paciente_lab':
                 $.ajax({
                   url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
                   data: {
                     api: 2,
-                    id: id
+                    turno_id: id
                   },
                   type: "POST",
                   dataType: 'json',
@@ -1753,6 +1689,60 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
                       $('#edad-persona').html(formatoFecha(row.EDAD))
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                      $('#info-paci-alergias').html(row.ALERGIAS);
+                      $('#info-paci-procedencia').html(row.PROCEDENCIA)
+                      $('#info-paci-curp').html(row.CURP);
+                      $('#info-paci-telefono').html(row.CELULAR);
+                      $('#info-paci-correo').html(row.CORREO);
+                      $('#info-paci-sexo').html(row.GENERO);
+                      if (row.TURNO) {
+                        $('#info-paci-turno').html(row.TURNO);
+                      } else {
+                        $('#info-paci-turno').html('Sin generar');
+                      }
+                      $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
+                        row.MUNICIPIO + ", " + row.ESTADO);
+                      $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+
+
+                      if (row.FECHA_REAGENDA != null) {
+                        $('#info-paci-reagenda').html(formatoFecha(row.FECHA_REAGENDA));
+                      }
+
+                      if (row.FECHA_RECEPCION != null) {
+                        $('#info-paci-recepcion').html(row.FECHA_RECEPCION);
+                      }
+
+                      $('#info-paci-prefolio').html(row.PREFOLIO)
+                    }
+                  },
+                  complete: function () {
+                    $(panel).fadeIn(100);
+                    resolve(1);
+                  },
+                  error: function (jqXHR, exception, data) {
+                    alertErrorAJAX(jqXHR, exception, data)
+                  },
+                })
+
+                break;
+              case 'paciente_lab':
+                $.ajax({
+                  url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                  data: {
+                    api: 2,
+                    turno_id: id
+                  },
+                  type: "POST",
+                  dataType: 'json',
+                  success: function (data) {
+                    if (mensajeAjax(data)) {
+                      row = data['response']['data'][0];
+                      $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                      $('#edad-persona').html(formatoFecha(row.EDAD))
+                      $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+
+
                       $('#info-paci-curp').html(row.CURP);
                       $('#info-paci-telefono').html(row.CELULAR);
                       $('#info-paci-correo').html(row.CORREO);
@@ -1766,6 +1756,9 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         row.MUNICIPIO + ", " + row.ESTADO);
                       $('#info-paci-procedencia').html(row.NOMBRE_COMERCIAL);
                       $('#info-paci-prefolio').html(row.PREFOLIO)
+
+                      $('#info-paci-reagenda').val(row.FECHA_RECEPCION);
+                      $('#info-paci-reagenda').val(row.FECHA_REAGENDA);
                     }
                   },
                   complete: function () {

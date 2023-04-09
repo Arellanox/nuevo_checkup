@@ -58,7 +58,7 @@ selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR =
       // $('#omitir-paciente').prop('disabled', false)
     }
     getPanel('.informacion-muestras', '#loader-muestras', '#loaderDivmuestras', selectListaMuestras, 'In', async function (divClass) {
-      await obtenerPanelInformacion(selectListaMuestras['ID_PACIENTE'], 'pacientes_api', 'paciente_lab')
+      await obtenerPanelInformacion(selectListaMuestras['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
       await obtenerListaEstudiosContenedores(selectListaMuestras['ID_TURNO'])
       // console.log(divClass)
       $(divClass).fadeIn(100);
