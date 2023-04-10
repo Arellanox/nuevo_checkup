@@ -168,7 +168,7 @@ class Reporte
         }
         // session_destroy();
         // Recibe la orden de que tipo de  modo de visualizacion quiere
-        switch ($orden) {
+        switch ('url') {
             case 'descargar':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());

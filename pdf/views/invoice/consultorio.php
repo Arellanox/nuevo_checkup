@@ -127,6 +127,11 @@
             word-break: break-all;
         }
 
+        .border{
+            border-collapse: collapse;
+        }
+
+        
         /* Para divisiones de 3 encabezado*/
         .col-left {
             width: 35%;
@@ -295,6 +300,46 @@ $encode_firma = base64_encode($ruta_firma);
         <!-- ANAMNESIS -->
         <h2 style="padding-bottom: 6px; padding-top: 6px;">ANAMNESIS </h2>
 
+        <table class='result border' style='line-height: 0.5; padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
+            <tbody>
+                <?php
+                    foreach ($resultados->ANAMNESIS as $key => $anamnesis) {
+                        echo "<tr>
+                                <td colspan='8' style='border: 1px solid #ccc; text-align:center;'>
+                                    <h4>" . str_replace("_", " ", $key) . "</h4>
+                                </td>
+                            </tr>";
+                        $anamnesis_arr = json_decode(json_encode($anamnesis), true);
+                        $anamnesis_chunks = array_chunk($anamnesis_arr, 3);
+
+                        foreach ($anamnesis_chunks as $chunk) {
+                            echo "<tr>";
+                            foreach ($chunk as $value) {
+                                echo "<td class='col-der' style='border: 1px solid #ccc; ' >";
+                                    echo "<p>";
+                                    echo "<strong>" . $value['SUBTIPO'] . "</strong>";
+                                    if (isset($value['NOTAS'])) {
+                                        echo "<br><strong>Nota: </strong>" . $value['NOTAS'];
+                                    }
+                                    echo " </p>";
+                                echo "</td>";
+                                echo "<td class='col-izq' style='border: 1px solid #ccc; text-align: center; ' >";
+                                    echo "<p>";
+                                        if (isset($value['RESPUESTA'])) {
+                                            echo $value['RESPUESTA'];
+                                        }
+                                        
+                                    echo "</p>";
+                                echo "</td>";
+                                
+                            }
+                            echo "</tr>";
+                        }
+                    }
+                ?>
+            </tbody>
+        </table>
+        
         <table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
             <tbody>
                 <?php
@@ -328,7 +373,7 @@ $encode_firma = base64_encode($ruta_firma);
                 ?>
             </tbody>
         </table>
-
+        
         <div class="break"> </div>
 
         <!-- ODONTOGRAMA -->
