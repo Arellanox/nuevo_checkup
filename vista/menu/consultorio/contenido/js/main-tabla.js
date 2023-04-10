@@ -83,7 +83,7 @@ selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (select
 
 
 //Panel turnos, mandar id fisica al  principio
-obtenerPanelInformacion(1, null, "turnos_panel", '#turnos_panel')
+obtenerPanelInformacion(1, 'vistas', "turnos_panel", '#turnos_panel')
 
 
 

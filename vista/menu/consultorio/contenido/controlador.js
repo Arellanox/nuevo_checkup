@@ -5,7 +5,11 @@ var selectPaciente;
 var dataListaPaciente;
 obtenerConsultorioMain()
 
+
+var activoConsultadorTurnero = true;
+
 async function obtenerConsultorioMain() {
+  activoConsultadorTurnero = true;
   // loader("In")
   await obtenerTitulo('Consultorio');
   $.post("contenido/consultorio_main.html", function (html) {
@@ -34,6 +38,7 @@ var pacienteActivo = new GuardarArreglo()
 var infoConsultaActivo = new GuardarArreglo();
 
 function obtenerContenidoAntecedentes(data) {
+  activoConsultadorTurnero = false;
   loader("In")
   obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
   $.post("contenido/consultorio_paciente.html", function (html) {
@@ -59,6 +64,7 @@ function obtenerContenidoAntecedentes(data) {
 var tablaRecetas;
 // obtenerContenidoConsulta() --- Valoracion medica ---
 function obtenerContenidoConsulta(data, idvaloracion) {
+  activoConsultadorTurnero = false;
   loader("In")
   console.log(data)
   // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area

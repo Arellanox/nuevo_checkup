@@ -8,11 +8,11 @@
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-cliente-editar">
           <i class="bi bi-pencil-square"></i> Editar Cliente
         </button>
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="agregar-direccion" data-bs-toggle="modal" data-bs-target="#modalRegistrarNuevaDirecciónñ">
+        <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="agregar-direccion" data-bs-toggle="modal" data-bs-target="#modalRegistrarNuevaDirecciónñ">
           <i class="bi bi-pencil-square"></i> Agregar Nueva Direccion
-        </button>
+        </button> -->
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="generar-codigoqr">
-          <i class="bi bi-pencil-square"></i> Editar Cliente
+          <i class="bi bi-qr-code"></i> Código QR
         </button>
       </div>
       <table class="table table-hover display responsive tableContenido" id="TablaClientes" style="width: 100%">

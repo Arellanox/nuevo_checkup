@@ -257,54 +257,65 @@ $encode_firma = base64_encode($ruta_firma);
     <!-- body -->
     <div class="invoice-content">
         <!-- ANTECEDENTES -->
-        <h2 style="padding-bottom: 6px; padding-top: 6px;">ANTECEDENTES </h2>
+
 
         <?php
-        foreach ($resultados->ANTECEDENTES as $key => $antecedente) {
-            echo "<br><h4>" . str_replace("_", " ", $key) . "</h4><hr>";
+        if (isset($resultados->ANTECEDENTES)) {
+            echo '<h2 style="padding-bottom: 6px; padding-top: 6px;">ANTECEDENTES </h2>';
+            foreach ($resultados->ANTECEDENTES as $key => $antecedente) {
+                echo "<br><h4>" . str_replace("_", " ", $key) . "</h4><hr>";
 
-            // antecdentes por tipo
-            foreach ($antecedente as $espoque) { //No se que sea el espoque (si es que así se escribe), pero me dicen que es algo parecido a la iguana
+                // antecdentes por tipo
+                foreach ($antecedente as $espoque) { //No se que sea el espoque (si es que así se escribe), pero me dicen que es algo parecido a la iguana
         ?>
-                <table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
-                    <tbody>
-                        <tr>
-                            <td class="col-der" style="border-bottom: none; ">
-                                <strong>
-                                    <?php echo $espoque->ANTECEDENTE; ?>
-                                </strong>
-                            </td>
-                            <td class="col-izq" style="border-bottom: none">
-                                <?php echo $espoque->RESPUESTA; ?>
-                            </td>
-                        </tr>
-                        <?php if (isset($espoque->NOTAS)) { ?>
+                    <table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
+                        <tbody>
                             <tr>
-                                <td class="col-der" style="text-align:justify;">
-                                    <strong>Nota: </strong> <?php echo $espoque->NOTAS; ?>
+                                <td class="col-der" style="border-bottom: none; ">
+                                    <strong>
+                                        <?php echo $espoque->ANTECEDENTE; ?>
+                                    </strong>
                                 </td>
-                                <td class="col-izq"></td>
+                                <td class="col-izq" style="border-bottom: none">
+                                    <?php echo $espoque->RESPUESTA; ?>
+                                </td>
                             </tr>
-                        <?php           } ?>
-                    </tbody>
-                </table>
+                            <?php if (isset($espoque->NOTAS)) { ?>
+                                <tr>
+                                    <td class="col-der" style="text-align:justify;">
+                                        <strong>Nota: </strong> <?php echo $espoque->NOTAS; ?>
+                                    </td>
+                                    <td class="col-izq"></td>
+                                </tr>
+                            <?php           } ?>
+                        </tbody>
+                    </table>
+
         <?php
+                }
             }
+            echo '<div class="break"> </div>';
         }
         ?>
 
 
         <!-- ANAMNESIS -->
-        <h2 style="padding-bottom: 6px; padding-top: 6px;">ANAMNESIS </h2>
-
-        <table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
-            <tbody>
-                <?php
-                foreach ($resultados->ANAMNESIS as $key => $anamnesis) {
-                    echo "<tr><td colspan='2'><br><h4>" . str_replace("_", " ", $key) . "</h4><hr></td></tr>";
+        <?php
+        if (isset($resultados->ANAMNESIS)) {
+            echo '<h2 style="padding-bottom: 6px; padding-top: 6px;">ANAMNESIS </h2>';
+        ?>
+            <!-- <table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
+                <tbody> -->
+            <?php
+            $i = 0;
+            foreach ($resultados->ANAMNESIS as $key => $anamnesis) {
+                if (str_replace("_", " ", $key) != '¿ERES ALÉRGICO A ALGÚN MEDICAMENTO O ALIMENTO?') {
+                    echo "<table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
+                                <tbody>";
+                    echo "<tr><td colspan='2'><h4>" . str_replace("_", " ", $key) . "</h4><hr></td></tr>";
                     foreach ($anamnesis as $key => $value) {
 
-                ?>
+            ?>
                         <tr>
                             <td class="col-der" style="border-bottom: none; ">
                                 <strong>
@@ -322,23 +333,36 @@ $encode_firma = base64_encode($ruta_firma);
                                 </td>
                                 <td class="col-izq"></td>
                             </tr>
-                <?php
+            <?php
                         }
                         # code...
                     }
+                    echo '</tbody>
+                    </table>';
+                    if ($i) {
+                        $i = 0;
+                        echo '<div class="break"> </div>';
+                    } else {
+                        $i++;
+                    }
                 }
-                ?>
-            </tbody>
-        </table>
+            }
+            ?>
 
-        <div class="break"> </div>
+            <div class="break"> </div>
+        <?php
+
+        }
+
+        ?>
+
+
 
         <!-- ODONTOGRAMA -->
-        <h2 style="padding-bottom: 6px; padding-top: 6px;">ODONTOGRAMA</h2>
-
-
         <?php
-        if (isset($resultados->ODONTOGRAMA)) {
+        if (count($resultados->ODONTOGRAMA)) {
+            echo '<h2 style="padding-bottom: 6px; padding-top: 6px;">ODONTOGRAMA</h2>';
+
             $dientes_chunks = array_chunk($resultados->ODONTOGRAMA, 2);
 
             echo "<table>";
@@ -365,9 +389,9 @@ $encode_firma = base64_encode($ruta_firma);
 
 
         <!-- NUTRICION -->
-        <h2 style="padding-bottom: 6px; padding-top: 6px;">NUTRICION</h2>
         <?php
-        if (isset($resultados->NUTRICION)) {
+        if (count($resultados->NUTRICION)) {
+            echo '<h2 style="padding-bottom: 6px; padding-top: 6px;">NUTRICION</h2>';
             $nutriLeche = $resultados->NUTRICION;
             echo "<table class='result' style='padding-top: 1px;'><thead><tr><th class='col-one'></th><th class='col-two'></th><th class='col-three'></th><th class='col-four'></th></tr></thead><tbody><tr><td><strong>Peso perdido: </strong>" . $nutriLeche->PESO_PERDIDO . " </td><td><strong> Grasa: </strong>" . $nutriLeche->GRASA . "</td><td><strong>Cintura: </strong> " . $nutriLeche->CINTURA . " </td><td><strong>Agua:</strong> " . $nutriLeche->AGUA . "</td></tr><tr><td colspan='2'><strong>Musculo:</strong>" . $nutriLeche->ABDOMEN . " </td><td colspan='2'><strong>Abdomen:</strong> " . $nutriLeche->ABDOMEN . "</td></tr></tbody></table>";
         }
@@ -376,16 +400,26 @@ $encode_firma = base64_encode($ruta_firma);
 
 
         <!-- EXPLORACION_FISICA -->
-        <h2 style="padding-bottom: 6px; padding-top: 6px;">EXPLORACIÓN FISICA</h2>
         <?php
-        foreach ($resultados->EXPLORACION_FISICA as $exploracion) {
-            echo "<strong>" . $exploracion->PARTE_CUERPO . "</strong>";
-            echo "<p>" . $exploracion->EXPLORACION . "</p>";
-            if (isset($exploracion->NOTAS)) {
-                echo "<p><strong>Nota: </strong>" . $exploracion->NOTAS . "</p>";
+        if (count($resultados->EXPLORACION_FISICA)) {
+            echo '<h2 style="padding-bottom: 6px; padding-top: 6px;">EXPLORACIÓN FISICA</h2>';
+
+            foreach ($resultados->EXPLORACION_FISICA as $exploracion) {
+                echo "<strong>" . $exploracion->PARTE_CUERPO . "</strong>";
+                echo "<p>" . $exploracion->EXPLORACION . "</p>";
+                if (isset($exploracion->NOTAS)) {
+                    echo "<p><strong>Nota: </strong>" . $exploracion->NOTAS . "</p>";
+                }
             }
         }
         ?>
+
+
+        <!-- DIAGNOSTICO -->
+        <?php if (isset($resultados->DIAGNOSTICO)) {
+            echo '</br><h2 style="padding-bottom: 6px; padding-top: 6px;">Diagnóstico</h2>';
+            echo "<p>" . $resultados->DIAGNOSTICO . "</p>";
+        } ?>
     </div>
 </body>
 

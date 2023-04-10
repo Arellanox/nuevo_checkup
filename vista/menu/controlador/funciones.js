@@ -1992,23 +1992,31 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 getStatusOptimizador()
 
                 function getStatusOptimizador() {
-                  $.ajax({
-                    url: http + servidor + '/nuevo_checkup/archivos/sistema/json/turnero_optimizador.json',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    success: function (data) {
-                      // let data = JSON.parse(data);
-                      // console.log(data)
-                      if (data['Optimizador'][id]) {
+                  if (api != 'vistas')
+                    activoConsultadorTurnero = true
+                  if (activoConsultadorTurnero) {
+                    $.ajax({
+                      url: http + servidor + '/nuevo_checkup/archivos/sistema/json/turnero_optimizador.json',
+                      type: 'POST',
+                      dataType: 'JSON',
+                      success: function (data) {
+                        // let data = JSON.parse(data);
+                        // console.log(data)
+                        if (data['Optimizador'][id]) {
+                          setTimeout(() => {
+                            ajaxTurnosActualArea()
+                          }, 500);
+                        }
                         setTimeout(() => {
-                          ajaxTurnosActualArea()
-                        }, 500);
+                          getStatusOptimizador()
+                        }, 2000);
                       }
-                      setTimeout(() => {
-                        getStatusOptimizador()
-                      }, 2000);
-                    }
-                  })
+                    })
+                  } else {
+                    setTimeout(() => {
+                      getStatusOptimizador()
+                    }, 2000);
+                  }
                 }
 
 
