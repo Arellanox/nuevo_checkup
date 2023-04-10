@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 #api
@@ -81,7 +81,7 @@ switch ($api) {
     case 2:
         # buscar pacientes
         // echo $id_paciente;
-        $response = $master->getByProcedure("sp_pacientes_b", [$id_paciente, $curp,$pasaporte,$id_turno]);
+        $response = $master->getByProcedure("sp_pacientes_b", [$id_paciente, $curp, $pasaporte, $id_turno]);
         break;
     case 3:
         # actualizar pacientes
@@ -92,7 +92,7 @@ switch ($api) {
         $response = $master->deleteByProcedure("sp_pacientes_e", [$id_paciente]);
         break;
     case 5:
-        $response = $master->getByProcedure("sp_ordenes_medicas_b",[$turno_id,$area_id]);
+        $response = $master->getByProcedure("sp_ordenes_medicas_b", [$turno_id, $area_id]);
         break;
     default:
         $response = "api no reconocida";

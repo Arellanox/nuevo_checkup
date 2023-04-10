@@ -1,8 +1,8 @@
-<div class="modal fade" id="ModalRegistrarEstudio" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+<div class="modal fade" id="ModalRegistrarEstudio" tabindex="-1" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
-        <h5 class="modal-title" id="filtrador">Agregar Nuevo Estudio</h5>
+        <h5 class="modal-title" id="modal-title-estudios">Agregar Nuevo Estudio</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -82,9 +82,9 @@
                   <div class="col-12">
                     <label for="es_para" class="form-label select-contenedor">Dirigido a:</label>
                     <select name="es_para" class="input-form" required="" id="input-dirigido-sexo-servicio">
+                      <option value="3" selected>Todos</option>
                       <option value="1">Hombre</option>
                       <option value="2">Mujer</option>
-                      <option value="3" selected>Todos</option>
                     </select>
                   </div>
                   <div class="row" style="zoom:100%;">
@@ -277,9 +277,9 @@
                   <div class="col-4">
                     <label for="sexo_enum" class="form-label select-contenedor">Dirigido a:</label>
                     <select name="sexo_enum" class="input-form" required="" id="input-dirigido-sexo-referencia">
+                      <option value="3" selected>AMBOS</option>
                       <option value="1">HOMBRE</option>
                       <option value="2">MUJER</option>
-                      <option value="3" selected>AMBOS</option>
                     </select>
                   </div>
                   <div class="col-4">
@@ -299,7 +299,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
         <button type="submit" form="formRegistrarEstudio" class="btn btn-confirmar" id="submit-registrarEstudio">
-          <i class="bi bi-plus-square"></i> Crear
+          <i class="bi bi-plus-square"></i> Guardar
         </button>
       </div>
     </div>

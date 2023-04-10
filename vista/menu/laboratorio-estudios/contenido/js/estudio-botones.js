@@ -1,18 +1,23 @@
 
-$("#btn-estudio-editar").click(function () {
-  // if (array_selected != null) {
-  //   getDataFirst(1, array_selected['ID_SERVICIO'])
-  // } else {
-  //   alertSelectTable();
-  // }
-  // esperaAbrirEdit(function () {
+// $("#btn-estudio-editar").click(function () {
+// if (array_selected != null) {
+//   getDataFirst(1, array_selected['ID_SERVICIO'])
+// } else {
+//   alertSelectTable();
+// }
+// esperaAbrirEdit(function () {
+
+// })
+// })
+
+$(document).on('click', '#btn-estudio-editar', function (event) {
   if (array_selected != null) {
     getDataFirst(1, array_selected['ID_SERVICIO'])
   } else {
     alertSelectTable();
   }
-  // })
 })
+
 
 $("#btn-estudio-editar-info").click(function () {
   // getatrribute
@@ -25,7 +30,12 @@ $("#btn-estudio-editar-info").click(function () {
 })
 
 
-$('#btn-agregar-estudio').click(function () {
+// $('#btn-agregar-estudio').click(function () {
+
+// })
+
+$(document).on('click', '#btn-agregar-estudio', function (event) {
+  event.preventDefault();
   modalEdit = false;
   getDataFirst();
 })

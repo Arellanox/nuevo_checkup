@@ -5,6 +5,12 @@ let rellenoGrupoSelect, rellenoMetodoSelect, rellenoEquipoSelect, rellenoMaquila
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
 
+  if (modalEdit) {
+    $('#modal-title-estudios').html('Actualizar Información del estudio: ' + array_selected['DESCRIPCION'])
+  } else {
+    $('#modal-title-estudios').html('Agregar Nuevo Estudio');
+  }
+
 
   setTimeout(() => {
     $('input[type=radio][name=local]').change(function () {
@@ -33,9 +39,14 @@ $("#ModalRegistrarEstudio").on("hidden.bs.modal", function () {
 
     $('#maquila_agregar_estudio').html(rellenoMaquilaSelect)
 
-    $('input[name="muestra_valores"]').prop('checked', false);
+    // $('input[name="muestra_valores"]').prop('checked', false);
     $('#input-dirigido-sexo-referencia option').removeClass('selected');
     $('#input-dirigido-sexo-servicio option').removeClass('selected');
+
+
+    $('input[name="descripcion"]').val('');
+    $('input[name="abreviatura"]').val('');
+    $('input[name="muestra_valores"], input[name="grupos"]').prop('checked', false);
 
   }
 });
@@ -60,6 +71,8 @@ async function getValueEstudio(id) {
         $('#registrar-concepto-facturacion').html(rellenoSatFacturacion)
         $('#maquila_agregar_estudio').html(rellenoMaquilaSelect)
 
+
+
         // alertMensaje('info', 'Cargando información...', 'Espere un momento mientras se cargan los datos');
       },
       success: function (data) {
@@ -82,7 +95,7 @@ async function getValueEstudio(id) {
             $('#sin_medida').prop('checked', true);
           }
 
-          $('#input-dias_entrega').val(row.DIAS_DE_ENTREGA);
+          $('#input-dias_entrega').val(ifnull(row.DIAS_DE_ENTREGA));
 
           if (row.CODIGO_SAT_ID) {
             $('#registrar-concepto-facturacion').val(row.CODIGO_SAT_ID).trigger('change');
@@ -90,7 +103,7 @@ async function getValueEstudio(id) {
             $('#registrar-concepto-facturacion').val(32).trigger('change'); ///Codigo sat
           }
 
-          $('#input-indicaciones').val(row.INDICACIONES)
+          $('#input-indicaciones').val(ifnull(row.INDICACIONES))
 
           $("#input-dirigido-sexo-servicio option").prop('selected', false)
           $("#input-dirigido-sexo-servicio option").filter(function () {
@@ -116,10 +129,12 @@ async function getValueEstudio(id) {
             for (const key in grupos) {
               if (Object.hasOwnProperty.call(grupos, key)) {
                 const element = grupos[key];
-                console.log(element);
-                let nameInput = agregarHTMLSelectorInput('#div-select-grupo', 'Grupo', rellenoGrupoSelect, element['GRUPO'], element['ORDEN'])
-                console.log(nameInput)
-                $(`select[name="${nameInput}"`).val(element['GRUPO']).trigger('change')
+                if (element) {
+                  // console.log(element);
+                  let nameInput = agregarHTMLSelectorInput('#div-select-grupo', 'Grupo', rellenoGrupoSelect, element['GRUPO'], element['ORDEN'])
+                  // console.log(nameInput)
+                  $(`select[name="${nameInput}"`).val(element['GRUPO']).trigger('change')
+                }
 
               }
             }
@@ -135,8 +150,10 @@ async function getValueEstudio(id) {
             for (const key in metodo) {
               if (Object.hasOwnProperty.call(metodo, key)) {
                 const element = metodo[key];
-                let nameInput = agregarHTMLSelector('#div-select-metodo', 'Método', rellenoMetodoSelect)
-                $(`select[name="${nameInput}"]`).val(element).trigger('change');
+                if (element) {
+                  let nameInput = agregarHTMLSelector('#div-select-metodo', 'Método', rellenoMetodoSelect)
+                  $(`select[name="${nameInput}"]`).val(element).trigger('change');
+                }
               }
             }
           } catch (error) {
@@ -148,10 +165,12 @@ async function getValueEstudio(id) {
             for (const key in contenedor) {
               if (Object.hasOwnProperty.call(contenedor, key)) {
                 const element = contenedor[key];
-                let nameSelect = agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
-                console.log(nameSelect);
-                $(`select[name="${nameSelect[0]}"]`).val(element.CONTENEDOR_ID)
-                $(`select[name="${nameSelect[1]}"]`).val(element.MUESTRA_ID)
+                if (element) {
+                  let nameSelect = agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
+
+                  $(`select[name="${nameSelect[0]}"]`).val(element.CONTENEDOR_ID)
+                  $(`select[name="${nameSelect[1]}"]`).val(element.MUESTRA_ID)
+                }
               }
             }
           } catch (error) {
@@ -170,8 +189,10 @@ async function getValueEstudio(id) {
             for (const key in equipo) {
               if (Object.hasOwnProperty.call(equipo, key)) {
                 const element = equipo[key];
-                let nameSelect = agregarHTMLSelector('#div-select-equipo', 'Equipo', rellenoEquipoSelect)
-                $(`select[name="${nameSelect}"]`).val(element).trigger('change');
+                if (element) {
+                  let nameSelect = agregarHTMLSelector('#div-select-equipo', 'Equipo', rellenoEquipoSelect)
+                  $(`select[name="${nameSelect}"]`).val(element).trigger('change');
+                }
               }
             }
           } catch (error) {
@@ -179,9 +200,10 @@ async function getValueEstudio(id) {
           }
 
           $(`input[name="muestra_valores"][value="${row.MUESTRA_VALORES_REFERENCIA}"]`).prop('checked', true);
-
-          $('#valor_minimo_referencia').val(`${row.VALOR_MINIMO}`)
-          $('#valor_maximo_referencia').val(`${row.VALOR_MAXIMO}`)
+          if (row.VALOR_MINIMO)
+            $('#valor_minimo_referencia').val(ifnull(`${row.VALOR_MINIMO}`))
+          if (row.VALOR_MAXIMO)
+            $('#valor_maximo_referencia').val(ifnull(`${row.VALOR_MAXIMO}`))
 
           $("#input-dirigido-sexo-referencia option").prop('selected', false)
           $("#input-dirigido-sexo-referencia option").filter(function () {
@@ -189,8 +211,8 @@ async function getValueEstudio(id) {
             return $(this).text() == row.SEXO_REFERENCIA;
           }).prop('selected', true);
 
-          $('#input-edad-inicial-referencia').val(row.EDAD_INICIAL);
-          $('#input-edad-final-referencia').val(row.EDAD_FINAL);
+          $('#input-edad-inicial-referencia').val(ifnull(row.EDAD_INICIAL));
+          $('#input-edad-final-referencia').val(ifnull(row.EDAD_FINAL));
 
 
 
