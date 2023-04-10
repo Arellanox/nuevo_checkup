@@ -58,7 +58,7 @@ $("#BuscarTablaLista").keyup(function () {
 selectDatatable('TablaListaConsultorio', tablaMain, 0, 0, 0, 0, function (selectTR = null, data = null) {
   selectPaciente = data;
   if (selectTR == 1) {
-    obtenerPanelInformacion(data['ID_PACIENTE'], 'pacientes_api', 'paciente')
+    obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente')
     obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
 
   } else {
