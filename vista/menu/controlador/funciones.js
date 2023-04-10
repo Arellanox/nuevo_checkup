@@ -1809,7 +1809,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     console.log(row);
 
                     if (mensajeAjax(data)) {
-                      if (Object.keys(row).length > 1) {
+                      if (Object.keys(row).length > 2) {
 
                         $('#frecuenciaCardiaca').html(row['FRECUENCIA CARDIACA']['VALOR'] + " <strong>" + row['FRECUENCIA CARDIACA']['UNIDAD_MEDIDA'] + "</strong>")
                         $('#frecuenciaRespiratoria').html(row['FRECUENCIA RESPIRATORIA']['VALOR'] + " <strong>" + row['FRECUENCIA RESPIRATORIA']['UNIDAD_MEDIDA'] + "</strong>")

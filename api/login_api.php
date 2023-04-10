@@ -164,8 +164,8 @@ function login($user, $password)
 
 
             #Newsletter dinamico
-            $sql = "SELECT URL, DESCRIPCION
-                    FROM NEWSLETTER_BIMO WHERE ACTIVO_BOTON = 1 ORDER BY id_newsletter_bimo ASC LIMIT 1";
+            $sql = "SELECT nb.URL, nb.DESCRIPCION, nb.ACTIVO_BOTON
+                    FROM NEWSLETTER_BIMO nb WHERE ACTIVO_BOTON = 1 ORDER BY id_newsletter_bimo ASC LIMIT 1";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(1, $_SESSION['id']);
             $stmt->execute();
