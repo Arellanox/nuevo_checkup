@@ -37,26 +37,10 @@ $('#btn-consulta-terminar').click(function () {
 })
 
 $('#btn-ver-reporte').click(function () {
-  switch (areaActiva) {
-    case 3: case '3':
-      area_nombre = 'oftalmo'
-      break;
-    case 8: case 11: case '8': case '11':
-      area_nombre = 'imagenologia'
-      break;
-    case 10: case '10':
-      area_nombre = 'electro'
-      break;
-
-
-    default:
-      break;
-  }
-
   area_nombre = 'consultorio'
 
   api = encodeURIComponent(window.btoa(area_nombre));
-  turno = encodeURIComponent(window.btoa(dataSelect.array['turno']));
+  turno = encodeURIComponent(window.btoa(pacienteActivo.array['ID_TURNO']));
   area = encodeURIComponent(window.btoa(1));
 
 

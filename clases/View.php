@@ -15,6 +15,8 @@ function render_view($view_name, &$view_vars = null)
         ${$keys[$i]} = $view_vars[$keys[$i]];
     }
 
+
+
     ob_start();
     // include $_SERVER["DOCUMENT_ROOT"]."/views/$view_name";
     include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/$view_name";

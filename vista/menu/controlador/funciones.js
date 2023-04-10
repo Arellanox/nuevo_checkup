@@ -1824,7 +1824,11 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         $('#porcentajeGrasaVisceral').html(row['PORCENTAJE DE GRASA VISCERAL']['VALOR'] + " <strong>" + row['PORCENTAJE DE GRASA VISCERAL']['UNIDAD_MEDIDA'] + "</strong>")
                         $('#huesos').html(row['HUESOS']['VALOR'] + " <strong>" + row['HUESOS']['UNIDAD_MEDIDA'] + "</strong>")
                         $('#metabolismo').html(row['METABOLISMO']['VALOR'] + " <strong>" + row['METABOLISMO']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#edadCuerpo').html(row['EDAD DEL CUERPO']['VALOR'] + " <strong>" + row['EDAD DEL CUERPO']['UNIDAD_MEDIDA'] + "</strong>")
+                        try {
+                          $('#edadCuerpo').html(ifnull(row['EDAD DEL CUERPO']['VALOR']) + " <strong>" + row['EDAD DEL CUERPO']['UNIDAD_MEDIDA'] + "</strong>")
+                        } catch (error) {
+                          console.log(error);
+                        }
                         $('#perimetroCefalico').html(row['PERIMETRO CEFALICO']['VALOR'] + " <strong>" + row['PERIMETRO CEFALICO']['UNIDAD_MEDIDA'] + "</strong>")
                         $('#porcentajeProteinas').html(row['PORCENTAJE DE PROTEINAS']['VALOR'] + " <strong>" + row['PORCENTAJE DE PROTEINAS']['UNIDAD_MEDIDA'] + "</strong>")
                         $('#porcentajeAgua').html(row['PORCENTAJE DE AGUA']['VALOR'] + " <strong>" + row['PORCENTAJE DE AGUA']['UNIDAD_MEDIDA'] + "</strong>")

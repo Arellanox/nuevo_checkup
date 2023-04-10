@@ -112,8 +112,8 @@ $odonto_array = array(
 );
 
 $master = new Master();
-$api = 22;
-$turno_id = 197;
+// $api = 22;
+// $turno_id = 197;
 switch ($api) {
     case 1:
         $response = $master->insertByProcedure("sp_consultorio_consulta_g", $parametros);
