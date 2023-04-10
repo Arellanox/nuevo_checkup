@@ -173,7 +173,7 @@ function login($user, $password)
             $result = $stmt->fetchAll();
             $_SESSION['newsletter'] = [
                 'button_usuario' => [
-                    'url' => $result[0]['url'],
+                    'url' => $result[0]['URL'],
                     'tittle_button' => $result[0]['DESCRIPCION'],
                 ]
             ];
