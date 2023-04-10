@@ -83,10 +83,10 @@ switch ($api) {
 
             # enviar el correo con el reporte y las imagenes capturadas
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
-            
-            if(!empty($attachment[0])){
+
+            if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)){
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)) {
                     $master->setLog("Correo enviado.", "ultrasonido");
                 }
             }
@@ -228,7 +228,7 @@ switch ($api) {
 
     case 7:
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = crearReporteUltrasonido($turno_id, $area_id, "mostrar",1);
+        $r = crearReporteUltrasonido($turno_id, $area_id, "mostrar", 1);
         exit;
         break;
     case 8:
@@ -242,17 +242,17 @@ switch ($api) {
         break;
     case 9:
         # probar capturas mail
-         # enviar el correo con el reporte y las imagenes capturadas
-         $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
+        # enviar el correo con el reporte y las imagenes capturadas
+        $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
 
         print_r($attachment);
-            
-         if(!empty($attachment[0])){
-             $mail = new Correo();
-             if($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)){
-                 $master->setLog("Correo enviado.", "ultrasonido");
-             }
-         }
+
+        if (!empty($attachment[0])) {
+            $mail = new Correo();
+            if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)) {
+                $master->setLog("Correo enviado.", "ultrasonido");
+            }
+        }
         exit;
         break;
     default:
@@ -261,27 +261,27 @@ switch ($api) {
 }
 echo $master->returnApi($response);
 
-function decodeJson($parsing){
+function decodeJson($parsing)
+{
     $decoded = array();
 
     foreach ($parsing as $key => $value) {
-        $aux = json_decode($value,true);
+        $aux = json_decode($value, true);
         $s = 0;
 
         if (is_array($aux)) {
-            foreach($aux as $a){
+            foreach ($aux as $a) {
                 if (is_string($a)) {
-                    $s = $s +1;
+                    $s = $s + 1;
                 }
             }
             if ($s > 0) {
                 $aux = decodeJson($aux);
             }
             $decoded[$key] = $aux;
-        } else{
+        } else {
             $decoded[$key] = $aux;
         }
-       
     }
 
     // echo "---";
@@ -289,11 +289,11 @@ function decodeJson($parsing){
 
     return $decoded;
 }
-function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url', $preview = 0){
+function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url', $preview = 0)
+{
     $master = new Master();
     $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview);
     return $url;
-
 }
 
 

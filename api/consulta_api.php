@@ -12,6 +12,7 @@ if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
 #api
 $api = $_POST['api'];
 
+
 #buscar
 $id_paciente = $_POST['id_paciente'];
 $curp = $_POST['curp'];
@@ -111,6 +112,8 @@ $odonto_array = array(
 );
 
 $master = new Master();
+$api = 22;
+$turno_id = 197;
 switch ($api) {
     case 1:
         $response = $master->insertByProcedure("sp_consultorio_consulta_g", $parametros);
@@ -182,13 +185,15 @@ switch ($api) {
         # recuperar los antecedentes del turno
         $response = $master->getByProcedure('sp_consultorio_antecedentes_b', [$turno_id, $curp]);
         // print_r(($response));
-        $ordenado =ordenarCuestionario ($response);
+        $ordenado = ordenarCuestionario($response);
         echo json_encode($ordenado);
         exit;
 
     case 11:
         # terminar consulta
+        $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview);
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta]);
+
         break;
     case 12:
         # buscar las exploraciones clinicas.
@@ -206,7 +211,7 @@ switch ($api) {
     case 15:
         # recuperar anamnesis por aparatos  
         $response = $master->getByProcedure('sp_consultorio_anamnesis_aparatos_b', [$turno_id]);
-        $ordenado =ordenarCuestionario ($response,1);
+        $ordenado = ordenarCuestionario($response, 1);
         echo json_encode($ordenado);
         exit;
         break;
@@ -237,8 +242,11 @@ switch ($api) {
         break;
     case 21:
         # recuperar reportes de paciente por el turno
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados",[$turno_id,null,null,null,1]);
-        
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, null, null, null, 1]);
+        break;
+    case 22:
+        $url = $master->reportador($master, $turno_id, 1, "consultorio", 'url', 0);
+        echo $url;
         break;
     default:
         $response = "api no reconocida";
@@ -247,11 +255,11 @@ switch ($api) {
 
 echo $master->returnApi($response);
 
-function ordenarCuestionario($response,$anamnesis = 0)
+function ordenarCuestionario($response, $anamnesis = 0)
 {
     $antecedentes = array();
 
-    if($anamnesis==0){
+    if ($anamnesis == 0) {
         $idTipo = 1;
     } else {
         $idTipo = "SISTEMA CARDIOVASCULAR";
@@ -260,8 +268,8 @@ function ordenarCuestionario($response,$anamnesis = 0)
     $count = 0;
     $tipoArray = array();
 
-    foreach ($response as $key=>$ante) {
-        $comodin = $anamnesis==1 ? $ante['ID_TIPO'] : $ante['TIPO'];
+    foreach ($response as $key => $ante) {
+        $comodin = $anamnesis == 1 ? $ante['ID_TIPO'] : $ante['TIPO'];
         if ($ante['ID_TIPO'] == $idTipo) {
             $subtipoArray = array(
                 $ante['ID_RESPUESTA'],
@@ -271,13 +279,13 @@ function ordenarCuestionario($response,$anamnesis = 0)
 
             $tipoArray[] = $subtipoArray;
         } else {
-            if($anamnesis==0){
-                $antecedentes[$response[$key-1]['TIPO']] = $tipoArray;
+            if ($anamnesis == 0) {
+                $antecedentes[$response[$key - 1]['TIPO']] = $tipoArray;
             } else {
                 $antecedentes[$idTipo] = $tipoArray;
             }
-            
-            $idTipo = $ante['ID_TIPO'];            
+
+            $idTipo = $ante['ID_TIPO'];
             $tipoArray  = array();
 
             $subtipoArray = array(

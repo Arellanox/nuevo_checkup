@@ -239,7 +239,9 @@ $areas = $resultados->areas[0];
     </div>
 
     <div class="footer">
-        <?php include "includes/footer.php"; ?>
+        <?php
+        $footerDoctor = 'Dra. NERY FABIOLA ORNELAS RESENDIZ <br>UJAT - Cédula profesional: 7796595';
+        include "includes/footer.php"; ?>
     </div>
 
 

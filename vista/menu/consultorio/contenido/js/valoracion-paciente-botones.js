@@ -25,6 +25,7 @@ $('#btn-consulta-terminar').click(function () {
         if (mensajeAjax(data)) {
           button.prop('disabled', false)
           alertMensaje('info', 'La consulta ha sido cerrada', 'Podrá consultar la información del paciente desde el menú :)')
+          obtenerContenidoAntecedentes(pacienteActivo.array)
         }
       },
       complete: function () {
@@ -35,6 +36,32 @@ $('#btn-consulta-terminar').click(function () {
   })
 })
 
+$('#btn-ver-reporte').click(function () {
+  switch (areaActiva) {
+    case 3: case '3':
+      area_nombre = 'oftalmo'
+      break;
+    case 8: case 11: case '8': case '11':
+      area_nombre = 'imagenologia'
+      break;
+    case 10: case '10':
+      area_nombre = 'electro'
+      break;
+
+
+    default:
+      break;
+  }
+
+  area_nombre = 'consultorio'
+
+  api = encodeURIComponent(window.btoa(area_nombre));
+  turno = encodeURIComponent(window.btoa(dataSelect.array['turno']));
+  area = encodeURIComponent(window.btoa(1));
+
+
+  window.open(http + servidor + "/nuevo_checkup/visualizar_reporte/?api=" + api + "&turno=" + turno + "&area=" + area, "_blank");
+})
 
 
 
