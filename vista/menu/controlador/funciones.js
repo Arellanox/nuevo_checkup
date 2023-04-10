@@ -247,6 +247,17 @@ function ifnull(data, siNull = '') {
   }
   return siNull;
 }
+
+function htmlCaracter(data) {
+
+  st = document.getElementById('ent').value;
+  st = st.replace(/&/g, "&amp;amp;");
+  st = st.replace(/</g, "&amp;lt;");
+  st = st.replace(/>/g, "&amp;gt;");
+  st = st.replace(/"/g, "&amp;quot;");
+  document.getElementById('result').innerHTML = '' + st;
+}
+
 function firstMayus(str) {
   str = str.charAt(0).toUpperCase() + str.slice(1);
   return str;
