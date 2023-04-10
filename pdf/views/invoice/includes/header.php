@@ -7,7 +7,11 @@
                                         <h4>
                                             DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
                                             <?php echo $titulo; ?> <br>
-                                            Resultado de Exámenes
+                                            <?php if (isset($subtitulo)) {
+                                                echo $subtitulo;
+                                            } else {
+                                                echo 'Resultado de examenes';
+                                            }; ?>
                                         </h4>
                                     </td>
                                     <td class="col-izq" style="border-bottom: none; text-align:center;">

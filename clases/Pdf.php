@@ -64,7 +64,7 @@ class Reporte
             case 'rayos': //rayos piu piu
             case 'consultorio':
             case 'electro':
-                // $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
+                $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
             default:
                 $barcode = null;
