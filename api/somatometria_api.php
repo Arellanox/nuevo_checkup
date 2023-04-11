@@ -58,6 +58,13 @@ switch ($api) {
         if (is_numeric($response)) {
             $url = $master->reportador($master, $id_turno, 2, "reporte_masometria", "url");
             $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, null, null, $url]);
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 2, 1);
+            if (!empty($attachment[0])) {
+                $mail = new Correo();
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de somatometría', [$attachment[1]], null, $attachment[0], 1)) {
+                    $master->setLog("Correo enviado.", "Somatometría");
+                }
+            }
         }
 
         break;
