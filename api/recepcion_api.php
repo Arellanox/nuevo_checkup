@@ -325,6 +325,22 @@ switch ($api) {
         # depende el beneficiario.
         $response = $master->getByProcedure("sp_trabajdores_empresas_b", [$e_id_trabajador, $parametro, $e_turno_id]);
         break;
+    case 9:
+        # actualizar la informacion de los trabajadores de la ujat.
+        # siempre y cuando el usuario tenga el permiso.
+        # Para actualizar, se necesita enviar la id del trabajdor de la ujat.
+        $response = $master->updateByProcedure("sp_trabajadores_empresas_a",[$e_id_trabajador,
+        $e_nombre,
+        $e_paterno,
+        $e_materno,
+        $e_edad,
+        $e_fecha_nacimiento,
+        $e_num_trabajador,
+        $e_curp,
+        $e_pasaporte,
+        $e_genero,
+        $_SESSION['id']]);
+        break;
 
     default:
         $response = "Api no definida.";
