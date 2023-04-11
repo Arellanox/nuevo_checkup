@@ -176,7 +176,11 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
     }
 
     if (document.getElementById('checkPacienteBeneficia').checked) {
-        formData.set('trabajador_id', false);
+        if (trabajador_id_modal) {
+            formData.set('trabajador_id', trabajador_id_modal)
+        } else {
+            formData.set('trabajador_id', false);
+        }
     }
 
 
