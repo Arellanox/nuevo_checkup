@@ -310,14 +310,16 @@ if (!isset($qr)) {
                         Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
+                        <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong style='font-size:12px'>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
+                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_MESO; ?> </strong>
+                        <?php echo isset($encabezado->MEDICO_TRATANTE) ? "Médico Tratante: <strong style='font-size: 12px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : "";
+                        ?>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -325,19 +327,17 @@ if (!isset($qr)) {
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong>
-                    </td>
-                    <td class="col-center" style="border-bottom: none">
-                        <?php echo isset($encabezado->MEDICO_TRATANTE) ? "Médico Tratante: <strong style='font-size: 12px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?>
-                    </td>
-                    <td class="col-right" style="border-bottom: none">
+                        <!-- Procedencia -->
                     </td>
                 </tr>
             </tbody>
         </table>
+        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong></p>
         <!-- <p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> -->
         <br>
     </div>
+
+
     <div>
         <table style="width: 100%; border-collapse: collapse; text-align: center;">
             <tr style="background-color: #d8e0e2;" class="bold">
@@ -360,7 +360,7 @@ if (!isset($qr)) {
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
                 </td>
-               +<td colspan="3"> </td>
+                +<td colspan="3"> </td>
                 <td colspan="3" style="text-align: left;" class="cursive">Masa grasa corporal</td>
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_CORPORAL; ?> cm</strong>
@@ -613,7 +613,7 @@ if (!isset($qr)) {
             </table>
 
         </div>
-                       
+
     </div>
     <!--    <table style="width: 100%;">
             <tr>
@@ -635,63 +635,14 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>-->
-    <div style="padding-top: 150px;">
-        <table>
-            <tbody>
-                <tr class="col-foot-one">
-                    <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
-                </tr>
-                <tr class="col-foot-two">
-                    <td colspan="10">
-                    </td>
-                    <td colspan="2" style="text-align: left;">
-                        <?php
-                        if ($preview == 0) {
+    <div style="padding-top: 140px;">
+        <div class="">
+            <?php
+            $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
 
-                            echo "<img style='position:absolute; right:25px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
-                        }
-                        ?>
-                    </td>
-                </tr>
-                <tr class="col-foot-three" style="font-size: 13px;">
-                    <td colspan="6" style="text-align: center; width: 50%">
-                        <?php
-                        if ($preview == 0) {
-                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                        }
-                        ?>
-                    </td>
-                    <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                        <strong style="font-size: 12px;">
-                            <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> Médico Responsable ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
-                            $indice = 1;
-                            foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
-                                // $contador = count($value);
-                                $indice++;
-                                echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
-                                echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
-                            }
-                            ?>
-                            <!-- Dra. Zoila Aideé Quiroz Colorado <br>
-                            Cédula profesional <br>
-                            Radiologia e imagen <br>
-                            Subespecialista en radiología pediátrica -->
-                        </strong>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <hr style="height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small>
-                <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
-                <strong style="font-size: 11px;">Teléfonos: </strong>
-                <strong style="font-size: 11px;">993 634 1483, 993 634 0250, 993 634 1469, 993 634 6245</strong>
-                <strong style="font-size: 11px;">Correo electrónico:</strong>
-                <strong style="font-size: 11px;color: rgb(000, 175, 170); margin-left: -1.5px; margin-right: -1.5px">resultados@</strong>
-                <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
-                <strong style="font-size: 11px;color: rgb(247, 190, 000); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
-            </small></p>
+            include 'includes/footer.php';
+            ?>
+        </div>
     </div>
 </body>
 

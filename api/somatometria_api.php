@@ -40,7 +40,7 @@ switch ($api) {
         }
         break;
     case 3:
-        # reservado para actualizar
+        # reservado para actualizarn #<-- Para insertar y actualizar 
         $ids = array();
         $valores = array();
         foreach ($medidas as $key => $value) {
@@ -56,7 +56,7 @@ switch ($api) {
         # evaluar si el response es numerico, si es numerico es que si se guardo.
         # si se guardo, generar el reporte
         if (is_numeric($response)) {
-            $url = $master->reportador($master, $id_turno, 2, "reporte_masometria", "url", 0, 0, 0);
+            $url = $master->reportador($master, $id_turno, 2, "reporte_masometria", "url");
             $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, null, null, $url]);
         }
 

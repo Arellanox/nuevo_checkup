@@ -191,7 +191,7 @@ switch ($api) {
 
     case 11:
         # terminar consulta
-        $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview);
+        $url = $master->reportador($master, $turno_id, 1, "consultorio", 'url', 0);
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url]);
 
         break;

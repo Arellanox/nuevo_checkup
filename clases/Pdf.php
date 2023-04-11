@@ -64,6 +64,7 @@ class Reporte
             case 'rayos': //rayos piu piu
             case 'consultorio':
             case 'electro':
+            case 'reporte_masometria':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
             default:
@@ -91,7 +92,7 @@ class Reporte
         );
 
         // print_r($view_vars['resultados']->ANAMNESIS);
-        //print_r($data);
+        // print_r($response);
 
         $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
