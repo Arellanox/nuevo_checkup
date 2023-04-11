@@ -6,6 +6,8 @@ const ModalBeneficiario = document.getElementById('ModalBeneficiario')
 ModalBeneficiario.addEventListener('show.bs.modal', event => {
     cargarModal()
     TrabajadorData = false
+    // document.getElementById('formBeneficiadoTrabajador').reset
+    $('#formBeneficiadoTrabajador').trigger("reset");
 })
 
 async function cargarModal() {
@@ -41,7 +43,7 @@ async function datosPacienteBeneficiado(turno) {
                             return $(this).text() == row.PARENTESCO;
                         }).prop('selected', true)
 
-                        // $('#input-numero_trabajador-trabajador').val(row.NUMERO_PASE);
+                        $('#input-numero_trabajador-trabajador').val(row.NUMERO_PASE);
                         $('#medico_envia').val(row.MEDICO_QUE_ENVIA);
                         $('#cedula_medico').val(row.CEDULA_MEDICO);
                         $('#diagnostico_beneficiado').val(row.DIAGNOSTICO);
@@ -60,7 +62,7 @@ async function datosPacienteBeneficiado(turno) {
                             $('#input-materno-trabajador').val(row.MATERNO)
                             $('#input-nacimiento-trabajador').val(row.FECHA_NACIMIENTO)
                             $('#input-edad-trabajador').val(row.EDAD)
-                            $('#input-numero_trabajador-trabajador').val(row.NUMERO_PASE)
+                            $('#input-numero_trabajador-trabajador').val(row.NUMBER_TRABAJADOR)
                             $('#curp-trabajador').val(row.CURP)
                             $('#input-pasaporte-trabajador').val(row.PASAPORTE)
 
