@@ -52,9 +52,9 @@ async function datosPacienteBeneficiado(turno) {
                         if (row.ID_TRABAJADOR) {
                             trabajador_id_modal = row.ID_TRABAJADOR;
                             $("#lista-pacientes-trabajadores").val(row.ID_TRABAJADOR).trigger('change'); // <-- trabajador
-                            $("#lista-pacientes-trabajadores").prop('disabled', true);
+                            // $("#lista-pacientes-trabajadores").prop('disabled', true);
                             $('#checkPacienteBeneficia').prop('checked', true);
-                            $('#checkPacienteBeneficia').prop('disabled', true);
+                            // $('#checkPacienteBeneficia').prop('disabled', true);
                             $('#datos-nuevo-trabajador').fadeIn(200)
 
                             $('#input-name-trabajador').val(row.NOMBRE);
@@ -68,9 +68,9 @@ async function datosPacienteBeneficiado(turno) {
 
                         } else {
                             trabajador_id_modal = 0;
-                            $("#lista-pacientes-trabajadores").prop('disabled', true);
+                            // $("#lista-pacientes-trabajadores").prop('disabled', true);
                             $('#checkPacienteBeneficia').prop('disabled', true);
-                            $('#checkPacienteBeneficia').prop('checked', false);
+                            // $('#checkPacienteBeneficia').prop('checked', false);
                         }
 
 
