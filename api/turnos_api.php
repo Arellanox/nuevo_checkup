@@ -159,7 +159,7 @@ switch ($api) {
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
             $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto));
 
-            if(!$response > -1){
+            if (!$response > -1) {
                 echo $master->returnApi($response);
                 exit;
             }
@@ -226,7 +226,7 @@ switch ($api) {
 
         if ($response >= 0) {
             # si se confirmo en la base de datos, enviamos el correo
-            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null]);
+            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null, 0]);
             $files = $master->cleanAttachingFiles($response);
             if (!empty($files)) {
                 $r = $mail->sendEmail("resultados", "Resultados de laboratorio", [$response[0]['CORREO']], null, $files, 1);
