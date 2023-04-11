@@ -35,7 +35,7 @@ switch ($api) {
     case 1:
         #buscar el paciente por medio de la curp
         if (!isset($pacienteId)) {
-            $paciente = $master->getByProcedure('sp_pacientes_b', array(null, $curp, $pasaporte));
+            $paciente = $master->getByProcedure('sp_pacientes_b', array(null, $curp, $pasaporte, null));
 
             if (!count($paciente) > 0) {
                 echo json_encode(array('response' => array('code' => 2, 'data' => "CURP/Pasaporte no registrado.")));
