@@ -1593,27 +1593,35 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
 function setValuesAntAnnameMetodo(DIV, array, key) {
   // console.log(DIV)
   if (array) {
-    if (DIV.length != array.length)
-      alertToast('Algunos datos de ' + key + ' se han perdido...', 'info')
+    try {
+      if (DIV.length != array.length)
+        alertToast('Algunos datos de ' + key + ' se han perdido...', 'info')
+    } catch (error) {
 
-    for (var i = 0; i < DIV.length; i++) {
+    }
 
-      try {
-        $(DIV[i]).find("input[value='" + array[i][0] + "']").prop("checked", true);
-        var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
-        // console.log(collapID)
-        if (array[i][0] == 1) {
-          $('#' + collapID).collapse("show")
+    try {
+      for (var i = 0; i < DIV.length; i++) {
+
+        try {
+          $(DIV[i]).find("input[value='" + array[i][0] + "']").prop("checked", true);
+          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
+          // console.log(collapID)
+          if (array[i][0] == 1) {
+            $('#' + collapID).collapse("show")
+          }
+
+          if (array[i][0] == 1 || array[i][0] == null) {
+            $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
+          } else {
+            $(DIV[i]).find("textarea[class='form-control input-form']").val('')
+          }
+        } catch (error) {
+          console.log(error);
         }
 
-        if (array[i][0] == 1 || array[i][0] == null) {
-          $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
-        } else {
-          $(DIV[i]).find("textarea[class='form-control input-form']").val('')
-        }
-      } catch (error) {
-        console.log(error);
       }
+    } catch (error) {
 
     }
   } else {

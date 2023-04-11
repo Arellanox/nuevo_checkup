@@ -70,7 +70,7 @@ $('#btn-regresar-vista').click(function () {
 $(document).on('click', '.guardarAnt ', function (event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
-  button = $('.guardarAnt')
+  button = $(this)
   button.prop('disabled', true);
   var parent_element = button.closest("form").attr('id');
   // console.log(parent_element);

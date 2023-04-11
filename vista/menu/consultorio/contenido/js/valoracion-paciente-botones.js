@@ -207,8 +207,8 @@ $(document).on('click', '.eliminarOdontograma', function () {
 
 //Guardar antecedentes
 $(document).on('click', '.guardarAnamn ', function (event) {
-  event.stopPropagation();;
-  event.stopImmediatePropagation()
+  event.stopPropagation();
+  event.stopImmediatePropagation();
   button = $(this)
   button.prop('disabled', true);
   var parent_element = button.closest("form").attr('id');
@@ -239,7 +239,39 @@ $(document).on('click', '.guardarAnamn ', function (event) {
 
 });
 
+// $('.').on
+$(document).on('click', '.guardarAnt ', function (event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this)
+  button.prop('disabled', true);
+  var parent_element = button.closest("form").attr('id');
+  // console.log(parent_element);
+  let formData = new FormData(document.getElementById(parent_element));
+  // console.log(formData);
+  formData.set('api', 16);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
 
+  $.ajax({
+    data: formData,
+    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function () {
+      // alert('Enviando')
+      alertToast('Guardando...', 'info')
+    },
+    success: function (data) {
+      button.prop('disabled', false);
+      alertToast('Guardado con exito', 'success');
+    },
+  });
+  // eliminarElementoArray(id);
+  // console.log(id);
+
+});
 
 
 // //Agegar form para receta
