@@ -68,6 +68,13 @@
                                             <input type="file" name="pase-ujat[]" id="pase-ujat"
                                                 class="form-control input-form" value="">
                                         </div>
+                                        <div class="col-12 mt-3 d-flex justify-content-center" id="contenedor-url-pase"
+                                            style="display:none !important">
+                                            <a type="button" target="_blank" class="btn btn-borrar me-2"
+                                                href="https://bimo-lab.com/nuevo_checkup/reportes/modulo/somatometria/11042023/395/JUAN_CARLOS_ACOPA_HERNANDEZ-PBC1-11042023.pdf"
+                                                style="margin-bottom:4px"><i class="bi bi-file-earmark-pdf"></i> Pase
+                                                disponible</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,34 +109,38 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <label for="nombre" class="form-label">Nombre(s)</label>
-                                        <input type="text" name="nombre" value="" class="form-control input-form">
+                                        <input type="text" name="nombre" value="" class="form-control input-form"
+                                            id="input-name-trabajador">
                                     </div>
                                     <div class="col-6">
                                         <label for="paterno" class="form-label">Apellido paterno</label>
-                                        <input type="text" name="paterno" value="" class="form-control input-form">
+                                        <input type="text" name="paterno" value="" class="form-control input-form"
+                                            id="input-paterno-trabajador">
                                     </div>
                                     <div class="col-6">
                                         <label for="materno" class="form-label">Apellido materno</label>
-                                        <input type="text" name="materno" value="" class="form-control input-form">
+                                        <input type="text" id="input-materno-trabajador" name="materno" value=""
+                                            class="form-control input-form">
                                     </div>
                                     <div class="col-6">
                                         <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
-                                        <input type="date" class="form-control input-form" name="nacimiento"
-                                            placeholder=""
+                                        <input type="date" class="form-control input-form"
+                                            id="input-nacimiento-trabajador" name="nacimiento" placeholder=""
                                             onchange="$(`input[class='form-control input-form edadTrabajador']`).val(calcularEdad(this.value))">
                                     </div>
                                     <div class="col-6">
                                         <label for="edad" class="form-label">Edad</label>
                                         <div class="input-group">
                                             <input type="number" class="form-control input-form edadTrabajador"
-                                                step="0.01" name="edad" placeholder="" min="0" max="150">
+                                                step="0.01" id="input-edad-trabajador" name="edad" placeholder=""
+                                                min="0" max="150">
                                             <span class="input-span">años</span>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <label for="numero_trabajador" class="form-label">Número del trabajador</label>
-                                        <input type="text" name="numero_trabajador" value=""
-                                            class="form-control input-form">
+                                        <input type="text" id="input-numero_trabajador-trabajador"
+                                            name="numero_trabajador" value="" class="form-control input-form">
                                     </div>
                                     <div class="col-6">
                                         <label for="curp" class="form-label">CURP</label>
@@ -139,8 +150,9 @@
                                     </div>
                                     <div class="col-6">
                                         <label for="pasaporte" class="form-label">Pasaporte</label>
-                                        <input type="text" class="form-control input-form" name="pasaporte"
-                                            placeholder="" id="pasaporte-trabajador">
+                                        <input type="text" class="form-control input-form"
+                                            id="input-pasaporte-trabajador" name="pasaporte" placeholder=""
+                                            id="pasaporte-trabajador">
                                         <!-- Requerido si no tiene curp -->
                                     </div>
 

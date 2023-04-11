@@ -1,8 +1,11 @@
 
+var TrabajadorData = false;
+var trabajador_id_modal = 0
 // Obtener datos del paciente seleccionado
 const ModalBeneficiario = document.getElementById('ModalBeneficiario')
 ModalBeneficiario.addEventListener('show.bs.modal', event => {
     cargarModal()
+    TrabajadorData = false
 })
 
 async function cargarModal() {
@@ -38,25 +41,79 @@ async function datosPacienteBeneficiado(turno) {
                             return $(this).text() == row.PARENTESCO;
                         }).prop('selected', true)
 
-                        $('#numero_pase').val(row.NUMERO_PASE);
+                        // $('#input-numero_trabajador-trabajador').val(row.NUMERO_PASE);
                         $('#medico_envia').val(row.MEDICO_QUE_ENVIA);
                         $('#cedula_medico').val(row.CEDULA_MEDICO);
                         $('#diagnostico_beneficiado').val(row.DIAGNOSTICO);
                         $('#ures_beneficiado').val(row.URES);
 
-                        $("#lista-pacientes-trabajadores").val(row.ID_TRABAJADOR).trigger('change'); // <-- trabajador
+                        if (row.ID_TRABAJADOR) {
+                            trabajador_id_modal = row.ID_TRABAJADOR;
+                            $("#lista-pacientes-trabajadores").val(row.ID_TRABAJADOR).trigger('change'); // <-- trabajador
+                            $("#lista-pacientes-trabajadores").prop('disabled', true);
+                            $('#checkPacienteBeneficia').prop('checked', true);
+                            $('#checkPacienteBeneficia').prop('disabled', true);
+                            $('#datos-nuevo-trabajador').fadeIn(200)
 
-                        $("#lista-pacientes-trabajadores option").filter(function () {
-                            //may want to use $.trim in here
-                            return $(this).text() == row.ID_TRABAJADOR;
-                        }).prop('selected', true).trigger('change');
+                            $('#input-name-trabajador').val(row.NOMBRE);
+                            $('#input-paterno-trabajador').val(row.PATERNO)
+                            $('#input-materno-trabajador').val(row.MATERNO)
+                            $('#input-nacimiento-trabajador').val(row.FECHA_NACIMIENTO)
+                            $('#input-edad-trabajador').val(row.EDAD)
+                            $('#input-numero_trabajador-trabajador').val(row.NUMERO_PASE)
+                            $('#curp-trabajador').val(row.CURP)
+                            $('#input-pasaporte-trabajador').val(row.PASAPORTE)
+
+                        } else {
+                            trabajador_id_modal = 0;
+                            $("#lista-pacientes-trabajadores").prop('disabled', true);
+                            $('#checkPacienteBeneficia').prop('disabled', true);
+                            $('#checkPacienteBeneficia').prop('checked', false);
+                        }
+
+
+
+                        // $("#lista-pacientes-trabajadores option").filter(function () {
+                        //     //may want to use $.trim in here
+                        //     return $(this).text() == row.ID_TRABAJADOR;
+                        // }).prop('selected', true).trigger('change');
 
                         $('#categoria_trabajador').val(row.CATEGORIA);
 
+                        if (!parseInt(session.permisos.DatosBeneficiario)) {
+                            $("form#formBeneficiadoTrabajador :input").each(function () {
+                                var input = $(this); // This is the jquery object of the input, do what you will
+                                if (ifnull(input.val())) {
+                                    input.prop('disabled', true);
+                                }
+                            });
+                        }
+
+                        if (row.GENERO == 'MASCULINO' || row.GENERO == 'FEMENINO') {
+                            $(`input[name="genero"][type="radio"][value="${row.GENERO}"]`).prop('checked', true)
+                            if (!parseInt(session.permisos.DatosBeneficiario))
+                                $(`input[name="genero"][type="radio"]`).prop('disabled', true)
+                        } else {
+                            $(`input[name="genero"][type="radio"]`).prop('disabled', false)
+                            $(`input[name="genero"][type="radio"]`).prop('checked', false)
+                        }
+
+                        if (row.URL_PASE) {
+                            $('#contenedor-pase-ujat').fadeOut(0);
+                            $('#contenedor-url-pase').fadeIn(0);
+                            if (!parseInt(session.permisos.DatosBeneficiario))
+                                $('#pase-ujat').prop('disabled', true)
+                        } else {
+                            $('#contenedor-pase-ujat').fadeIn(0);
+                            $('#contenedor-url-pase').fadeOut(0);
+                            $('#pase-ujat').prop('checked', false)
+                        }
 
                         // alertMensaje('success')
                         alertToast('Datos completos', 'success', 4000)
+                        TrabajadorData = true;
                     } else {
+                        TrabajadorData = false;
                         alertToast('No existe datos previos...', 'info', 4000);
                     }
 
@@ -66,7 +123,7 @@ async function datosPacienteBeneficiado(turno) {
                 resolve(1);
             }
         })
-    })
+    });
 
 }
 
@@ -100,7 +157,7 @@ $('#checkPacienteBeneficia').change(function () {
 $("#formBeneficiadoTrabajador").submit(function (event) {
     event.preventDefault();
 
-    if (isJson(array_selected)) {
+    if (!isJson(array_selected)) {
         alertMensaje('error', 'No ha seleccionado ningun paciente', 'No puedes continuar con esta accion');
         return false;
     }
@@ -139,17 +196,49 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
             contentType: false,
             url: "../../../api/recepcion_api.php",
             type: "POST",
+            dataType: 'json',
             success: function (data) {
-                data = jQuery.parseJSON(data);
                 if (mensajeAjax(data)) {
-                    alertMensaje('success', '¡Información cargada!', 'Los datos de beneficiario ya estan listos.');
-                    rellenarSelect('#lista-pacientes-trabajadores', 'recepcion_api', 8, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
-                    document.getElementById("btn-rechazar-paciente").disabled = false;
-                    $("#ModalBeneficiario").modal("hide");
+                    // alertMensaje('success', '¡Información cargada!', 'Los datos de beneficiario ya estan listos.');
+                    // rellenarSelect('#lista-pacientes-trabajadores', 'recepcion_api', 8, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR', {})
+                    // document.getElementById("btn-rechazar-paciente").disabled = false;
+                    // $("#ModalBeneficiario").modal("hide");
+                    // alertMensaje('info', 'Informacion cargada', 'Estamos actualiz')
                     // tablaRecepcionPacientes.ajax.reload();
+
+
+                    if (TrabajadorData) {
+                        $.ajax({
+                            data: {
+                                nombre: $('#input-name-trabajador').val(),
+                                paterno: $('#input-paterno-trabajador').val(),
+                                materno: $('#input-materno-trabajador').val(),
+                                nacimiento: $('#input-nacimiento-trabajador').val(),
+                                edad: $('#input-edad-trabajador').val(),
+                                curp: $('#curp-trabajador').val(),
+                                pasaporte: $('#input-pasaporte-trabajador').val(),
+                                numero_trabajador: $('#input-numero_trabajador-trabajador').val(),
+                                trabajador_id: trabajador_id_modal ? trabajador_id_modal : $('#lista-pacientes-trabajadores').val(),
+                                api: 9
+                            },
+                            url: "../../../api/recepcion_api.php",
+                            type: "POST",
+                            dataType: "json",
+                            success: function (data) {
+                                if (mensajeAjax(data)) {
+                                    alertMensaje('success', 'Información cargada', 'Todos los datos han sido actualizados');
+                                    $("#ModalBeneficiario").modal("hide");
+                                }
+                            }
+                        })
+                    } else {
+                        alertMensaje('success', '¡Información cargada!', 'Los datos de beneficiario ya estan listos.');
+                        $("#ModalBeneficiario").modal("hide");
+                    }
                 }
             }
         });
+
     }, 1)
     event.preventDefault();
 });

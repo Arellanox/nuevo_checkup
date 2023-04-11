@@ -131,7 +131,7 @@ switch ($api) {
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
         }
 
-       # Insertar servicios extrar para pacientes empresas o servicios para particulares
+        # Insertar servicios extrar para pacientes empresas o servicios para particulares
         if (is_array($servicios)) {
             if (count($servicios) > 0) {
                 # si hay algo en el arreglo lo insertamos
@@ -274,7 +274,7 @@ switch ($api) {
         $dir = $master->urlComodin . $master->urlPases . "$e_turno_id/";
         $r = $master->createDir($dir);
         $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id");
-      
+
         if (!empty($pase[0]['tipo'])) {
             $url_pase = str_replace("../", "https://bimo-lab.com/nuevo_checkup/", $pase[0]['url']);
             $r = $master->updateByProcedure("sp_actualizar_pase_empresas", [$e_turno_id, $url_pase]);
@@ -329,17 +329,19 @@ switch ($api) {
         # actualizar la informacion de los trabajadores de la ujat.
         # siempre y cuando el usuario tenga el permiso.
         # Para actualizar, se necesita enviar la id del trabajdor de la ujat.
-        $response = $master->updateByProcedure("sp_trabajadores_empresas_a",[$e_id_trabajador,
-        $e_nombre,
-        $e_paterno,
-        $e_materno,
-        $e_edad,
-        $e_fecha_nacimiento,
-        $e_num_trabajador,
-        $e_curp,
-        $e_pasaporte,
-        $e_genero,
-        $_SESSION['id']]);
+        $response = $master->updateByProcedure("sp_trabajadores_empresas_a", [
+            $e_id_trabajador,
+            $e_nombre,
+            $e_paterno,
+            $e_materno,
+            $e_edad,
+            $e_fecha_nacimiento,
+            $e_num_trabajador,
+            $e_curp,
+            $e_pasaporte,
+            $e_genero,
+            $_SESSION['id']
+        ]);
         break;
 
     default:
