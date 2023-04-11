@@ -1563,8 +1563,9 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
 
         for (const key in data) {
           const element = data[key];
-          // console.log(key)
-          if (key)
+          console.log(key)
+
+          if (key && key != '¿ERES ALÉRGICO A ALGÚN MEDICAMENTO O ALIMENTO?')
             setValuesAntAnnameMetodo(arrayDivs[key], element, key)
         }
         // console.log(data);
