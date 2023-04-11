@@ -315,7 +315,7 @@ if (!isset($qr)) {
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
+                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO_MESO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         <?php echo isset($encabezado->MEDICO_TRATANTE) ? "Médico Tratante: <strong style='font-size: 12px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : "";
