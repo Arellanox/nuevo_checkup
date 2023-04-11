@@ -983,7 +983,7 @@ class Miscelaneus
     function cleanAttachFilesImage($master, $turno_id, $area_id, $cliente, $reenviar = 0, $fecha_busqueda = null)
     {
         # reporte
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente, $fecha_busqueda]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente, $fecha_busqueda,0]);
 
         #reportes filtrados, solo los que estan validados
         if ($reenviar != 0) {
