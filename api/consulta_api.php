@@ -196,7 +196,7 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url]);
 
         //Enviamos correo
-        $attachment = $master->cleanAttachFilesImage($master, $id_turno, 10, 1);
+        $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
 
         if (!empty($attachment[0])) {
             $mail = new Correo();
