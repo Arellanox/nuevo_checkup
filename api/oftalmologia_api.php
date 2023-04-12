@@ -90,7 +90,7 @@ switch ($api) {
             $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, $confirmado, NULL, NULL, NULL, NULL]);
 
             //enviamos correo
-            $attachment = $master->cleanAttachFilesImage($master, $id_turno, 3, 1);
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 3, 1);
 
             if (!empty($attachment[0])) {
                 $mail = new Correo();
