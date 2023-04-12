@@ -1,6 +1,7 @@
 <?php
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+include "../clases/correo_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -193,6 +194,16 @@ switch ($api) {
         # terminar consulta
         $url = $master->reportador($master, $turno_id, 1, "consultorio", 'url', 0);
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url]);
+
+        //Enviamos correo
+        $attachment = $master->cleanAttachFilesImage($master, $id_turno, 10, 1);
+
+        if (!empty($attachment[0])) {
+            $mail = new Correo();
+            if ($mail->sendEmail('resultados', '[bimo] Resultados de consulta', [$attachment[1]], null, $attachment[0], 1)) {
+                $master->setLog("Correo enviado.", "Consulta");
+            }
+        }
 
         break;
     case 12:

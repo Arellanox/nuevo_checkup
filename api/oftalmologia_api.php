@@ -3,6 +3,7 @@ session_start();
 include_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/Pdf.php";
+include "../clases/correo_class.php";
 
 
 $tokenVerification = new TokenVerificacion();
@@ -82,13 +83,21 @@ switch ($api) {
         } else {
             #$id_oftalmo = $master->updateByProcedure('sp_oftalmo_resultados_g', $params);
             // $url = crearReporteOftalmologia($turno_id);
-                 # actualizar la url del reporte
-            
+            # actualizar la url del reporte
+
             $url = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'url');
 
             $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, $confirmado, NULL, NULL, NULL, NULL]);
 
-       
+            //enviamos correo
+            $attachment = $master->cleanAttachFilesImage($master, $id_turno, 3, 1);
+
+            if (!empty($attachment[0])) {
+                $mail = new Correo();
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de oftalmología', [$attachment[1]], null, $attachment[0], 1)) {
+                    $master->setLog("Correo enviado.", "Oftalmología");
+                }
+            }
         }
 
 
