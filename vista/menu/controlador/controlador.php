@@ -41,6 +41,10 @@ include "../../variables.php";
       var http = "https://";
       var servidor = "drjb.com.mx";
       break;
+    case 'helicebiologicos.com':
+      var http = "http://";
+      var servidor = "helicebiologicos.com";
+      break;
   }
 
   miStorage = window.localStorage;
