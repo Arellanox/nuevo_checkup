@@ -57,7 +57,7 @@ switch ($api) {
             $response = $master->updateByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, null, $usuario, null, null, null, null, $url, $confirmado, null]);
 
             //Enviamos correo
-            $attachment = $master->cleanAttachFilesImage($master, $id_turno, 10, 1);
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
 
             if (!empty($attachment[0])) {
                 $mail = new Correo();
