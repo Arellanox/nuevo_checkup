@@ -8,6 +8,7 @@ ModalBeneficiario.addEventListener('show.bs.modal', event => {
     TrabajadorData = false
     // document.getElementById('formBeneficiadoTrabajador').reset
     $('#formBeneficiadoTrabajador').trigger("reset");
+    $('#datos-nuevo-trabajador').fadeOut(200)
 })
 
 async function cargarModal() {
@@ -52,9 +53,9 @@ async function datosPacienteBeneficiado(turno) {
                         if (row.ID_TRABAJADOR) {
                             trabajador_id_modal = row.ID_TRABAJADOR;
                             $("#lista-pacientes-trabajadores").val(row.ID_TRABAJADOR).trigger('change'); // <-- trabajador
-                            // $("#lista-pacientes-trabajadores").prop('disabled', true);
+                            $("#lista-pacientes-trabajadores").prop('disabled', true);
                             $('#checkPacienteBeneficia').prop('checked', true);
-                            // $('#checkPacienteBeneficia').prop('disabled', true);
+                            $('#checkPacienteBeneficia').prop('disabled', true);
                             $('#datos-nuevo-trabajador').fadeIn(200)
 
                             $('#input-name-trabajador').val(row.NOMBRE);
@@ -68,9 +69,9 @@ async function datosPacienteBeneficiado(turno) {
 
                         } else {
                             trabajador_id_modal = 0;
-                            // $("#lista-pacientes-trabajadores").prop('disabled', true);
-                            $('#checkPacienteBeneficia').prop('disabled', true);
-                            // $('#checkPacienteBeneficia').prop('checked', false);
+                            $("#lista-pacientes-trabajadores").prop('disabled', false);
+                            $('#checkPacienteBeneficia').prop('disabled', false);
+                            $('#checkPacienteBeneficia').prop('checked', false);
                         }
 
 
@@ -249,5 +250,12 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
     event.preventDefault();
 });
 
-select2('#lista-pacientes-trabajadores', "ModalBeneficiario")
+// select2('#lista-pacientes-trabajadores', "ModalBeneficiario", 'Seleccione un trabajador', 'default')
+
+$('#lista-pacientes-trabajadores').select2({
+    dropdownParent: $('#ModalBeneficiario'),
+    tags: false,
+    placeholder: 'Seleccione un trabajador',
+    with: '550px'
+});
 // rellenarSelect('#lista-pacientes-trabajadores', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE', { cliente_id: 1, onlyTrabajadores: true })

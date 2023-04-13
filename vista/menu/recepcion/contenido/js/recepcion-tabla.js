@@ -56,7 +56,7 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
 ])
 
 
-selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: null }, function () {
+selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: "#panel-informacion" }, function () {
   if (array_selected['CLIENTE_ID'] == 18) {
     $('#buttonBeneficiario').fadeIn(200)
   } else {
