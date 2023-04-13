@@ -287,6 +287,12 @@ $(window).resize(function () {
     .columns.adjust();
 })
 
+$(document).on('change', 'input[type="file"]', function () {
+  var filename = jQuery(this).val().split('\\').pop();
+  console.log(filename);
+  $(this).parent('div').find('label').html(`File: ${filename}`)
+})
+
 
 //Devuelve la area
 function getAreaActiva() {

@@ -92,7 +92,35 @@ input[type=number] {
   box-shadow: 0 0 5px 0.1rem rgb(98 203 201 / 50%);
 }
 
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
 
+.input-file-label {
+  /* font-size: 14px; */
+  /* font-weight: 600 !ismportant; */
+  color: #fff !important;
+  background-color: rgb(098, 203, 201) !important;
+  display: inline-block;
+  transition: all .5s;
+  cursor: pointer;
+  padding: 15px 40px !important;
+  text-transform: uppercase;
+  width: fit-content;
+  text-align: center;
+}
+
+.input-file-label:hover {
+  color: rgb(255 255 255) !important;
+  /* font-weight: 600 !important; */
+  transform: scale(1.08);
+  background-color: rgb(89 185 183) !important;
+}
 
 .select2-container .select2-selection--single {
   padding: 7px 15px;
