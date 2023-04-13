@@ -262,6 +262,12 @@ function firstMayus(str) {
   str = str.charAt(0).toUpperCase() + str.slice(1);
   return str;
 }
+
+function truncate(str, maxlength) {
+  return (str.length > maxlength) ?
+    str.slice(0, maxlength - 1) + '…' : str;
+}
+
 //Especifico para areas dinamicas de un valor
 function deletePositionString(str, position) {
   str = str.slice(0, position);
@@ -269,7 +275,7 @@ function deletePositionString(str, position) {
 }
 
 function deleteSpace(str) {
-  return str.replace(/ /g, "")
+  return str.replace(/ /g, "");
 }
 
 
@@ -287,10 +293,26 @@ $(window).resize(function () {
     .columns.adjust();
 })
 
-$(document).on('change', 'input[type="file"]', function () {
-  var filename = jQuery(this).val().split('\\').pop();
+$(document).on('change click', 'input[type="file"]', function () {
+  // console.log($(this)[0])
+  if ($(this)[0].files.length > 1) {
+    var filename = `${$(this)[0].files.length} Archivos...`;
+  } else {
+    var filename = $(this).val().split('\\').pop();
+    var extension = $(this).val().split('.').pop();
+
+    var filename = filename.replace(`.${extension}`, '')
+
+  }
+
+
   console.log(filename);
-  $(this).parent('div').find('label').html(`File: ${filename}`)
+  var label = $(this).parent('div').find('label[class="input-file-label"]')
+  if ($(this).val() == '') {
+    label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+  } else {
+    label.html(`File: ${truncate(filename, 15)} | ${extension}`)
+  }
 })
 
 
