@@ -43,7 +43,7 @@ async function datosPacienteBeneficiado(turno) {
                             return $(this).text() == row.PARENTESCO;
                         }).prop('selected', true)
 
-                        $('#input-numero_trabajador-trabajador').val(row.NUMERO_PASE);
+                        $('#numero_pase').val(row.NUMERO_PASE);
                         $('#medico_envia').val(row.MEDICO_QUE_ENVIA);
                         $('#cedula_medico').val(row.CEDULA_MEDICO);
                         $('#diagnostico_beneficiado').val(row.DIAGNOSTICO);
