@@ -101,15 +101,32 @@ async function datosPacienteBeneficiado(turno) {
                             $(`input[name="genero"][type="radio"]`).prop('checked', false)
                         }
 
-                        if (row.URL_PASE) {
-                            $('#contenedor-pase-ujat').fadeOut(0);
+                        if (row.RUTA_PASE) {
+                            // $('#contenedor-pase-ujat').fadeOut(0);
                             $('#contenedor-url-pase').fadeIn(0);
-                            if (!parseInt(session.permisos.DatosBeneficiario))
-                                $('#pase-ujat').prop('disabled', true)
+                            $('#button-pase-ujat').attr('href', row.RUTA_PASE)
+                            $('#pase-ujat').prop('disabled', true)
+                            // if (!parseInt(session.permisos.DatosBeneficiario))
+                            //     $('#pase-ujat').prop('disabled', true)
                         } else {
-                            $('#contenedor-pase-ujat').fadeIn(0);
+                            // $('#contenedor-pase-ujat').fadeIn(0);
                             $('#contenedor-url-pase').fadeOut(0);
                             $('#pase-ujat').prop('checked', false)
+                            $('#button-pase-ujat').removeAttr('href')
+                        }
+
+                        if (row.RUTA_VERIFICACION) {
+                            // $('#contenedor-pase-ujat').fadeOut(0);
+                            $('#contenedor-url-Verificacion').fadeIn(0);
+                            $('#button-Verificacion-ujat').attr('href', row.RUTA_VERIFICACION)
+                            $('#Verificacion-ujat').prop('disabled', true)
+                            // if (!parseInt(session.permisos.DatosBeneficiario))
+                            //     $('#pase-ujat').prop('disabled', true)
+                        } else {
+                            // $('#contenedor-pase-ujat').fadeIn(0);
+                            $('#contenedor-url-Verificacion').fadeOut(0);
+                            $('#Verificacion-ujat').prop('checked', false)
+                            $('#button-Verificacion-ujat').removeAttr('href')
                         }
 
                         // alertMensaje('success')
