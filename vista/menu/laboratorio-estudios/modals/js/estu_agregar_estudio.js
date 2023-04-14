@@ -376,6 +376,9 @@ $("#formRegistrarEstudio").submit(function (event) {
             try { tablaServicio.ajax.reload(); } catch (error) { }
             try { tablaGrupos.ajax.reload(); } catch (error) { }
 
+            if (modalEdit)
+              $('#ModalRegistrarEstudio').close();
+
             $('input[name="descripcion"]').val('');
             $('input[name="abreviatura"]').val('');
             $('input[name="muestra_valores"], input[name="grupos"]').prop('checked', false);

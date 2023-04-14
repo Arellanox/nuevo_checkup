@@ -116,12 +116,14 @@ async function datosPacienteBeneficiado(turno) {
                             $('#button-pase-ujat').removeAttr('href')
                         }
 
-                        if (row.RUTA_VERIFICACION) {
-                            $('#contenedor-verificacion-ujat').fadeOut(0);
+                        if (row.VERIFICACION) {
+                            // $('#contenedor-verificacion-ujat').fadeOut(0);
                             $('#contenedor-url-Verificacion').fadeIn(0);
-                            $('#button-Verificacion-ujat').attr('href', row.RUTA_VERIFICACION)
-                            $('#Verificacion-ujat').prop('disabled', true)
-                            // if (!parseInt(session.permisos.DatosBeneficiario))
+                            $('#button-Verificacion-ujat').attr('href', row.VERIFICACION)
+                            if (!parseInt(session.permisos.DatosBeneficiario)) {
+                                $('#contenedor-verificacion-ujat').fadeOut(0);
+                                $('#Verificacion-ujat').prop('disabled', true)
+                            }
                             //     $('#pase-ujat').prop('disabled', true)
                         } else {
                             $('#contenedor-verificacion-ujat').fadeIn(0);
@@ -226,7 +228,7 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
 
     /*DATOS Y VALIDACION DEL REGISTRO*/
     alertMensajeConfirm({
-        tittle: '¿Estás seguro de que todos los datos están correctos?',
+        title: '¿Estás seguro de que todos los datos están correctos?',
         text: '¡Probablemente no podrás revertir los cambios!',
         icon: 'warning'
     }, function () {
