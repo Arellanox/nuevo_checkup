@@ -360,7 +360,7 @@ switch ($api) {
             $e_pasaporte,
             $e_genero,
             $_SESSION['id'],
-
+            $url_verificacion
         ]);
         break;
     case 10:
