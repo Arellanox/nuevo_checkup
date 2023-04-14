@@ -12,6 +12,8 @@ if (!$tokenValido) {
 
 $api = $_POST['api'];
 $master = new Master();
+$host = $master->selectHost($_SERVER['SERVER_NAME']);
+$hoy = date("Ymd"); 
 
 $estado_paciente = $_POST['estado'];
 $idTurno = $_POST['id_turno'];
@@ -43,6 +45,7 @@ $e_medico = $_POST['medico'];
 $e_cedula = $_POST['cedula-medico'];
 $e_pase = $_POST['pase'];
 $parametro = $_POST['parametro'];
+$foto_paciente = $_POST['avatar'];
 
 
 # reagendar
@@ -271,12 +274,21 @@ switch ($api) {
         ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
 
         # insertar la ruta del pase para los pacientes de la ujat
-        $dir = $master->urlComodin . $master->urlPases . "$e_turno_id/";
+        $dir = $master->urlComodin . $master->urlPases;
+        $dir2 = $master->urlComodin . "archivos/verificaciones_ujat/";
         $r = $master->createDir($dir);
+        $r2 = $master->createDir($dir2);
         $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id");
+        $verificacion = $master->guardarFiles($_FILES,"verficacion-ujat",$dir2,"VERIFICACION_$e_turno_id");
+
+        if(!empty($verificacion)){
+            $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
+        }
+
+        $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
 
         if (!empty($pase[0]['tipo'])) {
-            $url_pase = str_replace("../", "https://bimo-lab.com/nuevo_checkup/", $pase[0]['url']);
+            $url_pase = str_replace("../", $host, $pase[0]['url']);
             $r = $master->updateByProcedure("sp_actualizar_pase_empresas", [$e_turno_id, $url_pase]);
         }
 
@@ -304,7 +316,8 @@ switch ($api) {
             $e_clave_beneficiario,
             $e_medico,
             $e_cedula,
-            $e_pase
+            $e_pase,
+            $url_verificacion
         ]);
         // } else {
         //     $response = "nuevo-trabajador: off";
@@ -329,6 +342,12 @@ switch ($api) {
         # actualizar la informacion de los trabajadores de la ujat.
         # siempre y cuando el usuario tenga el permiso.
         # Para actualizar, se necesita enviar la id del trabajdor de la ujat.
+        $verificacion = $master->guardarFiles($_FILES,"verficacion-ujat",$dir2,"VERIFICACION_$e_turno_id");
+
+        if(!empty($verificacion)){
+            $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
+        }
+
         $response = $master->updateByProcedure("sp_trabajadores_empresas_a", [
             $e_id_trabajador,
             $e_nombre,
@@ -340,8 +359,62 @@ switch ($api) {
             $e_curp,
             $e_pasaporte,
             $e_genero,
-            $_SESSION['id']
+            $_SESSION['id'],
+
         ]);
+        break;
+    case 10:
+        # subir archivos del paciente.
+        # como las ordenes medicas, la credencial del ine y la foto del paciente
+
+        # subir ordenes medicas
+        if (count($ordenes) > 0) {
+            $dir = $master->urlComodin . $master->urlOrdenesMedicas . "$idTurno/";
+            $r = $master->createDir($dir);
+            if ($r == 1) {
+                #movemos las ordenes medicas
+                $return = $master->guardarFiles($_FILES, 'orden-medica-laboratorio', $dir, "ORDEN_MEDICA_LABORATORIO_$idTurno");
+                $return2 = $master->guardarFiles($_FILES, 'orden-medica-rx', $dir, "ORDEN_MEDICA_RX_$idTurno");
+                $return3 = $master->guardarFiles($_FILES, 'orden-medica-us', $dir, "ORDEN_MEDICA_ULTRASONIDO_$idTurno");
+
+                # metemos el area al que pertenece
+                $return[0]['area_id'] = 6;
+                $return2[0]['area_id'] = 8;
+                $return3[0]['area_id'] = 11;
+                $merge = array_merge($return, $return2, $return3);
+
+                #insertarmos las ordenes medicas en la base de datos
+                foreach ($merge as $item) {
+                    if (!empty($item['tipo'])) {
+                        $url = str_replace("../", $host, $item['url']);
+                        $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $idTurno, $url, $item['tipo'], $item['area_id']]);
+                    }
+                }
+            } else {
+                $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas", "recepcion_api.php [case 10]");
+            }
+        }
+
+        # subir la foto del paciente
+        $dir = $master->urlComodin . "/archivos/perfiles_paciente/";
+        $r = $master->createDir($dir);
+
+        if($r == 1){
+            $avatar_url = $master->guardarFiles($_FILES,'avatar_paciente',$dir,"perfil_paciente_$idTurno");
+            $url = str_replace("../", $host, $avatar_url['url']);
+            $response = $master->updateByProcedure("sp_subir_archivos_turno", [ $idTurno, $url ]);
+        } else {
+            $master->setLog("No se pudo crear el directorio de perfiles de paciente", "recepcion_api.php [case 10]");
+
+        }
+
+        # subir la credencial del ine
+        $dir = $master->urlComodin . "archivos/credenciales_ine/";
+        $r = $master->createDir($dir);
+        
+        if($r ==1) {
+            $ine_front = $master->guardarFiles($_FILES,'paciente-ine-front', $dir,"ine_front_$idTurno");
+        }
         break;
 
     default:

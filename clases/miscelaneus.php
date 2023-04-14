@@ -1099,4 +1099,31 @@ class Miscelaneus
 
         return $files;
     }
+
+    public function selectHost($domain){
+        
+        switch($domain){
+            case "localhost":
+                $preUrl = "http://localhost/nuevo_checkup/";
+                break;
+            case "bimo-lab.com":
+                $preUrl = "https://bimo-lab.com/nuevo_checkup/";
+                break;
+            case "drjb.com.mx":
+                $preUrl = "https://drjb.com.mx/nuevo_checkup/";
+                break;
+            case "helicebiologicos.com":
+                $preUrl = "http://helicebiologicos.com/nuevo_checkup/";
+                break;
+            default:
+                 $preUrl = "https://bimo-lab.com/nuevo_checkup/";
+                break;
+        }
+
+        return $preUrl;
+    }
+
+    public function getByPatientNameByTurno($master, $turno){
+        $name = 
+    }
 }
