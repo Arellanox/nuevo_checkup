@@ -278,16 +278,16 @@ switch ($api) {
         #Datos de beneficiario
         #========================================================================================
         ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
-
         # insertar la ruta del pase para los pacientes de la ujat
         $dir = $master->urlComodin . $master->urlPases;
         $dir2 = $master->urlComodin . "archivos/verificaciones_ujat/";
         $r = $master->createDir($dir);
         $r2 = $master->createDir($dir2);
 
-        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master, $e_turno_id . "_$hoy"));
+        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master, $e_turno_id) . "_$hoy");
 
-        $verificacion = $master->guardarFiles($_FILES, "verificacion-ujat", $dir2, "VERIFICACION_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master, $e_turno_id . "_$hoy"));
+        $verificacion = $master->guardarFiles($_FILES, "verificacion-ujat", $dir2, "VERIFICACION_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master, $e_turno_id) . "_$hoy");
+
 
         if (!empty($verificacion)) {
             $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
