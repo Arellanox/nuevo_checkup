@@ -1035,7 +1035,7 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
   })
 }
 
-function alertMsj(options) {
+function alertMsj(options, callback = function () { }) {
 
   if (!options.hasOwnProperty('title'))
     options['title'] = "¿Desea realizar esta acción?"
@@ -1068,7 +1068,9 @@ function alertMsj(options) {
   // if (!options.hasOwnProperty('timerProgressBar'))
   //   options['timerProgressBar'] = true
   //
-  Swal.fire(options)
+  Swal.fire(options).then((result) => {
+    callback(result);
+  })
 }
 
 function alertMensajeConfirm(options, callback = function () { }, set = 0) {

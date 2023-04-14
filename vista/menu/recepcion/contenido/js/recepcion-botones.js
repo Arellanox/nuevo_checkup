@@ -1,4 +1,6 @@
-$("#btn-aceptar").click(function () {
+// $("#btn-aceptar").click(function () {
+$(document).on('click', '#btn-aceptar', function () {
+  swal.close()
   if (array_selected != null) {
     $("#modalPacienteAceptar").modal('show');
   } else {
@@ -6,13 +8,37 @@ $("#btn-aceptar").click(function () {
   }
 })
 
-$("#btn-rechazar").click(function () {
+$(document).on('click', '#btn-rechazar', function () {
+  // $("#btn-rechazar").click(function () {
+  swal.close()
   if (array_selected != null) {
     $("#modalPacienteRechazar").modal('show');
   } else {
     alertSelectTable();
   }
 })
+
+$(document).on('click', '#btn-espera-estatus', function () {
+  alertMsj({
+    icon: '',
+    title: 'Elige una opción',
+    html: `
+        <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px" id="btn-aceptar"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="Carga una solicitud de estudios">
+          <i class="bi bi-check"></i> Aceptar paciente
+        </button>
+        <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-rechazar"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="Rechaza/Elimina este registro">
+          <i class="bi bi-x"></i> Rechazar paciente
+        </button> 
+    `,
+    showCancelButton: false,
+    showConfirmButton: false,
+    allowOutsideClick: true,
+  })
+
+})
+
 
 $("#btn-editar").click(function () {
   if (array_selected != null) {

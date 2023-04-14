@@ -1,7 +1,7 @@
 // Obtener datos del paciente seleccionado
 const modalPacienteReagendar = document.getElementById('modalPacienteReagendar')
 modalPacienteReagendar.addEventListener('show.bs.modal', event => {
-  document.getElementById("title-paciente_agendar").innerHTML = "Re-agendar al paciente:<br />" + array_selected['NRE_COMPLETO'];
+  document.getElementById("title-paciente_agendar").innerHTML = "Re-agendar al paciente:<br />" + array_selected['NOMBRE_COMPLETO'];
 
 })
 
