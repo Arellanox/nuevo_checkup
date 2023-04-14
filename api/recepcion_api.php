@@ -22,6 +22,9 @@ $comentarioRechazo = $_POST['comentario_rechazo'];
 $identificacion = $_POST['identificacion']; #url
 $area_id = $_POST['area_id'];
 
+$alergias = $_POST['alergias'];
+$segmento_id = $_POST['segmento_id'];
+
 # trabajadores de la ujat
 $is_worker = $_POST['nuevo-trabajador']; # bit para saber si es ujat y se debe agregar la info del trabajador
 $e_id_trabajador = $_POST['trabajador_id'];
@@ -95,7 +98,7 @@ switch ($api) {
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
         // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
 
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico,$segmento_id));
 
         $etiqueta_turno = $response[1];
 
@@ -368,7 +371,7 @@ switch ($api) {
             $e_pasaporte,
             $e_genero,
             $_SESSION['id'],
-            $url_verificacion
+            isset($e_turno_id) ? $url_verificacion : null
         ]);
         break;
     case 10:
