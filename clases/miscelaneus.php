@@ -983,7 +983,7 @@ class Miscelaneus
     function cleanAttachFilesImage($master, $turno_id, $area_id, $cliente, $reenviar = 0, $fecha_busqueda = null)
     {
         # reporte
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente, $fecha_busqueda,0]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, $area_id, $cliente, $fecha_busqueda, 0]);
 
         #reportes filtrados, solo los que estan validados
         if ($reenviar != 0) {
@@ -1100,9 +1100,10 @@ class Miscelaneus
         return $files;
     }
 
-    public function selectHost($domain){
-        
-        switch($domain){
+    public function selectHost($domain)
+    {
+
+        switch ($domain) {
             case "localhost":
                 $preUrl = "http://localhost/nuevo_checkup/";
                 break;
@@ -1116,14 +1117,14 @@ class Miscelaneus
                 $preUrl = "http://helicebiologicos.com/nuevo_checkup/";
                 break;
             default:
-                 $preUrl = "https://bimo-lab.com/nuevo_checkup/";
+                $preUrl = "https://bimo-lab.com/nuevo_checkup/";
                 break;
         }
 
         return $preUrl;
     }
 
-    public function getByPatientNameByTurno($master, $turno){
-        $name = 
-    }
+    // public function getByPatientNameByTurno($master, $turno){
+    //     $name = 
+    // }
 }

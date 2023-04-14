@@ -20,7 +20,6 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
       loader("Out")
     },
     error: function (jqXHR, textStatus, errorThrown) {
-      alert(1);
       alertErrorAJAX(jqXHR, textStatus, errorThrown);
     },
     dataSrc: 'response.data'
