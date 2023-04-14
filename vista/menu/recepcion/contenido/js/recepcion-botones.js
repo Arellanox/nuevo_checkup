@@ -36,7 +36,38 @@ $(document).on('click', '#btn-espera-estatus', function () {
     showConfirmButton: false,
     allowOutsideClick: true,
   })
+})
 
+// $(document).on('click', '#btn-botones-captura-documentos', function () {
+//   alertMsj({
+//     icon: '',
+//     title: 'Ventana de documentos',
+//     html: `
+//         <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-rechazar"
+//           data-bs-toggle="tooltip" data-bs-placement="top" title="Rechaza/Elimina este registro">
+//           <i class="bi bi-x"></i> Foto de perfil
+//         </button> 
+//     `,
+//     showCancelButton: false,
+//     showConfirmButton: false,
+//     allowOutsideClick: true,
+//   })
+// })
+
+$(document).on('click', '#btn-perfil-paciente', function () {
+  if (array_selected) {
+    // $('#ModalBeneficiario').modal('show');
+  } else {
+    alertSelectTable();
+  }
+})
+
+$(document).on('click', '#btn-perfil-paciente', function () {
+  if (array_selected) {
+    // $('#ModalBeneficiario').modal('show');
+  } else {
+    alertSelectTable();
+  }
 })
 
 

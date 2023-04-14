@@ -316,9 +316,11 @@ $(document).on('change click', 'input[type="file"]', function () {
 })
 
 function resetInputFile() {
-  $('input[name="file"]').val('');
-  var label = $(this).parent('div').find('label[class="input-file-label"]')
-  label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+  $('input[name="file"]').each(function () {
+    $(this).val('')
+    var label = $(this).parent('div').find('label[class="input-file-label"]')
+    label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+  });
 }
 
 //Devuelve la area
