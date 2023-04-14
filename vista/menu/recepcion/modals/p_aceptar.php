@@ -203,18 +203,27 @@
                   </label>
                 </div>
                 <h4 class="mt-3">Cargar información</h4>
-                <div class="col-12 mt-3">
+                <!-- <div class="col-12 mt-3">
                   <label for="paquete" class="form-label">Suba credencial:</label>
                   <input type="file" name="credencial" id="file-credencial" class="form-control input-form" value="">
+                </div> -->
+                <div class="mt-3">
+                  <label for="est_alergias" class="form-label fw-bold text-danger text-decoration-underline">Alergias: </label>
+                  <input type="text" name="est_alergias" value="" class="form-control input-form fw-bold text-danger text-decoration-underline" required="" id="alergias-aceptar-paciente">
                 </div>
                 <div class="mt-3">
                   <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones" id="Observaciones-aceptar"></textarea>
                 </div>
 
+                <div class="mt-3">
+                  <label for="est_diagnostico" class="form-label">Diagnóstico: </label>
+                  <input type="text" name="est_diagnostico" value="" class="form-control input-form" required="" id="diagnostico-aceptar-paciente">
+                </div>
+
                 <div class="col-12 mt-3">
                   <p>Formas de pago: </p>
-                  <p>Total del paquete: <strong>$1200.00</strong></p>
-                  <p>Total de estudios individuales: <strong>$600.00</strong></p>
+                  <p>Total del paquete: <strong></strong></p>
+                  <p>Total de estudios individuales: <strong></strong></p>
                 </div>
               </div>
               <!-- <div class="overflow-auto" style="max-width: 100%; max-height: 220px;margin-bottom:10px;">
