@@ -169,7 +169,8 @@ class Master extends Miscelaneus
         // }
 
         foreach ($trimming as $key => $current) {
-            $trimed[$key] = isset($current) ? ( strlen($current)==0 ? null : trim($current) ) : $current;
+            //$current = strlen($current)>0 ? $current : null; 
+            $trimed[$key] = isset($current) ? trim($current) : $current;
         }
 
         return $trimed;
