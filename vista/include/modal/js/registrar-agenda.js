@@ -9,9 +9,13 @@ $('#curp-paciente').prop('readonly', false);
 setTimeout(() => {
   if (nombreCliente != null) {
     $("#procedencia-registro").html(nombreCliente)
-    rellenarSelect('#selectSegmentos', 'segmentos_api', 2, 0, 'DESCRIPCION', {
-      cliente_id: clienteRegistro
-    });
+    if (clienteRegistro != 17) {
+      rellenarSelect('#selectSegmentos', 'segmentos_api', 2, 0, 'DESCRIPCION', {
+        cliente_id: clienteRegistro
+      });
+    } else {
+      $('#selectSegmentos').find('option').remove().end()
+    }
   }
 }, 1000);
 

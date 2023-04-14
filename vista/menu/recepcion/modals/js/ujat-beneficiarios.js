@@ -5,6 +5,7 @@ var trabajador_id_modal = 0
 const ModalBeneficiario = document.getElementById('ModalBeneficiario')
 ModalBeneficiario.addEventListener('show.bs.modal', event => {
     cargarModal()
+    resetInputFile()
     TrabajadorData = false
     // document.getElementById('formBeneficiadoTrabajador').reset
     $('#formBeneficiadoTrabajador').trigger("reset");

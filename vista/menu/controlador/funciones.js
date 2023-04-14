@@ -306,7 +306,7 @@ $(document).on('change click', 'input[type="file"]', function () {
   }
 
 
-  console.log(filename);
+  // console.log(filename);
   var label = $(this).parent('div').find('label[class="input-file-label"]')
   if ($(this).val() == '') {
     label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
@@ -315,6 +315,11 @@ $(document).on('change click', 'input[type="file"]', function () {
   }
 })
 
+function resetInputFile() {
+  $('input[name="file"]').val('');
+  var label = $(this).parent('div').find('label[class="input-file-label"]')
+  label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+}
 
 //Devuelve la area
 function getAreaActiva() {
@@ -1753,6 +1758,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
                         row.MUNICIPIO + ", " + row.ESTADO);
                       $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+
+                      $('#info-paci-diagnostico').html(row.DIAGNOSTICO);
 
 
                       if (row.FECHA_REAGENDA != null) {

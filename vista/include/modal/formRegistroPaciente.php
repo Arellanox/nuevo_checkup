@@ -40,7 +40,7 @@
 
 <div class="col-6 col-lg-4">
   <label for="correo" class="form-label">Correo electronico</label>
-  <input type="email" class="form-control input-form" name="correo" placeholder="" required>
+  <input type="email" class="form-control input-form" name="correo" placeholder="" required data-bs-toggle="tooltip" data-bs-placement="top" title="Se requiere un correo para envio de resultados">
 </div>
 
 

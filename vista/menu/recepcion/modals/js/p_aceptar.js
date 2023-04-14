@@ -17,11 +17,18 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   //   $('#contenedor-pase-ujat').fadeOut(100);
   // }
   array_selected['ALERGIAS'] ? $('#alergias-aceptar-paciente').val(array_selected['ALERGIAS']) : $('#alergias-aceptar-paciente').val('');
+  array_selected['DIAGNOSTICO_TURNO'] ? $('#diagnostico-aceptar-paciente').val(array_selected['DIAGNOSTICO_TURNO']) : $('#diagnostico-aceptar-paciente').val('');
 
 
   rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
     'cliente_id': array_selected['CLIENTE_ID']
   })
+
+  rellenarSelect('#select-segmento-aceptar', 'segmentos_api', 2, 0, 'DESCRIPCION', {
+    cliente_id: array_selected['CLIENTE_ID']
+  }, function (data) {
+    array_selected['ID_SEGMENTO'] ? $('#select-segmento-aceptar').val(array_selected['ID_SEGMENTO']).trigger('change') : false;
+  });
 
   //Pruebas
   rellenarSelect("#select-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
@@ -97,8 +104,9 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   formData.set('id_turno', array_selected['ID_TURNO']);
   formData.set('estado', 1);
   formData.set('comentario_rechazo', $('#Observaciones-aceptar').val());
-  formData.set('est_alergias', $('#alergias-aceptar-paciente').val());
-  formData.set('est_diagnostico', $('#diagnostico-aceptar-paciente').val());
+  formData.set('alergias', $('#alergias-aceptar-paciente').val());
+  formData.set('diagnostico', $('#diagnostico-aceptar-paciente').val());
+  formData.set('segmento_id', $('#select-segmento-aceptar').val())
   formData.set('servicios', estudiosEnviar);
 
 
@@ -313,3 +321,4 @@ select2("#select-labbio", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-rx", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-us", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-otros", "modalPacienteAceptar", 'Seleccione un estudio');
+select2('#select-segmento-aceptar', "modalPacienteAceptar", 'Seleccione un segmento');

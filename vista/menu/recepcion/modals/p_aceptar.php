@@ -208,6 +208,12 @@
                   <input type="file" name="credencial" id="file-credencial" class="form-control input-form" value="">
                 </div> -->
                 <div class="mt-3">
+                  <label for="paquete" class="form-label">Segmento del paciente</label>
+                  <select class="" id="select-segmento-aceptar" name="segmento_id">
+
+                  </select>
+                </div>
+                <div class="mt-3">
                   <label for="est_alergias" class="form-label fw-bold text-danger text-decoration-underline">Alergias: </label>
                   <input type="text" name="est_alergias" value="" class="form-control input-form fw-bold text-danger text-decoration-underline" required="" id="alergias-aceptar-paciente">
                 </div>
