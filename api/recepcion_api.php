@@ -13,7 +13,7 @@ if (!$tokenValido) {
 $api = $_POST['api'];
 $master = new Master();
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
-$hoy = date("Ymd");
+$hoy = date("Ymd"); 
 
 $estado_paciente = $_POST['estado'];
 $idTurno = $_POST['id_turno'];
@@ -45,11 +45,11 @@ $e_medico = $_POST['medico'];
 $e_cedula = $_POST['cedula-medico'];
 $e_pase = $_POST['pase'];
 $parametro = $_POST['parametro'];
+
+// nuevos datos
 $foto_paciente = $_POST['avatar'];
 
-#Aceptacion del paciente
-$est_alergias = $_POST['est_alergias'];
-$est_diagnostico = $_POST['est_diagnostico'];
+
 
 # reagendar
 $fecha_reagenda = $_POST['fecha_reagenda'];
@@ -281,10 +281,12 @@ switch ($api) {
         $dir2 = $master->urlComodin . "archivos/verificaciones_ujat/";
         $r = $master->createDir($dir);
         $r2 = $master->createDir($dir2);
-        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id");
-        $verificacion = $master->guardarFiles($_FILES, "verficacion-ujat", $dir2, "VERIFICACION_$e_turno_id");
 
-        if (!empty($verificacion)) {
+        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id"."_".$master->getByPatientNameByTurno($master,$e_turno_id . "_$hoy"));
+
+        $verificacion = $master->guardarFiles($_FILES,"verficacion-ujat",$dir2,"VERIFICACION_$e_turno_id"."_".$master->getByPatientNameByTurno($master,$e_turno_id . "_$hoy"));
+
+        if(!empty($verificacion)){
             $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
         }
 
@@ -345,9 +347,12 @@ switch ($api) {
         # actualizar la informacion de los trabajadores de la ujat.
         # siempre y cuando el usuario tenga el permiso.
         # Para actualizar, se necesita enviar la id del trabajdor de la ujat.
-        $verificacion = $master->guardarFiles($_FILES, "verficacion-ujat", $dir2, "VERIFICACION_$e_turno_id");
+        $dir2 = $master->urlComodin . "archivos/verificaciones_ujat/";
+        $r2 = $master->createDir($dir2);
 
-        if (!empty($verificacion)) {
+        $verificacion = $master->guardarFiles($_FILES,"verficacion-ujat",$dir2,"VERIFICACION_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master,$e_turno_id) . "_$hoy");
+
+        if(!empty($verificacion)){
             $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
         }
 
@@ -363,7 +368,7 @@ switch ($api) {
             $e_pasaporte,
             $e_genero,
             $_SESSION['id'],
-
+            $url_verificacion
         ]);
         break;
     case 10:
@@ -402,20 +407,21 @@ switch ($api) {
         $dir = $master->urlComodin . "/archivos/perfiles_paciente/";
         $r = $master->createDir($dir);
 
-        if ($r == 1) {
-            $avatar_url = $master->guardarFiles($_FILES, 'avatar_paciente', $dir, "perfil_paciente_$idTurno");
+        if($r == 1){
+            $avatar_url = $master->guardarFiles($_FILES,'avatar_paciente',$dir,"perfil_paciente_$idTurno");
             $url = str_replace("../", $host, $avatar_url['url']);
-            $response = $master->updateByProcedure("sp_subir_archivos_turno", [$idTurno, $url]);
+            $response = $master->updateByProcedure("sp_subir_archivos_turno", [ $idTurno, $url ]);
         } else {
             $master->setLog("No se pudo crear el directorio de perfiles de paciente", "recepcion_api.php [case 10]");
+
         }
 
         # subir la credencial del ine
         $dir = $master->urlComodin . "archivos/credenciales_ine/";
         $r = $master->createDir($dir);
-
-        if ($r == 1) {
-            $ine_front = $master->guardarFiles($_FILES, 'paciente-ine-front', $dir, "ine_front_$idTurno");
+        
+        if($r ==1) {
+            $ine_front = $master->guardarFiles($_FILES,'paciente-ine-front', $dir,"ine_front_$idTurno");
         }
         break;
 
