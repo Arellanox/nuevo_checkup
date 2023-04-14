@@ -1124,6 +1124,7 @@ class Miscelaneus
     }
 
     public function getByPatientNameByTurno($master, $turno){
-        $name = 
+        $name = $master->getByProcedure( "sp_get_patient_name_by_turno", [$turno] );
+        return isset( $name[0]['NOMBRE_COMPLETO'] ) ? $name[0]['NOMBRE_COMPLETO'] : "NONE";
     }
 }

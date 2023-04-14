@@ -45,7 +45,10 @@ $e_medico = $_POST['medico'];
 $e_cedula = $_POST['cedula-medico'];
 $e_pase = $_POST['pase'];
 $parametro = $_POST['parametro'];
+
+// nuevos datos
 $foto_paciente = $_POST['avatar'];
+
 
 
 # reagendar
@@ -278,8 +281,10 @@ switch ($api) {
         $dir2 = $master->urlComodin . "archivos/verificaciones_ujat/";
         $r = $master->createDir($dir);
         $r2 = $master->createDir($dir2);
-        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id");
-        $verificacion = $master->guardarFiles($_FILES,"verficacion-ujat",$dir2,"VERIFICACION_$e_turno_id");
+
+        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id"."_".$master->getByPatientNameByTurno($master,$e_turno_id . "_$hoy"));
+
+        $verificacion = $master->guardarFiles($_FILES,"verficacion-ujat",$dir2,"VERIFICACION_$e_turno_id"."_".$master->getByPatientNameByTurno($master,$e_turno_id . "_$hoy"));
 
         if(!empty($verificacion)){
             $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
@@ -342,7 +347,10 @@ switch ($api) {
         # actualizar la informacion de los trabajadores de la ujat.
         # siempre y cuando el usuario tenga el permiso.
         # Para actualizar, se necesita enviar la id del trabajdor de la ujat.
-        $verificacion = $master->guardarFiles($_FILES,"verficacion-ujat",$dir2,"VERIFICACION_$e_turno_id");
+        $dir2 = $master->urlComodin . "archivos/verificaciones_ujat/";
+        $r2 = $master->createDir($dir2);
+
+        $verificacion = $master->guardarFiles($_FILES,"verficacion-ujat",$dir2,"VERIFICACION_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master,$e_turno_id) . "_$hoy");
 
         if(!empty($verificacion)){
             $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
