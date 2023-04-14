@@ -37,7 +37,7 @@ class Master extends Miscelaneus
     function connectDb()
     {
         // require_once 'pdoconfig.php';
-        // $host = "212.1.208.201";
+       // $host = "212.1.208.201";
         $host = 'localhost'; //Servidor
         $dbname = "u808450138_checkup";
         $username = "u808450138_bimo";
@@ -54,6 +54,13 @@ class Master extends Miscelaneus
         // $dbname = "u808450138_checkup_copio";
         // $username = "u808450138_hola";
         // $password = ":N1TFmb0z";
+
+        # nube conexion de base para capacitaciones
+        // $host = "212.1.208.201";
+        // $dbname = "u808450138_capacitaciones";
+        // $username = "u808450138_capacitador";
+        // $password = '7$V1HPRSVa*2';
+
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -162,7 +169,7 @@ class Master extends Miscelaneus
         // }
 
         foreach ($trimming as $key => $current) {
-            $trimed[$key] = isset($current) ? trim($current) : $current;
+            $trimed[$key] = isset($current) ? ( strlen($current)==0 ? null : trim($current) ) : $current;
         }
 
         return $trimed;
