@@ -16,6 +16,8 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   //   $('#pase-ujat').val(null)
   //   $('#contenedor-pase-ujat').fadeOut(100);
   // }
+  array_selected['ALERGIAS'] ? $('#alergias-aceptar-paciente').val(array_selected['ALERGIAS']) : $('#alergias-aceptar-paciente').val('');
+
 
   rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
     'cliente_id': array_selected['CLIENTE_ID']
@@ -95,6 +97,8 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   formData.set('id_turno', array_selected['ID_TURNO']);
   formData.set('estado', 1);
   formData.set('comentario_rechazo', $('#Observaciones-aceptar').val());
+  formData.set('est_alergias', $('#alergias-aceptar-paciente').val());
+  formData.set('est_diagnostico', $('#diagnostico-aceptar-paciente').val());
   formData.set('servicios', estudiosEnviar);
 
 
