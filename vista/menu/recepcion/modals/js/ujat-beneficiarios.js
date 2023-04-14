@@ -102,28 +102,28 @@ async function datosPacienteBeneficiado(turno) {
                         }
 
                         if (row.RUTA_PASE) {
-                            // $('#contenedor-pase-ujat').fadeOut(0);
+                            $('#contenedor-pase-ujat').fadeOut(0);
                             $('#contenedor-url-pase').fadeIn(0);
                             $('#button-pase-ujat').attr('href', row.RUTA_PASE)
                             $('#pase-ujat').prop('disabled', true)
                             // if (!parseInt(session.permisos.DatosBeneficiario))
                             //     $('#pase-ujat').prop('disabled', true)
                         } else {
-                            // $('#contenedor-pase-ujat').fadeIn(0);
+                            $('#contenedor-pase-ujat').fadeIn(0);
                             $('#contenedor-url-pase').fadeOut(0);
-                            $('#pase-ujat').prop('checked', false)
+                            $('#pase-ujat').prop('disabled', false)
                             $('#button-pase-ujat').removeAttr('href')
                         }
 
                         if (row.RUTA_VERIFICACION) {
-                            // $('#contenedor-pase-ujat').fadeOut(0);
+                            $('#contenedor-verificacion-ujat').fadeOut(0);
                             $('#contenedor-url-Verificacion').fadeIn(0);
                             $('#button-Verificacion-ujat').attr('href', row.RUTA_VERIFICACION)
                             $('#Verificacion-ujat').prop('disabled', true)
                             // if (!parseInt(session.permisos.DatosBeneficiario))
                             //     $('#pase-ujat').prop('disabled', true)
                         } else {
-                            // $('#contenedor-pase-ujat').fadeIn(0);
+                            $('#contenedor-verificacion-ujat').fadeIn(0);
                             $('#contenedor-url-Verificacion').fadeOut(0);
                             $('#Verificacion-ujat').prop('checked', false)
                             $('#button-Verificacion-ujat').removeAttr('href')
@@ -134,6 +134,21 @@ async function datosPacienteBeneficiado(turno) {
                         TrabajadorData = true;
                     } else {
                         TrabajadorData = false;
+                        $("form#formBeneficiadoTrabajador :input").each(function () {
+                            var input = $(this); // This is the jquery object of the input, do what you will
+                            input.prop('disabled', false);
+
+                            $('#contenedor-pase-ujat').fadeIn(0);
+                            $('#contenedor-url-Verificacion').fadeOut(0);
+                            $('#Verificacion-ujat').prop('checked', false)
+                            $('#button-Verificacion-ujat').removeAttr('href')
+
+                            $('#contenedor-verificacion-ujat').fadeIn(0);
+                            $('#contenedor-url-pase').fadeOut(0);
+                            $('#pase-ujat').prop('disabled', false)
+                            $('#button-pase-ujat').removeAttr('href')
+
+                        });
                         alertToast('No existe datos previos...', 'info', 4000);
                     }
 
