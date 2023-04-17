@@ -1,0 +1,36 @@
+<div class="modal fade" id="modalPacienteIne" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header header-modal">
+        <h5 class="modal-title" id="title-paciente_ine">?????</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="" id="formInePaciente">
+          <div class="col-12 mt-3">
+            <div class="input-file-contenedor">
+              <label for="form-label">Parte frontal</label>
+              <label for="paciente-ine-front[]" class="input-file-label">
+                <i class="bi bi-box-arrow-up"></i> Seleccione un archivo
+              </label>
+              <input type="file" name="paciente-ine-front[]" id="paciente-ine-front[]" accept="image/*" class="input-file">
+            </div>
+            <div class="input-file-contenedor">
+              <label for="form-label">Parte trasera</label>
+              <label for="paciente-ine-back[]" class="input-file-label">
+                <i class="bi bi-box-arrow-up"></i> Seleccione un archivo
+              </label>
+              <input type="file" name="paciente-ine-back[]" id="paciente-ine-back[]" accept="image/*" class="input-file">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+        <button type="submit" form="formInePaciente" class="btn btn-confirmar" id="btn-subir-perfil-paciente">
+          <i class="bi bi-person-x"></i> Subir foto
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

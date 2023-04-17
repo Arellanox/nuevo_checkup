@@ -36,7 +36,6 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
         return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
       }
     },
-
     {
       data: 'COUNT', render: function () {
         let html = `
@@ -50,7 +49,6 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
             </div>            
           </div>
         `;
-        html = '';
         return html
       }
     },
@@ -61,7 +59,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   ],
   columnDefs: [
     { width: "5px", targets: 0 },
-    { width: "30px", targets: 6 }
+    { width: "30px", targets: 7 }
 
   ],
 

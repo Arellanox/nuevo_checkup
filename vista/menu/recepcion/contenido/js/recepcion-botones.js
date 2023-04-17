@@ -57,19 +57,31 @@ $(document).on('click', '#btn-espera-estatus', function () {
 
 $(document).on('click', '#btn-perfil-paciente', function () {
   if (array_selected) {
-    // $('#ModalBeneficiario').modal('show');
+    Swal.close();
+    $('#modalPacientePerfil').modal('show');
   } else {
     alertSelectTable();
   }
 })
 
-$(document).on('click', '#btn-perfil-paciente', function () {
+$(document).on('click', '#btn-credencial-paciente', function () {
   if (array_selected) {
-    // $('#ModalBeneficiario').modal('show');
+    Swal.close();
+    $('#modalPacienteIne').modal('show');
   } else {
     alertSelectTable();
   }
 })
+
+$(document).on('click', '#btn-ordenes-paciente', function () {
+  if (array_selected) {
+    Swal.close();
+    $('#modalOrdenesMedicas').modal('show');
+  } else {
+    alertSelectTable();
+  }
+})
+
 
 
 
@@ -85,7 +97,7 @@ $(document).on('click', '#btn-cargar-documentos', function () {
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-credencial-paciente">
           <i class="bi bi-person-vcard-fill"></i> Credencial
         </button> 
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-credencial-paciente">
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-ordenes-paciente">
           <i class="bi bi-files"></i> Ordenes médicas
         </button> 
     `,
@@ -110,17 +122,6 @@ $(document).on('click', '#btn-cargar-documentos', function () {
 //     allowOutsideClick: true,
 //   })
 // })
-
-$(document).on('click', '#btn-perfil-paciente', function () {
-  if (array_selected) {
-    $('#modalPacientePerfil').modal('show');
-    cargarPerfilPaciente();
-  } else {
-    alertSelectTable();
-  }
-})
-
-
 
 // $("#btn-editar").click(function () {
 $(document).on('click', '.btn-editar, #btn-editar', function () {

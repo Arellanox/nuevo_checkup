@@ -7,9 +7,14 @@
       </div>
       <div class="modal-body">
         <form class="" id="formPerfilPaciente">
-          <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-            <label for="segmentosFiltro" class="form-label">Imagen de perfil para la identificación</label>
-            <input type="file" name="img" value="" class="form-control input-form" required>
+          <div class="col-12 mt-3">
+            <div class="input-file-contenedor">
+              <label for="form-label">Perfil del paciente</label>
+              <label for="avatar_paciente[]" class="input-file-label">
+                <i class="bi bi-box-arrow-up"></i> Seleccione un archivo
+              </label>
+              <input type="file" name="avatar_paciente[]" id="avatar_paciente[]" accept="image/*" class="input-file">
+            </div>
           </div>
         </form>
       </div>

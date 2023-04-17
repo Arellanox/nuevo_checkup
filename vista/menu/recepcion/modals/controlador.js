@@ -7,8 +7,12 @@ $.post("modals/m_recepcion.php", function (html) {
   $.getScript('modals/js/p_rechazar.js');
   // Modal para reagendar
   $.getScript('modals/js/p_reagendar.js');
-  // Modal para rechazar
+  // Modal para subir avatar
   $.getScript('modals/js/subir-perfil.js');
+  // Modal para cargar ine
+  $.getScript('modals/js/cargar-ine_paciente.js');
+  // Modal para cargar ordenes medicas
+  $.getScript('modals/js/carga-ordenes-medicas.js');
   // Modal para solicitud
   $.getScript('modals/js/p_solicitud.js');
   // // Modal para registar una agenda

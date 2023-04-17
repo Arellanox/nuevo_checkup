@@ -127,7 +127,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   columnDefs: [
     { width: "5px", targets: 0 },
     { visible: false, title: "AreaActual", targets: 6, searchable: false },
-    { target: 12, width: "30px" }
+    { target: 11, width: "30px" }
 
   ],
 

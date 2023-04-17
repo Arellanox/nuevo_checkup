@@ -1,55 +1,28 @@
 // Obtener datos del paciente seleccionado
 const modalPacientePerfil = document.getElementById('modalPacientePerfil')
 modalPacientePerfil.addEventListener('show.bs.modal', event => {
-  document.getElementById("title-paciente_perfil_imagen").innerHTML = "Imagen de perfil al paciente:<br />" + array_paciente[1];
+  // document.getElementById("title-paciente_perfil_imagen").innerHTML = ;
+  $('#title-paciente_perfil_imagen').html("Imagen de perfil al paciente: <br />" + array_selected['NOMBRE_COMPLETO']);
 
 })
 
 //Rechazados
-$("#formPerfilPaciente").submit(function (event) {
+$("#formPerfilPaciente").submit(async function (event) {
   event.preventDefault();
-  document.getElementById("btn-rechazar-paciente").disabled = true;
-  /*DATOS Y VALIDACION DEL REGISTRO*/
-  var form = document.getElementById("formPerfilPaciente");
-  var formData = new FormData(form);
-  formData.set('api', array_paciente['DT_RowId']);
-  formData.set('api', 3);
-  console.log(formData);
-  $.ajax({
-    data: formData,
-    url: "",
-    type: "POST",
-    processData: false,
-    contentType: false,
-    success: function (data) {
-      data = jQuery.parseJSON(data);
-      if (mensajeAjax(data)) {
-        Toast.fire({
-          icon: 'success',
-          title: 'Imagen guardada con exito :)',
-          timer: 2000
-        });
-        $('#modalPacientePerfil').modal('hide');
-      }
-    }
-  });
+
+  let dataAjax = await ajaxAwaitFormData({
+    turno_id: array_selected['ID_TURNO'],
+    api: 10
+  }, 'recepcion_api', 'formPerfilPaciente')
+
+  if (dataAjax) {
+    alertToast('Avatar cargado', 'success', 4000)
+  }
+
+  $('#modalPacientePerfil').modal('hide');
+
   event.preventDefault();
 });
 
 
 
-async function ajaxAwait(dataJson, apiURL) {
-  return new Promise(function (resolve, reject) {
-    $.ajax({
-      url: `${http}${servidor}/nuevo_checkup/api/${apiURL}.php`,
-      data: dataJson,
-      dataType: 'json',
-      type: 'POST',
-      success: function (data) {
-        resolve(data);
-        if (mensajeAjax(data)) {
-        }
-      }
-    })
-  });
-}

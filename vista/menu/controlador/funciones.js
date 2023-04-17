@@ -166,6 +166,43 @@ async function ajaxAwait(dataJson, apiURL) {
   });
 }
 
+//Ajax Async FormData
+async function ajaxAwaitFormData(dataJson = {
+  id_turno: 0,
+}, apiURL, form = 'SinForm') {
+  // formData.set('api', 10);
+  return new Promise(function (resolve, reject) {
+    var formID = document.getElementById(form);
+    var formData = new FormData(formID);
+
+    for (const key in dataJson) {
+      if (Object.hasOwnProperty.call(dataJson, key)) {
+        const element = dataJson[key];
+        formData.set(`${key}`, element);
+      }
+    }
+
+    $.ajax({
+      url: `${http}${servidor}/nuevo_checkup/api/${apiURL}.php`,
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      type: 'POST',
+      success: function (data) {
+        if (mensajeAjax(data)) {
+          resolve(data);
+        } else {
+          resolve(false);
+        }
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
+    })
+  });
+}
+
 
 // Verificar si tiene una sesión activa
 function loggin(callback, tipoUrl = 1) {
@@ -1350,25 +1387,30 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
 
 //Solo doble click
 var dobleClickSelecTable = false; //Ultimo select ()
-function selectDatatabledblclick(callback = function () { }, tablename, datatable) {
+function selectDatatabledblclick(callback = function () { }, tablename, datatable, disabledDblclick = false) {
   console.log(tablename)
+  if (!disabledDblclick)
+    dobleClickSelecTable = false
   $(tablename).on('click', 'tr', function () {
     if (!detectDobleclick())
       return false;
     //Funcion
     if (dobleClickSelecTable != datatable.row(this).data()) {
-      if ($(this).hasClass('selected')) {
+      console.log($(this).hasClass('selected'))
+      if ($(this).hasClass('selected') == true) {
         dobleClickSelecTable = false
-        $(this).removeClass('selected');
+        datatable.$('tr.selected').removeClass('selected');
         // array_selected = datatable.row(this).data()
-        callback(0, null);
+
+        return callback(0, null);
       }
     }
-    dobleClickSelecTable = datatable.row(this).data()
+    if (disabledDblclick == false)
+      dobleClickSelecTable = datatable.row(this).data()
     datatable.$('tr.selected').removeClass('selected');
     $(this).addClass('selected');
     array_selected = datatable.row(this).data()
-    callback(1, array_selected)
+    return callback(1, array_selected)
 
   });
 }
@@ -1417,7 +1459,7 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
           obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
         }
         if (callback != null) {
-          callback(0, null);
+          return callback(0, null);
         }
       } else {
         dobleClickSelecTable = datatable.row(this).data();
@@ -1434,14 +1476,14 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
           if (callback != null) {
             // alert('select')
             // console.log(array_selected)
-            callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
+            return callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
           }
         } else {
           for (var i = 0; i < Object.keys(tipPanel).length; i++) {
             obtenerPanelInformacion(0, api, tipPanel[i], idPanel[i])
           }
           if (callback != null) {
-            callback(0, array_selected);
+            return callback(0, array_selected);
           }
         }
 
@@ -1536,7 +1578,7 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) { /
       $(divClass).fadeOut(0)
       loaderDiv("In", null, loader, loaderDiv1, 0);
       // alert('in');
-      callback(divClass);
+      return callback(divClass);
       // $(divClass).fadeIn(100)
       break;
     default:
@@ -2344,7 +2386,7 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
 
     //Tabla contenido
     '<div class="col-6">' +
-    '<table class="table table-hover tableContenido" id="Tabla' + titulo + '" style="width:100%">' +
+    '<table class="table tableContenido" id="Tabla' + titulo + '" style="width:100%">' +
     '<thead class="">' +
     '<tr>' +
     '<th scope="col d-flex justify-content-center">#</th>' +
@@ -2514,7 +2556,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
       document.getElementById("edit-" + titulo + "-descripcion").value = dataAreaValor['DESCRIPCION'];
       cambiarFormMetodo(1, titulo);
     }
-  }, tabla_id, TablaContenido)
+  }, tabla_id, TablaContenido, true)
   // -}
 
 
@@ -2691,6 +2733,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
 }
 
 
+/*EN PROCESO */
 //Genera un modal de varios valores
 function generarCatalogoModal(
   CONTENT = {
