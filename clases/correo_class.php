@@ -141,9 +141,10 @@ class Correo
             foreach ($emails as $email) {
                 $mail->addAddress($email);
             }
-            $mail->addBCC('josue.delacruz@bimo.com.mx');
+            #$mail->addBCC('josue.delacruz@bimo.com.mx');
             $mail->addBCC("hola@bimo.com.mx");
-            $mail->addBCC("luis.cuevas@bimo.com.mx");
+            #$mail->addBCC("luis.cuevas@bimo.com.mx");
+            $mail->addBCC("confirmacion_resultados@bimo-lab.com");
 
             # attach files
             foreach ($reportes as $file) {
