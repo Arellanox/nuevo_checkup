@@ -1,0 +1,47 @@
+<?php
+include "../clases/master_class.php";
+require_once "../clases/token_auth.php";
+
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (!$tokenValido) {
+    $tokenVerification->logout();
+    exit;
+}
+
+$master = new Master();
+$hoy = date("Ymd");
+$host = $master->selectHost($_SERVER['SERVER_NAME']);
+$api = $_POST['api'];
+$turno_id = $_POST['turno_id'];
+
+switch($api){
+    case 1:
+        # subir la imagen del inbody
+        $dir = "../archivos/inbodies/";
+        $r = $master->createDir($dir);
+        if($r==1){
+            $paciente = $master->getByPatientNameByTurno($master,$turno_id);
+            $inbody = $master->guardarFiles($_FILES,"inbody",$dir,"INBODY_" . $paciente . "_" . $hoy);
+            $response = $master->insertByProcedure("sp_inbody_resultados_g", [$turno_id, $inbody[0]['url']]);
+
+            if(is_numeric($response)){
+                $mail = new Correo();
+                $attachment = $master->cleanAttachFilesImage($master, $turno_id, 14, 1);
+                
+                if (!empty($attachment[0])) {
+                    $mail = new Correo();
+                    if ($mail->sendEmail('resultados', '[bimo] ESTUDIO DE COMPOSICION CORPORAL (InBody)', [$attachment[1]], null, $attachment[0], 1)) {
+                        $master->setLog("Correo enviado.", "ultrasonido");
+                    }
+                }
+            }
+        } else {
+            $response = "No se pudo crear el directorio.";
+        }
+        
+        break;
+}
+
+echo $master->returnApi($response);
+?>
