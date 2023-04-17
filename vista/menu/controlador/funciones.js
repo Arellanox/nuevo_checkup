@@ -146,7 +146,25 @@ function avisoArea(tip = 0) {
   }
 }
 
-
+//Ajax Async (NO FORM DATA SUPPORT)
+async function ajaxAwait(dataJson, apiURL) {
+  return new Promise(function (resolve, reject) {
+    $.ajax({
+      url: `${http}${servidor}/nuevo_checkup/api/${apiURL}.php`,
+      data: dataJson,
+      dataType: 'json',
+      type: 'POST',
+      success: function (data) {
+        resolve(data);
+        if (mensajeAjax(data)) {
+        }
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
+    })
+  });
+}
 
 
 // Verificar si tiene una sesión activa

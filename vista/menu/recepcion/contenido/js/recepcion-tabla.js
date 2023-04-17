@@ -36,11 +36,17 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
         return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
       }
     },
+<<<<<<< Updated upstream
+=======
+<<<<<<</br > Updated upstream
+=======
+>>>>>>> Stashed changes
     {
       data: 'COUNT', render: function () {
         let html = `
           <div class="row">
             <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+<<<<<<< Updated upstream
               <i class="bi bi-person-bounding-box" style="cursor: pointer; font-size:18px;" id="btn-perfil-paciente"></i>
             </div>
             <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
@@ -52,6 +58,20 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
         return html
       }
     },
+=======
+              <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;"></i>
+            </div>
+            <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+              <i class="bi bi-card-heading" style="cursor: pointer; font-size:18px;" id="btn-cargar-documentos"></i>
+            </div>            
+          </div>
+        `;
+        // html = '';
+        return html
+      }
+    },
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     { data: 'GENERO' }
     // {defaultContent: 'En progreso...'}
   ],

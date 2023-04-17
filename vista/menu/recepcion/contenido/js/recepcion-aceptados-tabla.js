@@ -20,6 +20,12 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     },
     complete: function () {
       loader("Out", 'bottom')
+      $.fn.dataTable
+        .tables({
+          visible: true,
+          api: true
+        })
+        .columns.adjust();
     },
     error: function (jqXHR, textStatus, errorThrown) {
       alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -99,12 +105,29 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 
       }
     },
-    { data: 'GENERO' }
+    { data: 'GENERO' },
+    {
+      data: 'COUNT', render: function () {
+        let html = `
+          <div class="row">
+            <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+              <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;"></i>
+            </div>
+            <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+              <i class="bi bi-card-heading" style="cursor: pointer; font-size:18px;" id="btn-cargar-documentos"></i>
+            </div>            
+          </div>
+        `;
+        // html = '';
+        return html
+      }
+    },
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
     { width: "5px", targets: 0 },
-    { visible: false, title: "AreaActual", targets: 6, searchable: false }
+    { visible: false, title: "AreaActual", targets: 6, searchable: false },
+    { target: 12, width: "30px" }
 
   ],
 

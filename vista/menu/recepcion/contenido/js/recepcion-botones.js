@@ -18,6 +18,7 @@ $(document).on('click', '#btn-rechazar', function () {
   }
 })
 
+<<<<<<< Updated upstream
 $(document).on('click', '#btn-espera-estatus', function () {
   alertMsj({
     icon: '',
@@ -71,7 +72,63 @@ $(document).on('click', '#btn-perfil-paciente', function () {
 })
 
 
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 $("#btn-editar").click(function () {
+=======
+$(document).on('click', '#btn-cargar-documentos', function () {
+  alertMsj({
+    icon: '',
+    title: 'Documentación del paciente <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Cargue/Guarde la documentación del paciente"></i>',
+    footer: 'Seleccione una opción.',
+    html: `
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-perfil-paciente">
+          <i class="bi bi-person-bounding-box"></i> Foto de Perfil
+        </button>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-credencial-paciente">
+          <i class="bi bi-person-vcard-fill"></i> Credencial
+        </button> 
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-credencial-paciente">
+          <i class="bi bi-files"></i> Ordenes médicas
+        </button> 
+    `,
+    showCancelButton: false,
+    showConfirmButton: false,
+    allowOutsideClick: true,
+  })
+})
+
+// $(document).on('click', '#btn-botones-captura-documentos', function () {
+//   alertMsj({
+//     icon: '',
+//     title: 'Ventana de documentos',
+//     html: `
+//         <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-rechazar"
+//           data-bs-toggle="tooltip" data-bs-placement="top" title="Rechaza/Elimina este registro">
+//           <i class="bi bi-x"></i> Foto de perfil
+//         </button> 
+//     `,
+//     showCancelButton: false,
+//     showConfirmButton: false,
+//     allowOutsideClick: true,
+//   })
+// })
+
+$(document).on('click', '#btn-perfil-paciente', function () {
+  if (array_selected) {
+    $('#modalPacientePerfil').modal('show');
+    cargarPerfilPaciente();
+  } else {
+    alertSelectTable();
+  }
+})
+
+
+
+// $("#btn-editar").click(function () {
+$(document).on('click', '.btn-editar, #btn-editar', function () {
+>>>>>>> Stashed changes
   if (array_selected != null) {
     $("#ModalEditarPaciente").modal('show');
   } else {

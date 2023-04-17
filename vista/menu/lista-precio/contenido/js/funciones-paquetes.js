@@ -62,6 +62,9 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SER
   calcularFilasTR();
 }
 
+
+
+
 // Calular toda la tabla y filas
 function calcularFilasTR() {
   subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;

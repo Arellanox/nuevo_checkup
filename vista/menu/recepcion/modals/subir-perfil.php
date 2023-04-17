@@ -8,8 +8,8 @@
       <div class="modal-body">
         <form class="" id="formPerfilPaciente">
           <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-              <label for="segmentosFiltro" class="form-label">Imagen de perfil para la identificación</label>
-              <input type="file" name="img" value="" class="form-control input-form" required>
+            <label for="segmentosFiltro" class="form-label">Imagen de perfil para la identificación</label>
+            <input type="file" name="img" value="" class="form-control input-form" required>
           </div>
         </form>
       </div>
