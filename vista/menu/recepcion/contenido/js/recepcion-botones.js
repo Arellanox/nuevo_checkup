@@ -18,7 +18,7 @@ $(document).on('click', '#btn-rechazar', function () {
   }
 })
 
-<<<<<<< Updated upstream
+
 $(document).on('click', '#btn-espera-estatus', function () {
   alertMsj({
     icon: '',
@@ -72,11 +72,7 @@ $(document).on('click', '#btn-perfil-paciente', function () {
 })
 
 
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-$("#btn-editar").click(function () {
-=======
+
 $(document).on('click', '#btn-cargar-documentos', function () {
   alertMsj({
     icon: '',
@@ -128,7 +124,6 @@ $(document).on('click', '#btn-perfil-paciente', function () {
 
 // $("#btn-editar").click(function () {
 $(document).on('click', '.btn-editar, #btn-editar', function () {
->>>>>>> Stashed changes
   if (array_selected != null) {
     $("#ModalEditarPaciente").modal('show');
   } else {
