@@ -14,6 +14,7 @@ $hoy = date("Ymd");
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 $api = $_POST['api'];
 $turno_id = $_POST['turno_id'];
+$id_inbody = $_POST['id_inbody'];
 
 switch($api){
     case 1:
@@ -23,7 +24,8 @@ switch($api){
         if($r==1){
             $paciente = $master->getByPatientNameByTurno($master,$turno_id);
             $inbody = $master->guardarFiles($_FILES,"inbody",$dir,"INBODY_" . $paciente . "_" . $hoy);
-            $response = $master->insertByProcedure("sp_inbody_resultados_g", [$turno_id, $inbody[0]['url']]);
+            $url = str_replace("../", $host, $inbody[0]['url']);
+            $response = $master->insertByProcedure("sp_inbody_resultados_g", [$id_inbody, $turno_id, $url, null, $_SESSION['id']]);
 
             if(is_numeric($response)){
                 $mail = new Correo();
