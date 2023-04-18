@@ -86,7 +86,7 @@ $("#btn-obtenerID").click(function () {
       data = jQuery.parseJSON(data);
       img = "identificacion/" + data[2];
       $("#image-perfil").attr("src", img);
-      url_paciente = "https:bimo-lab.com/nuevo_checkup/vista/menu/recepcion/identificacion/" + data[2];
+      url_paciente = `https:bimo-lab.com/\${appname}/vista/menu/recepcion/identificacion/${data[2]}`;
       url_paciente = data;
       // document.getElementById("btn-confirmar-paciente").disabled = false;
     }

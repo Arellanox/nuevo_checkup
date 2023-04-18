@@ -23,7 +23,7 @@ async function datosPacienteBeneficiado(turno) {
     return new Promise(function (resolve) {
         $.ajax({
             type: 'POST',
-            url: http + servidor + '/nuevo_checkup/api/recepcion_api.php',
+            url: `${http}${servidor}/${appname}/api/recepcion_api.php`,
             dataType: 'json',
             data: {
                 api: 8,

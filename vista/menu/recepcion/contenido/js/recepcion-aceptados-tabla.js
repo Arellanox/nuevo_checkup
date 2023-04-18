@@ -136,25 +136,24 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
   {
     msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
-    place: 'left'
+    place: 'top'
   },
+  {
+    msj: `Dale click al icono de lapiz en la tabla para editar la información del paciente`,
+    place: 'top'
+  },
+  {
+    msj: 'Doble click a un paciente para obtener la información adicional',
+    place: 'top'
+  }
+
 ])
 
-selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, {
-  0: "pacientes_api",
-  1: "documentos_api",
-  3: "toma_de_muestra_api"
-}, {
-  0: "paciente",
-  1: "documentos-paciente",
-  2: "estudios_muestras"
-}, {
-  0: "#panel-informacion",
-  1: "#panel-documentos-paciente",
-  2: "#panel-muestras-estudios"
-}, function () {
+selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
+  if (!select)
+    return false;
 
-
+  await obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
   if (array_selected['CLIENTE_ID'] == 18) {
     $('#buttonBeneficiario').fadeIn(200)
   } else {
@@ -162,9 +161,28 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
   }
 
 
+}, async function (data) {
+  alertToast('Obteniendo datos...', 'info', 4000);
+  await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'documentos-paciente', '#panel-documentos-paciente')
+  await obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
+
+  var myOffcanvas = document.getElementById('offcanvasInfoPaciente')
+  var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+  bsOffcanvas.show()
+
 })
 
+// selectDatatabledblclick(async function (select, data) {
+//   // let dataInfo = data;
+//   if (select) {
+//     var myOffcanvas = document.getElementById('offcanvasInfoPaciente')
+//     var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+//     bsOffcanvas.show()
 
-$('')
+//   }
+// }, '#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados)
+
+
+// $('')
 
 autoHeightDiv('#panel-informacion-pacientesTurnos', 188)
