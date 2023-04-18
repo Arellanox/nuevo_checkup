@@ -49,6 +49,9 @@ switch($api){
             if ($mail->sendEmail('resultados', '[bimo] ESTUDIO DE COMPOSICION CORPORAL (InBody)', [$attachment[1]], null, $attachment[0], 1)) {
                 $master->setLog("Correo enviado.", "Inbody");
                 $response = ["Correo enviado."];
+                # cambiar el estado del campo enviado en la base de datos
+                # para que se pinte el icono de correo en el menu principal
+                $result = $master->updateByProcedure("sp_inbody_correo_enviado", [$turno_id]);
             }
         } else {
             $response = "No hay archivos para adjuntar.";
