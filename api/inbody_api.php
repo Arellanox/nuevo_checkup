@@ -43,7 +43,11 @@ switch($api){
         }
         
         break;
-}
+    case 2:
+        # buscar la captura
+        $response = $master->getByProcedure("sp_inbody_resultados_b", [ $turno_id ]);
+        
+        break;
 
-echo $master->returnApi($response);
+echo $maslter->returnApi($response);
 ?>
