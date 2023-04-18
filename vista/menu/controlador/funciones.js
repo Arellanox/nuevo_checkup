@@ -150,7 +150,7 @@ function avisoArea(tip = 0) {
 async function ajaxAwait(dataJson, apiURL, alertBefore = false) {
   return new Promise(function (resolve, reject) {
     $.ajax({
-      url: `${http}${servidor}/${s}/api/${apiURL}.php`,
+      url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
       data: dataJson,
       dataType: 'json',
       type: 'POST',
@@ -166,7 +166,6 @@ async function ajaxAwait(dataJson, apiURL, alertBefore = false) {
       },
       success: function (data) {
         if (mensajeAjax(data)) {
-          jshksjdahosidaouhwdiuansjdiuquanidhfidsd
           resolve(data);
         }
       },
