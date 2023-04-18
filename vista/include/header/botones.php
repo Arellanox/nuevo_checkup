@@ -128,7 +128,7 @@ $menu = $_POST['menu']; ?>
 
 <?php if (
   $menu == 'Reportes de Laboratorio Clínico' ||
-  $menu == 'Validación y envio de resultados de laboratorio' ||
+  $menu == 'Validación y envío de resultados de laboratorio' ||
   $menu == 'Laboratorio Clínico' ||
   $menu == 'Resultados de Laboratorio Clinico' ||
   $menu == 'Resultados de Laboratorio Biomolecular' ||
@@ -169,6 +169,7 @@ $menu = $_POST['menu']; ?>
   || $menu == 'Toma de muestras'
   || $menu == 'Somatometría | Signos Vitales'
   || $menu == 'Consultorio'
+  || $menu == 'Estudio de Composición Corporal (InBody)'
 ) : ?>
   <div class="row">
     <div class="col-auto d-flex align-items-center">

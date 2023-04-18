@@ -87,17 +87,17 @@ function hasLocation() {
         formulario = "formSubirInterpretacionElectro";
         api_capturas = 5;
         api_interpretacion = 1;
-        url_api = 'electrocardiograma_api';
-        obtenerContenidoVistaMaster(10, 'Nutrición', 'contenido_modal.php');
+        url_api = 'nutricion_api';
+        obtenerContenidoVistaMaster(14, 'Nutrición', 'contenido_modal.php');
         break;
       case "NUTRICION_CAPTURAS":
-        control_turnos = 10;
+        control_turnos = 14;
         formulario = "1"; // Para toma capturas
-        api_capturas = 5;
+        api_capturas = 1;
         api_interpretacion = 1;
-        url_api = 'electrocardiograma_api';
-        subtipo = 'ELECTROTOMA';
-        obtenerContenidoVistaMaster(10, 'Carga de capturas', 'contenido_modal.php', 'tomaCapturas');
+        url_api = 'inbody_api';
+        subtipo = 'NUTRITOMA';
+        obtenerContenidoVistaMaster(14, 'Estudio de Composición Corporal (InBody)', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "AUDIOMETRIA":
         control_turnos = 5

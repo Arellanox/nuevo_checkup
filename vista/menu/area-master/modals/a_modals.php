@@ -11,3 +11,8 @@ include 'ar_mostrar-capturas.html';
 
 //Electro
 include 'ar_mostrar_electro.html';
+
+
+//Inbody nutricion
+include 'nutri_inbody-captura.html';
+include 'nutri_inbody-visualizar.html';

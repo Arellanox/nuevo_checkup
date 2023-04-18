@@ -36,6 +36,22 @@ $("#btn-analisis-pdf").click(function () {
   }
 });
 
+$(document).on('click', '#btn-captura-inbody', function (e) {
+  if (dataSelect.array) {
+    $('#ModalInterpretacionInbody').modal('show');
+  } else {
+    alertSelectTable();
+  }
+})
+
+$(document).on('click', '#btn-modalView-nutricion', function (e) {
+  if (dataSelect.array) {
+    $('#ModalViewInbody').modal('show');
+  } else {
+    alertSelectTable();
+  }
+})
+
 
 $(document).on('click', '#btn-capturas-pdf', function () {
   if (dataSelect.array['select']) {

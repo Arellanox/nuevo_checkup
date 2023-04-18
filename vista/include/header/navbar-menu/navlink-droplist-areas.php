@@ -131,7 +131,7 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   </a>
   <div class="collapse" id="board-nutricion">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-      <?php if ($_SESSION['vista']['NUTRICION'] == 1) : ?>
+      <?php if ($_SESSION['vista']['NUTRICION'] == 2) : ?>
         <li>
           <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#NUTRICION'; ?>">
             <i class="bi bi-dot"></i> Interpretación
@@ -141,7 +141,7 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
       <?php if ($_SESSION['vista']['NUTRICION_CAPTURAS'] == 1) : ?>
         <li>
           <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/area-master/#NUTRICION_CAPTURAS'; ?>" class="dropdown-a align-items-center" type="button">
-            <i class="bi bi-dot"></i> Captura
+            <i class="bi bi-dot"></i> Estudio (InBody)
           </a>
         </li>
       <?php endif; ?>

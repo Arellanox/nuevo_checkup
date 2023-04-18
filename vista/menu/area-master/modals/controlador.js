@@ -8,4 +8,7 @@ $.post("modals/a_modals.php", function (html) {
 
   //ELectro 
   $.getScript("modals/js/electro_mostrar_carpeta.js")
+
+  //Nutricion inbody
+  $.getScript('modals/js/nutri_inbody_capturas.js');
 });

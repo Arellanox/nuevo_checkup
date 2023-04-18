@@ -36,22 +36,22 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
         return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
       }
     },
-    {
-      data: 'COUNT', render: function () {
-        let html = `
-          <div class="row">
-            <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-              <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;"></i>
-            </div>
-            <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-              <i class="bi bi-card-heading" style="cursor: pointer; font-size:18px;" id="btn-cargar-documentos"></i>
-            </div>   
-            </div>            
-          </div>
-        `;
-        return html
-      }
-    },
+    // {
+    //   data: 'COUNT', render: function () {
+    //     let html = `
+    //       <div class="row">
+    //         <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+    //           <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;"></i>
+    //         </div>
+    //         <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+    //           <i class="bi bi-card-heading" style="cursor: pointer; font-size:18px;" id="btn-cargar-documentos"></i>
+    //         </div>   
+    //         </div>            
+    //       </div>
+    //     `;
+    //     return html
+    //   }
+    // },
 
 
     { data: 'GENERO' }
@@ -59,7 +59,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   ],
   columnDefs: [
     { width: "5px", targets: 0 },
-    { width: "30px", targets: 7 }
+    // { width: "30px", targets: 7 }
 
   ],
 

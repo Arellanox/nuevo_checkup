@@ -49,7 +49,15 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
                 } else if (subtipo != 'ULTRATOMA' && data.CONFIRMADO_ULTRASO == 1) {
                     $(row).addClass('bg-success text-white');
                 }
-
+                break;
+            case 14:
+                if (subtipo == 'NUTRITOMA' && data.CONFIRMADO_INBODY == 1) {
+                    $(row).addClass('bg-success text-white');
+                }
+                // else if (subtipo != 'NUTRITOMA' && data.CONFIRMADO_NUTRICION_INTREPRETACION == 1) {
+                // $(row).addClass('bg-success text-white');
+                // }
+                break;
             // if (data.CONFIRMADO_ULTRASO == 1) $(row).addClass('bg-success text-white'); break;
 
             default:
@@ -151,24 +159,25 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
                                 botonElectroCaptura(1)
                     }
                     break;
-                case 13: //Electrocardiograma
+                case 14: //Nutricion
                     $('#btn-inter-areas').fadeIn(0);
                     if (formulario != 1) {
-                        document.getElementById(formulario).reset()
-                        $('#capturaElectro').html('')
-                        if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                        // document.getElementById(formulario).reset()
+                        // $('#capturaElectro').html('')
+                        // if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
 
-                        if (selectEstudio.array.length) {
-                            await obtenerResultadosElectro(selectEstudio.array)
-                            if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
-                                await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
-                        }
+                        // if (selectEstudio.array.length) {
+                        //     await obtenerResultadosElectro(selectEstudio.array)
+                        //     if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
+                        //         await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
+                        // }
+                        alert('Interpretacion de nutrición aun esta en mantenimiento')
                     } else {
-                        botonElectroCaptura(0);
+                        btnNutricionInbody(1);
 
                         if (selectEstudio.array.length)
-                            if (selectEstudio.array[0].ELECTRO_PDF)
-                                botonElectroCaptura(1)
+                            if (selectEstudio.array[0].INBODY_PDF)
+                                btnNutricionInbody(0)
                     }
                     break;
                 default:
@@ -257,7 +266,7 @@ function limpiarCampos() {
 
 async function obtenerServicios(area, turno) {
     return new Promise(resolve => {
-        if (area == 3 || area == 10) {
+        if (area == 3 || area == 10 || area == 14) {
             // url = 'oftalmologia_api';
             data = {
                 turno_id: turno,
@@ -322,6 +331,8 @@ async function obtenerServicios(area, turno) {
                     //     vistaPDF()
                     // }
                     botonesResultados('activar', area)
+                } else {
+                    selectEstudio = new GuardarArreglo({ 0: {} });
                 }
             },
             complete: function () {
@@ -429,6 +440,9 @@ async function panelResultadoPaciente(row, area) {
             } else {
                 $('#spamResultado').html('<div class="alert alert-info" role="alert">Interpretación del paciente sin cargar</div>')
             }
+            break;
+        case 14:
+            // Nada
             break;
 
         default:
@@ -887,4 +901,18 @@ function botonElectroCaptura(e) {
     }
 
     $('#vistaCapturasAreas').fadeIn(0)
+}
+
+function btnNutricionInbody(e) {
+    if (e) {
+        $('#vistaCapturasAreas').html(`<div class="row"> <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">
+            <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-captura-inbody">
+            <i class="bi bi-plus-lg"></i> Capturar InBody
+            </button> </div> </div>`);
+    } else {
+        $('#vistaCapturasAreas').html(`<div class="row"> <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">
+            <button type="button" class="btn btn-primary me-2 btnResultados" style="margin-bottom:4px" id="btn-modalView-nutricion">
+                <i class="bi bi-check-circle"></i> Mostrar captura
+            </button> </div> </div>`);
+    }
 }

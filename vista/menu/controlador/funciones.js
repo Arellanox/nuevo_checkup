@@ -147,16 +147,26 @@ function avisoArea(tip = 0) {
 }
 
 //Ajax Async (NO FORM DATA SUPPORT)
-async function ajaxAwait(dataJson, apiURL) {
+async function ajaxAwait(dataJson, apiURL, alertBefore = false) {
   return new Promise(function (resolve, reject) {
     $.ajax({
       url: `${http}${servidor}/nuevo_checkup/api/${apiURL}.php`,
       data: dataJson,
       dataType: 'json',
       type: 'POST',
+      beforeSend: function () {
+        if (alertBefore) {
+          alertMsj({
+            title: 'Espera un momento...',
+            text: 'Estamos cargando tu solicitud, esto puede demorar un rato',
+            icon: 'info',
+            showCancelButton: false
+          })
+        }
+      },
       success: function (data) {
-        resolve(data);
         if (mensajeAjax(data)) {
+          resolve(data);
         }
       },
       error: function (jqXHR, exception, data) {
@@ -165,6 +175,7 @@ async function ajaxAwait(dataJson, apiURL) {
     })
   });
 }
+
 
 //Ajax Async FormData
 async function ajaxAwaitFormData(dataJson = {
