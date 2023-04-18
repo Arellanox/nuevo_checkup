@@ -86,6 +86,13 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
                 return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
             }
         },
+        //Nutricion InBody
+        {
+            data: 'INBODY', render: function (data) {
+                html = drawStatusMenuTable(data, { 0: 'capturas', 1: 'correo' });
+                return html;
+            }
+        },
         //Espirometría
         {
             data: 'ESPIROMETRIA', render: function (data) {
@@ -133,8 +140,8 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
     columnDefs: [
         { width: "20%", targets: 1 },
         { width: "1%", targets: 0 },
-        { width: "10%", targets: [3, 4, 5, 6, 7, 8, 9, 10, 11] },
-        { targets: [4, 7, 9, 10, 16], visible: false }
+        { width: "10%", targets: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+        { targets: [4, 7, 9, 10, 11, 17], visible: false }
         // { visible: false, title: "AreaActual", targets: 20, searchable: false }
     ],
 

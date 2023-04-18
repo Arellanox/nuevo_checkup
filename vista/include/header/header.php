@@ -76,8 +76,44 @@ switch ($menu) {
 
         </ul>
         <ul class="nav navbar-nav ms-auto">
-
-          <li class="nav-item dropstart">
+          <li class="nav-item dropstart d-flex justify-content-center align-items-center m">
+            <div class="dropdown">
+              <a class="dropdown-toggle" id="dropExtTelefonos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-telephone-fill"></i> Ext.
+              </a>
+              <!-- Estos botones se cargan en el servidor desde el archivo del include -->
+              <ul class="dropdown-menu bg-navbar-drop dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropExtTelefonos" style="padding: 0px;">
+                <table class="table radiuszero" style="margin-bottom: 0px;">
+                  <thead>
+                    <tr>
+                      <th scope="col">ÁREA</th>
+                      <th scope="col">EXT.</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Recepción 2</th>
+                      <td>1011</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Recepción 1</th>
+                      <td>1001</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Central Enfermería </th>
+                      <td>1001</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ul>
+              <style>
+                #dropExtTelefonos::before {
+                  border: 0px
+                }
+              </style>
+            </div>
+          </li>
+          <li class="nav-item dropstart flex-grow-1">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
             <a data-bs-toggle="dropdown" type="button" class="">
               <div class=" container-avatar">
@@ -90,7 +126,6 @@ switch ($menu) {
 
             <ul class="dropdown-menu dropdown-menu-lg-end bg-navbar-drop" style="background-color: #ffffff00; padding:0px">
               <div class="" style="width: 100%">
-
                 <div class="profile-card-4"><img src="<?php echo $_SESSION['AVATAR']; ?>" class="img img-responsive">
                   <div class="profile-content">
                     <div class="profile-name text-center"> <?php echo "$_SESSION[nombre] $_SESSION[apellidos]"; ?>

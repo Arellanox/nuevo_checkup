@@ -26,7 +26,7 @@ include "../../variables.php";
   var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
-
+  const appname = 'nuevo_checkup';
   switch ('<?php echo $url; ?>') {
     case 'localhost':
       var http = "http://";

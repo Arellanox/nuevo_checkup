@@ -130,7 +130,7 @@ function validarVista(area) {
       allowOutsideClick: false
     }, function () {
       destroySession();
-      window.location.replace(http + servidor + "/nuevo_checkup/vista/login/");
+      window.location.replace(http + servidor + "/" + appname + "/vista/login/");
     })
   }
 }
@@ -150,7 +150,7 @@ function avisoArea(tip = 0) {
 async function ajaxAwait(dataJson, apiURL, alertBefore = false) {
   return new Promise(function (resolve, reject) {
     $.ajax({
-      url: `${http}${servidor}/nuevo_checkup/api/${apiURL}.php`,
+      url: `${http}${servidor}/${s}/api/${apiURL}.php`,
       data: dataJson,
       dataType: 'json',
       type: 'POST',
@@ -166,6 +166,7 @@ async function ajaxAwait(dataJson, apiURL, alertBefore = false) {
       },
       success: function (data) {
         if (mensajeAjax(data)) {
+          jshksjdahosidaouhwdiuansjdiuquanidhfidsd
           resolve(data);
         }
       },
@@ -194,7 +195,7 @@ async function ajaxAwaitFormData(dataJson = {
     }
 
     $.ajax({
-      url: `${http}${servidor}/nuevo_checkup/api/${apiURL}.php`,
+      url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
       data: formData,
       processData: false,
       contentType: false,
@@ -219,7 +220,7 @@ async function ajaxAwaitFormData(dataJson = {
 function loggin(callback, tipoUrl = 1) {
   if (tipoUrl != 3) {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/usuarios_api.php",
+      url: http + servidor + "/" + appname + "/api/usuarios_api.php",
       type: "POST",
       data: {
         api: 8
@@ -236,11 +237,11 @@ function loggin(callback, tipoUrl = 1) {
             switch (tipoUrl) {
               case 1:
                 destroySession();
-                window.location.replace = http + servidor + '/nuevo_checkup/vista/login/?page=' + window.location;
+                window.location.replace = http + servidor + '/' + appname + '/vista/login/?page=' + window.location;
                 break;
               case 2:
                 destroySession();
-                window.location.replace = http + servidor + '/nuevo_checkup/vista/login/';
+                window.location.replace = http + servidor + '/' + appname + '/vista/login/';
                 break;
               default:
                 destroySession();
@@ -262,7 +263,7 @@ function loggin(callback, tipoUrl = 1) {
 
 function destroySession() {
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/login_api.php",
+    url: http + servidor + "/" + appname + "/api/login_api.php",
     type: "POST",
     data: {
       api: 2
@@ -480,7 +481,7 @@ function buscarPaciente(id_area, callback = function (data) { }) {
       api: 2,
       id_area: id_area
     },
-    url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+    url: http + servidor + "/" + appname + "/api/turnero_api.php",
     // url: "../../../api/turneador_api.php",
     type: "POST",
     success: function (data) {
@@ -505,7 +506,7 @@ function omitirPaciente(areaFisica) {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor}/nuevo_checkup/api/turnero_api.php`,
+      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 3, area_fisica_id: areaFisica },
@@ -547,7 +548,7 @@ function llamarPaciente(areaFisica) {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+      url: http + servidor + "/" + appname + "/api/turnero_api.php",
       type: 'POST',
       dataType: 'json',
       data: { api: 2, area_fisica_id: areaFisica },
@@ -586,7 +587,7 @@ function liberarPaciente(areaFisica, turno) {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+      url: http + servidor + "/" + appname + "/api/turnero_api.php",
       type: 'POST',
       dataType: 'json',
       data: { api: 1, area_fisica_id: areaFisica, turno_id: turno },
@@ -626,7 +627,7 @@ function pasarPaciente() {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor}/nuevo_checkup/api/turnero_api.php`,
+      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 7 },
@@ -663,7 +664,7 @@ function redireccionarVista(vista, callback) {
   if (session.vista[vista] == 1 ? true : false) {
     callback();
   } else {
-    window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
+    window.location.href = http + servidor + '/' + appname + '/vista/login/';
   }
 }
 
@@ -739,7 +740,7 @@ function getSegmentoByProcedencia(id, select) {
   return new Promise(resolve => {
     $('#' + select).find('option').remove().end()
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/segmentos_api.php",
+      url: http + servidor + "/" + appname + "/api/segmentos_api.php",
       type: "POST",
       data: {
         id: id,
@@ -778,7 +779,7 @@ function setSegmentoOption(select, idProcedencia, idSegmento) {
     select.remove(length);
   }
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/segmentos_api.php",
+    url: http + servidor + "/" + appname + "/api/segmentos_api.php",
     type: "POST",
     data: {
       id: idProcedencia,
@@ -824,7 +825,7 @@ function getProcedencias(select) {
   return new Promise(resolve => {
     $('#' + select).find('option').remove().end()
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/clientes_api.php",
+      url: http + servidor + "/" + appname + "/api/clientes_api.php",
       type: "POST",
       data: {
         api: 2
@@ -857,7 +858,7 @@ function setProcedenciaOption(select, idProcedencia) {
     select.remove(length);
   }
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/clientes_api.php",
+    url: http + servidor + "/" + appname + "/api/clientes_api.php",
     type: "POST",
     data: {
       api: 2
@@ -899,7 +900,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
 
     $(select).find('option').remove().end()
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/" + api + ".php",
+      url: http + servidor + "/" + appname + "/api/" + api + ".php",
       data: values,
       type: "POST",
       // dataType: "json",
@@ -989,7 +990,7 @@ $(window).on('hashchange', function (e) {
   switch (hash) {
     case 'LogOut':
       // window.location.hash = '';
-      window.location.href = http + servidor + '/nuevo_checkup/vista/login/';
+      window.location.href = http + servidor + '/' + appname + '/vista/login/';
       break;
     default:
       break;
@@ -1249,7 +1250,7 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInp
   options['focusConfirm'] = false;
   options['preConfirm'] = () => {
     const text = Swal.getPopup().querySelector('#text-confirmar').value;
-    return fetch(`${http + servidor}/nuevo_checkup/api/${api_url}.php?api=${api}&${campo}=${text}`)
+    return fetch(`${http + servidor}/${appname}/api/${api_url}.php?api=${api}&${campo}=${text}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(response.statusText)
@@ -1323,7 +1324,7 @@ function mensajeAjax(data, modulo = null) {
         timerProgressBar: true,
       }, function () {
         destroySession();
-        window.location.replace(http + servidor + "/nuevo_checkup/vista/login/");
+        window.location.replace(http + servidor + "/" + appname + "/vista/login/");
       })
 
       break;
@@ -1659,7 +1660,7 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
       api = 15
 
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      url: http + servidor + "/" + appname + "/api/consulta_api.php",
       data: {
         api: api,
         turno_id: id,
@@ -1741,7 +1742,7 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
 
 function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
   return new Promise(resolve => {
-    $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.html", function (html) {
+    $.post(http + servidor + "/" + appname + "/vista/include/acordion/antecedentes-paciente.html", function (html) {
       setTimeout(function () {
         $(div).html(html);
         // console.log(cliente)
@@ -1789,7 +1790,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
   return new Promise(resolve => {
     var html = "";
     $(panel).fadeOut(0);
-    $.post(http + servidor + "/nuevo_checkup/vista/include/barra-informacion/info-barra.php", {
+    $.post(http + servidor + "/" + appname + "/vista/include/barra-informacion/info-barra.php", {
       tip: tipPanel,
       nivel: nivel
     },
@@ -1804,7 +1805,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
             switch (tipPanel) {
               case 'paciente':
                 $.ajax({
-                  url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                  url: http + servidor + "/" + appname + "/api/pacientes_api.php",
                   data: {
                     api: 2,
                     turno_id: id
@@ -1858,7 +1859,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 break;
               case 'paciente_lab':
                 $.ajax({
-                  url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+                  url: http + servidor + "/" + appname + "/api/pacientes_api.php",
                   data: {
                     api: 2,
                     turno_id: id
@@ -1915,7 +1916,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 break;
               case 'signos-vitales':
                 $.ajax({
-                  url: http + servidor + "/nuevo_checkup/api/somatometria_api.php",
+                  url: http + servidor + "/" + appname + "/api/somatometria_api.php",
                   data: {
                     api: 2,
                     id_turno: id
@@ -2007,7 +2008,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 break;
               case 'estudios_muestras':
                 $.ajax({
-                  url: http + servidor + "/nuevo_checkup/api/recepcion_api.php",
+                  url: http + servidor + "/" + appname + "/api/recepcion_api.php",
                   type: "POST",
                   dataType: 'json',
                   data: { api: 6, id_turno: row['ID_TURNO'] },
@@ -2115,7 +2116,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     activoConsultadorTurnero = true
                   if (activoConsultadorTurnero) {
                     $.ajax({
-                      url: http + servidor + '/nuevo_checkup/archivos/sistema/json/turnero_optimizador.json',
+                      url: http + servidor + '/' + appname + '/archivos/sistema/json/turnero_optimizador.json',
                       type: 'POST',
                       dataType: 'JSON',
                       success: function (data) {
@@ -2141,7 +2142,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                 function ajaxTurnosActualArea() {
                   $.ajax({
-                    url: http + servidor + "/nuevo_checkup/api/turnero_api.php",
+                    url: http + servidor + "/" + appname + "/api/turnero_api.php",
                     type: "POST",
                     dataType: 'json',
                     data: { api: 6, area_fisica_id: id },
@@ -2205,7 +2206,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
               case 'listado_resultados':
                 $.ajax({
-                  url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+                  url: http + servidor + "/" + appname + "/api/consulta_api.php",
                   type: "POST",
                   dataType: 'json',
                   data: { api: 21, turno_id: id },
@@ -2503,7 +2504,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
       dataType: 'json',
       data: { api: 2, ACTIVO: 1 },
       method: 'POST',
-      url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+      url: http + servidor + "/" + appname + "/api/" + api_url + ".php",
       beforeSend: function () { },
       // success: function (data) { mensajeAjax(data) },
       complete: function () { cambiarFormMetodo(0, titulo, "formEditar" + titulo); },
@@ -2608,7 +2609,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
     }, function () {
       $.ajax({
         data: formData,
-        url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+        url: http + servidor + "/" + appname + "/api/" + api_url + ".php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -2649,7 +2650,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
       // Esto va dentro del AJAX
       $.ajax({
         data: formData,
-        url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+        url: http + servidor + "/" + appname + "/api/" + api_url + ".php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -2685,7 +2686,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
             api: 4,
             ACTIVO: 0
           },
-          url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+          url: http + servidor + "/" + appname + "/api/" + api_url + ".php",
           type: "POST",
           dataType: 'json',
           success: function (data) {
@@ -2720,7 +2721,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
             api: 4,
             ACTIVO: 1
           },
-          url: http + servidor + "/nuevo_checkup/api/" + api_url + ".php",
+          url: http + servidor + "/" + appname + "/api/" + api_url + ".php",
           type: "POST",
           dataType: 'json',
           success: function (data) {
@@ -2995,7 +2996,7 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
       dataType: 'json',
       data: ajax['data'],
       method: 'POST',
-      url: http + servidor + "/nuevo_checkup/api/" + ajax['api_url'] + ".php",
+      url: http + servidor + "/" + appname + "/api/" + ajax['api_url'] + ".php",
       beforeSend: function () { },
       // success: function (data) { mensajeAjax(data) },
       complete: function () {
@@ -3069,7 +3070,7 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
     }, function () {
       $.ajax({
         data: formData,
-        url: http + servidor + "/nuevo_checkup/api/" + ajax['registrar']['api_url'] + ".php",
+        url: http + servidor + "/" + appname + "/api/" + ajax['registrar']['api_url'] + ".php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -3110,7 +3111,7 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
       // Esto va dentro del AJAX
       $.ajax({
         data: formData,
-        url: http + servidor + "/nuevo_checkup/api/" + ajax['editar']['api_url'] + ".php",
+        url: http + servidor + "/" + appname + "/api/" + ajax['editar']['api_url'] + ".php",
         type: "POST",
         processData: false,
         contentType: false,
@@ -3146,7 +3147,7 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
             api: ajax['desactivar']['data']['api'],
             ACTIVO: 0
           },
-          url: http + servidor + "/nuevo_checkup/api/" + ajax['desactivar']['api_url'] + ".php",
+          url: http + servidor + "/" + appname + "/api/" + ajax['desactivar']['api_url'] + ".php",
           type: "POST",
           dataType: 'json',
           success: function (data) {
@@ -3181,7 +3182,7 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
             api: ajax['desactivar']['data']['api'],
             ACTIVO: 1
           },
-          url: http + servidor + "/nuevo_checkup/api/" + ajax['desactivar']['api_url'] + ".php",
+          url: http + servidor + "/" + appname + "/api/" + ajax['desactivar']['api_url'] + ".php",
           type: "POST",
           dataType: 'json',
           success: function (data) {
@@ -3209,7 +3210,7 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
 
 
 function vistaPDF(divContenedor, url, nombreArchivo, callback = function () { }, tipo = {}) {
-  $.post(http + servidor + '/nuevo_checkup/vista/include/funciones/viewer-pdf.php', {
+  $.post(http + servidor + '/' + appname + '/vista/include/funciones/viewer-pdf.php', {
     url: url, nombreArchivo: nombreArchivo, tipo: tipo
   }, function (html) {
     $(divContenedor).html(html);
