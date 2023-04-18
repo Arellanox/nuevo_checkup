@@ -1,6 +1,7 @@
 <?php
 include "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+require_once "../clases/correo_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -27,17 +28,6 @@ switch($api){
             $url = str_replace("../", $host, $inbody[0]['url']);
             $response = $master->insertByProcedure("sp_inbody_resultados_g", [$id_inbody, $turno_id, $url, null, $_SESSION['id']]);
 
-            if(is_numeric($response)){
-                $mail = new Correo();
-                $attachment = $master->cleanAttachFilesImage($master, $turno_id, 14, 1);
-                
-                if (!empty($attachment[0])) {
-                    $mail = new Correo();
-                    if ($mail->sendEmail('resultados', '[bimo] ESTUDIO DE COMPOSICION CORPORAL (InBody)', [$attachment[1]], null, $attachment[0], 1)) {
-                        $master->setLog("Correo enviado.", "ultrasonido");
-                    }
-                }
-            }
         } else {
             $response = "No se pudo crear el directorio.";
         }
@@ -48,6 +38,24 @@ switch($api){
         $response = $master->getByProcedure("sp_inbody_resultados_b", [ $turno_id ]);
         
         break;
+    case 3:
+        # Enviar el reporte de inbody por correo electronico
 
-echo $maslter->returnApi($response);
+        $mail = new Correo();
+        $attachment = $master->cleanAttachFilesImage($master, $turno_id, 14, 1);
+        
+        if (!empty($attachment[0])) {
+            $mail = new Correo();
+            if ($mail->sendEmail('resultados', '[bimo] ESTUDIO DE COMPOSICION CORPORAL (InBody)', [$attachment[1]], null, $attachment[0], 1)) {
+                $master->setLog("Correo enviado.", "Inbody");
+                $response = ["Correo enviado."];
+            }
+        } else {
+            $response = "No hay archivos para adjuntar.";
+        }
+        break;
+    
+}
+
+echo $master->returnApi($response);
 ?>
