@@ -118,7 +118,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
             </div>            
           </div>
         `;
-        html = '';
+        // html = '';
         return html
       }
     },
