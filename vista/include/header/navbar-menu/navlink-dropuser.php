@@ -125,4 +125,25 @@ if ($_SESSION['vista']['SERVICIOS'] == 1  || $_SESSION['vista']['SERVICIOS (EQUI
     <hr class="dropdown-divider">
   </li>
 <?php endif; ?>
+
+<?php if ($_SESSION['permisos']['ExcelInfoBeneUjat'] == 1) : ?>
+  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-Excel" aria-expanded="false">
+    <i class="bi bi-file-earmark-spreadsheet"></i> Documentación Excel
+  </a>
+  <div class="collapse" id="board-Excel">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <?php if ($_SESSION['permisos']['ExcelInfoBeneUjat'] == 1) : ?>
+        <li>
+          <a class="dropdown-a align-items-center" type="button" href="#" onclick="return false" id="btn-beneficiarios-ujat">
+            <i class="bi bi-dot"></i> Beneficiados UJAT
+          </a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+  <li>
+    <hr class="dropdown-divider">
+  </li>
+<?php endif; ?>
+
 <a href="#LogOut" class="dropdown-a"><i class="bi bi-box-arrow-up"></i> Cerrar Sesión</a>

@@ -64,7 +64,7 @@ switch ($menu) {
       <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" /> </a>
       <!-- <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" /> -->
 
-      <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
+      <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">
         <!-- onclick="openNav()" -->
         <i class="bi bi-list"></i>
       </button>

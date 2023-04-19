@@ -104,6 +104,9 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
   return date.toLocaleDateString('es-MX', options)
 }
 
+
+
+
 function calcularEdad(fecha) {
   var hoy = new Date(), cumpleanos = new Date(fecha);
   var edad = hoy.getFullYear() - cumpleanos.getFullYear();
@@ -1366,6 +1369,19 @@ function alertErrorAJAX(jqXHR, exception, data) {
 
 }
 
+// $(document).on('click', '#btn-beneficiarios-ujat', function (e) {
+//   if (session['permiso']['ExcelInfoBeneUjat']) {
+//     $.post("", {
+//       tipModalDocumento: 'ExcelInfoBeneUjat'
+//     }, function (html) {
+//       $("#header-js").html(html);
+//     });
+//   }
+// })
+
+
+
+
 var touchtimeFunction
 function detectDobleclick() {
   if (touchtimeFunction == 0) {
@@ -1798,7 +1814,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
           $(panel).html(html);
         }, 100);
       }).done(function () {
-        setTimeout(function () {
+        setTimeout(async function () {
           if (id > 0) {
             row = array_selected;
             switch (tipPanel) {
@@ -2322,8 +2338,117 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 break;
               //Renovado para laboratorio
               case 'info-estudio-lab-clinico':
+                // No  recuerdo para que  sevia...
+
+                break;
+
+              case 'lista-documentos-paciente':
+                // $.ajax({
+
+                //   url: `${http}${servidor}/${appname}/api/recepcion_api.php`,
+                //   data: {
+                //     api: 11,
+                //     turno_id: id
+                //   },
+                //   type: "POST",
+                //   dataType: 'json',
+                //   success: function (data) {
+                //     if (mensajeAjax(data)) {
+
+                //     }
+                //   },
+                //   complete: function () {
+                //     $(panel).fadeIn(100);
+                //     resolve(1);
+                //   },
+                //   error: function (jqXHR, exception, data) {
+                //     alertErrorAJAX(jqXHR, exception, data)
+                //   },
+                // })
+
+                let dataDocumentos = await ajaxAwait({
+                  api: 11, turno_id: id
+                }, 'recepcion_api')
+                dataDocumentos = dataDocumentos.response.data[0];
+                // console.log(dataDocumentos)
+
+                if (dataDocumentos) {
+                  $('button[class="btn_documentacion_paciente list-group-item list-group-item-action"]').fadeOut('slow');
+
+                  console.log(dataDocumentos['IDENTIFICACION'])
+                  if (dataDocumentos['VERIFICACION_UJAT'])
+                    $(`#btn-VERIFICACION_UJAT`).fadeIn();
+
+                  if (dataDocumentos['PASE_UJAT'])
+                    $(`#btn-PASE_UJAT`).fadeIn();
+
+                  if (dataDocumentos['PASE_UJAT'])
+                    $(`#btn-PASE_UJAT`).fadeIn();
+
+                  if (dataDocumentos['PERFIL'])
+                    $(`#btn-PERFIL`).fadeIn();
+
+                  //Credencial
+                  if (dataDocumentos['IDENTIFICACION'][0]) {
+                    $('#btn-credenciales').fadeIn();
+                    console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
+                    if (dataDocumentos['IDENTIFICACION'][0]['back'].length)
+                      $(`#btn-back`).fadeIn();
+                    if (dataDocumentos['IDENTIFICACION'][0]['front'].length)
+                      $(`#btn-front`).fadeIn();
+                  }
+
+                  if (dataDocumentos['ORDENES_MEDICAS'][0].length) {
+
+                  }
 
 
+                } else {
+                  return false;
+                }
+
+                $(document).on('click', '.btn_documentacion_paciente, #btn-laboratorio-etiquetas', function (event) {
+                  event.preventDefault();
+
+                  let btn = $(this);
+                  console.log(btn.attr('id'));
+                  switch (btn.attr('id')) {
+                    case 'btn-laboratorio-etiquetas':
+                      area_nombre = 'etiquetas'
+                      api = encodeURIComponent(window.btoa(area_nombre));
+                      turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO'],));
+
+                      window.open(http + servidor + "/nuevo_checkup/visualizar_reporte/?api=" + api + "&turno=" + turno, "_blank");
+                      break;
+
+                    case 'btn-PERFIL':
+                      window.open(`${dataDocumentos['VERIFICACION_UJAT']}`);
+                      break;
+
+                    case 'btn-VERIFICACION_UJAT':
+                      window.open(`${dataDocumentos['VERIFICACION_UJAT']}`);
+                      break;
+
+                    case 'btn-PASE_UJAT':
+                      window.open(`${dataDocumentos['PASE_UJAT']}`);
+                      break;
+
+                    case 'btn-front':
+                      window.open(`${dataDocumentos['IDENTIFICACION'][0]['front']}`);
+                      break;
+
+                    case 'btn-back':
+                      window.open(`${dataDocumentos['IDENTIFICACION'][0]['back']}`);
+                      break;
+
+                    default:
+                      console.log('boton incorrecto')
+                      break;
+                  }
+                  event.preventDefault();
+                })
+                $(panel).fadeIn(100);
+                resolve(1);
                 break;
 
               default:

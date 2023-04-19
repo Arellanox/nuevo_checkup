@@ -163,7 +163,7 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
 
 }, async function (data) {
   alertToast('Obteniendo datos...', 'info', 4000);
-  await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'documentos-paciente', '#panel-documentos-paciente')
+  await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'lista-documentos-paciente', '#panel-documentos-paciente')
   await obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
 
   var myOffcanvas = document.getElementById('offcanvasInfoPaciente')
