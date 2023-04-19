@@ -380,13 +380,13 @@ switch ($api) {
 
         # subir ordenes medicas
         if (count($ordenes) > 0) {
-            $dir = $master->urlComodin . $master->urlOrdenesMedicas . "$idTurno/";
+            $dir = $master->urlComodin . $master->urlOrdenesMedicas . "$e_turno_id/";
             $r = $master->createDir($dir);
             if ($r == 1) {
                 #movemos las ordenes medicas
-                $return = $master->guardarFiles($_FILES, 'orden-medica-laboratorio', $dir, "ORDEN_MEDICA_LABORATORIO_$idTurno");
-                $return2 = $master->guardarFiles($_FILES, 'orden-medica-rx', $dir, "ORDEN_MEDICA_RX_$idTurno");
-                $return3 = $master->guardarFiles($_FILES, 'orden-medica-us', $dir, "ORDEN_MEDICA_ULTRASONIDO_$idTurno");
+                $return = $master->guardarFiles($_FILES, 'orden-medica-laboratorio', $dir, "ORDEN_MEDICA_LABORATORIO_$e_turno_id");
+                $return2 = $master->guardarFiles($_FILES, 'orden-medica-rx', $dir, "ORDEN_MEDICA_RX_$e_turno_id");
+                $return3 = $master->guardarFiles($_FILES, 'orden-medica-us', $dir, "ORDEN_MEDICA_ULTRASONIDO_$e_turno_id");
 
                 # metemos el area al que pertenece
                 $return[0]['area_id'] = 6;
@@ -398,7 +398,7 @@ switch ($api) {
                 foreach ($merge as $item) {
                     if (!empty($item['tipo'])) {
                         $url = str_replace("../", $host, $item['url']);
-                        $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $idTurno, $url, $item['tipo'], $item['area_id']]);
+                        $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $e_turno_id, $url, $item['tipo'], $item['area_id']]);
                     }
                 }
             } else {
@@ -407,13 +407,13 @@ switch ($api) {
         }
 
         # subir la foto del paciente
-        $dir = $master->urlComodin . "/archivos/perfiles_paciente/";
+        $dir = $master->urlComodin . "archivos/perfiles_paciente/";
         $r = $master->createDir($dir);
 
         if ($r == 1) {
-            $avatar_url = $master->guardarFiles($_FILES, 'avatar_paciente', $dir, "perfil_paciente_$idTurno");
-            $url = str_replace("../", $host, $avatar_url['url']);
-            $response = $master->updateByProcedure("sp_subir_archivos_turno", [$idTurno, $url]);
+            $avatar_url = $master->guardarFiles($_FILES, 'avatar_paciente', $dir, "perfil_paciente_$e_turno_id");
+            $url = str_replace("../", $host, $avatar_url[0]['url']);
+            $response = $master->updateByProcedure("sp_subir_archivos_turno", [$e_turno_id, $url, null]);
         } else {
             $master->setLog("No se pudo crear el directorio de perfiles de paciente", "recepcion_api.php [case 10]");
         }
@@ -423,10 +423,22 @@ switch ($api) {
         $r = $master->createDir($dir);
 
         if ($r == 1) {
-            $ine_front = $master->guardarFiles($_FILES, 'paciente-ine-front', $dir, "ine_front_$idTurno");
+            $ine = array();
+            $ine_front = $master->guardarFiles($_FILES, 'paciente-ine-front', $dir, "ine_front_$e_turno_id");
+            $url = str_replace("../", $host, $ine_front[0]['url']);
+            $ine['front'] = $url;
+            $ine_back = $master->guardarFiles($_FILES,'paciente-ine-back',$dir,"ine_back_$e_turno_id");
+            $url = str_replace("../", $host, $ine_back[0]['url']);
+            $ine['back'] = $url;
+
+            $response = $master->updateByProcedure("sp_subir_archivos_turno", [$e_turno_id, null, json_encode($ine)]);
+        } else {
+            $master->setLog("No se pudo crear el directorio para las ines de los pacientes.","recepcion_api [case 10]");
         }
         break;
-
+    case 11:
+        # recuperar todos los documentos que existen.
+        break;
     default:
         $response = "Api no definida.";
         break;
