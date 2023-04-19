@@ -440,6 +440,7 @@ switch ($api) {
         # recuperar todos los documentos que existen.
         $response = $master->getByProcedure("sp_recuperar_archivos_turno", [ $e_turno_id ]);
         $response[0]['ORDENES_MEDICAS'] = $master->decodeJson([$response[0]['ORDENES_MEDICAS']]);
+        $response[0]['IDENTIFICACION'] = $master->decodeJson([$response[0]['IDENTIFICACION']]);
         break;
     default:
         $response = "Api no definida.";
