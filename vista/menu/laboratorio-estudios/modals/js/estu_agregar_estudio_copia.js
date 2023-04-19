@@ -194,7 +194,7 @@ async function getValueEstudio(id) {
 
         // $.ajax({
         //   type: 'POST',
-        //   url: http + servidor + '/nuevo_checkup/api/laboratorio_servicios_api.php',
+        //   url: http + servidor + '/'+appname+'/api/laboratorio_servicios_api.php',
         //   dataType: 'json',
         //   data: {
         //     api: 2, id_servicio: id
@@ -344,7 +344,7 @@ $("#formRegistrarEstudio").submit(function (event) {
             // Esto va dentro del AJAX
             $.ajax({
                 data: formData,
-                url: http + servidor + '/nuevo_checkup/api/laboratorio_servicios_api.php',
+                url: `${http}${servidor}/${appname}/api/laboratorio_servicios_api.php`,
                 type: "POST",
                 processData: false,
                 contentType: false,

@@ -38,7 +38,7 @@ $('#btn-confirmarenviar-resultado').click(function () {
             icon: "warning",
         }, function () {
             $.ajax({
-                url: http + servidor + '/nuevo_checkup/api/turnos_api.php/',
+                url: `${http}${servidor}/${appname}/api/turnos_api.php/`,
                 type: "POST",
                 data: {
                     id_turno: turno,
@@ -77,7 +77,7 @@ $('#btn-rechazar-resultado').click(function () {
         icon: "warning",
     }, function () {
         $.ajax({
-            url: http + servidor + '/nuevo_checkup/api/turnos_api.php/',
+            url: `${http}${servidor}/${appname}/api/turnos_api.php/`,
             type: "POST",
             data: {
                 id_turno: turno,

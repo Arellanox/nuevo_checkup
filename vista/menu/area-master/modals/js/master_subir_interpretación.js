@@ -54,7 +54,7 @@ $(`#${formulario}`).submit(function (event) {
         }, function () {
             $.ajax({
                 data: formData,
-                url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
+                url: `${http}${servidor}/${appname}/api/${url_api}.php`,
                 type: "POST",
                 processData: false,
                 contentType: false,
@@ -101,7 +101,7 @@ $('#btn-confirmar-reporte').click(function (event) {
                     id_turno: dataSelect.array['turno'],
                     confirmado: 1
                 },
-                url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
+                url: `${http}${servidor}/${appname}/api/${url_api}.php`,
                 type: "POST",
                 beforeSend: function () {
                     $("#formSubirInterpretacion:submit").prop('disabled', true)

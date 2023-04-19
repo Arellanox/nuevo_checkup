@@ -38,11 +38,11 @@ function obtenerContenido(tabla) {
 
               switch (session['cargo']) {
                 case '10': case 10:
-                  $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/recepcion/');
+                  $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/recepcion/`);
                   return true;
 
                 default:
-                  $(location).attr('href', http + servidor + '/nuevo_checkup/vista/menu/principal/');
+                  $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
                   return false;
                 // break;
               }

@@ -2,7 +2,7 @@
 function obtenerInformacionConsulta(id) {
     return new Promise(resolve => {
         $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+            url: `${http}${servidor}/${appname}/api/consulta_api.php`,
             type: "POST",
             dataType: "json",
             data: {
@@ -24,7 +24,7 @@ function obtenerInformacionConsulta(id) {
                 resolve(1);
             }
         })
-    })
+    });
 }
 
 //Obtiene la informacion basica del paciente
@@ -43,7 +43,7 @@ function obtenerInformacionPaciente(data) {
 function obtenerNutricion(turno) {
     return new Promise(resolve => {
         $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+            url: `${http}${servidor}/${appname}/api/consulta_api.php`,
             method: 'POST',
             dataType: 'json',
             data: {
@@ -69,13 +69,13 @@ function obtenerNutricion(turno) {
                 resolve(1);
             }
         })
-    })
+    });
 }
 
 function obtenerExploracion(turno) {
     return new Promise(resolve => {
         $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+            url: `${http}${servidor}/${appname}/api/consulta_api.php`,
             method: 'POST',
             dataType: 'json',
             data: {
@@ -94,13 +94,13 @@ function obtenerExploracion(turno) {
                 resolve(1);
             }
         })
-    })
+    });
 }
 
 //Obtiene los forms de anamnesis por aparatos
 function obtenerAnamnesisApartados(turno) {
     return new Promise(resolve => {
-        $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/anamnesis-aparatos.html", function (html) {
+        $.post(`${http}${servidor}/${appname}/vista/include/acordion/anamnesis-aparatos.html`, function (html) {
             $('#divANAMNESISAPARATOS').html(html);
         }).done(async function () {
             await obtenerAntecedentesPaciente(turno, null, 2)
@@ -142,7 +142,7 @@ function obtenerAnamnesisApartados(turno) {
             //     }
             // })
         });
-    })
+    });
 }
 
 function CerrarConsultorio(activo) {
@@ -212,7 +212,7 @@ tablaRecetas = $('#tablaListaRecetas').DataTable({
             turno_id: pacienteActivo.array['ID_TURNO']
         },
         method: 'POST',
-        url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+        url: `${http}${servidor}/${appname}/api/consulta_api.php`,
         // beforeSend: function() {  },
         // complete: function(){  },
         dataSrc: 'response.data'
@@ -270,7 +270,7 @@ tablaOdontograma = $('#tablaOdontograma').DataTable({
             turno_id: pacienteActivo.array['ID_TURNO']
         },
         method: 'POST',
-        url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+        url: `${http}${servidor}/${appname}/api/consulta_api.php`,
         // beforeSend: function() {  },
         // complete: function(){  },
         dataSrc: 'response.data'

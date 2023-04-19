@@ -15,7 +15,7 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
         },
         method: 'POST',
         // url: '../../../api/tunero_api.php',
-        url: http + servidor + '/nuevo_checkup/api/turnero_api.php',
+        url: `${http}${servidor}/${appname}/api/turnero_api.php`,
         beforeSend: function () {
             loader("In"), array_selected = null
             complete = false
@@ -95,7 +95,7 @@ setTimeout(() => {
 function recargaLista() {
     if (!VozActiva) {
         $.ajax({
-            url: http + servidor + '/nuevo_checkup/turnero_data.json',
+            url: `${http}${servidor}/${nuevo_checkup}/turnero_data.json`,
             type: 'POST',
             dataType: 'JSON',
             success: function (data) {

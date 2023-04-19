@@ -118,7 +118,7 @@ $('#btn-ver-reporte').click(function () {
   area = encodeURIComponent(window.btoa(areaActiva));
 
 
-  window.open(http + servidor + "/nuevo_checkup/visualizar_reporte/?api=" + api + "&turno=" + turno + "&area=" + area, "_blank");
+  window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 })
 
 function chooseEstudio(row, modal, tip) {

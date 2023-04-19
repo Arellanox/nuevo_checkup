@@ -1,7 +1,7 @@
 
 $('#LimpiarNumeroCuenta').prop('disabled', true);
 // Busca el estado de cuenta y genera toda la vista
-$('#BuscarNumeroCuenta').click(function() {
+$('#BuscarNumeroCuenta').click(function () {
     disabledButtonsVista();
     button = $(this);
     input = $('#inputBuscarEstadoCuenta');
@@ -14,12 +14,12 @@ $('#BuscarNumeroCuenta').click(function() {
     // 
 
     $.ajax({
-        url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+        url: `${http}${servidor}/${appname}/api/turnos_api.php`,
         dataType: "json",
         method: "POST",
         data: {},
-        beforeSend: function() {
-            
+        beforeSend: function () {
+
         },
         success: function (data) {
             cargarDatosCuenta(data);
@@ -28,7 +28,7 @@ $('#BuscarNumeroCuenta').click(function() {
 
 })
 
-$('#LimpiarNumeroCuenta').click(function (){
+$('#LimpiarNumeroCuenta').click(function () {
     button = $(this);
 
     // Cambiar botones
@@ -36,19 +36,19 @@ $('#LimpiarNumeroCuenta').click(function (){
     button.prop('disabled', false);
     $('#LimpiarNumeroCuenta').prop('disabled', true);
     $("#selectDisabled").removeClass("disable-element");
-    // 
+    // a
 })
 
 
 
 
 $(document).on('click', '.vistaFacturar', function () {
-  $('.vistaFacturar').removeClass('active')
-  $('.vistaFacturar').removeClass('disabled')
-  $(this).addClass('active');
-  $(this).addClass('disabled');
-  menu($(this).attr('data-ds'));
-//   obtenerContenidoInfo(parseInt($(this).attr('data-ds')))
+    $('.vistaFacturar').removeClass('active')
+    $('.vistaFacturar').removeClass('disabled')
+    $(this).addClass('active');
+    $(this).addClass('disabled');
+    menu($(this).attr('data-ds'));
+    //   obtenerContenidoInfo(parseInt($(this).attr('data-ds')))
 });
 
 

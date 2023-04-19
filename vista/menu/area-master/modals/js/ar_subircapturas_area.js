@@ -56,7 +56,7 @@ $("#formSubirCapturas").submit(function (event) {
 
       $.ajax({
         data: formData,
-        url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
+        url: `${http}${servidor}/${appname}/api/${url_api}.php`,
         type: "POST",
         processData: false,
         contentType: false,

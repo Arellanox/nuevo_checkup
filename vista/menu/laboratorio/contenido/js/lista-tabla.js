@@ -90,7 +90,7 @@ function generarHistorialResultados(id) {
   return new Promise(resolve => {
     // $('#accordionResultadosAnteriores').html('')
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+      url: `${http}${servidor}/${appname}/api/turnos_api.php`,
       type: "POST",
       dataType: 'json',
       data: {
@@ -153,7 +153,7 @@ function generarFormularioPaciente(id) {
   return new Promise(resolve => {
     // $('#accordionResultadosAnteriores').html('')
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+      url: `${http}${servidor}/${appname}/api/turnos_api.php`,
       type: "POST",
       dataType: 'json',
       data: {

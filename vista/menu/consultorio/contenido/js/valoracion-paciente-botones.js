@@ -11,7 +11,7 @@ $('#btn-consulta-terminar').click(function () {
     cancelButtonText: "Cancelar",
   }, function () {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      url: `${http}${servidor}/${appname}/api/consulta_api.php`,
       method: 'POST',
       dataType: 'json',
       beforeSend: function () {
@@ -44,7 +44,7 @@ $('#btn-ver-reporte').click(function () {
   area = encodeURIComponent(window.btoa(1));
 
 
-  window.open(http + servidor + "/nuevo_checkup/visualizar_reporte/?api=" + api + "&turno=" + turno + "&area=" + area, "_blank");
+  window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 })
 
 
@@ -144,7 +144,7 @@ $('#formAgregarOdontograma').submit(function (event) {
     processData: false,
     type: "POST",
     contentType: false,
-    url: http + servidor + '/nuevo_checkup/api/consulta_api.php',
+    url: `${http}${servidor}/${appname}/api/consulta_api.php`,
     success: function (data) {
       // alert("antes de la nota")
       console.log(data);
@@ -174,7 +174,7 @@ $(document).on('click', '.eliminarOdontograma', function () {
     cancelButtonText: "Cancelar",
   }, function () {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      url: `${http}${servidor}/${appname}/api/consulta_api.php`,
       method: 'POST',
       dataType: 'json',
       data: {
@@ -220,7 +220,7 @@ $(document).on('click', '.guardarAnamn ', function (event) {
 
   $.ajax({
     data: formData,
-    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    url: `${http}${servidor}/${appname}/api/consulta_api.php`,
     type: "POST",
     processData: false,
     contentType: false,
@@ -254,7 +254,7 @@ $(document).on('click', '.guardarAnt ', function (event) {
 
   $.ajax({
     data: formData,
-    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    url: `${http}${servidor}/${appname}/api/consulta_api.php`,
     type: "POST",
     processData: false,
     contentType: false,
@@ -308,7 +308,7 @@ $('#formNuevaReceta').submit(function (event) {
   formData.set('api', 9)
   formData.set('turno_id', pacienteActivo.array['ID_TURNO'])
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    url: `${http}${servidor}/${appname}/api/consulta_api.php`,
     method: 'POST',
     dataType: 'json',
     processData: false,
@@ -338,7 +338,7 @@ $(document).on('click', '.eliminarRecetaTabla', function () {
     cancelButtonText: "Cancelar",
   }, function () {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      url: `${http}${servidor}/${appname}/api/consulta_api.php`,
       method: 'POST',
       dataType: 'json',
       data: {
@@ -424,7 +424,7 @@ $('#btn-guardar-Diagnostico').click(function () {
 
 function guardarInformacion(data, callback) {
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    url: `${http}${servidor}/${appname}/api/consulta_api.php`,
     method: 'POST',
     dataType: 'json',
     data: data,

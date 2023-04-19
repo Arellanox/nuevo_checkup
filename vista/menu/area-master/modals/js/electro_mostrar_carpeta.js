@@ -3,7 +3,7 @@ MostrarCapturasElectro.addEventListener('show.bs.modal', event => {
 
     $('#divCapturasModalElectro').html('')
     $.ajax({
-        url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
+        url: `${http}${servidor}/${appname}/api/${url_api}.php`,
         data: {
             api: 3
         },
@@ -57,7 +57,7 @@ $('#cargarElectroCaptura').click(function (e) {
                 icon: 'info'
             }, function () {
                 $.ajax({
-                    url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
+                    url: `${http}${servidor}/${appname}/api/${url_api}.php`,
                     dataType: 'json',
                     method: 'POST',
                     data: {

@@ -280,7 +280,7 @@ async function obtenerServicios(area, turno) {
             // url = 'servicios_api'
         }
         $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/" + url_api + ".php",
+            url: `${http}${servidor}/${appname}/api/${url_api}.php`,
             data: data,
             type: "POST",
             dataType: 'json',
@@ -339,7 +339,7 @@ async function obtenerServicios(area, turno) {
                 resolve(1)
             }
         })
-    })
+    });
 }
 async function panelResultadoPaciente(row, area) {
 

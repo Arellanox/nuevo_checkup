@@ -7,5 +7,7 @@ $https = 'http://';
 
 $url = $_SERVER['HTTP_HOST'];
 
+$appname = 'nuevo_checkup';
+
 // echo $url;
 // exit;

@@ -76,7 +76,7 @@ $("#BuscarTablaListaMuestras").keyup(function () {
 function obtenerListaEstudiosContenedores(idturno = null) {
   return new Promise(resolve => {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/toma_de_muestra_api.php",
+      url: `${http}${servidor}/${appname}/api/toma_de_muestra_api.php`,
       type: "POST",
       dataType: 'json',
       data: { api: 2, id_turno: idturno },

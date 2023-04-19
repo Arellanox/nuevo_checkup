@@ -102,7 +102,7 @@ $("#BuscarTablaListaLaboratorio").keyup(function () {
 function getResultadoPaciente(turno) {
     return new Promise(resolve => {
         $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/turnos_api.php",
+            url: `${http}${servidor}/${appname}/api/turnos_api.php`,
             dataType: 'json',
             data: { id_turno: turno, api: 14 },
             method: "POST",
@@ -118,7 +118,7 @@ function getResultadoPaciente(turno) {
                 resolve(1);
             }
         })
-    })
+    });
 }
 
 function estadoBotones(estado) {

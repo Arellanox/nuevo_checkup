@@ -140,7 +140,7 @@ $menu = "Prerregistro";
     if (antecedentes == 0) ant = false;
 
     //Mostrar Vista
-    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/nuevo_checkup/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
+    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' + $appname + '/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
   }
 
 
