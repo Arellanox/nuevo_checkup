@@ -10,7 +10,7 @@ $('#agregar-nota-historial').on('click', function () {
   };
 
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
+    url: `${http}${servidor}/${appname}/api/notas_historia_api.php`,
     type: "POST",
     dataType: "json",
     data: {
@@ -32,7 +32,7 @@ $(document).on('click', '.eliminarNota', function () {
   let button = $(this);
   button.prop('disabled', true);
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
+    url: `${http}${servidor}/${appname}/api/notas_historia_api.php`,
     type: "POST",
     dataType: "json",
     data: {
@@ -81,7 +81,7 @@ $(document).on('click', '.guardarAnt ', function (event) {
 
   $.ajax({
     data: formData,
-    url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+    url: `${http}${servidor}/${appname}/api/consulta_api.php`,
     type: "POST",
     processData: false,
     contentType: false,

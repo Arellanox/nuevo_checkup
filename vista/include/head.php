@@ -4,7 +4,7 @@
 <!-- <title>Bimo-Lab | Antigeno</title> -->
 
 <!-- Frameworks -->
-<script src="<?php echo 'http://' . $url . '\nuevo_checkup\js\framework\autosize\dist\autosize.min.js'; ?>"></script>
+<script src="<?php echo 'http://' . $url . '/' . $appname . '\js\framework\autosize\dist\autosize.min.js'; ?>"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 
@@ -35,21 +35,21 @@
 
 
 <!-- Sweetalert -->
-<script src="<?php echo 'http://' . $url . '\nuevo_checkup\js\framework\sweetalert2.all.min.js'; ?>"></script>
+<script src="<?php echo 'http://' . $url . '/' . $appname . '\js\framework\sweetalert2.all.min.js'; ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 
 <!-- Datatable -->
-<!-- <script type="text/javascript" src="http://localhost/nuevo_checkup/clases/usuarios_class.js"></script> -->
+<!-- <script type="text/javascript" src="http://localhost/' . $appname . '/clases/usuarios_class.js"></script> -->
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/r-2.3.0/sl-1.4.0/datatables.min.css"/> -->
-<!-- <link rel="stylesheet" href="<?php //echo 'http://' . $url . '\nuevo_checkup\css\framework\jquery.dataTables.min.css'; 
+<!-- <link rel="stylesheet" href="<?php //echo 'http://' . $url . '\' . $appname . '\css\framework\jquery.dataTables.min.css'; 
                                     ?>">
-<link rel="stylesheet" href="<?php //echo 'http://' . $url . '\nuevo_checkup\css\framework\responsive.dataTables.min.css'; 
+<link rel="stylesheet" href="<?php //echo 'http://' . $url . '\' . $appname . '\css\framework\responsive.dataTables.min.css'; 
                                 ?>"> -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/r-2.3.0/sl-1.4.0/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/processing().js"></script>
 
 
 <!-- Bimo -->
-<link rel="stylesheet" href="<?php echo 'http://' . $url . '\nuevo_checkup\css\master.css?v=' . uniqid(); ?>">
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '\css\master.css?v=' . uniqid(); ?>">
 <link rel="icon" href="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png">

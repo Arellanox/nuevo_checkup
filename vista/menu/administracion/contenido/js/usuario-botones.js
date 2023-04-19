@@ -88,7 +88,7 @@ $(document).on('click', '.area_fisica-usuario', function (e) {
   let id = $(this).attr('data-bs-id');
   let area = $(this).val();
   $.ajax({
-    url: http + servidor + '/nuevo_checkup/api/area_fisica_api.php',
+    url: `${http}${servidor}/${appname}/api/area_fisica_api.php`,
     type: 'POST',
     dataType: 'json',
     data: {

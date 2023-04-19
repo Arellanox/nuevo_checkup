@@ -105,7 +105,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
       url = 'servicios_api'
     }
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/" + url + ".php",
+      url: `${http}${servidor}/${appname}/api/${url}.php`,
       data: data,
       type: "POST",
       datatype: 'json',

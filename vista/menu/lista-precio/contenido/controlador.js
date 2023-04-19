@@ -246,7 +246,7 @@ function tablaContenido(descuento = false) {
 //         api: 9
 //       },
 //       method: 'POST',
-//       url: http + servidor + "/nuevo_checkup/api/" + url + ".php",
+//       url: http + servidor + "/"+appname+"/api/" + url + ".php",
 //       complete: function () {
 //         loader("Out")
 //       },

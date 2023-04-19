@@ -33,7 +33,7 @@ $("#formRegistrarCargo").submit(function (event) {
   }, function () {
     $.ajax({
       data: formData,
-      url: http + servidor + "/nuevo_checkup/api/cargos_api.php",
+      url: `${http}${servidor}/${appname}/api/cargos_api.php`,
       type: "POST",
       processData: false,
       contentType: false,
@@ -79,7 +79,7 @@ $("#formEditarCargo").submit(function (event) {
     // Esto va dentro del AJAX
     $.ajax({
       data: formData,
-      url: http + servidor + "/nuevo_checkup/api/cargos_api.php",
+      url: `${http}${servidor}/${appname}/api/cargos_api.php`,
       type: "POST",
       processData: false,
       contentType: false,

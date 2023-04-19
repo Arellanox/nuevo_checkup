@@ -126,7 +126,7 @@ $("#formRegistrarAgenda").submit(function (event) {
 
       $.ajax({
         data: formData,
-        url: http + servidor + "/nuevo_checkup/api/prerregistro_api.php",
+        url: `${http}${servidor}/${appname}/api/prerregistro_api.php`,
         type: "POST",
         processData: false,
         contentType: false,
@@ -244,7 +244,7 @@ $('#actualizarForm').click(async function () {
   if (curp.length > 0) {
     $.ajax({
       data: getDataAjax(curp),
-      url: http + servidor + "/nuevo_checkup/api/pacientes_api.php",
+      url: `${http}${servidor}/${appname}/api/pacientes_api.php`,
       type: "POST",
       beforeSend: function () {
         $('#actualizarForm').prop('disabled', true);

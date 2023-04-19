@@ -41,7 +41,7 @@ $('#formAnalisisLaboratorio').submit(function (event) {
       focusConfirm: false,
       preConfirm: () => {
         const password = Swal.getPopup().querySelector('#password-confirmar').value;
-        return fetch(http + servidor + "/nuevo_checkup/api/usuarios_api.php?api=9&password=" + password)
+        return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
           .then(response => {
             if (!response.ok) {
               throw new Error(response.statusText)
@@ -52,7 +52,7 @@ $('#formAnalisisLaboratorio').submit(function (event) {
             Swal.showValidationMessage(
               `Request failed: ${error}`
             )
-          })
+          });
       },
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
@@ -161,7 +161,7 @@ $(document).on('click', '.obtenerPDF', function (event) {
   event.stopImmediatePropagation();
   let id = $(this).attr('data-bs-id');
   $.ajax({
-    url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
+    url: `${http}${servidor}/${appname}/api/servicios_api.php`,
     type: "POST",
     // dataType: 'json',
     data: {

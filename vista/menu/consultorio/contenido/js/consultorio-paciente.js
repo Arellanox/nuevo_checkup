@@ -1,7 +1,7 @@
 // Metodos para rellenar el DOM
 function obtenerAntecedentes(div) { //Sin usar
   return new Promise(resolve => {
-    $.post(http + servidor + "/nuevo_checkup/vista/include/acordion/antecedentes-paciente.php", function (html) {
+    $.post(`${http}${servidor}/${appname}/vista/include/acordion/antecedentes-paciente.php`, function (html) {
       $(div).html(html);
     }).done(function () {
       // alert("Done post")
@@ -14,7 +14,7 @@ function obtenerAntecedentes(div) { //Sin usar
 function obtenerNotasHistorial(id) {
   return new Promise(resolve => {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/notas_historia_api.php",
+      url: `${http}${servidor}/${appname}/api/notas_historia_api.php`,
       type: "POST",
       dataType: "json",
       data: {
@@ -57,7 +57,7 @@ function obtenerNotasHistorial(id) {
 function consultarConsulta(id) {
   return new Promise(resolve => {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      url: `${http}${servidor}/${appname}/api/consulta_api.php`,
       type: "POST",
       data: {
         turno_id: id,
@@ -87,13 +87,13 @@ function consultarConsulta(id) {
         alertErrorAJAX(jqXHR, exception, data)
       },
     });
-  })
+  });
 }
 
 function obtenerHistorialConsultas(id) {
   return new Promise(resolve => {
     $.ajax({
-      url: http + servidor + "/nuevo_checkup/api/consulta_api.php",
+      url: `${http}${servidor}/${appname}/api/consulta_api.php`,
       type: "POST",
       dataType: "json",
       data: {

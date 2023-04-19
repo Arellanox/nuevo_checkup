@@ -16,7 +16,7 @@ $('#agregar-estudio-paquete').click(function () {
 
 // $('#agregar-estudio-paquete').click(function() {
 //   $.ajax({
-//     url: http + servidor + "/nuevo_checkup/api/servicios_api.php",
+//     url: http + servidor + "/"+appname+"/api/servicios_api.php",
 //     type: "POST",
 //       dataType: 'json',
 //       data: { id: $('#seleccion-estudio').val(), api: 3},
@@ -59,7 +59,7 @@ $('#UsarPaquete').on('click', function () {
     case '2': //Lista de precios para clientes
       tablaContenido();
       $.ajax({
-        url: http + servidor + "/nuevo_checkup/api/paquetes_api.php",
+        url: `${http}${servidor}/${appname}/api/paquetes_api.php`,
         type: "POST",
         dataType: 'json',
         data: {
@@ -148,7 +148,7 @@ $('#guardar-contenido-paquete').on('click', function () {
       focusConfirm: false,
       preConfirm: () => {
         const password = Swal.getPopup().querySelector('#password-confirmar').value;
-        return fetch(http + servidor + "/nuevo_checkup/api/usuarios_api.php?api=9&password=" + password)
+        return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
           .then(response => {
             if (!response.ok) {
               throw new Error(response.statusText)
@@ -159,7 +159,7 @@ $('#guardar-contenido-paquete').on('click', function () {
             Swal.showValidationMessage(
               `Request failed: ${error}`
             )
-          })
+          });
       },
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
@@ -179,7 +179,7 @@ $('#guardar-contenido-paquete').on('click', function () {
           };
           // console.log(dataEliminados);
           $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/cotizaciones_api.php",
+            url: `${http}${servidor}/${appname}/api/cotizaciones_api.php`,
             data: ajaxDataSend,
             type: "POST",
             datatype: 'json',

@@ -71,7 +71,7 @@ $("#formFormUsuario").submit(function (event) {
     }, function () {
         $.ajax({
             data: formData,
-            url: http + servidor + "/nuevo_checkup/api/usuarios_api.php",
+            url: `${http}${servidor}/${appname}/api/usuarios_api.php`,
             type: "POST",
             processData: false,
             contentType: false,

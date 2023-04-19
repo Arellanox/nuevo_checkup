@@ -2,14 +2,14 @@
 date_default_timezone_set('America/Mexico_City');
 if ($menu != "PrincipalMenu") : ?>
   <li class="nav-item">
-    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/principal/'; ?>">
+    <a href="<?php echo $https . $url . '/' . $appname . '"/vista/menu/principal/'; ?>">
       <i class="bi bi-window"></i> Menú
     </a>
   </li>
 <?php endif; ?>
 <!-- <?php if ($menu == "Mesometria") : ?>
   <li class="nav-item">
-    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/consultorio/'; ?>">
+    <a href="<?php echo $https . $url . '/' . $appname . '"/vista/menu/consultorio/'; ?>">
       <i class="bi bi-clipboard"></i> Consultorio
     </a>
   </li>
@@ -17,7 +17,7 @@ if ($menu != "PrincipalMenu") : ?>
 
 <?php if ($menu == 'PrincipalMenu' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
   <li class="nav-item">
-    <a href="<?php echo $https . $url . '/nuevo_checkup/vista/menu/recepcion/'; ?>">
+    <a href="<?php echo $https . $url . '/' . $appname . '"/vista/menu/recepcion/'; ?>">
       <i class="bi bi-people-fill"></i> Recepción
     </a>
   </li>

@@ -26,7 +26,7 @@ $("#formSubirInterpretacionOftalmo").submit(function (event) {
     // Esto va dentro del AJAX
     $.ajax({
       data: formData,
-      url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",
+      url: `${http}${servidor}/${appname}/api/oftalmologia_api.php`,
       type: "POST",
       processData: false,
       contentType: false,
@@ -67,7 +67,7 @@ $('#btn-confirmar-reporte').click(function (event) {
           turno_id: dataSelect.array['turno'],
           confirmado: 1
         },
-        url: http + servidor + "/nuevo_checkup/api/oftalmologia_api.php",
+        url: `${http}${servidor}/${appname}/api/oftalmologia_api.php`,
         type: "POST",
         beforeSend: function () {
           $("#formSubirInterpretacion:submit").prop('disabled', true)
