@@ -15,7 +15,7 @@ $menu = "Laboratorio";
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">
   areaActual = 6;
-  vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' + $appname + '/vista/menu/controlador/controlador.php'; ?>')
+  vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
 
   function vista(menu, url) {
     $.post(url, {

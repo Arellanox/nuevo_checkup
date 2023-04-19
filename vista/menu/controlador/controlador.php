@@ -53,7 +53,7 @@ include "../../variables.php";
   obtenerHeader('<?php echo $menu ?>', '<?php echo $tip ?>');
 
   function obtenerHeader(menu, tip) {
-    $.post("<?php echo $https . $url . '/' + $appname + '/vista/include/header/header.php'; ?>", {
+    $.post("<?php echo $https . $url . '/' . $appname . '/vista/include/header/header.php'; ?>", {
       menu: menu,
       tip: tip
     }, function(html) {
@@ -63,7 +63,7 @@ include "../../variables.php";
 
   function obtenerTitulo(menu, tipo = null) { //Usar async await para no tener problemas con inputs de fecha
     return new Promise(resolve => {
-      $.post("<?php echo $https . $url . '/' + $appname + '/vista/include/header/titulo.php'; ?>", {
+      $.post("<?php echo $https . $url . '/' . $appname . '/vista/include/header/titulo.php'; ?>", {
         menu: menu,
         tipo: tipo
       }, function(html) {
@@ -128,8 +128,8 @@ include "../../variables.php";
   const session = <?php echo json_encode($_SESSION); ?>;
   session['id'] = '';
   session['token'] = '';
-  $.getScript("<?php echo $https . $url . '/' + $appname + '/vista/menu/controlador/class.js'; ?>").done(function() {
-    $.getScript("<?php echo $https . $url . '/' + $appname + '/vista/menu/controlador/funciones.js'; ?>").done(function() {
+  $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/class.js'; ?>").done(function() {
+    $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/funciones.js'; ?>").done(function() {
       loggin(function(val) {
         if (val) {
           $(function() {

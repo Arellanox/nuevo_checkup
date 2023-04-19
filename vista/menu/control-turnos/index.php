@@ -20,7 +20,7 @@ $menu = "PrincipalMenu";
     nombreCliente = null;
     ant = false; // registro
     tip = "pie"; // registro-agenda
-    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' + $appname + '/vista/menu/controlador/controlador.php'; ?>')
+    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
 
     function vista(menu, url) {
         $.post(url, {

@@ -15,7 +15,7 @@ $menu = "TURNERO";
 
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">
-    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' + $appname + '/vista/menu/controlador/controlador.php'; ?>')
+    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
 
 
     function vista(menu, url) {
