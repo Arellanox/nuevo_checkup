@@ -84,7 +84,7 @@ switch ($api) {
             json_encode($master->getFormValues($contenedores)),
             json_encode($master->getFormValues($equipo)),
             $valor_minimo,
-            $valor_maximo,
+            strlen($valor_maximo) > 0 ? $valor_maximo : null,
             $sexo,
             $edad_inicial,
             $edad_final,
