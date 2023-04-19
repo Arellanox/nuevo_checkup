@@ -6,8 +6,8 @@ include_once "../clases/correo_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 $api = $_POST['api'];
@@ -438,6 +438,8 @@ switch ($api) {
         break;
     case 11:
         # recuperar todos los documentos que existen.
+        $response = $master->getByProcedure("sp_recuperar_archivos_turno", [ $e_turno_id ]);
+        $response[0]['ORDENES_MEDICAS'] = $master->decodeJson([$response[0]['ORDENES_MEDICAS']]);
         break;
     default:
         $response = "Api no definida.";
