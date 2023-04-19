@@ -235,7 +235,7 @@ $areas = $resultados->areas[0];
         <?php
         $titulo = 'Laboratorio de Biología Molecular';
         $tituloPersonales = 'Biología Molecular';
-        include 'includes/header.php'; ?>
+        include 'includes/header_lab.php'; ?>
     </div>
 
     <div class="footer">
