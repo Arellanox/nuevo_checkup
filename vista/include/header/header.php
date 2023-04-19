@@ -1,6 +1,7 @@
 <?php
 $menu = $_POST['menu'];
 $tip = $_POST['tip'];
+$appname = 'nuevo_checkup';
 session_start();
 ?>
 <?php

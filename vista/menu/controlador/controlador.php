@@ -113,10 +113,10 @@ include "../../variables.php";
   function cargarVistaServiciosPorAreaURL(hash, ubicacion, variables = '') {
     switch (hash) {
       case 'Estudios':
-        window.location.href = http + servidor + "/'+$appname+'/vista/menu/" + ubicacion + "/" + variables + "#Estudios";
+        window.location.href = `${http}${servidor}/${appname}/vista/menu/${ubicacion}/${variables}#Estudios`;
         break;
       case 'Grupos':
-        window.location.href = http + servidor + "/'+$appname+'/vista/menu/" + ubicacion + "/" + variables + "#Grupos";
+        window.location.href = `${http}${servidor}/${appname}/vista/menu/${ubicacion}/${variables}#Grupos`;
         break;
     }
   }

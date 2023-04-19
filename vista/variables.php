@@ -5,9 +5,28 @@
 // $url = "localhost";
 $https = 'http://';
 
-$url = $_SERVER['HTTP_HOST'];
+// $url = $_SERVER['HTTP_HOST'];
+switch ($_SERVER['HTTP_HOST']) {
+    case 'bimo-lab.com':
+        $url = 'bimo-lab.com';
+        break;
+    case 'localhost':
+        $url = 'localhost';
+        break;
+    case 'drjb.com.mx':
+        $url = 'drjb.com.mx';
+        break;
+    case 'helicebiologicos.com':
+        $url = 'helicebiologicos.com';
+        break;
 
-$appname = 'nuevo_checkup';
+    default:
+        $url = 'localhost';
+        break;
+}
+
+$appname = "nuevo_checkup";
+// echo $appname;
 
 // echo $url;
 // exit;
