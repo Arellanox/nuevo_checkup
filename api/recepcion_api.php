@@ -301,8 +301,11 @@ switch ($api) {
         }
 
 
-        // if(isset($is_worker) && $is_worker== "on"){
-        $e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
+        if (isset($is_worker) && $is_worker == "on") {
+            $_e_id_trabajador = null;
+        } else {
+            $e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
+        }
         $e_genero = ($e_genero == "MASCULINO") ? 1 : 2;
         $response = $master->insertByProcedure("sp_trabajadores_empresas_g", [
             $e_id_trabajador,
@@ -412,10 +415,10 @@ switch ($api) {
 
         if ($r == 1) {
             $avatar_url = $master->guardarFiles($_FILES, 'avatar_paciente', $dir, "perfil_paciente_$e_turno_id");
-            if(!empty($master->checkArray($avatar_url))){
+            if (!empty($master->checkArray($avatar_url))) {
                 $url = str_replace("../", $host, $avatar_url[0]['url']);
                 $response = $master->updateByProcedure("sp_subir_archivos_turno", [$e_turno_id, $url, null]);
-            }           
+            }
         } else {
             $master->setLog("No se pudo crear el directorio de perfiles de paciente", "recepcion_api.php [case 10]");
         }
@@ -429,21 +432,20 @@ switch ($api) {
             $ine_front = $master->guardarFiles($_FILES, 'paciente-ine-front', $dir, "ine_front_$e_turno_id");
             $url = str_replace("../", $host, $ine_front[0]['url']);
             $ine['front'] = $url;
-            $ine_back = $master->guardarFiles($_FILES,'paciente-ine-back',$dir,"ine_back_$e_turno_id");
+            $ine_back = $master->guardarFiles($_FILES, 'paciente-ine-back', $dir, "ine_back_$e_turno_id");
             $url = str_replace("../", $host, $ine_back[0]['url']);
             $ine['back'] = $url;
-            
+
             if (!empty($master->checkArray($ine))) {
                 $response = $master->updateByProcedure("sp_subir_archivos_turno", [$e_turno_id, null, json_encode($ine)]);
             }
-            
         } else {
-            $master->setLog("No se pudo crear el directorio para las ines de los pacientes.","recepcion_api [case 10]");
+            $master->setLog("No se pudo crear el directorio para las ines de los pacientes.", "recepcion_api [case 10]");
         }
         break;
     case 11:
         # recuperar todos los documentos que existen.
-        $response = $master->getByProcedure("sp_recuperar_archivos_turno", [ $e_turno_id ]);
+        $response = $master->getByProcedure("sp_recuperar_archivos_turno", [$e_turno_id]);
         $response[0]['ORDENES_MEDICAS'] = $master->decodeJson([$response[0]['ORDENES_MEDICAS']]);
         $response[0]['IDENTIFICACION'] = $master->decodeJson([$response[0]['IDENTIFICACION']]);
         break;
