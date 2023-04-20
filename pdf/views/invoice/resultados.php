@@ -19,7 +19,7 @@
 
                         .header {
                             position: fixed;
-                            top: -175px;
+                            top: -171px;
                             left: 25px;
                             right: 25px;
                             height: 220px;
@@ -226,8 +226,6 @@
                 <body>
                     <!-- header -->
                     <div class="header">
-                        <br><br>
-
                         <table>
                             <tbody>
                                 <tr>
