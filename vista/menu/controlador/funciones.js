@@ -2389,13 +2389,15 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     $(`#btn-PERFIL`).fadeIn();
 
                   //Credencial
-                  if (dataDocumentos['IDENTIFICACION'][0]['back'].length && dataDocumentos['IDENTIFICACION'][0]['front'].length) {
-                    $('#btn-credenciales').fadeIn();
-                    console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
-                    if (dataDocumentos['IDENTIFICACION'][0]['back'].length)
-                      $(`#btn-back`).fadeIn();
-                    if (dataDocumentos['IDENTIFICACION'][0]['front'].length)
-                      $(`#btn-front`).fadeIn();
+                  if (dataDocumentos['IDENTIFICACION'][0].length) {
+                    if (dataDocumentos['IDENTIFICACION'][0]['back'].length && dataDocumentos['IDENTIFICACION'][0]['front'].length) {
+                      $('#btn-credenciales').fadeIn();
+                      console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
+                      if (dataDocumentos['IDENTIFICACION'][0]['back'].length)
+                        $(`#btn-back`).fadeIn();
+                      if (dataDocumentos['IDENTIFICACION'][0]['front'].length)
+                        $(`#btn-front`).fadeIn();
+                    }
                   }
 
                   for (const key in dataDocumentos['ORDENES_MEDICAS'][0]) {
