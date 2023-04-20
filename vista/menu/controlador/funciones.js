@@ -2389,7 +2389,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     $(`#btn-PERFIL`).fadeIn();
 
                   //Credencial
-                  if (dataDocumentos['IDENTIFICACION'][0].length) {
+                  if (dataDocumentos['IDENTIFICACION'][0]) {
                     if (dataDocumentos['IDENTIFICACION'][0]['back'].length && dataDocumentos['IDENTIFICACION'][0]['front'].length) {
                       $('#btn-credenciales').fadeIn();
                       console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
