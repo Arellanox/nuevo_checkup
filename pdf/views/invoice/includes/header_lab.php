@@ -61,7 +61,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-left" style="border-bottom: none">
-                                        Fecha de Toma de Muestra: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
+                                        Fecha de Toma de Muestra: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_TOMA; ?> </strong>
                                     </td>
                                     <td class="col-center" style="border-bottom: none">
                                         Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
