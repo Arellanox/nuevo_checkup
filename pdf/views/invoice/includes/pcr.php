@@ -2,7 +2,7 @@
 <br>
 <br>
 <br>
-<p style="position:absolute;top:23px;left:308px;white-space:nowrap" class="ft00">Tipo de Muestra: <strong><?php echo $body[7]->resultado ?></strong> </p>
+<p style="position:absolute;top:23px;left:308px;white-space:nowrap" class="ft00">Tipo de Muestra: <strong><?php echo $encabezado->FECHA_TOMA ?></strong> </p>
 <table style="width: 100%;">
     <tr style="background-color: darkgrey;">
         <td><strong>Prueba</strong></td>
