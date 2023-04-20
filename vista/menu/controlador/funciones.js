@@ -2389,7 +2389,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     $(`#btn-PERFIL`).fadeIn();
 
                   //Credencial
-                  if (dataDocumentos['IDENTIFICACION'][0]) {
+                  if (dataDocumentos['IDENTIFICACION'][0]['back'].length && dataDocumentos['IDENTIFICACION'][0]['front'].length) {
                     $('#btn-credenciales').fadeIn();
                     console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
                     if (dataDocumentos['IDENTIFICACION'][0]['back'].length)
@@ -2398,9 +2398,19 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $(`#btn-front`).fadeIn();
                   }
 
-                  if (dataDocumentos['ORDENES_MEDICAS'][0].length) {
+                  for (const key in dataDocumentos['ORDENES_MEDICAS'][0]) {
+                    $('#btn-orden-medicas').fadeIn();
+                    if (Object.hasOwnProperty.call(dataDocumentos['ORDENES_MEDICAS'][0], key)) {
+                      const element = dataDocumentos['ORDENES_MEDICAS'][0][key];
+                      if (element.area) {
+                        element.area = element.area.replace(' ', '')
+                        $(`#btn-${element.area}`).fadeIn();
+                        $(`#btn-${element.area}`).attr('href', element.url);
+                      }
 
+                    }
                   }
+
 
 
                 } else {
@@ -2422,7 +2432,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       break;
 
                     case 'btn-PERFIL':
-                      window.open(`${dataDocumentos['VERIFICACION_UJAT']}`);
+                      window.open(`${dataDocumentos['PERFIL']}`);
                       break;
 
                     case 'btn-VERIFICACION_UJAT':

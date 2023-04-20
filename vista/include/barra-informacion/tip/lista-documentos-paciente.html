@@ -29,8 +29,6 @@
         data-bs-toggle="collapse" data-bs-target="#board-credencial-paciente-btn" aria-expanded="false">
         Credencial
     </button>
-
-
     <div class="collapse" id="board-credencial-paciente-btn">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li>
@@ -48,10 +46,33 @@
         </ul>
     </div>
 
-    <button type="button" style="display: none;"
-        class="btn_documentacion_paciente list-group-item list-group-item-action" id="btn-PASE_UJAT">
-        Pase UJAT
+    <button type="button" style="display: none;" id="btn-orden-medicas" class="list-group-item list-group-item-action"
+        data-bs-toggle="collapse" data-bs-target="#board-orden-medicas-paciente-btn" aria-expanded="false">
+        Ordenes Medicas
     </button>
+    <div class="collapse" id="board-orden-medicas-paciente-btn">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li>
+                <a type="button" style="display: none;"
+                    class="btn_documentacion_paciente list-group-item list-group-item-action"
+                    id="btn-LABORATORIOCLÍNICO">
+                    Laboratorio Clínico
+                </a>
+            </li>
+            <li>
+                <a type="button" style="display: none;"
+                    class="btn_documentacion_paciente list-group-item list-group-item-action" id="btn-RAYOSX">
+                    Rayos X
+                </a>
+            </li>
+            <li>
+                <a type="button" style="display: none;"
+                    class="btn_documentacion_paciente list-group-item list-group-item-action" id="btn-ULTRASONIDO">
+                    Ultrasonido
+                </a>
+            </li>
+        </ul>
+    </div>
 
     <!-- <button type="button" class="list-group-item list-group-item-action">A third button item</button>
     <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
