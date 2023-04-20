@@ -2,7 +2,7 @@
   <div class="card col-4 p-4" style="margin-bottom:5px;">
     <div class="text-start row" id="text-start" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
       <h4>Seleccione una area</h4>
-      <p  class="none-p">Tipo de lista a mostrar:</p>
+      <p class="none-p">Tipo de lista a mostrar:</p>
       <div class="d-flex justify-content-center">
         <div class="col-auto m-1">
           <input type="radio" class="btn-check" name="selectTipLista" id="check-Costo" value="1" autocomplete="off" checked>
@@ -24,31 +24,32 @@
       </div>
       <p class="none-p vista_estudios-precios">Seleccione area:</p>
       <style media="screen">
-        .btn-outline-success{
+        .btn-outline-success {
           border-color: transparent;
         }
-        .btn-outline-success:hover{
+
+        .btn-outline-success:hover {
           opacity: 50%;
         }
       </style>
 
 
-        <div class="col-auto m-1 vista_estudios-precios">
-          <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="7" autocomplete="off">
-          <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagennología</label>
-        </div>
-        <div class="col-auto m-1 vista_estudios-precios">
-          <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">
-          <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
-        </div>
-        <div class="col-auto m-1 vista_estudios-precios">
-          <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
-          <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
-        </div>
-        <div class="col-auto m-1 vista_estudios-precios">
-          <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
-          <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
-        </div>
+      <div class="col-auto m-1 vista_estudios-precios">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="11" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagenología</label>
+      </div>
+      <div class="col-auto m-1 vista_estudios-precios">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
+      </div>
+      <div class="col-auto m-1 vista_estudios-precios">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i> Laboratorio</label>
+      </div>
+      <div class="col-auto m-1 vista_estudios-precios">
+        <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
+      </div>
 
 
       <!-- <div class="col-12 m-1" id="vista_paquetes-precios">
