@@ -156,7 +156,7 @@ $('#btn-guardar-lista').click(function () {
     focusConfirm: false,
     preConfirm: () => {
       const password = Swal.getPopup().querySelector('#password-confirmar').value;
-      return fetch(http + servidor + "/${appname}/api/usuarios_api.php?api=9&password=" + password)
+      return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
         .then(response => {
           if (!response.ok) {
             throw new Error(response.statusText)
@@ -167,7 +167,7 @@ $('#btn-guardar-lista').click(function () {
           Swal.showValidationMessage(
             `Request failed: ${error}`
           )
-        })
+        });
     },
     allowOutsideClick: () => !Swal.isLoading()
   }).then((result) => {
