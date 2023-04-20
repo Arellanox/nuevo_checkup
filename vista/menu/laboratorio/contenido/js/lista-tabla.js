@@ -217,6 +217,9 @@ function generarFormularioPaciente(id) {
                 },
                 3: {
                   'descripcion': 'LAVADO BRONQUEOALVEOLAR',
+                },
+                4: {
+                  'descripcion': 'HISOPADO NASOFARÍNGEO'
                 }
               }
               break;
