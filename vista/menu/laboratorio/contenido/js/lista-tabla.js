@@ -249,6 +249,9 @@ function generarFormularioPaciente(id) {
                 },
                 3: {
                   'descripcion': 'LBC'
+                },
+                4: {
+                  'descripcion': 'HISOPADO NASOFARÍNGEO'
                 }
               }
               break;

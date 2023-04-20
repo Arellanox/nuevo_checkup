@@ -46,7 +46,7 @@
 <br>
 
 <p class="text-sm-start"><small><strong>Encuentre el oficio de autorización InDre del kit diagnóstico usado para su estudio en:</strong></small></p>
-<p style="text-align: center;"><small><a href=""></a></small></p>
+<p style="text-align: center;"><small><a href="https://www.gob.mx/cms/uploads/attachment/file/785143/Listado_de_pruebas_moleculares_por_RT-PCR_Multiplexado_evaluadas_para_el_diagn_stico_de_SARS-CoV-2.pdf">https://www.gob.mx/cms/uploads/attachment/file/785143/Listado_de_pruebas_moleculares_por_RT-PCR_Multiplexado_evaluadas_para_el_diagn_stico_de_SARS-CoV-2.pdf</a></small></p>
 <p class="text-sm-start"><small><strong>Consulte el aviso de cierre de proceso de reconocimiento a la evaluación comparativa a los laboratorios clínicos privados en:</strong></small></p>
 <p style="text-align: center;"><small><a href="#">https://www.gob.mx/cms/uploads/attachment/file/546877/Cierre_Reconocimiento_a_la_evaluaci_n_comparativa_a_laboratorios_<br>cl_nicos_privados.pdf</a></small></p>
 <br>
