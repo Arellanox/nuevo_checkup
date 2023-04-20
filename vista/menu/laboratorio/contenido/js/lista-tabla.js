@@ -264,15 +264,15 @@ function generarFormularioPaciente(id) {
                 0: {
                   'descripcion': 'FTD™ Respiratory Pathogens 21',
                   'clave': 'N/A'
-                },
-                1: {
-                  'descripcion': 'FARÍNGEA',
-                },
+                }
               }
               classSelect = 'selectTipoMuestraPanel21';
               muestras = {
                 0: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO',
+                },
+                1: {
+                  'descripcion': 'FARÍNGEA',
                 }
               }
               break;
