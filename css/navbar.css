@@ -5,7 +5,8 @@
 /* Colores */
 /* Pantone 3165 */
 .bg-navbar {
-  background-color: #00958e;
+  background-color: rgb(000, 078, 089);
+  /* background-color: #00958e; */
 }
 
 .bg-navbar-drop {
