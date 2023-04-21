@@ -30,3 +30,23 @@ $appname = "nuevo_checkup";
 
 // echo $url;
 // exit;
+
+
+if ($url == "drjb.com.mx") {
+?>
+    <style>
+        table thead {
+            background-color: #10ADA6 !important;
+        }
+
+        .bg-navbar {
+            /* background-color: rgb(000, 078, 089); */
+            background-color: #00958e !important;
+        }
+    </style>
+
+<?php
+}
+
+
+?>

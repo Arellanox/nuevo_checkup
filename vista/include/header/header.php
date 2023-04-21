@@ -61,7 +61,12 @@ switch ($menu) {
 ?>
   <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar" style="padding-top: 5px; padding-bottom: 5px;" id="navbar_principal">
     <div class="container-fluid">
-      <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" /> <!-- | Vista de Capacitación --> </a>
+      <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" />
+        <?php
+        if ($url == 'drjb.com.mx')
+          echo "| Vista de Capacitación";
+        ?>
+      </a>
       <!-- <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" /> -->
 
       <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">

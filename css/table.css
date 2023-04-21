@@ -6,25 +6,27 @@ table thead {
 }
 
 
-.btn-table {
-  /* padding-left: 8px;
-  padding-right: 8px; */
-  padding-bottom: 2px;
-  padding-top: 2px;
-  text-decoration: none;
-  color: black;
-  border: 0px;
-  background-color: rgb(255 255 255 / 0%);
+/* .btn-table {
+  padding-left: 8px;
+  padding-right: 8px; 
+padding-bottom: 2px;
+padding-top: 2px;
+text-decoration: none;
+color: black;
+border: 0px;
+background-color: rgb(255 255 255 / 0%);
 }
 
 .btn-table:hover {
   color: rgb(000, 175, 170);
 }
 
-table tr {
-  /* padding-bottom: 50px;
-  padding-top: 10px; */
-}
+*/
+
+/* table tr {
+  padding-bottom: 50px;
+  padding-top: 10px;
+} */
 
 div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0.5em !important;
