@@ -63,7 +63,7 @@ switch ($menu) {
     <div class="container-fluid">
       <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" />
         <?php
-        if ($url == 'drjb.com.mx')
+        if ($_SESSION['URLACTUAL'] == 'drjb.com.mx')
           echo "| Vista de Capacitación";
         ?>
       </a>

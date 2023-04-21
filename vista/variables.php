@@ -15,6 +15,7 @@ switch ($_SERVER['HTTP_HOST']) {
         break;
     case 'drjb.com.mx':
         $url = 'drjb.com.mx';
+        $_SESSION['URLACTUAL'] = 'drjb.com.mx';
         break;
     case 'helicebiologicos.com':
         $url = 'helicebiologicos.com';
