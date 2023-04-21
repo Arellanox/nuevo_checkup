@@ -26,6 +26,21 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
   }, 500);
 
 })
+
+// $(document).ready(function () {
+//   $('#summernote-estudios').summernote({
+//     toolbar: [
+//       // ['style', ['style']],
+//       ['font', ['bold', 'underline', 'clear']],
+//       // ['color', ['color']],
+//       ['para', ['ul', 'ol', 'paragraph']],
+//       // ['table', ['table']],
+//       // ['insert', ['link', 'picture', 'video']],
+//       // ['view', ['fullscreen', 'codeview', 'help']]
+//     ]
+//   });
+// });
+
 $("#ModalRegistrarEstudio").on("hidden.bs.modal", function () {
   // put your default event here
   if (modalEdit) {
@@ -321,6 +336,8 @@ $("#formRegistrarEstudio").submit(function (event) {
     formData.delete('maquila_lab_id')
   }
 
+  var textSummer = $('#summernote-estudios').summernote('code');
+  console.log(textSummer);
 
   // var padre = formData.get("grupo");
   // formData.delete("grupo");

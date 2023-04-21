@@ -150,7 +150,7 @@ switch ($api) {
             "CODIGO_SAT_ID" => $response[0]['CODIGO_SAT_ID'],
             "INDICACIONES" => $response[0]['INDICACIONES'],
             "SEXO_SERVICIO" => $response[0]['ES_PARA'],
-            "GRUPOS" => empty($master->checkArray($arrayGrupoOrden)) ? null :array("GRUPO_ID" => $arrayGrupoOrden),
+            "GRUPOS" => empty($master->checkArray($arrayGrupoOrden)) ? null : array("GRUPO_ID" => $arrayGrupoOrden),
             "EQUIPO_ID" => empty($arrayEquipo) ? null : $arrayEquipo,
             "METODO_ID" => empty($arrayMetodo) ? null : $arrayMetodo,
             "CONTENEDORES" => empty($master->checkArray($arrayContenedoryMuestra)) ? null : array("CONTENEDOR_ID" => $arrayContenedoryMuestra),

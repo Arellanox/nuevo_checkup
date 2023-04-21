@@ -27,6 +27,22 @@
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
+<!-- Summernote -->
+<!-- <link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '\js\framework/summernote/summernote-lite.css'; ?>">
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '\js\framework/summernote/summernote-bs5.min.css'; ?>">
+<script src="<?php echo 'http://' . $url . '/' . $appname . '/js/framework/summernote/summernote-lite.js'; ?>"> </script>
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/css/font-awesome.css'; ?>">
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/css/font-awesome.min.css'; ?>">
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/css/styles-summernote.css'; ?>"> -->
+
+
+<!-- summernote -->
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/summernote/css/font-awesome.min.css'; ?>">
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/summernote/summernote/summernote-lite.css'; ?>">
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/summernote/summernote/summernote-bs5.min.css'; ?>">
+<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/summernote/css/styles.css'; ?>">
+<script src="<?php echo 'http://' . $url . '/' . $appname . '/summernote/summernote/summernote-lite.js'; ?>"></script>
+
 
 
 <!-- Select2 -->

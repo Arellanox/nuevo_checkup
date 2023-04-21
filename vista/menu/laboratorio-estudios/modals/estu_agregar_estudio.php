@@ -265,6 +265,9 @@
                     <label for="registrar-varepoNo">No</label>
                   </div>
                 </div>
+                <!-- <div id="super-nota">
+                  <textarea id="summernote-estudios" name="editordata"></textarea>
+                </div> -->
                 <div class="row">
                   <div class="col-12">
                     <label for="valor_minimo" class="form-label">Valor minimo</label>
