@@ -139,6 +139,6 @@
     </div>
   </div>
 </div>
-<div class="col-12 col-lg-6 col-xxl-3" id="contenido-procedencia">
+<div class="col-12 col-lg-6 col-xxl-3 bd-callout bd-callout-warning" id="contenido-procedencia">
 
 </div>

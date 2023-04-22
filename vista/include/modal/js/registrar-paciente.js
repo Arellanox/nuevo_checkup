@@ -25,8 +25,8 @@ $("#formRegistrarPaciente").submit(function (event) {
   //   $i++;
   // });
   Swal.fire({
-    title: '¿Está seguro que todos sus datos son correctos?',
-    text: "¡No podrá editar o volverse a registrar!",
+    title: '¿¡Está seguro de tener todos los datos correctamente!?',
+    text: "¡Asegurate de tener la procedencia correcta! : )",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -198,3 +198,12 @@ if (registroAgendaRecepcion == 1) {
 //     $("#vacunaExtra").prop('value', "NA");
 //     }
 // });
+
+
+
+const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
+ModalRegistrarPaciente.addEventListener('show.bs.modal', event => {
+  if (registroAgendaRecepcion == 1)
+    rellenarSelect('#selectIngresoProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+
+});
