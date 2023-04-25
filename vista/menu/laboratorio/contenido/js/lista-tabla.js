@@ -100,9 +100,9 @@ function generarHistorialResultados(id) {
       },
       success: function (data) {
         row = data.response.data;
-        console.log("Haciendo el historial de resultados")
-        console.log(data.response.data)
-        console.log(row)
+        // console.log("Haciendo el historial de resultados")
+        // console.log(data.response.data)
+        // console.log(row)
         let itemStart = '<div class="accordion-item bg-acordion">';
         let itemEnd = '</div>';
 
@@ -130,7 +130,7 @@ function generarHistorialResultados(id) {
           html += '<p class="none-p" style="margin: 12px 0px 0px 15px;">Ver <a class="" href="' + row[i]['RUTA_REPORTE'] + '" target="_blank" data-bs-id="' + row[i]['ID_TURNO '] + '">RESULTADO</a> aquí</p>';
           html += bodyStart;
           for (var k in row[i]['servicios']) {
-            console.log(k)
+            // console.log(k)
             html += '<div class="col-8 text-start info-detalle"><p>' + row[i]['servicios'][k]['SERVICIO'] + ':</p></div><div class="col-4 text-start d-flex align-items-center">' + row[i]['servicios'][k]['RESULTADO'] + ' ' + row[i]['servicios'][k]['MEDIDA_ABREVIATURA'] + '</div> <hr style="margin: 3px"/>'; //
           }
           // for (var l = 0; l < row[i]['servicios'].length; l++) {
@@ -178,7 +178,7 @@ function generarFormularioPaciente(id) {
         //   </ul>
 
         for (var i = 0; i < data.length; i++) {
-          console.log('FOR')
+          // console.log('FOR')
           let row = data[i]
 
           //Biomolecular 
@@ -308,11 +308,11 @@ function generarFormularioPaciente(id) {
 
           // console.log(row)
           var count = Object.keys(row).length;
-          console.log(count);
+          // console.log(count);
           html += '<ul class = "list-group card hover-list info-detalle" style="margin: 15px;padding: 15px;" >';
           html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
           for (var k in row) {
-            console.log(k, row[k])
+            // console.log(k, row[k])
             if (Number.isInteger(parseInt(k))) {
               // console.log(2)
               html += '<li class="list-group-item" style="zoom: 95%">';
@@ -367,8 +367,9 @@ function generarFormularioPaciente(id) {
 
                 if (anotherInput) {
                   html += anotherInput;
+                  html += `<input type="text" style="display: none" name="servicios[` + row[k]['ID_SERVICIO'] + `][ID_GRUPO]" value="${row['ID_GRUPO']}">`
                 } else {
-                  console.log(`<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`)
+                  html += `<input type="text" style="display: none" name="servicios[` + row[k]['ID_SERVICIO'] + `][ID_GRUPO]" value="${row['ID_GRUPO']}">`
                   html += `<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`;
                 }
 
