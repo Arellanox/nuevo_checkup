@@ -157,7 +157,7 @@ switch ($api) {
             $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto,$resultado['ID_GRUPO']));
 
             if (!$response > -1) {
                 echo $master->returnApi($response);
