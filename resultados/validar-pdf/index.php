@@ -1,5 +1,11 @@
 <?php
 include '../../vista/variables.php';
+
+
+
+
+
+
 date_default_timezone_set('America/Mexico_City');
 session_start();
 session_unset();
@@ -26,7 +32,7 @@ session_destroy();
         <!-- BODY -->
         <div class="card m-3 p-3">
             <!-- informacion paciente -->
-            <h3>Información personal</h3>
+            <!-- <h3>Información personal</h3>
             <div class="row">
                 <div class="col-12 col-md-auto d-flex justify-content-center">
                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil" style="width:150px !Important">
@@ -56,7 +62,9 @@ session_destroy();
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <p>¡Remodelación!</p>
+            <p>Está página está en mantenimiento. Estamos trabajando para validar tus resultados de checkup : )</p>
         </div>
 
 
