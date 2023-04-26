@@ -198,7 +198,14 @@ $("#btn-perfil").click(function () {
   }
 })
 
+if (!session['permiso']['RepIngPaci'] == 1)
+  $('#btn-pendiente').fadeOut(0);
+
 $("#btn-pendiente").click(function () {
+
+  if (!session['permiso']['RepIngPaci'] == 1)
+    return false;
+
   if (array_selected != null) {
     Swal.fire({
       title: '¿Está Seguro de regresar al paciente en espera?',
