@@ -262,7 +262,11 @@ switch ($api) {
 
     case 17:
         //eliminar servicio de un turno
-        $response = $master->getByProcedure('sp_recepcion_paciente_detalle_e', [$id_turno, $servicio_id]);
+        $response = $master->deleteByProcedure('sp_recepcion_paciente_detalle_e', [$id_turno, $servicio_id]);
+        break;
+    case 18:
+        // agregar un estudio a un turno
+        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno,null,$servicio_id]);
         break;
 
     default:
