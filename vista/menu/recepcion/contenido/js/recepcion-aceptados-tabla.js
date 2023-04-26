@@ -110,15 +110,22 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       data: 'COUNT', render: function () {
         let html = `
           <div class="row">
-            <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+            <div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
               <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;"></i>
             </div>
-            <div class="col-6" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+            <div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
               <i class="bi bi-card-heading" style="cursor: pointer; font-size:18px;" id="btn-cargar-documentos"></i>
-            </div>            
-          </div>
+            </div> 
         `;
+
+        if (session['permisos']['RepActEstudios'] == 1)
+          html += `<div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+              <i class="bi bi-back" style="cursor: pointer; font-size:18px;" id="btn-trash-paciente"></i>
+              <!-- <i class="bi bi-trash"></i> -->
+            </div>`;
         // html = '';
+
+        html += `</div>`;
         return html
       }
     },
@@ -181,6 +188,10 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
 
 //   }
 // }, '#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados)
+
+
+//
+
 
 
 // $('')

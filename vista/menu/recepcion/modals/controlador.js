@@ -22,4 +22,6 @@ $.post("modals/m_recepcion.php", function (html) {
   $.getScript(`${http}${servidor}/${appname}/vista/include/modal/js/editar-paciente.js`);
 
   $.getScript(`modals/js/ujat-beneficiarios.js`)
+
+  $.getScript(`modals/js/p_actualizar_estudios.js`);
 });

@@ -35,7 +35,6 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
     id_area: 6,
     cliente_id: array_selected['CLIENTE_ID']
   });
-  //Pruebas
   rellenarSelect("#select-labbio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
     id_area: 12,
     cliente_id: array_selected['CLIENTE_ID']

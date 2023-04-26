@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include "rechazados.html";
 include "p_aceptar.html";
 include "p_rechazar.html";
@@ -15,3 +17,7 @@ include "ujat-beneficiarios.html";
 //documentos
 include "ine-paciente.html";
 include "ordenes-medicas.html";
+
+//Actualizar estudios
+if ($_SESSION['permisos']['RepActEstudios'])
+    include "p_actualizar_estudios.html";

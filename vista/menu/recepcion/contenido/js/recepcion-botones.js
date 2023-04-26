@@ -39,21 +39,79 @@ $(document).on('click', '#btn-espera-estatus', function () {
   })
 })
 
-// $(document).on('click', '#btn-botones-captura-documentos', function () {
-//   alertMsj({
-//     icon: '',
-//     title: 'Ventana de documentos',
-//     html: `
-//         <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-rechazar"
-//           data-bs-toggle="tooltip" data-bs-placement="top" title="Rechaza/Elimina este registro">
-//           <i class="bi bi-x"></i> Foto de perfil
-//         </button> 
-//     `,
-//     showCancelButton: false,
-//     showConfirmButton: false,
-//     allowOutsideClick: true,
-//   })
-// })
+
+$(document).on('click', '#btn-trash-paciente', function (e) {
+  if (array_selected) {
+    alertMsj({
+      icon: '',
+      title: 'Elige una opción',
+      html: `
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-agregar_eliminar-estudios"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="Elimine/Agregue estudios al paciente">
+          <i class="bi bi-plus-slash-minus"></i> Actualizar Estudios
+        </button> 
+      `,
+      showCancelButton: false,
+      showConfirmButton: false,
+      allowOutsideClick: true,
+    })
+  } else {
+    alertSelectTable();
+  }
+})
+
+//Agregar o eliminar estudios
+$(document).on('click', '#btn-agregar_eliminar-estudios', function (e) {
+  swal.close()
+
+  if (array_selected) {
+    getDataEstudiosFirst()
+  } else {
+
+  }
+
+
+
+
+
+  // $('#modalCambiarEstudios').modal('show');
+  // x
+
+})
+
+$(document).on('click', '.btn-eliminar-estudio', function (event) {
+  event.preventDefault();
+  let name = $(this).closest('tr[class="odd"]')
+  name = name.find('td[class="sorting_1 dtr-control"]').html();
+
+  let id = $(this).attr('data-bd-id');
+  statusEstudiosPaciente(id, 17, 'eliminar', name)
+})
+
+$(document).on('click', '.btn-agregar-estudio', function (event) {
+  event.preventDefault();
+  let name = $(this).closest('tr[class="odd"]')
+  name = name.find('td[class="sorting_1 dtr-control"]').html();
+
+  let id = $(this).attr('data-bd-id');
+  statusEstudiosPaciente(id, 18, 'agregar', name)
+
+})
+
+$(document).on('click', '.btn-agregar-estudios-admin', function (event) {
+  event.preventDefault();
+  let tipo = $(this).attr('data-bs-tipo');
+  let id = $(`#${tipo}`).val()
+  let name = $(`#${tipo} option:selected`).html()
+  console.log(id)
+  console.log(tipo)
+
+  statusEstudiosPaciente(id, 18, 'agregar', name)
+
+})
+
+
+
 
 $(document).on('click', '#btn-perfil-paciente', function () {
   if (array_selected) {

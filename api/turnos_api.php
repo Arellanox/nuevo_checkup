@@ -257,7 +257,7 @@ switch ($api) {
 
     case 16:
         //Consultar servicios eliminados de un turno
-        $response = $master->getByProcedure('sp_servicios_c', [ $id_turno ]);
+        $response = $master->getByProcedure('sp_servicios_c', [$id_turno]);
         break;
 
     case 17:
@@ -266,7 +266,7 @@ switch ($api) {
         break;
     case 18:
         // agregar un estudio a un turno
-        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno,null,$servicio_id]);
+        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id]);
         break;
 
     default:

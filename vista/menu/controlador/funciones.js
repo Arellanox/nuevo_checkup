@@ -1534,7 +1534,9 @@ function inputBusquedaTable(
     {
       msj: 'Filtra la lista por coincidencias',
       place: 'top'
-    }
+    },
+  classInput = 'col-sm-12 col-md-6',
+  classList = 'col-sm-12 col-md-6',
 ) {
 
   htmlTooltip = '';
@@ -1550,12 +1552,20 @@ function inputBusquedaTable(
 
   if (!$(`#${tablename}_filter`).exists()) {
     setTimeout(() => {
-      inputBusquedaTable(tablename, datatable, tooltip, tooltipinput)
+      inputBusquedaTable(tablename, datatable, tooltip, tooltipinput, classInput, classList)
     }, 200);
     return false;
   }
 
+  $(`#${tablename}_filter`).parent('div').removeAttr('class');
+  $(`#${tablename}_filter`).parent('div').attr('class', classInput);
 
+  // let divList = padre.find('div')[0];
+  // divList.removeClass('col-sm-12 col-md-6');
+  // divList.addClass(classList)
+
+  tooltipinput['msj'] = tooltipinput['msj'] ? tooltipinput['msj'] : 'Filtra la lista por coincidencias';
+  tooltipinput['place'] = tooltipinput['place'] ? tooltipinput['place'] : 'top';
 
   $(`#${tablename}_filter`).html(
     '<div class="text-center mt-2" style="padding-right: 5%">' +
@@ -1576,6 +1586,9 @@ function inputBusquedaTable(
   $('#' + tablename + 'BuscarTablaLista').keyup(function () {
     datatable.search($(this).val()).draw();
   });
+
+
+
   $('select[name="' + tablename + '_length"]').removeClass('form-select form-select-sm');
   $('select[name="' + tablename + '_length"]').addClass('select-form input-form');
   $('select[name="' + tablename + '_length"]').css('margin-bottom', '0px')
