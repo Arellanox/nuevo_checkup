@@ -158,7 +158,7 @@ switch ($api) {
             $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto, $resultado['ID_GRUPO']));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto));
 
             if (!$response > -1) {
                 echo $master->returnApi($response);
@@ -256,13 +256,13 @@ switch ($api) {
         break;
 
     case 16:
-        //Consultar servicios
-        $response = $master->getByProcedure('sp_servicios_c', [$servicio_id, $activo]);
+        //Consultar servicios eliminados de un turno
+        $response = $master->getByProcedure('sp_servicios_c', [ $id_turno ]);
         break;
 
     case 17:
-        //eliminar servicio
-        $response = $master->getByProcedure('sp_estudios_e', [$servicio_id]);
+        //eliminar servicio de un turno
+        $response = $master->getByProcedure('sp_recepcion_paciente_detalle_e', [$id_turno, $servicio_id]);
         break;
 
     default:

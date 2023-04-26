@@ -1,19 +1,25 @@
 <?php
 include '../../vista/variables.php';
-
-
-
-
-
-
+include '../../clases/master_class.php';
 date_default_timezone_set('America/Mexico_City');
 session_start();
 session_unset();
 session_destroy();
+
+$clave = $_GET['clave'];
+$modulo = $_GET['modulo'];
+$id = $_GET['id']; // folio
+$explode = preg_split("/(\d+)/", $id, -1, PREG_SPLIT_DELIM_CAPTURE);
+$folio_etiqueta = $explode[0];
+$folio_numero = $explode[1];
+
+$master = new Master();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
-
+<!-- recibes queo nada -->
 <head>
     <?php include "../../vista/include/head.php"; ?>
     <title>Resultados | Bimo</title>
@@ -64,7 +70,7 @@ session_destroy();
                 </div>
             </div> -->
             <p>¡Remodelación!</p>
-            <p>Está página está en mantenimiento. Estamos trabajando para validar tus resultados de checkup : )</p>
+            <p>Está página está en mantenimiento. Estamos trabajando para validar tus resultados de checkup :) </p>
         </div>
 
 
