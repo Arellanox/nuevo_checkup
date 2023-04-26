@@ -24,6 +24,7 @@ $confirmar = $_POST['confirmar'];
 
 #subir resultaddos
 $servicio_id = $_POST['servicio_id'];
+$activo_servicio = $_POST['activo_servicio'];
 $resultado = $_POST['resultado'];
 $observaciones = $_POST['observacionesGrupos'];
 $observacionesServicios = $_POST['observacionesServicios'];
@@ -157,7 +158,7 @@ switch ($api) {
             $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto,$resultado['ID_GRUPO']));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto, $resultado['ID_GRUPO']));
 
             if (!$response > -1) {
                 echo $master->returnApi($response);
@@ -252,6 +253,16 @@ switch ($api) {
         #case 15 . Desconfirmar resultados
         $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por]);
         //$response = $master->cleanAttachingFiles($response);
+        break;
+
+    case 16:
+        //Consultar servicios
+        $response = $master->getByProcedure('sp_servicios_c', [$servicio_id, $activo]);
+        break;
+
+    case 17:
+        //eliminar servicio
+        $response = $master->getByProcedure('sp_estudios_e', [$servicio_id]);
         break;
 
     default:
