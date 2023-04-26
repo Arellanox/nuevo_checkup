@@ -313,6 +313,7 @@ function generarFormularioPaciente(id) {
           html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
           for (var k in row) {
             // console.log(k, row[k])
+            let inputname = getRandomInt(1000000000000);
             if (Number.isInteger(parseInt(k))) {
               // console.log(2)
               html += '<li class="list-group-item" style="zoom: 95%">';
@@ -367,10 +368,12 @@ function generarFormularioPaciente(id) {
 
                 if (anotherInput) {
                   html += anotherInput;
-                  html += `<input type="text" style="display: none" name="servicios[` + row[k]['ID_SERVICIO'] + `][ID_GRUPO]" value="${row['ID_GRUPO']}">`
+                  html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
+                  html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row['ID_SERVICIO']}">`
                 } else {
-                  html += `<input type="text" style="display: none" name="servicios[` + row[k]['ID_SERVICIO'] + `][ID_GRUPO]" value="${row['ID_GRUPO']}">`
-                  html += `<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[` + row[k]['ID_SERVICIO'] + `][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`;
+                  html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
+                  html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row['ID_SERVICIO']}">`
+                  html += `<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[${inputname}][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`;
                 }
 
 
@@ -395,7 +398,7 @@ function generarFormularioPaciente(id) {
                   html += colreStart;
                   html += '<div class="input-group">';
 
-                  html += '<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[' + row[k]['ID_SERVICIO'] + '][VALOR]" value="' + ifnull(row[k]['VALOR_ABSOLUTO']) + '" autocomplete="off">';
+                  html += `<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[${inputname}][VALOR]" value="${ifnull(row[k]['VALOR_ABSOLUTO'])}" autocomplete="off">`;
 
                   if (row[k]['MEDIDA_ABS']) {
                     html += '<span class="input-span">' + row[k]['MEDIDA_ABS'] + '</span>';
@@ -418,9 +421,7 @@ function generarFormularioPaciente(id) {
                 if (row[k]['OBSERVACIONES'] == null) {
                   row[k]['OBSERVACIONES'] = '';
                 }
-                html += '<div class="d-flex justify-content-center"><div style="padding-top: 15px;">' +
-                  '<p style = "/* font-size: 18px; */" > Observaciones:</p>' +
-                  '<textarea name="observacionesServicios[' + row[k]['ID_SERVICIO'] + ']" rows="2;" cols="90" class="input-form" value="">' + row[k]['OBSERVACIONES'] + '</textarea></div ></div > ';
+                html += `<div class="d-flex justify-content-center"><div style="padding-top: 15px;"><p style = "/* font-size: 18px; */" > Observaciones:</p><textarea name="observacionesServicios[${row[k]['ID_SERVICIO']}]" rows="2;" cols="90" class="input-form" value="">${row[k]['OBSERVACIONES']}</textarea></div ></div > `;
 
               }
             }
