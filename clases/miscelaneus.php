@@ -596,7 +596,7 @@ class Miscelaneus
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'SUBROGADO' => $arrayEtiquetaEstudios
+                    'LOCAL' => $arrayEtiquetaEstudios
 
                 );
                 array_push($arrayEtiqueta, $array1);
@@ -605,7 +605,7 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'SUBROGADO' => $arrayEtiquetaEstudios
+                        'LOCAL' => $arrayEtiquetaEstudios
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
@@ -625,7 +625,7 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'SUBROGADO' => $local
+                        'LOCAL' => $local
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
