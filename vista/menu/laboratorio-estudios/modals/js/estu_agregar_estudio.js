@@ -129,7 +129,7 @@ async function getValueEstudio(id) {
           $(`input[name="local"][value="${row.LOCAL}"]`).prop('checked', true);
           if (row.LOCAL == '0') {
             $('#div-maquila').fadeIn()
-            $('#maquila_agregar_estudio').val(row.LABORATORIO_MAQUILA);
+            $('#maquila_agregar_estudio').val(row.MAQUILA_ID);
             $('#maquila_agregar_estudio').prop('required', true);
 
           } else {
