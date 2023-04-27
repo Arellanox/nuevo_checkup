@@ -118,12 +118,13 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
             </div> 
         `;
 
-        if (session['permisos']['RepActEstudios'] == 1)
+        // if (session['vista']['RECEPCIÓN CAMBIO DE ESTUDIOS'] == 1)
+        if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false)) {
           html += `<div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-              <i class="bi bi-back" style="cursor: pointer; font-size:18px;" id="btn-trash-paciente"></i>
-              <!-- <i class="bi bi-trash"></i> -->
+              <i class="bi bi-back" style="cursor: pointer; font-size:18px;" id="btn-opciones-paciente"></i>
             </div>`;
-        // html = '';
+        }
+
 
         html += `</div>`;
         return html
@@ -134,7 +135,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   columnDefs: [
     { width: "5px", targets: 0 },
     { visible: false, title: "AreaActual", targets: 6, searchable: false },
-    { target: 11, width: "30px" }
+    { target: 11, width: "50px" }
 
   ],
 

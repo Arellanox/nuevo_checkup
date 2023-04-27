@@ -80,6 +80,7 @@ async function setTables() {
 }
 
 dataEstudiosActuales = { api: 0 };
+
 tablaEstudiosActuales = $(`#tablaEstudiosActuales`).DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
     scrollY: autoHeightDiv(0, 374),
@@ -112,7 +113,7 @@ tablaEstudiosActuales = $(`#tablaEstudiosActuales`).DataTable({
             }
         },
     ],
-    columnDefs: [{ width: "5px", targets: 1 },],
+    columnDefs: [{ width: "5px", targets: 1, visible: validarPermiso('RepEstElim') ? true : false },],
 })
 
 inputBusquedaTable('tablaEstudiosActuales', tablaEstudiosActuales, [
@@ -129,50 +130,58 @@ inputBusquedaTable('tablaEstudiosActuales', tablaEstudiosActuales, [
 
 
 dataEstudiosEliminado = { api: 0 };
-tablaEstudiosEliminados = $(`#tablaEstudiosEliminados`).DataTable({
-    language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
-    scrollY: autoHeightDiv(0, 374),
-    scrollCollapse: true,
-    lengthChange: false,
-    info: false,
-    paging: false,
-    ajax: {
-        dataType: 'json',
-        data: function (d) { return $.extend(d, dataEstudiosEliminado); },
-        method: 'POST',
-        url: `${http}${servidor}/${appname}/api/turnos_api.php`,
-        error: function (jqXHR, textStatus, errorThrown) {
-            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+
+if (!validarPermiso('RepTabEstElim'))
+    $(`#contenido-estudios-eliminados`).remove();
+
+try {
+    tablaEstudiosEliminados = $(`#tablaEstudiosEliminados`).DataTable({
+        language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
+        scrollY: autoHeightDiv(0, 374),
+        scrollCollapse: true,
+        lengthChange: false,
+        info: false,
+        paging: false,
+        ajax: {
+            dataType: 'json',
+            data: function (d) { return $.extend(d, dataEstudiosEliminado); },
+            method: 'POST',
+            url: `${http}${servidor}/${appname}/api/turnos_api.php`,
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertErrorAJAX(jqXHR, textStatus, errorThrown);
+            },
+            dataSrc: 'response.data'
         },
-        dataSrc: 'response.data'
-    },
-    createdRow: function (row) {
-        $(row).addClass('bg-danger text-white');
-    },
-    columns: [
-        // { data: 'AREA' },
-        { data: 'ESTUDIO' },
-        {
-            data: 'ID_ESTUDIO', render: function (data) {
-                return `
+        createdRow: function (row) {
+            $(row).addClass('bg-danger text-white');
+        },
+        columns: [
+            // { data: 'AREA' },
+            { data: 'ESTUDIO' },
+            {
+                data: 'ID_ESTUDIO', render: function (data) {
+                    return `
                     <div class="row">
                         <div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
                             <i class="bi bi-box-arrow-in-left btn-agregar-estudio" data-bd-id="${data}" style="cursor: pointer; font-size:18px;"></i>
                         </div>          
                     </div>
                     `;
-            }
-        },
-    ],
-    columnDefs: [{ width: "5px", targets: 1 },],
-})
+                }
+            },
+        ],
+        columnDefs: [{ width: "5px", targets: 1 },],
+    })
 
-inputBusquedaTable('tablaEstudiosEliminados', tablaEstudiosEliminados, [
-    {
-        msj: 'Los cambios de estudios de estudio al paciente son instantaneos',
-        place: 'top',
-    }
-], {}, 'col-12')
+    inputBusquedaTable('tablaEstudiosEliminados', tablaEstudiosEliminados, [
+        {
+            msj: 'Los cambios de estudios de estudio al paciente son instantaneos',
+            place: 'top',
+        }
+    ], {}, 'col-12')
+} catch (error) {
+
+}
 
 
 
@@ -203,8 +212,8 @@ function statusEstudiosPaciente(id, api = 17, tipo = 'eliminar', estudio = 'no s
 }
 
 
-select2("#select-edit-lab", "modalCambiarEstudios", 'Seleccione un estudio');
-select2("#select-edit-labbio", "modalCambiarEstudios", 'Seleccione un estudio');
-select2("#select-edit-rx", "modalCambiarEstudios", 'Seleccione un estudio');
-select2("#select-edit-us", "modalCambiarEstudios", 'Seleccione un estudio');
-select2("#select-edit-otros", "modalCambiarEstudios", 'Seleccione un estudio');
+select2("#select-edit-lab", "modalCambiarEstudios", 'Seleccione un estudio', '308px');
+select2("#select-edit-labbio", "modalCambiarEstudios", 'Seleccione un estudio', '308px');
+select2("#select-edit-rx", "modalCambiarEstudios", 'Seleccione un estudio', '308px');
+select2("#select-edit-us", "modalCambiarEstudios", 'Seleccione un estudio', '308px');
+select2("#select-edit-otros", "modalCambiarEstudios", 'Seleccione un estudio', '308px');

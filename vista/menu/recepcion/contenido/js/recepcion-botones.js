@@ -40,17 +40,23 @@ $(document).on('click', '#btn-espera-estatus', function () {
 })
 
 
-$(document).on('click', '#btn-trash-paciente', function (e) {
+$(document).on('click', '#btn-opciones-paciente', function (e) {
+
+
+
+  let html = '';
+  // if (session['vista']['RECEPCIÓN CAMBIO DE ESTUDIOS'] == 1)
+  if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false))
+    html += `<button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-agregar_eliminar-estudios"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="Elimine/Agregue estudios al paciente">
+          <i class="bi bi-plus-slash-minus"></i> Actualizar Estudios
+        </button> `
+
   if (array_selected) {
     alertMsj({
       icon: '',
       title: 'Elige una opción',
-      html: `
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-agregar_eliminar-estudios"
-          data-bs-toggle="tooltip" data-bs-placement="top" title="Elimine/Agregue estudios al paciente">
-          <i class="bi bi-plus-slash-minus"></i> Actualizar Estudios
-        </button> 
-      `,
+      html: html,
       showCancelButton: false,
       showConfirmButton: false,
       allowOutsideClick: true,
@@ -80,6 +86,8 @@ $(document).on('click', '#btn-agregar_eliminar-estudios', function (e) {
 })
 
 $(document).on('click', '.btn-eliminar-estudio', function (event) {
+  if (!validarPermiso('RepEstElim'))
+    return false
   event.preventDefault();
   let name = $(this).closest('tr[class="odd"]')
   name = name.find('td[class="sorting_1 dtr-control"]').html();
@@ -198,12 +206,14 @@ $("#btn-perfil").click(function () {
   }
 })
 
-if (!session['permiso']['RepIngPaci'] == 1)
+// if (!session['permiso']['RepIngPaci'] == 1)
+if (!validarPermiso('RepIngPaci'))
   $('#btn-pendiente').fadeOut(0);
 
 $("#btn-pendiente").click(function () {
 
-  if (!session['permiso']['RepIngPaci'] == 1)
+  // if (!session['permiso']['RepIngPaci'] == 1)
+  if (!validarPermiso('RepIngPaci'), 1)
     return false;
 
   if (array_selected != null) {

@@ -118,23 +118,57 @@ function calcularEdad(fecha) {
 }
 
 // Revisar sesión
-function validarVista(area) {
-  if (session['vista'][area] == 1) {
-    validar = true
-    return 1
-  } else {
-    validar = false
-    alertMensajeConfirm({
-      title: "¡No tiene permitido estar aqui!",
-      text: "No tiene permiso para usar esta area",
-      icon: "info",
-      confirmButtonColor: "#d33",
-      confirmButtonText: "Aceptar",
-      allowOutsideClick: false
-    }, function () {
-      destroySession();
-      window.location.replace(http + servidor + "/" + appname + "/vista/login/");
-    })
+function validarVista(area, reload = true) {
+  try {
+    if (session['vista'][area] == 1) {
+      validar = true
+      return 1
+    } else {
+      return si(reload)
+    }
+  } catch (error) {
+    return si(reload)
+  }
+
+  function si(reload) {
+    if (reload) {
+      validar = false
+      alertMensajeConfirm({
+        title: "¡No tiene permitido estar aqui!",
+        text: "No tiene permiso para usar esta area",
+        icon: "info",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Aceptar",
+        allowOutsideClick: false
+      }, function () {
+        destroySession();
+        window.location.replace(http + servidor + "/" + appname + "/vista/login/");
+      })
+      return false;
+    } else {
+      return false;
+    }
+  }
+}
+
+//Revisar permisos
+function validarPermiso(permiso, reload = false) {
+  try {
+    if (session['permisos'][permiso] == 1) {
+      // console.log(true)
+      return true
+    } else {
+      console.log(session['permisos'])
+      console.log(false)
+      if (reload)
+        window.location.reload()
+      return false;
+    }
+  } catch (error) {
+    console.log(error)
+    if (reload)
+      window.location.reload()
+    return false;
   }
 }
 
@@ -1800,12 +1834,12 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
 }
 //
 
-function select2(select, modal = null, placeholder = 'Selecciona una opción') {
+function select2(select, modal = null, placeholder = 'Selecciona una opción', width = '100%') {
   if (!modal) modal = 'body-controlador';
   $(select).select2({
     dropdownParent: $('#' + modal),
     tags: false,
-    width: '100%',
+    width: width,
     placeholder: placeholder
   });
 }
