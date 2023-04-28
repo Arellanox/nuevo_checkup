@@ -591,12 +591,12 @@ class Miscelaneus
             if ($content !== $infoEtiqueta[$i]['CONTENEDOR']) {
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
                 $muestra = $infoEtiqueta[$i]['MUESTRA'];
-                $local = $infoEtiqueta[$i]['MAQUILA_ABR'];
+                $local = $infoEtiqueta[$i]['LOCAL'];
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'MAQUILA_ABR' => $arrayEtiquetaEstudios
+                    'LOCAL' => $arrayEtiquetaEstudios
 
                 );
                 array_push($arrayEtiqueta, $array1);
@@ -605,19 +605,19 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $arrayEtiquetaEstudios
+                        'LOCAL' => $arrayEtiquetaEstudios
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
             } else if ($muestra !== $infoEtiqueta[$i]['MUESTRA']) {
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
                 $muestra = $infoEtiqueta[$i]['MUESTRA'];
-                $local = $infoEtiqueta[$i]['MAQUILA_ABR'];
+                $local = $infoEtiqueta[$i]['LOCAL'];
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'MAQUILA_ABR' => $infoEtiqueta[$i]['MAQUILA_ABR'],
+                    'LOCAL' => $infoEtiqueta[$i]['LOCAL'],
                 );
                 array_push($arrayEtiqueta, $array1);
                 if ($local == 0) {
@@ -625,7 +625,7 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $local
+                        'LOCAL' => $local
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
