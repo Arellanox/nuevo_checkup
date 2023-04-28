@@ -602,7 +602,7 @@ class Miscelaneus
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
                 $muestra = $infoEtiqueta[$i]['MUESTRA'];
                 $local = $infoEtiqueta[$i]['LOCAL'];
-                $maquila = $infoEtiqueta[$i]['MAQUILA_ABR'];
+                #$maquila = $infoEtiqueta[$i]['MAQUILA_ABR'];
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
@@ -614,8 +614,7 @@ class Miscelaneus
                     $array1 = array(
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
-                        'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $maquila
+                        'ESTUDIOS' => $arrayEtiquetaEstudios
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
@@ -649,7 +648,9 @@ class Miscelaneus
             "EDAD" => $infoPaciente[0]['EDAD'],
             'SEXO' => $infoPaciente[0]['SEXO'],
             'BARRAS' => $infoPaciente[0]['CODIGO_BARRAS'],
-            'CONTENEDORES' => $arrayEtiqueta
+            'CONTENEDORES' => $arrayEtiqueta,
+            'MAQUILA_ABR' => $infoEtiqueta[$e]['MAQUILA_ABR']
+
         );
 
         return $arregloPaciente;
