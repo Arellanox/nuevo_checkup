@@ -593,7 +593,7 @@ class Miscelaneus
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
 
                 if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
-                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR'], 'LOCAL' => $infoEtiqueta[$e]['LOCAL'], 'MAQUILA_ABR' => $infoEtiqueta[$e]['MAQUILA_ABR']);
+                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR'], 'LOCAL' => $infoEtiqueta[$e]['LOCAL']);
                     array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
                 }
             }
@@ -615,6 +615,8 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
+                        'MAQUILA' => $maquila
+
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
@@ -633,6 +635,7 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
+                        'MAQUILA' => $maquila
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
