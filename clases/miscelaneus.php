@@ -595,7 +595,7 @@ class Miscelaneus
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
-                    'ESTUDIOS' => $arrayEtiquetaEstudios,
+                    'ESTUDIOS' => $arrayEtiquetaEstudios[0][1],
 
                 );
                 array_push($arrayEtiqueta, $array1);
