@@ -1907,6 +1907,16 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       }
 
                       $('#info-paci-prefolio').html(row.PREFOLIO)
+
+                      // if (row['ordenes']) {
+                      //   // let row = row['ordenes']
+                      //   // if ()
+                      //   try {
+                      //     let row = row['ordenes'][0]
+                      //   } catch (error) {
+
+                      //   }
+                      // }
                     }
                   },
                   complete: function () {
@@ -2435,29 +2445,39 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   if (dataDocumentos['PERFIL'])
                     $(`#btn-PERFIL`).fadeIn();
 
+
                   //Credencial
-                  if (dataDocumentos['IDENTIFICACION'][0]) {
-                    if (dataDocumentos['IDENTIFICACION'][0]['back'].length && dataDocumentos['IDENTIFICACION'][0]['front'].length) {
-                      $('#btn-credenciales').fadeIn();
-                      console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
-                      if (dataDocumentos['IDENTIFICACION'][0]['back'].length)
-                        $(`#btn-back`).fadeIn();
-                      if (dataDocumentos['IDENTIFICACION'][0]['front'].length)
-                        $(`#btn-front`).fadeIn();
+                  try {
+                    if (dataDocumentos['IDENTIFICACION'][0]) {
+                      if (dataDocumentos['IDENTIFICACION'][0]['front'].length) {
+                        $('#btn-credenciales').fadeIn();
+                        // console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
+                        // if (dataDocumentos['IDENTIFICACION'][0]['back'].length)
+                        //   $(`#btn-back`).fadeIn();
+                        if (dataDocumentos['IDENTIFICACION'][0]['front'].length)
+                          $(`#btn-front`).fadeIn();
+                      }
                     }
+                  } catch (error) {
+
                   }
 
-                  for (const key in dataDocumentos['ORDENES_MEDICAS'][0]) {
-                    $('#btn-orden-medicas').fadeIn();
-                    if (Object.hasOwnProperty.call(dataDocumentos['ORDENES_MEDICAS'][0], key)) {
-                      const element = dataDocumentos['ORDENES_MEDICAS'][0][key];
-                      if (element.area) {
-                        element.area = element.area.replace(' ', '')
-                        $(`#btn-${element.area}`).fadeIn();
-                        $(`#btn-${element.area}`).attr('href', element.url);
-                      }
+                  //Ordenes_medicas
+                  try {
+                    for (const key in dataDocumentos['ORDENES_MEDICAS'][0]) {
+                      $('#btn-orden-medicas').fadeIn();
+                      if (Object.hasOwnProperty.call(dataDocumentos['ORDENES_MEDICAS'][0], key)) {
+                        const element = dataDocumentos['ORDENES_MEDICAS'][0][key];
+                        if (element.area) {
+                          element.area = element.area.replace(' ', '')
+                          $(`#btn-${element.area}`).fadeIn();
+                          $(`#btn-${element.area}`).attr('href', element.url);
+                        }
 
+                      }
                     }
+                  } catch (error) {
+
                   }
 
 
