@@ -289,7 +289,7 @@ switch ($api) {
         $verificacion = $master->guardarFiles($_FILES, "verificacion-ujat", $dir2, "VERIFICACION_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master, $e_turno_id) . "_$hoy");
 
 
-        if (!empty($verificacion)) {
+        if (!empty($master->checkArray($verificacion))) {
             $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
         }
 
