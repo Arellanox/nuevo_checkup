@@ -447,7 +447,7 @@ class Miscelaneus
         $renderpdf = $pdf->build();
 
         if ($lab == 1 && $tipo == 'url') {
-            $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
+            $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
     }
@@ -596,8 +596,6 @@ class Miscelaneus
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'LOCAL' => $arrayEtiquetaEstudios,
-                    'MAQUILA_ABR' => $arrayEtiquetaEstudios
 
                 );
                 array_push($arrayEtiqueta, $array1);
@@ -606,8 +604,6 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'LOCAL' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $arrayEtiquetaEstudios
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
@@ -619,8 +615,6 @@ class Miscelaneus
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'LOCAL' => $infoEtiqueta[$i]['LOCAL'],
-                    'MAQUILA_ABR' => $infoEtiqueta[$i]['MAQUILA_ABR']
                 );
                 array_push($arrayEtiqueta, $array1);
                 if ($local == 0) {
@@ -628,8 +622,6 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'LOCAL' => $local,
-                        'MAQUILA_ABR' => $infoEtiqueta[$i]['MAQUILA_ABR']
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
