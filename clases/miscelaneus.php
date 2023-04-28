@@ -577,6 +577,7 @@ class Miscelaneus
         $content = "";
         $muestra = "";
         $local = "";
+        $maquila = "";
         for ($i = 0; $i < count($infoEtiqueta); $i++) {
 
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
@@ -592,10 +593,11 @@ class Miscelaneus
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
                 $muestra = $infoEtiqueta[$i]['MUESTRA'];
                 $local = $infoEtiqueta[$i]['LOCAL'];
+                $maquila = $infoEtiqueta[$i]['MAQUILA_ABR'];
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
-                    'ESTUDIOS' => $arrayEtiquetaEstudios[0][1],
+                    'ESTUDIOS' => $arrayEtiquetaEstudios,
 
                 );
                 array_push($arrayEtiqueta, $array1);
@@ -604,6 +606,7 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
+                        'MAQUILA_ABR' => $maquila
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
@@ -622,6 +625,7 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
+                        'MAQUILA_ABR' => $maquila
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
