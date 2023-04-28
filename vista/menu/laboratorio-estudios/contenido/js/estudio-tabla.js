@@ -2,9 +2,8 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  scrollY: "60vh",
-  scrollCollapse: true,
-  lengthMenu: [[10, 15, 20, 25, 30, 35, 40, 45, 50, -1], [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]],
+  scrollY: autoHeightDiv(0, 330), //347px  scrollCollapse: true,
+  lengthMenu: [[15, 20, 25, 30, 35, 40, 45, 50, -1], [15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
     dataType: 'json',
     data: { api: 2, id_area: 6, tipgrupo: 0 },
@@ -47,4 +46,6 @@ selectDatatable("TablaEstudioServicio", tablaServicio, 1, 'servicios_api', 'estu
 })
 
 selectDatatable("TablaEstudioServicio", tablaServicio, 1, 'servicios_api', 'estudio')
+
+inputBusquedaTable('TablaEstudioServicio', tablaServicio, false)
 

@@ -42,7 +42,8 @@ $('#btn-confirmarenviar-resultado').click(function () {
                 type: "POST",
                 data: {
                     id_turno: turno,
-                    api: 13
+                    api: 13,
+                    id_area: areaActiva
                 },
                 dataType: "json",
                 beforeSend: function () {

@@ -64,7 +64,7 @@ $menu = $_POST['menu']; ?>
 <?php endif; ?>
 
 
-<?php if ($menu == "Estudios - Laboratorio" || $menu == "Estudios" || $menu == "Grupos de examenes - Laboratorio" || $menu == "Grupos de examenes") : ?>
+<?php if ($menu == "Estudios - Laboratorio" || $menu == "Estudios" || $menu == "Grupos de estudios - Laboratorio" || $menu == "Grupos de estudios") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-agregar-estudio">
     <i class="bi bi-plus-square"></i> Agregar
   </button>
