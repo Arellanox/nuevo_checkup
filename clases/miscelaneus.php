@@ -582,7 +582,7 @@ class Miscelaneus
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
 
                 if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
-                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR'], 'LOCAL' => $infoEtiqueta[$e]['LOCAL'], 'MAQUILA_ABR' => $infoEtiqueta[$e]['MAQUILA_ABR']);
+                    $arregloEtiqueta = array('MAQUILA_ABR' => $infoEtiqueta[$e]['MAQUILA_ABR'], 'ABREVIATURA' => $infoEtiqueta[$e]['ABR'], 'LOCAL' => $infoEtiqueta[$e]['LOCAL']);
                     array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
                 }
             }
