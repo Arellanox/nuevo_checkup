@@ -335,7 +335,7 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
                 $carpeta_guardado = "etiquetas";
                 $datos_medicos = array();
-                // print_r($arregloPaciente);
+                //print_r($arregloPaciente);
                 break;
             case 6:
             case '6':
@@ -607,16 +607,17 @@ class Miscelaneus
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
-                    'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'MAQUILA_ABR' => $maquila
+                    'MAQUILA_ABR' => $maquila,
+                    'ESTUDIOS' => $arrayEtiquetaEstudios
+
                 );
                 array_push($arrayEtiqueta, $array1);
                 if ($local == 0) {
                     $array1 = array(
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
-                        'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $maquila
+                        'MAQUILA_ABR' => $maquila,
+                        'ESTUDIOS' => $arrayEtiquetaEstudios
 
                     );
                     array_push($arrayEtiqueta, $array1);
@@ -628,16 +629,18 @@ class Miscelaneus
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
-                    'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'MAQUILA_ABR' => $maquila
+                    'MAQUILA_ABR' => $maquila,
+                    'ESTUDIOS' => $arrayEtiquetaEstudios
+
                 );
                 array_push($arrayEtiqueta, $array1);
                 if ($local == 0) {
                     $array1 = array(
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
+                        'MAQUILA_ABR' => $maquila,
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $maquila
+
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
