@@ -582,7 +582,7 @@ class Miscelaneus
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
 
                 if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
-                    $arregloEtiqueta = array('MAQUILA_ABR' => $infoEtiqueta[$e]['MAQUILA_ABR'], 'ABREVIATURA' => $infoEtiqueta[$e]['ABR'], 'LOCAL' => $infoEtiqueta[$e]['LOCAL']);
+                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR'], 'LOCAL' => $infoEtiqueta[$e]['LOCAL'], 'MAQUILA_ABR' => $infoEtiqueta[$e]['MAQUILA_ABR']);
                     array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
                 }
             }
@@ -596,8 +596,6 @@ class Miscelaneus
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'LOCAL' => $arrayEtiquetaEstudios,
-                    'MAQUILA_ABR' => $arrayEtiquetaEstudios
 
                 );
                 array_push($arrayEtiqueta, $array1);
@@ -606,8 +604,6 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'LOCAL' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $arrayEtiquetaEstudios
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
@@ -619,8 +615,6 @@ class Miscelaneus
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'LOCAL' => $infoEtiqueta[$i]['LOCAL'],
-                    'MAQUILA_ABR' => $infoEtiqueta[$i]['MAQUILA_ABR']
                 );
                 array_push($arrayEtiqueta, $array1);
                 if ($local == 0) {
@@ -628,8 +622,6 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'LOCAL' => $local,
-                        'MAQUILA_ABR' => $arrayEtiquetaEstudios
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
