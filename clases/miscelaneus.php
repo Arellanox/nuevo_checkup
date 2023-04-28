@@ -335,7 +335,7 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
                 $carpeta_guardado = "etiquetas";
                 $datos_medicos = array();
-                print_r($arregloPaciente);
+                // print_r($arregloPaciente);
                 break;
             case 6:
             case '6':
