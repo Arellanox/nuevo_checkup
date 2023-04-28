@@ -82,6 +82,12 @@ switch ($api) {
         # buscar pacientes
         // echo $id_paciente;
         $response = $master->getByProcedure("sp_pacientes_b", [$id_paciente, $curp, $pasaporte, $id_turno]);
+
+        foreach ($response as $key => $value) {
+            $value['ordenes'] = $master->decodeJson([$value['ordenes']]);
+            $response[$key]['ordenes'] = $value['ordenes'];
+        }
+
         break;
     case 3:
         # actualizar pacientes

@@ -171,12 +171,12 @@ function hasLocation() {
   switch (hash) {
     case "EstudiosLab":
       if (validarVista('SERVICIOS (ESTUDIOS)')) {
-        obtenerContenidoEstudios("Estudios");
+        obtenerContenidoEstudios("Estudios - Laboratorio");
       }
       break;
     case "GruposLab":
       if (validarVista('SERVICIOS (GRUPOS)')) {
-        obtenerContenidoGrupos("Grupos de examenes");
+        obtenerContenidoGrupos("Grupos de estudios - Laboratorio");
       }
       break;
     // case "Equipos":

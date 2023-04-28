@@ -36,8 +36,8 @@
             <input type="text" class="form-control input-form" name="curp" placeholder="" required id="editar-curp"> <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
           </div>
           <div class="col-5 col-lg-3">
-            <label for="telefono" class="form-label">Télefono</label>
-            <input type="number" class="form-control input-form" name="telefono" pattern="[0-9]{10}" placeholder="" id="editar-telefono">
+            <label for="celular" class="form-label">Télefono</label>
+            <input type="number" class="form-control input-form" name="celular" pattern="[0-9]{10}" placeholder="" id="editar-telefono">
           </div>
           <div class="col-6 col-lg-4">
             <label for="correo" class="form-label">Correo</label>
