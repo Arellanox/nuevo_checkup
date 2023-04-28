@@ -335,6 +335,7 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
                 $carpeta_guardado = "etiquetas";
                 $datos_medicos = array();
+                print_r($arregloPaciente);
                 break;
             case 6:
             case '6':
@@ -450,8 +451,8 @@ class Miscelaneus
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
         // print_r(json_encode($pie_paginarregloPacientea));
-        // print_r(json_encode($infoPaciente[0]));
-        // exit;
+        print_r(json_encode($infoPaciente[0]));
+        exit;
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
 
@@ -591,8 +592,8 @@ class Miscelaneus
 
             for ($e = 0; $e < count($infoEtiqueta); $e++) {
 
-                if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA'] && $infoEtiqueta[$i]['MAQUILA_ABR'] == $infoEtiqueta[$e]['MAQUILA_ABR']) {
-                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR'], 'LOCAL' => $infoEtiqueta[$e]['LOCAL']);
+                if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
+                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR'], 'LOCAL' => $infoEtiqueta[$e]['LOCAL'], 'MAQUILA_ABR' => $infoEtiqueta[$e]['MAQUILA_ABR']);
                     array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
                 }
             }
@@ -607,8 +608,6 @@ class Miscelaneus
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'MAQUILA_ABR' => $infoEtiqueta[$i]['MAQUILA_ABR'],
-
                 );
                 array_push($arrayEtiqueta, $array1);
                 if ($local == 0) {
@@ -616,7 +615,6 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $infoEtiqueta[$i]['MAQUILA_ABR'],
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
@@ -628,7 +626,6 @@ class Miscelaneus
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                     'ESTUDIOS' => $arrayEtiquetaEstudios,
-                    'MAQUILA_ABR' => $infoEtiqueta[$i]['MAQUILA_ABR'],
                 );
                 array_push($arrayEtiqueta, $array1);
                 if ($local == 0) {
@@ -636,7 +633,6 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA_ABR' => $infoEtiqueta[$i]['MAQUILA_ABR'],
                     );
                     array_push($arrayEtiqueta, $array1);
                 }

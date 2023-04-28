@@ -103,7 +103,8 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                                 <td>
                                     <p style='font-size: 8px;'> <span style='font-weight:bold;'>" .   $recipiente->CONTENEDOR . " (" . $recipiente->MUESTRA . " ) </span> | " .   $recipientes->FECHA_TOMA . " </p>
                                     <p>" .   $recipientes->NOMBRE . "</p>
-                                    <p>" .   $recipientes->EDAD . " AÑOS | " . $recipientes->SEXO .  "</p>";
+                                    <p>" .   $recipientes->EDAD . " AÑOS | " . $recipientes->SEXO .  "</p>" .
+                    "<p>" .   $recipientes->MAQUILA_ABR  . "</p>";
                 $etiqueta = '';
                 foreach ($recipiente->ESTUDIOS as $b => $estudio) {
                     $etiqueta = $etiqueta . $estudio->ABREVIATURA . ", ";
@@ -116,7 +117,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                                 </td>
                             </tr>";
 
-                            // <img src='data:image/png;base64," .  $generator->getBarcode($barcode, $generator::TYPE_CODE_128)  .  " width='65px' height='30px'>
+                // <img src='data:image/png;base64," .  $generator->getBarcode($barcode, $generator::TYPE_CODE_128)  .  " width='65px' height='30px'>
                 $i++;
             }
             ?>
