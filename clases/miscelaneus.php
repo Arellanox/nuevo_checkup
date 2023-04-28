@@ -231,7 +231,16 @@ class Miscelaneus
     {
 
         $urlArray = array();
+        // var_dump($files[$posicion]['name']);
+
+        // var_dump($files);
         if (!empty($files[$posicion]['name'])) {
+
+            if (empty($files[$posicion]['name'][0])) {
+                // echo "haz algo";
+                $this->setLog("El archivo esta vacio o dañado, error al subir archivo.", "[function guardarFiles][$posicion]");
+                return array();
+            }
 
             $next = 0;
             foreach ($files[$posicion]['name'] as $key => $value) {
@@ -256,7 +265,7 @@ class Miscelaneus
             }
             return $urlArray;
         } else {
-            $this->setLog("El archivo esta vacio, error al subir archivo.", "[function guardarFiles][$posicion]");
+            $this->setLog("El archivo esta vacio o dañado, error al subir archivo.", "[function guardarFiles][$posicion]");
             return array();
         }
     }
