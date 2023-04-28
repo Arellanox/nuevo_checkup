@@ -451,8 +451,8 @@ class Miscelaneus
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
         // print_r(json_encode($pie_paginarregloPacientea));
-        print_r(json_encode($infoPaciente[0]));
-        exit;
+        // print_r(json_encode($infoPaciente[0]));
+        //exit;
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
 
