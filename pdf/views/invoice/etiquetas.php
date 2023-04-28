@@ -107,7 +107,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                     "<p>" .   $resultados->MAQUILA_ABR  . "</p>";
                 $etiqueta = '';
                 foreach ($recipiente->ESTUDIOS as $b => $estudio) {
-                    $etiqueta = $etiqueta . $estudio->ABREVIATURA . ", ";
+                    $etiqueta = $etiqueta . $estudio->MAQUILA_ABR . $estudio->ABREVIATURA . ", ";
                 }
                 echo    "   
                                     <p style='text-align:center; padding-top: 4px; padding-bottom: 4px;'> 
