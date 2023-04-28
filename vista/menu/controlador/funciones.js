@@ -1848,7 +1848,7 @@ function select2(select, modal = null, placeholder = 'Selecciona una opción', w
 
 //Creador vistas
 pacienteTurnoActivo = new GuardarArreglo();
-function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null) {
+function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null, area = null) {
   return new Promise(resolve => {
     var html = "";
     $(panel).fadeOut(0);
@@ -1908,15 +1908,42 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                       $('#info-paci-prefolio').html(row.PREFOLIO)
 
-                      // if (row['ordenes']) {
-                      //   // let row = row['ordenes']
-                      //   // if ()
-                      //   try {
-                      //     let row = row['ordenes'][0]
-                      //   } catch (error) {
+                      if (row['ordenes']) {
+                        // let row = row['ordenes']
+                        // if ()
 
-                      //   }
-                      // }
+                        let ordenes = row['ordenes'][0];
+
+                        let hash = {
+                          'LABORATORIO CLÍNICO': 6,
+                          'ULTRASONIDO': 11,
+                          'RAYOS X': 8
+                        }
+
+                        for (const key in ordenes) {
+                          if (Object.hasOwnProperty.call(ordenes, key)) {
+                            const element = ordenes[key];
+                            console.log(hash[element['area']])
+                            if (hash[element['area']] == area) {
+                              $('#contenedor-btn-ordenes-medicas').append(`
+                                <div class="col text-center">
+                                  <a type="button" target="_blank" class="btn btn-borrar"
+                                      href="${element['url']}">
+                                    <i class="bi bi-file-earmark-pdf"></i> ${element['area']}
+                                  </a>
+                                </div>
+                              `)
+                            }
+
+                          }
+                        }
+
+                        try {
+                          let row = row['ordenes'][0]
+                        } catch (error) {
+
+                        }
+                      }
                     }
                   },
                   complete: function () {

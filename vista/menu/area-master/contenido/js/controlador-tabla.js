@@ -96,7 +96,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
             turno: datalist['ID_TURNO']
         })
         getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
-            await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
+            await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', areaActiva)
             // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster')
             await obtenerServicios(areaActiva, datalist['ID_TURNO'])
 

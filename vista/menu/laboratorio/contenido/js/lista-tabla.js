@@ -54,7 +54,7 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
   if (selectTR == 1) {
     try {
       getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'In', async function (divClass) {
-        await obtenerPanelInformacion(selectListaLab['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
+        await obtenerPanelInformacion(selectListaLab['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', 6)
         await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
         await generarFormularioPaciente(selectListaLab['ID_TURNO'])
 
