@@ -440,6 +440,8 @@ switch ($api) {
         } else {
             $master->setLog("No se pudo crear el directorio para las ines de los pacientes.", "recepcion_api [case 10]");
         }
+
+        $response =1 ;
         break;
     case 11:
         # recuperar todos los documentos que existen.
