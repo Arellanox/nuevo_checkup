@@ -615,7 +615,7 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA' => $maquila
+                        'MAQUILA_ABR' => $maquila
 
                     );
                     array_push($arrayEtiqueta, $array1);
@@ -635,7 +635,7 @@ class Miscelaneus
                         'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                         'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
                         'ESTUDIOS' => $arrayEtiquetaEstudios,
-                        'MAQUILA' => $maquila
+                        'MAQUILA_ABR' => $maquila
                     );
                     array_push($arrayEtiqueta, $array1);
                 }
