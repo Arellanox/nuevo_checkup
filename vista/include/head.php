@@ -43,6 +43,17 @@
 <link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/summernote/css/styles.css'; ?>">
 <script src="<?php echo 'http://' . $url . '/' . $appname . '/summernote/summernote/summernote-lite.js'; ?>"></script>
 
+<!-- Confetti -->
+<!-- <link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/js/framework/confetti.min.js'; ?>"> -->
+<!-- first include tsParticles engine -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-engine"></script>
+
+<!-- then include any tsParticles plugin needed -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles/tsparticles.bundle.min.js"></script>
+
+<!-- then include jquery wrapper -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-particles"></script>
+
 
 
 <!-- Select2 -->

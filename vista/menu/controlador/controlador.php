@@ -16,6 +16,8 @@ include "../../variables.php";
   </div>
 </div>
 <div class="" id="modals-js"> <!-- Aqui podrán incluir los modals --> </div>
+
+
 <!-- HTML -->
 
 

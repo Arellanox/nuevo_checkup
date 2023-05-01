@@ -46,12 +46,13 @@
         $_SESSION['vista']['AUDIOMETRIA'] == 1 ||
         $_SESSION['vista']['OFTALMOLOGIA'] == 1 ||
         $_SESSION['vista']['SOMATOMETRIA'] == 1 ||
-        $_SESSION['vista']['CONSULTORIO'] == 1
+        $_SESSION['vista']['CONSULTORIO'] == 1 ||
+        $_SESSION['vista']['ESTUDIOS_ULTRASONIDO'] == 1 || $_SESSION['vista']['ESTUDIOS_RAYOSX'] == 1 || $_SESSION['vista']['ESTUDIOS_AREAS'] == 1
     ) : ?>
      <li class="nav-item Recepción">
          <div class="dropdown ">
              <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 <i class="bi bi-window-stack"></i> Áreas
+                 <i class="bi bi-window-stack"></i> Checkups
              </a>
              <!-- Estos botones se cargan en el servidor desde el archivo del include -->
              <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">

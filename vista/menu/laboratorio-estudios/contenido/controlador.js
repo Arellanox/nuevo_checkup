@@ -1,5 +1,5 @@
 
-if (validarVista('LABORATORIO_ESTUDIOS')) {
+if (validarVista('ESTUDIOS_LABORATORIO')) {
   //Menu predeterminado
   hasLocation();
   $(window).on("hashchange", function (e) {
@@ -170,14 +170,14 @@ function hasLocation() {
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {
     case "EstudiosLab":
-      if (validarVista('SERVICIOS (ESTUDIOS)')) {
-        obtenerContenidoEstudios("Estudios - Laboratorio");
-      }
+      // if (validarVista('SERVICIOS (ESTUDIOS)')) {
+      obtenerContenidoEstudios("Estudios - Laboratorio");
+      // }
       break;
     case "GruposLab":
-      if (validarVista('SERVICIOS (GRUPOS)')) {
-        obtenerContenidoGrupos("Grupos de estudios - Laboratorio");
-      }
+      // if (validarVista('SERVICIOS (GRUPOS)')) {
+      obtenerContenidoGrupos("Grupos de estudios - Laboratorio");
+      // }
       break;
     // case "Equipos":
     //   if (validarVista('SERVICIOS (EQUIPOS)')) {

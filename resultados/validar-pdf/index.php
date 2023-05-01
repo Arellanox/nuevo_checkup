@@ -20,6 +20,7 @@ $master = new Master();
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
 <!-- recibes queo nada -->
+
 <head>
     <?php include "../../vista/include/head.php"; ?>
     <title>Resultados | Bimo</title>
@@ -38,40 +39,41 @@ $master = new Master();
         <!-- BODY -->
         <div class="card m-3 p-3">
             <!-- informacion paciente -->
-            <!-- <h3>Información personal</h3>
+            <h3>Información personal</h3>
             <div class="row">
                 <div class="col-12 col-md-auto d-flex justify-content-center">
                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil" style="width:150px !Important">
                 </div>
-                <div class="col-auto info-detalle">
+                <div class="col-auto col-md-6 info-detalle">
                     <div class="row">
                         <div class="col-12">
                             <p id="nombre-persona"> Luis Gerardo Cuevas González</p>
                             <p class="none-p"> <strong id="edad-persona" class="none-p">22</strong> años | <strong id="nacimiento-persona" class="none-p">22/06/2000</strong> </p>
                         </div>
                         <div class="col-12 row">
-                            <div class="col-auto">
+                            <div class="col-6 col-md-12 col-lg-auto">
                                 <p class="info-detalle-p" id="nacimiento-paciente-consulta">Procedencia: <span class="span-info-paci">bimo</span></p>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-6 col-md-12 col-lg-auto">
                                 <p class="info-detalle-p" id="edad-paciente-consulta">Diagnóstico: <span class="span-info-paci">COVID</span></p>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-6 col-md-12 col-lg-auto">
                                 <p class="info-detalle-p" id="genero-paciente-consulta">Telefono: <span class="span-info-paci">9934305006</span> </p>
                             </div>
-                            <div class="col-auto">
-                                <p class="info-detalle-p" id="correo-paciente-consulta">Correo: <span class="span-info-paci">luis.cuevas@bimo.com.mx</span> </p>
+                            <div class="col-6 col-md-12 col-lg-auto">
+                                <p class="info-detalle-p" id="curp-paciente-consulta">Prefolio: <span class="span-info-paci">202341LGG014</span> </p>
                             </div>
-                            <div class="col-auto">
-                                <p class="info-detalle-p" id="curp-paciente-consulta">Prefolio <span class="span-info-paci">202341LGG014</span> </p>
+                            <div class="col-6 col-md-12 col-lg-auto">
+                                <p class="info-detalle-p" id="correo-paciente-consulta">Correo: <span class="span-info-paci">luis.cuevas@bimo.com.mx</span> </p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> -->
-            <p>¡Remodelación!</p>
-            <p>Está página está en mantenimiento. Estamos trabajando para validar tus resultados de checkup :) </p>
+
+            </div>
         </div>
+
+    </div>
 
 
     </div>

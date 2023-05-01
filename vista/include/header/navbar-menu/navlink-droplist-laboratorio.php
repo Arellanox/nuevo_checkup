@@ -48,7 +48,7 @@
     </div>
 <?php endif; ?>
 
-<?php if ($_SESSION['vista']['LABORATORIO_ESTUDIOS'] == 1) : ?>
+<?php if ($_SESSION['vista']['ESTUDIOS_LABORATORIO'] == 1) : ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio-estudios/#EstudiosLab'; ?>">
         <i class="bi bi-box2-heart"></i> Estudios
     </a>

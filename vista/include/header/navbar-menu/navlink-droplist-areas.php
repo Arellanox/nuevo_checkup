@@ -182,3 +182,38 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
     </ul>
   </div>
 <?php endif; ?>
+
+
+
+<?php if ($_SESSION['vista']['ESTUDIOS_ULTRASONIDO'] == 1 || $_SESSION['vista']['ESTUDIOS_RAYOSX'] == 1) : ?>
+  <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-validacionCorreoLab" aria-expanded="false">
+    <i class="bi bi-box2-heart"></i> Estudios
+  </a>
+  <div class="collapse" id="board-validacionCorreoLab">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
+      <?php if ($_SESSION['vista']['ESTUDIOS_ULTRASONIDO'] == 1) : ?>
+        <li>
+          <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-servicios/#ESTUDIOS_ULTRASONIDO'; ?>">
+            <i class="bi bi-dot"></i> Ultrasonido
+          </a>
+        </li>
+
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['ESTUDIOS_RAYOSX'] == 1) : ?>
+        <li>
+          <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-servicios/#ESTUDIOS_RAYOSX'; ?>">
+            <i class="bi bi-dot"></i> Rayos X
+          </a>
+        </li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['ESTUDIOS_AREAS'] == 1) : ?>
+        <li>
+          <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-servicios/#ESTUDIOS_AREAS'; ?>">
+            <i class="bi bi-dot"></i> Checkups
+          </a>
+        </li>
+      <?php endif; ?>
+
+    </ul>
+  </div>
+<?php endif; ?>

@@ -90,3 +90,61 @@ var Base64 = (function () {
 
 
 
+
+
+
+class TableNew {
+
+  tableID;
+  status;
+  dataAjax;
+  api;
+  renderTable;
+
+  //Variables propias
+  table = false;
+
+
+  constructor(tableID = 'FormId') {
+    // this.array = array
+    this.renderTable = render;
+  }
+
+
+  createTable(dataAjax, api, columns, columnsDefs) {
+    this.dataAjax = dataAjax;
+    this.columns = columns;
+    this.api = api;
+    this.columnDefs = columnsDefs
+
+    if (!$.fn.DataTable.isDataTable(`#${tableID}`))
+      this.table = $(`#${this.tableID}`).DataTable({
+        language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
+        scrollY: autoHeightDiv(0, 374),
+        scrollCollapse: true,
+        lengthChange: false,
+        // info: false,
+        paging: false,
+        ajax: {
+          dataType: 'json',
+          data: function (d) { return $.extend(d, this.dataAjax); },
+          method: 'POST',
+          url: `${http}${servidor}/${appname}/api/${this.api}.php`,
+          beforeSend: function () { },
+          complete: function () { resolve(1) },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+          },
+          dataSrc: 'response.data'
+        },
+        columns: this.columns,
+        columnDefs: this.columnDefs,
+      })
+  }
+
+  actualizarTable() {
+    this.table.ajax.reload();
+  }
+
+
+}

@@ -64,12 +64,19 @@ $menu = $_POST['menu']; ?>
 <?php endif; ?>
 
 
-<?php if ($menu == "Estudios - Laboratorio" || $menu == "Estudios" || $menu == "Grupos de estudios - Laboratorio" || $menu == "Grupos de estudios") : ?>
+<?php if (
+  $menu == "Estudios - Laboratorio" ||
+  $menu == "Estudios" ||
+  $menu == "Grupos de estudios - Laboratorio" ||
+  $menu == "Grupos de estudios" ||
+  $menu == "Estudios de Rayos X" ||
+  $menu == 'Estudios de Ultrasonido' ||
+  $menu == "Estudios Checkup"
+) : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-agregar-estudio">
     <i class="bi bi-plus-square"></i> Agregar
   </button>
 <?php endif; ?>
-
 
 <?php if ($menu == "Equipos") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarEquipo">
