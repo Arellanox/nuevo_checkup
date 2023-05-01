@@ -164,9 +164,9 @@ switch ($menu) {
           }
 
           // Llamar a la función de reducción de tamaño en intervalos regulares
-          setTimeout(() => {
-            const intervalo = setInterval(reducirImagen, 10);
-          }, 500);
+          // setTimeout(() => {
+          const intervalo = setInterval(reducirImagen, 10);
+          // }, 500);
 
 
 
