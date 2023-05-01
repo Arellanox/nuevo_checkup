@@ -70,13 +70,13 @@ switch ($menu) {
 
       <?php
 
-      $fecha_actual = new DateTime(); // obtiene la fecha actual en formato 'año-mes-día'
+      // $fecha_actual = new DateTime(); // obtiene la fecha actual en formato 'año-mes-día'
       // $fecha_sumada = $fecha_actual->add(new DateInterval('P2D')); // suma 2 días a la fecha actual
-      $fecha_sumada_string = $fecha_actual->format('Y-m-d'); // convierte la fecha sumada en una cadena de texto en formato 'año-mes-día'
+      // $fecha_sumada_string = $fecha_actual->format('Y-m-d'); // convierte la fecha sumada en una cadena de texto en formato 'año-mes-día'
 
       // echo $fecha_sumada; // imprime la nueva fecha en formato 'año-mes-día'
 
-      if ($fecha_actual->format('Y-m-d') == "2023-05-01") :
+      if (true) :
       ?>
 
         <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" />
@@ -176,7 +176,7 @@ switch ($menu) {
 
             $("#tsparticles")
               .particles()
-              .ajax("particles.json", function(container) {
+              .ajax("https://bimo-lab.com/nuevo_checkup/vista/menu/principal/particles.json", function(container) {
                 // container is the particles container where you can play/pause or stop/start.
                 // the container is already started, you don't need to start it manually.
               });
