@@ -132,7 +132,7 @@ inputBusquedaTable('tablaEstudiosActuales', tablaEstudiosActuales, [
 dataEstudiosEliminado = { api: 0 };
 
 if (!validarPermiso('RepTabEstElim')) {
-    const contenedorPrincipal = $('#formAceptarPacienteRecepcion');
+    const contenedorPrincipal = $('#contenedor-tablas-estudios');
     $(`#contenido-estudios-eliminados`).remove();
     contenedorPrincipal.find('.col-4').removeClass('col-4').addClass('col-6');
 }
