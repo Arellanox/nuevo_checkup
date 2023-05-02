@@ -212,8 +212,6 @@ if (!validarPermiso('RepIngPaci'))
 
 $(document).on('click', '#btn-pendiente', function () {
 
-
-
   if (array_selected != null) {
     // if (!session['permiso']['RepIngPaci'] == 1)
     if (!validarPermiso('RepIngPaci', 1))

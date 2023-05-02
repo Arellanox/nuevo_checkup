@@ -162,7 +162,7 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
     return false;
 
   obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
-  obtenerPanelInformacion(data['ID_PACIENTE'], 'consulta_api', 'listado_resultados', '#panel-resultados')
+  obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
   if (array_selected['CLIENTE_ID'] == 18) {
     $('#buttonBeneficiario').fadeIn(200)
   } else {
