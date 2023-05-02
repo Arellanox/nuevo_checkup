@@ -119,11 +119,11 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         `;
 
         // if (session['vista']['RECEPCIÓN CAMBIO DE ESTUDIOS'] == 1)
-        if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false)) {
-          html += `<div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-              <i class="bi bi-back" style="cursor: pointer; font-size:18px;" id="btn-opciones-paciente"></i>
-            </div>`;
-        }
+        // if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false)) {
+        //   html += `<div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
+        //       <i class="bi bi-back" style="cursor: pointer; font-size:18px;" id="btn-opciones-paciente"></i>
+        //     </div>`;
+        // }
 
 
         html += `</div>`;
@@ -163,6 +163,7 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
 
   obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
   obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
+  obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
   if (array_selected['CLIENTE_ID'] == 18) {
     $('#buttonBeneficiario').fadeIn(200)
   } else {

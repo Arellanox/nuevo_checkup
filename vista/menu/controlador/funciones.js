@@ -2557,16 +2557,27 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 resolve(1);
                 break;
 
+              case 'Estudios_Estatus':
+                setTimeout(function () {
+                  $(panel).fadeIn(100);
+                }, 100);
+                resolve(1);
+
+                break;
+
               default:
                 console.log('Sin opción panel')
                 setTimeout(function () {
                   $(panel).fadeOut(100);
                 }, 100);
+                resolve(false);
+                break;
             }
           } else {
             setTimeout(function () {
               $(panel).fadeOut(100);
             }, 100);
+            resolve(false);
           }
         }, 110);
       });

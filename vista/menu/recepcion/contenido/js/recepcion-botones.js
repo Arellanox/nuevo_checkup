@@ -41,9 +41,6 @@ $(document).on('click', '#btn-espera-estatus', function () {
 
 
 $(document).on('click', '#btn-opciones-paciente', function (e) {
-
-
-
   let html = '';
   // if (session['vista']['RECEPCIÓN CAMBIO DE ESTUDIOS'] == 1)
   if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false))
@@ -68,18 +65,12 @@ $(document).on('click', '#btn-opciones-paciente', function (e) {
 
 //Agregar o eliminar estudios
 $(document).on('click', '#btn-agregar_eliminar-estudios', function (e) {
-  swal.close()
-
+  // swal.close()
   if (array_selected) {
     getDataEstudiosFirst()
   } else {
-
+    alertSelectTable();
   }
-
-
-
-
-
   // $('#modalCambiarEstudios').modal('show');
   // x
 
@@ -89,7 +80,7 @@ $(document).on('click', '.btn-eliminar-estudio', function (event) {
   if (!validarPermiso('RepEstElim'))
     return false
   event.preventDefault();
-  let name = $(this).closest('tr[class="odd"]')
+  let name = $(this).closest('tr')
   name = name.find('td[class="sorting_1 dtr-control"]').html();
 
   let id = $(this).attr('data-bd-id');
@@ -98,7 +89,7 @@ $(document).on('click', '.btn-eliminar-estudio', function (event) {
 
 $(document).on('click', '.btn-agregar-estudio', function (event) {
   event.preventDefault();
-  let name = $(this).closest('tr[class="odd"]')
+  let name = $(this).closest('tr')
   name = name.find('td[class="sorting_1 dtr-control"]').html();
 
   let id = $(this).attr('data-bd-id');

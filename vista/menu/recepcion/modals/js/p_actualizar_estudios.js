@@ -24,16 +24,16 @@ modalCambiarEstudios.addEventListener('show.bs.modal', event => {
 
 
 async function getDataEstudiosFirst() {
-    alertMsj({
-        title: 'Obteniendo datos reales...',
-        text: 'Espera un momento mientras recuperamos y visualizamos todo correctamente.',
-        footer: 'Es probable que tarde : )',
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-    })
+    // alertMsj({
+    //     title: 'Obteniendo datos reales...',
+    //     text: 'Espera un momento mientras recuperamos y visualizamos todo correctamente.',
+    //     footer: 'Es probable que tarde : )',
+    //     showCancelButton: false,
+    //     showConfirmButton: false,
+    //     allowOutsideClick: true,
+    // })
 
-
+    alertToast('Obteniendo datos del servidor...', 'info', 4000)
 
     //Pruebas
     rellenarSelect("#select-edit-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
@@ -60,7 +60,7 @@ async function getDataEstudiosFirst() {
     await setTables();
 
     $('#modalCambiarEstudios').modal('show');
-    swal.close()
+    // swal.close()
 }
 
 async function setTables() {
@@ -131,9 +131,11 @@ inputBusquedaTable('tablaEstudiosActuales', tablaEstudiosActuales, [
 
 dataEstudiosEliminado = { api: 0 };
 
-if (!validarPermiso('RepTabEstElim'))
+if (!validarPermiso('RepTabEstElim')) {
+    const contenedorPrincipal = $('#formAceptarPacienteRecepcion');
     $(`#contenido-estudios-eliminados`).remove();
-
+    contenedorPrincipal.find('.col-4').removeClass('col-4').addClass('col-6');
+}
 try {
     tablaEstudiosEliminados = $(`#tablaEstudiosEliminados`).DataTable({
         language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
