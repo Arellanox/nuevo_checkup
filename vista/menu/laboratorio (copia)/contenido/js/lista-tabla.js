@@ -369,10 +369,10 @@ function generarFormularioPaciente(id) {
                 if (anotherInput) {
                   html += anotherInput;
                   html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
-                  html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row['ID_SERVICIO']}">`
+                  html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row[k]['ID_SERVICIO']}">`
                 } else {
                   html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
-                  html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row['ID_SERVICIO']}">`
+                  html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row[k]['ID_SERVICIO']}">`
                   html += `<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[${inputname}][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`;
                 }
 
