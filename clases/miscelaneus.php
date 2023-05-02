@@ -626,6 +626,7 @@ class Miscelaneus
                 $content = $infoEtiqueta[$i]['CONTENEDOR'];
                 $muestra = $infoEtiqueta[$i]['MUESTRA'];
                 $local = $infoEtiqueta[$i]['LOCAL'];
+                $maquila = $infoEtiqueta[$i]['MAQUILA_ABR'];
                 $array1 = array(
                     'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
                     'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
