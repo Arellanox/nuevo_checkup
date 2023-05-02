@@ -76,6 +76,8 @@ $(document).on('click', '#btn-agregar_eliminar-estudios', function (e) {
 
 })
 
+
+
 $(document).on('click', '.btn-eliminar-estudio', function (event) {
   if (!validarPermiso('RepEstElim'))
     return false

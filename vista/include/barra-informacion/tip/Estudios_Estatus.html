@@ -1,5 +1,5 @@
-<!-- <div class="row">
-    <h5>Estatus del paciente</h5>
+<div class="row">
+    <!-- <h5>Estatus del paciente</h5> -->
     <div class="col">
         <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px"
             id="btn-agregar_eliminar-estudios" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -8,9 +8,13 @@
         </button>
     </div>
     <div class="col">
-        <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
+        <!-- <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
             data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Concluya el proceso del paciente">
             <i class="bi bi-person-check"></i> Cerrar Paciente
-        </button>
+        </button> -->
     </div>
-</div> -->
+</div>
+<script>
+    if (!validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false))
+        $('#btn-agregar_eliminar-estudios').remove()
+</script>
