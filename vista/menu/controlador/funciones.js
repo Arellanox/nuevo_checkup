@@ -154,8 +154,8 @@ function validarVista(area, reload = true) {
 //Revisar permisos
 function validarPermiso(permiso, reload = false) {
   try {
-    if (session['permisos'][permiso] == 1) {
-      // console.log(true)
+    if (session['permisos'][permiso] == 1 || session['permisos'][permiso] == '1') {
+      console.log(true)
       return true
     } else {
       console.log(session['permisos'])

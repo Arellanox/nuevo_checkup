@@ -36,7 +36,7 @@
 
       <div class="col-auto m-1 vista_estudios-precios">
         <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="11" autocomplete="off">
-        <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Imagenología</label>
+        <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i> Ultrasonido</label>
       </div>
       <div class="col-auto m-1 vista_estudios-precios">
         <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">

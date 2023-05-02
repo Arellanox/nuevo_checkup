@@ -210,13 +210,15 @@ $("#btn-perfil").click(function () {
 if (!validarPermiso('RepIngPaci'))
   $('#btn-pendiente').fadeOut(0);
 
-$("#btn-pendiente").click(function () {
+$(document).on('click', '#btn-pendiente', function () {
 
-  // if (!session['permiso']['RepIngPaci'] == 1)
-  if (!validarPermiso('RepIngPaci'), 1)
-    return false;
+
 
   if (array_selected != null) {
+    // if (!session['permiso']['RepIngPaci'] == 1)
+    if (!validarPermiso('RepIngPaci', 1))
+      return false;
+
     Swal.fire({
       title: '¿Está Seguro de regresar al paciente en espera?',
       text: "¡Sus estudios anteriores no se cargarán!",
