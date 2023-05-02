@@ -152,15 +152,16 @@ switch ($api) {
         # subir resultados
         $setResultados = $_POST['servicios'];
         $id_turno = $_POST['id_turno'];
-
-        foreach ($setResultados as $servicio_id => $resultado) {
+        #print_r($setResultados);
+        foreach ($setResultados as $key => $resultado) {
             #determinamos si el estudio de laboratorio tiene valor absoluto.
             $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $servicio_id, $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto));
-
-            if (!$response > -1) {
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $resultado['ID_SERVICIO'], $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto,$resultado['ID_GRUPO']));
+          
+            #  print_r($response);
+            if (!is_numeric($response)) {
                 echo $master->returnApi($response);
                 exit;
             }
