@@ -81,13 +81,13 @@ function calcularFilasTR() {
       arregloEstudios = {
         'id': id_servicio,
         'cantidad': calculo[2],
-        'costo': calculo[3],
-        'costototal': calculo[0],
-        'precioventa': calculo[4],
-        'subtotal': calculo[1],
-        'descuento': calculo[5],
-        'descuento_precio': calculo[6],
-        'subtotal_sin_descuento': calculo[7]
+        'costo': calculo[3].toFixed(2),
+        'costototal': calculo[0].toFixed(2),
+        'precioventa': calculo[4].toFixed(2),
+        'subtotal': calculo[1].toFixed(2),
+        'descuento': calculo[5].toFixed(2),
+        'descuento_precio': calculo[6].toFixed(2),
+        'subtotal_sin_descuento': calculo[7].toFixed(2)
       }
       // console.log(arregloEstudios)
       paqueteEstudios.push(arregloEstudios)
@@ -96,7 +96,7 @@ function calcularFilasTR() {
 
   }
   // console.log(paqueteEstudios);
-  iva = (subtotalPrecioventa * 16) / 100;
+
 
   if (!checkNumber(subtotalCosto)) {
     subtotalCosto = 0;
@@ -105,22 +105,25 @@ function calcularFilasTR() {
   }
   if (!checkNumber(subtotalPrecioventa)) {
     subtotalPrecioventa = 0;
+    desceunto = 0;
   } else {
-    descuento = $('#descuento-paquete').val();
-    if (descuento > 0) {
-      subtotalPrecioventa = subtotalPrecioventa - (subtotalPrecioventa * descuento) / 100;
-      descuento = subtotalPrecioventa * descuento / 100;
+    descuentoPorcentaje = $('#descuento-paquete').val();
+    if (descuentoPorcentaje > 0) {
+      subtotalPrecioventa = subtotalPrecioventa - (subtotalPrecioventa * descuentoPorcentaje) / 100;
+      console.log(subtotalPrecioventa)
+      descuento = subtotalPrecioventa * descuentoPorcentaje / 100;
     } else {
       subtotalPrecioventa = subtotalPrecioventa;
+      desceunto = 0;
     }
   }
-  descuento = 0;
+
+  iva = (subtotalPrecioventa * 16) / 100;
+
   total = subtotalPrecioventa + iva;
-  if (!checkNumber(total)) {
+  if (!checkNumber(total))
     total = 0;
-  } else {
-    total = total;
-  }
+
   $('#subtotal-costo-paquete').html('$' + subtotalCosto.toFixed(2));
   $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa.toFixed(2));
   $('#total-paquete').html(`$${total.toFixed(2)}`);
@@ -130,8 +133,10 @@ function calcularFilasTR() {
     'subtotal-costo': subtotalCosto,
     'subtotal': subtotalPrecioventa,
     'iva': iva,
+    'iva_porcentaje': '16%',
     'cliente_id': $('#seleccion-paquete').val(),
-    'descuento': descuento,
+    'descuento': descuento.toFixed(2),
+    'descuento_porcentaje': descuento_porcentaje.toFixed(2)
   }
   return [paqueteEstudios, CotizacionDetalle]
 }

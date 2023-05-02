@@ -87,7 +87,7 @@ $('#CambiarPaquete').on('click', function () {
 
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   $("#seleccion-estudio").find('option').remove().end()
-  tablaContenido()
+  tablaContenido(true)
   // $('.formContenidoPaquete').prop('disabled', true);
 })
 //
@@ -126,7 +126,7 @@ $('input[type=radio][name=selectChecko]').change(function () {
 
 $('#guardar-contenido-paquete').on('click', function () {
   let data = calcularFilasTR();
-  console.log(data);
+  // console.log(data);
   let dataAjax = data[0];
   let dataAjaxDetalleCotizacion = data[1];
   let tableData = tablaContenidoPaquete.rows().data().toArray();
@@ -168,10 +168,11 @@ $('#guardar-contenido-paquete').on('click', function () {
           ajaxDataSend = {
             api: 1,
             detalle: dataAjax,
-            total: dataAjaxDetalleCotizacion['total'],
-            subtotal: dataAjaxDetalleCotizacion['subtotal'],
-            iva: dataAjaxDetalleCotizacion['iva'],
+            total: dataAjaxDetalleCotizacion['total'].toFixed(2),
+            subtotal: dataAjaxDetalleCotizacion['subtotal'].toFixed(2),
+            iva: dataAjaxDetalleCotizacion['iva'].toFixed(2),
             descuento: dataAjaxDetalleCotizacion['descuento'],
+            descuento_porcentaje: dataAjaxDetalleCotizacion['descuento_porcentaje'],
             cliente_id: dataAjaxDetalleCotizacion['cliente_id'],
             atencion: $('#input-atencion-cortizaciones').val(),
             correo: $('#input-correo-cortizaciones').val(),

@@ -25,19 +25,18 @@ $total = $_POST['total'];
 $detalle = $_POST['detalle'];
 $observaciones = $_POST['observaciones'];
 
-switch($api){
+switch ($api) {
     case 1:
         # guardar cotizacion
-        $response = $master->insertByProcedure( "sp_cotizaciones_g", [ $id_cotizacion, $cliente_id, $atencion, $correo, $subtotal, $iva, $descuento, $observaciones, $total, $_SESSION['id'], json_encode($detalle) ] );
+        $response = $master->insertByProcedure("sp_cotizaciones_g", [$id_cotizacion, $cliente_id, $atencion, $correo, $subtotal, $iva, $descuento, $observaciones, $total, $_SESSION['id'], json_encode($detalle)]);
         break;
     case 2:
         # buscar informacion de las cotizaciones
-        $dataset = $master->getByNext( "sp_cotizaciones_b", [ $id_cotizacion, $cliente_id] );
-
+        $dataset = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
         $response = array();
 
-        foreach($dataset[0] as $set){
-            $set['DETALLE'] = array_filter($dataset[1], function($obj) use ($set){
+        foreach ($dataset[0] as $set) {
+            $set['DETALLE'] = array_filter($dataset[1], function ($obj) use ($set) {
                 return $set['ID_COTIZACION'] == $obj['COTIZACION_ID'];
             });
 
@@ -46,15 +45,15 @@ switch($api){
         break;
     case 3:
         # eliminar cotizacion
-        $response = $master->deleteByProcedure( "sp_cotizaciones_e", [$id_cotizacion] );
+        $response = $master->deleteByProcedure("sp_cotizaciones_e", [$id_cotizacion]);
         break;
 
     case 4:
         # solo cotizacinoes sin detalle.
-        $response = $master->getByProcedure("sp_cotizaciones_gral",[$cliente_id]);
+        $response = $master->getByProcedure("sp_cotizaciones_gral", [$cliente_id]);
         break;
     default:
-        $response = "Api no definida. Api ".$api;
+        $response = "Api no definida. Api " . $api;
         break;
 }
 

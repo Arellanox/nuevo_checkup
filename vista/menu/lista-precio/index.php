@@ -9,7 +9,7 @@ $menu = "ListaPrecios";
 
 <head>
   <?php include "../../include/head.php"; ?>
-  <title><?php echo $menu; ?> | Bimo</title>ñ
+  <title>Precios | Bimo</title>
 
 </head>
 
