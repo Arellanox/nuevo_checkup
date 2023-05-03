@@ -106,6 +106,11 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   formData.set('alergias', $('#alergias-aceptar-paciente').val());
   formData.set('diagnostico', $('#diagnostico-aceptar-paciente').val());
   formData.set('segmento_id', $('#select-segmento-aceptar').val())
+  //Medico tratante
+  formData.set('medico_tratante', $('#medico-aceptar-paciente').val());
+  formData.set('medico_correo', $('#medico-correo-aceptar').val())
+
+
   formData.set('servicios', estudiosEnviar);
 
 

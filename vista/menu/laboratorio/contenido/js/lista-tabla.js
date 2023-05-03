@@ -230,6 +230,7 @@ function generarFormularioPaciente(id) {
                   'descripcion': 'HISOPADO NASAL',
                 }
               }
+              classSelect = 'selectTipoAntigeno';
               break;
 
             case '698': // <-- VPH -->
@@ -294,7 +295,7 @@ function generarFormularioPaciente(id) {
               }
 
               break;
-            default: input = null; break;
+            default: input = null; alert('El paciente no tiene estudios compatibles, hay un problema con la compatibilidad de los estudios con biomolecular, presente el error con el area de TI para solucionar este problema con el  paciente'); break;
           }
 
 
