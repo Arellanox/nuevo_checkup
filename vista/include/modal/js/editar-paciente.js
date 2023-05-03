@@ -9,6 +9,7 @@ ModalEditarPaciente.addEventListener('show.bs.modal', event => {
   $('#editar-telefono').val(array_selected['CELULAR']);
   $('#editar-postal').val(array_selected['POSTAL']);
   $('#editar-correo').val(array_selected['CORREO']);
+  $('#editar-correo_2').val(array_selected['CORREO_2']);
   $('#editar-estado').val(array_selected['ESTADO']);
   $('#editar-municipio').val(array_selected['MUNICIPIO']);
   $('#editar-colonia').val(array_selected['COLONIA']);
@@ -21,11 +22,11 @@ ModalEditarPaciente.addEventListener('show.bs.modal', event => {
   $('#editar-vacuna').val(array_selected['VACUNA']);
   $('#editar-vacunaExtra').val(array_selected['OTRAVACUNA']);
   $('#editar-inputDosis').val(array_selected['DOSIS']);
-  var genero=array_selected['GENERO'];
-  genero=genero.toUpperCase();
-  if(genero.toUpperCase() =='MASCULINO'){
+  var genero = array_selected['GENERO'];
+  genero = genero.toUpperCase();
+  if (genero.toUpperCase() == 'MASCULINO') {
     $('#edit-mascuCues').attr('checked', true);
-  }  else{
+  } else {
     $('#edit-femenCues').attr('checked', true);
   }
 });
@@ -56,19 +57,19 @@ ModalEditarPaciente.addEventListener('show.bs.modal', event => {
 
 
 //Formulario de Preregistro
-$("#formEditarPaciente").submit(function(event){
- event.preventDefault();
- /*DATOS Y VALIDACION DEL REGISTRO*/
- var form = document.getElementById("formEditarPaciente");
- var formData = new FormData(form);
- formData.set('id', array_selected['ID_PACIENTE']);
- formData.set('api', 3);
- $i=0;
- formData.forEach(element => {
-  console.log($i+' ' + element);
-  $i++;
-});
- Swal.fire({
+$("#formEditarPaciente").submit(function (event) {
+  event.preventDefault();
+  /*DATOS Y VALIDACION DEL REGISTRO*/
+  var form = document.getElementById("formEditarPaciente");
+  var formData = new FormData(form);
+  formData.set('id', array_selected['ID_PACIENTE']);
+  formData.set('api', 3);
+  $i = 0;
+  formData.forEach(element => {
+    console.log($i + ' ' + element);
+    $i++;
+  });
+  Swal.fire({
     title: '¿Está seguro que todos sus datos estén correctos?',
     text: "¡No podrá revertir los cambios!",
     icon: 'warning',
@@ -82,12 +83,12 @@ $("#formEditarPaciente").submit(function(event){
       $("#btn-actualizar").prop('disabled', true);
       // Esto va dentro del AJAX
       $.ajax({
-        data:formData,
+        data: formData,
         url: "../../../api/pacientes_api.php",
         type: "POST",
         processData: false,
         contentType: false,
-        success: function(data) {
+        success: function (data) {
           $("#btn-actualizar").prop('disabled', false);
           data = jQuery.parseJSON(data);
           console.log(data['response']['code']);
@@ -110,38 +111,38 @@ $("#formEditarPaciente").submit(function(event){
               } catch (e) {
                 // console.log(e)
               }
-            break;
+              break;
             case "repetido":
               Swal.fire({
-                 icon: 'error',
-                 title: 'Oops...',
-                 text: '¡CURP duplicada!',
-                 footer: 'Está CURP ya existe'
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡CURP duplicada!',
+                footer: 'Está CURP ya existe'
               })
-            break;
+              break;
             default:
               Swal.fire({
-                 icon: 'error',
-                 title: 'Oops...',
-                 text: 'Hubo un problema!',
-                 footer: 'Reporte este error con el personal :)'
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hubo un problema!',
+                footer: 'Reporte este error con el personal :)'
               })
           }
         },
       });
     }
   })
- event.preventDefault();
+  event.preventDefault();
 });
 
 
-$("#editar-vacuna").change(function(){
-var seleccion =$("#editar-vacuna").val();
-if (seleccion.toUpperCase() =='OTRA'){
-  $("#editar-vacunaExtra").prop('readonly', false);
-}else{
+$("#editar-vacuna").change(function () {
+  var seleccion = $("#editar-vacuna").val();
+  if (seleccion.toUpperCase() == 'OTRA') {
+    $("#editar-vacunaExtra").prop('readonly', false);
+  } else {
 
-  $("#editar-vacunaExtra").prop('readonly', true);
-  $("#editar-vacunaExtra").prop('value', "NA");
+    $("#editar-vacunaExtra").prop('readonly', true);
+    $("#editar-vacunaExtra").prop('value', "NA");
   }
 });
