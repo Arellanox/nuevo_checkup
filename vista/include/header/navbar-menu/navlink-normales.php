@@ -61,6 +61,14 @@ if ($menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
       <i class="bi bi-person-badge-fill"></i> Aceptados
     </a>
   </li>
+
+  <li class="nav-item">
+    <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button">
+      <i class="bi bi-person-check"></i> Completos
+    </a>
+  </li>
+
+
 <?php endif; ?>
 
 <?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1) : ?>
