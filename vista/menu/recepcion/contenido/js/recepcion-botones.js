@@ -79,7 +79,7 @@ $(document).on('click', '#btn-agregar_eliminar-estudios', function (e) {
 $(document).on('click', '#btn-concluir-paciente', function (e) {
   if (array_selected) {
     alertMensajeConfirm({
-      title: '¿Estás seguro de finalizar el proceso del paciente?',
+      title: '¿Estás seguro de finalizar el proceso de recepción del paciente?',
       text: `El paciente, ${array_selected['NOMBRE_COMPLETO']}, ya no se podrán hacer mas modificaciones.`,
       icon: 'warning'
     }, function () {
@@ -92,7 +92,7 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
       if (data) {
         // let row = data.response.data;
         alertMsj({
-          title: '¡Paciente concluido!',
+          title: '¡Paciente finalizado!',
           text: `El paciente: ${array_selected['NOMBRE_COMPLETO']}, ha sido cerrado, ya no podrás crear modificaciones al paciente...`,
           footer: 'Cargando nuevamente las tablas...',
           icon: 'success',

@@ -24,7 +24,7 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         }
 
         alertMensajeConfirm({
-            title: `¿Estás seguro de ${title} el proceso del paciente?`,
+            title: `¿Estás seguro de ${title} el proceso de recepción del paciente?`,
             text: `El paciente, ${array_selected['NOMBRE_COMPLETO']}, ${text}`,
             icon: 'warning'
         }, function () {
