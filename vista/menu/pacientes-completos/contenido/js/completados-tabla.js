@@ -104,6 +104,11 @@ tablaCompletados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
     },
     { data: 'GENERO' },
     {
+      data: 'COMPLETADO', render: function (data) {
+        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Completado</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
+      }
+    },
+    {
       data: 'COUNT', render: function () {
         let html = `
           <div class="row">
@@ -121,7 +126,8 @@ tablaCompletados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
   columnDefs: [
     { width: "5px", targets: 0 },
     { visible: false, title: "AreaActual", targets: 6, searchable: false },
-    { target: 11, width: "50px" }
+    { target: 11, width: 'auto' },
+    { target: 12, width: "5px" }
 
   ],
 

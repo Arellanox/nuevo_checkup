@@ -18,9 +18,7 @@ if ($menu != "PrincipalMenu") : ?>
 <?php endif; ?> -->
 
 <?php
-
-
-if ($_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
+if ($menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
   <li class="nav-item">
     <a href="<?php echo "$https$url/$appname/vista/menu/recepcion/"; ?>">
       <i class="bi bi-people-fill"></i> Recepción
