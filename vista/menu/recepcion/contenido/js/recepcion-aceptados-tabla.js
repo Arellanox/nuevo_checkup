@@ -105,8 +105,8 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     { data: 'GENERO' },
     {
       data: 'COMPLETADO', render: function (data) {
-        if (servidor == 'drjb.com.mx')
-          return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalize</p>'
+        if (servidor == 'drjb.com.mx' && data == 1)
+          return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
         return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
       }
