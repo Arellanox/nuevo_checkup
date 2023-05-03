@@ -15,6 +15,9 @@ if (!$tokenValido) {
 #api
 $api = $_POST['api'];
 
+# turnos
+$turno_completado = $_POST['turno_completado'];
+
 #buscar
 $id = $_POST['id'];
 $id_paciente = $_POST['id_paciente'];
@@ -270,6 +273,18 @@ switch ($api) {
     case 18:
         // agregar un estudio a un turno
         $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id]);
+        break;
+    case 19:
+        # marcar un turno como completado o marcarlo como incompleto
+        # variable ['turno_completado']
+        # mandar 1 para completado
+        # mandar 0 para mandar incompleto
+        $response = $master->updateByProcedure("sp_turnos_completados_g", [ $id_turno, $turno_completado ]);
+        break;
+    case 20:
+        # mostrar la lista de los pacientes/turnos completados
+        # por la fecha de recepcion ['fecha_recepcion'].
+        $response = $master->getByProcedure("sp_turnos_completados_b", [$turno_completado, $fecha_recepcion]);
         break;
 
     default:
