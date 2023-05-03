@@ -25,7 +25,7 @@ function obtenerContenidoEspera() {
 }
 
 function obtenerContenidoAceptados() {
-  obtenerTitulo('Recepción | Ingresados'); //Aqui mandar el nombre de la area
+  obtenerTitulo('Recepción | Aceptados'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion-ingresados.html", function (html) {
     $("#body-js").html(html);
     dataRecepcion = { api: 1, estado: 1 };

@@ -18,9 +18,9 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
             text = 'se abrirá el proceso para hacer modificaciones'
             text_2 = 'se ha abierto su proceso para hacer modificaciones'
         } else {
-            title = 'concluir'
+            title = 'finalizar'
             text = 'ya no se podrán hacer mas modificaciones.'
-            text_2 = 'ha sido concluido, ya no podrás crear modificaciones al paciente...'
+            text_2 = 'ha sido cerrado, ya no podrás crear modificaciones al paciente...'
         }
 
         alertMensajeConfirm({

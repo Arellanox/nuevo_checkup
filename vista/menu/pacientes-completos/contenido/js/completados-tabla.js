@@ -105,7 +105,10 @@ tablaCompletados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
     { data: 'GENERO' },
     {
       data: 'COMPLETADO', render: function (data) {
-        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Completado</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
+        if (servidor == 'drjb.com.mx')
+          return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalize</p>'
+
+        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizados</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
       }
     },
     {
