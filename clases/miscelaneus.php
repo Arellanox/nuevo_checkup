@@ -331,7 +331,7 @@ class Miscelaneus
         switch ($area_id) {
             case 0:
                 # para las etiquetas
-                $arregloPaciente = $this->getBodyInfoLabels($master, $turno_id);
+                $arregloPaciente = $this->getBodyInfoLabels2($master, $turno_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
                 $carpeta_guardado = "etiquetas";
                 $datos_medicos = array();
@@ -576,6 +576,80 @@ class Miscelaneus
         return $productoFinal;
     }
 
+    private function setLabels( $infoPaciente, $infoEtiqueta ){
+        $arrayEtiqueta = [];
+        $arrayEtiquetaEstudios = [];
+        $content = "";
+        $muestra = "";
+
+        for ($i = 0; $i < count($infoEtiqueta); $i++) {
+
+            for ($e = 0; $e < count($infoEtiqueta); $e++) {
+
+                if ($infoEtiqueta[$i]['CONTENEDOR'] == $infoEtiqueta[$e]['CONTENEDOR'] && $infoEtiqueta[$i]['MUESTRA'] == $infoEtiqueta[$e]['MUESTRA']) {
+                    $arregloEtiqueta = array('ABREVIATURA' => $infoEtiqueta[$e]['ABR']);
+                    array_push($arrayEtiquetaEstudios, $arregloEtiqueta);
+                }
+            }
+
+
+            if ($content !== $infoEtiqueta[$i]['CONTENEDOR']) {
+                $content = $infoEtiqueta[$i]['CONTENEDOR'];
+                $muestra = $infoEtiqueta[$i]['MUESTRA'];
+                $maquila = $infoEtiqueta[$i]['MAQUILA_ABR'];
+                $array1 = array(
+                    'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
+                    'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
+                    'ESTUDIOS' => $arrayEtiquetaEstudios,
+                    'MAQUILA_ABR' => $maquila
+
+                );
+                array_push($arrayEtiqueta, $array1);
+            } else if ($muestra !== $infoEtiqueta[$i]['MUESTRA']) {
+                $content = $infoEtiqueta[$i]['CONTENEDOR'];
+                $muestra = $infoEtiqueta[$i]['MUESTRA'];
+                $maquila = $infoEtiqueta[$i]['MAQUILA_ABR'];
+                $array1 = array(
+                    'CONTENEDOR' => $infoEtiqueta[$i]['CONTENEDOR'],
+                    'MUESTRA' => $infoEtiqueta[$i]['MUESTRA'],
+                    'ESTUDIOS' => $arrayEtiquetaEstudios,
+                    'MAQUILA_ABR' => $maquila
+
+                );
+                array_push($arrayEtiqueta, $array1);
+               
+            }
+            $arrayEtiquetaEstudios = [];
+        }
+
+     
+
+        return $arrayEtiqueta;
+
+    }
+    private function getBodyInfoLabels2($master,$id_turno){
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
+        $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+        $infoEtiqueta = $master->getByNext('sp_toma_de_muestra_servicios_b', [null, 6, $id_turno]);
+
+        $locales = $this->setLabels($infoPaciente, $infoEtiqueta[0]);
+        $subroga = $this->setLabels($infoPaciente, $infoEtiqueta[1]);
+        
+        
+        $arrayEtiqueta = array_merge($locales, $subroga);
+        $arregloPaciente = array(
+            'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+            'FECHA_TOMA' => $infoPaciente[0]['FECHA_TOMA'],
+            "FOLIO" => $infoPaciente[0]['FOLIO'],
+            "EDAD" => $infoPaciente[0]['EDAD'],
+            'SEXO' => $infoPaciente[0]['SEXO'],
+            'BARRAS' => $infoPaciente[0]['CODIGO_BARRAS'],
+            'CONTENEDORES' => $arrayEtiqueta,
+
+        );
+
+        return $arregloPaciente;
+    }
     private function getBodyInfoLabels($master, $id_turno)
     {
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
