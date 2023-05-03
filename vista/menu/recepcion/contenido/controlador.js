@@ -11,14 +11,16 @@ if (validarVista('RECEPCIÓN')) {
   });
 }
 
+// Botones
+$.getScript("contenido/js/recepcion-botones.js");
+
 function obtenerContenidoEspera() {
   obtenerTitulo('Recepción | Espera'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion.html", function (html) {
     $("#body-js").html(html);
     // Datatable
     $.getScript("contenido/js/recepcion-tabla.js");
-    // Botones
-    $.getScript("contenido/js/recepcion-botones.js");
+
   });
 }
 
@@ -29,8 +31,6 @@ function obtenerContenidoAceptados() {
     dataRecepcion = { api: 1, estado: 1 };
     // Datatable
     $.getScript("contenido/js/recepcion-aceptados-tabla.js");
-    // Botones
-    $.getScript("contenido/js/recepcion-botones.js");
   });
 }
 
@@ -41,8 +41,6 @@ function obtenerContenidoRechazados() {
     dataRecepcion = { api: 1, estado: 0 };
     // Datatable
     $.getScript("contenido/js/recepcion-tabla.js");
-    // Botones
-    $.getScript("contenido/js/recepcion-botones.js");
   });
 }
 
