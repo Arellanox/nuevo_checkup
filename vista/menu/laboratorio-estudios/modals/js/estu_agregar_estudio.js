@@ -86,8 +86,6 @@ async function getValueEstudio(id) {
         $('#registrar-concepto-facturacion').html(rellenoSatFacturacion)
         $('#maquila_agregar_estudio').html(rellenoMaquilaSelect)
 
-
-
         // alertMensaje('info', 'Cargando información...', 'Espere un momento mientras se cargan los datos');
       },
       success: function (data) {
@@ -139,69 +137,62 @@ async function getValueEstudio(id) {
 
           }
 
-          try {
-            let grupos = row.GRUPOS.GRUPO_ID
+
+          let grupos = row.GRUPOS
+          if (grupos) {
+            grupos = grupos.GRUPO_ID
             for (const key in grupos) {
-              if (Object.hasOwnProperty.call(grupos, key)) {
-                const element = grupos[key];
-                if (element) {
-                  // console.log(element);
-                  let nameInput = agregarHTMLSelectorInput('#div-select-grupo', 'Grupo', rellenoGrupoSelect, element['GRUPO'], element['ORDEN'])
-                  // console.log(nameInput)
-                  $(`select[name="${nameInput}"`).val(element['GRUPO']).trigger('change')
+              setTimeout(() => {
+                if (Object.hasOwnProperty.call(grupos, key)) {
+                  const element = grupos[key];
+                  if (element) {
+                    console.log(element)
+                    let nameInput = agregarHTMLSelectorInput('#div-select-grupo', 'Grupo', rellenoGrupoSelect, element['GRUPO'], element['ORDEN'])
+                    $(`select[name="${nameInput}"`).val(element['GRUPO']).trigger('change')
+                  }
                 }
-
-              }
+              }, 100);
             }
-
-          } catch (error) {
-
           }
 
           $(`input[type="radio"][name="grupos"][value="${row.ES_GRUPO}"]`).prop('checked', true)
 
-          try {
-            let metodo = row.METODO_ID;
-            for (const key in metodo) {
+
+          let metodo = row.METODO_ID;
+          for (const key in metodo) {
+            setTimeout(() => {
               if (Object.hasOwnProperty.call(metodo, key)) {
                 const element = metodo[key];
                 if (element) {
+                  console.log(element)
                   let nameInput = agregarHTMLSelector('#div-select-metodo', 'Método', rellenoMetodoSelect)
                   $(`select[name="${nameInput}"]`).val(element).trigger('change');
                 }
               }
-            }
-          } catch (error) {
-
+            }, 100);
           }
 
-          try {
-            let contenedor = row.CONTENEDORES.CONTENEDOR_ID;
-            for (const key in contenedor) {
+          let contenedor = row.CONTENEDORES.CONTENEDOR_ID;
+          for (const key in contenedor) {
+            setTimeout(() => {
               if (Object.hasOwnProperty.call(contenedor, key)) {
                 const element = contenedor[key];
                 if (element) {
+                  console.log(element)
                   let nameSelect = agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
 
                   $(`select[name="${nameSelect[0]}"]`).val(element.CONTENEDOR_ID)
                   $(`select[name="${nameSelect[1]}"]`).val(element.MUESTRA_ID)
                 }
               }
-            }
-          } catch (error) {
-            let html = `<div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="d-flex">
-    <div class="toast-body">
-      Hello, world! This is a toast message.
-    </div>
-    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-  </div>
-</div>`
+            }, 100);
           }
 
-          try {
-            let equipo = row.EQUIPO_ID
-            for (const key in equipo) {
+
+
+          let equipo = row.EQUIPO_ID
+          for (const key in equipo) {
+            setTimeout(() => {
               if (Object.hasOwnProperty.call(equipo, key)) {
                 const element = equipo[key];
                 if (element) {
@@ -209,10 +200,9 @@ async function getValueEstudio(id) {
                   $(`select[name="${nameSelect}"]`).val(element).trigger('change');
                 }
               }
-            }
-          } catch (error) {
-
+            }, 100);
           }
+
 
           $(`input[name="muestra_valores"][value="${row.MUESTRA_VALORES_REFERENCIA}"]`).prop('checked', true);
           if (row.VALOR_MINIMO)

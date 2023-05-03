@@ -13,6 +13,7 @@ var idMetodo = null;
 var modalEdit, formEstudios;
 var infoServicioEdit = false;
 
+
 function obtenerContenidoEstudios(titulo) {
   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
   $.post("contenido/estudios.php", function (html) {
@@ -20,8 +21,7 @@ function obtenerContenidoEstudios(titulo) {
     $("#body-js").html(html);
     // Datatable
     $.getScript("contenido/js/estudio-tabla.js");
-    // Botones
-    $.getScript("contenido/js/estudio-botones.js");
+
   });
 }
 
@@ -32,22 +32,14 @@ function obtenerContenidoGrupos(titulo) {
     $("#body-js").html(html);
     // Datatable
     $.getScript("contenido/js/grupos-tabla.js");
-    // Botones
-    $.getScript("contenido/js/estudio-botones.js");
   });
 }
 
-// function obtenerContenidoEquipos(titulo) {
-//   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
-//   $.post("contenido/equipos.php", function (html) {
-//     var idrow;
-//     $("#body-js").html(html);
-//     // Datatable
-//     $.getScript("contenido/js/equipos-tabla.js");
-//     // Botones
-//     $.getScript("contenido/js/equipos-botones.js");
-//   });
-// }
+//Get scripts
+// Botones
+$.getScript("contenido/js/estudio-botones.js");
+
+
 
 
 //Consultar Controlador modals
@@ -122,6 +114,7 @@ function agregarHTMLSelectorInput(div, label, relleno, editID = null, cantidad =
 }
 
 function agregarHTMLSelector(div, label, relleno) {
+
   let id = getRandomInt(1000000000)
   html = '<div class="row">' +
     '<div class="col-10 col-md-10">' +

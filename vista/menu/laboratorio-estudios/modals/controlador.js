@@ -3,13 +3,7 @@ $.post("modals/a_modals.php", function (html) {
 }).done(function () {
   // Modal para agregar estudio
   $.getScript("modals/js/estu_agregar_estudio.js");
-  // Modal para editar estudio
-  $.getScript("modals/js/estu_editar_estudio.js");
 
-
-  // Modal para vista de grupos de exameness
-  $.getScript("modals/js/gp_agregar_grupo.js");
-  $.getScript("modals/js/gp_editar_grupo.js");
 
 
   getAreaUnValor('metodos', 'metodo', 'laboratorio_metodos_api', 'ID_METODO', '#MODAL_METODOS_VISTA')
