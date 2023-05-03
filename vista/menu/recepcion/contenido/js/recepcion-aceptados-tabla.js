@@ -20,12 +20,9 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     },
     complete: function () {
       loader("Out", 'bottom')
-      $.fn.dataTable
-        .tables({
-          visible: true,
-          api: true
-        })
-        .columns.adjust();
+      obtenerPanelInformacion(0, 'paciente_api', 'paciente')
+      obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
+      obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
     },
     error: function (jqXHR, textStatus, errorThrown) {
       alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -107,6 +104,11 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     },
     { data: 'GENERO' },
     {
+      data: 'COMPLETADO', render: function (data) {
+        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Completado</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
+      }
+    },
+    {
       data: 'COUNT', render: function () {
         let html = `
           <div class="row">
@@ -135,7 +137,8 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   columnDefs: [
     { width: "5px", targets: 0 },
     { visible: false, title: "AreaActual", targets: 6, searchable: false },
-    { target: 11, width: "50px" }
+    { target: 11, width: 'auto' },
+    { target: 12, width: "20px" }
 
   ],
 
@@ -158,19 +161,39 @@ inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientes
 ])
 
 selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
-  if (!select)
-    return false;
+  if (select) {
+    // return false;
 
-  obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
-  obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
-  obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
-  if (array_selected['CLIENTE_ID'] == 18) {
-    $('#buttonBeneficiario').fadeIn(200)
+    obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
+    obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
+    await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+
+    if (data['COMPLETADO'] == 1) {
+      $('#contenedor-btn-cerrar-paciente').html(`
+        <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" disabled>
+            <i class="bi bi-person-check"></i> Paciente Cerrado
+        </button>
+    `)
+    } else {
+      $('#contenedor-btn-cerrar-paciente').html(`
+        <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
+            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Concluya el proceso del paciente">
+            <i class="bi bi-person-check"></i> Concluir Paciente
+        </button>
+    `)
+    }
+
+    if (array_selected['CLIENTE_ID'] == 18) {
+      $('#buttonBeneficiario').fadeIn(200)
+    } else {
+      $('#buttonBeneficiario').fadeOut(200);
+    }
   } else {
     $('#buttonBeneficiario').fadeOut(200);
+    obtenerPanelInformacion(0, 'paciente_api', 'paciente')
+    obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
+    await obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
   }
-
-
 }, async function (data) {
   alertToast('Obteniendo datos...', 'info', 4000);
   await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'lista-documentos-paciente', '#panel-documentos-paciente')
