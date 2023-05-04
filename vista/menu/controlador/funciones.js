@@ -19,7 +19,7 @@ function formatoFechaSQL(fecha, formato) {
 function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
   if (fecha == null)
     return '';
-  // console.log(fecha)
+  // //console.log(fecha)
   let options = {
     hour12: true,
     timeZone: 'America/Mexico_City'
@@ -100,7 +100,7 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
     date = new Date(fecha)
   }
 
-  // console.log(date)
+  // //console.log(date)
   return date.toLocaleDateString('es-MX', options)
 }
 
@@ -155,17 +155,17 @@ function validarVista(area, reload = true) {
 function validarPermiso(permiso, reload = false) {
   try {
     if (session['permisos'][permiso] == 1 || session['permisos'][permiso] == '1') {
-      console.log(true)
+      //console.log(true)
       return true
     } else {
-      console.log(session['permisos'])
-      console.log(false)
+      //console.log(session['permisos'])
+      //console.log(false)
       if (reload)
         window.location.reload()
       return false;
     }
   } catch (error) {
-    console.log(error)
+    //console.log(error)
     if (reload)
       window.location.reload()
     return false;
@@ -264,7 +264,7 @@ function loggin(callback, tipoUrl = 1) {
       dataType: 'json',
       success: function (data) {
         if (mensajeAjax(data)) {
-          // console.log(data);
+          // //console.log(data);
           if (data['response']['code'] == 1) {
             validar = true
             callback(1)
@@ -397,7 +397,7 @@ $(window).resize(function () {
 })
 
 $(document).on('change click', 'input[type="file"]', function () {
-  // console.log($(this)[0])
+  // //console.log($(this)[0])
   if ($(this)[0].files.length > 1) {
     var filename = `${$(this)[0].files.length} Archivos...`;
   } else {
@@ -409,7 +409,7 @@ $(document).on('change click', 'input[type="file"]', function () {
   }
 
 
-  // console.log(filename);
+  // //console.log(filename);
   var label = $(this).parent('div').find('label[class="input-file-label"]')
   if ($(this).val() == '') {
     label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
@@ -574,7 +574,7 @@ function omitirPaciente(areaFisica) {
 }
 
 function llamarPaciente(areaFisica) {
-  console.log(areaFisica)
+  //console.log(areaFisica)
   alertMensajeConfirm({
     title: '¿Deseas liberar el area y llamar a un paciente?',
     text: "Un paciente llamado se mostrará en pantalla",
@@ -754,7 +754,7 @@ const Toast = Swal.mixin({
 
 function isJson(str) {
 
-  // console.log(typeof str)
+  // //console.log(typeof str)
 
   if (typeof str === 'object') {
     return true;
@@ -968,7 +968,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
                     datao += " - " + element[htmlContent[a]];
                   }
                 }
-                // console.log(datao)
+                // //console.log(datao)
 
               }
             } else {
@@ -984,7 +984,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
           }
         }
 
-        // console.log(data);
+        // //console.log(data);
         callback(data, selectHTML);
 
       },
@@ -999,12 +999,12 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
 }
 
 function setSelectContent(array, select, v, c, reset = 1, selected) {
-  console.log(array);
+  //console.log(array);
   if (reset) $(select).find('option').remove().end()
   for (const key in array) {
     if (Object.hasOwnProperty.call(array, key)) {
       const element = array[key];
-      console.log(element)
+      //console.log(element)
       var o = new Option("option text", element[v]);
       $(o).html(element[c]);
       $(select).append(o);
@@ -1046,7 +1046,7 @@ function loader(fade, scroll = null) {
     $("#loader").fadeOut(100);
     $('body').removeClass('overflow-hidden');
     // let alturanav = $('nav [class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar"]').height()
-    // console.log(alturanav)
+    // //console.log(alturanav)
     // $("html, body").animate({ scrollTop: alturanav + "px" });
     // alert("salir");
   } else if (fade == 'In') {
@@ -1093,7 +1093,7 @@ function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50, sc
       break;
 
     default:
-    // console.log('LoaderDiv se perdió...')
+    // //console.log('LoaderDiv se perdió...')
   }
   // if (scroll == 'bottom') {
   //   let altura = $(document).height();
@@ -1395,17 +1395,17 @@ function alertErrorAJAX(jqXHR, exception, data) {
   //Status AJAX
   switch (jqXHR.status) {
     case 0: alertToast('Sin conexión a internet', 'warning'); return 0;
-    case 404: console.log('Requested page not found. [404]'); return 0;
+    case 404: //console.log('Requested page not found. [404]'); return 0;
     case 500: alertToast('Internal Server Error', 'info'); return 0;
   }
 
   switch (exception) {
     case 'parsererror': alertMensaje('info', 'Error del servidor', 'Algo ha pasado, estamos trabajando para resolverlo', 'Mensaje de error: ' + data); return 0
-    case 'timeout': console.log('timeout'); return 0
+    case 'timeout': //console.log('timeout'); return 0
     case 'abort': return 0
   }
 
-  console.log(jqXHR.responseText);
+  //console.log(jqXHR.responseText);
 
 }
 
@@ -1455,7 +1455,7 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
 //Solo doble click
 var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatabledblclick(callback = function () { }, tablename, datatable, disabledDblclick = false) {
-  console.log(tablename)
+  //console.log(tablename)
   if (!disabledDblclick)
     dobleClickSelecTable = false
   $(tablename).on('click', 'tr', function () {
@@ -1463,7 +1463,7 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
       return false;
     //Funcion
     if (dobleClickSelecTable != datatable.row(this).data()) {
-      console.log($(this).hasClass('selected'))
+      //console.log($(this).hasClass('selected'))
       if ($(this).hasClass('selected') == true) {
         dobleClickSelecTable = false
         datatable.$('tr.selected').removeClass('selected');
@@ -1486,9 +1486,11 @@ $.fn.dataTable.ext.errMode = 'throw';
 var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, idPanel = {
   0: "#panel-informacion"
-}, callback = null, callbackDoubleclick = function (data) { console.log('hAzZ dAdo dobBlE cLIk aLa TabBlLa') }) {
+}, callback = null, callbackDoubleclick = function (data) {
+  console.log('hAzZ dAdo dobBlE cLIk aLa TabBlLa')
+}) {
   //Se deben enviar las ultimas 3 variables en arreglo y deben coincidir en longitud
-  // console.log(typeof tipPanel);
+  // //console.log(typeof tipPanel);
   if (typeof tipPanel == "string") {
     // Convierte String a Object
     api = {
@@ -1506,8 +1508,8 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
   if (typeof tablename === 'string') {
     tablename = '#' + tablename;
   }
-  // console.log(tablename)
-  // console.log(idPanel)
+  // //console.log(tablename)
+  // //console.log(idPanel)
   $(tablename).on('click', 'tr', function () {
 
     //Doble Click
@@ -1542,7 +1544,7 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
           }
           if (callback != null) {
             // alert('select')
-            // console.log(array_selected)
+            // //console.log(array_selected)
             return callback(1, array_selected); // Primer parametro es seleccion y segundo el arreglo del select del registro
           }
         } else {
@@ -1556,7 +1558,7 @@ function selectDatatable(tablename, datatable, panel, api = {}, tipPanel = {}, i
 
       }
     } else {
-      // console.log(false)
+      // //console.log(false)
     }
   })
 }
@@ -1645,10 +1647,10 @@ function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) { /
         if (selectLista == null) {
           loaderDiv("Out", null, loader, loaderDiv1, 0);
           $(divClass).fadeOut()
-          // console.log('Invisible!')
+          // //console.log('Invisible!')
         }
       } else {
-        // console.log('Todavia visible!')
+        // //console.log('Todavia visible!')
         setTimeout(function () {
           return getPanel(divClass, loader, loaderDiv1, selectLista, 'Out')
         }, 100);
@@ -1674,7 +1676,7 @@ function bugGetPanel(divClass, loaderLo, loaderDiv1, table = '') {
       setTimeout(function () {
         $(divClass).fadeIn(0)
         // loader(0, 'bottom')
-        // console.log("Visible!")
+        // //console.log("Visible!")
       }, 100)
     }
     $(divClass).fadeIn(0)
@@ -1721,7 +1723,7 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
     arrayDivs['TERMOREGULACION'] = divTermoregulacin
     var divpiel = $('#collapse-sub-piel-Target').find("div[class='row']")
     arrayDivs['PIEL'] = divpiel
-    // console.log(arrayDivs)
+    // //console.log(arrayDivs)
 
     // arrayDivs.push(divPatologicos, divNoPatologicos, divHeredofamiliares, divPsicologicos, divNutricionales, divLaboral)
     if (tipo == 2)
@@ -1740,13 +1742,13 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
 
         for (const key in data) {
           const element = data[key];
-          console.log(key)
+          //console.log(key)
 
           if (key && key != '¿ERES ALÉRGICO A ALGÚN MEDICAMENTO O ALIMENTO?')
             setValuesAntAnnameMetodo(arrayDivs[key], element, key)
         }
-        // console.log(data);
-        // console.log(arrayDivs)
+        // //console.log(data);
+        // //console.log(arrayDivs)
       },
       complete: function () {
         resolve(1);
@@ -1757,7 +1759,7 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
     })
   });
   // $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
-  //   console.log($(this).find("input[value='1']").val())
+  //   //console.log($(this).find("input[value='1']").val())
   // })
 }
 
@@ -1768,7 +1770,7 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
 // }
 
 function setValuesAntAnnameMetodo(DIV, array, key) {
-  // console.log(DIV)
+  // //console.log(DIV)
   if (array) {
     try {
       if (DIV.length != array.length)
@@ -1783,7 +1785,7 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
         try {
           $(DIV[i]).find("input[value='" + array[i][0] + "']").prop("checked", true);
           var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
-          // console.log(collapID)
+          // //console.log(collapID)
           if (array[i][0] == 1) {
             $('#' + collapID).collapse("show")
           }
@@ -1794,7 +1796,7 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
             $(DIV[i]).find("textarea[class='form-control input-form']").val('')
           }
         } catch (error) {
-          console.log(error);
+          //console.log(error);
         }
 
       }
@@ -1802,8 +1804,8 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
 
     }
   } else {
-    // console.log(DIV)
-    // console.log(array);
+    // //console.log(DIV)
+    // //console.log(array);
     // alertSelectTable('La seccion ' + key + ' no cargó correctamente', 'info', 6000)
   }
 }
@@ -1813,7 +1815,7 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
     $.post(http + servidor + "/" + appname + "/vista/include/acordion/antecedentes-paciente.html", function (html) {
       setTimeout(function () {
         $(div).html(html);
-        // console.log(cliente)
+        // //console.log(cliente)
         if (cliente == "Particular" || cliente == "PARTICULAR") {
           $('.onlyProcedencia').fadeOut(0);
         } else {
@@ -1929,7 +1931,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         for (const key in ordenes) {
                           if (Object.hasOwnProperty.call(ordenes, key)) {
                             const element = ordenes[key];
-                            console.log(hash[element['area']])
+                            //console.log(hash[element['area']])
                             if (hash[element['area']] == area) {
                               $('#contenedor-btn-ordenes-medicas').append(`
                                 <div class="col text-center">
@@ -2031,7 +2033,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   success: function (data) {
                     // data = jQuery.parseJSON(data);
                     row = data['response']['data'];
-                    console.log(row);
+                    //console.log(row);
 
                     if (mensajeAjax(data)) {
                       if (Object.keys(row).length > 2) {
@@ -2052,7 +2054,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         try {
                           $('#edadCuerpo').html(ifnull(row['EDAD DEL CUERPO']['VALOR']) + " <strong>" + row['EDAD DEL CUERPO']['UNIDAD_MEDIDA'] + "</strong>")
                         } catch (error) {
-                          console.log(error);
+                          //console.log(error);
                         }
                         $('#perimetroCefalico').html(row['PERIMETRO CEFALICO']['VALOR'] + " <strong>" + row['PERIMETRO CEFALICO']['UNIDAD_MEDIDA'] + "</strong>")
                         $('#porcentajeProteinas').html(row['PORCENTAJE DE PROTEINAS']['VALOR'] + " <strong>" + row['PORCENTAJE DE PROTEINAS']['UNIDAD_MEDIDA'] + "</strong>")
@@ -2072,7 +2074,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 })
                 break;
               case 'cliente':
-                // console.log(row)
+                // //console.log(row)
                 $('#nombreComercial-cliente').html(row.NOMBRE_COMERCIAL);
                 $('#nombreSistema-cliente').html(row.NOMBRE_SISTEMA);
                 $('#info-cliente-RFC').html(row.RFC);
@@ -2093,7 +2095,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 resolve(1);
                 break;
               case 'contacto':
-                // console.log(selectContacto)
+                // //console.log(selectContacto)
                 $('#nombre-contacto').html(selectContacto.NOMBRE + ' ' + selectContacto.APELLIDOS);
                 $('#info-contacto-tel1').html(selectContacto.TELEFONO1);
                 $('#info-contacto-tel2').html(selectContacto.TELEFONO2);
@@ -2102,7 +2104,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 resolve(1);
                 break;
               case 'documentos-paciente':
-                // console.log(selectContacto)
+                // //console.log(selectContacto)
 
                 $(panel).fadeIn(100);
                 resolve(1);
@@ -2139,7 +2141,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       let area = 0;
                       for (const key in row) {
                         const element = row[key];
-                        // console.log(element)
+                        // //console.log(element)
                         if (element['AREA_ID'] == id) {
                           area = 1;
                           html += htmlLI(element['GRUPO']);
@@ -2186,7 +2188,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                     // let html = '';
                     // for (var i = 0; i < row.length; i++) {
-                    //   console.log(row[i]);
+                    //   //console.log(row[i]);
                     //   html += '<li class="list-group-item">';
                     //   html += row[i]['GRUPO'];
                     //   html += '</li>';
@@ -2226,7 +2228,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       dataType: 'JSON',
                       success: function (data) {
                         // let data = JSON.parse(data);
-                        // console.log(data)
+                        // //console.log(data)
                         if (data['Optimizador'][id]) {
                           setTimeout(() => {
                             ajaxTurnosActualArea()
@@ -2254,7 +2256,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     success: function (data) {
                       if (mensajeAjax(data, 'Turnero')) {
                         let row = data.response.data;
-                        console.log(row);
+                        //console.log(row);
                         if (row[0]) {
 
 
@@ -2317,7 +2319,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   data: { api: 21, turno_id: id },
                   success: function (data) {
                     if (mensajeAjax(data)) {
-                      console.log(data)
+                      //console.log(data)
 
                       let array = {
                         1: 'CONSULTORIO',
@@ -2346,7 +2348,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                             return n.AREA === key;
                           });
 
-                          console.log(element, arrayArea)
+                          //console.log(element, arrayArea)
                           setListResultadosAreas('#append-html-historial-estudios', element, arrayArea)
                         }
                       }
@@ -2463,12 +2465,12 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 }, 'recepcion_api')
 
                 dataDocumentos = dataDocumentos.response.data[0];
-                console.log(dataDocumentos)
+                //console.log(dataDocumentos)
 
                 if (dataDocumentos) {
                   $('button[class="btn_documentacion_paciente list-group-item list-group-item-action"]').fadeOut('slow');
 
-                  console.log(dataDocumentos['IDENTIFICACION'])
+                  //console.log(dataDocumentos['IDENTIFICACION'])
                   if (dataDocumentos['VERIFICACION_UJAT'])
                     $(`#btn-VERIFICACION_UJAT`).fadeIn();
 
@@ -2487,7 +2489,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     if (dataDocumentos['IDENTIFICACION'][0]) {
                       if (dataDocumentos['IDENTIFICACION'][0]['front'].length) {
                         $('#btn-credenciales').fadeIn();
-                        // console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
+                        // //console.log(dataDocumentos['IDENTIFICACION'][0]['back']);
                         // if (dataDocumentos['IDENTIFICACION'][0]['back'].length)
                         //   $(`#btn-back`).fadeIn();
                         if (dataDocumentos['IDENTIFICACION'][0]['front'].length)
@@ -2526,7 +2528,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   event.preventDefault();
 
                   let btn = $(this);
-                  console.log(btn.attr('id'));
+                  //console.log(btn.attr('id'));
                   switch (btn.attr('id')) {
                     case 'btn-laboratorio-etiquetas':
                       area_nombre = 'etiquetas'
@@ -2557,7 +2559,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       break;
 
                     default:
-                      console.log('boton incorrecto')
+                      //console.log('boton incorrecto')
                       break;
                   }
                   event.preventDefault();
@@ -2575,7 +2577,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 break;
 
               default:
-                console.log('Sin opción panel')
+                //console.log('Sin opción panel')
                 setTimeout(function () {
                   $(panel).fadeOut(100);
                 }, 100);
@@ -2790,7 +2792,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
 
   //Buscador
   $('#BuscarTabla' + titulo).keyup(function () {
-    // console.log($(this).val())
+    // //console.log($(this).val())
     TablaContenido.search($(this).val()).draw();
   });
 
@@ -3095,7 +3097,7 @@ function generarCatalogoModal(
   getHTMLCatalogo(CONTENT['divContenedor'], CONTENT['titulos'], CONTENT['formLabels'], CONTENT['tableContent'], CONTENT['diseño'])
 
   setTimeout(() => {
-    console.log('timeOut')
+    //console.log('timeOut')
     getTableControlador(tagTable, CONTENT, id, CONTENT['formLabels'], configTable, ajax['table'], createdRow, columnsData, columnsDefData)
   }, 200);
 }
@@ -3104,7 +3106,7 @@ function generarCatalogoModal(
 //Modal de catalogos
 function getHTMLCatalogo(divContenedor, titulos, formLabels, tableContent, diseño) {
   let html = '';
-  // console.log(divContenedor)
+  // //console.log(divContenedor)
   //Plantilla 
   html = '<div class="modal fade" id="modalVista' + titulos['IDSDIVS'] + '" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"' +
     'data-bs-keyboard="false">' +
@@ -3217,7 +3219,7 @@ function getHTMLCatalogo(divContenedor, titulos, formLabels, tableContent, dise�
     '</div>';
 
   //Crea el html en DOM
-  console.log($(divContenedor))
+  //console.log($(divContenedor))
   $(divContenedor).html(html);
 
 }
@@ -3269,7 +3271,7 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
 
 
   selectDatatabledblclick(function (select, dataSelect) {
-    console.log(dataSelect);
+    //console.log(dataSelect);
     // var dataSelect = data;
     $('.btn-activo').fadeOut()
     $('.btn-activo').prop('disabled', true);
@@ -3295,9 +3297,9 @@ function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configT
     }
   }, tagTable['table_id'], TablaContenido)
   let modal = $('#modalVista' + tagTable['titulo']);
-  console.log('#modalVista' + tagTable['titulo'])
+  //console.log('#modalVista' + tagTable['titulo'])
   modal.on('shown.bs.modal', function (e) {
-    console.log('si');
+    //console.log('si');
     TablaContenido.ajax.reload();
     $.fn.dataTable
       .tables({
@@ -3490,7 +3492,7 @@ function cambiarFormMetodo(fade, titulo, form = "formEditar") {
       $('#editarMetodo' + titulo).fadeIn();
     }, 400);
   } else {
-    console.log(form)
+    //console.log(form)
     document.getElementById(form).reset();
     $('#editarMetodo' + titulo).fadeOut();
     setTimeout(function () {

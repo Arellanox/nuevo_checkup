@@ -94,6 +94,25 @@
                 const cameras = devices.filter(device => device.kind === 'videoinput');
                 return cameras;
             }
+
+            async requestPermission() {
+                try {
+                    await navigator.mediaDevices.getUserMedia({
+                        video: true
+                    });
+                    return true;
+                } catch (err) {
+                    console.error('Failed to request camera permission', err);
+                    return false;
+                }
+            }
+
+            async checkPermission() {
+                const permission = await navigator.permissions.query({
+                    name: 'camera'
+                });
+                return permission.state === 'granted';
+            }
         }
 
 
