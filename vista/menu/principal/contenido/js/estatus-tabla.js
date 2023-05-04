@@ -159,6 +159,7 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
 //     });
 // });
 
+// $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
 
 
 //Activa o desactiva una columna
@@ -169,7 +170,7 @@ $('a.toggle-vis').on('click', function (e) {
 
     // Toggle the visibility
     column.visible(!column.visible());
-    tablaMenuPrincipal.ajax.reload();
+    // tablaMenuPrincipal.ajax.reload();
     $.fn.dataTable
         .tables({
             visible: true,

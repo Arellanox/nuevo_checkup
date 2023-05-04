@@ -1059,6 +1059,12 @@ function loader(fade, scroll = null) {
     let altura = $(document).height();
     $("html, body").animate({ scrollTop: altura + "px" });
   }
+  $.fn.dataTable
+    .tables({
+      visible: true,
+      api: true
+    })
+    .columns.adjust();
 }
 
 function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50, scroll = 0) {
@@ -2450,11 +2456,14 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 //   },
                 // })
 
-                let dataDocumentos = await ajaxAwait({
+                let dataDocumentos = false;
+
+                dataDocumentos = await ajaxAwait({
                   api: 11, turno_id: id
                 }, 'recepcion_api')
+
                 dataDocumentos = dataDocumentos.response.data[0];
-                // console.log(dataDocumentos)
+                console.log(dataDocumentos)
 
                 if (dataDocumentos) {
                   $('button[class="btn_documentacion_paciente list-group-item list-group-item-action"]').fadeOut('slow');
@@ -2513,7 +2522,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   return false;
                 }
 
-                $(document).on('click', '.btn_documentacion_paciente, #btn-laboratorio-etiquetas', function (event) {
+                $('.btn_documentacion_paciente, #btn-laboratorio-etiquetas').on('click', function (event) {
                   event.preventDefault();
 
                   let btn = $(this);
