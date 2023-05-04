@@ -96,7 +96,8 @@
             width: 100%;
             max-width: 100%;
             margin: auto;
-            white-space: nowrap;
+            white-space: normal;
+            word-break: break-all;
             /* table-layout:fixed; */
         }
 
@@ -109,24 +110,27 @@
 
         /* Para divisiones de 3 encabezado*/
         .col-left {
-            width: 35%;
-            max-width: 35%;
+            width: 42%;
+            max-width: 42%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         .col-center {
-            width: 35%;
-            max-width: 35%;
+            width: 41%;
+            max-width: 41%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         .col-right {
-            width: 30%;
-            max-width: 30%;
+            width: 17%;
+            max-width: 17%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         /* divisiones de 3 footer */
@@ -310,7 +314,7 @@ if (!isset($qr)) {
                         Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
-                        <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong style='font-size:12px'>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
+                        Pasaporte: <strong style='font-size:12px'> <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
                     </td>
                 </tr>
                 <tr>
@@ -318,8 +322,6 @@ if (!isset($qr)) {
                         Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO_MESO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        <?php echo isset($encabezado->MEDICO_TRATANTE) ? "Médico Tratante: <strong style='font-size: 12px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : "";
-                        ?>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -332,7 +334,12 @@ if (!isset($qr)) {
                 </tr>
             </tbody>
         </table>
-        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong></p>
+        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
+            <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
+        </p>
+        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
+            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
+        </p>
         <!-- <p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> -->
         <br>
     </div>
@@ -635,7 +642,7 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>-->
-    <div style="padding-top: 140px;">
+    <div style="padding-top: 120px;">
         <div class="">
             <?php
             $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
@@ -649,9 +656,6 @@ if (!isset($qr)) {
 <?php
 $altura = 200;
 
-for ($i = 2; $i < $indice; $i++) {
-    $altura = $altura + 50;
-}
 ?>
 <style>
     .footer {
@@ -659,7 +663,7 @@ for ($i = 2; $i < $indice; $i++) {
         bottom: -165px;
         left: 25px;
         right: 25px;
-        height: <?php echo $altura . 'px' ?>;
+        height: 200px
     }
 </style>
 

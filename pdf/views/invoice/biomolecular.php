@@ -129,15 +129,15 @@
         }
 
         .col-center {
-            width: 35%;
-            max-width: 35%;
+            width: 5%;
+            max-width: 5%;
             text-align: left;
             font-size: 12px;
         }
 
         .col-right {
-            width: 30%;
-            max-width: 30%;
+            width: 60%;
+            max-width: 60%;
             text-align: left;
             font-size: 12px;
         }

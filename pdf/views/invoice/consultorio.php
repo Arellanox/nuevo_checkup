@@ -115,7 +115,7 @@
             width: 100%;
             max-width: 100%;
             margin: auto;
-            white-space: nowrap;
+            white-space: normal;
             word-break: break-all;
             /* table-layout:fixed; */
         }
@@ -129,24 +129,27 @@
 
         /* Para divisiones de 3 encabezado*/
         .col-left {
-            width: 35%;
-            max-width: 35%;
+            width: 42%;
+            max-width: 42%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         .col-center {
-            width: 35%;
-            max-width: 35%;
+            width: 41%;
+            max-width: 41%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         .col-right {
-            width: 30%;
-            max-width: 30%;
+            width: 17%;
+            max-width: 17%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         /* divisiones de 3 footer */
@@ -241,6 +244,7 @@ $encode_firma = base64_encode($ruta_firma);
         $titulo = 'Checkup Clínica y Prevención';
         $tituloPersonales = 'Informacón del paciente';
         $subtitulo = 'Historia Clínica';
+        $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
         include 'includes/header.php';
         ?>
     </div>

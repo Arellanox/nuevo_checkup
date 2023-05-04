@@ -28,7 +28,7 @@ $kit = $body[count($body) - 4];
 
 <!-- <p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> -->
 <br>
-<p style="position:absolute;top:23px;left:308px;white-space:nowrap" class="ft00">Tipo de Muestra: <strong><?php echo $muestra->resultado ?></strong> </p>
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[7]->resultado ?></strong> </p>
 
 <table class="resultados_resp" style="width: 100%; border-collapse: collapse; text-align: center;">
     <tr style="background-color: darkgrey;" class="bold">

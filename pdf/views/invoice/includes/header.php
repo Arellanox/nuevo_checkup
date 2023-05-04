@@ -56,7 +56,7 @@
                                         Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?> </strong>
                                     </td>
                                     <td class="col-right" style="border-bottom: none">
-                                        <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong style='font-size:12px'>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
+                                        Pasaporte: <strong style='font-size:12px'> <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -64,8 +64,7 @@
                                         Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
                                     </td>
                                     <td class="col-center" style="border-bottom: none">
-                                        <?php echo isset($encabezado->MEDICO_TRATANTE) ? "Médico Tratante: <strong style='font-size: 12px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : "";
-                                        ?>
+
                                     </td>
                                     <td class="col-right" style="border-bottom: none">
                                         <!-- ¿espacio? -->
@@ -81,4 +80,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong></p>
+                        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
+                            <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
+                        </p>
+                        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
+                            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
+                        </p>

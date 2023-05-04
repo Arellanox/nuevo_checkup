@@ -102,7 +102,8 @@
             width: 100%;
             max-width: 100%;
             margin: auto;
-            white-space: nowrap;
+            white-space: normal;
+            word-break: break-all;
             /* table-layout:fixed; */
         }
 
@@ -115,24 +116,27 @@
 
         /* Para divisiones de 3 encabezado*/
         .col-left {
-            width: 35%;
-            max-width: 35%;
+            width: 42%;
+            max-width: 42%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         .col-center {
-            width: 35%;
-            max-width: 35%;
+            width: 41%;
+            max-width: 41%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         .col-right {
-            width: 30%;
-            max-width: 30%;
+            width: 17%;
+            max-width: 17%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         /* divisiones de 3 footer */
@@ -287,14 +291,14 @@ if (!isset($qr)) {
                         Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
+                        Pasaporte: <strong style='font-size:12px'> <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        <?php echo (isset($encabezado->PASAPORTE)) ? "Pasaporte: <strong>" . $encabezado->PASAPORTE . "</strong>" : ""; ?>
+                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_OFTALMO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_OFTALMO; ?> </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -302,17 +306,22 @@ if (!isset($qr)) {
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        <?php echo isset($encabezado->MEDICO_TRATANTE) ? "Médico Tratante: <strong style='font-size: 12px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                     </td>
                 </tr>
             </tbody>
         </table>
+        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
+            <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
+        </p>
+        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
+            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
+        </p>
         <!-- <p>Aqui va el encabezado y es el espacio disponible hasta donde llegue el titulo siguiente.</p> -->
+
     </div>
 
     <div class="footer">
@@ -380,6 +389,7 @@ if (!isset($qr)) {
 
     <!-- body -->
     <div class="invoice-content">
+        <br>
         <p>
             <strong>
                 ANTECEDENTES PERSONALES

@@ -238,7 +238,7 @@ class Miscelaneus
 
             if (empty($files[$posicion]['name'][0])) {
                 // echo "haz algo";
-                $this->setLog("El archivo esta vacio o dañado, error al subir archivo.", "[function guardarFiles][$posicion]");
+                $this->setLog("El archivo esta vacio o dañado, error al subir archivo.", "[function guardarFiles][$posicion], [$nombre]");
                 return array();
             }
 
@@ -576,7 +576,8 @@ class Miscelaneus
         return $productoFinal;
     }
 
-    private function setLabels( $infoPaciente, $infoEtiqueta ){
+    private function setLabels($infoPaciente, $infoEtiqueta)
+    {
         $arrayEtiqueta = [];
         $arrayEtiquetaEstudios = [];
         $content = "";
@@ -617,25 +618,24 @@ class Miscelaneus
 
                 );
                 array_push($arrayEtiqueta, $array1);
-               
             }
             $arrayEtiquetaEstudios = [];
         }
 
-     
+
 
         return $arrayEtiqueta;
-
     }
-    private function getBodyInfoLabels2($master,$id_turno){
+    private function getBodyInfoLabels2($master, $id_turno)
+    {
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
         $infoEtiqueta = $master->getByNext('sp_toma_de_muestra_servicios_b', [null, 6, $id_turno]);
 
         $locales = $this->setLabels($infoPaciente, $infoEtiqueta[0]);
         $subroga = $this->setLabels($infoPaciente, $infoEtiqueta[1]);
-        
-        
+
+
         $arrayEtiqueta = array_merge($locales, $subroga);
         $arregloPaciente = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
