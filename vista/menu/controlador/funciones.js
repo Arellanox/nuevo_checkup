@@ -1931,8 +1931,9 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         for (const key in ordenes) {
                           if (Object.hasOwnProperty.call(ordenes, key)) {
                             const element = ordenes[key];
-                            //console.log(hash[element['area']])
+                            console.log(hash[element['area']])
                             if (hash[element['area']] == area) {
+                              console.log('si');
                               $('#contenedor-btn-ordenes-medicas').append(`
                                 <div class="col text-center">
                                   <a type="button" target="_blank" class="btn btn-borrar"
@@ -1946,12 +1947,17 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                           }
                         }
 
+                        console.log(ordenes)
+
                         try {
                           let row = row['ordenes'][0]
                         } catch (error) {
 
                         }
+                      } else {
+                        console.log(row['ordenes'])
                       }
+
                     }
                   },
                   complete: function () {
@@ -1997,6 +2003,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                       $('#info-paci-reagenda').val(row.FECHA_RECEPCION);
                       $('#info-paci-reagenda').val(row.FECHA_REAGENDA);
+
+
                     }
                   },
                   complete: function () {
