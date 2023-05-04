@@ -62,11 +62,13 @@ if ($menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
     </a>
   </li>
 
-  <li class="nav-item">
-    <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button">
-      <i class="bi bi-person-check"></i> Finalizados
-    </a>
-  </li>
+  <?php if ($_SESSION['perfil'] ==  1) : ?>
+    <li class="nav-item">
+      <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button">
+        <i class="bi bi-person-check"></i> Finalizados
+      </a>
+    </li>
+  <?php endif; ?>
 
 
 <?php endif; ?>
