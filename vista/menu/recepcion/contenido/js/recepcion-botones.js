@@ -76,6 +76,39 @@ $(document).on('click', '#btn-agregar_eliminar-estudios', function (e) {
 
 })
 
+$(document).on('click', '#btn-concluir-paciente', function (e) {
+  if (array_selected) {
+    alertMensajeConfirm({
+      title: '¿Estás seguro de finalizar el proceso de recepción del paciente?',
+      text: `El paciente, ${array_selected['NOMBRE_COMPLETO']}, ya no se podrán hacer mas modificaciones.`,
+      icon: 'warning'
+    }, function () {
+      let data = ajaxAwait({
+        api: 19, // <-- desmarcar o marcar
+        turno_completado: 1,
+        id_turno: array_selected['ID_TURNO']
+      }, 'turnos_api')
+
+      if (data) {
+        // let row = data.response.data;
+        alertMsj({
+          title: '¡Paciente finalizado!',
+          text: `El paciente: ${array_selected['NOMBRE_COMPLETO']}, ha sido cerrado, ya no podrás crear modificaciones al paciente...`,
+          footer: 'Cargando nuevamente las tablas...',
+          icon: 'success',
+          showCancelButton: false,
+        })
+        try { tablaRecepcionPacientesIngrersados.ajax.reload() } catch (error) { }
+        // try { tablaRecepcionPacientes.ajax.reload() } catch (error) { }
+      }
+
+    }, 1)
+  } else {
+    alertSelectTable();
+  }
+
+});
+
 
 
 $(document).on('click', '.btn-eliminar-estudio', function (event) {
@@ -191,7 +224,7 @@ $(document).on('click', '.btn-editar, #btn-editar', function () {
   }
 })
 
-$("#btn-perfil").click(function () {
+$(document).on('click', "#btn-perfil", function () {
   if (array_selected != null) {
     $("#modalPacientePerfil").modal('show');
   } else {
@@ -254,7 +287,7 @@ $(document).on('click', '#btn-pendiente', function () {
   }
 })
 
-$("#btn-reagendar").click(function () {
+$(document).on('click', "#btn-reagendar", function () {
   if (array_selected != null) {
     $("#modalPacienteReagendar").modal('show');
   } else {
@@ -262,7 +295,7 @@ $("#btn-reagendar").click(function () {
   }
 })
 
-$('#btn-correo-particular').click(function () {
+$(document).on('click', '#btn-correo-particular', function () {
   if (array_selected != null) {
     Swal.fire({
       title: '¿Desea enviar todos sus resultados y capturas?',

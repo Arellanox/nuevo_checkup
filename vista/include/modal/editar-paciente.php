@@ -41,8 +41,8 @@
           </div>
           <div class="col-6 col-lg-4">
             <label for="correo" class="form-label">Correo</label>
-            <input type="email" class="form-control input-form" name="correo" id="editar-correo" placeholder="">
-            <input type="email" class="form-control input-form" name="correo_2" id="editar-correo_2" placeholder="">
+            <input type="email" class="form-control input-form" name="correo" id="editar-correo" placeholder="Primer Correo">
+            <input type="email" class="form-control input-form" name="correo_2" id="editar-correo_2" placeholder="Segundo Correo">
           </div>
           <div class="col-6 col-lg-2">
             <label for="postal" class="form-label">Código postal</label>

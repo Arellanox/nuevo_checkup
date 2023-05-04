@@ -1,4 +1,4 @@
-tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
+tablaCompletados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
@@ -14,7 +14,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       return $.extend(d, dataRecepcion);
     },
     method: 'POST',
-    url: '../../../api/recepcion_api.php',
+    url: '../../../api/turnos_api.php',
     beforeSend: function () {
       loader("In", 'bottom'), array_selected = null
     },
@@ -108,7 +108,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         if (servidor == 'drjb.com.mx' && data == 1)
           return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
-        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
+        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizados</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
       }
     },
     {
@@ -118,18 +118,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
             <div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
               <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;"></i>
             </div>
-            <div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-              <i class="bi bi-card-heading" style="cursor: pointer; font-size:18px;" id="btn-cargar-documentos"></i>
-            </div> 
         `;
-
-        // if (session['vista']['RECEPCIÓN CAMBIO DE ESTUDIOS'] == 1)
-        // if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false)) {
-        //   html += `<div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-        //       <i class="bi bi-back" style="cursor: pointer; font-size:18px;" id="btn-opciones-paciente"></i>
-        //     </div>`;
-        // }
-
 
         html += `</div>`;
         return html
@@ -141,31 +130,16 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     { width: "5px", targets: 0 },
     { visible: false, title: "AreaActual", targets: 6, searchable: false },
     { target: 11, width: 'auto' },
-    { target: 12, width: "20px" }
+    { target: 12, width: "5px" }
 
   ],
 
 })
 
-inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
-  {
-    msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
-    place: 'top'
-  },
-  {
-    msj: `Dale click al icono de lapiz en la tabla para editar la información del paciente`,
-    place: 'top'
-  },
-  {
-    msj: 'Doble click a un paciente para obtener la información adicional',
-    place: 'top'
-  }
+inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaCompletados, [])
 
-])
-
-selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
+selectDatatable("TablaRecepcionPacientes-Ingresados", tablaCompletados, 1, 0, 0, 0, async function (select, data) {
   if (select) {
-    // return false;
 
     obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
     obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
@@ -173,10 +147,11 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
 
     if (data['COMPLETADO'] == 1) {
       $('#contenedor-btn-cerrar-paciente').html(`
-        <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" disabled>
-            <i class="bi bi-person-check"></i> Paciente Cerrado
+        <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente" data-concluir="0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Abra el proceso del paciente para agregar mas pruebas">
+            <i class="bi bi-person-check"></i> Abrir proceso
         </button>
     `)
+      $('#btn-agregar_eliminar-estudios').prop('disabled', true)
     } else {
       $('#contenedor-btn-cerrar-paciente').html(`
         <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
@@ -184,6 +159,7 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
             <i class="bi bi-person-check"></i> Finalizar Paciente
         </button>
     `)
+      $('#btn-agregar_eliminar-estudios').prop('disabled', false)
     }
 
     if (array_selected['CLIENTE_ID'] == 18) {
@@ -192,7 +168,6 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
       $('#buttonBeneficiario').fadeOut(200);
     }
   } else {
-    $('#buttonBeneficiario').fadeOut(200);
     obtenerPanelInformacion(0, 'paciente_api', 'paciente')
     obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
     await obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
@@ -207,22 +182,5 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
   bsOffcanvas.show()
 
 })
-
-// selectDatatabledblclick(async function (select, data) {
-//   // let dataInfo = data;
-//   if (select) {
-//     var myOffcanvas = document.getElementById('offcanvasInfoPaciente')
-//     var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
-//     bsOffcanvas.show()
-
-//   }
-// }, '#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados)
-
-
-//
-
-
-
-// $('')
 
 autoHeightDiv('#panel-informacion-pacientesTurnos', 188)

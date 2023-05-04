@@ -18,9 +18,7 @@ if ($menu != "PrincipalMenu") : ?>
 <?php endif; ?> -->
 
 <?php
-
-
-if ($menu == 'PrincipalMenu' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
+if ($menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
   <li class="nav-item">
     <a href="<?php echo "$https$url/$appname/vista/menu/recepcion/"; ?>">
       <i class="bi bi-people-fill"></i> Recepción
@@ -63,6 +61,16 @@ if ($menu == 'PrincipalMenu' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
       <i class="bi bi-person-badge-fill"></i> Aceptados
     </a>
   </li>
+
+  <?php if ($_SESSION['perfil'] ==  1) : ?>
+    <li class="nav-item">
+      <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button">
+        <i class="bi bi-person-check"></i> Finalizados
+      </a>
+    </li>
+  <?php endif; ?>
+
+
 <?php endif; ?>
 
 <?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1) : ?>
