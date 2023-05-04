@@ -120,24 +120,27 @@
 
                         /* Para divisiones de 3 encabezado*/
                         .col-left {
-                            width: 40%;
-                            max-width: 40%;
+                            width: 42%;
+                            max-width: 42%;
                             text-align: left;
-                            font-size: 12px;
+                            font-size: 11px;
+                            margin-left: 2px;
                         }
 
                         .col-center {
-                            width: 30%;
-                            max-width: 30%;
+                            width: 41%;
+                            max-width: 41%;
                             text-align: left;
-                            font-size: 12px;
+                            font-size: 11px;
+                            margin-left: 2px;
                         }
 
                         .col-right {
-                            width: 30%;
-                            max-width: 30%;
+                            width: 17%;
+                            max-width: 17%;
                             text-align: left;
-                            font-size: 12px;
+                            font-size: 11px;
+                            margin-left: 2px;
                         }
 
                         /* divisiones de 3 footer */
@@ -294,11 +297,18 @@
                                 </tr>
                                 <tr>
                                     <td class="col-left" style="border-bottom: none">
+                                        <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 12px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
+                                    </td>
+                                    <td class="col-center" style="border-bottom:none">
+                                        <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA" : ""; ?> </strong>
+
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">Procedencia: <strong style="font-size: 12px;"><?php echo $encabezado->PROCEDENCIA; ?> </strong></p>
+                        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
+                            <?php echo (!isset($encabezado->MEDICO_TRATANTE) || empty($encabezado->MEDICO_TRATANTE)) ? "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA" : ""; ?> </strong>
+                        </p>
 
                     </div>
 
