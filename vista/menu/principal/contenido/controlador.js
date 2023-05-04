@@ -9,10 +9,10 @@ function obtenerContenidoPrincipal() {
     obtenerTitulo('Menú bimo Checkup'); //Nombre cambiante, no usar botones
     $.post("contenido/turnos_dia.html", function (html) {
         $("#body-js").html(html);
+    }).done(function () {
         // Datatable
         $.getScript("contenido/js/estatus-tabla.js");
-        // Botones
-        // $.getScript("contenido/js/estatus-botones.js");
+
     });
 }
 
