@@ -22,7 +22,8 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
-    { "width": "3px", "targets": 0 },
+    // { width: '100%' },
+    { "width": "3px", "targets": [0, 4] },
   ],
 
 })

@@ -15,7 +15,7 @@
         </button>
       </div>
       <table class="table table-hover display responsive tableContenido" id="TablaEstudioServicio" style="width: 100%">
-        <thead class="" style="width: 100%">
+        <thead>
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Servicio</th>
@@ -25,13 +25,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#1</td>
-            <td>Nombre</td>
-            <td>Clasificacion</td>
-            <td>Area</td>
-            <td>Estatus</td>
-          </tr>
         </tbody>
       </table>
     </div>

@@ -23,7 +23,7 @@ var tablaGrupos = $('#TablaGruposServicios').DataTable({
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
-    { "width": "3px", "targets": 0 },
+    { "width": "3px", "targets": [0, 4] },
   ],
 
 })
