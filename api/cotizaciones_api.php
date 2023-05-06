@@ -19,7 +19,8 @@ $atencion = $_POST['atencion'];
 $correo = $_POST['correo'];
 $subtotal = $_POST['subtotal'];
 $iva = $_POST['iva'];
-$descuento = $_POST['observaciones'];
+$descuento = $_POST['descuento'];
+$descuento_porcentaje = $_POST['descuento_porcentaje'];
 $total = $_POST['total'];
 # este es el arreglo de los servicios que contiene la cotizacion 
 $detalle = $_POST['detalle'];
@@ -28,7 +29,7 @@ $observaciones = $_POST['observaciones'];
 switch ($api) {
     case 1:
         # guardar cotizacion
-        $response = $master->insertByProcedure("sp_cotizaciones_g", [$id_cotizacion, $cliente_id, $atencion, $correo, $subtotal, $iva, $descuento, $observaciones, $total, $_SESSION['id'], json_encode($detalle)]);
+        $response = $master->insertByProcedure("sp_cotizaciones_g", [$id_cotizacion, $cliente_id, $atencion, $correo, $subtotal, $iva, $descuento, $descuento_porcentaje, $observaciones, $total, $_SESSION['id'], json_encode($detalle)]);
         break;
     case 2:
         # buscar informacion de las cotizaciones

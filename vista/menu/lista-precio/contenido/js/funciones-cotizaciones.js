@@ -105,16 +105,17 @@ function calcularFilasTR() {
   }
   if (!checkNumber(subtotalPrecioventa)) {
     subtotalPrecioventa = 0;
-    desceunto = 0;
+    descuento = 0;
+    descuentoPorcentaje = parseFloat($('#descuento-paquete').val());
   } else {
-    descuentoPorcentaje = $('#descuento-paquete').val();
+    descuentoPorcentaje = parseFloat($('#descuento-paquete').val());
     if (descuentoPorcentaje > 0) {
       subtotalPrecioventa = subtotalPrecioventa - (subtotalPrecioventa * descuentoPorcentaje) / 100;
       console.log(subtotalPrecioventa)
       descuento = subtotalPrecioventa * descuentoPorcentaje / 100;
     } else {
       subtotalPrecioventa = subtotalPrecioventa;
-      desceunto = 0;
+      descuento = 0;
     }
   }
 
@@ -136,7 +137,7 @@ function calcularFilasTR() {
     'iva_porcentaje': '16%',
     'cliente_id': $('#seleccion-paquete').val(),
     'descuento': descuento.toFixed(2),
-    'descuento_porcentaje': descuento_porcentaje.toFixed(2)
+    'descuento_porcentaje': descuentoPorcentaje.toFixed(2)
   }
   return [paqueteEstudios, CotizacionDetalle]
 }
