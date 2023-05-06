@@ -35,7 +35,7 @@ modalQRClientes.addEventListener('show.bs.modal', event => {
                 api: true
             })
             .columns.adjust();
-    }, 150);
+    }, 200);
 })
 
 selectDatatable('TablaQRClientes', tableQR, 0, 0, 0, 0, async function (select, dataClick) {
