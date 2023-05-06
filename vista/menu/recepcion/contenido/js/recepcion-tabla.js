@@ -2,6 +2,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
   scrollY: autoHeightDiv(0, 374),
   scrollCollapse: true,
+  deferRender: true,
   lengthMenu: [
     [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
     [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]
@@ -18,6 +19,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     },
     complete: function () {
       loader("Out")
+      tablaRecepcionPacientes.columns.adjust().draw()
     },
     error: function (jqXHR, textStatus, errorThrown) {
       alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -42,6 +44,8 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   ],
   columnDefs: [
     { width: "5px", targets: 0 },
+    { target: [1, 3], width: '20%' },
+    { target: [4], width: '13%' },
     // { width: "30px", targets: 7 }
 
   ],

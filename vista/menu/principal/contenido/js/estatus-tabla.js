@@ -14,6 +14,7 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
     scrollY: autoHeightDiv(0, 263),
     scrollCollapse: true,
     // paging: false,
+    deferRender: true,
     lengthMenu: [
         [15, 20, 25, 30, 35, 40, 45, 50, -1],
         [15, 20, 25, 30, 35, 40, 45, 50, "All"]
@@ -42,6 +43,7 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         { data: 'COUNT' },
         { data: 'NOMBRE_COMPLETO' },
         { data: 'PROCEDENCIA' },
+        { data: 'PREFOLIO' },
         //Laboratorio
         {
             data: 'LABORATORIO_CLINICO', render: function (data) {
@@ -112,6 +114,7 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
                 return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
             }
         },
+        { data: 'TURNO' },
         {
             data: 'FECHA_AGENDA',
             render: function (data) {
@@ -126,22 +129,21 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         },
 
         { data: 'DESCRIPCION_SEGMENTO' },
-        { data: 'TURNO' },
         {
             data: 'ACTIVO',
             render: function (data) {
                 return 'PENDIENTE';
             }
         },
-        { data: 'PREFOLIO' },
         { data: 'GENERO' }
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        { width: "20%", targets: 1 },
-        { width: "1%", targets: 0 },
-        { width: "10%", targets: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
-        { targets: [4, 7, 9, 10, 11, 17], visible: false }
+        { width: "1%", targets: [0] },
+        { width: "20%", targets: [1, 2] },
+        { width: "5%", targets: [3, 14, 15] },
+        { width: "7%", targets: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
+        { targets: [5, 8, 10, 11, 19], visible: false }
         // { visible: false, title: "AreaActual", targets: 20, searchable: false }
     ],
 
