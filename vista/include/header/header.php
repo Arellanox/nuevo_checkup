@@ -222,6 +222,10 @@ switch ($menu) {
                       <td>1001</td>
                     </tr>
                     <tr>
+                      <th scope="row">Consultorio 1</th>
+                      <td>1003</td>
+                    </tr>
+                    <tr>
                       <th scope="row">Central Enfermería</th>
                       <td>1009</td>
                     </tr>
