@@ -39,6 +39,10 @@ $menu = $_POST['menu']; ?>
     <i class="bi bi-arrow-repeat"></i> Optimizar Turnero
   </button>
 
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="get-modal-qr-clientes" data-bs-toggle="tooltip" data-bs-placement="bottom" title="QR de Clientes">
+    <i class="bi bi-qr-code"></i> QR
+  </button>
+
 
 <?php endif; ?>
 

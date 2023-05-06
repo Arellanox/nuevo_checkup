@@ -184,15 +184,18 @@ function avisoArea(tip = 0) {
 }
 
 //Ajax Async (NO FORM DATA SUPPORT)
-async function ajaxAwait(dataJson, apiURL, alertBefore = false) {
+async function ajaxAwait(dataJson, apiURL, config = { alertBefore: false }) {
   return new Promise(function (resolve, reject) {
+    //Configura la funcion misma
+    config = configAjaxAwait(config)
+
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
       data: dataJson,
       dataType: 'json',
       type: 'POST',
       beforeSend: function () {
-        if (alertBefore) {
+        if (config.alertBefore) {
           alertMsj({
             title: 'Espera un momento...',
             text: 'Estamos cargando tu solicitud, esto puede demorar un rato',
@@ -202,7 +205,11 @@ async function ajaxAwait(dataJson, apiURL, alertBefore = false) {
         }
       },
       success: function (data) {
-        if (mensajeAjax(data)) {
+        if (config.response) {
+          if (mensajeAjax(data)) {
+            resolve(data);
+          }
+        } else {
           resolve(data);
         }
       },
@@ -211,6 +218,26 @@ async function ajaxAwait(dataJson, apiURL, alertBefore = false) {
       },
     })
   });
+}
+
+//
+function configAjaxAwait(config) {
+  //valores por defectode la funcion AjaxAwait
+  configs = {
+    alertBefore: false,
+    response: true,
+  }
+
+  for (const key in configs) {
+    const element = configs[key];
+    try {
+      if (config[key].length) // Si no existe hará un error y agregará el elemento en el catch
+        1
+    } catch (error) {
+      config[key] = element;
+    }
+  }
+  return config;
 }
 
 
@@ -1253,7 +1280,7 @@ function alertMensajeConfirm(options, callback = function () { }, set = 0) {
   })
 }
 
-function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInput) {
+function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInput = 'password') {
 
   if (!options['title'])
     options['title'] = "¿Desea realizar esta acción?"
@@ -1261,8 +1288,8 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInp
   if (!options['text'])
     options['text'] = "Probablemente no podrá revertirlo"
 
-  if (!options['icon'])
-    options['icon'] = 'warning'
+  // if (!options['icon'])
+  //   options['icon'] = 'warning'
 
   if (!options['showCancelButton'])
     options['showCancelButton'] = true
@@ -1274,25 +1301,25 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInp
     options['cancelButtonColor'] = '#d33'
 
   if (!options['confirmButtonText'])
-    options['confirmButtonText'] = 'Aceptar'
+    options['confirmButtonText'] = 'Confirmar'
 
   if (!options['cancelButtonText'])
     options['cancelButtonText'] = 'Cancelar'
 
-  if (!options['allowOutsideClick'])
-    options['allowOutsideClick'] = false
+  // if (!options['allowOutsideClick'])
+  //   options['allowOutsideClick'] = false
 
   if (!options['showLoaderOnConfirm'])
     options['showLoaderOnConfirm'] = true
 
   if (!options['html'])
-    options['html'] = htmlInput = '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="' + tipeInput + '" id="text-confirmar" class="form-control input-color" autocomplete="off" placeholder="Escriba aquí..."></form>'
+    options['html'] = htmlInput = '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="text-confirmar" class="form-control input-color" autocomplete="off" placeholder="Use su contraseña de usuario"></form>'
 
 
   options['focusConfirm'] = false;
   options['preConfirm'] = () => {
-    const text = Swal.getPopup().querySelector('#text-confirmar').value;
-    return fetch(`${http + servidor}/${appname}/api/${api_url}.php?api=${api}&${campo}=${text}`)
+    const password = Swal.getPopup().querySelector('#text-confirmar').value;
+    return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(response.statusText)
@@ -1301,12 +1328,14 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInp
       })
       .catch(error => {
         Swal.showValidationMessage(
-          // `Request failed: ${error}`
-          `Hubo un problema...`
+          `Request failed: ${error}`
         )
-      })
+      });
   }
+
   options['allowOutsideClick'] = () => !Swal.isLoading();
+
+  console.log(options)
 
   Swal.fire(options).then((result) => {
     if (result.isConfirmed) {
@@ -1317,6 +1346,10 @@ function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInp
       }
     }
   })
+
+  function formpassword() {
+    //No submit form with enter
+  }
 }
 
 
@@ -1325,67 +1358,72 @@ function mensajeAjax(data, modulo = null) {
     text = ' No pudimos cargar'
   }
 
-  switch (data['response']['code']) {
-    case 1:
-      return 1;
-      break;
-    case 2:
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '¡Ha ocurrido un error!',
-        footer: 'Codigo: ' + data['response']['msj']
-      })
-      break;
-    case "repetido":
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '¡Usted ya está registrado!',
-        footer: 'Utilice su CURP para registrarse en una nueva prueba'
-      })
-      break;
-    case "login":
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Codigo: ' + data['response']['msj']
-      })
-      break;
-    case "Token": case "Usernovalid":
-      alertMensajeConfirm({
-        title: "¡Sesión no valida!",
-        text: "El token de su sesión ha caducado, vuelva iniciar sesión",
-        footer: "Redireccionando pantalla...",
-        icon: "info",
-        confirmButtonColor: "#d33",
-        confirmButtonText: "Aceptar",
-        cancelButtonText: false,
-        allowOutsideClick: false,
-        timer: 4000,
-        timerProgressBar: true,
-      }, function () {
-        destroySession();
-        window.location.replace(http + servidor + "/" + appname + "/vista/login/");
-      })
+  try {
+    switch (data['response']['code']) {
+      case 1:
+        return 1;
+        break;
+      case 2:
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Ha ocurrido un error!',
+          footer: 'Codigo: ' + data['response']['msj']
+        })
+        break;
+      case "repetido":
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Usted ya está registrado!',
+          footer: 'Utilice su CURP para registrarse en una nueva prueba'
+        })
+        break;
+      case "login":
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Codigo: ' + data['response']['msj']
+        })
+        break;
+      case "Token": case "Usernovalid":
+        alertMensajeConfirm({
+          title: "¡Sesión no valida!",
+          text: "El token de su sesión ha caducado, vuelva iniciar sesión",
+          footer: "Redireccionando pantalla...",
+          icon: "info",
+          confirmButtonColor: "#d33",
+          confirmButtonText: "Aceptar",
+          cancelButtonText: false,
+          allowOutsideClick: false,
+          timer: 4000,
+          timerProgressBar: true,
+        }, function () {
+          destroySession();
+          window.location.replace(http + servidor + "/" + appname + "/vista/login/");
+        })
 
-      break;
-    case "turnero":
-      alertMensajeConfirm({
-        title: "Oops",
-        text: `${data['response']['msj']}`,
-        footer: "Tal vez deberias intentarlo nuevamente",
-        icon: "warning",
-      })
+        break;
+      case "turnero":
+        alertMensajeConfirm({
+          title: "Oops",
+          text: `${data['response']['msj']}`,
+          footer: "Tal vez deberias intentarlo nuevamente",
+          icon: "warning",
+        })
 
-      break;
-    default:
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Hubo un problema!',
-        footer: 'No sabemos que pasó, reporta este problema...'
-      })
+        break;
+      default:
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Hubo un problema!',
+          footer: 'No sabemos que pasó, reporta este problema...'
+        })
+    }
+  } catch (error) {
+    alertMensaje('warning', 'Error:', 'No se puedo resolver un conflicto interno con validación, si el problema persiste reporte al encargado de area de esto.', '[Error: api no valida, "response: {code: XXXX}", no existe]')
+    return 0
   }
   return 0;
 }

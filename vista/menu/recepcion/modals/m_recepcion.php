@@ -21,3 +21,7 @@ include "ordenes-medicas.html";
 //Actualizar estudios
 if ($_SESSION['permisos']['RepActEstudios'])
     include "p_actualizar_estudios.html";
+
+
+
+include "p_qr-clientes.html";
