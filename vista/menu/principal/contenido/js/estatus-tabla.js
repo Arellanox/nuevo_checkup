@@ -11,7 +11,12 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    scrollY: autoHeightDiv(0, 263),
+    scrollY: function () {
+        return autoHeightDiv(0, 263)
+        $(window).resize(function () {
+            return autoHeightDiv(0, 263)
+        })
+    },
     scrollCollapse: true,
     // paging: false,
     deferRender: true,
@@ -139,11 +144,11 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        { width: "1%", targets: [0] },
-        { width: "20%", targets: [1, 2] },
-        { width: "5%", targets: [3, 14, 15] },
-        { width: "7%", targets: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
-        { targets: [5, 8, 10, 11, 19], visible: false }
+        { width: "1%", targets: "col-number" },
+        { width: "20%", targets: "col-20%" },
+        { width: "5%", targets: "col-5%" },
+        { width: "7%", targets: "col-icons" },
+        { targets: "col-invisble-first", visible: false }
         // { visible: false, title: "AreaActual", targets: 20, searchable: false }
     ],
 
