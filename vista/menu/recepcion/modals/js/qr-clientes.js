@@ -60,7 +60,7 @@ selectDatatable('TablaQRClientes', tableQR, 0, 0, 0, 0, async function (select, 
 
 inputBusquedaTable('TablaQRClientes', tableQR, [
     {
-        msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
+        msj: 'Un click a un registro para obtener el QR',
         place: 'left'
     },
 ], {}, 'col-12', 'col-12')
