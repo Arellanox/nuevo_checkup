@@ -238,6 +238,10 @@
         .rojo {
             color: red;
         }
+
+        .verde {
+            color: greenyellow;
+        }
     </style>
 </head>
 
