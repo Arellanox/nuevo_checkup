@@ -35,7 +35,7 @@ $api = 'soma';
 // $turno_id = 382;
 // $area_id =2;
 $turno_id = 449;
-$area_id = 2;
+//$area_id = 2;
 $cliente_id = 1;
 $id_cotizacion = 7;
 
