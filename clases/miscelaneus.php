@@ -318,7 +318,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $cliente_id = 1, $id_cotizacion = 8, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
