@@ -160,7 +160,7 @@ class Reporte
                 $pdf->setPaper('letter', 'portrait');
                 break;
 
-            case 'cotizacion':
+            case 'cotizaciones':
                 $template = render_view('invoice/cotizaciones.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
