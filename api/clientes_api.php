@@ -100,7 +100,7 @@ switch ($api) {
         $qr = "https://bimo-lab.com/nuevo_checkup/vista/registro/?codigo=" . $result[0]['QR'];
 
         $url = $master->generarQRURL("cliente", $qr, $nombreCliente, QR_ECLEVEL_H, 10);
-        echo json_encode(array("url" => $url));
+        echo json_encode(array("url" => $url, "url_qr" => $qr, "nombre" => $nombreCliente));
         exit;
 
     default:

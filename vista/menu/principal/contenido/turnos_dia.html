@@ -4,66 +4,67 @@
 <div class="table-responsive mt-2" style="width: 100%;">
     <div>
         Mostrar Columnas:
-        <a href="" class="toggle-vis" data-column="3">Laboratorio</a> -
-        <a href="" class="toggle-vis" data-column="4">Biomolecular</a> -
-        <a href="" class="toggle-vis" data-column="5">Ultrasonido</a> -
-        <a href="" class="toggle-vis" data-column="6">Rayos X</a> -
-        <a href="" class="toggle-vis" data-column="7">Oftalmología</a> -
-        <a href="" class="toggle-vis" data-column="8">Historia Clínica</a> -
-        <a href="" class="toggle-vis" data-column="9">Electrocardiograma</a> -
-        <a href="" class="toggle-vis" data-column="10">Estudio InBody</a> -
-        <a href="" class="toggle-vis" data-column="11">Espirometría</a> -
-        <a href="" class="toggle-vis" data-column="12">Audiometría</a>
+        <a href="" class="toggle-vis" data-column="4">Laboratorio</a> -
+        <a href="" class="toggle-vis" data-column="5">Biomolecular</a> -
+        <a href="" class="toggle-vis" data-column="6">Ultrasonido</a> -
+        <a href="" class="toggle-vis" data-column="7">Rayos X</a> -
+        <a href="" class="toggle-vis" data-column="8">Oftalmología</a> -
+        <a href="" class="toggle-vis" data-column="9">Historia Clínica</a> -
+        <a href="" class="toggle-vis" data-column="10">Electrocardiograma</a> -
+        <a href="" class="toggle-vis" data-column="11">Estudio InBody</a> -
+        <a href="" class="toggle-vis" data-column="12">Espirometría</a> -
+        <a href="" class="toggle-vis" data-column="13">Audiometría</a>
 
     </div>
 
     <table class="table table-hover display responsive" id="TablaEstatusTurnos" width="100%">
         <thead>
             <tr>
-                <th scope="col d-flex justify-content-center" class="all">#</th>
-                <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-                <th scope="col d-flex justify-content-center" class="desktop">Procedencia</th>
+                <th scope="" class="col-number all">#</th>
+                <th scope="" class="col-20% all">Nombre</th>
+                <th scope="" class="col-20% mobile-l desktop">Procedencia</th>
+                <th scope="" class="col-5% desktop">Prefolio</th>
 
-                <!-- Laboratorio  3 -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">Lab. Cli.</th>
+                <!-- Laboratorio 4 -->
+                <th scope="" class="col-icons min-tablet">Lab. Cli.</th>
 
-                <!-- Biomolecular  3 -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">Lab. Bio.</th>
+                <!-- Biomolecular 5 -->
+                <th scope="" class="col-invisble-first col-icons  min-tablet">Lab. Bio.
+                </th>
 
-                <!-- Ultrasonido -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">Ultra.</th>
+                <!-- Ultrasonido 6-->
+                <th scope="" class="col-icons  min-tablet">Ultra.</th>
 
-                <!-- Rayos X -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">RX.</th>
+                <!-- Rayos X 7-->
+                <th scope="" class="col-icons  min-tablet">RX.</th>
 
-                <!-- Oftalmología -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">Oft.</th>
+                <!-- Oftalmología 8-->
+                <th scope="" class="col-invisble-first col-icons  min-tablet">Oft.</th>
 
-                <!-- Historia Clínica -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">Hist. Cli.</th>
+                <!-- Historia Clínica 9-->
+                <th scope="" class="col-icons  min-tablet">Hist. Cli.</th>
 
-                <!-- Electrocardiograma -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">Electro.</th>
+                <!-- Electrocardiograma 10-->
+                <th scope="" class="col-invisble-first col-icons  min-tablet">Electro.</th>
 
-                <!-- Nutricion Inbody -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">InBody.</th>
+                <!-- Nutricion Inbody  11-->
+                <th scope="" class="col-invisble-first col-icons  min-tablet">InBody.</th>
 
-                <!-- Espirometría -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">Espiro.</th>
+                <!-- Espirometría 12-->
+                <th scope="" class="col-icons  min-tablet">Espiro.</th>
 
-                <!-- Audiometría 10 -->
-                <th scope="col d-flex justify-content-center" class="min-tablet">Audio.</th>
+                <!-- Audiometría 13 -->
+                <th scope="" class="col-icons  min-tablet">Audio.</th>
 
 
-                <th scope="col d-flex justify-content-center" class="desktop">Recepción</th>
+                <th scope="" class="desktop">Recepción</th>
+                <th scope="" class="desktop">Turno</th>
 
-                <th scope="col d-flex justify-content-center" class="none">Agenda</th>
-                <th scope="col d-flex justify-content-center" class="none">Re-agenda</th>
-                <th scope="col d-flex justify-content-center" class="none">Segmento</th>
-                <th scope="col d-flex justify-content-center" class="none">Turno</th>
-                <th scope="col d-flex justify-content-center" class="none">Area Actual</th>
-                <th scope="col d-flex justify-content-center" class="none">Prefolio</th>
-                <th scope="col d-flex justify-content-center" class="none">Sexo</th>
+                <th scope="" class="none">Agenda</th>
+                <th scope="" class="none">Re-agenda</th>
+                <th scope="" class="none">Segmento</th>
+                <th scope="" class="col-invisble-first">Area Actual</th>
+                <th scope="" class="none">Sexo</th>
             </tr>
         </thead>
         <tbody>
@@ -71,7 +72,6 @@
     </table>
 
 </div>
-
 <!-- Off canvas -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasInfoPrincipal"
     aria-labelledby="offcanvasInfoPrincipalLabel">

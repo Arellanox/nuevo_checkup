@@ -330,3 +330,10 @@ $(document).on('click', '#btn-correo-particular', function () {
     alertSelectTable('No ha seleccionado ningún paciente', 'error')
   }
 })
+
+
+
+
+$(document).on('click', '#get-modal-qr-clientes', function () {
+  $('#modalQRClientes').modal('show');
+})

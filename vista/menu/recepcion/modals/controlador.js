@@ -24,4 +24,6 @@ $.post("modals/m_recepcion.php", function (html) {
   $.getScript(`modals/js/ujat-beneficiarios.js`)
 
   $.getScript(`modals/js/p_actualizar_estudios.js`);
+
+  $.getScript(`modals/js/qr-clientes.js`);
 });

@@ -4,6 +4,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   },
   scrollY: autoHeightDiv(0, 332), //347px
   scrollCollapse: true,
+  deferRender: true,
   lengthMenu: [
     [20, 25, 30, 35, 40, 45, 50, -1],
     [20, 25, 30, 35, 40, 45, 50, "All"]
@@ -17,6 +18,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     url: '../../../api/recepcion_api.php',
     beforeSend: function () {
       loader("In", 'bottom'), array_selected = null
+      tablaRecepcionPacientesIngrersados.columns.adjust().draw()
     },
     complete: function () {
       loader("Out", 'bottom')
@@ -140,6 +142,8 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   columnDefs: [
     { width: "5px", targets: 0 },
     { visible: false, title: "AreaActual", targets: 6, searchable: false },
+    { target: [1, 3], width: '20%' },
+    { target: [4], width: '13%' },
     { target: 11, width: 'auto' },
     { target: 12, width: "20px" }
 

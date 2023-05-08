@@ -75,8 +75,8 @@
                                 ?>"> -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/r-2.3.0/sl-1.4.0/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/processing().js"></script>
-
+<!-- <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.13.4/pagination/scrolling.js"></script> -->
 
 <!-- Bimo -->
-<link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '\css\master.css?v=' . uniqid(); ?>">
+<link rel=" stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '\css\master.css?v=' . uniqid(); ?>">
 <link rel="icon" href="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png">
