@@ -41,28 +41,28 @@ $tipoView = 'url';
 switch ($api) {
     case 'imagenologia':
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
-        $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', $tipoView, $review);
+        $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', $cliente_id, $id_cotizacion, $tipoView, $review,);
         break;
     case 'oftalmo':
-        $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', $tipoView, $review);
+        $r = $master->reportador($master, $turno_id, 3, 'oftalmologia', $cliente_id, $id_cotizacion, $tipoView, $review,);
         break;
     case 'laboratorio':
-        $r = $master->reportador($master, $turno_id, 6, 'resultados', $tipoView, $review);
+        $r = $master->reportador($master, $turno_id, 6, 'resultados',  $cliente_id, $id_cotizacion, $tipoView, $review,);
         break;
     case 'biomolecular':
-        $r = $master->reportador($master, $turno_id, 12, 'biomolecular', $tipoView, $review);
+        $r = $master->reportador($master, $turno_id, 12, 'biomolecular',  $cliente_id, $id_cotizacion, $tipoView, $review,);
         break;
     case 'etiquetas':
-        $r = $master->reportador($master, $turno_id, 0, "etiquetas", $tipoView, $review);
+        $r = $master->reportador($master, $turno_id, 0, "etiquetas",  $cliente_id, $id_cotizacion, $tipoView, $review,);
         break;
     case 'consultorio':
-        $r = $master->reportador($master, $turno_id, 1, 'consultorio', $tipoView, $review);
+        $r = $master->reportador($master, $turno_id, 1, 'consultorio', $cliente_id, $id_cotizacion, $tipoView, $review,);
         break;
     case 'electro':
-        $r = $master->reportador($master, $turno_id, $area_id, 'electro', $tipoView, $review);
+        $r = $master->reportador($master, $turno_id, $area_id, 'electro', $cliente_id, $id_cotizacion, $tipoView, $review,);
         break;
     case 'soma':
-        $r = $master->reportador($master, $turno_id, $area_id, 'reporte_masometria', $tipoView, $review);
+        $r = $master->reportador($master, $turno_id, $area_id, 'reporte_masometria', $cliente_id, $id_cotizacion, $tipoView, $review,);
         break;
 
     default:

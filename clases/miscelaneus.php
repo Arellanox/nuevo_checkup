@@ -318,7 +318,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0)
+    public function reportador($master, $turno_id, $area_id, $reporte, $cliente_id = 1, $id_cotizacion = 8, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -326,6 +326,11 @@ class Miscelaneus
 
         $nombre_paciente = $infoPaciente[0]['NOMBRE'];
 
+        #Recupera la informacion del cliente
+        $infoCliente = $master->getByProcedure("sp_cotizaciones_gral", [$cliente_id]);
+        $infoCliente = [$infoCliente[count($infoCliente) - 1]];
+
+        $nombre_cliente = $infoCliente[0]['CLIENTE'];
 
         #Recuperamos el cuerpo y asignamos titulo si es necesario
         switch ($area_id) {
@@ -426,6 +431,16 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_SOMA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_SOMA'];
                 break;
+
+            case 13:
+            case "13":
+                # COTIZACIONES
+                $infoCliente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CREACION'];
+                $carpeta_guardado = "cotizaciones";
+                $infoCliente = [$infoCliente[count($infoCliente) - 1]];
+                $folio = $infoPaciente[0]['FOLIO_COTIZACIONES'];
+                break;
         }
 
         if ($area_id == 0) {
@@ -493,6 +508,13 @@ class Miscelaneus
         );
 
         return $arregloPaciente;
+    }
+
+    private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
+    {
+        $arregloServicio = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
+
+        return $arregloServicio;
     }
 
     private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)
