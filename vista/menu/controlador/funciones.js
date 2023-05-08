@@ -119,6 +119,9 @@ function calcularEdad(fecha) {
 
 // Revisar sesión
 function validarVista(area, reload = true) {
+  if (!area.length)
+    return si(reload)
+
   try {
     if (session['vista'][area] == 1) {
       validar = true
@@ -2374,14 +2377,14 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         4: 'AUDIOMETRÍA',
                         5: 'ESPIROMETRÍA',
                         6: 'LABORATORIO CLÍNICO',
-                        7: 'IMAGENOLOGÍA',
-                        8: 'RAYOS X',
-                        9: 'PRUEBA DE ESFUERZO',
-                        10: 'ELECTROCARDIOGRAMA',
-                        11: 'ULTRASONIDO',
-                        12: 'LABORATORIO BIOMOLECULAR',
-                        13: 'CITOLOGÍA',
-                        14: 'NUTRICIÓN',
+                        7: 'RAYOS X',
+                        8: 'ELECTROCARDIOGRAMA',
+                        9: 'ELECTRO_CAPTURAS',
+                        10: 'ULTRASONIDO',
+                        11: 'LABORATORIO BIOMOLECULAR',
+                        12: 'CITOLOGÍA',
+                        13: 'NUTRICIÓN',
+                        14: 'INBODY',
                       }
                       let row = data.response.data;
                       $('#append-html-historial-estudios').html('');
@@ -2391,7 +2394,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                           const element = array[key];
 
                           let arrayArea = $.grep(row, function (n, i) {
-                            return n.AREA === key;
+                            return n.AREA_LABEL === element;
                           });
 
                           //console.log(element, arrayArea)

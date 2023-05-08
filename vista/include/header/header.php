@@ -198,71 +198,13 @@ switch ($menu) {
 
         </ul>
         <ul class="nav navbar-nav ms-auto">
+
+          <!-- Botones alado de los usuarios -->
           <li class="nav-item dropstart d-flex justify-content-center align-items-center m">
-            <div class="dropdown">
-              <a class="dropdown-toggle" id="dropExtTelefonos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-telephone-fill"></i> Ext.
-              </a>
-              <!-- Estos botones se cargan en el servidor desde el archivo del include -->
-              <ul class="dropdown-menu bg-navbar-drop dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropExtTelefonos" style="padding: 0px; width: 200px">
-                <table class="table radiuszero" style="margin-bottom: 0px;">
-                  <thead>
-                    <tr>
-                      <th scope="col">ÁREA</th>
-                      <th scope="col">EXT.</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Recepción 2</th>
-                      <td>1011</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Recepción 1</th>
-                      <td>1001</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Consultorio 1</th>
-                      <td>1003</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Central Enfermería</th>
-                      <td>1009</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Sala de Juntas</th>
-                      <td>1009</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lab. Clínico</th>
-                      <td>1007</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Ultrasonido</th>
-                      <td>1006</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">TI</th>
-                      <td>1008</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Rayos X</th>
-                      <td>1010</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Toma de muestra</th>
-                      <td>1012</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </ul>
-              <style>
-                #dropExtTelefonos::before {
-                  border: 0px
-                }
-              </style>
-            </div>
+            <?php include "btn-user/buttons.php"; ?>
           </li>
+
+
           <li class="nav-item dropstart flex-grow-1">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
             <a data-bs-toggle="dropdown" type="button" class="">
