@@ -198,8 +198,19 @@ $menu = $_POST['menu']; ?>
   </div>
 <?php endif; ?>
 
-<?php if ($menu == 'Gestor de bases') : ?>
-  <button type="submit" data-attribute="confirmar" class="btn btn-hover" id="omitir-paciente" style="margin-bottom:4px">
-    <i class="bi bi-clipboard-x"></i> Open Table
-  </button>
+<?php if ($menu == 'Agenda de pacientes y estudios') : ?>
+  <div class="row">
+    <div class="col-auto d-flex align-items-center">
+      <label for="fechaSelected" class="form-label">Día</label>
+    </div>
+    <div class="col-auto d-flex align-items-center">
+      <input type="date" class="form-control input-form" name="fechaSelected" value="<?php echo date('Y-m-d') ?>" required id="fechaSelected">
+    </div>
+    <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visualiza todos los pacientes del area">
+      <input class="form-check-input" type="checkbox" value="" id="checkDiaFechaSelected" style="margin: 5px">
+      <label class="form-check-label" for="checkDiaFechaSelected">
+        Todos
+      </label>
+    </div>
+  </div>
 <?php endif; ?>

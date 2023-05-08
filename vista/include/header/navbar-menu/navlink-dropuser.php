@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('America/Mexico_City');
-if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
+if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || $_SESSION['vista']['AGENDA_PACIENTES'] == 1) : ?>
   <!-- Administrativos -->
   <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
     <i class="bi bi-clipboard-heart"></i> Servicios
@@ -9,6 +9,11 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
       <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1) : ?>
         <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/servicios/#Equipos'; ?>"><i class="bi bi-dot"></i> Equipos</a></li>
+      <?php endif; ?>
+    </ul>
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <?php if ($_SESSION['vista']['AGENDA_PACIENTES'] == 1) : ?>
+        <li><a class="dropdown-a" target="_blank" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#AGENDA_PACIENTES'; ?>"><i class="bi bi-dot"></i> Agenda</a></li> <!-- <i class="bi bi-calendar3"></i> -->
       <?php endif; ?>
     </ul>
   </div>
