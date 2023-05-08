@@ -437,7 +437,7 @@ class Miscelaneus
                 # COTIZACIONES
                 $infoCliente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CREACION'];
-                $carpeta_guardado = "cotizaciones";
+                $carpeta_guardado = "cotizacion";
                 $infoCliente = [$infoCliente[count($infoCliente) - 1]];
                 $folio = $infoPaciente[0]['FOLIO_COTIZACIONES'];
                 break;
