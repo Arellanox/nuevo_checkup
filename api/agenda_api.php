@@ -32,7 +32,7 @@ $params = $master->setToNull([
     $area_id,
     $registrado_por,
     $observaciones,
-    json_encode($detalle_servicios),
+    json_encode(explode(",",$detalle_servicios)),
     $hora_agenda
 ]);
 
