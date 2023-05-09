@@ -287,7 +287,7 @@
                     <!--FIN DE TABLA INFORMACIÓN-->
                     <P style="line-height: 2.5""></P>
                     <!---INICIO DE LA TABLA DE PRODUCTOS--->
-                    <table style=" width: 100%;text-align: center; padding-top: 50px; border-collapse: collapse; height: 500px;" border="2">
+                    <table style=" text-align: center; padding-top: 50px; border-collapse: collapse; height: 500px;" border="2" colspan="12">
                         <thead style="text-align: center; background-color: darkgrey;">
                             <tr>
                                 <th colspan="5">Producto</th>
