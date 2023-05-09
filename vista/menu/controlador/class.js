@@ -2,6 +2,8 @@ class GuardarArreglo {
   array = new Array();
   selectID;
   guardado;
+  acumulativo = 0;
+
   constructor(array) {
     this.array = array
   }
@@ -37,6 +39,29 @@ class GuardarArreglo {
 
   getguardado() {
     return this.guardado;
+  }
+
+  acumular(number, reset = false) {
+    // check if the passed value is a number
+    if (typeof x == 'number' && !isNaN(x)) {
+      // check if it is integer
+      if (Number.isInteger(x)) {
+        this.acumulativo += number;
+        return 1
+      } else {
+        this.acumulativo += number;
+        return 1
+      }
+    } else {
+      if (reset)
+        this.acumulativo = 0;
+      return 0
+    }
+
+  }
+
+  get acumular() {
+    return this.acumulativo;
   }
 
 }

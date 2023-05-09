@@ -360,7 +360,6 @@ function checkNumber(x, transform = 0) {
     } else {
       return 1
     }
-
   } else {
     if (transform)
       return parseInt(x); //Entero
