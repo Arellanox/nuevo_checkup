@@ -239,9 +239,9 @@ $encode = base64_encode($ruta);
 <body>
     <div class="container-fluid">
         <div class="container-fluid">
-            <table style="width: 100%;">
+            <table style="width: 100%; text-align: center;">
                 <tr>
-                    <td style="width: 33.3%">
+                    <td style="width: 25%">
                         <?php
                         echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
                         ?></td>
