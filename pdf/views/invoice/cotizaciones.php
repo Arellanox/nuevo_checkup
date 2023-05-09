@@ -236,12 +236,7 @@
         <div class="container-fluid">
             <table style="width: 100%;">
                 <tr>
-                    <td style="width: 33.3%">
-                        <?php
-                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
-                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
-                        ?>
-                    </td>
+                    <td style="width: 33.3%"><img src="http://bimo-lab.com/pdf/logo/logo_documento.png" alt="" width="" height=""></td>
                     <td style="width: 33.3%;text-align: center;">
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
@@ -259,25 +254,22 @@
                     </td>
                 </tr>
             </table>
-            <hr style="height: 3px; background-color: black ;">
-            <p style="text-align: center; margin: -4px;"><strong>Biología Molecular</strong></p>
-            <hr style="height: 3px; background-color: black ;">
             <table style="width: 100%; border-collapse: collapse; text-align: center;">
                 <td colspan="12">&nbsp;</td>
                 <!--COTIZACIONES-->
                 <div style="display: flex; justify-content: space-between;">
                     <!--INICIO DE TABLA INFORMACIÓN-->
-                    <table style="width: 100%; border-collapse: collapse; text-align: center; border-radius: 50px;" border="2">
+                    <table style="width: 100%; border-collapse: collapse; text-align: center; border-radius: 10px;" border="2">
 
                         <tr>
                             <td style="background-color: darkgrey;" colspan="2">RAZÓN SOCIAL</td>
-                            <td colspan="7"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
+                            <td colspan="7">Ventas al Público General</td>
                             <td style="background-color: darkgrey;" colspan="3">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
                         </tr>
                         <tr style=" border-collapse: collapse; border-bottom: transparent;">
                             <td style="background-color: darkgrey;" colspan="2">DOMICILIO FISCAL</td>
                             <td colspan="7">País: MEX</td>
-                            <td colspan="3"><?php echo $encabezado->FECHA_CREACION; ?></td>
+                            <td colspan="3">02/05/2023</td>
                         </tr>
                         <tr>
                             <td style="background-color: darkgrey;" colspan="2"></td>
@@ -286,16 +278,16 @@
                         </tr>
                         <tr>
                             <td style="background-color: darkgrey;" colspan="2">TELÉFONO</td>
-                            <td colspan="2"><?php echo $encabezado->TELEFONO; ?></td>
+                            <td colspan="2">93314582634</td>
                             <td style="background-color: darkgrey;" colspan="2">RFC</td>
-                            <td colspan="2"><?php echo $encabezado->RFC; ?></td>
-                            <td colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
+                            <td colspan="2">XAXX010101000</td>
+                            <td colspan="4">02/05/2023</td>
                         </tr>
                     </table>
                     <!--FIN DE TABLA INFORMACIÓN-->
                     <P style="line-height: 2.5""></P>
                     <!---INICIO DE LA TABLA DE PRODUCTOS--->
-                    <table style=" width: 100%;text-align: center; padding-top: 50px; border-collapse: collapse; height: 650px;" border="2">
+                    <table style=" width: 100%;text-align: center; padding-top: 50px; border-collapse: collapse; height: 610px;" border="2">
                         <thead style="text-align: center; background-color: darkgrey;">
                             <tr>
                                 <th colspan="5">Producto</th>
@@ -317,25 +309,15 @@
                                 <td colspan="1">16%</td>
                                 <td colspan="1">$418.00</td>
                             </tr>
-                            <?php
-                            $count = count($resultados->ESTUDIOS);
-                            $i = 0;
-
-                            $estudios = $resultados;
-                            foreach ($estudios->CONTENEDORES as $a => $estudios) {
-                                echo "  <tr>
-                                                <th colspan= \"5 \">" . $recipiente->CONTENEDOR . "</th>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                        </tr>";
-                            }
-
-                            $i++;
-                            ?>
+                            <tr>
+                                <th colspan="5">Ag. Carcinoembrionario (LABORATORIO)</th>
+                                <td colspan="1">E48 - Unidad de servicio</td>
+                                <td colspan="1">$418.00 </td>
+                                <td colspan="1">1.00</td>
+                                <td colspan="1">0.00%</td>
+                                <td colspan="1">16%</td>
+                                <td colspan="1">$418.00</td>
+                            </tr>
                             <tr style="height: 100%;">
                                 <td colspan="5"></td>
                                 <td></td>
@@ -348,7 +330,7 @@
                         </tbody>
                         <tfoot style="text-align: center; background-color: darkgrey; text-align: left;">
                             <tr>
-                                <td colspan="12">
+                                <td colspan="12">Cuatromilsetecientos setentaycincopesos58/100M.N</td>
                             </tr>
                         </tfoot>
             </table>
@@ -361,16 +343,16 @@
         <tbody>
             <tr>
                 <td>Subtotal</td>
-                <td><?php echo $encabezado->SUBTOTAL; ?></td>
+                <td>$4,116.89</td>
             </tr>
             <tr>
                 <td>IVA (16.00%)</td>
-                <td><?php echo $encabezado->IVA; ?></td>
+                <td>$658.69</td>
             </tr>
             <tr style="
                     background-color: darkgrey;">
                 <td>Total</td>
-                <td><?php echo $encabezado->TOTAL; ?></td>
+                <td>$4,775.58</td>
             </tr>
         </tbody>
         </table>
