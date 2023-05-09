@@ -302,23 +302,23 @@ $encode = base64_encode($ruta);
                         </tr>
                     </table>
                     <!--FIN DE TABLA INFORMACIÓN-->
-                    <P style="line-height: 1"></P>
+                    <P style="line-height: .5"></P>
                     <!---INICIO DE LA TABLA DE PRODUCTOS--->
-                    <table style=" text-align: center;width: 100%; border-collapse: collapse; height: 500px;" border="2">
-                        <thead style="text-align: center; background-color: darkgrey;">
+                    <table style=" text-align: center;width: 100%; border-collapse: collapse; height: 500px;" border=".5">
+                        <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                             <tr>
                                 <th colspan="6">Producto</th>
-                                <td colspan="1">Unidad de Medida</td>
-                                <td colspan="1">Precio unitario</td>
-                                <td colspan="1">Cantidad</td>
-                                <td colspan="1">Descuento</td>
-                                <td colspan="1">Impuesto</td>
-                                <td colspan="1">Total</td>
+                                <th colspan="1">Unidad de Medida</th>
+                                <th colspan="1">Precio unitario</th>
+                                <th colspan="1">Cantidad</th>
+                                <th colspan="1">Descuento</th>
+                                <th colspan="1">Impuesto</th>
+                                <th colspan="1">Total</th>
                             </tr>
                         </thead>
-                        <tbody style=" border-bottom: transparent;line-height: 1.5;">
+                        <tbody style=" border-bottom: transparent;line-height: 1;">
                             <tr>
-                                <th colspan="6">Ag. Carcinoembrionario (LABORATORIO)</th>
+                                <td colspan="6">Ag. Carcinoembrionario (LABORATORIO)</td>
                                 <td colspan="1">E48 - Unidad de servicio</td>
                                 <td colspan="1">$418.00 </td>
                                 <td colspan="1">1.00</td>
@@ -333,7 +333,7 @@ $encode = base64_encode($ruta);
                             $estudios = $resultados;
                             foreach ($estudios->CONTENEDORES as $a => $estudios) {
                                 echo "  <tr>
-                                                <th colspan= \"6 \">" . $recipiente->CONTENEDOR . "</th>
+                                                <td colspan= \"6 \">" . $recipiente->CONTENEDOR . "</td>
                                                 <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
                                                 <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
                                                 <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
