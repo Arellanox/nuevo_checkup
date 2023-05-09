@@ -250,11 +250,11 @@ $encode = base64_encode($ruta);
         <div class="container-fluid">
             <table style="width: 100%; text-align: center;">
                 <tr>
-                    <td style="width: 27%">
+                    <td style="width: 25%">
                         <?php
                         echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
                         ?></td>
-                    <td style="width: 33.3%;text-align: center;">
+                    <td style="width: 50%;text-align: center;">
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                             RFC DBI2012084N2<br>
@@ -264,7 +264,7 @@ $encode = base64_encode($ruta);
                             hola@bimo.com.mx
                         </p>
                     </td>
-                    <td style="width: 33.3%;text-align: center;">
+                    <td style="width: 25%;text-align: center;">
                         <p>Cotización<br>
                             <b>No. 75</b>
                         </p>
