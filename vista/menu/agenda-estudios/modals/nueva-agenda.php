@@ -18,20 +18,20 @@
                             <input type="text" name="apellidos" value="" class="form-control input-form">
                         </div>
                         <div class="col-12 col-md-12 col-xl-4">
-                            <label for="numero" class="form-label">Número de teléfono</label>
-                            <input type="number" name="numero" value="" class="form-control input-form">
+                            <label for="hora_agenda" class="form-label">Número de teléfono</label>
+                            <input type="number" name="hora_agenda" value="" class="form-control input-form">
                         </div>
                         <div class="col-12 col-md-12 col-xl-4">
-                            <label for="date" class="form-label">Observaciones</label>
-                            <input type="text" name="date" value="" class="form-control input-form">
+                            <label for="observaciones" class="form-label">Observaciones</label>
+                            <input type="text" name="observaciones" value="" class="form-control input-form">
                         </div>
                         <div class="col-12 col-md-12 col-xl-4">
-                            <label for="date" class="form-label">Fecha de agendas</label>
-                            <input type="date" name="date" value="<?php echo date('Y-m-d') ?>" class="form-control input-form">
+                            <label for="fecha_agenda" class="form-label">Fecha de agendas</label>
+                            <input type="date" name="fecha_agenda" value="<?php echo date('Y-m-d') ?>" class="form-control input-form">
                         </div>
                         <div class="col-12 col-md-12 col-xl-4">
-                            <label for="date" class="form-label">Horas disponibles</label>
-                            <select name="" id="select-horas" class="input-form form-select"></select>
+                            <label for="hora_agenda" class="form-label">Horas disponibles</label>
+                            <select name="hora_agenda" id="select-horas" class="input-form form-select"></select>
                         </div>
                     </form>
 

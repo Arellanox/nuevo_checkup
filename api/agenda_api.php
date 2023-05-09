@@ -15,7 +15,7 @@ $api = $_POST['api'];
 $paciente = $_POST['id_paciente'];
 $nombre = $_POST['nombre'];
 $apellidos = $_POST['apellidos'];
-$telefono = $_POST['telefono'];
+$telefono = $_POST['hora_agenda'];
 $fecha_agenda = $_POST['fecha_agenda'];
 $area_id = $_POST['area_id'];
 $registrado_por = $_SESSION['id'];
@@ -32,18 +32,18 @@ $params = $master->setToNull([
     $area_id,
     $registrado_por,
     $observaciones,
-    json_encode(explode(",",$detalle_servicios)),
+    json_encode(explode(",", $detalle_servicios)),
     $hora_agenda
 ]);
 
-switch($api){
+switch ($api) {
     case 1:
         # agregar una agenda
         $response = $master->insertByProcedure("sp_agenda_g", $params);
         break;
     case 2:
         # buscar los horarios disponibles de un area.
-        $response = $master->getByProcedure("sp_agenda_horarios_b",[$area_id, $fecha_agenda]);
+        $response = $master->getByProcedure("sp_agenda_horarios_b", [$area_id, $fecha_agenda]);
         break;
     case 3:
         #buscar agendas
@@ -59,9 +59,6 @@ switch($api){
         break;
     default:
         break;
-   
 }
 
 echo json_encode($response);
-
-?>

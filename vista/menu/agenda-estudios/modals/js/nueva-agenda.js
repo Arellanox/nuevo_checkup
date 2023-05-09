@@ -28,6 +28,7 @@ $('#FormAgendaNueva').submit(function (event) {
             let data = ajaxAwaitFormData({
                 api: 1,
                 servicios: servicios,
+                area_id: 11
             }, 'agenda_api', 'FormAgendaNueva')
 
             console.log(data);
