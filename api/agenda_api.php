@@ -38,7 +38,7 @@ $params = $master->setToNull([
 
 switch($api){
     case 1:
-        $response = $master->insertByProcedure("sp_agenda", []);
+        $response = $master->insertByProcedure("sp_agenda", $params);
         break;
 
     default:
@@ -47,5 +47,7 @@ switch($api){
         $response = $master->getByProcedure("sp_agenda_horarios_b",[$area_id, $fecha_agenda]);
         break;
 }
+
+echo json_encode($response);
 
 ?>
