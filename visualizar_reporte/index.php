@@ -67,7 +67,7 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, $area_id, 'reporte_masometria', 'mostrar', $cliente_id, $id_cotizacion, 1);
         break;
     case 'cotizacion':
-        $r = $master->reportador($master, $turno_id, 'cotizaciones', 'mostrar', $cliente_id, $id_cotizacion, 1);
+        $r = $master->reportador($master, $turno_id,  $area_id, 'cotizaciones', 'mostrar', $cliente_id, $id_cotizacion, 1);
         break;
 
     default:
