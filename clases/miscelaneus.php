@@ -1266,4 +1266,23 @@ class Miscelaneus
         $name = $master->getByProcedure("sp_get_patient_name_by_turno", [$turno]);
         return isset($name[0]['NOMBRE_COMPLETO']) ? $name[0]['NOMBRE_COMPLETO'] : "NONE";
     }
+
+    public function setToNull($params= array()){
+        # esta funcion convierte en null 
+        # todas aquellas variables que tengans strlen =0,
+        # las que tengas la palabra "null" o las que no traigan contenido.
+        # Si trae algo distinto en su valor, lo deja intacto.
+
+        $formattedParams = array();
+
+        foreach($params as $param){
+            if(!isset($param) || strlen($param)==0 || strtolower($param)=="null"){
+                $formattedParams[] = null;
+            } else {
+                $formattedParams[] = $param;
+            }
+        }
+
+        return $formattedParams;
+    }
 }
