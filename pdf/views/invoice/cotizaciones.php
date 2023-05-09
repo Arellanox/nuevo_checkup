@@ -252,7 +252,7 @@ $encode = base64_encode($ruta);
                 <tr>
                     <td style="width: 25%">
                         <?php
-                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
+                        echo "<img src='data:image/png;base64, " . $encode . "' height='65' >";
                         ?></td>
                     <td style="width: 50%;text-align: center;">
                         <p>
@@ -302,18 +302,18 @@ $encode = base64_encode($ruta);
                         </tr>
                     </table>
                     <!--FIN DE TABLA INFORMACIÓN-->
-                    <P style="line-height: 1""></P>
+                    <P style="line-height: 1"></P>
                     <!---INICIO DE LA TABLA DE PRODUCTOS--->
                     <table style=" text-align: center;width: 100%; border-collapse: collapse; height: 500px;" border="2">
                         <thead style="text-align: center; background-color: darkgrey;">
                             <tr>
                                 <th colspan="5">Producto</th>
                                 <td colspan="1">Unidad de Medida</td>
-                                <td colspan="1">Precio unitario</td>
+                                <!--  <td colspan="1">Precio unitario</td>
                                 <td colspan="1">Cantidad</td>
                                 <td colspan="1">Descuento</td>
                                 <td colspan="1">Impuesto</td>
-                                <td colspan="1">Total</td>
+                                <td colspan="1">Total</td>-->
                             </tr>
                         </thead>
                         <tbody style=" border-bottom: transparent;line-height: 1.5;">
@@ -360,40 +360,40 @@ $encode = base64_encode($ruta);
                                 <td colspan="12">
                             </tr>
                         </tfoot>
-            </table>
+                    </table>
+                </div>
+
         </div>
-
-    </div>
-    </table>
-    <P style="line-height: 2.5""></P>
-            <table style=" width: 150px; text-align: right; border-bottom: transparent;" align="right">
-        <tbody>
-            <tr>
-                <td>Subtotal</td>
-                <td><?php echo $encabezado->SUBTOTAL; ?></td>
-            </tr>
-            <tr>
-                <td>IVA (16.00%)</td>
-                <td><?php echo $encabezado->IVA; ?></td>
-            </tr>
-            <tr style="
-                    background-color: darkgrey;">
-                <td>Total</td>
-                <td><?php echo $encabezado->TOTAL; ?></td>
-            </tr>
-        </tbody>
         </table>
-        <!---FIN DE LA TABLA DE PRODUCTOS--->
+        <P style="line-height: 2.5""></P>
+            <table style=" width: 150px; text-align: right; border-bottom: transparent;" align="right">
+            <tbody>
+                <tr>
+                    <td>Subtotal</td>
+                    <td><?php echo $encabezado->SUBTOTAL; ?></td>
+                </tr>
+                <tr>
+                    <td>IVA (16.00%)</td>
+                    <td><?php echo $encabezado->IVA; ?></td>
+                </tr>
+                <tr style="
+                    background-color: darkgrey;">
+                    <td>Total</td>
+                    <td><?php echo $encabezado->TOTAL; ?></td>
+                </tr>
+            </tbody>
+            </table>
+            <!---FIN DE LA TABLA DE PRODUCTOS--->
 
-    <table style="width: 35%; padding-top: 11%;" align="left">
-        <td style="text-align: center;">
-            <p style="width: 5%; text-align: center;">
-                <hr style="height: 1px; background-color: black ; " align="center"><br>
-                ELABORADO POR
-            </p>
-        </td>
+        <table style="width: 35%; padding-top: 11%;" align="left">
+            <td style="text-align: center;">
+                <p style="width: 5%; text-align: center;">
+                    <hr style="height: 1px; background-color: black ; " align="center"><br>
+                    ELABORADO POR
+                </p>
+            </td>
 
-    </table>
+        </table>
     </div>
     </div>
 </body>
