@@ -1,4 +1,3 @@
-<?php require "../clases/numero_a_texto_class.php";  ?>
 <!DOCTYPE html>
 <html>
 
@@ -349,10 +348,7 @@
                         </tbody>
                         <tfoot style="text-align: center; background-color: darkgrey; text-align: left;">
                             <tr>
-                                <td colspan="12"><?php
-                                                    $numerosTotal = explode(".", $encabezado->TOTAL);
-                                                    echo convertirNumeroATexto($numerosTotal[0]) . " pesos " . $numerosTotal[1] . "/100M.N"
-                                                    ?></td>
+                                <td colspan="12">
                             </tr>
                         </tfoot>
             </table>
