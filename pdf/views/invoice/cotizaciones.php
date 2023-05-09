@@ -11,6 +11,11 @@
     <title>Cotización</title>
 
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 10px;
+        }
+
         .header {
             position: fixed;
             top: -165px;
@@ -40,10 +45,6 @@
             text-justify: inter-word;
         }
 
-        .tabla {
-
-            border-bottom: 1px solid #ccc;
-        }
 
         h1 {
             font-size: 22px;
@@ -94,12 +95,12 @@
             width: 100%;
             max-width: 100%;
             margin: auto;
-            white-space: nowrap;
-            border-radius: 50px
-                /* table-layout:fixed; */
+            white-space: normal;
+            word-break: break-all;
+            /* table-layout:fixed; */
         }
 
-        */ th,
+        th,
         td {
             width: 100%;
             max-width: 100%;
@@ -108,24 +109,27 @@
 
         /* Para divisiones de 3 encabezado*/
         .col-left {
-            width: 35%;
-            max-width: 35%;
+            width: 42%;
+            max-width: 42%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         .col-center {
-            width: 35%;
-            max-width: 35%;
+            width: 41%;
+            max-width: 41%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         .col-right {
-            width: 30%;
-            max-width: 30%;
+            width: 17%;
+            max-width: 17%;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         /* divisiones de 3 footer */
@@ -225,6 +229,11 @@
             font-style: italic;
         }
 
+        .content {
+            border-radius: 3px;
+            background-color: #f7be16;
+        }
+
         .rojo {
             color: red;
         }
@@ -241,7 +250,7 @@ $encode = base64_encode($ruta);
         <div class="container-fluid">
             <table style="width: 100%; text-align: center;">
                 <tr>
-                    <td style="width: 25%">
+                    <td style="width: 27%">
                         <?php
                         echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
                         ?></td>
