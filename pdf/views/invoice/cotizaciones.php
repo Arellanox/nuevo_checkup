@@ -229,19 +229,12 @@
     </style>
 </head>
 
-</html>
-
 <body>
     <div class="container-fluid">
         <div class="container-fluid">
             <table style="width: 100%;">
                 <tr>
-                    <td style="width: 33.3%">
-                        <?php
-                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
-                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
-                        ?>
-                    </td>
+                    <td style="width: 33.3%"><img src="http://bimo-lab.com/pdf/logo/logo_documento.png" alt="" width="" height=""></td>
                     <td style="width: 33.3%;text-align: center;">
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
@@ -259,15 +252,12 @@
                     </td>
                 </tr>
             </table>
-            <hr style="height: 3px; background-color: black ;">
-            <p style="text-align: center; margin: -4px;"><strong>Biología Molecular</strong></p>
-            <hr style="height: 3px; background-color: black ;">
             <table style="width: 100%; border-collapse: collapse; text-align: center;">
                 <td colspan="12">&nbsp;</td>
                 <!--COTIZACIONES-->
                 <div style="display: flex; justify-content: space-between;">
                     <!--INICIO DE TABLA INFORMACIÓN-->
-                    <table style="width: 100%; border-collapse: collapse; text-align: center; border-radius: 50px;" border="2">
+                    <table style="width: 100%; border-collapse: collapse; text-align: center; border-radius: 10px;" border="2">
 
                         <tr>
                             <td style="background-color: darkgrey;" colspan="2">RAZÓN SOCIAL</td>
@@ -336,7 +326,7 @@
 
                             $i++;
                             ?>
-                            <tr style="height: 100%;">
+                            <tr>
                                 <td colspan="5"></td>
                                 <td></td>
                                 <td></td>
