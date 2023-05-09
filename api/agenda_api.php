@@ -38,14 +38,28 @@ $params = $master->setToNull([
 
 switch($api){
     case 1:
-        $response = $master->insertByProcedure("sp_agenda", $params);
-        break;
-
-    default:
+        # agregar una agenda
+        $response = $master->insertByProcedure("sp_agenda_g", $params);
         break;
     case 2:
+        # buscar los horarios disponibles de un area.
         $response = $master->getByProcedure("sp_agenda_horarios_b",[$area_id, $fecha_agenda]);
         break;
+    case 3:
+        #buscar agendas
+        break;
+    case 4:
+        # eliminar una agenda
+        break;
+    case 5:
+        # agregar una horario a un area
+        break;
+    case 6:
+        # eliminar horarios de un area
+        break;
+    default:
+        break;
+   
 }
 
 echo json_encode($response);
