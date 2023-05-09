@@ -237,6 +237,11 @@
         .rojo {
             color: red;
         }
+
+        .rounded {
+            border-radius: 8px;
+            border: 1px solid black;
+        }
     </style>
 </head>
 <?php
@@ -276,7 +281,7 @@ $encode = base64_encode($ruta);
                 <!--COTIZACIONES-->
                 <div style="display: flex; justify-content: space-between;">
                     <!--INICIO DE TABLA INFORMACIÓN-->
-                    <table style="width: 100%; border-collapse: collapse; text-align: center; border-radius: 10px;" border="2">
+                    <table style="width: 100%; text-align: center;" class="rounded" border="2">
 
                         <tr>
                             <td style="background-color: darkgrey;" colspan="2">RAZÓN SOCIAL</td>
@@ -318,8 +323,8 @@ $encode = base64_encode($ruta);
                         </thead>
                         <tbody style=" border-bottom: transparent;line-height: 1;">
                             <tr>
-                                <td colspan="6">Ag. Carcinoembrionario (LABORATORIO)</td>
-                                <td colspan="1">E48 - Unidad de servicio</td>
+                                <td colspan="4">Ag. Carcinoembrionario (LABORATORIO)</td>
+                                <td colspan="2">E48 - Unidad de servicio</td>
                                 <td colspan="1">$418.00 </td>
                                 <td colspan="1">1.00</td>
                                 <td colspan="1">0.00%</td>
@@ -333,8 +338,8 @@ $encode = base64_encode($ruta);
                             $estudios = $resultados;
                             foreach ($estudios->CONTENEDORES as $a => $estudios) {
                                 echo "  <tr>
-                                                <td colspan= \"6 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td colspan= \"4 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td colspan= \"2 \">" . $recipiente->CONTENEDOR . "</td>
                                                 <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
                                                 <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
                                                 <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
@@ -346,8 +351,8 @@ $encode = base64_encode($ruta);
                             $i++;
                             ?>
                             <tr>
-                                <td colspan="6"></td>
-                                <td colspan="1"></td>
+                                <td colspan="4"></td>
+                                <td colspan="2"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>
