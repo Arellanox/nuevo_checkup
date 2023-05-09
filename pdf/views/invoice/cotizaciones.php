@@ -241,7 +241,10 @@ $encode = base64_encode($ruta);
         <div class="container-fluid">
             <table style="width: 100%;">
                 <tr>
-                    <td style="width: 33.3%"><img src="http://bimo-lab.com/pdf/logo/logo_documento.png" alt="" width="" height=""></td>
+                    <td style="width: 33.3%">
+                        <?php
+                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
+                        ?></td>
                     <td style="width: 33.3%;text-align: center;">
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
@@ -292,7 +295,7 @@ $encode = base64_encode($ruta);
                     <!--FIN DE TABLA INFORMACIÓN-->
                     <P style="line-height: 1""></P>
                     <!---INICIO DE LA TABLA DE PRODUCTOS--->
-                    <table style=" text-align: center; border-collapse: collapse; height: 500px;" border="2" colspan="12">
+                    <table style=" text-align: center;width: 100%; border-collapse: collapse; height: 500px;" border="2">
                         <thead style="text-align: center; background-color: darkgrey;">
                             <tr>
                                 <th colspan="5">Producto</th>
