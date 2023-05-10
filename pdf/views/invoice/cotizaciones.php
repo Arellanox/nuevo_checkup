@@ -282,9 +282,9 @@ $encode = base64_encode($ruta);
         <!--INICIO DE TABLA INFORMACIÓN-->
         <table style="width: 100%; text-align: center;" class="rounded" border=".5" ;>
             <tr>
-                <td style="background-color: darkgrey;border-radius: 4px 0px 0px 0px;" colspan="2">RAZÓN SOCIAL</td>
+                <td style="background-color: darkgrey;border-radius: 6px 0px 0px 0px;" colspan="2">RAZÓN SOCIAL</td>
                 <td colspan="7"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
-                <td style="background-color: darkgrey;border-radius: 0px 4px 0px 0px;" colspan="3">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+                <td style="background-color: darkgrey;border-radius: 0px 6px 0px 0px;" colspan="3">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
             </tr>
             <tr style=" border-collapse: collapse; border-bottom: transparent;">
                 <td style="background-color: darkgrey;" colspan="2">DOMICILIO FISCAL</td>
@@ -297,11 +297,11 @@ $encode = base64_encode($ruta);
                 <td style="background-color: darkgrey;" colspan="3">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
             </tr>
             <tr>
-                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 4px;" colspan="2">TELÉFONO</td>
+                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 6px;" colspan="2">TELÉFONO</td>
                 <td colspan="2"><?php echo $encabezado->TELEFONO; ?></td>
                 <td style="background-color: darkgrey;" colspan="2">RFC</td>
                 <td colspan="2"><?php echo $encabezado->RFC; ?></td>
-                <td style="border-radius: 0px 0px 4px 0px;" colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
+                <td style="border-radius: 0px 0px 6px 0px;" colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
             </tr>
         </table>
         <!--FIN DE TABLA INFORMACIÓN-->
@@ -366,6 +366,7 @@ $encode = base64_encode($ruta);
         </table>
         <!--Inicio tabla totales -->
         <p style="line-height: 2.5""></p>
+        <div style=" float: right;width: 20%;">
         <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right;">
             <tbody>
                 <tr>
@@ -381,18 +382,19 @@ $encode = base64_encode($ruta);
                     <td><?php echo $encabezado->TOTAL; ?></td>
                 </tr>
             </tbody>
-            </table>
-            <!---FIN DE LA TABLA DE PRODUCTOS--->
-
-        <table style="width: 35%; padding-top: 11%;" align="left">
+        </table>
+    </div>
+    <!---FIN DE LA TABLA DE PRODUCTOS--->
+    <div style="float: left;width: 30%;">
+        <table style="width: 100%; padding-top: 11%;" align="left">
             <td style="text-align: center;">
                 <p style="width: 5%; text-align: center;">
                     <hr style="height: 1px; background-color: black ; " align="center"><br>
                     ELABORADO POR
                 </p>
             </td>
-
         </table>
+    </div>
     </div>
 </body>
 
