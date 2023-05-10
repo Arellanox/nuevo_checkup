@@ -71,7 +71,7 @@ switch ($api) {
         break;
     case 7 :
         # recuperar horarios disponibles de una agenda
-        
+        $response = $master->getByProcedure("sp_agenda_horarios_b", [ $area_id, $fecha_agenda ]);
         break;
     default:
         break;
