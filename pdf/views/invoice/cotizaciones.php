@@ -254,126 +254,119 @@ $encode = base64_encode($ruta);
 
 <body>
     <div class="container-fluid">
-        <div class="container-fluid">
-            <table style="width: 100%; text-align: center;">
-                <tr>
-                    <td style="width: 25%">
-                        <?php
-                        echo "<img src='data:image/png;base64, " . $encode . "' height='65' >";
-                        ?></td>
-                    <td style="width: 50%;text-align: center;">
-                        <p>
-                            <b>DIAGNOSTICO BIOMOLECULAR</b><br>
-                            RFC DBI2012084N2<br>
-                            Calle AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
-                            VILLAHERMOSA, TABASCO, 86060, MEX<br>
-                            9936340250<br>
-                            hola@bimo.com.mx
-                        </p>
-                    </td>
-                    <td style="width: 25%;text-align: center;">
-                        <p>Cotización<br>
-                            <b>No. 75</b>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-            <table style="width: 100%; border-collapse: collapse; text-align: center;">
-                <td colspan="12">&nbsp;</td>
-                <!--COTIZACIONES-->
-                <div style="display: flex; justify-content: space-between;">
-                    <!--INICIO DE TABLA INFORMACIÓN-->
-                    <table style="width: 100%; text-align: center;" class="rounded" border=".5" ;>
-
-                        <tr>
-                            <td style="background-color: darkgrey;border-radius: 4px 0px 0px 0px;" colspan="2">RAZÓN SOCIAL</td>
-                            <td colspan="7"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
-                            <td style="background-color: darkgrey;border-radius: 0px 4px 0px 0px;" colspan="3">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
-                        </tr>
-                        <tr style=" border-collapse: collapse; border-bottom: transparent;">
-                            <td style="background-color: darkgrey;" colspan="2">DOMICILIO FISCAL</td>
-                            <td colspan="7">País: MEX</td>
-                            <td colspan="3"><?php echo $encabezado->FECHA_CREACION; ?></td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: darkgrey;" colspan="2"></td>
-                            <td colspan="7"></td>
-                            <td style="background-color: darkgrey;" colspan="3">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: darkgrey;border-radius: 0px 0px 0px 4px;" colspan="2">TELÉFONO</td>
-                            <td colspan="2"><?php echo $encabezado->TELEFONO; ?></td>
-                            <td style="background-color: darkgrey;" colspan="2">RFC</td>
-                            <td colspan="2"><?php echo $encabezado->RFC; ?></td>
-                            <td style="border-radius: 0px 0px 4px 0px;" colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
-                        </tr>
-                    </table>
-                    <!--FIN DE TABLA INFORMACIÓN-->
-                    <P style="line-height: .5"></P>
-                    <!---INICIO DE LA TABLA DE PRODUCTOS--->
-                    <table style=" text-align: center;width: 100%; height: 500px;" class="rounded" border=".5">
-                        <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
-                            <tr>
-                                <th colspan="6">Producto</th>
-                                <th colspan="1">Unidad de Medida</th>
-                                <th colspan="1">Precio unitario</th>
-                                <th colspan="1">Cantidad</th>
-                                <th colspan="1">Descuento</th>
-                                <th colspan="1">Impuesto</th>
-                                <th colspan="1">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody style=" border-bottom: transparent;line-height: 1;">
-                            <tr>
-                                <td colspan="4">Ag. Carcinoembrionario (LABORATORIO)</td>
-                                <td colspan="2">E48 - Unidad de servicio</td>
-                                <td colspan="1">$418.00 </td>
-                                <td colspan="1">1.00</td>
-                                <td colspan="1">0.00%</td>
-                                <td colspan="1">16%</td>
-                                <td colspan="1">$418.00</td>
-                            </tr>
-                            <?php
-                            $count = count($resultados->ESTUDIOS);
-                            $i = 0;
-
-                            $estudios = $resultados;
-                            foreach ($estudios->CONTENEDORES as $a => $estudios) {
-                                echo "  <tr>
-                                                <td colspan= \"4 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"2 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                        </tr>";
-                            }
-
-                            $i++;
-                            ?>
-                            <tr>
-                                <td colspan="4"></td>
-                                <td colspan="2"></td>
-                                <td colspan="1"></td>
-                                <td colspan="1"></td>
-                                <td colspan="1"></td>
-                                <td colspan="1"></td>
-                                <td colspan="1"></td>
-                            </tr>
-                        </tbody>
-                        <tfoot style="text-align: center; background-color: darkgrey; text-align: left;">
-                            <tr>
-                                <td colspan="12">
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-        </div>
+        <table style="width: 100%; text-align: center;">
+            <tr>
+                <td style="width: 25%">
+                    <?php
+                    echo "<img src='data:image/png;base64, " . $encode . "' height='65' >";
+                    ?>
+                </td>
+                <td style="width: 50%;text-align: center;">
+                    <p>
+                        <b>DIAGNOSTICO BIOMOLECULAR</b><br>
+                        RFC DBI2012084N2<br>
+                        Calle AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
+                        VILLAHERMOSA, TABASCO, 86060, MEX<br>
+                        9936340250<br>
+                        hola@bimo.com.mx
+                    </p>
+                </td>
+                <td style="width: 25%;text-align: center;">
+                    <p>Cotización<br>
+                        <b>No. 75</b>
+                    </p>
+                </td>
+            </tr>
         </table>
-        <P style="line-height: 2.5""></P>
-            <table style=" width: 150px; text-align: right; border-bottom: transparent;" align="right">
+        <!--COTIZACIONES-->
+        <!--INICIO DE TABLA INFORMACIÓN-->
+        <table style="width: 100%; text-align: center;" class="rounded" border=".5" ;>
+            <tr>
+                <td style="background-color: darkgrey;border-radius: 4px 0px 0px 0px;" colspan="2">RAZÓN SOCIAL</td>
+                <td colspan="7"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
+                <td style="background-color: darkgrey;border-radius: 0px 4px 0px 0px;" colspan="3">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+            </tr>
+            <tr style=" border-collapse: collapse; border-bottom: transparent;">
+                <td style="background-color: darkgrey;" colspan="2">DOMICILIO FISCAL</td>
+                <td colspan="7">País: MEX</td>
+                <td colspan="3"><?php echo $encabezado->FECHA_CREACION; ?></td>
+            </tr>
+            <tr>
+                <td style="background-color: darkgrey;" colspan="2"></td>
+                <td colspan="7"></td>
+                <td style="background-color: darkgrey;" colspan="3">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
+            </tr>
+            <tr>
+                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 4px;" colspan="2">TELÉFONO</td>
+                <td colspan="2"><?php echo $encabezado->TELEFONO; ?></td>
+                <td style="background-color: darkgrey;" colspan="2">RFC</td>
+                <td colspan="2"><?php echo $encabezado->RFC; ?></td>
+                <td style="border-radius: 0px 0px 4px 0px;" colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
+            </tr>
+        </table>
+        <!--FIN DE TABLA INFORMACIÓN-->
+        <p style="line-height: .5"></p>
+        <!---INICIO DE LA TABLA DE PRODUCTOS--->
+        <table style=" text-align: center;width: 100%; height: 500px;" class="rounded" border=".5">
+            <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
+                <tr>
+                    <th colspan="4">Producto</th>
+                    <th colspan="1">Unidad de Medida</th>
+                    <th colspan="1">Precio unitario</th>
+                    <th colspan="1">Cantidad</th>
+                    <th colspan="1">Descuento</th>
+                    <th colspan="1">Impuesto</th>
+                    <th colspan="1">Total</th>
+                </tr>
+            </thead>
+            <tbody style=" border-bottom: transparent;line-height: 1;">
+                <tr>
+                    <td colspan="4">Ag. Carcinoembrionario (LABORATORIO)</td>
+                    <td colspan="1">E48 -Unidad de servicio</td>
+                    <td colspan="1">$418.00 </td>
+                    <td colspan="1">1.00</td>
+                    <td colspan="1">0.00%</td>
+                    <td colspan="1">16%</td>
+                    <td colspan="1">$418.00</td>
+                </tr>
+                <?php
+                $count = count($resultados->ESTUDIOS);
+                $i = 0;
+
+                $estudios = $resultados;
+                foreach ($estudios->CONTENEDORES as $a => $estudios) {
+                    echo "  <tr>
+                                                <td colspan= \"4 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
+                                                </tr>";
+                }
+
+                $i++;
+                ?>
+                <tr>
+                    <td colspan="4"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                </tr>
+            </tbody>
+            <tfoot style="text-align: center; background-color: darkgrey; text-align: left;">
+                <tr>
+                    <td colspan="12">
+                </tr>
+            </tfoot>
+        </table>
+        <!--Inicio tabla totales -->
+        <p style="line-height: 2.5""></p>
+        <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right;">
             <tbody>
                 <tr>
                     <td>Subtotal</td>
@@ -383,8 +376,7 @@ $encode = base64_encode($ruta);
                     <td>IVA (16.00%)</td>
                     <td><?php echo $encabezado->IVA; ?></td>
                 </tr>
-                <tr style="
-                    background-color: darkgrey;">
+                <tr style="background-color: darkgrey;">
                     <td>Total</td>
                     <td><?php echo $encabezado->TOTAL; ?></td>
                 </tr>
@@ -401,7 +393,6 @@ $encode = base64_encode($ruta);
             </td>
 
         </table>
-    </div>
     </div>
 </body>
 
