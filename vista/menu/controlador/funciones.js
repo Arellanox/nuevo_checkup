@@ -187,7 +187,24 @@ function avisoArea(tip = 0) {
 }
 
 //Ajax Async (NO FORM DATA SUPPORT)
-async function ajaxAwait(dataJson, apiURL, config = { alertBefore: false }) {
+async function ajaxAwait(dataJson, apiURL,
+  config = {
+    alertBefore: false
+  },
+  //Callback
+  callbackBefore = function () {
+    alertMsj({
+      title: 'Espera un momento...',
+      text: 'Estamos cargando tu solicitud, esto puede demorar un rato',
+      icon: 'info',
+      showCancelButton: false
+    })
+  },
+  //Callback, antes de devolver la data
+  callbackSuccess = function () {
+    console.log('callback ajaxAwait por defecto')
+  }
+) {
   return new Promise(function (resolve, reject) {
     //Configura la funcion misma
     config = configAjaxAwait(config)
@@ -198,23 +215,21 @@ async function ajaxAwait(dataJson, apiURL, config = { alertBefore: false }) {
       dataType: 'json',
       type: 'POST',
       beforeSend: function () {
-        if (config.alertBefore) {
-          alertMsj({
-            title: 'Espera un momento...',
-            text: 'Estamos cargando tu solicitud, esto puede demorar un rato',
-            icon: 'info',
-            showCancelButton: false
-          })
-        }
+        config.callbackBefore ? callbackBefore() : 1;
       },
       success: function (data) {
+
         if (config.response) {
           if (mensajeAjax(data)) {
-            resolve(data);
+            config.callbackAfter ? callbackSuccess(data) : 1;
+            config.returnData ? resolve(data) : resolve(1)
           }
         } else {
-          resolve(data);
+          config.callbackAfter ? callbackSuccess(data) : 1;
+          config.returnData ? resolve(data) : resolve(1)
         }
+
+
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
@@ -225,10 +240,13 @@ async function ajaxAwait(dataJson, apiURL, config = { alertBefore: false }) {
 
 //
 function configAjaxAwait(config) {
-  //valores por defectode la funcion AjaxAwait
+  //valores por defecto de la funcion AjaxAwait
   configs = {
     alertBefore: false,
     response: true,
+    callbackBefore: false,
+    callbackAfter: false,
+    returnData: true,
   }
 
   for (const key in configs) {
@@ -247,9 +265,29 @@ function configAjaxAwait(config) {
 //Ajax Async FormData
 async function ajaxAwaitFormData(dataJson = {
   id_turno: 0,
-}, apiURL, form = 'SinForm') {
+}, apiURL, form = 'SinForm',
+  config = {
+    alertBefore: false
+  },
+  //Callback antes de enviar datos
+  callbackBefore = function () {
+    alertMsj({
+      title: 'Espera un momento...',
+      text: 'Estamos cargando tu solicitud, esto puede demorar un rato',
+      icon: 'info',
+      showCancelButton: false
+    })
+  },
+  //Callback, antes de devolver la data
+  callbackSuccess = function () {
+    console.log('callback ajaxAwait por defecto')
+  }
+) {
   // formData.set('api', 10);
   return new Promise(function (resolve, reject) {
+    //Configura la funcion misma
+    config = configAjaxAwait(config)
+
     var formID = document.getElementById(form);
     var formData = new FormData(formID);
 
@@ -267,12 +305,21 @@ async function ajaxAwaitFormData(dataJson = {
       contentType: false,
       dataType: 'json',
       type: 'POST',
+      beforeSend: function () {
+        config.callbackBefore ? callbackBefore() : 1;
+      },
       success: function (data) {
-        if (mensajeAjax(data)) {
-          resolve(data);
+
+        if (config.response) {
+          if (mensajeAjax(data)) {
+            config.callbackAfter ? callbackSuccess(data) : 1;
+            config.returnData ? resolve(data) : resolve(1)
+          }
         } else {
-          resolve(false);
+          config.callbackAfter ? callbackSuccess(data) : 1;
+          config.returnData ? resolve(data) : resolve(1)
         }
+
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)

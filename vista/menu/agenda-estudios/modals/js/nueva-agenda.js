@@ -25,13 +25,16 @@ $('#FormAgendaNueva').submit(function (event) {
             title: '¿Estás seguro de guardar la cita?',
             text: 'Revise los datos antes de guardar',
         }, function () {
-            let data = ajaxAwaitFormData({
+            ajaxAwaitFormData({
                 api: 1,
                 servicios: servicios,
                 area_id: 11
-            }, 'agenda_api', 'FormAgendaNueva')
+            }, 'agenda_api', 'FormAgendaNueva', { callbackAfter: true }, false, function (data) {
+                alertToast('¡Agenda registrada!', 'success', 4000);
+                $('#iframeCalendar').attr('src', function (i, val) { return val; });
 
-            console.log(data);
+            })
+
         }, 1)
 
     } else {

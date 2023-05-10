@@ -172,20 +172,24 @@ async function getValueEstudio(id) {
             }, 100);
           }
 
-          let contenedor = row.CONTENEDORES.CONTENEDOR_ID;
-          for (const key in contenedor) {
-            setTimeout(() => {
-              if (Object.hasOwnProperty.call(contenedor, key)) {
-                const element = contenedor[key];
-                if (element) {
-                  console.log(element)
-                  let nameSelect = agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
+          try {
+            let contenedor = row.CONTENEDORES.CONTENEDOR_ID;
+            for (const key in contenedor) {
+              setTimeout(() => {
+                if (Object.hasOwnProperty.call(contenedor, key)) {
+                  const element = contenedor[key];
+                  if (element) {
+                    console.log(element)
+                    let nameSelect = agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
 
-                  $(`select[name="${nameSelect[0]}"]`).val(element.CONTENEDOR_ID)
-                  $(`select[name="${nameSelect[1]}"]`).val(element.MUESTRA_ID)
+                    $(`select[name="${nameSelect[0]}"]`).val(element.CONTENEDOR_ID)
+                    $(`select[name="${nameSelect[1]}"]`).val(element.MUESTRA_ID)
+                  }
                 }
-              }
-            }, 100);
+              }, 100);
+            }
+          } catch (error) {
+
           }
 
 

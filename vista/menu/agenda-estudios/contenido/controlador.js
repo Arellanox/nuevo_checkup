@@ -10,6 +10,8 @@ async function obtenerAgendaPacientes() {
     }).done(function () {
         // Botones
         $.getScript('contenido/js/agenda-botones.js')
+        // Botones
+        $.getScript('contenido/js/agenda-funciones.js')
     });
 }
 

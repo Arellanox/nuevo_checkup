@@ -1,128 +1,137 @@
 $(document).ready(function () {
 
-
    var $calendar = $('#calendar');
    var id = 10;
 
-   $calendar.weekCalendar({
-      timeslotsPerHour: 4,
-      allowCalEventOverlap: true,
-      overlapEventsSeparate: true,
-      firstDayOfWeek: 1,
-      businessHours: { start: 8, end: 18, limitDisplay: true },
-      daysToShow: 7,
-      readonly: true,
-      height: function ($calendar) {
-         return $(window).height() - $("h1").outerHeight() - 1;
-      },
-      eventRender: function (calEvent, $event) {
-         if (calEvent.end.getTime() < new Date().getTime()) {
-            $event.css("backgroundColor", "#aaa");
-            $event.find(".wc-time").css({
-               "backgroundColor": "#999",
-               "border": "1px solid #888"
-            });
-         }
-      },
-      draggable: function (calEvent, $event) {
-         return calEvent.readOnly != true;
-      },
-      resizable: function (calEvent, $event) {
-         return calEvent.readOnly != true;
-      },
-      eventNew: function (calEvent, $event) {
-      },
-      eventDrop: function (calEvent, $event) {
-         return false
-      },
-      eventResize: function (calEvent, $event) {
-         return false
-      },
-      eventClick: function (calEvent, $event) {
+   getDataAjax();
+   function getDataAjax() {
+      var year = new Date().getFullYear();
+      var month = new Date().getMonth();
+      var day = new Date().getDate();
+      console.log(new Date(year, month, day, 12))
+      $.ajax({
+         url: `http://localhost/nuevo_checkup/api/agenda_api.php`,
+         data: {
+            api: 3
+         },
+         dataType: 'json',
+         type: 'POST',
+         success: function (data) {
+            calendar(getEventData());
+            let row = data.response.data;
+         },
+         error: function (jqXHR, exception, data) {
+            console.log(jqXHR, exception, data)
+         },
+      })
+   }
 
-      },
-      eventMouseover: function (calEvent, $event) {
-      },
-      eventMouseout: function (calEvent, $event) {
-      },
-      noEvents: function () {
 
-      },
-      data: async function (start, end, callback) {
-         callback(await getEventData());
-      }
-   });
+   function calendar(data) {
+      $calendar.weekCalendar({
+         timeslotsPerHour: 4,
+         allowCalEventOverlap: true,
+         overlapEventsSeparate: true,
+         firstDayOfWeek: 1,
+         businessHours: { start: 8, end: 18, limitDisplay: true },
+         daysToShow: 6,
+         readonly: true,
+         height: function ($calendar) {
+            return $(window).height() - $("h1").outerHeight() - 1;
+         },
+         eventRender: function (calEvent, $event) {
+            if (calEvent.end.getTime() < new Date().getTime()) {
+               $event.css("backgroundColor", "#aaa");
+               $event.find(".wc-time").css({
+                  "backgroundColor": "#999",
+                  "border": "1px solid #888"
+               });
+            }
+         },
+         draggable: function (calEvent, $event) {
+            return calEvent.readOnly != true;
+         },
+         resizable: function (calEvent, $event) {
+            return calEvent.readOnly != true;
+         },
+         eventNew: function (calEvent, $event) {
+         },
+         eventDrop: function (calEvent, $event) {
+            return false
+         },
+         eventResize: function (calEvent, $event) {
+            return false
+         },
+         eventClick: function (calEvent, $event) {
+
+         },
+         eventMouseover: function (calEvent, $event) {
+         },
+         eventMouseout: function (calEvent, $event) {
+         },
+         noEvents: function () {
+
+         },
+         data: data
+      });
+   }
 
    function resetForm($dialogContent) {
       $dialogContent.find("input").val("");
       $dialogContent.find("textarea").val("");
    }
 
-   async function getEventData() {
-      return new Promise(resolve => {
-         var year = new Date().getFullYear();
-         var month = new Date().getMonth();
-         var day = new Date().getDate();
-
-         //Ajax
-
-
-         resolve({
-            events: [
-               {
-                  "id": 1,
-                  "start": new Date(year, month, day, 12),
-                  "end": new Date(year, month, day, 13, 30),
-                  "title": "Lunch with Mike",
-                  readOnly: true
-               },
-               {
-                  "id": 2,
-                  "start": new Date(year, month, day, 14),
-                  "end": new Date(year, month, day, 14, 45),
-                  "title": "Dev Meeting",
-                  readOnly: true
-               },
-               {
-                  "id": 3,
-                  "start": new Date(year, month, day + 1, 17),
-                  "end": new Date(year, month, day + 1, 17, 45),
-                  "title": "Hair cut",
-                  readOnly: true
-               },
-               {
-                  "id": 4,
-                  "start": new Date(year, month, day - 1, 8),
-                  "end": new Date(year, month, day - 1, 9, 30),
-                  "title": "Team breakfast",
-                  readOnly: true
-               },
-               {
-                  "id": 5,
-                  "start": new Date(year, month, day + 1, 14),
-                  "end": new Date(year, month, day + 1, 15),
-                  "title": "Product showcase",
-                  readOnly: true
-               },
-               {
-                  "id": 6,
-                  "start": new Date(year, month, day, 10),
-                  "end": new Date(year, month, day, 11),
-                  "title": "I'm read-only",
-                  readOnly: true
-               }
-
-            ]
-         }
-         )
-      })
-
-
-
-
+   function getEventData() {
+      var year = new Date().getFullYear();
+      var month = new Date().getMonth();
+      var day = new Date().getDate();
 
       return {
+         events: [
+            {
+               "id": 1,
+               "start": new Date(year, month, day, 12),
+               "end": new Date(year, month, day, 13, 30),
+               "title": "Lunch with Mike",
+               readOnly: true
+            },
+            {
+               "id": 2,
+               "start": new Date(year, month, day, 14),
+               "end": new Date(year, month, day, 14, 45),
+               "title": "Dev Meeting",
+               readOnly: true
+            },
+            {
+               "id": 3,
+               "start": new Date(year, month, day + 1, 17),
+               "end": new Date(year, month, day + 1, 17, 45),
+               "title": "Hair cut",
+               readOnly: true
+            },
+            {
+               "id": 4,
+               "start": new Date(year, month, day - 1, 8),
+               "end": new Date(year, month, day - 1, 9, 30),
+               "title": "Team breakfast",
+               readOnly: true
+            },
+            {
+               "id": 5,
+               "start": new Date(year, month, day + 1, 14),
+               "end": new Date(year, month, day + 1, 15),
+               "title": "Product showcase",
+               readOnly: true
+            },
+            {
+               "id": 6,
+               "start": new Date(year, month, day, 10),
+               "end": new Date(year, month, day, 11),
+               "title": "I'm read-only",
+               readOnly: true
+            }
 
+         ]
       };
    }
 
@@ -200,5 +209,94 @@ $(document).ready(function () {
       }).show();
    });
 
+
+
+   function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
+      if (fecha == null)
+         return '';
+      // //console.log(fecha)
+      let options = {
+         hour12: true,
+         timeZone: 'America/Mexico_City'
+      } // p.m. - a.m.
+
+      switch (optionsDate[0]) { //Dia de la semana
+         case 1:
+            options['weekday'] = "narrow";
+            break; // S
+         case 2:
+            options['weekday'] = "short";
+            break; // Sáb
+         case 3:
+            options['weekday'] = "long";
+            break; // Sábado
+      }
+      switch (optionsDate[1]) { //año
+         case 1:
+            options['year'] = "numeric";
+            break; // 2022
+         case 2:
+            options['year'] = "2-digit";
+            break; // 22
+      }
+      switch (optionsDate[2]) { //Mes
+         case 1:
+            options['month'] = "narrow";
+            break; // N
+         case 2:
+            options['month'] = "short";
+            break; // Nov
+         case 3:
+            options['month'] = "long";
+            break; // Noviembre
+         case 4:
+            options['month'] = "numeric";
+            break; // /11/
+         case 5:
+            options['month'] = "2-digit";
+            break; // 11
+      }
+      switch (optionsDate[3]) { //Dia
+         case 1:
+            options['day'] = "numeric";
+            break;
+         case 2:
+            options['day'] = "2-digit";
+            break;
+      }
+      switch (optionsDate[4]) { //Hora
+         case 1:
+            options['hour'] = "numeric";
+            break;
+         case 2:
+            options['hour'] = "2-digit";
+            break;
+      }
+      switch (optionsDate[5]) { //Minutos
+         case 1:
+            options['minute'] = "numeric";
+            break;
+         case 2:
+            options['minute'] = "2-digit";
+            break;
+      }
+      switch (optionsDate[6]) { //Segundos
+         case 1:
+            options['seconds'] = "numeric";
+            break;
+         case 2:
+            options['seconds'] = "2-digit";
+            break;
+      }
+      let date;
+      if (fecha.length == 10) {
+         date = new Date(fecha + 'T00:00:00')
+      } else {
+         date = new Date(fecha)
+      }
+
+      // //console.log(date)
+      return date.toLocaleDateString('es-MX', options)
+   }
 
 });
