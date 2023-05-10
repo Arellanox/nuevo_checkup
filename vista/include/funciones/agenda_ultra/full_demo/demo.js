@@ -48,8 +48,8 @@ $(document).ready(function () {
       noEvents: function () {
 
       },
-      data: function (start, end, callback) {
-         callback(getEventData());
+      data: async function (start, end, callback) {
+         callback(await getEventData());
       }
    });
 
@@ -58,57 +58,71 @@ $(document).ready(function () {
       $dialogContent.find("textarea").val("");
    }
 
-   function getEventData() {
-      var year = new Date().getFullYear();
-      var month = new Date().getMonth();
-      var day = new Date().getDate();
+   async function getEventData() {
+      return new Promise(resolve => {
+         var year = new Date().getFullYear();
+         var month = new Date().getMonth();
+         var day = new Date().getDate();
+
+         //Ajax
+
+
+         resolve({
+            events: [
+               {
+                  "id": 1,
+                  "start": new Date(year, month, day, 12),
+                  "end": new Date(year, month, day, 13, 30),
+                  "title": "Lunch with Mike",
+                  readOnly: true
+               },
+               {
+                  "id": 2,
+                  "start": new Date(year, month, day, 14),
+                  "end": new Date(year, month, day, 14, 45),
+                  "title": "Dev Meeting",
+                  readOnly: true
+               },
+               {
+                  "id": 3,
+                  "start": new Date(year, month, day + 1, 17),
+                  "end": new Date(year, month, day + 1, 17, 45),
+                  "title": "Hair cut",
+                  readOnly: true
+               },
+               {
+                  "id": 4,
+                  "start": new Date(year, month, day - 1, 8),
+                  "end": new Date(year, month, day - 1, 9, 30),
+                  "title": "Team breakfast",
+                  readOnly: true
+               },
+               {
+                  "id": 5,
+                  "start": new Date(year, month, day + 1, 14),
+                  "end": new Date(year, month, day + 1, 15),
+                  "title": "Product showcase",
+                  readOnly: true
+               },
+               {
+                  "id": 6,
+                  "start": new Date(year, month, day, 10),
+                  "end": new Date(year, month, day, 11),
+                  "title": "I'm read-only",
+                  readOnly: true
+               }
+
+            ]
+         }
+         )
+      })
+
+
+
+
 
       return {
-         events: [
-            {
-               "id": 1,
-               "start": new Date(year, month, day, 12),
-               "end": new Date(year, month, day, 13, 30),
-               "title": "Lunch with Mike",
-               readOnly: true
-            },
-            {
-               "id": 2,
-               "start": new Date(year, month, day, 14),
-               "end": new Date(year, month, day, 14, 45),
-               "title": "Dev Meeting",
-               readOnly: true
-            },
-            {
-               "id": 3,
-               "start": new Date(year, month, day + 1, 17),
-               "end": new Date(year, month, day + 1, 17, 45),
-               "title": "Hair cut",
-               readOnly: true
-            },
-            {
-               "id": 4,
-               "start": new Date(year, month, day - 1, 8),
-               "end": new Date(year, month, day - 1, 9, 30),
-               "title": "Team breakfast",
-               readOnly: true
-            },
-            {
-               "id": 5,
-               "start": new Date(year, month, day + 1, 14),
-               "end": new Date(year, month, day + 1, 15),
-               "title": "Product showcase",
-               readOnly: true
-            },
-            {
-               "id": 6,
-               "start": new Date(year, month, day, 10),
-               "end": new Date(year, month, day, 11),
-               "title": "I'm read-only",
-               readOnly: true
-            }
 
-         ]
       };
    }
 

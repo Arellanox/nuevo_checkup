@@ -284,6 +284,7 @@ function passdata($indice)
         "ANTIGENO" => 'ANTIGENO',
         "VPH" => 'vph',
         "CITOLOGÍA" => 'CITOLOGIA',
+        "rT-PCR-ETS" => 'PCR-ETS',
     ];
 
     return $estudios[$indice];

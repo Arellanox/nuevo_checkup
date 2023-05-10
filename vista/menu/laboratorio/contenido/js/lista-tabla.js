@@ -192,6 +192,12 @@ function generarFormularioPaciente(id) {
             }
           }
 
+          // equipo = {
+          //   0: {
+
+          //   }
+          // }
+
           switch (row['ID_GRUPO']) {
             case '685': case '684': // <-- PCR -->
               kitDiag = {
@@ -295,6 +301,33 @@ function generarFormularioPaciente(id) {
               }
 
               break;
+
+            case '980': // <!-- rT-PCR-ETS -->
+              classSelect = 'selectTipoMuestraETS';
+              kitDiag = {
+                0: {
+                  'descripcion': 'FTD STD9 Multiplex',
+                  'clave': ''
+                }
+              }
+              muestras = {
+                0: {
+                  'descripcion': 'CERVICAL',
+                },
+                1: {
+                  'descripcion': 'ANAL'
+                },
+                2: {
+                  'descripcion': 'URETRAL'
+                },
+                3: {
+                  'descripcion': 'LBC'
+                },
+                4: {
+                  'descripcion': 'HISOPADO NASOFARÍNGEO'
+                }
+              }
+              break;
             default: input = null;
               if (areaActiva == 12) {
                 alert('El paciente no tiene estudios compatibles, hay un problema con la compatibilidad de los estudios con biomolecular, presente el error con el area de TI para solucionar este problema con el  paciente');
@@ -342,6 +375,8 @@ function generarFormularioPaciente(id) {
                 case '713': case '714': case '716': case '717': case '718': case '731':
                 case '719': case '721': case '722': case '723': case '733': case '730':
                 case '725': case '744':
+                //ETS
+                case '981': case '982': case '983': case '984': case '985': case '986': case '987': case '988': case '989':
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 case '710': case '715': case '720': case '724': case '729':
@@ -350,16 +385,17 @@ function generarFormularioPaciente(id) {
                 case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
                 case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
 
-                case '692': case '706': case '734':
+                case '692': case '706': case '734': case '991':
                   anotherInput = crearSelectCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], ifnull(classSelect)); break;
-                case '693': case '707': case '735':
+                case '693': case '707': case '735': case '992':
                   anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
 
                 case '743':
                   anotherValue = ifnull(row[k]['RESULTADO'], 'A QUIEN CORRESPONDA')
                   break;
 
-                case '695': case '700': case '708': case '736': case '756': anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
+                case '695': case '700': case '708': case '736': case '756': case '994':
+                  anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
                 default: anotherValue = ''; break;
               }
               //
