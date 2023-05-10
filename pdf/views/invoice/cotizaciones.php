@@ -240,7 +240,9 @@
 
         .rounded {
             border-radius: 8px;
-            border: 1px solid black;
+            border: 1px solid darkgrey;
+            border-bottom: 0px solid darkgrey;
+            border-spacing: 0;
         }
     </style>
 </head>
@@ -281,7 +283,7 @@ $encode = base64_encode($ruta);
                 <!--COTIZACIONES-->
                 <div style="display: flex; justify-content: space-between;">
                     <!--INICIO DE TABLA INFORMACIÓN-->
-                    <table style="width: 100%; text-align: center;" class="rounded" border="2">
+                    <table style="width: 100%; text-align: center;" class="rounded">
 
                         <tr>
                             <td style="background-color: darkgrey;" colspan="2">RAZÓN SOCIAL</td>
