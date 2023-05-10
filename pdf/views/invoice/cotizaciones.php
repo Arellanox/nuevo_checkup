@@ -239,7 +239,7 @@
         }
 
         .rounded {
-            border-radius: 8px;
+            border-radius: 5px;
             border: 1px solid darkgrey;
             border-bottom: 0px solid darkgrey;
             border-spacing: 0;
@@ -283,12 +283,12 @@ $encode = base64_encode($ruta);
                 <!--COTIZACIONES-->
                 <div style="display: flex; justify-content: space-between;">
                     <!--INICIO DE TABLA INFORMACIÓN-->
-                    <table style="width: 100%; text-align: center;" class="rounded">
+                    <table style="width: 100%; text-align: center;" class="rounded" border=".5" ;>
 
                         <tr>
-                            <td style="background-color: darkgrey;" colspan="2">RAZÓN SOCIAL</td>
+                            <td style="background-color: darkgrey;border-radius: 4px 0px 0px 0px;" colspan="2">RAZÓN SOCIAL</td>
                             <td colspan="7"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
-                            <td style="background-color: darkgrey;" colspan="3">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+                            <td style="background-color: darkgrey;border-radius: 0px 4px 0px 0px;" colspan="3">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
                         </tr>
                         <tr style=" border-collapse: collapse; border-bottom: transparent;">
                             <td style="background-color: darkgrey;" colspan="2">DOMICILIO FISCAL</td>
@@ -301,17 +301,17 @@ $encode = base64_encode($ruta);
                             <td style="background-color: darkgrey;" colspan="3">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
                         </tr>
                         <tr>
-                            <td style="background-color: darkgrey;" colspan="2">TELÉFONO</td>
+                            <td style="background-color: darkgrey;border-radius: 0px 0px 0px 4px;" colspan="2">TELÉFONO</td>
                             <td colspan="2"><?php echo $encabezado->TELEFONO; ?></td>
                             <td style="background-color: darkgrey;" colspan="2">RFC</td>
                             <td colspan="2"><?php echo $encabezado->RFC; ?></td>
-                            <td colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
+                            <td style="border-radius: 0px 0px 4px 0px;" colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
                         </tr>
                     </table>
                     <!--FIN DE TABLA INFORMACIÓN-->
                     <P style="line-height: .5"></P>
                     <!---INICIO DE LA TABLA DE PRODUCTOS--->
-                    <table style=" text-align: center;width: 100%; border-collapse: collapse; height: 500px;" border=".5">
+                    <table style=" text-align: center;width: 100%; height: 500px;" class="rounded" border=".5">
                         <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                             <tr>
                                 <th colspan="6">Producto</th>
