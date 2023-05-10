@@ -47,6 +47,7 @@ switch ($api) {
         break;
     case 3:
         #buscar agendas
+        $response = $master->getByProcedure("sp_agenda_b", [$area_id, $fecha_agenda]);
         break;
     case 4:
         # eliminar una agenda
