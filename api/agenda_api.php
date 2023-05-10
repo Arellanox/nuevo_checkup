@@ -47,7 +47,7 @@ switch ($api) {
         break;
     case 2:
         # buscar los horarios disponibles de un area.
-        $response = $master->getByProcedure("sp_agenda_horarios_b", [$area_id, $fecha_agenda]);
+        $response = $master->getByProcedure("sp_agenda_horarios_b2", [$area_id, $fecha_agenda]);
         break;
     case 3:
         #buscar agendas
