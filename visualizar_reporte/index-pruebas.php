@@ -31,12 +31,12 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
-$api = '1';
-$turno_id = 0;
-// $area_id =2;
+// $api = '1';
+// $turno_id = 0;
+// // $area_id =2;
 
-$review = 1;
-$tipoView = 'url';
+// $review = 1;
+// $tipoView = 'url';
 
 switch ($api) {
     case 'imagenologia':
