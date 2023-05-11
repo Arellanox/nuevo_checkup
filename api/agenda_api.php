@@ -69,12 +69,8 @@ switch ($api) {
         # eliminar horarios de un area
         $response = $master->deleteByProcedure("sp_agenda_horarios_e", [$hora_inicial, $area_id]);
         break;
-    case 7 :
-        # recuperar horarios disponibles de una agenda
-        $response = $master->getByProcedure("sp_agenda_horarios_b", [ $area_id, $fecha_agenda ]);
-        break;
     default:
         break;
 }
 
-echo json_encode($master->returnApi($response));
+echo $master->returnApi($response);
