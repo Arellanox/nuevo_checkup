@@ -10,7 +10,7 @@ $(document).ready(function () {
       var day = new Date().getDate();
       console.log(new Date(year, month, day, 12))
       $.ajax({
-         url: `http://localhost/nuevo_checkup/api/agenda_api.php`,
+         url: `https://drjb.com.mx/nuevo_checkup/api/agenda_api.php`,
          data: {
             api: 3,
             area: 12,
