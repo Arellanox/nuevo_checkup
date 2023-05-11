@@ -11,75 +11,54 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   </a>
 <?php endif; ?>
 
-
-<!-- <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-consultorio" aria-expanded="false">
-    <i class="bi bi-clipboard2-pulse"></i> Consultorio
-  </a>
-  <div class="collapse" id="board-consultorio">
-    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/consultorio/'; ?>"><i class="bi bi-dot"></i> Consultorio</a></li>
-      <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/somatometria/'; ?>"><i class="bi bi-dot"></i> Somatometría</a></li>
-    </ul>
-  </div> -->
-
-
-<?php   # if ($_SESSION['vista']['LABORATORIO'] == 1) : 
-?>
-<!-- Laboratorio -->
-<!-- <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/'.$appname.'/vista/menu/muestras/'; 
-                                                                  ?>">
-    <i class="bi bi-droplet-half"></i> Toma de muestras
-  </a>
-  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/'.$appname.'/vista/menu/laboratorio/'; 
-                                                                ?>">
-    <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
-  </a>
-  <?php # if ($_SESSION['vista']['CORREOSLAB'] == 1) : 
-  ?>
-    <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/'.$appname.'/vista/menu/correos/#CORREOSLAB'; 
-                                                                  ?>">
-      <i class="bi bi-envelope-paper"></i> Validación Laboratorio Clínico
-    </a>
-  <?php # endif; 
-  ?> -->
-<?php # endif; 
-?>
-
-
-<!-- Areas master -->
-<!-- Imagenologia
-<?php # if ($_SESSION['vista']['ULTRASONIDO'] == 1) : 
-?>
-  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/'.$appname.'/vista/menu/area-master/#ULTRASONIDO'; 
-                                                                ?>">
+<!-- IMAGENOLOGÍA -->
+<?php if ($_SESSION['vista']['ULTRASONIDO'] == 1 || $_SESSION['vista']['ULTRASONIDOTOMA'] == 1) : ?>
+  <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-ultrasonido" aria-expanded="false">
     <i class="bi bi-person-video"></i> Ultrasonido
   </a>
-<?php # endif; 
-?>
-<?php # if ($_SESSION['vista']['ULTRASONIDOTOMA'] == 1) : 
-?>
-  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/'.$appname.'/vista/menu/area-master/#ULTRASONIDOTOMA'; 
-                                                                ?>">
-    <i class="bi bi-person-video"></i> Ultrasonido (Imagenes)
-  </a>
-<?php # endif; 
-?>
-<?php # if ($_SESSION['vista']['RX'] == 1) : 
-?>
-  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/'.$appname.'/vista/menu/area-master/#RX'; 
-                                                                ?>">
+  <div class="collapse" id="board-ultrasonido">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <?php if ($_SESSION['vista']['ULTRASONIDO'] == 1) : ?>
+        <li>
+          <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-master/#ULTRASONIDO'; ?>">
+            <i class="bi bi-dot"></i> Interpretación
+          </a>
+        </li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['ULTRASONIDOTOMA'] == 1) : ?>
+        <li>
+          <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-master/#ULTRASONIDOTOMA'; ?>" class="dropdown-a align-items-center" type="button">
+            <i class="bi bi-dot"></i> Captura
+          </a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+<?php endif; ?>
+
+<?php if ($_SESSION['vista']['RX'] == 1 || $_SESSION['vista']['RXTOMA'] == 1) : ?>
+  <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-rayosX" aria-expanded="false">
     <i class="bi bi-universal-access"></i> Rayos X
   </a>
-<?php # endif; 
-?>
-<?php # if ($_SESSION['vista']['RXTOMA'] == 1) : 
-?>
-  <a class="dropdown-a align-items-center" type="button" href="<?php # echo $https . $url . '/'.$appname.'/vista/menu/area-master/#RXTOMA'; 
-                                                                ?>">
-    <i class="bi bi-universal-access"></i> Rayos X (Imagenes)
-  </a>
-<?php # endif; 
-?> -->
+  <div class="collapse" id="board-rayosX">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <?php if ($_SESSION['vista']['RX'] == 1) : ?>
+        <li>
+          <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-master/#RX'; ?>">
+            <i class="bi bi-dot"></i> Interpretación
+          </a>
+        </li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['RXTOMA'] == 1) : ?>
+        <li>
+          <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-master/#RXTOMA'; ?>" class="dropdown-a align-items-center" type="button">
+            <i class="bi bi-dot"></i> Captura
+          </a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+<?php endif; ?>
 
 <!-- Otras Areas -->
 <?php if ($_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1 || $_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1) : ?>
@@ -104,10 +83,6 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
       <?php endif; ?>
     </ul>
   </div>
-
-  <!-- <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-master/#ELECTROCARDIOGRAMA'; ?>">
-    <i class="bi bi-activity"></i> Electrocardiograma
-  </a> -->
 <?php endif; ?>
 <?php if ($_SESSION['vista']['ESPIROMETRIA'] == 1) : ?>
   <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-master/#ESPIROMETRIA'; ?>">

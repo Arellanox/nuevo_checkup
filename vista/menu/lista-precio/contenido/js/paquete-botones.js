@@ -116,7 +116,7 @@ $('#guardar-contenido-paquete').on('click', function () {
   if (tableData.length > 0) {
 
     Swal.fire({
-      title: '¿Estás guardar el contenido de este paquete?',
+      title: 'Ingrese su contraseña para guardar la lista',
       text: 'Use su contraseña para confirmar',
       showCancelButton: true,
       confirmButtonText: 'Confirmar',

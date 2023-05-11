@@ -132,7 +132,7 @@ $('#guardar-contenido-paquete').on('click', function () {
   let tableData = tablaContenidoPaquete.rows().data().toArray();
   if (tableData.length > 0) {
     alertMensajeFormConfirm({
-      title: '¿Estás seguro de guardar este contenido?',
+      title: 'Ingrese su contraseña para guardar la lista',
       text: 'Use su contraseña para confirmar',
       showCancelButton: true,
       confirmButtonText: 'Confirmar',
