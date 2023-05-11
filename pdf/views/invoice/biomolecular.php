@@ -239,8 +239,8 @@ $areas = $resultados->areas[0];
 //     return $element['area'] == 'BIOLOGÍA MOLECULAR';
 // });
 
-$areas = '';
-$areas_biomolecular = '';
+// $areas = '';
+// $areas_biomolecular = '';
 // foreach ($resultado->areas as $key => $value) {
 //     if ($value['area'] == 'BIOLOGÍA MOLECULAR') {
 //         $areas_biomolecular = $resultado->areas[$key];
