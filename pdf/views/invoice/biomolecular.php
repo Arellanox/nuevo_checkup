@@ -227,7 +227,7 @@ $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
 $encode_firma = base64_encode($ruta_firma);
 
 //Reportes hechos
-// // $areas = $resultados->areas[1];
+$areas = $resultados->areas[0];
 // var_dump($resultados->areas);
 // $areas = array_filter(json_decode($resultados->areas, true), function ($element) {
 //     return $element['area'] == 'NINGUNA';
@@ -241,13 +241,13 @@ $encode_firma = base64_encode($ruta_firma);
 
 $areas = '';
 $areas_biomolecular = '';
-foreach ($resultado->areas as $key => $value) {
-    if ($value['area'] == 'BIOLOGÍA MOLECULAR') {
-        $areas_biomolecular = $resultado->areas[$key];
-    } else {
-        $areas = $resultado->areas[$key];
-    }
-}
+// foreach ($resultado->areas as $key => $value) {
+//     if ($value['area'] == 'BIOLOGÍA MOLECULAR') {
+//         $areas_biomolecular = $resultado->areas[$key];
+//     } else {
+//         $areas = $resultado->areas[$key];
+//     }
+// }
 
 ?>
 
@@ -286,13 +286,13 @@ foreach ($resultado->areas as $key => $value) {
         }
 
 
-        if (!empty($areas_biomolecular)) {
-            echo '<div class="break"></div>';
-            echo "<br> <br>";
-            // echo "<h2 style='padding-bottom: 5px; padding-top: 5px;'>Biomolecular</h2>";
-            // var_dump($areas_biomolecular->estudios);
-            include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
-        }
+        // if (!empty($areas_biomolecular)) {
+        //     echo '<div class="break"></div>';
+        //     echo "<br> <br>";
+        //     // echo "<h2 style='padding-bottom: 5px; padding-top: 5px;'>Biomolecular</h2>";
+        //     // var_dump($areas_biomolecular->estudios);
+        //     include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
+        // }
         ?>
 
         <script>
