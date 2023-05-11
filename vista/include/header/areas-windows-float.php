@@ -1,3 +1,19 @@
+ <?php if ($menu == 'Recepción' && $_SESSION['vista']['AGENDA_PACIENTES'] == 1) : ?>
+     <li class="nav-item Recepción">
+         <div class="dropdown ">
+             <a class="dropdown-toggle" id="dropCheckups" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 <i class="bi bi-calendar2-event"></i> Agenda Checkups
+             </a>
+             <!-- Estos botones se cargan en el servidor desde el archivo del include -->
+             <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropCheckups">
+                 <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#AGENDA_PACIENTES'; ?>">
+                     <i class="bi bi-dot"></i> Ultrasonido
+                 </a>
+             </ul>
+         </div>
+     </li>
+ <?php endif; ?>
+
  <!-- Laboratorio -->
  <?php if (
         $_SESSION['vista']['LABORATORIO'] == 1 ||
