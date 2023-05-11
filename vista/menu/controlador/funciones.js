@@ -16,7 +16,7 @@ function formatoFechaSQL(fecha, formato) {
   return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched]);
 }
 
-function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1]) {
+function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], non = false) {
   if (fecha === null || fecha === undefined)
     return '';
   const options = {
