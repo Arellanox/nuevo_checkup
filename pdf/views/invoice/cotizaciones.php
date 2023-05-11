@@ -307,27 +307,27 @@ $encode = base64_encode($ruta);
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
-        <table style=" text-align: center;width: 100%; height: 500px;" class="rounded" border=".5">
+        <table style=" text-align: center;width: 100%; height: 550px;" class="rounded">
             <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                 <tr>
-                    <th colspan="4">Producto</th>
-                    <th colspan="1">Unidad de Medida</th>
-                    <th colspan="1">Precio unitario</th>
-                    <th colspan="1">Cantidad</th>
-                    <th colspan="1">Descuento</th>
-                    <th colspan="1">Impuesto</th>
-                    <th colspan="1">Total</th>
+                    <th style="width: 34%;">Producto</th>
+                    <th style="width: 11%;">Unidad de Medida</th>
+                    <th style="width: 11%;">Precio unitario</th>
+                    <th style="width: 11%;">Cantidad</th>
+                    <th style="width: 11%;">Descuento</th>
+                    <th style="width: 11%;">Impuesto</th>
+                    <th style="width: 11%;">Total</th>
                 </tr>
             </thead>
             <tbody style=" border-bottom: transparent;line-height: 1;">
                 <tr>
-                    <td colspan="4">Ag. Carcinoembrionario (LABORATORIO)</td>
-                    <td colspan="1">E48 -Unidad de servicio</td>
-                    <td colspan="1">$418.00 </td>
-                    <td colspan="1">1.00</td>
-                    <td colspan="1">0.00%</td>
-                    <td colspan="1">16%</td>
-                    <td colspan="1">$418.00</td>
+                    <<th style="width: 34%;">Ag. Carcinoembrionario (LABORATORIO)</td>
+                        <<th style="width: 11%;">E48 -Unidad de servicio</td>
+                            <<th style="width: 11%;">$418.00 </td>
+                                <<th style="width: 11%;">1.00</td>
+                                    <<th style="width: 11%;">0.00%</td>
+                                        <<th style="width: 11%;">16%</td>
+                                            <<th style="width: 11%;">$418.00</td>
                 </tr>
                 <?php
                 $count = count($resultados->ESTUDIOS);
@@ -336,26 +336,33 @@ $encode = base64_encode($ruta);
                 $estudios = $resultados;
                 foreach ($estudios->CONTENEDORES as $a => $estudios) {
                     echo "  <tr>
-                                                <td colspan= \"4 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
-                                                <td colspan= \"1 \">" . $recipiente->CONTENEDOR . "</td>
+                                                <td style=\"width: 34%;\">" . $recipiente->CONTENEDOR . "</td>
+                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
+                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
+                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
+                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
+                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
+                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
                                                 </tr>";
                 }
 
                 $i++;
                 ?>
                 <tr>
-                    <td colspan="4"></td>
-                    <td colspan="1"></td>
-                    <td colspan="1"></td>
-                    <td colspan="1"></td>
-                    <td colspan="1"></td>
-                    <td colspan="1"></td>
-                    <td colspan="1"></td>
+                    <th style="width: 34%;">
+                        </td>
+                    <th style="width: 11%;">
+                        </td>
+                    <th style="width: 11%;">
+                        </td>
+                    <th style="width: 11%;">
+                        </td>
+                    <th style="width: 11%;">
+                        </td>
+                    <th style="width: 11%;">
+                        </td>
+                    <th style="width: 11%;">
+                        </td>
                 </tr>
             </tbody>
             <tfoot style="text-align: center; background-color: darkgrey; text-align: left;">
