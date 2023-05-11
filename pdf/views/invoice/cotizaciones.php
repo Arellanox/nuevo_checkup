@@ -282,26 +282,26 @@ $encode = base64_encode($ruta);
         <!--INICIO DE TABLA INFORMACIÓN-->
         <table style="width: 100%; text-align: center;" class="rounded" border=".5" ;>
             <tr>
-                <td style="background-color: darkgrey;border-radius: 6px 0px 0px 0px;" colspan="2">RAZÓN SOCIAL</td>
-                <td colspan="7"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
-                <td style="background-color: darkgrey;border-radius: 0px 6px 0px 0px;" colspan="3">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+                <td style="background-color: darkgrey;border-radius: 6px 0px 0px 0px; width: 20%;">RAZÓN SOCIAL</td>
+                <td style="width: 60%;"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
+                <td style="background-color: darkgrey;border-radius: 0px 6px 0px 0px; width: 20%;">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
             </tr>
             <tr style=" border-collapse: collapse; border-bottom: transparent;">
-                <td style="background-color: darkgrey;" colspan="2">DOMICILIO FISCAL</td>
-                <td colspan="7">País: MEX</td>
+                <td style="background-color: darkgrey; width: 100%;" colspan="2">DOMICILIO FISCAL</td>
+                <td style="width: 100%;">País: MEX</td>
                 <td colspan="3"><?php echo $encabezado->FECHA_CREACION; ?></td>
             </tr>
             <tr>
-                <td style="background-color: darkgrey;" colspan="2"></td>
-                <td colspan="7"></td>
-                <td style="background-color: darkgrey;" colspan="3">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
+                <td style="background-color: darkgrey; width: 100%;" colspan="2"></td>
+                <td style="width: 100%;"></td>
+                <td style="background-color: darkgrey; width: 100%;" colspan="3">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
             </tr>
             <tr>
-                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 6px;" colspan="2">TELÉFONO</td>
-                <td colspan="2"><?php echo $encabezado->TELEFONO; ?></td>
-                <td style="background-color: darkgrey;" colspan="2">RFC</td>
-                <td colspan="2"><?php echo $encabezado->RFC; ?></td>
-                <td style="border-radius: 0px 0px 6px 0px;" colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
+                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 6px; width: 100%;" colspan="2">TELÉFONO</td>
+                <td style="width: 100%;"><?php echo $encabezado->TELEFONO; ?></td>
+                <td style="background-color: darkgrey; width: 100%;" colspan="2">RFC</td>
+                <td style="width: 100%;"><?php echo $encabezado->RFC; ?></td>
+                <td style="border-radius: 0px 0px 6px 0px; width: 100%;" colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
             </tr>
         </table>
         <!--FIN DE TABLA INFORMACIÓN-->
