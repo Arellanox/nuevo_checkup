@@ -2,19 +2,18 @@
 
 getListAgenda()
 
-function getListAgenda(area = 12, fecha = formatoFechaSQL(new Date(), 'yyyy-MM-dd')) {
+function getListAgenda(area = 12, fecha = formatoFechaSQL(new Date(), 'yy-mm-dd')) {
     ajaxAwait({
-        api: 3, area: area, fecha: fecha
-    }, 'agenda_api', { callbackAfter: true, callbackBefore: true, response: false }, function () {
+        api: 3, area: area, date: fecha
+    }, 'agenda_api', { callbackAfter: true, callbackBefore: true }, function () {
         loaderDiv("In", '#contenedor-list-agenda', "#loader-agenda", '#loaderDivAgenda', 0);
-        alertMsj({
-            title: 'Cargando agenda...', text: 'Espere un momento para mostrar la agenda acual',
-            timer: 2000, timerProgressBar: true,
-            showCancelButton: false, showConfirmButton: false
-        })
+        // alertMsj({
+        //     title: 'Cargando agenda...', text: 'Espere un momento para mostrar la agenda acual',
+        //     timer: 2000, timerProgressBar: true,
+        //     showCancelButton: false, showConfirmButton: false
+        // })
         $('#contenedor-list-agenda').html('');
     }, function (data) {
-        console.log(data);
         let row = data.response.data;
         let html = ''
         for (const key in row) {
@@ -27,20 +26,28 @@ function getListAgenda(area = 12, fecha = formatoFechaSQL(new Date(), 'yyyy-MM-d
                         <small> <i class="bi bi-pencil-square p-2"></i> <i class="bi bi-trash p-2"></i>
                         </small>
                     </div>
-                    <p>Teléfono: ${element.TELEFONO}</p>
-                    <p class="none-p">Estudios:</p>
-                    <p class="mb-1">Ultrasonido: <strong>DOPPLER CAROTIDEO UNILAERAL</strong>,
-                        <strong>DOPPLER VENOSO
-                            AMBOS MIEMBROS PELVICOS</strong>
-                    </p>
-                    <small>${formatoFecha2(element.inicial, [1, 1, 4, 1, 2, 2, 0])} | ${formatoFecha2(element.inicial, [1, 1, 4, 1, 2, 2, 0])}</small>
+                    <p>Teléfono: ${ifnull(element.TELEFONO)}</p>`;
+
+                let detalle = element['DETALLE_AGENDA'][0];
+                html += `<p class="none-p">Estudios:</p>`;
+                html += `<p class="mb-1">Ultrasonido:`
+                for (const key in detalle) {
+                    if (Object.hasOwnProperty.call(detalle, key)) {
+                        const element_detalle = detalle[key];
+                        html += `<strong>${element_detalle['SERVICIO']}</strong>,`;
+                    }
+                }
+                html += `</p>`;
+
+                html += `<small>${formatoFecha2(element.CITA, [2, 1, 4, 1, 2, 2, 0])} | ${formatoFecha2(element.FINALIZA, [2, 1, 4, 1, 2, 2, 0])}</small>
                 </button>`;
 
             }
         }
         $('#contenedor-list-agenda').html(html ? html : `<div class="alert alert-info" role="alert">
-                                                            No hay pacientes en agenda
+                                                            No hay citas disponibles para este día
                                                         </div>`);
+        swal.close();
         loaderDiv("Out", '#contenedor-list-agenda', "#loader-agenda", '#loaderDivAgenda', 0);
     });
 

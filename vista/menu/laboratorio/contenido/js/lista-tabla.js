@@ -328,6 +328,9 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
+            case '972': case '973':
+              //Sin cambios
+              break;
             default: input = null;
               if (areaActiva == 12) {
                 alert('El paciente no tiene estudios compatibles, hay un problema con la compatibilidad de los estudios con biomolecular, presente el error con el area de TI para solucionar este problema con el  paciente');

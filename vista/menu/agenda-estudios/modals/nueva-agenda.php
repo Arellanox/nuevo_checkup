@@ -27,8 +27,12 @@
                         </div>
                         <div class="col-12 col-md-12 col-xl-4">
                             <label for="date" class="form-label">Fecha de agendas</label>
-                            <input type="date" name="date" value="<?php echo date('Y-m-d') ?>" class="form-control input-form">
+                            <input type="date" name="date" value="<?php echo date('Y-m-d') ?>" id="inputfechaAgenda" min=<?php echo date("Y-m-d"); ?> class="form-control input-form">
                         </div>
+
+                        <script>
+
+                        </script>
                         <div class="col-12 col-md-12 col-xl-4">
                             <label for="hora_agenda" class="form-label">Horas disponibles</label>
                             <select name="hora_agenda" id="select-horas" class="input-form form-select"></select>
@@ -53,7 +57,7 @@
                                 </div>
                                 <div class="col-12 mt-3">
                                     <p>Tiempo aproximado: </p>
-                                    <p class="none-p" id="tiempo-aproximado">30 minutos</p>
+                                    <p class="none-p" id="tiempo-aproximado">0 minutos</p>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +73,7 @@
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i> Cancelar
                 </button>
-                <button type="submit" form="FormAgendaNueva" class="btn btn-borrar" id="btn-rechazar-paciente">
+                <button type="submit" form="FormAgendaNueva" class="btn btn-borrar" id="btn-agendar">
                     <i class="bi bi-calendar-check"></i> Guardar
                 </button>
             </div>

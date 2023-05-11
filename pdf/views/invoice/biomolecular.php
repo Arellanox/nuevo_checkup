@@ -1,5 +1,7 @@
 <html>
 
+</html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -224,8 +226,28 @@ $encode = base64_encode($ruta);
 $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
 $encode_firma = base64_encode($ruta_firma);
 
-$areas = $resultados->areas[0];
+//Reportes hechos
+// // $areas = $resultados->areas[1];
+// var_dump($resultados->areas);
+// $areas = array_filter(json_decode($resultados->areas, true), function ($element) {
+//     return $element['area'] == 'NINGUNA';
+// });
 
+// //Reportes automaticos
+// // $areas_biomolecular = $resultados->areas[0];
+// $areas_biomolecular = array_filter(json_decode($resultados->areas, true), function ($element) {
+//     return $element['area'] == 'BIOLOGÍA MOLECULAR';
+// });
+
+$areas = '';
+$areas_biomolecular = '';
+foreach ($resultado->areas as $key => $value) {
+    if ($value['area'] == 'BIOLOGÍA MOLECULAR') {
+        $areas_biomolecular = $resultado->areas[$key];
+    } else {
+        $areas = $resultado->areas[$key];
+    }
+}
 
 ?>
 
@@ -249,20 +271,30 @@ $areas = $resultados->areas[0];
     <!-- <?php ?> -->
     <div class="invoice-content">
         <?php
+        $estudiosOtros = $areas;
+
+
+
         foreach ($areas->estudios as $key => $json) {
             $body = $json->analitos;
             // print_r($body[0]);
 
-
-
             include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
-
-
 
             if (count($areas->estudios) - 1 > $key)
                 echo '<div class="break"></div>';
         }
+
+
+        if (!empty($areas_biomolecular)) {
+            echo '<div class="break"></div>';
+            echo "<br> <br>";
+            // echo "<h2 style='padding-bottom: 5px; padding-top: 5px;'>Biomolecular</h2>";
+            // var_dump($areas_biomolecular->estudios);
+            include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
+        }
         ?>
+
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 var el = document.querySelector(".muestraBiomolecular");

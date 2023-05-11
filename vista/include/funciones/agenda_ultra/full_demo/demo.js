@@ -12,13 +12,35 @@ $(document).ready(function () {
       $.ajax({
          url: `http://localhost/nuevo_checkup/api/agenda_api.php`,
          data: {
-            api: 3
+            api: 3,
+            area: 12,
          },
          dataType: 'json',
          type: 'POST',
          success: function (data) {
-            calendar(getEventData());
-            let row = data.response.data;
+            // console.log(data);
+            data = data.response.data;
+            let event = {
+               events: []
+            };
+            for (const key in data) {
+               if (Object.hasOwnProperty.call(data, key)) {
+                  const element = data[key];
+                  event['events'].push({
+                     "id": parseInt(element.ID_AGENDA),
+                     "start": new Date(element.CITA),
+                     "end": new Date(element.FINALIZA),
+                     "title": "Paciente: " + element.PACIENTE,
+                     readOnly: true
+                  })
+
+               }
+            }
+            console.log(event)
+            console.log(getEventData())
+            calendar(event)
+
+            // let row = data.response.data;
          },
          error: function (jqXHR, exception, data) {
             console.log(jqXHR, exception, data)
@@ -28,12 +50,13 @@ $(document).ready(function () {
 
 
    function calendar(data) {
+      console.log('data', data)
       $calendar.weekCalendar({
          timeslotsPerHour: 4,
          allowCalEventOverlap: true,
          overlapEventsSeparate: true,
          firstDayOfWeek: 1,
-         businessHours: { start: 8, end: 18, limitDisplay: true },
+         businessHours: { start: 7, end: 18, limitDisplay: true },
          daysToShow: 6,
          readonly: true,
          height: function ($calendar) {

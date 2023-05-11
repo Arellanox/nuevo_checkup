@@ -41,7 +41,7 @@ class GuardarArreglo {
     return this.guardado;
   }
 
-  acumular(number, reset = false) {
+  acumularSuma(number, reset = false) {
     // check if the passed value is a number
     if (typeof x == 'number' && !isNaN(x)) {
       // check if it is integer
@@ -53,11 +53,23 @@ class GuardarArreglo {
         return 1
       }
     } else {
-      if (reset)
-        this.acumulativo = 0;
-      return 0
-    }
+      try {
+        if (parseInt(number)) {
+          this.acumulativo += parseInt(number);
+          return 1
+        } else {
+          if (reset)
+            this.acumulativo = 0;
+          return 0
+        }
+      } catch (error) {
 
+      }
+    }
+  }
+
+  acumularResta(number) {
+    this.acumulativo -= number;
   }
 
   get acumular() {
