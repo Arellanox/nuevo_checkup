@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-center">
         <div class="col-auto m-1">
           <input type="radio" class="btn-check" name="selectTipLista" id="check-Costo" value="1" autocomplete="off" checked>
-          <label class="btn btn-outline-primary" for="check-Costo"><i class="bi bi-list"></i> Concepto</label>
+          <label class="btn btn-outline-primary" for="check-Costo"><i class="bi bi-list"></i> Costo</label>
         </div>
         <div class="col-auto m-1">
           <input type="radio" class="btn-check" name="selectTipLista" id="check-Precios" value="2" autocomplete="off">
