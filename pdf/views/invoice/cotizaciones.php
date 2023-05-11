@@ -244,6 +244,13 @@
             border-bottom: 0px solid darkgrey;
             border-spacing: 0;
         }
+
+        .colored-cell {
+            border-top: 0px solid black;
+            border-right: 0px solid black;
+            border-bottom: 1px solid darkgrey;
+            border-left: 1px solid black;
+        }
     </style>
 </head>
 <?php
@@ -282,27 +289,28 @@ $encode = base64_encode($ruta);
         <!--INICIO DE TABLA INFORMACIÓN-->
         <table style="width: 100%; text-align: center;" class="rounded" border=".5" ;>
             <tr>
-                <td style="background-color: darkgrey;border-radius: 6px 0px 0px 0px; width: 20%;">RAZÓN SOCIAL</td>
-                <td style="width: 60%;"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
-                <td style="background-color: darkgrey;border-radius: 0px 6px 0px 0px; width: 20%;">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+                <td style="background-color: darkgrey;border-radius: 6px 0px 0px 0px; width: 15%;">RAZÓN SOCIAL</td>
+                <td style="width: 55%;" colspan="3"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
+                <td style="background-color: darkgrey;border-radius: 0px 6px 0px 0px; width: 30%;">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
             </tr>
             <tr style=" border-collapse: collapse; border-bottom: transparent;">
-                <td style="background-color: darkgrey; width: 100%;" colspan="2">DOMICILIO FISCAL</td>
-                <td style="width: 100%;">País: MEX</td>
-                <td colspan="3"><?php echo $encabezado->FECHA_CREACION; ?></td>
+                <td style="background-color: darkgrey; width: 15%;">DOMICILIO FISCAL</td>
+                <td style="width: 55%;" colspan="3">País: MEX</td>
+                <td style="width: 30%;"><?php echo $encabezado->FECHA_CREACION; ?></td>
+            </tr>
+            <tr style="border-bottom: transparent;">
+                <td style="background-color: darkgrey; width: 15%;" class="colored-cell"></td>
+                <td style="width: 55%;border-bottom: transparent;" class="colored-cell" colspan="3"></td>
+                <td style="background-color: darkgrey; width: 30%;">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
             </tr>
             <tr>
-                <td style="background-color: darkgrey; width: 100%;" colspan="2"></td>
-                <td style="width: 100%;"></td>
-                <td style="background-color: darkgrey; width: 100%;" colspan="3">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
+                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 6px; width: 15%;">TELÉFONO</td>
+                <td style="width: 20%;"><?php echo $encabezado->TELEFONO; ?></td>
+                <td style="background-color: darkgrey; width: 10%;">RFC</td>
+                <td style="width: 20%;"><?php echo $encabezado->RFC; ?></td>
+                <td style="border-radius: 0px 0px 6px 0px; width: 30%;"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
             </tr>
-            <tr>
-                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 6px; width: 100%;" colspan="2">TELÉFONO</td>
-                <td style="width: 100%;"><?php echo $encabezado->TELEFONO; ?></td>
-                <td style="background-color: darkgrey; width: 100%;" colspan="2">RFC</td>
-                <td style="width: 100%;"><?php echo $encabezado->RFC; ?></td>
-                <td style="border-radius: 0px 0px 6px 0px; width: 100%;" colspan="4"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
-            </tr>
+
         </table>
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>
@@ -321,13 +329,13 @@ $encode = base64_encode($ruta);
             </thead>
             <tbody style=" border-bottom: transparent;line-height: 1;">
                 <tr>
-                    <<th style="width: 34%;">Ag. Carcinoembrionario (LABORATORIO)</td>
-                        <<th style="width: 11%;">E48 -Unidad de servicio</td>
-                            <<th style="width: 11%;">$418.00 </td>
-                                <<th style="width: 11%;">1.00</td>
-                                    <<th style="width: 11%;">0.00%</td>
-                                        <<th style="width: 11%;">16%</td>
-                                            <<th style="width: 11%;">$418.00</td>
+                    <td style="width: 34%;">Ag. Carcinoembrionario (LABORATORIO)</td>
+                    <td style="width: 11%;">E48 -Unidad de servicio</td>
+                    <td style="width: 11%;">$418.00 </td>
+                    <td style="width: 11%;">1.00</td>
+                    <td style="width: 11%;">0.00%</td>
+                    <td style="width: 11%;">16%</td>
+                    <td style="width: 11%;">$418.00</td>
                 </tr>
                 <?php
                 $count = count($resultados->ESTUDIOS);
@@ -348,21 +356,37 @@ $encode = base64_encode($ruta);
 
                 $i++;
                 ?>
-                <tr>
-                    <th style="width: 34%;">
-                        </td>
-                    <th style="width: 11%;">
-                        </td>
-                    <th style="width: 11%;">
-                        </td>
-                    <th style="width: 11%;">
-                        </td>
-                    <th style="width: 11%;">
-                        </td>
-                    <th style="width: 11%;">
-                        </td>
-                    <th style="width: 11%;">
-                        </td>
+                <tr style="min-height: 550px; background-color: green">
+                    <td style="width: 34%;">hola
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                </tr>
+                <tr style="min-height: 550px; background-color: green">
+                    <td style="width: 34%;">hola
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
+                    <td style="width: 11%;">
+                    </td>
                 </tr>
             </tbody>
             <tfoot style="text-align: center; background-color: darkgrey; text-align: left;">
