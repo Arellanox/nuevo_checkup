@@ -251,6 +251,13 @@
             border-bottom: 1px solid darkgrey;
             border-left: 1px solid black;
         }
+
+        .cell {
+            border-top: 0px solid black;
+            border-right: 0px solid black;
+            border-bottom: 1px solid red;
+            border-left: 1px solid black;
+        }
     </style>
 </head>
 <?php
@@ -287,27 +294,31 @@ $encode = base64_encode($ruta);
         </table>
         <!--COTIZACIONES-->
         <!--INICIO DE TABLA INFORMACIÓN-->
-        <table style="width: 100%; text-align: center;" class="rounded" border=".5" ;>
+        <table style="width: 100%; text-align: center; text-align: right;" class="rounded" border=".5" ;>
             <tr>
-                <td style="background-color: darkgrey;border-radius: 6px 0px 0px 0px; width: 15%;">RAZÓN SOCIAL</td>
-                <td style="width: 55%;" colspan="3"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
-                <td style="background-color: darkgrey;border-radius: 0px 6px 0px 0px; width: 30%;">FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+                <td style="background-color: darkgrey;border-radius: 6px 0px 0px 0px; width: 15%;"><b>RAZÓN SOCIAL</b></td>
+                <td style="width: 55%; text-align: left;" colspan="3"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
+                <td style="background-color: darkgrey;border-radius: 0px 6px 0px 0px; width: 30%;text-align: center;"><b>FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+                </td>
             </tr>
             <tr style=" border-collapse: collapse; border-bottom: transparent;">
-                <td style="background-color: darkgrey; width: 15%;">DOMICILIO FISCAL</td>
-                <td style="width: 55%;" colspan="3">País: MEX</td>
-                <td style="width: 30%;"><?php echo $encabezado->FECHA_CREACION; ?></td>
+                <td style="background-color: darkgrey; width: 15%;"><b>DOMICILIO FISCAL</b></td>
+                <td style="width: 55%;text-align: left;" colspan="3" rowspan="2" class="cell">País: MEX</td>
+                <td style="width: 30%;text-align: left;"><?php echo $encabezado->FECHA_CREACION; ?></td>
             </tr>
             <tr style="border-bottom: transparent;">
                 <td style="background-color: darkgrey; width: 15%;" class="colored-cell"></td>
                 <td style="width: 55%;border-bottom: transparent;" class="colored-cell" colspan="3"></td>
-                <td style="background-color: darkgrey; width: 30%;">FECHA DE VENCIMIENTO (DD/MM/AA)</td>
+                <td style="background-color: darkgrey; width: 30%; text-align: center;"><b>FECHA DE VENCIMIENTO (DD/MM/AA)</td>
+                </td>
             </tr>
             <tr>
-                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 6px; width: 15%;">TELÉFONO</td>
-                <td style="width: 20%;"><?php echo $encabezado->TELEFONO; ?></td>
-                <td style="background-color: darkgrey; width: 10%;">RFC</td>
-                <td style="width: 20%;"><?php echo $encabezado->RFC; ?></td>
+                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 6px; width: 15%;"><b>TELÉFONO</td>
+                </td>
+                <td style="width: 20%; text-align: left;"><?php echo $encabezado->TELEFONO; ?></td>
+                <td style="background-color: darkgrey; width: 10%; "><b>RFC</td>
+                </td>
+                <td style="width: 20%;text-align: left;"><?php echo $encabezado->RFC; ?></td>
                 <td style="border-radius: 0px 0px 6px 0px; width: 30%;"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
             </tr>
 
