@@ -16,94 +16,26 @@ function formatoFechaSQL(fecha, formato) {
   return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched]);
 }
 
-function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
-  if (fecha == null)
+function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1]) {
+  if (fecha === null || fecha === undefined)
     return '';
-  // //console.log(fecha)
-  let options = {
-    hour12: true,
-    timeZone: 'America/Mexico_City'
-  } // p.m. - a.m.
-
-  switch (optionsDate[0]) { //Dia de la semana
-    case 1:
-      options['weekday'] = "narrow";
-      break; // S
-    case 2:
-      options['weekday'] = "short";
-      break; // Sáb
-    case 3:
-      options['weekday'] = "long";
-      break; // Sábado
+  const options = {
+    timeZone: 'America/Mexico_City',
+    hourCycle: 'h12', //<-- Formato de 12 horas
+    weekday: ['narrow', 'short', 'long'][optionsDate[0] - 1], //S - Sáb - Sábado
+    year: ['numeric', '2-digit'][optionsDate[1] - 1], //2022 - 22
+    month: ['narrow', 'short', 'long', 'numeric', '2-digit'][optionsDate[2] - 1], //N - Nov - Noviembre - /11/ - 11
+    day: ['numeric', '2-digit'][optionsDate[3] - 1], // 1 - 01
+    hour: ['numeric', '2-digit'][optionsDate[4] - 1], // 1 - 01
+    minute: ['numeric', '2-digit'][optionsDate[5] - 1], // 1 - 01
+    seconds: ['numeric', '2-digit'][optionsDate[6] - 1] // 1 - 01
+  };
+  let date = new Date(Date.parse(fecha));
+  if (isNaN(date)) {
+    date = new Date(fecha + 'T00:00:00');
   }
-  switch (optionsDate[1]) { //año
-    case 1:
-      options['year'] = "numeric";
-      break; // 2022
-    case 2:
-      options['year'] = "2-digit";
-      break; // 22
-  }
-  switch (optionsDate[2]) { //Mes
-    case 1:
-      options['month'] = "narrow";
-      break; // N
-    case 2:
-      options['month'] = "short";
-      break; // Nov
-    case 3:
-      options['month'] = "long";
-      break; // Noviembre
-    case 4:
-      options['month'] = "numeric";
-      break; // /11/
-    case 5:
-      options['month'] = "2-digit";
-      break; // 11
-  }
-  switch (optionsDate[3]) { //Dia
-    case 1:
-      options['day'] = "numeric";
-      break;
-    case 2:
-      options['day'] = "2-digit";
-      break;
-  }
-  switch (optionsDate[4]) { //Hora
-    case 1:
-      options['hour'] = "numeric";
-      break;
-    case 2:
-      options['hour'] = "2-digit";
-      break;
-  }
-  switch (optionsDate[5]) { //Minutos
-    case 1:
-      options['minute'] = "numeric";
-      break;
-    case 2:
-      options['minute'] = "2-digit";
-      break;
-  }
-  switch (optionsDate[6]) { //Segundos
-    case 1:
-      options['seconds'] = "numeric";
-      break;
-    case 2:
-      options['seconds'] = "2-digit";
-      break;
-  }
-  let date;
-  if (fecha.length == 10) {
-    date = new Date(fecha + 'T00:00:00')
-  } else {
-    date = new Date(fecha)
-  }
-
-  // //console.log(date)
-  return date.toLocaleDateString('es-MX', options)
+  return date.toLocaleDateString('es-MX', options);
 }
-
 
 
 
