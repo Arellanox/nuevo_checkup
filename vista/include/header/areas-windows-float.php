@@ -75,7 +75,7 @@
 
  <?php if (
         $_SESSION['vista']['CLIENTES'] == 1 ||
-        $_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || $_SESSION['vista']['AGENDA_PACIENTES'] == 1 ||
+        $_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 ||
         $_SESSION['vista']['FACTURACIÓN'] == 1 ||
         $_SESSION['vista']['LISTA_PRECIOS'] == 1 || $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1 || $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1 ||
         $_SESSION['vista']['CURSOS BIMO'] == 1
