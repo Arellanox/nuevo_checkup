@@ -77,4 +77,4 @@ switch ($api) {
         break;
 }
 
-echo json_encode($response);
+echo json_encode($master->returnApi($response));
