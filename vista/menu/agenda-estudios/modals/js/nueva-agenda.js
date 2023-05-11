@@ -65,17 +65,7 @@ $('#FormAgendaNueva').submit(function (event) {
                 area_id: 11
             }, 'agenda_api', 'FormAgendaNueva', { callbackAfter: true }, false, function (data) {
                 alertToast('¡Agenda registrada!', 'success', 4000);
-                $('#iframeCalendar').attr('src', function (i, val) { return val; });
-                resetEstudios()
-                $('#modalNuevaAgenda').modal('hide')
-                //Convertirlo a funcion
-                if ($('#checkDiaFechaSelected').is(':checked')) {
-                    getListAgenda(12, 'null')
-                    $('#fechaSelected').prop('disabled', true)
-                } else {
-                    getListAgenda(12, $('#fechaSelected').val())
-                    $('#fechaSelected').prop('disabled', false)
-                }
+                recargarListas()
             })
 
         }, 1)

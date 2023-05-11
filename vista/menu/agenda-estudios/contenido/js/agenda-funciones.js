@@ -23,10 +23,12 @@ function getListAgenda(area = 12, fecha = formatoFechaSQL(new Date(), 'yy-mm-dd'
                 html += `<button class="list-group-item list-group-item-action" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">${element.PACIENTE}</h5>
-                        <small> <i class="bi bi-pencil-square p-2"></i> <i class="bi bi-trash p-2"></i>
+                        <small> <i class="bi bi-trash p-2 eliminarAgenda" data-id="${element.ID_AGENDA}"></i>
                         </small>
                     </div>
                     <p>Teléfono: ${ifnull(element.TELEFONO)}</p>`;
+
+                //  <i class="bi bi-pencil-square p-2"></i> 
 
                 let detalle = element['DETALLE_AGENDA'][0];
                 html += `<p class="none-p">Estudios:</p>`;
@@ -51,4 +53,18 @@ function getListAgenda(area = 12, fecha = formatoFechaSQL(new Date(), 'yy-mm-dd'
         loaderDiv("Out", '#contenedor-list-agenda', "#loader-agenda", '#loaderDivAgenda', 0);
     });
 
+}
+
+function recargarListas() {
+    $('#iframeCalendar').attr('src', function (i, val) { return val; });
+    resetEstudios()
+    $('#modalNuevaAgenda').modal('hide')
+    //Convertirlo a funcion
+    if ($('#checkDiaFechaSelected').is(':checked')) {
+        getListAgenda(12, 'null')
+        $('#fechaSelected').prop('disabled', true)
+    } else {
+        getListAgenda(12, $('#fechaSelected').val())
+        $('#fechaSelected').prop('disabled', false)
+    }
 }
