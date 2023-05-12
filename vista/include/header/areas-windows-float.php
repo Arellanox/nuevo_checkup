@@ -57,7 +57,8 @@
         $_SESSION['vista']['OFTALMOLOGIA'] == 1 ||
         $_SESSION['vista']['SOMATOMETRIA'] == 1 ||
         $_SESSION['vista']['CONSULTORIO'] == 1 ||
-        $_SESSION['vista']['ESTUDIOS_ULTRASONIDO'] == 1 || $_SESSION['vista']['ESTUDIOS_RAYOSX'] == 1 || $_SESSION['vista']['ESTUDIOS_AREAS'] == 1
+        $_SESSION['vista']['ESTUDIOS_ULTRASONIDO'] == 1 || $_SESSION['vista']['ESTUDIOS_RAYOSX'] == 1 || $_SESSION['vista']['ESTUDIOS_AREAS'] == 1 ||
+        $_SESSION['vista']['CONTROL_TURNOS_PANTALLA'] == 1 || $_SESSION['vista']['CONTROL_TURNOS'] == 1
     ) : ?>
      <li class="nav-item Recepción">
          <div class="dropdown ">
