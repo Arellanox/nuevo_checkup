@@ -268,10 +268,40 @@ function fillListPatient($query)
 
 function changeStatusRequest($param)
 {
-    $data = file_get_contents("../turnero_data.json");
-    $request = json_decode($data, true);
-    $request['request'] = $param;
-    file_put_contents("../turnero_data.json", json_encode($request));
+    $turnero_data = "../turnero_data_".$_SESSION['id'].".json";
+
+    if($param){
+        $archivos = glob("../", "*turnero_data*");
+        foreach($archivos as $archivo){
+            if(file_exists($archivo)){
+                $data = file_get_contents($archivo);
+                $request = json_decode($data, true);
+                $request['request'] = $param;
+                file_put_contents($archivo, json_encode($request));
+            } else {
+                file_put_contents($archivo,json_encode(array("request"=> false)));
+                $data = file_get_contents($archivo));
+                $request = json_decode($data, true);
+                $request['request'] = $param;
+                file_put_contents($archivo, json_encode($request));
+            }
+        }
+    } else {
+        if(file_exists($turnero_data)){
+            $data = file_get_contents($turnero_data);
+            $request = json_decode($data, true);
+            $request['request'] = $param;
+            file_put_contents($turnero_data, json_encode($request));
+        } else {
+            file_put_contents($turnero_data,json_encode(array("request"=> false)));
+            $data = file_get_contents($turnero_data);
+            $request = json_decode($data, true);
+            $request['request'] = $param;
+            file_put_contents($turnero_data, json_encode($request));
+        }
+    }
+   
+    
 }
 
 
