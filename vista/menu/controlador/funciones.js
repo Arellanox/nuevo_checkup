@@ -30,7 +30,7 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], non = false) 
     minute: ['numeric', '2-digit'][optionsDate[5] - 1], // 1 - 01
     seconds: ['numeric', '2-digit'][optionsDate[6] - 1] // 1 - 01
   };
-  let date = new Date(Date.parse(fecha));
+  let date = new Date(fecha);
   if (isNaN(date)) {
     date = new Date(fecha + 'T00:00:00');
   }
