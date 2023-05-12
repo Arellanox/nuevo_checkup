@@ -73,7 +73,8 @@ $parametros = array(
     $es_para,
     $costo,
     $utilidad,
-    $precio_venta
+    $precio_venta,
+    $duracion
 );
 
 // print_r($_POST['contenedores']);
