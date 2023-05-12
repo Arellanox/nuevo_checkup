@@ -128,7 +128,7 @@ include "../../variables.php";
   let array_user;
   var validar;
   const session = <?php echo json_encode($_SESSION); ?>;
-  session['id'] = '';
+  // session['id'] = '';
   session['token'] = '';
   $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/class.js'; ?>").done(function() {
     $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/funciones.js'; ?>").done(function() {

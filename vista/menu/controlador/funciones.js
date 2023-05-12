@@ -151,16 +151,19 @@ async function ajaxAwait(dataJson, apiURL,
       },
       success: function (data) {
 
-        if (config.response) {
-          if (mensajeAjax(data)) {
-            config.callbackAfter ? callbackSuccess(data) : 1;
-            config.returnData ? resolve(data) : resolve(1)
+        try {
+          if (config.response) {
+            if (mensajeAjax(data)) {
+              config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? data.response.data : data) : 1;
+              config.returnData ? resolve(config.WithoutResponseData ? data.response.data : data) : resolve(1)
+            }
+          } else {
+            config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? data.response.data : data) : 1;
+            config.returnData ? resolve(config.WithoutResponseData ? data.response.data : data) : resolve(1)
           }
-        } else {
-          config.callbackAfter ? callbackSuccess(data) : 1;
-          config.returnData ? resolve(data) : resolve(1)
+        } catch (error) {
+          alertMensaje('error', 'Error', 'Datos/Configuración erronea', error);
         }
-
 
       },
       error: function (jqXHR, exception, data) {
@@ -170,26 +173,26 @@ async function ajaxAwait(dataJson, apiURL,
   });
 }
 
+//configruacion para regresar la data...
+function returnDataAjaxAwai(config, data) {
+  return config.WithoutResponseData ? data.response.data : data
+}
+
 //
 function configAjaxAwait(config) {
   //valores por defecto de la funcion AjaxAwait
-  configs = {
+  const defaults = {
     alertBefore: false,
     response: true,
     callbackBefore: false,
     callbackAfter: false,
     returnData: true,
+    WithoutResponseData: false,
   }
 
-  for (const key in configs) {
-    const element = configs[key];
-    try {
-      if (config[key].length) // Si no existe hará un error y agregará el elemento en el catch
-        1
-    } catch (error) {
-      config[key] = element;
-    }
-  }
+  Object.entries(defaults).forEach(([key, value]) => {
+    config[key] = config[key] ?? value;
+  });
   return config;
 }
 
@@ -220,8 +223,8 @@ async function ajaxAwaitFormData(dataJson = {
     //Configura la funcion misma
     config = configAjaxAwait(config)
 
-    var formID = document.getElementById(form);
-    var formData = new FormData(formID);
+    let formID = document.getElementById(form);
+    let formData = new FormData(formID);
 
     for (const key in dataJson) {
       if (Object.hasOwnProperty.call(dataJson, key)) {
@@ -244,12 +247,12 @@ async function ajaxAwaitFormData(dataJson = {
 
         if (config.response) {
           if (mensajeAjax(data)) {
-            config.callbackAfter ? callbackSuccess(data) : 1;
-            config.returnData ? resolve(data) : resolve(1)
+            config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? data.response.data : data) : 1;
+            config.returnData ? resolve(config.WithoutResponseData ? data.response.data : data) : resolve(1)
           }
         } else {
-          config.callbackAfter ? callbackSuccess(data) : 1;
-          config.returnData ? resolve(data) : resolve(1)
+          config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? data.response.data : data) : 1;
+          config.returnData ? resolve(config.WithoutResponseData ? data.response.data : data) : resolve(1)
         }
 
       },
@@ -1067,12 +1070,7 @@ function loader(fade, scroll = null) {
     let altura = $(document).height();
     $("html, body").animate({ scrollTop: altura + "px" });
   }
-  $.fn.dataTable
-    .tables({
-      visible: true,
-      api: true
-    })
-    .columns.adjust();
+
 }
 
 function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50, scroll = 0) {
