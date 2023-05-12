@@ -280,7 +280,7 @@ function changeStatusRequest($param)
                 file_put_contents($archivo, json_encode($request));
             } else {
                 file_put_contents($archivo,json_encode(array("request"=> false)));
-                $data = file_get_contents($archivo));
+                $data = file_get_contents($archivo);
                 $request = json_decode($data, true);
                 $request['request'] = $param;
                 file_put_contents($archivo, json_encode($request));
