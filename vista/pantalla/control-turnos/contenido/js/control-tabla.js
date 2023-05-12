@@ -95,7 +95,7 @@ setTimeout(() => {
 function recargaLista() {
     if (!VozActiva) {
         $.ajax({
-            url: `${http}${servidor}/${nuevo_checkup}/turnero_data.json`,
+            url: `${http}${servidor}/${appname}/turnero_data_${session['id']}.json`,
             type: 'POST',
             dataType: 'JSON',
             success: function (data) {
