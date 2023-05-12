@@ -52,6 +52,7 @@ $es_para = $_POST['es_para'];
 $costo = $_POST['costo'];
 $utilidad = $_POST['utilidad'];
 $precio_venta = $_POST['precio_venta'];
+$duracion = $_POST['duracion']; # duracion del estudio, medido en minutos.
 
 $parametros = array(
     $id_servicio,
