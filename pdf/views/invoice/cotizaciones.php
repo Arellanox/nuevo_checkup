@@ -240,23 +240,57 @@
 
         .rounded {
             border-radius: 5px;
+            /*border: 1px solid transparent;*/
+            /*border-bottom: 1px solid transparent;*/
+            /*border-bottom: none;*/
+            border-spacing: 0;
+        }
+
+        .rounded2 {
+            border-radius: 5px;
             border: 1px solid darkgrey;
-            border-bottom: 0px solid darkgrey;
+            border-bottom: 1px solid darkgrey;
             border-spacing: 0;
         }
 
         .colored-cell {
-            border-top: 0px solid black;
-            border-right: 0px solid black;
+            border-top: 0px solid darkgrey;
+            border-right: 0px solid darkgrey;
             border-bottom: 1px solid darkgrey;
-            border-left: 1px solid black;
+            border-left: 1px solid darkgrey;
         }
 
         .cell {
-            border-top: 0px solid black;
-            border-right: 0px solid black;
-            border-bottom: 1px solid red;
-            border-left: 1px solid black;
+            border-top: 0px solid darkgrey;
+            border-right: 0px solid darkgrey;
+            border-bottom: 1px solid white;
+            border-left: 1px solid darkgrey;
+        }
+
+        .esquina-inferior {
+            border-radius: 5px;
+            border: 0px solid darkgrey;
+            border-bottom: 0px solid darkgrey;
+            border-spacing: 0;
+
+        }
+
+        .bordes-detalle {
+            border-width: 6px 6px 6px 6px;
+            border-color: red green blue yellow;
+            border-style: solid;
+        }
+
+        .bordes-detalle2 {
+            border-width: 1px 1px 1px 1px;
+            border-color: transparent darkgrey darkgrey transparent;
+            border-style: solid;
+        }
+
+        .bordes-detalle3 {
+            border-width: 1px 1px 1px 1px;
+            border-color: darkgrey darkgrey darkgrey darkgrey;
+            border-style: solid;
         }
     </style>
 </head>
@@ -294,39 +328,39 @@ $encode = base64_encode($ruta);
         </table>
         <!--COTIZACIONES-->
         <!--INICIO DE TABLA INFORMACIÓN-->
-        <table style="width: 100%; text-align: center; text-align: right;" class="rounded" border=".5" ;>
-            <tr>
-                <td style="background-color: darkgrey;border-radius: 6px 0px 0px 0px; width: 15%;"><b>RAZÓN SOCIAL</b></td>
-                <td style="width: 55%; text-align: left;" colspan="3"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
-                <td style="background-color: darkgrey;border-radius: 0px 6px 0px 0px; width: 30%;text-align: center;"><b>FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
-                </td>
-            </tr>
-            <tr style=" border-collapse: collapse; border-bottom: transparent;">
-                <td style="background-color: darkgrey; width: 15%;"><b>DOMICILIO FISCAL</b></td>
-                <td style="width: 55%;text-align: left;" colspan="3" rowspan="2" class="cell">País: MEX</td>
-                <td style="width: 30%;text-align: left;"><?php echo $encabezado->FECHA_CREACION; ?></td>
-            </tr>
-            <tr style="border-bottom: transparent;">
-                <td style="background-color: darkgrey; width: 15%;" class="colored-cell"></td>
-                <td style="width: 55%;border-bottom: transparent;" class="colored-cell" colspan="3"></td>
-                <td style="background-color: darkgrey; width: 30%; text-align: center;"><b>FECHA DE VENCIMIENTO (DD/MM/AA)</td>
-                </td>
-            </tr>
-            <tr>
-                <td style="background-color: darkgrey;border-radius: 0px 0px 0px 6px; width: 15%;"><b>TELÉFONO</td>
-                </td>
-                <td style="width: 20%; text-align: left;"><?php echo $encabezado->TELEFONO; ?></td>
-                <td style="background-color: darkgrey; width: 10%; "><b>RFC</td>
-                </td>
-                <td style="width: 20%;text-align: left;"><?php echo $encabezado->RFC; ?></td>
-                <td style="border-radius: 0px 0px 6px 0px; width: 30%;"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
-            </tr>
-
+        <table style="width: 100%; text-align: center; text-align: right; border: darkgrey 1px solid;" class="rounded" ;>
+            <tbody>
+                <tr>
+                    <td style="background-color: darkgrey; width: 15%; border-radius: 4px 0px 0px 0px; "><b>RAZÓN SOCIAL</b></td>
+                    <td style="width: 55%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;" colspan="3"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
+                    <td style="background-color: darkgrey; width: 30%; text-align: center; border-radius: 0px 4px 0px 0px; border-left: 1px solid darkgrey;"><b>FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 0px;"><b>DOMICILIO FISCAL</b></td>
+                    <td style="width: 55%;text-align: left; border-top: 1px solid darkgrey;" colspan="3" class="cell">País: MEX</td>
+                    <td style="width: 30%;text-align: left; border-left: 1px solid darkgrey;"><?php echo $encabezado->FECHA_CREACION; ?></td>
+                </tr>
+                <tr>
+                    <td style="background-color: darkgrey; width: 15%;" class="colored-cell"></td>
+                    <td style="width: 55%; border-bottom: 1px solid darkgrey;" class="colored-cell" colspan="3"></td>
+                    <td style="background-color: darkgrey; width: 30%; text-align: center; border-left: 1px solid darkgrey;"><b>FECHA DE VENCIMIENTO (DD/MM/AA)</td>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 4px;"><b>TELÉFONO</td>
+                    </td>
+                    <td style="width: 20%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $encabezado->TELEFONO; ?></td>
+                    <td style="background-color: darkgrey; width: 10%; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><b>RFC</td>
+                    <td style="width: 20%;text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $encabezado->RFC; ?></td>
+                    <td style="width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
+                </tr>
+            </tbody>
         </table>
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
-        <table style=" text-align: center;width: 100%; height: 550px;" class="rounded">
+        <table style=" text-align: center;width: 100%; height: 550px;" class="rounded2">
             <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                 <tr>
                     <th style="width: 34%;">Producto</th>
@@ -338,15 +372,15 @@ $encode = base64_encode($ruta);
                     <th style="width: 11%;">Total</th>
                 </tr>
             </thead>
-            <tbody style=" border-bottom: transparent;line-height: 1;">
+            <tbody style="line-height: 1.2; height: 100%; overflow-y: scroll;">
                 <tr>
-                    <td style="width: 34%;">Ag. Carcinoembrionario (LABORATORIO)</td>
-                    <td style="width: 11%;">E48 -Unidad de servicio</td>
-                    <td style="width: 11%;">$418.00 </td>
-                    <td style="width: 11%;">1.00</td>
-                    <td style="width: 11%;">0.00%</td>
-                    <td style="width: 11%;">16%</td>
-                    <td style="width: 11%;">$418.00</td>
+                    <td style="width: 34%; text-align: left;">Ag. Carcinoembrionario (LABORATORIO)</td>
+                    <td style="width: 11%; text-align: left;">E48 -Unidad de servicio</td>
+                    <td style="width: 11%; text-align: right;">$418.00 </td>
+                    <td style="width: 11%; text-align: center;">1.00</td>
+                    <td style="width: 11%; text-align: center;">0.00%</td>
+                    <td style="width: 11%; text-align: center;">16%</td>
+                    <td style="width: 11%; text-align: right;">$418.00</td>
                 </tr>
                 <?php
                 $count = count($resultados->ESTUDIOS);
@@ -355,61 +389,31 @@ $encode = base64_encode($ruta);
                 $estudios = $resultados;
                 foreach ($estudios->CONTENEDORES as $a => $estudios) {
                     echo "  <tr>
-                                                <td style=\"width: 34%;\">" . $recipiente->CONTENEDOR . "</td>
-                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
-                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
-                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
-                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
-                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
-                                                <td style=\"width: 11%;\">" . $recipiente->CONTENEDOR . "</td>
-                                                </tr>";
+                                <td style=\"width: 34%; text-align: left\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: left\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: center;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                            </tr>";
                 }
 
                 $i++;
                 ?>
-                <tr style="min-height: 550px; background-color: green">
-                    <td style="width: 34%;">hola
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                </tr>
-                <tr style="min-height: 550px; background-color: green">
-                    <td style="width: 34%;">hola
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
-                    <td style="width: 11%;">
-                    </td>
+            </tbody>
+        </table>
+        <table class="esquina-inferior">
+            <tbody>
+                <tr style="background-color: darkgrey; ">
+                    <td colspan="12"> Cantidad total 00/100 M.N.</td>
                 </tr>
             </tbody>
-            <tfoot style="text-align: center; background-color: darkgrey; text-align: left;">
-                <tr>
-                    <td colspan="12">
-                </tr>
-            </tfoot>
         </table>
         <!--Inicio tabla totales -->
         <p style="line-height: 2.5""></p>
-        <div style=" float: right;width: 20%;">
-        <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right;">
+        <div style=" float: right;width: 30%;">
+        <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right; ">
             <tbody>
                 <tr>
                     <td>Subtotal</td>
@@ -420,8 +424,8 @@ $encode = base64_encode($ruta);
                     <td><?php echo $encabezado->IVA; ?></td>
                 </tr>
                 <tr style="background-color: darkgrey;">
-                    <td>Total</td>
-                    <td><?php echo $encabezado->TOTAL; ?></td>
+                    <td><b>Total</b></td>
+                    <td><b></p><?php echo $encabezado->TOTAL; ?></b></td>
                 </tr>
             </tbody>
         </table>
