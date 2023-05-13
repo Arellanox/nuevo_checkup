@@ -227,7 +227,8 @@ $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
 $encode_firma = base64_encode($ruta_firma);
 
 //Reportes hechos
-$areas = $resultados->areas[0];
+$areas = $resultados->areas;
+
 // var_dump($resultados->areas);
 // $areas = array_filter(json_decode($resultados->areas, true), function ($element) {
 //     return $element['area'] == 'NINGUNA';
@@ -275,24 +276,21 @@ $areas = $resultados->areas[0];
 
 
 
-        foreach ($areas->estudios as $key => $json) {
-            $body = $json->analitos;
-            // print_r($body[0]);
+        // foreach ($areas->estudios as $key => $json) {
+        //     $body = $json->analitos;
+        //     // print_r($body[0]);
 
-            include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
+        //     include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
 
-            if (count($areas->estudios) - 1 > $key)
-                echo '<div class="break"></div>';
-        }
-
-
-        // if (!empty($areas_biomolecular)) {
-        //     echo '<div class="break"></div>';
-        //     echo "<br> <br>";
-        //     // echo "<h2 style='padding-bottom: 5px; padding-top: 5px;'>Biomolecular</h2>";
-        //     // var_dump($areas_biomolecular->estudios);
-        //     include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
+        //     if (count($areas->estudios) - 1 > $key)
+        //         echo '<div class="break"></div>';
         // }
+
+
+
+
+        include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
+
         ?>
 
         <script>

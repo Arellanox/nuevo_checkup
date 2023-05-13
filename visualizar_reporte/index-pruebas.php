@@ -31,11 +31,11 @@ $usuario_id = $_SESSION['id'];
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
-// $api = 'biomolecular';
+$api = 'biomolecular';
 // $turno_id = 382;
 // $area_id = 2;
 // $area_id = 12;
-// $turno_id = 656;
+$turno_id = 656;
 // $cliente_id = 1;
 // $id_cotizacion = 7;
 
