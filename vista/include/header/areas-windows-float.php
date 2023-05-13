@@ -50,13 +50,15 @@
  <?php  ?>
 
  <?php if (
-        $_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1 ||
-        $_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1 ||
+        $_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1 || $_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1 ||
         $_SESSION['vista']['ESPIROMETRIA'] == 1 ||
         $_SESSION['vista']['AUDIOMETRIA'] == 1 ||
         $_SESSION['vista']['OFTALMOLOGIA'] == 1 ||
         $_SESSION['vista']['SOMATOMETRIA'] == 1 ||
         $_SESSION['vista']['CONSULTORIO'] == 1 ||
+        $_SESSION['vista']['ULTRASONIDO'] == 1 || $_SESSION['vista']['ULTRASONIDOTOMA'] == 1 ||
+        $_SESSION['vista']['RX'] == 1 || $_SESSION['vista']['RXTOMA'] == 1 ||
+        $_SESSION['vista']['NUTRICION'] == 1 || $_SESSION['vista']['NUTRICION_CAPTURAS'] == 1 ||
         $_SESSION['vista']['ESTUDIOS_ULTRASONIDO'] == 1 || $_SESSION['vista']['ESTUDIOS_RAYOSX'] == 1 || $_SESSION['vista']['ESTUDIOS_AREAS'] == 1 ||
         $_SESSION['vista']['CONTROL_TURNOS_PANTALLA'] == 1 || $_SESSION['vista']['CONTROL_TURNOS'] == 1
     ) : ?>

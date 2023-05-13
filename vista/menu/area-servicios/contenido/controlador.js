@@ -40,11 +40,11 @@ function hasLocation() {
                 obtenerContenidoEstudios('Estudios de Ultrasonido')
                 break;
 
-            case 'ESTUDIOS_AREAS':
-                areaActiva = 'todos';
-                dataList = { api: 2, tipgrupo: 0, id_area: 0 }
-                obtenerContenidoEstudios('Estudios Checkup')
-                break;
+            // case 'ESTUDIOS_AREAS':
+            //     areaActiva = 'todos';
+            //     dataList = { api: 2, tipgrupo: 0, id_area: 0 }
+            //     obtenerContenidoEstudios('Estudios Checkup')
+            //     break;
 
             // case "EstudiosLab":
             //     if (validarVista('SERVICIOS (ESTUDIOS)')) {
@@ -59,6 +59,7 @@ function hasLocation() {
 
             default:
                 // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
+                
                 break;
         }
     }

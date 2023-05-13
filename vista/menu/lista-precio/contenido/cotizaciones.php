@@ -26,7 +26,7 @@
             <label for="inputBuscarPaquetes">Busque un cliente:</label>
             <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un cliente"> </select>
           </div>
-          <div class="listaPresupuestos" id="selectDisabled">
+          <div class="listaPresupuestos" id="container-select-presupuesto">
             <label for="inputBuscarPaquetes">Busque un presupuesto:</label>
             <select name="seleccionpaquete" id="select-presupuestos" class="input-form" required data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un presupuesto ya guardado"> </select>
           </div>
@@ -79,20 +79,14 @@
           <div class="col-12 text-center">
             <h5>Calculo del paquete</h5>
           </div>
-          <div class="col-12">
-            <div class="input-group">
-              <input type="number" class="form-control input-form text-center" name="" placeholder="Descuento total %" id="descuento-paquete">
-              <span class="input-span">%</span>
-            </div>
-          </div>
           <div class="col-6 text-end info-detalle">
             <p>Subtotal (Costo):</p>
           </div>
-          <div class="col-6" id="subtotal-costo-paquete"></div>
+          <div class="col-6" id="sin_descuento-subtotal-costo-paquete"></div>
           <div class="col-6 text-end info-detalle">
             <p>Subtotal (Precio Venta):</p>
           </div>
-          <div class="col-6" id="subtotal-precioventa-paquete"></div>
+          <div class="col-6" id="sin_descuento-subtotal-precioventa-paquete"></div>
           <div class="col-6 text-end info-detalle">
             <p>IVA:</p>
           </div>
@@ -100,7 +94,32 @@
           <div class="col-6 text-end info-detalle">
             <p>Total:</p>
           </div>
-          <div class="col-6" id="total-paquete"></div>
+          <div class="col-6" id="sin_descuento-total-paquete"></div>
+
+          <div class="col-12">
+            <div class="input-group" style="padding: 0px 120px 0px 120px;">
+              <input type="number" class="form-control input-form text-center" name="" placeholder="Descuento total %" id="descuento-paquete">
+              <span class="input-span">%</span>
+            </div>
+          </div>
+          <div class="row" style="display: none;" id="precios-con-descuento">
+            <!-- <div class="col-6 text-end info-detalle">
+              <p>Subtotal (Costo):</p>
+            </div>
+            <div class="col-6" id="subtotal-costo-paquete"></div> -->
+            <div class="col-6 text-end info-detalle">
+              <p>Subtotal:</p>
+            </div>
+            <div class="col-6" id="subtotal-precioventa-paquete"></div>
+            <div class="col-6 text-end info-detalle">
+              <p>IVA:</p>
+            </div>
+            <div class="col-6"> 16%</div>
+            <div class="col-6 text-end info-detalle">
+              <p>Total:</p>
+            </div>
+            <div class="col-6" id="total-paquete"></div>
+          </div>
         </div>
       </div>
     </div>

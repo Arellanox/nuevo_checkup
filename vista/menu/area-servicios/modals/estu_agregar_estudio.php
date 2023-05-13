@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="contenido-form-estudios">
-        <form class="" id="formRegistrarEstudio">
+        <form class="" id="formEstudios">
           <p class="text-center">Agrege un nuevo <strong>Estudio</strong> </p>
           <div class="row">
             <div class="col-8">
@@ -60,8 +60,8 @@
 
 
             <div class="col-3 col-md-3">
-              <label for="seleccionable" class="form-label">Para</label>
-              <select name="seleccionable" id="registrar-seleccionable" required class="form-select input-form">
+              <label for="es_para" class="form-label">Para</label>
+              <select name="es_para" id="registrar-seleccionable" required class="form-select input-form">
                 <option value="1">MASCULINO</option>
                 <option value="2">FEMENINO</option>
                 <option value="3" selected>TODOS</option>
@@ -101,8 +101,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-        <button type="submit" form="formRegistrarEstudio" class="btn btn-confirmar" id="submit-registrarEstudio">
-          <i class="bi bi-person-plus"></i> Crear
+        <button type="submit" form="formEstudios" class="btn btn-confirmar">
+          <i class="bi bi-send-check"></i> Guardar
         </button>
       </div>
     </div>

@@ -33,6 +33,8 @@ $("#formPaqueteBotonesArea").addClass("disable-element");
 $("#formPaqueteSelectEstudio").addClass("disable-element");
 $("#informacionPaquete").addClass("disable-element");
 
+// $(document).on("click", '')
+
 $('#UsarPaquete').on('click', function () {
 
   if ($('input[type=radio][name=selectPaquete]:checked').val() == 2) {
@@ -40,12 +42,11 @@ $('#UsarPaquete').on('click', function () {
       alertToast('Necesitas seleccionar un presupuesto de este cliente', 'error', '5000')
       return false;
     }
-    rellenarSelect("#select-presupuestos", "xxx", 0, 'ID_PRESUPUESTO', 'PRESUPUESTO', {
-      cliente_id: $('#seleccion-paquete').val()
-    });
   }
 
-  $('#seleccion-paquete').prop('disabled', true);
+  let id_cotizacion = $('#select-presupuestos').val();
+
+  $('#select-presupuestos').prop('disabled', true);
   $("#selectDisabled").addClass("disable-element");
   // $('.formContenidoPaquete').prop('disabled', false);
   $("#formPaqueteBotonesArea").removeClass("disable-element");
@@ -57,17 +58,17 @@ $('#UsarPaquete').on('click', function () {
 
   switch ($('input[type=radio][name=selectPaquete]:checked').val()) {
     case '2': //Lista de precios para clientes
-      tablaContenido();
+      tablaContenido(true);
       $.ajax({
-        url: `${http}${servidor}/${appname}/api/paquetes_api.php`,
+        url: `${http}${servidor}/${appname}/api/cotizaciones_api.php`,
         type: "POST",
         dataType: 'json',
         data: {
-          id_paquete: $('#seleccion-paquete').val(),
-          api: 9
+          id_cotizacion: id_cotizacion,
+          api: 2
         },
         success: function (data) {
-          console.log(data);
+          // console.log(data);
           row = data.response.data;
           for (var i = 0; i < row.length; i++) {
             meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].COSTO_TOTAL, row[i].CANTIDAD, null, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
@@ -170,4 +171,19 @@ function formpassword() {
 
 $(document).on("change ,  keyup", "input[name='cantidad-paquete'], input[name='descuento-paquete'], #descuento-paquete", function () {
   calcularFilasTR()
+
+  if ($(this).attr('id') == 'descuento-paquete') {
+    if ($(this).val() > 0) {
+      $('#precios-con-descuento').fadeIn();
+    } else {
+      $('#precios-con-descuento').fadeOut();
+    }
+  }
 });
+
+$(document).on('change', '#seleccion-paquete', async function (e) {
+  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_COTIZACIONES.CLIENTE', {
+    cliente_id: $('#seleccion-paquete').val()
+  });
+
+})

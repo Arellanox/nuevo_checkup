@@ -4,7 +4,7 @@ getListAgenda()
 
 function getListAgenda(area = 12, fecha = formatoFechaSQL(new Date(), 'yy-mm-dd')) {
     ajaxAwait({
-        api: 3, area: area, date: fecha
+        api: 3, area_id: area, date: fecha
     }, 'agenda_api', { callbackAfter: true, callbackBefore: true }, function () {
         loaderDiv("In", '#contenedor-list-agenda', "#loader-agenda", '#loaderDivAgenda', 0);
         // alertMsj({

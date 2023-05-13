@@ -1,7 +1,14 @@
 async function mantenimientoPaquete() {
   loader("In");
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
+  $('#container-select-presupuesto').fadeIn('slow')
+
+  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_COTIZACIONES.CLIENTE', {
+    cliente_id: $('#seleccion-paquete').val()
+  });
+
   tablaContenido(true);
+
 
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
@@ -11,7 +18,7 @@ async function mantenimientoPaquete() {
 
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   $("#seleccion-estudio").find('option').remove().end()
-  $('.listaPresupuestos').show();
+  // $('.listaPresupuestos').show();
 
   loader("Out");
 }
@@ -20,6 +27,8 @@ async function contenidoPaquete(select = null) {
   loader("In");
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
 
+  $('#container-select-presupuesto').fadeOut();
+
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
@@ -28,7 +37,7 @@ async function contenidoPaquete(select = null) {
 
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   $("#seleccion-estudio").find('option').remove().end()
-  $('.listaPresupuestos').hide();
+  // $('.listaPresupuestos').hide();
 
   tablaContenido(true)
 }
@@ -100,18 +109,22 @@ function calcularFilasTR() {
 
   if (!checkNumber(subtotalCosto)) {
     subtotalCosto = 0;
+    subtotalCosto_sindescuento = 0;
   } else {
     subtotalCosto = subtotalCosto;
+    subtotalCosto_sindescuento = subtotalCosto;
   }
+
   if (!checkNumber(subtotalPrecioventa)) {
     subtotalPrecioventa = 0;
     descuento = 0;
     descuentoPorcentaje = parseFloat($('#descuento-paquete').val());
   } else {
     descuentoPorcentaje = parseFloat($('#descuento-paquete').val());
+    subtotalPrecioventa_sindescuento = subtotalPrecioventa
     if (descuentoPorcentaje > 0) {
       subtotalPrecioventa = subtotalPrecioventa - (subtotalPrecioventa * descuentoPorcentaje) / 100;
-      console.log(subtotalPrecioventa)
+      //console.log(subtotalPrecioventa)
       descuento = subtotalPrecioventa * descuentoPorcentaje / 100;
     } else {
       subtotalPrecioventa = subtotalPrecioventa;
@@ -120,12 +133,21 @@ function calcularFilasTR() {
   }
 
   iva = (subtotalPrecioventa * 16) / 100;
+  iva_sindescuento = (subtotalPrecioventa_sindescuento * 16) / 100;
 
   total = subtotalPrecioventa + iva;
   if (!checkNumber(total))
     total = 0;
 
-  $('#subtotal-costo-paquete').html('$' + subtotalCosto.toFixed(2));
+  total_sindecuento = subtotalPrecioventa_sindescuento + iva_sindescuento;
+  if (!checkNumber(total_sindecuento))
+    total_sindecuento = 0;
+
+  $('#sin_descuento-subtotal-costo-paquete').html('$' + subtotalCosto_sindescuento.toFixed(2));
+  $('#sin_descuento-subtotal-precioventa-paquete').html('$' + subtotalPrecioventa_sindescuento.toFixed(2));
+  $('#sin_descuento-total-paquete').html(`$${total_sindecuento.toFixed(2)}`);
+
+  // $('#subtotal-costo-paquete').html('$' + subtotalCosto.toFixed(2));
   $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa.toFixed(2));
   $('#total-paquete').html(`$${total.toFixed(2)}`);
   // console.log(typeof total.toFixed(2))
