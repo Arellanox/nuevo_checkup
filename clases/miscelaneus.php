@@ -472,7 +472,7 @@ class Miscelaneus
         $renderpdf = $pdf->build();
 
         if ($lab == 1 && $tipo == 'url') {
-            $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
+            $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
     }
@@ -1267,7 +1267,8 @@ class Miscelaneus
         return isset($name[0]['NOMBRE_COMPLETO']) ? $name[0]['NOMBRE_COMPLETO'] : "NONE";
     }
 
-    public function setToNull($params= array()){
+    public function setToNull($params = array())
+    {
         # esta funcion convierte en null 
         # todas aquellas variables que tengans strlen =0,
         # las que tengas la palabra "null" o las que no traigan contenido.
@@ -1275,8 +1276,8 @@ class Miscelaneus
 
         $formattedParams = array();
 
-        foreach($params as $param){
-            if(!isset($param) || strlen($param)==0 || strtolower($param)=="null"){
+        foreach ($params as $param) {
+            if (!isset($param) || strlen($param) == 0 || strtolower($param) == "null") {
                 $formattedParams[] = null;
             } else {
                 $formattedParams[] = $param;
