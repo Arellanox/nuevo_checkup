@@ -28,7 +28,13 @@
     ?>
             <tr>
                 <td class="italic" style="font-size: 13.4px; font-style: italic"><?php echo $value->nombre ?></td>
-                <td class="italic" style="font-size: 13.4px; font-style: italic"><?php echo $value->resultado ?></td>
+                <td class="italic" style="font-size: 13.4px; font-style: italic"><?php
+                                                                                    if ($value->resultado == 'POSITIVO') {
+                                                                                        echo "<span style='font-weight:bold'>$value->resultado</span>";
+                                                                                    } else {
+                                                                                        echo $value->resultado;
+                                                                                    }
+                                                                                    ?></td>
                 <td class="italic" style="font-size: 13.4px; font-style: italic">NEGATIVO</td>
             </tr>
     <?php
