@@ -227,7 +227,7 @@ $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
 $encode_firma = base64_encode($ruta_firma);
 
 //Reportes hechos
-$areas = $resultados->areas;
+$areas = $resultados->areas[0];
 
 // var_dump($resultados->areas);
 // $areas = array_filter(json_decode($resultados->areas, true), function ($element) {
@@ -276,20 +276,20 @@ $areas = $resultados->areas;
 
 
 
-        // foreach ($areas->estudios as $key => $json) {
-        //     $body = $json->analitos;
-        //     // print_r($body[0]);
+        foreach ($areas->estudios as $key => $json) {
+            $body = $json->analitos;
+            // print_r($body[0]);
 
-        //     include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
+            include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
 
-        //     if (count($areas->estudios) - 1 > $key)
-        //         echo '<div class="break"></div>';
-        // }
-
-
+            if (count($areas->estudios) - 1 > $key)
+                echo '<div class="break"></div>';
+        }
 
 
-        include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
+
+
+        // include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
 
         ?>
 
