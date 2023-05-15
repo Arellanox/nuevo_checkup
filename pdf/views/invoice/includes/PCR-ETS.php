@@ -2,7 +2,7 @@
 <br>
 <br>
 <br>
-<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[9]->resultado ?></strong> </p>
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[10]->resultado ?></strong> </p>
 <table style="width: 100%;font-size: 13.4px">
     <tr style="background-color: darkgrey;">
         <td style="font-size: 13.4px"><strong>Prueba</strong></td>
@@ -19,8 +19,8 @@
     </tr>
     <?php
 
-    $kit = $body[7]->resultado;
-    $clave = $body[8]->resultado;
+    $kit = $body[8]->resultado;
+    $clave = $body[9]->resultado;
 
     $body = array_slice($body, 1, count($body) - 4);
     foreach ($body as $key => $value) {
