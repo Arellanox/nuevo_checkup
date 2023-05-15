@@ -2,7 +2,7 @@
 <br>
 <br>
 <br>
-<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[11]->resultado ?></strong> </p>
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[9]->resultado ?></strong> </p>
 <table style="width: 100%;font-size: 13.4px">
     <tr style="background-color: darkgrey;">
         <td style="font-size: 13.4px"><strong>Prueba</strong></td>
@@ -19,8 +19,8 @@
     </tr>
     <?php
 
-    $kit = $body[9]->resultado;
-    $clave = $body[10]->resultado;
+    $kit = $body[7]->resultado;
+    $clave = $body[8]->resultado;
 
     $body = array_slice($body, 1, count($body) - 4);
     foreach ($body as $key => $value) {
@@ -45,10 +45,5 @@
 <br>
 <p style="text-align:justify;"><strong>Equipo utilizado: </strong> CFX96™ Real-Time System BIO-RAD <br>
     <strong>Kit Diagnóstico: </strong><?php echo $kit; ?> <br>
-    <strong>Autorización COFEPRIS: </strong> <?php echo $clave; ?>
 </p>
-<br>
-
-<p class="text-sm-start"><small><strong>Encuentre el oficio de autorización COFEPRIS del kit diagnóstico usado para su estudio en:</strong></small></p>
-<p style="text-align: center;"><small><a href=""></a></small></p>
 <br>
