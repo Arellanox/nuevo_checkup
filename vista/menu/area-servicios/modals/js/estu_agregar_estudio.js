@@ -22,6 +22,7 @@ async function getDataFirst(row) {
     $('#formEstudios input[name="area"]').val(row['ID_AREA']).change();
     $('#formEstudios input[name="dias_entrega"]').val(row['DIAS_DE_ENTREGA']);
     $('#formEstudios input[name="seleccionable"]').val(row['SELECCIONABLE']);
+    $('#formEstudios textarea[name="duracion"]').val(row['MINUTOS']);
     $('#registrar-concepto-facturacion').val(row['SAT_ID_CODIGO']).change();
     $('#formEstudios input[name="es_para"]').val(row['ES_PARA']);
     $('#formEstudios textarea[name="indicaciones"]').val(row['INDICACIONES']);

@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <div class="modal fade" id="ModalRegistrarEstudio" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
@@ -42,12 +44,19 @@
 
 
               <!-- Solo  admin -->
-              <div class="col">
+              <div class="col" style="<?php if ($_SESSION['perfil'] != "1") {
+                                        echo 'display: none';
+                                      } ?>">
                 <label for="seleccionable" class="form-label">Cargable/Seleccionable</label>
                 <select name="seleccionable" id="registrar-seleccionable" required class="form-select input-form">
                   <option value="1">Cargable</option>
                   <option value="0">No Cargable</option>
                 </select>
+              </div>
+
+              <div class="col">
+                <label for="duracion" class="form-label">Duración</label>
+                <input type="number" name="duracion" class="input-form" placeholder="Duración del estudio" value="" required>
               </div>
             </div>
 

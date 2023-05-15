@@ -30,21 +30,21 @@ function hasLocation() {
         switch (hash) {
             case 'ESTUDIOS_RAYOSX':
                 areaActiva = 8;
-                dataList = { api: 2, tipgrupo: 0, id_area: areaActiva }
+                dataList = { api: 15, tipgrupo: 0, id_area: areaActiva }
                 obtenerContenidoEstudios('Estudios de Rayos X');
                 break;
 
             case 'ESTUDIOS_ULTRASONIDO':
                 areaActiva = 11;
-                dataList = { api: 2, tipgrupo: 0, id_area: areaActiva }
+                dataList = { api: 15, tipgrupo: 0, id_area: areaActiva }
                 obtenerContenidoEstudios('Estudios de Ultrasonido')
                 break;
 
-            // case 'ESTUDIOS_AREAS':
-            //     areaActiva = 'todos';
-            //     dataList = { api: 2, tipgrupo: 0, id_area: 0 }
-            //     obtenerContenidoEstudios('Estudios Checkup')
-            //     break;
+            case 'ESTUDIOS_AREAS':
+                areaActiva = 'todos';
+                dataList = { api: 15, tipgrupo: 0, id_area: 0 }
+                obtenerContenidoEstudios('Estudios Checkup')
+                break;
 
             // case "EstudiosLab":
             //     if (validarVista('SERVICIOS (ESTUDIOS)')) {
@@ -59,7 +59,7 @@ function hasLocation() {
 
             default:
                 // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
-                
+
                 break;
         }
     }
