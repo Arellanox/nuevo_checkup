@@ -107,6 +107,11 @@
             word-break: break-all;
         }
 
+        .td-border-vertical {
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+        }
+
         /* Para divisiones de 3 encabezado*/
         .col-left {
             width: 42%;
@@ -249,7 +254,7 @@
         .rounded2 {
             border-radius: 5px;
             border: 1px solid darkgrey;
-            border-bottom: 1px solid darkgrey;
+            /*border-bottom: 1px solid darkgrey;*/
             border-spacing: 0;
         }
 
@@ -288,9 +293,14 @@
         }
 
         .bordes-detalle3 {
-            border-width: 1px 1px 1px 1px;
-            border-color: darkgrey darkgrey darkgrey darkgrey;
+            border-width: 3px 3px 3px 3px;
+            border-color: red blue green pink;
             border-style: solid;
+        }
+
+        .vertical-line {
+            border-left: 1px solid black;
+            height: 100px;
         }
     </style>
 </head>
@@ -360,7 +370,7 @@ $encode = base64_encode($ruta);
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
-        <table style=" text-align: center;width: 100%; height: 550px;" class="rounded2">
+        <table style="text-align: center; width: 100%; min-height: 550px; !important" class="rounded2">
             <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                 <tr>
                     <th style="width: 34%;">Producto</th>
@@ -372,15 +382,24 @@ $encode = base64_encode($ruta);
                     <th style="width: 11%;">Total</th>
                 </tr>
             </thead>
-            <tbody style="line-height: 1.2; height: 100%; overflow-y: scroll;">
+            <tbody style="height: 420px !important;">
                 <tr>
-                    <td style="width: 34%; text-align: left;">Ag. Carcinoembrionario (LABORATORIO)</td>
-                    <td style="width: 11%; text-align: left;">E48 -Unidad de servicio</td>
-                    <td style="width: 11%; text-align: right;">$418.00 </td>
-                    <td style="width: 11%; text-align: center;">1.00</td>
-                    <td style="width: 11%; text-align: center;">0.00%</td>
-                    <td style="width: 11%; text-align: center;">16%</td>
-                    <td style="width: 11%; text-align: right;">$418.00</td>
+                    <td style="width: 34%; text-align: left;" class="td-border-vertical">Ag. Carcinoembrionario (LABORATORIO)</td>
+                    <td style="width: 11%; text-align: left;" class="td-border-vertical">E48 -Unidad de servicio</td>
+                    <td style="width: 11%; text-align: right;" class="td-border-vertical">$418.00 </td>
+                    <td style="width: 11%; text-align: center;" class="td-border-vertical">1.00</td>
+                    <td style="width: 11%; text-align: center;" class="td-border-vertical">0.00%</td>
+                    <td style="width: 11%; text-align: center;" class="td-border-vertical">16%</td>
+                    <td style="width: 11%; text-align: right;" class="td-border-vertical">$418.00</td>
+                </tr>
+                <tr>
+                    <td style="width: 34%; text-align: left;" class="td-border-vertical">Ag. Carcinoembrionario (LABORATORIO)</td>
+                    <td style="width: 11%; text-align: left;" class="td-border-vertical">E48 -Unidad de servicio</td>
+                    <td style="width: 11%; text-align: right;" class="td-border-vertical">$418.00 </td>
+                    <td style="width: 11%; text-align: center;" class="td-border-vertical">1.00</td>
+                    <td style="width: 11%; text-align: center;" class="td-border-vertical">0.00%</td>
+                    <td style="width: 11%; text-align: center;" class="td-border-vertical">16%</td>
+                    <td style="width: 11%; text-align: right;" class="td-border-vertical">$418.00</td>
                 </tr>
                 <?php
                 $count = count($resultados->ESTUDIOS);
@@ -389,18 +408,27 @@ $encode = base64_encode($ruta);
                 $estudios = $resultados;
                 foreach ($estudios->CONTENEDORES as $a => $estudios) {
                     echo "  <tr>
-                                <td style=\"width: 34%; text-align: left\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: left\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: center;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 34%; text-align: left;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: left;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: center;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
                             </tr>";
                 }
 
                 $i++;
                 ?>
+                <tr>
+                    <td style="width: 34%; text-align: left; height: 550px;" class="td-border-vertical"></td>
+                    <td style="width: 11%; text-align: left; height: 550px;" class="td-border-vertical"></td>
+                    <td style="width: 11%; text-align: right; height: 550px;" class="td-border-vertical"></td>
+                    <td style="width: 11%; text-align: center; height: 550px;" class="td-border-vertical"></td>
+                    <td style="width: 11%; text-align: center; height: 550px;" class="td-border-vertical"></td>
+                    <td style="width: 11%; text-align: center; height: 550px;" class="td-border-vertical"></td>
+                    <td style="width: 11%; text-align: right; height: 550px;" class="td-border-vertical"></td>
+                </tr>
             </tbody>
         </table>
         <table class="esquina-inferior">
