@@ -161,7 +161,7 @@ class Reporte
                 break;
 
             case 'ticket':
-                $template = render_view('invoice/cotizaciones.php', $view_vars);
+                $template = render_view('invoice/ticket.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;
