@@ -17,7 +17,7 @@
             </div>
             <div class="col-4">
               <label for="abreviatura" class="form-label">CVE</label>
-              <input type="text" name="abreviatura" class="form-control input-form" required>
+              <input type="text" name="abreviatura" class="form-control input-form">
             </div>
             <!-- <div class="col-12 col-md-12">
               <label for="grupo" class="form-label">Grupo de exámen</label>
@@ -27,7 +27,7 @@
             <div class="col-12 row">
               <div class="col" id="cont-area-estudios">
                 <label for="area" class="form-label">Área</label>
-                <select name="area" id="registrar-area-estudio" required>
+                <select name="area" id="registrar-area-estudio">
                 </select>
               </div>
 
@@ -39,7 +39,7 @@
 
               <div class="col">
                 <label for="dias_entrega" class="form-label">Día de entrega</label>
-                <input type="number" name="dias_entrega" class="input-form" value="" required>
+                <input type="number" name="dias_entrega" class="input-form" value="">
               </div>
 
 
@@ -63,7 +63,7 @@
             <!--  -->
             <div class="col-9 col-md-9">
               <label for="codigo_sat_id" class="form-label">Clave SAT</label>
-              <select name="codigo_sat_id" id="registrar-concepto-facturacion" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Filtra la lista por coincidencias" data-bs-original-title="Solicitar area de administración la clave de este servicio">
+              <select name="codigo_sat_id" id="registrar-concepto-facturacion" data-bs-toggle="tooltip" required data-bs-placement="top" aria-label="Filtra la lista por coincidencias" data-bs-original-title="Solicitar area de administración la clave de este servicio">
               </select>
             </div>
 

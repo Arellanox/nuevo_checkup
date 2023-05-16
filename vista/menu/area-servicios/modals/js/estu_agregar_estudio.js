@@ -19,10 +19,10 @@ async function getDataFirst(row) {
     id_servicio = row['ID_SERVICIO']
     $('#formEstudios input[name="descripcion"]').val(row['DESCRIPCION']);
     $('#formEstudios input[name="abreviatura"]').val(row['ABREVIATURA']);
-    $('#formEstudios input[name="area"]').val(row['ID_AREA']).change();
+    $('#formEstudios select[name="area"]').val(row['ID_AREA']).change();
     $('#formEstudios input[name="dias_entrega"]').val(row['DIAS_DE_ENTREGA']);
     $('#formEstudios input[name="seleccionable"]').val(row['SELECCIONABLE']);
-    $('#formEstudios textarea[name="duracion"]').val(row['MINUTOS']);
+    $('#formEstudios input[name="duracion"]').val(row['MINUTOS']);
     $('#registrar-concepto-facturacion').val(row['SAT_ID_CODIGO']).change();
     $('#formEstudios input[name="es_para"]').val(row['ES_PARA']);
     $('#formEstudios textarea[name="indicaciones"]').val(row['INDICACIONES']);
@@ -32,6 +32,7 @@ async function getDataFirst(row) {
     id_servicio = '';
     $('#ModalRegistrarEstudio').modal('show');
     $('#btn-agregar-estudio').prop('disabled', false);
+    $('#btn-estudio-editar').prop('disabled', false);
 
   }
 }

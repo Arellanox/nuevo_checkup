@@ -2,6 +2,7 @@
 
 $(document).on('click', '#btn-estudio-editar', function (event) {
   if (array_selected != null) {
+    $('#btn-estudio-editar').prop('disabled', true);
     getDataFirst(array_selected)
   } else {
     alertSelectTable();
