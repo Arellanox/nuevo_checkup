@@ -104,6 +104,22 @@ switch ($api) {
                 $electro = $host . "reportes/modulo/electro/$turno_id/" . basename($archivo);
                 $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $electro, null, null, null, null, null, null, null, $usuario]);
             }
+            
+            # enviar solo la captura del electrocardiograma
+            # se enviaria solo la captura si no se ha reportado la interpretacion y confirmado.
+            # si ya tiene el reporte confirmado, se enviarian ambos (el reporte y la captura de electro);
+            # si no tiene el reporte confirmado, solo se envia la captura de electro.
+
+            //Enviamos correo
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
+
+            if (!empty($attachment[0])) {
+                $mail = new Correo();
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', [$attachment[1]], null, $attachment[0], 1)) {
+                    $master->setLog("Correo enviado.", "Electrocardiograma captura");
+                }
+            }
+    
         } else {
             $response = "No se recibió archivo.";
         }
@@ -138,6 +154,7 @@ switch ($api) {
         # eliminar
         $response = $master->deleteByProcedure("sp_electro_resultados_e", [$turno_id]);
         break;
+
     default:
         $response = "Api no definida.";
         break;
