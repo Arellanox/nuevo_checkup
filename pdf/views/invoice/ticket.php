@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <title>Cotización</title>
+    <title>Ticket</title>
 
     <style>
         body {
@@ -330,8 +330,8 @@ $encode = base64_encode($ruta);
                     </p>
                 </td>
                 <td style="width: 25%;text-align: center;">
-                    <p>Cotización<br>
-                        <b>No. 75</b>
+                    <p>Folio<br>
+                        <b> 1</b>
                     </p>
                 </td>
             </tr>
@@ -370,7 +370,7 @@ $encode = base64_encode($ruta);
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
-        <table style="text-align: center; width: 100%; min-height: 550px; !important" class="rounded2">
+        <table style="text-align: center; width: 100%;" class="rounded2">
             <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                 <tr>
                     <th style="width: 34%;">Producto</th>
@@ -382,24 +382,24 @@ $encode = base64_encode($ruta);
                     <th style="width: 11%;">Total</th>
                 </tr>
             </thead>
-            <tbody style="height: 420px !important;">
+            <tbody style="height: 420px">
                 <tr>
-                    <td style="width: 34%; text-align: left;" class="td-border-vertical">Ag. Carcinoembrionario (LABORATORIO)</td>
-                    <td style="width: 11%; text-align: left;" class="td-border-vertical">E48 -Unidad de servicio</td>
-                    <td style="width: 11%; text-align: right;" class="td-border-vertical">$418.00 </td>
-                    <td style="width: 11%; text-align: center;" class="td-border-vertical">1.00</td>
-                    <td style="width: 11%; text-align: center;" class="td-border-vertical">0.00%</td>
-                    <td style="width: 11%; text-align: center;" class="td-border-vertical">16%</td>
-                    <td style="width: 11%; text-align: right;" class="td-border-vertical">$418.00</td>
+                    <td style="width: 34%; text-align: left;">Ag. Carcinoembrionario (LABORATORIO)</td>
+                    <td style="width: 11%; text-align: left;">E48 -Unidad de servicio</td>
+                    <td style="width: 11%; text-align: right;">$418.00 </td>
+                    <td style="width: 11%; text-align: center;">1.00</td>
+                    <td style="width: 11%; text-align: center;">0.00%</td>
+                    <td style="width: 11%; text-align: center;">16%</td>
+                    <td style="width: 11%; text-align: right;">$418.00</td>
                 </tr>
                 <tr>
-                    <td style="width: 34%; text-align: left;" class="td-border-vertical">Ag. Carcinoembrionario (LABORATORIO)</td>
-                    <td style="width: 11%; text-align: left;" class="td-border-vertical">E48 -Unidad de servicio</td>
-                    <td style="width: 11%; text-align: right;" class="td-border-vertical">$418.00 </td>
-                    <td style="width: 11%; text-align: center;" class="td-border-vertical">1.00</td>
-                    <td style="width: 11%; text-align: center;" class="td-border-vertical">0.00%</td>
-                    <td style="width: 11%; text-align: center;" class="td-border-vertical">16%</td>
-                    <td style="width: 11%; text-align: right;" class="td-border-vertical">$418.00</td>
+                    <td style="width: 34%; text-align: left;">Ag. Carcinoembrionario (LABORATORIO)</td>
+                    <td style="width: 11%; text-align: left;">E48 -Unidad de servicio</td>
+                    <td style="width: 11%; text-align: right;">$418.00 </td>
+                    <td style="width: 11%; text-align: center;">1.00</td>
+                    <td style="width: 11%; text-align: center;">0.00%</td>
+                    <td style="width: 11%; text-align: center;">16%</td>
+                    <td style="width: 11%; text-align: right;">$418.00</td>
                 </tr>
                 <?php
                 $count = count($resultados->ESTUDIOS);
@@ -408,13 +408,13 @@ $encode = base64_encode($ruta);
                 $estudios = $resultados;
                 foreach ($estudios->CONTENEDORES as $a => $estudios) {
                     echo "  <tr>
-                                <td style=\"width: 34%; text-align: left;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: left;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: center;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\" class=\"td-border-vertical\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 34%; text-align: left;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: left;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: center;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
                             </tr>";
                 }
 
