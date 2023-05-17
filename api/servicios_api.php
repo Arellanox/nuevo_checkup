@@ -575,6 +575,22 @@ switch ($api) {
         $pdf = new Reporte(json_encode($arrayPacienteEtiqueta[0]), null, null, null, 'etiquetas', 'url');
         $pdf->build();
         break;
+    case 15:
+        #getall
+        $response = $master->getByProcedure('sp_servicios_seleccionable', array(null, $tipgrupo, $id_area, $otros_servicios, $abreviatura));
+
+        if (is_array($response)) {
+            $newResponse = array();
+            echo json_encode($response);
+        } else {
+            echo json_encode(array(
+                'response' => array(
+                    'code' => 2,
+                    'msj' => $response
+                )
+            ));
+        }
+        break;
     default:
         echo "Api no reconocida.";
         break;

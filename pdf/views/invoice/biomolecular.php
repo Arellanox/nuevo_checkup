@@ -227,7 +227,7 @@ $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
 $encode_firma = base64_encode($ruta_firma);
 
 //Reportes hechos
-$areas = $resultados->areas;
+$areas = $resultados->areas[0];
 
 // var_dump($resultados->areas);
 // $areas = array_filter(json_decode($resultados->areas, true), function ($element) {
@@ -263,7 +263,7 @@ $areas = $resultados->areas;
 
     <div class="footer">
         <?php
-        $footerDoctor = 'Dra. NERY FABIOLA ORNELAS RESENDIZ <br>UJAT - Cédula profesional: 7796595';
+        $footerDoctor = 'Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445';
         include "includes/footer.php"; ?>
     </div>
 
@@ -276,20 +276,20 @@ $areas = $resultados->areas;
 
 
 
-        // foreach ($areas->estudios as $key => $json) {
-        //     $body = $json->analitos;
-        //     // print_r($body[0]);
+        foreach ($areas->estudios as $key => $json) {
+            $body = $json->analitos;
+            // print_r($body[0]);
 
-        //     include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
+            include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
 
-        //     if (count($areas->estudios) - 1 > $key)
-        //         echo '<div class="break"></div>';
-        // }
-
-
+            if (count($areas->estudios) - 1 > $key)
+                echo '<div class="break"></div>';
+        }
 
 
-        include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
+
+
+        // include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
 
         ?>
 

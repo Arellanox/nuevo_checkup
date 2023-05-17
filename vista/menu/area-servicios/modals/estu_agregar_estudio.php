@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <div class="modal fade" id="ModalRegistrarEstudio" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
@@ -15,7 +17,7 @@
             </div>
             <div class="col-4">
               <label for="abreviatura" class="form-label">CVE</label>
-              <input type="text" name="abreviatura" class="form-control input-form" required>
+              <input type="text" name="abreviatura" class="form-control input-form">
             </div>
             <!-- <div class="col-12 col-md-12">
               <label for="grupo" class="form-label">Grupo de exámen</label>
@@ -25,7 +27,7 @@
             <div class="col-12 row">
               <div class="col" id="cont-area-estudios">
                 <label for="area" class="form-label">Área</label>
-                <select name="area" id="registrar-area-estudio" required>
+                <select name="area" id="registrar-area-estudio">
                 </select>
               </div>
 
@@ -37,24 +39,31 @@
 
               <div class="col">
                 <label for="dias_entrega" class="form-label">Día de entrega</label>
-                <input type="number" name="dias_entrega" class="input-form" value="" required>
+                <input type="number" name="dias_entrega" class="input-form" value="">
               </div>
 
 
               <!-- Solo  admin -->
-              <div class="col">
+              <div class="col" style="<?php if ($_SESSION['perfil'] != "1") {
+                                        echo 'display: none';
+                                      } ?>">
                 <label for="seleccionable" class="form-label">Cargable/Seleccionable</label>
                 <select name="seleccionable" id="registrar-seleccionable" required class="form-select input-form">
                   <option value="1">Cargable</option>
                   <option value="0">No Cargable</option>
                 </select>
               </div>
+
+              <div class="col">
+                <label for="duracion" class="form-label">Duración</label>
+                <input type="number" name="duracion" class="input-form" placeholder="Duración del estudio" value="" required>
+              </div>
             </div>
 
             <!--  -->
             <div class="col-9 col-md-9">
               <label for="codigo_sat_id" class="form-label">Clave SAT</label>
-              <select name="codigo_sat_id" id="registrar-concepto-facturacion" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Filtra la lista por coincidencias" data-bs-original-title="Solicitar area de administración la clave de este servicio">
+              <select name="codigo_sat_id" id="registrar-concepto-facturacion" data-bs-toggle="tooltip" required data-bs-placement="top" aria-label="Filtra la lista por coincidencias" data-bs-original-title="Solicitar area de administración la clave de este servicio">
               </select>
             </div>
 

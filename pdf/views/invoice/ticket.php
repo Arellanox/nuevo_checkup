@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <title>Cotización</title>
+    <title>Ticket</title>
 
     <style>
         body {
@@ -330,8 +330,8 @@ $encode = base64_encode($ruta);
                     </p>
                 </td>
                 <td style="width: 25%;text-align: center;">
-                    <p>Cotización<br>
-                        <b>No. 75</b>
+                    <p>Folio<br>
+                        <b> 1</b>
                     </p>
                 </td>
             </tr>
@@ -341,9 +341,9 @@ $encode = base64_encode($ruta);
         <table style="width: 100%; text-align: center; text-align: right; border: darkgrey 1px solid;" class="rounded" ;>
             <tbody>
                 <tr>
-                    <td style="background-color: darkgrey; width: 15%; border-radius: 4px 0px 0px 0px; "><b>RAZÓN SOCIAL</b></td>
+                    <td style="background-color: darkgrey; width: 15%; border-radius: 4px 0px 0px 0px; "><b>PACIENTE</b></td>
                     <td style="width: 55%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;" colspan="3"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
-                    <td style="background-color: darkgrey; width: 30%; text-align: center; border-radius: 0px 4px 0px 0px; border-left: 1px solid darkgrey;"><b>FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
+                    <td style="background-color: darkgrey; width: 30%; text-align: center; border-radius: 0px 4px 0px 0px; border-left: 1px solid darkgrey;"><b>FECHA DE NACIMIENTO (DD/MM/AA)</td>
                     </td>
                 </tr>
                 <tr>
@@ -354,7 +354,7 @@ $encode = base64_encode($ruta);
                 <tr>
                     <td style="background-color: darkgrey; width: 15%;" class="colored-cell"></td>
                     <td style="width: 55%; border-bottom: 1px solid darkgrey;" class="colored-cell" colspan="3"></td>
-                    <td style="background-color: darkgrey; width: 30%; text-align: center; border-left: 1px solid darkgrey;"><b>FECHA DE VENCIMIENTO (DD/MM/AA)</td>
+                    <td style="background-color: darkgrey; width: 30%; text-align: center; border-left: 1px solid darkgrey;"><b>FECHA DE COMPRA (DD/MM/AA)</td>
                     </td>
                 </tr>
                 <tr>
@@ -370,7 +370,7 @@ $encode = base64_encode($ruta);
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
-        <table style="text-align: center; width: 100%; min-height: 550px;" class="rounded2">
+        <table style="text-align: center; width: 100%;" class="rounded2">
             <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                 <tr>
                     <th style="width: 34%;">Producto</th>
@@ -382,7 +382,7 @@ $encode = base64_encode($ruta);
                     <th style="width: 11%;">Total</th>
                 </tr>
             </thead>
-            <tbody style="height: 420px !important;">
+            <tbody style="height: 420px">
                 <tr>
                     <td style="width: 34%; text-align: left;">Ag. Carcinoembrionario (LABORATORIO)</td>
                     <td style="width: 11%; text-align: left;">E48 -Unidad de servicio</td>
@@ -420,15 +420,7 @@ $encode = base64_encode($ruta);
 
                 $i++;
                 ?>
-                <tr>
-                    <td style="width: 34%; text-align: left; height: 550px;"></td>
-                    <td style="width: 11%; text-align: left; height: 550px;"></td>
-                    <td style="width: 11%; text-align: right; height: 550px;"></td>
-                    <td style="width: 11%; text-align: center; height: 550px;"></td>
-                    <td style="width: 11%; text-align: center; height: 550px;"></td>
-                    <td style="width: 11%; text-align: center; height: 550px;"></td>
-                    <td style="width: 11%; text-align: right; height: 550px;"></td>
-                </tr>
+
             </tbody>
         </table>
         <table class="esquina-inferior">
@@ -439,7 +431,7 @@ $encode = base64_encode($ruta);
             </tbody>
         </table>
         <!--Inicio tabla totales -->
-        <p style="line-height: 2.5"></p>
+        <p style="line-height: 2.5""></p>
         <div style=" float: right;width: 30%;">
         <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right; ">
             <tbody>
@@ -459,16 +451,6 @@ $encode = base64_encode($ruta);
         </table>
     </div>
     <!---FIN DE LA TABLA DE PRODUCTOS--->
-    <div style="float: left;width: 30%;">
-        <table style="width: 100%; padding-top: 11%;" align="left">
-            <td style="text-align: center;">
-                <p style="width: 5%; text-align: center;">
-                    <hr style="height: 1px; background-color: black ; " align="center"><br>
-                    ELABORADO POR
-                </p>
-            </td>
-        </table>
-    </div>
     </div>
 </body>
 

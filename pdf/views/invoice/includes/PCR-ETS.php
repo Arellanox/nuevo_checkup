@@ -2,7 +2,7 @@
 <br>
 <br>
 <br>
-<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[11]->resultado ?></strong> </p>
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[10]->resultado ?></strong> </p>
 <table style="width: 100%;font-size: 13.4px">
     <tr style="background-color: darkgrey;">
         <td style="font-size: 13.4px"><strong>Prueba</strong></td>
@@ -19,8 +19,8 @@
     </tr>
     <?php
 
-    $kit = $body[9]->resultado;
-    $clave = $body[10]->resultado;
+    $kit = $body[8]->resultado;
+    $clave = $body[9]->resultado;
 
     $body = array_slice($body, 1, count($body) - 4);
     foreach ($body as $key => $value) {
@@ -28,7 +28,13 @@
     ?>
             <tr>
                 <td class="italic" style="font-size: 13.4px; font-style: italic"><?php echo $value->nombre ?></td>
-                <td class="italic" style="font-size: 13.4px; font-style: italic"><?php echo $value->resultado ?></td>
+                <td class="italic" style="font-size: 13.4px; font-style: italic"><?php
+                                                                                    if ($value->resultado == 'POSITIVO') {
+                                                                                        echo "<span style='font-weight:bold'>$value->resultado</span>";
+                                                                                    } else {
+                                                                                        echo $value->resultado;
+                                                                                    }
+                                                                                    ?></td>
                 <td class="italic" style="font-size: 13.4px; font-style: italic">NEGATIVO</td>
             </tr>
     <?php
@@ -45,10 +51,5 @@
 <br>
 <p style="text-align:justify;"><strong>Equipo utilizado: </strong> CFX96™ Real-Time System BIO-RAD <br>
     <strong>Kit Diagnóstico: </strong><?php echo $kit; ?> <br>
-    <strong>Autorización COFEPRIS: </strong> <?php echo $clave; ?>
 </p>
-<br>
-
-<p class="text-sm-start"><small><strong>Encuentre el oficio de autorización COFEPRIS del kit diagnóstico usado para su estudio en:</strong></small></p>
-<p style="text-align: center;"><small><a href=""></a></small></p>
 <br>

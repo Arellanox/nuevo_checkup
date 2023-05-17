@@ -10,7 +10,7 @@
                                             <?php if (isset($subtitulo)) {
                                                 echo $subtitulo;
                                             } else {
-                                                echo 'Resultado de examenes';
+                                                echo 'Resultado de exámenes';
                                             }; ?>
                                         </h4>
                                     </td>
