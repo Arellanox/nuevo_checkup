@@ -16,21 +16,42 @@ function formatoFechaSQL(fecha, formato) {
   return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched]);
 }
 
-function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], non = false) {
+// function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], non = false) {
+//   if (fecha === null || fecha === undefined)
+//     return '';
+//   const options = {
+//     timeZone: 'America/Mexico_City',
+//     hourCycle: 'h12', //<-- Formato de 12 horas
+//     weekday: ['narrow', 'short', 'long'][optionsDate[0] - 1], //S - Sáb - Sábado
+//     year: ['numeric', '2-digit'][optionsDate[1] - 1], //2022 - 22
+//     month: ['narrow', 'short', 'long', 'numeric', '2-digit'][optionsDate[2] - 1], //N - Nov - Noviembre - /11/ - 11
+//     day: ['numeric', '2-digit'][optionsDate[3] - 1], // 1 - 01
+//     hour: ['numeric', '2-digit'][optionsDate[4] - 1], // 1 - 01
+//     minute: ['numeric', '2-digit'][optionsDate[5] - 1], // 1 - 01
+//     seconds: ['numeric', '2-digit'][optionsDate[6] - 1] // 1 - 01
+//   };
+//   let date = new Date(fecha);
+//   if (isNaN(date)) {
+//     date = new Date(fecha + 'T00:00:00');
+//   }
+//   return date.toLocaleDateString('es-MX', options);
+// }
+
+function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1]) {
   if (fecha === null || fecha === undefined)
     return '';
   const options = {
     timeZone: 'America/Mexico_City',
-    hourCycle: 'h12', //<-- Formato de 12 horas
-    weekday: ['narrow', 'short', 'long'][optionsDate[0] - 1], //S - Sáb - Sábado
-    year: ['numeric', '2-digit'][optionsDate[1] - 1], //2022 - 22
-    month: ['narrow', 'short', 'long', 'numeric', '2-digit'][optionsDate[2] - 1], //N - Nov - Noviembre - /11/ - 11
-    day: ['numeric', '2-digit'][optionsDate[3] - 1], // 1 - 01
-    hour: ['numeric', '2-digit'][optionsDate[4] - 1], // 1 - 01
-    minute: ['numeric', '2-digit'][optionsDate[5] - 1], // 1 - 01
-    seconds: ['numeric', '2-digit'][optionsDate[6] - 1] // 1 - 01
+    hourCycle: 'h12',
+    weekday: optionsDate[0] === 0 ? undefined : ['narrow', 'short', 'long'][optionsDate[0] - 1],
+    year: ['numeric', '2-digit'][optionsDate[1] - 1],
+    month: ['narrow', 'short', 'long', 'numeric', '2-digit'][optionsDate[2] - 1],
+    day: ['numeric', '2-digit'][optionsDate[3] - 1],
+    hour: ['numeric', '2-digit'][optionsDate[4] - 1],
+    minute: ['numeric', '2-digit'][optionsDate[5] - 1],
+    seconds: ['numeric', '2-digit'][optionsDate[6] - 1]
   };
-  let date = new Date(fecha);
+  let date = new Date(Date.parse(fecha));
   if (isNaN(date)) {
     date = new Date(fecha + 'T00:00:00');
   }
