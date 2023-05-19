@@ -163,7 +163,7 @@ $(document).on('click', '.btn-agregar-estudios-admin', function (event) {
   event.preventDefault();
   let tipo = $(this).attr('data-bs-tipo');
   let id = $(`#${tipo}`).val()
-  let name = $(`#${tipo} option: selected`).html()
+  let name = $(`#${tipo} option:selected`).html()
   console.log(id)
   console.log(tipo)
 
