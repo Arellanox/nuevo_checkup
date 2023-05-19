@@ -61,10 +61,10 @@ function recargarListas() {
     $('#modalNuevaAgenda').modal('hide')
     //Convertirlo a funcion
     if ($('#checkDiaFechaSelected').is(':checked')) {
-        getListAgenda(12, 'null')
+        getListAgenda(11, 'null')
         $('#fechaSelected').prop('disabled', true)
     } else {
-        getListAgenda(12, $('#fechaSelected').val())
+        getListAgenda(11, $('#fechaSelected').val())
         $('#fechaSelected').prop('disabled', false)
     }
 }

@@ -7,15 +7,15 @@ $(document).on('click', '#btn-agendar-calendario', function (e) {
 
 // cambiar fecha de la Lista
 $(document).on('change', '#fechaSelected', function () {
-    getListAgenda(12, $('#fechaSelected').val())
+    getListAgenda(11, $('#fechaSelected').val())
 })
 
 $(document).on('click', '#checkDiaFechaSelected', function () {
     if ($(this).is(':checked')) {
-        getListAgenda(12, 'null')
+        getListAgenda(11, 'null')
         $('#fechaSelected').prop('disabled', true)
     } else {
-        getListAgenda(12, $('#fechaSelected').val())
+        getListAgenda(11, $('#fechaSelected').val())
         $('#fechaSelected').prop('disabled', false)
     }
 })
