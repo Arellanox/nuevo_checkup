@@ -64,6 +64,8 @@ class Reporte
             case 'rayos': //rayos piu piu
             case 'consultorio':
             case 'electro':
+            case 'cotizacion':
+            case 'ticket':
             case 'reporte_masometria':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;

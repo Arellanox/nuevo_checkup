@@ -342,13 +342,13 @@ $encode = base64_encode($ruta);
             <tbody>
                 <tr>
                     <td style="background-color: darkgrey; width: 15%; border-radius: 4px 0px 0px 0px; "><b>PACIENTE</b></td>
-                    <td style="width: 55%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;" colspan="3"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
+                    <td style="width: 55%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;" colspan="3"><?php echo $encabezado->NOMBRE; ?></td>
                     <td style="background-color: darkgrey; width: 30%; text-align: center; border-radius: 0px 4px 0px 0px; border-left: 1px solid darkgrey;"><b>FECHA DE NACIMIENTO (DD/MM/AA)</td>
                     </td>
                 </tr>
                 <tr>
                     <td style="background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 0px;"><b>DOMICILIO FISCAL</b></td>
-                    <td style="width: 55%;text-align: left; border-top: 1px solid darkgrey;" colspan="3" class="cell">País: MEX</td>
+                    <td style="width: 55%;text-align: left; border-top: 1px solid darkgrey;" colspan="3" class="cell"></td>
                     <td style="width: 30%;text-align: left; border-left: 1px solid darkgrey;"><?php echo $encabezado->FECHA_CREACION; ?></td>
                 </tr>
                 <tr>
@@ -360,10 +360,10 @@ $encode = base64_encode($ruta);
                 <tr>
                     <td style="background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 4px;"><b>TELÉFONO</td>
                     </td>
-                    <td style="width: 20%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $encabezado->TELEFONO; ?></td>
+                    <td style="width: 20%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $encabezado->CELULAR; ?></td>
                     <td style="background-color: darkgrey; width: 10%; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><b>RFC</td>
                     <td style="width: 20%;text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $encabezado->RFC; ?></td>
-                    <td style="width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
+                    <td style="width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;"><?php echo $encabezado->FECHA_TICKET; ?></td>
                 </tr>
             </tbody>
         </table>

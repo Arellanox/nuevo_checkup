@@ -331,7 +331,7 @@ $encode = base64_encode($ruta);
                 </td>
                 <td style="width: 25%;text-align: center;">
                     <p>Cotización<br>
-                        <b>No. 75</b>
+                        <b>No. <?php echo $encabezado->FOLIO_COTIZACIONES ?></b>
                     </p>
                 </td>
             </tr>

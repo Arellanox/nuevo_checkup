@@ -432,15 +432,25 @@ class Miscelaneus
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_SOMA'];
                 break;
 
-            case 13:
-            case "13":
+            case 15:
+            case "15":
                 # COTIZACIONES
                 $infoCliente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CREACION'];
                 $carpeta_guardado = "cotizacion";
+                print_r($infoPaciente);
                 $infoCliente = [$infoCliente[count($infoCliente) - 1]];
                 $folio = $infoPaciente[0]['FOLIO_COTIZACIONES'];
+                print_r($infoPaciente);
                 break;
+
+            case 16:
+            case "16":
+                # TICKET
+                $arregloPaciente = $this->getBodyInfoTicket($master, $turno_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_TICKET'];
+                $carpeta_guardado = "ticket";
+                $folio = $infoPaciente[0]['FOLIO_TICKET'];
         }
 
         if ($area_id == 0) {
@@ -515,6 +525,30 @@ class Miscelaneus
         $arregloServicio = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
 
         return $arregloServicio;
+    }
+
+    private function getBodyInfoTicket($master, $id_turno)
+    {
+        # recuperamos los datos del paciente
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
+        $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+        $response = $master->getByProcedure("sp_cargos_turnos_b", [$id_turno]);
+
+        $locales = $this->setLabels($infoPaciente, $response);
+        $subroga = $this->setLabels($infoPaciente, $response);
+
+        $arrayTckt = array_merge($locales, $subroga);
+        # declaramos el array final 
+        $arregloTicket = array(
+            'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+            "FOLIO" => $infoPaciente[0]['FOLIO'],
+            "FECHA_TICKET" => $infoPaciente[0]['FECHA_TICKET'],
+            'CELULAR' => $infoPaciente[0]['CELULAR'],
+            'RFC' => $infoPaciente[0]['RFC'],
+            'ESTUDIOS_DETALLE' => $arrayTckt,
+        );
+
+        return $arregloTicket;
     }
 
     private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)
