@@ -28,7 +28,11 @@ $master = new Master();
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
-
+$api = 'ticket';
+$cliente_id = 1;
+$id_cotizacion = 11;
+$area_id = 16;
+$turno_id = 391;
 
 
 switch ($api) {
