@@ -28,26 +28,9 @@ include "../../variables.php";
   var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
-  const appname = 'nuevo_checkup';
-  switch ('<?php echo $url; ?>') {
-    case 'localhost':
-      var http = "http://";
-      var servidor = "localhost";
-      break;
-    default:
-      var http = "https://";
-      var servidor = "bimo-lab.com";
-      break;
-
-    case 'drjb.com.mx':
-      var http = "https://";
-      var servidor = "drjb.com.mx";
-      break;
-    case 'helicebiologicos.com':
-      var http = "http://";
-      var servidor = "helicebiologicos.com";
-      break;
-  }
+  const appname = 'practicantes';
+  var http = "http://";
+  var servidor = "localhost";
 
   miStorage = window.localStorage;
   miStorage.setItem("Olakace", "HOLA MUNDO XD");
@@ -123,13 +106,37 @@ include "../../variables.php";
     }
   }
 
-
   let array_selected;
   let array_user;
   var validar;
   const session = <?php echo json_encode($_SESSION); ?>;
   // session['id'] = '';
   session['token'] = '';
+
+  // ontooltip(); // <-- Ejecutar los tooltip en todo momento
+  // function ontooltip() {
+  var delay = 100,
+    setTimeoutConst;
+  $(document).on({
+    mouseenter: function(e) {
+      tool = this;
+      setTimeotConst = setTimeout(function() {
+        return new bootstrap.Tooltip(tool).show();
+      }, delay)
+    },
+    mouseleave: function(e) {
+      clearTimeout(setTimeotConst)
+      $('[role="tooltip"]').fadeOut(100, function() {
+        $(this).remove();
+      });
+    },
+  }, '[data-bs-toggle="tooltip"]')
+
+
+  // }
+
+
+
   $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/class.js'; ?>").done(function() {
     $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/funciones.js'; ?>").done(function() {
       loggin(function(val) {
@@ -141,9 +148,7 @@ include "../../variables.php";
               console.log(validar);
               if (validar == true) {
                 // <!-- Aqui controlar e incluir los tablas -->
-                $.getScript('modals/controlador.js').done(function() {
-                  ontooltip(); // <-- Ejecutar los tooltip en todo momento
-                }); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!
+                $.getScript('modals/controlador.js').done(function() {}); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!
               }
             });
           })
@@ -151,37 +156,4 @@ include "../../variables.php";
       }, <?php echo $tipoUrl; ?>)
     });
   });
-
-  function ontooltip() {
-    //tooltips para todos (source: https://getbootstrap.com/docs/5.0/components/tooltips/)
-
-    //Code source: https://stackoverflow.com/users/6679820/hooman (https://stackoverflow.com/questions/24655291/how-to-bind-bootstrap-tooltip-on-dynamic-elements#:~:text=%3C%3D%20Bootstrap%20v5.x%2C%20tooltip()%20doesn%27t%20exist%20in%20JQuery%20object.)
-    var body = $('body');
-    // body.on('mouseover', '[data-bs-toggle="tooltip"]', function(e) {
-
-    // });
-
-    // body.on('mouseleave', '[data-bs-toggle="tooltip"]', function(e) {
-
-    // });
-
-    var delay = 100,
-      setTimeoutConst;
-    body.on({
-      mouseenter: function(e) {
-        tool = this;
-        e.stopPropagation();
-        setTimeotConst = setTimeout(function() {
-          return new bootstrap.Tooltip(tool).show();
-        }, delay)
-      },
-      mouseleave: function(e) {
-        clearTimeout(setTimeotConst)
-        $('[role="tooltip"]').fadeOut(100, function() {
-          $(this).remove();
-        });
-      },
-    }, '[data-bs-toggle="tooltip"]')
-
-  }
 </script>

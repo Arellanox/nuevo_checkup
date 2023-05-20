@@ -17,14 +17,34 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
   },
   columns: [
     { data: 'COUNT' },
+    { data: 'ABREVIATURA' },
     { data: 'DESCRIPCION' },
-    // { data: 'CLASIFICACION_EXAMEN' },
     { data: 'DESCRIPCION_AREA' },
-    { data: 'ACTIVO' },
+    {
+      data: 'MINUTOS', render: function (data) {
+        return `${data} minutos`;
+      }
+    },
+    {
+      data: 'LOCAL', render: function (data) {
+        return data ? 'No' : 'Si';
+      }
+    },
+    {
+      data: 'SELECCIONABLE', render: function (data) {
+        if (data === null || data === 1) {
+          return 'Seleccionable';
+        } else {
+          return 'Desactivado';
+        }
+      }
+    },
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
-    { "width": "3px", "targets": 0 },
+    { width: "3px", targets: 'low' },
+    { width: "8%", targets: 'medium' },
+
   ],
 
 })

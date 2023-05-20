@@ -120,16 +120,16 @@
 
                         /* Para divisiones de 3 encabezado*/
                         .col-left {
-                            width: 42%;
-                            max-width: 42%;
+                            width: 53%;
+                            max-width: 53%;
                             text-align: left;
                             font-size: 11px;
                             margin-left: 2px;
                         }
 
                         .col-center {
-                            width: 41%;
-                            max-width: 41%;
+                            width: 30%;
+                            max-width: 30%;
                             text-align: left;
                             font-size: 11px;
                             margin-left: 2px;
