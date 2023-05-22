@@ -40,7 +40,8 @@ function getListAgenda(area = 11, fecha = formatoFechaSQL(new Date(), 'yy-mm-dd'
                     }
                 }
                 html += `</p>`;
-
+                html += `
+                        <p class="none-p">Observaciones: ${element.OBSERVACIONES}</p>`;
                 html += `<small>${formatoFecha2(element.CITA, [2, 1, 4, 1, 2, 2, 0])} | ${formatoFecha2(element.FINALIZA, [2, 1, 4, 1, 2, 2, 0])}</small>
                 </button>`;
 
