@@ -402,23 +402,24 @@ $encode = base64_encode($ruta);
                     <td style="width: 11%; text-align: right;">$418.00</td>
                 </tr>
                 <?php
-                $count = count($resultados->ESTUDIOS);
-                $i = 0;
 
-                $estudios = $resultados;
-                foreach ($estudios->CONTENEDORES as $a => $estudios) {
+                $resultArray = $resultados->ESTUDIOS_DETALLE;
+                $count = count((array)$resultArray);
+                // echo $count;
+                for ($i = 0; $i < $count; $i++) {
+
                     echo "  <tr>
-                                <td style=\"width: 34%; text-align: left;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: left;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: center;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
+                                <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
+                                <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
+                                <td style=\"width: 11%; text-align: right;\">" . json_decode(json_encode($resultArray[$i]), true)['PRECIO'] . "</td>
+                                <td style=\"width: 11%; text-align: right;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . "</td>
+                                <td style=\"width: 11%; text-align: right;\">0.00%</td>
+                                <td style=\"width: 11%; text-align: center;\">16% </td>
+                                <td style=\"width: 11%; text-align: right;\">" . json_decode(json_encode($resultArray[$i]), true)['TOTAL'] . "</td>
                             </tr>";
                 }
+                $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
 
-                $i++;
                 ?>
 
             </tbody>

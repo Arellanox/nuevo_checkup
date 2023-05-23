@@ -451,6 +451,7 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_TICKET'];
                 $carpeta_guardado = "ticket";
                 $folio = $infoPaciente[0]['FOLIO_TICKET'];
+                // print_r($arregloPaciente);
         }
 
         if ($area_id == 0) {
@@ -534,10 +535,22 @@ class Miscelaneus
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
         $response = $master->getByProcedure("sp_cargos_turnos_b", [$id_turno]);
 
-        $locales = $this->setLabels($infoPaciente, $response);
-        $subroga = $this->setLabels($infoPaciente, $response);
+        $arrayServicios = [];
+        $subTotal = 0;
+        for ($i = 0; $i < count($response); $i++) {
 
-        $arrayTckt = array_merge($locales, $subroga);
+            $cargosT = [
+                "PRODUCTO" => $response[$i]['paquetes'] == "" ? $response[$i]['servicios'] : $response[$i]['paquetes'],
+                "PRECIO" => $response[$i]['PRECIO'],
+                "CANTIDAD" => $response[$i]['CANTIDAD'],
+                "TOTAL" => ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']),
+                "SUBTOTAL" => ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO'])
+            ];
+            $subTotal = $subTotal + ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']);
+            array_push($arrayServicios, $cargosT);
+        }
+
+        // $arrayTckt = array_merge($locales, $subroga);
         # declaramos el array final 
         $arregloTicket = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
@@ -545,7 +558,8 @@ class Miscelaneus
             "FECHA_TICKET" => $infoPaciente[0]['FECHA_TICKET'],
             'CELULAR' => $infoPaciente[0]['CELULAR'],
             'RFC' => $infoPaciente[0]['RFC'],
-            'ESTUDIOS_DETALLE' => $arrayTckt,
+            'SUBTOTAL' => $subTotal,
+            'ESTUDIOS_DETALLE' => $arrayServicios,
         );
 
         return $arregloTicket;
