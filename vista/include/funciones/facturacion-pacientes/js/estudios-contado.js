@@ -1,54 +1,99 @@
+//Variable globales
+var tipo_pago = false, tipo_factura = false
+var dataPaciente, dataPrecios = {};
+
 
 $(document).on('click', '#terminar-proceso-cargo', function (event) {
-    event.preventDefault();
+    event.preventDefault()
 
     //Pregunta al usuario el tipo de factura
     alertMensajeConfirm({
-        title: '¿El paciente requiere factura?', text: '', icon: '',
+        title: '¿El paciente requiere factura?', text: 'Verifique que el tipo de dato sea correcto', icon: '',
         confirmButtonText: 'Si',
         denyButtonText: `No`,
+        denyButtonColor: 'gray',
         showDenyButton: true,
-        showCancelButton: false
+        cancelButtonText: 'Cancelar'
     }, function () {
         //Si fue si, abrir el modal de factura
-        configurarFactura();
+        $('#modalEstudiosContado').modal('hide')
+        configurarFactura(dataPaciente)
+
     }, 1, function () {
         //Si fue no, terminar el proceso con el tipo de pago contado...
-        finishProccess();
+        $('#modalEstudiosContado').modal('hide')
+        metodo()
     })
 
 })
 
-//Variable globales
-var tipo_pago = false, tipo_factura = false;
-//Vista de estudios que se le hicieron al paciente
-function configurarEstudios(data) {
-    //Estatus en proceso
-    tipo_pago = 'Contado';
-    tipo_factura = false
+$(document).on('submit', '#formularioPacienteFactura', function (event) {
+    event.preventDefault()
 
-    $('#nombre-paciente-contado').html(`${data['NOMBRE_COMPLETO']}`);
+    alertMensajeConfirm({
+        title: '¿Esta seguro que todos los datos están correctos?',
+        text: '¡No puedes cambiar estos datos después!',
+        icon: 'warning',
+        confirmButtonText: 'Si, estoy seguro'
+    }, function () {
+        //envio de datos (factura y tipo de pago_datos)
+        ajaxAwaitFormData({
+            api: 1, turno_id: dataPaciente['ID_TURNO'],
+            descuento_porcentaje: dataPrecios['descuento_porcentaje'], descuento: dataPrecios['descuento'], total_cargos: dataPrecios['total_cargos'],
+            subtotal: dataPrecios['subtotal'], iva: dataPrecios['iva'], total: dataPrecios['total'], pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), requiere_factura: 1
+        }, 'tickets_api', 'formularioPacienteFactura', { callbackAfter: true }, false, function (data) {
+
+            finalizarProcesoRecepcion(dataPaciente)
+            alertTicket(data, 'Factura y ticket guardado')
+        })
+    }, 1)
+
+    event.preventDefault()
+})
+
+
+//Vista de estudios que se le hicieron al paciente
+function configurarModal(data) {
+    //Estatus en proceso
+    tipo_pago = $('#contado-tipo-pago').val()
+    tipo_factura = false
+    dataPaciente = data
+    $('#nombre-paciente-contado').html(`${data['NOMBRE_COMPLETO']}`)
     //Mensaje de espera al usuario
-    alertToast('Espere un momento', 'info', 4000);
+    alertToast('Espere un momento', 'info', 4000)
+
+    rellenarSelect('#contado-tipo-pago', 'formas_pago_api', '2', 'ID_PAGO', 'DESCRIPCION')
+
     ajaxAwait({
         api: 1,
-        turnos_id: data['ID_TURNO'],
-    }, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
+        turno_id: data['ID_TURNO'],
+    }, 'cargos_turnos_api', { callbackAfter: true, returnData: false }, false, function (data) {
         //El arreglo debe contener tanto un arreglo de los estudios como el total de precio de los estudios
-        //let row = data.response.data; // todos los datos
+        //let row = data.response.data // todos los datos
 
-        let data = data.response.data //Todos los datos para el detalle;
-        let row = data.response.data['estudios']; // <-- Listas de estudios en bruto
+        data = data.response.data //Todos los datos para el detalle
+
+
+        //Quitar duplicidad
+        if (data['FACTURADO'] == 1) {
+            alertMensaje('warning', '¡Paciente Facturado!', 'Este paciente ya tiene factura, no puedes volver a tomar estos datos...');
+            return false;
+        }
+
+
+        let row = data['estudios'] // <-- Listas de estudios en bruto
+
+        $('.contenido-estudios').html('')
 
         for (const key in row) {
             if (Object.hasOwnProperty.call(row, key)) {
-                const element = row[key];
+                const element = row[key]
 
                 //Crea la fila de la tabla, Nombre del servicio, cantidad, y precio antes de iva
                 let html = `<tr>
-                                <th>${element['DESCRIPCION']}</th> 
-                                <td>${element['CANTIDAD']}</td>
-                                <td>${element['PRECIO_VENTA']}</td>
+                                <th>${element['SERVICIOS']}</th> 
+                                <td>${ifnull(element['CANTIDAD'], 0)}</td>
+                                <td>$${ifnull(element['PRECIO'], 0)}</td>
                             </tr>`
 
                 //Adjunta a las tablas la area correspondiente
@@ -56,7 +101,7 @@ function configurarEstudios(data) {
                     $(`#cargos-estudios-${element['AREA_ID']}`).append(html)
                     $(`#container-estudios-${element['AREA_ID']}`).fadeIn(0)
                 } else {
-                    $(`#cargos-estudios-0`).append(html);
+                    $(`#cargos-estudios-0`).append(html)
                     $(`#container-estudios-0`).fadeIn(0)
                 }
 
@@ -64,26 +109,130 @@ function configurarEstudios(data) {
         }
 
 
+        let total_cargos = data['TOTAL_CARGO']
+
+
+
+        let subtotal = total_cargos
+        $('#precio-subtotal').html(`$${subtotal.toFixed(2)}`)
+
+        let iva = subtotal * 0.16
+        $('#precio-iva').html(`$${iva.toFixed(2)}`)
+
+        let total = subtotal + iva
+        $('#precio-total').html(`$${total.toFixed(2)}`)
+
+        dataPrecios = {
+            descuento_porcentaje: 0,
+            descuento: 0,
+            total_cargos: total_cargos,
+            subtotal: subtotal,
+            iva: iva, total: total
+
+        }
+
+
+        $(document).on('change, keyup', '#descuento', function () {
+            let total_cargos = data['TOTAL_CARGO']
+            let porcentaje_descuento = $(this).val()
+            let descuento = porcentaje_descuento / 100 * total_cargos
+
+            $('#precio-descuento').html(`$${descuento.toFixed(2)}`)
+
+            let subtotal = total_cargos - descuento
+            $('#precio-subtotal').html(`$${subtotal.toFixed(2)}`)
+
+            let iva = subtotal * 0.16
+            $('#precio-iva').html(`$${iva.toFixed(2)}`)
+
+            let total = subtotal + iva
+            $('#precio-total').html(`$${total.toFixed(2)}`)
+
+            dataPrecios = {
+                descuento_porcentaje: porcentaje_descuento,
+                descuento: descuento,
+                total_cargos: total_cargos,
+                subtotal: subtotal,
+                iva: iva, total: total
+
+            }
+
+
+        })
+
+
+
         //Lista de precio, total de estudios, detalle fuera
-        $('#precio-total-cargo').html(`$${data['TOTAL_CARGO']}`)
-        $('#precio-descuento').html(`$${data['DESCUENTO']}`)
-        $('#precio-subtotal').html(`$${data['SUBTOTAL']}`)
-        $('#precio-iva').html(`$${data['IVA']}`)
-        $('#precio-total').html(`$${data['TOTAL']}`)
+        $('#precio-total-cargo').html(`$${ifnull(data['TOTAL_CARGO'].toFixed(2))}`) //CHECAR LA FUNCION ifnull PARA RECIBIR DATOS NUMERICOS :)
+        // $('#precio-descuento').html(`$${ifnull(data['DESCUENTO'])}`)
+        // $('#precio-subtotal').html(`$${ifnull(data['SUBTOTAL'])}`)
+        // $('#precio-iva').html(`$${ifnull(data['IVA'])}`)
+        // $('#precio-total').html(`$${ifnull(data['TOTAL'])}`)
+
+
+        $('#modalEstudiosContado').modal('show')
+
     })
 
 
-    $('#modalEstudiosContado').modal('show');
 }
 
 //Vista de factura (faltan datos)
-function configurarFactura() {
-    tipo_factura = true;
+function configurarFactura(data) {
+    tipo_factura = true
+
+    $('#nombre-paciente-factura').html(`${data['NOMBRE_COMPLETO']}`)
+
+    //Mensaje de espera al usuario
+    alertToast('Espere un momento', 'info', 4000)
+
+    rellenarSelect('#regimen_fiscal-factura', 'sat_regimen_api', 1, 'ID_REGIMEN', 'REGIMEN_FISCAL')
+    rellenarSelect('#uso-factura', 'sat_catalogo_api', 2, 'SAT_ID_CODIGO', 'COMPLETO')
+
+    $('#rfc-factura').val(data['RFC'])
+
+    $('#modalFacturaPaciente').modal('show')
 
 }
 
-//Llamado como "metodo"
-function finishProccess() {
+//No requiere factura o el mensaje de factura le dio que no
+function metodo() {
     //Termina el proceso del paciente con las llamadas que hizo el usuario
-    finalizarProcesoRecepcion(data, tipo_pago, tipo_factura);
+
+
+    finalizarProcesoRecepcion(dataPaciente)
+    ajaxAwait({
+        api: 1, turno_id: dataPaciente['ID_TURNO'],
+        descuento_porcentaje: dataPrecios['descuento_porcentaje'],
+        descuento: dataPrecios['descuento'], total_cargos: dataPrecios['total_cargos'],
+        subtotal: dataPrecios['subtotal'], iva: dataPrecios['iva'], total: dataPrecios['total'],
+        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), requiere_factura: 0
+    }, 'tickets_api', { callbackAfter: false }, function (data) {
+        alertTicket(data, 'Ticket guardado')
+    })
 }
+
+function alertTicket(data, textAlert) {
+    data = data.response.data
+
+    // alertMsj({
+    //     title: textAlert,
+    //     text: 'Se ha generado el ticket',
+    //     icon: 'success',
+    //     html: ` <p>Se ha generado el ticket, dale click aqui: </p>
+    //     <a href="${data['url_ticket']}" type="button" class="btn btn-cancelar" target="_blank">
+    //         <i class="bi bi-file-earmark-pdf"></i> Ticket
+    //     </a>
+    //     `
+    // })
+
+    alertMensaje('success', textAlert, 'Se ha generado el ticket');
+
+    $('#modalEstudiosContado').modal('hide')
+
+    $('#modalFacturaPaciente').modal('hide')
+}
+
+
+select2('#regimen_fiscal-factura', 'modalFacturaPaciente', 'Espere un momento')
+select2('#uso-factura', 'modalFacturaPaciente', 'Espere un momento')
