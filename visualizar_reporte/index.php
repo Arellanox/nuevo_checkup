@@ -19,10 +19,10 @@ $master = new Master();
 // var token = encodeURIComponent(window.btoa(myStr));
 
 
-// $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
-// $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
-// $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
-// $usuario_id = $_SESSION['id'];
+$api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
+$turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
+$area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
+$usuario_id = $_SESSION['id'];
 
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
