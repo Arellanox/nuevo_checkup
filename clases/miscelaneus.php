@@ -543,10 +543,11 @@ class Miscelaneus
                 "PRODUCTO" => $response[$i]['paquetes'] == "" ? $response[$i]['servicios'] : $response[$i]['paquetes'],
                 "PRECIO" => $response[$i]['PRECIO'],
                 "CANTIDAD" => $response[$i]['CANTIDAD'],
-                "TOTAL" => ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']),
-                "SUBTOTAL" => ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO'])
+                "TOTAL" => ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO'])
             ];
-            $subTotal = $subTotal + ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']);
+
+            //$subTotal = $subTotal + ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']);
+
             array_push($arrayServicios, $cargosT);
         }
 
@@ -558,7 +559,6 @@ class Miscelaneus
             "FECHA_TICKET" => $infoPaciente[0]['FECHA_TICKET'],
             'CELULAR' => $infoPaciente[0]['CELULAR'],
             'RFC' => $infoPaciente[0]['RFC'],
-            'SUBTOTAL' => $subTotal,
             'ESTUDIOS_DETALLE' => $arrayServicios,
         );
 

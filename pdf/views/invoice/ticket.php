@@ -383,24 +383,6 @@ $encode = base64_encode($ruta);
                 </tr>
             </thead>
             <tbody style="height: 420px">
-                <tr>
-                    <td style="width: 34%; text-align: left;">Ag. Carcinoembrionario (LABORATORIO)</td>
-                    <td style="width: 11%; text-align: left;">E48 -Unidad de servicio</td>
-                    <td style="width: 11%; text-align: right;">$418.00 </td>
-                    <td style="width: 11%; text-align: center;">1.00</td>
-                    <td style="width: 11%; text-align: center;">0.00%</td>
-                    <td style="width: 11%; text-align: center;">16%</td>
-                    <td style="width: 11%; text-align: right;">$418.00</td>
-                </tr>
-                <tr>
-                    <td style="width: 34%; text-align: left;">Ag. Carcinoembrionario (LABORATORIO)</td>
-                    <td style="width: 11%; text-align: left;">E48 -Unidad de servicio</td>
-                    <td style="width: 11%; text-align: right;">$418.00 </td>
-                    <td style="width: 11%; text-align: center;">1.00</td>
-                    <td style="width: 11%; text-align: center;">0.00%</td>
-                    <td style="width: 11%; text-align: center;">16%</td>
-                    <td style="width: 11%; text-align: right;">$418.00</td>
-                </tr>
                 <?php
 
                 $resultArray = $resultados->ESTUDIOS_DETALLE;
@@ -411,14 +393,14 @@ $encode = base64_encode($ruta);
                     echo "  <tr>
                                 <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
                                 <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
-                                <td style=\"width: 11%; text-align: right;\">" . json_decode(json_encode($resultArray[$i]), true)['PRECIO'] . "</td>
+                                <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO'] . "</td>
                                 <td style=\"width: 11%; text-align: right;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . "</td>
                                 <td style=\"width: 11%; text-align: right;\">0.00%</td>
                                 <td style=\"width: 11%; text-align: center;\">16% </td>
                                 <td style=\"width: 11%; text-align: right;\">" . json_decode(json_encode($resultArray[$i]), true)['TOTAL'] . "</td>
                             </tr>";
                 }
-                $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
+
 
                 ?>
 
@@ -432,26 +414,30 @@ $encode = base64_encode($ruta);
             </tbody>
         </table>
         <!--Inicio tabla totales -->
-        <p style="line-height: 2.5""></p>
+        <p style="line-height: 2.5"></p>
         <div style=" float: right;width: 30%;">
-        <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right; ">
-            <tbody>
-                <tr>
-                    <td>Subtotal</td>
-                    <td><?php echo $encabezado->SUBTOTAL; ?></td>
-                </tr>
-                <tr>
-                    <td>IVA (16.00%)</td>
-                    <td><?php echo $encabezado->IVA; ?></td>
-                </tr>
-                <tr style="background-color: darkgrey;">
-                    <td><b>Total</b></td>
-                    <td><b></p><?php echo $encabezado->TOTAL; ?></b></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <!---FIN DE LA TABLA DE PRODUCTOS--->
+            <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right; ">
+                <tbody>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td><?php print_r($encabezado->SUBTOTAL) ?></td>
+                    </tr>
+                    <tr>
+                        <td>IVA (16.00%)</td>
+                        <td>
+                            <p>16.00%</p>
+                        </td>
+                    </tr>
+                    <tr style="background-color: darkgrey;">
+                        <td><b>Total</b></td>
+                        <td><b></p><?php echo $encabezado->TOTAL;
+                                    $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
+                                    ?></b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!---FIN DE LA TABLA DE PRODUCTOS--->
     </div>
 </body>
 
