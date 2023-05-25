@@ -10,10 +10,10 @@ $(document).ready(function () {
       var day = new Date().getDate();
       console.log(new Date(year, month, day, 12))
       $.ajax({
-         url: `https://bimo-lab.com/nuevo_checkup/api/agenda_api.php`,
+         url: `${localStorage.getItem('http')}${localStorage.getItem('servidor')}/${localStorage.getItem('appname')}/api/agenda_api.php`,
          data: {
             api: 3,
-            area: 12,
+            area_id: localStorage.getItem('areaActual'),
          },
          dataType: 'json',
          type: 'POST',

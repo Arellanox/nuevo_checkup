@@ -55,6 +55,10 @@ include "../../variables.php";
       break;
   }
 
+  localStorage.setItem('http', http);
+  localStorage.setItem('servidor', servidor);
+  localStorage.setItem('appname', appname);
+
   miStorage = window.localStorage;
   miStorage.setItem("Olakace", "HOLA MUNDO XD");
   // <!-- Aqui controlar e incluir las modals -->

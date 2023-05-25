@@ -84,6 +84,7 @@ function configurarModal(data) {
         let row = data['estudios'] // <-- Listas de estudios en bruto
 
         $('.contenido-estudios').html('')
+        $('.tabla-estudios').fadeOut(0);
 
         for (const key in row) {
             if (Object.hasOwnProperty.call(row, key)) {
@@ -97,7 +98,7 @@ function configurarModal(data) {
                             </tr>`
 
                 //Adjunta a las tablas la area correspondiente
-                if (element['AREA_ID'] == '11' || element['AREA_ID'] == '12' || element['AREA_ID'] == '6' || element['AREA_ID'] == '8') {
+                if (element['AREA_ID'] == '11' || element['AREA_ID'] == '6' || element['AREA_ID'] == '8') {
                     $(`#cargos-estudios-${element['AREA_ID']}`).append(html)
                     $(`#container-estudios-${element['AREA_ID']}`).fadeIn(0)
                 } else {

@@ -23,12 +23,23 @@ $(window).on("hashchange", function (e) {
 });
 function hasLocation() {
     var hash = window.location.hash.substring(1);
-    if (validarVista(hash)) {
-        switch (hash) {
-            case "AGENDA_PACIENTES":
-                areaActiva = 11;
-                obtenerAgendaPacientes();
-                break;
-        }
+    // if (validarVista(hash)) {
+    switch (hash) {
+        case 'TOMA_DE_MUESTRAS':
+            localStorage.setItem('areaActual', 6);
+            obtenerAgendaPacientes();
+            break;
+
+        case 'ULTRASONIDO':
+            localStorage.setItem('areaActual', 8);
+            obtenerAgendaPacientes();
+            break;
+
+        case "AGENDA_PACIENTES":
+            areaActiva = 11;
+            localStorage.setItem('areaActual', 11);
+            obtenerAgendaPacientes();
+            break;
     }
+    // }
 }

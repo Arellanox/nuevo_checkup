@@ -456,7 +456,7 @@ function generarFormularioPaciente(id) {
                 html += '<p style="font-size: 19px; font-wieght: bolder">' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
                 html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
                 html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row[k]['ID_SERVICIO']}">`
-                html += `<input type="text" style="display: none" name="servicios[${inputname}][RESULTADO]" value="1">`
+                html += `<input type="text" style="display: none" name="servicios[${inputname}][RESULTADO]" value="N/A">`
                 html += endDiv;
               }
 

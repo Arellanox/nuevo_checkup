@@ -23,8 +23,7 @@
 
 
         <div class="card mt-3">
-            <iframe src="https://bimo-lab.com/nuevo_checkup/vista/include/funciones/agenda_ultra/full_demo/index.html"
-                frameborder="0" id="iframeCalendar" style="width: 100%; height: 75vh;"></iframe>
+            <iframe src="#" frameborder="0" id="iframeCalendar" style="width: 100%; height: 75vh;"></iframe>
         </div>
 
     </div>
@@ -49,6 +48,9 @@
             </div>
         </div>
     </div>
-
-
 </div>
+
+
+<script>
+    document.getElementById('iframeCalendar').src = `${localStorage.getItem('http')}${localStorage.getItem('servidor')}/${localStorage.getItem('appname')}/vista/include/funciones/agenda_ultra/full_demo/index.html`;
+</script>

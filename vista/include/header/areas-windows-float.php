@@ -9,6 +9,9 @@
                  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#AGENDA_PACIENTES'; ?>">
                      <i class="bi bi-dot"></i> Ultrasonido
                  </a>
+                 <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#TOMA_DE_MUESTRAS'; ?>">
+                     <i class="bi bi-dot"></i> Toma de muestra
+                 </a>
              </ul>
          </div>
      </li>

@@ -17,12 +17,22 @@ function obtenerPacientesContado() {
     }).done(function () {
         // Datatable
         $.getScript("contenido/js/contados-tablas.js");
-        // Botones
-        $.getScript("contenido/js/contados-botones.js");
+    });
+}
+
+function obtenerPacientesCredito() {
+    obtenerTitulo('Pacientes (Credito)'); //Aqui mandar el nombre de la area
+    $.post("contenido/credito.html", function (html) {
+        $("#body-js").html(html);
+    }).done(function () {
+        // // Datatable
+        // $.getScript("contenido/js/contados-tablas.js");
     });
 }
 
 
+// Botones
+$.getScript("contenido/js/contados-botones.js");
 
 function hasLocation() {
     var hash = window.location.hash.substring(1);
@@ -31,6 +41,9 @@ function hasLocation() {
     switch (hash) {
         case "CONTADO":
             obtenerPacientesContado();
+            break;
+        case "CREDITO":
+            obtenerPacientesCredito();
             break;
         default:
             window.location.hash = '#';

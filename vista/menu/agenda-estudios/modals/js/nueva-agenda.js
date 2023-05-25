@@ -6,16 +6,24 @@ modalNuevaAgenda.addEventListener('show.bs.modal', event => {
 
     dataEstudios = false
     rellenarSelect('#select-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-        id_area: 11
+        id_area: localStorage.getItem('areaActual')
     }, function (data) {
         // dataEstudios = data;
         dataEstudios = new GuardarArreglo(data);
+
+
+        let selected = data[$("#select-us").prop('selectedIndex')]
+
+
     });
 
     rellenarSelect('#select-horas', 'agenda_api', 2, 'ID_HORARIO', 'HORA_INICIAL', {
-        area_id: 11,
+        area_id: localStorage.getItem('areaActual'),
         date: $('#inputfechaAgenda').val()
     })
+
+    $('#list-estudios-ultrasonido').html('')
+    $('#tiempo-aproximado').html('0 minutos')
 
 })
 
@@ -26,7 +34,7 @@ $('#inputfechaAgenda').on('change', function () {
     //Obtener horas disponibles
     $('#select-horas').find('option').remove().end()
     rellenarSelect('#select-horas', 'agenda_api', 2, 'ID_HORARIO', 'HORA_INICIAL', {
-        area_id: 11,
+        area_id: localStorage.getItem('areaActual'),
         date: $(this).val()
     })
 
@@ -62,7 +70,7 @@ $('#FormAgendaNueva').submit(function (event) {
             ajaxAwaitFormData({
                 api: 1,
                 servicios: servicios,
-                area_id: 11
+                area_id: localStorage.getItem('areaActual')
             }, 'agenda_api', 'FormAgendaNueva', { callbackAfter: true }, false, function (data) {
                 alertToast('¡Agenda registrada!', 'success', 4000);
                 recargarListas()
@@ -92,8 +100,10 @@ $(document).on('click', '#btn-agregarEstudioImg', function (event) {
             agregarFilaDiv('#list-estudios-ultrasonido', selectData['DESCRIPCION'], selectData['ID_SERVICIO'])
             try {
                 //Establece el tiempo
-                dataEstudios.acumularSuma(selectData['MINUTOS'])
-                $('#tiempo-aproximado').html(`${dataEstudios.acumular} minutos`)
+                if (localStorage.getItem('areaActual') == 6) {
+                    dataEstudios.acumularSuma(selectData['MINUTOS'])
+                    $('#tiempo-aproximado').html(`${dataEstudios.acumular} minutos`)
+                }
             } catch (error) {
                 console.log(error)
                 alertToast('No se puedo obtener el tiempo aproximado, falta dato  [MINUTOS]', 'error', 4000)

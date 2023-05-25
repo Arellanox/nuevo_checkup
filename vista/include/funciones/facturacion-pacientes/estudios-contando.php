@@ -9,7 +9,7 @@
 
                 <div class="row">
                     <div class="col-12 col-md-8">
-                        <div id="container-estudios-11">
+                        <div style="display:none" class="tabla-estudios" id="container-estudios-11">
                             <div class="card m-1 p-3">
                                 <h5>Ultrasonido</h5>
                                 <!-- 11 -->
@@ -27,7 +27,7 @@
                             </div>
                         </div>
 
-                        <div id="container-estudios-6">
+                        <div style="display:none" class="tabla-estudios" id="container-estudios-6">
                             <div class="card m-1 p-3">
                                 <h5>Laboratorio</h5>
                                 <!-- 6 -->
@@ -45,7 +45,7 @@
                             </div>
                         </div>
 
-                        <div id="container-estudios-8">
+                        <div style="display:none" class="tabla-estudios" id="container-estudios-8">
                             <div class="card m-1 p-3">
                                 <h5>Rayos X</h5>
                                 <!-- 8 -->
@@ -63,7 +63,7 @@
                             </div>
                         </div>
 
-                        <div id="container-estudios-0">
+                        <div style="display:none" class="tabla-estudios" id="container-estudios-0">
                             <div class="card m-1 p-3">
                                 <h5>Otros estudios</h5>
                                 <!-- 0 -->
@@ -95,7 +95,7 @@
 
                             <div class="col-8 text-end">
                                 Descuento ( % )
-                                <input type="number" placeholder="% de descuento:" class="form-control" value="0" id="descuento">
+                                <input type="number" placeholder="% de descuento:" class="form-control input-form" value="0" id="descuento">
                             </div>
                             <div class="col-4 text-start" id="precio-descuento"> $0<!-- calculo --></div>
                             <div class="col-8 text-end">Subtotal:</div>

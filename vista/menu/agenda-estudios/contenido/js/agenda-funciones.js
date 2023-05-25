@@ -2,7 +2,7 @@
 
 getListAgenda()
 
-function getListAgenda(area = 11, fecha = formatoFechaSQL(new Date(), 'yy-mm-dd')) {
+function getListAgenda(area = localStorage.getItem('areaActual'), fecha = formatoFechaSQL(new Date(), 'yy-mm-dd')) {
     ajaxAwait({
         api: 3, area_id: area, date: fecha
     }, 'agenda_api', { callbackAfter: true, callbackBefore: true }, function () {
