@@ -298,14 +298,14 @@ $encode_firma = base64_encode($ruta_firma);
         <?php
                 }
             }
-            // echo '<div class="break"> </div>';
+            echo '<div class="break"> </div>';
         }
         ?>
 
 
         <!-- ANAMNESIS -->
         <?php
-        if (isset($resultados->ANAMNESIS)) {
+        if (isset($resultados->ANAMNESIS) && !empty($resultados->ANAMNESIS)) {
             echo '<h2 style="padding-bottom: 6px; padding-top: 6px;">ANAMNESIS </h2>';
         ?>
             <!-- <table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
