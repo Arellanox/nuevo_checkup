@@ -567,7 +567,8 @@ class Miscelaneus
             "DESCUENTO" => $infoDetalle[1][0]['DESCUENTO'],
             "IVA" => $infoDetalle[1][0]['IVA'],
             "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL'],
-            "CARGADO_POR" => $infoDetalle[1][0]['CARGADO_POR']
+            "USUARIO" => $infoDetalle[1][0]['USUARIO'],
+            "FOLIO" => $infoDetalle[1][0]['FOLIO']
         );
 
         return $arregloTicket;

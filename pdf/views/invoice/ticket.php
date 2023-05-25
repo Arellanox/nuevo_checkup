@@ -331,7 +331,7 @@ $encode = base64_encode($ruta);
                 </td>
                 <td style="width: 25%;text-align: center;">
                     <p>Folio<br>
-                        <b> 1</b>
+                        <b> <?php echo $resultados->FOLIO;?> </b>
                     </p>
                 </td>
             </tr>
@@ -443,7 +443,7 @@ $encode = base64_encode($ruta);
                     <hr style="height: 1px; background-color: black ; " align="center"><br>
                     ELABORADO POR
                 </p>
-                <td><b></p><?php echo $resultados->CARGADO_POR;
+                <td><b></p><?php echo $resultados->USUARIO;
                                     $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
                                     ?></b></td>
             </td>
