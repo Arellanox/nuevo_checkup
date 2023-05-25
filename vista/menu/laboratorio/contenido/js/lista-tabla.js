@@ -177,6 +177,7 @@ function generarFormularioPaciente(id) {
 
         //   </ul>
 
+        //Lee cada grupo
         for (var i = 0; i < data.length; i++) {
           // console.log('FOR')
           let row = data[i]
@@ -198,6 +199,7 @@ function generarFormularioPaciente(id) {
           //   }
           // }
 
+          //Creo valores por defecto para Biomolecular
           switch (row['ID_GRUPO']) {
             case '685': case '684': // <-- PCR -->
               kitDiag = {
@@ -352,7 +354,7 @@ function generarFormularioPaciente(id) {
           // console.log(count);
           html += '<ul class = "list-group card hover-list info-detalle" style="margin: 15px;padding: 15px;" >';
           html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
-          for (var k in row) {
+          for (var k in row) { //Empieza cada estudio del grupo
             // console.log(k, row[k])
             let inputname = getRandomInt(1000000000000);
             if (Number.isInteger(parseInt(k))) {
