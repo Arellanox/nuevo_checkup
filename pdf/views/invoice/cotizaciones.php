@@ -342,14 +342,14 @@ $encode = base64_encode($ruta);
             <tbody>
                 <tr>
                     <td style="background-color: darkgrey; width: 15%; border-radius: 4px 0px 0px 0px; "><b>RAZÓN SOCIAL</b></td>
-                    <td style="width: 55%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;" colspan="3"><?php echo $encabezado->RAZON_SOCIAL; ?></td>
+                    <td style="width: 55%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;" colspan="3"><?php echo $resultados->RAZON_SOCIAL; ?></td>
                     <td style="background-color: darkgrey; width: 30%; text-align: center; border-radius: 0px 4px 0px 0px; border-left: 1px solid darkgrey;"><b>FECHA DE EXPEDICIÓN (DD/MM/AA)</td>
                     </td>
                 </tr>
                 <tr>
                     <td style="background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 0px;"><b>DOMICILIO FISCAL</b></td>
                     <td style="width: 55%;text-align: left; border-top: 1px solid darkgrey;" colspan="3" class="cell">País: MEX</td>
-                    <td style="width: 30%;text-align: left; border-left: 1px solid darkgrey;"><?php echo $encabezado->FECHA_CREACION; ?></td>
+                    <td style="width: 30%;text-align: left; border-left: 1px solid darkgrey;"><?php echo $resultados->FECHA_CREACION; ?></td>
                 </tr>
                 <tr>
                     <td style="background-color: darkgrey; width: 15%;" class="colored-cell"></td>
@@ -360,10 +360,10 @@ $encode = base64_encode($ruta);
                 <tr>
                     <td style="background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 4px;"><b>TELÉFONO</td>
                     </td>
-                    <td style="width: 20%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $encabezado->TELEFONO; ?></td>
+                    <td style="width: 20%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $resultados->TELEFONO; ?></td>
                     <td style="background-color: darkgrey; width: 10%; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><b>RFC</td>
-                    <td style="width: 20%;text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $encabezado->RFC; ?></td>
-                    <td style="width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;"><?php echo $encabezado->FECHA_VENCIMIENTO; ?></td>
+                    <td style="width: 20%;text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;"><?php echo $resultados->RFC; ?></td>
+                    <td style="width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;"><?php echo $resultados->FECHA_VENCIMIENTO; ?></td>
                 </tr>
             </tbody>
         </table>
@@ -392,24 +392,7 @@ $encode = base64_encode($ruta);
                     <td style="width: 11%; text-align: center;">16%</td>
                     <td style="width: 11%; text-align: right;">$418.00</td>
                 </tr>
-                <?php
-                $count = count($resultados->ESTUDIOS);
-                $i = 0;
-
-                $estudios = $resultados;
-                foreach ($estudios->CONTENEDORES as $a => $estudios) {
-                    echo "  <tr>
-                                <td style=\"width: 34%; text-align: left;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: left;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: center;\">" . $recipiente->CONTENEDOR . "</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $recipiente->CONTENEDOR . "</td>
-                            </tr>";
-                }
-                $i++;
-                ?>
+               
             </tbody>
         </table>
         <table class="esquina-inferior">
@@ -420,34 +403,36 @@ $encode = base64_encode($ruta);
             </tbody>
         </table>
         <!--Inicio tabla totales -->
-        <p style="line-height: 2.5""></p>
+        <p style="line-height: 2.5"></p>
         <div style=" float: right;width: 30%;">
         <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right; ">
             <tbody>
                 <tr>
                     <td>Subtotal</td>
-                    <td><?php echo $encabezado->SUBTOTAL; ?></td>
+                    <td><?php echo $resultados->SUBTOTAL; ?></td>
                 </tr>
                 <tr>
                     <td>IVA (16.00%)</td>
-                    <td><?php echo $encabezado->IVA; ?></td>
+                    <td><?php echo $resultados->IVA; ?></td>
                 </tr>
                 <tr style="background-color: darkgrey;">
                     <td><b>Total</b></td>
-                    <td><b></p><?php echo $encabezado->TOTAL; ?></b></td>
+                    <td><b></p><?php echo $resultados->TOTAL_DETALLE; ?></b></td>
                 </tr>
             </tbody>
         </table>
     </div>
     <!---FIN DE LA TABLA DE PRODUCTOS--->
-    <div style="float: left;width: 30%;">
-        <table style="width: 100%; padding-top: 11%;" align="left">
-            <td style="text-align: center;">
-                <p style="width: 5%; text-align: center;">
-                    <hr style="height: 1px; background-color: black ; " align="center"><br>
-                    ELABORADO POR
-                </p>
-            </td>
+    <div style="float: left;width: 70%;">
+        <table style="width: 100%; padding-top: 16%; border-collapse: collapse;" align="left">
+            <tr>
+                <td style = "text-align: center;"></b></td>
+            </tr>
+            <tr style="text-align: center;">
+                <td style="width: 10%; text-align: center; border-top: 1px solid black;">
+                   ELABORADO POR
+                </td>
+            </tr>
         </table>
     </div>
     </div>

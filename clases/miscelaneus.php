@@ -326,12 +326,6 @@ class Miscelaneus
 
         $nombre_paciente = $infoPaciente[0]['NOMBRE'];
 
-        #Recupera la informacion del cliente
-        $infoCliente = $master->getByProcedure("sp_cotizaciones_gral", [$cliente_id]);
-        $infoCliente = [$infoCliente[count($infoCliente) - 1]];
-
-        $nombre_cliente = $infoCliente[0]['CLIENTE'];
-
         #Recuperamos el cuerpo y asignamos titulo si es necesario
         switch ($area_id) {
             case 0:
@@ -436,12 +430,8 @@ class Miscelaneus
             case "15":
                 # COTIZACIONES
                 $infoCliente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
-                $fecha_resultado = $infoPaciente[0]['FECHA_CREACION'];
                 $carpeta_guardado = "cotizacion";
-                print_r($infoPaciente);
-                $infoCliente = [$infoCliente[count($infoCliente) - 1]];
-                $folio = $infoPaciente[0]['FOLIO_COTIZACIONES'];
-                print_r($infoPaciente);
+                print_r($infoCliente);
                 break;
 
             case 16:
@@ -523,9 +513,36 @@ class Miscelaneus
 
     private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
     {
-        $arregloServicio = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
+        $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id]);
+        $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
 
-        return $arregloServicio;
+        $arrayDetalle = [];
+        
+        for ($i = 0; $i < count($response); $i++) {
+
+            $cargosDetalle = [
+                "PRODUCTO" => $response[$i]['PRODUCTO'],
+                "PRECIO_UNITARIO" => $response[$i]['PRECIO_UNITARIO'],
+                "CANTIDAD" => $response[$i]['CANTIDAD'],
+                "TOTAL" => $response[$i]['TOTAL'],
+            ];
+
+            array_push($arrayDetalle, $cargosDetalle);
+        }
+
+        $arregloCotizaciones = array(
+            'CLIENTE' => $infoCliente[0]['CLIENTE'],
+            "RAZON_SOCIAL" => $infoCliente[0]['RAZON_SOCIAL'],
+            'TELEFONO' => $infoCliente[0]['TELEFONO'],
+            'RFC' => $infoCliente[0]['RFC'],
+            'ESTUDIOS_DETALLE' => $arrayDetalle,
+            "SUBTOTAL" => $arrayDetalle[1][0]['SUBTOTAL'],
+            "DESCUENTO_SERVICIO" => $arrayDetalle[1][0]['DESCUENTO_SERVICIO'],
+            "IVA" => $infoDetalle[1][0]['IVA'],
+            "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL']
+        );
+
+        return $arregloCotizaciones;
     }
 
     private function getBodyInfoTicket($master, $id_turno)
@@ -538,17 +555,14 @@ class Miscelaneus
         //print_r($infoDetalle);
 
         $arrayServicios = [];
-        $subTotal = 0;
         for ($i = 0; $i < count($response); $i++) {
 
             $cargosT = [
                 "PRODUCTO" => $response[$i]['paquetes'] == "" ? $response[$i]['servicios'] : $response[$i]['paquetes'],
                 "PRECIO" => $response[$i]['PRECIO'],
                 "CANTIDAD" => $response[$i]['CANTIDAD'],
-                "TOTAL" => ((($infoDetalle[1][0]['DESCUENTO'])/($response[$i]['CANTIDAD'] * $response[$i]['PRECIO'])*100)+($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']))
+                "TOTAL" => ((($infoDetalle[1][0]['DESCUENTO'])/($response[$i]['CANTIDAD'] * $response[$i]['PRECIO'])*100)-($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']))
             ];
-
-            //$subTotal = $subTotal + ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']);
 
             array_push($arrayServicios, $cargosT);
         }
@@ -566,7 +580,7 @@ class Miscelaneus
             "SUBTOTAL" => $infoDetalle[1][0]['SUBTOTAL'],
             "DESCUENTO" => $infoDetalle[1][0]['DESCUENTO'],
             "IVA" => $infoDetalle[1][0]['IVA'],
-            "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL'],
+            "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL_DETALLE'],
             "USUARIO" => $infoDetalle[1][0]['USUARIO']
         );
 
