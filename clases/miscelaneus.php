@@ -558,7 +558,7 @@ class Miscelaneus
         //echo "Aquiiiii " . $infoDetalle[1][0]['SUBTOTAL'];
         $arregloTicket = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
-            "FOLIO" => $infoPaciente[0]['FOLIO'],
+            "FOLIO" => $infoPaciente[0]['FOLIO_TICKET'],
             "FECHA_TICKET" => $infoPaciente[0]['FECHA_TICKET'],
             'CELULAR' => $infoPaciente[0]['CELULAR'],
             'RFC' => $infoPaciente[0]['RFC'],
@@ -567,7 +567,7 @@ class Miscelaneus
             "DESCUENTO" => $infoDetalle[1][0]['DESCUENTO'],
             "IVA" => $infoDetalle[1][0]['IVA'],
             "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL'],
-            "CARGADO_POR" => $infoDetalle[1][0]['CARGADO_POR']
+            "USUARIO" => $infoDetalle[1][0]['USUARIO']
         );
 
         return $arregloTicket;

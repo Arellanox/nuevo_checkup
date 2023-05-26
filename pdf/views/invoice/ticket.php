@@ -331,7 +331,7 @@ $encode = base64_encode($ruta);
                 </td>
                 <td style="width: 25%;text-align: center;">
                     <p>Folio<br>
-                        <b> 1</b>
+                        <b> <?php echo $encabezado->FOLIO_TICKET;?> </b>
                     </p>
                 </td>
             </tr>
@@ -438,15 +438,17 @@ $encode = base64_encode($ruta);
         <!---FIN DE LA TABLA DE PRODUCTOS--->
         <div style="float: left;width: 30%;">
         <table style="width: 100%; padding-top: 11%;" align="left">
-            <td style="text-align: center;">
-                <p style="width: 5%; text-align: center;">
+            <tr>
+                <td><?php echo $resultados->USUARIO; ?></td>
+            </tr>
+            <tr style="text-align: center;">
+                <p style="width: 10%; text-align: center;">
                     <hr style="height: 1px; background-color: black ; " align="center"><br>
                     ELABORADO POR
                 </p>
-                <td><b></p><?php echo $resultados->CARGADO_POR;
-                                    $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
+                <td><b></p><?php $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
                                     ?></b></td>
-            </td>
+            </tr>
         </table>
     </div>
     </div>
