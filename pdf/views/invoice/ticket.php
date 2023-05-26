@@ -389,7 +389,10 @@ $encode = base64_encode($ruta);
                 $count = count((array)$resultArray);
                 // echo $count;
                 for ($i = 0; $i < $count; $i++) {
+                    
+                $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
 
+                $formateado = number_format($numero, 2);
                     echo "  <tr>
                                 <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
                                 <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
@@ -397,7 +400,7 @@ $encode = base64_encode($ruta);
                                 <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
                                 <td style=\"width: 11%; text-align: right;\">". $resultados->DESCUENTO. ".00%</td>
                                 <td style=\"width: 11%; text-align: center;\">16% </td>
-                                <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['TOTAL'] . "</td>
+                                <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
                             </tr>";
                 }
 
