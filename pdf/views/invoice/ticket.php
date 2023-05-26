@@ -414,15 +414,15 @@ $encode = base64_encode($ruta);
             </tbody>
         </table>
         <!--Inicio tabla totales -->
-        <p style="line-height: 2.5"></p>
-        <div style=" float: right;width: 50%;">
-            <table style=" width: 150px; text-align: right; border-bottom: transparent; align-items:right; ">
+        <p style="line-height: 2"></p>
+        <div style=" float: right;width: 30%;">
+            <table style=" width: 200px; text-align: right; border-bottom: transparent; align-items:right; ">
                 <tbody>
                     <tr>
                         <td>Subtotal</td>
                         <td><?php echo "$".$resultados->SUBTOTAL; ?></td>
                     </tr>
-                    <tr>
+                    <tr style="line-height: 0;">
                         <td>IVA (16.00%)</td>
                         <td>
                             <p><?php echo "$".$resultados->IVA; ?></p>
@@ -437,12 +437,12 @@ $encode = base64_encode($ruta);
         </div>
         <!---FIN DE LA TABLA DE PRODUCTOS--->
         <div style="float: left;width: 70%;">
-        <table style="width: 100%; padding-top: 15%;" align="left">
+        <table style="width: 100%; padding-top: 6%; border-collapse: collapse;" align="left">
             <tr>
                 <td style = "text-align: center;"><b><?php echo $resultados->USUARIO; ?></b></td>
             </tr>
             <tr style="text-align: center;">
-                <td style="width: 10%; text-align: center; border-top: 2px solid black;">
+                <td style="width: 10%; text-align: center; border-top: 1px solid black;">
                     <!--<hr style="height: 1px; background-color: black ; " align="center"><br>-->
                    ELABORADO POR
                 </td>
