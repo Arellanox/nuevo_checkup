@@ -276,10 +276,6 @@ if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
 }
 // $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
 
-if (!isset($qr)) {
-    $qr = null;
-}
-
 ?>
 
 <body>
@@ -334,7 +330,7 @@ if (!isset($qr)) {
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO_MESO; ?> </strong>
+                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO_FAST; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                     </td>
@@ -358,6 +354,24 @@ if (!isset($qr)) {
         <!-- <p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> -->
         <br>
     </div>
+    <div>
+        <table style="width: 100%; border-collapse: collapse; text-align: center;">
+            <tr style="background-color: #d8e0e2;" class="bold">
+                <td colspan="12" style="text-justify: left;"> "FAST CHECKUP" DE RIESGO DE ENFERMEDADES CRÓNICO DEGENERATIVAS</td>
+            </tr>
+        </table>
+    </div>
+    <table style="width: 100%; border-collapse: collapse; text-align: center;">
+            <tr style="background-color: #d8e0e2;" class="bold">
+                <td colspan="12" style="text-justify: left;">SOMATOMETRíA Y SIGNOS VITALES</td>
+            </tr>
+            <tr>
+                <td colspan="12">&nbsp;</td>
+            </tr>
+            <tr style="background-color: #d8e0e2;" class="bold">
+                <td colspan="12" style="text-align: left;">SOMATOMETRíA</td>
+            </tr>
+        </table>
     <div>
         <table style = "text-align: center; font-size: 13px">
             <tbody>
