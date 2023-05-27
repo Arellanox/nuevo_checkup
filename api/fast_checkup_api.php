@@ -14,9 +14,12 @@ $api = $_POST['api'];
 $master = new Master();
 
 $turno_id = $_POST['turno_id'];
-$cuestionario = $_POST['cuestionario'];
+$cuestionario = $_POST['quest-riesgo'];
 
+# para confirmar el reporte de fast checkup.
 $confirmado = $_POST['confirmado']; # si se envia 1 se guarda y envia el reporte, si se envia 0 solo se guarda.
+$resultado = $_POST['resultado']; # variable que reune el score final y el tipo de riesgo.
+
 
 switch ($api) {
     case 1:
@@ -29,7 +32,7 @@ switch ($api) {
             $ids[] = $key;
 
             # guardamos las respuestas que incluyen la respuesta como texto y la ponderacion como entero.
-            $respuestas[] = array("respuesta" => $value);
+            $respuestas[] = array("respuesta" => $value['valor'], "ponderacion"=>$value['ponderacion']);
         }
 
         $response = $master->insertByProcedure("sp_fastck_cuestionario_g", [json_encode($ids), json_encode($respuestas), $turno_id]);
@@ -42,7 +45,20 @@ switch ($api) {
         break;
     case 3:
         # confirmar el resultado del turno y enviar los reportes (todos los que tenga ese turno) por correo.
-        $response = $master->getByProcedure("sp_fastck_c", [$turno_id]);
+        foreach($resultado as $res){
+            $tipo_riesgo = $res['TIPO_RIESGO'];
+            $score_final = $res['SCORE_FINAL'];
+        }
+        
+        if($confirmado == 1){
+            # guardamos datos, creamos el reporte y enviamoso por correo.
+
+
+        } else {
+            # solo guardamos los datos
+            $response = $master->getByProcedure("sp_fastck_resultados_g", [$turno_id, ]);
+        }
+        
         break;
     case 0:
 
