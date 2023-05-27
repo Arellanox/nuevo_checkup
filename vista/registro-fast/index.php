@@ -5,7 +5,7 @@ $token = isset($_GET['token']) ? $_GET['token'] : null;
 $tip = isset($_GET['tip']) ? $_GET['tip'] : null;
 $ant = isset($_GET['ant']) ? $_GET['ant'] : null;
 include "../variables.php";
-$menu = "Pre-registro";
+$menu = "Pre-registro-fast";
 ?>
 
 <!DOCTYPE html>
@@ -60,11 +60,6 @@ $menu = "Pre-registro";
   let clienteRegistro, nombreCliente, idtoken;
   var registroAgendaRecepcion = 0;
   // console.log(codigo);
-  if (codigo != token) {
-    validarToken()
-  } else {
-    redireccionarPrerregistro()
-  }
 
 
   function vista(menu, url, tip) {
@@ -140,8 +135,8 @@ $menu = "Pre-registro";
     if (antecedentes == 0) ant = false;
 
     //Mostrar Vista
-    vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
   }
+  vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>', '<?php echo $tip; ?>')
 
 
 

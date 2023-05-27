@@ -18,13 +18,13 @@ $cuestionario = $_POST['cuestionario'];
 
 $confirmado = $_POST['confirmado']; # si se envia 1 se guarda y envia el reporte, si se envia 0 solo se guarda.
 
-switch($api){
+switch ($api) {
     case 1:
         # insertar cuestionario de riesgo que se encuentra en el prerregistro.
         $ids = array();
         $respuestas = array();
 
-        foreach($cuestionario as $key => $value){
+        foreach ($cuestionario as $key => $value) {
             # guardamos las ids separadas para poder enviarlas como json al sp.
             $ids[] = $key;
 
@@ -32,19 +32,35 @@ switch($api){
             $respuestas[] = array("respuesta" => $value);
         }
 
-        $response = $master->insertByProcedure("sp_fastck_cuestionario_g", [json_encode($ids),json_encode($respuestas), $turno_id]);
+        $response = $master->insertByProcedure("sp_fastck_cuestionario_g", [json_encode($ids), json_encode($respuestas), $turno_id]);
         break;
 
     case 2:
         # recuperar los valores de las pruebas para el cuestionario complemento que se ve en el modulo de consultorio.
-        $response = $master->getByProcedure("sp_fastck_b", [ $turno_id ]);
+        $response = $master->getByProcedure("sp_fastck_b", [$turno_id]);
 
         break;
     case 3:
         # confirmar el resultado del turno y enviar los reportes (todos los que tenga ese turno) por correo.
-        $response = $master->getByProcedure("sp_fastck_c", [ $turno_id ]);
+        $response = $master->getByProcedure("sp_fastck_c", [$turno_id]);
+        break;
+    case 0:
+
+        // echo var_dump($_POST['quest-riesgo']);
+
+        foreach ($_POST['quest-riesgo'] as $key => $value) {
+            # code...
+            $id = $key;
+            $respuesta = $value['valor'];
+            $ponderacion_respuesta = $value['ponderacion'];
+
+            if (!empty($respuesta)) {
+                echo "Pregunta $key: $id, $respuesta, $ponderacion_respuesta </br>";
+            }
+        }
+
+        exit;
         break;
 }
 
 echo $master->returnApi($response);
-?>
