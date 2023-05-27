@@ -5,6 +5,7 @@ $('.btn-formregistrar-agenda').prop('disabled', true);
 $('#eliminarForm').prop('disabled', true);
 $('#curp-paciente').prop('readonly', false);
 
+clienteRegistro = 19;
 
 setTimeout(() => {
   if (nombreCliente != null) {
