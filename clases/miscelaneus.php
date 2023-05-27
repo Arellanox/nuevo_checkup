@@ -324,6 +324,8 @@ class Miscelaneus
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
 
+        $infoPaciente = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
+
         $nombre_paciente = $infoPaciente[0]['NOMBRE'];
 
         #Recuperamos el cuerpo y asignamos titulo si es necesario
@@ -430,10 +432,12 @@ class Miscelaneus
             case "15":
                 # COTIZACIONES
                 $infoCliente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CREACION'];
                 $carpeta_guardado = "cotizacion";
-                print_r($infoCliente);
+                $infoCliente = [$infoCliente[count($infoCliente) - 1]];
+                $folio = $infoPaciente[0]['FOLIO_COTIZACIONES'];
+                print_r($infoPaciente);
                 break;
-
             case 16:
             case "16":
                 # TICKET
@@ -442,6 +446,16 @@ class Miscelaneus
                 $carpeta_guardado = "ticket";
                 $folio = $infoPaciente[0]['FOLIO_TICKET'];
                 // print_r($arregloPaciente);
+                break;
+            case 17:
+            case 17:
+                #FAST CHECKUP
+                $arregloPaciente = $this->getBodyInfoFast($master, $turno_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_MESO'];
+                $carpeta_guardado = "fast_checkup";
+                #$folio = $infoPaciente[0]['FOLIO_SOMA'];
+                break;
+                
         }
 
         if ($area_id == 0) {
@@ -585,6 +599,22 @@ class Miscelaneus
         );
 
         return $arregloTicket;
+    }
+
+    private function getBodyInfoFast($master, $id_turno)
+    {
+        # recuperamos los datos del paciente
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
+        $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+
+        $arregloFast = array(
+            'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+            "FOLIO" => $infoPaciente[0]['FOLIO'],
+            "EDAD" => $infoPaciente[0]['EDAD'],
+            'SEXO' => $infoPaciente[0]['SEXO'],
+        );
+
+        return $arregloFast;
     }
 
     private function getBodyInfoConsultorio($master, $id_turno, $id_consulta)

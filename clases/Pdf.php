@@ -66,6 +66,7 @@ class Reporte
             case 'electro':
             case 'cotizacion':
             case 'ticket':
+            case 'fast_checkup':
             case 'reporte_masometria':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;

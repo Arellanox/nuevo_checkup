@@ -28,11 +28,11 @@ $usuario_id = $_SESSION['id'];
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
-// $api = 'consultorio';
-// // $cliente_id = 1;
-// // $id_cotizacion = 11;
-// // $area_id = 16;
-// $turno_id = 701;
+$api = 'cotizacion';
+$cliente_id = 1;
+$id_cotizacion = 11;
+$area_id = 15;
+$turno_id = 309;
 
 // $preview = 1;
 
@@ -68,6 +68,9 @@ switch ($api) {
         break;
     case 'ticket':
         $r = $master->reportador($master, $turno_id,  $area_id, 'ticket', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'fast_checkup':
+        $r = $master->reportador($master, $turno_id,  $area_id, 'fast_checkup', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
 
     default:
