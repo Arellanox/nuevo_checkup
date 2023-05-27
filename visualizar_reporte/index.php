@@ -28,11 +28,11 @@ $usuario_id = $_SESSION['id'];
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
-$api = 'cotizacion';
-$cliente_id = 1;
-$id_cotizacion = 11;
-$area_id = 15;
-$turno_id = 309;
+// $api = 'cotizacion';
+// $cliente_id = 1;
+// $id_cotizacion = 11;
+// $area_id = 15;
+// $turno_id = 309;
 
 // $preview = 1;
 
