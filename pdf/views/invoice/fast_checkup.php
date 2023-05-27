@@ -357,7 +357,10 @@ if (!isset($qr)) {
                     <td>87 PUNTOS</td>
                 </tr>
                 <tr>
-                    <td>RIESGO MODERADO</td>
+                    <td style="font-size: 15px">RIESGO MODERADO</td>
+                </tr>
+                <tr style="background-color: #ffd42a; font-size: 12px">
+                    <td>Recomendaciones</td>
                 </tr>
             </tbody>
         </table>
