@@ -275,7 +275,7 @@ if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
     $encode_firma = base64_encode($ruta_firma); #IMPORTANTE RECIBIRLO 
 }
 // $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
-
+$qr = null;
 ?>
 
 <body>
@@ -398,7 +398,7 @@ if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
             <?php
             $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
 
-            #include 'includes/footer.php';
+            include 'includes/footer.php';
             ?>
         </div>
     </div>
