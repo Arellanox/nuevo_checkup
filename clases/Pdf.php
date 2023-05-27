@@ -176,7 +176,7 @@ class Reporte
                 break;
 
             case 'fast_checkup':
-                $template = render_view('invoice/cotizaciones.php', $view_vars);
+                $template = render_view('invoice/fast_checkup.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                  break;
