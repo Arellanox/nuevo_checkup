@@ -20,7 +20,7 @@
     <?php
 
     $kit = $body[8]->resultado;
-    $clave = $body[9]->resultado;
+    $NoLote = $body[9]->resultado;
 
     $body = array_slice($body, 1, count($body) - 4);
     foreach ($body as $key => $value) {
@@ -51,5 +51,6 @@
 <br>
 <p style="text-align:justify;"><strong>Equipo utilizado: </strong> CFX96™ Real-Time System BIO-RAD <br>
     <strong>Kit Diagnóstico: </strong><?php echo $kit; ?> <br>
+    <strong>No. Lote: </strong><?php echo $NoLote; ?> <br>
 </p>
 <br>

@@ -28,14 +28,13 @@ $usuario_id = $_SESSION['id'];
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
-// $api = 'cotizacion';
+// $api = 'biomolecular';
 // $cliente_id = 1;
 // $id_cotizacion = 11;
 // $area_id = 15;
-// $turno_id = 309;
+// $turno_id = 854;
 
 // $preview = 1;
-
 
 switch ($api) {
     case 'imagenologia':
