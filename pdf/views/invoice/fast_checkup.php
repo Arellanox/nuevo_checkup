@@ -275,7 +275,9 @@ if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
     $encode_firma = base64_encode($ruta_firma); #IMPORTANTE RECIBIRLO 
 }
 // $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
-$qr = null;
+if (isset($qr)) {
+    $qr = null;
+}
 ?>
 
 <body>
@@ -379,10 +381,12 @@ $qr = null;
                     <td>87 PUNTOS</td>
                 </tr>
                 <tr>
-                    <td style="font-size: 16px">
+                    <td style="font-size: 16px; align-items: center; align-content: center; ">
                         <?php
                         echo "<img src='data:image/png;base64, " . $encode_advertencia_amarilla . "' height='75' >";
                         ?>
+                    </td>
+                    <td style="font-size: 16px; align-items: center; align-content: center; text-align: left;">
                         RIESGO MODERADO
                     </td>
                 </tr>
