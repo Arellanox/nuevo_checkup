@@ -287,9 +287,12 @@ if (isset($qr)) {
                 <tr>
                     <td class="col-der" style="border-bottom: none">
                         <h4>
-                            DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
-                            Checkup Clínica y Prevención<br>
-                            Reporte de Somatometría
+                            <b>DIAGNOSTICO BIOMOLECULAR</b><br>
+                            RFC DBI2012084N2<br>
+                            Calle AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
+                            VILLAHERMOSA, TABASCO, 86060, MEX<br>
+                            9936340250<br>
+                            hola@bimo.com.mx
                         </h4>
                     </td>
                     <td class="col-izq" style="border-bottom: none; text-align:center;">
@@ -359,29 +362,21 @@ if (isset($qr)) {
     <div>
         <table style="width: 100%; border-collapse: collapse; text-align: center;">
             <tr style="background-color: #d8e0e2;" class="bold">
-                <td colspan="12" style="text-justify: left;"> "FAST CHECKUP" DE RIESGO DE ENFERMEDADES CRÓNICO DEGENERATIVAS</td>
+                <td colspan="12" style="text-justify: left;font-size: 12px; padding-top: 3px; padding-bottom: 3px;"> "FAST CHECKUP" DE RIESGO DE ENFERMEDADES CRÓNICO DEGENERATIVAS</td>
             </tr>
         </table>
     </div>
-    <table style="width: 100%; border-collapse: collapse; text-align: center;">
-            <tr style="background-color: #d8e0e2;" class="bold">
-                <td colspan="12" style="text-justify: left;">SOMATOMETRíA Y SIGNOS VITALES</td>
-            </tr>
-            <tr>
-                <td colspan="12">&nbsp;</td>
-            </tr>
-        </table>
     <div>
-        <table style = "text-align: center; font-size: 13px">
+        <table style="text-align: center; font-size: 13px; border-collapse: collapse;padding-top: 2rem; ">
             <tbody>
                 <tr>
-                    <td>Resultado</td>
+                    <td colspan="2">Resultado</td>
                 </tr>
                 <tr>
-                    <td>87 PUNTOS</td>
+                    <td colspan="2">87 PUNTOS</td>
                 </tr>
                 <tr>
-                    <td style="font-size: 16px; align-items: center; align-content: center; ">
+                    <td style="align-items: center; align-content: center; vertical-align: middle; text-align: center; width: 60%;">
                         <?php
                         echo "<img src='data:image/png;base64, " . $encode_advertencia_amarilla . "' height='75' >";
                         ?>
@@ -391,14 +386,17 @@ if (isset($qr)) {
                     </td>
                 </tr>
                 <tr style="background-color: #ffd42a; font-size: 14px">
-                    <td>Recomendaciones</td>
+                    <td colspan="2">Recomendaciones</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;background-color: #ffd42a; font-size: 13px;" colspan="2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <div style="padding-top: 120px;">
-        <div class="">
+    <div style="padding-top: 100px;">
+        <div class="footer">
             <?php
             $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
 
@@ -415,7 +413,7 @@ $altura = 200;
 <style>
     .footer {
         position: fixed;
-        bottom: -165px;
+        bottom: -105px;
         left: 25px;
         right: 25px;
         height: 200px
