@@ -368,9 +368,6 @@ if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
             <tr>
                 <td colspan="12">&nbsp;</td>
             </tr>
-            <tr style="background-color: #d8e0e2;" class="bold">
-                <td colspan="12" style="text-align: left;">SOMATOMETRíA</td>
-            </tr>
         </table>
     <div>
         <table style = "text-align: center; font-size: 13px">
@@ -401,7 +398,7 @@ if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
             <?php
             $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
 
-            include 'includes/footer.php';
+            #include 'includes/footer.php';
             ?>
         </div>
     </div>
