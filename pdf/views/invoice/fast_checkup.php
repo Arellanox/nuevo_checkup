@@ -347,6 +347,21 @@ if (!isset($qr)) {
         <!-- <p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> -->
         <br>
     </div>
+    <div>
+        <table style = "text-align: center;">
+            <tbody>
+                <tr>
+                    <td>Resultado</td>
+                </tr>
+                <tr>
+                    <td>87 PUNTOS</td>
+                </tr>
+                <tr>
+                    <td>RIESGO MODERADO</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div style="padding-top: 120px;">
         <div class="">
