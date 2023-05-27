@@ -250,6 +250,17 @@
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
 
+//para las advertencias
+// para el path del logo 
+$ruta_advertencia_amarilla = file_get_contents('../pdf/public/assets/advertencia_amarilla.png');
+$encode_advertencia_amarilla = base64_encode($ruta_advertencia_amarilla);
+
+$ruta_advertencia_roja = file_get_contents('../pdf/public/assets/advertencia_roja.png');
+$encode_advertencia_roja = base64_encode($ruta_advertencia_roja);
+
+$ruta_advertencia_verde = file_get_contents('../pdf/public/assets/advertencia_verde.png');
+$encode_advertencia_verde = base64_encode($ruta_advertencia_verde);
+
 // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
 //los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
@@ -348,7 +359,7 @@ if (!isset($qr)) {
         <br>
     </div>
     <div>
-        <table style = "text-align: center;">
+        <table style = "text-align: center; font-size: 13px">
             <tbody>
                 <tr>
                     <td>Resultado</td>
@@ -357,9 +368,14 @@ if (!isset($qr)) {
                     <td>87 PUNTOS</td>
                 </tr>
                 <tr>
-                    <td style="font-size: 15px">RIESGO MODERADO</td>
+                    <td style="font-size: 16px">
+                        <?php
+                        echo "<img src='data:image/png;base64, " . $encode_advertencia_amarilla . "' height='75' >";
+                        ?>
+                        RIESGO MODERADO
+                    </td>
                 </tr>
-                <tr style="background-color: #ffd42a; font-size: 12px">
+                <tr style="background-color: #ffd42a; font-size: 14px">
                     <td>Recomendaciones</td>
                 </tr>
             </tbody>
