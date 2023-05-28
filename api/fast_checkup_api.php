@@ -19,6 +19,8 @@ $cuestionario = $_POST['quest-riesgo'];
 # para confirmar el reporte de fast checkup.
 $confirmado = $_POST['confirmado']; # si se envia 1 se guarda y envia el reporte, si se envia 0 solo se guarda.
 $resultado = $_POST['resultado']; # variable que reune el score final y el tipo de riesgo.
+$prefolio = $_POST['prefolio'];
+$suma_ponderacion = $_POST['ponderacion'];
 
 
 switch ($api) {
@@ -28,14 +30,16 @@ switch ($api) {
         $respuestas = array();
 
         foreach ($cuestionario as $key => $value) {
-            # guardamos las ids separadas para poder enviarlas como json al sp.
-            $ids[] = $key;
+            if(!empty($value['valor'])){            
+                # guardamos las ids separadas para poder enviarlas como json al sp.
+                $ids[] = $key;
 
-            # guardamos las respuestas que incluyen la respuesta como texto y la ponderacion como entero.
-            $respuestas[] = array("respuesta" => $value['valor'], "ponderacion" => $value['ponderacion']);
+                # guardamos las respuestas que incluyen la respuesta como texto y la ponderacion como entero.
+                $respuestas[] = array("respuesta" => $value['valor'], "ponderacion" => $value['ponderacion']);
+            }
         }
 
-        $response = $master->insertByProcedure("sp_fastck_cuestionario_g", [json_encode($ids), json_encode($respuestas), $turno_id]);
+        $response = $master->insertByProcedure("sp_fastck_cuestionario_g", [json_encode($ids), json_encode($respuestas), $prefolio, $suma_ponderacion]);
         break;
 
     case 2:
