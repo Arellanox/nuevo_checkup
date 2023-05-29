@@ -169,7 +169,8 @@ class Correo
                     $mail->Body = $this->cuerpoRecuperarPassword($token);
                     break;
                 case "fastck":
-                    $mail->Body = $this->cuerpoCorreoFastCheckup($paciente);
+                    $f = str_replace("_"," ",$paciente);
+                    $mail->Body = $this->cuerpoCorreoFastCheckup($f);
                     break;
             }
 
