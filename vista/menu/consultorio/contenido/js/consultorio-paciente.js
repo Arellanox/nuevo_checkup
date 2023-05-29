@@ -132,3 +132,7 @@ function obtenerHistorialConsultas(id) {
     });
   });
 }
+
+function obtenerConsultaRapida() {
+
+}

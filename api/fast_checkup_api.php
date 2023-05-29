@@ -30,7 +30,7 @@ switch ($api) {
         $respuestas = array();
 
         foreach ($cuestionario as $key => $value) {
-            if(!empty($value['valor'])){            
+            if (!empty($value['valor'])) {
                 # guardamos las ids separadas para poder enviarlas como json al sp.
                 $ids[] = $key;
 
@@ -49,10 +49,10 @@ switch ($api) {
         break;
     case 3:
         # confirmar el resultado del turno y enviar los reportes (todos los que tenga ese turno) por correo.
-        foreach ($resultado as $res) {
-            $tipo_riesgo = $res['TIPO_RIESGO'];
-            $score_final = $res['SCORE_FINAL'];
-        }
+        // foreach ($resultado as $res) {
+        $tipo_riesgo = $res['TIPO_RIESGO'];
+        $score_final = $res['SCORE_FINAL'];
+        // }
 
         if ($confirmado == 1) {
             # guardamos datos, creamos el reporte y enviamoso por correo.
@@ -64,6 +64,8 @@ switch ($api) {
         }
 
         break;
+
+        //No usable
     case 0:
 
         // echo var_dump($_POST['quest-riesgo']);

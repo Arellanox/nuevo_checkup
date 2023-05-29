@@ -130,9 +130,7 @@ function avisoArea(tip = 0) {
 
 //Ajax Async (NO FORM DATA SUPPORT)
 async function ajaxAwait(dataJson, apiURL,
-  config = {
-    alertBefore: false
-  },
+  config = { /* configuracion de la funcion de arriba */ },
   //Callback
   callbackBefore = function (data) {
     alertMsj({
@@ -212,9 +210,7 @@ function configAjaxAwait(config) {
 async function ajaxAwaitFormData(dataJson = {
   id_turno: 0,
 }, apiURL, form = 'SinForm',
-  config = {
-    alertBefore: false
-  },
+  config = { /* configuracion de la funcion de arriba */ },
   //Callback antes de enviar datos
   callbackBefore = function () {
     alertMsj({
@@ -235,6 +231,7 @@ async function ajaxAwaitFormData(dataJson = {
     config = configAjaxAwait(config)
 
     let formID = document.getElementById(form);
+    console.log(formID);
     let formData = new FormData(formID);
 
     for (const key in dataJson) {

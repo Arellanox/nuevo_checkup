@@ -31,8 +31,25 @@ $(document).on('click', '#btn-seguir-agenda', function (event) {
 
 })
 
+$(document).on('input change', '.required', function () {
+  var allFieldsFilled = true;
+  $('.required').each(function () {
+    if ($(this).val() === '') {
+      allFieldsFilled = false;
+      return false; // Salir del bucle each si se encuentra un campo vacío
+    }
+  });
+
+  if (allFieldsFilled) {
+    $('.btn-formregistrar-agenda').prop('disabled', false);
+  } else {
+    $('.btn-formregistrar-agenda').prop('disabled', true);
+  }
+});
+
+
 // Registrar agenda del paciente
-$("#formCuestionarioRiesgo").submit(function (event) {
+$("#formCuestionarioRiesgo").submit(async function (event) {
   event.preventDefault();
 
   // alert("form formAntecedentes-paciente")
@@ -118,6 +135,8 @@ $("#formCuestionarioRiesgo").submit(function (event) {
       break;
   }
 
+
+
   if ($('#selectSegmentos').val() != null) {
     formData.set('segmento_id', $('#selectSegmentos').val()) //
   }
@@ -135,9 +154,19 @@ $("#formCuestionarioRiesgo").submit(function (event) {
     cancelButtonColor: '#d33',
     confirmButtonText: 'Sí, regístrame',
     cancelButtonText: "Cancelar"
-  }).then((result) => {
+  }).then(async (result) => {
     if (result.isConfirmed) {
+
+
       $(".btn-formregistrar-agenda").prop('disabled', true);
+
+      //Obtiene la ID del paciente
+      let idPaciente = await ajaxAwaitFormData({
+        api: 1,
+      }, 'pacientes_api', 'formRegistrarAgenda', { WithoutResponseData: true });
+      formData.set('pacienteId', idPaciente)
+
+      $('#formRegistrarAgenda').trigger('reset');
 
       $.ajax({
         data: formData,
@@ -152,6 +181,8 @@ $("#formCuestionarioRiesgo").submit(function (event) {
         success: function (data) {
           if (mensajeAjax(data)) {
             if (data.response.code == 1) {
+
+              let responseAgenda = data.response.data;
 
               //Checkup Fast
               const formDataArray = [];
@@ -188,12 +219,14 @@ $("#formCuestionarioRiesgo").submit(function (event) {
                 'quest-riesgo': formDataArray
               }, 'fast_checkup_api', { callbackAfter: true }, false, (data) => {
 
+                $('#formCuestionarioRiesgo').trigger('reset')
+                $('#ModalCuestionarioRiesgo').modal('hide');
 
                 //MOSTRAR PREFOLIO EN HTML PARA RESALTARLO EN ROJOS
                 // alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, llegará un correo de confirmación con su prefolio (' + data.response.data + ')')
-                alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, identifique con el siguiente prefolio(' + data.response.data + ')')
-                // $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + data.response.data + ')</strong>)</div>')
-                $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, identifiquese con el siguiente prefolio(<strong class="bg-danger">(' + data.response.data + ') en bimo</strong>)</div>')
+                alertMensaje('success', '¡Registro completado!', 'Su registro ha sido agendado, identifique con el siguiente prefolio(' + responseAgenda + ')')
+                // $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, llegará un correo de confirmación junto a su prefolio(<strong class="bg-danger">(' + responseAgenda + ')</strong>)</div>')
+                $('#log').html('<div class="alert alert-success" role="alert">Su registro ha sido agendado, identifiquese con el siguiente prefolio(<strong class="bg-danger">(' + responseAgenda + ') en bimo</strong>)</div>')
 
 
 

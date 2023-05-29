@@ -1,79 +1,37 @@
 <h5>Genere su nueva cita</h5>
 <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
 <hr>
-<p class="text-center">Necesitamos identificarlo, utilice su <strong>CURP</strong> para crear su cita</p>
+
 <div class="row">
-  <div class="col-12 col-lg-8" id="Label-BuscarPaciente">
-    <label for="curp" class="form-label" id="label-identificacion">CURP</label>
-    <input type="text" name="curp" value="" class="form-control input-form" id="curp-paciente" placeholder="---" required>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">
-      <label class="form-check-label" for="checkCurpPasaporte-agenda">
-        Soy extranjero
-      </label>
+  <div class="col-12 col-lg-4">
+    <label for="nombre" class="form-label">Nombre(s)</label>
+    <input type="text" name="nombre" value="" class="form-control required input-form">
+  </div>
+  <div class="col-6 col-lg-4">
+    <label for="paterno" class="form-label">Apellido paterno</label>
+    <input type="text" name="paterno" value="" class="form-control required input-form">
+  </div>
+  <div class="col-6 col-lg-4">
+    <label for="materno" class="form-label">Apellido materno</label>
+    <input type="text" name="materno" value="" class="form-control required input-form">
+  </div>
+  <div class="col-8 col-lg-4">
+    <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
+    <input type="date" class="form-control required input-form" name="nacimiento" placeholder="" onchange="$(`input[class='form-control required input-form agenda']`).val(calcularEdad(this.value))">
+  </div>
+  <div class="col-4 col-lg-4">
+    <label for="edad" class="form-label">Edad</label>
+    <div class="input-group">
+      <input type="number" class="form-control required input-form agenda" id="numericEdad" step="0.01" name="edad" placeholder="años" min="0" max="150">
+      <!-- <span class="input-span">años</span> -->
     </div>
   </div>
-  <div class="col-12 col-lg-4" style="margin-bottom: 10px;">
-
-    <div class="row text-center d-flex justify-content-lg-center justify-content-center">
-      <div class="col-12">
-        <label for="selectpaciente" class="form-label">Buscar</label>
-      </div>
-      <div class="col-auto">
-        <button class="btn btn-sm btn-confirmar" type="button" id="actualizarForm"><i class="bi bi-binoculars"></i> Consultar</button>
-      </div>
-      <div class="col-auto">
-        <button class="btn btn-sm btn-borrar" type="button" id="eliminarForm"><i class="bi bi-eraser"></i> Limpiar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="formDIV">
-  <hr>
-  <p id="mensaje" class="text-center"></p>
-  <div class="row">
-    <div class="col-6">
-      <p>Paciente:</p>
-      <p id="paciente-registro"></p>
-    </div>
-    <div class="col-6">
-      <p>CURP/Pasaporte:</p>
-      <p id="curp-registro"></p>
-    </div>
-    <div class="col-6">
-      <p>Sexo:</p>
-      <p id="sexo-registro"></p>
-    </div>
-    <div class="col-6">
-      <p>Procedencia</p>
-      <div class="" id="procedencia-agenda">
-        <p id="procedencia-registro"></p>
-      </div>
-    </div>
-    <!-- <div class="col-6">
-      <label for="segmento" class="form-label">Seleccionar segmento</label>
-      <select class="form-control input-form" id="selectSegmentos">
-      </select>
-    </div> -->
-    <div class="col-12">
-      <label for="curp" class="form-label">Fecha de agenda</label>
-      <input type="date" name="fechaAgenda" value="<?php echo date('Y-m-d') ?>" class="form-control input-form" required id="fecha-agenda">
-    </div>
-  </div>
-  <br>
-  <div id="cuestionadioRegistro">
-    <hr>
-    <h3>Cuestionario</h3>
-    <p class="none-p" style="margin-left: 10px" id="descripcion-antecedentes">
-      Si es su primer registro, rellene cada campo del cuestionario. Si ha tenido un registro previo podrá visualizar su
-      información y actualizarlos. <br>
-      Haga click en cada categoria del cuestionario para desplegar los campos del mismo.
-    </p>
-    <div class="mt-3" id="antecedentes-registro">
-
-    </div>
+  <div class="col-12 col-lg-4">
+    <label for="curp" class="form-label">Fecha de agenda</label>
+    <input type="date" name="fechaAgenda" value="<?php echo date('Y-m-d') ?>" class="form-control required input-form" id="fecha-agenda">
   </div>
 </div>
+
 
 <?php
 date_default_timezone_set('America/Mexico_City'); ?>

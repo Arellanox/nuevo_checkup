@@ -13,8 +13,10 @@
   </div>
 </div>
 
-<div class="container" style="padding-top: 3%;max-width: 50%;">
-  <div id="log"></div>
+<div class="d-flex justify-content-lg-center justify-content-center">
+  <div class="container col-12 col-lg-6" style="padding-top: 3%">
+    <div id="log"></div>
+  </div>
 </div>
 
 <style>
