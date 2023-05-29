@@ -8,7 +8,7 @@
 
   <div class="col-12 col-lg-12 d-flex justify-content-lg-center justify-content-center">
     <button type="button" class="cta-button btn" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPrueba">
-      <i class="bi bi-clipboard-heart"></i> Agendar Cita
+      <i class="bi bi-clipboard-heart"></i> Nuevo registro
     </button>
   </div>
 </div>
