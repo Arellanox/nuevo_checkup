@@ -32,14 +32,14 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 $api = 'fast_checkup';
-$turno_id = 434;
+$turno_id = 427;
 $area_id = 17;
 // // $area_id = 12;
 // $turno_id = 742;
 
 
 
-$cliente_id = 19;
+//$cliente_id = 19;
 // $id_cotizacion = 7;
 
 switch ($api) {
