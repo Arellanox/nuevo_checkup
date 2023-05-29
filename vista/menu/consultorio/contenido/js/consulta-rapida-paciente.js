@@ -35,9 +35,9 @@ async function obtenerContenidoConsultaRapida(data) {
 
             $('#resultado-html-riesgo').html('')
 
-            let puntuacion = row['RIESGO_SCORE']
-            let tipoRiesgo = puntuacion < 10 ? 'Leve' : puntuacion <= 21 ? 'Moderado' : 'Alto';
-            let claseAlerta = puntuacion < 10 ? 'alert-success' : puntuacion <= 21 ? 'alert-danger' : 'alert-warning';
+            let puntuacion = parseInt(row['RIESGO_SCORE'])
+            let tipoRiesgo = puntuacion <= 10 ? 'Leve' : puntuacion <= 21 ? 'Moderado' : 'Alto';
+            let claseAlerta = puntuacion <= 10 ? 'alert-success' : puntuacion <= 21 ? 'alert-warning' : 'alert-danger';
 
             let divAlerta = $('<div>', { class: 'alert ' + claseAlerta, role: 'alert' }).html('Riesgo <strong>' + tipoRiesgo + '</strong> con una puntuación de: <strong>' + puntuacion + '</strong>');
 
@@ -55,10 +55,15 @@ async function obtenerContenidoConsultaRapida(data) {
             var puntuacionTension = getPuntuacionTension(row.SISTOLICA, row.DIASTOLICA);
             var puntuacionIMC = getPuntuacionIMC(row.INDICE_MASA);
 
-            var resultadoFinal = puntuacionHemoglobina + puntuacionTension + puntuacionIMC;
-            var nivel = resultadoFinal <= 6 ? "leve" : "alto";
-            var claseCSS = nivel === "leve" ? "border-success" : "border-danger";
-
+            if (puntuacionHemoglobina != 'NA' || puntuacionTension != 'NA' || puntuacionIMC != 'NA') {
+                var resultadoFinal = puntuacionHemoglobina + puntuacionTension + puntuacionIMC;
+                console.log(resultadoFinal);
+                var nivel = resultadoFinal <= 6 ? "leve" : "alto";
+                var claseCSS = nivel === "leve" ? "border-success" : "border-danger";
+            } else {
+                claseCSS = '';
+                resultadoFinal = 'Pendiente';
+            }
             $("#card-resultado-tabla").addClass(claseCSS);
             $('#resultado-ponderacion').html(resultadoFinal)
 
@@ -82,6 +87,10 @@ async function obtenerContenidoConsultaRapida(data) {
 
 function getPuntuacionHemoglobina(valor) {
     var num = parseFloat(valor);
+    if (isNaN(num)) {
+        return 'NA'
+    }
+
     if (num < 5.7) {
         return 0;
     } else if (num >= 5.7 && num <= 6.4) {
@@ -95,6 +104,10 @@ function getPuntuacionTension(sistolica, diastolica) {
     var sistolicaNum = parseInt(sistolica);
     var diastolicaNum = parseInt(diastolica);
 
+    if (isNaN(sistolicaNum) || isNaN(diastolicaNum)) {
+        return 'NA'
+    }
+
     if (sistolicaNum < 120 && diastolicaNum < 80) {
         return 0;
     } else if (sistolicaNum >= 120 && sistolicaNum <= 139 && diastolicaNum >= 80 && diastolicaNum <= 89) {
@@ -106,6 +119,10 @@ function getPuntuacionTension(sistolica, diastolica) {
 
 function getPuntuacionIMC(valor) {
     var num = parseFloat(valor);
+    if (isNaN(num)) {
+        return 'NA'
+    }
+
     if (num < 24.9) {
         return 0;
     } else if (num >= 25.0 && num <= 29.9) {
@@ -114,6 +131,7 @@ function getPuntuacionIMC(valor) {
         return 4;
     }
 }
+
 
 
 
@@ -148,6 +166,10 @@ $('#btn-ver-reporte').click(function () {
 
 
 $(document).on('click', '#btn-consulta-guardar, #btn-consulta-terminar', function () {
+
+    if (arregloResultado.resultadoFinal == "Pendiente")
+        alertToast('No puedes guardar o confirmar el resultado si aun no están listos')
+
     let confirmado = parseInt($(this).attr('data-bs'))
     accion = 'guardar'
 
