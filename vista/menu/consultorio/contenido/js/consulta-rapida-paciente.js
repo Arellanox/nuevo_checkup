@@ -55,7 +55,7 @@ async function obtenerContenidoConsultaRapida(data) {
             var puntuacionTension = getPuntuacionTension(row.SISTOLICA, row.DIASTOLICA);
             var puntuacionIMC = getPuntuacionIMC(row.INDICE_MASA);
 
-            if (puntuacionHemoglobina == 'NA' || puntuacionTension == 'NA' || puntuacionIMC == 'NA') {
+            if (puntuacionHemoglobina != 'NA' || puntuacionTension != 'NA' || puntuacionIMC != 'NA') {
                 var resultadoFinal = puntuacionHemoglobina + puntuacionTension + puntuacionIMC;
                 console.log(resultadoFinal);
                 var nivel = resultadoFinal <= 6 ? "leve" : "alto";
@@ -167,7 +167,7 @@ $('#btn-ver-reporte').click(function () {
 
 $(document).on('click', '#btn-consulta-guardar, #btn-consulta-terminar', function () {
 
-    if (arregloResultado.resultadoFinal == 'Pendiente')
+    if (arregloResultado.resultadoFinal == "Pendiente")
         alertToast('No puedes guardar o confirmar el resultado si aun no están listos')
 
     let confirmado = parseInt($(this).attr('data-bs'))
