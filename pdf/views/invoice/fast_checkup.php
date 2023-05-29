@@ -370,13 +370,13 @@ if ($tipoAdvertencia === "LEVE") {
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_SOMA ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $resultados->FOLIO ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
-                        Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
+                        Sexo: <strong style="font-size: 12px;"><?php echo $resultados->SEXO; ?> </strong>
                     </td>
                 </tr>
                 <tr>
@@ -392,7 +392,7 @@ if ($tipoAdvertencia === "LEVE") {
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO_FAST; ?> </strong>
+                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                     </td>
@@ -430,7 +430,7 @@ if ($tipoAdvertencia === "LEVE") {
                     <td colspan="2">Resultado</td>
                 </tr>
                 <tr>
-                    <td colspan="2">87 PUNTOS</td>
+                    <td colspan="2"><?php echo $resultados->SCORE; ?> PUNTOS</td>
                 </tr>
                 <tr>
                     <td style="align-items: center; align-content: center; vertical-align: middle; text-align: right; width: 60%;">
