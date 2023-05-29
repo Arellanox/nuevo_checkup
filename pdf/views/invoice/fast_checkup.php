@@ -316,13 +316,13 @@ $imagenAdvertencia = "";
 $textoRecomendacion = "";
 $colorAdvertencia = "";
 
-if ($tipoAdvertencia === "success") {
+if ($tipoAdvertencia === "LEVE") {
     $imagenAdvertencia = $encode_advertencia_verde;
     $textoRecomendacion = $textoVerde;
     $colorAdvertencia = "#6dcd01";
     $tamaño_letra = "font-size: 10px";
     $riesgo = "BAJO";
-} else if ($tipoAdvertencia === "warning") {
+} else if ($tipoAdvertencia === "MODERADO") {
     $imagenAdvertencia = $encode_advertencia_amarilla;
     $textoRecomendacion = $textoamarillo;
     $colorAdvertencia = "#ffd42a";
