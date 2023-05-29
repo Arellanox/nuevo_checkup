@@ -261,6 +261,38 @@ $encode_advertencia_roja = base64_encode($ruta_advertencia_roja);
 $ruta_advertencia_verde = file_get_contents('../pdf/public/assets/advertencia_verde.png');
 $encode_advertencia_verde = base64_encode($ruta_advertencia_verde);
 
+$textoVerde = "¡Enhorabuena!  
+<br>El continuar con hábitos de estilo de vida saludable te ayudará a que el margen de riesgo de padecer enfermedades crónico degenerativas sea menor; sin embargo, debes tener en cuenta las siguientes recomendaciones: 
+<br>1.- Visita a tu médico una vez al año.
+<br>2.- Hazte a un checkup médico al menos una vez al año, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estaremos encantados de recibirte.
+<br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 5 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
+<br>4.- Realiza tus tres comidas e incluye colaciones (el desayuno es importante ¡no lo evites!), añade el consumo de carnes magras (sin grasa), aumenta el consumo de alimentos ricos en fibra saludable, toma 2 litros de agua al día (un vaso de agua media hora antes de la comida) y preferentemente cocina tus alimentos de la siguiente forma: asado, al vapor, horneado y a la plancha; reduce el consumo de azúcar o sal, evita el consumo de grasas saturadas y limita el consumo de bebidas azucaradas y alimentos con alto contenido de grasas.
+<br>¡Es tiempo de hacer un cambio!  
+<br>Transforma tu vida y adopta hábitos de estilo de vida saludable que te ayudarán a reducir el margen de riesgo de padecer enfermedades crónico degenerativas; toma en cuenta las siguientes recomendaciones: 
+<br>1.- Visita a tu médico, esto servirá para que él conozca tu estado actual de salud y te guíe en hacer cambios significativos.
+<br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
+<br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 3 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
+<br>4.- Realiza tus tres comidas e incluye colaciones (el desayuno es importante ¡no lo evites!), añade el consumo de carnes magras (sin grasa), aumenta el consumo de alimentos ricos en fibra saludable, toma 2 litros de agua al día (un vaso de agua media hora antes de la comida) y preferentemente cocina tus alimentos de la siguiente forma: asado, al vapor, horneado y a la plancha; reduce el consumo de azúcar o sal, evita el consumo de grasas saturadas y limita el consumo de bebidas azucaradas y alimentos con alto contenido de grasas.
+";
+
+$textoamarillo = "
+<br>¡Es tiempo de hacer un cambio!  
+<br>Es hora de pensar en el estilo de vida actual y tomar algunas acciones para adoptar hábitos saludables que te ayudarán a reducir el margen de riesgo de padecer enfermedades crónico degenerativas; te sugerimos las siguientes recomendaciones:
+<br>1.- Visita a tu médico, esto servirá para que él conozca tu estado actual de salud y te guíe en hacer cambios significativos.
+<br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
+<br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 3 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
+<br>4.- Realiza tus tres comidas e incluye colaciones (el desayuno es importante ¡no lo evites!), añade el consumo de carnes magras (sin grasa), aumenta el consumo de alimentos ricos en fibra saludable, toma 2 litros de agua al día (un vaso de agua media hora antes de la comida) y preferentemente cocina tus alimentos de la siguiente forma: asado, al vapor, horneado y a la plancha; reduce el consumo de azúcar o sal, evita el consumo de grasas saturadas y limita el consumo de bebidas azucaradas y alimentos con alto contenido de grasas.
+";
+
+$textorojo = "
+<br>¡Es momento de actuar!  
+<br>Es momento de revisar tu estado de salud, acude a tu médico, no dejes pasar el tiempo, tienes una elevada probabilidad de estar padeciendo en este momento una enfermedad crónico-degenerativa, mientras tanto te damos estas recomendaciones: 
+<br>1.- Visita a tu médico a la brevedad posible esto servirá para que él conozca tu estado actual de salud e inicie un plan de tratamiento adecuado.
+<br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
+<br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 3 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
+<br>4.- Realiza tus tres comidas e incluye colaciones (el desayuno es importante ¡no lo evites!), añade el consumo de carnes magras (sin grasa), aumenta el consumo de alimentos ricos en fibra saludable, toma 2 litros de agua al día (un vaso de agua media hora antes de la comida) y preferentemente cocina tus alimentos de la siguiente forma: asado, al vapor, horneado y a la plancha; reduce el consumo de azúcar o sal, evita el consumo de grasas saturadas y limita el consumo de bebidas azucaradas y alimentos con alto contenido de grasas.
+";
+
 // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
 //los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
@@ -278,6 +310,25 @@ if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
 if (isset($qr)) {
     $qr = null;
 }
+# success, warning, danger
+$tipoAdvertencia = "success";
+$imagenAdvertencia = "";
+$textoRecomendacion = "";
+$colorAdvertencia = "";
+
+if ($tipoAdvertencia === "success") {
+    $imagenAdvertencia = $encode_advertencia_verde;
+    $textoRecomendacion = $textoVerde;
+    $colorAdvertencia = "#6dcd01";
+} else if ($tipoAdvertencia === "warning") {
+    $imagenAdvertencia = $encode_advertencia_amarilla;
+    $textoRecomendacion = $textoamarillo;
+    $colorAdvertencia = "#ffd42a";
+} else {
+    $imagenAdvertencia = $encode_advertencia_roja;
+    $textoRecomendacion = $textorojo;
+    $colorAdvertencia = "#fd1d1d";
+}
 ?>
 
 <body>
@@ -286,14 +337,14 @@ if (isset($qr)) {
             <tbody>
                 <tr>
                     <td class="col-der" style="border-bottom: none">
-                        <h4>
+                        <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                             RFC DBI2012084N2<br>
                             Calle AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
                             VILLAHERMOSA, TABASCO, 86060, MEX<br>
                             9936340250<br>
                             hola@bimo.com.mx
-                        </h4>
+                        </p>
                     </td>
                     <td class="col-izq" style="border-bottom: none; text-align:center;">
                         <?php
@@ -367,7 +418,7 @@ if (isset($qr)) {
         </table>
     </div>
     <div>
-        <table style="text-align: center; font-size: 13px; border-collapse: collapse;padding-top: 2rem; ">
+        <table style="text-align: center; font-size: 13px; border-collapse: collapse;padding-top: 2rem; width: 520px;">
             <tbody>
                 <tr>
                     <td colspan="2">Resultado</td>
@@ -376,20 +427,22 @@ if (isset($qr)) {
                     <td colspan="2">87 PUNTOS</td>
                 </tr>
                 <tr>
-                    <td style="align-items: center; align-content: center; vertical-align: middle; text-align: center; width: 60%;">
+                    <td style="align-items: center; align-content: center; vertical-align: middle; text-align: right; width: 60%;">
                         <?php
-                        echo "<img src='data:image/png;base64, " . $encode_advertencia_amarilla . "' height='75' >";
+                        echo "<img src='data:image/png;base64, " . $imagenAdvertencia . "' height='75' >";
                         ?>
                     </td>
                     <td style="font-size: 16px; align-items: center; align-content: center; text-align: left;">
                         RIESGO MODERADO
                     </td>
                 </tr>
-                <tr style="background-color: #ffd42a; font-size: 14px">
-                    <td colspan="2">Recomendaciones</td>
+                <tr style="background-color: <?php echo $colorAdvertencia; ?>; font-size: 14px;">
+                    <td colspan="2" style="padding-top: 4px;">Recomendaciones</td>
                 </tr>
                 <tr>
-                    <td style="text-align: left;background-color: #ffd42a; font-size: 13px;" colspan="2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</td>
+                    <td style="text-align: left; background-color: <?php echo $colorAdvertencia; ?>; font-size: 13px; padding-bottom: 4px; padding-left: 6px;" colspan="2">
+                        <?php echo $textoRecomendacion; ?>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -413,7 +466,7 @@ $altura = 200;
 <style>
     .footer {
         position: fixed;
-        bottom: -105px;
+        bottom: -50px;
         left: 25px;
         right: 25px;
         height: 200px
