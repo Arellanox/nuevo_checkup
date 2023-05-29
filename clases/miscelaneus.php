@@ -606,12 +606,14 @@ class Miscelaneus
         # recuperamos los datos del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+        $response = $master->getByProcedure('sp_fastck_tipo_riesgo', [$id_turno]);
 
         $arregloFast = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "FOLIO" => $infoPaciente[0]['FOLIO'],
             "EDAD" => $infoPaciente[0]['EDAD'],
             'SEXO' => $infoPaciente[0]['SEXO'],
+            'TIPO_RIESGO' => $response[0]['TIPO_RIESGO']
         );
 
         return $arregloFast;
