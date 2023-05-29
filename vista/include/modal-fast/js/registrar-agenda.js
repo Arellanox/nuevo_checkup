@@ -187,7 +187,7 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
               //Checkup Fast
               const formDataArray = [];
 
-              $('#formCuestionarioRiesgo input[name^="quest-riesgo"]').each(function () {
+              $('#formCuestionarioRiesgo input[name^="quest-riesgo"]:checked').each(function () {
                 const name = $(this).attr('name');
                 const valor = $(this).val();
                 const index = name.match(/\[(\d+)\]/)[1];
