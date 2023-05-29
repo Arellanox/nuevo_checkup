@@ -149,31 +149,34 @@ $('#btn-ver-reporte').click(function () {
 
 $(document).on('click', '#btn-consulta-guardar, #btn-consulta-terminar', function () {
     let confirmado = parseInt($(this).attr('data-bs'))
+    accion = 'guardar'
 
-    confirmado ? () => {
+    if (confirmado == 1) {
         text = 'Se confirmará y enviará todos los resultados del paciente.';
-        acción = 'confirmar'
-    } : () => {
+        accion = 'confirmar'
+    } else {
         text = 'Se actualizarán los datos para la vista previa.';
-        acción = 'guardar'
-    };
+        accion = 'guardar'
+    }
 
     alertMensajeConfirm({
         title: `¿Estas seguro de ${accion} los datos?`,
         text: text,
-        confirmButtonText: `Sí, ${acción}`,
+        confirmButtonText: `Sí, ${accion}`,
         cancelButtonText: `No`
-    }, ajaxAwait({
-        api: 3, tipo_riesgo: arregloResultado.nivel, score_final: arregloResultado.resultadoFinal, confirmado: confirmado
-    }, 'fast_checkup_api', { callbackAfter: true }, false, () => {
-        if (confirmado) {
-            alertMsj({
-                title: '¡Reporte listo!',
-                text: '¡Todos los reportes han sido enviados correctamente!',
-                showCancelButton: false
-            })
-        } else {
-            alertToast('Calculo de reporte guardado', 'success', 4000)
-        }
-    }), 1)
+    }, () => {
+        ajaxAwait({
+            api: 3, tipo_riesgo: arregloResultado.nivel, score_final: arregloResultado.resultadoFinal, confirmado: confirmado, turno_id: pacienteActivo.array['ID_TURNO']
+        }, 'fast_checkup_api', { callbackAfter: true }, false, () => {
+            if (confirmado) {
+                alertMsj({
+                    title: '¡Reporte listo!',
+                    text: '¡Todos los reportes han sido enviados correctamente!',
+                    showCancelButton: false
+                })
+            } else {
+                alertToast('Calculo de reporte guardado', 'success', 4000)
+            }
+        })
+    }, 1)
 })
