@@ -20,13 +20,16 @@ function obtenerPacientesContado() {
     });
 }
 
+//Globales
+var TablaGrupos = false;
 function obtenerPacientesCredito() {
     obtenerTitulo('Pacientes (Crédito)'); //Aqui mandar el nombre de la area
     $.post("contenido/credito.html", function (html) {
         $("#body-js").html(html);
     }).done(function () {
-        // // Datatable
-        // $.getScript("contenido/js/contados-tablas.js");
+        TablaGrupos = false
+        // Datatable
+        $.getScript("contenido/js/contados-tablas.js");
     });
 }
 

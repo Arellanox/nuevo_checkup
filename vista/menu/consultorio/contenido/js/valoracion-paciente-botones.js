@@ -435,3 +435,6 @@ function guardarInformacion(data, callback) {
     }
   })
 }
+
+
+

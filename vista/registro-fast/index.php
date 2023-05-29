@@ -5,7 +5,7 @@ $token = isset($_GET['token']) ? $_GET['token'] : null;
 $tip = isset($_GET['tip']) ? $_GET['tip'] : null;
 $ant = isset($_GET['ant']) ? $_GET['ant'] : null;
 include "../variables.php";
-$menu = "Pre-registro";
+$menu = "Pre-registro-fast";
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +60,7 @@ $menu = "Pre-registro";
   let clienteRegistro, nombreCliente, idtoken;
   var registroAgendaRecepcion = 0;
   // console.log(codigo);
+
   if (codigo != token) {
     validarToken()
   } else {

@@ -134,6 +134,10 @@ async function obtenerValoracion(data, idconsulta) {
   await obtenerInformacionConsulta(idconsulta)
   loader("Out", 'bottom')
 
+
+
+
+
 }
 
 function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, clase, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;') {
@@ -193,3 +197,38 @@ async function obtenerConsultaMedica(data, idConsultaMedica) {
   await obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
   loader("Out", 'bottom')
 }
+
+
+
+
+
+
+
+
+
+function obtenerConsultaRapida(data) {
+
+}
+
+function ObtenerVistaConsultaRapida(data) {
+  loader("In")
+}
+
+
+
+$(document).on('click', '#btn-ir-consulta-rapida', function (e) {
+  loader("In")
+  $("#titulo-js").html(''); //Vaciar la cabeza de titulo
+  $.post("contenido/consulta-rapida-paciente.html", function (html) {
+    $("#body-js").html(html);
+    pacienteActivo = new GuardarArreglo(pacienteActivo.array);
+  }).done(function () {
+    // Obtener metodos para el dom
+    $.getScript("contenido/js/consulta-rapida-paciente.js").done(function () {
+
+      metodoConsultaRapida(pacienteActivo.array)
+
+    })
+    // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
+  });
+})

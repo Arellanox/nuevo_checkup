@@ -324,7 +324,7 @@ class Miscelaneus
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
 
-        $infoPaciente = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
+        // $infoPaciente = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
 
         $nombre_paciente = $infoPaciente[0]['NOMBRE'];
 
@@ -448,15 +448,15 @@ class Miscelaneus
                 // print_r($arregloPaciente);
                 break;
             case 17:
-            case 17:
                 #FAST CHECKUP
                 $arregloPaciente = $this->getBodyInfoFast($master, $turno_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_MESO'];
                 $carpeta_guardado = "fast_checkup";
                 #$folio = $infoPaciente[0]['FOLIO_SOMA'];
                 break;
-                
         }
+
+
 
         if ($area_id == 0) {
             $area_id = 6;
@@ -480,9 +480,9 @@ class Miscelaneus
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
-        // print_r(json_encode($pie_paginarregloPacientea));
+        // print_r(json_encode($arregloPaciente));
         // print_r(json_encode($infoPaciente[0]));
-        //exit;
+        // exit;
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
 
@@ -531,7 +531,7 @@ class Miscelaneus
         $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
 
         $arrayDetalle = [];
-        
+
         for ($i = 0; $i < count($response); $i++) {
 
             $cargosDetalle = [
@@ -552,8 +552,8 @@ class Miscelaneus
             'ESTUDIOS_DETALLE' => $arrayDetalle,
             "SUBTOTAL" => $arrayDetalle[1][0]['SUBTOTAL'],
             "DESCUENTO_SERVICIO" => $arrayDetalle[1][0]['DESCUENTO_SERVICIO'],
-            "IVA" => $infoDetalle[1][0]['IVA'],
-            "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL']
+            // "IVA" => $infoDetalle[1][0]['IVA'],
+            // "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL']
         );
 
         return $arregloCotizaciones;
@@ -575,7 +575,7 @@ class Miscelaneus
                 "PRODUCTO" => $response[$i]['paquetes'] == "" ? $response[$i]['servicios'] : $response[$i]['paquetes'],
                 "PRECIO" => $response[$i]['PRECIO'],
                 "CANTIDAD" => $response[$i]['CANTIDAD'],
-                "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO'])-(($infoDetalle[1][0]['DESCUENTO'])/($response[$i]['CANTIDAD'] * $response[$i]['PRECIO'])*100))
+                "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']) * 100))
             ];
 
             array_push($arrayServicios, $cargosT);

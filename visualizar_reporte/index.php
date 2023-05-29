@@ -28,13 +28,13 @@ $usuario_id = $_SESSION['id'];
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
-$api = 'cotizacion';
-$cliente_id = 1;
-$id_cotizacion = 11;
-$area_id = 15;
-$turno_id = 309;
+// $api = 'biomolecular';
+// $cliente_id = 1;
+// $id_cotizacion = 11;
+// $area_id = 15;
+// $turno_id = 854;
 
-// $preview = 1;
+$preview = 1; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 
 switch ($api) {
@@ -64,13 +64,13 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, $area_id, 'reporte_masometria', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'cotizacion':
-        $r = $master->reportador($master, $turno_id,  $area_id, 'cotizaciones', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        $r = $master->reportador($master, $turno_id, $area_id, 'cotizaciones', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'ticket':
-        $r = $master->reportador($master, $turno_id,  $area_id, 'ticket', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        $r = $master->reportador($master, $turno_id, $area_id, 'ticket', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'fast_checkup':
-        $r = $master->reportador($master, $turno_id,  $area_id, 'fast_checkup', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        $r = $master->reportador($master, $turno_id, $area_id, 'fast_checkup', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
 
     default:
