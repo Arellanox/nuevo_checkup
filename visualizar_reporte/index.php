@@ -34,8 +34,7 @@ $usuario_id = $_SESSION['id'];
 // $area_id = 15;
 // $turno_id = 854;
 
-echo $api;
-echo $area_id;
+
 $preview = 1; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 

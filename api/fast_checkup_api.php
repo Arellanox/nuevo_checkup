@@ -1,6 +1,7 @@
 <?php
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+include "../clases/correo_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -55,25 +56,29 @@ switch ($api) {
         // $tipo_riesgo = $res['TIPO_RIESGO'];
         // $score_final = $res['SCORE_FINAL'];
         // // }
-
+           
         if ($confirmado == 1) {
             # guardamos datos, creamos el reporte y enviamoso por correo.
 
             # Guardamos si hay algun cambio final.
-            $response = $master->getByProcedure("sp_fastck_resultados_g", [$score_final, $_SESSION['id'], $tipo_riesgo, $confirmado, $turno_id]);
-            
+            $response = $master->updateByProcedure("sp_fastck_resultados_g", [$score_final, $_SESSION['id'], $tipo_riesgo, $confirmado, $turno_id]);
+        
             # Creamos el reporte
-            $url = $master->reportador($master,$turno_id,null,'fast-checkup');
+            $url = $master->reportador($master,$turno_id,17,'fast-checkup');
+          
 
             # actualizar la ruta del reporte en la tabla.
             $res = $master->updateByProcedure("sp_reportes_actualizar_ruta", ["fastck_resultados", "RUTA_REPORTE", $url,$turno_id, null]);
-
+     
+            # 
+            $nombre_paciente = $master->getByPatientNameByTurno($master,$turno_id);
             #enviamos todos sus reportes por correo (laboratorio, signos vitales, fast checkup).
             $attachment = $master->cleanAttachFilesImage($master, $turno_id,null,19);
+
            
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Fast Checkup', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('fastck', '[bimo] Fast Checkup', [$attachment[1]], null, $attachment[0], 1, $nombre_paciente)) {
                     $master->setLog("Correo enviado.", "fast - checkup");
                 }
             }
