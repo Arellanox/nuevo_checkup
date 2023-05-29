@@ -267,12 +267,6 @@ $textoVerde = "¡Enhorabuena!
 <br>2.- Hazte a un checkup médico al menos una vez al año, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estaremos encantados de recibirte.
 <br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 5 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
 <br>4.- Realiza tus tres comidas e incluye colaciones (el desayuno es importante ¡no lo evites!), añade el consumo de carnes magras (sin grasa), aumenta el consumo de alimentos ricos en fibra saludable, toma 2 litros de agua al día (un vaso de agua media hora antes de la comida) y preferentemente cocina tus alimentos de la siguiente forma: asado, al vapor, horneado y a la plancha; reduce el consumo de azúcar o sal, evita el consumo de grasas saturadas y limita el consumo de bebidas azucaradas y alimentos con alto contenido de grasas.
-<br>¡Es tiempo de hacer un cambio!  
-<br>Transforma tu vida y adopta hábitos de estilo de vida saludable que te ayudarán a reducir el margen de riesgo de padecer enfermedades crónico degenerativas; toma en cuenta las siguientes recomendaciones: 
-<br>1.- Visita a tu médico, esto servirá para que él conozca tu estado actual de salud y te guíe en hacer cambios significativos.
-<br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
-<br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 3 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
-<br>4.- Realiza tus tres comidas e incluye colaciones (el desayuno es importante ¡no lo evites!), añade el consumo de carnes magras (sin grasa), aumenta el consumo de alimentos ricos en fibra saludable, toma 2 litros de agua al día (un vaso de agua media hora antes de la comida) y preferentemente cocina tus alimentos de la siguiente forma: asado, al vapor, horneado y a la plancha; reduce el consumo de azúcar o sal, evita el consumo de grasas saturadas y limita el consumo de bebidas azucaradas y alimentos con alto contenido de grasas.
 ";
 
 $textoamarillo = "
@@ -320,19 +314,22 @@ if ($tipoAdvertencia === "LEVE") {
     $imagenAdvertencia = $encode_advertencia_verde;
     $textoRecomendacion = $textoVerde;
     $colorAdvertencia = "#6dcd01";
-    $tamaño_letra = "font-size: 10px";
+    $tamaño_letra = "font-size: 11px";
+    $color_letra = "color: black";
     $riesgo = "BAJO";
 } else if ($tipoAdvertencia === "MODERADO") {
     $imagenAdvertencia = $encode_advertencia_amarilla;
     $textoRecomendacion = $textoamarillo;
     $colorAdvertencia = "#ffd42a";
-    $tamaño_letra = "font-size: 13px";
+    $tamaño_letra = "font-size: 11px";
+    $color_letra = "color: black";
     $riesgo = "MODERADO";
 } else {
     $imagenAdvertencia = $encode_advertencia_roja;
     $textoRecomendacion = $textorojo;
     $colorAdvertencia = "#fd1d1d";
-    $tamaño_letra = "font-size: 13px";
+    $tamaño_letra = "font-size: 11px";
+    $color_letra = "color: white";
     $riesgo = "ALTO";
 }
 ?>
@@ -442,11 +439,11 @@ if ($tipoAdvertencia === "LEVE") {
                         RIESGO <?php echo $riesgo; ?>
                     </td>
                 </tr>
-                <tr style="background-color: <?php echo $colorAdvertencia; ?>; font-size: 14px;">
+                <tr style="background-color: <?php echo $colorAdvertencia; ?>; font-size: 14px; <?php echo $color_letra; ?>;">
                     <td colspan="2" style="padding-top: 4px;">Recomendaciones</td>
                 </tr>
                 <tr>
-                    <td style="text-align: left; background-color: <?php echo $colorAdvertencia; ?>; <?php echo $tamaño_letra; ?>; padding-bottom: 4px; padding-left: 6px;" colspan="2">
+                    <td style="text-align: left; border: 1.5px solid <?php echo $colorAdvertencia; ?>; <?php echo $tamaño_letra; ?>; padding-bottom: 4px; padding-left: 6px; line-height: 2;" colspan="2">
                         <?php echo $textoRecomendacion; ?>
                     </td>
                 </tr>
