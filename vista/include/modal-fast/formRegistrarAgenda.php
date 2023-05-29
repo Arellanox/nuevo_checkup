@@ -27,6 +27,11 @@
     </div>
   </div>
   <div class="col-12 col-lg-4">
+    <label for="correo" class="form-label">Correo electronico</label>
+    <input type="email" class="form-control input-form" name="correo" placeholder="@hotmail.com" required data-bs-toggle="tooltip" data-bs-placement="top" title="Se requiere un correo para envio de resultados">
+    <!-- <input type="email" class="form-control input-form" name="correo_2" placeholder="Segundo Correo" data-bs-toggle="tooltip" data-bs-placement="top" title="Se requiere un correo para envio de resultados"> -->
+  </div>
+  <div class="col-12 col-lg-4">
     <label for="curp" class="form-label">Fecha de agenda</label>
     <input type="date" name="fechaAgenda" value="<?php echo date('Y-m-d') ?>" class="form-control required input-form" id="fecha-agenda">
   </div>
