@@ -320,14 +320,20 @@ if ($tipoAdvertencia === "success") {
     $imagenAdvertencia = $encode_advertencia_verde;
     $textoRecomendacion = $textoVerde;
     $colorAdvertencia = "#6dcd01";
+    $tamaño_letra = "font-size: 10px";
+    $riesgo = "BAJO";
 } else if ($tipoAdvertencia === "warning") {
     $imagenAdvertencia = $encode_advertencia_amarilla;
     $textoRecomendacion = $textoamarillo;
     $colorAdvertencia = "#ffd42a";
+    $tamaño_letra = "font-size: 13px";
+    $riesgo = "MODERADO";
 } else {
     $imagenAdvertencia = $encode_advertencia_roja;
     $textoRecomendacion = $textorojo;
     $colorAdvertencia = "#fd1d1d";
+    $tamaño_letra = "font-size: 13px";
+    $riesgo = "ALTO";
 }
 ?>
 
@@ -433,14 +439,14 @@ if ($tipoAdvertencia === "success") {
                         ?>
                     </td>
                     <td style="font-size: 16px; align-items: center; align-content: center; text-align: left;">
-                        RIESGO MODERADO
+                        RIESGO <?php echo $riesgo; ?>
                     </td>
                 </tr>
                 <tr style="background-color: <?php echo $colorAdvertencia; ?>; font-size: 14px;">
                     <td colspan="2" style="padding-top: 4px;">Recomendaciones</td>
                 </tr>
                 <tr>
-                    <td style="text-align: left; background-color: <?php echo $colorAdvertencia; ?>; font-size: 13px; padding-bottom: 4px; padding-left: 6px;" colspan="2">
+                    <td style="text-align: left; background-color: <?php echo $colorAdvertencia; ?>; <?php echo $tamaño_letra; ?>; padding-bottom: 4px; padding-left: 6px;" colspan="2">
                         <?php echo $textoRecomendacion; ?>
                     </td>
                 </tr>
