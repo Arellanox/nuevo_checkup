@@ -152,16 +152,16 @@ $(document).on('click', '#btn-consulta-guardar, #btn-consulta-terminar', functio
 
     confirmado ? () => {
         text = 'Se confirmará y enviará todos los resultados del paciente.';
-        acción = 'confirmar'
+        accion = 'confirmar'
     } : () => {
         text = 'Se actualizarán los datos para la vista previa.';
-        acción = 'guardar'
+        accion = 'guardar'
     };
 
     alertMensajeConfirm({
         title: `¿Estas seguro de ${accion} los datos?`,
         text: text,
-        confirmButtonText: `Sí, ${acción}`,
+        confirmButtonText: `Sí, ${accion}`,
         cancelButtonText: `No`
     }, ajaxAwait({
         api: 3, tipo_riesgo: arregloResultado.nivel, score_final: arregloResultado.resultadoFinal, confirmado: confirmado
