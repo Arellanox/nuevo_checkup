@@ -18,9 +18,11 @@ $cuestionario = $_POST['quest-riesgo'];
 
 # para confirmar el reporte de fast checkup.
 $confirmado = $_POST['confirmado']; # si se envia 1 se guarda y envia el reporte, si se envia 0 solo se guarda.
-$resultado = $_POST['resultado']; # variable que reune el score final y el tipo de riesgo.
+$tipo_riesgo = $_POST['tipo_riesgo']; # variable que reune el score final y el tipo de riesgo.
+$score_final = $_POST['score_final'];
 $prefolio = $_POST['prefolio'];
 $suma_ponderacion = $_POST['ponderacion'];
+
 
 
 switch ($api) {
@@ -49,18 +51,33 @@ switch ($api) {
         break;
     case 3:
         # confirmar el resultado del turno y enviar los reportes (todos los que tenga ese turno) por correo.
-        // foreach ($resultado as $res) {
-        $tipo_riesgo = $res['TIPO_RIESGO'];
-        $score_final = $res['SCORE_FINAL'];
-        // }
+        // // foreach ($resultado as $res) {
+        // $tipo_riesgo = $res['TIPO_RIESGO'];
+        // $score_final = $res['SCORE_FINAL'];
+        // // }
 
         if ($confirmado == 1) {
             # guardamos datos, creamos el reporte y enviamoso por correo.
 
+            # Guardamos si hay algun cambio final.
+            $response = $master->getByProcedure("sp_fastck_resultados_g", [$score_final, $_SESSION['id'], $tipo_riesgo, $confirmado, $turno_id]);
+            
+            # Creamos el reporte
+            
+
+            #enviamos todos sus reportes por correo.
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id,null,19);
+           
+            if (!empty($attachment[0])) {
+                $mail = new Correo();
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)) {
+                    $master->setLog("Correo enviado.", "fast - checkup");
+                }
+            }
 
         } else {
             # solo guardamos los datos
-            $response = $master->getByProcedure("sp_fastck_resultados_g", [$turno_id,]);
+            $response = $master->getByProcedure("sp_fastck_resultados_g", [$score_final, $_SESSION['id'], $tipo_riesgo, $confirmado, $turno_id]);
         }
 
         break;
