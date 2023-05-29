@@ -443,7 +443,7 @@ if ($tipoAdvertencia === "LEVE") {
                     <td colspan="2" style="padding-top: 4px;">Recomendaciones</td>
                 </tr>
                 <tr>
-                    <td style="text-align: left; border: 1.5px solid <?php echo $colorAdvertencia; ?>; <?php echo $tamaño_letra; ?>; padding-bottom: 4px; padding-left: 6px; line-height: 2;" colspan="2">
+                    <td style="text-align: left; border: 1.5px solid <?php echo $colorAdvertencia; ?>; <?php echo $tamaño_letra; ?>; padding-bottom: 4px; padding-left: 6px; line-height: 1.5;" colspan="2">
                         <?php echo $textoRecomendacion; ?>
                     </td>
                 </tr>
