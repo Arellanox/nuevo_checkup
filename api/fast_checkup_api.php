@@ -63,14 +63,17 @@ switch ($api) {
             $response = $master->getByProcedure("sp_fastck_resultados_g", [$score_final, $_SESSION['id'], $tipo_riesgo, $confirmado, $turno_id]);
             
             # Creamos el reporte
-            
+            $url = $master->reportador($master,$turno_id,null,'fast-checkup');
 
-            #enviamos todos sus reportes por correo.
+            # actualizar la ruta del reporte en la tabla.
+            $res = $master->updateByProcedure("sp_reportes_actualizar_ruta", ["fastck_resultados", "RUTA_REPORTE", $url,$turno_id, null]);
+
+            #enviamos todos sus reportes por correo (laboratorio, signos vitales, fast checkup).
             $attachment = $master->cleanAttachFilesImage($master, $turno_id,null,19);
            
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', '[bimo] Fast Checkup', [$attachment[1]], null, $attachment[0], 1)) {
                     $master->setLog("Correo enviado.", "fast - checkup");
                 }
             }
