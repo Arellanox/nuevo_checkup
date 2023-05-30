@@ -4,7 +4,6 @@
     <p>Tu salud es lo primero. Cuida de ti y confía en nosotros para brindarte el mejor cuidado posible rellenando el siguiente cuestionario. </br> <strong>¡Gracias por elegirnos!</strong></p>
     <hr>
     <div class="mt-2">
-        <h5 class="underline none-p">Actividad física</h5>
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
                 <label class="question-label">¿Cómo consideras la intensidad de actividad física que realizas diariamente? (Caminar, correr o ejercicios): </label>
@@ -28,7 +27,6 @@
         </div>
         <hr>
 
-        <h5 class="underline none-p">Hábitos alimentarios</h5>
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
                 <label class="question-label">¿Consumes frutas y verduras habitualmente?: </label>
@@ -50,6 +48,7 @@
                 </div>
             </div>
         </div>
+        <hr>
 
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
@@ -74,7 +73,6 @@
         </div>
         <hr>
 
-        <h5 class="underline none-p">Fatiga de pequeños esfuerzos</h5>
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
                 <label class="question-label">¿Consumes bebidas alcohólicas?: </label>
@@ -98,7 +96,6 @@
         </div>
         <hr>
 
-        <h5 class="underline none-p">Calidad de sueño</h5>
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
                 <label class="question-label">¿Consumes alimentos refinados y bebidas gaseosas?: </label>
@@ -120,6 +117,8 @@
                 </div>
             </div>
         </div>
+        <hr>
+
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
                 <label class="question-label">¿Presentas fatiga al realizar pequeños esfuerzos como, agacharte y amarrar las agujetas de tus zapatos?: </label>
@@ -139,7 +138,6 @@
         </div>
         <hr>
 
-        <h5 class="underline none-p">Consumo de tabaco y Exposición al estrés</h5>
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
                 <label class="question-label">¿Habitualmente tiene dificultad para dormir?: </label>
@@ -161,6 +159,7 @@
                 </div>
             </div>
         </div>
+        <hr>
 
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
@@ -179,6 +178,7 @@
                 </div>
             </div>
         </div>
+        <hr>
 
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
@@ -201,6 +201,7 @@
                 </div>
             </div>
         </div>
+        <hr>
 
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
@@ -223,6 +224,7 @@
                 </div>
             </div>
         </div>
+        <hr>
 
         <div class="row" style="zoom:110%; margin-top: 10px; margin-bottom: 10px;">
             <div class="col-12 d-flex align-items-center">
@@ -283,5 +285,9 @@
     .radio-container input[type="radio"] {
         margin-right: 10px;
         /* Ajusta el espaciado lateral entre el input radio y el label según tus necesidades */
+    }
+
+    hr {
+        opacity: 50%;
     }
 </style>

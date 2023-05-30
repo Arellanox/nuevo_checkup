@@ -1,7 +1,7 @@
 <div class="row d-flex justify-content-lg-center justify-content-center">
   <div class="col-12 col-lg-6">
     <div class="card m-3 p-3" style="text-align: center;">
-      <h5 style="color: #333;font-size: 24px;">Bienvenido a Checkup-fast</h5>
+      <h5 style="color: #333;font-size: 24px;">Bienvenido a Fast-Checkup</h5>
       <p>Tu bienestar es nuestra prioridad. Regístrate ahora y descubre cómo podemos cuidar de ti.</p>
     </div>
   </div>

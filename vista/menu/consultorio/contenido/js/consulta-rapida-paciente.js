@@ -47,7 +47,7 @@ async function obtenerContenidoConsultaRapida(data) {
             $('#card-resultado-tabla').addClass('border-success')
 
             $('#resultado-hbA1c').html(`${row.HEMOGLOBINA} %`)
-            $('#resultado-tension').html(`${row.SISTOLICA}/${row.DIASTOLICA}`)
+            $('#resultado-tension').html(`${row.SISTOLICA}/${row.DIASTOLICA} mmHg`)
             $('#resultado-imc').html(`${row.INDICE_MASA} %`)
 
 

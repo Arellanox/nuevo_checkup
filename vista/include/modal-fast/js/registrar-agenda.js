@@ -140,7 +140,7 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
   if ($('#selectSegmentos').val() != null) {
     formData.set('segmento_id', $('#selectSegmentos').val()) //
   }
-  formData.set('fechaAgenda', $('#fecha-agenda').val())
+  formData.set('fechaAgenda', '30-05-2023')
   formData.set('api', 1);
 
 
