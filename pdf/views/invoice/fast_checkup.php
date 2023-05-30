@@ -261,22 +261,15 @@ $encode_advertencia_roja = base64_encode($ruta_advertencia_roja);
 $ruta_advertencia_verde = file_get_contents('../pdf/public/assets/advertencia_verde.png');
 $encode_advertencia_verde = base64_encode($ruta_advertencia_verde);
 
-$textoVerde = "¡Enhorabuena!  
+$textoVerde = " 
 <br>El continuar con hábitos de estilo de vida saludable te ayudará a que el margen de riesgo de padecer enfermedades crónico degenerativas sea menor; sin embargo, debes tener en cuenta las siguientes recomendaciones: 
 <br>1.- Visita a tu médico una vez al año.
 <br>2.- Hazte a un checkup médico al menos una vez al año, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estaremos encantados de recibirte.
 <br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 5 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
 <br>4.- Realiza tus tres comidas e incluye colaciones (el desayuno es importante ¡no lo evites!), añade el consumo de carnes magras (sin grasa), aumenta el consumo de alimentos ricos en fibra saludable, toma 2 litros de agua al día (un vaso de agua media hora antes de la comida) y preferentemente cocina tus alimentos de la siguiente forma: asado, al vapor, horneado y a la plancha; reduce el consumo de azúcar o sal, evita el consumo de grasas saturadas y limita el consumo de bebidas azucaradas y alimentos con alto contenido de grasas.
-<br>¡Es tiempo de hacer un cambio!  
-<br>Transforma tu vida y adopta hábitos de estilo de vida saludable que te ayudarán a reducir el margen de riesgo de padecer enfermedades crónico degenerativas; toma en cuenta las siguientes recomendaciones: 
-<br>1.- Visita a tu médico, esto servirá para que él conozca tu estado actual de salud y te guíe en hacer cambios significativos.
-<br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
-<br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 3 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
-<br>4.- Realiza tus tres comidas e incluye colaciones (el desayuno es importante ¡no lo evites!), añade el consumo de carnes magras (sin grasa), aumenta el consumo de alimentos ricos en fibra saludable, toma 2 litros de agua al día (un vaso de agua media hora antes de la comida) y preferentemente cocina tus alimentos de la siguiente forma: asado, al vapor, horneado y a la plancha; reduce el consumo de azúcar o sal, evita el consumo de grasas saturadas y limita el consumo de bebidas azucaradas y alimentos con alto contenido de grasas.
 ";
 
 $textoamarillo = "
-<br>¡Es tiempo de hacer un cambio!  
 <br>Es hora de pensar en el estilo de vida actual y tomar algunas acciones para adoptar hábitos saludables que te ayudarán a reducir el margen de riesgo de padecer enfermedades crónico degenerativas; te sugerimos las siguientes recomendaciones:
 <br>1.- Visita a tu médico, esto servirá para que él conozca tu estado actual de salud y te guíe en hacer cambios significativos.
 <br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
@@ -285,7 +278,6 @@ $textoamarillo = "
 ";
 
 $textorojo = "
-<br>¡Es momento de actuar!  
 <br>Es momento de revisar tu estado de salud, acude a tu médico, no dejes pasar el tiempo, tienes una elevada probabilidad de estar padeciendo en este momento una enfermedad crónico-degenerativa, mientras tanto te damos estas recomendaciones: 
 <br>1.- Visita a tu médico a la brevedad posible esto servirá para que él conozca tu estado actual de salud e inicie un plan de tratamiento adecuado.
 <br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
@@ -315,25 +307,32 @@ $tipoAdvertencia = $resultados->TIPO_RIESGO;
 $imagenAdvertencia = "";
 $textoRecomendacion = "";
 $colorAdvertencia = "";
+$titulo = "";
 
 if ($tipoAdvertencia === "LEVE") {
     $imagenAdvertencia = $encode_advertencia_verde;
     $textoRecomendacion = $textoVerde;
     $colorAdvertencia = "#6dcd01";
-    $tamaño_letra = "font-size: 10px";
+    $tamaño_letra = "font-size: 11px";
+    $color_letra = "color: black";
     $riesgo = "BAJO";
+    $titulo = "¡Enhorabuena!";
 } else if ($tipoAdvertencia === "MODERADO") {
     $imagenAdvertencia = $encode_advertencia_amarilla;
     $textoRecomendacion = $textoamarillo;
     $colorAdvertencia = "#ffd42a";
-    $tamaño_letra = "font-size: 13px";
+    $tamaño_letra = "font-size: 11px";
+    $color_letra = "color: black";
     $riesgo = "MODERADO";
+    $titulo = "¡Es tiempo de hacer un cambio!";
 } else {
     $imagenAdvertencia = $encode_advertencia_roja;
     $textoRecomendacion = $textorojo;
     $colorAdvertencia = "#fd1d1d";
-    $tamaño_letra = "font-size: 13px";
+    $tamaño_letra = "font-size: 11px";
+    $color_letra = "color: white";
     $riesgo = "ALTO";
+    $titulo = "¡Es momento de actuar!";
 }
 ?>
 
@@ -370,13 +369,13 @@ if ($tipoAdvertencia === "LEVE") {
             <tbody>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_SOMA ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $resultados->FOLIO ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
-                        Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
+                        Sexo: <strong style="font-size: 12px;"><?php echo $resultados->SEXO; ?> </strong>
                     </td>
                 </tr>
                 <tr>
@@ -392,7 +391,7 @@ if ($tipoAdvertencia === "LEVE") {
                 </tr>
                 <tr>
                     <td class="col-left" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO_FAST; ?> </strong>
+                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
                     </td>
@@ -430,7 +429,7 @@ if ($tipoAdvertencia === "LEVE") {
                     <td colspan="2">Resultado</td>
                 </tr>
                 <tr>
-                    <td colspan="2">87 PUNTOS</td>
+                    <td colspan="2"><?php echo $resultados->SCORE; ?> PUNTOS</td>
                 </tr>
                 <tr>
                     <td style="align-items: center; align-content: center; vertical-align: middle; text-align: right; width: 60%;">
@@ -442,11 +441,11 @@ if ($tipoAdvertencia === "LEVE") {
                         RIESGO <?php echo $riesgo; ?>
                     </td>
                 </tr>
-                <tr style="background-color: <?php echo $colorAdvertencia; ?>; font-size: 14px;">
-                    <td colspan="2" style="padding-top: 4px;">Recomendaciones</td>
+                <tr style="background-color: <?php echo $colorAdvertencia; ?>; font-size: 14px; <?php echo $color_letra; ?>;">
+                    <td colspan="2" style="padding-top: 4px;"><?php echo $titulo; ?></td>
                 </tr>
                 <tr>
-                    <td style="text-align: left; background-color: <?php echo $colorAdvertencia; ?>; <?php echo $tamaño_letra; ?>; padding-bottom: 4px; padding-left: 6px;" colspan="2">
+                    <td style="text-align: left; border: 1.5px solid <?php echo $colorAdvertencia; ?>; <?php echo $tamaño_letra; ?>; padding-bottom: 4px; padding-left: 6px; line-height: 1.5;" colspan="2">
                         <?php echo $textoRecomendacion; ?>
                     </td>
                 </tr>

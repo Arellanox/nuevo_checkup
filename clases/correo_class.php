@@ -97,7 +97,7 @@ class Correo
     }
 
 
-    function sendEmail($bodySelected, $subject, $emails = array(), $token = null, $reportes = array(), $resultados = 0)
+    function sendEmail($bodySelected, $subject, $emails = array(), $token = null, $reportes = array(), $resultados = 0, $paciente = null)
     # $bodyselected indica el cuerpo que se envia en el correo.
     # $emails, direcciones de correo electronico de destino.
     # $token, se usa para enviar el link de prerregistro.
@@ -168,6 +168,10 @@ class Correo
                 case "password":
                     $mail->Body = $this->cuerpoRecuperarPassword($token);
                     break;
+                case "fastck":
+                    $f = str_replace("_"," ",$paciente);
+                    $mail->Body = $this->cuerpoCorreoFastCheckup($f);
+                    break;
             }
 
             # send email
@@ -180,7 +184,48 @@ class Correo
         }
     }
 
+    private function cuerpoCorreoFastCheckup($nombre){
+        $html = '<!DOCTYPE html>
+        <html lang="es">
 
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>bimo checkups</title>
+        </head>
+
+   <body>
+        <div id="contenido" style="background-color:#f6fdff">
+            <div style="overflow:auto;text-align:left;background-color:rgb(000,078,089);padding:5px;color:white">
+                <img src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/icono_administrativo.jpeg" alt="img"
+                style="border-radius:15px;height:55px;float:left;padding:8px">
+                <p style="font-size: 20px; color:white">Diagnóstico Biomolecular S.A. de C.V.</p>
+            </div>
+            <div style="padding:5px 20px 15px 20px;color:black;font-size:14px;background-color:#f6fdff">
+                <h2>
+                    ¡Hola '.$nombre.'!
+                </h2>
+                <p>
+                    En este correo encontrarás los resultados de tu “Fast Checkup” realizado el día de hoy por bimo.
+                </p>
+                <p>
+                    Te invitamos a que conozcas nuestros servicios de laboratorio clínico, laboratorio de biología molecular, ultrasonografía, rayos X, espirometría, audiometría, valoración visual, electrocardiograma y nutrición.
+                </p>
+                <p>
+                    Visítanos de lunes a sábado de 07:00 a 14:30 horas. en Avenida Pagés Llergo No. 150 interior 1, Col. Arboledas, Villahermosa Tabasco C.P. 86079. Teléfonos de contacto: 9936341483, 9936340250, 9936341469. Correo electrónico: hola@bimo.com.mx
+                </p>
+
+                <div style="text-align:right">
+                    <p>Atentamente</p>
+                    <p>bimo<br>Checkup Clinico y Preventivo</p>
+                </div>
+            </div>
+        </div>
+    </body>
+        </html>';
+return $html;
+    }
     private function cuerpoCorreoLaboratorio()
     {
 

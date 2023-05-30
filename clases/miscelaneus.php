@@ -450,9 +450,10 @@ class Miscelaneus
             case 17:
                 #FAST CHECKUP
                 $arregloPaciente = $this->getBodyInfoFast($master, $turno_id);
-                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_MESO'];
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
                 $carpeta_guardado = "fast_checkup";
-                #$folio = $infoPaciente[0]['FOLIO_SOMA'];
+                $folio = $infoPaciente[0]['FOLIO_FASTCK'];
+              
                 break;
         }
 
@@ -607,13 +608,15 @@ class Miscelaneus
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
         $response = $master->getByProcedure('sp_fastck_tipo_riesgo', [$id_turno]);
-
+   
         $arregloFast = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
-            "FOLIO" => $infoPaciente[0]['FOLIO'],
+            "FOLIO" => $infoPaciente[0]['FOLIO_FASTCK'],
             "EDAD" => $infoPaciente[0]['EDAD'],
-            'SEXO' => $infoPaciente[0]['SEXO'],
-            'TIPO_RIESGO' => $response[0]['TIPO_RIESGO']
+            "SEXO" => $infoPaciente[0]['SEXO'],
+            "FECHA_RESULTADO" => $infoPaciente[0]["FECHA_RESULTADO_FASTCK"],
+            'TIPO_RIESGO' => $response[0]['TIPO_RIESGO'],
+            "SCORE" => $response[0]['SCORE']
         );
 
         return $arregloFast;
