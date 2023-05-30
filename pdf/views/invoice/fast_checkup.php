@@ -261,7 +261,7 @@ $encode_advertencia_roja = base64_encode($ruta_advertencia_roja);
 $ruta_advertencia_verde = file_get_contents('../pdf/public/assets/advertencia_verde.png');
 $encode_advertencia_verde = base64_encode($ruta_advertencia_verde);
 
-$textoVerde = "¡Enhorabuena!  
+$textoVerde = " 
 <br>El continuar con hábitos de estilo de vida saludable te ayudará a que el margen de riesgo de padecer enfermedades crónico degenerativas sea menor; sin embargo, debes tener en cuenta las siguientes recomendaciones: 
 <br>1.- Visita a tu médico una vez al año.
 <br>2.- Hazte a un checkup médico al menos una vez al año, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estaremos encantados de recibirte.
@@ -270,7 +270,6 @@ $textoVerde = "¡Enhorabuena!
 ";
 
 $textoamarillo = "
-<br>¡Es tiempo de hacer un cambio!  
 <br>Es hora de pensar en el estilo de vida actual y tomar algunas acciones para adoptar hábitos saludables que te ayudarán a reducir el margen de riesgo de padecer enfermedades crónico degenerativas; te sugerimos las siguientes recomendaciones:
 <br>1.- Visita a tu médico, esto servirá para que él conozca tu estado actual de salud y te guíe en hacer cambios significativos.
 <br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
@@ -279,7 +278,6 @@ $textoamarillo = "
 ";
 
 $textorojo = "
-<br>¡Es momento de actuar!  
 <br>Es momento de revisar tu estado de salud, acude a tu médico, no dejes pasar el tiempo, tienes una elevada probabilidad de estar padeciendo en este momento una enfermedad crónico-degenerativa, mientras tanto te damos estas recomendaciones: 
 <br>1.- Visita a tu médico a la brevedad posible esto servirá para que él conozca tu estado actual de salud e inicie un plan de tratamiento adecuado.
 <br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
@@ -309,6 +307,7 @@ $tipoAdvertencia = $resultados->TIPO_RIESGO;
 $imagenAdvertencia = "";
 $textoRecomendacion = "";
 $colorAdvertencia = "";
+$titulo = "";
 
 if ($tipoAdvertencia === "LEVE") {
     $imagenAdvertencia = $encode_advertencia_verde;
@@ -317,6 +316,7 @@ if ($tipoAdvertencia === "LEVE") {
     $tamaño_letra = "font-size: 11px";
     $color_letra = "color: black";
     $riesgo = "BAJO";
+    $titulo = "¡Enhorabuena!";
 } else if ($tipoAdvertencia === "MODERADO") {
     $imagenAdvertencia = $encode_advertencia_amarilla;
     $textoRecomendacion = $textoamarillo;
@@ -324,6 +324,7 @@ if ($tipoAdvertencia === "LEVE") {
     $tamaño_letra = "font-size: 11px";
     $color_letra = "color: black";
     $riesgo = "MODERADO";
+    $titulo = "¡Es tiempo de hacer un cambio!";
 } else {
     $imagenAdvertencia = $encode_advertencia_roja;
     $textoRecomendacion = $textorojo;
@@ -331,6 +332,7 @@ if ($tipoAdvertencia === "LEVE") {
     $tamaño_letra = "font-size: 11px";
     $color_letra = "color: white";
     $riesgo = "ALTO";
+    $titulo = "¡Es momento de actuar!";
 }
 ?>
 
@@ -440,7 +442,7 @@ if ($tipoAdvertencia === "LEVE") {
                     </td>
                 </tr>
                 <tr style="background-color: <?php echo $colorAdvertencia; ?>; font-size: 14px; <?php echo $color_letra; ?>;">
-                    <td colspan="2" style="padding-top: 4px;">Recomendaciones</td>
+                    <td colspan="2" style="padding-top: 4px;"><?php echo $titulo; ?></td>
                 </tr>
                 <tr>
                     <td style="text-align: left; border: 1.5px solid <?php echo $colorAdvertencia; ?>; <?php echo $tamaño_letra; ?>; padding-bottom: 4px; padding-left: 6px; line-height: 1.5;" colspan="2">
