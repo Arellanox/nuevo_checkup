@@ -31,6 +31,25 @@
     <input type="email" class="form-control input-form" name="correo" placeholder="@hotmail.com" required data-bs-toggle="tooltip" data-bs-placement="top" title="Se requiere un correo para envio de resultados">
     <!-- <input type="email" class="form-control input-form" name="correo_2" placeholder="Segundo Correo" data-bs-toggle="tooltip" data-bs-placement="top" title="Se requiere un correo para envio de resultados"> -->
   </div>
+
+  <div class="col-12 col-lg-6" style="margin-top: 30px;margin-bottom: 15px;">
+    <div class="container">
+      <div class="row" style="zoom:110%;">
+        <div class="col-md-auto">
+          <label for="">Género: </label>
+        </div>
+        <div class="col">
+          <input type="radio" id="mascuCues" name="genero" value="MASCULINO" required>
+          <label for="mascuCues">Masculino</label>
+        </div>
+        <div class="col">
+          <input type="radio" id="FemeCues" name="genero" value="FEMENINO" required>
+          <label for="FemeCues">Femenino</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- <div class="col-12 col-lg-4">
     <label for="curp" class="form-label">Fecha de agenda</label>
     <input type="date" name="fechaAgenda" value="<?php echo date('Y-m-d') ?>" class="form-control required input-form" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" id="fecha-agenda">
