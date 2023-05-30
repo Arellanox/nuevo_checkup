@@ -100,20 +100,29 @@
                                     <tr>
                                         <th scope="col">Variable</th>
                                         <th scope="col">Resultado</th>
+                                        <th scope="col">Ponderación</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
                                     <tr>
                                         <th class="text-start">Porcentaje de HbA1c</th>
-                                        <td id="resultado-hbA1c">5.7</td>
+                                        <td id="resultado-hbA1c"></td>
+                                        <td id="puntos-hbA1c"></td>
                                     </tr>
                                     <tr>
                                         <th class="text-start">Tensión arterial</th>
-                                        <td id="resultado-tension">120 /80</td>
+                                        <td id="resultado-tension"></td>
+                                        <td><select id="puntos-tension" class="form-select input-form">
+                                                <option>Seleccione un rango</option>
+                                                <option value="0">&lt;120 /80</option>
+                                                <option value="2">120-139/80-89</option>
+                                                <option value="4">&gt;140/90</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <th class="text-start">Indice de masa corporal (Kg/m2)</th>
-                                        <td id="resultado-imc">25.0-29.9</td>
+                                        <td id="resultado-imc"></td>
+                                        <td id="puntos-imc"></td>
                                     </tr>
                                 </tbody>
                             </table>

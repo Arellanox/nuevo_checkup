@@ -52,14 +52,27 @@ async function obtenerContenidoConsultaRapida(data) {
 
 
             var puntuacionHemoglobina = getPuntuacionHemoglobina(row.HEMOGLOBINA);
-            var puntuacionTension = getPuntuacionTension(row.SISTOLICA, row.DIASTOLICA);
+            // var puntuacionTension = getPuntuacionTension(row.SISTOLICA, row.DIASTOLICA);
             var puntuacionIMC = getPuntuacionIMC(row.INDICE_MASA);
+            let nivel = ""
+            let claseCSS = "";
 
-            if (puntuacionHemoglobina != 'NA' || puntuacionTension != 'NA' || puntuacionIMC != 'NA') {
-                var resultadoFinal = puntuacionHemoglobina + puntuacionTension + puntuacionIMC;
+            if (puntuacionHemoglobina != 'NA' && puntuacionIMC != 'NA') {
+                var resultadoFinal = puntuacionHemoglobina + puntuacionIMC;
                 console.log(resultadoFinal);
-                var nivel = resultadoFinal <= 6 ? "leve" : "alto";
-                var claseCSS = nivel === "leve" ? "border-success" : "border-danger";
+
+                if (resultadoFinal < 7) {
+                    nivel = "leve";
+                } else {
+                    nivel = "alto";
+                }
+
+                if (nivel === "leve") {
+                    claseCSS = "border-success";
+                } else {
+                    claseCSS = "border-danger";
+                }
+
             } else {
                 claseCSS = '';
                 resultadoFinal = 'Pendiente';
@@ -133,7 +146,39 @@ function getPuntuacionIMC(valor) {
 }
 
 
+$('#puntos-tension').on('change', function (event) {
+    event.preventDefault();
+    let valor = parseInt($(this).val())
 
+    $("#card-resultado-tabla").removeClass('border-success');
+    $("#card-resultado-tabla").removeClass('border-danger');
+
+    if (valor) {
+
+        $('#resultado-ponderacion').html(arregloResultado.resultadoFinal + valor)
+    } else {
+
+        $('#resultado-ponderacion').html(arregloResultado.resultadoFinal)
+    }
+
+    let nivel = ""
+    if (arregloResultado.resultadoFinal + valor < 7) {
+        nivel = "leve";
+    } else {
+        nivel = "alto";
+    }
+
+    let claseCSS = "";
+
+    if (nivel === "leve") {
+        claseCSS = "border-success";
+    } else {
+        claseCSS = "border-danger";
+    }
+
+    $("#card-resultado-tabla").addClass(claseCSS);
+    $('#resultado-ponderacion').html(resultadoFinal)
+})
 
 
 
@@ -167,8 +212,17 @@ $('#btn-ver-reporte').click(function () {
 
 $(document).on('click', '#btn-consulta-guardar, #btn-consulta-terminar', function () {
 
-    if (arregloResultado.resultadoFinal == "Pendiente")
-        alertToast('No puedes guardar o confirmar el resultado si aun no están listos')
+    if (arregloResultado.resultadoFinal == "Pendiente") {
+        alertToast('No puedes guardar o confirmar el resultado si aun no están listos', 'info', 3000)
+        return false;
+    }
+
+    if (!$('#puntos-tension').val()) {
+        alertToast('No haz seleccionado un nivel para la tensión arterial del paciente', 'info', 3000)
+        return false;
+    }
+
+    arregloResultado.resultadoFinal = arregloResultado.resultadoFinal + parseInt($('#puntos-tension').val())
 
     let confirmado = parseInt($(this).attr('data-bs'))
     accion = 'guardar'
