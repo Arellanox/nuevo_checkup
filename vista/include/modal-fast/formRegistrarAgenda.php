@@ -17,7 +17,7 @@
   </div>
   <div class="col-8 col-lg-4">
     <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
-    <input type="date" class="form-control required input-form" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" name="nacimiento" placeholder="" onchange="$(`input[class='form-control required input-form agenda']`).val(calcularEdad(this.value))">
+    <input type="date" class="form-control required input-form" name="nacimiento" placeholder="" onchange="$(`input[class='form-control required input-form agenda']`).val(calcularEdad(this.value))">
   </div>
   <div class="col-4 col-lg-4">
     <label for="edad" class="form-label">Edad</label>
