@@ -64,7 +64,7 @@ switch ($api) {
             $response = $master->updateByProcedure("sp_fastck_resultados_g", [$score_final, $_SESSION['id'], $tipo_riesgo, $confirmado, $turno_id]);
         
             # Creamos el reporte
-            $url = $master->reportador($master,$turno_id,17,'fast-checkup');
+            $url = $master->reportador($master,$turno_id,17,'fast_checkup', 'url', 0);
           
 
             # actualizar la ruta del reporte en la tabla.
