@@ -19,6 +19,28 @@
           </div>
           <p> <strong></strong> </p>
           <div class="row">
+            <div>
+              <div id="tooltip">
+                <div class="modal-body">
+
+                  <div id="container-label">
+                    Espere un momento...
+                  </div>
+
+                  <div id="container-estudios" style="display: none;">
+                    <h5>Estudio(s): </h5>
+                    <ul class="list-group" id="listaContenidoEstudios"></ul>
+                    <hr>
+                  </div>
+                  <div id="container-grupos" style="display: none;">
+                    <h5>Grupo(s): </h5>
+                    <ul class="list-group" id="listContenidoGrupos"></ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
             <div class="col-12 col-lg-8">
               <h4 class="mt-2">Cargar estudios</h4>
               <p>Busque y agregue estudios para las areas si es necesario</p>
@@ -36,9 +58,11 @@
                       <div class="row">
                         <div class="col-6">
                           <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 contenido_estudio">
+
                               <select class="" id="select-lab">
                               </select>
+
                             </div>
                             <div class="col-12">
                               <button type="button" class="btn btn-confirmar" id="btn-AgregarEstudioLab">
@@ -50,6 +74,7 @@
                               <input type="file" name="orden-medica-laboratorio[]" id="file-laboratorio" class="form-control input-form" value="">
                             </div> -->
                           </div>
+
                         </div>
                         <div class="col-6">
                           <ul class="list-group" id="list-estudios-laboratorio">
@@ -64,6 +89,7 @@
                   <h2 class="accordion-header" id="headingTwo">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                       data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+
                       Estudios de Laboratorio Biomolecular
                     </button>
                   </h2>
@@ -325,6 +351,7 @@
           Cerrar</button>
         <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i>
           Siguiente</button>
+
         <button type="submit" form="formAceptarPacienteRecepcion" class="btn btn-confirmar" id="btn-confirmar-paciente">
           <i class="bi bi-check2-square"></i> Aceptar paciente
         </button>
