@@ -431,12 +431,15 @@ class Miscelaneus
             case 15:
             case "15":
                 # COTIZACIONES
-                $infoCliente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
-                $fecha_resultado = $infoPaciente[0]['FECHA_CREACION'];
+                $arregloCliente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
+                $arregloPaciente = $arregloCliente;
+                $fecha_resultado = $arregloPaciente['FECHA_CREACION'];
                 $carpeta_guardado = "cotizacion";
-                $infoCliente = [$infoCliente[count($infoCliente) - 1]];
-                $folio = $infoPaciente[0]['FOLIO_COTIZACIONES'];
-                print_r($infoPaciente);
+                // $infoCliente = [$infoCliente[count($infoCliente) - 1]];
+                $folio = $arregloPaciente['FOLIO_COTIZACIONES'];
+                // print_r($arregloPaciente);
+                // echo $fecha_resultado. " " . $folio;
+                // print_r($infoPaciente);
                 break;
             case 16:
             case "16":
@@ -530,31 +533,33 @@ class Miscelaneus
     {
         $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id]);
         $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
-
+        // print_r($response);
         $arrayDetalle = [];
 
-        for ($i = 0; $i < count($response); $i++) {
+        for ($i = 0; $i < count($response[1]); $i++) {
 
             $cargosDetalle = [
-                "PRODUCTO" => $response[$i]['PRODUCTO'],
-                "PRECIO_UNITARIO" => $response[$i]['PRECIO_UNITARIO'],
-                "CANTIDAD" => $response[$i]['CANTIDAD'],
-                "TOTAL" => $response[$i]['TOTAL'],
+                "PRODUCTO" => $response[1][$i]['PRODUCTO'],
+                "PRECIO_UNITARIO" => $response[1][$i]['PRECIO_UNITARIO'],
+                "CANTIDAD" => $response[1][$i]['CANTIDAD'],
+                "TOTAL" => $response[1][$i]['TOTAL'],
             ];
 
             array_push($arrayDetalle, $cargosDetalle);
         }
 
         $arregloCotizaciones = array(
+            'ESTUDIOS_DETALLE' => $arrayDetalle,
             'CLIENTE' => $infoCliente[0]['CLIENTE'],
             "RAZON_SOCIAL" => $infoCliente[0]['RAZON_SOCIAL'],
             'TELEFONO' => $infoCliente[0]['TELEFONO'],
             'RFC' => $infoCliente[0]['RFC'],
-            'ESTUDIOS_DETALLE' => $arrayDetalle,
-            "SUBTOTAL" => $arrayDetalle[1][0]['SUBTOTAL'],
-            "DESCUENTO_SERVICIO" => $arrayDetalle[1][0]['DESCUENTO_SERVICIO'],
-            // "IVA" => $infoDetalle[1][0]['IVA'],
-            // "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL']
+            'SUBTOTAL' => $response[0][0]['SUBTOTAL'],
+            'DESCUENTO' => $response[0][0]['DESCUENTO'],
+            'IVA' => $response[0][0]['IVA'],
+            'TOTAL_DETALLE' => $response[1][0]['TOTAL'],
+            'FECHA_CREACION' => $response[0][0]['FECHA_CREACION'],
+            'FOLIO_COTIZACIONES' => $response[0][0]['ID_COTIZACION']
         );
 
         return $arregloCotizaciones;
