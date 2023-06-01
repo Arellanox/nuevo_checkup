@@ -20,21 +20,31 @@ if (!empty($data[$id])) {
                     justify-content: center;
                     align-items: center;
                     height: 100vh;
-                    background-color: #rgb(000, 078, 089);
+                }
+
+                .container {
+                    background-color: rgb(0, 78, 89);
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .image-container {
                     background-image: url('$data[$id]');
                     background-size: contain;
                     background-position: center;
                     background-repeat: no-repeat;
+                    width: 100%;
+                    height: 100%;
                 }
 
                 @media screen and (orientation: landscape) {
-                    body {
+                    .image-container {
                         background-size: contain;
                     }
                 }
 
                 @media screen and (max-width: 767px) {
-                    body {
+                    .container {
                         display: block;
                         text-align: center;
                     }
@@ -42,6 +52,9 @@ if (!empty($data[$id])) {
             </style>
         </head>
         <body>
+            <div class='container'>
+                <div class='image-container'></div>
+            </div>
         </body>
         </html>
     ";
