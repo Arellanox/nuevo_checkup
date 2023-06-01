@@ -20,6 +20,7 @@ if (!empty($data[$id])) {
                     justify-content: center;
                     align-items: center;
                     height: 100vh;
+                    background-color: #rgb(000, 078, 089);
                     background-image: url('$data[$id]');
                     background-size: contain;
                     background-position: center;
