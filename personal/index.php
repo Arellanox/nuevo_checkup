@@ -21,8 +21,9 @@ if (!empty($data[$id])) {
                     align-items: center;
                     height: 100vh;
                     background-image: url('$data[$id]');
-                    background-size: cover;
+                    background-size: contain;
                     background-position: center;
+                    background-repeat: no-repeat;
                 }
 
                 @media screen and (orientation: landscape) {
