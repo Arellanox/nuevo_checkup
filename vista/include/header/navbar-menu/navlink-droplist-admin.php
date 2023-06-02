@@ -11,7 +11,7 @@ date_default_timezone_set('America/Mexico_City');
 <?php
 if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     <!-- Administrativos -->
-    <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
+    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
         <i class="bi bi-clipboard-heart"></i> Servicios
     </a>
     <div class="collapse" id="board-servicios">
@@ -29,24 +29,28 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 <?php if ($_SESSION['vista']['FACTURACIÓN'] == 1) : ?>
     <!-- Facturacion -->
-    <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
+    <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
         <i class="bi bi-calculator"></i> Facturación
     </a>
     <div class="collapse" id="board-facturacion">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li>
-                <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CONTADO'; ?>">
-                    <i class="bi bi-dot"></i> Contado
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CREDITO'; ?>">
-                    <i class="bi bi-dot"></i> Crédito
-                </a>
-            </li>
+
+            <a class="dropdown-a align-items-center collapsedm-" type="button" data-bs-toggle="collapse" data-bs-target="#board-cuentasFacturacion" aria-expanded="false">
+                <i class="bi bi-dot"></i> Cuentas
+            </a>
+            <div class="collapse" id="board-cuentasFacturacion">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CONTADO">
+                            <i class="bi bi-dot"></i> De Contado
+                        </a> </li>
+                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CREDITO">
+                            <i class="bi bi-dot"></i> De Crédito
+                        </a> </li>
+                </ul>
+            </div>
+
         </ul>
     </div>
-
 <?php endif; ?>
 
 
@@ -56,7 +60,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1
 ) : ?>
     <!-- Contaduria -->
-    <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
+    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
         <i class="bi bi-tag"></i> Lista de Estudios
     </a>
     <div class="collapse" id="board-listaprecios">
@@ -88,7 +92,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 <?php endif; ?>
 
 <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
-    <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-TALENTOHUMANO" aria-expanded="false">
+    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-TALENTOHUMANO" aria-expanded="false">
         <i class="bi bi-people"></i> Talento Humano
     </a>
     <div class="collapse" id="board-TALENTOHUMANO">

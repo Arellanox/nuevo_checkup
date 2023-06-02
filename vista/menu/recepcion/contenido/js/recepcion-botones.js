@@ -84,16 +84,14 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
       icon: 'warning'
     }, function () {
 
-      if (servidor != 'bimo-lab.com') {
-        if (array_selected['CLIENTE_ID'] == 1) {
+      if (array_selected['CLIENTE_ID'] == 1 && servidor != 'bimo-lab.com') {
 
-          //Abrir el modal de estudios, precios y detalle
-          configurarModal(array_selected);
+        //Abrir el modal de estudios, precios y detalle
+        configurarModal(array_selected);
 
-        } else {
-          //Termina el proceso sin factura y sin credito
-          finalizarProcesoRecepcion(array_selected);
-        }
+      } else {
+        //Termina el proceso sin factura y sin credito
+        finalizarProcesoRecepcion(array_selected);
       }
 
     }, 1)
