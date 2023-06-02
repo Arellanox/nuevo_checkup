@@ -18,17 +18,18 @@ $turno_id = $_POST['turno_id'];
 #variables para el reporte de la ujat
 $ujat_inicial = $_POST['fecha_inicial'];
 $ujat_final = $_POST['fecha_final'];
+$id_cliente = $_POST['id_cliente'];
 
-switch($api){
+switch ($api) {
     case 1:
-        $response = $master->getByProcedure('sp_cargos_turnos_b',[$turno_id]);
+        $response = $master->getByProcedure('sp_cargos_turnos_b', [$turno_id]);
         $total_cargos = 0;
 
-        foreach($response as $e){
-            
+        foreach ($response as $e) {
+
             $total_cargos = $total_cargos + $e['PRECIO'];
         }
-        
+
         // $areas = array();
         // foreach($response[1] as $current){
         //     $filtro = $current['ID_AREA'];
@@ -38,24 +39,22 @@ switch($api){
         //     $areas[$current['ID_AREA']] = $a;
         //         }
 
-            $response['estudios'] = $response;
-            $response['TOTAL_CARGO'] = $total_cargos;
+        $response['estudios'] = $response;
+        $response['TOTAL_CARGO'] = $total_cargos;
 
         break;
     case 3:
         # reporte de ujat
         $params = $master->setToNull([
             $ujat_inicial,
-            $ujat_final
+            $ujat_final,
+            $id_cliente
         ]);
-        $response = $master->getByProcedure("sp_reporte_ujat", $params); 
+        $response = $master->getByProcedure("sp_reporte_ujat", $params);
         break;
     default:
-    $response = "Apino definida";    
+        $response = "Apino definida";
 }
 
 # regresamos el resultado el formato json
 echo $master->returnApi($response);
-
-
-?>

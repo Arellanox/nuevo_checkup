@@ -35,7 +35,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     <div class="collapse" id="board-facturacion">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 
-            <a class="dropdown-a align-items-center collapsedm-" type="button" data-bs-toggle="collapse" data-bs-target="#board-cuentasFacturacion" aria-expanded="false">
+            <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-cuentasFacturacion" aria-expanded="false">
                 <i class="bi bi-dot"></i> Cuentas
             </a>
             <div class="collapse" id="board-cuentasFacturacion">
@@ -46,6 +46,19 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
                     <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CREDITO">
                             <i class="bi bi-dot"></i> De Crédito
                         </a> </li>
+                    <hr class="dropdown-divider">
+                </ul>
+            </div>
+
+            <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-ExcelFacturacion" aria-expanded="false">
+                <i class="bi bi-dot"></i> Excel
+            </a>
+            <div class="collapse" id="board-ExcelFacturacion">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-paciente/'; ?>">
+                            <i class="bi bi-dot"></i> Reporte Pacientes
+                        </a> </li>
+                    <hr class="dropdown-divider">
                 </ul>
             </div>
 

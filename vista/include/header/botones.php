@@ -214,3 +214,11 @@ $menu = $_POST['menu']; ?>
     </div>
   </div>
 <?php endif; ?>
+
+<?php if ($menu == 'Reporte de Excel') : ?>
+
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTabla">
+    <i class="bi bi-save"></i> Buscar
+  </button>
+
+<?php endif;  ?>
