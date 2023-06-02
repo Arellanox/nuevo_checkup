@@ -93,7 +93,7 @@ function configurarModal(data) {
                 //Crea la fila de la tabla, Nombre del servicio, cantidad, y precio antes de iva
                 let html = `<tr>
                                 <th>${element['SERVICIOS']}</th> 
-                                <td>${ifnull(element['CANTIDAD'], 0)}</td>
+                                <td>${ifnull(element['CANTIDAD'], 1)}</td>
                                 <td>$${ifnull(element['PRECIO'], 0)}</td>
                             </tr>`
 
