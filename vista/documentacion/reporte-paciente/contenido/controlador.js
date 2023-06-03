@@ -5,13 +5,19 @@ if (validarVista('LABORATORIO_MUESTRA_1')) {
   contenidoMuestras()
 }
 
-let fecha_actual = new Date();
 
-var dia = fecha_actual.getDate();
-var mes = fecha_actual.getMonth() + 1;
-var ano = fecha_actual.getFullYear();
+// Obtener la fecha del primer día del mes anterior
+var fechaInicial = new Date();
+fechaInicial.setMonth(fechaInicial.getMonth() - 1);
+fechaInicial.setDate(1);
 
-var fechaActual = `${ano}-${mes}-${dia}`;
+// Obtener la fecha del último día del mes anterior
+var fechaFinal = new Date();
+fechaFinal.setDate(0);
+
+// Formatear las fechas en el formato deseado (por ejemplo, yyyy-mm-dd)
+var fechaInicialFormatted = fechaInicial.toISOString().split('T')[0];
+var fechaFinalFormatted = fechaFinal.toISOString().split('T')[0];
 
 async function contenidoMuestras() {
   await obtenerTitulo("Reporte de Excel");

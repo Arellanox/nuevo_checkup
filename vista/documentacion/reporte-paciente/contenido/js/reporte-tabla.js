@@ -1,12 +1,13 @@
 tablaPrincipal = $('#tablaPrincipal').DataTable({
   language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    emptyTable: "No se ha elegido fecha y procedencia a mostrar.",
   },
-  // lengthChange: false,
-  // info: false,
-  // paging: false,
-  // scrollY: autoHeightDiv(0, 284),
-  // scrollCollapse: true,
+  lengthChange: false,
+  info: false,
+  paging: false,
+  scrollY: autoHeightDiv(0, 290),
+  scrollCollapse: true,
   ajax: {
     dataType: 'json',
     data: function (d) {
@@ -17,7 +18,13 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     url: `${http}${servidor}/${appname}/api/cargos_turnos_api.php`,
     beforeSend: function () { loader("In") },
     complete: function () {
-      loader("Out")
+      loader("Out", 'bottom')
+      $.fn.dataTable
+        .tables({
+          visible: true,
+          api: true
+        })
+        .columns.adjust();
     },
     dataSrc: 'response.data'
   },
@@ -30,6 +37,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'PARENTESCO' },
     { data: 'NUM_PASE' },
     { data: 'SERVICIOS' },
+    { data: 'PREFOLIO' },
     { data: 'CANTIDAD' },
     {
       data: 'PRECIO_UNITARIO', render: function (data) {
@@ -64,26 +72,27 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'DIAGNOSTICO' },
   ],
   columnDefs: [
-    { target: 0, className: 'all', title: 'No. Sistema', width: '7%' },
-    { target: 1, className: 'none', title: 'No. Proovedor' },
-    { target: 2, className: 'none', title: 'No. Factura' },
-    { target: 3, className: 'all', title: 'Clave Beneficiario', width: '10%' },
+    { target: 0, className: 'all', title: 'No. Sistema', width: '7%', visible: false },
+    { target: 1, className: 'none beneficiario', title: 'No. Proovedor' },
+    { target: 2, className: 'none beneficiario', title: 'No. Factura' },
+    { target: 3, className: 'none beneficiario', title: 'Clave Beneficiario', width: '10%' },
     { target: 4, className: 'all', title: 'Paciente' },
-    { target: 5, className: 'none', title: 'Parentesco' },
-    { target: 6, className: 'all', title: 'No. Pase', width: '7%' },
+    { target: 5, className: 'none beneficiario', title: 'Parentesco' },
+    { target: 6, className: 'none beneficiario', title: 'No. Pase', width: '7%' },
     { target: 7, className: 'all', title: 'Servicios' },
-    { target: 8, className: 'none', title: 'Cantidad' },
-    { target: 9, className: 'all', title: 'Unitario', width: '7%' },
-    { target: 10, className: 'all', title: 'Subtotal', width: '7%' },
-    { target: 11, className: 'all', title: 'IVA', width: '7%' },
-    { target: 12, className: 'all', title: 'Total', width: '7%' },
-    { target: 13, className: 'all', title: 'Fecha Recepción', width: '12%' },
-    { target: 14, className: 'none', title: 'Procedencia' },
-    { target: 15, className: 'none', title: 'Trabajador' },
-    { target: 16, className: 'none', title: 'Verificacion (url)' },
-    { target: 17, className: 'none', title: 'Categoria' },
-    { target: 18, className: 'none', title: 'Ures' },
-    { target: 19, className: 'all', title: 'Diagnostico' },
+    { target: 8, className: 'all', title: 'Prefolio' },
+    { target: 9, className: 'none', title: 'Cantidad' },
+    { target: 10, className: 'all', title: 'Unitario', width: '7%' },
+    { target: 11, className: 'all', title: 'Subtotal', width: '7%' },
+    { target: 12, className: 'all', title: 'IVA', width: '7%' },
+    { target: 13, className: 'all', title: 'Total', width: '7%' },
+    { target: 14, className: 'all', title: 'Fecha Recepción', width: '12%' },
+    { target: 15, className: 'all', title: 'Procedencia' },
+    { target: 16, className: 'none beneficiario', title: 'Trabajador' },
+    { target: 17, className: 'none beneficiario', title: 'Verificacion (url)' },
+    { target: 18, className: 'none beneficiario', title: 'Categoria' },
+    { target: 19, className: 'none beneficiario', title: 'Ures' },
+    { target: 20, className: 'all', title: 'Diagnostico' },
   ],
 
 
@@ -99,7 +108,45 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       extend: 'excelHtml5',
       text: '<i class="fa fa-file-excel-o"></i> Excel',
       className: 'btn btn-option',
-      titleAttr: 'Excel'
+      titleAttr: 'Excel',
+      customizeData: function (data) {
+        // Eliminar encabezados de columnas ocultas
+        for (var i = data.header.length - 1; i >= 0; i--) {
+          if (!$('#tablaPrincipal').DataTable().column(i).visible()) {
+            data.header.splice(i, 1);
+            for (var j = 0; j < data.body.length; j++) {
+              data.body[j].splice(i, 1);
+            }
+          }
+        }
+      }
+    },
+    {
+      text: '<i class="bi bi-box-arrow-in-down"></i> Alternar Campos Beneficiarios',
+      className: 'btn btn-turquesa',
+      id: 'btn-ocultar-campos-beneficiarios',
+      extend: '',
+      action: function () {
+        var columnasOcultas = ['beneficiario']; // Clases CSS de las columnas que quieres ocultar
+        columnasOcultas.forEach(function (clase) {
+          var columnas = tablaPrincipal.columns('.' + clase);
+          var estadoActual = columnas.visible()[0];
+          columnas.visible(!estadoActual, false);
+        });
+
+        tablaPrincipal.buttons().container().removeClass('show-columns');
+        tablaPrincipal.buttons().container().addClass('hide-columns');
+
+        tablaPrincipal.columns.adjust().draw(false);
+
+        $.fn.dataTable
+          .tables({
+            visible: true,
+            api: true
+          })
+          .columns.adjust();
+
+      }
     },
     // {
     //   extend: 'csvHtml5',
@@ -181,3 +228,14 @@ function parseDataTable(data) {
 
   return parsedData
 }
+
+inputBusquedaTable('tablaPrincipal', tablaPrincipal, [
+  {
+    msj: 'Puedes organizar el contenido con los encabezados de la tabla.',
+    place: 'top'
+  },
+  {
+    msj: 'El campo de busqueda filtra sus coincidencias.',
+    place: 'top'
+  },
+], {}, 'col-12')

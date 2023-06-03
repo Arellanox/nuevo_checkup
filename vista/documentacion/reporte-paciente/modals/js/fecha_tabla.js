@@ -12,10 +12,10 @@ $(document).on('click', '#actualizar_tabla', function (event) {
         text: 'Espere un momento',
         showCancelButton: false,
         icon: 'info',
-        timer: 2000,
+        timer: 1500,
         timerProgressBar: true,
         confirmButtonText: 'Ok'
-    }, false, 1)
+    }, () => { }, 1)
 
     $('#modalFiltrarTabla').modal('hide');
 })
@@ -23,3 +23,8 @@ $(document).on('click', '#actualizar_tabla', function (event) {
 // rellenarSelect('#cliente', 'clientes_api',)
 
 rellenarSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+
+
+// Establecer los valores de los campos de fecha
+document.getElementById('fecha_inicial').value = fechaInicialFormatted;
+document.getElementById('fecha_final').value = fechaFinalFormatted;
