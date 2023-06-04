@@ -456,7 +456,7 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
                 $carpeta_guardado = "fast_checkup";
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
-              
+
                 break;
         }
 
@@ -613,7 +613,7 @@ class Miscelaneus
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
         $response = $master->getByProcedure('sp_fastck_tipo_riesgo', [$id_turno]);
-   
+
         $arregloFast = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "FOLIO" => $infoPaciente[0]['FOLIO_FASTCK'],
@@ -1046,6 +1046,8 @@ class Miscelaneus
             $arrayGlobal['areas'][] = $aux;
         }
 
+        // var_dump($arrayGlobal);
+
         return array('global' => $arrayGlobal, 'clave' => $clave);
     }
 
@@ -1073,11 +1075,15 @@ class Miscelaneus
                 return $r;
             });
 
+            // var_dump($abs);
+            // exit;
+
             foreach ($abs as $current) {
                 $absoluto_array[] = array(
                     "analito" => $current['DESCRIPCION_SERVICIO'],
                     "valor_abosluto" => $current['VALOR_ABSOLUTO'],
                     "referencia" => $current['VALOR_REFERENCIA_ABS'],
+                    "grupo_id" => $current['GRUPO_ID'],
                     "unidad" => $current['MEDIDA_ABS']
                 );
             }
@@ -1127,7 +1133,14 @@ class Miscelaneus
                     case 1:
                         $last_position = count($analitos) - 1;
                         $aux = $analitos[$last_position];
-                        $analitos[$last_position] = $absoluto_array;
+
+                        //Filtra por grupo_id, ya que se mezclavan
+                        $absoluto_array_b = array_filter($absoluto_array, function ($obj) {
+                            $r = $obj['grupo_id'] == 1;
+                            return $r;
+                        });
+
+                        $analitos[$last_position] = $absoluto_array_b;
                         $analitos[] = $aux;
                         break;
                         #perfil reumatico
@@ -1137,7 +1150,20 @@ class Miscelaneus
                             # Solo la hematoloigia debe mandar los valores absolutos                        
                             $last_position = count($analitos) - 2;
                             $aux = $analitos[$last_position];
-                            $analitos[$last_position] = $absoluto_array;
+                            // echo "<br/>";
+                            // var_dump($absoluto_array);
+
+                            //Filtra por grupo_id, ya que se mezclavan
+                            $absoluto_array_b = array_filter($absoluto_array, function ($obj) {
+                                $r = $obj['grupo_id'] == 35;
+                                return $r;
+                            });
+
+
+                            // echo "<br/>";
+                            // var_dump($absoluto_array_b);
+
+                            $analitos[$last_position] = $absoluto_array_b;
 
                             $last_position++;
                             while (!empty($analitos[$last_position])) {
