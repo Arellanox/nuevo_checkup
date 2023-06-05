@@ -1422,4 +1422,25 @@ class Miscelaneus
 
         return $formattedParams;
     }
+
+    public function getEmailMedico($master,$id_turno){
+        $response = $master->getByProcedure("sp_correo_medico_tratante",[$id_turno] );
+        
+        # el response trae el correo2 del paciente y el correo del medico
+        # en el mismo row, asi que solo tenemos que acceder al indice 0 del $response
+
+        # declaramos un contenedor de los correos
+        $correos = array();
+
+        #le agregamos los correos al controlador
+        $correos[] = $response[0]['CORREO2'];
+        $correos[] = $response[0]['CORREO_MEDICO'];
+
+        # probablemente alguno de los correos no se haya rellenado en recepcion,
+        # entonces enviamos un arreglo filtrado de aquellos elementos que tengan
+        # algo escrito en dichos campos.
+        return array_filter($correos, function($item){
+            return strlen($item) > 0;
+        });
+    }
 }
