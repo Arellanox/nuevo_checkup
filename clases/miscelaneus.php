@@ -456,7 +456,15 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
                 $carpeta_guardado = "fast_checkup";
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
-              
+
+                break;
+            case 18:
+                #FAST CHECKUP
+                $arregloPaciente = $this->getBodyInfoCorte($master, $turno_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
+                $carpeta_guardado = "fast_checkup";
+                $folio = $infoPaciente[0]['FOLIO_FASTCK'];
+
                 break;
         }
 
@@ -529,7 +537,8 @@ class Miscelaneus
         return $arregloPaciente;
     }
 
-    private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
+    private function
+    getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
     {
         $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id]);
         $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
@@ -613,7 +622,27 @@ class Miscelaneus
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
         $response = $master->getByProcedure('sp_fastck_tipo_riesgo', [$id_turno]);
-   
+
+        $arregloFast = array(
+            'NOMBRE' => $infoPaciente[0]['NOMBRE'],
+            "FOLIO" => $infoPaciente[0]['FOLIO_FASTCK'],
+            "EDAD" => $infoPaciente[0]['EDAD'],
+            "SEXO" => $infoPaciente[0]['SEXO'],
+            "FECHA_RESULTADO" => $infoPaciente[0]["FECHA_RESULTADO_FASTCK"],
+            'TIPO_RIESGO' => $response[0]['TIPO_RIESGO'],
+            "SCORE" => $response[0]['SCORE']
+        );
+
+        return $arregloFast;
+    }
+
+    private function getBodyInfoCorte($master, $id_turno)
+    {
+        # recuperamos los datos del paciente
+        $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
+        $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
+        $response = $master->getByProcedure('sp_fastck_tipo_riesgo', [$id_turno]);
+
         $arregloFast = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "FOLIO" => $infoPaciente[0]['FOLIO_FASTCK'],

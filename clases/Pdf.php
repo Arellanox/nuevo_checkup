@@ -67,6 +67,7 @@ class Reporte
             case 'cotizacion':
             case 'ticket':
             case 'fast_checkup':
+            case 'corte':
             case 'reporte_masometria':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
@@ -179,7 +180,12 @@ class Reporte
                 $template = render_view('invoice/fast_checkup.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
-                 break;
+                break;
+            case 'corte':
+                $template = render_view('invoice/corte.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
 
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
