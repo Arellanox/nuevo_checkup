@@ -74,7 +74,7 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, 17, 'fast_checkup', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'corte':
-        $r = $master->reportador($master, $turno_id, 18, 'corte', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        $r = $master->reportador($master, $turno_id, $area_id, 'corte', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
 
     default:

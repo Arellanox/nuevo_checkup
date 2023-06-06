@@ -458,6 +458,14 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
 
                 break;
+            case 18:
+                #FAST CHECKUP
+                $arregloPaciente = $this->getBodyInfoCorte($master, $turno_id);
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
+                $carpeta_guardado = "fast_checkup";
+                $folio = $infoPaciente[0]['FOLIO_FASTCK'];
+
+                break;
         }
 
 
