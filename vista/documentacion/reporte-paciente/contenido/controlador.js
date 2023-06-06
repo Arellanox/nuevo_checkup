@@ -24,7 +24,7 @@ async function contenidoMuestras() {
   $.post("contenido/reporte_excel.html", function (html) {
     $("#body-js").html(html);
   }).done(function () {
-    dataList = { api: 3 };
+    dataList = { api: 3, id_cliente: 0 };
     // DataTable
     $.getScript('contenido/js/reporte-tabla.js')
   })
