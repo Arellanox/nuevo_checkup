@@ -51,12 +51,12 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
             </div>
 
             <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-ExcelFacturacion" aria-expanded="false">
-                <i class="bi bi-dot"></i> Excel
+                <i class="bi bi-dot"></i> Reportes
             </a>
             <div class="collapse" id="board-ExcelFacturacion">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-paciente/'; ?>">
-                            <i class="bi bi-dot"></i> Reporte Pacientes
+                            <i class="bi bi-dot"></i> Pacientes
                         </a> </li>
                     <hr class="dropdown-divider">
                 </ul>
