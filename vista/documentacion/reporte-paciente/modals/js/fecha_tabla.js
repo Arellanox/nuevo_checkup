@@ -3,7 +3,13 @@ $(document).on('click', '#actualizar_tabla', function (event) {
 
     dataList['fecha_inicial'] = $('#fecha_inicial').val();
     dataList['fecha_final'] = $('#fecha_final').val();
-    dataList['id_cliente'] = $('#cliente').val();
+
+    if ($('#checkFullClientes').is(':checked')) {
+        dataList['id_cliente'] = 0;
+    } else {
+        dataList['id_cliente'] = $('#cliente').val();
+    }
+
 
     tablaPrincipal.ajax.reload();
 

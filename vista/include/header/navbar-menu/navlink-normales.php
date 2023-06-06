@@ -18,7 +18,11 @@ if ($menu != "PrincipalMenu") : ?>
 <?php endif; ?> -->
 
 <?php
-if ($menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
+if (
+  $menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1
+  //Excepciones
+  && $menu != 'Facturacion'
+) : ?>
   <li class="nav-item">
     <a href="<?php echo "$https$url/$appname/vista/menu/recepcion/"; ?>">
       <i class="bi bi-people-fill"></i> Recepción
@@ -241,13 +245,19 @@ if ($menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1) : ?>
 
 <?php if ($menu == 'Facturacion') : ?>
   <li class="nav-item">
-    <a href="#Estados-Cuentas">
-      <i class="bi bi-thunderbolt"></i> Estado de cuentas
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#Cuentas-usuarios">
-      <i class="bi bi-thunderbolt"></i> Cuentas de usuario
-    </a>
+    <div class="dropdown ">
+      <a class="dropdown-toggle" id="dropCuentasFacturacion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-thunderbolt"></i> Cuentas
+      </a>
+      <!-- Estos botones se cargan en el servidor desde el archivo del include -->
+      <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropCuentasFacturacion">
+        <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CONTADO">
+            <i class="bi bi-dot"></i> Cuentas de Contado
+          </a> </li>
+        <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CREDITO">
+            <i class="bi bi-dot"></i> Crédito
+          </a> </li>
+      </ul>
+    </div>
   </li>
 <?php endif; ?>

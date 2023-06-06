@@ -4,8 +4,8 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     emptyTable: "No se ha elegido fecha y procedencia a mostrar.",
   },
   lengthChange: false,
-  info: false,
-  paging: false,
+  info: true,
+  paging: true,
   scrollY: autoHeightDiv(0, 290),
   scrollCollapse: true,
   ajax: {
@@ -19,12 +19,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     beforeSend: function () { loader("In") },
     complete: function () {
       loader("Out", 'bottom')
-      $.fn.dataTable
-        .tables({
-          visible: true,
-          api: true
-        })
-        .columns.adjust();
     },
     dataSrc: 'response.data'
   },
@@ -70,15 +64,16 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'CATEGORIA' },
     { data: 'URES' },
     { data: 'DIAGNOSTICO' },
+    { data: 'SERVICIOS_ABREVIATURA' }
   ],
   columnDefs: [
     { target: 0, className: 'all', title: 'No. Sistema', width: '7%', visible: false },
-    { target: 1, className: 'none beneficiario', title: 'No. Proovedor' },
-    { target: 2, className: 'none beneficiario', title: 'No. Factura' },
-    { target: 3, className: 'none beneficiario', title: 'Clave Beneficiario', width: '10%' },
+    { target: 1, className: 'none beneficiario', title: 'No. Proovedor', visible: false },
+    { target: 2, className: 'none beneficiario', title: 'No. Factura', visible: false },
+    { target: 3, className: 'none beneficiario', title: 'Clave Beneficiario', width: '10%', visible: false },
     { target: 4, className: 'all', title: 'Paciente' },
-    { target: 5, className: 'none beneficiario', title: 'Parentesco' },
-    { target: 6, className: 'none beneficiario', title: 'No. Pase', width: '7%' },
+    { target: 5, className: 'none beneficiario', title: 'Parentesco', visible: false },
+    { target: 6, className: 'none beneficiario', title: 'No. Pase', width: '7%', visible: false },
     { target: 7, className: 'all', title: 'Servicios' },
     { target: 8, className: 'all', title: 'Prefolio' },
     { target: 9, className: 'none', title: 'Cantidad' },
@@ -88,12 +83,53 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 13, className: 'all', title: 'Total', width: '7%' },
     { target: 14, className: 'all', title: 'Fecha Recepción', width: '12%' },
     { target: 15, className: 'all', title: 'Procedencia' },
-    { target: 16, className: 'none beneficiario', title: 'Trabajador' },
-    { target: 17, className: 'none beneficiario', title: 'Verificacion (url)' },
-    { target: 18, className: 'none beneficiario', title: 'Categoria' },
-    { target: 19, className: 'none beneficiario', title: 'Ures' },
+    { target: 16, className: 'none beneficiario', title: 'Trabajador', visible: false },
+    { target: 17, className: 'none beneficiario', title: 'Verificacion (url)', visible: false },
+    { target: 18, className: 'none beneficiario', title: 'Categoria', visible: false },
+    { target: 19, className: 'none beneficiario', title: 'Ures', visible: false },
     { target: 20, className: 'all', title: 'Diagnostico' },
+    { target: 21, className: 'none', title: 'abreviatura', visible: false, searchable: true },
   ],
+
+
+  rowGroup: {
+    dataSrc: 'PREFOLIO', // Columna utilizada para la agrupación
+    startRender: function (rows, group) {
+      // Renderización personalizada del grupo
+      var paciente = rows.data()[0].PACIENTE;
+      var sumUnitario = rows.data().pluck('PRECIO_UNITARIO').reduce(function (a, b) {
+        return a + parseFloat(parseDataTable(b));
+      }, 0);
+      var sumSubtotal = rows.data().pluck('SUBTOTAL').reduce(function (a, b) {
+        return a + parseFloat(parseDataTable(b));
+      }, 0);
+      var sumIVA = rows.data().pluck('IVA').reduce(function (a, b) {
+        return a + parseFloat(parseDataTable(b));
+      }, 0);
+      var sumTotal = rows.data().pluck('TOTAL').reduce(function (a, b) {
+        return a + parseFloat(parseDataTable(b));
+      }, 0);
+      var fechaRecepcion = rows.data()[0].FECHA_RECEPCION;
+      var procedencia = rows.data()[0].PROCEDENCIA;
+      var diagnostico = rows.data()[0].DIAGNOSTICO;
+
+      let tr = $('<tr/>')
+
+      tr.addClass('background-group');
+
+      return tr
+        .append('<td>' + paciente + '</td>')
+        .append(`<td>${rows.count()} servicios</td>`)
+        .append('<td>' + group + '</td>')
+        .append('<td>$' + sumUnitario.toFixed(2) + '</td>')
+        .append('<td>$' + sumSubtotal.toFixed(2) + '</td>')
+        .append('<td>$' + sumIVA.toFixed(2) + '</td>')
+        .append('<td>$' + sumTotal.toFixed(2) + '</td>')
+        .append('<td>' + formatoFecha2(fechaRecepcion, [0, 1, 5, 2, 1, 1, 1]) + '</td>')
+        .append('<td>' + procedencia + '</td>')
+        .append('<td>' + diagnostico + '</td>');
+    }
+  },
 
 
 
@@ -107,7 +143,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     {
       extend: 'excelHtml5',
       text: '<i class="fa fa-file-excel-o"></i> Excel',
-      className: 'btn btn-option',
+      className: 'btn btn-success',
       titleAttr: 'Excel',
       customizeData: function (data) {
         // Eliminar encabezados de columnas ocultas
@@ -122,7 +158,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       }
     },
     {
-      text: '<i class="bi bi-box-arrow-in-down"></i> Alternar Campos Beneficiarios',
+      text: '<i class="bi bi-box-arrow-in-down"></i> Incluir Campos Beneficiarios',
       className: 'btn btn-turquesa',
       id: 'btn-ocultar-campos-beneficiarios',
       extend: '',
@@ -131,89 +167,38 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         columnasOcultas.forEach(function (clase) {
           var columnas = tablaPrincipal.columns('.' + clase);
           var estadoActual = columnas.visible()[0];
-          columnas.visible(!estadoActual, false);
+          columnas.visible(!estadoActual);
         });
 
         tablaPrincipal.buttons().container().removeClass('show-columns');
         tablaPrincipal.buttons().container().addClass('hide-columns');
 
-        tablaPrincipal.columns.adjust().draw(false);
-
-        $.fn.dataTable
-          .tables({
-            visible: true,
-            api: true
-          })
-          .columns.adjust();
+        setTimeout(() => {
+          tablaPrincipal.columns.adjust().draw(false); // Ajustar columnas y redibujar completamente la tabla
+        }, 130);
 
       }
     },
-    // {
-    //   extend: 'csvHtml5',
-    //   text: '<i class="fa fa-file-text-o"></i>',
-    //   titleAttr: 'CSV'
-    // },
-    // {
-    //   extend: 'pdfHtml5',
-    //   text: '<i class="fa fa-file-pdf-o"></i>',
-    //   titleAttr: 'PDF'
-    // }
+    {
+      text: '<i class="bi bi-eye-slash"></i> Ocultar',
+      className: 'btn btn-secondary',
+      action: function () {
+        tablaPrincipal.rows().nodes().to$().addClass('d-none');
+
+      }
+    },
+    {
+      text: '<i class="bi bi-eye"></i> Mostrar',
+      className: 'btn btn-secondary',
+      action: function () {
+        tablaPrincipal.rows().nodes().to$().removeClass('d-none');
+
+      }
+    },
   ],
 
-  // UNA IDEA de funcion
-  initComplete: function () {
-    var api = this.api();
 
-    // For each column
-    api
-      .columns()
-      .eq(0)
-      .each(function (colIdx) {
-        // Set the header cell to contain the input element
-        var cell = $('.filters th').eq(
-          $(api.column(colIdx).header()).index()
-        );
-        var title = $(cell).text();
-        console.log(cell)
-        // var title = 'si';
-        $(cell).html('<input type="text" style="width: 100%" placeholder="' + title + '" />');
-
-        // On every keypress in this input
-        $(
-          'input',
-          $('.filters th').eq($(api.column(colIdx).header()).index())
-        )
-          .off('keyup change')
-          .on('change', function (e) {
-            // Get the search value
-            $(this).attr('title', $(this).val());
-            var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-            var cursorPosition = this.selectionStart;
-            // Search the column for that value
-            api
-              .column(colIdx)
-              .search(
-                this.value != ''
-                  ? regexr.replace('{search}', '(((' + this.value + ')))')
-                  : '',
-                this.value != '',
-                this.value == ''
-              )
-              .draw();
-          })
-          .on('keyup', function (e) {
-            e.stopPropagation();
-
-            $(this).trigger('change');
-            $(this)
-              .focus()[0]
-              .setSelectionRange(cursorPosition, cursorPosition);
-          });
-      });
-  },
 })
-
 
 function parseDataTable(data) {
   let parsedData;
@@ -239,3 +224,17 @@ inputBusquedaTable('tablaPrincipal', tablaPrincipal, [
     place: 'top'
   },
 ], {}, 'col-12')
+
+
+
+// Agregar un evento clic a las filas de grupo
+$('#tablaPrincipal tbody').on('click', '.background-group', function () {
+  // $(this).toggleClass('group-hidden');
+  var rows = tablaPrincipal.rows($(this).nextUntil('.background-group'));
+  if (rows.nodes().to$().hasClass('d-none')) {
+    rows.nodes().to$().removeClass('d-none');
+  } else {
+    rows.nodes().to$().addClass('d-none');
+  }
+
+});

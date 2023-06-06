@@ -458,14 +458,6 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
 
                 break;
-            case 18:
-                #FAST CHECKUP
-                $arregloPaciente = $this->getBodyInfoCorte($master, $turno_id);
-                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
-                $carpeta_guardado = "fast_checkup";
-                $folio = $infoPaciente[0]['FOLIO_FASTCK'];
-
-                break;
         }
 
 
@@ -1075,6 +1067,8 @@ class Miscelaneus
             $arrayGlobal['areas'][] = $aux;
         }
 
+        // var_dump($arrayGlobal);
+
         return array('global' => $arrayGlobal, 'clave' => $clave);
     }
 
@@ -1102,11 +1096,15 @@ class Miscelaneus
                 return $r;
             });
 
+            // var_dump($abs);
+            // exit;
+
             foreach ($abs as $current) {
                 $absoluto_array[] = array(
                     "analito" => $current['DESCRIPCION_SERVICIO'],
                     "valor_abosluto" => $current['VALOR_ABSOLUTO'],
                     "referencia" => $current['VALOR_REFERENCIA_ABS'],
+                    "grupo_id" => $current['GRUPO_ID'],
                     "unidad" => $current['MEDIDA_ABS']
                 );
             }
@@ -1156,7 +1154,14 @@ class Miscelaneus
                     case 1:
                         $last_position = count($analitos) - 1;
                         $aux = $analitos[$last_position];
-                        $analitos[$last_position] = $absoluto_array;
+
+                        //Filtra por grupo_id, ya que se mezclavan
+                        $absoluto_array_b = array_filter($absoluto_array, function ($obj) {
+                            $r = $obj['grupo_id'] == 1;
+                            return $r;
+                        });
+
+                        $analitos[$last_position] = $absoluto_array_b;
                         $analitos[] = $aux;
                         break;
                         #perfil reumatico
@@ -1166,7 +1171,20 @@ class Miscelaneus
                             # Solo la hematoloigia debe mandar los valores absolutos                        
                             $last_position = count($analitos) - 2;
                             $aux = $analitos[$last_position];
-                            $analitos[$last_position] = $absoluto_array;
+                            // echo "<br/>";
+                            // var_dump($absoluto_array);
+
+                            //Filtra por grupo_id, ya que se mezclavan
+                            $absoluto_array_b = array_filter($absoluto_array, function ($obj) {
+                                $r = $obj['grupo_id'] == 35;
+                                return $r;
+                            });
+
+
+                            // echo "<br/>";
+                            // var_dump($absoluto_array_b);
+
+                            $analitos[$last_position] = $absoluto_array_b;
 
                             $last_position++;
                             while (!empty($analitos[$last_position])) {
@@ -1424,5 +1442,27 @@ class Miscelaneus
         }
 
         return $formattedParams;
+    }
+
+    public function getEmailMedico($master, $id_turno)
+    {
+        $response = $master->getByProcedure("sp_correo_medico_tratante", [$id_turno]);
+
+        # el response trae el correo2 del paciente y el correo del medico
+        # en el mismo row, asi que solo tenemos que acceder al indice 0 del $response
+
+        # declaramos un contenedor de los correos
+        $correos = array();
+
+        #le agregamos los correos al controlador
+        $correos[] = $response[0]['CORREO2'];
+        $correos[] = $response[0]['CORREO_MEDICO'];
+
+        # probablemente alguno de los correos no se haya rellenado en recepcion,
+        # entonces enviamos un arreglo filtrado de aquellos elementos que tengan
+        # algo escrito en dichos campos.
+        return array_filter($correos, function ($item) {
+            return strlen($item) > 0;
+        });
     }
 }

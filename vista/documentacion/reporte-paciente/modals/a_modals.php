@@ -21,6 +21,12 @@
                     <div class="col-12">
                         <label for="cliente" class="form-label">Cliente</label>
                         <select name="" id="cliente" class="form-select input-form"></select>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="0" id="checkFullClientes" name="full_clientes">
+                            <label class="form-check-label" for="checkFullClientes">
+                                Todos
+                            </label>
+                        </div>
                     </div>
                 </form>
             </div>

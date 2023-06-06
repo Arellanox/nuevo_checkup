@@ -106,11 +106,11 @@ switch ($api) {
 
     case 7:
         # api falsa
-        // print_r($_POST);
-        print_r($_POST['servicios']);
-        print_r($_POST);
 
-        echo json_encode(array("response" => array("code" => 1, "data" => array())));
+
+        $response = $master->getEmailMedico($master, 436);
+        $response[] = "prueba@hotmail.com";
+        print_r(array_unique($response));
         exit;
         break;
 
@@ -235,8 +235,14 @@ switch ($api) {
             # si se confirmo en la base de datos, enviamos el correo
             $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null, 0]);
             $files = $master->cleanAttachingFiles($response);
+
+            # creamos el arreglo para saber a cuantos correo hay que mandarlo
+            $mails = $master->getEmailMedico($master, $id_turno);
+            #agregamos el correo del paciente.
+            $mails[] = $response[0]['CORREO'];
+
             if (!empty($files)) {
-                $r = $mail->sendEmail("resultados", "Resultados de laboratorio", [$response[0]['CORREO']], null, $files, 1);
+                $r = $mail->sendEmail("resultados", "Resultados de laboratorio", array_unique($mails), null, $files, 1);
                 if ($r) {
                     $response = 1;
                 } else {

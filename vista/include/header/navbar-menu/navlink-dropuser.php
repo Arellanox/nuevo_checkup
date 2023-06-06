@@ -50,7 +50,7 @@
 <?php endif; ?> -->
 
 <?php if ($_SESSION['permisos']['ExcelInfoBeneUjat'] == 1) : ?>
-  <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-Excel" aria-expanded="false">
+  <!-- <a class="dropdown-a align-items-center rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-Excel" aria-expanded="false">
     <i class="bi bi-file-earmark-spreadsheet"></i> Documentación Excel
   </a>
   <div class="collapse" id="board-Excel">
@@ -66,7 +66,7 @@
   </div>
   <li>
     <hr class="dropdown-divider">
-  </li>
+  </li> -->
 <?php endif; ?>
 
 <a href="#LogOut" class="dropdown-a"><i class="bi bi-box-arrow-up"></i> Cerrar Sesión</a>
