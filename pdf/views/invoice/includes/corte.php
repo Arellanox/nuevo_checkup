@@ -396,6 +396,7 @@ $encode = base64_encode($ruta);
             <table style=" width: 200px; text-align: right; border-bottom: transparent; align-items:right;">
                 <tbody>
                     <tr>
+                        <td></td>
                         <td>Subtotal</td>
                         <td><?php echo "$" . $resultados->SUBTOTAL; ?></td>
                     </tr>
