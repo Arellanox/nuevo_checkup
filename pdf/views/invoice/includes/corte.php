@@ -393,7 +393,7 @@ $encode = base64_encode($ruta);
         <!--Inicio tabla totales -->
         <p style="line-height: 2"></p>
         <div style=" float: right;width: 30%;">
-            <table style=" width: 200px; text-align: right; border-bottom: transparent; align-items:right; ">
+            <table style=" width: 200px; text-align: right; border-bottom: transparent; align-items:right;">
                 <tbody>
                     <tr>
                         <td>Subtotal</td>
