@@ -19,12 +19,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     beforeSend: function () { loader("In") },
     complete: function () {
       loader("Out", 'bottom')
-      $.fn.dataTable
-        .tables({
-          visible: true,
-          api: true
-        })
-        .columns.adjust();
     },
     dataSrc: 'response.data'
   },
@@ -70,6 +64,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'CATEGORIA' },
     { data: 'URES' },
     { data: 'DIAGNOSTICO' },
+    { data: 'SERVICIOS_ABREVIATURA' }
   ],
   columnDefs: [
     { target: 0, className: 'all', title: 'No. Sistema', width: '7%', visible: false },
@@ -93,6 +88,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 18, className: 'none beneficiario', title: 'Categoria', visible: false },
     { target: 19, className: 'none beneficiario', title: 'Ures', visible: false },
     { target: 20, className: 'all', title: 'Diagnostico' },
+    { target: 21, className: 'none', title: 'abreviatura', visible: false, searchable: true },
   ],
 
 
@@ -171,22 +167,15 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         columnasOcultas.forEach(function (clase) {
           var columnas = tablaPrincipal.columns('.' + clase);
           var estadoActual = columnas.visible()[0];
-          columnas.visible(!estadoActual, false);
+          columnas.visible(!estadoActual);
         });
 
         tablaPrincipal.buttons().container().removeClass('show-columns');
         tablaPrincipal.buttons().container().addClass('hide-columns');
 
-        tablaPrincipal.columns.adjust().draw(true);
-
-        $.fn.dataTable
-          .tables({
-            visible: true,
-            api: true
-          })
-          .columns.adjust();
-
-        $('#tablaPrincipal').hover();
+        setTimeout(() => {
+          tablaPrincipal.columns.adjust().draw(false); // Ajustar columnas y redibujar completamente la tabla
+        }, 130);
 
       }
     },
@@ -195,12 +184,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       className: 'btn btn-secondary',
       action: function () {
         tablaPrincipal.rows().nodes().to$().addClass('d-none');
-        $.fn.dataTable
-          .tables({
-            visible: true,
-            api: true
-          })
-          .columns.adjust();
+
       }
     },
     {
@@ -208,58 +192,9 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       className: 'btn btn-secondary',
       action: function () {
         tablaPrincipal.rows().nodes().to$().removeClass('d-none');
-        $.fn.dataTable
-          .tables({
-            visible: true,
-            api: true
-          })
-          .columns.adjust();
+
       }
     },
-    // {
-    //   text: 'Ocultar Todos',
-    //   className: 'btn btn-secondary',
-    //   action: function () {
-
-
-
-    //     // var groupRows = $('.background-group');
-
-
-
-
-    //     // if (groupRows.hasClass('group-hidden')) {
-    //     //   tablaPrincipal.rows().nodes().to$().removeClass('d-none');
-    //     //   groupRows.removeClass('group-hidden');
-    //     // } else {
-    //     //   tablaPrincipal.rows().nodes().to$().addClass('d-none');
-    //     //   groupRows.addClass('group-hidden');
-    //     // }
-
-    //     // var toggleText = '';
-
-    //     // if (groupRows.first().hasClass('group-hidden')) {
-    //     //   groupRows.removeClass('group-hidden');
-    //     //   toggleText = 'Ocultar Todos';
-    //     //   tablaPrincipal.rows().nodes().to$().removeClass('d-none');
-    //     // } else {
-    //     //   groupRows.addClass('group-hidden');
-    //     //   toggleText = 'Mostrar Todos';
-    //     // }
-
-    //     // $(this).text(toggleText);
-    //   }
-    // }
-    // {
-    //   extend: 'csvHtml5',
-    //   text: '<i class="fa fa-file-text-o"></i>',
-    //   titleAttr: 'CSV'
-    // },
-    // {
-    //   extend: 'pdfHtml5',
-    //   text: '<i class="fa fa-file-pdf-o"></i>',
-    //   titleAttr: 'PDF'
-    // }
   ],
 
 
