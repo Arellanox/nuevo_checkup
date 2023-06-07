@@ -554,7 +554,7 @@ function buscarPaciente(id_area, callback = function (data) { }) {
 function omitirPaciente(areaFisica) {
   alertMensajeConfirm({
     title: '¿Deseas omitir tu paciente actual?',
-    text: "El paciente actual volverá a la lista de espera",
+    text: "El paciente actual volverá a la lista de espera.",
     icon: "info",
     showCancelButton: true,
     confirmButtonColor: "#d33",
@@ -595,7 +595,7 @@ function omitirPaciente(areaFisica) {
 function llamarPaciente(areaFisica) {
   //console.log(areaFisica)
   alertMensajeConfirm({
-    title: '¿Deseas liberar el area y llamar a un paciente?',
+    title: '¿Deseas liberar el área y llamar a un paciente?',
     text: "Un paciente llamado se mostrará en pantalla",
     icon: "info",
     showCancelButton: true,
@@ -635,7 +635,7 @@ function llamarPaciente(areaFisica) {
 function liberarPaciente(areaFisica, turno) {
   alertMensajeConfirm({
     title: '¿Deseas liberar el turno de este paciente?',
-    text: "El paciente volverá a la lista de espera",
+    text: "El paciente volverá a la lista de espera.",
     icon: "info",
     showCancelButton: true,
     confirmButtonColor: "#d33",
@@ -656,7 +656,7 @@ function liberarPaciente(areaFisica, turno) {
             $('#paciente_turno').html('Liberado')
             alertMsj({
               title: "¡Paciente liberado!",
-              text: "Ya puedes llamar a un nuevo paciente al area : )",
+              text: "Ya puedes llamar a un nuevo paciente al areá : )",
               icon: "success",
               showCancelButton: false,
               timer: 8000,
@@ -674,8 +674,8 @@ function liberarPaciente(areaFisica, turno) {
 
 function pasarPaciente() {
   alertMensajeConfirm({
-    title: '¿Deseas enviar un paciente en otra area disponible?',
-    text: "No podrás revertir esta opción",
+    title: '¿Deseas enviar un paciente a otra área disponible?',
+    text: "No podrás revertir esta acción.",
     icon: "info",
     showCancelButton: true,
     confirmButtonColor: "#d33",
@@ -696,7 +696,7 @@ function pasarPaciente() {
           // $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
             title: row['PACIENTE'],
-            text: `Es el siguiente paciente en el  area de ${row['AREA_FISICA']}`,
+            text: `Es el siguiente paciente en el área de ${row['AREA_FISICA']}.`,
             icon: 'success',
             timer: 5000,
             showCancelButton: false,
