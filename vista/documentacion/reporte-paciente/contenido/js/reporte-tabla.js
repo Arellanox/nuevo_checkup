@@ -6,7 +6,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
   lengthChange: false,
   info: true,
   paging: true,
-  scrollY: autoHeightDiv(0, 290),
+  scrollY: autoHeightDiv(0, 330),
   scrollCollapse: true,
   ajax: {
     dataType: 'json',

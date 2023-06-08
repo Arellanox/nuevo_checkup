@@ -40,10 +40,10 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
             </a>
             <div class="collapse" id="board-cuentasFacturacion">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CONTADO">
+                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CONTADO'; ?>">
                             <i class="bi bi-dot"></i> De Contado
                         </a> </li>
-                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CREDITO">
+                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CREDITO'; ?>">
                             <i class="bi bi-dot"></i> De Crédito
                         </a> </li>
                     <hr class="dropdown-divider">
