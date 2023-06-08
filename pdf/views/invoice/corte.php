@@ -419,13 +419,13 @@ $encode = base64_encode($ruta);
                 <tr>
                     <td style="text-align: center;"><b><?php echo $resultados->USUARIO; ?></b></td>
                 </tr>
-                <tr style="text-align: center;">
+                <!--  <tr style="text-align: center;">
                     <td style="width: 10%; text-align: center; border-top: 1px solid black;">
                         <!--<hr style="height: 1px; background-color: black ; " align="center"><br>-->
-                        ELABORADO POR
-                    </td>
-                    <td><b></p><?php $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
-                                ?></b></td>
+                <!-- ELABORADO POR
+                    </td>-->
+                <td><b></p><?php $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
+                            ?></b></td>
                 </tr>
             </table>
         </div>
