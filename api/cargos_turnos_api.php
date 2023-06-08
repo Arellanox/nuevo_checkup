@@ -18,7 +18,7 @@ $turno_id = $_POST['turno_id'];
 #variables para el reporte de la ujat
 $ujat_inicial = $_POST['fecha_inicial'];
 $ujat_final = $_POST['fecha_final'];
-$id_cliente = $_POST['id_cliente'];
+$id_cliente = isset($_POST['full_clientes']) ? 0 : $_POST['id_cliente'];
 
 switch ($api) {
     case 1:
@@ -26,7 +26,6 @@ switch ($api) {
         $total_cargos = 0;
 
         foreach ($response as $e) {
-
             $total_cargos = $total_cargos + $e['PRECIO'];
         }
 
