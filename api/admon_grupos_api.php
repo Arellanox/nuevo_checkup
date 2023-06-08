@@ -8,15 +8,41 @@ $master = new Master();
 
 $api = $_POST['api'];
 
+
+# variables
+$id_grupo = $_POST['id_grupo'];
+$descripcion = $_POST['nombre_grupo'];
+$cliente_id = $_POST['cliente_id'];
+$usuario_id = $_SESSION['id'];
+$facturado = $_POST['facturado']; # bit que marca si el grupo esta siendo facturado o creado;
+$factura = $_POST['num_factura']; # numero de la factura que arroja alegra.
+$detalle = $_POST['detalle_grupo']; # es un arreglo que incluye solo el id del turno. Ejemplo [45,46,46,48]
+$fecha_creacion = $_POST['fecha_creacion']; # fecha de creacion del grupo
+
 switch($api){
     case 1:
         # Agregar un grupo y su detalle.
-        $response = $master->insertByProcedure("sp_", []);
+        # Agregar el numer de factura y mas detalle al grupo.
+        if($facturado ==1){
+            # agregar datos de factura.
+            $response = $master->insertByProcedure("sp_admon_grupos_g", [$id_grupo, $descripcion, $cliente_id, $usuario_id, $facturado, $usuario_id, $factura, $detalle]);
+        } else {
+            # agregar datos de creacion de grupo.
+            $response = $master->insertByProcedure("sp_admon_grupos_g", [$id_grupo, $descripcion, $cliente_id, $usuario_id, $facturado, null, null, $detalle]);
+        }
+       
+        break;
+    case 2:
+        # buscar grupos
+        $response = $master -> getByProcedure("sp_admon_grupos_b", [$cliente_id, $fecha_creacion]);
+        break;
+    case 3:
+        # recuperar el detalle del grupo.
+        $response = $master->getByProcedure("sp_admon_detalle_grupo", [$id_grupo]);
         break;
     default:
         $response = "API no definida";
 }
-
 
 echo $master->returnApi($response);
 
