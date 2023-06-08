@@ -130,7 +130,9 @@ function avisoArea(tip = 0) {
 
 //Ajax Async (NO FORM DATA SUPPORT)
 async function ajaxAwait(dataJson, apiURL,
-  config = { /* configuracion de la funcion de arriba */ },
+  config = {
+    alertBefore: false
+  },
   //Callback
   callbackBefore = function (data) {
     alertMsj({
@@ -189,14 +191,15 @@ function returnDataAjaxAwai(config, data) {
 
 //
 function configAjaxAwait(config) {
-  //valores por defecto de la funcion AjaxAwait
+  //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
   const defaults = {
-    alertBefore: false,
-    response: true,
-    callbackBefore: false,
-    callbackAfter: false,
-    returnData: true,
-    WithoutResponseData: false,
+    alertBefore: false, //Alerta por defecto, "Estamos cargando la solucitud" <- Solo si la api consume tiempo
+    response: true, //Si la api tiene la estructura correcta (response.code)
+    callbackBefore: false, //Activa la function antes de enviar datos, before
+    callbackAfter: false, //Activa una funcion para tratar datos enviados desde ajax, osea success
+    returnData: true, // regresa los datos o confirmado (1)
+    WithoutResponseData: false, //Manda los datos directos
+    resetForm: false, //Reinicia el formulario en ajaxAwaitFormData
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -207,12 +210,12 @@ function configAjaxAwait(config) {
 
 
 //Ajax Async FormData
-async function ajaxAwaitFormData(dataJson = {
-  id_turno: 0,
-}, apiURL, form = 'SinForm',
-  config = { /* configuracion de la funcion de arriba */ },
+async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyForm'  /* <-- Formulario sin # */,
+  config = {
+    alertBefore: false
+  },
   //Callback antes de enviar datos
-  callbackBefore = function () {
+  callbackBefore = () => {
     alertMsj({
       title: 'Espera un momento...',
       text: 'Estamos cargando tu solicitud, esto puede demorar un rato',
@@ -221,7 +224,7 @@ async function ajaxAwaitFormData(dataJson = {
     })
   },
   //Callback, antes de devolver la data
-  callbackSuccess = function () {
+  callbackSuccess = () => {
     console.log('callback ajaxAwait por defecto')
   }
 ) {
@@ -231,7 +234,6 @@ async function ajaxAwaitFormData(dataJson = {
     config = configAjaxAwait(config)
 
     let formID = document.getElementById(form);
-    console.log(formID);
     let formData = new FormData(formID);
 
     for (const key in dataJson) {
@@ -252,7 +254,7 @@ async function ajaxAwaitFormData(dataJson = {
         config.callbackBefore ? callbackBefore() : 1;
       },
       success: function (data) {
-
+        config.resetForm ? formID.reset() : false;
         if (config.response) {
           if (mensajeAjax(data)) {
             config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? data.response.data : data) : 1;
@@ -595,7 +597,6 @@ function omitirPaciente(areaFisica) {
 function llamarPaciente(areaFisica) {
   //console.log(areaFisica)
   alertMensajeConfirm({
-    title: '¿Deseas liberar el área y llamar a un paciente?',
     text: "Un paciente llamado se mostrará en pantalla",
     icon: "info",
     showCancelButton: true,
@@ -635,7 +636,6 @@ function llamarPaciente(areaFisica) {
 function liberarPaciente(areaFisica, turno) {
   alertMensajeConfirm({
     title: '¿Deseas liberar el turno de este paciente?',
-    text: "El paciente volverá a la lista de espera.",
     icon: "info",
     showCancelButton: true,
     confirmButtonColor: "#d33",
@@ -657,6 +657,7 @@ function liberarPaciente(areaFisica, turno) {
             alertMsj({
               title: "¡Paciente liberado!",
               text: "Ya puedes llamar a un nuevo paciente al areá : )",
+              text: "Ya puedes llamar a un nuevo paciente al área : )",
               icon: "success",
               showCancelButton: false,
               timer: 8000,
@@ -674,8 +675,6 @@ function liberarPaciente(areaFisica, turno) {
 
 function pasarPaciente() {
   alertMensajeConfirm({
-    title: '¿Deseas enviar un paciente a otra área disponible?',
-    text: "No podrás revertir esta acción.",
     icon: "info",
     showCancelButton: true,
     confirmButtonColor: "#d33",
@@ -696,7 +695,6 @@ function pasarPaciente() {
           // $('#paciente_turno').html(row['PACIENTE'])
           alertMsj({
             title: row['PACIENTE'],
-            text: `Es el siguiente paciente en el área de ${row['AREA_FISICA']}.`,
             icon: 'success',
             timer: 5000,
             showCancelButton: false,
@@ -1155,12 +1153,14 @@ function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error',
 // 
 
 function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos completados', footer = null, html = null) {
+function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos completados', footer = null, html = null, timer = null) {
   Swal.fire({
     icon: icon,
     title: title,
     text: text,
     html: html,
     footer: footer,
+    timer: timer
     // width: 'auto',
   })
 }
@@ -1872,6 +1872,90 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
   })
 }
 //
+
+function obtenerVistaEspiroPacientes(div) {
+  return new Promise(resolve => {
+    $.post(http + servidor + "/" + appname + "/vista/menu/area-master/contenido/forms/form_espiro.html",
+
+      function (html) {
+        setTimeout(function () {
+          $(div).html(html);
+
+          resolve(1)
+        }, 100);
+      });
+  })
+}
+
+
+function obtenerDatosEspiroPacientes() {
+  return new Promise(resolve => {
+    ajaxAwait({
+      api: 2,
+      id_turno: dataSelect.array['turno']
+    }, 'espirometria_api', { callbackAfter: true, returnData: false }, false, function (data) {
+
+
+      //$('#1pr1').prop('checked', true)
+      let row = data.response.data;
+
+      for (const key in row) {
+        if (Object.hasOwnProperty.call(row, key)) {
+          const element = row[key];
+
+          respuestas = element.ID_R;
+          comentario = element.COMENTARIO
+
+          switch (true) {
+
+            // PARA MOSTRAR AQUELLOS QUE SON INPUTS DE TIPO RADIO
+            case respuestas == 1 || respuestas == '1' || respuestas == 2 || respuestas == '2':
+
+              $(`input[name="respuestas[${element.ID_P}][${element.ID_R}][valor]"]`).prop('checked', true)
+
+              break;
+
+            // PARA TODOS AQUELLOS INPUTS DE TIPO CHECKBOX QUE NO TIENEN UN COMENTARIO ANEXADO
+            case respuestas != 1 && respuestas != '1' && respuestas != 2 && respuestas != '2' && comentario == null:
+
+              $(`input[name="respuestas[${element.ID_P}][${element.ID_R}][valor]"]`).prop('checked', true);
+
+              break;
+
+            // // PARA TODOS AQUELLOS QUE SON INPUTS DE TIPO TEXT  QUE NO TIENEN RESPUESTA Y PARA AQUELLOS INPUTS DE TIPO CHECKBOX QUE CONTIENEN UN COMENTARIO
+            case comentario != null:
+
+              $(`input[name="respuestas[${element.ID_P}][${element.ID_R}][valor]"]`).prop('checked', true);
+              $(`input[id="p${element.ID_P}"]`).val(comentario);
+
+              //INSERTAMOS LA RESPUESTAS DE AQUELLAS PREGUNTAS QUE NO TIENEN UN ID DE RESPUESTA
+              $(`input[name="respuestas[${element.ID_P}][0][comentario]"]`).val(comentario);
+
+              break;
+
+          }
+
+          //MOSTRAMOS LOS COLLAPSE DE TODAS AQUELLAS PREGUNTAS QUE LO CONTIENEN
+          let parent = $('div[class="form-check form-check-inline col-12 mb-2"]');
+          let children = $(parent).children(`div[id="p${element.ID_P}r${element.ID_R}"]`);
+          children.collapse('show');
+
+          $(`textarea[name="respuestas[${element.ID_P}][${element.ID_R}][comentario]"]`).val(comentario)
+
+
+          let childrenCondiciones = $(parent).children(`div[id="pregunta${element.ID_P}"]`);
+          childrenCondiciones.collapse('hide');
+        }
+
+
+      }
+    })
+    resolve(1)
+  })
+
+}
+
+
 
 function select2(select, modal = null, placeholder = 'Selecciona una opción', width = '100%') {
   if (!modal) modal = 'body-controlador';
@@ -2629,6 +2713,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   $('#info-ticket-subtotal').html(data['SUBTOTAL'])
                   $('#info-ticket-iva').html(data['IVA'])
                   $('#info-ticket-total').html(data['TOTAL'])
+                  $('#info-ticket-tipopago').html(data['TIPO_PAGO'])
 
                   if (ifnull(data['RAZON_SOCIAL']) ||
                     ifnull(data['DOMICILIO_FISCAL']) ||
@@ -2637,14 +2722,14 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     ifnull(data['RFC']) ||
                     ifnull(data['METODO_PAGO'])) {
 
-                    $('#info-factura-razon_social').val(data['RAZON_SOCIAL']);
-                    $('#info-factura-domicilio_fiscal').val(data['DOMICILIO_FISCAL']);
-                    $('#info-factura-regimen_fiscal').val(data['REGIMEN_FISCAL']);
-                    $('#info-factura-uso').val(data['USO_DESCRIPCION']);
-                    $('#info-factura-rfc').val(data['RFC']);
-                    $('#info-factura-metodo_pago').val(data['METODO_PAGO']);
+                    $('#info-factura-razon_social').html(data['RAZON_SOCIAL']);
+                    $('#info-factura-domicilio_fiscal').html(data['DOMICILIO_FISCAL']);
+                    $('#info-factura-regimen_fiscal').html(data['REGIMEN_FISCAL']);
+                    $('#info-factura-uso').html(data['USO_DESCRIPCION']);
+                    $('#info-factura-rfc').html(data['RFC']);
+                    $('#info-factura-metodo_pago').html(data['METODO_PAGO']);
 
-                    $('#panel-contenedor-factura').fadeIn(0);
+                    $('.panel-contenedor-factura').fadeIn(0);
                   }
                 }
                 )
@@ -2657,7 +2742,12 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 resolve(1);
                 break;
 
-
+              case 'PanelTemperaturas':
+                setTimeout(function () {
+                  $(panel).fadeIn(100);
+                }, 100);
+                resolve(1);
+                break;
 
 
               default:
@@ -3698,6 +3788,55 @@ function ScrollZoom(container, max_scale, factor) {
   }
 }
 
+//Servicios en cargar estudios con popper
+
+function cargarServiciosEstudios(button, tooltip, servicio_id) {
+
+  const arrow = $('#arrow');
+
+  const popperInstance = Popper.createPopper(button, tooltip, {
+    placement: 'right',
+    options: {
+      element: arrow,
+    },
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 20],
+        },
+      },
+    ],
+  });
+
+  function show() {
+    tooltip.setAttribute('data-show', '');
+    popperInstance.update();
+
+    ajaxAwait({
+      api: 0,
+      id: servicio_id
+    }, "servicios_api", { callbackAfter: true }, false, function (data) {
+
+    })
+
+  }
+
+  function hide() {
+    tooltip.removeAttribute('data-show');
+  }
+
+  const showEvents = ['mouseenter', 'focus'];
+  const hideEvents = ['mouseleave', 'blur'];
+
+  showEvents.forEach((event) => {
+    $(button).on(event, show);
+  });
+
+  hideEvents.forEach((event) => {
+    $(button).on(event, hide);
+  });
+}
 
 
 //Funcion para crear un tooltip grande
