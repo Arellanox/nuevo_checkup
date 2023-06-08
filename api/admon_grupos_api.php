@@ -19,6 +19,10 @@ $factura = $_POST['num_factura']; # numero de la factura que arroja alegra.
 $detalle = $_POST['detalle_grupo']; # es un arreglo que incluye solo el id del turno. Ejemplo [45,46,46,48]
 $fecha_creacion = $_POST['fecha_creacion']; # fecha de creacion del grupo
 
+# recuperar pacientes
+$fecha_inicial = $_POST['fecha_inicial'];
+$fecha_final = $_POST['fecha_final'];
+
 switch($api){
     case 1:
         # Agregar un grupo y su detalle.
@@ -39,6 +43,14 @@ switch($api){
     case 3:
         # recuperar el detalle del grupo.
         $response = $master->getByProcedure("sp_admon_detalle_grupo", [$id_grupo]);
+        break;
+    case 4:
+        # lista de pacientes a credito que no estan en grupos
+        $response = $master->getByProcedure("sp_admn_pacientes_credito", [$cliente_id, $fecha_inicial, $fecha_final]);
+        break;
+    case 5:
+        # lista de pacientes de contado que no han sido facturados aun.
+        $response = $master->getByProcedure("sp_admon_pacientes_contado", [$fecha_inicial, $fecha_final]);
         break;
     default:
         $response = "API no definida";
