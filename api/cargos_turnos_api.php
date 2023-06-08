@@ -43,6 +43,10 @@ switch ($api) {
         $response['TOTAL_CARGO'] = $total_cargos;
 
         break;
+    case 2:
+        # facturar un paciente particular
+        $response = $master->insertByProcedure("sp_facturados_g", [$turno_id, $num_factura, $_SESSION['id']]);
+        break;
     case 3:
         # reporte de ujat
         $params = $master->setToNull([
@@ -51,6 +55,10 @@ switch ($api) {
             $id_cliente
         ]);
         $response = $master->getByProcedure("sp_reporte_ujat", $params);
+        break;
+    case 4:
+        # Crear un grupo de facturas
+        
         break;
     default:
         $response = "Apino definida";
