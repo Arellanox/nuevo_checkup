@@ -13,6 +13,7 @@ $master = new Master();
 
 $api = $_POST['api'];
 $turno_id = $_POST['turno_id'];
+$num_factura = $_POST['num_factura'];
 
 
 #variables para el reporte de la ujat
@@ -57,7 +58,7 @@ switch ($api) {
         break;
     case 4:
         # Crear un grupo de facturas
-        
+
         break;
     default:
         $response = "Apino definida";
