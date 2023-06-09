@@ -314,12 +314,12 @@ $encode = base64_encode($ruta);
     <div class="container-fluid">
         <table style="width: 100%; text-align: center;">
             <tr>
-                <td style="width: 25%">
+                <td style="width: 6%">
                     <?php
                     echo "<img src='data:image/png;base64, " . $encode . "' height='65' >";
                     ?>
                 </td>
-                <td style="width: 50%;text-align: center;">
+                <td style="width: 70%;text-align: center;">
                     <p>
                         <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                         RFC DBI2012084N2<br>
@@ -329,17 +329,17 @@ $encode = base64_encode($ruta);
                         hola@bimo.com.mx
                     </p>
                 </td>
-                <td style="width: 25%;text-align: center;">
-                    <p>Folio<br>
-                        <b> <?php echo $encabezado->FOLIO_TICKET; ?> </b>
-                    </p>
-                </td>
             </tr>
         </table>
         <!--CORTE DE CAJA-->
         <!--INICIO DE TABLA INFORMACIÓN-->
+        <hr style="height: 1px; background-color: black ;">
+        <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>CORTE DE CAJA</strong></p>
+        <hr style="height: 1px; background-color: black ;">
+        <br>
         <div>
             <p>Fecha:<strong> Lunes 05 de Junio del 2023</strong></p>
+            <p>Folio:<br><b> <?php echo $encabezado->FOLIO_TICKET; ?> </b></p>
         </div>
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>
@@ -357,58 +357,59 @@ $encode = base64_encode($ruta);
                 </tr>
             </thead>
             <tbody style="height: 420px">
-                <?php
-
-                $resultArray = $resultados->ESTUDIOS_DETALLE;
-                $count = count((array)$resultArray);
-                // echo $count;
-                for ($i = 0; $i < $count; $i++) {
-
-                    $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
-
-                    $formateado = number_format($numero, 2);
-                    echo "  <tr>
-                                <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
-                                <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
-                                <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO'] . "</td>
-                                <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
-                                <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
-                                <td style=\"width: 11%; text-align: center;\">16% </td>
-                                <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
-                            </tr>";
-                }
-
-
-                ?>
-
-            </tbody>
-        </table>
-        <table class="esquina-inferior">
-            <tbody>
-                <tr style="background-color: darkgrey; ">
-                    <td colspan="12"> Cantidad total 00/100 M.N.</td>
+                <tr>
+                    <td style="width: 11%; text-align: center;"> 001</td>
+                    <td style="width: 30%; text-align: left;">E48 -Unidad de servicio</td>
+                    <td style="width: 11%; text-align: right;">$ 100</td>
+                    <td style="width: 11%; text-align: center;">16 %</td>
+                    <td style="width: 11%; text-align: right;">$ 116</td>
+                    <td style="width: 15%; text-align: center;">Crédito </td>
+                    <td style="width: 11%; text-align: right;">002</td>
                 </tr>
             </tbody>
         </table>
         <!--Inicio tabla totales -->
         <p style="line-height: 2"></p>
-        <div style=" float: right;width: 30%;">
-            <table style=" width: 200px; text-align: right; border-bottom: transparent; align-items:right;">
+        <div style=" float: right;width: 100%;">
+            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
                 <tbody>
                     <tr>
-                        <td></td>
                         <td>Subtotal</td>
-                        <td><?php echo "$" . $resultados->SUBTOTAL; ?></td>
-                    </tr>
-                    <tr style="line-height: 0;">
                         <td>IVA (16.00%)</td>
-                        <td>
-                            <p><?php echo "$" . $resultados->IVA; ?></p>
-                        </td>
+                        <td style="background-color: darkgrey;"><b>Total</b></td>
                     </tr>
-                    <tr style="background-color: darkgrey;">
-                        <td><b>Total</b></td>
-                        <td><b></p><?php echo "$" . $resultados->TOTAL_DETALLE; ?> </b></td>
+                    <tr>
+                        <td><?php echo "$ 100" . $resultados->SUBTOTAL; ?></td>
+                        <td>
+                            <p><?php echo "$ 16" . $resultados->IVA; ?></p>
+                        </td>
+                        <td style="background-color: darkgrey;"><b></p><?php echo "$ 116" . $resultados->TOTAL_DETALLE; ?> </b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div style=" float: center;width: 100%;">
+            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px">
+                <thead>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">Resumen</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: right;">Crédito</td>
+                        <td><b>$100</b></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">Contado</td>
+                        <td><b>$200</b></td>
                     </tr>
                 </tbody>
             </table>
@@ -416,16 +417,9 @@ $encode = base64_encode($ruta);
         <!---FIN DE LA TABLA DE PRODUCTOS--->
         <div style="float: left;width: 70%;">
             <table style="width: 100%; padding-top: 6%; border-collapse: collapse;" align="left">
-                <tr>
-                    <td style="text-align: center;"><b><?php echo $resultados->USUARIO; ?></b></td>
-                </tr>
-                <tr style="text-align: center;">
-                    <td style="width: 10%; text-align: center; border-top: 1px solid black;">
-                        <!--<hr style="height: 1px; background-color: black ; " align="center"><br>-->
-                        ELABORADO POR
-                    </td>
-                    <td><b></p><?php $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
-                                ?></b></td>
+
+                <td><b></p><?php $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
+                            ?></b></td>
                 </tr>
             </table>
         </div>
