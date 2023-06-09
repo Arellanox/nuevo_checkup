@@ -1453,11 +1453,12 @@ function alertErrorAJAX(jqXHR, exception, data) {
 
 
 
-var touchtimeFunction
+let touchtimeFunction
 function detectDobleclick() {
   if (touchtimeFunction == 0) {
     // set first click
     touchtimeFunction = new Date().getTime();
+    return false;
   } else {
     // compare first click to this click and see if they occurred within double click threshold
     if (((new Date().getTime()) - touchtimeFunction) < 800) {
@@ -1672,6 +1673,187 @@ function inputBusquedaTable(
 
 }
 //
+
+// Configuraciones por defecto para select table
+function configSelectTable(config) {
+  //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
+  const defaults = {
+    dblClick: false, // Aceptar doble click
+    unSelect: false, // Deseleccionar un registro
+    anotherClass: 'other-for-table', //Cuando sea seleccionado, se agrega la clase, sino se quita
+    tabs: [
+      {
+        title: 'Pacientes',
+        element: '#tab-paciente',
+        class: 'active',
+      },
+      {
+        title: 'información',
+        element: '#tab-informacion',
+        class: 'disabled tab-select'
+      },
+      {
+        title: 'Reporte',
+        element: '#tab-reporte',
+        class: 'disabled tab-select'
+      },
+    ],
+    "tab-id": '#tab-button'
+  }
+
+  Object.entries(defaults).forEach(([key, value]) => {
+    config[key] = config[key] ?? value;
+  });
+  return config;
+}
+//
+function selecTableTabs() {
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
+  if ((width <= 768 && height <= 1366) || (height <= 1366 && width <= 1366)) {
+    //movil
+    $('.tab-page-table').fadeIn(0);
+  } else {
+    //desktop
+    $('.tab-page-table').fadeOut(0);
+  }
+}
+
+// function
+
+//selectDataTableMovilEdition
+let dataDobleSelect, selectTableTimeOutClick, selectTableClickCount = 0;
+function selectTable(tablename, datatable,
+  config = {
+    dblClick: false,
+  },
+  callbackClick = (select = 1, dataRow = [], tr = '1', row = []) => { },
+  callbackDblClick = (select = 1, dataRow = [], tr = '1', row = []) => { }
+) {
+  config = configSelectTable(config)
+  console.log(config)
+
+
+  if (config.tabs) {
+    console.log(config.tabs)
+    let row = config.tabs;
+    let html = `<ul class="nav nav-tabs mt-2 tab-page-table" style="display:none">`;
+    for (const key in row) {
+      if (Object.hasOwnProperty.call(row, key)) {
+        const element = row[key];
+
+        html += `<li class="nav-item">
+                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" id="tab-btn-${element.title}" onclick="preventDefault();" style="cursor: pointer">${element.title}</a>
+                  </li>`;
+      }
+    }
+    html += `</ul>`
+    $(config['tab-id']).html(html)
+
+
+    $(document).on('click', '.tab-table', function () {
+      let btn = $(this);
+
+      $('.tab-table').removeClass('active');
+      btn.addClass('active');
+
+      let column = btn.attr('data-id-column');
+      $('.tab-column').addClass('d-none d-xl-block d-xxl-block');
+      $(`${column}`).removeClass('d-none d-xl-block d-xxl-block');
+      $(`${column}`).fadeOut(0)
+      $(`${column}`).fadeIn(200)
+
+    })
+
+  }
+
+  //Evalua el tipo de dispositivo
+  selecTableTabs()
+  $(window).resize(function () {
+    selecTableTabs()
+  })
+
+
+  //Cambia la vista del dispositivo
+
+
+
+
+  //Table Click Registro
+  $(document).on(`click`, `${tablename} tr`, function () {
+
+
+    if ($(this).hasClass('selected')) {
+      selectTableClickCount++;
+      clearTimeout(selectTableTimeOutClick)
+
+      selectTableTimeOutClick = setTimeout(function () {
+        if (selectTableClickCount === 1 && config.unSelect === true) {
+
+          selectTableClickCount = 0;
+
+          dataDobleSelect = false;
+          //DesSelect registro
+          datatable.$('tr.selected').removeClass('selected');
+          datatable.$('tr.selected').removeClass(config.anotherClass);
+
+          //Desactivar otros tab
+          $(`.tab-select`).addClass('disabled');
+
+          // callbackDblClick(0, null, null, null);
+
+          return callbackClick(0, null, null, null);
+
+        } else if (selectTableClickCount === 2 && config.dblClick === true) {
+
+          selectTableClickCount = 0;
+
+          console.log('doble')
+          let tr = this;
+          let row = datatable.row(tr);
+          let dataRow = row.data();
+
+          return callbackDblClick(1, dataRow, tr, row)
+
+        } else {
+          selectTableClickCount = 0;
+        }
+
+
+
+      }, 300)
+
+    } else {
+      //
+      dataDobleSelect = this;
+
+      //Select registro
+      //Reinicia la seleccion
+      datatable.$('tr.selected').removeClass('selected');
+      datatable.$('tr.selected').removeClass(config.anotherClass);
+      //Agrega la clase para indicar que lo esta seleccionando
+      $(this).addClass('selected');
+      $(this).addClass(config.anotherClass);
+
+      //Activar otros tab
+      $(`.tab-select`).removeClass('disabled');
+
+      //Obtener datos, tr, row e información del row
+      let tr = this;
+      let row = datatable.row(tr);
+      let dataRow = row.data();
+
+
+
+      // callbackDblClick(1, dataRow, tr, row);
+
+      return callbackClick(1, dataRow, tr, row);
+
+    }
+
+  })
+}
 
 
 //Panel

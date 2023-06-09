@@ -3,9 +3,9 @@ tablaMuestras = $('#TablaMuestras').DataTable({
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
   },
   lengthChange: false,
-  info: false,
+  info: true,
   paging: false,
-  scrollY: autoHeightDiv(0, 284),
+  scrollY: "55vh"/* autoHeightDiv(0, 384) */,
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
@@ -46,7 +46,13 @@ tablaMuestras = $('#TablaMuestras').DataTable({
 })
 
 loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
-selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR = null, array = null) {
+// selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR = null, array = null) {
+
+// })
+
+
+//new selectDatatable:
+selectTable('#TablaMuestras', tablaMuestras, { unSelect: true }, (selectTR, array) => {
   selectListaMuestras = array;
   // console.log(selectListaMuestras)
   if (selectTR == 1) {
@@ -69,41 +75,33 @@ selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR =
   }
 })
 
-$("#BuscarTablaListaMuestras").keyup(function () {
-  tablaMuestras.search($(this).val()).draw();
-});
+
+
+inputBusquedaTable('TablaMuestras', tablaMuestras, [{
+  msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
+  place: 'top'
+}], [], 'col-12')
 
 function obtenerListaEstudiosContenedores(idturno = null) {
   return new Promise(resolve => {
-    $.ajax({
-      url: `${http}${servidor}/${appname}/api/toma_de_muestra_api.php`,
-      type: "POST",
-      dataType: 'json',
-      data: { api: 2, id_turno: idturno },
-      success: function (data) {
-        let row = data.response.data
 
+    ajaxAwait({ api: 2, id_turno: idturno }, 'toma_de_muestra_api', { callbackAfter: true, WithoutResponseData: true }, false, (row) => {
+      let html = '';
+      for (var i = 0; i < row.length; i++) {
+        // console.log(row[i]);
+        html += '<li class="list-group-item">';
+        html += row[i]['GRUPO'];
+        html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong></li>';
 
-
-        let html = '';
-        for (var i = 0; i < row.length; i++) {
-          // console.log(row[i]);
-          html += '<li class="list-group-item">';
-          html += row[i]['GRUPO'];
-          html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong></li>';
-
-        }
-        $('#lista-estudios-paciente').html(html);
-
-
-
-
-      },
-      complete: function () {
-        loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
-        resolve(1);
       }
+      $('#lista-estudios-paciente').html(html);
+
+      //Complete
+      loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
+      resolve(1);
     });
+
+
   });
 }
 
