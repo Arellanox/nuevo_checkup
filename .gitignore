@@ -5,3 +5,4 @@ log.txt
 archivos/sistema/json/turnero_optimizador.json
 turnero_data.json
 !estructura receta bimo.pdf
+clases/credenciales_access/database_connect.php
