@@ -32,7 +32,7 @@
         <p class="none-p text-white" style="margin-left: 10px"></p><?php echo $_SESSION['user'] ?></p>
 
       </a>
-      <ul class="dropdown-menu text-small shadow bg-navbar-drop" aria-labelledby="dropdownUser1">
+      <ul class="dropdown-menu text-small shadow bg-navbar-drop" aria-labelledby="dropdownUser1" style="padding: 1px;">
         <?php include "navbar-menu/navlink-dropuser.php"; ?>
       </ul>
     </div>

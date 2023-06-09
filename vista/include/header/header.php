@@ -233,23 +233,7 @@ switch ($menu) {
             </a>
 
             <ul class="dropdown-menu dropdown-menu-lg-end bg-navbar-drop" style="background-color: #ffffff00; padding:0px">
-              <div class="" style="width: 100%">
-                <div class="profile-card-4"><img src="<?php echo $_SESSION['AVATAR']; ?>" class="img img-responsive">
-                  <div class="profile-content">
-                    <div class="profile-name text-center"> <?php echo "$_SESSION[nombre] $_SESSION[apellidos]"; ?>
-                      <p><?php echo "$_SESSION[cargo_descripcion]"; ?></p>
-                    </div>
-                    <div class="profile-description text-center">Hola, ¡buen día! :)</div>
-                    <div class="profile-description text-center">
-                      <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>
-                    </div>
-
-                    <div class="row" style="padding-right: 5%; padding-left: 5%;">
-                      <?php include "navbar-menu/navlink-dropuser.php"; ?>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <?php include "navbar-menu/navlink-dropuser.php"; ?>
             </ul>
           </li>
         </ul>
