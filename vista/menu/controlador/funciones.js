@@ -1698,7 +1698,8 @@ function configSelectTable(config) {
         class: 'disabled tab-select'
       },
     ],
-    "tab-id": '#tab-button'
+    "tab-id": '#tab-button',
+    "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -1720,7 +1721,49 @@ function selecTableTabs() {
   }
 }
 
-// function
+// Para la version movil crea y visualiza columnas
+let activoFunction = false;
+function activeBtnTabs(config) {
+  if (config.tabs) {
+    console.log(config.tabs)
+    let row = config.tabs;
+    let html = `<ul class="nav nav-tabs mt-2 tab-page-table" style="display:none">`;
+    for (const key in row) {
+      if (Object.hasOwnProperty.call(row, key)) {
+        const element = row[key];
+
+        html += `<li class="nav-item">
+                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" id="tab-btn-${element.title}" style="cursor: pointer">${element.title}</a>
+                  </li>`;
+      }
+    }
+    html += `</ul>`
+    $(config['tab-id']).html(html)
+
+
+    if (activoFunction)
+      return false;
+
+    activoFunction = true;
+
+    $(document).on('click', '.tab-table', function () {
+      let btn = $(this);
+
+      if (!btn.hasClass('active')) {
+        $('.tab-table').removeClass('active');
+        btn.addClass('active');
+
+        let column = btn.attr('data-id-column');
+        $('.tab-column').addClass('d-none d-xl-block d-xxl-block');
+        $(`${column}`).removeClass('d-none d-xl-block d-xxl-block');
+        $(`${column}`).fadeOut(0)
+        $(`${column}`).fadeIn(200)
+      }
+    })
+
+    return false;
+  }
+}
 
 //selectDataTableMovilEdition
 let dataDobleSelect, selectTableTimeOutClick, selectTableClickCount = 0;
@@ -1732,41 +1775,9 @@ function selectTable(tablename, datatable,
   callbackDblClick = (select = 1, dataRow = [], tr = '1', row = []) => { }
 ) {
   config = configSelectTable(config)
-  console.log(config)
 
-
-  if (config.tabs) {
-    console.log(config.tabs)
-    let row = config.tabs;
-    let html = `<ul class="nav nav-tabs mt-2 tab-page-table" style="display:none">`;
-    for (const key in row) {
-      if (Object.hasOwnProperty.call(row, key)) {
-        const element = row[key];
-
-        html += `<li class="nav-item">
-                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" id="tab-btn-${element.title}" onclick="preventDefault();" style="cursor: pointer">${element.title}</a>
-                  </li>`;
-      }
-    }
-    html += `</ul>`
-    $(config['tab-id']).html(html)
-
-
-    $(document).on('click', '.tab-table', function () {
-      let btn = $(this);
-
-      $('.tab-table').removeClass('active');
-      btn.addClass('active');
-
-      let column = btn.attr('data-id-column');
-      $('.tab-column').addClass('d-none d-xl-block d-xxl-block');
-      $(`${column}`).removeClass('d-none d-xl-block d-xxl-block');
-      $(`${column}`).fadeOut(0)
-      $(`${column}`).fadeIn(200)
-
-    })
-
-  }
+  //Cambia la vista del dispositivo
+  activeBtnTabs(config);
 
   //Evalua el tipo de dispositivo
   selecTableTabs()
@@ -1775,13 +1786,8 @@ function selectTable(tablename, datatable,
   })
 
 
-  //Cambia la vista del dispositivo
-
-
-
-
   //Table Click Registro
-  $(document).on(`click`, `${tablename} tr`, function () {
+  $(`${tablename}`).on(`click`, `tr`, function () {
 
 
     if ($(this).hasClass('selected')) {
@@ -1802,14 +1808,13 @@ function selectTable(tablename, datatable,
           $(`.tab-select`).addClass('disabled');
 
           // callbackDblClick(0, null, null, null);
-
+          console.log('deselect')
           return callbackClick(0, null, null, null);
 
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
 
           selectTableClickCount = 0;
 
-          console.log('doble')
           let tr = this;
           let row = datatable.row(tr);
           let dataRow = row.data();
@@ -1838,6 +1843,11 @@ function selectTable(tablename, datatable,
 
       //Activar otros tab
       $(`.tab-select`).removeClass('disabled');
+
+      if (config['tab-default']) {
+        $(`#tab-btn-${config['tab-default']}`).click();
+      }
+
 
       //Obtener datos, tr, row e información del row
       let tr = this;

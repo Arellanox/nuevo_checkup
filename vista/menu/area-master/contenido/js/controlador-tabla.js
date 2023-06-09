@@ -81,12 +81,18 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
 
 })
 
-$("#inputBuscarTableListaPacientes").keyup(function () {
-    tablaContenido.search($(this).val()).draw();
-});
+// $("#inputBuscarTableListaPacientes").keyup(function () {
+//     tablaContenido.search($(this).val()).draw();
+// });
+
+inputBusquedaTable('TablaContenidoResultados', tablaContenido, [{
+    msj: 'Una vez cargado o confirmado el reporte de un registro de esta area, aparecerán en verde',
+    place: 'top'
+}], [], 'col-12')
 
 dataTurnero = null;
-selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function (selectTR = null, array = null) {
+selectTable('#TablaContenidoResultados', tablaContenido, { unSelect: false }, function (selectTR, array) {
+    // selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function (selectTR = null, array = null) {
     let datalist = array;
     dataTurnero = array;
     if (selectTR == 1) {

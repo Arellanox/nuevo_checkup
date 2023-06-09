@@ -42,7 +42,8 @@ tablaSignos = $('#TablaSignos').DataTable({
 })
 
 loaderDiv("Out", null, "#loader-Signos", '#loaderDivSignos');
-selectDatatable('TablaSignos', tablaSignos, 0, 0, 0, 0, function (selectTR = null, array = null) {
+selectTable('#TablaSignos', tablaSignos, { unSelect: true }, (selectTR, array) => {
+    // selectDatatable('TablaSignos', tablaSignos, 0, 0, 0, 0, function (selectTR = null, array = null) {
     selectListaSignos = array;
     // console.log(selectListaSignos)
     if (selectTR == 1) {
@@ -65,11 +66,10 @@ selectDatatable('TablaSignos', tablaSignos, 0, 0, 0, 0, function (selectTR = nul
     }
 })
 
-$("#BuscarTablaListaSignos").keyup(function () {
-    tablaSignos.search($(this).val()).draw();
-});
-
-
+inputBusquedaTable('TablaSignos', tablaSignos, [{
+    msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
+    place: 'top'
+}], [], 'col-12')
 
 async function obtenerResultadosSignos(id) {
     return new Promise(resolve => {

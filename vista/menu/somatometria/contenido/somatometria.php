@@ -1,31 +1,17 @@
 <div class="col-12 loader" id="loader">
   <div class="preloader" id="preloader"> </div>
 </div>
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
 <div class="row">
-  <div class="col-4 col-lg-4 col-xxl-3" style="margin-right: -5px !important;">
+  <div class="col-12 col-xl-3 tab-column" id="tab-paciente" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
       <h4>Lista de pacientes</h4>
       <!-- Control de turnos -->
       <div id="turnos_panel"></div>
 
-      <div class="text-center mt-2">
-        <div class="input-group flex-nowrap">
-          <!-- <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left" title="Los iconos representan el estado del paciente a las areas">
-                        <i class="bi bi-info-circle"></i>
-                    </span> -->
-          <input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important" name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaSignos" data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">
-          <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top" title="Los pacientes con muestras tomadas se visualizarán confirmados de color verde">
-            <i class="bi bi-info-circle"></i>
-          </span>
-
-        </div>
-      </div>
-
-
-      <!-- <div class="text-center">
-        <label for="inputBuscarTableListaNuevos">Buscar:</label>
-        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaSignos">
-      </div> -->
 
       <table class="table display responsive" id="TablaSignos" style="width: 100%">
         <thead class="">
@@ -33,8 +19,8 @@
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Folio</th>
-            <th scope="col d-flex justify-content-center" class="none">Compañia</th>
-            <th scope="col d-flex justify-content-center" class="none">Edad</th>
+            <th scope="col d-flex justify-content-center" class="tablet">Compañia</th>
+            <th scope="col d-flex justify-content-center" class="tablet">Edad</th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +28,8 @@
       </table>
     </div>
   </div>
-  <div class="col-4 col-lg-3 col-xxl-3 informacion-Signos" style="margin-right: -5px !important;display:none">
+
+  <div class="col-12 col-xl-3 tab-column d-none d-xl-block d-xxl-block informacion-Signos" id="tab-informacion" style="margin-right: -5px !important;display:none !important">
     <div class="card mt-3" id="panel-informacion"> </div>
     <!-- <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -50,7 +37,7 @@
       </div>
     </div> -->
   </div>
-  <div class="col-lg-5 col-xxl-6 informacion-Signos" style="margin-right: -5px !important;display:none">
+  <div class="col-12 col-xl-6 tab-column d-none d-xl-block d-xxl-block informacion-Signos" id="tab-reporte" style="margin-right: -5px !important;display:none !important">
     <div class="card mt-3 p-3">
       <div class="row">
         <div class="col-12 col-lg-7">
@@ -266,8 +253,3 @@
     <div class="preloader" id="loader-Signos"></div>
   </div>
 </div>
-<style media="screen">
-  #TablaSignos_filter {
-    display: none
-  }
-</style>

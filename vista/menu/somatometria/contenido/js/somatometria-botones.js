@@ -76,5 +76,5 @@ function recargarVistaLab(fecha = 1) {
   if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
 
   tablaSignos.ajax.reload();
-  getPanelLab('Out', 0)
+  // getPanelLab('Out', 0)
 }
