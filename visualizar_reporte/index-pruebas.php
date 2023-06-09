@@ -31,9 +31,9 @@ $usuario_id = $_SESSION['id'];
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
-$api = 'fast_checkup';
-$turno_id = 427;
-$area_id = 17;
+$api = 'laboratorio';
+$turno_id = 927;
+$area_id = 6;
 // // $area_id = 12;
 // $turno_id = 742;
 
@@ -142,6 +142,10 @@ switch ($api) {
         break;
     case 'fast_checkup':
         $r = $master->reportador($master, $turno_id,  $area_id, 'fast_checkup', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+
+    case 'temperaturas':
+        $r = $master->reportador($master, $turno_id,  $area_id, 'temperaturas', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
 
     default:
