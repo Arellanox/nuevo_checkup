@@ -1,5 +1,6 @@
 <?php
 include "miscelaneus.php";
+include "credenciales_access/database_connect.php";
 
 class Master extends Miscelaneus
 {
@@ -10,9 +11,11 @@ class Master extends Miscelaneus
     public $urlOrdenesMedicas;
     public $urlEquiposLaboratorio;
     public $urlPases;
+    public $database;
     function Master()
     {
         $this->mis = new Miscelaneus();
+        $this->database = new Database();
         $this->urlServer = 'https://bimo-lab.com/';
         $this->urlLocal = 'http://localhost/';
         $this->urlComodin = '../';
@@ -36,67 +39,11 @@ class Master extends Miscelaneus
 
     function connectDb()
     {
-        $server = $_SERVER['SERVER_NAME'];
 
-        switch($server){
-            case "localhost":
-            case "helicebiologicos.com":
-                # nube. conexion de pruebas
-                $host = "212.1.208.201";
-                $dbname = "u808450138_checkup_copio";
-                $username = "u808450138_hola";
-                $password = ":N1TFmb0z";
-
-                // $host = "212.1.208.201";
-                // $dbname = "u808450138_capacitaciones";
-                // $username = "u808450138_capacitador";
-                // $password = '7$V1HPRSVa*2';
-                break;
-            case "drjb.com.mx":
-                $host = "212.1.208.201";
-                $dbname = "u808450138_capacitaciones";
-                $username = "u808450138_capacitador";
-                $password = '7$V1HPRSVa*2';
-                break;
-            case "bimo-lab.com":
-                # local
-                # $host = "212.1.208.201";
-                $host = 'localhost'; //Servidor
-                $dbname = "u808450138_checkup";
-                $username = "u808450138_bimo";
-                $password = "I?6m7]Pe0";
-                break;
-            default:
-                $host = 'localhost'; //Servidor
-                $dbname = "NONE";
-                $username = "NONE";
-                $password = "NONE";
-                break;
-        }
-        // require_once 'pdoconfig.php';
-        // $host = "212.1.208.201";
-        // $host = 'localhost'; //Servidor
-        // $dbname = "u808450138_checkup";
-        // $username = "u808450138_bimo";
-        // $password = "I?6m7]Pe0";
-
-        #local
-        // $host = "localhost";
-        // $dbname = "u808450138_checkup";
-        // $username = "root";
-        // $password = "12345678";
-
-        # nube. conexion de pruebas
-        // $host = "212.1.208.201";
-        // $dbname = "u808450138_checkup_copio";
-        // $username = "u808450138_hola";
-        // $password = ":N1TFmb0z";
-
-        # nube conexion de base para capacitaciones
-        // $host = "212.1.208.201";
-        // $dbname = "u808450138_capacitaciones";
-        // $username = "u808450138_capacitador";
-        // $password = '7$V1HPRSVa*2';
+        $host = $this->database->host;
+        $dbname = $this->database->dbname;
+        $username = $this->database->username;
+        $password = $this->database->password;
 
 
         try {
