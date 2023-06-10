@@ -49,7 +49,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
 })
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
-selectTable('#TablaMuestras', tablaMuestras, {
+selectTable('#TablaLaboratorio', tablaListaPaciente, {
     unSelect: true, movil: true, reload: ['col-xl-9'], tabs: [
         {
             title: 'Pacientes',
@@ -75,27 +75,16 @@ selectTable('#TablaMuestras', tablaMuestras, {
         estadoBotones(0) //Habilitar botones
         $('#height-card-pdf').css('height', autoHeightDiv(0, 100))
         try {
-            // getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'In', async function (divClass) {
-            // vistaPDF('adobe-dc-view', 'url', 'resultado_laboratorio_test.pdf')
-            // await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente_lab')
-            // await generarHistorialResultados(datalist['ID_PACIENTE'])
             await getResultadoPaciente(datalist['ID_TURNO']);
 
-            // await generarFormularioPaciente(datalist['ID_TURNO'])
-
-            // console.log(selectEstudio)
             if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
                 estadoBotones(1) //Desactivar si ya fue enviado
-            // console.log(selectEstudio.array.RUTA)
             try {
                 vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
             } catch (error) {
 
             }
-            // bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
 
-            // });
-            // getPanelLab('In', datalist['ID_TURNO'], datalist['ID_PACIENTE'])
         } catch (error) {
             console.log(error)
         }
@@ -103,9 +92,7 @@ selectTable('#TablaMuestras', tablaMuestras, {
         callback('In')
     } else {
         callback('Out')
-        // console.log('rechazado')
-        // getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
-        // getPanelLab('Out', 0, 0)
+
     }
 })
 
