@@ -89,7 +89,7 @@ session_start();
         </div>
     </div>
 
-    <div class="col-12 col-xl-4 tab-column d-none d-xl-block d-xxl-block informacion-paciente" id="tab-informacion" style="margin-right: -5px !important;display:none">
+    <div class="col-12 col-xl-4 tab-column informacion-paciente" id="tab-informacion" style="margin-right: -5px !important;display:none">
         <div class="card m-3" id="panel-informacion"> </div>
         <!-- <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -97,7 +97,7 @@ session_start();
       </div>
     </div> -->
     </div>
-    <div class="col-12 col-xl-4 tab-column d-none d-xl-block d-xxl-block informacion-paciente" id="tab-reporte" style="margin-right: -5px !important;display:none">
+    <div class="col-12 col-xl-4 tab-column informacion-paciente" id="tab-reporte" style="margin-right: -5px !important;display:none">
         <div class="card mt-3 p-3" id="panel">
             <div class="" id="divAreaMasterResultados">
                 <div class="row">

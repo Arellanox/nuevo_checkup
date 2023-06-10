@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <div class="col-12 col-xl-3 tab-column informacion-muestras d-none d-xl-block d-xxl-block" id="tab-informacion" style="margin-right: -5px !important;  display:none !important">
+  <div class="col-12 col-xl-3 tab-column informacion-muestras" id="tab-informacion" style="margin-right: -5px !important;  display:none !important">
     <div class="card mt-3" id="panel-informacion"> </div>
     <!-- <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -50,7 +50,7 @@
       </div>
     </div> -->
   </div>
-  <div class="col-12 col-xl-6 tab-column informacion-muestras d-none d-xl-block d-xxl-block" id="tab-reporte" style="margin-right: -5px !important;  display:none !important">
+  <div class="col-12 col-xl-6 tab-column informacion-muestras" id="tab-reporte" style="margin-right: -5px !important;  display:none !important">
     <div class="card mt-3 p-3">
       <div class="row">
         <div class="col-12 col-lg-7">
