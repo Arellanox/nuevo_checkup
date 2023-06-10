@@ -1790,13 +1790,6 @@ function dinamicTabs(loader) {
     dinamicTabFunction();
   })
 
-  $.fn.dataTable
-    .tables({
-      visible: true,
-      api: true
-    })
-    .columns.adjust();
-
 }
 
 //Agrega el circulo para cargar el panel
