@@ -5,8 +5,8 @@
 <!-- tabs para movil -->
 <div id="tab-button"></div>
 
-<div class="row">
-  <div class="col-12 col-xl-3 tab-column" id="tab-paciente" style="margin-right: -5px !important;">
+<div class="row overflow-auto">
+  <div class="col-12 col-xl-3 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
       <h4>Lista de pacientes</h4>
       <!-- Control de turnos -->
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="col-12 col-xl-3 tab-column d-none d-xl-block d-xxl-block informacion-Signos" id="tab-informacion" style="margin-right: -5px !important;display:none !important">
+  <div class="col-12 col-xl-3 tab-second" id="tab-informacion" style="margin-right: -5px !important;display:none !important">
     <div class="card mt-3" id="panel-informacion"> </div>
     <!-- <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -37,7 +37,7 @@
       </div>
     </div> -->
   </div>
-  <div class="col-12 col-xl-6 tab-column d-none d-xl-block d-xxl-block informacion-Signos" id="tab-reporte" style="margin-right: -5px !important;display:none !important">
+  <div class="col-12 col-xl-6 tab-second" id="tab-reporte" style="margin-right: -5px !important;display:none !important">
     <div class="card mt-3 p-3">
       <div class="row">
         <div class="col-12 col-lg-7">
@@ -249,7 +249,6 @@
   </div>
 
 
-  <div class="col-4 col-lg-8 col-xxl-9 d-flex justify-content-center align-items-center" id='loaderDivSignos' style="max-height: 75vh; display:none">
-    <div class="preloader" id="loader-Signos"></div>
-  </div>
+  <!-- Tercera Columna visual -->
+  <div id="reload-selectable"> </div>
 </div>

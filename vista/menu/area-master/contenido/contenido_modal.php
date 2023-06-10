@@ -55,7 +55,7 @@ session_start();
 </div>
 
 <div class="row">
-    <div class="col-12 col-xl-4 tab-column" id="tab-paciente" style="margin-right: -5px !important;">
+    <div class="col-12 col-xl-4 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
         <div class="card mt-3 p-3" id="lista-pacientes">
             <h4>Lista de pacientes</h4>
 
@@ -89,7 +89,7 @@ session_start();
         </div>
     </div>
 
-    <div class="col-12 col-xl-4 tab-column informacion-paciente" id="tab-informacion" style="margin-right: -5px !important;display:none">
+    <div class="col-12 col-xl-4 tab-second" id="tab-informacion" style="margin-right: -5px !important;display:none">
         <div class="card m-3" id="panel-informacion"> </div>
         <!-- <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -97,7 +97,7 @@ session_start();
       </div>
     </div> -->
     </div>
-    <div class="col-12 col-xl-4 tab-column informacion-paciente" id="tab-reporte" style="margin-right: -5px !important;display:none">
+    <div class="col-12 col-xl-4 tab-second" id="tab-reporte" style="margin-right: -5px !important;display:none">
         <div class="card mt-3 p-3" id="panel">
             <div class="" id="divAreaMasterResultados">
                 <div class="row">
@@ -151,9 +151,9 @@ session_start();
         </div>
     </div>
 
-    <div class="col-8 d-flex justify-content-center align-items-center" id='loaderDivPaciente' style="max-height: 75vh; display:none">
-        <div class="preloader" id="loader-paciente"></div>
-    </div>
+    <!-- Tercera Columna visual -->
+    <div id="reload-selectable"> </div>
+
 </div>
 
 <div>

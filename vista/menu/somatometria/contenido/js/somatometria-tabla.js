@@ -17,8 +17,8 @@ tablaSignos = $('#TablaSignos').DataTable({
         beforeSend: function () { loader("In") },
         complete: function () {
             loader("Out")
-            loaderDiv("Out", null, "#loader-Signos", '#loaderDivSignos', 0);
-            $('.informacion-Signos').fadeOut()
+            //Para ocultar segunda columna
+            reloadSelectTable()
         },
         dataSrc: 'response.data'
     },
@@ -42,27 +42,18 @@ tablaSignos = $('#TablaSignos').DataTable({
 })
 
 loaderDiv("Out", null, "#loader-Signos", '#loaderDivSignos');
-selectTable('#TablaSignos', tablaSignos, { unSelect: true }, (selectTR, array) => {
+selectTable('#TablaSignos', tablaSignos, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async (selectTR, array, callback) => {
     // selectDatatable('TablaSignos', tablaSignos, 0, 0, 0, 0, function (selectTR = null, array = null) {
     selectListaSignos = array;
-    // console.log(selectListaSignos)
     if (selectTR == 1) {
-        //   if (selectListaSignos.MUESTRA_TOMADA == 1) {
-        //     $('#muestra-tomado').prop('disabled', true)
-        //     $('#omitir-paciente').prop('disabled', true)
-        //   }else {
-        //     $('#muestra-tomado').prop('disabled', false)
-        //     $('#omitir-paciente').prop('disabled', false)
-        //   }
-        getPanel('.informacion-Signos', '#loader-Signos', '#loaderDivSignos', selectListaSignos, 'In', async function (divClass) {
-            await obtenerPanelInformacion(selectListaSignos['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
-            await obtenerResultadosSignos(selectListaSignos['ID_TURNO'])
-            loaderDiv("Out", null, "#loader-Signos", '#loaderDivSignos');
-            // console.log(divClass)
-            $(divClass).fadeIn(100);
-        });
+
+        await obtenerPanelInformacion(selectListaSignos['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
+        await obtenerResultadosSignos(selectListaSignos['ID_TURNO'])
+        loaderDiv("Out", null, "#loader-Signos", '#loaderDivSignos');
+
+        callback('In')
     } else {
-        getPanel('.informacion-Signos', '#loader-Signos', '#loaderDivSignos', selectListaSignos, 'Out')
+        callback('Out')
     }
 })
 

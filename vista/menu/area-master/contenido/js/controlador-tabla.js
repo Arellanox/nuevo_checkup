@@ -16,8 +16,10 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
         url: '../../../api/turnos_api.php',
         beforeSend: function () {
             loader("In"), limpiarCampos(), selectListaLab = null;
-            loaderDiv("Out", null, "#loader-paciente", '#loaderDivPaciente', 0);
-            $('.informacion-paciente').fadeOut()
+
+            //Para ocultar las columnas
+            reloadSelectTable()
+
             estadoFormulario()
             // estadoFormulario(3)
         },
@@ -91,7 +93,7 @@ inputBusquedaTable('TablaContenidoResultados', tablaContenido, [{
 }], [], 'col-12')
 
 dataTurnero = null;
-selectTable('#TablaContenidoResultados', tablaContenido, { unSelect: false }, function (selectTR, array) {
+selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: ['col-xl-8'] }, async function (selectTR, array, callback) {
     // selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function (selectTR = null, array = null) {
     let datalist = array;
     dataTurnero = array;
@@ -101,107 +103,110 @@ selectTable('#TablaContenidoResultados', tablaContenido, { unSelect: false }, fu
             nombre_paciente: datalist['NOMBRE_COMPLETO'],
             turno: datalist['ID_TURNO']
         })
-        getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
-            await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', areaActiva)
-            // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster')
-            await obtenerServicios(areaActiva, datalist['ID_TURNO'])
+        // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
+        await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', areaActiva)
+        // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster')
+        await obtenerServicios(areaActiva, datalist['ID_TURNO'])
 
-            //Obtener resultado de cada area 
-            estadoFormulario(0) //Activa el formulario
-            switch (areaActiva) {
-                case 3: //Oftalmo
-                    // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster', '_version2')
-                    $('#btn-inter-oftal').fadeIn(0);
+        //Obtener resultado de cada area 
+        estadoFormulario(0) //Activa el formulario
+        switch (areaActiva) {
+            case 3: //Oftalmo
+                // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster', '_version2')
+                $('#btn-inter-oftal').fadeIn(0);
+                document.getElementById(formulario).reset()
+                if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                if (selectEstudio.array.length)
+                    await obtenerResultadosOftalmo(selectEstudio.array)
+                break;
+            case 4:
+                $('#btn-inter-areas').fadeIn(0);
+                if (datalist.CONFIRMADO == 1) estadoFormulario(1)
+                break;
+            case 5:
+                $('#btn-inter-areas').fadeIn(0);
+                if (datalist.CONFIRMADO == 1) estadoFormulario(1)
+                break;
+            case 8: //Rayos X
+                $('#btn-inter-areas').fadeIn(0);
+                if (formulario == 1) {
+                    await GenerarListaCapturasImagenologia(selectEstudio.array);
+                    // console.log("lista");
+                } else {
+                    await GeenerarReporteImagenologia(selectEstudio.array);
+                    if (datalist.CONFIRMADO_RX == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                }
+                break;
+            case 11: //Ultrasonido
+                $('#btn-inter-areas').fadeIn(0);
+                if (formulario == 1) {
+                    await GenerarListaCapturasImagenologia(selectEstudio.array);
+                    // console.log("lista");
+                } else {
+                    await GeenerarReporteImagenologia(selectEstudio.array);
+                    if (datalist.CONFIRMADO_ULTRASO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                }
+                break;
+            case 10: //Electrocardiograma
+                $('#btn-inter-areas').fadeIn(0);
+                if (formulario != 1) {
                     document.getElementById(formulario).reset()
-                    if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                    $('#capturaElectro').html('')
+                    if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+
+                    if (selectEstudio.array.length) {
+                        await obtenerResultadosElectro(selectEstudio.array)
+                        if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
+                            await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
+                    }
+                } else {
+                    botonElectroCaptura(0);
+
                     if (selectEstudio.array.length)
-                        await obtenerResultadosOftalmo(selectEstudio.array)
-                    break;
-                case 4:
-                    $('#btn-inter-areas').fadeIn(0);
-                    if (datalist.CONFIRMADO == 1) estadoFormulario(1)
-                    break;
-                case 5:
-                    $('#btn-inter-areas').fadeIn(0);
-                    if (datalist.CONFIRMADO == 1) estadoFormulario(1)
-                    break;
-                case 8: //Rayos X
-                    $('#btn-inter-areas').fadeIn(0);
-                    if (formulario == 1) {
-                        await GenerarListaCapturasImagenologia(selectEstudio.array);
-                        // console.log("lista");
-                    } else {
-                        await GeenerarReporteImagenologia(selectEstudio.array);
-                        if (datalist.CONFIRMADO_RX == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-                    }
-                    break;
-                case 11: //Ultrasonido
-                    $('#btn-inter-areas').fadeIn(0);
-                    if (formulario == 1) {
-                        await GenerarListaCapturasImagenologia(selectEstudio.array);
-                        // console.log("lista");
-                    } else {
-                        await GeenerarReporteImagenologia(selectEstudio.array);
-                        if (datalist.CONFIRMADO_ULTRASO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-                    }
-                    break;
-                case 10: //Electrocardiograma
-                    $('#btn-inter-areas').fadeIn(0);
-                    if (formulario != 1) {
-                        document.getElementById(formulario).reset()
-                        $('#capturaElectro').html('')
-                        if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                        if (selectEstudio.array[0].ELECTRO_PDF)
+                            botonElectroCaptura(1)
+                }
+                break;
+            case 14: //Nutricion
+                $('#btn-inter-areas').fadeIn(0);
+                if (formulario != 1) {
+                    // document.getElementById(formulario).reset()
+                    // $('#capturaElectro').html('')
+                    // if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
 
-                        if (selectEstudio.array.length) {
-                            await obtenerResultadosElectro(selectEstudio.array)
-                            if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
-                                await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
-                        }
-                    } else {
-                        botonElectroCaptura(0);
+                    // if (selectEstudio.array.length) {
+                    //     await obtenerResultadosElectro(selectEstudio.array)
+                    //     if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
+                    //         await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
+                    // }
+                    alert('Interpretacion de nutrición aun esta en mantenimiento')
+                } else {
+                    btnNutricionInbody(1);
 
-                        if (selectEstudio.array.length)
-                            if (selectEstudio.array[0].ELECTRO_PDF)
-                                botonElectroCaptura(1)
-                    }
-                    break;
-                case 14: //Nutricion
-                    $('#btn-inter-areas').fadeIn(0);
-                    if (formulario != 1) {
-                        // document.getElementById(formulario).reset()
-                        // $('#capturaElectro').html('')
-                        // if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-
-                        // if (selectEstudio.array.length) {
-                        //     await obtenerResultadosElectro(selectEstudio.array)
-                        //     if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
-                        //         await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
-                        // }
-                        alert('Interpretacion de nutrición aun esta en mantenimiento')
-                    } else {
-                        btnNutricionInbody(1);
-
-                        if (selectEstudio.array.length)
-                            if (selectEstudio.array[0].INBODY_PDF)
-                                btnNutricionInbody(0)
-                    }
-                    break;
-                default:
-                    botonesResultados('activar');
-                    break;
-            }
-            if (selectEstudio.getguardado() == 1)
-                estadoFormulario(2)
-            // if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2)
-            //     a = ''
-            // estadoFormulario(2)
-            bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
-            // estatusTable('#TablaContenidoResultados')
-        })
+                    if (selectEstudio.array.length)
+                        if (selectEstudio.array[0].INBODY_PDF)
+                            btnNutricionInbody(0)
+                }
+                break;
+            default:
+                botonesResultados('activar');
+                break;
+        }
+        if (selectEstudio.getguardado() == 1)
+            estadoFormulario(2)
+        // if (selectEstudio.getguardado() == 1 || selectEstudio.getguardado() == 2)
+        //     a = ''
+        // estadoFormulario(2)
+        // bugGetPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente')
+        // estatusTable('#TablaContenidoResultados')
+        // })
 
 
 
+        callback('In')
     } else {
+        callback('Out')
+
         dataTurnero = null;
         dataSelect = new GuardarArreglo({
             select: false,
@@ -209,7 +214,6 @@ selectTable('#TablaContenidoResultados', tablaContenido, { unSelect: false }, fu
             turno: 0
         })
         $('#btnResultados').fadeOut('100');
-        getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'Out')
     }
 
 

@@ -1,34 +1,25 @@
 <div class="col-12 loader" id="loader">
   <div class="preloader" id="preloader"> </div>
 </div>
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
 <div class="row">
-  <div class="col-4 col-lg-3 col-xxl-4" style="margin-right: -5px !important;">
+  <div class="col-12 col-xl-4 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
     <div class="card mt-3 p-3" id="lista-pacientes">
       <h4>Lista de pacientes</h4>
 
-      <div class="text-center mt-2">
-        <div class="input-group flex-nowrap">
-          <input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important" name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">
-          <span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="top" title="Una vez confirmado el reporte, el registro se dibujará en verde">
-            <i class="bi bi-info-circle"></i>
-          </span>
-
-        </div>
-      </div>
-      <!-- <div class="text-center">
-        <label for="inputBuscarTableListaNuevos">Buscar:</label>
-        <input type="text" class="form-control input-color" style="display: unset !important;width:auto !important" name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off" id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Filtra la lista de pacientes">
-      </div> -->
       <table class="table display responsive" id="TablaLaboratorio" style="width: 100%; zoom: 90%">
         <thead class="">
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Prefolio</th>
-            <th scope="col d-flex justify-content-center" class="none">Cliente</th>
+            <th scope="col d-flex justify-content-center" class="tablet">Cliente</th>
             <th scope="col d-flex justify-content-center" class="none">Segmento</th>
             <th scope="col d-flex justify-content-center" class="none">Turno</th>
-            <th scope="col d-flex justify-content-center" class="none">Sexo</th>
+            <th scope="col d-flex justify-content-center" class="tablet">Sexo</th>
             <th scope="col d-flex justify-content-center" class="none">Expendiente</th>
           </tr>
         </thead>
@@ -37,7 +28,8 @@
       </table>
     </div>
   </div>
-  <div class="col-4 col-lg-4 col-xxl-3 informacion-labo" style="margin-right: -5px !important;display:none">
+
+  <div class="col-12 col-xl-3 tab-second" id="tab-informacion" style="margin-right: -5px !important;display:none !important">
     <div class="card mt-3" id="panel-informacion"> </div>
     <div class="card mt-3 p-4">
       <h4>Estudios anteriores</h4>
@@ -45,7 +37,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-5 col-xxl-5 informacion-labo" style="margin-right: -5px !important;display:none">
+  <div class="col-12 col-xl-5 tab-second" id="tab-reporte" style="margin-right: -5px !important;display:none !important">
     <div class="card mt-3 p-3">
       <div class="row">
         <div class="col-12 col-lg-6">
@@ -66,21 +58,14 @@
       </div>
       <form class="" id="formAnalisisLaboratorio">
 
-        <div id="formulario-estudios" class="overflow-auto" style="max-width: 100%; margin-bottom:10px;">
+        <div id="formulario-estudios" class="overflow-auto" style="max-width: 100%; margin-bottom:10px;height: 70vh;">
           <!-- <p class="mt-3">BIOMETRIA HEMATICA</p> -->
         </div>
       </form>
     </div>
   </div>
-  <script>
-    autoHeightDiv($('#formulario-estudios'), 223);
-    autoHeightDiv($('#'), 117);
-  </script>
-  <style media="screen">
-    #TablaLaboratorio_filter {
-      display: none
-    }
 
+  <style media="screen">
     li:first-child {
       border-top-left-radius: 10px !important;
       border-top-right-radius: 10px !important;
@@ -91,7 +76,8 @@
       border-bottom-right-radius: 10px !important;
     }
   </style>
-  <div class="col-4 col-lg-9 col-xxl-8 d-flex justify-content-center align-items-center" id='loaderDivLab' style="max-height: 75vh; display:none">
-    <div class="preloader" id="loader-Lab"></div>
-  </div>
+
+
+  <!-- Tercera Columna visual -->
+  <div id="reload-selectable"> </div>
 </div>

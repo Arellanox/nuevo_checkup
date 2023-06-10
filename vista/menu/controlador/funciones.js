@@ -1674,6 +1674,8 @@ function inputBusquedaTable(
 }
 //
 
+
+
 // Configuraciones por defecto para select table
 function configSelectTable(config) {
   //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
@@ -1688,7 +1690,7 @@ function configSelectTable(config) {
         class: 'active',
       },
       {
-        title: 'información',
+        title: 'Información',
         element: '#tab-informacion',
         class: 'disabled tab-select'
       },
@@ -1700,6 +1702,8 @@ function configSelectTable(config) {
     ],
     "tab-id": '#tab-button',
     "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
+    reload: false, //Activa la rueda
+    movil: false, //Activa la version movil
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -1707,23 +1711,26 @@ function configSelectTable(config) {
   });
   return config;
 }
-//
-function selecTableTabs() {
+//Detecta la dimension del dispositivo para saber si es movil o escritorio
+function isMovil(callback = (response) => { }) {
   let width = window.innerWidth;
   let height = window.innerHeight;
 
   if ((width <= 768 && height <= 1366) || (height <= 1366 && width <= 1366)) {
-    //movil
-    $('.tab-page-table').fadeIn(0);
+    callback(true);
+    return true;
   } else {
-    //desktop
-    $('.tab-page-table').fadeOut(0);
+    return false;
   }
 }
 
+//Visualiza los botones de navegacion
+function selecTableTabs() {
+  isMovil() ? $('.tab-page-table').fadeIn(0) : $('.tab-page-table').fadeOut(0);;
+}
+
 // Para la version movil crea y visualiza columnas
-let activoFunction = false;
-function activeBtnTabs(config) {
+function getBtnTabs(config) {
   if (config.tabs) {
     console.log(config.tabs)
     let row = config.tabs;
@@ -1740,29 +1747,82 @@ function activeBtnTabs(config) {
     html += `</ul>`
     $(config['tab-id']).html(html)
 
-
-    if (activoFunction)
-      return false;
-
-    activoFunction = true;
-
-    $(document).on('click', '.tab-table', function () {
-      let btn = $(this);
-
-      if (!btn.hasClass('active')) {
-        $('.tab-table').removeClass('active');
-        btn.addClass('active');
-
-        let column = btn.attr('data-id-column');
-        $('.tab-column').addClass('d-none d-xl-block d-xxl-block');
-        $(`${column}`).removeClass('d-none d-xl-block d-xxl-block');
-        $(`${column}`).fadeOut(0)
-        $(`${column}`).fadeIn(200)
-      }
-    })
-
-    return false;
+    return true;
   }
+}
+
+//Visualiza la columna solo en movil
+let dinamicTabFunction = false
+function dinamicTabs(loader) {
+  dinamicTabFunction = false;
+  isMovil(() => {
+    dinamicTabFunction = () => {
+      console.log('IS MOVIL')
+      $(document).on('click', '.tab-table', function () {
+        let btn = $(this);
+        if (!btn.hasClass('active')) {
+          $('.tab-first').fadeOut(100);
+          $('.tab-second').fadeOut(0);
+
+          $('.tab-table').removeClass('active');
+          btn.addClass('active');
+
+          setTimeout(() => {
+            let id = btn.attr('data-id-column');
+            console.log(id);
+            let loaderVisible = function () {
+              if ($(loader).is(":hidden")) {
+                $(`${id}`).fadeIn(100);
+                loaderVisible = false;
+              } else {
+                setTimeout(() => {
+                  loaderVisible(id);
+                }, 150);
+              }
+            }
+            loaderVisible()
+          }, 100);
+        }
+
+      })
+    }
+
+    dinamicTabFunction();
+  })
+
+}
+
+//Agrega el circulo para cargar el panel
+function setReloadSelecTable(name, param) {
+  let html = `<div class="col-12 col-xl-9 d-flex justify-content-center align-items-center" id='loaderDiv-${name}' style="max-height: 75vh; display:none">
+    <div class="preloader" id="loader-${name}"></div>
+  </div>`;
+
+  $('#reload-selectable').addClass(`col-12 ${param[0]} d-flex justify-content-center align-items-center`)
+  $('#reload-selectable').css('max-height', '75vh')
+  $('#reload-selectable').attr("style", "display: none !important");
+  $('#reload-selectable').html(`<div class="preloader" id="loader-${name}"></div>`)
+  $('#reload-selectable').addClass('loader-tab')
+
+  // $('#reload-selectable').fadeOut('slow');
+  $('#reload-selectable').attr('id', `loaderDiv-${name}`)
+}
+
+function reloadSelectTable() {
+  if (isMovil()) {
+    //Manda al principio
+    try {
+      $(`.tab-table`)[0].click();
+    } catch (error) {
+      console.log('BTN class: tab-table not found')
+    }
+    $('.loader-tab').fadeOut(0)
+  } else {
+    $('.tab-second').fadeOut();
+    $('.tab-first').fadeIn();
+    $('.loader-tab').fadeOut(0)
+  }
+
 }
 
 //selectDataTableMovilEdition
@@ -1774,20 +1834,41 @@ function selectTable(tablename, datatable,
   callbackClick = (select = 1, dataRow = [], tr = '1', row = []) => { },
   callbackDblClick = (select = 1, dataRow = [], tr = '1', row = []) => { }
 ) {
+  //manda valores por defecto
   config = configSelectTable(config)
 
-  //Cambia la vista del dispositivo
-  activeBtnTabs(config);
+  //Nombramiento para usarlo
+  let nameTable = tablename.replace('#', '')
 
-  //Evalua el tipo de dispositivo
-  selecTableTabs()
-  $(window).resize(function () {
+  //Permite el reload y lo dibuja
+  if (config.reload)
+    setReloadSelecTable(nameTable, config.reload)
+
+  //Activa las funciones moviles
+  if (config.movil) {
+    //Cambia la vista del dispositivo
+    getBtnTabs(config);
+    //Activa los botones si es movil
+    dinamicTabs(`#loaderDiv-${nameTable}`)
+    //Evalua el tipo de dispositivo
     selecTableTabs()
-  })
+  }
+
+  //Callback para procesos, ejemplo: quitar loader y mostrar columnas en escritorio
+  let callback = (type = 'Out' || 'In') => {
+    if (type === 'In') {
+      if (!isMovil() || !config.movil) {
+        $('.tab-second').fadeIn(200)
+      }
+    }
+    $(`#loaderDiv-${nameTable}`).attr("style", "display: none !important");
+  }
 
 
   //Table Click Registro
   $(`${tablename}`).on(`click`, `tr`, function () {
+    $('.tab-second').fadeOut()
+    $(`#loaderDiv-${nameTable}`).fadeIn(0);
 
 
     if ($(this).hasClass('selected')) {
@@ -1795,48 +1876,61 @@ function selectTable(tablename, datatable,
       clearTimeout(selectTableTimeOutClick)
 
       selectTableTimeOutClick = setTimeout(function () {
+
         if (selectTableClickCount === 1 && config.unSelect === true) {
-
+          //Si esta deseleccionando:
+          //Resetea los clicks:
           selectTableClickCount = 0;
-
           dataDobleSelect = false;
-          //DesSelect registro
+
+          //Reinicia la seleccion:
           datatable.$('tr.selected').removeClass('selected');
           datatable.$('tr.selected').removeClass(config.anotherClass);
+          //
 
           //Desactivar otros tab
-          $(`.tab-select`).addClass('disabled');
+          $(`.tab-select`).addClass('disabled')
+          // if (isMovil()) {
+          //   let id = $('.tab-first').attr('id');
+          //   $(`.tab-table`)
+          // }
 
           // callbackDblClick(0, null, null, null);
           console.log('deselect')
-          return callbackClick(0, null, null, null);
-
+          return callbackClick(0, null, callback, null, null);
+          //
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
-
+          //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
 
           let tr = this;
           let row = datatable.row(tr);
           let dataRow = row.data();
 
-          return callbackDblClick(1, dataRow, tr, row)
+
+          return callbackDblClick(1, dataRow, callback, tr, row)
 
         } else {
+          //Reinicia el dobleClick
           selectTableClickCount = 0;
         }
-
-
 
       }, 300)
 
     } else {
-      //
+      //Si esta seleccionando:
       dataDobleSelect = this;
+      selectTableClickCount++;
+      setTimeout(() => {
+        selectTableClickCount = 0;
+      }, 400);
 
-      //Select registro
-      //Reinicia la seleccion
+
+      //Reinicia la seleccion:
       datatable.$('tr.selected').removeClass('selected');
       datatable.$('tr.selected').removeClass(config.anotherClass);
+      //
+
       //Agrega la clase para indicar que lo esta seleccionando
       $(this).addClass('selected');
       $(this).addClass(config.anotherClass);
@@ -1844,21 +1938,17 @@ function selectTable(tablename, datatable,
       //Activar otros tab
       $(`.tab-select`).removeClass('disabled');
 
+      //Reselecciona
       if (config['tab-default']) {
         $(`#tab-btn-${config['tab-default']}`).click();
       }
-
 
       //Obtener datos, tr, row e información del row
       let tr = this;
       let row = datatable.row(tr);
       let dataRow = row.data();
 
-
-
-      // callbackDblClick(1, dataRow, tr, row);
-
-      return callbackClick(1, dataRow, tr, row);
+      return callbackClick(1, dataRow, callback, tr, row);
 
     }
 
@@ -1866,7 +1956,7 @@ function selectTable(tablename, datatable,
 }
 
 
-//Panel
+//Panel, este panel se usa ahora en la funcion selectTable, resolviendo el bug
 function getPanel(divClass, loader, loaderDiv1, selectLista, fade, callback) { //selectLista es una variable que no se usa 
   switch (fade) {
     case 'Out':

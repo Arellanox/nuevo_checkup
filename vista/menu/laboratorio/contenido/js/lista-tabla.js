@@ -19,8 +19,8 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
     },
     complete: function () {
       loader("Out", 'bottom')
-      loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab', 0);
-      $('.informacion-labo').fadeOut()
+      //Para ocultar segunda columna
+      reloadSelectTable()
     },
     dataSrc: 'response.data'
   },
@@ -49,42 +49,39 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
 })
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
-selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (selectTR = null, array = null) {
+selectTable('#TablaLaboratorio', tablaListaPaciente, { unSelect: true, movil: true, reload: ['col-xl-8'] }, async (selectTR, array, callback) => {
+  // selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (selectTR = null, array = null) {
   selectListaLab = array;
   if (selectTR == 1) {
     try {
-      getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'In', async function (divClass) {
-        await obtenerPanelInformacion(selectListaLab['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', 6)
-        await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
-        await generarFormularioPaciente(selectListaLab['ID_TURNO'])
 
-        if (selectListaLab.CONFIRMADO == 1) {
-          $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
-          $('#formAnalisisLaboratorio :input').prop('disabled', true)
-        } else {
-          $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', false)
-          $('#formAnalisisLaboratorio :input').prop('disabled', false)
-        }
+      await obtenerPanelInformacion(selectListaLab['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', 6)
+      await generarHistorialResultados(selectListaLab['ID_PACIENTE'])
+      await generarFormularioPaciente(selectListaLab['ID_TURNO'])
 
-
-        bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
+      if (selectListaLab.CONFIRMADO == 1) {
+        $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
+        $('#formAnalisisLaboratorio :input').prop('disabled', true)
+      } else {
+        $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', false)
+        $('#formAnalisisLaboratorio :input').prop('disabled', false)
+      }
 
 
-      });
-      // getPanelLab('In', selectListaLab['ID_TURNO'], selectListaLab['ID_PACIENTE'])
     } catch (error) {
       console.log(error)
+      alertMensaje('warning', 'Hubo un error', 'Hubo un error al recuperar los datos del paciente, contacte con los coordinadores de TI')
     }
+    callback('In')
   } else {
-    // console.log('rechazado')
-    getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
-    // getPanelLab('Out', 0, 0)
+    callback('Out')
   }
 })
 
-$("#BuscarTablaListaLaboratorio").keyup(function () {
-  tablaListaPaciente.search($(this).val()).draw();
-});
+inputBusquedaTable('TablaLaboratorio', tablaListaPaciente, [{
+  msj: 'Una vez confirmado el reporte, el registro se dibujará en verde',
+  place: 'top'
+}], [], 'col-12')
 
 function generarHistorialResultados(id) {
   return new Promise(resolve => {
@@ -166,9 +163,9 @@ function generarFormularioPaciente(id) {
         $('#formulario-estudios').html('')
         data = data.response.data;
 
-        let colStart = '<div class="col-auto col-lg-6">';
+        let colStart = '<div class="col-12 col-lg-6">';
         let endDiv = '</div>';
-        let colreStart = '<div class="col-auto col-lg-6 d-flex justify-content-end align-items-center">';
+        let colreStart = '<div class="col-12 col-lg-6 d-flex justify-content-end align-items-center">';
         let html = '';
 
         // <ul class = "list-group m-4 overflow-auto hover-list info-detalle"
@@ -352,7 +349,7 @@ function generarFormularioPaciente(id) {
           // console.log(row)
           var count = Object.keys(row).length;
           // console.log(count);
-          html += '<ul class = "list-group card hover-list info-detalle" style="margin: 15px;padding: 15px;" >';
+          html += '<ul class = "list-group card hover-list info-detalle mt-3" style="padding: 15px;" >';
           html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
           for (var k in row) { //Empieza cada estudio del grupo
             // console.log(k, row[k])
@@ -454,7 +451,7 @@ function generarFormularioPaciente(id) {
                 }
 
               } else {
-                html += '<div class="col-auto col-lg-12 text-center">';
+                html += '<div class="col-12 col-lg-12 text-center">';
                 html += '<p style="font-size: 19px; font-wieght: bolder">' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
                 html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
                 html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row[k]['ID_SERVICIO']}">`
