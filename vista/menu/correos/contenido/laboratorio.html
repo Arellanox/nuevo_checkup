@@ -1,8 +1,13 @@
-<div class="col-12 loader" id="loader" style="">
+<div class="col-12 loader" id="loader">
     <div class="preloader" id="preloader"> </div>
 </div>
+
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
 <div class="row" style="height: 100%;">
-    <div class="col-3 col-lg-3" style="margin-right: -5px !important;">
+    <div class="col-12 col-xl-3 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
         <div class="card mt-3 p-3" id="lista-pacientes">
             <h4>Lista de pacientes</h4>
             <div class="text-center">
@@ -31,7 +36,8 @@
         </div>
     </div>
 
-    <div class="col-lg-9 informacion-labo" style="margin-right: -5px !important;display:none">
+    <div class="col-12 col-xl-9 tab-second" id="tab-reporte"
+        style="margin-right: -5px !important;display:none !important">
         <div class="card mt-3 p-3" id="height-card-pdf">
             <div class="row">
                 <div class="col-12 col-lg-7">
@@ -54,6 +60,7 @@
             <div id="pdfviewer" style="height: 100%;"></div>
         </div>
     </div>
+
     <style media="screen">
         #TablaLaboratorio_filter {
             display: none
@@ -69,8 +76,9 @@
             border-bottom-right-radius: 10px !important;
         }
     </style>
-    <div class="col-9 d-flex justify-content-center align-items-center" id='loaderDivLab'
-        style="max-height: 75vh; display:none">
-        <div class="preloader" id="loader-Lab"></div>
+
+    <!-- Tercera Columna visual -->
+    <div id="reload-selectable">
+
     </div>
 </div>

@@ -16,12 +16,11 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
         url: '../../../api/turnos_api.php',
         beforeSend: function () {
             loader("In")
-            getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
         },
         complete: function () {
             loader("Out", 'bottom')
-            getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
-            $('.informacion-labo').fadeOut()
+            //Para ocultar segunda columna
+            reloadSelectTable()
         },
         dataSrc: 'response.data'
     },
@@ -50,7 +49,21 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
 })
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
-selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (selectTR = null, array = null) {
+selectTable('#TablaMuestras', tablaMuestras, {
+    unSelect: true, movil: true, reload: ['col-xl-9'], tabs: [
+        {
+            title: 'Pacientes',
+            element: '#tab-paciente',
+            class: 'active',
+        },
+        {
+            title: 'Reporte',
+            element: '#tab-reporte',
+            class: 'disabled tab-select'
+        },
+    ],
+}, async function (selectTR, array, callback) {
+    // selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (selectTR = null, array = null) {
     datalist = array;
     dataSelect = new GuardarArreglo({
         select: true,
@@ -62,33 +75,36 @@ selectDatatable('TablaLaboratorio', tablaListaPaciente, 0, 0, 0, 0, function (se
         estadoBotones(0) //Habilitar botones
         $('#height-card-pdf').css('height', autoHeightDiv(0, 100))
         try {
-            getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'In', async function (divClass) {
-                // vistaPDF('adobe-dc-view', 'url', 'resultado_laboratorio_test.pdf')
-                // await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente_lab')
-                // await generarHistorialResultados(datalist['ID_PACIENTE'])
-                await getResultadoPaciente(datalist['ID_TURNO']);
+            // getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'In', async function (divClass) {
+            // vistaPDF('adobe-dc-view', 'url', 'resultado_laboratorio_test.pdf')
+            // await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente_lab')
+            // await generarHistorialResultados(datalist['ID_PACIENTE'])
+            await getResultadoPaciente(datalist['ID_TURNO']);
 
-                // await generarFormularioPaciente(datalist['ID_TURNO'])
+            // await generarFormularioPaciente(datalist['ID_TURNO'])
 
-                // console.log(selectEstudio)
-                if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
-                    estadoBotones(1) //Desactivar si ya fue enviado
-                // console.log(selectEstudio.array.RUTA)
-                try {
-                    vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
-                } catch (error) {
+            // console.log(selectEstudio)
+            if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
+                estadoBotones(1) //Desactivar si ya fue enviado
+            // console.log(selectEstudio.array.RUTA)
+            try {
+                vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
+            } catch (error) {
 
-                }
-                bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
+            }
+            // bugGetPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab')
 
-            });
+            // });
             // getPanelLab('In', datalist['ID_TURNO'], datalist['ID_PACIENTE'])
         } catch (error) {
             console.log(error)
         }
+
+        callback('In')
     } else {
+        callback('Out')
         // console.log('rechazado')
-        getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
+        // getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', datalist, 'Out')
         // getPanelLab('Out', 0, 0)
     }
 })
