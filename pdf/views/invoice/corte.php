@@ -396,7 +396,7 @@ $encode = base64_encode($ruta);
         <br>
         <br>
         <div style=" float: center;width: 100%;">
-            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px">
+            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px; background-color: solid grey;">
                 <thead>
                     <tr>
                         <td colspan="2" style="text-align: center;">Resumen</td>
@@ -408,8 +408,32 @@ $encode = base64_encode($ruta);
                         <td><b>$100</b></td>
                     </tr>
                     <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <td style="text-align: right;">Contado</td>
                         <td><b>$200</b></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
