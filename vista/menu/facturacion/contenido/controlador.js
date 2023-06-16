@@ -21,6 +21,9 @@ function obtenerPacientesContado() {
 }
 
 //Globales
+
+SelectedPacienteCredito = {}, SelectedGruposCredito = {}, factura = null;
+
 var TablaGrupos = false;
 function obtenerPacientesCredito() {
     obtenerTitulo('Pacientes (Crédito)'); //Aqui mandar el nombre de la area
@@ -29,13 +32,18 @@ function obtenerPacientesCredito() {
     }).done(function () {
         TablaGrupos = false
         // Datatable
-        $.getScript("contenido/js/contados-tablas.js");
+        $.getScript("contenido/js/credito-tablas.js");
+
+
     });
 }
 
 
 // Botones
 $.getScript("contenido/js/contados-botones.js");
+
+//Botones
+$.getScript("contenido/js/credito-botones.js");
 
 function hasLocation() {
     var hash = window.location.hash.substring(1);

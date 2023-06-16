@@ -162,7 +162,7 @@ session_start();
             <div class="modal-content">
                 <div class="modal-header header-modal">
                     <h5 class="modal-title" id="title-paciente_aceptar">Reporte de interpretación</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">

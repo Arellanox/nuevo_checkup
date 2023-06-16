@@ -7,4 +7,9 @@ $.post("modals/a_modals.php", function (html) {
 }).done(function () {
     // Modal para Actualizar Cliente
     $.getScript('modals/js/facturar-contado.js');
+
+    $.getScript('modals/js/c_credito_ticket.js');
+    $.getScript('modals/js/c_facturado.js');
+    $.getScript('modals/js/c_grupo_info.js');
+    $.getScript('modals/js/c_lista_credito.js');
 });

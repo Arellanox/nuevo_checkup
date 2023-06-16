@@ -187,11 +187,6 @@ async function ajaxAwait(dataJson, apiURL,
   });
 }
 
-//configruacion para regresar la data...
-function returnDataAjaxAwai(config, data) {
-  return config.WithoutResponseData ? data.response.data : data
-}
-
 //
 function configAjaxAwait(config) {
   //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
@@ -275,6 +270,8 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
     })
   });
 }
+
+
 
 
 // Verificar si tiene una sesión activa
@@ -1707,6 +1704,8 @@ function configSelectTable(config) {
     "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
     reload: false, //Activa la rueda
     movil: false, //Activa la version movil
+    multipleSelect: false,
+    OnlyData: false,
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -1880,26 +1879,42 @@ function selectTable(tablename, datatable,
 
 
   //Table Click Registro
-  $(`${tablename}`).on(`click`, `tr`, function () {
-    $('.tab-second').fadeOut()
-    $(`#loaderDiv-${nameTable}`).fadeIn(0);
+  $(`${tablename}`).on(`click`, `tr`, function (event) {
+    //Obtener datos, tr, row e información del row
+    let tr = this
+    let row = datatable.row(tr);
+    let dataRow = row.data();
+
+    if (config.OnlyData) {
+      return callbackClick(1, dataRow, function (data) { return 'No action' }, tr, row);
+    }
+
+    // let td = $(event.target).is('td')
+
+    var clickedElement = $(event.target);
+    //Cancela la funcion si el elemento que hace click tiene la siguiente clase
+    if (clickedElement.hasClass('noClicked'))
+      return true;
 
 
-    if ($(this).hasClass('selected')) {
+    if ($(tr).hasClass('selected')) {
       selectTableClickCount++;
       clearTimeout(selectTableTimeOutClick)
 
       selectTableTimeOutClick = setTimeout(function () {
 
         if (selectTableClickCount === 1 && config.unSelect === true) {
+          //Manda a cargar la vista
+          $('.tab-second').fadeOut()
+          $(`#loaderDiv-${nameTable}`).fadeIn(0);
           //Si esta deseleccionando:
           //Resetea los clicks:
           selectTableClickCount = 0;
           dataDobleSelect = false;
 
           //Reinicia la seleccion:
-          datatable.$('tr.selected').removeClass('selected');
-          datatable.$('tr.selected').removeClass(config.anotherClass);
+          $(tr).removeClass('selected');
+          $(tr).removeClass(config.anotherClass);
           //
 
           //Desactivar otros tab
@@ -1914,55 +1929,69 @@ function selectTable(tablename, datatable,
           return callbackClick(0, null, callback, null, null);
           //
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
+          //Manda a cargar la vista
+          $('.tab-second').fadeOut()
+          $(`#loaderDiv-${nameTable}`).fadeIn(0);
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
-
-          let tr = this;
-          let row = datatable.row(tr);
-          let dataRow = row.data();
-
 
           return callbackDblClick(1, dataRow, callback, tr, row)
 
         } else {
           //Reinicia el dobleClick
           selectTableClickCount = 0;
+          return 'No action';
         }
 
       }, 300)
 
     } else {
+      //Manda a cargar la vista
+      $('.tab-second').fadeOut()
+      $(`#loaderDiv-${nameTable}`).fadeIn(0);
+
       //Si esta seleccionando:
-      dataDobleSelect = this;
+      dataDobleSelect = tr;
       selectTableClickCount++;
       setTimeout(() => {
         selectTableClickCount = 0;
       }, 400);
 
 
-      //Reinicia la seleccion:
-      datatable.$('tr.selected').removeClass('selected');
-      datatable.$('tr.selected').removeClass(config.anotherClass);
-      //
 
-      //Agrega la clase para indicar que lo esta seleccionando
-      $(this).addClass('selected');
-      $(this).addClass(config.anotherClass);
-
-      //Activar otros tab
-      $(`.tab-select`).removeClass('disabled');
-
-      //Reselecciona
-      if (config['tab-default']) {
-        $(`#tab-btn-${config['tab-default']}`).click();
+      if (!config.multipleSelect) {
+        //Reinicia la seleccion:
+        datatable.$('tr.selected').removeClass('selected');
+        datatable.$('tr.selected').removeClass(config.anotherClass);
+        //
       }
 
-      //Obtener datos, tr, row e información del row
-      let tr = this;
-      let row = datatable.row(tr);
-      let dataRow = row.data();
+      //Agrega la clase para indicar que lo esta seleccionando
+      $(tr).addClass('selected');
+      $(tr).addClass(config.anotherClass);
 
-      return callbackClick(1, dataRow, callback, tr, row);
+
+      if (config.multipleSelect) {
+        //Multiple Seleccion
+        //Hará el callback cada que seleccionan a uno nuevo
+        let row_length = datatable.rows('.selected').data().length
+        let data = datatable.rows('.selected').data()
+
+        callbackClick(row_length, data, null, null)
+
+      } else {
+        //Para una sola seleccion
+
+        //Activar otros tab
+        $(`.tab-select`).removeClass('disabled');
+        //Reselecciona
+        if (config['tab-default']) {
+          $(`#tab-btn-${config['tab-default']}`).click();
+        }
+
+
+        return callbackClick(1, dataRow, callback, tr, row);
+      }
 
     }
 
@@ -2158,14 +2187,6 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
         } else {
           $('.onlyMedico').fadeIn(0);
         }
-        // if (cliente) {
-        //   switch (cliente) {
-        //     case 'Particular':
-        //       break;
-        //     default:
-        //       $('#onlyMedico').fadeOut(0);
-        //   }
-        // }
         resolve(1)
       }, 100);
     });
@@ -2192,7 +2213,7 @@ function obtenerDatosEspiroPacientes() {
   return new Promise(resolve => {
     ajaxAwait({
       api: 2,
-      id_turno: dataSelect.array['turno']
+      turno_id: dataSelect.array['turno']
     }, 'espirometria_api', { callbackAfter: true, returnData: false }, false, function (data) {
 
 
@@ -2245,13 +2266,15 @@ function obtenerDatosEspiroPacientes() {
 
           let childrenCondiciones = $(parent).children(`div[id="pregunta${element.ID_P}"]`);
           childrenCondiciones.collapse('hide');
+
         }
 
 
       }
+      resolve(1)
     })
-    resolve(1)
-  })
+
+  });
 
 }
 
@@ -4211,4 +4234,92 @@ function popperHover(container = 'ID_CLASS', tooltip = 'ID_CLASS', callback = (s
   $(container).on('click', hide);
   $(container).on('mouseenter', show);
   $(container).on('mouseleave', hide);
+}
+
+
+
+function validarCuestionarioEspiro() {
+  // return new Promise(function (resolve) {
+
+  situacion1 = '#no_aplica1'
+  situacion1 = $(situacion1).is(':checked');
+
+  let situacion2 = '#no_aplica2'
+  situacion2 = $(situacion2).is(':checked');
+
+
+  if (!detectPreguntasNivel('.independiente')) {
+    // resolve(true);
+    return true;
+  }
+
+  console.log(situacion2)
+
+  if (!situacion2) {
+    if (!detectPreguntasNivel('.situaciones2')) {
+      // resolve(true);
+      return true;
+    }
+  }
+
+  if (!situacion1) {
+    if (!detectPreguntasNivel('.situaciones1')) {
+      // resolve(true);
+      return true;
+    }
+  }
+
+
+  // resolve(false);
+  return false;
+  // })
+}
+
+
+function detectPreguntasNivel(situacion) {
+  let hasUnansweredQuestion = false; // Variable auxiliar para indicar si hay una pregunta sin contestar
+
+  // let label = $('.titulo')[0];
+  // label.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  $(situacion).each(function () {
+    let hasChecked = $(this).find('input[type="checkbox"], input[type="radio"]').is(':checked');
+    let preguntaElement = $(this).find('.titulo')[0];
+
+    if (!hasChecked) {
+      console.log(preguntaElement)
+      //Scroll
+      scrollContentInView(preguntaElement)
+      hasUnansweredQuestion = true; // Establecer la variable auxiliar en true
+      return false; // Salir del each()
+    }
+
+    // Si también necesitas comprobar otras condiciones, puedes hacerlo aquí
+
+  });
+
+  return !hasUnansweredQuestion; // Retornar el valor invertido de la variable auxiliar
+}
+
+//para formulario  de espiro
+function scrollContentInView(pregunta) {
+  pregunta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  $(pregunta).css('border-bottom', '2px solid red');
+
+
+  setTimeout(() => {
+    $(pregunta).animate({
+      marginLeft: '10px'
+    }, 100, function () {
+      $(this).animate({
+        marginLeft: '-10px'
+      }, 100, function () {
+        $(this).animate({
+          marginLeft: '0'
+        }, 100);
+      });
+    });
+  }, 500);
+
 }
