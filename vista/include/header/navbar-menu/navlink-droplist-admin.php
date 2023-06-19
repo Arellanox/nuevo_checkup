@@ -34,39 +34,43 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     </a>
     <div class="collapse" id="board-facturacion">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-cuentasFacturacion" aria-expanded="false">
-                <i class="bi bi-dot"></i> Cuentas
-            </a>
-            <div class="collapse" id="board-cuentasFacturacion">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <?php if ($_SESSION['vista']['FACTURACIÓN'] == 1) : ?>
+                <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-cuentasFacturacion" aria-expanded="false">
+                    <i class="bi bi-dot"></i> Cuentas
+                </a>
+                <div class="collapse" id="board-cuentasFacturacion">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 
-                    <?php if ($_SESSION['vista']['FACTURACIÓN'] == 1) : ?>
+
                         <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CONTADO'; ?>">
                                 <i class="bi bi-dot"></i> De Contado
                             </a> </li>
-                    <?php endif; ?>
-                    <?php if ($_SESSION['vista']['FACTURACION_EXCEL'] == 1) : ?>
+
                         <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CREDITO'; ?>">
                                 <i class="bi bi-dot"></i> De Crédito
                             </a> </li>
 
-                    <?php endif; ?>
-                    <hr class="dropdown-divider">
-                </ul>
-            </div>
+                        <hr class="dropdown-divider">
+                    </ul>
+                </div>
+            <?php endif; ?>
 
-            <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-ExcelFacturacion" aria-expanded="false">
-                <i class="bi bi-dot"></i> Reportes
-            </a>
-            <div class="collapse" id="board-ExcelFacturacion">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-paciente/'; ?>">
-                            <i class="bi bi-dot"></i> Pacientes
-                        </a> </li>
-                    <hr class="dropdown-divider">
-                </ul>
-            </div>
 
+            <?php if ($_SESSION['vista']['FACTURACION_EXCEL'] == 1) : ?>
+                <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-ExcelFacturacion" aria-expanded="false">
+                    <i class="bi bi-dot"></i> Reportes
+                </a>
+                <div class="collapse" id="board-ExcelFacturacion">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <?php if ($_SESSION['vista']['FACTURACION_EXCEL'] == 1) : ?>
+                            <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-paciente/'; ?>">
+                                    <i class="bi bi-dot"></i> Pacientes
+                                </a> </li>
+                        <?php endif; ?>
+                        <hr class="dropdown-divider">
+                    </ul>
+                </div>
+            <?php endif; ?>
         </ul>
     </div>
 <?php endif; ?>
