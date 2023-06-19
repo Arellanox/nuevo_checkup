@@ -27,25 +27,30 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 
 
-<?php if ($_SESSION['vista']['FACTURACIÓN'] == 1) : ?>
+<?php if ($_SESSION['vista']['FACTURACIÓN'] == 1 || $_SESSION['vista']['FACTURACION_EXCEL'] == 1) : ?>
     <!-- Facturacion -->
     <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
         <i class="bi bi-calculator"></i> Facturación
     </a>
     <div class="collapse" id="board-facturacion">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-
             <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-cuentasFacturacion" aria-expanded="false">
                 <i class="bi bi-dot"></i> Cuentas
             </a>
             <div class="collapse" id="board-cuentasFacturacion">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CONTADO'; ?>">
-                            <i class="bi bi-dot"></i> De Contado
-                        </a> </li>
-                    <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CREDITO'; ?>">
-                            <i class="bi bi-dot"></i> De Crédito
-                        </a> </li>
+
+                    <?php if ($_SESSION['vista']['FACTURACIÓN'] == 1) : ?>
+                        <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CONTADO'; ?>">
+                                <i class="bi bi-dot"></i> De Contado
+                            </a> </li>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['vista']['FACTURACION_EXCEL'] == 1) : ?>
+                        <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/facturacion/#CREDITO'; ?>">
+                                <i class="bi bi-dot"></i> De Crédito
+                            </a> </li>
+
+                    <?php endif; ?>
                     <hr class="dropdown-divider">
                 </ul>
             </div>

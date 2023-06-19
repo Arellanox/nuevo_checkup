@@ -1273,76 +1273,62 @@ function alertMensajeConfirm(options, callback = function () { }, set = 0, callb
   })
 }
 
-function alertMensajeFormConfirm(options, api_url, api, campo, callback, tipeInput = 'password') {
-
-  if (!options['title'])
-    options['title'] = "¿Desea realizar esta acción?"
-
-  if (!options['text'])
-    options['text'] = "Probablemente no podrá revertirlo"
-
-  // if (!options['icon'])
-  //   options['icon'] = 'warning'
-
-  if (!options['showCancelButton'])
-    options['showCancelButton'] = true
-
-  if (!options['confirmButtonColor'])
-    options['confirmButtonColor'] = '#3085d6'
-
-  if (!options['cancelButtonColor'])
-    options['cancelButtonColor'] = '#d33'
-
-  if (!options['confirmButtonText'])
-    options['confirmButtonText'] = 'Confirmar'
-
-  if (!options['cancelButtonText'])
-    options['cancelButtonText'] = 'Cancelar'
-
-  // if (!options['allowOutsideClick'])
-  //   options['allowOutsideClick'] = false
-
-  if (!options['showLoaderOnConfirm'])
-    options['showLoaderOnConfirm'] = true
-
-  if (!options['html'])
-    options['html'] = htmlInput = '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="text-confirmar" class="form-control input-color" autocomplete="off" placeholder="Use su contraseña de usuario"></form>'
-
-
-  options['focusConfirm'] = false;
-  options['preConfirm'] = () => {
-    const password = Swal.getPopup().querySelector('#text-confirmar').value;
-    return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText)
-        }
-        return response.json()
-      })
-      .catch(error => {
-        Swal.showValidationMessage(
-          `Request failed: ${error}`
-        )
-      });
-  }
-
-  options['allowOutsideClick'] = () => !Swal.isLoading();
-
-  console.log(options)
-
-  Swal.fire(options).then((result) => {
+//Valida la  contraseña del usuario para ejecutar algunas acciones
+function alertPassConfirm(alert = {
+  title: 'Titulo por defecto :)',
+  icon: 'info'
+}, callback = () => { }) {
+  Swal.fire({
+    title: alert['title'],
+    // text: 'Se creará el grupo con los pacientes seleccionados, ¡No podrás revertir los cambios',
+    icon: alert['icon'],
+    showCancelButton: true,
+    confirmButtonText: 'Confirmar',
+    cancelButtonText: 'Cancelar',
+    showLoaderOnConfirm: true,
+    // inputAttributes: {
+    //   autocomplete: false
+    // },
+    // input: 'password',
+    html: '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder="Ingrese su contraseña para confirmar"></form>',
+    // confirmButtonText: 'Sign in',
+    focusConfirm: false,
+    didOpen: () => {
+      const passwordField = document.getElementById('password-confirmar');
+      passwordField.setAttribute('autocomplete', 'new-password');
+    },
+    preConfirm: () => {
+      const password = Swal.getPopup().querySelector('#password-confirmar').value;
+      return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(response.statusText)
+          }
+          return response.json()
+        })
+        .catch(error => {
+          Swal.showValidationMessage(
+            `Request failed: ${error}`
+          )
+        });
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+  }).then((result) => {
     if (result.isConfirmed) {
       if (result.value.status == 1) {
-        callback(result)
+        callback();
       } else {
-        alertSelectTable(result, 'error')
+        alertSelectTable('¡Contraseña incorrecta!', 'error')
       }
     }
-  })
 
-  function formpassword() {
-    //No submit form with enter
-  }
+
+  })
+}
+
+function formpassword() {
+  //No submit form with enter
+
 }
 
 
@@ -1683,6 +1669,7 @@ function configSelectTable(config) {
     dblClick: false, // Aceptar doble click
     unSelect: false, // Deseleccionar un registro
     anotherClass: 'other-for-table', //Cuando sea seleccionado, se agrega la clase, sino se quita
+    ignoreClass: '',
     tabs: [
       {
         title: 'Pacientes',
@@ -1891,10 +1878,22 @@ function selectTable(tablename, datatable,
 
     // let td = $(event.target).is('td')
 
-    var clickedElement = $(event.target);
+    //Evalua donde está dando click el usuario
+    var clickedElement = event.target;
+    var computedStyle = window.getComputedStyle(clickedElement, '::before');
+    computedStyle.getPropertyValue('property') === 'value'
+    console.log(computedStyle.getPropertyValue('property') === 'value')
     //Cancela la funcion si el elemento que hace click tiene la siguiente clase
-    if (clickedElement.hasClass('noClicked'))
-      return true;
+    if (
+      $(clickedElement).hasClass('noClicked') //Algun elemento que podamos crear para que no implique selección
+      || ($(clickedElement).hasClass('dtr-control')) //Cuando le da click al primer td con el boton + de visualizar mas columnas
+      || $(tr).hasClass('child') //Cuando muestra las columnas ocultas de un regitro
+      || $(tr).hasClass('dataTables_empty')  //Cuando la  tabla esta vacia, no selecciona
+      || $(tr).hasClass(`${config.ignoreClass}`)
+      || $(tr).find('td').hasClass('dataTables_empty')
+    )
+
+      return false;
 
 
     if ($(tr).hasClass('selected')) {
@@ -1926,16 +1925,16 @@ function selectTable(tablename, datatable,
 
           // callbackDblClick(0, null, null, null);
           console.log('deselect')
-          return callbackClick(0, null, callback, null, null);
+          callbackClick(0, null, callback, null, null);
           //
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
           //Manda a cargar la vista
-          $('.tab-second').fadeOut()
-          $(`#loaderDiv-${nameTable}`).fadeIn(0);
+          // $('.tab-second').fadeOut()
+          // $(`#loaderDiv-${nameTable}`).fadeIn(0);
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
 
-          return callbackDblClick(1, dataRow, callback, tr, row)
+          callbackDblClick(1, dataRow, callback, tr, row)
 
         } else {
           //Reinicia el dobleClick
@@ -1990,7 +1989,7 @@ function selectTable(tablename, datatable,
         }
 
 
-        return callbackClick(1, dataRow, callback, tr, row);
+        callbackClick(1, dataRow, callback, tr, row);
       }
 
     }
@@ -2216,9 +2215,9 @@ function obtenerDatosEspiroPacientes() {
       turno_id: dataSelect.array['turno']
     }, 'espirometria_api', { callbackAfter: true, returnData: false }, false, function (data) {
 
-
       //$('#1pr1').prop('checked', true)
       let row = data.response.data;
+
 
       for (const key in row) {
         if (Object.hasOwnProperty.call(row, key)) {
@@ -4163,8 +4162,9 @@ function cargarServiciosEstudios(button, tooltip, servicio_id) {
 
 
 //Funcion para crear un tooltip grande
-function popperHover(container = 'ID_CLASS', tooltip = 'ID_CLASS', callback = (show_hide) => { }) {
-  $(tooltip).append(`<div id="arrow" data-popper-arrow></div>`);
+function popperHover(container = 'ID_CLASS', tooltip = 'ID_CLASS', callback = (show_hide) => { }, config = { directShow: false }) {
+
+  $(tooltip).append(`<div id="arrow" class="arrow" data-popper-arrow></div>`);
   const arrow = $('#arrow'); // Siempre Introducir un arrow
 
   const reference = $(container)[0];
@@ -4287,7 +4287,6 @@ function detectPreguntasNivel(situacion) {
     let preguntaElement = $(this).find('.titulo')[0];
 
     if (!hasChecked) {
-      console.log(preguntaElement)
       //Scroll
       scrollContentInView(preguntaElement)
       hasUnansweredQuestion = true; // Establecer la variable auxiliar en true

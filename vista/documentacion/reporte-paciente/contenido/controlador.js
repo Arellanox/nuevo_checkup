@@ -1,7 +1,7 @@
 
 var tablaPrincipal, dataList = {}
 
-if (validarVista('LABORATORIO_MUESTRA_1')) {
+if (validarVista('FACTURACION_EXCEL')) {
   contenidoMuestras()
 }
 
