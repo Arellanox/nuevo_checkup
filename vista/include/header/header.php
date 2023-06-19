@@ -92,7 +92,7 @@ switch ($menu) {
 
       // echo $fecha_sumada; // imprime la nueva fecha en formato 'año-mes-día'
 
-      if (true) :
+      if (false) :
       ?>
 
         <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" />
