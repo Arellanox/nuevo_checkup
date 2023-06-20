@@ -11,7 +11,7 @@ $api = $_POST['api'];
 
 # variables
 $id_grupo = $_POST['id_grupo'];
-$descripcion = $_POST['nombre_grupo'];
+$descripcion = $_POST['descripcion']; #Al grupo no se crea nombre, sino descripcion
 $cliente_id = $_POST['cliente_id'];
 $usuario_id = $_SESSION['id'];
 $facturado = $_POST['facturado']; # bit que marca si el grupo esta siendo facturado o creado;
@@ -57,5 +57,3 @@ switch($api){
 }
 
 echo $master->returnApi($response);
-
-?>
