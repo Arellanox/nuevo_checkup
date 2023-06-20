@@ -116,7 +116,12 @@ session_start();
                                 <button type="button" class="btn btn-primary me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
                                     <i class="bi bi-plus-lg"></i> Imágenes
                                 </button>
+
+                                <button type="button" class="btn btn-primary me-2" style="margin-bottom:4px; display:none" id="btn-resultados-espiro-pdf">
+                                    <i class="bi bi-plus-lg"></i> Subir resultados
+                                </button>
                             </div>
+
                             <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">
                                 <!-- Subir por areas -->
                                 <button type="button" id="abrirModalResultados" class="btn btn-confirmar me-2" style="margin-bottom:4px">
@@ -220,6 +225,12 @@ session_start();
                                     include 'forms/form_citologia.html';
                                     echo '</form>';
                                     break;
+                                    //<!--Formulario de Espirometria -->
+                                case 'formAreadeEspirometria':
+                                    // echo '<form id="formAreadeEspirometria">';
+                                    include 'forms/form_espiro.html';
+                                    // echo '</form>';
+                                    break;
                             }
 
                             ?>
@@ -254,8 +265,69 @@ session_start();
 </div>
 
 
+<!--MODAL PARA SUBIR RESULTADOS DE ESPIROMETRIA-->
+<div>
+    <div class="modal fade" id="ModalSubirResultadosEspiro" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+        <div class="modal-dialog modal-xl  modal-dialog-centered ">
+            <div class="modal-content">
+                <div class="modal-header header-modal">
+                    <h5 class="modal-title" id="title-paciente_aceptar">Cargue los resultados de espirometría</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form id="subirResultadosEspiro">
+                                <h4>Seleccione el estudio de espirometría</h4>
+                                <input type="file" class="form-control input-form mt-3" name="resultado_espiro[]" accept=".pdf" id="resultado_espiro">
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-borrar" id="btn-limpiar-resultado-espiro">Limpiar</button>
+
+                    <!-- BTN SUBIR RESULTADOS DE ESPIRO -->
+                    <button type="submit" class="btn btn-confirmar" id="btn-subir-resultados-espiro" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los documentos subidos">
+                        <i class="bi bi-clipboard2-plus"></i> Subir resultados
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
+    $('#btn-limpiar-resultado-espiro').on('click', function() {
+        $('#resultado_espiro').val('');
+    })
+
+    $('#resultado_espiro').on('change', function() {
+        var fileList = $(this)[0].files || [] //registra todos los archivos
+        let aviso = 0;
+        for (file of fileList) { //una iteración de toda la vida
+            ext = file.name.split('.').pop()
+            console.log('>ARCHIVO: ', file.name)
+            switch (ext) {
+                case 'pdf':
+                    //console.log('>>TIPO DE ARCHIVO CORRECTO: ')
+                    break;
+                default:
+                    aviso = 1;
+                    //console.log('>>TIPO DE ARCHIVO INCORRECTO', ext)
+                    break;
+            }
+        }
+        if (aviso == 1) {
+            $(this).val('')
+            alertMensaje('error', 'Archivo incorrecto', 'Algunos archivos no son correctos')
+        }
+    });
+
+
     function popimg(URL, DAT) {
         console.log(document.body.clientWidth)
 

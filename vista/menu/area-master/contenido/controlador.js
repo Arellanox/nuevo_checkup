@@ -9,6 +9,8 @@ var selectEstudio = new GuardarArreglo(), dataSelect = new GuardarArreglo();
 var selectrue = 0,
   confirmado;
 
+var formEspiroHTML;
+
 hasLocation();
 $(window).on("hashchange", function (e) {
   hasLocation();
@@ -59,7 +61,7 @@ function hasLocation() {
 
       case "ESPIROMETRIA":
         control_turnos = 6;
-        formulario = "formSubirInterpretacionPRUEBA";
+        formulario = "formAreadeEspirometria";
         api_capturas = 3;
         api_interpretacion = 1;
         url_api = 'espirometria_api';
@@ -179,8 +181,21 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $('#btn-analisis').fadeIn(0)
         $('#btn-capturas-pdf').fadeIn(0)
         $('#formSubirInterpretacion').fadeIn(0)
+
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
+        break;
+
+      //Area de espiro
+      case 5:
+
+        $('#btn-analisis').fadeIn(0)
+        $('#btn-capturas-pdf').fadeOut(0)
+        $('#formSubirInterpretacion').fadeIn(0)
+        $('#btn-resultados-espiro-pdf').fadeIn(0)
+        // Subir resultado
+        $.getScript("modals/js/master_subir_interpretación.js");
+
         break;
 
       case 10:

@@ -96,6 +96,16 @@ $('#abrirModalResultados').click(function () {
   $('#modalSubirInterpretacion').modal('show')
 })
 
+//BTN PARA SUBIR LOS DATOS DE ESPIROMETRIA 
+
+$('#btn-resultados-espiro-pdf').click(function () { 
+
+  $('#ModalSubirResultadosEspiro').modal('show');
+
+})
+
+
+
 $('#btn-ver-reporte').click(function () {
   switch (areaActiva) {
     case 3: case '3':
@@ -107,7 +117,9 @@ $('#btn-ver-reporte').click(function () {
     case 10: case '10':
       area_nombre = 'electro'
       break;
-
+    case 5: case '5':
+      area_nombre = 'espiro'
+      break;
 
     default:
       break;

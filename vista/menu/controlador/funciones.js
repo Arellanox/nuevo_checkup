@@ -4300,6 +4300,8 @@ function detectPreguntasNivel(situacion) {
   return !hasUnansweredQuestion; // Retornar el valor invertido de la variable auxiliar
 }
 
+
+
 //para formulario  de espiro
 function scrollContentInView(pregunta) {
   pregunta.scrollIntoView({ behavior: 'smooth', block: 'center' });

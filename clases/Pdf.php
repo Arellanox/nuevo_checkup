@@ -68,6 +68,7 @@ class Reporte
             case 'ticket':
             case 'fast_checkup':
             case 'reporte_masometria':
+            case 'espirometria': //nuevo case de espirometria
             case 'corte':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
@@ -96,7 +97,11 @@ class Reporte
         );
 
         // print_r($view_vars['resultados']->ANAMNESIS);
-        // print_r($response);
+        // foreach($view_vars['resultados'] as $item){
+        //     print_r($item);
+        //     echo "<br>";
+        // }
+        // exit;
 
         $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
@@ -120,7 +125,11 @@ class Reporte
                 // $path    = 'pdf/public/resultados/E-00001.pdf';
                 // return $path;
                 break;
-
+            case 'espirometria':
+                $template = render_view('invoice/esp.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
             case 'oftalmologia':
                 $template = render_view('invoice/oftalmologia.php', $view_vars);
                 $pdf->loadHtml($template);

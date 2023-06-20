@@ -1,8 +1,6 @@
 <?php
-session_start();
-include_once "../clases/master_class.php";
+require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
-include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -11,124 +9,192 @@ if (!$tokenValido) {
     // exit;
 }
 
-$area_id = 5; #$_POST['area_id']; # el id 5 es para el area de ESPIROMETRIA
-
 $master = new Master();
-$id_imagen = isset($_POST['id_imagen']) ? $_POST['id_imagen'] : null;
-$api = isset($_POST['api']) ? $_POST['api'] : null;
-$id_turno = isset($_POST['turno_id']) ? $_POST['turno_id'] : null;
-$interpretacion = isset($_POST['interpretacion']) ? $_POST['interpretacion'] : null;
-$capturas = isset($_POST['capturas']) ? $_POST['capturas'] : null;
-$usuario = isset($_SESSION['id']) ? $_SESSION['id'] : null;
 
-$imagenes = array();
+#OBTENEMOS LA API POR MEDIO DEL POST
+$api = $_POST['api'];
+
+$turno_id = $_POST['turno_id'];
+$archivo = $_POST['resultado_espiro[]'];
+$area_id = $_POST['id_area'];
+$id_turno = $_POST['id_turno'];
+$preguntasRespuestas = $_POST['respuestas'];
+$confirmado = isset($_POST['confirmado']) ? $_POST['confirmado'] : 0;
+
+$usuario_id = $_SESSION['id'];
+$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/practicantes/" : "https://bimo-lab.com/nuevo_checkup/";
+
+
+//declaramos nuestras variables de almacenamineto para guardar nuestras preguntas y respuestas
+$preguntas = [];
+$respuestas = [];
+
+
 switch ($api) {
-    case 1:
-# insertar la interpretacion
-        #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/espirometria/$date/$turno_id/interpretacion/";
-        $r = $master->createDir("../".$ruta_saved);
 
-        if($r!=1){
-            $response = "No se pudo crear el directorio de carpetas. Interpretacion.";
+        #GUARDAMOS LOS DATOS
+    case 1:
+
+        $principal = [];
+        $secundario = [];
+        $posicion = 0;
+
+        foreach ($preguntasRespuestas as $key => $value) {
+
+            $principal[$posicion] = ['preguntaID' => $key];
+            $valor = null;
+            $comentario = null;
+
+            if (COUNT($preguntasRespuestas[$key]) > 1) {
+
+
+
+                foreach ($value as $item) {
+                    $secundario[] = ['respuestaID' => $master->setToNull([$item['valor']])[0] ? $item['valor'] : $valor, 'comentario' => $master->setToNull([$item['comentario']])[0] ? $item['comentario'] : $comentario];
+                }
+            } else {
+
+                $secundario = ['respuestaID' => isset($value[array_key_first($value)]['valor']) ? $value[array_key_first($value)]['valor'] : $valor, 'comentario' => isset($value[array_key_first($value)]['comentario']) ? $value[array_key_first($value)]['comentario'] : $comentario];
+            }
+            $principal[$posicion]['respuestaID'] = $secundario;
+            $secundario = [];
+
+            $posicion++;
+        }
+
+
+        $response = $master->insertByProcedure("sp_espiro_cuestionario_g", [json_encode($principal), $id_turno, $area_id, $usuario_id, $confirmado]);
+
+        if ($confirmado == 1) {
+            //Si confirma el cuestionario lo crea en pdf y lo guarda
+            $url = $master->reportador($master, $id_turno, 5, "espirometria", 'url', 0);
+            $response = $master->updateByProcedure('sp_espiro_ruta_reporte_g', [$id_turno, $url]);
+
+            //Mandamnos a llamar el siguinete procedure para ver si existe el reporte de espiro (EASYONE)
+            $response = $master->getByProcedure("sp_espiro_ruta_reporte_b", [$id_turno]);
+
+            if (isset($response[0]['RUTA_REPORTES_ESPIRO'])) {
+                //Verificamos la ruta de los reportes para unirlos
+                $reportes = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 5, null, null, null]);
+                $arreglo = array();
+
+                
+                foreach ($reportes as $reporte) {
+
+                    $reporte_bimo = explode("practicantes", $reporte['RUTA']);
+                    $arreglo[] = ".." . $reporte_bimo[1];
+                }
+
+              
+                //Si existe unimos el reporte con el cuestionario
+                $reporte_final = $master->joinPdf(array_filter($arreglo, function ($item) {
+                    return $item !== "..";
+                }));
+            
+                
+
+                $fh = fopen("../" . $master->getRutaReporte() . "ESPIROMETRIA_" . basename($url), 'a');
+                fwrite($fh, $reporte_final);
+                fclose($fh);
+
+                
+                $espiro = $host.$master->getRutaReporte() . "ESPIROMETRIA_" . basename($url);
+
+                $response = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['espiro_resultados', 'RUTA_REPORTE_FINAL', $espiro, $id_turno, null]);
+
+                //Enviamos correo
+                $attachment = $master->cleanAttachFilesImage($master, $id_turno, 5, 1);
+
+                if (!empty($attachment[0])) {
+                    $mail = new Correo();
+                    if ($mail->sendEmail('resultados', '[bimo] Resultados de espirometria', [$attachment[1]], null, $attachment[0], 1)) {
+                        $master->setLog("Correo enviado.", "Espirometria resultados");
+                    }
+                }
+            } else {
+                $response = "No se recibió archivo.";
+            }
+        }
+        
+        break;
+
+    case 2:
+        #RECUPERAMOS TODOS LOS DATOS DEL FORMULARIO (PREGUNTAS, RESPUESTAS Y COMENTARIOS)
+
+        $resultados = $master->getByNext("sp_espiro_cuestionario_b", [$turno_id]);
+        $resultados[1][0]['PREGUNTAS'] = $resultados[0];
+        $response = $resultados[1];
+
+
+
+        break;
+    case 3:
+        # GUARDAMOS EL PDF DEL REPORTE DEL SOFTWARE
+
+        // solo guardamos la informacion del reporte. Sin confirmar
+        $response = $master->getByProcedure("sp_espiro_ruta_reporte_b", [$id_turno]);
+
+        if (isset($response[0]['RUTA_REPORTES_ESPIRO'])) {
+            $response = "Ya existe un estudio para este paciente.";
             break;
         }
 
-        #$imagenes = $master->guardarFiles($_FILES, "capturas", $dir, "CAPTURA_RX_$turno_id");
-        $interpretacion = $master->guardarFiles($_FILES, "reportes", "../".$ruta_saved, "INTERPRETACION_ESPIROMETRIA_$turno_id");
+        $destination = "../reportes/modulo/espirometria/$id_turno/";
+        $r = $master->createDir($destination);
+
+        $name = $master->getByPatientNameByTurno($master, $id_turno);
+        $interpretacion = $master->guardarFiles($_FILES, "resultado_espiro", $destination, "EASYONE_$id_turno" . "_" . "$name");
 
         $ruta_archivo = str_replace("../", $host, $interpretacion[0]['url']);
 
-        $last_id = $master->insertByProcedure("sp_imagenologia_resultados_g", [null, $turno_id, $ruta_archivo, $usuario, $area_id, null]);
+        #guardarmos la direccion de espirometria
+        $espiro = $host . "reportes/modulo/espirometria/$id_turno/" . basename($ruta_archivo);
+        $response = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['espiro_resultados', 'RUTA_REPORTES_ESPIRO', $espiro, $id_turno, null]);
 
-        # insertar el formulario de bimo.
-        foreach($formulario as $id_servicio => $item){
-             $res = $master->insertByProcedure('sp_imagen_detalle_g', [null, $turno_id, $id_servicio, $item['hallazgo'], $item['interpretacion'], $item['comentario'], $last_id]);
-        }
-        
-        #enviamos como respuesta, el ultimo id insertado en la tabla imagenologia resultados.
 
-        $url = crearReporteUltrasonido($turno_id, $area_id);
-        $res_url = $master->updateByProcedure("sp_imagenologia_resultados_g", [$last_id, null, null, null, null, $url]);
-        $response = $last_id;
-    break;
-    case 2:
-        $serv = str_replace(" ", "_", $nombre_servicio);
-        #creamos el directorio donde se va a guardar la informacion del turno
-        $ruta_saved = "reportes/modulo/espirometria/$date/$turno_id/capturas/";
-        $r = $master->createDir("../" . $ruta_saved);
 
-        if ($r != 1) {
-            $response = "No se pudo crear el directorio de carpetas. Capturas.";
-            break;
-        }
-
-        # subimos las capturas al servidor.
-        # combinar la ruta_saved con ../ sirve para crear la ruta el directorio en el servidor
-        # por si no existe aun.
-        # se necesita formatear la ruta para agregarle el la url completa de internet.
-        $capturas = $master->guardarFiles($_FILES, "capturas", "../" . $ruta_saved, "CAPTURAS_ESPIROMETRIA_$serv");
-
-        # formateamos la ruta de los archivos para guardarlas en la base de datos
-        for ($i = 0; $i < count($capturas); $i++) {
-            $capturas[$i]['url'] = str_replace("../", $host, $capturas[$i]['url']);
-        }
-
-        # insertamos en la base de datos.
-        $response = $master->insertByProcedure('sp_capturas_imagen_g', [null, $turno_id, $servicio_id, json_encode($capturas), $comentario, $usuario]);
-    break;
-    case 3:
-            # recuperar las capturas
-            $response = array();
-            #recupera la interpretacion.
-            $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen, $turno_id, $area_id]);
-    
-            # recupera la capturas del turno.
-            # necesitamos enviarle el area del estudio para hacer el filtro.
-            $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$turno_id, $area_id]);
-    
-            $capturas = [];
-            foreach ($response2 as $current) {
-                $capturas_child = [];
-                foreach (json_decode($current['CAPTURAS'], true) as $item) {
-                    $capturas_child[] = json_decode($item, true);
-                }
-                $current['CAPTURAS'] = $capturas_child;
-                $capturas[] = $current;
-            }
-    
-            $merge = [];
-            for ($i = 0; $i < count($response1[0]); $i++) {
-                $id_imagenologia = $response1[0][$i]['ID_SERVICIO'];
-                $servicio = $response1[0][$i]['ID_SERVICIO'];
-    
-                $subconjunto = array_filter($response1[1], function ($obj) use ($id_imagenologia) {
-                    $r = $obj['SERVICIO_ID'] == $id_imagenologia;
-                    return $r;
-                });
-    
-                $subconjunto = $master->getFormValues($subconjunto);
-    
-    
-                $sub_caps = array_filter($capturas, function ($obj) use ($servicio) {
-                    $r = $obj['ID_SERVICIO_CAP'] == $servicio;
-                    return $r;
-                });
-    
-                $sub_caps = $master->getFormValues($sub_caps);
-    
-                $m = array_merge($response1[0][$i], isset($subconjunto[0]) ? $subconjunto[0] : array());
-                $m['CAPTURAS'] = $sub_caps;
-    
-                $merge[] = $m;
-            }
-    
-            $response = $merge;
         break;
+    case 0:
+        # json para el reporte de espirometria.
+        $respuestas = $master->getByProcedure("sp_espiro_cuestionario_b", [$turno_id]);
+
+        # declaramos el arreglo que guardara el id de la pregunta
+        $preguntas = array();
+
+        # llenamos el arreglo
+        foreach ($respuestas as $current) {
+            $preguntas[] = $current['ID_P'];
+        }
+
+        # eliminamos las duplicidades
+        $preguntas = array_unique($preguntas);
+
+        # Declaramos un arreglo que guarde el cuestionario del paciente.
+        $cuestionario = array();
+
+        # llenamos el cuestionario, preparando el arreglo para el json.
+        foreach ($preguntas as $pregunta) {
+
+            #filtramos las respuestas de cada pregunta del arreglo origina, el que viene de la base de datos.
+            $res_pregunta = array_filter($respuestas, function ($array) use ($pregunta) {
+                return $array['ID_P'] == $pregunta;
+            });
+
+            # formamos el arreglo para el json.
+            $cuestionario[] = array(
+                "pregunta" => $res_pregunta[array_key_first($res_pregunta)]['PREGUNTA'],
+                "respuestas" => $master->getFormValues(array_map(function ($item) {
+                    return array("respuesta"  => $item['RESPUESTA'], "comentario" => $item['COMENTARIO']);
+                }, $res_pregunta))
+            );
+        }
+
+        echo json_encode($cuestionario);
+        break;
+
     default:
-        $response = "Api no definida.";
-        break;
+
+        $response = "Api no definida";
 }
 
-// echo $master->returnApi($response);
-?>
+echo $master->returnApi($response);

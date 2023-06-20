@@ -466,6 +466,18 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
 
                 break;
+
+            case 5:
+            case "5":
+                #ESPIROMETRIA
+                $datos_medicos = array();
+                $arregloPaciente = $this->getBodyEspiro($master, $turno_id);
+                $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_ESPIRO'];
+                $carpeta_guardado = "espirometria";
+                $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_ESPIRO'];
+                $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[array_key_last($infoPaciente)]['CLAVE_ESPIRO'];
+
+                break;
         }
 
 
@@ -1472,5 +1484,45 @@ class Miscelaneus
         return array_filter($correos, function ($item) {
             return strlen($item) > 0;
         });
+    }
+
+    public function getBodyEspiro($master, $turno_id)
+    {
+        # json para el reporte de espirometria.
+        $respuestas = $master->getByProcedure("sp_espiro_cuestionario_b", [$turno_id]);
+
+        # declaramos el arreglo que guardara el id de la pregunta
+        $preguntas = array();
+
+        # llenamos el arreglo
+        foreach ($respuestas as $current) {
+            $preguntas[] = $current['ID_P'];
+        }
+
+        # eliminamos las duplicidades
+        $preguntas = array_unique($preguntas);
+
+        # Declaramos un arreglo que guarde el cuestionario del paciente.
+        $cuestionario = array();
+
+        # llenamos el cuestionario, preparando el arreglo para el json.
+        foreach ($preguntas as $pregunta) {
+
+            #filtramos las respuestas de cada pregunta del arreglo origina, el que viene de la base de datos.
+            $res_pregunta = array_filter($respuestas, function ($array) use ($pregunta) {
+                return $array['ID_P'] == $pregunta;
+            });
+
+            # formamos el arreglo para el json.
+            $cuestionario[] = array(
+                "id_pregunta" => $res_pregunta[array_key_first($res_pregunta)]['ID_P'],
+                "pregunta" => $res_pregunta[array_key_first($res_pregunta)]['PREGUNTA'],
+                "respuestas" => $master->getFormValues(array_map(function ($item) {
+                    return array("respuesta"  => $item['RESPUESTA'], "comentario" => $item['COMENTARIO']);
+                }, $res_pregunta))
+            );
+        }
+
+        return $cuestionario;
     }
 }

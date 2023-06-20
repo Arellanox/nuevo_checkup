@@ -35,7 +35,13 @@ $(`#${formulario}`).submit(function (event) {
     // alert(areaActiva)
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
+
     if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
+
+        if (validarCuestionarioEspiro()) {
+            return false;
+        }
+
         var form = document.getElementById(`${formulario}`);
         var formData = new FormData(form);
         formData.set('id_turno', dataSelect.array['turno'])
@@ -83,11 +89,20 @@ $(`#${formulario}`).submit(function (event) {
     event.preventDefault();
 });
 
+
+
 $('#btn-confirmar-reporte').click(function (event) {
     // alert(areaActiva)
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
     if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
+
+        if (areaActiva == 5) {
+            if (validarCuestionarioEspiro()) {
+                return false;
+            }
+        }
+
 
         alertMensajeConfirm({
             title: "¿Está seguro de confirmar este reporte?",
@@ -124,5 +139,26 @@ $('#btn-confirmar-reporte').click(function (event) {
     } else {
         alertMensaje('info', 'EL resultado ya ha sido guardado', 'No puede cargar mas resultados a este paciente');
     }
-    event.preventDefault();
+    event.preventDefault()
 })
+
+//Formulario Para Los Resultados de Espirometria
+$("#btn-subir-resultados-espiro").click(async function (event) {
+    event.preventDefault();
+    
+    await ajaxAwaitFormData({
+        id_turno: dataSelect.array['turno'],
+        api: 3
+    }, 'espirometria_api', 'subirResultadosEspiro', { callbackAfter: true }, false, function () {
+        alertToast('El reporte ya ha sido guardado', 'success', 4000);
+
+        obtenerServicios(areaActiva, dataSelect.array['turno'])
+    })
+
+    $('#ModalSubirResultadosEspiro').modal('hide');
+
+    event.preventDefault();
+});
+
+
+
