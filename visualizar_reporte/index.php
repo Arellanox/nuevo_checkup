@@ -27,7 +27,7 @@ $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
-
+//ajisbdbi
 
 $preview = 1; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
