@@ -19,6 +19,7 @@ $id_preregistro = $_POST['id_preregistro'];
 $correo = $_POST['correo'];
 $token_correo = $_POST['token'];
 $turno_id = $_POST['id_turno'];
+$cuestionarios = $_POST['cuestionario'];
 $response = "";
 
 $master = new Master();
@@ -29,7 +30,7 @@ switch ($api) {
             $response = "Dirección de correo inválida";
         } else {
             $tokenPregistro = new TokenPreregistro();
-            $token = $tokenPregistro->generarTokenPreregistro($correo);
+            $token = $tokenPregistro->generarTokenPreregistro($correo, $cuestionarios);
             if ($token != '') {
                 $motivo = "Token para registro de cita en linea";
                 // echo $motivo;
@@ -90,6 +91,16 @@ switch ($api) {
     case 2:
         #verifica si el token aún es válido por fecha, verifica si el token no ha sido ya concluido y verifica que siga ACTIVO
         $response = $master->getByProcedure("sp_preregistro_token_valido_b", [$token_correo]);
+        if(!isset($response[0]['ERROR'])){
+
+            $response[0]['CUESTIONARIOS'] = $master->decodeJson([$response[0]['CUESTIONARIOS']]);
+            $response[0]['CUESTIONARIOS'] = $response[0]['CUESTIONARIOS'][0];
+
+        }else{
+
+            $response = json_encode(array("response" => array("code" => '2', "msj" => "Su Token ha caducado")));
+        }
+        
         break;
 
     case 3:
