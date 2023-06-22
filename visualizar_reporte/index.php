@@ -27,7 +27,7 @@ $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
-//ajisbdbi
+
 
 $preview = 1; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
@@ -70,7 +70,9 @@ switch ($api) {
     case 'corte':
         $r = $master->reportador($master, $turno_id, $area_id, 'corte', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
-
+    case 'espiro':
+        $r = $master->reportador($master, $turno_id, 5, 'espirometria', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
         break;
