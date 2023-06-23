@@ -24,7 +24,7 @@
 
         .header {
             position: fixed;
-            top: -165px;
+            top: -195px;
             left: 25px;
             right: 25px;
             height: 220px;
