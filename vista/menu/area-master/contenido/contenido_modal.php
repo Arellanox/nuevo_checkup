@@ -311,8 +311,9 @@ session_start();
         for (file of fileList) { //una iteración de toda la vida
             ext = file.name.split('.').pop()
             console.log('>ARCHIVO: ', file.name)
+            ext = ext.toUpperCase()
             switch (ext) {
-                case 'pdf':
+                    case 'PDF':
                     //console.log('>>TIPO DE ARCHIVO CORRECTO: ')
                     break;
                 default:
