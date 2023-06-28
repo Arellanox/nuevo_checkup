@@ -1158,7 +1158,7 @@ class Miscelaneus
 
                 $absoluto_array[] = array(
                     "analito" => $current['DESCRIPCION_SERVICIO'],
-                    "valor_abosluto" => $current['VALOR_ABSOLUTO']. " ". $demonMark, 
+                    "valor_abosluto" => $current['VALOR_ABSOLUTO'].$demonMark, 
                     "referencia" => $current['VALOR_REFERENCIA_ABS'],
                     "grupo_id" => $current['GRUPO_ID'],
                     "unidad" => $current['MEDIDA_ABS']
@@ -1191,7 +1191,7 @@ class Miscelaneus
                     $item = array(
                         "nombre"            => $current['DESCRIPCION_SERVICIO'],
                         "unidad"            => $current['MEDIDA'],
-                        "resultado"         => $current['RESULTADO'] . ' '. $current['DEMONMARK'],
+                        "resultado"         => $current['RESULTADO'] . $current['DEMONMARK'],
                         "referencia"        => $current['VALOR_DE_REFERENCIA'],
                         # "observaciones"     => isset($id_grupo) ? null : $current['OBSERVACIONES'],
                         "observaciones"     => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['OBSERVACIONES'],
