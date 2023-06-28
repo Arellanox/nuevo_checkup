@@ -83,7 +83,7 @@ selectTable('#TablaGrupos', TablaGrupos, {
             class: 'GrupoInfoCreditoBtn',
             callback: function (data) {
 
-                $("#ModalInformacionGruposCredito_title").html(`Informacion Grupos de Crédito - (${ifnull(data['ID_GRUPO'])})`)
+                $("#ModalInformacionGruposCredito_title").html(`Información Grupos de Crédito - (${ifnull(data['ID_GRUPO'])})`)
                 $('#procedencia_grupos_credito').html(ifnull(data['PROCEDENCIA']));
                 $('#domicilio-fiscal').html(ifnull(data['DIRECCION']));
                 $('#fecha-factura').html(ifnull(formatoFecha2(data['FECHA_FACTURA'], [0, 1, 3, 1])));
