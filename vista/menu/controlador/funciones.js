@@ -361,6 +361,7 @@ function checkNumber(x, transform = 0) {
 
 
 function ifnull(data, siNull = '') {
+  if (data === 'NaN') return siNull;
   if (typeof data === 'undefined') return siNull;
   if (data) {
     data = `${data}`.replace(/["]+/g, '&quot');
@@ -1693,7 +1694,21 @@ function configSelectTable(config) {
     movil: false, //Activa la version movil
     multipleSelect: false,
     OnlyData: false,
-    noColumns: false
+    noColumns: false,
+    ClickClass: {
+      0: {
+        class: 'GrupoInfoCreditoBtn',
+        callback: function (data) {
+
+        }
+      },
+      1: {
+        class: 'GrupoInfoCreditoBtn',
+        callback: function (data) {
+
+        }
+      }
+    }
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -1826,6 +1841,41 @@ function reloadSelectTable() {
 
 }
 
+//Evalua el estado de click de selectTable
+function eventClassClick(event, tr, config, data) {
+  //Evalua donde está dando click el usuario
+  var clickedElement = event.target;
+  // var computedStyle = window.getComputedStyle(clickedElement, '::before');
+  // computedStyle.getPropertyValue('property') === 'value'
+  // console.log(computedStyle.getPropertyValue('property') === 'value')
+  //Cancela la funcion si el elemento que hace click tiene la siguiente clase
+  if (
+    $(clickedElement).hasClass('noClicked') //Algun elemento que podamos crear para que no implique selección
+    || ($(clickedElement).hasClass('dtr-control')) //Cuando le da click al primer td con el boton + de visualizar mas columnas
+    || $(tr).hasClass('child') //Cuando muestra las columnas ocultas de un regitro
+    || $(tr).hasClass('dataTables_empty')  //Cuando la  tabla esta vacia, no selecciona
+    || $(tr).hasClass(`${config.ignoreClass}`)
+    || $(tr).find('td').hasClass('dataTables_empty')
+  )
+    return true;
+
+  let rowClick = config.ClickClass;
+  for (const key in rowClick) {
+    if (Object.hasOwnProperty.call(rowClick, key)) {
+      const element = rowClick[key];
+
+      if ($(clickedElement).hasClass(`${element.class}`)) {
+        element.callback(data)
+        return true;
+      }
+
+    }
+
+  }
+
+  return false;
+}
+
 //selectDataTableMovilEdition
 let dataDobleSelect, selectTableTimeOutClick, selectTableClickCount = 0;
 function selectTable(tablename, datatable,
@@ -1838,7 +1888,7 @@ function selectTable(tablename, datatable,
   //manda valores por defecto
   config = configSelectTable(config)
 
-  //Nombramiento para usarlo
+  //Nombrando para usarlo
   let nameTable = tablename.replace('#', '')
 
   //Permite el reload y lo dibuja
@@ -1873,29 +1923,18 @@ function selectTable(tablename, datatable,
     let row = datatable.row(tr);
     let dataRow = row.data();
 
+    // let td = $(event.target).is('td')
+
+
+    //Evalua si el objeto es correcto a su click
+    let dataClick = eventClassClick(event, tr, config, dataRow);
+    if (dataClick) {
+      return false;
+    }
+
     if (config.OnlyData) {
       return callbackClick(1, dataRow, function (data) { return 'No action' }, tr, row);
     }
-
-    // let td = $(event.target).is('td')
-
-    //Evalua donde está dando click el usuario
-    var clickedElement = event.target;
-    var computedStyle = window.getComputedStyle(clickedElement, '::before');
-    computedStyle.getPropertyValue('property') === 'value'
-    console.log(computedStyle.getPropertyValue('property') === 'value')
-    //Cancela la funcion si el elemento que hace click tiene la siguiente clase
-    if (
-      $(clickedElement).hasClass('noClicked') //Algun elemento que podamos crear para que no implique selección
-      || ($(clickedElement).hasClass('dtr-control')) //Cuando le da click al primer td con el boton + de visualizar mas columnas
-      || $(tr).hasClass('child') //Cuando muestra las columnas ocultas de un regitro
-      || $(tr).hasClass('dataTables_empty')  //Cuando la  tabla esta vacia, no selecciona
-      || $(tr).hasClass(`${config.ignoreClass}`)
-      || $(tr).find('td').hasClass('dataTables_empty')
-    )
-
-      return false;
-
 
     if ($(tr).hasClass('selected')) {
       selectTableClickCount++;
@@ -2261,7 +2300,7 @@ function obtenerDatosEspiroPacientes(curp) {
 
               break;
 
-        }
+          }
 
           //MOSTRAMOS LOS COLLAPSE DE TODAS AQUELLAS PREGUNTAS QUE LO CONTIENEN
           let parent = $('div[class="form-check form-check-inline col-12 mb-2"]');
