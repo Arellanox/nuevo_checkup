@@ -3097,6 +3097,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     $('#info-factura-uso').html(data['USO_DESCRIPCION']);
                     $('#info-factura-rfc').html(data['RFC']);
                     $('#info-factura-metodo_pago').html(data['METODO_PAGO']);
+                    $('#info-factura-forma_pago').html(data['TIPO_PAGO'])
 
                     $('.panel-contenedor-factura').fadeIn(0);
                   }
