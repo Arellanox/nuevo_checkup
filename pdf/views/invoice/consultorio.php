@@ -242,7 +242,7 @@ $encode_firma = base64_encode($ruta_firma);
     <div class="header">
         <?php
         $titulo = 'Checkup Clínica y Prevención';
-        $tituloPersonales = 'Informacón del paciente';
+        $tituloPersonales = 'Información del paciente';
         $subtitulo = 'Historia Clínica';
         $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
         include 'includes/header.php';

@@ -240,7 +240,7 @@ $encode_firma = base64_encode($ruta_firma);
                 <tr>
                     <td class="col-der" style="border-bottom: none">
                         <h4>
-                            DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
+                            DIAGNÓSTICO BIOMOLECULAR S.A.de C.V. <br>
                             Checkup Clínica y Prevención<br>
                             <?php echo $encabezado->TITULO ?>
                         </h4>
