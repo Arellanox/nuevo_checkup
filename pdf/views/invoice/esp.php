@@ -129,24 +129,24 @@
 
         /* Para divisiones de 3 encabezado*/
         .col-left {
-            width: 42%;
-            max-width: 42%;
+            width: 44%;
+            max-width: 44%;
             text-align: left;
             font-size: 11px;
             margin-left: 2px;
         }
 
         .col-center {
-            width: 41%;
-            max-width: 41%;
+            width: 32%;
+            max-width: 32%;
             text-align: left;
             font-size: 11px;
             margin-left: 2px;
         }
 
         .col-right {
-            width: 17%;
-            max-width: 17%;
+            width: 24%;
+            max-width: 24%;
             text-align: left;
             font-size: 11px;
             margin-left: 2px;
