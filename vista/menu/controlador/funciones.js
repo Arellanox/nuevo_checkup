@@ -1915,11 +1915,16 @@ function selectTable(tablename, datatable,
   if (config.reload)
     setReloadSelecTable(nameTable, config.reload)
 
-  //Activa las funciones moviles
-
+  //Activa las funciones moviles,
   resizeConfigMovil(config, nameTable);
+  resize = false;
   $(window).resize(function () {
-    resizeConfigMovil(config, nameTable);
+    //Toma un tiempo para poder refrescar cambios y no 
+    //hacerlo cada vez que hay un pequeño pixel de cambio
+    clearTimeout(resize);
+    resize = setTimeout(() => {
+      resizeConfigMovil(config, nameTable);
+    }, 500);
   })
 
   //Callback para procesos, ejemplo: quitar loader y mostrar columnas en escritorio
