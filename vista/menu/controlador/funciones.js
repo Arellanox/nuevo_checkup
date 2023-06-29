@@ -1718,6 +1718,14 @@ function configSelectTable(config) {
 }
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
+  console.log(navigator.userAgent)
+  var esTabletaVertical = /iPad/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth;
+  var esDispositivoMovil = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || esTabletaVertical;
+  if (esDispositivoMovil)
+    callback(esDispositivoMovil);
+  console.log(esDispositivoMovil)
+  return esDispositivoMovil;
+
   let width = window.innerWidth;
   let height = window.innerHeight;
 
@@ -1731,7 +1739,7 @@ function isMovil(callback = (response) => { }) {
 
 //Visualiza los botones de navegacion
 function selecTableTabs() {
-  isMovil() ? $('.tab-page-table').fadeIn(0) : $('.tab-page-table').fadeOut(0);;
+  isMovil() ? $('.tab-page-table').fadeIn(0) : $('.tab-page-table').fadeOut(0);
 }
 
 // Para la version movil crea y visualiza columnas
@@ -1896,14 +1904,16 @@ function selectTable(tablename, datatable,
     setReloadSelecTable(nameTable, config.reload)
 
   //Activa las funciones moviles
-  if (config.movil) {
-    //Cambia la vista del dispositivo
-    getBtnTabs(config);
-    //Activa los botones si es movil
-    dinamicTabs(`#loaderDiv-${nameTable}`)
-    //Evalua el tipo de dispositivo
-    selecTableTabs()
-  }
+  $(window).resize(function () {
+    if (config.movil) {
+      //Cambia la vista del dispositivo
+      getBtnTabs(config);
+      //Activa los botones si es movil
+      dinamicTabs(`#loaderDiv-${nameTable}`)
+      //Evalua el tipo de dispositivo
+      selecTableTabs()
+    }
+  })
 
   //Callback para procesos, ejemplo: quitar loader y mostrar columnas en escritorio
   let callback = (type = 'Out' || 'In') => {
@@ -4301,7 +4311,7 @@ function validarCuestionarioEspiro() {
     return true;
   }
 
-  console.log(situacion2)
+  // console.log(situacion2)
 
   if (!situacion2) {
     if (!detectPreguntasNivel('.situaciones2')) {
@@ -4310,12 +4320,12 @@ function validarCuestionarioEspiro() {
     }
   }
 
-  if (!situacion1) {
-    if (!detectPreguntasNivel('.situaciones1')) {
-      // resolve(true);
-      return true;
-    }
-  }
+  // if (!situacion1) {
+  //   if (!detectPreguntasNivel('.situaciones1')) {
+  //     // resolve(true);
+  //     return true;
+  //   }
+  // }
 
 
   // resolve(false);

@@ -75,7 +75,7 @@ switch ($menu) {
     break;
   default:
 ?>
-  <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar" style="padding-top: 5px; padding-bottom: 5px;" id="navbar_principal">
+  <nav class="navbar navbar-expand-xl border-3 border-bottom border-dark bg-navbar" style="padding-top: 5px; padding-bottom: 5px;" id="navbar_principal">
     <div class="container-fluid">
       <a href="https://bimo-lab.com/index.php" class="navbar-brand"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" />
         <?php
