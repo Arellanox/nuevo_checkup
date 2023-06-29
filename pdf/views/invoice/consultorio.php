@@ -298,7 +298,7 @@ $encode_firma = base64_encode($ruta_firma);
         <?php
                 }
             }
-            echo '<div class="break"> </div>';
+            // echo '<div class="break"> </div>';
         }
         ?>
 
@@ -353,7 +353,7 @@ $encode_firma = base64_encode($ruta_firma);
             }
             ?>
 
-            <div class="break"> </div>
+            <!-- <div class="break"> </div> -->
         <?php
 
         }
@@ -423,6 +423,13 @@ $encode_firma = base64_encode($ruta_firma);
         <?php if (isset($resultados->DIAGNOSTICO)) {
             echo '</br><h2 style="padding-bottom: 6px; padding-top: 6px;">Diagnóstico</h2>';
             echo "<p>" . $resultados->DIAGNOSTICO . "</p>";
+        } ?>
+
+
+        <!-- DIAGNOSTICO -->
+        <?php if (isset($resultados->CONCLUSIONES)) {
+            echo '</br><h2 style="padding-bottom: 6px; padding-top: 6px;">Conclusiones</h2>';
+            echo "<p>" . $resultados->CONCLUSIONES . "</p>";
         } ?>
     </div>
 </body>
