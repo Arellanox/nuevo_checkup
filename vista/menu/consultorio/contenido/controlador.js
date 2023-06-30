@@ -132,6 +132,9 @@ async function obtenerValoracion(data, idconsulta) {
   await obtenerExploracion(data['ID_TURNO'])
   await obtenerAnamnesisApartados(data['ID_TURNO']);
   await obtenerInformacionConsulta(idconsulta)
+
+  autosize(document.querySelectorAll('textarea'))
+
   loader("Out", 'bottom')
 
 

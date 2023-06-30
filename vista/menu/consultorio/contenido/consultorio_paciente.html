@@ -1,28 +1,36 @@
 <div class="col-12 loader" id="loader">
   <div class="preloader" id="preloader"> </div>
 </div>
+
 <div class="row mt-2">
-  <div class="col-12 col-lg-4">
-    <div class="info-detalle card" id="panel-informacion"> <!-- Informacion del paciente --> </div>
-    <div id="crear-notas" class="card mt-3">
-      <h4 class="m-3">Notas de historial clinica</h4>
-      <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"
-        id="nota-historial-paciente"></textarea>
-      <div class="d-flex justify-content-end p-2">
-        <button type="button" class="btn btn-confirmar m-1" id="agregar-nota-historial">
-          <i class="bi bi-plus"></i> Agregar
-        </button>
+
+  <div class="col-12 col-md-6 col-lg-8" id="contentContainer">
+
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-6">
+        <div class="info-detalle card" id="panel-informacion"> <!-- Informacion del paciente --> </div>
+        <div id="crear-notas" class="card mt-3">
+          <h4 class="m-3">Notas de historial clinica</h4>
+          <hr class="dropdown-divider m-2">
+          <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"
+            id="nota-historial-paciente"></textarea>
+          <div class="d-flex justify-content-end p-2">
+            <button type="button" class="btn btn-confirmar m-1" id="agregar-nota-historial">
+              <i class="bi bi-plus"></i> Agregar
+            </button>
+          </div>
+        </div>
+        <div id="notas-historial"> <!-- Notas --> </div>
+
+      </div>
+      <div class="col-12 col-md-12 col-lg-6" style="margin-bottom:10px;">
+        <div class="card mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
+        <div class="card mt-2" id="listado-resultados"></div>
       </div>
     </div>
-    <div id="notas-historial"> <!-- Notas --> </div>
   </div>
-  <div class="col-12 col-lg-4" style="margin-bottom:10px;">
-    <div class="card mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
-    <div class="card mt-2" id="listado-resultados"></div>
 
-  </div>
-  <div class="col-12  col-lg-4">
+  <div class="col-12 col-md-6 col-lg-4">
     <div class="card">
       <div id="btn-ir-consulta">
         <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"

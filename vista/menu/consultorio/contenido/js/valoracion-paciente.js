@@ -27,6 +27,8 @@ function obtenerInformacionConsulta(id) {
     });
 }
 
+
+
 //Obtiene la informacion basica del paciente
 function obtenerInformacionPaciente(data) {
     return new Promise(resolve => {

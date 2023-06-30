@@ -188,7 +188,7 @@ function configurarFactura(data) {
     alertToast('Espere un momento', 'info', 4000)
 
     rellenarSelect('#regimen_fiscal-factura', 'sat_regimen_api', 1, 'ID_REGIMEN', 'REGIMEN_FISCAL')
-    rellenarSelect('#uso-factura', 'sat_catalogo_api', 2, 'SAT_ID_CODIGO', 'COMPLETO')
+    rellenarSelect('#uso-factura', 'cfdi_api', 2, 'ID_CFDI', 'DESCRIPCION')
 
     $('#rfc-factura').val(data['RFC'])
 
