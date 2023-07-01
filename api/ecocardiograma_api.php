@@ -41,3 +41,6 @@ switch ($api) {
         # code...
         break;
 }
+
+
+echo $master->returnApi($response);
