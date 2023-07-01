@@ -19,12 +19,12 @@ $id_prueba = $_POST['id_prueba'];
 
 switch ($api) {
     case 1:
-        $dir = "../archivos/prueba/";
+        $dir = "../archivos/prueba_esfuerzo/";
         $r = $master->createDir($dir);
         if ($r == 1) {
             $paciente = $master->getByPatientNameByTurno($master, $turno_id);
-            $inbody = $master->guardarFiles($_FILES, "prueba", $dir, "PRUEBA_" . $paciente . "_" . $hoy);
-            $url = str_replace("../", $host, $inbody[0]['url']);
+            $inbody = $master->guardarFiles($_FILES, "capturas", $dir, "PRUEBA_" . $paciente . "_" . $hoy);
+            $url = str_replace("../", $host, $id_prueba[0]['url']);
             $response = $master->insertByProcedure("sp_prueba_esfuerzo_resultados_g", [$id_prueba, $turno_id, $url, null, $_SESSION['id']]);
         } else {
             $response = "No se pudo crear el directorio.";
