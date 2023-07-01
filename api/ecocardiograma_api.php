@@ -26,7 +26,7 @@ switch ($api) {
             $paciente = $master->getByPatientNameByTurno($master,$turno_id);
             $eco = $master->guardarFiles($_FILES,"capturas",$dir,"ECO_" . $paciente . "_" . $hoy);
             $url = str_replace("../", $host, $eco[0]['url']);
-            $response = $master->insertByProcedure("sp_ecocardiograma_resultados_g", [$id_eco, $turno_id, $url, null, $_SESSION['id']]);
+            $response = $master->insertByProcedure("sp_ecocardiograma_g", [$id_eco, $turno_id, $url, null, $_SESSION['id']]);
 
         } else {
             $response = "No se pudo crear el directorio.";
