@@ -124,9 +124,7 @@ session_start();
                                     <i class="bi bi-plus-lg"></i> EASYONE
                                 </button>
 
-                                <button type="button" class="btn btn-primary me-2" style="margin-bottom:4px; display:none" id="btn-resultados-audi-pdf">
-                                    <i class="bi bi-plus-lg"></i> Subir reporte
-                                </button>
+
                             </div>
 
                             <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">

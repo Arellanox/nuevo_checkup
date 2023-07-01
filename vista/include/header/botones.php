@@ -183,6 +183,8 @@ $menu = $_POST['menu']; ?>
   || $menu == 'Somatometría | Signos Vitales'
   || $menu == 'Consultorio'
   || $menu == 'Estudio de Composición Corporal (InBody)'
+  || $menu == 'Resultados de Prueba de Esfuerzo'
+  || $menu == 'Resultados de Ecocardiograma'
 ) : ?>
   <div class="row">
     <div class="col-12 col-lg-auto d-flex align-items-center">

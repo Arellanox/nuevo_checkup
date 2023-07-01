@@ -2,7 +2,7 @@ var tablaContenido, areaActiva;
 var dataListaPaciente = {
   api: 7
 };
-var hash, servicio_nombre, formulario, api, url_api, selecta, nombre_paciente;
+var hash, servicio_nombre, formulario = 1, api, url_api, selecta, nombre_paciente;
 var subtipo; //Para la tabla de lista de trabajo
 //Variable para guardar los servicios de un paciente seleccionado
 var selectEstudio = new GuardarArreglo(), dataSelect = new GuardarArreglo();
@@ -125,9 +125,23 @@ function hasLocation() {
         url_api = 'electrocardiograma_api';
         obtenerContenidoVistaMaster(13, 'Resultados de Citología', 'contenido_modal.php');
         break;
-      default:
-        // obtenerContenidoVistaMaster(7, 'Resultados de Imagenología');
+      case "PRUEBA_DE_ESFUERZO":
+        // control_turnos = 16
+        // formulario = "formSubirInterpretacionPRUEBA";
+        api_capturas = 1;
+        // api_interpretacion = 1;
+        url_api = 'esfuerzo_api';
+        obtenerContenidoVistaMaster(9, 'Resultados de Prueba de Esfuerzo', 'contenido_modal.php', 'tomaCapturas');
         break;
+      case "ECOCARDIOGRAMA":
+        // control_turnos = 16
+        // formulario = "formSubirInterpretacionPRUEBA";
+        api_capturas = 1;
+        // api_interpretacion = 1;
+        url_api = 'ecocargiograma_api';
+        obtenerContenidoVistaMaster(18, 'Resultados de Ecocardiograma', 'contenido_modal.php', 'tomaCapturas');
+        break;
+      default: avisoArea(); break;
     }
   }
 
@@ -170,6 +184,12 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     $.getScript("contenido/js/controlador-tabla.js");
     switch (area) {
 
+      // case 18: case 9: //Eco y prueba de esfuerzo
+
+      //   // Subir resultado
+      //   $.getScript("modals/js/master_subir_interpretación.js");
+      //   break;
+
       case 3: //Oftalmología
         $('#btn-analisis-oftalmo').fadeIn(0)
         $('#formSubirInterpretacionOftalmo').fadeIn(0)
@@ -197,13 +217,13 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $.getScript("modals/js/master_subir_interpretación.js");
 
         break;
-      
+
       //Area de audiometria
       case 4:
         $('#btn-capturas-pdf').fadeOut(0)
         $('#btn-resultados-audi-pdf').fadeIn(0)
         $.getScript("modals/js/master_subir_interpretación.js");
-        
+
         break;
       case 10:
         $('#btn-analisis').fadeIn(0)

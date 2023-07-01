@@ -205,6 +205,57 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                             btnNutricionInbody(0)
                 }
                 break;
+
+            case 9: //Prueba de esfuerzo
+                $('#btn-inter-areas').fadeIn(0);
+                if (formulario != 1) {
+                    // document.getElementById(formulario).reset()
+                    // $('#capturaElectro').html('')
+                    // if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+
+                    // if (selectEstudio.array.length) {
+                    //     await obtenerResultadosElectro(selectEstudio.array)
+                    //     if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
+                    //         await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
+                    // }
+                    alert('Interpretacion en mantenimiento')
+                } else {
+                    btnTomaCapturas(0, 'Ecocardiología');
+                    try {
+                        if (selectEstudio.array.length)
+                            if (selectEstudio.array[0].PDF) //<-PDF como llega si hay
+                                btnTomaCapturas(0, 'Ecocardiología')
+                    } catch (error) {
+
+                    }
+                }
+                break;
+
+
+            case 18: //Ecocardiograma
+                $('#btn-inter-areas').fadeIn(0);
+                if (formulario != 1) {
+                    // document.getElementById(formulario).reset()
+                    // $('#capturaElectro').html('')
+                    // if (datalist.CONFIRMADO_ELECTRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+
+                    // if (selectEstudio.array.length) {
+                    //     await obtenerResultadosElectro(selectEstudio.array)
+                    //     if (ifnull(selectEstudio.array[0].ELECTRO_PDF))
+                    //         await mostrarElectroInterpretacion(selectEstudio.array[0].ELECTRO_PDF)
+                    // }
+                    alert('Interpretacion en mantenimiento')
+                } else {
+                    btnTomaCapturas(0, 'Ecocardiología');
+                    try {
+                        if (selectEstudio.array.length)
+                            if (selectEstudio.array[0].PDF) //<-PDF como llega si hay
+                                btnTomaCapturas(0, 'Ecocardiología')
+                    } catch (error) {
+
+                    }
+                }
+                break;
             default:
                 botonesResultados('activar');
                 break;
@@ -961,6 +1012,28 @@ function btnNutricionInbody(e) {
                 <i class="bi bi-check-circle"></i> Mostrar captura
             </button> </div> </div>`);
     }
+}
+
+function btnTomaCapturas(e, servicio /* nombre */) {
+    if (e) {
+        $('#vistaCapturasAreas').html(`<div class="row"> 
+                                        <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">
+                                            <button type="button" class="btn btn-primary me-2 btnResultados" style="margin-bottom:4px" disabled servicio="${servicio}">
+                                                <i class="bi bi-plus-lg"></i> Captura cargada
+                                            </button> 
+                                        </div>
+                                    </div>`)
+    } else {
+        $('#vistaCapturasAreas').html(`<div class="row"> 
+                                        <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">
+                                            <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf" servicio="${servicio}">
+                                                <i class="bi bi-plus-lg"></i> Capturar Prueba
+                                            </button>
+                                        </div> 
+                                    </div>`)
+    }
+
+    $('#vistaCapturasAreas').fadeIn(0)
 }
 
 
