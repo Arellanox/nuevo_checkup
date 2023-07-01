@@ -606,7 +606,7 @@ class Miscelaneus
         for ($i = 0; $i < count($response); $i++) {
 
             $cargosT = [
-                "PRODUCTO" => $response[$i]['paquetes'] == "" ? $response[$i]['servicios'] : $response[$i]['paquetes'],
+                "PRODUCTO" => $response[$i]['PAQUETES'] == "" ? $response[$i]['SERVICIOS'] : $response[$i]['PAQUETES'],
                 "PRECIO" => $response[$i]['PRECIO'],
                 "CANTIDAD" => $response[$i]['CANTIDAD'],
                 "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']) * 100))
@@ -1099,16 +1099,17 @@ class Miscelaneus
         return array('global' => $arrayGlobal, 'clave' => $clave);
     }
 
-    private function determinarTipo($parametro, $resultado){
+    private function determinarTipo($parametro, $resultado)
+    {
         $parametro = trim($parametro);
         $resultado = trim($resultado);
-    
+
         // Comprobar si el parámetro contiene un rango de valores
         if (strpos($parametro, '-') !== false) {
             $rango = explode('-', $parametro);
             $minimo = trim($rango[0]);
             $maximo = trim($rango[1]);
-    
+
             if ($resultado < $minimo) {
                 return $this->arrowDown;
             } elseif ($resultado > $maximo) {
@@ -1117,7 +1118,7 @@ class Miscelaneus
                 return "";
             }
         }
-    
+
         // Si no es un rango, comparar con el parámetro
         if ($resultado != $parametro) {
             return $this->asterisk;
@@ -1154,11 +1155,11 @@ class Miscelaneus
 
             foreach ($abs as $current) {
                 # dibujar flechas o astericos a lado del resultado de los resultados de los valores absolutos.
-                $demonMark = $this->determinarTipo($current['VALOR_REFERENCIA_ABS'],$current['VALOR_ABSOLUTO']);
+                $demonMark = $this->determinarTipo($current['VALOR_REFERENCIA_ABS'], $current['VALOR_ABSOLUTO']);
 
                 $absoluto_array[] = array(
                     "analito" => $current['DESCRIPCION_SERVICIO'],
-                    "valor_abosluto" => $current['VALOR_ABSOLUTO'].$demonMark, 
+                    "valor_abosluto" => $current['VALOR_ABSOLUTO'] . $demonMark,
                     "referencia" => $current['VALOR_REFERENCIA_ABS'],
                     "grupo_id" => $current['GRUPO_ID'],
                     "unidad" => $current['MEDIDA_ABS']
