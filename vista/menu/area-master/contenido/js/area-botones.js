@@ -65,6 +65,12 @@ $(document).on('click', '#btn-capturas-pdf', function () {
         servicio_nombre = 'Citología'; // <--Nombrar la ventana
         $("#ModalSubirCapturas").modal("show");
         break;
+
+      //Captura Genericas
+      case 9: case 18:
+        servicio_nombre = $(this).attr('servicio'); // <--Nombrar la ventana
+        $('#ModalSubirCapturas').modal('show');
+        break;
       default:
         chooseEstudio(selectEstudio.array, '#ModalSubirCapturas', 2)
         break;
@@ -98,7 +104,7 @@ $('#abrirModalResultados').click(function () {
 
 //BTN PARA SUBIR LOS DATOS DE ESPIROMETRIA 
 
-$('#btn-resultados-espiro-pdf').click(function () { 
+$('#btn-resultados-espiro-pdf').click(function () {
 
   $('#ModalSubirResultadosEspiro').modal('show');
 
@@ -146,48 +152,53 @@ function chooseEstudio(row, modal, tip) {
   let html = '';
 
   console.log(row)
-  switch (tip) {
-    case 1:
-      return false
-      for (var i = 0; i < row.length; i++) {
-        if (row[i]['INTERPRETACION'] == null) {
-          html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
-        }
-      }
-      if (html) {
-        Swal.fire({
-          html: '<h4>Seleccione el estudio a guardar</h4>' +
-            '<div class="d-grid gap-2">' + html + '</div>',
-          showCloseButton: true,
-          showConfirmButton: false,
-        });
-      } else {
-        alertSelectTable('Se han guardado todas sus interpretaciones')
-      }
-      break;
-    case 2:
-      for (var i = 0; i < row.length; i++) {
-        try {
-          if (row[i]['CAPTURAS'].length == 0) {
-            html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `', '` + row[i]['SERVICIO'] + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
+  try {
+    switch (tip) {
+      case 1:
+        return false
+        for (var i = 0; i < row.length; i++) {
+          if (row[i]['INTERPRETACION'] == null) {
+            html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
           }
-        } catch (error) {
-          // alertMensaje('error', 'Oops...', 'Hubo un error con las capturas, intentelo mas tarde', 'Reporte este mensaje a la area de TI : )')
         }
-      }
-      if (html) {
-        Swal.fire({
-          html: '<h4>Seleccione el estudio a capturar</h4>' +
-            '<div class="d-grid gap-2">' + html + '</div>',
-          showCloseButton: true,
-          showConfirmButton: false,
-        });
-      } else {
-        alertSelectTable('Se han guardado todas sus capturas', 'success')
-      }
-      break;
-    default:
+        if (html) {
+          Swal.fire({
+            html: '<h4>Seleccione el estudio a guardar</h4>' +
+              '<div class="d-grid gap-2">' + html + '</div>',
+            showCloseButton: true,
+            showConfirmButton: false,
+          });
+        } else {
+          alertSelectTable('Se han guardado todas sus interpretaciones')
+        }
+        break;
+      case 2:
+        for (var i = 0; i < row.length; i++) {
+          try {
+            if (row[i]['CAPTURAS'].length == 0) {
+              html += `<button class="btn btn-cancelar" onClick = "estudioSeleccionado(` + row[i]['ID_SERVICIO'] + `, '` + modal + `', '` + row[i]['SERVICIO'] + `')" type="button">` + row[i]['SERVICIO'] + `</button>`;
+            }
+          } catch (error) {
+            // alertMensaje('error', 'Oops...', 'Hubo un error con las capturas, intentelo mas tarde', 'Reporte este mensaje a la area de TI : )')
+          }
+        }
+        if (html) {
+          Swal.fire({
+            html: '<h4>Seleccione el estudio a capturar</h4>' +
+              '<div class="d-grid gap-2">' + html + '</div>',
+            showCloseButton: true,
+            showConfirmButton: false,
+          });
+        } else {
+          alertSelectTable('Se han guardado todas sus capturas', 'success')
+        }
+        break;
+      default:
 
+    }
+  } catch (error) {
+    alertToast('Area no compatible', 'error', 4000)
+    return false
   }
 
 }
