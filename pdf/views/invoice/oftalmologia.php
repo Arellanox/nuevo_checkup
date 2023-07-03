@@ -246,7 +246,7 @@ if (!isset($qr)) {
                         <h4>
                             DIAGNÓSTICO BIOMOLECULAR S.A.de C.V. <br>
                             Checkup Clínica y Prevención<br>
-                            Reporte de oftamologia
+                            Reporte de Oftalmologia
                         </h4>
                     </td>
                     <td class="col-izq" style="border-bottom: none; text-align:center;">
