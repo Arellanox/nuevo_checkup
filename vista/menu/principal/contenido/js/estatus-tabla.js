@@ -51,97 +51,62 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         { data: 'PREFOLIO' },
         //Laboratorio
         {
-            data: 'LABORATORIO_CLINICO', render: function (data, type, meta) {
-                console.log(type)
-                switch (type) {
-                    case 'display': html = drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' });
-                        return html;
-                    default: return data;
-                }
-
+            data: 'LABORATORIO_CLINICO', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' }, 6, type);
             }
         },
         //Laboratorio
         {
             data: 'BIOMOLECULAR', render: function (data, type) {
-                switch (type) {
-                    case 'display': html = drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' });
-                        return html;
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' }, 12, type);
             }
         },
         //Ultrasonido
         {
             data: 'ULTRASONIDO', render: function (data, type) {
-                switch (type) {
-                    case 'display': return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 11, type);
             }
         },
         //Rayos X
         {
             data: 'RAYOS_X', render: function (data, type) {
-                switch (type) {
-                    case 'display': return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 8, type);
             }
         },
         //Oftalmo
         {
             data: 'OFTALMOLOGIA', render: function (data, type) {
-                switch (type) {
-                    case 'display': return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' });
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' }, 3, type);
             }
         },
         //HistoriaClinica
         {
             data: 'CONSULTORIO', render: function (data, type) {
-                switch (type) {
-                    case 'display': return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' });
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' }, 1, type);
             }
         },
         //Electrocardiograma
         {
             data: 'ELECTROCARDIOGRAMA', render: function (data, type) {
-                switch (type) {
-                    case 'display': return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 10, type);
             }
         },
         //Nutricion InBody
         {
             data: 'INBODY', render: function (data, type) {
-                switch (type) {
-                    case 'display': html = drawStatusMenuTable(data, { 0: 'capturas', 1: 'correo' });
-                        return html;
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'correo' }, 14, type);
             }
         },
         //Espirometría
         {
             data: 'ESPIROMETRIA', render: function (data, type) {
-                switch (type) {
-                    case 'display': return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 5, type);
             }
         },
         //Audiometria
         {
             data: 'AUDIOMETRIA', render: function (data, type) {
-                switch (type) {
-                    case 'display': return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' });
-                    default: return data;
-                }
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 4, type);
             }
         },
         //Menu
@@ -306,50 +271,53 @@ function drawRowTable(data, tipo, msj = { 0: '', 1: '', 2: '' }) {
     }
 }
 
-function drawStatusMenuTable(data, iconObject = { 0: 'muestra', 1: 'reporte', 2: 'correo', 3: 'captura' }) {
-    //Icons
-    html = '';
-    // console.log(data)
 
-    if (data) {
-        // console.log(data);
-        for (const key in iconObject) {
-            if (iconObject.hasOwnProperty.call(iconObject, key)) {
-                const val = iconObject[key];
-                // if (data[val])
-                html += analizarIconStatus(data[val], val);
+const icons = {
+    muestra: {
+        0: 'muestra_sin_tomar',
+        1: 'muestra_tomada',
+        'N/A': '',
+    },
+    reporte: {
+        0: 'reporte_sin',
+        1: 'reportado',
+        'N/A': '',
+    },
+    correo: {
+        0: 'correo_sin',
+        1: 'correo_enviado',
+        'N/A': '',
+    },
+    capturas: {
+        0: 'captura_sin_tomar',
+        1: 'captura_tomada',
+        'N/A': '',
+    }
+}
+
+function drawStatusMenuTable(data, iconObject = { 0: 'muestra', 1: 'reporte', 2: 'correo', 3: 'captura' }, area, type) {
+    if (type === "display") {
+        //Icons
+        html = '';
+        // console.log(data)
+
+        if (data) {
+            // console.log(data);
+            for (const key in iconObject) {
+                if (iconObject.hasOwnProperty.call(iconObject, key)) {
+                    const val = iconObject[key];
+                    // if (data[val])
+                    html += elegirIconStatus(data, icons[val]);
+                }
             }
         }
+        return html;
+    } else {
+        return data;
     }
-    return html;
 
 };
 
-function analizarIconStatus(data, tipo) {
-    icons = {
-        muestra: {
-            0: 'muestra_sin_tomar',
-            1: 'muestra_tomada',
-            'N/A': '',
-        },
-        reporte: {
-            0: 'reporte_sin',
-            1: 'reportado',
-            'N/A': '',
-        },
-        correo: {
-            0: 'correo_sin',
-            1: 'correo_enviado',
-            'N/A': '',
-        },
-        capturas: {
-            0: 'captura_sin_tomar',
-            1: 'captura_tomada',
-            'N/A': '',
-        }
-    }
-    return elegirIconStatus(icons[tipo], data)
-}
 
 function elegirIconStatus(tipo, key) {
     if (tipo) {
