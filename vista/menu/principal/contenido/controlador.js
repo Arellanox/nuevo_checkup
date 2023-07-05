@@ -5,7 +5,7 @@ var tablaEstatusTurnos;
 
 // //Validacion de usuario
 switch (session['cargo']) {
-    case '13': case 13:
+    case '18': case 18:
         $(location).attr('href', `${http}${servidor}/${appname}/vista/procedencia/pacientes/#UJAT`);
         destroySession();
         break;
