@@ -138,7 +138,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
 
         // { data: 'DESCRIPCION_SEGMENTO' },
         {
-            data: 'COUNT',
+            data: null,
             render: function (data) {
                 return 'PENDIENTE';
             }
