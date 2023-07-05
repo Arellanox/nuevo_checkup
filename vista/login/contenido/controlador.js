@@ -42,7 +42,7 @@ function obtenerContenido(tabla) {
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/recepcion/`);
                   return true;
 
-                case '13': case 13:
+                case '18': case 18:
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/procedencia/pacientes/#UJAT`);
                   return true;
 
