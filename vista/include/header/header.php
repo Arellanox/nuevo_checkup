@@ -236,10 +236,11 @@ switch ($menu) {
                         <p><?php echo "$_SESSION[cargo_descripcion]"; ?></p>
                       </div>
                       <div class="profile-description text-center">Hola, ¡buen día! :)</div>
-                      <div class="profile-description text-center">
-                        <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>
-                      </div>
-
+                      <?php if ($menu != 'procedencia') { ?>
+                        <div class="profile-description text-center">
+                          <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>
+                        </div>
+                      <?php } ?>
                       <div class="row" style="padding-right: 5%; padding-left: 5%;">
                         <?php include "navbar-menu/navlink-dropuser.php"; ?>
                       </div>
