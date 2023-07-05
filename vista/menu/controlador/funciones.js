@@ -793,6 +793,8 @@ function isJson(str) {
 }
 
 
+
+
 // Obtener segmentos por procedencia en select
 function getSegmentoByProcedencia(id, select) {
   return new Promise(resolve => {
@@ -946,7 +948,7 @@ function setProcedenciaOption(select, idProcedencia) {
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback = function (array, selectHTML) { }) {
+function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback = function (array) { }) {
   return new Promise(resolve => {
     values.api = apinum;
 
@@ -1874,7 +1876,7 @@ function eventClassClick(event, tr, config, data) {
       const element = rowClick[key];
 
       if ($(clickedElement).hasClass(`${element.class}`)) {
-        element.callback(data)
+        element.callback(data, clickedElement)
         return true;
       }
 
@@ -1918,14 +1920,14 @@ function selectTable(tablename, datatable,
   //Activa las funciones moviles,
   resizeConfigMovil(config, nameTable);
   resize = false;
-  // $(window).resize(function () {
-  //   //Toma un tiempo para poder refrescar cambios y no 
-  //   //hacerlo cada vez que hay un pequeño pixel de cambio
-  //   clearTimeout(resize);
-  //   resize = setTimeout(() => {
-  //     resizeConfigMovil(config, nameTable);
-  //   }, 500);
-  // })
+  $(window).resize(function () {
+    //Toma un tiempo para poder refrescar cambios y no 
+    //hacerlo cada vez que hay un pequeño pixel de cambio
+    clearTimeout(resize);
+    resize = setTimeout(() => {
+      resizeConfigMovil(config, nameTable);
+    }, 500);
+  })
 
   //Callback para procesos, ejemplo: quitar loader y mostrar columnas en escritorio
   let callback = (type = 'Out' || 'In') => {
@@ -1944,6 +1946,7 @@ function selectTable(tablename, datatable,
     let tr = this
     let row = datatable.row(tr);
     let dataRow = row.data();
+    array_selected = row.data();
 
     // let td = $(event.target).is('td')
 

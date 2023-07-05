@@ -212,15 +212,18 @@ selectTable('#tablaPacientes', tablaPacientes, {
         {
             class: 'btn-get-capturas',
             callback: function (row, clicked) {
+                console.log(clicked)
                 let btn = $(clicked);
-
+                console.log(btn);
                 $('#NombrePacienteCapturas').html(row['NOMBRE_COMPLETO']);
                 // let rowImg = selectEstudio.array[0]['IMAGENES'], htmlImg = '', htmlPdf = '';
                 let html = '', htmlPDF = '', htmlimg = '', pdf, img;
 
                 let capturas = row['ESTUDIOS'][0];
-                capturas = capturas.filter(capturas => capturas['area'] == btn.attr('data-id'))
-                console.log(capturas)
+                let id = btn.attr('data-id');
+                console.log(id)
+                console.log(capturas);
+                capturas = capturas.filter(obj => obj['area'] === id)
                 capturas = capturas[0]['capturas']
 
 
