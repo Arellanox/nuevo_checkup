@@ -220,6 +220,7 @@ selectTable('#tablaPacientes', tablaPacientes, {
 
                 let capturas = row['ESTUDIOS'][0];
                 capturas = capturas.filter(capturas => capturas['area'] == btn.attr('data-id'))
+                console.log(capturas)
                 capturas = capturas[0]['capturas']
 
 
