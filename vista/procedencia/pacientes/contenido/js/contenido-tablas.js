@@ -50,7 +50,11 @@ tablaPacientes = $('#tablaPacientes').DataTable({
         // $('td', row).addClass('bg-info');
     },
     columns: [
-        { data: 'COUNT' },
+        {
+            data: null, render: function () {
+                return '';
+            }
+        },
         { data: 'NOMBRE_COMPLETO' },
         // { data: 'PROCEDENCIA' },
         {
