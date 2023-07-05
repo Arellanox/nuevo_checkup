@@ -298,10 +298,11 @@ selectTable('#tablaPacientes', tablaPacientes, {
 function drawStatusMenuTable(data, iconObject = { 0: 'muestra', 1: 'reporte', 2: 'correo', 3: 'captura' }, area, type) {
     switch (type) {
         case 'display':
+            console.log(data)
             data = data[0].filter(data => data['area'] == area);
             //Icons
             html = '';
-            // console.log(data)
+            console.log(data)
             data = data[0]
             if (data) {
                 for (const key in iconObject) {
