@@ -31,6 +31,7 @@ function obtenerContenido(tabla) {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const page = urlParams.get('page')
+
             if (page) {
               $(location).attr('href', page);
             } else {
@@ -41,12 +42,17 @@ function obtenerContenido(tabla) {
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/recepcion/`);
                   return true;
 
+                case '13': case 13:
+                  $(location).attr('href', `${http}${servidor}/${appname}/vista/procedencia/pacientes/#UJAT`);
+                  return true;
+
                 default:
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
                   return false;
                 // break;
               }
             }
+
           } else {
             $(this).find('button :submit').prop('disabled', false)
             if (data.response.msj == 'Oops! Tu contraseña es incorrecta.') {
