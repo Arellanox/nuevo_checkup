@@ -304,7 +304,7 @@ function drawStatusMenuTable(data, iconObject = { 0: 'muestra', 1: 'reporte', 2:
             html = '';
             console.log(data)
             data = data[0]
-            if (data) {
+            if (data.length) {
                 for (const key in iconObject) {
                     if (iconObject.hasOwnProperty.call(iconObject, key)) {
                         const val = iconObject[key];
