@@ -16,3 +16,5 @@ include 'ar_mostrar_electro.html';
 //Inbody nutricion
 include 'nutri_inbody-captura.html';
 include 'nutri_inbody-visualizar.html';
+
+include 'mostrar_pdf_captura.html';

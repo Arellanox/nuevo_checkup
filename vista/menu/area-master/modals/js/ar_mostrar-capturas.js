@@ -93,3 +93,25 @@ CapturasdeArea.addEventListener('show.bs.modal', event => {
     // }
 
 })
+
+
+
+
+const ModalView = document.getElementById('ModalView')
+ModalView.addEventListener('show.bs.modal', event => {
+    // console.log(dataSelect)
+    $('#nombre-paciente-captura-visualizar').html(`${dataSelect.array['nombre_paciente']}`)
+    // let imgURL = selectEstudio.array[0]['INBODY_PDF'];
+    $('#contenedor-imagen-visualizar').html(`<div class="col-12 d-flex justify-content-center">
+        <object object data = "${pdf_view}" type = "application/pdf" width = "100%" style = "height: 82vh;" >
+            <iframe src="${pdf_view}"
+                width="100%" height="100%" style="border: none;">
+                <p>
+                    Your browser does not support PDFs.
+                    <a href="${pdf_view}">Download the PDF</a>
+                </p>
+            </iframe>
+        </object>
+    </div>`)
+})
+

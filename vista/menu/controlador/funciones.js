@@ -946,7 +946,7 @@ function setProcedenciaOption(select, idProcedencia) {
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback = function (array) { }) {
+function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback = function (array, selectHTML) { }) {
   return new Promise(resolve => {
     values.api = apinum;
 
@@ -1918,14 +1918,14 @@ function selectTable(tablename, datatable,
   //Activa las funciones moviles,
   resizeConfigMovil(config, nameTable);
   resize = false;
-  $(window).resize(function () {
-    //Toma un tiempo para poder refrescar cambios y no 
-    //hacerlo cada vez que hay un pequeño pixel de cambio
-    clearTimeout(resize);
-    resize = setTimeout(() => {
-      resizeConfigMovil(config, nameTable);
-    }, 500);
-  })
+  // $(window).resize(function () {
+  //   //Toma un tiempo para poder refrescar cambios y no 
+  //   //hacerlo cada vez que hay un pequeño pixel de cambio
+  //   clearTimeout(resize);
+  //   resize = setTimeout(() => {
+  //     resizeConfigMovil(config, nameTable);
+  //   }, 500);
+  // })
 
   //Callback para procesos, ejemplo: quitar loader y mostrar columnas en escritorio
   let callback = (type = 'Out' || 'In') => {

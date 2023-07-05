@@ -31,7 +31,7 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
     event.preventDefault()
 
     alertMensajeConfirm({
-        title: '¿Esta seguro que todos los datos están correctos?',
+        title: '¿Esta seguro que todos los datos están correctos',
         text: '¡No puedes cambiar estos datos después!',
         icon: 'warning',
         confirmButtonText: 'Si, estoy seguro'
@@ -84,7 +84,6 @@ function configurarModal(data) {
         let row = data['estudios'] // <-- Listas de estudios en bruto
 
         $('.contenido-estudios').html('')
-        $('.tabla-estudios').fadeOut(0);
 
         for (const key in row) {
             if (Object.hasOwnProperty.call(row, key)) {
@@ -93,12 +92,12 @@ function configurarModal(data) {
                 //Crea la fila de la tabla, Nombre del servicio, cantidad, y precio antes de iva
                 let html = `<tr>
                                 <th>${element['SERVICIOS']}</th> 
-                                <td>${ifnull(element['CANTIDAD'], 1)}</td>
+                                <td>${ifnull(element['CANTIDAD'], 0)}</td>
                                 <td>$${ifnull(element['PRECIO'], 0)}</td>
                             </tr>`
 
                 //Adjunta a las tablas la area correspondiente
-                if (element['AREA_ID'] == '11' || element['AREA_ID'] == '6' || element['AREA_ID'] == '8') {
+                if (element['AREA_ID'] == '11' || element['AREA_ID'] == '12' || element['AREA_ID'] == '6' || element['AREA_ID'] == '8') {
                     $(`#cargos-estudios-${element['AREA_ID']}`).append(html)
                     $(`#container-estudios-${element['AREA_ID']}`).fadeIn(0)
                 } else {
@@ -188,7 +187,7 @@ function configurarFactura(data) {
     alertToast('Espere un momento', 'info', 4000)
 
     rellenarSelect('#regimen_fiscal-factura', 'sat_regimen_api', 1, 'ID_REGIMEN', 'REGIMEN_FISCAL')
-    rellenarSelect('#uso-factura', 'cfdi_api', 2, 'ID_CFDI', 'DESCRIPCION')
+    rellenarSelect('#uso-factura', 'sat_catalogo_api', 2, 'SAT_ID_CODIGO', 'COMPLETO')
 
     $('#rfc-factura').val(data['RFC'])
 

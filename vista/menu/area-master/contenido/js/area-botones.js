@@ -52,6 +52,15 @@ $(document).on('click', '#btn-modalView-nutricion', function (e) {
   }
 })
 
+$(document).on('click', '#btn-modalView', function (e) {
+  if (dataSelect.array) {
+    pdf_view = $(this).attr('url');
+    $('#ModalView').modal('show');
+  } else {
+    alertSelectTable();
+  }
+})
+
 
 $(document).on('click', '#btn-capturas-pdf', function () {
   if (dataSelect.array['select']) {

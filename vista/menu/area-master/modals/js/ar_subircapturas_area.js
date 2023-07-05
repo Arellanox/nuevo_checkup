@@ -72,6 +72,7 @@ $("#formSubirCapturas").submit(function (event) {
             document.getElementById("formSubirCapturas").reset();
             $("#ModalSubirCapturas").modal("hide");
             obtenerServicios(areaActiva, dataSelect.array['turno'])
+
             // $("#formSubirCapturas:submit").prop('disabled', false)
             // limpiarCampos()
             // tablaContacto.ajax.reload();

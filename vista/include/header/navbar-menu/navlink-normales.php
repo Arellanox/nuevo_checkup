@@ -261,3 +261,18 @@ if (
     </div>
   </li>
 <?php endif; ?>
+
+
+
+
+<!-- Menu nuevo de la ujat -->
+
+<?php if ($_SESSION['vista']['MENU_MAQUILA'] == 1 || 1) : ?>
+  <li class="nav-item">
+    <a href="<?php echo "$https$url/$appname/vista/procedencia/pacientes/#UJAT"; ?>">
+      <i class=" bi bi-thunderbolt"></i> UJAT
+    </a>
+  </li>
+<?php endif; ?>
+
+<!-- Aqui termine el menu nuevo de la ujat -->

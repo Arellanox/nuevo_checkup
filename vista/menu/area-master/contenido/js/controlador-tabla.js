@@ -223,8 +223,8 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                     btnTomaCapturas(0, 'Ecocardiología');
                     try {
                         if (selectEstudio.array.length)
-                            if (selectEstudio.array[0].PDF) //<-PDF como llega si hay
-                                btnTomaCapturas(0, 'Ecocardiología')
+                            if (selectEstudio.array[0].ECOCARDIOGRAMA_PDF) //<-PDF como llega si hay
+                                btnTomaCapturas(1, 'Ecocardiología', selectEstudio.array[0].ECOCARDIOGRAMA_PDF)
                     } catch (error) {
 
                     }
@@ -249,8 +249,8 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                     btnTomaCapturas(0, 'Ecocardiología');
                     try {
                         if (selectEstudio.array.length)
-                            if (selectEstudio.array[0].PDF) //<-PDF como llega si hay
-                                btnTomaCapturas(0, 'Ecocardiología')
+                            if (selectEstudio.array[0].ECOCARDIOGRAMA_PDF) //<-PDF como llega si hay
+                                btnTomaCapturas(1, 'Ecocardiología', selectEstudio.array[0].ECOCARDIOGRAMA_PDF)
                     } catch (error) {
 
                     }
@@ -346,7 +346,7 @@ function limpiarCampos() {
 
 async function obtenerServicios(area, turno) {
     return new Promise(resolve => {
-        if (area == 3 || area == 10 || area == 14 || area == 5 || area == 4) {
+        if (area == 3 || area == 10 || area == 14 || area == 5 || area == 4 || area == 18) {
             // url = 'oftalmologia_api';
             data = {
                 turno_id: turno,
@@ -1014,11 +1014,11 @@ function btnNutricionInbody(e) {
     }
 }
 
-function btnTomaCapturas(e, servicio /* nombre */) {
+function btnTomaCapturas(e, servicio /* nombre */, url = '') {
     if (e) {
         $('#vistaCapturasAreas').html(`<div class="row"> 
                                         <div class="col-12 text-start" style="margin-top:4px;margin-bottom:5px;">
-                                            <button type="button" class="btn btn-primary me-2 btnResultados" style="margin-bottom:4px" disabled servicio="${servicio}">
+                                            <button type="button" class="btn btn-primary me-2 btnResultados" target="_blank" style="margin-bottom:4px" servicio="${servicio}" url="${url}" id="btn-modalView">
                                                 <i class="bi bi-plus-lg"></i> Captura cargada
                                             </button> 
                                         </div>

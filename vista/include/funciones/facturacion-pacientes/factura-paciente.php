@@ -13,7 +13,7 @@
                         <input type="text" name="razon_social" value="" class="form-control input-form">
                     </div>
                     <div class="col-12 col-lg-6">
-                        <label for="domicilio" class="form-label">Código postal del Domicilio</label>
+                        <label for="domicilio" class="form-label">Domicilio fiscal</label>
                         <input type="text" name="domicilio" value="" class="form-control input-form">
                     </div>
                     <div class="col-12 col-lg-6">
@@ -26,7 +26,7 @@
                         <input type="text" name="rfc" value="" class="form-control input-form" id="rfc-factura">
                     </div>
                     <div class="col-12 col-lg-6">
-                        <label for="uso" class="form-label">Uso de CFDI</label>
+                        <label for="uso" class="form-label">Uso</label>
                         <!-- <input type="text" name="domicilio" value="" class="form-control input-form"> -->
                         <select name="uso" id="uso-factura" class="input-form form-select"></select>
                     </div>

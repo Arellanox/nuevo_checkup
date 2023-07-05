@@ -2,7 +2,7 @@ var tablaContenido, areaActiva;
 var dataListaPaciente = {
   api: 7
 };
-var hash, servicio_nombre, formulario = 1, api, url_api, selecta, nombre_paciente;
+var hash, servicio_nombre, formulario = 1, api, url_api, selecta, nombre_paciente, pdf_view;
 var subtipo; //Para la tabla de lista de trabajo
 //Variable para guardar los servicios de un paciente seleccionado
 var selectEstudio = new GuardarArreglo(), dataSelect = new GuardarArreglo();
@@ -130,7 +130,7 @@ function hasLocation() {
         // formulario = "formSubirInterpretacionPRUEBA";
         api_capturas = 1;
         // api_interpretacion = 1;
-        url_api = 'esfuerzo_api';
+        url_api = 'prueba_esfuerzo_api';
         obtenerContenidoVistaMaster(9, 'Resultados de Prueba de Esfuerzo', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "ECOCARDIOGRAMA":
@@ -138,7 +138,7 @@ function hasLocation() {
         // formulario = "formSubirInterpretacionPRUEBA";
         api_capturas = 1;
         // api_interpretacion = 1;
-        url_api = 'ecocargiograma_api';
+        url_api = 'ecocardiograma_api';
         obtenerContenidoVistaMaster(18, 'Resultados de Ecocardiograma', 'contenido_modal.php', 'tomaCapturas');
         break;
       default: avisoArea(); break;

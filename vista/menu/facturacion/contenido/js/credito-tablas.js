@@ -181,7 +181,7 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
         {
             text: '<i class="bi bi-receipt-cutoff"></i>  Facturar',
             className: 'btn btn-turquesa',
-            action: function (data) {
+            action: function () {
                 $('#NumeroFactura').val('')
                 if (SelectedGruposCredito['FACTURADO'] == 1) {
                     alertMensaje('info', 'Grupo Facturado', `Este grupo ese ya ha sido facturado previamente (${SelectedGruposCredito['FACTURA']})`)
@@ -193,19 +193,22 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
             }
 
         },
-        // {
-        //     text: 'Actualizar',
-        //     className: 'btn btn-success',
-        //     action: () => {
-        //         if (SelectedGruposCredito['FACTURADO'] == 1) {
-        //             alertMensaje('info', 'Oops!', 'Este grupo ha sido facturado, no puedes actualizar su detalle.');
-        //             return false;
-        //         }
+        {
+            text: '<i class="bi bi-box-seam"></i> Modificar',
+            className: 'btn btn-success',
+            action: () => {
+                if (SelectedGruposCredito['FACTURADO'] == 1) {
+                    alertMensaje('info', 'Oops!', 'Este grupo ha sido facturado, no puedes actualizar su detalle.');
+                    return false;
+                }
 
+                //Para modificar el grupo
+                $('#title-grupo-factura').html(`Grupo: ${SelectedGruposCredito['FOLIO']}, ${SelectedGruposCredito['PROCEDENCIA']}, ${SelectedGruposCredito['FECHA_CREACION']}`)
+                //Activa a que puede modificar el grupo
+                $('#modalFiltroPacientesFacturacion').modal('show');
 
-
-        //     }
-        // }
+            }
+        }
     ]
 })
 
@@ -256,7 +259,7 @@ selectTable('#TablaGrupoDetalle', TablaGrupoDetalle, {
                     total = parseFloat(subtotal) + parseFloat(subtotalconiva)
 
                     $("#subtotal").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
-                    $("#Iva").html(`$${ifnull(subtotalconiva, 0), 0}`)
+                    $("#Iva").html(`$${(ifnull(subtotalconiva, 0), 0)}`)
                     $("#total").html(`$${ifnull(total.toFixed(2), 0)}`)
 
                     $("#ModalTicketCredito").modal('show');

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 date_default_timezone_set('America/Mexico_City');
 
 
@@ -137,8 +137,6 @@ $menu = $_POST['menu']; ?>
   </button> -->
 <?php endif; ?>
 
-
-
 <?php if (
   $menu == 'Reportes de Laboratorio Clínico' ||
   $menu == 'Validación y envío de resultados de laboratorio' ||
@@ -183,11 +181,9 @@ $menu = $_POST['menu']; ?>
   || $menu == 'Somatometría | Signos Vitales'
   || $menu == 'Consultorio'
   || $menu == 'Estudio de Composición Corporal (InBody)'
-  || $menu == 'Resultados de Prueba de Esfuerzo'
-  || $menu == 'Resultados de Ecocardiograma'
 ) : ?>
   <div class="row">
-    <div class="col-12 col-lg-auto d-flex align-items-center">
+    <div class="col-auto d-flex align-items-center">
       <label for="fechaListadoAreaMaster" class="form-label">Día de análisis</label>
     </div>
     <div class="col-auto d-flex align-items-center">
@@ -219,13 +215,54 @@ $menu = $_POST['menu']; ?>
   </div>
 <?php endif; ?>
 
-<?php if ($menu == 'Reporte de Excel') : ?>
+<?php if ($menu == "Registros de Temperatura" && $_SESSION['permisos']['RegTemp'] == 1) : ?>
+  <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="capturarTemperatura">
+    <i class="bi bi-plus-circle-fill"></i> Capturar
+  </button> -->
 
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTabla">
-    <i class="bi bi-save"></i> Buscar
-  </button>
+  <?php if ($_SESSION['permisos']['SupTemp'] ==  1) : ?>
+    <div class="d-flex">
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display:none" id="LibererDiaTemperatura">
+        <i class="bi bi-arrow-down-circle-fill"></i> Liberar Dia
+      </button>
 
-<?php endif;  ?>
+    <?php endif; ?>
+
+
+    <?php if ($_SESSION['permisos']['SupTemp'] ==  1) : ?>
+
+      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display:none ;" id="GenerarPDFTemperatura">
+        <i class="bi bi-file-earmark-pdf-fill"></i> Generar PDF
+      </button>
+
+    <?php endif; ?>
+
+    <?php if ($_SESSION['permisos']['SupTemp'] ==  1) : ?>
+      <!-- DROPDOWN CONFIGURACIÓN -->
+      <!-- <button class="btn btn-hover me-2" type="button" style="margin-bottom:4px;" id="">
+        <i class="bi bi-gear-fill"></i> Configuracion
+      </button> -->
+      <!-- <button class="btn" id="TermometrosbtnTemperaturas">Termometros</button> -->
+
+      <div class="dropdown">
+        <button class="btn btn-hover me-2 dropdown-toggle" type="button" style="margin-bottom:4px;" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-gear-fill"></i> Configuracion
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <button class="btn dropdown-item" id="TermometrosbtnTemperaturas">Termometros</button>
+          </li>
+          <li>
+            <button class="btn dropdown-item" id="ConfiguracionTemperaturasbtn">Mas configuracion</button>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  <?php endif; ?>
+
+<?php endif; ?>
 
 
 <?php if ($menu == 'Pacientes (Crédito)') : ?>
