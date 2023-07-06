@@ -1723,11 +1723,9 @@ function configSelectTable(config) {
 }
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
-  console.log(navigator.userAgent)
   var esTabletaVertical = /iPad/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth;
   var esDispositivoMovil = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || esTabletaVertical;
-  console.log(esDispositivoMovil)
-  console.log(callback)
+
   if (esDispositivoMovil)
     callback(esDispositivoMovil);
   return esDispositivoMovil;
@@ -1751,7 +1749,6 @@ function selecTableTabs() {
 // Para la version movil crea y visualiza columnas
 function getBtnTabs(config) {
   if (config.tabs) {
-    console.log(config.tabs)
     let row = config.tabs;
     let html = `<ul class="nav nav-tabs mt-2 tab-page-table" style="display:none">`;
     for (const key in row) {
@@ -1776,7 +1773,7 @@ function dinamicTabs(loader) {
   dinamicTabFunction = false;
   isMovil(() => {
     dinamicTabFunction = () => {
-      console.log('IS MOVIL')
+      // console.log('IS MOVIL')
       $(document).on('click', '.tab-table', function () {
         let btn = $(this);
         if (!btn.hasClass('active')) {
@@ -1788,7 +1785,7 @@ function dinamicTabs(loader) {
 
           setTimeout(() => {
             let id = btn.attr('data-id-column');
-            console.log(id);
+            // console.log(id);
             let loaderVisible = function () {
               if ($(loader).is(":hidden")) {
                 $(`${id}`).fadeIn(100);
@@ -2001,15 +1998,12 @@ function selectTable(tablename, datatable,
     }
 
     selectTableClickCount++;
-    console.log(selectTableClickCount)
     if ($(tr).hasClass('selected')) {
       clearTimeout(selectTableTimeOutClick)
 
       selectTableTimeOutClick = setTimeout(function () {
 
-        console.log(selectTableClickCount)
         if (selectTableClickCount === 1 && config.unSelect === true) {
-          console.log('1')
           //Manda a cargar la vista
           selectTable_cargarVista()
 
@@ -2028,7 +2022,6 @@ function selectTable(tablename, datatable,
           callbackClick(0, null, callback, null, null);
           //
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
-          console.log('2')
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
 
@@ -2493,9 +2486,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         for (const key in ordenes) {
                           if (Object.hasOwnProperty.call(ordenes, key)) {
                             const element = ordenes[key];
-                            console.log(hash[element['area']])
                             if (hash[element['area']] == area) {
-                              console.log('si');
                               $('#contenedor-btn-ordenes-medicas').append(`
                                 <div class="col text-center">
                                   <a type="button" target="_blank" class="btn btn-borrar"
@@ -2509,7 +2500,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                           }
                         }
 
-                        console.log(ordenes)
 
                         try {
                           let row = row['ordenes'][0]
@@ -2517,7 +2507,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                         }
                       } else {
-                        console.log(row['ordenes'])
                       }
 
                     }
