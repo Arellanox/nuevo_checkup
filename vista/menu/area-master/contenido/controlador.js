@@ -65,6 +65,7 @@ function hasLocation() {
         api_capturas = 3;
         api_interpretacion = 1;
         url_api = 'espirometria_api';
+        subtipo = 'ESPIROMETRIA';
         obtenerContenidoVistaMaster(5, 'Resultados de Espirometría', 'contenido_modal.php');
         break;
       case "ELECTROCARDIOGRAMA":
