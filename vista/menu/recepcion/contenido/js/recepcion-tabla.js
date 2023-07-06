@@ -73,6 +73,11 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
 selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, { unSelect: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
 
   callback('In')
+  if (select) {
+    obatenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente')
+  } else {
+    obatenerPanelInformacion(0, 'pacientes_api', 'paciente')
+  }
 
   if (array_selected['CLIENTE_ID'] == 18) {
     $('#buttonBeneficiario').fadeIn(200)
