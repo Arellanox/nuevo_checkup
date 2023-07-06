@@ -19,7 +19,8 @@ $menu = "lista_servicios";
 
   function vista(menu, url) {
     $.post(url, {
-      menu: menu
+      menu: menu,
+      tipoUrl: 3,
     }, function(html) {
       $("#body-controlador").html(html);
     });

@@ -1,9 +1,9 @@
 
 var tablaPrincipal, dataList = {}
 
-if (validarVista('FACTURACION_EXCEL')) {
-  contenidoMuestras()
-}
+// if (validarVista('FACTURACION_EXCEL')) {
+//   contenidoMuestras()
+// }
 
 
 // Obtener la fecha del primer día del mes anterior
