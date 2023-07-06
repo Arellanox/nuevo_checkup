@@ -215,7 +215,7 @@ function parseDataTable(data) {
 
 inputBusquedaTable('tablaPrincipal', tablaPrincipal, [
   {
-    msj: 'Puedes ocultar los servicios de cada area al darle click en ella',
+    msj: 'Puedes ocultar los servicios de cada area al darle click en ella.',
     place: 'top'
   },
   // {
