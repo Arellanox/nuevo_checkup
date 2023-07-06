@@ -1939,8 +1939,19 @@ function selectTable(tablename, datatable,
       if (!isMovil() || !config.movil) {
         $('.tab-second').fadeIn(200)
       }
+
+
     }
     $(`#loaderDiv-${nameTable}`).attr("style", "display: none !important");
+
+    setTimeout(() => {
+      $.fn.dataTable
+        .tables({
+          visible: true,
+          api: true
+        })
+        .columns.adjust();
+    }, 400);
   }
 
 

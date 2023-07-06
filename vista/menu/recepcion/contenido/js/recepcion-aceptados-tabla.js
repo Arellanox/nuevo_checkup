@@ -120,7 +120,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       }
     },
     {
-      data: 'COUNT', render: function () {
+      data: null, render: function () {
         let html = `
           <div class="row">
             <div class="col-4" style="max-width: max-content; padding: 0px;">
@@ -150,12 +150,12 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
-    { width: "5px", targets: 0 },
-    { visible: false, title: "AreaActual", targets: 6, searchable: false },
-    { target: [1, 3], width: '20%' },
-    { target: [4], width: '13%' },
-    { target: 11, width: 'auto' },
-    { target: 12, width: "20px" }
+    { width: "5px", targets: '5%' },
+    { visible: false, title: "AreaActual", targets: 'area_actual', searchable: false },
+    { target: ['nombre', 'procedencia'], width: '20%' },
+    { target: ['segmento'], width: '13%' },
+    { target: 'fecha_recepcion', width: 'auto' },
+    { target: 'actions', width: "2%" },
 
   ],
 
