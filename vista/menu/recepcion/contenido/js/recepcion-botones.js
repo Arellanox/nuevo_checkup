@@ -192,29 +192,6 @@ $(document).on('click', '#btn-ordenes-paciente', function () {
 
 
 
-
-$(document).on('click', '#btn-cargar-documentos', function () {
-  alertMsj({
-    icon: '',
-    title: 'Documentación del paciente <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Cargue/Guarde la documentación del paciente"></i>',
-    footer: 'Seleccione una opción.',
-    html: `
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-perfil-paciente">
-          <i class="bi bi-person-bounding-box"></i> Foto de Perfil
-        </button>
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-credencial-paciente">
-          <i class="bi bi-person-vcard-fill"></i> Credencial
-        </button> 
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-ordenes-paciente">
-          <i class="bi bi-files"></i> Ordenes médicas
-        </button> 
-    `,
-    showCancelButton: false,
-    showConfirmButton: false,
-    allowOutsideClick: true,
-  })
-})
-
 // $(document).on('click', '#btn-botones-captura-documentos', function () {
 //   alertMsj({
 //     icon: '',
@@ -232,7 +209,7 @@ $(document).on('click', '#btn-cargar-documentos', function () {
 // })
 
 // $("#btn-editar").click(function () {
-$(document).on('click', '.btn-editar, #btn-editar', function () {
+$(document).on('click', '#btn-editar', function () {
   if (array_selected != null) {
     $("#ModalEditarPaciente").modal('show');
   } else {

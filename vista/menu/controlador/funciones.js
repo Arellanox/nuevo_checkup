@@ -1697,20 +1697,23 @@ function configSelectTable(config) {
     multipleSelect: false,
     OnlyData: false,
     noColumns: false,
-    ClickClass: {
-      0: {
-        class: 'GrupoInfoCreditoBtn',
+    // alwaySelected: false,
+    ClickClass: [
+      {
+        class: '.',
         callback: function (data) {
 
-        }
+        },
+        selected: true
       },
-      1: {
-        class: 'GrupoInfoCreditoBtn',
+      {
+        class: '.',
         callback: function (data) {
 
-        }
+        },
+        selected: false
       }
-    }
+    ]
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -1865,11 +1868,12 @@ function eventClassClick(event, tr, config, data) {
     || ($(clickedElement).hasClass('dtr-control')) //Cuando le da click al primer td con el boton + de visualizar mas columnas
     || $(tr).hasClass('child') //Cuando muestra las columnas ocultas de un regitro
     || $(tr).hasClass('dataTables_empty')  //Cuando la  tabla esta vacia, no selecciona
-    || $(tr).hasClass(`${config.ignoreClass}`)
-    || $(tr).find('td').hasClass('dataTables_empty')
+    || $(tr).hasClass(`${config.ignoreClass}`) //Ignora el click por algun objeto en clase
+    || $(tr).find('td').hasClass('dataTables_empty') //Ignora si no hay datos que mostrar (serverside)
   )
-    return true;
+    return [true, false];
 
+  //Evalua si hay eventos extras que ejecutar
   let rowClick = config.ClickClass;
   for (const key in rowClick) {
     if (Object.hasOwnProperty.call(rowClick, key)) {
@@ -1877,14 +1881,14 @@ function eventClassClick(event, tr, config, data) {
 
       if ($(clickedElement).hasClass(`${element.class}`)) {
         element.callback(data, clickedElement)
-        return true;
+        return [true, element.selected];
       }
 
     }
 
   }
 
-  return false;
+  return [false, false];
 }
 
 function resizeConfigMovil(config, nameTable) {
@@ -1950,10 +1954,34 @@ function selectTable(tablename, datatable,
 
     // let td = $(event.target).is('td')
 
+    // if (config.alwaySelected) {
+    //   datatable.$('tr.selected').removeClass('selected');
+    //   $(tr).addClass('selected');
+    // }
+
 
     //Evalua si el objeto es correcto a su click
     let dataClick = eventClassClick(event, tr, config, dataRow);
-    if (dataClick) {
+    if (dataClick[0]) {
+      //Verifica si deseas seleccionar o no 
+      if (dataClick[1]) {
+        //Verifica si ya esta seleccionado
+        if (!$(tr).hasClass('selected')) {
+
+          //Reselecciona el tr que interactuas
+          selectTable_resetSelect(tr, config)
+
+          //Activar otros tab
+          $(`.tab-select`).removeClass('disabled');
+          //Reselecciona
+          if (config['tab-default']) {
+            $(`#tab-btn-${config['tab-default']}`).click();
+          }
+          //Ejecuta funcion personalizada
+          callbackClick(1, dataRow, callback, tr, row);
+        }
+      }
+
       return false;
     }
 
@@ -1961,50 +1989,40 @@ function selectTable(tablename, datatable,
       return callbackClick(1, dataRow, function (data) { return 'No action' }, tr, row);
     }
 
+    selectTableClickCount++;
+    console.log(selectTableClickCount)
     if ($(tr).hasClass('selected')) {
-      selectTableClickCount++;
       clearTimeout(selectTableTimeOutClick)
 
       selectTableTimeOutClick = setTimeout(function () {
 
+        console.log(selectTableClickCount)
         if (selectTableClickCount === 1 && config.unSelect === true) {
+          console.log('1')
           //Manda a cargar la vista
-          $('.tab-second').fadeOut()
-          $(`#loaderDiv-${nameTable}`).fadeIn(0);
-          //Si esta deseleccionando:
+          selectTable_cargarVista()
+
           //Resetea los clicks:
           selectTableClickCount = 0;
           dataDobleSelect = false;
 
           //Reinicia la seleccion:
-          $(tr).removeClass('selected');
-          $(tr).removeClass(config.anotherClass);
+          selectTable_resetSelect(tr, false, true)
           //
 
           //Desactivar otros tab
           $(`.tab-select`).addClass('disabled')
-          // if (isMovil()) {
-          //   let id = $('.tab-first').attr('id');
-          //   $(`.tab-table`)
-          // }
 
-          // callbackDblClick(0, null, null, null);
-          console.log('deselect')
+          //Regresa la funcion personalizada
           callbackClick(0, null, callback, null, null);
           //
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
-          //Manda a cargar la vista
-          // $('.tab-second').fadeOut()
-          // $(`#loaderDiv-${nameTable}`).fadeIn(0);
+          console.log('2')
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
 
           callbackDblClick(1, dataRow, callback, tr, row)
 
-        } else {
-          //Reinicia el dobleClick
-          selectTableClickCount = 0;
-          return 'No action';
         }
 
       }, 300)
@@ -2012,30 +2030,16 @@ function selectTable(tablename, datatable,
     } else {
       //Manda a cargar la vista
       if (!config.noColumns) {
-        $('.tab-second').fadeOut()
-        $(`#loaderDiv-${nameTable}`).fadeIn(0);
+        selectTable_cargarVista()
       }
 
       //Si esta seleccionando:
       dataDobleSelect = tr;
-      selectTableClickCount++;
-      setTimeout(() => {
-        selectTableClickCount = 0;
-      }, 400);
+      //Tiempo de espera entre multiple click
 
 
-
-      if (!config.multipleSelect) {
-        //Reinicia la seleccion:
-        datatable.$('tr.selected').removeClass('selected');
-        datatable.$('tr.selected').removeClass(config.anotherClass);
-        //
-      }
-
-      //Agrega la clase para indicar que lo esta seleccionando
-      $(tr).addClass('selected');
-      $(tr).addClass(config.anotherClass);
-
+      //Evalua la selección
+      selectTable_resetSelect(tr, config)
 
       if (config.multipleSelect) {
         //Multiple Seleccion
@@ -2051,17 +2055,55 @@ function selectTable(tablename, datatable,
         //Activar otros tab
         $(`.tab-select`).removeClass('disabled');
         //Reselecciona
+
         if (config['tab-default']) {
           $(`#tab-btn-${config['tab-default']}`).click();
         }
-
 
         callbackClick(1, dataRow, callback, tr, row);
       }
 
     }
 
+    //Reinicia y espera el dobleClick
+    setTimeout(() => {
+      selectTableClickCount = 0;
+    }, 600)
+
+    return 'No action';
+
   })
+
+
+
+  function selectTable_cargarVista() {
+    $('.tab-second').fadeOut()
+    $(`#loaderDiv-${nameTable}`).fadeIn(0);
+  }
+
+  function selectTable_resetSelect(tr, config, resetTR = false) {
+
+    //Deselecciona solo 1
+    if (resetTR) {
+      $(tr).removeClass('selected');
+      $(tr).removeClass(config.anotherClass);
+      return true;
+    }
+
+
+    if (!config.multipleSelect) {
+      //Reinicia la seleccion:
+      datatable.$('tr.selected').removeClass('selected');
+      datatable.$('tr.selected').removeClass(config.anotherClass);
+      //
+    }
+
+    //Agrega la clase para indicar que lo esta seleccionando
+    $(tr).addClass('selected');
+    $(tr).addClass(config.anotherClass);
+
+    return true;
+  }
 }
 
 

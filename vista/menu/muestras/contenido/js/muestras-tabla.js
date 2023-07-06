@@ -16,7 +16,7 @@ tablaMuestras = $('#TablaMuestras').DataTable({
     url: '../../../api/toma_de_muestra_api.php',
     beforeSend: function () { loader("In") },
     complete: function () {
-      loader("Out", 'bottom')
+      // loader("Out", 'bottom')
 
       //Para ocultar segunda columna
       reloadSelectTable()
