@@ -19,6 +19,8 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
             <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 || $_SESSION['vista']['SERVICIOS'] == 1) : ?>
                 <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/servicios/#Equipos'; ?>"><i class="bi bi-dot"></i> Equipos</a></li>
             <?php endif; ?>
+            <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/pacientes/servicios-disponibles/'; ?>"><i class="bi bi-dot"></i> Precios (Particulares)</a></li>
+
         </ul>
     </div>
 
