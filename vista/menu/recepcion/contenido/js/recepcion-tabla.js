@@ -74,9 +74,9 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, { unSelect: tru
 
   callback('In')
   if (select) {
-    obatenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente')
+    obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente')
   } else {
-    obatenerPanelInformacion(0, 'pacientes_api', 'paciente')
+    obtenerPanelInformacion(0, 'pacientes_api', 'paciente')
   }
 
   if (array_selected['CLIENTE_ID'] == 18) {
