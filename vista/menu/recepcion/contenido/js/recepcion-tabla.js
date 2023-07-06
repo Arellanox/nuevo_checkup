@@ -17,8 +17,6 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     beforeSend: function () {
       loader("In")
 
-      //Para ocultar segunda columna
-      reloadSelectTable()
       array_selected = null
     },
     complete: function () {
@@ -71,7 +69,6 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
 // selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: "#panel-informacion" }, function () {
 
 selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, { unSelect: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
-
   callback('In')
   if (select) {
     obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente')
