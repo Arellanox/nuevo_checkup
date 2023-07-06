@@ -18,7 +18,7 @@ var tablaPrincipal, dataList = {}
 // // Formatear las fechas en el formato deseado (por ejemplo, yyyy-mm-dd)
 // var fechaInicialFormatted = fechaInicial.toISOString().split('T')[0];
 // var fechaFinalFormatted = fechaFinal.toISOString().split('T')[0];
-
+contenidoMuestras()
 async function contenidoMuestras() {
   await obtenerTitulo("Servicios | Bimo");
   $.post("contenido/precios_particulares.html", function (html) {
