@@ -23,7 +23,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
       loader("Out")
 
       //Para ocultar segunda columna
-      reloadSelectTable()
+      // reloadSelectTable()
       tablaRecepcionPacientes.columns.adjust().draw()
     },
     error: function (jqXHR, textStatus, errorThrown) {
