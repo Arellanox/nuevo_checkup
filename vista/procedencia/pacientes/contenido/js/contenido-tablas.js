@@ -331,11 +331,12 @@ function analizarIconStatus(data, tipo, area) {
     icons = {
         reporte: {
             'PENDIENTE': 'reporte_sin',
+            'null': 'reporte_sin',
             'N/A': 'N/A',
         },
         capturas: {
             0: 'captura_sin_tomar',
-            'null': 'captura_tomada',
+            'null': 'captura_sin_tomar',
             'N/A': 'N/A',
         },
         result: { reporte: 'reportado', capturas: 'captura_tomada' }
