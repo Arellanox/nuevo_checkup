@@ -92,7 +92,8 @@ selectTable('#TablaGrupos', TablaGrupos, {
 
 
                 $('#ModalInformacionGruposCredito').modal('show');
-            }
+            },
+            selected: true
         },
     ]
 }, function (select, data, callback) {

@@ -1,5 +1,4 @@
 
-obtenerVistaTurnero();
 
 var tablaControlTurnos, dataTurnos = { api: 4 };
 
@@ -16,3 +15,13 @@ function obtenerVistaTurnero() {
         }, 1000);
     });
 }
+
+alertMensajeConfirm({
+    title: '¿Activar vista del turnero?',
+    text: false,
+    confirmButtonText: 'Aceptar',
+    showCancelButton: false,
+    allowOutsideClick: true,
+}, function () {
+    obtenerVistaTurnero();
+}, 1)

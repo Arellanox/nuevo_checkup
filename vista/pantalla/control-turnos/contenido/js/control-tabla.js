@@ -45,7 +45,9 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
     ],
     columnDefs: [
         { targets: 0, visible: true },
-        { targets: 2, width: '20px' }
+        { targets: 1, width: '60%' },
+        { targets: 2, width: '5%' },
+        { targets: 3, width: '35%' }
 
     ],
     // drawCallback: function () {
