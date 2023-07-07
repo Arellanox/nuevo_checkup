@@ -101,7 +101,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
         //Electrocardiograma
         {
             data: 'ESTUDIOS', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'capturas' /*, 1: 'reporte' */ }, 10, type);
+                return drawStatusMenuTable(data, {  /*0: 'capturas',*/ 1: 'reporte' }, 10, type);
             }
         },
         //Nutricion InBody
