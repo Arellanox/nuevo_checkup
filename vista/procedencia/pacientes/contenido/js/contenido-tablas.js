@@ -155,7 +155,11 @@ tablaPacientes = $('#tablaPacientes').DataTable({
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        { width: "1%", targets: "col-number" },
+        {
+            width: "1%", targets: "col-number", render: function (data, type, row, meta) {
+                return meta.row + 1; // Muestra el número de fila basado en el índice de DataTables (comienza en 0)
+            }
+        },
         { width: "20%", targets: "col-20%" },
         { width: "8%", targets: "col-8%" },
         { width: "7%", targets: "col-icons" },
