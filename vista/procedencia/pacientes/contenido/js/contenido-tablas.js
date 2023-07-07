@@ -52,7 +52,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
     columns: [
         {
             data: null, render: function () {
-                return '';
+                return 0;
             }
         },
         { data: 'NOMBRE_COMPLETO' },
