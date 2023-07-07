@@ -15,10 +15,15 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     method: 'POST',
     url: '../../../api/recepcion_api.php',
     beforeSend: function () {
-      loader("In"), array_selected = null
+      loader("In")
+
+      array_selected = null
     },
     complete: function () {
       loader("Out")
+
+      //Para ocultar segunda columna
+      // reloadSelectTable()
       tablaRecepcionPacientes.columns.adjust().draw()
     },
     error: function (jqXHR, textStatus, errorThrown) {
@@ -61,10 +66,21 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
 ])
 
 
-selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: "#panel-informacion" }, function () {
+// selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: "#panel-informacion" }, function () {
+
+selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, { unSelect: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
+  callback('In')
+  if (select) {
+    obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente')
+  } else {
+    obtenerPanelInformacion(0, 'pacientes_api', 'paciente')
+  }
+
   if (array_selected['CLIENTE_ID'] == 18) {
     $('#buttonBeneficiario').fadeIn(200)
   } else {
     $('#buttonBeneficiario').fadeOut(200);
   }
+
+
 })

@@ -17,11 +17,17 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     method: 'POST',
     url: '../../../api/recepcion_api.php',
     beforeSend: function () {
-      loader("In", 'bottom'), array_selected = null
+      loader("In", 'bottom')
+      array_selected = null
+
       tablaRecepcionPacientesIngrersados.columns.adjust().draw()
     },
     complete: function () {
       loader("Out", 'bottom')
+
+      //Para ocultar segunda columna
+      // reloadSelectTable()
+
       obtenerPanelInformacion(0, 'paciente_api', 'paciente')
       obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
       obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
@@ -114,14 +120,18 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       }
     },
     {
-      data: 'COUNT', render: function () {
+      data: null, render: function () {
         let html = `
           <div class="row">
-            <div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-              <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;"></i>
+            <div class="col-4" style="max-width: max-content; padding: 0px;">
+              <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;padding: 2px 5px;"></i>
             </div>
-            <div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-              <i class="bi bi-card-heading" style="cursor: pointer; font-size:18px;" id="btn-cargar-documentos"></i>
+            <div class="col-4" style="max-width: max-content; padding: 0px;">
+              <i class="bi bi-card-heading btn-cargar-documentos" style="cursor: pointer; font-size:18px;padding: 2px 5px;"></i>
+            </div> 
+            
+            <div class="col-4" style="max-width: max-content; padding: 0px;">
+              <i class="bi bi-info-circle btn-offcanva" style="cursor: pointer; font-size:18px;padding: 2px 5px;"></i>
             </div> 
         `;
 
@@ -140,12 +150,12 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
-    { width: "5px", targets: 0 },
-    { visible: false, title: "AreaActual", targets: 6, searchable: false },
-    { target: [1, 3], width: '20%' },
-    { target: [4], width: '13%' },
-    { target: 11, width: 'auto' },
-    { target: 12, width: "20px" }
+    { width: "5px", targets: '5%' },
+    { visible: false, title: "AreaActual", targets: 'area_actual', searchable: false },
+    { target: ['nombre', 'procedencia'], width: '20%' },
+    { target: ['segmento'], width: '13%' },
+    { target: 'fecha_recepcion', width: 'auto' },
+    { target: 'actions', width: "2%" },
 
   ],
 
@@ -167,41 +177,100 @@ inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientes
 
 ])
 
-selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
-  if (select) {
-    // return false;
+// selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
+selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados,
+  {
+    unSelect: true, reload: ['col-xl-9'], dblClick: true,
+    ClickClass: [
+      {
+        class: 'btn-editar',
+        callback: function (data) {
+          if (array_selected != null) {
+            $("#ModalEditarPaciente").modal('show');
+          } else {
+            alertSelectTable();
+          }
+        },
+        selected: true,
+      },
+      {
+        class: 'btn-cargar-documentos',
+        callback: function (data) {
+          alertMsj({
+            icon: '',
+            title: 'Documentación del paciente <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Cargue/Guarde la documentación del paciente"></i>',
+            footer: 'Seleccione una opción.',
+            html: `
+                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px;" id="btn-perfil-paciente">
+                  <i class="bi bi-person-bounding-box"></i> Foto de Perfil
+                </button>
+                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-credencial-paciente">
+                  <i class="bi bi-person-vcard-fill"></i> Credencial
+                </button> 
+                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-ordenes-paciente">
+                  <i class="bi bi-files"></i> Ordenes médicas
+                </button> 
+            `,
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: true,
+          })
+        },
+        selected: true,
+      },
+      {
+        class: 'btn-offcanva',
+        callback: function (data) {
+          dobleClickSelectTableRecepcion(data);
+        },
+        selected: true,
+      },
+    ]
+  },
 
-    obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
-    obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
-    await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+  async function (select, data, callback) {
+    callback('In')
+    if (select) {
+      // return false;
 
-    if (data['COMPLETADO'] == 1) {
-      $('#contenedor-btn-cerrar-paciente').html(`
+      obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
+      obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
+      await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+
+      if (data['COMPLETADO'] == 1) {
+        $('#contenedor-btn-cerrar-paciente').html(`
         <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" disabled>
             <i class="bi bi-person-check"></i> Paciente Cerrado
         </button>
     `)
-    } else {
-      $('#contenedor-btn-cerrar-paciente').html(`
+      } else {
+        $('#contenedor-btn-cerrar-paciente').html(`
         <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
             data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Finaliza el proceso del paciente">
             <i class="bi bi-person-check"></i> Finalizar Paciente
         </button>
     `)
-    }
+      }
 
-    if (array_selected['CLIENTE_ID'] == 18) {
-      $('#buttonBeneficiario').fadeIn(200)
+      if (array_selected['CLIENTE_ID'] == 18) {
+        $('#buttonBeneficiario').fadeIn(200)
+      } else {
+        $('#buttonBeneficiario').fadeOut(200);
+      }
+
     } else {
+      // callback('Out')
       $('#buttonBeneficiario').fadeOut(200);
+      obtenerPanelInformacion(0, 'paciente_api', 'paciente')
+      obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
+      await obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
     }
-  } else {
-    $('#buttonBeneficiario').fadeOut(200);
-    obtenerPanelInformacion(0, 'paciente_api', 'paciente')
-    obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
-    await obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+  }, function (select, data) {
+    dobleClickSelectTableRecepcion(data);
   }
-}, async function (data) {
+)
+
+async function dobleClickSelectTableRecepcion(data) {
   alertToast('Obteniendo datos...', 'info', 4000);
   await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'lista-documentos-paciente', '#panel-documentos-paciente')
   await obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
@@ -209,8 +278,7 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIng
   var myOffcanvas = document.getElementById('offcanvasInfoPaciente')
   var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
   bsOffcanvas.show()
-
-})
+}
 
 // selectDatatabledblclick(async function (select, data) {
 //   // let dataInfo = data;

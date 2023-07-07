@@ -63,6 +63,11 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
                 // $(row).addClass('bg-success text-white');
                 // }
                 break;
+            case 5:
+                if (subtipo == 'ESPIROMETRIA' && data.CONFIRMADO_ESPIRO == 1) {
+                    $(row).addClass('bg-success text-white');
+                }
+                break;
             // if (data.CONFIRMADO_ULTRASO == 1) $(row).addClass('bg-success text-white'); break;
 
             default:

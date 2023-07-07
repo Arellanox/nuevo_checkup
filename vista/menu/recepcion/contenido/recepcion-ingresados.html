@@ -1,8 +1,12 @@
 <div class="col-12 loader" id="loader">
   <div class="preloader" id="preloader"> </div>
 </div>
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
 <div class="row">
-  <div class="col-12 col-lg-3 info-detalle card pt-5 overflow-auto" style="max-width: 100%;"
+  <div class="col-12 col-lg-3 info-detalle card pt-5 overflow-auto tab-second" style="max-width: 100%;"
     id="panel-informacion-pacientesTurnos">
     <div class="" id="panel-informacion">
     </div>
@@ -12,7 +16,7 @@
     </div>
 
   </div>
-  <div class="col-12 col-lg-9 card">
+  <div class="col-12 col-lg-9 card tab-first">
 
     <div class="text-center" style="margin-top:4px;">
       <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-reagendar"
@@ -40,23 +44,23 @@
       <table class="table table-hover display responsive" id="TablaRecepcionPacientes-Ingresados" style="width: 100%;">
         <thead class="">
           <tr>
-            <th scope="col d-flex justify-content-center" class="all">#</th>
-            <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-            <th scope="col d-flex justify-content-center" class="none">Prefolio</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>
-            <th scope="col d-flex justify-content-center" class="desktop">Segmento</th>
-            <th scope="col d-flex justify-content-center" class="none">Turno</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Area Actual</th>
+            <th class="all 5%">#</th>
+            <th class="all nombre">Nombre</th>
+            <th class="none">Prefolio</th>
+            <th class="min-tablet procedencia">Procedencia</th>
+            <th class="desktop segmento">Segmento</th>
+            <th class="none">Turno</th>
+            <th class="min-tablet area_actual">Area Actual</th>
 
-            <!-- <th scope="col d-flex justify-content-center" class="min-tablet">Análisis</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Muestra</th> -->
+            <!-- <th class="min-tablet">Análisis</th>
+            <th class="min-tablet">Muestra</th> -->
 
-            <th scope="col d-flex justify-content-center" class="min-tablet">Recepción</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Agenda</th>
-            <th scope="col d-flex justify-content-center" class="none">Re-agenda</th>
-            <th scope="col d-flex justify-content-center" class="none">Sexo</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Recepción</th>
-            <th scope="col d-flex justify-content-center" class="all"><i class="bi bi-three-dots"></i></th>
+            <th class="min-tablet">Recepción</th>
+            <th class="min-tablet">Agenda</th>
+            <th class="none">Re-agenda</th>
+            <th class="none">Sexo</th>
+            <th class="min-tablet fecha_recepcion">Recepción</th>
+            <th class="all actions"><i class="bi bi-three-dots"></i></th>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +68,12 @@
       </table>
     </div>
   </div>
+
+  <!-- Tercera Columna visual -->
+  <div id="reload-selectable">
+
+  </div>
+
 </div>
 
 <!-- Off canvas -->

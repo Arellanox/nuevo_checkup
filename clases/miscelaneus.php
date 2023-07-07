@@ -512,7 +512,7 @@ class Miscelaneus
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
         // print_r(json_encode($arregloPaciente));
-        // print_r(json_encode($infoPaciente[0]));
+        // // print_r(json_encode($infoPaciente[0]));
         // exit;
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
@@ -825,6 +825,7 @@ class Miscelaneus
             "FOLIO" => $infoPaciente[0]['FOLIO'],
             "EDAD" => $infoPaciente[0]['EDAD'],
             'SEXO' => $infoPaciente[0]['SEXO'],
+            'PREFOLIO' => $infoPaciente[0]['PREFOLIO'],
             'BARRAS' => $infoPaciente[0]['CODIGO_BARRAS'],
             'CONTENEDORES' => $arrayEtiqueta,
 
@@ -1458,7 +1459,7 @@ class Miscelaneus
 
         switch ($domain) {
             case "localhost":
-                $preUrl = "http://localhost/nuevo_checkup/";
+                $preUrl = "http://localhost/practicantes/";
                 break;
             case "bimo-lab.com":
                 $preUrl = "https://bimo-lab.com/nuevo_checkup/";
