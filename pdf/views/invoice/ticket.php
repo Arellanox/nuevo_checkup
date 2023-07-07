@@ -348,8 +348,8 @@ switch ($idioma) {
                     </tr>
                     <tr>
                         <td style=\"background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 0px;\"><b>DOMICILIO FISCAL</b></td>
-                        <td style=\"width: 55%;text-align: left; border-top: 1px solid darkgrey;\" colspan=\"3\" class=\"cell\"></td>
-                        <td style=\"width: 30%;text-align: left; border-left: 1px solid darkgrey;\">" . $encabezado->FECHA_CREACION . "</td>
+                        <td style=\"width: 55%;text-align: left; border-top: 1px solid darkgrey;\" colspan=\"3\" class=\"cell\">País: MEX</td>
+                        <td style=\"width: 30%;text-align: left; border-left: 1px solid darkgrey;text-align: center;\">" . $encabezado->NACIMIENTO . "</td>
                     </tr>
                     <tr>
                         <td style=\"background-color: darkgrey; width: 15%;\" class=\"colored-cell\"></td>
@@ -363,7 +363,7 @@ switch ($idioma) {
                         <td style=\"width: 20%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\">" . $encabezado->CELULAR . "</td>
                         <td style=\"background-color: darkgrey; width: 10%; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\"><b>RFC</td>
                         <td style=\"width: 20%;text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\">" . $encabezado->RFC . "</td>
-                        <td style=\"width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;\">" . $encabezado->FECHA_TICKET . "</td>
+                        <td style=\"width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;text-align: center;\">" . $resultados->FECHA_TICKET . "</td>
                     </tr>
                 </tbody>
             </table>
@@ -408,7 +408,7 @@ switch ($idioma) {
             <table class=\"esquina-inferior\">
                 <tbody>
                     <tr style=\"background-color: darkgrey; \">
-                        <td colspan=\"12\"> Cantidad total 00/100 M.N.</td>
+                        <td colspan=\"12\"> Cantidad total " . $resultados->TOTAL_DETALLE . " 00/100 M.N.</td>
                     </tr>
                 </tbody>
             </table>
@@ -493,8 +493,8 @@ switch ($idioma) {
                     </tr>
                     <tr>
                         <td style=\"background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 0px;\"><b>TAX RESIDENCE</b></td>
-                        <td style=\"width: 55%;text-align: left; border-top: 1px solid darkgrey;\" colspan=\"3\" class=\"cell\"></td>
-                        <td style=\"width: 30%;text-align: left; border-left: 1px solid darkgrey;\">" . $encabezado->FECHA_CREACION . "</td>
+                        <td style=\"width: 55%;text-align: left; border-top: 1px solid darkgrey;\" colspan=\"3\" class=\"cell\">Country: MEX</td>
+                        <td style=\"width: 30%;text-align: left; border-left: 1px solid darkgrey;text-align: center;\">" . $encabezado->NACIMIENTO . "</td>
                     </tr>
                     <tr>
                         <td style=\"background-color: darkgrey; width: 15%;\" class=\"colored-cell\"></td>
@@ -508,7 +508,7 @@ switch ($idioma) {
                         <td style=\"width: 20%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\">" . $encabezado->CELULAR . "</td>
                         <td style=\"background-color: darkgrey; width: 10%; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\"><b>RFC</td>
                         <td style=\"width: 20%;text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\">" . $encabezado->RFC . "</td>
-                        <td style=\"width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;\">" . $encabezado->FECHA_TICKET . "</td>
+                        <td style=\"width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey;text-align: center;\">" . $resultados->FECHA_TICKET . "</td>
                     </tr>
                 </tbody>
             </table>
@@ -553,7 +553,7 @@ switch ($idioma) {
             <table class=\"esquina-inferior\">
                 <tbody>
                     <tr style=\"background-color: darkgrey; \">
-                        <td colspan=\"12\"> Total quantity 00/100 MXN</td>
+                        <td colspan=\"12\"> Total quantity " . $resultados->TOTAL_DETALLE . " 00/100 MXN</td>
                     </tr>
                 </tbody>
             </table>

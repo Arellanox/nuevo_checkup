@@ -621,15 +621,17 @@ class Miscelaneus
         $arregloTicket = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "FOLIO" => $infoPaciente[0]['FOLIO_TICKET'],
-            "FECHA_TICKET" => $infoPaciente[0]['FECHA_TICKET'],
+            "FECHA_TICKET" => $infoDetalle[1][0]['FECHA_IMPRESION'],
+            "FECHA_NACIMIENTO" => $infoPaciente[0]['NACIMIENTO'],
             'CELULAR' => $infoPaciente[0]['CELULAR'],
             'RFC' => $infoPaciente[0]['RFC'],
             'ESTUDIOS_DETALLE' => $arrayServicios,
             "SUBTOTAL" => $infoDetalle[1][0]['SUBTOTAL'],
             "DESCUENTO" => $infoDetalle[1][0]['DESCUENTO'],
             "IVA" => $infoDetalle[1][0]['IVA'],
-            "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL_DETALLE'],
-            "USUARIO" => $infoDetalle[1][0]['USUARIO']
+            "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL'],
+            "USUARIO" => $infoDetalle[1][0]['USUARIO'],
+            'FOLIO_TICKET' => $infoPaciente[0][0]['FOLIO_TICKET']
         );
 
         return $arregloTicket;
