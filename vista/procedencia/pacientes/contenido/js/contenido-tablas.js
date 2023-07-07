@@ -50,11 +50,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
         // $('td', row).addClass('bg-info');
     },
     columns: [
-        {
-            data: null, render: function () {
-                return 0;
-            }
-        },
+        { data: 'COUNT' },
         { data: 'NOMBRE_COMPLETO' },
         // { data: 'PROCEDENCIA' },
         {
@@ -156,9 +152,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
     ],
     columnDefs: [
         {
-            width: "1%", targets: "col-number", render: function (data, type, row, meta) {
-                return meta.row + 1; // Muestra el número de fila basado en el índice de DataTables (comienza en 0)
-            }
+            width: "1%", targets: "col-number"
         },
         { width: "20%", targets: "col-20%" },
         { width: "8%", targets: "col-8%" },
@@ -306,11 +300,11 @@ selectTable('#tablaPacientes', tablaPacientes, {
 function drawStatusMenuTable(data, iconObject = { 0: 'muestra', 1: 'reporte', 2: 'correo', 3: 'captura' }, area, type) {
     switch (type) {
         case 'display':
-            console.log(data)
+            // console.log(data)
             data = data[0].filter(data => data['area'] == area);
             //Icons
             html = '';
-            console.log(data)
+            // console.log(data)
             data = data[0]
             if (data) {
                 for (const key in iconObject) {
