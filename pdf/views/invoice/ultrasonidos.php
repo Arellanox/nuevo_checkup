@@ -225,7 +225,8 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('../pdf/public/assets/firma_quiroz.png'); //FIRMA_URL
+$firma_url = $pie['datos_medicos'][0]['UNIVERSIDAD'];
+$ruta_firma = file_get_contents("..$firma_url"); //FIRMA_URL
 $encode_firma = base64_encode($ruta_firma);
 
 ?>
