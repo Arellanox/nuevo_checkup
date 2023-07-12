@@ -3194,40 +3194,44 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   data = data.response.data[0]['AREAS_PENDIENTES']
 
 
-                  let html = '';
-                  console.log(data);
+                  try {
+                    let html = '';
+                    console.log(data);
 
-                  let filter = data.filter((data) => {
-                    return data.FINALIZADO === 0;
-                  });
+                    let filter = data.filter((data) => {
+                      return data.FINALIZADO === 0;
+                    });
 
-                  console.log(filter);
+                    console.log(filter);
 
-                  for (const key in filter) {
-                    if (Object.hasOwnProperty.call(filter, key)) {
-                      const element = filter[key];
-                      html += `${element.AREA}, `;
+                    for (const key in filter) {
+                      if (Object.hasOwnProperty.call(filter, key)) {
+                        const element = filter[key];
+                        html += `${element.AREA}, `;
+                      }
                     }
-                  }
 
-                  $('#areas_faltantes').html(html);
+                    $('#areas_faltantes').html(html);
 
 
-                  html = '';
-                  // console.log(data);
+                    html = '';
+                    // console.log(data);
 
-                  filter = data.filter((data) => {
-                    return data.FINALIZADO === 1;
-                  });
+                    filter = data.filter((data) => {
+                      return data.FINALIZADO === 1;
+                    });
 
-                  for (const key in filter) {
-                    if (Object.hasOwnProperty.call(filter, key)) {
-                      const element = filter[key];
-                      html += `${element.AREA}, `;
+                    for (const key in filter) {
+                      if (Object.hasOwnProperty.call(filter, key)) {
+                        const element = filter[key];
+                        html += `${element.AREA}, `;
+                      }
                     }
-                  }
 
-                  $('#areas_terminadas').html(html);
+                    $('#areas_terminadas').html(html);
+                  } catch (error) {
+
+                  }
 
                   $(panel).fadeIn(100);
                   resolve(1);
