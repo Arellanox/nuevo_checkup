@@ -159,10 +159,11 @@ switch ($api) {
         # En sala de espera, o el nombre del area.
 
         $res = $master->getByProcedure("sp_turnero_paciente_area_actual", [$turno_id]);
+    
         $response = [];
         foreach($res as $current){
-            $current['AREAS_PENDIENTES'] = $master->decodeJson([$current['AREAS_PENDIENTES']]);
-            $response[] = $current;
+            $current['AREAS_PENDIENTES'] = $master->decodeJson([$current['AREAS_PENDIENTES']])[0];
+            print_r($current);
         }
         
         break;
