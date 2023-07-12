@@ -72,7 +72,7 @@ $('#btn-agregar-exploracion-clinina').on('click', function () {
   $.ajax({
     data: {
       turno_id: pacienteActivo.array['ID_TURNO'],
-      exploracion_tipo_id: $('#select-exploracion-clinica').val(),
+      exploracion_tipo_id: $('#select-exploracion-clinica2').val(),
       exploracion: $('#text-exploracion-clinica').val(),
       api: 6
     },
