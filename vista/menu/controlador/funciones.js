@@ -3191,10 +3191,43 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   api: 5,
                   turno_id: id
                 }, 'turnero_api', { callbackAfter: true }, false, function (data) {
-                  data = data.response.data[0]
+                  data = data.response.data[0]['AREAS_PENDIENTES']
 
 
+                  let html = '';
+                  console.log(data);
 
+                  let filter = data.filter((data) => {
+                    return data.FINALIZADO === 0;
+                  });
+
+                  console.log(filter);
+
+                  for (const key in filter) {
+                    if (Object.hasOwnProperty.call(filter, key)) {
+                      const element = filter[key];
+                      html += `${element.AREA}, `;
+                    }
+                  }
+
+                  $('#areas_faltantes').html(html);
+
+
+                  html = '';
+                  // console.log(data);
+
+                  filter = data.filter((data) => {
+                    return data.FINALIZADO === 1;
+                  });
+
+                  for (const key in filter) {
+                    if (Object.hasOwnProperty.call(filter, key)) {
+                      const element = filter[key];
+                      html += `${element.AREA}, `;
+                    }
+                  }
+
+                  $('#areas_terminadas').html(html);
 
                   $(panel).fadeIn(100);
                   resolve(1);

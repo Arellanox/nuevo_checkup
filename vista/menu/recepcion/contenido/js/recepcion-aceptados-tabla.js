@@ -235,6 +235,7 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
 
       obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
       obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
+      obtenerPanelInformacion(data['ID_TURNO'], false, 'area_faltantes', '#panel-areas-faltantes')
       await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
 
       if (data['COMPLETADO'] == 1) {
