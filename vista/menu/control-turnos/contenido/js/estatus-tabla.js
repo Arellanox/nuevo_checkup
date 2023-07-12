@@ -11,7 +11,7 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    scrollY: autoHeightDiv(0, 263),
+    scrollY: '66vh',
     scrollCollapse: true,
     // paging: false,
     lengthMenu: [
@@ -39,11 +39,11 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         // $('td', row).addClass('bg-info');
     },
     columns: [
-        {
-            data: 'AREA_FISICA_ID', render: function () {
-                return '';
-            }
-        },
+        // {
+        //     data: 'AREA_FISICA_ID', render: function () {
+        //         return '';
+        //     }
+        // },
         { data: 'PACIENTE' },
         {
             data: 'ETIQUETA_TURNO', render: function (data) {
@@ -60,15 +60,86 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
                 }
             }
         },
+        //Pendientes
+        {
+            data: 'AREAS_PENDIENTES', render: function (data, type) {
+                if (!data)
+                    return '';
 
+                let html = '';
+                // console.log(data);
+
+                let filter = data.filter((data) => {
+                    return data.FINALIZADO === 0;
+                });
+
+                for (const key in filter) {
+                    if (Object.hasOwnProperty.call(filter, key)) {
+                        const element = filter[key];
+                        html += `${element.AREA}, `;
+                    }
+                }
+
+                return html
+            }
+        },
+
+        //Terminadas
+        {
+            data: 'AREAS_PENDIENTES', render: function (data, type) {
+                if (!data)
+                    return '';
+
+                let html = '';
+                // console.log(data);
+
+                let filter = data.filter((data) => {
+                    return data.FINALIZADO === 1;
+                });
+
+                for (const key in filter) {
+                    if (Object.hasOwnProperty.call(filter, key)) {
+                        const element = filter[key];
+                        html += `${element.AREA}, `;
+                    }
+                }
+
+                return html
+            }
+        },
 
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
-        { width: "5px", targets: 0 },
+        { targets: 0, title: 'Paciente', width: '40%' },
+        { targets: 1, title: 'Turno', width: '10%' },
+        { targets: 2, title: 'Area Actual', width: '10%' },
+        // { targets: 3, title: '', width: '5%' },
+        //Pendientes
+        { target: 3, title: 'Pendiente', width: '20%' },
+        //Terminadas
+        { target: 4, title: 'Finalizado', width: '20%' },
+
+        // { width: "5px", targets: 0 },
         // { visible: false, title: "AreaActual", targets: 20, searchable: false }
     ],
-
+    dom: 'Bfrtip',
+    buttons: [
+        // {
+        //   extend: 'copyHtml5',
+        //   text: '<i class="fa fa-files-o"></i>',
+        //   titleAttr: 'Copy'
+        // },
+        {
+            // extend: 'excelHtml5',
+            text: '<i class="bi bi-arrow-clockwise"></i> Actualizar',
+            className: 'btn btn-success',
+            action: function () {
+                tablaMenuPrincipal.ajax.reload()
+                carga = false
+            }
+        }
+    ]
 })
 
 
@@ -99,34 +170,46 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
 
 
 
-//Activa o desactiva una columna
-$('a.toggle-vis').on('click', function (e) {
-    e.preventDefault();
-    // Get the column API object
-    var column = tablaMenuPrincipal.column($(this).attr('data-column'));
+// //Activa o desactiva una columna
+// $('a.toggle-vis').on('click', function (e) {
+//     e.preventDefault();
+//     // Get the column API object
+//     var column = tablaMenuPrincipal.column($(this).attr('data-column'));
 
-    // Toggle the visibility
-    column.visible(!column.visible());
-    tablaMenuPrincipal.ajax.reload();
-    $.fn.dataTable
-        .tables({
-            visible: true,
-            api: true
-        })
-        .columns.adjust();
+//     // Toggle the visibility
+//     column.visible(!column.visible());
+//     tablaMenuPrincipal.ajax.reload();
+//     $.fn.dataTable
+//         .tables({
+//             visible: true,
+//             api: true
+//         })
+//         .columns.adjust();
 
-    $(this).removeClass('span-info');
-    if (column.visible())
-        $(this).addClass('span-info');
-});
-$('a.toggle-vis').each(function () {
-    var column = tablaMenuPrincipal.column($(this).attr('data-column'));
-    if (column.visible())
-        $(this).addClass('span-info');
-})
+//     $(this).removeClass('span-info');
+//     if (column.visible())
+//         $(this).addClass('span-info');
+// });
+// $('a.toggle-vis').each(function () {
+//     var column = tablaMenuPrincipal.column($(this).attr('data-column'));
+//     if (column.visible())
+//         $(this).addClass('span-info');
+// })
 
-selectDatatabledblclick(async function (select, data) {
+// selectDatatabledblclick(async function (select, data) {
+//     let dataInfo = data;
+//     if (select) {
+//         await obtenerPanelInformacion(1, 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
+//         var myOffcanvas = document.getElementById('offcanvasInfoPrincipal')
+//         var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+//         bsOffcanvas.show()
+
+//     }
+// }, '#TablaEstatusTurnos', tablaMenuPrincipal)
+
+selectTable('#TablaEstatusTurnos', tablaMenuPrincipal, { dblClick: true, unSelect: true }, (select, data, callback, row, tr) => { }, async (select, data) => {
     let dataInfo = data;
+    alertToast('Espere un momento', 'info', 4000);
     if (select) {
         await obtenerPanelInformacion(1, 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
         var myOffcanvas = document.getElementById('offcanvasInfoPrincipal')
@@ -134,63 +217,65 @@ selectDatatabledblclick(async function (select, data) {
         bsOffcanvas.show()
 
     }
-}, '#TablaEstatusTurnos', tablaMenuPrincipal)
-
-
-
-
-
-setTimeout(() => {
-    $('#TablaEstatusTurnos_filter').html(
-        '<div class="text-center mt-2">' +
-        '<div class="input-group flex-nowrap">' +
-        '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-        'title="Filtra la tabla con palabras u oraciones que coincidan">' +
-        '<i class="bi bi-info-circle"></i>' +
-        '</span>' +
-        '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-        'title="Existe un delay de 4 segundos para visualizar algun cambio de estatus">' +
-        '<i class="bi bi-info-circle"></i>' +
-        '</span>' +
-        '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
-        'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaTurnos"' +
-        'data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">' +
-
-        '</div>' +
-        '</div>'
-    )
-
-    //Zoom table
-    $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(1).css('zoom', '90%')
-
-    //Diseño de registros
-    $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
-
-
-    $("#BuscarTablaListaTurnos").keyup(function () {
-        tablaMenuPrincipal.search($(this).val()).draw();
-    });
-
-}, 200);
-
-
-
-var carga = false;
-cargarTabla();
-function cargarTabla() {
-    setTimeout(() => {
-        if (carga) {
-            tablaMenuPrincipal.ajax.reload()
-            carga = false
-        }
-
-        cargarTabla()
-        return 1;
-
-    }, 4000);
-}
-
-$('#recargarTabla').click(function () {
-    tablaMenuPrincipal.ajax.reload()
-    carga = false
 })
+
+inputBusquedaTable('TablaEstatusTurnos', tablaMenuPrincipal, [
+    {
+        msj: 'Filtra la tabla con palabras u oraciones que coincidan',
+        place: 'right'
+    }
+], false, 'col-12')
+
+// setTimeout(() => {
+//     $('#TablaEstatusTurnos_filter').html(
+//         '<div class="text-center mt-2">' +
+//         '<div class="input-group flex-nowrap">' +
+//         '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
+//         'title="Filtra la tabla con palabras u oraciones que coincidan">' +
+//         '<i class="bi bi-info-circle"></i>' +
+//         '</span>' +
+//         '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
+//         'title="Existe un delay de 4 segundos para visualizar algun cambio de estatus">' +
+//         '<i class="bi bi-info-circle"></i>' +
+//         '</span>' +
+//         '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
+//         'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaTurnos"' +
+//         'data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">' +
+
+//         '</div>' +
+//         '</div>'
+//     )
+
+//     //Zoom table
+//     $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(1).css('zoom', '90%')
+
+//     //Diseño de registros
+//     $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
+
+
+//     $("#BuscarTablaListaTurnos").keyup(function () {
+//         tablaMenuPrincipal.search($(this).val()).draw();
+//     });
+
+// }, 200);
+
+
+
+// var carga = false;
+// cargarTabla();
+// function cargarTabla() {
+//     setTimeout(() => {
+//         if (carga) {
+//             tablaMenuPrincipal.ajax.reload()
+//             carga = false
+//         }
+
+//         cargarTabla()
+//         return 1;
+
+//     }, 4000);
+// }
+
+// $('#recargarTabla').click(function () {
+
+// })

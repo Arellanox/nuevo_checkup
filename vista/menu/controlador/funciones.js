@@ -2677,7 +2677,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   url: http + servidor + "/" + appname + "/api/recepcion_api.php",
                   type: "POST",
                   dataType: 'json',
-                  data: { api: 6, id_turno: row['ID_TURNO'] },
+                  data: { api: 6, id_turno: row['ID_TURNO'] ? row['ID_TURNO'] : row['TURNO_ID'] },
                   success: function (data) {
                     if (!mensajeAjax(data))
                       return false;
@@ -3184,6 +3184,23 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   $(panel).fadeIn(100);
                 }, 100);
                 resolve(1);
+                break;
+
+              case 'area_faltantes':
+                await ajaxAwait({
+                  api: 5,
+                  turno_id: id
+                }, 'turnero_api', { callbackAfter: true }, false, function (data) {
+                  data = data.response.data[0]
+
+
+
+
+                  $(panel).fadeIn(100);
+                  resolve(1);
+
+                })
+
                 break;
 
 
