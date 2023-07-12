@@ -16,7 +16,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            margin-top: 70px;
+            margin-top: 90px;
             margin-bottom: 40px;
             font-size: 10px;
             /* background-color: gray; */
