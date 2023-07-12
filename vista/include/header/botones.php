@@ -271,7 +271,7 @@ $menu = $_POST['menu']; ?>
   </button>
 <?php endif; ?>
 
-<?php if ($menu == "Menú principal") : ?>
+<?php if ($menu == "Menú principal" || $menu == "Reporte de Excel") : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTabla">
     <i class="bi bi-archive"></i> Filtro
   </button>
