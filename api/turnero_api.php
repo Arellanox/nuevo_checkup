@@ -158,7 +158,13 @@ switch ($api) {
         # Muestra el sitio actual en el que se encuentra el paciente.
         # En sala de espera, o el nombre del area.
 
-        $response = $master->getByProcedure("sp_turnero_paciente_area_actual", []);
+        $res = $master->getByProcedure("sp_turnero_paciente_area_actual", [$turno_id]);
+        $response = [];
+        foreach($res as $current){
+            $current['AREAS_PENDIENTES'] = $master->decodeJson([$current['AREAS_PENDIENTES']]);
+            $response[] = $current;
+        }
+        
         break;
     case 6:
         # paciente actual en el area.
