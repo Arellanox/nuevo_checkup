@@ -19,7 +19,8 @@ $('#btn-consulta-terminar').click(function () {
       },
       data: {
         api: 11,
-        id_consulta: pacienteActivo.selectID
+        id_consulta: pacienteActivo.selectID,
+        turno_id: pacienteActivo.array['ID_TURNO']
       },
       success: function (data) {
         if (mensajeAjax(data)) {
