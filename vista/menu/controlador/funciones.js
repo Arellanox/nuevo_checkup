@@ -3191,10 +3191,9 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   api: 5,
                   turno_id: id
                 }, 'turnero_api', { callbackAfter: true }, false, function (data) {
-                  data = data.response.data[0]['AREAS_PENDIENTES']
-
 
                   try {
+                    data = data.response.data[0]['AREAS_PENDIENTES']
                     let html = '';
                     console.log(data);
 
