@@ -178,6 +178,23 @@ function tablaContenido(descuento = false) {
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
+    dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'excelHtml5',
+        text: '<i class="fa fa-file-excel-o"></i> Excel',
+        className: 'btn btn-success',
+        titleAttr: 'Excel',
+        customizeData: function (data) {
+          console.log(data)
+          let tabla = tablaContenidoPaquete
+          for (var i = data.header.length - 1; i >= 0; i--) {
+            if (!tabla.column(i).visible()) {
+              data.header.splice(i, 1);
+              for (var j = 0; j < data.body.length; j++) {
+                data.body[j].splice(i, 1)
+              }
+            }
   });
   loader("Out");
 }

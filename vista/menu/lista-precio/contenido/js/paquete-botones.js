@@ -10,6 +10,7 @@ $('#agregar-estudio-paquete').click(function () {
   // console.log(selectData)
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
   meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], 1, selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
+  calcularFilasTR();
 })
 
 
@@ -55,9 +56,9 @@ $('#UsarPaquete').on('click', function () {
           console.log(data);
           row = data.response.data;
           for (var i = 0; i < row.length; i++) {
-            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].COSTO_TOTAL, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
-
+            meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].PRECIO_VENTA_UNITARIO, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
           }
+          calcularFilasTR();
         }
       })
       break;
@@ -194,6 +195,9 @@ function formpassword() {
   //No submit form with enter
 }
 
-$(document).on("change ,  keyup", "input[name='cantidad-paquete']", function () {
-  calcularFilasTR()
+$(document).on("change", "input[name='cantidad-paquete']", function (event) {
+  event.stopPropagation();
+  let input = $(this);
+  // return false;
+  calcularFilasTR(input)
 });
