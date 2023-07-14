@@ -968,8 +968,8 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
 
         if (typeof data == "string" && data.indexOf('response') > -1) {
           data = JSON.parse(data);
-          // if (!mensajeAjax(data))
-          //   return false;
+          if (!mensajeAjax(data))
+            return false;
           data = data['response']['data'];
           // data = data['data'];
         } else {
