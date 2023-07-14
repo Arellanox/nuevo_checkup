@@ -196,8 +196,5 @@ function formpassword() {
 }
 
 $(document).on("change", "input[name='cantidad-paquete']", function (event) {
-  event.stopPropagation();
-  let input = $(this);
-  // return false;
-  calcularFilasTR(input)
+  calcularFilasTR()
 });
