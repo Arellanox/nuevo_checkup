@@ -4,7 +4,7 @@ $master = new Master();
 
 $datos = json_decode(file_get_contents('php://input'), true);
 
-if (isset($datos['dispositivo']) && $datos['datos']) {
+// if (isset($datos['dispositivo']) && $datos['datos']) {
 
 
     switch ($datos['dispositivo']) {
@@ -14,16 +14,18 @@ if (isset($datos['dispositivo']) && $datos['datos']) {
             $data = getValuesExelEquipos($datos, 1, 2, 5);
             $response = $master->insertByProcedure('sp_pseudo_interface', [json_encode($data)]);
 
-
             break;
 
-        case 'I-SmartPro':
+        case 'Erba':
+            
 
-            $data = getValuesExelEquipos($datos, 1, 2, 3);
+            $data = getValuesCsvEquipos($datos);
 
-            $response = $master->insertByProcedure('sp_pseudo_interface', [json_encode($data)]);
-
-
+            $fh = fopen("algo.txt", 'a');
+            fwrite($fh, json_encode($data));
+            fclose($fh);
+             
+       
             break;
 
         case 'SelectraProS':
@@ -31,21 +33,20 @@ if (isset($datos['dispositivo']) && $datos['datos']) {
             $data = getValuesTxtEquipos($datos, 2, 7, 8);
             $response = $master->insertByProcedure('sp_pseudo_interface', [json_encode($data)]);
 
-            $fh = fopen("algo.txt", 'a');
-            fwrite($fh, json_encode($data));
-            fclose($fh);
-
-
+           
             break;
-
         default:
 
             $response = 'No hay equipo definido';
+            $fh = fopen("algo.txt", 'a');
+            fwrite($fh, $datos);
+            fclose($fh);
     }
 
 
     echo $master->returnApi($response);
-}
+
+// }
 
 
 
@@ -55,16 +56,12 @@ function getValuesExelEquipos($datos, $getVal1, $getVal2, $getVal3)
 {
 
     $data = json_decode($datos['datos'], true);
+   
 
     #Validamos si existe algun error con el los datos recibidos
     if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
         $errorMessage = json_last_error_msg();
         $error = "Error al decodificar JSON: " . $errorMessage;
-
-        // $fh = fopen("algo.txt", 'a');
-        // fwrite($fh, $error);
-        // fclose($fh);
-
         exit;
     }
 
@@ -75,11 +72,8 @@ function getValuesExelEquipos($datos, $getVal1, $getVal2, $getVal3)
     foreach ($data as $fila) {
 
         $arreglo[] = ['PREFOLIO' => $fila[$getVal1], 'ESTUDIO' => $fila[$getVal2], 'RESULTADO' =>       $fila[$getVal3]];
-    }
 
-    // $fh = fopen("algo.txt", 'a');
-    // fwrite($fh, json_encode($arreglo));
-    // fclose($fh);
+    }
 
     //Retornamos el arreglo de los datos
     return $arreglo;
@@ -89,9 +83,9 @@ function getValuesExelEquipos($datos, $getVal1, $getVal2, $getVal3)
 //FUNCION PARA EQUIPOS QUE DAN ARCHIVOS TXT
 function getValuesTxtEquipos($datos, $getVal1, $getVal2, $getVal3)
 {
-    // Definimos nuestro JSON que contiene los datos recibidos y los decodificamos
+   
 
-    $datos = json_decode($datos['datos'], true); //El parámetro true se utiliza para obtener un         arreglo asociativo en lugar de un objeto.
+    $datos = json_decode($datos['datos'], true); //El parámetro true se utiliza para obtener un arreglo asociativo en lugar de un objeto.
 
     $resultado = array();
 
@@ -116,7 +110,64 @@ function getValuesTxtEquipos($datos, $getVal1, $getVal2, $getVal3)
         // Agregamos las datos de nuevoArreglo a el arreglo final que es resultado
         $resultado[] = $nuevoArreglo;
     }
-
+    
 
     return $resultado;
+
 }
+
+
+function getValuesCsvEquipos($datos){
+
+
+    $data = json_decode($datos['datos'], true);
+
+    $arreglo = [];
+    foreach ($data as $fila){
+
+        if ($fila['Index'] == 'APTT'){
+
+        $arreglo[] = ['PREFOLIO' => $fila['Method name'], 'TPT' => $fila['Date and time of results'], 'REL' => $fila['Result 1'],  'INDEX' => $fila['Index']];
+
+        }else{
+            $arreglo[] = ['PREFOLIO' => $fila['Method name'], 'ACT' => $fila['Date and time of results'], 'INR' => $fila['Result 1'], 'TP' => $fila['Result 2'], 'INDEX' => $fila['Index']];
+        }
+        
+    }
+
+    $prefolios = array_map(function($item){
+        return $item['PREFOLIO'];
+    }, $arreglo);
+
+    $PREFOLIOS = array_unique($prefolios); 
+
+    $arregloFinal = [];
+    // $arregloResultado = [];
+    foreach ($PREFOLIOS as $fila){
+        
+      $filtrado = array_filter($arreglo, function($item) use($fila) {
+
+            return $item['PREFOLIO'] == $fila;
+      });
+
+        foreach($filtrado as $key => $value){
+            
+            foreach($value as $k => $v){
+
+                if(!in_array($k, ['PREFOLIO', 'INDEX'])){
+
+                    $arregloFinal[] = ['PREFOLIO' => $fila, 'ESTUDIO' => $k, 'RESULTADO' => $v];
+                }
+
+            }
+        }
+        
+    }
+
+    return $arregloFinal;
+
+        
+}
+
+
+ 
