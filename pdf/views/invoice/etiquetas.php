@@ -104,7 +104,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                             <p style='font-size: 7px;'><span style='font-weight:bold;'>" . $recipiente->CONTENEDOR . " (" . $recipiente->MUESTRA . ")</span> | " . $recipientes->FECHA_TOMA . "</p>
                             <p style='font-size: 7px;'>" . $recipientes->NOMBRE . "</p>
                             <p style='font-size: 7px;'>" . $recipientes->EDAD . " AÑOS | " . $recipientes->SEXO . "</p>
-                            <p style='padding-bottom:3px'>" . $recipiente->MAQUILA_ABR . "</p>
+                            <p style='padding-bottom:3px; position: absolute; '>" . $recipiente->MAQUILA_ABR . "</p>
                         </td>
                     </tr>";
             echo " </table>";
