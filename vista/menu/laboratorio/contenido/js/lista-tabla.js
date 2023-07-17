@@ -190,6 +190,9 @@ function generarFormularioPaciente(id) {
             }
           }
 
+          //Clinico
+          let Tipo = '';
+
           // equipo = {
           //   0: {
 
@@ -330,20 +333,17 @@ function generarFormularioPaciente(id) {
             case '972': case '973':
               //Sin cambios
               break;
+
+            //Laboratorio Clinico
+            case '1':
+              Tipo = '_BH'
+              break;
             default: input = null;
               if (areaActiva == 12) {
                 alert('El paciente no tiene estudios compatibles, hay un problema con la compatibilidad de los estudios con biomolecular, presente el error con el area de TI para solucionar este problema con el  paciente');
               }
               break;
           }
-
-
-
-
-
-
-
-
 
 
           // console.log(row)
@@ -398,6 +398,15 @@ function generarFormularioPaciente(id) {
 
                 case '695': case '700': case '708': case '736': case '756': case '994':
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
+
+                //Laboratorio Clinico:
+                case '70':
+                  anotherClassInput = `LEUCOCITOS_VALUE${Tipo}`;
+                  break;
+
+                case '71': case '72': case '73': case '74': case '75': case '76': case '77': case '78': case '79':
+                  anotherClassInput = `VALOR_ABSOLUTO_RESULTADO${Tipo}`;
+                  break;
                 default: anotherValue = ''; break;
               }
               //
