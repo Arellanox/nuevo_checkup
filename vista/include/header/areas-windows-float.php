@@ -1,8 +1,4 @@
- <?php if (
-        $_SESSION['vista']['AGENDA_PACIENTES'] == 1
-        //Excepciones
-        && $menu != 'Facturacion'
-    ) : ?>
+ <?php if ($_SESSION['vista']['AGENDA_PACIENTES'] == 1) : ?>
      <li class="nav-item Recepción">
          <div class="dropdown ">
              <a class="dropdown-toggle" id="dropCheckups" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -13,9 +9,6 @@
                  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#AGENDA_PACIENTES'; ?>">
                      <i class="bi bi-dot"></i> Ultrasonido
                  </a>
-                 <!-- <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#TOMA_DE_MUESTRAS'; ?>">
-                     <i class="bi bi-dot"></i> Toma de muestra
-                 </a> -->
              </ul>
          </div>
      </li>
@@ -88,7 +81,8 @@
         $_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1 ||
         $_SESSION['vista']['FACTURACIÓN'] == 1 ||
         $_SESSION['vista']['LISTA_PRECIOS'] == 1 || $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1 || $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1 ||
-        $_SESSION['vista']['CURSOS BIMO'] == 1
+        $_SESSION['vista']['CURSOS BIMO'] == 1 ||
+        $_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1
     ) : ?>
      <li class="nav-item Recepción">
          <div class="dropdown ">
@@ -103,11 +97,7 @@
      </li>
  <?php endif; ?>
 
- <?php if (
-        $_SESSION['perfil'] == 1
-        //Excepciones
-        && $menu != 'Facturacion'
-    ) : ?>
+ <?php if ($_SESSION['perfil'] == 1) : ?>
 
      <li class="nav-item Recepción">
          <div class="dropdown ">

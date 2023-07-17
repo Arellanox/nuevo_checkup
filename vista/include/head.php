@@ -8,6 +8,7 @@
 <!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="<?php echo 'http://' . $url . '/' . $appname . '/js/gstatic.com_charts_loader.js' ?>"></script>
 
 
 <!-- Bootstrap 5 -->
@@ -103,4 +104,4 @@
 
 <!-- PopersJs -->
 <!-- Development version -->
-<script src="https://unpkg.com/@popperjs/core@2"></script>
+<!-- <script src="https://unpkg.com/@popperjs/core@2"></script> -->

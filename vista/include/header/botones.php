@@ -4,6 +4,15 @@ date_default_timezone_set('America/Mexico_City');
 
 
 $menu = $_POST['menu']; ?>
+
+
+<?php if ($menu == "Menú principal") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTabla">
+    <i class="bi bi-archive"></i> Filtro
+  </button>
+<?php endif; ?>
+
+
 <?php if ($menu == "Recepción | Espera" || $menu == "Recepción | Aceptados" || $menu == "Recepción | Rechazados") : ?>
   <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
     <i class="bi bi-pencil-square"></i> Actualizar información del paciente
@@ -65,6 +74,21 @@ $menu = $_POST['menu']; ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">
     <i class="bi bi-person-plus-fill"></i> Registrar mi información
   </button>
+<?php endif; ?>
+
+<?php if ($menu == "Pre-registration") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">
+    <i class="bi bi-person-plus-fill"></i> Register my information
+  </button>
+
+  <!-- Menú desplegable de cambio de idioma -->
+  <div class="language-dropdown">
+    <select onchange="changeLanguage(this.value)">
+      <option value="es">Español</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
 <?php endif; ?>
 
 
@@ -268,11 +292,5 @@ $menu = $_POST['menu']; ?>
 <?php if ($menu == 'Pacientes (Crédito)') : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltroPacientesFacturacion">
     <i class="bi bi-archive"></i> Generar Grupo
-  </button>
-<?php endif; ?>
-
-<?php if ($menu == "Menú principal" || $menu == "Reporte de Excel") : ?>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTabla">
-    <i class="bi bi-archive"></i> Filtro
   </button>
 <?php endif; ?>

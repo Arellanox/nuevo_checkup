@@ -108,9 +108,11 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
 
   //Verificar si hay consulta actual
   await consultarConsulta(idTurno);
+  await consultarConsultaMedica(idTurno);
 
   await obtenerHistorialConsultas(id);
   // alert("Funcion terminada")
+  await obtenerHistorialConsultaMedica(idTurno);
   loader("Out")
 }
 
@@ -175,7 +177,7 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, clase, cl
 
 
 
-function obtenerConsultorioConsultaMedica(data, idConsultaMedica) {
+function obtenerConsultorioConsultaMedica(data, idconsulta) {
   loader("In")
   $("#titulo-js").html(''); //Vaciar la cabeza de titulo
   $.post("contenido/consulta-medica-paciente.html", function (html) {
@@ -184,20 +186,32 @@ function obtenerConsultorioConsultaMedica(data, idConsultaMedica) {
   }).done(function () {
     // Obtener metodos para el dom
     $.getScript("contenido/js/funciones_globales.js").done(function () { })
+    //guardar datos consultorio
+    $.getScript("contenido/js/guardar-consultorio.js").done(function () { })
 
-    $.getScript("contenido/js/consulta-paciente.js").done(function () {
-      // Botones
-      $.getScript("contenido/js/consulta-paciente-botones.js");
-      obtenerConsultaMedica(data, idConsultaMedica);
+    $.getScript("contenido/js/funciones-get-informacion.js").done(function () {
+      obtenerConsultaMedica(data, idconsulta);
     });
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   });
 }
 
-async function obtenerConsultaMedica(data, idConsultaMedica) {
+async function obtenerConsultaMedica(data, idconsulta) {
   // await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
+
+  // Recuperar datos de la consulta
+  await recuperarDatosCampos(idconsulta)
+  // Mostrar informacion del paciente en panel  superior (data, dataConsulta)
+  await mostrarInformacionPaciente(idconsulta);
+  //Recupera los datos de exploracion fisica en consultorio
+  await recuperarExploracionFisicaConsulta2(data['ID_TURNO'])
+
+
   await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_col3');
   await obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
+
+
+  autosize(document.querySelectorAll('textarea'))
   loader("Out", 'bottom')
 }
 
@@ -235,3 +249,5 @@ $(document).on('click', '#btn-ir-consulta-rapida', function (e) {
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   });
 })
+
+
