@@ -351,7 +351,7 @@ function limpiarCampos() {
 
 async function obtenerServicios(area, turno) {
     return new Promise(resolve => {
-        if (area == 3 || area == 10 || area == 14 || area == 5 || area == 4 || area == 18) {
+        if (area == 3 || area == 10 || area == 14 || area == 5 || area == 4 || area == 18 || area == 9) {
             // url = 'oftalmologia_api';
             data = {
                 turno_id: turno,
