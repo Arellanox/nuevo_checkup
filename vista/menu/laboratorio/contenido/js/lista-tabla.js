@@ -168,6 +168,8 @@ function generarFormularioPaciente(id) {
         let colreStart = '<div class="col-12 col-lg-6 d-flex justify-content-end align-items-center">';
         let html = '';
 
+
+
         // <ul class = "list-group m-4 overflow-auto hover-list info-detalle"
         // style = "max-width: 100%; max-height: 70vh;margin-bottom:10px;"
         // id = "list-group-form-resultado-laboro" >
@@ -361,13 +363,16 @@ function generarFormularioPaciente(id) {
 
 
               //Formulario
-              //Configuracion para biomolecular por ID_SERVICIO
+              //Configuracion por ID_SERVICIO
               let nameInput = `servicios[${inputname}][RESULTADO]`;
               let onlyLabel = false;
               let anotherValue = '';
               let anotherInput = null;
               let anotherClassInput = null;
               let anotherAttr = '';
+
+              let anotherClassInputAbsoluto = '';
+              let typeInput = '';
               switch (row[k]['ID_SERVICIO']) {
                 case '686': case '687': case '688':
                   anotherValue = 'NEGATIVO'; break;
@@ -402,10 +407,13 @@ function generarFormularioPaciente(id) {
                 //Laboratorio Clinico:
                 case '70':
                   anotherClassInput = `LEUCOCITOS_VALUE${Tipo}`;
+                  // typeInput = 'number'
                   break;
 
                 case '71': case '72': case '73': case '74': case '75': case '76': case '77': case '78': case '79':
-                  anotherClassInput = `VALOR_ABSOLUTO_RESULTADO${Tipo}`;
+                  // typeInput = 'number'
+                  anotherClassInput = `VALOR_ABSOLUTO${Tipo}`;
+                  anotherClassInputAbsoluto = `RESULTADO_ABSOLUTO${Tipo}`;
                   break;
                 default: anotherValue = ''; break;
               }
@@ -425,7 +433,7 @@ function generarFormularioPaciente(id) {
                 } else {
                   html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
                   html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row[k]['ID_SERVICIO']}">`
-                  html += `<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[${inputname}][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="text" autocomplete="off" >`;
+                  html += `<input class="form-control input-form text-end inputFormRequired ${anotherClassInput}" ${anotherAttr} name="servicios[${inputname}][RESULTADO]" value="` + ifnull(row[k]['RESULTADO'], anotherValue) + `" type="${ifnull(typeInput, 'text')}" autocomplete="off" >`;
                 }
 
 
@@ -450,11 +458,12 @@ function generarFormularioPaciente(id) {
                   html += colreStart;
                   html += '<div class="input-group">';
 
-                  html += `<input type="text" class="form-control input-form text-end inputFormRequired" name="servicios[${inputname}][VALOR]" value="${ifnull(row[k]['VALOR_ABSOLUTO'])}" autocomplete="off">`;
+                  html += `<input type="${ifnull(typeInput, 'text')}" class="form-control input-form text-end inputFormRequired ${anotherClassInputAbsoluto}" name="servicios[${inputname}][VALOR]" value="${ifnull(row[k]['VALOR_ABSOLUTO'])}" autocomplete="off">`;
 
                   if (row[k]['MEDIDA_ABS']) {
                     html += '<span class="input-span">' + row[k]['MEDIDA_ABS'] + '</span>';
                   }
+
                   html += '</div>';
                   html += endDiv;
                 }
@@ -473,10 +482,7 @@ function generarFormularioPaciente(id) {
               html += '</li>';
 
               if (row[k]['LLEVA_COMENTARIO'] == true) {
-                if (row[k]['OBSERVACIONES'] == null) {
-                  row[k]['OBSERVACIONES'] = '';
-                }
-                html += `<div class="d-flex justify-content-center"><div style="padding-top: 15px;"><p style = "/* font-size: 18px; */" > Observaciones:</p><textarea name="observacionesServicios[${row[k]['ID_SERVICIO']}]" rows="2;" cols="90" class="input-form" value="">${row[k]['OBSERVACIONES']}</textarea></div ></div > `;
+                html += `<div class="d-flex justify-content-center"><div style="padding-top: 15px;"><p style = "/* font-size: 18px; */" > Observaciones:</p><textarea name="observacionesServicios[${row[k]['ID_SERVICIO']}]" rows="2;" cols="90" class="input-form" value="">${ifnull(row[k]['OBSERVACIONES'], '')}</textarea></div ></div > `;
 
               }
             }
@@ -525,6 +531,36 @@ function crearSelectCamposMolecular(data, nameInput, valueInput, classInput = ''
 
   return selectHtml;
 }
+
+$(document).on('keyup', '.VALOR_ABSOLUTO_BH', function () {
+  let input = $(this);
+  let val = (input.val()).replace(/,/g, "");
+
+  //Buscar el Leucocito
+  let ul = $(input).closest('ul');
+  let valorLeucocitos = (ul.find('li input.LEUCOCITOS_VALUE_BH').val()).replace(/,/g, "");;
+
+
+  // Convierte el valor a un entero
+  let val_leuco = parseInt(valorLeucocitos, 10);
+
+  let li = $(input).closest('li');
+  let input_absolut = li.find('input.RESULTADO_ABSOLUTO_BH');
+
+  // Verifica si el valor es un número entero o una cadena de texto
+  if (!isNaN(val_leuco)) {
+    // El valor es un número entero
+    let value = val_leuco * val / 100
+    input_absolut.val(value.toLocaleString('en-US'));
+
+  } else {
+    // El valor es una cadena de texto o no se puede convertir a entero
+    alertMensaje('info', 'El valor del LEUCOCITOS no es numerico', 'No se ha podido calcular')
+  }
+
+
+})
+
 
 $(document).on('click', '.selectMolecular', function () {
   value = $(this).find(':selected').attr('claveOption')
