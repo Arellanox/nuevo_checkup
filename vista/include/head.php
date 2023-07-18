@@ -104,4 +104,58 @@
 
 <!-- PopersJs -->
 <!-- Development version -->
-<!-- <script src="https://unpkg.com/@popperjs/core@2"></script> -->
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+
+
+<!-- pdfmake -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+
+
+<!-- SCREENSHOT HTMl -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+
+
+<!-- dom-to-image -->
+<script src="<?php echo 'http://' . $url . '/' . $appname . '/css/framework/dom-to-image.js' ?>"></script>
+<script src="<?php echo 'http://' . $url . '/' . $appname . '/css/framework/FileSaver.js' ?>"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+
+<script>
+    var traducciones;
+
+    //Hacemos la peticion y la guardamos en la variable traducciones
+    $.ajax({
+        url: '../../archivos/sistema/json/idioma/en.json',
+        type: 'POST',
+        dataType: 'json',
+        success: function(data) {
+            traducciones = data;
+            console.log(traducciones);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+
+    //Funcion para traducir un texto donde recibe el texto y el idioma
+    function traducir(texto, idioma) {
+        switch (idioma) {
+            case '-en':
+                console.log(texto);
+                traduccion = traducciones[texto][idioma];
+                console.log(traduccion);
+                if (traduccion == null) {
+                    return texto;
+                } else {
+                    return traduccion;
+                }
+
+                break;
+
+            default:
+                return texto;
+                break;
+        };
+    };
+</script>
