@@ -9,7 +9,7 @@ $menu = "Correos";
 
 <head>
     <?php include "../../include/head.php"; ?>
-    <title><?php echo $menu; ?> | Bimo</title>
+    <title>Agenda | Bimo</title>
 </head>
 
 <body class="" id="body-controlador"> </body>
