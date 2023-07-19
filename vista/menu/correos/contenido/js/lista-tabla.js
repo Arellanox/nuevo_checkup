@@ -63,7 +63,7 @@ function getNewView(url, filename) {
     // Crear una instancia inicial de AdobeDC.View
     let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
 
-    var nuevaURL = "<URL del nuevo PDF>";
+    var nuevaURL = url;
 
     // Agregar un parámetro único a la URL para evitar la caché del navegador
     nuevaURL += "?timestamp=" + Date.now();
