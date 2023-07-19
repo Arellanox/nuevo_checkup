@@ -40,9 +40,9 @@ function getListAgenda(area = localStorage.getItem('areaActual'), fecha = format
                     }
                 }
                 html += `</p>`;
-                html += `
-                        <p class="none-p">Observaciones: ${element.OBSERVACIONES}</p>`;
-                html += `<small>${formatoFecha2(element.CITA, [2, 1, 4, 1, 2, 2, 0])} | ${formatoFecha2(element.FINALIZA, [2, 1, 4, 1, 2, 2, 0])}</small>
+                html += `<p class="none-p">Observaciones: ${element.OBSERVACIONES}</p>`;
+                html += `<small>${formatoFecha2(element.CITA, [2, 1, 4, 1, 2, 2, 0])} | ${formatoFecha2(element.FINALIZA, [2, 1, 4, 1, 2, 2, 0])}</small> </br>
+<small><strong>Registrado por: ${element['REGISTRADO_POR']}</strong></small>
                 </button>`;
 
             }
