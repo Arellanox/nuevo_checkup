@@ -51,25 +51,32 @@ loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
 
 // let adobeDCView = new AdobeDC.View({
-//     clientId: "cd0a5ec82af74d85b589bbb7f1175ce3",
-//     divId: "adobe-dc-view"
+
+
 // });
 
-const pdfViewer = pdfClient.createView(({
-    clientId: "cd0a5ec82af74d85b589bbb7f1175ce3",
-    divId: "adobe-dc-view"
-}));
+// Crear una instancia inicial de AdobeDC.View
+var adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
 
-// adobeDCView.previewFile({
-//     content: {
-//         location: {
-//             url: selectEstudio.array.RUTA
-//         }
-//     },
-//     metaData: {
-//         fileName: selectEstudio.array.NOMBRE_ARCHIVO
-//     }
-// }, {});
+// Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
+function getNewView(url, filename) {
+    // Destruir la instancia existente de AdobeDC.View
+    adobeDCView.destroy();
+
+    // Crear una nueva instancia de AdobeDC.View con la configuración adecuada
+    var nuevaAdobeDCView = new AdobeDC.View({ clientId: "<YOUR_CLIENT_ID>", divId: "adobe-dc-view" });
+
+    // Obtener la URL del nuevo PDF
+    var nuevaURL = url;
+
+    // Cargar y mostrar el nuevo PDF en el visor
+    nuevaAdobeDCView.previewFile({
+        content: { location: { url: nuevaURL } },
+        metaData: { fileName: filename }
+    });
+}
+
+
 
 
 selectTable('#TablaLaboratorio', tablaListaPaciente, {
@@ -109,16 +116,6 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
             //     
             // });
 
-            // adobeDCView.previewFile({
-            //     content: {
-            //         location: {
-
-            //         }
-            //     },
-            //     metaData: {
-
-            //     }
-            // }, {});
 
             // adobeDCView.loadFile({
             //     content: {
@@ -131,34 +128,7 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
             //     }
             // });
 
-
-            // Opciones de carga del archivo
-            // var options = {
-
-            //     content: {
-            //         location: {
-            //             url: selectEstudio.array.RUTA // URL del archivo PDF
-            //         }
-            //     },
-            //     metaData: {
-            //         fileName: selectEstudio.array.NOMBRE_ARCHIVO // Nombre del archivo PDF
-            //     }
-            // };
-
-            // // Cargar el archivo con opciones adicionales
-            // adobeDCView.previewFileWithOptions(options);
-
-            pdfViewer.previewFile({
-                content: {
-                    location: {
-                        url: selectEstudio.array.RUTA // URL del archivo PDF
-                    }
-                },
-                metaData: {
-                    fileName: selectEstudio.array.NOMBRE_ARCHIVO // Nombre del archivo PDF
-                }
-            });
-
+            getNewView(selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO);
             // try {
             //     // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
             // } catch (error) {
