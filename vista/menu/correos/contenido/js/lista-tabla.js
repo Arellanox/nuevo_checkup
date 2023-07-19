@@ -55,7 +55,16 @@ let adobeDCView = new AdobeDC.View({
     divId: "adobe-dc-view"
 });
 
-adobeDCView.previewFile();
+// adobeDCView.previewFile({
+//     content: {
+//         location: {
+//             url: selectEstudio.array.RUTA
+//         }
+//     },
+//     metaData: {
+//         fileName: selectEstudio.array.NOMBRE_ARCHIVO
+//     }
+// }, {});
 
 
 selectTable('#TablaLaboratorio', tablaListaPaciente, {
@@ -106,16 +115,32 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
             //     }
             // }, {});
 
-            adobeDCView.loadFile({
+            // adobeDCView.loadFile({
+            //     content: {
+            //         location: {
+            //             url: selectEstudio.array.RUTA
+            //         }
+            //     },
+            //     metaData: {
+            //         fileName: selectEstudio.array.NOMBRE_ARCHIVO
+            //     }
+            // });
+
+
+            // Opciones de carga del archivo
+            var options = {
                 content: {
                     location: {
-                        url: selectEstudio.array.RUTA
+                        url: selectEstudio.array.RUTA // URL del archivo PDF
                     }
                 },
                 metaData: {
-                    fileName: selectEstudio.array.NOMBRE_ARCHIVO
+                    fileName: selectEstudio.array.NOMBRE_ARCHIVO // Nombre del archivo PDF
                 }
-            });
+            };
+
+            // Cargar el archivo con opciones adicionales
+            adobeDCView.previewFileWithOptions(options);
 
             // try {
             //     // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
