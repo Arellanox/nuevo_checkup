@@ -49,6 +49,12 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
 })
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
+
+let adobeDCView = new AdobeDC.View({
+    clientId: "cd0a5ec82af74d85b589bbb7f1175ce3",
+    divId: "adobe-dc-view"
+});
+
 selectTable('#TablaLaboratorio', tablaListaPaciente, {
     unSelect: true, movil: true, reload: ['col-xl-9'], tabs: [
         {
@@ -86,22 +92,17 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
             //     
             // });
 
-
-            let adobeDCView = new AdobeDC.View({
-                clientId: "cd0a5ec82af74d85b589bbb7f1175ce3",
-                divId: "adobe-dc-view"
-            });
-
             adobeDCView.previewFile({
                 content: {
                     location: {
-                        url: "<?php echo $url; ?>"
+                        url: selectEstudio.array.RUTA
                     }
                 },
                 metaData: {
-                    fileName: "<?php echo $nombreArchivo; ?>"
+                    fileName: selectEstudio.array.NOMBRE_ARCHIVO
                 }
             }, {});
+
 
             try {
                 // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
