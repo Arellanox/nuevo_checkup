@@ -50,10 +50,15 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
 
-let adobeDCView = new AdobeDC.View({
+// let adobeDCView = new AdobeDC.View({
+//     clientId: "cd0a5ec82af74d85b589bbb7f1175ce3",
+//     divId: "adobe-dc-view"
+// });
+
+const pdfViewer = pdfClient.createView(({
     clientId: "cd0a5ec82af74d85b589bbb7f1175ce3",
     divId: "adobe-dc-view"
-});
+}));
 
 // adobeDCView.previewFile({
 //     content: {
@@ -128,7 +133,22 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
 
 
             // Opciones de carga del archivo
-            var options = {
+            // var options = {
+
+            //     content: {
+            //         location: {
+            //             url: selectEstudio.array.RUTA // URL del archivo PDF
+            //         }
+            //     },
+            //     metaData: {
+            //         fileName: selectEstudio.array.NOMBRE_ARCHIVO // Nombre del archivo PDF
+            //     }
+            // };
+
+            // // Cargar el archivo con opciones adicionales
+            // adobeDCView.previewFileWithOptions(options);
+
+            pdfViewer.previewFile({
                 content: {
                     location: {
                         url: selectEstudio.array.RUTA // URL del archivo PDF
@@ -137,10 +157,7 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
                 metaData: {
                     fileName: selectEstudio.array.NOMBRE_ARCHIVO // Nombre del archivo PDF
                 }
-            };
-
-            // Cargar el archivo con opciones adicionales
-            adobeDCView.previewFileWithOptions(options);
+            });
 
             // try {
             //     // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
