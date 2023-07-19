@@ -82,12 +82,12 @@ $menu = $_POST['menu']; ?>
   </button>
 
   <!-- Menú desplegable de cambio de idioma -->
-  <div class="language-dropdown">
+  <!-- <div class="language-dropdown">
     <select onchange="changeLanguage(this.value)">
       <option value="es">Español</option>
       <option value="en">English</option>
     </select>
-  </div>
+  </div> -->
 
 <?php endif; ?>
 
