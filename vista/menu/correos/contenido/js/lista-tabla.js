@@ -92,7 +92,18 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
             //     
             // });
 
-            adobeDCView.previewFile({
+            // adobeDCView.previewFile({
+            //     content: {
+            //         location: {
+
+            //         }
+            //     },
+            //     metaData: {
+
+            //     }
+            // }, {});
+
+            adobeDCView.loadFile({
                 content: {
                     location: {
                         url: selectEstudio.array.RUTA
@@ -101,14 +112,13 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
                 metaData: {
                     fileName: selectEstudio.array.NOMBRE_ARCHIVO
                 }
-            }, {});
+            });
 
+            // try {
+            //     // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
+            // } catch (error) {
 
-            try {
-                // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
-            } catch (error) {
-
-            }
+            // }
 
         } catch (error) {
             console.log(error)
