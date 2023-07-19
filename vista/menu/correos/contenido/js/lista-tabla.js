@@ -55,23 +55,17 @@ loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
 // });
 
-// Crear una instancia inicial de AdobeDC.View
-var adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
+
 
 // Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
 function getNewView(url, filename) {
     // Destruir la instancia existente de AdobeDC.View
-    adobeDCView.destroy();
-
-    // Crear una nueva instancia de AdobeDC.View con la configuración adecuada
-    var nuevaAdobeDCView = new AdobeDC.View({ clientId: "<YOUR_CLIENT_ID>", divId: "adobe-dc-view" });
-
-    // Obtener la URL del nuevo PDF
-    var nuevaURL = url;
+    // Crear una instancia inicial de AdobeDC.View
+    let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
 
     // Cargar y mostrar el nuevo PDF en el visor
-    nuevaAdobeDCView.previewFile({
-        content: { location: { url: nuevaURL } },
+    adobeDCView.previewFile({
+        content: { location: { url: url } },
         metaData: { fileName: filename }
     });
 }
