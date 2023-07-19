@@ -79,8 +79,32 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
 
             if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
                 estadoBotones(1) //Desactivar si ya fue enviado
+
+
+            // document.addEventListener("adobe_dc_view_sdk.ready", function () {
+
+            //     
+            // });
+
+
+            let adobeDCView = new AdobeDC.View({
+                clientId: "cd0a5ec82af74d85b589bbb7f1175ce3",
+                divId: "adobe-dc-view"
+            });
+
+            adobeDCView.previewFile({
+                content: {
+                    location: {
+                        url: "<?php echo $url; ?>"
+                    }
+                },
+                metaData: {
+                    fileName: "<?php echo $nombreArchivo; ?>"
+                }
+            }, {});
+
             try {
-                vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
+                // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
             } catch (error) {
 
             }
