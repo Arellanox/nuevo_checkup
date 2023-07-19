@@ -55,6 +55,9 @@ let adobeDCView = new AdobeDC.View({
     divId: "adobe-dc-view"
 });
 
+adobeDCView.previewFile();
+
+
 selectTable('#TablaLaboratorio', tablaListaPaciente, {
     unSelect: true, movil: true, reload: ['col-xl-9'], tabs: [
         {
