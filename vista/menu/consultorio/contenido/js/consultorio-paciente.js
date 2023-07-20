@@ -109,6 +109,26 @@ function consultarConsultaMedica(id) {
           <i class="bi bi-clipboard-heart"></i> Consulta Médica Terminada
             </button>`)
         }
+
+
+        let btn_receta = $('#btn-ver-receta-consultorio2')
+        let btn_solicitud = $('#btn-ver-solicitud-estudios-consultorio2')
+        if (row['RUTA_RECETAS']) {
+          btn_receta.attr('href', `${row['RUTA_RECETAS']}`);
+          btn_receta.fadeIn(150);
+        } else {
+          btn_receta.attr('href', '#')
+          btn_receta.fadeOut(150);
+        }
+
+        if (row['RUTA_SOLICITUDES']) {
+          btn_solicitud.attr('href', `${row['RUTA_SOLICITUDES']}`)
+          btn_solicitud.fadeIn(150)
+        } else {
+          btn_solicitud.attr('href', '#')
+          btn_solicitud.fadeOut(150)
+        }
+
       } catch (error) {
         $('#btn-ir-consulta-medica').html(`
     <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
@@ -167,7 +187,7 @@ function obtenerHistorialConsultas(id) {
                                                                   <i class="bi bi-file-earmark-pdf"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                  <li><a class="dropdown-item" href="${resultado}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Resultado</a></li>
+                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_REPORTE'] ? this : resultado}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Resultado</a></li>
                                                                 </ul>
                                                               </div>
                                                             </div>
@@ -196,7 +216,7 @@ function obtenerHistorialConsultas(id) {
 function obtenerHistorialConsultaMedica(idTurno) {
   console.log("aqui empieza obtener consulta medica")
   console.log(idTurno);
-  
+
   return new Promise(resolve => {
     $.ajax({
       url: `${http}${servidor}/${appname}/api/consultorio2_api.php`,
