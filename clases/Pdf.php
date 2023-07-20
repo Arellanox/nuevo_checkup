@@ -201,26 +201,26 @@ class Reporte
                 $pdf->setPaper('letter', 'portrait');
                 break;
 
-                // case 'consultorio2':
-                //     $template = render_view('invoice/consultorio2.php', $view_vars);
-                //     $pdf->loadHtml($template);
-                //     $pdf->setPaper('letter', 'portrait');
-                //     break;
+            case 'consultorio2':
+                $template = render_view('invoice/consultorio2.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
 
-                // case 'receta':
-                //     $template = render_view('invoice/receta.php', $view_vars);
-                //     $pdf->loadHtml($template);
-                //     $pdf->setPaper('letter', 'portrait');
-                //     //Marca de agua
-                //     $pdf->getOptions()->setIsHtml5ParserEnabled(true); // Habilita el soporte para CSS3
-                //     $pdf->getOptions()->setIsFontSubsettingEnabled(true); // Habilita la subconjunción de fuentes
-                //     break;
+            case 'receta':
+                $template = render_view('invoice/receta.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                //Marca de agua
+                $pdf->getOptions()->setIsHtml5ParserEnabled(true); // Habilita el soporte para CSS3
+                $pdf->getOptions()->setIsFontSubsettingEnabled(true); // Habilita la subconjunción de fuentes
+                break;
 
-                // case 'solicitud_estudios':
-                //     $template = render_view('invoice/solicitud_estudios.php', $view_vars);
-                //     $pdf->loadHtml($template);
-                //     $pdf->setPaper('letter', 'portrait');
-                //     break;
+            case 'solicitud_estudios':
+                $template = render_view('invoice/solicitud_estudios.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
 
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
