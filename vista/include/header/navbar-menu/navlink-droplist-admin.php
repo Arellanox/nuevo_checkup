@@ -115,6 +115,25 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 <?php endif; ?>
 
+
+<?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
+    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-TALENTOHUMANO" aria-expanded="false">
+        <i class="bi bi-people"></i> Calidad
+    </a>
+    <div class="collapse" id="board-TALENTOHUMANO">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
+                <li>
+                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/cursos-bimo/'; ?>" class="dropdown-a" type="button">
+                        <i class="bi bi-dot"></i> Cursos
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+
+<?php endif; ?>
+
 <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-TALENTOHUMANO" aria-expanded="false">
         <i class="bi bi-people"></i> Talento Humano
