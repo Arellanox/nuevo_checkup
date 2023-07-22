@@ -222,7 +222,7 @@ class Miscelaneus
         echo "Hello World!";
     }
 
-    function generarQRURL($tipo, $codeContents, $nombre, $frame = QR_ECLEVEL_M, $size = 3)
+    function generarQRURL($tipo, $codeContents, $nombre, $frame = QR_ECLEVEL_H, $size = 10)
     {
         # URL carpeta
         $tempDir = 'archivos/sistema/temp/qr/' . $tipo . '/';

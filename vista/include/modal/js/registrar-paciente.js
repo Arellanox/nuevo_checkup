@@ -164,7 +164,7 @@ $('#formRegistrarPaciente input[type=text]').on('change keyup', function () {
 
 
 if (registroAgendaRecepcion == 1) {
-  $('#contenido-procedencia').html(`< label for= "selectIngresoProcedencia" class= "form-label" > Selecciona procedencia</label >
+  $('#contenido-procedencia').html(`</label for= "selectIngresoProcedencia" class= "form-label" > Selecciona procedencia</ >
               <select class="form-control input-form dataIdProcedencias" id="selectIngresoProcedencia">
               </select>`)
 
