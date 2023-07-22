@@ -70,9 +70,21 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'URES' },
     { data: 'DIAGNOSTICO' },
     { data: 'SERVICIOS_ABREVIATURA' },
-    { data: null },
-    { data: null },
-    { data: null },
+    {
+      data: null, render: function (data) {
+        return data ? data : '';
+      }
+    },
+    {
+      data: null, render: function (data) {
+        return data ? data : '';
+      }
+    },
+    {
+      data: null, render: function (data) {
+        return data ? data : '';
+      }
+    },
   ],
   columnDefs: [
     { target: 0, className: 'all', title: 'No. Sistema', width: '7%', visible: false },
