@@ -160,11 +160,12 @@ $menu = "Pre-registro";
     clienteRegistro = id
     idtoken = id_registro
 
-    // cuestionarios = jQuery.parseJSON(cuestionarios)
+    cuestionarios = jQuery.parseJSON(cuestionarios)
 
     //Cuestionario
     ant = cuestionarios[2] ? true : false;
     espiro = cuestionarios[1] ? true : false;
+
 
     //Antecedentes
     // let antPre
