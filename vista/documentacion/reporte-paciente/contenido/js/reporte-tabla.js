@@ -72,17 +72,17 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'SERVICIOS_ABREVIATURA' },
     {
       data: null, render: function (data) {
-        return data ? data : '';
+        return '';
       }
     },
     {
       data: null, render: function (data) {
-        return data ? data : '';
+        return '';
       }
     },
     {
       data: null, render: function (data) {
-        return data ? data : '';
+        return '';
       }
     },
   ],
