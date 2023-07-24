@@ -25,11 +25,12 @@
           <div class="" id="selectDisabled">
             <label for="inputBuscarPaquetes">Busque un cliente:</label>
             <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un cliente"> </select>
-          </div>
-          <div class="listaPresupuestos" id="container-select-presupuesto">
+            <!-- <div class="listaPresupuestos" id="container-select-presupuesto"> -->
             <label for="inputBuscarPaquetes">Busque un presupuesto:</label>
             <select name="seleccionpaquete" id="select-presupuestos" class="input-form" required data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un presupuesto ya guardado"> </select>
+            <!-- </div> -->
           </div>
+
           <div class="row d-flex justify-content-center" style="margin-bottom: 15px">
             <div class="col-auto">
               <button class="btn btn-sm btn-pantone-7408" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Usar</button>

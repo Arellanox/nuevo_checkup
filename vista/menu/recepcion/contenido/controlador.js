@@ -4,7 +4,8 @@
 // obtenerContenidoRecepcion();
 var tablaRecepcionPacientes, dataRecepcion = { api: 1 };
 
-var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = []
+var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
+var hash;
 
 //Validacion de usuario
 switch (session['cargo']) {
@@ -59,7 +60,7 @@ function obtenerContenidoRechazados() {
 
 
 function hasLocation() {
-  var hash = window.location.hash.substring(1);
+  hash = window.location.hash.substring(1);
   $("a").removeClass("navlinkactive");
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   switch (hash) {

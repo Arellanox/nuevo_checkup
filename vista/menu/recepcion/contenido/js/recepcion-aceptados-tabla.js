@@ -2,7 +2,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  scrollY: autoHeightDiv(0, 332), //347px
+  scrollY: '67vh', //347px
   scrollCollapse: true,
   deferRender: true,
   lengthMenu: [
@@ -94,7 +94,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     {
       data: 'FECHA_RECEPCION',
       render: function (data) {
-        return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+        return formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null);
       }
     },
     {
@@ -158,6 +158,30 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     { target: 'actions', width: "2%" },
 
   ],
+
+  // dom: 'Blfrtip',
+  // buttons: [
+  //   {
+  //     text: '<i class="bi bi-receipt-cutoff"></i> Ticket',
+  //     className: 'btn btn-secondary',
+  //     action: function () {
+  //       if (array_selected) {
+  //         alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
+
+  //         api = encodeURIComponent(window.btoa('ticket'));
+  //         turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
+  //         area = encodeURIComponent(window.btoa(16));
+
+
+  //         window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+
+
+  //       } else {
+  //         alertToast('Por favor, seleccione un paciente', 'info', 4000)
+  //       }
+  //     }
+  //   },
+  // ],
 
 })
 
