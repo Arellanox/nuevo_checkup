@@ -122,11 +122,11 @@ function guardarDatosConsultorio(btn) {
             let dataJson_fisica = {
                 api: 1,
                 turno_id: pacienteActivo.array['ID_TURNO'],
-                exploracion_tipo_id: $("#select-exploracion-clinica").val(),
+                exploracion_tipo_id: $("#select-exploracion-clinica2").val(),
                 exploracion: $("#text-exploracion-clinica").val()
             }
             ajaxAwait(dataJson_fisica, 'exploracion_clinica_api', { callbackAfter: true }, false, function (data) {
-                let titulo = $('#select-exploracion-clinica option:selected').text();
+                let titulo = $('#select-exploracion-clinica2 option:selected').text();
                 alertToast('Exploración cargada!', 'success', 4000)
                 agregarNotaConsulta(titulo, null, $("#text-exploracion-clinica").val(), '#notas-historial-consultorio', data.response.data, 'eliminarExploracion')
                 $("#text-exploracion-clinica").val('')
