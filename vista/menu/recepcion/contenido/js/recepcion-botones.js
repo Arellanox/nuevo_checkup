@@ -1,22 +1,18 @@
 // $("#btn-aceptar").click(function () {
-$(document).on('click', '#btn-aceptar', function () {
-  swal.close()
-  if (array_selected != null) {
-    $("#modalPacienteAceptar").modal('show');
-  } else {
-    alertSelectTable();
-  }
-})
+// $(document).on('click', '#btn-aceptar', function () {
+//   swal.close()
 
-$(document).on('click', '#btn-rechazar', function () {
-  // $("#btn-rechazar").click(function () {
-  swal.close()
-  if (array_selected != null) {
-    $("#modalPacienteRechazar").modal('show');
-  } else {
-    alertSelectTable();
-  }
-})
+// })
+
+// $(document).on('click', '#btn-rechazar', function () {
+//   // $("#btn-rechazar").click(function () {
+//   swal.close()
+//   if (array_selected != null) {
+//     $("#modalPacienteRechazar").modal('show');
+//   } else {
+//     alertSelectTable();
+//   }
+// })
 
 
 $(document).on('click', '#btn-espera-estatus', function () {
@@ -229,56 +225,10 @@ $(document).on('click', "#btn-perfil", function () {
 if (!validarPermiso('RepIngPaci'))
   $('#btn-pendiente').fadeOut(0);
 
-$(document).on('click', '#btn-pendiente', function () {
+// $(document).on('click', '#btn-pendiente', function () {
 
-  if (array_selected != null) {
-    // if (!session['permiso']['RepIngPaci'] == 1)
-    if (!validarPermiso('RepIngPaci', 1))
-      return false;
 
-    Swal.fire({
-      title: '¿Está Seguro de regresar al paciente en espera?',
-      text: "¡Sus estudios anteriores no se cargarán!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, colocarlo en espera',
-      cancelButtonText: "Cancelar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Esto va dentro del AJAX
-        $.ajax({
-          data: {
-            id_turno: array_selected['ID_TURNO'],
-            api: 2,
-            // estado: null
-          },
-          url: "../../../api/recepcion_api.php",
-          type: "POST",
-          success: function (data) {
-            data = jQuery.parseJSON(data);
-            if (mensajeAjax(data)) {
-              alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
-              try {
-                tablaRecepcionPacientes.ajax.reload();
-              } catch (e) {
-
-              }
-              try {
-                tablaRecepcionPacientesIngrersados.ajax.reload();
-              } catch (e) {
-
-              }
-            }
-          }
-        });
-      }
-    })
-  } else {
-    alertSelectTable('No ha seleccionado ningún paciente', 'error')
-  }
-})
+// })
 
 $(document).on('click', "#btn-reagendar", function () {
   if (array_selected != null) {

@@ -70,6 +70,9 @@ class Reporte
             case 'reporte_masometria':
             case 'espirometria': //nuevo case de espirometria
             case 'corte':
+            case 'consultorio2': //<--Consultorio2 (Creado Angel) 
+            case 'receta': //<--Receta (Creado Angel) 
+            case 'solicitud_estudios': //<-- (Creado Angel)  
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
             default:
@@ -107,6 +110,7 @@ class Reporte
         // Recibe la orden de que tipo de archivo quiere
         switch ($tipo) {
             case 'etiquetas':
+
                 $template = render_view('invoice/etiquetas.php', $view_vars);
                 $pdf->loadHtml($template);
 
@@ -116,6 +120,7 @@ class Reporte
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
                 // $pdf->setPaper('letter', 'portrait');
                 // $path    = 'pdf/public/etiquetas/00001.pdf';
+
                 break;
 
             case 'resultados':
@@ -192,6 +197,27 @@ class Reporte
                 break;
             case 'corte':
                 $template = render_view('invoice/corte.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+
+            case 'consultorio2':
+                $template = render_view('invoice/consultorio2.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+
+            case 'receta':
+                $template = render_view('invoice/receta.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                //Marca de agua
+                $pdf->getOptions()->setIsHtml5ParserEnabled(true); // Habilita el soporte para CSS3
+                $pdf->getOptions()->setIsFontSubsettingEnabled(true); // Habilita la subconjunción de fuentes
+                break;
+
+            case 'solicitud_estudios':
+                $template = render_view('invoice/solicitud_estudios.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;

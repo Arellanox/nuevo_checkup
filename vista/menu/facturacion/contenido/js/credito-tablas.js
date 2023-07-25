@@ -14,13 +14,11 @@ TablaGrupos = $('#TablaGrupos').DataTable({
         url: '../../../api/admon_grupos_api.php',
         beforeSend: function () {
             loader("In")
-            fadeRegistro('Out')
+            // fadeRegistro('Out')
 
-            //Para ocultar segunda columna
-            reloadSelectTable()
         },
         complete: function () {
-            // loader("Out")
+            loader("Out")
             //Para ocultar segunda columna
             reloadSelectTable()
 
@@ -78,6 +76,7 @@ inputBusquedaTable("TablaGrupos", TablaGrupos, [], {
 
 selectTable('#TablaGrupos', TablaGrupos, {
     unSelect: true, reload: ['col-xl-9'],
+    OnlyData: true,
     ClickClass: [
         {
             class: 'GrupoInfoCreditoBtn',
@@ -97,7 +96,7 @@ selectTable('#TablaGrupos', TablaGrupos, {
         },
     ]
 }, function (select, data, callback) {
-
+    // fadeRegistro('Out')
     if (select) {
         // $(".informacion-creditos").fadeIn(0)
         DataGrupo.id_grupo = data['ID_GRUPO']
@@ -131,10 +130,10 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
         method: 'POST',
         url: '../../../api/admon_grupos_api.php',
         beforeSend: function () {
-            fadeRegistro('Out')
+            // fadeRegistro('Out')
         },
         complete: function () {
-            fadeRegistro('In')
+            // fadeRegistro('In')
             TablaGrupoDetalle.columns.adjust().draw()
         },
         error: function (jqXHR, textStatus, errorThrown) {

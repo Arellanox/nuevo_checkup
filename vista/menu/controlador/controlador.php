@@ -29,6 +29,11 @@ include "../../variables.php";
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 
+  try {
+    var language = language.length ? language : '';
+  } catch (error) {
+    var language = '';
+  }
 
   // const appname = 'practicantes';
   // var http = "http://";
@@ -49,6 +54,7 @@ include "../../variables.php";
       var http = "https://";
       var servidor = "drjb.com.mx";
       break;
+
     case 'helicebiologicos.com':
       var http = "http://";
       var servidor = "helicebiologicos.com";

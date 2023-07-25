@@ -968,8 +968,8 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
 
         if (typeof data == "string" && data.indexOf('response') > -1) {
           data = JSON.parse(data);
-          // if (!mensajeAjax(data))
-          //   return false;
+          if (!mensajeAjax(data))
+            return false;
           data = data['response']['data'];
           // data = data['data'];
         } else {
@@ -2284,7 +2284,7 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
 
 function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
   return new Promise(resolve => {
-    $.post(http + servidor + "/" + appname + "/vista/include/acordion/antecedentes-paciente.html", function (html) {
+    $.post(`${http}${servidor}/${appname}/vista/include/acordion/antecedentes-paciente${language}.html`, function (html) {
       setTimeout(function () {
         $(div).html(html);
         // //console.log(cliente)
@@ -2308,7 +2308,7 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
 
 function obtenerVistaEspiroPacientes(div) {
   return new Promise(resolve => {
-    $.post(http + servidor + "/" + appname + "/vista/menu/area-master/contenido/forms/form_espiro.html",
+    $.post(`${http}${servidor}/${appname}/vista/menu/area-master/contenido/forms/form_espiro${language}.html`,
 
       function (html) {
         setTimeout(function () {

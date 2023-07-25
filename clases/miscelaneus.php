@@ -222,7 +222,7 @@ class Miscelaneus
         echo "Hello World!";
     }
 
-    function generarQRURL($tipo, $codeContents, $nombre, $frame = QR_ECLEVEL_M, $size = 3)
+    function generarQRURL($tipo, $codeContents, $nombre, $frame = QR_ECLEVEL_H, $size = 10)
     {
         # URL carpeta
         $tempDir = 'archivos/sistema/temp/qr/' . $tipo . '/';
@@ -485,6 +485,32 @@ class Miscelaneus
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[array_key_last($infoPaciente)]['CLAVE_ESPIRO'];
 
                 break;
+
+
+            case 19:
+            case "19":
+                #CONSULTORIO2
+                $arregloPaciente = $this->getBodyInfoConsultorio2($master, $turno_id);
+                $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_CONSULTA2'];
+                $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
+                $carpeta_guardado = "consulta_medica";
+                break;
+
+            case -2:
+                #RECETA
+                $arregloPaciente = $this->getBodyRecetas($master, $turno_id);
+                $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_CONSULTA2'];
+                $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
+                $carpeta_guardado = "recetas";
+                break;
+            case -3:
+                #SOLICITUD DE ESTUDIOS
+                $arregloPaciente = $this->getBodySoliEstudios($master, $turno_id);
+                $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_SOLICITUD_ESTUDIOS'];
+                $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
+                $carpeta_guardado = "solicitud_estudios";
+
+                break;
         }
 
 
@@ -514,6 +540,7 @@ class Miscelaneus
         // print_r(json_encode($arregloPaciente));
         // // print_r(json_encode($infoPaciente[0]));
         // exit;
+
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
 
@@ -594,6 +621,29 @@ class Miscelaneus
 
         return $arregloCotizaciones;
     }
+
+    //Consultorio
+    private function getBodyInfoConsultorio2($master, $turno_id)
+    {
+        $response = $master->getByNext('sp_consultorio2', [$turno_id]);
+
+        return $response;
+    }
+
+
+    private function getBodyRecetas($master, $turno_id)
+    {
+        $response = $master->getByNext('sp_recetas', [$turno_id]);
+        return $response;
+    }
+
+    private function getBodySoliEstudios($master, $turno_id)
+    {
+        $response = $master->getByNext('sp_consultorio2', [$turno_id]);
+        return $response;
+    }
+
+
 
     private function getBodyInfoTicket($master, $id_turno)
     {

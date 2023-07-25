@@ -11,6 +11,10 @@ $token = isset($_GET['token']) ? $_GET['token'] : null;
 $tip = isset($_GET['tip']) ? $_GET['tip'] : null;
 
 
+$language = isset($_GET['language']) && !empty($_GET['language']) ? '-' . $_GET['language'] : '';
+// echo empty($_GET['language']) ? 0 : 1;
+// exit;
+
 
 //Cuestionarios
 $ant = isset($_GET['ant']) ? $_GET['ant'] : 0;
@@ -22,7 +26,7 @@ $menu = "Pre-registro";
 ?>
 
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
+<html lang="en" dir="ltr">
 
 <head>
   <?php include "../include/head.php"; ?>
@@ -67,6 +71,7 @@ $menu = "Pre-registro";
     registroAgendaProcedencia = 0;
   const codigo = '<?php echo $codigo; ?>';
   const token = '<?php echo $token; ?>';
+  const language = '<?php echo $language; ?>';
   // console.log(token)
 
   //Cuestionarios
@@ -160,6 +165,7 @@ $menu = "Pre-registro";
     //Cuestionario
     ant = cuestionarios[2] ? true : false;
     espiro = cuestionarios[1] ? true : false;
+
 
     //Antecedentes
     // let antPre

@@ -16,6 +16,7 @@ $menu = "Consultorio";
 <div class="" id="body-controlador"> </div>
 <script type="text/javascript">
   vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
+  var language = '';
 
   function vista(menu, url) {
     $.post(url, {

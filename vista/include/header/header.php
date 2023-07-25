@@ -12,20 +12,7 @@ switch ($menu) {
         <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
       </div>
     </nav>
-    <div class="px-3 py-2 border-bottom mb-3">
-      <div class="container d-flex flex-wrap">
-        <div class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
-          <h2 class="text-center"><?php echo $menu; ?></h2> <!-- Dinamico -->
-        </div>
-        <div class="text-center" id="botones-menu-js">
-          <?php
-          if ($tip != 'pie') {
-            include "botones.php";
-          }
-          ?>
-        </div>
-      </div>
-    </div>
+
   <?php break;
   case 'Login': ?>
     <nav class="navbar border-3 border-bottom border-dark bg-navbar">
@@ -83,14 +70,14 @@ switch ($menu) {
 
       // echo $fecha_sumada; // imprime la nueva fecha en formato 'año-mes-día'
 
-      if (false && $menu != 'procedencia') :
+      if (true && $menu != 'procedencia') :
       ?>
 
         <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" />
         <div class="contenido-extra-cumple">
-          <a href="#" class="btn-flotante-cumple" id="btn-flotante-cumple" data-bs-toggle="modal" data-bs-target="#modalCardCumpleaños" style="opacity: 0.02;">
+          <a href="#" class="btn-flotante-cumple" id="btn-flotante-cumple" data-bs-toggle="modal" data-bs-target="#modalCardCumpleaños">
             <!-- <i class="bi bi-question-diamond"></i> -->
-            <img src="https://bimo-lab.com/nuevo_checkup/931950.png" alt="" id="paste-cumple" style="height: 300px;">
+            <img src="https://bimo-lab.com/nuevo_checkup/931950.png" alt="" id="paste-cumple" style="height: 30px;">
           </a>
 
           <div class="modal fade" id="modalCardCumpleaños" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
@@ -103,11 +90,13 @@ switch ($menu) {
                 <div class="modal-body">
                   <div id="tsparticles"></div>
                   <div style="position: relative; width: 100%; height: 0; padding-top: 140.9524%;
-  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
-  border-radius: 8px; will-change: transform;">
-                    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFhaaU2rcM&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+                    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFpHsrQedc&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
                     </iframe>
                   </div>
+
+
                   <!-- <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFhaaU2rcM&#x2F;watch?utm_content=DAFhaaU2rcM&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Tarjeta vertical felicitación cumpleaños empleado empresa elegante dorado</a> de Bimo Talento Humano -->
                 </div>
                 <!-- <div class="modal-footer">
@@ -172,7 +161,7 @@ switch ($menu) {
 
           // Llamar a la función de reducción de tamaño en intervalos regulares
           // setTimeout(() => {
-          const intervalo = setInterval(reducirImagen, 10);
+          // const intervalo = setInterval(reducirImagen, 10);
           // }, 500);
 
 

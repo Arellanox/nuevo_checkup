@@ -59,7 +59,7 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SER
   ]).draw();
   // $('#TablaListaPaquetes tbody').append(html);
 
-  calcularFilasTR();
+
 }
 
 
@@ -71,12 +71,14 @@ function calcularFilasTR() {
   var paqueteEstudios = new Array();
   try {
     $('#TablaListaPaquetes tbody tr').each(function () {
+      tabledata = tablaContenidoPaquete.row(this).data();
+
+
       var arregloEstudios = new Array();
       let id_servicio;
       let calculo = caluloFila(this)
       subtotalCosto += calculo[0];
       subtotalPrecioventa += calculo[1];
-      tabledata = tablaContenidoPaquete.row(this).data();
       id_servicio = tabledata[8]
       arregloEstudios = {
         'id': id_servicio,
@@ -133,15 +135,33 @@ function caluloFila(parent_element) {
   let costoTotal = cantidad * costo;
   if (checkNumber(costoTotal)) {
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$' + costoTotal.toFixed(2))
+    costoTotal = costoTotal.toFixed(2)
   } else {
     $(parent_element).find("div[class='costototal-paquete text-center']").html('$0')
+    costoTotal = 0
   }
   let subtotal = cantidad * precioventa;
   if (checkNumber(subtotal)) {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$' + subtotal.toFixed(2))
+    subtotal = subtotal.toFixed(2);
   } else {
     $(parent_element).find("div[class='subtotal-paquete text-center']").html('$0')
+    subtotal = 0
   }
+  let row = tablaContenidoPaquete.row(parent_element)
+  // Invalida el row modificado en lugar de dibujar toda la tabla
+  // row.invalidate();
+  row.data({
+    0: row.data()[0],
+    1: row.data()[1],
+    2: `<div class="input-group"><input type="number" class="form-control input-form cantidad-paquete text-center" name="cantidad-paquete" placeholder="0%" value="${cantidad}"><span class="input-span">ud</span></div>`,
+    3: `<div class="costo-paquete text-center">$${costo}</div>`,
+    4: `<div class="costototal-paquete text-center">$${costoTotal}</div>`,
+    5: row.data()[5],
+    6: `<div class="precioventa-paquete text-center">$${precioventa}</div>`,
+    7: `<div class="subtotal-paquete text-center">$${subtotal}</div>`,
+    8: row.data()[8]
+  }).invalidate().draw(false);
   return data = [costoTotal, subtotal, cantidad, costo, precioventa]
 }
 

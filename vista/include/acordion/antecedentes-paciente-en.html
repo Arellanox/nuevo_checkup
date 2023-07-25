@@ -1,0 +1,2799 @@
+<h3>
+    <div style="vertical-align: inherit;">
+        <div style="vertical-align: inherit;">Questionnaire</div>
+    </div>
+</h3>
+<p class="none-p" style="margin-left: 10px" id="descripcion-antecedentes">
+<div style="vertical-align: inherit;">
+    <div style="vertical-align: inherit;">
+        If it is your first registration, fill in each field of the questionnaire. </div>
+    <div style="vertical-align: inherit;">If you have had a previous registration, you can view your
+        information and update them. </div>
+</div><br>
+<div style="vertical-align: inherit;">
+    <div style="vertical-align: inherit;">
+        Click on each category of the questionnaire to display its fields.
+    </div>
+</div>
+</p>
+<div class="mt-3" id="antecedentes-registro">
+    <div class="card ">
+        <h4 class="m-3">
+            <div style="vertical-align: inherit;">
+                <div style="vertical-align: inherit;">Antecedents</div>
+            </div>
+        </h4>
+        <hr class="dropdown-divider m-2">
+        <div class="accordion m-2" id="accordionEstudios">
+            <!-- <form class="" id="formAntecedentes"> -->
+
+            <form id="formAntPersonalPato">
+                <div class="accordion-item bg-acordion">
+                    <h2 class="accordion-header" id="collap-patologicos">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            id="buttonformAntPersonalPato" data-bs-target="#collapse-Patologicos-Target"
+                            aria-expanded="true" aria-controls="accordionEstudios">
+                            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>
+                            <div style="vertical-align: inherit;">
+                                <div style="vertical-align: inherit;">PATHOLOGICAL PERSONAL HISTORY
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse-Patologicos-Target" class="accordion-collapse collapse show"
+                        aria-labelledby="collap-patologicos" style="">
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarAntPato"> </div>
+                        <div class="accordion-body">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU ALLERGIC TO ANY
+                                                MEDICATION OR FOOD?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-aler[]" value="1">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-aler" name="check-aler[]" value="1">
+                                        <label for="checkSi-aler">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-aler" name="check-aler[]" value="2">
+                                        <label for="checkNo-aler">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-aler">
+                                    <textarea name="check-aler[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU SUFFERED FROM ANY
+                                                FRACTURE?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-frac[]" value="2">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-frac" name="check-frac[]" value="1">
+                                        <label for="checkSi-frac">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-frac" name="check-frac[]" value="2">
+                                        <label for="checkNo-frac">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-frac">
+                                    <textarea name="check-frac[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE DIABETES MELLITUS?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-DiaMelli[]" value="3">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-DiaMelli" name="check-DiaMelli[]"
+                                            value="1">
+                                        <label for="checkSi-DiaMelli">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-DiaMelli" name="check-DiaMelli[]"
+                                            value="2">
+                                        <label for="checkNo-DiaMelli">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-DiaMelli">
+                                    <textarea name="check-DiaMelli[]" class="onlyMedico form-control input-form"
+                                        rows="2" cols="2" placeholder="specify" style="display: none;"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE ARTERIAL
+                                                HYPERTENSION?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-hiArt[]" value="4">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-hiArt" name="check-hiArt[]"
+                                            value="1">
+                                        <label for="checkSi-hiArt">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-hiArt" name="check-hiArt[]"
+                                            value="2">
+                                        <label for="checkNo-hiArt">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-hiArt">
+                                    <textarea name="check-hiArt[]" class="onlyMedico form-control input-form" rows="2"
+                                        cols="2" placeholder="specify" style="display: none;"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM CHOLESTEROL
+                                                AND TRIGLYCERIDES?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-disli[]" value="5">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-disli" name="check-disli[]"
+                                            value="1">
+                                        <label for="checkSi-disli">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-disli" name="check-disli[]"
+                                            value="2">
+                                        <label for="checkNo-disli">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-disli">
+                                    <textarea name="check-disli[]" class="onlyMedico form-control input-form" rows="2"
+                                        cols="2" placeholder="specify" style="display: none;"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM ANY DISEASE
+                                                RELATED TO THE THYROID?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-enTiro[]" value="6">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-enTiro" name="check-enTiro[]"
+                                            value="1">
+                                        <label for="checkSi-enTiro">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-enTiro" name="check-enTiro[]"
+                                            value="2">
+                                        <label for="checkNo-enTiro">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-enTiro">
+                                    <textarea name="check-enTiro[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM ANY DISEASE
+                                                RELATED TO THE HEART SUCH AS: HEART FAILURE, ARRHYTHMIAS, STROKE?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-cardi[]" value="7">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-cardi" name="check-cardi[]"
+                                            value="1">
+                                        <label for="checkSi-cardi">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-cardi" name="check-cardi[]"
+                                            value="2">
+                                        <label for="checkNo-cardi">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-cardi">
+                                    <textarea name="check-cardi[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE ANY TYPE OF CANCER?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-cancr[]" value="8">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-cancr" name="check-cancr[]"
+                                            value="1">
+                                        <label for="checkSi-cancr">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-cancr" name="check-cancr[]"
+                                            value="2">
+                                        <label for="checkNo-cancr">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-cancr">
+                                    <textarea name="check-cancr[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU HAD ANY BLOOD
+                                                TRANSFUSION?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-trans[]" value="9">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-trans" name="check-trans[]"
+                                            value="1">
+                                        <label for="checkSi-trans">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-trans" name="check-trans[]"
+                                            value="2">
+                                        <label for="checkNo-trans">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-trans">
+                                    <textarea name="check-trans[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM ANY
+                                                RESPIRATORY DISEASE SUCH AS: ASTHMA, BRONCHITIS, OBSTRUCTIVE
+                                                PULMONARY DISEASE, AMONG OTHERS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-enfRespi[]" value="10">
+
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-enfRespi" name="check-enfRespi[]"
+                                            value="1">
+                                        <label for="checkSi-enfRespi">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-enfRespi" name="check-enfRespi[]"
+                                            value="2">
+                                        <label for="checkNo-enfRespi">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-enfRespi">
+                                    <textarea name="check-enfRespi[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM ANY
+                                                GASTROINTESTINAL DISEASE SUCH AS: GASTRITIS, GASTROESOPHAGEAL
+                                                REFLUX, INTESTINAL POLYPS, AMONG OTHERS:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-enfGastro[]" value="11">
+
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-enfGastro" name="check-enfGastro[]"
+                                            value="1">
+                                        <label for="checkSi-enfGastro">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-enfGastro" name="check-enfGastro[]"
+                                            value="2">
+                                        <label for="checkNo-enfGastro">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse show" id="collapse-enfGastro" style="">
+                                    <textarea name="check-enfGastro[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM DEPRESSION,
+                                                ANXIETY, BEHAVIOR DISORDER, AMONG OTHERS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-enfPsiciPsiq[]" value="12">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-enfPsiciPsiq"
+                                            name="check-enfPsiciPsiq[]" value="1">
+                                        <label for="checkSi-enfPsiciPsiq">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-enfPsiciPsiq"
+                                            name="check-enfPsiciPsiq[]" value="2">
+                                        <label for="checkNo-enfPsiciPsiq">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse show" id="collapse-enfPsiciPsiq" style="">
+                                    <textarea name="check-enfPsiciPsiq[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU BEEN DIAGNOSED WITH
+                                                TUBERCULOSIS:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-Turberclo[]" value="13">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-Turberclo" name="check-Turberclo[]"
+                                            value="1">
+                                        <label for="checkSi-Turberclo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-Turberclo" name="check-Turberclo[]"
+                                            value="2">
+                                        <label for="checkNo-Turberclo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-Turberclo">
+                                    <textarea name="check-Turberclo[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU SUFFERED ANY INJURIES TO
+                                                THE HEAD, FACE, CERVICAL SPINE, SPRAINS, AMONG OTHERS?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-Trauma[]" value="14">
+
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-Trauma" name="check-Trauma[]"
+                                            value="1">
+                                        <label for="checkSi-Trauma">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-Trauma" name="check-Trauma[]"
+                                            value="2">
+                                        <label for="checkNo-Trauma">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-Trauma">
+                                    <textarea name="check-Trauma[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU HAD ANY SEXUALLY
+                                                TRANSMITTED DISEASE?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-enfTransSex[]" value="15">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-enfTransSex"
+                                            name="check-enfTransSex[]" value="1">
+                                        <label for="checkSi-enfTransSex">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-enfTransSex"
+                                            name="check-enfTransSex[]" value="2">
+                                        <label for="checkNo-enfTransSex">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-enfTransSex">
+                                    <textarea name="check-enfTransSex[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU BEEN HOSPITALIZED THIS
+                                                YEAR?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-hospitaPrevia[]" value="16">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-hospitaPrevia"
+                                            name="check-hospitaPrevia[]" value="1">
+                                        <label for="checkSi-hospitaPrevia">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-hospitaPrevia"
+                                            name="check-hospitaPrevia[]" value="2">
+                                        <label for="checkNo-hospitaPrevia">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-hospitaPrevia">
+                                    <textarea name="check-hospitaPrevia[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU UNDERGOED ANY SURGICAL
+                                                INTERVENTION?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-ciruPrev[]" value="17">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-ciruPrev" name="check-ciruPrev[]"
+                                            value="1">
+                                        <label for="checkSi-ciruPrev">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-ciruPrev" name="check-ciruPrev[]"
+                                            value="2">
+                                        <label for="checkNo-ciruPrev">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-ciruPrev">
+                                    <textarea name="check-ciruPrev[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarAntPato"> </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="formAntNoPatologicos">
+                <div class="accordion-item bg-acordion">
+                    <h2 class="accordion-header" id="collap-nopatologicos">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            id="buttonformAntNoPatologicos" data-bs-target="#collapse-nopatologicos-Target"
+                            aria-expanded="true" aria-controls="accordionEstudios">
+                            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>
+                            <div style="vertical-align: inherit;">
+                                <div style="vertical-align: inherit;">NON-PATHOLOGICAL HISTORY
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse-nopatologicos-Target" class="accordion-collapse collapse show"
+                        aria-labelledby="collap-nopatologicos" style="">
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarAntNoPato"> </div>
+                        <div class="accordion-body">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SMOKE?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-tabaq[]" value="18">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-tabaq" name="check-tabaq[]"
+                                            value="1">
+                                        <label for="checkSi-tabaq">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-tabaq" name="check-tabaq[]"
+                                            value="2">
+                                        <label for="checkNo-tabaq">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-tabaq">
+                                    <textarea name="check-tabaq[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="Frequency"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU CONSUME ALCOHOLIC
+                                                BEVERAGES?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-alcoh[]" value="19">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-alcoh" name="check-alcoh[]"
+                                            value="1">
+                                        <label for="checkSi-alcoh">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-alcoh" name="check-alcoh[]"
+                                            value="2">
+                                        <label for="checkNo-alcoh">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-alcoh">
+                                    <textarea name="check-alcoh[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="Frequency"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU USE ANY TYPE OF DRUGS?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-usDrog[]" value="20">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-usDrog" name="check-usDrog[]"
+                                            value="1">
+                                        <label for="checkSi-usDrog">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-usDrog" name="check-usDrog[]"
+                                            value="2">
+                                        <label for="checkNo-usDrog">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-usDrog">
+                                    <textarea name="check-usDrog[]" class="onlyMedico form-control input-form" rows="2"
+                                        cols="2" placeholder="Frequency and which ones?"
+                                        style="display: none;"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU DO PHYSICAL ACTIVITY
+                                                FREQUENTLY?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-actFisica[]" value="21">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-actFisica" name="check-actFisica[]"
+                                            value="1">
+                                        <label for="checkSi-actFisica">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-actFisica" name="check-actFisica[]"
+                                            value="2">
+                                        <label for="checkNo-actFisica">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-actFisica">
+                                    <textarea name="check-actFisica[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="Frequency"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DOES YOUR HOME HAVE POTABLE
+                                                WATER, ELECTRICITY AND DRAINAGE? </div>
+                                            <div style="vertical-align: inherit;">:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-viviSerUrba[]" value="22">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-viviSerUrba"
+                                            name="check-viviSerUrba[]" value="1">
+                                        <label for="checkSi-viviSerUrba">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-viviSerUrba"
+                                            name="check-viviSerUrba[]" value="2">
+                                        <label for="checkNo-viviSerUrba">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-viviSerUrba">
+                  <textarea name="check-viviSerUrba[]" class="form-control input-form" rows="2" cols="2" placeholder="Frecuencia..."></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE AN ACTIVE SEX LIFE?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-actSex[]" value="23">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-actSex" name="check-actSex[]"
+                                            value="1">
+                                        <label for="checkSi-actSex">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-actSex" name="check-actSex[]"
+                                            value="2">
+                                        <label for="checkNo-actSex">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse show" id="collapse-actSex" style="">
+                                    <textarea name="check-actSex[]" class="onlyMedico form-control input-form" rows="2"
+                                        cols="2" placeholder="Frequency" style="display: none;"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU BEEN VACCINATED
+                                                RECENTLY?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-vacReci[]" value="24">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-vacReci" name="check-vacReci[]"
+                                            value="1">
+                                        <label for="checkSi-vacReci">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-vacReci" name="check-vacReci[]"
+                                            value="2">
+                                        <label for="checkNo-vacReci">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse show" id="collapse-vacReci" style="">
+                                    <textarea name="check-vacReci[]" class="form-control input-form" rows="2" cols="2"
+                                        placeholder="Which date"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarAntNoPato"> </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+            <form id="formAntHeredofamiliares">
+                <div class="accordion-item bg-acordion">
+                    <h2 class="accordion-header" id="collap-anteHeredo">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            id="btnformAntHeredofamiliares" data-bs-target="#collapse-anteHeredo-Target"
+                            aria-expanded="true" aria-controls="accordionEstudios">
+                            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>
+                            <div style="vertical-align: inherit;">
+                                <div style="vertical-align: inherit;">HEREDOFAMILY BACKGROUND
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse-anteHeredo-Target" class="accordion-collapse collapse show"
+                        aria-labelledby="collap-anteHeredo" style="">
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarHeredoFami"> </div>
+                        <div class="accordion-body">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">IS YOUR FATHER ALIVE?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-hero-padre[]" value="25">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-hero-padre"
+                                            name="check-hero-padre[]" value="2">
+                                        <label for="checkSi-hero-padre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-hero-padre"
+                                            name="check-hero-padre[]" value="1">
+                                        <label for="checkNo-hero-padre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-hero-padre">
+                                    <textarea name="check-hero-padre[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="Cause?"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE OR DID YOU HAVE
+                                                DIABETES MELLITUS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-diabe-padre[]" value="26">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-diabe-padre"
+                                            name="check-diabe-padre[]" value="1">
+                                        <label for="checkSi-diabe-padre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-diabe-padre"
+                                            name="check-diabe-padre[]" value="2">
+                                        <label for="checkNo-diabe-padre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-diabe-padre">
+                  <textarea name="check-diabe-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER OR HAVE YOU
+                                                SUFFERED FROM ARTERIAL HYPERTENSION?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-hisperArt-padre[]" value="27">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-hisperArt-padre"
+                                            name="check-hisperArt-padre[]" value="1">
+                                        <label for="checkSi-hisperArt-padre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-hisperArt-padre"
+                                            name="check-hisperArt-padre[]" value="2">
+                                        <label for="checkNo-hisperArt-padre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-hisperArt-padre">
+                  <textarea name="check-hisperArt-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE OR HAVE YOU HAD ANY
+                                                TYPE OF CANCER?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-canc-padre[]" value="28">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-canc-padre"
+                                            name="check-canc-padre[]" value="1">
+                                        <label for="checkSi-canc-padre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-canc-padre"
+                                            name="check-canc-padre[]" value="2">
+                                        <label for="checkNo-canc-padre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-canc-padre">
+                                    <textarea name="check-canc-padre[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- <hr class="dropdown-divider m-2"> -->
+                            <!--     <div class="row d-flex justify-content-center"
+      style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label>Otras: </label>
+                  <input type="hidden" name="check-otra-padre[]" value="29">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+  
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-otra-padre" name="check-otra-padre[]" value="1" required >
+                  <label for="checkSi-otra-padre">Si</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required  id="checkNo-otra-padre" name="check-otra-padre[]" value="2">
+                  <label for="checkNo-otra-padre" >No</label>
+                </div>
+                <div class="collapse" id="collapse-otra-padre">
+                  <textarea name="check-otra-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                </div>
+              </div> -->
+                            <br>
+                            <!-- <hr class="dropdown-divider m-2"> -->
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">IS YOUR MOTHER ALIVE?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-hero-madre[]" value="30">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-hero-madre"
+                                            name="check-hero-madre[]" value="2">
+                                        <label for="checkSi-hero-madre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-hero-madre"
+                                            name="check-hero-madre[]" value="1">
+                                        <label for="checkNo-hero-madre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-hero-madre">
+                                    <textarea name="check-hero-madre[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="Cause?"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE OR DID YOU HAVE
+                                                DIABETES MELLITUS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-diabe-madre[]" value="31">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-diabe-madre"
+                                            name="check-diabe-madre[]" value="1">
+                                        <label for="checkSi-diabe-madre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-diabe-madre"
+                                            name="check-diabe-madre[]" value="2">
+                                        <label for="checkNo-diabe-madre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-diabe-madre">
+                  <textarea name="check-diabe-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER OR HAVE YOU
+                                                SUFFERED FROM ARTERIAL HYPERTENSION?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-hisperArt-madre[]" value="32">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-hisperArt-madre"
+                                            name="check-hisperArt-madre[]" value="1">
+                                        <label for="checkSi-hisperArt-madre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-hisperArt-madre"
+                                            name="check-hisperArt-madre[]" value="2">
+                                        <label for="checkNo-hisperArt-madre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-hisperArt-madre">
+                  <textarea name="check-hisperArt-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE OR HAVE YOU HAD ANY
+                                                TYPE OF CANCER?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-canc-madre[]" value="33">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-canc-madre"
+                                            name="check-canc-madre[]" value="1">
+                                        <label for="checkSi-canc-madre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-canc-madre"
+                                            name="check-canc-madre[]" value="2">
+                                        <label for="checkNo-canc-madre">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-canc-madre">
+                                    <textarea name="check-canc-madre[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <!--     <div class="row d-flex justify-content-center"
+      style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label>Otras: </label>
+                  <input type="hidden" name="check-otra-madre[]" value="34">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+  
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-otra-madre" name="check-otra-madre[]" value="1" required >
+                  <label for="checkSi-otra-madre">Si</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required  id="checkNo-otra-madre" name="check-otra-madre[]" value="2">
+                  <label for="checkNo-otra-madre" >No</label>
+                </div>
+                <div class="collapse" id="collapse-otra-madre">
+                  <textarea name="check-otra-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                </div>
+              </div> -->
+                        </div>
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarHeredoFami"> </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+            <form id="formAntPsicologico">
+                <div class="accordion-item bg-acordion">
+                    <h2 class="accordion-header" id="collap-antPsico">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            id="btnformAntPsicologico" data-bs-target="#collapse-antPsico-Target" aria-expanded="true"
+                            aria-controls="accordionEstudios">
+                            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>
+                            <div style="vertical-align: inherit;">
+                                <div style="vertical-align: inherit;">PSYCHOLOGICAL/PSYCHIATRIC HISTORY
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse-antPsico-Target" class="accordion-collapse collapse show"
+                        aria-labelledby="collap-antPsico" style="">
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarPsico"> </div>
+                        <div class="accordion-body">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM ANY
+                                                PSYCHOLOGICAL OR PSYCHIATRIC ILLNESS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-enfpsicopsiq[]" value="35">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-enfpsicopsiq"
+                                            name="check-enfpsicopsiq[]" value="1">
+                                        <label for="checkSi-enfpsicopsiq">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-enfpsicopsiq"
+                                            name="check-enfpsicopsiq[]" value="2">
+                                        <label for="checkNo-enfpsicopsiq">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-enfpsicopsiq">
+                                    <textarea name="check-enfpsicopsiq[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">WHAT AREAS OF YOUR LIFE HAVE BEEN
+                                                AFFECTED BY THE DISEASE?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-enfAfect[]" value="36">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input ut="" type="radio" required="" id="checkFamiliar-enfAfect"
+                                            name="check-enfAfect[]" value="3">
+                                        <label for="checkFamiliar-enfAfect">Familiar</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSocial-enfAfect"
+                                            name="check-enfAfect[]" value="4">
+                                        <label for="checkSocial-enfAfect">Social</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Laboral-enfAfect"
+                                            name="check-enfAfect[]" value="5">
+                                        <label for="check-Laboral-enfAfect">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Labor</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-noAplica-enfAfect"
+                                            name="check-enfAfect[]" value="2">
+                                        <label for="check-noAplica-enfAfect">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Does not apply</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- <div class="col-auto">
+                    <input type="radio" required  id="check-Todas-enfAfect" name="check-enfAfect[]" value="5">
+                    <label for="check-Todas-enfAfect">Todas</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required  id="check-Ninguna-enfAfect" name="check-enfAfect[]" value="2">
+                    <label for="check-Ninguna-enfAfect">Ninguna</label>
+                  </div> -->
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HOW OFTEN DO YOU FEEL HAPPY?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-frecFeliz[]" value="37">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Nunca-frecFeliz"
+                                            name="check-frecFeliz[]" value="7">
+                                        <label for="check-Nunca-frecFeliz">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Never</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-A veces-frecFeliz"
+                                            name="check-frecFeliz[]" value="8">
+                                        <label for="check-A veces-frecFeliz">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Sometimes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Siempre-frecFeliz"
+                                            name="check-frecFeliz[]" value="9">
+                                        <label for="check-Siempre-frecFeliz">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Always</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU CONSIDER YOU HAVE
+                                                ACCOMPLISHED YOUR GOALS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-sienRealiz[]" value="38">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-sienRealiz"
+                                            name="check-sienRealiz[]" value="1">
+                                        <label for="checkSi-sienRealiz">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-sienRealiz"
+                                            name="check-sienRealiz[]" value="2">
+                                        <label for="checkNo-sienRealiz">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-sienRealiz">
+                  <textarea name="check-sienRealiz[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HOW OFTEN DO YOU FEEL LONELY?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-frecSolo[]" value="39">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Nunca-frecSolo"
+                                            name="check-frecSolo[]" value="7">
+                                        <label for="check-Nunca-frecSolo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Never</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-A veces-frecSolo"
+                                            name="check-frecSolo[]" value="8">
+                                        <label for="check-A veces-frecSolo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Sometimes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Siempre-frecSolo"
+                                            name="check-frecSolo[]" value="9">
+                                        <label for="check-Siempre-frecSolo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Always</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HOW OFTEN DO YOU FEEL SAD?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-frectris[]" value="40">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Nunca-frectris"
+                                            name="check-frectris[]" value="7">
+                                        <label for="check-Nunca-frectris">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Never</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-A veces-frectris"
+                                            name="check-frectris[]" value="8">
+                                        <label for="check-A veces-frectris">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Sometimes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Siempre-frectris"
+                                            name="check-frectris[]" value="9">
+                                        <label for="check-Siempre-frectris">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Always</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU CONSTANTLY FEEL FRUSTRATED
+                                                BEFORE EVERYDAY SITUATIONS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-situaciCotidia[]" value="41">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Nunca-situaciCotidia"
+                                            name="check-situaciCotidia[]" value="7">
+                                        <label for="check-Nunca-situaciCotidia">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Never</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-A veces-situaciCotidia"
+                                            name="check-situaciCotidia[]" value="8">
+                                        <label for="check-A veces-situaciCotidia">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Sometimes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Siempre-situaciCotidia"
+                                            name="check-situaciCotidia[]" value="9">
+                                        <label for="check-Siempre-situaciCotidia">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Always</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarPsico"> </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+            <form id="formAntNutricionales">
+                <div class="accordion-item bg-acordion">
+                    <h2 class="accordion-header" id="collap-antNutri">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            id="btnformAntNutricionales" data-bs-target="#collapse-antNutri-Target" aria-expanded="true"
+                            aria-controls="accordionEstudios">
+                            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>
+                            <div style="vertical-align: inherit;">
+                                <div style="vertical-align: inherit;">NUTRITIONAL BACKGROUND
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse-antNutri-Target" class="accordion-collapse collapse show"
+                        aria-labelledby="collap-antNutri" style="">
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarAntNutri"> </div>
+                        <div class="accordion-body">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE BREAKFAST BETWEEN
+                                                08:00AM AND 11:00AM?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-Desayuno[]" value="42">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-Desayuno" name="check-Desayuno[]"
+                                            value="1">
+                                        <label for="checkSi-Desayuno">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-Desayuno" name="check-Desayuno[]"
+                                            value="2">
+                                        <label for="checkNo-Desayuno">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-Desayuno">
+                  <textarea name="check-Desayuno[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU MAKE A SNACK OF FOOD IN
+                                                THE MORNING?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-colaMana[]" value="43">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-colaMana" name="check-colaMana[]"
+                                            value="1">
+                                        <label for="checkSi-colaMana">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-colaMana" name="check-colaMana[]"
+                                            value="2">
+                                        <label for="checkNo-colaMana">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-colaMana">
+                  <textarea name="check-colaMana[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE LUNCH BETWEEN 02:00
+                                                PM AND 05:00 PM?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-Comida[]" value="44">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-Comida" name="check-Comida[]"
+                                            value="1">
+                                        <label for="checkSi-Comida">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-Comida" name="check-Comida[]"
+                                            value="2">
+                                        <label for="checkNo-Comida">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-Comida">
+                  <textarea name="check-Comida[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU MAKE A SNACK OF FOOD IN
+                                                THE AFTERNOON?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-colaTarde[]" value="45">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-colaTarde" name="check-colaTarde[]"
+                                            value="1">
+                                        <label for="checkSi-colaTarde">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-colaTarde" name="check-colaTarde[]"
+                                            value="2">
+                                        <label for="checkNo-colaTarde">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-colaTarde">
+                  <textarea name="check-colaTarde[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
+                </div> -->
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU HAVE DINNER BETWEEN 07:00
+                                                PM AND 10:00 PM?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-colaCena[]" value="46">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-colaCena" name="check-colaCena[]"
+                                            value="1">
+                                        <label for="checkSi-colaCena">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-colaCena" name="check-colaCena[]"
+                                            value="2">
+                                        <label for="checkNo-colaCena">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-colaCena">
+                  <textarea name="check-colaCena[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
+                </div> -->
+                            </div>
+
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU EAT HOME PREPARED FOOD?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-alimePrepa[]" value="47">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-alimePrepa"
+                                            name="check-alimePrepa[]" value="1">
+                                        <label for="checkSi-alimePrepa">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-alimePrepa"
+                                            name="check-alimePrepa[]" value="2">
+                                        <label for="checkNo-alimePrepa">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- <div class="collapse" id="collapse-alimePrepa">
+                  <textarea name="check-alimePrepa[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
+                </div> -->
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HOW OFTEN DO YOU EAT FOOD
+                                                PREPARED ON THE STREET?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-frecAlimprepa[]" value="48">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Nunca-frecAlimprepa"
+                                            name="check-frecAlimprepa[]" value="7">
+                                        <label for="check-Nunca-frecAlimprepa">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Never</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-A veces-frecAlimprepa"
+                                            name="check-frecAlimprepa[]" value="8">
+                                        <label for="check-A veces-frecAlimprepa">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Sometimes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Siempre-frecAlimprepa"
+                                            name="check-frecAlimprepa[]" value="9">
+                                        <label for="check-Siempre-frecAlimprepa">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Always</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">WHAT IS YOUR APPETITE LEVEL?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-nivelApeti[]" value="49">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Bueno-nivelApeti"
+                                            name="check-nivelApeti[]" value="10">
+                                        <label for="check-Bueno-nivelApeti">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Well</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Regular-nivelApeti"
+                                            name="check-nivelApeti[]" value="11">
+                                        <label for="check-Regular-nivelApeti">Regular</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Malo-nivelApeti"
+                                            name="check-nivelApeti[]" value="12">
+                                        <label for="check-Malo-nivelApeti">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Place</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">WHAT IS YOUR LEVEL OF SATIETY?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-nivelSacied[]" value="50">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Bueno-nivelSacied"
+                                            name="check-nivelSacied[]" value="10">
+                                        <label for="check-Bueno-nivelSacied">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Well</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Regular-nivelSacied"
+                                            name="check-nivelSacied[]" value="11">
+                                        <label for="check-Regular-nivelSacied">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Regular</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-Malo-nivelSacied"
+                                            name="check-nivelSacied[]" value="12">
+                                        <label for="check-Malo-nivelSacied">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Place</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HOW MANY GLASSES OF WATER DO YOU
+                                                CONSUME PER DAY?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-vasosAguaConsuem[]" value="51">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-03-vasosAguaConsuem"
+                                            name="check-vasosAguaConsuem[]" value="13">
+                                        <label for="check-03-vasosAguaConsuem">0 a 3</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-46-vasosAguaConsuem"
+                                            name="check-vasosAguaConsuem[]" value="14">
+                                        <label for="check-46-vasosAguaConsuem">4 a 6</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="check-79-vasosAguaConsuem"
+                                            name="check-vasosAguaConsuem[]" value="15">
+                                        <label for="check-79-vasosAguaConsuem">7 a 9</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM ANY
+                                                FOOD-RELATED ILLNESS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-PadeceEnfeAlime[]" value="52">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checksi-enferRelaciAlime"
+                                            name="check-PadeceEnfeAlime[]" value="1">
+                                        <label for="checksi-enferRelaciAlime">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-enferRelaciAlime"
+                                            name="check-PadeceEnfeAlime[]" value="2">
+                                        <label for="checkNo-enferRelaciAlime">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-PadeceEnfeAlime">
+                                    <textarea name="check-PadeceEnfeAlime[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU USE FOOD SUPPLEMENTS?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-ConssupleAli[]" value="53">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-ConssupleAli"
+                                            name="check-ConssupleAli[]" value="1">
+                                        <label for="checkSi-ConssupleAli">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-ConssupleAli"
+                                            name="check-ConssupleAli[]" value="2">
+                                        <label for="checkNo-ConssupleAli">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-ConssupleAli">
+                                    <textarea name="check-ConssupleAli[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarAntNutri"> </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <form id="formMedioLaboral">
+                <div class="accordion-item bg-acordion onlyProcedencia">
+                    <h2 class="accordion-header" id="collap-MedLabo">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            id="btnformMedioLaboral" data-bs-target="#collapse-MedLabo-Target" aria-expanded="true"
+                            aria-controls="accordionEstudios">
+                            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>
+                            <div style="vertical-align: inherit;">
+                                <div style="vertical-align: inherit;">WORK ENVIRONMENT
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse-MedLabo-Target" class="accordion-collapse collapse show"
+                        aria-labelledby="collap-MedLabo" style="">
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarAntLabo"> </div>
+                        <div class="accordion-body">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU HAD DISABILITY DUE TO A
+                                                WORK ACCIDENT?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-incapaAccid[]" value="54">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-incapaAccid"
+                                            name="check-incapaAccid[]" value="1">
+                                        <label for="checkSi-incapaAccid">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-incapaAccid"
+                                            name="check-incapaAccid[]" value="2">
+                                        <label for="checkNo-incapaAccid">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-incapaAccid">
+                                    <textarea name="check-incapaAccid[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU HAD DISABILITY DUE TO
+                                                ANY ILLNESS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-incapaEnfer[]" value="55">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-incapaEnfer"
+                                            name="check-incapaEnfer[]" value="1">
+                                        <label for="checkSi-incapaEnfer">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-incapaEnfer"
+                                            name="check-incapaEnfer[]" value="2">
+                                        <label for="checkNo-incapaEnfer">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse show" id="collapse-incapaEnfer" style="">
+                                    <textarea name="check-incapaEnfer[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM ANY SKIN
+                                                DISEASE DUE TO CONTACT WITH MATERIALS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-condiPielMateri[]" value="56">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-condiPielMateri"
+                                            name="check-condiPielMateri[]" value="1">
+                                        <label for="checkSi-condiPielMateri">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-condiPielMateri"
+                                            name="check-condiPielMateri[]" value="2">
+                                        <label for="checkNo-condiPielMateri">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-condiPielMateri">
+                                    <textarea name="check-condiPielMateri[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">HAVE YOU HAD ANY FRACTURE OR
+                                                INJURY CAUSED AT WORK?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-fracLesiTrab[]" value="57">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-fracLesiTrab"
+                                            name="check-fracLesiTrab[]" value="1">
+                                        <label for="checkSi-fracLesiTrab">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-fracLesiTrab"
+                                            name="check-fracLesiTrab[]" value="2">
+                                        <label for="checkNo-fracLesiTrab">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-fracLesiTrab">
+                                    <textarea name="check-fracLesiTrab[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">DO YOU SUFFER FROM ANY ILLNESS
+                                                RELATED TO YOUR TYPE OF WORK ACTIVITY?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-anteEnferTrabajo[]" value="58">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-anteEnferTrabajo"
+                                            name="check-anteEnferTrabajo[]" value="1">
+                                        <label for="checkSi-anteEnferTrabajo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-anteEnferTrabajo"
+                                            name="check-anteEnferTrabajo[]" value="2">
+                                        <label for="checkNo-anteEnferTrabajo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-anteEnferTrabajo">
+                                    <textarea name="check-anteEnferTrabajo[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO DUSTY
+                                                MATERIAL?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-expoMatpolvo[]" value="59">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-expoMatpolvo"
+                                            name="check-expoMatpolvo[]" value="1">
+                                        <label for="checkSi-expoMatpolvo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-expoMatpolvo"
+                                            name="check-expoMatpolvo[]" value="2">
+                                        <label for="checkNo-expoMatpolvo">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-expoMatpolvo">
+                                    <textarea name="check-expoMatpolvo[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO LOUD NOISE?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-exposiRuidFuertes[]" value="60">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-exposiRuidFuertes"
+                                            name="check-exposiRuidFuertes[]" value="1">
+                                        <label for="checkSi-exposiRuidFuertes">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-exposiRuidFuertes"
+                                            name="check-exposiRuidFuertes[]" value="2">
+                                        <label for="checkNo-exposiRuidFuertes">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-exposiRuidFuertes">
+                                    <textarea name="check-exposiRuidFuertes[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO CHEMICAL
+                                                SUBSTANCES?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-expoSustQuimi[]" value="61">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-expoSustQuimi"
+                                            name="check-expoSustQuimi[]" value="1">
+                                        <label for="checkSi-expoSustQuimi">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-expoSustQuimi"
+                                            name="check-expoSustQuimi[]" value="2">
+                                        <label for="checkNo-expoSustQuimi">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-expoSustQuimi">
+                                    <textarea name="check-expoSustQuimi[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO GASES?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-exposGases[]" value="62">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-exposGases"
+                                            name="check-exposGases[]" value="1">
+                                        <label for="checkSi-exposGases">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-exposGases"
+                                            name="check-exposGases[]" value="2">
+                                        <label for="checkNo-exposGases">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-exposGases">
+                                    <textarea name="check-exposGases[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO FLAMMABLE
+                                                LIQUIDS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-expoLiquinfla[]" value="63">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-expoLiquinfla"
+                                            name="check-expoLiquinfla[]" value="1">
+                                        <label for="checkSi-expoLiquinfla">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-expoLiquinfla"
+                                            name="check-expoLiquinfla[]" value="2">
+                                        <label for="checkNo-expoLiquinfla">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-expoLiquinfla">
+                                    <textarea name="check-expoLiquinfla[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO FLAMMABLE
+                                                SOLIDS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-exposoliInflamables[]" value="64">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-exposoliInflamables"
+                                            name="check-exposoliInflamables[]" value="1">
+                                        <label for="checkSi-exposoliInflamables">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-exposoliInflamables"
+                                            name="check-exposoliInflamables[]" value="2">
+                                        <label for="checkNo-exposoliInflamables">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-exposoliInflamables">
+                                    <textarea name="check-exposoliInflamables[]" class="form-control input-form"
+                                        rows="2" cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO EXPLOSIVES?:
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-expoExplosi[]" value="65">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-expoExplosi"
+                                            name="check-expoExplosi[]" value="1">
+                                        <label for="checkSi-expoExplosi">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-expoExplosi"
+                                            name="check-expoExplosi[]" value="2">
+                                        <label for="checkNo-expoExplosi">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-expoExplosi">
+                                    <textarea name="check-expoExplosi[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO RADIOACTIVE
+                                                MATERIALS?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-ExposimateRadio[]" value="66">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-ExposimateRadio"
+                                            name="check-ExposimateRadio[]" value="1">
+                                        <label for="checkSi-ExposimateRadio">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-ExposimateRadio"
+                                            name="check-ExposimateRadio[]" value="2">
+                                        <label for="checkNo-ExposimateRadio">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-ExposimateRadio">
+                                    <textarea name="check-ExposimateRadio[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO CORROSIVE
+                                                SUBSTANCES?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-exposiSusCorro[]" value="67">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-exposiSusCorro"
+                                            name="check-exposiSusCorro[]" value="1">
+                                        <label for="checkSi-exposiSusCorro">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-exposiSusCorro"
+                                            name="check-exposiSusCorro[]" value="2">
+                                        <label for="checkNo-exposiSusCorro">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-exposiSusCorro">
+                                    <textarea name="check-exposiSusCorro[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <div class="row d-flex justify-content-center"
+                                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                                <div class="col-12 col-lg-5 col-xl-7">
+                                    <label>
+                                        <div style="vertical-align: inherit;">
+                                            <div style="vertical-align: inherit;">ARE YOU EXPOSED TO POISONOUS
+                                                AND/OR INFECTIOUS SUBSTANCES?:</div>
+                                        </div>
+                                    </label>
+                                    <input type="hidden" name="check-exposSusVeneInfe[]" value="68">
+                                </div>
+                                <div
+                                    class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkSi-exposSusVeneInfe"
+                                            name="check-exposSusVeneInfe[]" value="1">
+                                        <label for="checkSi-exposSusVeneInfe">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">Yes</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required="" id="checkNo-exposSusVeneInfe"
+                                            name="check-exposSusVeneInfe[]" value="2">
+                                        <label for="checkNo-exposSusVeneInfe">
+                                            <div style="vertical-align: inherit;">
+                                                <div style="vertical-align: inherit;">No</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-exposSusVeneInfe">
+                                    <textarea name="check-exposSusVeneInfe[]" class="form-control input-form" rows="2"
+                                        cols="2" placeholder="specify"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end p-2 div-btn-guardarAntLabo"> </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+
+            <!-- </form> -->
+            <!-- <div class="d-flex justify-content-end p-2" id="div-btn-guardarAntecedentes"> </div> -->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        jQuery(document).on("change ,  keyup", "input[type='radio']", function () {
+            var parent_element = jQuery(this).closest("div[class='row d-flex justify-content-center']");
+            console.log(parent_element)
+            if (this.value == true) {
+                var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
+                console.log(collapID)
+                //HTML
+                if (typeof collapID === "undefined") {
+                    // alert('indefinido')
+                    var collapID = jQuery(parent_element).children("div[class='onlyMedico collapse']").attr("id");
+                }
+                $('#' + collapID).collapse("show")
+                $('#' + collapID).find(':input').prop('required', true);
+            } else {
+                var collapID = jQuery(parent_element).children("div[class='collapse show']").attr("id");
+                if (typeof collapID === "undefined") {
+                    // alert('indefinido')
+                    var collapID = jQuery(parent_element).children("div[class='onlyMedico collapse show']").attr("id");
+                }
+                $('#' + collapID).collapse("hide")
+                $('#' + collapID).find(':input').val('')
+                $('#' + collapID).find(':input').prop('required', false);
+            }
+        });
+    </script>
+</div>

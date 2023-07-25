@@ -49,6 +49,35 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
 })
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
+
+// let adobeDCView = new AdobeDC.View({
+
+
+// });
+
+
+
+// Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
+function getNewView(url, filename) {
+    // Destruir la instancia existente de AdobeDC.View
+    // Crear una instancia inicial de AdobeDC.View
+    let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
+
+    var nuevaURL = url;
+
+    // Agregar un parámetro único a la URL para evitar la caché del navegador
+    nuevaURL += "?timestamp=" + Date.now();
+
+    // Cargar y mostrar el nuevo PDF en el visor
+    adobeDCView.previewFile({
+        content: { location: { url: nuevaURL } },
+        metaData: { fileName: filename }
+    });
+}
+
+
+
+
 selectTable('#TablaLaboratorio', tablaListaPaciente, {
     unSelect: true, movil: true, reload: ['col-xl-9'], tabs: [
         {
@@ -79,11 +108,31 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
 
             if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
                 estadoBotones(1) //Desactivar si ya fue enviado
-            try {
-                vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
-            } catch (error) {
 
-            }
+
+            // document.addEventListener("adobe_dc_view_sdk.ready", function () {
+
+            //     
+            // });
+
+
+            // adobeDCView.loadFile({
+            //     content: {
+            //         location: {
+            //             url: selectEstudio.array.RUTA
+            //         }
+            //     },
+            //     metaData: {
+            //         fileName: selectEstudio.array.NOMBRE_ARCHIVO
+            //     }
+            // });
+
+            getNewView(selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO);
+            // try {
+            //     // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
+            // } catch (error) {
+
+            // }
 
         } catch (error) {
             console.log(error)

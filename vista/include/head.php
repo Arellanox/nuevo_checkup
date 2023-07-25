@@ -8,6 +8,7 @@
 <!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="<?php echo 'http://' . $url . '/' . $appname . '/js/gstatic.com_charts_loader.js' ?>"></script>
 
 
 <!-- Bootstrap 5 -->
@@ -27,7 +28,7 @@
 <!-- Icons bootstrap -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"> -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link rel="stylesheet" href="<?php echo 'http://' . $url . '/' . $appname . '/css/framework/font-awesome.min.css'; ?>">
 
 
@@ -104,3 +105,57 @@
 <!-- PopersJs -->
 <!-- Development version -->
 <script src="https://unpkg.com/@popperjs/core@2"></script>
+
+
+<!-- pdfmake -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+
+
+<!-- SCREENSHOT HTMl -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+<script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
+
+<!-- dom-to-image -->
+<script src="<?php echo 'http://' . $url . '/' . $appname . '/css/framework/dom-to-image.js' ?>"></script>
+<script src="<?php echo 'http://' . $url . '/' . $appname . '/css/framework/FileSaver.js' ?>"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+
+<script>
+    var traducciones;
+
+    //Hacemos la peticion y la guardamos en la variable traducciones
+    $.ajax({
+        url: '../../archivos/sistema/json/idioma/en.json',
+        type: 'POST',
+        dataType: 'json',
+        success: function(data) {
+            traducciones = data;
+            console.log(traducciones);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+
+    //Funcion para traducir un texto donde recibe el texto y el idioma
+    function traducir(texto, idioma) {
+        switch (idioma) {
+            case '-en':
+                console.log(texto);
+                traduccion = traducciones[texto][idioma];
+                console.log(traduccion);
+                if (traduccion == null) {
+                    return texto;
+                } else {
+                    return traduccion;
+                }
+
+                break;
+
+            default:
+                return texto;
+                break;
+        };
+    };
+</script>

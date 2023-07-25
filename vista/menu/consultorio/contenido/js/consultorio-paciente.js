@@ -90,6 +90,60 @@ function consultarConsulta(id) {
   });
 }
 
+//Consultar si existe o no la consulta medica
+function consultarConsultaMedica(id) {
+  return new Promise(resolve => {
+    ajaxAwait({ api: 2, turno_id: id }, 'consultorio2_api', { callbackAfter: true }, false, function (data) {
+      let row = data.response.data[0];
+
+      try {
+        if (row['CONSULTA_TERMINADA'] == 0) {
+          $('#btn-ir-consulta-medica').html(`
+        <button type="button" onclick="obtenerConsultorioConsultaMedica(pacienteActivo.array, ${row['ID_CONSULTA2']} )" 
+        class="btn btn-warning me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"> 
+          <i class="bi bi-clipboard-heart"></i> Continuar Consulta Médica
+        </button>`);
+        } else if (row['CONSULTA_TERMINADA'] == 1) {
+          $('#btn-ir-consulta-medica').html(`<button type="button" onclick="obtenerConsultorioConsultaMedica(pacienteActivo.array, ${row['ID_CONSULTA2']})" 
+          class="btn btn-success me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="tooltip" data-bs-placement="top" title="¿Consultar la historia Clínica?">
+          <i class="bi bi-clipboard-heart"></i> Consulta Médica Terminada
+            </button>`)
+        }
+
+
+        let btn_receta = $('#btn-ver-receta-consultorio2')
+        let btn_solicitud = $('#btn-ver-solicitud-estudios-consultorio2')
+        if (row['RUTA_RECETAS']) {
+          btn_receta.attr('href', `${row['RUTA_RECETAS']}`);
+          btn_receta.fadeIn(150);
+        } else {
+          btn_receta.attr('href', '#')
+          btn_receta.fadeOut(150);
+        }
+
+        if (row['RUTA_SOLICITUDES']) {
+          btn_solicitud.attr('href', `${row['RUTA_SOLICITUDES']}`)
+          btn_solicitud.fadeIn(150)
+        } else {
+          btn_solicitud.attr('href', '#')
+          btn_solicitud.fadeOut(150)
+        }
+
+      } catch (error) {
+        $('#btn-ir-consulta-medica').html(`
+    <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
+    data-bs-toggle="modal" data-bs-target="#modalMotivoConsultaMedica">
+      <i class="bi bi-person-plus-fill"></i> Iniciar Consulta Médica
+    </button>`)
+      }
+
+
+
+      resolve(1);
+    })
+  });
+}
+
 function obtenerHistorialConsultas(id) {
   return new Promise(resolve => {
     $.ajax({
@@ -112,10 +166,36 @@ function obtenerHistorialConsultas(id) {
               let fecha = formatoFecha2(row[i]['FECHA_CONSULTA'], [0, 1, 2, 2, 0, 0, 0]);
               let nombre = row[i]['MEDICO'];
               let motivo = row[i]['MOTIVO_CONSULTA'];
-              $('#historial-consultas-paciente').append('<div class="row line-top" style="margin:0px">' +
-                '<div class="col-3 line-right">' + fecha + '</div>' +
-                '<div class="col-9"><p>' + nombre + '</p> <p class="none-p">' + motivo + '</p>' +
-                '</div> </div>')
+
+
+              api = encodeURIComponent(window.btoa('consultorio'));
+              turno = encodeURIComponent(window.btoa(row[i]['TURNO_ID']));
+              area = encodeURIComponent(window.btoa(1));
+
+              let resultado = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`
+
+
+              // window.open(``, "_blank");
+
+
+              $('#historial-consultas-paciente').append(`<div class="row line-top" style="margin:0px">
+                                                            <div class="col-3 line-right text-center">
+                                                              ${fecha} <br>
+                                                              <!-- Example split danger button -->
+                                                              <div class="btn-group mb-2">
+                                                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                  <i class="bi bi-file-earmark-pdf"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_REPORTE'] ? this : resultado}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Resultado</a></li>
+                                                                </ul>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-9">
+                                                              <p>${nombre}</p> 
+                                                              <p class="none-p">${motivo}</p>
+                                                            </div>
+                                                          </div>`)
             }
           }
 
@@ -133,6 +213,66 @@ function obtenerHistorialConsultas(id) {
   });
 }
 
-function obtenerConsultaRapida() {
+function obtenerHistorialConsultaMedica(idTurno) {
+  console.log("aqui empieza obtener consulta medica")
+  console.log(idTurno);
 
+  return new Promise(resolve => {
+    $.ajax({
+      url: `${http}${servidor}/${appname}/api/consultorio2_api.php`,
+      type: "POST",
+      dataType: "json",
+      data: {
+        api: 2,
+        turno_id: pacienteActivo.array['ID_TURNO']
+      },
+      success: function (data) {
+        if (mensajeAjax(data)) {
+          // console.log(data);
+          $('#historial-consultas-medicas').html('')
+
+          let row = data.response.data
+
+          for (var i = 0; i < row.length; i++) {
+            if (row[i]['CONSULTA_TERMINADA'] == 1) {
+              let fecha = formatoFecha2(row[i]['FECHA_CONSULTA'], [0, 1, 2, 2, 0, 0, 0]);
+              let nombre_medico = row[i]['CREADO_POR'];
+              let motivo = row[i]['MOTIVO_CONSULTA'];
+
+
+
+              $('#historial-consultas-medicas').append(`<div class="row line-top" style="margin:0px">
+                                                            <div class="col-3 line-right text-center">
+                                                              ${fecha} <br>
+                                                              <!-- Example split danger button -->
+                                                              <div class="btn-group mb-2">
+                                                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                  <i class="bi bi-file-earmark-pdf"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_REPORTE']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Reporte</a></li>
+                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_RECETAS']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Recetas</a></li>
+                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_SOLICITUDES']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Solicitud de estudios</a></li>
+                                                                </ul>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-9">
+                                                              <p>${nombre_medico}</p> 
+                                                              <p class="none-p">${motivo}</p>
+                                                            </div>
+                                                          </div>`)
+            }
+          }
+
+
+        }
+      },
+      complete: function () {
+        resolve(1);
+      },
+      error: function (jqXHR, exception, data) {
+        alertErrorAJAX(jqXHR, exception, data)
+      },
+    });
+  });
 }
