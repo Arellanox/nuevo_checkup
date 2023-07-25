@@ -31,9 +31,7 @@ $usuario_id = $_SESSION['id'];
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
-$api = 'biomolecular';
-$turno_id = 1016;
-$area_id = 12;
+
 // // $area_id = 12;
 // $turno_id = 742;
 
