@@ -556,13 +556,14 @@ class Miscelaneus
         return $arregloPaciente;
     }
 
-    private function
-    getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
+    private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
     {
         $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id]);
         $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
         // print_r($response);
         $arrayDetalle = [];
+        $NumbersToLetters = new NumbersToLetters();
+        $cantidad = $NumbersToLetters->NumbersToLetters();
 
         for ($i = 0; $i < count($response[1]); $i++) {
 
@@ -587,7 +588,8 @@ class Miscelaneus
             'IVA' => $response[0][0]['IVA'],
             'TOTAL_DETALLE' => $response[1][0]['TOTAL'],
             'FECHA_CREACION' => $response[0][0]['FECHA_CREACION'],
-            'FOLIO_COTIZACIONES' => $response[0][0]['ID_COTIZACION']
+            'FECHA_VENCIMIENTO' => $response[0][0]['FECHA_VENCIMIENTO'],
+            'FOLIO' => $infoCliente[0][0]['FOLIO']
         );
 
         return $arregloCotizaciones;
