@@ -34,6 +34,25 @@
     <div class="card mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
     <div class="card mt-2" id="listado-resultados"></div>
 
+    <!-- Agregar certificado medico -->
+    <div class="card mt-2 p-3">
+
+      <h4>Certificado médico del paciente</h4>
+
+      <div class="col-12 text-end">
+        <button type="button" class="btn btn-borrar" data-bs-placement="top" data-bs-toggle="modal"
+          data-bs-target="#modalCertificadoMedico" style="font-size: 16px;">
+          <i class="bi bi-file-earmark-pdf"></i> Guardar
+        </button>
+      </div>
+
+      <!-- <button type="button" class="btn btn-borrar btnResultados" data-bs-placement="top"
+        id="recuperarPDfCerticicadoMedico" style="margin: 20px 17px 20px 17px !important;font-size: 16px;">
+        <i class="bi bi-file-earmark-pdf"></i> Vista previa
+      </button> -->
+    </div>
+
+
   </div>
   <div class="col-12  col-lg-4">
     <div class="card">
@@ -50,12 +69,11 @@
         </button>
       </div>
       <div id="btn-pdf" class="btn-container">
-        <a target="_blank" href="#" class="btn btn-borrar btnResultados" style="display: none;"
-          id="btn-ver-receta-consultorio2" data-bs-toggle="tooltip" data-bs-placement="top"
-          title="La vista previa de la recetauna vez guardada">
+        <a href="#" class="btn btn-borrar btnResultados" style="display: none;" id="btn-ver-receta-consultorio2"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa de la recetauna vez guardada">
           <i class="bi bi-file-earmark-pdf"></i> Receta
         </a>
-        <a target="_blank" href="#" class="btn btn-borrar btnResultados" style="display: none;"
+        <a href="#" class="btn btn-borrar btnResultados" style="display: none;"
           id="btn-ver-solicitud-estudios-consultorio2" data-bs-toggle="tooltip" data-bs-placement="top"
           title="La vista previa de las solicitud de estudios una vez guardada">
           <i class="bi bi-file-earmark-pdf"></i> Solicitud de estudios
@@ -80,6 +98,6 @@
         <div id="historial-consultas-medicas"> <!-- Consulta medica --> </div>
       </div>
     </div>
-      
+
   </div>
 </div>
