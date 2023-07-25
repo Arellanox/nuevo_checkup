@@ -227,6 +227,8 @@ class Miscelaneus
         # URL carpeta
         $tempDir = 'archivos/sistema/temp/qr/' . $tipo . '/';
 
+        $this->createDir('../' . $tempDir);
+
         # Enviar la url o codigo necesario desde antes
         QRcode::png($codeContents, '../' . $tempDir . $nombre . '.png', $frame, $size, 2);
 
@@ -494,6 +496,12 @@ class Miscelaneus
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_CONSULTA2'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "consulta_medica";
+                break;
+
+            case -1: #Formato de temperatura de equipos
+                // echo "si entro";
+                // exit;
+                $arregloPaciente = $this->getBodyTemperatura($master, $turno_id);
                 break;
 
             case -2:
@@ -1616,5 +1624,110 @@ class Miscelaneus
         }
 
         return $cuestionario;
+    }
+
+
+    public function getBodyTemperatura($master, $turno_id)
+    {
+        $folio = $turno_id;
+        #Llenar tabla del formato PDF, pasar ID del FOLIO
+        $response = $master->getByNext('sp_temperatura_formato_b', [$folio]);
+
+        $result = array();
+        $i = 1;
+        foreach ($response[0] as $key => $e) {
+            $dia = $e['DIA'];
+            $firma_usuario = $e['RUBRICA_FIRMA'];
+            $turno = $e['TURNO'];
+            $valor = $e['valor'];
+            $hora = $e['HORA'];
+            $anho = $e['ANHO'];
+            $mes = $e['MES'];
+            $color = $e['MODIFICADO'] == 0 ?  "blue" : "mostaza";
+            $id_registro = $e['ID_REGISTRO_TEMPERATURA'];
+            if (!isset($result[$dia])) {
+                $result[$dia] = array();
+            }
+
+            // if ($i === 3) {
+            //     $i = 1;
+            // }
+
+            if ($turno === "MATUTINO") {
+                $i = 1;
+            } else {
+                $i = 2;
+            }
+
+            $result[$dia][$i] = array("valor" => $valor, "color" => $color, "id" => $id_registro, "hora" => $hora, "FIRMA" => $firma_usuario);
+            $i++;
+        }
+
+
+        foreach ($response[1] as $key => $e) {
+            # Equipo
+            $intervalo_min = $e['INTERVALO_MIN'];
+            $intervalo_max = $e['INTERVALO_MAX'];
+            $equipo = $e['ENFRIADOR'];
+            $equipo_marca = $e['ENFRIADOR_MARCA'];
+            $equipo_modelo = $e['ENFRIADOR_MODELO'];
+            $equipo_numero_serie = $e['ENFRIADOR_NUMERO_SERIE'];
+            $termometro_marca = $e['TERMOMETRO_MARCA'];
+            $termometro_id = $e['TERMOMETRO_ID'];
+            $termometro_factor_correcion = $e['FACTOR_DE_CORRECCION'];
+            #Termometro
+            $termometro_marca = $e['TERMOMETRO_MARCA'];
+            $termometro_id = $e['TERMOMETRO_ID'];
+            $termometro_factor_correcion = $e['FACTOR_DE_CORRECCION'];
+            #Ultima fecha de registro
+            $fecha_formato = date("d/m/Y", strtotime($e['FECHA']));
+            #Supervisor
+            $usuario_name = $e['px'];
+            $usuario_rubrica = $e['RUBRICA'];
+            #Ruta tabla
+            $url_tabla = $e['RUTA_TABLA'];
+            $localizacion = $e['LOCALIZACION'];
+            $fecha_verificacion = $e['FECHA_VERIFICACION'];
+
+            $observaciones = $e['OBSERVACIONES'];
+        }
+
+        $cargo = 'SUPERVISOR';
+        $response = [];
+        // Datos de los equipos que se usaron en el mes como el equipo que se le checo la temperatura y el termometro que se uso para saber la temperatura del equipo.
+        $response['EQUIPO']['ANHO'] = $anho;
+        $response['EQUIPO']['MES'] = $mes;
+        $response['EQUIPO']['FOLIO'] = $folio;
+        $response['EQUIPO']['LOCALIZACION'] = is_null($localizacion) ? 'N/A' : $localizacion;
+        $response['EQUIPO']['INTERVALO_MIN'] = is_null($intervalo_min) ? 'N/A' : $intervalo_min;
+        $response['EQUIPO']['INTERVALO_MAX'] = is_null($intervalo_max) ? 'N/A' : $intervalo_max;
+        $response['EQUIPO']['URL_TABLA'] = is_null($url_tabla) ? 'N/A' : $url_tabla;
+        $response['EQUIPO']['EQUIPO_NOMBRE'] = is_null($equipo) ? 'N/A' : $equipo;
+        $response['EQUIPO']['EQUIPO_MARCA'] = is_null($equipo_marca) ? 'N/A' : $equipo_marca;
+        $response['EQUIPO']['EQUIPO_MODELO'] =  is_null($equipo_modelo) ? 'N/A' : $equipo_modelo;
+        $response['EQUIPO']['EQUIPO_NUMERO_SERIE'] = is_null($equipo_numero_serie) ? 'N/A' : $equipo_numero_serie;
+        $response['EQUIPO']['TERMOMETRO_MARCA'] = is_null($termometro_marca) ? 'N/A' : $termometro_marca;
+        $response['EQUIPO']['TERMOMETRO_ID'] = is_null($termometro_id) ? 'N/A' : $termometro_id;
+        $response['EQUIPO']['FECHA_VERIFICACION'] = is_null($fecha_verificacion) ? 'N/A' : $fecha_verificacion;
+        $response['EQUIPO']['FACTOR_CORRECCION'] = is_null($termometro_factor_correcion) ? 'N/A' : $termometro_factor_correcion;
+
+        // Datos de la persona que superviso el formato como las observaciones, el nombre, el cargo, la fecha y la firma
+        $response['USUARIO']['OBSERVACIONES'] = is_null($observaciones) ? 'N/A' : $observaciones;
+        $response['USUARIO']['NOMBRE'] = is_null($usuario_name) ? 'N/A' : $usuario_name;
+        $response['USUARIO']['CARGO'] = is_null($cargo) ? 'N/A' : $cargo;
+        $response['USUARIO']['FECHA'] = is_null($fecha_formato) ? 'N/A' : $fecha_formato;
+        $response['USUARIO']['RUBRICA'] = is_null($usuario_rubrica) ? 'N/A' : $usuario_rubrica;
+
+
+        #Laura
+        #Aurora
+        #Nery -> supervisor
+        #Enoc  -> supervisor
+        #Karen
+        #Jaime
+
+        $response['DIAS'] = $result;
+
+        return $response;
     }
 }

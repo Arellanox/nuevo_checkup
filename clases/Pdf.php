@@ -222,6 +222,12 @@ class Reporte
                 $pdf->setPaper('letter', 'portrait');
                 break;
 
+            case 'temperatura':
+                $template = render_view('invoice/temperatura_refrigeradores.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'landscape');
+                break;
+
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);

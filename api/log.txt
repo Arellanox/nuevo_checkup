@@ -274,3 +274,6 @@ Stack trace:
 05/04/23 13:41:45  Area: 1
 05/04/23 13:48:20  Area: 1
 05/04/23 13:52:41  Area: 1
+25/07/23 11:45:30 sp_status_paciente Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.esp' doesn't exist
+25/07/23 12:45:03 http://localhost/practicantes//archivos/sistema/capas_temperaturas/ no pudo crear el directorio. http://localhost/practicantes//archivos/sistema/capas_temperaturas/
+25/07/23 12:46:06 http://localhost/nuevo_checkup/archivos/sistema/capas_temperaturas/ no pudo crear el directorio. http://localhost/nuevo_checkup/archivos/sistema/capas_temperaturas/

@@ -239,58 +239,39 @@ $menu = $_POST['menu']; ?>
   </div>
 <?php endif; ?>
 
-<?php if ($menu == "Registros de Temperatura" && $_SESSION['permisos']['RegTemp'] == 1) : ?>
-  <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="capturarTemperatura">
-    <i class="bi bi-plus-circle-fill"></i> Capturar
-  </button> -->
-
-  <?php if ($_SESSION['permisos']['SupTemp'] ==  1) : ?>
-    <div class="d-flex">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display:none" id="LibererDiaTemperatura">
-        <i class="bi bi-arrow-down-circle-fill"></i> Liberar Dia
-      </button>
-
-    <?php endif; ?>
-
-
-    <?php if ($_SESSION['permisos']['SupTemp'] ==  1) : ?>
-
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display:none ;" id="GenerarPDFTemperatura">
-        <i class="bi bi-file-earmark-pdf-fill"></i> Generar PDF
-      </button>
-
-    <?php endif; ?>
-
-    <?php if ($_SESSION['permisos']['SupTemp'] ==  1) : ?>
-      <!-- DROPDOWN CONFIGURACIÓN -->
-      <!-- <button class="btn btn-hover me-2" type="button" style="margin-bottom:4px;" id="">
-        <i class="bi bi-gear-fill"></i> Configuracion
-      </button> -->
-      <!-- <button class="btn" id="TermometrosbtnTemperaturas">Termometros</button> -->
-
-      <div class="dropdown">
-        <button class="btn btn-hover me-2 dropdown-toggle" type="button" style="margin-bottom:4px;" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-gear-fill"></i> Configuracion
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <button class="btn dropdown-item" id="TermometrosbtnTemperaturas">Termometros</button>
-          </li>
-          <li>
-            <button class="btn dropdown-item" id="ConfiguracionTemperaturasbtn">Mas configuracion</button>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-  <?php endif; ?>
-
-<?php endif; ?>
-
 
 <?php if ($menu == 'Pacientes (Crédito)') : ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltroPacientesFacturacion">
     <i class="bi bi-archive"></i> Generar Grupo
   </button>
+<?php endif; ?>
+
+
+<?php if ($menu == "Registros de Temperatura" && $_SESSION['permisos']['RegTemp'] == 1) : ?>
+  <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="capturarTemperatura">
+    <i class="bi bi-plus-circle-fill"></i> Capturar
+  </button> -->
+
+  <div class="d-flex">
+    <button type="button" data-bs-toggle='tooltip' data-bs-placement='left' title="Liberar un rango de días  para la captura de temperaturas de los equipos" class="btn btn-hover me-2" style="margin-bottom:4px; display:none" id="LibererDiaTemperatura">
+      <i class="bi bi-arrow-down-circle-fill"></i> Liberar Dia
+    </button>
+
+    <div class="dropdown">
+      <button class="btn btn-hover me-2 dropdown-toggle" type="button" style="margin-bottom:4px;" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-gear-fill"></i> Configuración
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button class="btn dropdown-item" id="TermometrosbtnTemperaturas" data-bs-toggle='tooltip' data-bs-placement='top' title="Configuración de los termómetros asignados a los equipos">Termómetros</button>
+        </li>
+        <li>
+          <button class="btn dropdown-item" id="ConfiguracionTemperaturasbtn" data-bs-toggle='tooltip' data-bs-placement='right' title="Configuración de los turnos y activar los días domingos">Más Configuración</button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+
 <?php endif; ?>

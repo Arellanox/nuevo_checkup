@@ -1413,8 +1413,13 @@ function mensajeAjax(data, modulo = null) {
 function alertErrorAJAX(jqXHR, exception, data) {
   var msg = '';
   //Status AJAX
+  // console.log(jqXHR, exception, data)
+
   switch (jqXHR.status) {
-    case 0: alertToast('Sin conexión a internet', 'warning'); return 0;
+    case 0:
+      if (exception != 'abort') {
+        alertToast('Sin conexión a internet', 'warning'); return 0
+      };
     case 404: //console.log('Requested page not found. [404]'); return 0;
     case 500: alertToast('Internal Server Error', 'info'); return 0;
   }
@@ -1424,6 +1429,8 @@ function alertErrorAJAX(jqXHR, exception, data) {
     case 'timeout': //console.log('timeout'); return 0
     case 'abort': return 0
   }
+
+
 
   //console.log(jqXHR.responseText);
 
