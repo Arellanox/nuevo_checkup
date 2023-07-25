@@ -40,10 +40,10 @@ class Master extends Miscelaneus
     function connectDb()
     {
 
-        $host = "212.1.208.201";
-        $dbname = "u808450138_practicantes";
-        $username = "u808450138_practica";
-        $password = '+Eb5Rc~TpeV';
+        $host = $this->database->host;
+        $dbname = $this->database->dbname;
+        $username = $this->database->username;
+        $password = $this->database->password;
 
 
         try {
