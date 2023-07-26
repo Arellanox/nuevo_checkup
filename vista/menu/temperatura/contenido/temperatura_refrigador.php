@@ -222,7 +222,7 @@
 
 
             </form>
-            <button type="submit" form="ConfiguracionTemperaturaForm" class=" btn btn-confirmar" id="btn-configuracion-temperatura">
+            <button type="button" class=" btn btn-confirmar" id="btn-configuracion-temperatura">
                 <i class="bi bi-thermometer-half"></i> Guardar
             </button>
 

@@ -290,7 +290,7 @@ $(document).on("click", "#ConfiguracionTemperaturasbtn", async function () {
     $('#offcanvasConfiguracionTemperaturas').offcanvas('show');
 })
 
-$("#btn-configuracion-temperatura").on("click", function (e) {
+$(document).on("click", '#btn-configuracion-temperatura', function (e) {
     e.preventDefault();
 
     switchState = $('#Domingos').is(':checked');
