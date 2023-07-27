@@ -1,6 +1,6 @@
 <?php
 include '../../vista/variables.php';
-include '../../clases/master_class.php';
+// include '../../clases/master_class.php';
 date_default_timezone_set('America/Mexico_City');
 session_start();
 session_unset();
@@ -9,11 +9,11 @@ session_destroy();
 $clave = $_GET['clave'];
 $modulo = $_GET['modulo'];
 $id = $_GET['id']; // folio
-$explode = preg_split("/(\d+)/", $id, -1, PREG_SPLIT_DELIM_CAPTURE);
-$folio_etiqueta = $explode[0];
-$folio_numero = $explode[1];
+// $explode = preg_split("/(\d+)/", $id, -1, PREG_SPLIT_DELIM_CAPTURE);
+// $folio_etiqueta = $explode[0];
+// $folio_numero = $explode[1];
 
-$master = new Master();
+// $master = new Master();
 
 
 ?>
@@ -39,7 +39,7 @@ $master = new Master();
         <!-- BODY -->
         <div class="card m-3 p-3">
             <!-- informacion paciente -->
-            <!-- <h3>Información personal</h3>
+            <h3>Información personal</h3>
             <div class="row">
                 <div class="col-12 col-md-auto d-flex justify-content-center">
                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil" style="width:150px !Important">
@@ -68,11 +68,28 @@ $master = new Master();
                             </div>
                         </div>
                     </div>
-                </div> -->
-            <p>Pagina en mantenimiento :)</p>
-            <p>Vuelva pronto para validar sus resultados correctamente.</p>
+                </div>
+                <!-- <p>Pagina en mantenimiento :)</p>
+            <p>Vuelva pronto para validar sus resultados correctamente.</p> -->
+            </div>
         </div>
-    </div>
+
+        <div class="card m-3 p-3">
+
+            <!-- Laboratorio -->
+            <section>
+                <h4>Resultados | Laboratorio Clínico</h4>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="info-detalle-p" id="fecha_muestra-resultado">Fecha de Toma de Muestra / Collected: <span class="span-info-paci">27/06/2023</span></p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="info-detalle-p" id="fecha_muestra-resultado">Fecha de Resultado / Reported: <span class="span-info-paci">27/06/2023</span></p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
 
     </div>
 
