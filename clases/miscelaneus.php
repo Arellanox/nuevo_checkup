@@ -598,7 +598,8 @@ class Miscelaneus
         // print_r($response);
         $arrayDetalle = [];
         $NumbersToLetters = new NumbersToLetters();
-        $cantidad = $NumbersToLetters->NumbersToLetters();
+        $number = ["TOTAL" => $response[1][0]['TOTAL']];
+        $cantidad = $NumbersToLetters->NumbersToLetters($number);
 
         for ($i = 0; $i < count($response[1]); $i++) {
 
@@ -624,12 +625,12 @@ class Miscelaneus
             'TOTAL_DETALLE' => $response[1][0]['TOTAL'],
             'FECHA_CREACION' => $response[0][0]['FECHA_CREACION'],
             'FECHA_VENCIMIENTO' => $response[0][0]['FECHA_VENCIMIENTO'],
-            'FOLIO' => $infoCliente[0][0]['FOLIO']
+            'FOLIO' => $infoCliente[0][0]['FOLIO'],
+            'CANTIDAD' => $cantidad
         );
 
         return $arregloCotizaciones;
     }
-
     //Consultorio
     private function getBodyInfoConsultorio2($master, $turno_id)
     {
