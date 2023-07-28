@@ -70,9 +70,14 @@ switch ($api) {
     case 5:
         # agregar una horario a un area
 
-        # crear los horarios de atencion
+        # crear los horarios de atencion dados la hora inical, hora final y el intervalo.
         $horarios = crearHorarios($hora_primera,$hora_final,$intervalo);
-        $response = $master->insertByProcedure("sp_agenda_horarios_g", [null, json_encode( $horarios ), $area_id]);
+
+        if(is_array($horarios)){
+            $response = $master->insertByProcedure("sp_agenda_horarios_g", [null, json_encode( $horarios ), $area_id]);
+        } else {
+            $response = $horarios;
+        }
         break;
     case 6:
         # eliminar horarios de un area
@@ -94,6 +99,9 @@ switch ($api) {
 echo $master->returnApi($response);
 
 function crearHorarios($inicial,$final,$intervalo){
+    if(!is_int($intervalo)){
+        return "El intervalo debe ser un valor númerico. Valor enviado: $intervalo";
+    }
     $horarios = [];
     $current = strtotime( $inicial );
 
