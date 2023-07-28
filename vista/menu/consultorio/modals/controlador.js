@@ -10,5 +10,5 @@ $.post("modals/a_modals.php", function (html) {
   $.getScript('modals/js/motivo-consulta-medica.js');
 
   //Modal para certificado medico
-  $.getScript('modals/js/certificado-medico.js');
+  // $.getScript('modals/js/certificado-medico.js');
 });

@@ -105,7 +105,7 @@ $(document).on('click', '.guardarAnt ', function (event) {
 // ajaxAwait({ api: 2, turno_id: pacienteActivo.array['ID_TURNO'] }, 'consultorio2_api', { callbackAfter: true }, false, function (data) {
 //   let row = data.response.data[0]
 
-  
+
 //   if (row['RUTA_RECETAS'] == null) {
 //     //oculta el boton
 //     $('#btn-ver-receta-consultorio2').hide()
@@ -161,3 +161,23 @@ $(document).on('click', '.guardarAnt ', function (event) {
 //     <p class="none-p">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 //   </div>
 // </div>
+
+
+
+$('#btn-subir-certificado-medico').on('click', function () {
+  alertMensajeConfirm({
+    title: '¿Está seguro de guardar este certificado?',
+    text: 'Solo hay un espacio para guardar los certificados, se guardará o reemplazará si hay uno anterior.',
+    textButtonConfirm: 'Si, acepto',
+    icon: 'warning',
+  }, () => {
+    ajaxAwaitFormData({
+      turno_id: pacienteActivo.array['ID_TURNO'], api: 1
+    }, 'certificado_medico_api', 'subirResultadosCertificadoMedico', { callbackAfter: true }, false, function () {
+      alertToast('El certificado medico ya ha sido guardado', 'success', 4000);
+      obtenerPanelInformacion(idTurno, 'consulta_api', 'listado_resultados', '#listado-resultados')
+      $('#modalCertificadoMedico').modal('hide');
+    })
+  }, 1)
+})
+
