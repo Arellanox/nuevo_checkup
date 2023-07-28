@@ -24,7 +24,11 @@ $detalle_servicios = $_POST['servicios'];
 $hora_agenda = $_POST['hora_agenda']; # este es un id que viene de la tabla agenda horarios
 
 #horarios
+
+#configurar horarios de atencion.
 $hora_inicial = $_POST['hora_cita'];
+$hora_final = $_POST['hora_final'];
+$intervalo = $_POST['intervalo']; # debe llegar en minutos y debe ser un numero entero.
 
 
 $params = $master->setToNull([
@@ -63,7 +67,10 @@ switch ($api) {
         break;
     case 5:
         # agregar una horario a un area
-        $response = $master->insertByProcedure("sp_agenda_horarios_g", [null, $hora_inicial, $area_id]);
+
+        # crear los horarios de atencion
+        $horarios = crearHorarios($hora_inicial,$hora_final,$intervalo);
+        $response = $master->insertByProcedure("sp_agenda_horarios_g", [null, json_encode( $horarios ), $area_id]);
         break;
     case 6:
         # eliminar horarios de un area
@@ -74,3 +81,15 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
+
+function crearHorarios($inicial,$final,$intervalo){
+    $horarios = [];
+    $current = strtotime( $inicial );
+
+    while ($current <= strtotime($final )){
+        $horarios[] = date( 'H:i',$current );
+        $current = strtotime("+$intervalo minutes", $current);
+    }
+
+    return $horarios;
+}
