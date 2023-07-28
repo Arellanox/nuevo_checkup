@@ -5,10 +5,12 @@ $(document).on('click', '#btn-agendar-calendario', function (e) {
 $(document).on('click', '#btn-agendar-tiempoConfig', async function (e) {
     alertMensaje('info', 'Un momento', 'Estamos consiguiendo los horarios...');
     await ajaxAwait({ api: 7, area_id: localStorage.getItem('areaActual') }, 'agenda_api', { callbackAfter: true }, false, (data) => {
-        $('#hora_inicio').val(data.HORA_INICIAL);
-        $('#hora_final').val(data.HORA_FINAL)
+        data = data.response.data;
+        $('#hora_inicial').val(data.HORA_INICIAL.substring(0, 5));
+        $('#hora_final').val(data.HORA_FINAL.substring(0, 5))
     })
     $('#modalHorarioAtencion').modal('show');
+    swal.close();
 })
 
 //fechaSelected

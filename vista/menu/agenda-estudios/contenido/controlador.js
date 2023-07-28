@@ -22,7 +22,10 @@ hasLocation()
 $(window).on("hashchange", function (e) {
     hasLocation();
 });
+
+var paqueteUse = 0;
 function hasLocation() {
+    paqueteUse = 0;
     var hash = window.location.hash.substring(1);
     // if (validarVista(hash)) {
     switch (hash) {

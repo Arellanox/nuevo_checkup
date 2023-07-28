@@ -50,14 +50,14 @@
                                     <select class="" id="select-us">
                                     </select>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12" id="content-area">
                                     <button type="button" class="btn btn-confirmar" id="btn-agregarEstudioImg">
                                         <i class="bi bi-plus-lg"></i> Agregar
                                     </button>
-                                </div>
-                                <div class="col-12 mt-3" id="content-area">
-                                    <p>Tiempo aproximado: </p>
-                                    <p class="none-p" id="tiempo-aproximado">0 minutos</p>
+                                    <div class="mt-3">
+                                        <p>Tiempo aproximado: </p>
+                                        <p class="none-p" id="tiempo-aproximado">0 minutos</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -3,6 +3,7 @@ switch (localStorage.getItem('areaActual')) {
     case 15: case '15':
         $('#title-area, #subtext-area').html('Paquete')
         $('#content-area').fadeOut('slow')
+        paqueteUse = 1;
         break;
 
     default:
@@ -83,26 +84,31 @@ function sinDomingos() {
 
 $('#FormAgendaNueva').submit(function (event) {
     event.preventDefault();
-    if (servicios.length) {
 
-        alertMensajeConfirm({
-            title: '¿Estás seguro de guardar la cita?',
-            text: 'Revise los datos antes de guardar',
-        }, function () {
-            ajaxAwaitFormData({
-                api: 1,
-                servicios: servicios,
-                area_id: localStorage.getItem('areaActual')
-            }, 'agenda_api', 'FormAgendaNueva', { callbackAfter: true }, false, function (data) {
-                alertToast('¡Agenda registrada!', 'success', 4000);
-                recargarListas()
-            })
-
-        }, 1)
-
-    } else {
-        alertToast('Seleccione un estudio antes de guardar', 'info', 4000)
+    let json = {
+        api: 1,
+        area_id: localStorage.getItem('areaActual')
     }
+
+    alertMensajeConfirm({
+        title: '¿Estás seguro de guardar la cita?',
+        text: 'Revise los datos antes de guardar',
+    }, function () {
+        if (servicios.length) {
+            json['servicios'] = servicios
+        } else if (paqueteUse) {
+            json['paquete_id'] = $('#select-us').val();
+        } else {
+            alertToast('Seleccione un estudio antes de guardar', 'info', 4000)
+        }
+
+        ajaxAwaitFormData(json, 'agenda_api', 'FormAgendaNueva', { callbackAfter: true }, false, function (data) {
+            alertToast('¡Agenda registrada!', 'success', 4000);
+            recargarListas()
+        })
+
+    }, 1)
+
 
 
 })
