@@ -1,21 +1,43 @@
 
+switch (localStorage.getItem('areaActual')) {
+    case 15: case '15':
+        $('#title-area, #subtext-area').html('Paquete')
+        $('#content-area').fadeOut('slow')
+        break;
+
+    default:
+
+        break;
+}
+
+
 const modalNuevaAgenda = document.getElementById('modalNuevaAgenda')
 modalNuevaAgenda.addEventListener('show.bs.modal', event => {
 
 
 
-    dataEstudios = false
-    rellenarSelect('#select-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-        id_area: localStorage.getItem('areaActual')
-    }, function (data) {
-        // dataEstudios = data;
-        dataEstudios = new GuardarArreglo(data);
+
+    switch (localStorage.getItem('areaActual')) {
+        case 15: case '15':
+            rellenarSelect('#select-us', 'paquetes_api', 2, 0, 'DESCRIPCION.CLIENTE', {
+                contenido: 1
+            });
+            break;
+
+        default:
+            dataEstudios = false
+            rellenarSelect('#select-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+                id_area: localStorage.getItem('areaActual')
+            }, function (data) {
+                // dataEstudios = data;
+                dataEstudios = new GuardarArreglo(data);
+
+                let selected = data[$("#select-us").prop('selectedIndex')]
 
 
-        let selected = data[$("#select-us").prop('selectedIndex')]
-
-
-    });
+            });
+            break;
+    }
 
     rellenarSelect('#select-horas', 'agenda_api', 2, 'ID_HORARIO', 'HORA_INICIAL', {
         area_id: localStorage.getItem('areaActual'),

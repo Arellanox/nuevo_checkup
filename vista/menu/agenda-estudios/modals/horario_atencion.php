@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <h5 class="modal-title" id="title-paciente_rechazar">Horario de atención</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>Configura la hora de atención de esta area</p>
@@ -25,7 +25,10 @@
 
                     <div class="col-12">
                         <label class="" for="intervalo">Intervalo</label>
-                        <input type="text" class="form-control input-form" name="intervalo" placeholder="Duración del servicio">
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control input-form" name="intervalo" placeholder="Duración del servicio">
+                            <span class="input-span" id="basic-addon1">min</span>
+                        </div>
                     </div>
                 </form>
             </div>

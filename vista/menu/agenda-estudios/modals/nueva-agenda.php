@@ -41,12 +41,12 @@
 
                 </div>
                 <div class="card p-3 mt-2">
-                    <h5>Selecciona estudios</h5>
+                    <h5>Selecciona <strong id="title-area">estudios</strong></h5>
                     <div class="row">
                         <div class="col-6">
                             <div class="row">
                                 <div class="col-12">
-                                    <label for="date" class="form-label">Estudios:</label>
+                                    <label for="date" class="form-label" id="subtext-area">Estudios:</label>
                                     <select class="" id="select-us">
                                     </select>
                                 </div>
@@ -55,7 +55,7 @@
                                         <i class="bi bi-plus-lg"></i> Agregar
                                     </button>
                                 </div>
-                                <div class="col-12 mt-3">
+                                <div class="col-12 mt-3" id="content-area">
                                     <p>Tiempo aproximado: </p>
                                     <p class="none-p" id="tiempo-aproximado">0 minutos</p>
                                 </div>
