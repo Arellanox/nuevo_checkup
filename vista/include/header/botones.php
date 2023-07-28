@@ -222,7 +222,7 @@ $menu = $_POST['menu']; ?>
   </div>
 <?php endif; ?>
 
-<?php if ($menu == 'Agenda de pacientes | Ultrasonido') : ?>
+<?php if (strpos($menu, 'Agenda de pacientes') !== false) : ?>
   <div class="row">
     <div class="col-auto d-flex align-items-center">
       <label for="fechaSelected" class="form-label">Día</label>

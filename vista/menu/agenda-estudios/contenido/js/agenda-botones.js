@@ -2,6 +2,14 @@ $(document).on('click', '#btn-agendar-calendario', function (e) {
     $('#modalNuevaAgenda').modal('show');
 })
 
+$(document).on('click', '#btn-agendar-tiempoConfig', async function (e) {
+    alertMensaje('info', 'Un momento', 'Estamos consiguiendo los horarios...');
+    // await ajaxAwait({ api: 7, area_id: localStorage.getItem('areaActual') }, 'agenda_api', { callbackAfter: true }, false, (data) => {
+    //     $('#hora_inicio').val(data.hora_inicio);
+    //     $('#hora_final').val(data.hora_final)
+    // })
+    $('#modalHorarioAtencion').modal('show');
+})
 
 //fechaSelected
 

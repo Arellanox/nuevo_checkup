@@ -3,4 +3,5 @@ $.post("modals/modals.php", function (html) {
 }).done(function () {
     //Modal agendar
     $.getScript('modals/js/nueva-agenda.js');
+    $.getScript('modals/js/horario-agenda.js');
 });

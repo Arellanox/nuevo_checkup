@@ -1,19 +1,20 @@
 
 
 var datalist, dataListaPaciente, selectEstudio, dataSelect;
-var areaActiva;
 
-async function obtenerAgendaPacientes() {
-    await obtenerTitulo("Agenda de pacientes | Ultrasonido");
+async function obtenerAgendaPacientes(titulos) {
+    await obtenerTitulo(`Agenda de pacientes | ${titulos}`);
     $.post("contenido/agenda-pacientes.html", function (html) {
         $("#body-js").html(html);
     }).done(function () {
         // Botones
-        $.getScript('contenido/js/agenda-botones.js')
-        // Botones
         $.getScript('contenido/js/agenda-funciones.js')
     });
 }
+
+
+// Botones
+$.getScript('contenido/js/agenda-botones.js')
 
 
 
@@ -25,20 +26,33 @@ function hasLocation() {
     var hash = window.location.hash.substring(1);
     // if (validarVista(hash)) {
     switch (hash) {
-        case 'TOMA_DE_MUESTRAS':
-            localStorage.setItem('areaActual', 6);
-            obtenerAgendaPacientes();
+        case 'CHECKUPS':
+            localStorage.setItem('areaActual', 15);
+            obtenerAgendaPacientes('Checkups');
+            break;
+
+        case 'BIOMOLECULAR':
+            localStorage.setItem('areaActual', 12);
+            obtenerAgendaPacientes('Laboratorio Biomolecular');
             break;
 
         case 'ULTRASONIDO':
-            localStorage.setItem('areaActual', 8);
-            obtenerAgendaPacientes();
+            localStorage.setItem('areaActual', 11);
+            obtenerAgendaPacientes('Ultrasonido');
             break;
 
-        case "AGENDA_PACIENTES":
-            areaActiva = 11;
-            localStorage.setItem('areaActual', 11);
-            obtenerAgendaPacientes();
+        case 'RX':
+            localStorage.setItem('areaActual', 8);
+            obtenerAgendaPacientes('Rayos X');
+            break;
+
+        // case "AGENDA_PACIENTES":
+        //     areaActiva = 11;
+        //     localStorage.setItem('areaActual', 11);
+        //     obtenerAgendaPacientes();
+        //     break;
+        default:
+
             break;
     }
     // }

@@ -6,8 +6,14 @@
              </a>
              <!-- Estos botones se cargan en el servidor desde el archivo del include -->
              <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropCheckups">
-                 <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#AGENDA_PACIENTES'; ?>">
+                 <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#ULTRASONIDO'; ?>">
                      <i class="bi bi-dot"></i> Ultrasonido
+                 </a>
+                 <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#BIOMOLECULAR'; ?>">
+                     <i class="bi bi-dot"></i> Lab Biomolecular
+                 </a>
+                 <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/agenda-estudios/#CHECKUPS'; ?>">
+                     <i class="bi bi-dot"></i> Checkups
                  </a>
              </ul>
          </div>
