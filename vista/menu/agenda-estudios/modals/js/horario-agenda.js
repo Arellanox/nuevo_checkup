@@ -11,6 +11,7 @@ $(document).on('submit', '#fromAjusteHora', function (event) {
     }, () => {
         ajaxAwaitFormData({
             api: 5,
+            area_id: localStorage.getItem('areaActual')
         }, 'agenda_api', 'fromAjusteHora', { callbackAfter: true }, false, () => {
             alertToast('¡Horario actualizado!', 'success', 4000)
             // alertMensaje('success', '')
