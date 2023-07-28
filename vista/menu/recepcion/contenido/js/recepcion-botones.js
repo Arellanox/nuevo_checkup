@@ -223,12 +223,41 @@ $(document).on('click', "#btn-perfil", function () {
 
 // if (!session['permiso']['RepIngPaci'] == 1)
 if (!validarPermiso('RepIngPaci'))
-  $('#btn-pendiente').fadeOut(0);
+  $('#btn-pendiente-ingreso').fadeOut(0);
 
-// $(document).on('click', '#btn-pendiente', function () {
+$(document).on('click', '#btn-pendiente-ingreso', function () {
+  if (array_selected) {
 
+    alertMensajeConfirm({
+      title: '¿Está Seguro de regresar al paciente en espera?',
+      text: "¡Sus estudios anteriores no se cargarán!",
+      icon: 'warning',
+      confirmButtonText: 'Si, colocarlo en espera',
+    }, () => {
+      ajaxAwait({
+        id_turno: data['ID_TURNO'],
+        api: 2,
+        // estado: null
+      }, 'recepcion_api', { callbackAfter: true }, false, () => {
+        alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
+        try {
+          tablaRecepcionPacientes.ajax.reload();
+        } catch (e) {
 
-// })
+        }
+        try {
+          tablaRecepcionPacientesIngrersados.ajax.reload();
+        } catch (e) {
+
+        }
+      })
+    }, 1)
+  } else {
+    alertSelectTable('No ha seleccionado ningún paciente', 'error')
+
+  }
+
+})
 
 $(document).on('click', "#btn-reagendar", function () {
   if (array_selected != null) {
