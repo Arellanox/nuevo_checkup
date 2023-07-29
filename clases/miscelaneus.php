@@ -1223,7 +1223,7 @@ class Miscelaneus
 
                 $absoluto_array[] = array(
                     "analito" => $current['DESCRIPCION_SERVICIO'],
-                    "valor_abosluto" => $current['VALOR_ABSOLUTO'] . $demonMark,
+                    "valor_abosluto" => $current['VALOR_ABSOLUTO'] . $current['VALOR_ABSOLUTO'] =="N/A" ? "" : $demonMark,
                     "referencia" => $current['VALOR_REFERENCIA_ABS'],
                     "grupo_id" => $current['GRUPO_ID'],
                     "unidad" => $current['MEDIDA_ABS']
