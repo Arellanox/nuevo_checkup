@@ -597,9 +597,9 @@ class Miscelaneus
         $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
         // print_r($response);
         $arrayDetalle = [];
-        $NumbersToLetters = new NumbersToLetters();
         $number = ["TOTAL" => $response[1][0]['TOTAL']];
-        $cantidad = $NumbersToLetters->NumbersToLetters($number);
+        $NumbersToLetters = new NumbersToLetters($number);
+        $cantidad = $NumbersToLetters->letters;
 
         for ($i = 0; $i < count($response[1]); $i++) {
 

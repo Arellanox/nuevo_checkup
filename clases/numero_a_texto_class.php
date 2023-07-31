@@ -115,8 +115,8 @@ class NumbersToLetters extends Miscelaneus
 // Ejemplo de uso
 // $cantidad = 10000000.00;
 
-// Creamos instancia de objeto pasando el decimal.
-$obj = new NumbersToLetters($cantidad);
+// // Creamos instancia de objeto pasando el decimal.
+// $obj = new NumbersToLetters($cantidad);
 
-// Imprimimos el decimal en letras.
-echo $obj->letters;
+// // Imprimimos el decimal en letras.
+// echo $obj->letters;
