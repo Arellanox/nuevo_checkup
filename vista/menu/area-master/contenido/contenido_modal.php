@@ -388,30 +388,30 @@ session_start();
 
     var body = $('body');
 
-    body.on({
-        click: function() {
-            var src = $(this).attr('src');
-            let div = $('<div class="slide" title="Teclea enter para salir de la imagen">');
-            div.css({
-                background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
-                backgroundSize: 'contain',
-                width: '100%',
-                height: '100%',
-                position: 'fixed',
-                zIndex: '10000',
-                top: '0',
-                left: '0',
-                cursor: 'pointer'
-            }).appendTo('body');
-            body.keyup(function(e) {
-                if (e.key === "Enter") {
-                    // img.remove();
-                    div.remove();
-                }
-            })
-            var scroll_zoom = new ScrollZoom(div, 5, 0.5)
-        }
-    }, 'img[data-enlargable]')
+    // body.on({
+    //     click: function() {
+    //         var src = $(this).attr('src');
+    //         let div = $('<div class="slide" title="Teclea enter para salir de la imagen">');
+    //         div.css({
+    //             background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
+    //             backgroundSize: 'contain',
+    //             width: '100%',
+    //             height: '100%',
+    //             position: 'fixed',
+    //             zIndex: '10000',
+    //             top: '0',
+    //             left: '0',
+    //             cursor: 'pointer'
+    //         }).appendTo('body');
+    //         body.keyup(function(e) {
+    //             if (e.key === "Enter") {
+    //                 // img.remove();
+    //                 div.remove();
+    //             }
+    //         })
+    //         var scroll_zoom = new ScrollZoom(div, 5, 0.5)
+    //     }
+    // }, 'img[data-enlargable]')
 
     // $('img[data-enlargable]').addClass('img-enlargable').click(function() {
 
