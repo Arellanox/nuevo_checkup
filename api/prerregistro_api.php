@@ -31,7 +31,7 @@ $usuario_id = $_SESSION['id'];
 
 
 #datos de antecedentes
-$antecedentes = array_slice($_POST, 0, count($_POST) - 4);
+$antecedentes = array_slice($_POST, 0, count($_POST) - 6); // < - Elimina la cantidad de cosas del post para funcionar
 // print_r($antecedentes);
 
 
@@ -146,7 +146,6 @@ switch ($api) {
 
 
             $response = $master->getByNext("sp_espiro_cuestionario_g", [json_encode($principal), $lastId, 5, $usuario_id, 0]);
-            
         } else {
             # si no se puede insertar el turno, termina el ejecucion
             echo json_encode(array('response' => array('code' => 2, 'data' => "No hemos podido agendar su visita.")));
