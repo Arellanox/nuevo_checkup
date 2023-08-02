@@ -235,7 +235,7 @@ $(document).on('click', '#btn-pendiente-ingreso', function () {
       confirmButtonText: 'Si, colocarlo en espera',
     }, () => {
       ajaxAwait({
-        id_turno: data['ID_TURNO'],
+        id_turno: array_selected['ID_TURNO'],
         api: 2,
         // estado: null
       }, 'recepcion_api', { callbackAfter: true }, false, () => {
