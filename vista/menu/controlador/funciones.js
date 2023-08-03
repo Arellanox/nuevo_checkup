@@ -360,18 +360,28 @@ function checkNumber(x, transform = 0) {
 }
 
 
-function ifnull(data, siNull = '') {
-  if (data === 'NaN') return siNull;
-  if (typeof data === 'undefined') return siNull;
-  if (data) {
-    data = `${data}`.replace(/["]+/g, '&quot');
-    data = `${data}`.replace(/["]+/g, '&#44;');
-
-
-    return data;
+function ifnull(data, siNull = '', values = ['option1', 'option2']) {
+  // Caso de Objeto
+  if (typeof data === 'object' && data !== null) {
+    for (const key of values) {
+      if (data.hasOwnProperty(key)) {
+        return data[key]; // Devuelve el valor de la primera clave que exista
+      }
+    }
+    return siNull; // Devuelve siNull si no se encuentra ninguna clave
   }
-  return siNull;
+  // Otros Casos
+  else {
+    if (data === 'NaN' || typeof data === 'undefined' || data === '') return siNull;
+    if (data) {
+      data = `${data}`.replace(/["]+/g, '&quot;');
+      return data;
+    }
+    return siNull;
+  }
+
 }
+
 
 function htmlCaracter(data) {
 
@@ -1413,6 +1423,8 @@ function mensajeAjax(data, modulo = null) {
 function alertErrorAJAX(jqXHR, exception, data) {
   var msg = '';
   //Status AJAX
+  // console.log(jqXHR, exception, data)
+
   switch (jqXHR.status) {
     case 0:
       if (exception != 'abort') {
@@ -1427,6 +1439,8 @@ function alertErrorAJAX(jqXHR, exception, data) {
     case 'timeout': //console.log('timeout'); return 0
     case 'abort': return 0
   }
+
+
 
   //console.log(jqXHR.responseText);
 
@@ -1478,8 +1492,8 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
 
 //Solo doble click
 var dobleClickSelecTable = false; //Ultimo select ()
-function selectDatatabledblclick(callback = function (selected, data) { }, tablename, datatable, disabledDblclick = false) {
-  console.log(tablename)
+function selectDatatabledblclick(callback = function () { }, tablename, datatable, disabledDblclick = false) {
+  //console.log(tablename)
   if (!disabledDblclick)
     dobleClickSelecTable = false
   $(tablename).on('click', 'tr', function () {
@@ -1493,7 +1507,7 @@ function selectDatatabledblclick(callback = function (selected, data) { }, table
         datatable.$('tr.selected').removeClass('selected');
         // array_selected = datatable.row(this).data()
 
-        return callback(0, null, row);
+        return callback(0, null);
       }
     }
     if (disabledDblclick == false)
@@ -1501,7 +1515,7 @@ function selectDatatabledblclick(callback = function (selected, data) { }, table
     datatable.$('tr.selected').removeClass('selected');
     $(this).addClass('selected');
     array_selected = datatable.row(this).data()
-    return callback(1, array_selected, this)
+    return callback(1, array_selected)
 
   });
 }

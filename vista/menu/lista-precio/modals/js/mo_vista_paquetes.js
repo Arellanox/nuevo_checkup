@@ -35,27 +35,14 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
         // { data: 'COUNT' },
         {
             data: null, render: function (meta) {
-                let servicio = '';
-                if (typeof meta.SERVICIO == 'undefined') {
-                    if (typeof meta.PRODUCTO !== 'undefined')
-                        servicio = meta.PRODUCTO;
-                } else {
-                    servicio = meta.SERVICIO
-                }
-                return servicio;
+                return ifnull(meta, '0', ['SERVICIO', 'PRODUCTO']);
             }
         },
         { data: 'ABREVIATURA' },
         { data: 'CANTIDAD' },
         {
             data: null, render: function (meta) {
-                let costo_base = '';
-                if (typeof meta.COSTO_UNITARIO == 'undefined') {
-                    if (typeof meta.COSTO_BASE != 'undefined')
-                        costo_base = meta.COSTO_BASE
-                } else {
-                    costo_base = meta.COSTO_UNITARIO
-                }
+                let costo_base = ifnull(meta, '0', ['COSTO_UNITARIO', 'COSTO_BASE'])
                 return `$${parseFloat(costo_base).toFixed(2)}`
             }
         },
@@ -66,35 +53,19 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
         },
         {
             data: null, render: function (meta) {
-                var descuento = 'No aplica'
-                if (typeof meta['DESCUENTO_PORCENTAJE'] !== 'undefined')
-                    descuento = `${meta['DESCUENTO_PORCENTAJE']} %`
-                // try { descuento = meta['DESCUENTO'] } catch (error) { }
-                return descuento
+                return `${ifnull(meta, '0', ['DESCUENTO_PORCENTAJE'])} %`
             }
         },
         {
             data: null, render: function (meta) {
-                let costo_base = '';
-                if (typeof meta.PRECIO_VENTA_UNITARIO == 'undefined') {
-                    if (typeof meta.SUBTOTAL_BASE != 'undefined')
-                        costo_base = meta.SUBTOTAL_BASE
-                } else {
-                    costo_base = meta.PRECIO_VENTA_UNITARIO
-                }
-                return `$${parseFloat(costo_base).toFixed(2)}`
+                let valor = ifnull(meta, '0', ['PRECIO_VENTA_UNITARIO', 'SUBTOTAL_BASE'])
+                return `$${parseFloat(valor).toFixed(2)}`
             }
         },
         {
             data: null, render: function (meta) {
-                let costo_base = '';
-                if (typeof meta.SUBTOTAL == 'undefined') {
-                    if (typeof meta.SUBTOTAL != 'undefined')
-                        costo_base = meta.SUBTOTAL
-                } else {
-                    costo_base = meta.SUBTOTAL
-                }
-                return `$${parseFloat(costo_base).toFixed(2)}`
+                let valor = ifnull(meta, '0', ['SUBTOTAL'])
+                return `$${parseFloat(valor).toFixed(2)}`
             }
         },
         // data: 'TERMINO_ATENCION', render: function (data) {
@@ -121,6 +92,7 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             .column(3, { page: 'current' })
             .data()
             .reduce(function (a, b) {
+                b = ifnull(b, '0', ['COSTO_UNITARIO', 'SUBTOTAL_BASE'])
                 // Eliminar el símbolo "$" y los separadores de miles antes de sumar
                 var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
                 return a + num;
@@ -140,6 +112,7 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             .column(6)
             .data()
             .reduce(function (a, b) {
+                b = ifnull(b, '0', ['PRECIO_VENTA_UNITARIO', 'COSTO_BASE'])
                 // Eliminar el símbolo "$" y los separadores de miles antes de sumar
                 var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
                 return a + num;
@@ -149,6 +122,7 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             .column(7)
             .data()
             .reduce(function (a, b) {
+                b = ifnull(b, '0', ['PRECIO_VENTA_UNITARIO', 'Subtotal'])
                 // Eliminar el símbolo "$" y los separadores de miles antes de sumar
                 var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
                 return a + num;
@@ -173,12 +147,8 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             text: '<i class="fa fa-file-excel-o"></i> Excel',
             className: 'btn btn-success',
             titleAttr: 'Excel',
-            filename: function () {
-                return $('#seleccion-paquete option:selected').text()
-            },
-            title: function () {
-                return $('#seleccion-paquete option:selected').text();
-            },
+            filename: filename,
+            title: title,
             footer: true,
 
             // customize: function (xlsx) {
@@ -223,7 +193,7 @@ ModalVistaPaquetes.addEventListener("show.bs.modal", (event) => {
     }, 200);
 
     var hash = window.location.hash.substring(1);
-    var datajson = { "url": '', "dataSrc": "response.data" }
+    var datajson = { "url": '' }
     let select = '', selectTitle = '';
     if (hash === 'PAQUETES_ESTUDIOS') {
         datajson['url'] = `${http}${servidor}/${appname}/api/paquetes_api.php`;
@@ -235,7 +205,7 @@ ModalVistaPaquetes.addEventListener("show.bs.modal", (event) => {
 
     } else if (hash === 'COTIZACIONES_ESTUDIOS') {
         datajson['url'] = `${http}${servidor}/${appname}/api/cotizaciones_api.php`;
-        datajson['dataSrc'] = 'response.data[0].DETALLE'
+
 
         dataVistaPq = { id_cotizacion: $('#select-presupuestos').val(), api: 2 }
 
@@ -249,7 +219,6 @@ ModalVistaPaquetes.addEventListener("show.bs.modal", (event) => {
 
     TablaVistaListaPaquetes.clear().draw();
 
-    TablaVistaListaPaquetes.settings()[0].oInit.dataSrc = datajson.dataSrc;
     TablaVistaListaPaquetes.ajax.url(datajson.url)
     TablaVistaListaPaquetes.ajax.reload()
 });

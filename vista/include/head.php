@@ -122,6 +122,9 @@
 <!-- Capturar HTML -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
+<!-- Momen js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 <!-- xlsx-style -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/xlsx-style@0.8.13/dist/xlsx.full.min.js" integrity="sha256-ZsKzBmgTjgDejmkVE2stLbhlGu+psgjJrenYEHzCF1w=" crossorigin="anonymous"></script> -->
 
