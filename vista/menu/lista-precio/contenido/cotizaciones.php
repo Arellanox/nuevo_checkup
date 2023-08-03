@@ -196,11 +196,11 @@
 <div class="modal fade" id="modal-cotizacion" tabindex="-1" role="dialog" aria-labelledby="modal-cotizacion-label" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header header-modal">
+            <!-- <div class="modal-header header-modal">
                 <h5 class="modal-title" id="title-paciente_rechazar">Vista previa cotizacion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+            </div> -->
+            <div class="modal-body" style="padding:0px">
                 <div id="adobe-dc-view" style="height:100%"></div>
             </div>
             <div class="modal-footer">

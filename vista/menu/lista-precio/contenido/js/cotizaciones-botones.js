@@ -310,13 +310,13 @@ $('#btn-vistaPrevia-cotizacion').click(function () {
 $('#btn-enviarCorreo-cotizaciones').click(function (e) {
   alertMensajeConfirm({
     title: '',
-    html: `<h4 style = "font-weight: bold";>¿Esta seguro de enviar la cotización al correo: <span style = "background-color : yellow">${row2['CORREO']}<span>?</h4 style>
-    <br> <small>No podra revertir este cambio</small>`,
+    html: `<h4 style = "font-weight: bold";>¿Desea enviar está cotización al correo: <span style = "background-color : yellow">${row2['CORREO']}<span> ?</h4 style>
+    <br> <small>No podrás cancelar el correo</small>`,
     icon: "info",
   }, function () {
 
     ajaxAwait({ api: 5, id_cotizacion: SelectedFolio }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
-      alertToast('Se envio la cotizacion!', 'success', '5000')
+      alertToast('¡Cotización Enviada!', 'success', '4000')
       $('#modal-cotizacion').modal('hide');
     })
   }, 1)

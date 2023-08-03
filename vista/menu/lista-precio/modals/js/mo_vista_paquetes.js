@@ -33,12 +33,29 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
     },
     columns: [
         // { data: 'COUNT' },
-        { data: 'SERVICIO' },
+        {
+            data: null, render: function (meta) {
+                let servicio = '';
+                if (typeof meta.DESCRIPCION == 'undefined') {
+                    if (typeof meta.PRODUCTO !== 'undefined')
+                        servicio = meta.PRODUCTO;
+                } else {
+                    servicio = meta.DESCRIPCION
+                }
+            }
+        },
         { data: 'ABREVIATURA' },
         { data: 'CANTIDAD' },
         {
-            data: 'COSTO_UNITARIO', render: function (data) {
-                return `$${parseFloat(data).toFixed(2)}`
+            data: null, render: function (meta) {
+                let costo_base = '';
+                if (typeof meta.COSTO_UNITARIO == 'undefined') {
+                    if (typeof meta.COSTO_BASE != 'undefined')
+                        costo_base = meta.COSTO_BASE
+                } else {
+                    costo_base = meta.COSTO_UNITARIO
+                }
+                return `$${parseFloat(costo_base).toFixed(2)}`
             }
         },
         {
@@ -49,20 +66,34 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
         {
             data: null, render: function (meta) {
                 var descuento = 'No aplica'
-                if (typeof meta['DESCUENTO'] !== 'undefined')
-                    descuento = meta['DESCUENTO']
+                if (typeof meta['DESCUENTO_PORCENTAJE'] !== 'undefined')
+                    descuento = `${meta['DESCUENTO_PORCENTAJE']} %`
                 // try { descuento = meta['DESCUENTO'] } catch (error) { }
                 return descuento
             }
         },
         {
-            data: 'PRECIO_VENTA_UNITARIO', render: function (data) {
-                return `$${parseFloat(data).toFixed(2)}`
+            data: null, render: function (meta) {
+                let costo_base = '';
+                if (typeof meta.PRECIO_VENTA_UNITARIO == 'undefined') {
+                    if (typeof meta.SUBTOTAL_BASE != 'undefined')
+                        costo_base = meta.SUBTOTAL_BASE
+                } else {
+                    costo_base = meta.PRECIO_VENTA_UNITARIO
+                }
+                return `$${parseFloat(costo_base).toFixed(2)}`
             }
         },
         {
-            data: 'SUBTOTAL', render: function (data) {
-                return `$${parseFloat(data).toFixed(2)}`
+            data: null, render: function (meta) {
+                let costo_base = '';
+                if (typeof meta.SUBTOTAL == 'undefined') {
+                    if (typeof meta.SUBTOTAL != 'undefined')
+                        costo_base = meta.SUBTOTAL
+                } else {
+                    costo_base = meta.SUBTOTAL
+                }
+                return `$${parseFloat(costo_base).toFixed(2)}`
             }
         },
         // data: 'TERMINO_ATENCION', render: function (data) {
