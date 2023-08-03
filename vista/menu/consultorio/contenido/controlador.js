@@ -21,6 +21,10 @@ async function obtenerConsultorioMain() {
       fecha_busqueda: $('#fechaListadoAreaMaster').val(),
       area_id: 1
     }
+
+    if (session.cargo == 19)
+      dataListaPaciente['cliente_id'] = 16
+
     // Datatable
     $.getScript("contenido/js/main-tabla.js");
     // // Botones
@@ -45,6 +49,11 @@ function obtenerContenidoAntecedentes(data) {
     var idrow;
     $("#body-js").html(html) // Rellenar la plantilla de consulta
   }).done(function () {
+
+    if (session.cargo == 19)
+      $('.medico-coordinador').remove('')
+
+
     pacienteActivo = new GuardarArreglo(data)
     // $.getScript("modals/controlador-perfilPaciente.js");
     // Funciones

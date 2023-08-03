@@ -75,6 +75,10 @@ $('#UsarPaquete').on('click', function () {
 
   calcularFilasTR()
 
+  $('#input-atencion-cortizaciones').val('');
+  $('#input-correo-cortizaciones').val('');
+  $('#input-fecha-vigencia').val('')
+  $('#input-observaciones-cortizaciones').val('');
 
   switch ($('input[type=radio][name=selectPaquete]:checked').val()) {
     case '2': //Lista de precios para clientes
@@ -86,6 +90,21 @@ $('#UsarPaquete').on('click', function () {
 
         row = data.response.data[0]['DETALLE']
         row2 = data.response.data[0]
+
+
+        var datetimeString = row2['FECHA_VENCIMIENTO']; // Puedes reemplazar esta línea con tu dato datetime
+        // Convertir la cadena de fecha a un objeto Date utilizando Moment.js
+        var fecha = moment(datetimeString);
+        // Formatear a solo fecha
+        var fechaFormateada = fecha.format('YYYY-MM-DD');
+
+        $('#input-atencion-cortizaciones').val(row2['CREADO_POR']);
+        $('#input-correo-cortizaciones').val(row2['CORREO']);
+        $('#input-fecha-vigencia').val(fechaFormateada)
+        $('#input-observaciones-cortizaciones').val(row2['OBSERVACIONES']);
+
+
+
         // var datosUsuarioCotizacion = $('#datosUsuarioCotizacion')
         if (row) {
           datosUsuarioCotizacion.html(`<div class="col-6">
@@ -172,23 +191,7 @@ $('input[type=radio][name=selectChecko]').change(function () {
     });
   }
 });
-//mosotrar datos ya registrados
-$('#btn-info-detaelle-cotizacion').click(function () {
-  if (row2 && row2['CREADO_POR'] && row2['CORREO'] && row2['OBSERVACIONES']) {
 
-    var datetimeString = row2['FECHA_VENCIMIENTO']; // Puedes reemplazar esta línea con tu dato datetime
-    // Convertir la cadena de fecha a un objeto Date utilizando Moment.js
-    var fecha = moment(datetimeString);
-    // Formatear a solo fecha
-    var fechaFormateada = fecha.format('YYYY-MM-DD');
-
-    $('#input-atencion-cortizaciones').val(row2['CREADO_POR']);
-    $('#input-correo-cortizaciones').val(row2['CORREO']);
-    $('#input-fecha-vigencia').val(fechaFormateada)
-    $('#input-observaciones-cortizaciones').val(row2['OBSERVACIONES']);
-  }
-
-})
 
 $('#guardar-contenido-paquete').on('click', function () {
 
@@ -225,7 +228,7 @@ $('#guardar-contenido-paquete').on('click', function () {
       }
 
       if ($('input[type=radio][name=selectPaquete]:checked').val() == 2) {
-        datajson['id_cotizacion'] = SelectedFolio;
+        datajson['id_cotizacion'] = $('#select-presupuestos').val();
       }
 
       let data = await ajaxAwait(datajson, 'cotizaciones_api')
@@ -298,7 +301,7 @@ $('#btn-vistaPrevia-cotizacion').click(function () {
   var area_nombre = 'cotizacion';
   var api = encodeURIComponent(window.btoa(area_nombre));
   var area = encodeURIComponent(window.btoa(15));
-  var id_cotizacion = encodeURIComponent(window.btoa(SelectedFolio));
+  var id_cotizacion = encodeURIComponent(window.btoa($('#select-presupuestos').val()));
 
 
 
@@ -310,6 +313,7 @@ $('#btn-vistaPrevia-cotizacion').click(function () {
   // Construye la vista y se almacena en la variable url
   var url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&area=${area}&id_cotizacion=${id_cotizacion}`;
   //Se manda la url y se agrega un titulo donde se cargara la vista del pdf
+  console.log(url, $('#select-presupuestos').val());
   getNewView(url, 'Vista prevía cotización')
 
   // Muestra el modal
@@ -325,7 +329,7 @@ $('#btn-enviarCorreo-cotizaciones').click(function (e) {
     icon: "info",
   }, function () {
 
-    ajaxAwait({ api: 5, id_cotizacion: SelectedFolio }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
+    ajaxAwait({ api: 5, id_cotizacion: $('#select-presupuestos').val() }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
       alertToast('¡Cotización Enviada!', 'success', '4000')
       $('#modal-cotizacion').modal('hide');
     })

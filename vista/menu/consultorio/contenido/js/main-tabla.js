@@ -102,7 +102,8 @@ selectTable('#TablaListaConsultorio', tablaMain, {
 
 
 //Panel turnos, mandar id fisica al  principio
-obtenerPanelInformacion(1, 'vistas', "turnos_panel", '#turnos_panel')
+if (session.cargo != 19)
+  obtenerPanelInformacion(1, 'vistas', "turnos_panel", '#turnos_panel')
 
 
 
