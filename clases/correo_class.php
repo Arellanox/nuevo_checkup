@@ -169,8 +169,11 @@ class Correo
                     $mail->Body = $this->cuerpoRecuperarPassword($token);
                     break;
                 case "fastck":
-                    $f = str_replace("_"," ",$paciente);
+                    $f = str_replace("_", " ", $paciente);
                     $mail->Body = $this->cuerpoCorreoFastCheckup($f);
+                    break;
+                case 'cotizacion':
+                    $mail->Body = $this->cuerpoCotizaciones();
                     break;
             }
 
@@ -184,7 +187,8 @@ class Correo
         }
     }
 
-    private function cuerpoCorreoFastCheckup($nombre){
+    private function cuerpoCorreoFastCheckup($nombre)
+    {
         $html = '<!DOCTYPE html>
         <html lang="es">
 
@@ -204,7 +208,7 @@ class Correo
             </div>
             <div style="padding:5px 20px 15px 20px;color:black;font-size:14px;background-color:#f6fdff">
                 <h2>
-                    ¡Hola '.$nombre.'!
+                    ¡Hola ' . $nombre . '!
                 </h2>
                 <p>
                     En este correo encontrarás los resultados de tu “Fast Checkup” realizado el día de hoy por bimo.
@@ -224,7 +228,7 @@ class Correo
         </div>
     </body>
         </html>';
-return $html;
+        return $html;
     }
     private function cuerpoCorreoLaboratorio()
     {
@@ -309,7 +313,8 @@ return $html;
         return $html;
     }
 
-    private function cuerpoRecuperarPassword($token){
+    private function cuerpoRecuperarPassword($token)
+    {
 
         $token = base64_encode($token);
         $html = '<!DOCTYPE html>
@@ -335,7 +340,7 @@ return $html;
                             Se ha generado un nuevo token para su Pre-registro en bimo:
                         </p>
                         <p>
-                            <a href="https://bimo-lab.com/nuevo_checkup/reset-password/?token=' . $token.' target="_blank">Cambia tu password aquí</a>
+                            <a href="https://bimo-lab.com/nuevo_checkup/reset-password/?token=' . $token . ' target="_blank">Cambia tu password aquí</a>
                         </p>
                         <!-- <p> 
                             Guarde su nuevo prefolio de identificación (<strong>("FOLIO")</strong>) para el ingreso a _bimo checkup_
@@ -349,6 +354,51 @@ return $html;
                 </div>
             </body>
         </html>';
+        return $html;
+    }
+
+    private function cuerpoCotizaciones()
+    {
+
+        $html = '<!DOCTYPE html>
+                    <html lang="es">
+
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>bimo checkups</title>
+                    </head>
+
+               <body>
+                    <div id="contenido" style="background-color:#f6fdff">
+                        <div style="overflow:auto;text-align:left;background-color:rgb(000,078,089);padding:5px;color:white">
+                            <img src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/icono_administrativo.jpeg" alt="img"
+                            style="border-radius:15px;height:55px;float:left;padding:8px">
+                            <p style="font-size: 20px; color:white">Diagnóstico Biomolecular S.A. de C.V.</p>
+                        </div>
+                        <div style="padding:5px 20px 15px 20px;color:black;font-size:14px;background-color:#f6fdff">
+                            <h2>
+                                ¡Buenas tardes!
+                            </h2>
+                            <p>
+                              Espero que este mensaje le encuentre bien. Le adjunto la cotización detallada de nuestros servicios clínicos. Estamos seguros de que nuestra experiencia y dedicación nos permitirán brindarle una atención de calidad para cubrir todas sus necesidades de salud.</p>
+
+                           <p> Si tiene alguna consulta o necesita más información, no dude en ponerse en contacto con nosotros. Estamos a su disposición para ayudarle en lo que necesite.</p>
+
+                           <p> Agradecemos la oportunidad de servirle y esperamos poder colaborar juntos en su bienestar.</p>
+
+                            <p>Quedamos atentos a cualquier comentario o inquietud.
+                            </p>
+                            <div style="text-align:right">
+                                <p>Atentamente</p>
+                                <p>bimo<br>Checkup Clinico y Preventivo</p>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+                    </html>';
+
         return $html;
     }
 }

@@ -8,6 +8,7 @@ use iio\libmergepdf\Driver\TcpdiDriver;
 use iio\libmergepdf\Driver\Fpdi2Driver;
 use iio\libmergepdf\Source\FileSource;
 
+include "numero_a_texto_class.php";
 include_once "Pdf.php";
 date_default_timezone_set('America/Mexico_City');
 
@@ -440,15 +441,15 @@ class Miscelaneus
             case 15:
             case "15":
                 # COTIZACIONES
-                $arregloCliente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
-                $arregloPaciente = $arregloCliente;
+                $arregloPaciente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
                 $fecha_resultado = $arregloPaciente['FECHA_CREACION'];
+                $fecha_resultado = date('dmY', strtotime($fecha_resultado));
                 $carpeta_guardado = "cotizacion";
-                // $infoCliente = [$infoCliente[count($infoCliente) - 1]];
-                $folio = $arregloPaciente['FOLIO_COTIZACIONES'];
+                // $arregloPaciente = [$arregloPaciente[count($arregloPaciente) - 1]];
+                $folio = $arregloPaciente['FOLIO'];
+                $nombre_paciente = 'COTIZACION_' . $folio;
                 // print_r($arregloPaciente);
-                // echo $fecha_resultado. " " . $folio;
-                // print_r($infoPaciente);
+                // exit;
                 break;
             case 16:
             case "16":
@@ -522,6 +523,24 @@ class Miscelaneus
         }
 
 
+        switch ($area_id) {
+            case '0':
+            case 0:
+                $area_id = 6;
+                break;
+
+            case 15:
+            case '15':
+                //Cambiamos la ruta para donde guardar la cotizacion
+                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
+                break;
+
+            default:
+                # Ruta por defecto de los reportes
+                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
+
+                break;
+        }
 
         if ($area_id == 0) {
             $area_id = 6;
@@ -535,7 +554,6 @@ class Miscelaneus
             $nombre_paciente
         );
 
-        $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
 
         # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
         $this->setRutaReporte($ruta_saved);
@@ -597,21 +615,36 @@ class Miscelaneus
         $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
         // print_r($response);
         $arrayDetalle = [];
-        $number = ["TOTAL" => $response[1][0]['TOTAL']];
-        $NumbersToLetters = new NumbersToLetters($number);
-        $cantidad = $NumbersToLetters->letters;
-
+        // $number = ["TOTAL" => $response[0][0]['TOTAL']];
+        // $NumbersToLetters = new NumbersToLetters($number['TOTAL']);
+        // $cantidad = $NumbersToLetters->letters;
+        $subTotalCal = 0;
         for ($i = 0; $i < count($response[1]); $i++) {
 
             $cargosDetalle = [
                 "PRODUCTO" => $response[1][$i]['PRODUCTO'],
-                "PRECIO_UNITARIO" => $response[1][$i]['PRECIO_UNITARIO'],
+                "PRECIO_UNITARIO" => $response[1][$i]['SUBTOTAL_BASE'],
                 "CANTIDAD" => $response[1][$i]['CANTIDAD'],
-                "TOTAL" => $response[1][$i]['TOTAL'],
+                "TOTAL" => $response[1][$i]['SUBTOTAL'],
+                'TOTAL_ORIGINAL' => $response[1][$i]['SUBTOTAL_SIN_DESCUENTO'],
+                'DESCUENTO_PORCENTAJE' => $response[1][$i]['DESCUENTO_PORCENTAJE']
             ];
 
             array_push($arrayDetalle, $cargosDetalle);
         }
+
+        #Calculamos el subtotal
+        foreach ($arrayDetalle as $detalle) {
+            $subTotalCal += $detalle['TOTAL'];
+        }
+
+        #Carlulamos el IVA y el total
+        $ivaCalculado = $subTotalCal * 0.16;
+        $totalCal = $subTotalCal + $ivaCalculado;
+        $descuentoSubtotal = $subTotalCal * $cargosDetalle['DESCUENTO_PORCENTAJE'];
+
+        $NumbersToLetters = new NumbersToLetters($infoCliente[0]['TOTAL']);
+        $cantidad = $NumbersToLetters->letters;
 
         $arregloCotizaciones = array(
             'ESTUDIOS_DETALLE' => $arrayDetalle,
@@ -619,18 +652,25 @@ class Miscelaneus
             "RAZON_SOCIAL" => $infoCliente[0]['RAZON_SOCIAL'],
             'TELEFONO' => $infoCliente[0]['TELEFONO'],
             'RFC' => $infoCliente[0]['RFC'],
-            'SUBTOTAL' => $response[0][0]['SUBTOTAL'],
+            'CREADO_POR' => $infoCliente[0]['CREADO_POR'],
+            'SUBTOTAL' => $infoCliente[0]['SUBTOTAL'],
+            'SUBTOTAL_SIN_DESCUENTO' => $infoCliente[0]['SUBTOTAL_SIN_DESCUENTO'],
             'DESCUENTO' => $response[0][0]['DESCUENTO'],
-            'IVA' => $response[0][0]['IVA'],
-            'TOTAL_DETALLE' => $response[1][0]['TOTAL'],
+            'IVA' => $infoCliente[0]['IVA'],
+            'TOTAL_DETALLE' => $infoCliente[0]['TOTAL'],
             'FECHA_CREACION' => $response[0][0]['FECHA_CREACION'],
             'FECHA_VENCIMIENTO' => $response[0][0]['FECHA_VENCIMIENTO'],
-            'FOLIO' => $infoCliente[0][0]['FOLIO'],
-            'CANTIDAD' => $cantidad
+            'FOLIO' => $infoCliente[0]['FOLIO'],
+            'CANTIDAD' => $cantidad,
+            'PORCENTAJE_DESCUENTO' => $infoCliente[0]['PORCENTAJE_DESCUENTO']
+
         );
+
 
         return $arregloCotizaciones;
     }
+
+
     //Consultorio
     private function getBodyInfoConsultorio2($master, $turno_id)
     {
@@ -1223,7 +1263,7 @@ class Miscelaneus
 
                 $absoluto_array[] = array(
                     "analito" => $current['DESCRIPCION_SERVICIO'],
-                    "valor_abosluto" => $current['VALOR_ABSOLUTO'] . (trim($current['VALOR_ABSOLUTO']) ==="N/A" ? "" : $demonMark),
+                    "valor_abosluto" => $current['VALOR_ABSOLUTO'] . (trim($current['VALOR_ABSOLUTO']) === "N/A" ? "" : $demonMark),
                     "referencia" => $current['VALOR_REFERENCIA_ABS'],
                     "grupo_id" => $current['GRUPO_ID'],
                     "unidad" => $current['MEDIDA_ABS']

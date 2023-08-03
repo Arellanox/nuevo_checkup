@@ -1,10 +1,15 @@
 async function mantenimientoPaquete() {
+  $('#btn-excel-previa').attr('disabled', false)
+  $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
   loader("In");
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
   $('#container-select-presupuesto').fadeIn('slow')
 
-  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_COTIZACIONES.CLIENTE', {
+  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
     cliente_id: $('#seleccion-paquete').val()
+  }, function (data) {
+    detalle_paquetes = data;
+    console.log(detalle_paquetes);
   });
 
   tablaContenido(true);
@@ -24,6 +29,8 @@ async function mantenimientoPaquete() {
 }
 
 async function contenidoPaquete(select = null) {
+  $('#btn-excel-previa').attr('disabled', true)
+  $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
   loader("In");
   await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
 
@@ -43,7 +50,7 @@ async function contenidoPaquete(select = null) {
 }
 
 // Agrega Un nuevo TR a la tabla de paquetes
-function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, DESCUENTO, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete) {
+function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, DESCUENTO, ID_SERVICIO, ABREVIATURA /* SIN USO XD */, tablaContenidoPaquete) {
   if (DESCUENTO === null) DESCUENTO = ''
   let longitud = dataSet.length + 1;
   if (costo_total == null) {
@@ -115,10 +122,12 @@ function calcularFilasTR() {
     subtotalCosto_sindescuento = subtotalCosto;
   }
 
+  subtotalPrecioventa_sindescuento = 0;
   if (!checkNumber(subtotalPrecioventa)) {
     subtotalPrecioventa = 0;
     descuento = 0;
     descuentoPorcentaje = parseFloat($('#descuento-paquete').val());
+
   } else {
     descuentoPorcentaje = parseFloat($('#descuento-paquete').val());
     subtotalPrecioventa_sindescuento = subtotalPrecioventa
@@ -159,7 +168,8 @@ function calcularFilasTR() {
     'iva_porcentaje': '16%',
     'cliente_id': $('#seleccion-paquete').val(),
     'descuento': descuento.toFixed(2),
-    'descuento_porcentaje': descuentoPorcentaje.toFixed(2)
+    'descuento_porcentaje': descuentoPorcentaje.toFixed(2),
+    'subtotal_sindescuento': subtotalPrecioventa_sindescuento
   }
   return [paqueteEstudios, CotizacionDetalle]
 }

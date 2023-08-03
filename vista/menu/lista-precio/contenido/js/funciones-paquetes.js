@@ -1,4 +1,6 @@
 async function mantenimientoPaquete() {
+  $('#btn-excel-previa').attr('disabled', false)
+  $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
   loader("In");
   await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION.CLIENTE', {
     contenido: 1
@@ -19,6 +21,8 @@ async function mantenimientoPaquete() {
 
 async function contenidoPaquete(select = null) {
   loader("In");
+  $('#btn-excel-previa').attr('disabled', true)
+  $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
   await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION.CLIENTE', {
     contenido: 0
   });
@@ -97,7 +101,7 @@ function calcularFilasTR() {
   // console.log(paqueteEstudios);
   iva = (subtotalPrecioventa * 16) / 100;
   total = subtotalPrecioventa + iva;
-
+  console.log(subtotalCosto)
   if (!checkNumber(subtotalCosto)) {
     subtotalCosto = 0;
   } else {

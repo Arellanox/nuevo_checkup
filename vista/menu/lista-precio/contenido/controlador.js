@@ -22,6 +22,11 @@ let columnsDefinidas;
 let columnasData;
 //
 
+//Personalizar la tabla de excel de cotizaciones y paquetes
+var dataVistaPq = {};
+var VistaExcelurl = '';
+var row2
+
 //Cambia la vista a la lista de precios
 function obtenerContenidoPrecios() {
   obtenerTitulo("Lista de precios"); //Aqui mandar el nombre de la area
@@ -43,6 +48,9 @@ function obtenerContenidoPrecios() {
         paging: false,
         columnDefs: columnsDefinidas,
       });
+
+      inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
+
       // obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl, data)
       $.getScript("contenido/js/precios-tabla.js");
       // Calcula las tablas
@@ -89,6 +97,8 @@ function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {
     },
     columns: columnsData
   });
+  inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
+
 }
 
 var tablePaquetesHTML;
@@ -100,6 +110,10 @@ function obtenerContenidoPaquetes(tabla) {
     $("#body-js").html(html);
 
   }).done(function () {
+
+    dataVistaPq = { api: 9, id_paquete: $('#seleccion-paquete').val() }
+    VistaExcelurl = `${http}${servidor}/${appname}/api/paquetes_api.php`
+
     tablePaquetesHTML = $("#TablaListaPaquetes")
     $.getScript("contenido/js/funciones-paquetes.js").done(function () {
       tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable()
@@ -114,6 +128,9 @@ function obtenerContenidoPaquetes(tabla) {
 
 }
 
+
+
+
 //Vacia la tabla, para el poder rellenar en paquetes
 function tablaContenido(descuento = false) {
   tablaContenidoPaquete.destroy();
@@ -125,86 +142,33 @@ function tablaContenido(descuento = false) {
     paging: false,
     scrollY: "63vh",
     scrollCollapse: true,
-    columnDefs: [{
-      width: "213.266px",
-      title: "Descripción",
-      targets: 0
-    },
-    {
-      width: "80.75px",
-      title: "CVE",
-      targets: 1
-    },
-    {
-      width: "90.516px",
-      title: "Cantidad",
-      targets: 2,
-      orderable: false
-    },
-    {
-      width: "80.8438px",
-      title: "Costo",
-      targets: 3
-    },
-    {
-      width: "102.484px",
-      title: "Costo Total",
-      targets: 4
-    },
-    {
-      width: "90.516px",
-      title: "Descuento",
-      targets: 5,
-      orderable: false,
-      visible: descuento
-    },
-    {
-      width: "99.344px",
-      title: "Precio Venta",
-      targets: 6
-    },
-    {
-      width: "64.75px",
-      title: "Subtotal",
-      targets: 7
-    },
-    {
-      visible: false,
-      title: "?",
-      targets: 8,
-      searchable: false,
-    },
+    columnDefs: [
+      { className: 'all', width: "213.266px", title: "Descripción", targets: 0 },
+      { className: 'desktop', width: "80.75px", title: "CVE", targets: 1 },
+      { className: 'min-tablet', width: "90.516px", title: "Cantidad", targets: 2, orderable: false },
+      { className: 'all', width: "80.8438px", title: "Costo", targets: 3 },
+      { className: 'desktop', width: "102.484px", title: "Costo Total", targets: 4 },
+      { className: 'min-tablet', width: "90.516px", title: "Descuento", targets: 5, orderable: false, visible: descuento },
+      { className: 'desktop', width: "99.344px", title: "Precio Venta", targets: 6 },
+      { className: 'all', width: "64.75px", title: "Subtotal", targets: 7 },
+      { visible: false, title: "?", targets: 8, searchable: false, },
     ],
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    dom: 'Bfrtip',
-    buttons: [
-      {
-        extend: 'excelHtml5',
-        text: '<i class="fa fa-file-excel-o"></i> Excel',
-        className: 'btn btn-success',
-        titleAttr: 'Excel',
-        filename: $('#seleccion-paquete option:selected').text().split(' - ')[0],
-        title: $('#seleccion-paquete option:selected').text(),
-        exportOptions: {
-          columns: [0, 1, 3, 4, 6, 7] // Índices de las columnas a exportar
-        },
-        // customizeData: function (data) {
-        //   console.log(data)
-        //   let tabla = tablaContenidoPaquete
-        //   for (var i = data.header.length - 1; i >= 0; i--) {
-        //     if (!tabla.column(i).visible()) {
-        //       data.header.splice(i, 1);
-        //       for (var j = 0; j < data.body.length; j++) {
-        //         data.body[j].splice(i, 1)
-        //       }
-        //     }
-        //   }
-        // }
-      }
-    ]
+    // 
   });
+
+  // selectDatatabledblclick((selected, data, row) => {
+  //   dataEliminados.push(data[7])
+  //   console.log(dataEliminados);
+  //   tablaContenidoPaquete.row($(row)).remove().draw();
+  //   if (tablaContenidoPaquete.data().count()) {
+  //     calcularFilasTR()
+  //   }
+  // }, tablePaquetesHTML, tablaContenidoPaquete)
+
+  inputBusquedaTable('TablaListaPaquetes', tablaContenidoPaquete, [], [], 'col-12')
   loader("Out");
 }
 
@@ -332,6 +296,9 @@ function obtenerContenidoCotizaciones() {
   $.post("contenido/cotizaciones.php", function (html) {
     $("#body-js").html(html);
   }).done(function () {
+    VistaExcelurl = `${http}${servidor}/${appname}/api/cotizaciones_api.php`
+    dataVistaPq = { api: 9, id_paquete: $('#seleccion-paquete').val() }
+
     tablePaquetesHTML = $("#TablaListaPaquetes")
     $.getScript("contenido/js/funciones-cotizaciones.js").done(function () {
       tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable()

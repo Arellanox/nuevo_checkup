@@ -1413,8 +1413,6 @@ function mensajeAjax(data, modulo = null) {
 function alertErrorAJAX(jqXHR, exception, data) {
   var msg = '';
   //Status AJAX
-  // console.log(jqXHR, exception, data)
-
   switch (jqXHR.status) {
     case 0:
       if (exception != 'abort') {
@@ -1429,8 +1427,6 @@ function alertErrorAJAX(jqXHR, exception, data) {
     case 'timeout': //console.log('timeout'); return 0
     case 'abort': return 0
   }
-
-
 
   //console.log(jqXHR.responseText);
 
@@ -1482,8 +1478,8 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
 
 //Solo doble click
 var dobleClickSelecTable = false; //Ultimo select ()
-function selectDatatabledblclick(callback = function () { }, tablename, datatable, disabledDblclick = false) {
-  //console.log(tablename)
+function selectDatatabledblclick(callback = function (selected, data) { }, tablename, datatable, disabledDblclick = false) {
+  console.log(tablename)
   if (!disabledDblclick)
     dobleClickSelecTable = false
   $(tablename).on('click', 'tr', function () {
@@ -1497,7 +1493,7 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
         datatable.$('tr.selected').removeClass('selected');
         // array_selected = datatable.row(this).data()
 
-        return callback(0, null);
+        return callback(0, null, row);
       }
     }
     if (disabledDblclick == false)
@@ -1505,7 +1501,7 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
     datatable.$('tr.selected').removeClass('selected');
     $(this).addClass('selected');
     array_selected = datatable.row(this).data()
-    return callback(1, array_selected)
+    return callback(1, array_selected, this)
 
   });
 }

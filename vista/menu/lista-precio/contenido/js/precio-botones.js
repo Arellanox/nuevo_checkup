@@ -2,6 +2,7 @@ select2('#seleccionar-cliente', 'divSeleccionCliente', 'Cargando lista de client
 rellenarSelect('#seleccionar-cliente', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
 
 
+
 // Rellenan la tabla dependiendo de las opciones
 $('#seleccionar-cliente').change(function () {
   switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
@@ -21,10 +22,14 @@ $('#seleccionar-cliente').change(function () {
         paging: false,
         columnDefs: columnsDefinidas
       });
+
+      inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
   }
 })
 
 $('input[type=radio][name=selectChecko]').change(function () {
+
+  $('#vistaPreviaExel').prop('disabled', false);
   switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
     case '1': //Solo Concepto
       if ($(this).val() != 0) {
@@ -32,6 +37,7 @@ $('input[type=radio][name=selectChecko]').change(function () {
       } else {
         obtenertablaListaPrecios(columnsDefinidas, columnasData, 'servicios_api', { api: 2, otros_servicios: 1 })
       }
+
       break;
     case '2': //Lista de precios para clientes
       if ($('#seleccionar-cliente').val() != null || $('#seleccionar-cliente').val() != 0) {
@@ -44,11 +50,15 @@ $('input[type=radio][name=selectChecko]').change(function () {
         alertSelectTable('Seleccione un cliente')
       }
       break;
+
+
   }
 
 
 
 })
+
+
 
 select2('#seleccion-paquete', 'vista_paquetes-precios', 'Cargando lista de paquetes...')
 rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', { cliente_id: 1 });
@@ -204,6 +214,7 @@ $('#btn-guardar-lista').click(function () {
 
 //Cambiar vista de tabla
 $('input[type=radio][name=selectTipLista]').change(function () {
+  $('#vistaPreviaExel').prop('disabled', true);
   switch ($(this).val()) {
     case '1':
       columnsDefinidas = obtenerColumnasTabla('1.1')
@@ -218,11 +229,22 @@ $('input[type=radio][name=selectTipLista]').change(function () {
       $('#divSeleccionCliente').fadeIn(100)
       break;
     case '3':
+
+      $('#vistaPreviaExel').prop('disabled', false);
       columnsDefinidas = obtenerColumnasTabla('3.1')
       columnasData = obtenerColumnasTabla('3.2')
       $('.vista_estudios-precios').fadeOut(100)
       $('#divSeleccionCliente').fadeIn(100)
+
+      // while ($('#seleccionar-cliente').val() === null) {
+      //   console.log($('#seleccionar-cliente').val())
+      //   setTimeout(() => {
+      //     cliente_id = $('#seleccionar-cliente').val()
+      //   }, 400);
+      // }
+
       obtenertablaListaPrecios(columnsDefinidas, columnasData, 'paquetes_api', { api: 2, cliente_id: $('#seleccionar-cliente').val() }, 'response.data')
+
       return 1;
       break;
     default:
@@ -239,6 +261,184 @@ $('input[type=radio][name=selectTipLista]').change(function () {
     paging: false,
     columnDefs: columnsDefinidas
   });
+  inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   // obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl)
 })
+
+
+// opciones = obtenerDatosMostrar(menu)
+
+let exportColumns = [];
+let formatoExcel;
+listaPreciosExelModal = $('#listaPreciosExel').DataTable({
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  lengthChange: false,
+  info: false,
+  paging: false,
+  scrollY: "50vh",
+  scrollCollapse: true,
+  data: [],
+  columns: [
+
+    { data: 'COUNT' },
+    { //Abreviatura
+      data: null, render: function (meta) {
+        let cve = ''
+        if (typeof meta['ABREVIATURA'] !== 'undefined') {
+          cve = meta['ABREVIATURA'];
+        }
+        return cve
+      }
+    },
+    { //Descripcion del servicio
+      data: null, render: function (meta) {
+        let descripcion = 'SIN CARGAR';
+        if (typeof meta.DESCRIPCION == 'undefined') {
+          if (typeof meta.SERVICIO !== 'undefined')
+            descripcion = meta.SERVICIO
+        } else {
+          descripcion = meta.DESCRIPCION
+        }
+        return descripcion
+      }
+    },
+    {
+      data: 'COSTO', render: function (data) {
+        return `$${ifnull(parseFloat(data).toFixed(2), 0)}`
+      }
+    },
+    { // Utilidad
+      data: null, render: function (meta) {
+        let utilidad = '';
+        if (typeof meta['UTILIDAD'] !== 'undefined')
+          utilidad = `$${ifnull(parseFloat(meta['UTILIDAD']).toFixed(2), 0)}`;
+        return utilidad
+      }
+    },
+    {
+      data: null, render: function (meta) {
+        let precio_venta = '';
+        if (typeof meta['PRECIO_VENTA'] !== 'undefined')
+          precio_venta = `$${ifnull(parseFloat(meta['PRECIO_VENTA']).toFixed(2), 0)}`;
+        return precio_venta
+      }
+    }
+  ],
+  columnDefs: [
+    { target: 0, width: '1%', title: '#', className: 'all' },
+    { target: 1, width: '1%', title: 'AB', className: 'all', },
+    { target: 2, width: '', title: 'Nombre', className: 'all', },
+    { target: 3, width: '10%', title: 'Costo', className: 'all', },
+    { target: 4, width: '10%', title: 'Utilidad', className: 'all', visible: true },
+    { target: 5, width: '15%', title: 'Precio Venta', className: 'all', visible: true },
+
+  ],
+  dom: 'Bfrtip',
+  buttons: [
+    {
+      extend: 'excelHtml5',
+      text: '<i class="bi bi-box-arrow-down"></i> Descargar Exel',
+      className: 'btn btn-success',
+      titleAttr: 'Excel',
+      filename: function () {
+        return formatoExcel
+      },
+      title: function () {
+        return formatoExcel
+      },
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        'title': "Si filtras este listado, la exportación de excel será también filtrada"
+      },
+      exportOptions: {
+        columns: function () {
+          return exportColumns
+        } // Índices de las columnas a exportar
+      },
+    },
+  ]
+
+});
+
+
+
+inputBusquedaTable('listaPreciosExel', listaPreciosExelModal, [{
+  msj: 'Si filtras este listado, la exportación de excel será también filtrada',
+  place: 'top'
+}], [], 'col-12')
+
+const listaPreciosExel = document.getElementById('vistaPreviaExelModal')
+listaPreciosExel.addEventListener('show.bs.modal', event => {
+  setTimeout(() => {
+    $.fn.dataTable
+      .tables({
+        visible: true,
+        api: true
+      })
+      .columns.adjust();
+  }, 200);
+
+})
+
+listaPreciosExel.addEventListener('hidden.bs.modal', event => {
+  listaPreciosExelModal.clear().draw();
+})
+
+
+$('#vistaPreviaExel').on('click', function () {
+  setTablaPreciosExcel(listaPreciosExelModal);
+  cargarTablaExcel()
+});
+
+function cargarTablaExcel(intento = 0) {
+
+  if ((tablaPrecio.rows().any())) {
+    listaPreciosExelModal.rows.add(tablaPrecio.data()).draw();
+    // alertMensaje('Cargando, espere un momento', '')
+    // alertToast('Cargando, espera un momento', 'info', 3000)
+    // setTimeout(() => {
+    //   $('#vistaPreviaExelModal').modal('show')
+    // }, 300);
+  } else {
+    if (!intento) {
+      alertToast('Espere un momento...', 'info', 4000)
+    }
+
+    setTimeout(() => {
+      cargarTablaExcel(1);
+    }, 500);
+
+
+  }
+}
+
+function setTablaPreciosExcel(listaPreciosExelModal) {
+  switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
+    case 1: case '1':
+      formatoExcel = `${$('input[type=radio][name=selectTipLista]:checked').attr('title')} (${$('input[type=radio][name=selectChecko]:checked').attr('title')}) | bimo ${formatoFecha2(new Date(), [])}`
+
+      listaPreciosExelModal.columns([1, 4, 5]).visible(false);
+      exportColumns = [0, 1, 2, 3]
+      break;
+
+    case 2: case '2':
+      formatoExcel = `${$('input[type=radio][name=selectTipLista]:checked').attr('title')} -${($('#seleccionar-cliente option:selected').text()).split('-')[1].trim()}- (${$('input[type=radio][name=selectChecko]:checked').attr('title')}) | bimo ${formatoFecha2(new Date(), [])}`
+
+      listaPreciosExelModal.columns([1, 4, 5]).visible(true);
+      exportColumns = [0, 1, 2, 3, 4, 5]
+      break;
+
+    case 3: case '3':
+      formatoExcel = `${$('input[type=radio][name=selectTipLista]:checked').attr('title')} -${($('#seleccionar-cliente option:selected').text()).split('-')[1].trim()}- (${$('input[type=radio][name=selectChecko]:checked').attr('title')}) | bimo ${formatoFecha2(new Date(), [])}`
+
+      listaPreciosExelModal.columns([1]).visible(false);
+      listaPreciosExelModal.columns([4, 5]).visible(true);
+      exportColumns = [0, 2, 3, 4, 5]
+      break;
+  }
+}
+

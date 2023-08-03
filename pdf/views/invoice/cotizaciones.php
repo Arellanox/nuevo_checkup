@@ -302,6 +302,11 @@
             border-left: 1px solid black;
             height: 100px;
         }
+
+        .tachado-doble {
+            text-decoration: line-through;
+            color: #a9a9a9;
+        }
     </style>
 </head>
 <?php
@@ -331,7 +336,7 @@ switch ($idioma) {
                 </td>
                 <td style=\"width: 25%;text-align: center;\">
                     <p>Cotización<br>
-                        <b>No. " . $encabezado->FOLIO_COTIZACIONES . "</b>
+                        <b>No. " . $resultados->FOLIO . "</b>
                     </p>
                 </td>
             </tr>
@@ -362,7 +367,7 @@ switch ($idioma) {
                     </td>
                     <td style=\"width: 20%; text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\">" . $resultados->TELEFONO . "</td>
                     <td style=\"background-color: darkgrey; width: 10%; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\"><b>RFC</td>
-                    <td style=\"width: 20%;text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\">" . $resultados->RFC . "</td>
+                    <td style=\"width: 20%;text-align: left; border-bottom: 1px solid darkgrey; border-top: 1px solid darkgrey;\"> " . $resultados->RFC . "</td>
                     <td style=\"width: 30%;border-bottom: 1px solid darkgrey; border-radius: 0px 0px 4px 0px; border-left: 1px solid darkgrey; text-align: center;\">" . $resultados->FECHA_VENCIMIENTO . "</td>
                 </tr>
             </tbody>
@@ -391,15 +396,22 @@ switch ($idioma) {
             $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
 
             $formateado = number_format($numero, 2);
-            echo "  <tr>
-                                        <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
-                                        <td style=\"width: 11%; text-align: left;\">E48 -Service unit</td>
-                                        <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO'] . "</td>
-                                        <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
-                                        <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
-                                        <td style=\"width: 11%; text-align: center;\">16% </td>
-                                        <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
-                                    </tr>";
+            $formateado2 = number_format(json_decode(json_encode($resultArray[$i]), true)['TOTAL_ORIGINAL'], 2);
+            $descuento = json_decode(json_encode($resultArray[$i]), true)['DESCUENTO_PORCENTAJE'];
+
+            echo "<tr>
+                <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
+                <td style=\"width: 11%; text-align: left;\">E48 -Service unit</td>
+                <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO_UNITARIO'] . "</td>
+                <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
+                <td style=\"width: 11%; text-align: right;\">" . $descuento . "%</td>
+                <td style=\"width: 11%; text-align: center;\">16% </td>
+                <td style=\"width: 11%; text-align: right;\">$" . $formateado;
+
+            echo $descuento == 0 ? '' : "<br>
+                <span class='tachado-doble'>$" . $formateado2 . "</span>";
+
+            echo " </td> </tr>";
         }
 
         echo "</tbody>
@@ -407,18 +419,22 @@ switch ($idioma) {
         <table class=\"esquina-inferior\">
             <tbody>
                 <tr style=\"background-color: darkgrey; \">
-                    <td colspan=\"12\"> Cantidad total 00/100 M.N.</td>
+                    <td colspan=\"12\">" . $resultados->CANTIDAD . "</td>
                 </tr>
             </tbody>
         </table>
         <!--Inicio tabla totales -->
         <p style=\"line-height: 2.5\"></p>
         <div style=\" float: right;width: 30%;\">
-            <table style=\" width: 150px; text-align: right; border-bottom: transparent; align-items:right; \">
+            <table style=\" width: 180px; text-align: right; border-bottom: transparent; align-items:right; \">
                 <tbody>
                     <tr>
                         <td>Subtotal</td>
-                        <td>$ " . $resultados->SUBTOTAL . "</td>
+                        <td>$ " . $resultados->SUBTOTAL_SIN_DESCUENTO . "</td>
+                    </tr>
+                    <tr>
+                        <td>Descuento (" . $resultados->PORCENTAJE_DESCUENTO . "%)</td>
+                        <td>$ " . $resultados->SUBTOTAL. "</td>
                     </tr>
                     <tr>
                         <td>IVA (16.00%)</td>
@@ -435,7 +451,7 @@ switch ($idioma) {
         <div style=\"float: left;width: 70%;\">
             <table style=\"width: 100%; padding-top: 16%; border-collapse: collapse;\" align=\"left\">
                 <tr>
-                    <td style=\"text-align: center;\"></b></td>
+                    <td style=\"text-align: center;\"><b> " . $resultados->CREADO_POR . "</b></td> 
                 </tr>
                 <tr style=\"text-align: center;\">
                     <td style=\"width: 10%; text-align: center; border-top: 1px solid black;\">

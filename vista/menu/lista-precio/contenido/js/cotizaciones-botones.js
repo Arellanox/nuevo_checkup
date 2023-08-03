@@ -3,13 +3,17 @@ select2('#seleccion-estudio', 'form-select-paquetes')
 select2('#select-presupuestos', 'form-select-paquetes')
 
 //Declarar variable para la clase
-var selectEstudio;
+var selectEstudio, SelectedFolio;
+var datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
+
+console.log()
 
 $('#agregar-estudio-paquete').click(function () {
   // console.log(selectEstudio.array)
   // console.log($("#seleccion-estudio").prop('selectedIndex'))
   // console.log(selectData)
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
+
   meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], 1, null, selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
 })
 
@@ -35,12 +39,28 @@ $("#informacionPaquete").addClass("disable-element");
 
 // $(document).on("click", '')
 
+function lpad(value, length, padChar) {
+  value = value.toString();
+
+  while (value.length < length) {
+    value = padChar + value;
+  }
+
+  return value;
+}
+
 $('#UsarPaquete').on('click', function () {
+
+
+
 
   if ($('input[type=radio][name=selectPaquete]:checked').val() == 2) {
     if (!$('#select-presupuestos').val()) {
       alertToast('Necesitas seleccionar un presupuesto de este cliente', 'error', '5000')
       return false;
+    } else {
+      SelectedFolio = $('#select-presupuestos').val()
+      SelectedFolio = lpad(SelectedFolio, 4, '0')
     }
   }
 
@@ -53,7 +73,7 @@ $('#UsarPaquete').on('click', function () {
   $("#formPaqueteSelectEstudio").removeClass("disable-element");
   $("#informacionPaquete").removeClass("disable-element");
 
-
+  calcularFilasTR()
 
 
   switch ($('input[type=radio][name=selectPaquete]:checked').val()) {
@@ -62,11 +82,41 @@ $('#UsarPaquete').on('click', function () {
       ajaxAwait({
         id_cotizacion: id_cotizacion,
         api: 2
-      }, 'cotizaci9ones_api', { callbackAfter: true }, false, () => {
-        row = data.response.data;
-        for (var i = 0; i < row.length; i++) {
-          meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].COSTO_TOTAL, row[i].CANTIDAD, null, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
-        }
+      }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
+
+        row = data.response.data[0]['DETALLE']
+        row2 = data.response.data[0]
+        // var datosUsuarioCotizacion = $('#datosUsuarioCotizacion')
+        if (row) {
+          datosUsuarioCotizacion.html(`<div class="col-6">
+                  <p>Nombre: </p>
+                  <span>${row2['CREADO_POR']}</span>
+
+              </div>
+              <div class="col-6">
+                  <p>Correo: </p>
+                  <span>${row2['CORREO']}</span>
+              </div>`)
+
+
+          $('#descuento-paquete').val(row2['PORCENTAJE_DESCUENTO'])
+
+
+          for (const key in row) {
+            if (Object.hasOwnProperty.call(row, key)) {
+              const element = row[key];
+              meterDato(row[key]['PRODUCTO'], row[key]['ABREVIATURA'], row[key]['COSTO_BASE'], row[key]['SUBTOTAL_BASE'], row[key]['CANTIDAD'], row[key]['DESCUENTO_PORCENTAJE'], row[key]['ID_SERVICIO'], null, tablaContenidoPaquete)
+
+            }
+          }
+
+          calcularFilasTR()
+
+        };
+
+        // for (var i = 0; i < row.length; i++) {
+        //   meterDato(row[i]['SERVICIO'], row[i]['ABREVIATURA'], row[i]['COSTO_UNITARIO'], row[i]['COSTO_TOTAL'], row[i]['CANTIDAD'], row[i]['ID_SERVICIO'], row[i]['ABREVIATURA'], tablaContenidoPaquete)
+        // }
       })
 
       break;
@@ -74,6 +124,9 @@ $('#UsarPaquete').on('click', function () {
 })
 //
 $('#CambiarPaquete').on('click', function () {
+  //borrar el div para que se vuelva a abrir
+  datosUsuarioCotizacion.empty()
+
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
@@ -85,7 +138,7 @@ $('#CambiarPaquete').on('click', function () {
   tablaContenido(true)
   // $('.formContenidoPaquete').prop('disabled', true);
 })
-//
+// 
 
 $('input[type="radio"][name="selectPaquete"]').change(function () {
   switch ($(this).val()) {
@@ -98,6 +151,7 @@ $('input[type="radio"][name="selectPaquete"]').change(function () {
 
   }
 });
+
 
 $('input[type=radio][name=selectChecko]').change(function () {
 
@@ -118,8 +172,16 @@ $('input[type=radio][name=selectChecko]').change(function () {
     });
   }
 });
+//mosotrar datos ya registrados
+$('#btn-info-detaelle-cotizacion').click(function () {
+  // console.log(row2) OBSERVACIONES CREADO_POR CORREO
+  $('#input-atencion-cortizaciones').val(row2['CREADO_POR'])
+  $('#input-correo-cortizaciones').val(row2['CORREO'])
+  $('#input-observaciones-cortizaciones').val(row2['OBSERVACIONES'])
+})
 
 $('#guardar-contenido-paquete').on('click', function () {
+
   let data = calcularFilasTR();
   // console.log(data);
   let dataAjax = data[0];
@@ -134,24 +196,45 @@ $('#guardar-contenido-paquete').on('click', function () {
       cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
     }, async function () {
-      let data = await ajaxAwait({
+      let datajson = {
         api: 1,
         detalle: dataAjax,
         total: dataAjaxDetalleCotizacion['total'].toFixed(2),
         subtotal: dataAjaxDetalleCotizacion['subtotal'].toFixed(2),
+
+        subtotal_sin_descuento: dataAjaxDetalleCotizacion['subtotal_sindescuento'].toFixed(2),
+
         iva: dataAjaxDetalleCotizacion['iva'].toFixed(2),
         descuento: dataAjaxDetalleCotizacion['descuento'],
         descuento_porcentaje: dataAjaxDetalleCotizacion['descuento_porcentaje'],
         cliente_id: dataAjaxDetalleCotizacion['cliente_id'],
         atencion: $('#input-atencion-cortizaciones').val(),
         correo: $('#input-correo-cortizaciones').val(),
-        observaciones: $('#input-observaciones-cortizaciones').val()
-      }, 'cotizaciones_api')
+        observaciones: $('#input-observaciones-cortizaciones').val(),
+        fecha_vigencia: $('#input-fecha-vigencia').val()
+      }
+
+      if ($('input[type=radio][name=selectPaquete]:checked').val() == 2) {
+        datajson['id_cotizacion'] = SelectedFolio;
+      }
+
+      let data = await ajaxAwait(datajson, 'cotizaciones_api')
 
       if (data) {
         tablaContenidoPaquete.clear().draw();
-        dataEliminados = new Array()
-        alertMensaje('success', 'Contenido registrado', 'El contenido se a registrado correctamente :)')
+        dataEliminados = new Array();
+        alertMsj({
+          //${data.response.data}
+          title: 'Cotización guardada',
+          text: `Tu nuevo cotización ha sido guardada con el siguiente folio: ${data.response.data === '1' ? SelectedFolio : data.response.data}`,
+          icon: 'success', showCancelButton: false, confirmButtonText: 'Confirmar', confirmButtonColor: 'green'
+        })
+
+        //borrar el div para que se vuelva a abrir
+        datosUsuarioCotizacion.empty()
+
+        // alertMensaje('success', 'Contenido registrado', 'El contenido se a registrado correctamente :)')
+        $('#modalInfoDetalleCotizacion').modal('hide');
       }
     })
   } else {
@@ -163,7 +246,7 @@ function formpassword() {
   //No submit form with enter
 }
 
-$(document).on("change ,  keyup", "input[name='cantidad-paquete'], input[name='descuento-paquete'], #descuento-paquete", function () {
+$(document).on("change", "input[name='cantidad-paquete'], input[name='descuento-paquete'], #descuento-paquete", function () {
   calcularFilasTR()
 
   if ($(this).attr('id') == 'descuento-paquete') {
@@ -175,9 +258,79 @@ $(document).on("change ,  keyup", "input[name='cantidad-paquete'], input[name='d
   }
 });
 
-$(document).on('change', '#seleccion-paquete', async function (e) {
-  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_COTIZACIONES.CLIENTE', {
+$('#seleccion-paquete').on('change', async function (e) {
+  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
     cliente_id: $('#seleccion-paquete').val()
   });
+})
+
+
+// Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
+function getNewView(url, filename) {
+  // Destruir la instancia existente de AdobeDC.View
+  // Crear una instancia inicial de AdobeDC.View
+  let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
+
+  var nuevaURL = url;
+
+  // Agregar un parámetro único a la URL para evitar la caché del navegador
+  nuevaURL += "?timestamp=" + Date.now();
+
+  // Cargar y mostrar el nuevo PDF en el visor
+  adobeDCView.previewFile({
+    content: { location: { url: nuevaURL } },
+    metaData: { fileName: filename }
+  });
+}
+
+$('#btn-vistaPrevia-cotizacion').click(function () {
+  // Obtén los parámetros necesarios
+  var area_nombre = 'cotizacion';
+  var api = encodeURIComponent(window.btoa(area_nombre));
+  var area = encodeURIComponent(window.btoa(15));
+  var id_cotizacion = encodeURIComponent(window.btoa(SelectedFolio));
+
+
+
+
+
+  // window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&id_cotizacion=${id_cotizacion}&area=${area}`, "_blank");
+
+  // console.log(SelectedFolio)
+  // Construye la vista y se almacena en la variable url
+  var url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&area=${area}&id_cotizacion=${id_cotizacion}`;
+  //Se manda la url y se agrega un titulo donde se cargara la vista del pdf
+  getNewView(url, 'Vista prevía cotización')
+
+  // Muestra el modal
+  $('#modal-cotizacion').modal('show');
+});
+
+
+$('#btn-enviarCorreo-cotizaciones').click(function (e) {
+  alertMensajeConfirm({
+    title: '',
+    html: `<h4 style = "font-weight: bold";>¿Esta seguro de enviar la cotización al correo: <span style = "background-color : yellow">${row2['CORREO']}<span>?</h4 style>
+    <br> <small>No podra revertir este cambio</small>`,
+    icon: "info",
+  }, function () {
+
+    ajaxAwait({ api: 5, id_cotizacion: SelectedFolio }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
+      alertToast('Se envio la cotizacion!', 'success', '5000')
+      $('#modal-cotizacion').modal('hide');
+    })
+  }, 1)
 
 })
+
+
+// $(document).ready(function () {
+//   // Inicializa el datepicker
+//   // Data Picker Initialization
+//   // $('.datepicker').datepicker({
+//   //   inline: true
+//   // });
+//   $(function () {
+//     $('#datetimepicker1').datetimepicker();
+//   });
+// });
