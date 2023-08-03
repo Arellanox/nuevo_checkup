@@ -226,6 +226,7 @@ $('#guardar-contenido-paquete').on('click', function () {
         atencion: $('#input-atencion-cortizaciones').val(),
         correo: $('#input-correo-cortizaciones').val(),
         observaciones: $('#input-observaciones-cortizaciones').val(),
+        domicilio_fiscal: $('#input-domicilio_fiscal').val(),
         fecha_vigencia: $('#input-fecha-vigencia').val()
       }
 
