@@ -310,6 +310,7 @@ $('#btn-vistaPrevia-cotizacion').click(function () {
   // Construye la vista y se almacena en la variable url
   var url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&area=${area}&id_cotizacion=${id_cotizacion}`;
   //Se manda la url y se agrega un titulo donde se cargara la vista del pdf
+  console.log(url);
   getNewView(url, 'Vista prevía cotización')
 
   // Muestra el modal
