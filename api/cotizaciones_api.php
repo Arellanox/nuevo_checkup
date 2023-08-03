@@ -43,7 +43,7 @@ switch ($api) {
         //Guardamos el PDF de la cotizacion
         $url = $master->reportador($master, null, 15, 'cotizaciones', 'url', 0, 0, 0, $cliente_id, $id_cotizacion_pdf);
 
-        $response1 = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['cotizaciones', 'RUTA_REPORTE', $url, $id_cotizacion_pdf, 13]);
+        $response1 = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['cotizaciones', 'RUTA_REPORTE', $url, $id_cotizacion_pdf, 15]);
 
 
         break;
