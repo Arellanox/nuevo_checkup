@@ -75,6 +75,10 @@ $('#UsarPaquete').on('click', function () {
 
   calcularFilasTR()
 
+  $('#input-atencion-cortizaciones').val('');
+  $('#input-correo-cortizaciones').val('');
+  $('#input-fecha-vigencia').val('')
+  $('#input-observaciones-cortizaciones').val('');
 
   switch ($('input[type=radio][name=selectPaquete]:checked').val()) {
     case '2': //Lista de precios para clientes
