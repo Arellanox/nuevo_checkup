@@ -77,6 +77,7 @@ $('#UsarPaquete').on('click', function () {
 
   $('#input-atencion-cortizaciones').val('');
   $('#input-correo-cortizaciones').val('');
+  $('#input-domicilio_fiscal').val('')
   $('#input-fecha-vigencia').val('')
   $('#input-observaciones-cortizaciones').val('');
 
@@ -102,6 +103,7 @@ $('#UsarPaquete').on('click', function () {
         $('#input-correo-cortizaciones').val(row2['CORREO']);
         $('#input-fecha-vigencia').val(fechaFormateada)
         $('#input-observaciones-cortizaciones').val(row2['OBSERVACIONES']);
+        $('#input-domicilio_fiscal').val(row2['DOMICILIO_FISCAL'])
 
 
 
