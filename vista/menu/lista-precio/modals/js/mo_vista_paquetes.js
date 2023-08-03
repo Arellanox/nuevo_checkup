@@ -113,59 +113,59 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
         { target: 7, title: 'Subtotal', className: 'all' },
     ],
     footer: true,
-    footerCallback: function (row, data, start, end, display) {
-        let api = this.api();
+    // footerCallback: function (row, data, start, end, display) {
+    //     let api = this.api();
 
-        //Costo de la pagina actual
-        costo = api
-            .column(3, { page: 'current' })
-            .data()
-            .reduce(function (a, b) {
-                // Eliminar el símbolo "$" y los separadores de miles antes de sumar
-                var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
-                return a + num;
-            }, 0);
+    //     //Costo de la pagina actual
+    //     costo = api
+    //         .column(3, { page: 'current' })
+    //         .data()
+    //         .reduce(function (a, b) {
+    //             // Eliminar el símbolo "$" y los separadores de miles antes de sumar
+    //             var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
+    //             return a + num;
+    //         }, 0);
 
-        costo_total = api
-            .column(4)
-            .data()
-            .reduce(function (a, b) {
-                // Eliminar el símbolo "$" y los separadores de miles antes de sumar
-                var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
-                return a + num;
-            }, 0);
+    //     costo_total = api
+    //         .column(4)
+    //         .data()
+    //         .reduce(function (a, b) {
+    //             // Eliminar el símbolo "$" y los separadores de miles antes de sumar
+    //             var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
+    //             return a + num;
+    //         }, 0);
 
-        //Precio de venta
-        precio_venta = api
-            .column(6)
-            .data()
-            .reduce(function (a, b) {
-                // Eliminar el símbolo "$" y los separadores de miles antes de sumar
-                var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
-                return a + num;
-            }, 0);
-        //Subtotal
-        subtotal = api
-            .column(7)
-            .data()
-            .reduce(function (a, b) {
-                // Eliminar el símbolo "$" y los separadores de miles antes de sumar
-                var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
-                return a + num;
-            }, 0);
+    //     //Precio de venta
+    //     precio_venta = api
+    //         .column(6)
+    //         .data()
+    //         .reduce(function (a, b) {
+    //             // Eliminar el símbolo "$" y los separadores de miles antes de sumar
+    //             var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
+    //             return a + num;
+    //         }, 0);
+    //     //Subtotal
+    //     subtotal = api
+    //         .column(7)
+    //         .data()
+    //         .reduce(function (a, b) {
+    //             // Eliminar el símbolo "$" y los separadores de miles antes de sumar
+    //             var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
+    //             return a + num;
+    //         }, 0);
 
 
-        // Mostrar los totales en la fila de pie de página
-        // $(api.column(3).footer()).html(`Costo: $${parseFloat(costo).toFixed(2)}`);
-        $(api.column(2).footer()).html(`<p>Subtotal costo: </p>`);
-        $(api.column(3).footer()).html(`$${parseFloat(costo_total).toFixed(2)}`);
+    //     // Mostrar los totales en la fila de pie de página
+    //     // $(api.column(3).footer()).html(`Costo: $${parseFloat(costo).toFixed(2)}`);
+    //     $(api.column(2).footer()).html(`<p>Subtotal costo: </p>`);
+    //     $(api.column(3).footer()).html(`$${parseFloat(costo_total).toFixed(2)}`);
 
-        $(api.column(4).footer()).html(`<p>Subtotal: </p>`);
-        $(api.column(5).footer()).html(`$${parseFloat(precio_venta).toFixed(2)}`);
+    //     $(api.column(4).footer()).html(`<p>Subtotal: </p>`);
+    //     $(api.column(5).footer()).html(`$${parseFloat(precio_venta).toFixed(2)}`);
 
-        $(api.column(6).footer()).html(`<p>Total: </p>`);
-        $(api.column(7).footer()).html(`$${parseFloat(subtotal).toFixed(2)}`);
-    },
+    //     $(api.column(6).footer()).html(`<p>Total: </p>`);
+    //     $(api.column(7).footer()).html(`$${parseFloat(subtotal).toFixed(2)}`);
+    // },
     dom: 'Bfrtip',
     buttons: [
         {
