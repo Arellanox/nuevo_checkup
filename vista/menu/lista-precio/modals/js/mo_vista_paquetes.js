@@ -207,7 +207,7 @@ ModalVistaPaquetes.addEventListener("show.bs.modal", (event) => {
         datajson['url'] = `${http}${servidor}/${appname}/api/cotizaciones_api.php`;
 
 
-        dataVistaPq = { id_cotizacion: $('#select-presupuestos').val(), api: 2 }
+        dataVistaPq = { id_cotizacion: $('#select-presupuestos').val(), api: 6 }
 
         select = '#select-presupuestos:selected';
         selectTitle = '#select-presupuestos option:selected';
