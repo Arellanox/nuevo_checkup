@@ -86,6 +86,21 @@ $('#UsarPaquete').on('click', function () {
 
         row = data.response.data[0]['DETALLE']
         row2 = data.response.data[0]
+
+
+        var datetimeString = row2['FECHA_VENCIMIENTO']; // Puedes reemplazar esta línea con tu dato datetime
+        // Convertir la cadena de fecha a un objeto Date utilizando Moment.js
+        var fecha = moment(datetimeString);
+        // Formatear a solo fecha
+        var fechaFormateada = fecha.format('YYYY-MM-DD');
+
+        $('#input-atencion-cortizaciones').val(row2['CREADO_POR']);
+        $('#input-correo-cortizaciones').val(row2['CORREO']);
+        $('#input-fecha-vigencia').val(fechaFormateada)
+        $('#input-observaciones-cortizaciones').val(row2['OBSERVACIONES']);
+
+
+
         // var datosUsuarioCotizacion = $('#datosUsuarioCotizacion')
         if (row) {
           datosUsuarioCotizacion.html(`<div class="col-6">
@@ -172,23 +187,7 @@ $('input[type=radio][name=selectChecko]').change(function () {
     });
   }
 });
-//mosotrar datos ya registrados
-$('#btn-info-detaelle-cotizacion').click(function () {
-  if (row2 && row2['CREADO_POR'] && row2['CORREO'] && row2['OBSERVACIONES']) {
 
-    var datetimeString = row2['FECHA_VENCIMIENTO']; // Puedes reemplazar esta línea con tu dato datetime
-    // Convertir la cadena de fecha a un objeto Date utilizando Moment.js
-    var fecha = moment(datetimeString);
-    // Formatear a solo fecha
-    var fechaFormateada = fecha.format('YYYY-MM-DD');
-
-    $('#input-atencion-cortizaciones').val(row2['CREADO_POR']);
-    $('#input-correo-cortizaciones').val(row2['CORREO']);
-    $('#input-fecha-vigencia').val(fechaFormateada)
-    $('#input-observaciones-cortizaciones').val(row2['OBSERVACIONES']);
-  }
-
-})
 
 $('#guardar-contenido-paquete').on('click', function () {
 
