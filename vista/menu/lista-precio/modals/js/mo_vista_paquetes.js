@@ -36,12 +36,13 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
         {
             data: null, render: function (meta) {
                 let servicio = '';
-                if (typeof meta.DESCRIPCION == 'undefined') {
+                if (typeof meta.SERVICIO == 'undefined') {
                     if (typeof meta.PRODUCTO !== 'undefined')
                         servicio = meta.PRODUCTO;
                 } else {
-                    servicio = meta.DESCRIPCION
+                    servicio = meta.SERVICIO
                 }
+                return servicio;
             }
         },
         { data: 'ABREVIATURA' },
