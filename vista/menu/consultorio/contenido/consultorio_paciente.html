@@ -18,7 +18,7 @@
   <div class="col-12 col-lg-4">
     <div class="info-detalle card" id="panel-informacion"> <!-- Informacion del paciente --> </div>
     <div id="crear-notas" class="card mt-3">
-      <h4 class="m-3">Notas de historial clinica</h4>
+      <h4 class="m-3">Bloc de Notas</h4>
       <hr class="dropdown-divider m-2">
       <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"
         id="nota-historial-paciente"></textarea>
@@ -35,7 +35,7 @@
     <div class="card mt-2" id="listado-resultados"></div>
 
     <!-- Agregar certificado medico -->
-    <div class="card mt-2 p-3">
+    <div class="card mt-2 p-3 medico-coordinador">
 
       <h4>Certificado médico del paciente</h4>
 
@@ -73,7 +73,7 @@
   </div>
   <div class="col-12  col-lg-4">
     <div class="card">
-      <div id="btn-ir-consulta">
+      <div id="btn-ir-consulta" class="medico-coordinador">
         <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
           data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
           <i class="bi bi-person-plus-fill"></i> Iniciar Historia Clínica
@@ -97,14 +97,14 @@
         </a>
 
       </div>
-      <div>
+      <div class="medico-coordinador">
         <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
           id="btn-ir-consulta-rapida">
           <i class="bi bi-clipboard-pulse"></i> Fast-Checkup
         </button>
       </div>
 
-      <div class="card m-3">
+      <div class="card m-3 medico-coordinador">
         <h4 class="m-3">Historial de Historia Clínica</h4>
         <!-- <hr class="dropdown-divider"> -->
         <div id="historial-consultas-paciente"> <!-- Valoracion medica --> </div>

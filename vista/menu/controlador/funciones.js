@@ -2912,7 +2912,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         12: 'CITOLOGÍA',
                         13: 'NUTRICIÓN',
                         14: 'INBODY',
-                        15: 'CERTIFICADO MÉDICO'
+                        15: 'CERTIFICADO MÉDICO',
+                        16: 'CONSULTORIO FASTCHECKUP'
                       }
                       let row = data.response.data;
                       $('#append-html-historial-estudios').html('');
