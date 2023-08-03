@@ -225,7 +225,7 @@ $('#guardar-contenido-paquete').on('click', function () {
       }
 
       if ($('input[type=radio][name=selectPaquete]:checked').val() == 2) {
-        datajson['id_cotizacion'] = SelectedFolio;
+        datajson['id_cotizacion'] = $('#select-presupuestos').val();
       }
 
       let data = await ajaxAwait(datajson, 'cotizaciones_api')
@@ -326,7 +326,7 @@ $('#btn-enviarCorreo-cotizaciones').click(function (e) {
     icon: "info",
   }, function () {
 
-    ajaxAwait({ api: 5, id_cotizacion: SelectedFolio }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
+    ajaxAwait({ api: 5, id_cotizacion: $('#select-presupuestos').val() }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
       alertToast('¡Cotización Enviada!', 'success', '4000')
       $('#modal-cotizacion').modal('hide');
     })
