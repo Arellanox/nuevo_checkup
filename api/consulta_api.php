@@ -277,6 +277,10 @@ switch ($api) {
         $url = $master->reportador($master, $turno_id, 1, "consultorio", 'url', 0);
         echo $url;
         break;
+    case 23:
+        # recuperar historial de conclusiones de historia clinica.
+        $response = $master->getByProcedure("sp_historial_conclusiones_historia_clinica", [$turno_id]);
+        break;
     default:
         $response = "api no reconocida";
         break;
