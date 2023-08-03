@@ -109,6 +109,8 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
   await obtenerPanelInformacion(idTurno, "pacientes_api", 'paciente')
   await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_comprimido');
   await obtenerPanelInformacion(idTurno, 'consulta_api', 'listado_resultados', '#listado-resultados')
+
+  getConclusionesHistoria(idTurno);
   // alert("Antes de antecedentes")
   // setValues(idTurno) //llamar los valores para los antecedentes
 
@@ -154,16 +156,22 @@ async function obtenerValoracion(data, idconsulta) {
 
 }
 
-function agregarNotaConsulta(tittle, date = null, text, appendDiv, id, clase, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;') {
+function agregarNotaConsulta(tittle, date = null, text, appendDiv, id = null, clase, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;') {
   if (date != null) {
     date = '<p style="font-size: 14px;margin-left: 5px;">' + date + '</p>';
   } else {
     date = '';
   }
-  let html = '<div class="' + classTittle + '" data-db="divDelete">' +
-    '<h4 class="m-3">' + tittle + ' <button type="button" class="btn btn-hover ' + clase + '" data-bs-id="' + id + '"> <i class="bi bi-trash"></i> </button> ' + date + '</h4> ' +
-    '<div style="' + style + '">' +
-    '<p class="none-p">' + text + '<p> </div> </div>';
+
+  let btn = id ? `<button type="button" class="btn btn-hover ${clase}" data-bs-id="${id}"> <i class="bi bi-trash"></i> </button>` : '';
+
+  let html = `<div class="${classTittle}" data-db="divDelete">
+    <h4 class="m-3">${tittle} 
+      ${btn} 
+      ${date}
+    </h4> <div style="${style}">
+    <p class="none-p">${text}<p> 
+    </div> </div>`;
   $(appendDiv).append(html);
 }
 

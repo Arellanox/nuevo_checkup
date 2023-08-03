@@ -276,3 +276,22 @@ function obtenerHistorialConsultaMedica(idTurno) {
     });
   });
 }
+
+function getConclusionesHistoria(id_turno) {
+  ajaxAwait({
+    api: 23, turno_id: id_turno
+  }, 'consulta_api', { callbackAfter: true }, false, (data) => {
+    let row = data.response.data;
+
+    for (const key in row) {
+      if (Object.hasOwnProperty.call(row, key)) {
+        const element = row[key];
+
+        agregarNotaConsulta(element.MEDICO, formatoFecha2(element.FECHA_FINALIZADA, [0, 1, 5, 2, 2, 2, 0]), element.CONCLUSION, '#consultorio-conclusiones');
+
+
+      }
+    }
+
+  })
+}
