@@ -353,7 +353,7 @@ switch ($idioma) {
                 </tr>
                 <tr>
                     <td style=\"background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 0px;\"><b>DOMICILIO FISCAL</b></td>
-                    <td style=\"width: 55%;text-align: left; border-top: 1px solid darkgrey;\" colspan=\"3\" class=\"cell\">País: MEX</td>
+                    <td style=\"width: 55%;text-align: left; border-top: 1px solid darkgrey;\" colspan=\"3\" class=\"cell\">".$resultados->DOMICILIO_FISCAL."</td>
                     <td style=\"width: 30%;text-align: center; border-left: 1px solid darkgrey;\">" . $resultados->FECHA_CREACION . "</td>
                 </tr>
                 <tr>
