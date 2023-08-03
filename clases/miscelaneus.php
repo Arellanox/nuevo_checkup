@@ -675,6 +675,7 @@ class Miscelaneus
             'ESTUDIOS_DETALLE' => $arrayDetalle,
             'CLIENTE' => $infoCliente[0]['CLIENTE'],
             "RAZON_SOCIAL" => $infoCliente[0]['RAZON_SOCIAL'],
+            "DOMICILIO_FISCAL" => $infoCliente[0]['DOMICILIO_FISCAL'],
             'TELEFONO' => $infoCliente[0]['TELEFONO'],
             'RFC' => $infoCliente[0]['RFC'],
             'CREADO_POR' => $infoCliente[0]['CREADO_POR'],
