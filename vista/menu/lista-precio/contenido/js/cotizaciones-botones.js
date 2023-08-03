@@ -298,7 +298,7 @@ $('#btn-vistaPrevia-cotizacion').click(function () {
   var area_nombre = 'cotizacion';
   var api = encodeURIComponent(window.btoa(area_nombre));
   var area = encodeURIComponent(window.btoa(15));
-  var id_cotizacion = encodeURIComponent(window.btoa(SelectedFolio));
+  var id_cotizacion = encodeURIComponent(window.btoa($('#select-presupuestos').val()));
 
 
 
