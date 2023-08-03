@@ -126,7 +126,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <?php if ($_SESSION['vista']['ESTUDIOS_CALIDAD_EXCEL'] == 1) : ?>
                 <li>
-                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/cursos-bimo/'; ?>" class="dropdown-a" type="button">
+                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-calidad/'; ?>" class="dropdown-a" type="button">
                         <i class="bi bi-file-earmark-spreadsheet"></i> Estudios
                     </a>
                 </li>
