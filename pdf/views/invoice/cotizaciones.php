@@ -423,6 +423,7 @@ switch ($idioma) {
                 </tr>
             </tbody>
         </table>
+        <p><strong>Comentarios:</strong><br>".$resultados->OBSERVACIONES."</p>
         <!--Inicio tabla totales -->
         <p style=\"line-height: 2.5\"></p>
         <div style=\" float: right;width: 30%;\">
