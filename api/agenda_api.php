@@ -72,7 +72,7 @@ switch ($api) {
 
         # crear los horarios de atencion dados la hora inical, hora final y el intervalo.
         $horarios = crearHorarios($hora_primera,$hora_final,$intervalo);
-        echo $horarios;
+
         if(is_array($horarios)){
             $response = $master->insertByProcedure("sp_agenda_horarios_g", [null, json_encode( $horarios ), $area_id]);
         } else {
@@ -99,12 +99,11 @@ switch ($api) {
 echo $master->returnApi($response);
 
 function crearHorarios($inicial,$final,$intervalo){
-echo 1;
     # verificvar si el $intervalo es un valor entero.
     if(!is_numeric($intervalo)){
         return "El intervalo debe ser un valor númerico. Valor enviado: $intervalo";
     }
-    echo 2;
+
     $horarios = [];
     $current = strtotime( $inicial );
 

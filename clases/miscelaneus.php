@@ -523,24 +523,7 @@ class Miscelaneus
         }
 
 
-        switch ($area_id) {
-            case '0':
-            case 0:
-                $area_id = 6;
-                break;
 
-            case 15:
-            case '15':
-                //Cambiamos la ruta para donde guardar la cotizacion
-                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
-                break;
-
-            default:
-                # Ruta por defecto de los reportes
-                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
-
-                break;
-        }
 
         if ($area_id == 0) {
             $area_id = 6;
@@ -553,6 +536,48 @@ class Miscelaneus
             "_",
             $nombre_paciente
         );
+
+        switch ($area_id){
+
+            # para reportes que no usan $turno_id para su creacion.
+            case 15:
+                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
+
+                # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
+                $this->setRutaReporte($ruta_saved);
+
+            
+                # Crear el directorio si no existe
+                $r = $master->createDir("../" . $ruta_saved);
+
+                if ($r === 1){
+
+                    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente );
+                    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+
+
+                }else{
+
+                    $this->setLog( "Imposible crear la ruta del archivo","[cotizaciones, reportador]");
+                    exit;
+                    
+                }
+                
+                
+                break;
+
+            default:
+                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
+
+                # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
+                $this->setRutaReporte($ruta_saved);
+
+                # Crear el directorio si no existe
+                $r = $master->createDir("../" . $ruta_saved);
+                $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
+                $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+        }
+
 
 
         # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
