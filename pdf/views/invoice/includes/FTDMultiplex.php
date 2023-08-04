@@ -51,14 +51,14 @@
                                                                                                                                             foreach ($body as $key => $value) {
 
                                                                                                                                                 if (strpos($value->nombre, 'spp')) {
-                                                                                                                                                    echo "<span style='font-style: italic'> $value->nombre </span>";
+                                                                                                                                                    echo "<span style='font-style: italic'>$value->nombre</span>";
                                                                                                                                                 } else {
                                                                                                                                                     echo $value->nombre;
                                                                                                                                                 }
-                                                                                                                                                if (count($body) - 2 > $key)
+                                                                                                                                                if (count($body) - 3 > $key)
                                                                                                                                                     echo ', ';
 
-                                                                                                                                                if (count($body) - 1 == $key)
+                                                                                                                                                if (count($body) - 2 == $key)
                                                                                                                                                     echo ' y ';
                                                                                                                                             }
                                                                                                                                             ?>) causantes de enfermedades tropicales; el médico tratante es quien realiza la interpretación de este resultado considerando los datos clínicos del paciente.
