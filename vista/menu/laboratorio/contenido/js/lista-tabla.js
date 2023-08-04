@@ -424,7 +424,7 @@ function generarFormularioPaciente(id) {
                   onlyLabel = true; break;
 
                 //FTD KIT DIAGNOSTICO
-                case '1082': anotherValue = ''; break;
+                case '1082': anotherValue = 'TF22-64-09R'; break;
 
                 case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
                 case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
