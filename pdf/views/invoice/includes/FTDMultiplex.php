@@ -47,7 +47,11 @@
 <br>
 <br>
 <br>
-<p style="text-align:justify;"><strong>Comentarios: </strong>Esta prueba identifica en tiempo real la presencia de 7 tipos de Patógenos causantes de enfermedades tropicales; el médico tratante es quien realiza la interpretación de este resultado considerando los datos clínicos del paciente.
+<p style="text-align:justify;"><strong>Comentarios: </strong>Esta prueba identifica en tiempo real la presencia de 7 tipos de Patógenos (<?php foreach ($body as $key => $value) {
+                                                                                                                                                echo $value->resultado;
+                                                                                                                                                if (count($body) - 1 > $key)
+                                                                                                                                                    echo ',';
+                                                                                                                                            } ?>) causantes de enfermedades tropicales; el médico tratante es quien realiza la interpretación de este resultado considerando los datos clínicos del paciente.
 </p>
 <br>
 <p style="text-align:justify;"><strong>Equipo utilizado: </strong> CFX96™ Real-Time System BIO-RAD <br>
