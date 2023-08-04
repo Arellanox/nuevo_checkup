@@ -10,7 +10,7 @@
         <td style="font-size: 13.4px"><strong>Valor de Normalidad</strong></td>
     </tr>
     <tr>
-        <td style="font-size: 16.4px"><strong>rT-PCR-ETS</strong></td>
+        <td style="font-size: 16.4px"><strong>rT-PCR-ET</strong></td>
         <td></td>
         <td></td>
     </tr>
