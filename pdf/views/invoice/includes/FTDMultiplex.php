@@ -55,7 +55,7 @@
                                                                                                                                                 } else {
                                                                                                                                                     echo $value->nombre;
                                                                                                                                                 }
-                                                                                                                                                if (count($body) - 3 > $key)
+                                                                                                                                                if (count($body) - 2 > $key)
                                                                                                                                                     echo ', ';
 
                                                                                                                                                 if (count($body) - 2 == $key)
