@@ -315,6 +315,7 @@ function passdata($indice)
         "VPH" => 'vph',
         "CITOLOGÍA" => 'CITOLOGIA',
         "rT-PCR-ETS" => 'PCR-ETS',
+        "FTD Fiebre Tropical Multiplex" => 'FTDMULTIPLEX',
     ];
 
     // echo $indice;

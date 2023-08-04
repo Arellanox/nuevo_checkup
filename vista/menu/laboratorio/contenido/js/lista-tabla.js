@@ -335,6 +335,28 @@ function generarFormularioPaciente(id) {
             case '972': case '973':
               //Sin cambios
               break;
+            case '1074':
+              kitDiag = {
+                0: {
+                  'descripcion': 'FTD Fiebre Tropical Multiplex',
+                  'clave': ''
+                }
+              }
+              classSelect = 'selectTipoMuestraFTD';
+              muestras = {
+                0: {
+                  'descripcion': 'SUERO',
+                },
+                1: {
+                  'descripcion': 'PLASMA',
+                },
+                2: {
+                  'descripcion': 'SANGRE TOTAL',
+                },
+                3: {
+                  'descripcion': 'EXUDADO NASOFARÍNGEO',
+                }
+              }
 
             //Laboratorio Clinico
             case '1':
@@ -346,6 +368,14 @@ function generarFormularioPaciente(id) {
               }
               break;
           }
+
+
+
+
+
+
+
+
 
 
           // console.log(row)
@@ -383,16 +413,23 @@ function generarFormularioPaciente(id) {
                 case '719': case '721': case '722': case '723': case '733': case '730':
                 case '725': case '744':
                 //ETS
+
                 case '981': case '982': case '983': case '984': case '985': case '986': case '987': case '988': case '989':
+                // los siguientes FTD
+                case '1075': case '1076': case '1077': case '1078': case '1079': case '1080':
+                case '1081':
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 case '710': case '715': case '720': case '724': case '729':
                   onlyLabel = true; break;
 
+                //FTD KIT DIAGNOSTICO
+                case '1082': anotherValue = ''; break;
+
                 case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
                 case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
 
-                case '692': case '706': case '734': case '991':
+                case '692': case '706': case '734': case '991': case '1083':
                   anotherInput = crearSelectCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], ifnull(classSelect)); break;
                 case '693': case '707': case '735': case '992':
                   anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
@@ -401,7 +438,7 @@ function generarFormularioPaciente(id) {
                   anotherValue = ifnull(row[k]['RESULTADO'], 'A QUIEN CORRESPONDA')
                   break;
 
-                case '695': case '700': case '708': case '736': case '756': case '994':
+                case '695': case '700': case '708': case '736': case '756': case '994': case '1084':
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
                 //Laboratorio Clinico:
