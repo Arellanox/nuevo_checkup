@@ -11,7 +11,7 @@ session_destroy();
 
 
 $clave = isset($_GET['clave']) ? $_GET['clave'] : null;
-echo $clave;
+// echo $clave;
 $area = isset($_GET['modulo']) ?  $_GET['modulo'] : null;
 
 // folio
