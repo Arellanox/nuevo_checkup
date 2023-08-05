@@ -68,9 +68,9 @@ function comparePDFContents($file1, $file2)
     if (!empty($file1) && !empty($file2)) {
         // Comparar los contenidos de los archivos
         if ($content1 === $content2) {
-            return "Los archivos tienen el mismo contenido.";
+            return ["¡Excelente! El archivo no ha sufrido alteraciones."];
         } else {
-            return "Los archivos tienen contenido distinto.";
+            return "¡Alerta! El archivo ha sido alterado.";
         }
     } else {
         return "Error: Debes enviar 2 archivos.";
