@@ -331,6 +331,10 @@ function ordenarCuestionario($response, $anamnesis = 0)
         }
     }
 
-    $antecedentes[$comodin] = $tipoArray;
+    if(isset($antecedentes[$comodin])){
+        $antecedentes[$comodin] = array_merge($antecedentes[$comodin],$tipoArray);
+    } else{
+        $antecedentes[$comodin] = $tipoArray;
+    }
     return $antecedentes;
 }
