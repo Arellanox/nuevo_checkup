@@ -112,7 +112,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
     <div id="titulo-js"> <!-- SIN TITULO --></div>
     <div class="container-fluid " id="body-js" style='display:none;'>
         <!-- BODY -->
-        <div class="card m-3 p-3">
+        <div class="card mt-3 p-3">
             <!-- informacion paciente -->
             <h3 class="" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Información personal</h3>
             <div class="row">
@@ -154,7 +154,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
             </div>
         </div>
 
-        <div class="card m-3 p-3">
+        <div class="card mt-3 p-3">
             <section>
                 <div class='row'>
                     <div class="col-12 col-md-6 d-flex align-self-center my-auto">
