@@ -11,6 +11,7 @@ session_destroy();
 
 
 $clave = isset($_GET['clave']) ? $_GET['clave'] : null;
+echo $clave;
 $area = isset($_GET['modulo']) ?  $_GET['modulo'] : null;
 
 // folio
@@ -19,7 +20,7 @@ $area = isset($_GET['modulo']) ?  $_GET['modulo'] : null;
 // $folio_numero = $explode[1];
 // $master = new Master();
 
-$url1 = "http://localhost/practicantes/api/qr_api.php";
+$url1 = "https://bimo-lab.com/nuevo_checkup/api/qr_api.php";
 // Los datos de enviados
 $datos = [
     "api" => 1,
@@ -55,9 +56,9 @@ $code = $res['response']['code'];
 $msj = $res['response']['msj'];
 
 
-$http = 'http://';
-$url = 'localhost';
-$appname = 'practicantes';
+$http = 'https://';
+$url = 'bimo-lab.com';
+$appname = 'nuevo_checkup';
 
 $modulo = $area;
 
