@@ -115,9 +115,8 @@ $("#formRegistrarAgenda").submit(function (event) {
       break;
   }
 
-  if ($('#selectSegmentos').val() != null) {
-    formData.set('segmento_id', ifnull($('#selectSegmentos').val(), '')) //
-  }
+  formData.set('segmento_id', ifnull($('#selectSegmentos').val(), '0')) //
+
   formData.set('fechaAgenda', $('#fecha-agenda').val())
   formData.set('api', 1);
 

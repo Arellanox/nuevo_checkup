@@ -1,7 +1,13 @@
 <?php
 include "../../../variables.php";
 date_default_timezone_set('America/Mexico_City');
-if ($menu != "PrincipalMenu") : ?>
+if (
+  $menu !=
+  "PrincipalMenu"
+  //Excepciones
+  && $menu != 'Facturacion'
+  && $menu != 'ListaPrecios'
+) : ?>
   <li class="nav-item">
     <a href="<?php echo "$https$url/$appname/vista/menu/principal";
               /*echo $https . $url . '/' . /$appname . '/vista/menu/principal/';*/ ?>">
@@ -20,8 +26,6 @@ if ($menu != "PrincipalMenu") : ?>
 <?php
 if (
   $menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1
-  //Excepciones
-  && $menu != 'Facturacion'
 ) : ?>
   <li class="nav-item">
     <a href="<?php echo "$https$url/$appname/vista/menu/recepcion/"; ?>">

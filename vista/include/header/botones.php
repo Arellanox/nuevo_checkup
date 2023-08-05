@@ -275,3 +275,16 @@ $menu = $_POST['menu']; ?>
 
 
 <?php endif; ?>
+
+<?php if ($menu == 'Cotizaciones de estudios') : ?>
+  <div class="">
+    <input type="radio" class="btn-check" name="selectPaquete" id="check-agregar" value="1" checked autocomplete="off">
+    <label class="btn btn-outline-success" for="check-agregar"><i class="bi bi-list"></i>
+      Nuevo</label>
+
+    <input type="radio" class="btn-check" name="selectPaquete" id="check-editar" value="2" autocomplete="off">
+    <label class="btn btn-outline-success" for="check-editar"><i class="bi bi-list"></i>
+      Mantenimiento</label>
+  </div>
+
+<?php endif; ?>
