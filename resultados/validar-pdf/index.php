@@ -20,7 +20,7 @@ $area = isset($_GET['modulo']) ?  $_GET['modulo'] : null;
 // $folio_numero = $explode[1];
 // $master = new Master();
 
-$url1 = "https://bimo-lab.com/nuevo_checkup/api/qr_api.php";
+$url1 = "http://localhost/nuevo_checkup/api/qr_api.php";
 // Los datos de enviados
 $datos = [
     "api" => 1,
@@ -46,8 +46,9 @@ $res = json_decode($json, true);
 
 
 $array = $res['response']['data'][0];
+
 // echo '<pre>';
-// var_dump($array);
+// var_dump($json);
 // echo '</pre>';
 
 // $msj_error = $array[0];
@@ -217,8 +218,8 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                                                 <p class="info-detalle-p"><?php echo ifnull($value2['HALLAZGO']) ?></p>
                                             </div>
                                             <div class="">
-                                                <p class="none-p" id="nacimiento-paciente-consulta">COMENTARIO:</p>
-                                                <p class="info-detalle-p"><?php echo ifnull($value2['COMENTARIO']) ?></p>
+                                                <p class="none-p" id="nacimiento-paciente-consulta">Diagnóstico:</p>
+                                                <p class="info-detalle-p"><?php echo ifnull($value2['INTERPRETACION']) ?></p>
                                             </div>
 
                                         </div>

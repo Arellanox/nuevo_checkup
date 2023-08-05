@@ -31,7 +31,6 @@ switch ($api) {
         // print_r($result);
         // exit;
 
-
         if (!isset($result[0]['ERROR'])) {
             $response = [];
             foreach ($result as $r) {
@@ -44,6 +43,7 @@ switch ($api) {
             $response = $result[0]['ERROR'];
         }
 
+        // print_r($response);
 
 
         break;

@@ -322,7 +322,7 @@ class Miscelaneus
 
     public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8)
     {
- 
+
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
@@ -1186,15 +1186,16 @@ class Miscelaneus
         return $decoded;
     }
 
-    function decodeJsonRecursively($jsonArray) {
+    function decodeJsonRecursively($jsonArray)
+    {
         $decodedArray = array();
-    
+
         foreach ($jsonArray as $key => $value) {
             if (is_array($value)) {
                 $decodedArray[$key] = $this->decodeJsonRecursively($value);
             } else {
                 $decodedValue = json_decode($value, true);
-    
+
                 // Si json_decode devuelve NULL, significa que el valor no es un JSON válido,
                 // por lo que simplemente lo mantenemos tal como está.
                 // De lo contrario, seguimos decodificando recursivamente.
@@ -1205,10 +1206,11 @@ class Miscelaneus
                 }
             }
         }
-    
+
         return $decodedArray;
     }
-    
+
+
 
     function str_ends_with($haystack, $needle)
     {

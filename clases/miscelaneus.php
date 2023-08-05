@@ -537,33 +537,30 @@ class Miscelaneus
             $nombre_paciente
         );
 
-        switch ($area_id){
+        switch ($area_id) {
 
-            # para reportes que no usan $turno_id para su creacion.
+                # para reportes que no usan $turno_id para su creacion.
             case 15:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
 
                 # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
                 $this->setRutaReporte($ruta_saved);
 
-            
+
                 # Crear el directorio si no existe
                 $r = $master->createDir("../" . $ruta_saved);
 
-                if ($r === 1){
+                if ($r === 1) {
 
-                    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente );
+                    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente);
                     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+                } else {
 
-
-                }else{
-
-                    $this->setLog( "Imposible crear la ruta del archivo","[cotizaciones, reportador]");
+                    $this->setLog("Imposible crear la ruta del archivo", "[cotizaciones, reportador]");
                     exit;
-                    
                 }
-                
-                
+
+
                 break;
 
             default:
@@ -1456,6 +1453,34 @@ class Miscelaneus
 
         return $decoded;
     }
+
+
+    function decodeJsonRecursively($jsonArray)
+    {
+        $decodedArray = array();
+
+        foreach ($jsonArray as $key => $value) {
+            if (is_array($value)) {
+                $decodedArray[$key] = $this->decodeJsonRecursively($value);
+            } else {
+                $decodedValue = json_decode($value, true);
+
+                // Si json_decode devuelve NULL, significa que el valor no es un JSON válido,
+                // por lo que simplemente lo mantenemos tal como está.
+                // De lo contrario, seguimos decodificando recursivamente.
+                if ($decodedValue === NULL) {
+                    $decodedArray[$key] = $value;
+                } else {
+                    $decodedArray[$key] = $this->decodeJsonRecursively($decodedValue);
+                }
+            }
+        }
+
+        return $decodedArray;
+    }
+
+
+
     function str_ends_with($haystack, $needle)
     {
         return (@substr_compare($haystack, $needle, -strlen($needle)) == 0);
