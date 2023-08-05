@@ -19,8 +19,8 @@ $clave = $_POST['clave'];
 $area = $_POST['area'];
 
 # variables para la validaccion del pdf
-$pdf_nube = $_POST['pdf_original'];
-$pdf_a_comparar = $_FILES['pdf']['tmp_name'];
+$pdf_nube = $_POST['pdf_nube'];
+$pdf_a_comparar = $_FILES['pdf_a_comparar']['tmp_name'];
 
 switch ($api) {
 

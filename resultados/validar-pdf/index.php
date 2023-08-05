@@ -164,6 +164,9 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                         <button id="ReportePDF" data-url="<?php echo ifnull($array['RUTA_REPORTE']) ?>" class="btn btn-borrar ">
                             <i class="bi bi-file-earmark-pdf-fill"></i> Descargar
                         </button>
+                        <button data-bs-toggle="modal" data-bs-target="#ValidarPDF" class="btn btn-borrar mx-1">
+                            <i class="bi bi-filetype-pdf"></i> Validar PDF
+                        </button>
                     </div>
                 </div>
                 <hr>
@@ -392,7 +395,185 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
             </section>
         </div>
     </div>
+
+    <div class="modal fade" id="ValidarPDF" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header header-modal">
+                    <h5 class="modal-title" id="title-paciente_rechazar">Validación de documento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="" id="FormValidadPDF">
+                        <p>Por favor, suba su resultado original en formato PDF. Esto nos ayudará a garantizar que su documento esté completo y no haya sido modificado.</p>
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="input-file-contenedor">
+                                <label for="form-label">PDF de Resultado</label>
+                                <label for="pdf_a_comparar" class="input-file-label">
+                                    <i class="bi bi-box-arrow-up"></i> Seleccione un archivo
+                                </label>
+                                <input type="file" name="pdf_a_comparar" id="pdf_a_comparar" accept="application/pdf" class="input-file">
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <!-- <div class="message" id="message"></div> -->
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                        <i class="bi bi-arrow-left-short"></i> Cancelar
+                    </button>
+                    <button type="submit" form="FormValidadPDF" id="btn_submit" class="btn btn-confirmar">
+                        <div id="icon-confirm"><i class="bi bi-send-check"></i> Validar</div>
+                        <div class="loading-animation" id="loadingAnimation"></div>
+
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <style>
+        .loading-animation {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #3498db;
+            animation: spin 1s linear infinite;
+            /* margin-top: 20px; */
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .message {
+            display: none;
+            font-size: 18px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <!-- Script de validad documento pdf -->
+    <script>
+        let formIntent = 0;
+        $('#FormValidadPDF').on('submit', function(event) {
+            event.preventDefault();
+            if (formIntent === 1)
+                return 1
+
+            formIntent = 1;
+
+            // $('#btn_submit').attr('disabled', true)
+
+            alertToast('Espere un momento, estamos comparando archivos', 'info', 4000)
+
+            const loadingAnimation = document.getElementById('loadingAnimation')
+            const btn_text = document.getElementById('icon-confirm');
+
+            btn_text.style.display = 'none';
+            loadingAnimation.style.display = 'inline-block';
+
+
+            // Simulamos una tarea de comprobación que toma 2 segundos
+
+            let formID = document.getElementById('FormValidadPDF');
+            let formData = new FormData(formID);
+            formData.set(`api`, 2);
+            formData.set('pdf_nube', '<?php echo $ruta_reporte; ?>')
+
+
+            $.ajax({
+                url: `http://localhost/nuevo_checkup/api/qr_api.php`,
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                type: 'POST',
+                success: function(data) {
+                    if (data.response.code == 1) {
+                        setTimeout(() => {
+                            formIntent = 0;
+                            $('#btn_submit').attr('disabled', false)
+                            btn_text.style.display = 'inline-block';
+                            loadingAnimation.style.display = 'none';
+
+                            alertMsj({
+                                title: 'Validación Exitosa',
+                                text: '¡Perfecto! Su documento ha sido validado correctamente y no se han encontrado alteraciones.',
+                                icon: 'success',
+                                showCancelButton: false,
+                                // allowOutsideClick: true
+                            })
+                        }, 2000);
+
+                    } else {
+                        setTimeout(() => {
+                            formIntent = 0;
+                            // $('#btn_submit').attr('disabled', false)
+                            btn_text.style.display = 'inline-block';
+                            loadingAnimation.style.display = 'none';
+
+                            alertMsj({
+                                title: 'Validación erronea',
+                                text: 'Lamentamos informarle que su documento no ha pasado la validación. Por favor, asegúrese de que está con el formato adecuado y que no haya sido manipulado ni escaneado. Intente subirlo de nuevo.',
+                                icon: 'warning',
+                                showCancelButton: false,
+                                // allowOutsideClick: true
+                            })
+
+                        }, 2000);
+
+                    }
+
+
+
+                },
+                error: function(jqXHR, exception, data) {
+                    // alertErrorAJAX(jqXHR, exception, data)
+                    formIntent = 0;
+                },
+            })
+        });
+
+        $(document).on('change click', 'input[type="file"]', function() {
+            // //console.log($(this)[0])
+            if ($(this)[0].files.length > 1) {
+                var filename = `${$(this)[0].files.length} Archivos...`;
+            } else {
+                var filename = $(this).val().split('\\').pop();
+                var extension = $(this).val().split('.').pop();
+
+                var filename = filename.replace(`.${extension}`, '')
+
+            }
+
+
+            // //console.log(filename);
+            var label = $(this).parent('div').find('label[class="input-file-label"]')
+            if ($(this).val() == '') {
+                label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+            } else {
+                label.html(`File: ${truncate(filename, 15)} | ${extension}`)
+            }
+        })
+
+        function truncate(str, maxlength) {
+            return (str.length > maxlength) ?
+                str.slice(0, maxlength - 1) + '…' : str;
+        }
+    </script>
 
     <!-- Lightbox -->
     <div id="lightbox" onclick="this.style.display='none'">
@@ -572,6 +753,27 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                 callback(result);
             })
         }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        function alertToast(msj = 'No ha seleccionado ningún registro', icon = 'error', timer = 3000) {
+            Toast.fire({
+                icon: icon,
+                title: msj,
+                timer: timer,
+                // width: 'auto'
+            });
+        }
+        // 
 
         $(document).on('click', '#ReportePDF', function(e) {
             url = $(this).attr('data-url');
