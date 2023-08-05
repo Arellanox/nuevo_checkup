@@ -27,6 +27,13 @@
             /* background-color: cadetblue; */
         }
 
+        a {
+            position: fixed;
+            padding: 0px;
+            top: 80%;
+            left: 40px
+        }
+
         .footer .page:after {
             content: counter(page);
         }

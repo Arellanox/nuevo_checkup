@@ -40,6 +40,13 @@
             /* background-color: pink; 
         } */
 
+        a {
+            position: fixed;
+            padding: 0px;
+            top: -15px;
+            left: 40px
+        }
+
         .footer .page:after {
             content: counter(page);
         }
@@ -340,10 +347,10 @@ $encode_firma = base64_encode($ruta_firma);
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
-                    <td colspan="6" style="text-align: center; width: 50%">
+                    <td colspan="6" style="text-align: center; width: 50%;height: 100px">
                         <?php
                         if ($preview == 0) {
-                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                            echo "<a target='_blank' href='$qr[0]'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
                         }
                         ?>
                     </td>

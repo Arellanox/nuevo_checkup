@@ -40,6 +40,13 @@
             /* background-color: pink; */
         }
 
+        a {
+            position: fixed;
+            padding: 0px;
+            top: -15px;
+            left: 40px
+        }
+
         .footer .page:after {
             content: counter(page);
         }
@@ -249,14 +256,15 @@
         }
 
         .respuesta-row,
-        .comentario-row{
+        .comentario-row {
             background-color: #fff;
             padding: 5px;
             border-bottom: 1px solid #ddd;
             border-top: 1px solid #ddd;
             font-size: 13px;
         }
-        .respuesta2-row{
+
+        .respuesta2-row {
             background-color: #fff;
             padding: 5px;
             border-bottom: 1px solid #ddd;

@@ -12,7 +12,7 @@
                                 </tr>
                                 <tr class="col-foot-three" style="font-size: 13px;">
                                     <td colspan="6" style="text-align: center; width: 50%; height: 110px;">
-                                        <a target="_blank" href="#"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+                                        <a target="_blank" href="<?= $qr[0] ?>"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
                                     </td>
                                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                                         <strong style="font-size: 12px;"><?php if (isset($footerDoctor)) echo $footerDoctor; ?></strong>

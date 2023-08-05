@@ -345,7 +345,7 @@ if (!isset($qr)) {
                     <td colspan="6" style="text-align: center; width: 50%">
                         <?php
                         if ($preview == 0) {
-                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                            echo "<a target='_blank' href='$qr[0]'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
                         }
                         ?>
                     </td>
@@ -537,6 +537,13 @@ for ($i = 2; $i < $indice; $i++) {
         right: 25px;
         height: <?php echo $altura . 'px' ?>;
         /* background-color: pink; */
+    }
+
+    a {
+        position: fixed;
+        padding: 0px;
+        top: -15px;
+        left: 40px
     }
 </style>
 
