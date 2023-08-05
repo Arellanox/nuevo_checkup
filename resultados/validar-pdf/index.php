@@ -403,7 +403,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
     <script type="text/javascript">
         document.addEventListener("adobe_dc_view_sdk.ready", function() {
             var adobeDCView = new AdobeDC.View({
-                clientId: "34a82f04f8804b4cbdc2cd6bc6a17c57",
+                clientId: "910245db1616423db64ad4319c83cee2",
                 divId: "adobe-dc-view"
             });
             adobeDCView.previewFile({
