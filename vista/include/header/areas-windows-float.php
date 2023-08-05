@@ -1,4 +1,9 @@
- <?php if ($_SESSION['vista']['AGENDA_PACIENTES'] == 1) : ?>
+ <?php if (
+        $_SESSION['vista']['AGENDA_PACIENTES'] == 1
+        //Excepciones
+        && $menu != 'Facturacion'
+        && $menu != 'ListaPrecios'
+    ) : ?>
      <li class="nav-item Recepción">
          <div class="dropdown ">
              <a class="dropdown-toggle" id="dropCheckups" role="button" data-bs-toggle="dropdown" aria-expanded="false">

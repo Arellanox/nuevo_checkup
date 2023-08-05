@@ -1,6 +1,12 @@
 #logo_empresa{
-  height: 50px;
-  border-radius: 6px;
+    height: 50px;
+    border-radius: 6px;
+}
+
+@media screen and (max-width: 1025px) {
+  #logo_empresa{
+    height: 35px;
+  }
 }
 
 .img_galeria{
