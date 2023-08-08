@@ -50,10 +50,6 @@ function lpad(value, length, padChar) {
 }
 
 $('#UsarPaquete').on('click', function () {
-
-
-
-
   if ($('input[type=radio][name=selectPaquete]:checked').val() == 2) {
     if (!$('#select-presupuestos').val()) {
       alertToast('Necesitas seleccionar un presupuesto de este cliente', 'error', '5000')
@@ -67,9 +63,10 @@ $('#UsarPaquete').on('click', function () {
   let id_cotizacion = $('#select-presupuestos').val();
 
   // $('#select-presupuestos').prop('disabled', true);
-  $("#selectDisabled").addClass("disable-element");
+  $(".selectDisabled").addClass("disable-element");
   // $('.formContenidoPaquete').prop('disabled', false);
   $("#formPaqueteBotonesArea").removeClass("disable-element");
+  $('#card_paq').removeClass("disable-element");
   $("#formPaqueteSelectEstudio").removeClass("disable-element");
   $("#informacionPaquete").removeClass("disable-element");
 
@@ -109,15 +106,11 @@ $('#UsarPaquete').on('click', function () {
 
         // var datosUsuarioCotizacion = $('#datosUsuarioCotizacion')
         if (row) {
-          datosUsuarioCotizacion.html(`<div class="col-6">
-                  <p>Nombre: </p>
-                  <span>${row2['CREADO_POR']}</span>
-
-              </div>
-              <div class="col-6">
-                  <p>Correo: </p>
-                  <span>${row2['CORREO']}</span>
-              </div>`)
+          // console.log(row2)
+          $('#nombreCotizacionCliente').html(row2['CREADO_POR'])
+          $('#correoCotizacionCliente').html(row2['CORREO'])
+          $('#fiscalCotizacionCliente').html(row2['DOMICILIO_FISCAL'])
+          $('#observacionesCotizacionCliente').html(row2['OBSERVACIONES'])
 
 
           $('#descuento-paquete').val(row2['PORCENTAJE_DESCUENTO'])
@@ -146,10 +139,14 @@ $('#UsarPaquete').on('click', function () {
 //
 $('#CambiarPaquete').on('click', function () {
   //borrar el div para que se vuelva a abrir
-  datosUsuarioCotizacion.empty()
+  // datosUsuarioCotizacion.empty()
+  $('#nombreCotizacionCliente').html('')
+  $('#correoCotizacionCliente').html('')
+  $('#fiscalCotizacionCliente').html('')
+  $('#observacionesCotizacionCliente').html('')
 
   $('#seleccion-paquete').prop('disabled', false);
-  $("#selectDisabled").removeClass("disable-element");
+  $(".selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
   $("#formPaqueteSelectEstudio").addClass("disable-element");
   $("#informacionPaquete").addClass("disable-element");
@@ -226,8 +223,8 @@ $('#guardar-contenido-paquete').on('click', function () {
         atencion: $('#input-atencion-cortizaciones').val(),
         correo: $('#input-correo-cortizaciones').val(),
         observaciones: $('#input-observaciones-cortizaciones').val(),
-        domicilio_fiscal: $('#input-domicilio_fiscal').val(),
-        fecha_vigencia: $('#input-fecha-vigencia').val()
+        fecha_vigencia: $('#input-fecha-vigencia').val(),
+        dominio_fiscal: $('#input-domicilio_fiscal').val()
       }
 
       if ($('input[type=radio][name=selectPaquete]:checked').val() == 2) {
@@ -247,10 +244,16 @@ $('#guardar-contenido-paquete').on('click', function () {
         })
 
         //borrar el div para que se vuelva a abrir
-        datosUsuarioCotizacion.empty()
+        // datosUsuarioCotizacion.empty()
 
         // alertMensaje('success', 'Contenido registrado', 'El contenido se a registrado correctamente :)')
         $('#modalInfoDetalleCotizacion').modal('hide');
+
+        $('#nombreCotizacionCliente').html(row2['CREADO_POR'])
+        $('#correoCotizacionCliente').html(row2['CORREO'])
+        $('#fiscalCotizacionCliente').html(row2['DOMICILIO_FISCAL'])
+        $('#observacionesCotizacionCliente').html(row2['OBSERVACIONES'])
+
       }
     })
   } else {

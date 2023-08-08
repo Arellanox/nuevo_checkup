@@ -2263,7 +2263,7 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
   if (array) {
     try {
       if (DIV.length != array.length)
-        alertToast('Algunos datos de ' + key + ' se han perdido...', 'info')
+        alertToast('Algunos datos de ' + key + ' se han cargado correctamente...', 'info')
     } catch (error) {
 
     }
