@@ -49,7 +49,11 @@ $params = $master->setToNull([
 switch ($api) {
     case 1:
         # agregar una agenda
-        $response = $master->insertByProcedure("sp_agenda_g", $params);
+        if(isset($_SESSION['id'])){
+            $response = $master->insertByProcedure("sp_agenda_g", $params);
+        }else{
+            $response = "Sesión caducada, por favor vuelva a iniciar sesión para continuar.";
+        }
         break;
     case 2:
         # buscar los horarios disponibles de un area.
