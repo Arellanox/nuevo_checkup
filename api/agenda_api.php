@@ -44,16 +44,16 @@ $params = $master->setToNull([
     $registrado_por,
     $observaciones,
     json_encode(explode(",", $detalle_servicios)),
-    $hora_agenda,
-    $paquete_id
+    $hora_agenda
+    // $paquete_id
 ]);
 
 switch ($api) {
     case 1:
         # agregar una agenda
-        if(isset($_SESSION['id'])){
+        if (isset($_SESSION['id'])) {
             $response = $master->insertByProcedure("sp_agenda_g", $params);
-        }else{
+        } else {
             $response = "Sesión caducada, por favor vuelva a iniciar sesión para continuar.";
         }
         break;
@@ -77,10 +77,10 @@ switch ($api) {
         # agregar una horario a un area
 
         # crear los horarios de atencion dados la hora inical, hora final y el intervalo.
-        $horarios = crearHorarios($hora_primera,$hora_final,$intervalo);
+        $horarios = crearHorarios($hora_primera, $hora_final, $intervalo);
 
-        if(is_array($horarios)){
-            $response = $master->insertByProcedure("sp_agenda_horarios_g", [null, json_encode( $horarios ), $area_id]);
+        if (is_array($horarios)) {
+            $response = $master->insertByProcedure("sp_agenda_horarios_g", [null, json_encode($horarios), $area_id]);
         } else {
             $response = $horarios;
         }
@@ -95,9 +95,9 @@ switch ($api) {
 
         # enviamos solo el inicial y el final 
         $response = [];
-     
+
         $response["HORA_INICIAL"] = $result[array_key_first($result)]['HORA_INICIAL'];
-        $response["HORA_FINAL"] = $result[array_key_last($result)]['HORA_INICIAL']; 
+        $response["HORA_FINAL"] = $result[array_key_last($result)]['HORA_INICIAL'];
         $response["INTERVALO"] = $result[0]['INTERVALO'];
         break;
     default:
@@ -108,17 +108,18 @@ echo $master->returnApi($response);
 
 
 
-function crearHorarios($inicial,$final,$intervalo){
+function crearHorarios($inicial, $final, $intervalo)
+{
     # verificvar si el $intervalo es un valor entero.
-    if(!is_numeric($intervalo)){
+    if (!is_numeric($intervalo)) {
         return "El intervalo debe ser un valor númerico. Valor enviado: $intervalo";
     }
 
     $horarios = [];
-    $current = strtotime( $inicial );
+    $current = strtotime($inicial);
 
-    while ($current <= strtotime($final )){
-        $horarios[] = date( 'H:i',$current );
+    while ($current <= strtotime($final)) {
+        $horarios[] = date('H:i', $current);
         $current = strtotime("+$intervalo minutes", $current);
     }
 
