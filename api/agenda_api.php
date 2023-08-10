@@ -22,6 +22,7 @@ $registrado_por = $_SESSION['id'];
 $observaciones = $_POST['observaciones'];
 $detalle_servicios = $_POST['servicios'];
 $hora_agenda = $_POST['hora_agenda']; # este es un id que viene de la tabla agenda horarios
+$paquete_id = $_POST['paquete_id'];
 
 #horarios
 
@@ -43,7 +44,8 @@ $params = $master->setToNull([
     $registrado_por,
     $observaciones,
     json_encode(explode(",", $detalle_servicios)),
-    $hora_agenda
+    $hora_agenda,
+    $paquete_id
 ]);
 
 switch ($api) {
