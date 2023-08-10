@@ -76,3 +76,7 @@ table.dataTable>tbody>tr.selected a {
 color: rgb(247, 190, 000) !important;
 
 }
+
+table.dt-rowReorder-float {
+    z-index: 2000;
+}

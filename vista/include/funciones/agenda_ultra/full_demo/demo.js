@@ -1,14 +1,13 @@
 $(document).ready(function () {
 
    var $calendar = $('#calendar');
-   var id = 10;
+
 
    getDataAjax();
    function getDataAjax() {
       var year = new Date().getFullYear();
       var month = new Date().getMonth();
       var day = new Date().getDate();
-      console.log(new Date(year, month, day, 12))
       $.ajax({
          url: `${localStorage.getItem('http')}${localStorage.getItem('servidor')}/${localStorage.getItem('appname')}/api/agenda_api.php`,
          data: {
@@ -36,8 +35,7 @@ $(document).ready(function () {
 
                }
             }
-            console.log(event)
-            console.log(getEventData())
+
             calendar(event)
 
             // let row = data.response.data;
@@ -50,7 +48,6 @@ $(document).ready(function () {
 
 
    function calendar(data) {
-      console.log('data', data)
       $calendar.weekCalendar({
          timeslotsPerHour: 4,
          allowCalEventOverlap: true,

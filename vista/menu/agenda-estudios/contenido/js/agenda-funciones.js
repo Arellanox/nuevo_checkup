@@ -26,13 +26,13 @@ function getListAgenda(area = localStorage.getItem('areaActual'), fecha = format
                         <small> <i class="bi bi-trash p-2 eliminarAgenda" data-id="${element.ID_AGENDA}"></i>
                         </small>
                     </div>
-                    <p>Teléfono: ${ifnull(element.TELEFONO)}</p>`;
+                    <p><span class="none-p">Teléfono:</span> ${ifnull(element.TELEFONO)}</p>`;
 
                 //  <i class="bi bi-pencil-square p-2"></i> 
 
                 let detalle = element['DETALLE_AGENDA'][0];
-                html += `<p class="none-p">Estudios:</p>`;
-                html += `<p class="mb-1">Ultrasonido:`
+                html += `<p class="none-p">Detalle:</p>`;
+                html += `<p class="mb-1">`
                 for (const key in detalle) {
                     if (Object.hasOwnProperty.call(detalle, key)) {
                         const element_detalle = detalle[key];
@@ -40,9 +40,9 @@ function getListAgenda(area = localStorage.getItem('areaActual'), fecha = format
                     }
                 }
                 html += `</p>`;
-                html += `<p class="none-p">Observaciones: ${element.OBSERVACIONES}</p>`;
+                html += `<p class="none-p">Observaciones: ${ifnull(element.OBSERVACIONES, '<span style="font-style:italic">Sin observaciones</span>')}</p>`;
                 html += `<small>${formatoFecha2(element.CITA, [2, 1, 4, 1, 2, 2, 0])} | ${formatoFecha2(element.FINALIZA, [2, 1, 4, 1, 2, 2, 0])}</small> </br>
-<small><strong>Registrado por: ${element['REGISTRADO_POR']}</strong></small>
+<small>Registrado por: <strong>${element['REGISTRADO_POR']}</strong></small>
                 </button>`;
 
             }

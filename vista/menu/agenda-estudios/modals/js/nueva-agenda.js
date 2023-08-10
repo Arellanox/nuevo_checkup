@@ -1,21 +1,27 @@
 
-switch (localStorage.getItem('areaActual')) {
-    case 19: case '19':
-        $('#title-area, #subtext-area').html('Paquete')
-        $('#content-area').fadeOut('slow')
-        paqueteUse = 1;
-        break;
+function cambiarVistaModal() {
 
-    default:
+    switch (localStorage.getItem('areaActual')) {
+        case 19: case '19':
+            $('#title-area, #subtext-area').html('Paquete')
+            $('#content-area').fadeOut('slow')
+            paqueteUse = 1;
+            break;
 
-        break;
+        default:
+            $('#title-area, #subtext-area').html('Estudios')
+            $('#content-area').fadeIn('slow')
+            paqueteUse = 0;
+
+            break;
+    }
 }
 
 
 const modalNuevaAgenda = document.getElementById('modalNuevaAgenda')
 modalNuevaAgenda.addEventListener('show.bs.modal', event => {
 
-
+    cambiarVistaModal()
 
 
     switch (localStorage.getItem('areaActual')) {
