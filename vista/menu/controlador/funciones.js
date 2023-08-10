@@ -1440,8 +1440,6 @@ function alertErrorAJAX(jqXHR, exception, data) {
     case 'abort': return 0
   }
 
-
-
   //console.log(jqXHR.responseText);
 
 }
@@ -1492,8 +1490,8 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
 
 //Solo doble click
 var dobleClickSelecTable = false; //Ultimo select ()
-function selectDatatabledblclick(callback = function () { }, tablename, datatable, disabledDblclick = false) {
-  //console.log(tablename)
+function selectDatatabledblclick(callback = function (selected, data) { }, tablename, datatable, disabledDblclick = false) {
+  console.log(tablename)
   if (!disabledDblclick)
     dobleClickSelecTable = false
   $(tablename).on('click', 'tr', function () {
@@ -1507,7 +1505,7 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
         datatable.$('tr.selected').removeClass('selected');
         // array_selected = datatable.row(this).data()
 
-        return callback(0, null);
+        return callback(0, null, row);
       }
     }
     if (disabledDblclick == false)
@@ -1515,7 +1513,7 @@ function selectDatatabledblclick(callback = function () { }, tablename, datatabl
     datatable.$('tr.selected').removeClass('selected');
     $(this).addClass('selected');
     array_selected = datatable.row(this).data()
-    return callback(1, array_selected)
+    return callback(1, array_selected, this)
 
   });
 }
@@ -1655,7 +1653,7 @@ function inputBusquedaTable(
     '<div class="text-center mt-2" style="padding-right: 5%">' +
     '<div class="input-group flex-nowrap">' +
     htmlTooltip +
-    '<input type="search" class="input-form form-control" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important"' +
+    '<input type="search" class="input-form form-control input-table-search" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important;"' +
     'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="' + tablename + 'BuscarTablaLista"' +
     'data-bs-toggle="tooltip" data-bs-placement="' + tooltipinput['place'] + '" title="' + tooltipinput['msj'] + '">' +
     '</div></div>'
@@ -1672,10 +1670,11 @@ function inputBusquedaTable(
   });
 
 
-
-  $('select[name="' + tablename + '_length"]').removeClass('form-select form-select-sm');
-  $('select[name="' + tablename + '_length"]').addClass('select-form input-form');
-  $('select[name="' + tablename + '_length"]').css('margin-bottom', '0px')
+  let select = $('select[name="' + tablename + '_length"]');
+  select.removeClass('form-select form-select-sm');
+  select.addClass('select-form input-form');
+  select.css('margin-bottom', '0px')
+  select.css('width', 'max-content')
 
 }
 //
@@ -1894,7 +1893,7 @@ function eventClassClick(event, tr, config, data) {
       const element = rowClick[key];
 
       if ($(clickedElement).hasClass(`${element.class}`)) {
-        element.callback(data, clickedElement)
+        element.callback(data, clickedElement, tr)
         return [true, element.selected];
       }
 
@@ -1975,7 +1974,6 @@ function selectTable(tablename, datatable,
     let tr = this
     let row = datatable.row(tr);
     let dataRow = row.data();
-    array_selected = row.data();
 
     // let td = $(event.target).is('td')
 
@@ -2013,6 +2011,9 @@ function selectTable(tablename, datatable,
     if (config.OnlyData) {
       return callbackClick(1, dataRow, function (data) { return 'No action' }, tr, row);
     }
+
+
+    array_selected = row.data();
 
     selectTableClickCount++;
     if ($(tr).hasClass('selected')) {
@@ -3106,14 +3107,49 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   event.preventDefault();
 
                   let btn = $(this);
-                  //console.log(btn.attr('id'));
+                  // console.log(btn.attr('id'));
                   switch (btn.attr('id')) {
+
                     case 'btn-laboratorio-etiquetas':
+
+
                       area_nombre = 'etiquetas'
                       api = encodeURIComponent(window.btoa(area_nombre));
                       turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO'],));
 
                       window.open(http + servidor + "/nuevo_checkup/visualizar_reporte/?api=" + api + "&turno=" + turno, "_blank");
+
+                      break;
+
+                    case 'btn-laboratorio-etiquetas-imprimir':
+
+                      area_nombre = 'etiquetas'
+                      api = encodeURIComponent(window.btoa(area_nombre));
+                      turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO'],));
+
+                      const nombrePDf = 'ticket.pdf';
+                      const nombreImpresora = 'PDF24';
+                      const url = `http://localhost:8080/?nombrePdf=${nombrePDf}&impresora=${nombreImpresora}`;
+
+
+                      fetch(url)
+                        .then(respuesta => {
+
+                          if (respuesta.status == 200) {
+
+                            alertToast('Imprimiendo etiquetas', 'info', 5000)
+                            console.log("Impresion OK")
+
+                          } else {
+                            respuesta.json()
+                              .then(mensaje => {
+
+                                console.log("Error: " + mensaje)
+
+                              })
+                          }
+                        })
+
                       break;
 
                     case 'btn-PERFIL':
