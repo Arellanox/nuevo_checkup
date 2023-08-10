@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalRellenarGrupos" tabindex="-1" aria-labelledby="filtrador" data-bs-focus="false" aria-hidden="true">
+<div class="modal fade" id="modalRellenarGrupos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="filtrador" data-bs-focus="false" aria-hidden="true">
     <div class="modal-dialog  modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">

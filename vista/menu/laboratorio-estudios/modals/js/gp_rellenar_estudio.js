@@ -121,7 +121,6 @@ tablaLLenarGrupo.on('row-reorder', function (e, diff, edit) {
 async function firstDataModal() {
     console.log(estatus)
     if (estatus == 0) {
-
         setTimeout(function () {
             firstDataModal()
         }, 500)
@@ -230,12 +229,19 @@ function rowDataAdd(tabla, newRowData = {}) {
 
     // Obtener la última fila para obtener el valor de "Orden"
     var ultimaFila = tablaLLenarGrupo.row(':last');
-    var ultimoOrden = ultimaFila.data().ORDEN;
+    console.log(ultimaFila.data())
+    if (ultimaFila.data()) {
+        var ultimoOrden = ultimaFila.data().ORDEN;
 
-    // Calcular el siguiente número en la secuencia
-    var nuevoOrden = ultimoOrden + 1;
-    newRowData.ORDEN = nuevoOrden
-    newRowData.ORDEN_PREDETERMINADO = 0
+        // Calcular el siguiente número en la secuencia
+        var nuevoOrden = ultimoOrden + 1;
+        newRowData.ORDEN = nuevoOrden
+        newRowData.ORDEN_PREDETERMINADO = 0
+    } else {
+        newRowData.ORDEN = 1
+        newRowData.ORDEN_PREDETERMINADO = 0
+    }
+
 
     // Agregar una nueva fila con solo los valores de ID y Nombre visibles en la tabla
     tabla.row.add(newRowData).draw();
