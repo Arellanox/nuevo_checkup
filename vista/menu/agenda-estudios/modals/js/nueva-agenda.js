@@ -1,6 +1,6 @@
 
 switch (localStorage.getItem('areaActual')) {
-    case 15: case '15':
+    case 19: case '19':
         $('#title-area, #subtext-area').html('Paquete')
         $('#content-area').fadeOut('slow')
         paqueteUse = 1;
@@ -19,7 +19,7 @@ modalNuevaAgenda.addEventListener('show.bs.modal', event => {
 
 
     switch (localStorage.getItem('areaActual')) {
-        case 15: case '15':
+        case 19: case '19':
             rellenarSelect('#select-us', 'paquetes_api', 2, 0, 'DESCRIPCION.CLIENTE', {
                 contenido: 1
             });
