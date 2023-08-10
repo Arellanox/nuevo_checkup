@@ -93,14 +93,18 @@ switch ($api) {
 
         # enviamos solo el inicial y el final 
         $response = [];
+     
         $response["HORA_INICIAL"] = $result[array_key_first($result)]['HORA_INICIAL'];
         $response["HORA_FINAL"] = $result[array_key_last($result)]['HORA_INICIAL']; 
+        $response["INTERVALO"] = $result[0]['INTERVALO'];
         break;
     default:
         break;
 }
 
 echo $master->returnApi($response);
+
+
 
 function crearHorarios($inicial,$final,$intervalo){
     # verificvar si el $intervalo es un valor entero.
