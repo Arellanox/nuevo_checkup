@@ -139,7 +139,7 @@ function tablaContenido(descuento = false) {
   tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
     lengthChange: false,
     // info: false,
-    paging: true,
+    paging: false,
     scrollY: "50vh",
     scrollCollapse: true,
     columnDefs: [
