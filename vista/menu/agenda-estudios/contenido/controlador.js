@@ -30,7 +30,7 @@ function hasLocation() {
     // if (validarVista(hash)) {
     switch (hash) {
         case 'CHECKUPS':
-            localStorage.setItem('areaActual', 15);
+            localStorage.setItem('areaActual', 19);
             obtenerAgendaPacientes('Checkups');
             break;
 
