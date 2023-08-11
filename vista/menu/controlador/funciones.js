@@ -1967,7 +1967,7 @@ function selectTable(tablename, datatable,
 
 
     }
-    $(`#loaderDiv-${loader_selectTable}`).attr("style", "display: none !important");
+    $(loader_selectTable).attr("style", "display: none !important");
 
   }
 
@@ -2104,7 +2104,7 @@ function selectTable(tablename, datatable,
 
   function selectTable_cargarVista() {
     $('.tab-second').fadeOut()
-    $(`#loaderDiv-${loader_selectTable}`).fadeIn(0);
+    $(loader_selectTable).fadeIn(0);
   }
 
   function selectTable_resetSelect(tr, config, resetTR = false) {
