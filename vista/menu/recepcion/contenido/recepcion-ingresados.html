@@ -6,67 +6,68 @@
 <div id="tab-button"></div>
 
 <div class="row">
-  <div class="col-12 col-lg-3 info-detalle card pt-5 overflow-auto tab-second" style="max-width: 100%;"
+  <div class="col-12 col-lg-3 info-detalle overflow-auto tab-second" style="max-width: 100%; height: 85vh;"
     id="panel-informacion-pacientesTurnos">
-    <div class="" id="panel-informacion">
+    <div class="rounded p-2 shadow-sm my-2">
+      <div class="" id="panel-informacion">
+      </div>
+      <div class="" id="panel-resultados">
+      </div>
+      <div class="" id="estudios_concluir_paciente">
+      </div>
+      <div id="panel-areas-faltantes"></div>
     </div>
-    <div class="" id="panel-resultados">
-    </div>
-    <div class="" id="estudios_concluir_paciente">
-    </div>
-    <div id="panel-areas-faltantes"></div>
-
   </div>
-  <div class="col-12 col-lg-9 card tab-first">
+  <div class="col-12 col-lg-9 tab-first">
+    <div class="rounded p-2 shadow-sm my-2">
+      <!-- <div class="text-center" style="margin-top:4px;"> -->
+      <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-reagendar">
 
-    <div class="text-center" style="margin-top:4px;">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-reagendar"
-        data-bs-toggle="tooltip" data-bs-placement="top" title="Cambie la fecha de agenda del paciente si es necesario">
-        <i class="bi bi-calendar2-event"></i> Re-agendar paciente
-      </button>
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-pendiente-ingreso"
-        data-bs-toggle="tooltip" data-bs-placement="top"
-        title="Mande en espera al paciente y elimina la carga de estudios">
-        <i class="bi bi-person-lines-fill"></i> Deshacer ingreso
-      </button>
+        </button>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-pendiente-ingreso"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="">
+          <i class="bi bi-person-lines-fill"></i> Deshacer ingreso
+        </button> -->
       <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar"
-        data-bs-toggle="tooltip" data-bs-placement="top" title="Edite la información personal del paciente">
-        <i class="bi bi-pencil-square"></i> Actualizar información del paciente
-      </button> -->
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Edite la información personal del paciente">
+            <i class="bi bi-pencil-square"></i> Actualizar información del paciente
+          </button> -->
       <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-correo-particular">
-        <i class="bi bi-pencil-square"></i> Reenvio de reportes
-      </button> -->
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display: none;" data-bs-toggle="modal"
-        style="display: none;" data-bs-target="#ModalBeneficiario" id="buttonBeneficiario">
-        <i class="bi bi-save"></i> Beneficiario
-      </button>
-    </div>
-    <div class="table-responsive" style="margin: 25px 25px 5px 25px;">
-      <table class="table table-hover display responsive" id="TablaRecepcionPacientes-Ingresados" style="width: 100%;">
-        <thead class="">
-          <tr>
-            <th class="all 5%">#</th>
-            <th class="all nombre">Nombre</th>
-            <th class="none">Prefolio</th>
-            <th class="min-tablet procedencia">Procedencia</th>
-            <th class="desktop segmento">Segmento</th>
-            <th class="none">Turno</th>
-            <th class="min-tablet area_actual">Area Actual</th>
+            <i class="bi bi-pencil-square"></i> Reenvio de reportes
+          </button> -->
+      <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display: none;"
+          data-bs-toggle="modal" style="display: none;" data-bs-target="#" id="buttonBeneficiario">
 
-            <!-- <th class="min-tablet">Análisis</th>
-            <th class="min-tablet">Muestra</th> -->
+        </button> -->
+      <!-- </div> -->
+      <div class="table-responsive" style="margin: 25px 25px 5px 25px;">
+        <table class="table table-hover display responsive" id="TablaRecepcionPacientes-Ingresados"
+          style="width: 100%;">
+          <thead class="">
+            <tr>
+              <th class="all 5%">#</th>
+              <th class="all nombre">Nombre</th>
+              <th class="none">Prefolio</th>
+              <th class="min-tablet procedencia">Procedencia</th>
+              <th class="desktop segmento">Segmento</th>
+              <th class="none">Turno</th>
+              <th class="min-tablet area_actual">Area Actual</th>
 
-            <th class="min-tablet">Recepción</th>
-            <th class="min-tablet">Agenda</th>
-            <th class="none">Re-agenda</th>
-            <th class="none">Sexo</th>
-            <th class="min-tablet fecha_recepcion">Recepción</th>
-            <th class="all actions"><i class="bi bi-three-dots"></i></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+              <!-- <th class="min-tablet">Análisis</th>
+                <th class="min-tablet">Muestra</th> -->
+
+              <th class="min-tablet">Recepción</th>
+              <th class="min-tablet">Agenda</th>
+              <th class="none">Re-agenda</th>
+              <th class="none">Sexo</th>
+              <th class="min-tablet fecha_recepcion">Recepción</th>
+              <th class="all actions"><i class="bi bi-three-dots"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

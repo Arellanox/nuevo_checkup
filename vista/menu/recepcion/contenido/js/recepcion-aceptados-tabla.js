@@ -2,7 +2,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  scrollY: '67vh', //347px
+  scrollY: '56vh', //347px
   scrollCollapse: true,
   deferRender: true,
   lengthMenu: [
@@ -159,29 +159,80 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 
   ],
 
-  // dom: 'Blfrtip',
-  // buttons: [
-  //   {
-  //     text: '<i class="bi bi-receipt-cutoff"></i> Ticket',
-  //     className: 'btn btn-secondary',
-  //     action: function () {
-  //       if (array_selected) {
-  //         alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
+  dom: 'Blfrtip',
+  buttons: [
+    // {
+    //   text: '<i class="bi bi-receipt-cutoff"></i> Ticket',
+    //   className: 'btn btn-secondary',
+    //   action: function () {
+    //     if (array_selected) {
+    //       alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
 
-  //         api = encodeURIComponent(window.btoa('ticket'));
-  //         turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
-  //         area = encodeURIComponent(window.btoa(16));
-
-
-  //         window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+    //       api = encodeURIComponent(window.btoa('ticket'));
+    //       turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
+    //       area = encodeURIComponent(window.btoa(16));
 
 
-  //       } else {
-  //         alertToast('Por favor, seleccione un paciente', 'info', 4000)
-  //       }
-  //     }
-  //   },
-  // ],
+    //       window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+
+
+    //     } else {
+    //       alertToast('Por favor, seleccione un paciente', 'info', 4000)
+    //     }
+    //   }
+    // },
+    {
+      text: '<i class="bi bi-calendar2-event"></i> Re-agendar paciente',
+      className: 'btn btn-pantone-325',
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Cambie la fecha de agenda del paciente si es necesario"
+      },
+      action: function () {
+        if (array_selected != null) {
+          $("#modalPacienteReagendar").modal('show');
+        } else {
+          alertSelectTable('No ha seleccionado ningún paciente', 'error')
+        }
+      }
+    },
+    {
+      text: '<i class="bi bi-person-lines-fill"></i> Deshacer ingreso',
+      className: 'btn btn-option',
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Mande en espera al paciente y elimina la carga de estudios"
+      },
+      action: function () {
+        if (array_selected) {
+          alertMensajeConfirm({
+            title: '¿Está Seguro de regresar al paciente en espera?',
+            text: "¡Sus estudios anteriores no se cargarán!",
+            icon: 'warning', confirmButtonText: 'Si, colocarlo en espera',
+          }, () => {
+            ajaxAwait({
+              id_turno: array_selected['ID_TURNO'], api: 2,// estado: null
+            }, 'recepcion_api', { callbackAfter: true }, false, () => {
+              alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
+              try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+              try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+            })
+          }, 1)
+        } else { alertSelectTable('No ha seleccionado ningún paciente', 'error') }
+      }
+    },
+    {
+      text: '<i class="bi bi-save"></i> Beneficiario',
+      className: 'btn btn-success',
+      attr: {
+        'data-bs-toggle': "modal",
+        'data-bs-target': "ModalBeneficiario",
+        id: "buttonBeneficiario"
+      },
+    },
+  ],
 
 })
 
@@ -199,8 +250,10 @@ inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientes
     place: 'top'
   }
 
-])
+], [], 'col-12')
 
+
+$('#buttonBeneficiario').attr('disabled', false)
 // selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
 selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados,
   {
@@ -257,10 +310,16 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
     if (select) {
       // return false;
 
+      if (array_selected['CLIENTE_ID'] == 18) {
+        $('#buttonBeneficiario').attr('disabled', false)
+      } else {
+        $('#buttonBeneficiario').attr('disabled', true);
+      }
+
       obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
       obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
       obtenerPanelInformacion(data['ID_TURNO'], false, 'area_faltantes', '#panel-areas-faltantes')
-      await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+      obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
 
       if (data['COMPLETADO'] == 1) {
         $('#contenedor-btn-cerrar-paciente').html(`
@@ -277,18 +336,15 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
     `)
       }
 
-      if (array_selected['CLIENTE_ID'] == 18) {
-        $('#buttonBeneficiario').fadeIn(200)
-      } else {
-        $('#buttonBeneficiario').fadeOut(200);
-      }
+
 
     } else {
       // callback('Out')
-      $('#buttonBeneficiario').fadeOut(200);
+      $('#buttonBeneficiario').attr('disabled', true);
       obtenerPanelInformacion(0, 'paciente_api', 'paciente')
       obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
-      await obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+      obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+      obtenerPanelInformacion(0, false, 'area_faltantes', '#panel-areas-faltantes')
     }
   }, function (select, data) {
     dobleClickSelectTableRecepcion(data);
@@ -322,4 +378,4 @@ async function dobleClickSelectTableRecepcion(data) {
 
 // $('')
 
-autoHeightDiv('#panel-informacion-pacientesTurnos', 188)
+// autoHeightDiv('#panel-informacion-pacientesTurnos', 188)
