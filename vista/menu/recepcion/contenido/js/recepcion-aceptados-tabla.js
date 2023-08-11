@@ -225,6 +225,17 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       }
     },
     {
+      extend: 'excelHtml5',
+      text: '<i class="fa fa-file-excel-o"></i> Excel',
+      className: 'btn btn-success',
+      titleAttr: 'Excel',
+      exportOptions: {
+        // Especifica las columnas que deseas exportar
+        columns: [1, 2, 3, 4, 6, 7, 9, 10]
+      }
+
+    },
+    {
       text: '<i class="bi bi-save"></i> Beneficiario',
       className: 'btn btn-success',
       attr: {
