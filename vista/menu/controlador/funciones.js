@@ -266,9 +266,9 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
         }
 
       },
-      complete: ajaxComplete(),
+      // complete: ajaxComplete(),
       error: function (jqXHR, exception, data) {
-        ajaxError()
+        // ajaxError()
         alertErrorAJAX(jqXHR, exception, data)
       },
     })
