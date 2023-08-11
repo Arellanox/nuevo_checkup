@@ -337,14 +337,14 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
       obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
       obtenerPanelInformacion(data['ID_TURNO'], false, 'area_faltantes', '#panel-areas-faltantes')
-      obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+      await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
 
       if (data['COMPLETADO'] == 1) {
         $('#contenedor-btn-cerrar-paciente').html(`
         <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" disabled>
             <i class="bi bi-person-check"></i> Paciente Cerrado
         </button>
-    `)
+        `)
       } else {
         $('#contenedor-btn-cerrar-paciente').html(`
         <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
