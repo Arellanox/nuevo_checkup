@@ -1811,35 +1811,36 @@ function dinamicTabs() {
 $(document).on('click', '.tab-table', function () {
   // loader = loader
   let btn = $(this);
-  if (!btn.hasClass('active')) {
-    $('.tab-first').fadeOut(100);
-    $('.tab-second').fadeOut(0);
+  isMovil(() => {
+    if (!btn.hasClass('active')) {
+      $('.tab-first').fadeOut(100);
+      $('.tab-second').fadeOut(0);
 
-    $('.tab-table').removeClass('active');
-    btn.addClass('active');
+      $('.tab-table').removeClass('active');
+      btn.addClass('active');
 
-    setTimeout(() => {
-      let id = btn.attr('data-id-column');
-      // console.log(id);
-      let loaderVisible = false;
+      setTimeout(() => {
+        let id = btn.attr('data-id-column');
+        // console.log(id);
+        let loaderVisible = false;
 
-      console.log(loader_selectTable)
-      loaderVisible = function () {
-        console.log($(loader_selectTable))
-        if ($(loader_selectTable).is(":hidden")) {
-          $(`${id}`).fadeIn(100);
-          loaderVisible = false;
-        } else {
-          console.log(loader_selectTable)
-          setTimeout(() => {
-            loaderVisible();
-          }, 150);
+        console.log(loader_selectTable)
+        loaderVisible = function () {
+          console.log($(loader_selectTable))
+          if ($(loader_selectTable).is(":hidden")) {
+            $(`${id}`).fadeIn(100);
+            loaderVisible = false;
+          } else {
+            console.log(loader_selectTable)
+            setTimeout(() => {
+              loaderVisible();
+            }, 150);
+          }
         }
-      }
-      loaderVisible()
-    }, 100);
-  }
-
+        loaderVisible()
+      }, 100);
+    }
+  })
 })
 
 //Agrega el circulo para cargar el panel
