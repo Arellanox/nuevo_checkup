@@ -237,22 +237,22 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 
 })
 
-setTimeout(() => {
-  $('div.dataTables_toolbar').html(`<div class="row">
-    <div class="col-auto d-flex align-items-center">
-      <label for="fechaListadoAreaMaster" class="form-label">Día de análisis</label>
-    </div>
-    <div class="col-auto d-flex align-items-center">
-      <input type="date" class="form-control input-form" name="fechaListadoAreaMaster" value="2023-08-11" required="" id="fechaListadoAreaMaster">
-    </div>
-    <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Visualiza todos los pacientes del area">
-      <input class="form-check-input" type="checkbox" value="" id="checkDiaAnalisis" style="margin: 5px">
-      <label class="form-check-label" for="checkDiaAnalisis">
-        Todos
-      </label>
-    </div>
-  </div>`)
-}, 200);
+// setTimeout(() => {
+//   $('div.dataTables_toolbar').html(`<div class="row">
+//     <div class="col-auto d-flex align-items-center">
+//       <label for="fechaListadoAreaMaster" class="form-label">Día de análisis</label>
+//     </div>
+//     <div class="col-auto d-flex align-items-center">
+//       <input type="date" class="form-control input-form" name="fechaListadoAreaMaster" value="2023-08-11" required="" id="fechaListadoAreaMaster">
+//     </div>
+//     <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Visualiza todos los pacientes del area">
+//       <input class="form-check-input" type="checkbox" value="" id="checkDiaAnalisis" style="margin: 5px">
+//       <label class="form-check-label" for="checkDiaAnalisis">
+//         Todos
+//       </label>
+//     </div>
+//   </div>`)
+// }, 200);
 
 inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
   {
