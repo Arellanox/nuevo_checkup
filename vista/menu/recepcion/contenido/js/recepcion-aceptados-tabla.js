@@ -229,6 +229,11 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       text: '<i class="fa fa-file-excel-o"></i> Excel',
       className: 'btn btn-success',
       titleAttr: 'Excel',
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Genere el formato por toda la tabla de pacientes o filtrado (Filtrado por: Fecha, Procedencia...)"
+      },
       exportOptions: {
         // Especifica las columnas que deseas exportar
         columns: [1, 2, 3, 4, 6, 7, 9, 10]
