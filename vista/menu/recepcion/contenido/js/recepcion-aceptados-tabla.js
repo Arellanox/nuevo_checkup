@@ -1,29 +1,21 @@
 tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
-  language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-  },
+  language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
   scrollY: '56vh', //347px
   scrollCollapse: true,
   deferRender: true,
-  lengthMenu: [
-    [20, 25, 30, 35, 40, 45, 50, -1],
-    [20, 25, 30, 35, 40, 45, 50, "All"]
-  ],
+  lengthMenu: [[20, 25, 30, 35, 40, 45, 50, -1], [20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
     dataType: 'json',
-    data: function (d) {
-      return $.extend(d, dataRecepcion);
-    },
+    data: function (d) { return $.extend(d, dataRecepcion); },
     method: 'POST',
     url: '../../../api/recepcion_api.php',
     beforeSend: function () {
-      loader("In", 'bottom')
+      // loader("In")
       array_selected = null
-
       tablaRecepcionPacientesIngrersados.columns.adjust().draw()
     },
     complete: function () {
-      loader("Out", 'bottom')
+      // loader("Out")
 
       //Para ocultar segunda columna
       // reloadSelectTable()
@@ -31,6 +23,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       obtenerPanelInformacion(0, 'paciente_api', 'paciente')
       obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
       obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+      obtenerPanelInformacion(0, false, 'area_faltantes', '#panel-areas-faltantes')
     },
     error: function (jqXHR, textStatus, errorThrown) {
       alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -59,12 +52,12 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     },
     { data: 'DESCRIPCION_SEGMENTO' },
     { data: 'TURNO' },
-    {
-      data: 'ID_PACIENTE',
-      render: function (data) {
-        return 'PENDIENTE';
-      }
-    },
+    // {
+    //   data: 'ID_PACIENTE',
+    //   render: function (data) {
+    //     return 'PENDIENTE';
+    //   }
+    // },
     // {
     //   data: 'ESTADO_ANALISIS',
     //   render: function (data) {
@@ -94,7 +87,19 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     {
       data: 'FECHA_RECEPCION',
       render: function (data) {
-        return formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null);
+
+        const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); // Tu función existente
+
+        // Separar la fecha y la hora basado en la coma
+        const parts = formattedDate.split(', ');
+        const datePart = parts[0];
+        const timePart = parts[1];
+
+        // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+        return `
+            <span class="d-inline-block d-sm-inline">${datePart}</span>
+            <span class="d-block d-sm-inline">${timePart}</span>
+        `;
       }
     },
     {
@@ -119,44 +124,37 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
       }
     },
-    {
-      data: null, render: function () {
-        let html = `
-          <div class="row">
-            <div class="col-4" style="max-width: max-content; padding: 0px;">
-              <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;padding: 2px 5px;"></i>
-            </div>
-            <div class="col-4" style="max-width: max-content; padding: 0px;">
-              <i class="bi bi-card-heading btn-cargar-documentos" style="cursor: pointer; font-size:18px;padding: 2px 5px;"></i>
-            </div> 
-            
-            <div class="col-4" style="max-width: max-content; padding: 0px;">
-              <i class="bi bi-info-circle btn-offcanva" style="cursor: pointer; font-size:18px;padding: 2px 5px;"></i>
-            </div> 
-        `;
-
-        // if (session['vista']['RECEPCIÓN CAMBIO DE ESTUDIOS'] == 1)
-        // if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false)) {
-        //   html += `<div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-        //       <i class="bi bi-back" style="cursor: pointer; font-size:18px;" id="btn-opciones-paciente"></i>
-        //     </div>`;
-        // }
-
-
-        html += `</div>`;
-        return html
-      }
-    },
+    { data: null },
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
-    { width: "5px", targets: '5%' },
-    { visible: false, title: "AreaActual", targets: 'area_actual', searchable: false },
-    { target: ['nombre', 'procedencia'], width: '20%' },
-    { target: ['segmento'], width: '13%' },
-    { target: 'fecha_recepcion', width: 'auto' },
-    { target: 'actions', width: "2%" },
-
+    { targets: 0, title: '#', className: 'all', width: '1%' },
+    { targets: 1, title: 'Nombre', className: 'all nombre' },
+    { targets: 2, title: 'Prefolio', className: 'none' },
+    { targets: 3, title: 'Procedencia', className: 'min-tablet', width: '15%' },
+    { targets: 4, title: 'Segmento', className: 'desktop', width: '15%' },
+    { targets: 5, title: 'Turno', className: 'none' },
+    { targets: 6, title: 'Recepción', className: 'all', width: '15%' },
+    { targets: 7, title: 'Agenda', className: 'min-tablet', width: '15%' },
+    { targets: 8, title: 'Re-agenda', className: 'none' },
+    { targets: 9, title: 'Sexo', className: 'none' },
+    { targets: 10, title: 'Recepción', className: 'desktop', width: '15%' },
+    {
+      targets: 11,
+      title: '#',
+      className: 'all actions',
+      width: '1%',
+      data: null,
+      defaultContent: `
+        <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
+            <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
+                <i class="bi bi-pencil-square btn-editar d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+                <i class="bi bi-card-heading btn-cargar-documentos d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+                <i class="bi bi-info-circle btn-offcanva d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+            </div>
+        </div>
+    `
+    }
   ],
 
   dom: 'Blfrtip',
@@ -190,11 +188,13 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         title: "Cambie la fecha de agenda del paciente si es necesario"
       },
       action: function () {
-        if (array_selected != null) {
-          $("#modalPacienteReagendar").modal('show');
-        } else {
-          alertSelectTable('No ha seleccionado ningún paciente', 'error')
-        }
+        setTimeout(() => {
+          if (array_selected != null) {
+            $("#modalPacienteReagendar").modal('show');
+          } else {
+            alertSelectTable('No ha seleccionado ningún paciente', 'error')
+          }
+        }, 300);
       }
     },
     {
@@ -206,21 +206,23 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         title: "Mande en espera al paciente y elimina la carga de estudios"
       },
       action: function () {
-        if (array_selected) {
-          alertMensajeConfirm({
-            title: '¿Está Seguro de regresar al paciente en espera?',
-            text: "¡Sus estudios anteriores no se cargarán!",
-            icon: 'warning', confirmButtonText: 'Si, colocarlo en espera',
-          }, () => {
-            ajaxAwait({
-              id_turno: array_selected['ID_TURNO'], api: 2,// estado: null
-            }, 'recepcion_api', { callbackAfter: true }, false, () => {
-              alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
-              try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
-              try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
-            })
-          }, 1)
-        } else { alertSelectTable('No ha seleccionado ningún paciente', 'error') }
+        setTimeout(() => {
+          if (array_selected) {
+            alertMensajeConfirm({
+              title: '¿Está Seguro de regresar al paciente en espera?',
+              text: "¡Sus estudios anteriores no se cargarán!",
+              icon: 'warning', confirmButtonText: 'Si, colocarlo en espera',
+            }, () => {
+              ajaxAwait({
+                id_turno: array_selected['ID_TURNO'], api: 2,// estado: null
+              }, 'recepcion_api', { callbackAfter: true }, false, () => {
+                alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
+                try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+              })
+            }, 1)
+          } else { alertSelectTable('No ha seleccionado ningún paciente', 'error') }
+        }, 300);
       }
     },
     {

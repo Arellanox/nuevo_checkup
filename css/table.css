@@ -80,3 +80,19 @@ color: rgb(247, 190, 000) !important;
 table.dt-rowReorder-float {
     z-index: 2000;
 }
+
+
+/* Responsive */
+@media screen and (max-width: 767px) {
+    li.paginate_button.previous {
+        display: inline;
+    }
+ 
+    li.paginate_button.next {
+        display: inline;
+    }
+ 
+    li.paginate_button {
+        display: none;
+    }
+}

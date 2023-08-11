@@ -197,7 +197,9 @@ function configAjaxAwait(config) {
     callbackAfter: false, //Activa una funcion para tratar datos enviados desde ajax, osea success
     returnData: true, // regresa los datos o confirmado (1)
     WithoutResponseData: false, //Manda los datos directos
-    resetForm: false, //Reinicia el formulario en ajaxAwaitFormData
+    resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
+    ajaxComplete: () => { }, //Mete una funcion para cuando se complete
+    ajaxError: () => { }, //Mete una funcion para cuando de error
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -264,7 +266,9 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
         }
 
       },
+      complete: ajaxComplete(),
       error: function (jqXHR, exception, data) {
+        ajaxError()
         alertErrorAJAX(jqXHR, exception, data)
       },
     })
@@ -1094,6 +1098,7 @@ function loader(fade, scroll = null) {
     $("html, body").animate({ scrollTop: altura + "px" });
   }
 
+
 }
 
 function loaderDiv(fade, div = null, loader, loaderDiv1 = null, seconds = 50, scroll = 0) {
@@ -1822,17 +1827,6 @@ function dinamicTabs(loader) {
     dinamicTabFunction();
   })
 
-  try {
-    $.fn.dataTable
-      .tables({
-        visible: true,
-        api: true
-      })
-      .columns.adjust();
-  } catch (error) {
-
-  }
-
 }
 
 //Agrega el circulo para cargar el panel
@@ -1957,14 +1951,6 @@ function selectTable(tablename, datatable,
     }
     $(`#loaderDiv-${nameTable}`).attr("style", "display: none !important");
 
-    setTimeout(() => {
-      $.fn.dataTable
-        .tables({
-          visible: true,
-          api: true
-        })
-        .columns.adjust();
-    }, 400);
   }
 
 
@@ -2696,7 +2682,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   type: "POST",
                   dataType: 'json',
                   data: { api: 6, id_turno: row['ID_TURNO'] ? row['ID_TURNO'] : row['TURNO_ID'] },
-                  success: function (data) {
+                  success: async function (data) {
                     if (!mensajeAjax(data))
                       return false;
                     let row = data.response.data
@@ -2718,7 +2704,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       let area = 0;
                       for (const key in row) {
                         const element = row[key];
-                        // //console.log(element)
+                        console.log(element)
                         if (element['AREA_ID'] == id) {
                           area = 1;
                           html += htmlLI(element['GRUPO']);
@@ -2729,7 +2715,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                           element['AREA_ID'] != '12' &&
                           element['AREA_ID'] != '8' &&
                           element['AREA_ID'] != '11' &&
-                          id == 0
+                          (id == 0 || id == 'paq')
                         ) {
                           area = 1;
                           html += htmlLI(element['GRUPO']);
@@ -2742,6 +2728,20 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       return '';
                     }
 
+
+                    await ajaxAwait({ api: 5, turno_id: id }, 'cargos_turnos_api', { callbackAfter: true, ajaxComplete: resolve(1) }, false, (data) => {
+
+                      let row = data.response.data;
+                      // $('#append-html-historial-estudios').html('');
+
+                      //Paquetes
+                      html += crearDIV('<i class="bi bi-box-seam"></i> Paquetes', 'paq', row);
+
+                      // setListResultadosAreas('#append-html-historial-estudios', element, arrayArea)
+                    })
+
+
+
                     //Lab
                     html += crearDIV('<i class="bi bi-heart-pulse"></i> Laboratorio Clínico', 6, row);
                     //Lab Bio
@@ -2752,6 +2752,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     html += crearDIV('<i class="bi bi-universal-access"></i>  Rayos X', 8, row);
                     //Otros
                     html += crearDIV('<i class="bi bi-window-stack"></i> Otros Servicios', 0, row);
+
 
 
 
@@ -2889,62 +2890,45 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 break;
 
               case 'listado_resultados':
-                $.ajax({
-                  url: http + servidor + "/" + appname + "/api/consulta_api.php",
-                  type: "POST",
-                  dataType: 'json',
-                  data: { api: 21, turno_id: id },
-                  success: function (data) {
-                    if (mensajeAjax(data)) {
-                      //console.log(data)
+                ajaxAwait({ api: 21, turno_id: id }, 'consulta_api', { callbackAfter: true, ajaxComplete: resolve(1) }, false, (data) => {
+                  //console.log(data)
+                  let array = {
+                    1: 'CONSULTORIO',
+                    2: 'SOMATOMETRÍA',
+                    3: 'OFTALMOLOGÍA',
+                    4: 'AUDIOMETRÍA',
+                    5: 'ESPIROMETRÍA',
+                    6: 'LABORATORIO CLÍNICO',
+                    7: 'RAYOS X',
+                    8: 'ELECTROCARDIOGRAMA',
+                    9: 'ELECTRO_CAPTURAS',
+                    10: 'ULTRASONIDO',
+                    11: 'LABORATORIO BIOMOLECULAR',
+                    12: 'CITOLOGÍA',
+                    13: 'NUTRICIÓN',
+                    14: 'INBODY',
+                    15: 'CERTIFICADO MÉDICO',
+                    16: 'CONSULTORIO FASTCHECKUP'
+                  }
+                  let row = data.response.data;
+                  // $('#append-html-historial-estudios').html('');
 
-                      let array = {
-                        1: 'CONSULTORIO',
-                        2: 'SOMATOMETRÍA',
-                        3: 'OFTALMOLOGÍA',
-                        4: 'AUDIOMETRÍA',
-                        5: 'ESPIROMETRÍA',
-                        6: 'LABORATORIO CLÍNICO',
-                        7: 'RAYOS X',
-                        8: 'ELECTROCARDIOGRAMA',
-                        9: 'ELECTRO_CAPTURAS',
-                        10: 'ULTRASONIDO',
-                        11: 'LABORATORIO BIOMOLECULAR',
-                        12: 'CITOLOGÍA',
-                        13: 'NUTRICIÓN',
-                        14: 'INBODY',
-                        15: 'CERTIFICADO MÉDICO',
-                        16: 'CONSULTORIO FASTCHECKUP'
-                      }
-                      let row = data.response.data;
-                      $('#append-html-historial-estudios').html('');
+                  for (const key in array) {
+                    if (Object.hasOwnProperty.call(array, key)) {
+                      const element = array[key];
 
-                      for (const key in array) {
-                        if (Object.hasOwnProperty.call(array, key)) {
-                          const element = array[key];
+                      let arrayArea = $.grep(row, function (n, i) {
+                        return n.AREA_LABEL === element;
+                      });
 
-                          let arrayArea = $.grep(row, function (n, i) {
-                            return n.AREA_LABEL === element;
-                          });
-
-                          //console.log(element, arrayArea)
-                          setListResultadosAreas('#append-html-historial-estudios', element, arrayArea)
-                        }
-                      }
-
-
-
+                      //console.log(element, arrayArea)
+                      setListResultadosAreas('#append-html-historial-estudios', element, arrayArea)
                     }
-                    $(panel).fadeIn(100);
-                    resolve(1);
-                  },
-                  complete: function () {
-                    resolve(1);
-                  },
-                  error: function (jqXHR, exception, data) {
-                    alertErrorAJAX(jqXHR, exception, data)
-                  },
-                });
+                  }
+
+                  $(panel).fadeIn(100);
+                  resolve(1);
+                })
 
                 function setListResultadosAreas(div, titulo, array) {
                   let html = '';

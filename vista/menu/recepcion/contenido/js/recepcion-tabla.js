@@ -124,7 +124,7 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
 // selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: "#panel-informacion" }, function () {
 
 selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
-  unSelect: true, reload: ['col-xl-9'],
+  unSelect: true, reload: ['col-xl-9'], movil: true,
   ClickClass: [
     {
       class: 'btn-aceptar',
