@@ -31,9 +31,9 @@ function obtenerContenidoEspera() {
   obtenerTitulo('Recepción | Espera'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion.html", function (html) {
     $("#body-js").html(html);
+  }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-tabla.js");
-
   });
 }
 
@@ -42,6 +42,7 @@ function obtenerContenidoAceptados() {
   $.post("contenido/recepcion-ingresados.html", function (html) {
     $("#body-js").html(html);
     dataRecepcion = { api: 1, estado: 1 };
+  }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-aceptados-tabla.js");
   });
@@ -52,6 +53,7 @@ function obtenerContenidoRechazados() {
   $.post("contenido/recepcion-rechazados.html", function (html) {
     $("#body-js").html(html);
     dataRecepcion = { api: 1, estado: 0 };
+  }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-tabla.js");
   });

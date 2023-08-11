@@ -292,6 +292,18 @@ $('#buttonBeneficiario').attr('disabled', false)
 selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados,
   {
     unSelect: true, reload: ['col-xl-9'], dblClick: true, movil: true,
+    tabs: [
+      {
+        title: 'Pacientes',
+        element: '#tab-paciente',
+        class: 'active',
+      },
+      {
+        title: 'Información',
+        element: '#tab-informacion',
+        class: 'disabled tab-select'
+      },
+    ],
     ClickClass: [
       {
         class: 'btn-editar',
@@ -340,7 +352,6 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
   },
 
   async function (select, data, callback) {
-    callback('In')
     if (select) {
       // return false;
 
@@ -370,10 +381,9 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
     `)
       }
 
-
-
+      callback('In')
     } else {
-      // callback('Out')
+      callback('Out')
       $('#buttonBeneficiario').attr('disabled', true);
       obtenerPanelInformacion(0, 'paciente_api', 'paciente')
       obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')

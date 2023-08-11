@@ -1655,7 +1655,7 @@ function inputBusquedaTable(
   tooltipinput['place'] = tooltipinput['place'] ? tooltipinput['place'] : 'top';
 
   $(`#${tablename}_filter`).html(
-    '<div class="text-center mt-2" style="padding-right: 5%">' +
+    '<div class="text-center mt-2" style="">' +
     '<div class="input-group flex-nowrap">' +
     htmlTooltip +
     '<input type="search" class="input-form form-control input-table-search" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important;"' +
@@ -1789,45 +1789,58 @@ function getBtnTabs(config) {
 }
 
 //Visualiza la columna solo en movil
-let dinamicTabFunction = false
-function dinamicTabs(loader) {
-  dinamicTabFunction = false;
-  isMovil(() => {
-    dinamicTabFunction = () => {
-      // console.log('IS MOVIL')
-      $(document).on('click', '.tab-table', function () {
-        let btn = $(this);
-        if (!btn.hasClass('active')) {
-          $('.tab-first').fadeOut(100);
-          $('.tab-second').fadeOut(0);
+let dinamicTabFunction = false;
+let documentClick = false;
+let loader_selectTable = false;
+function dinamicTabs() {
+  // dinamicTabFunction = false;
+  // // loader = loader
+  // isMovil(() => {
+  //   dinamicTabFunction = () => {
+  //     // console.log('IS MOVIL')
+  //     documentClick = false;
+  //     // documentClick = 
+  //   }
 
-          $('.tab-table').removeClass('active');
-          btn.addClass('active');
-
-          setTimeout(() => {
-            let id = btn.attr('data-id-column');
-            // console.log(id);
-            let loaderVisible = function () {
-              if ($(loader).is(":hidden")) {
-                $(`${id}`).fadeIn(100);
-                loaderVisible = false;
-              } else {
-                setTimeout(() => {
-                  loaderVisible(id);
-                }, 150);
-              }
-            }
-            loaderVisible()
-          }, 100);
-        }
-
-      })
-    }
-
-    dinamicTabFunction();
-  })
+  //   dinamicTabFunction();
+  // })
 
 }
+
+// Cambio de tab
+$(document).on('click', '.tab-table', function () {
+  // loader = loader
+  let btn = $(this);
+  if (!btn.hasClass('active')) {
+    $('.tab-first').fadeOut(100);
+    $('.tab-second').fadeOut(0);
+
+    $('.tab-table').removeClass('active');
+    btn.addClass('active');
+
+    setTimeout(() => {
+      let id = btn.attr('data-id-column');
+      // console.log(id);
+      let loaderVisible = false;
+
+      console.log(loader_selectTable)
+      loaderVisible = function () {
+        console.log($(loader_selectTable))
+        if ($(loader_selectTable).is(":hidden")) {
+          $(`${id}`).fadeIn(100);
+          loaderVisible = false;
+        } else {
+          console.log(loader_selectTable)
+          setTimeout(() => {
+            loaderVisible();
+          }, 150);
+        }
+      }
+      loaderVisible()
+    }, 100);
+  }
+
+})
 
 //Agrega el circulo para cargar el panel
 function setReloadSelecTable(name, param) {
@@ -1856,6 +1869,7 @@ function reloadSelectTable() {
     $('.loader-tab').fadeOut(0)
   } else {
     $('.tab-second').fadeOut();
+    console.log($('.tab-first'))
     $('.tab-first').fadeIn();
     $('.loader-tab').fadeOut(0)
   }
@@ -1903,7 +1917,9 @@ function resizeConfigMovil(config, nameTable) {
     //Cambia la vista del dispositivo
     getBtnTabs(config);
     //Activa los botones si es movil
-    dinamicTabs(`#loaderDiv-${nameTable}`)
+    // console.log(`#loaderDiv-${nameTable}`)
+
+    dinamicTabs()
     //Evalua el tipo de dispositivo
     selecTableTabs()
   }
@@ -1922,14 +1938,15 @@ function selectTable(tablename, datatable,
   config = configSelectTable(config)
 
   //Nombrando para usarlo
-  let nameTable = tablename.replace('#', '')
+  let tableString = tablename.replace('#', '')
 
   //Permite el reload y lo dibuja
   if (config.reload)
-    setReloadSelecTable(nameTable, config.reload)
+    setReloadSelecTable(tableString, config.reload)
 
+  loader_selectTable = `#loaderDiv-${tableString}`
   //Activa las funciones moviles,
-  resizeConfigMovil(config, nameTable);
+  resizeConfigMovil(config, loader_selectTable);
   resize = false;
   // $(window).resize(function () {
   //   //Toma un tiempo para poder refrescar cambios y no 
@@ -1949,7 +1966,7 @@ function selectTable(tablename, datatable,
 
 
     }
-    $(`#loaderDiv-${nameTable}`).attr("style", "display: none !important");
+    $(`#loaderDiv-${loader_selectTable}`).attr("style", "display: none !important");
 
   }
 
@@ -2086,7 +2103,7 @@ function selectTable(tablename, datatable,
 
   function selectTable_cargarVista() {
     $('.tab-second').fadeOut()
-    $(`#loaderDiv-${nameTable}`).fadeIn(0);
+    $(`#loaderDiv-${loader_selectTable}`).fadeIn(0);
   }
 
   function selectTable_resetSelect(tr, config, resetTR = false) {

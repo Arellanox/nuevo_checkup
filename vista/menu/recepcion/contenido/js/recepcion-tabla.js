@@ -101,7 +101,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     { target: 0, title: '#', width: '1%', class: 'all' },
     { target: 1, title: 'Nombre', width: '13%', class: 'all' },
     { target: 2, title: 'Ingreso', width: '1%', class: 'all' },
-    { target: 3, title: 'Prefolio', width: '8%', class: 'all' },
+    { target: 3, title: 'Prefolio', width: '8%', class: 'min-tablet' },
     { target: 4, title: 'Procedencia', width: '14%', class: 'min-tablet' },
     { target: 5, title: 'Segmento', width: '6%', class: 'desktop' },
     { target: 6, title: 'Agenda', width: '6%', class: 'min-tablet' },
@@ -125,6 +125,20 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
 
 selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
   unSelect: true, reload: ['col-xl-9'], movil: true,
+  tabs: [
+    {
+      title: 'Pacientes',
+      element: '#tab-paciente-espera',
+      elementClass: 'tab-first-espera',
+      class: 'active',
+    },
+    {
+      title: 'Información',
+      element: '#tab-informacion-espera',
+      elementClass: 'tab-second-espera',
+      class: 'disabled tab-select'
+    },
+  ],
   ClickClass: [
     {
       class: 'btn-aceptar',
