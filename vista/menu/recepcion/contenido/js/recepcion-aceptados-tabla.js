@@ -246,7 +246,8 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       attr: {
         'data-bs-toggle': "modal",
         'data-bs-target': "#ModalBeneficiario",
-        id: "buttonBeneficiario"
+        id: "buttonBeneficiario",
+        disabled: true
       },
     },
   ],
