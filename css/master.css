@@ -40,7 +40,9 @@ body {
 
 
 div.dataTables_length,
-div.dataTables_filter {
+div.dataTables_filter,
+div.dataTables_info, div.dataTables_toolbar, div.dataTables_paginate
+ {
   display: contents;
   margin-left: 1em;
 }

@@ -97,8 +97,8 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 
         // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
         return `
-            <span class="d-inline-block d-sm-inline">${datePart}</span>
-            <span class="d-block d-sm-inline">${timePart}</span>
+            <span class="d-block">${datePart}</span>
+            <span class="d-block">${timePart}</span>
         `;
       }
     },
@@ -129,16 +129,16 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   ],
   columnDefs: [
     { targets: 0, title: '#', className: 'all', width: '1%' },
-    { targets: 1, title: 'Nombre', className: 'all nombre' },
+    { targets: 1, title: 'Nombre', className: 'all nombre', width: '30%' },
     { targets: 2, title: 'Prefolio', className: 'none' },
     { targets: 3, title: 'Procedencia', className: 'min-tablet', width: '15%' },
     { targets: 4, title: 'Segmento', className: 'desktop', width: '15%' },
     { targets: 5, title: 'Turno', className: 'none' },
-    { targets: 6, title: 'Recepción', className: 'all', width: '15%' },
-    { targets: 7, title: 'Agenda', className: 'min-tablet', width: '15%' },
+    { targets: 6, title: 'Recepción', className: 'all', width: '8%' },
+    { targets: 7, title: 'Agenda', className: 'min-tablet', width: '8%' },
     { targets: 8, title: 'Re-agenda', className: 'none' },
     { targets: 9, title: 'Sexo', className: 'none' },
-    { targets: 10, title: 'Recepción', className: 'desktop', width: '15%' },
+    { targets: 10, title: 'Recepción', className: 'desktop', width: '8%' },
     {
       targets: 11,
       title: '#',
@@ -156,8 +156,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     `
     }
   ],
-
-  dom: 'Blfrtip',
+  dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
     // {
     //   text: '<i class="bi bi-receipt-cutoff"></i> Ticket',
@@ -230,13 +229,30 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       className: 'btn btn-success',
       attr: {
         'data-bs-toggle': "modal",
-        'data-bs-target': "ModalBeneficiario",
+        'data-bs-target': "#ModalBeneficiario",
         id: "buttonBeneficiario"
       },
     },
   ],
 
 })
+
+setTimeout(() => {
+  $('div.dataTables_toolbar').html(`<div class="row">
+    <div class="col-auto d-flex align-items-center">
+      <label for="fechaListadoAreaMaster" class="form-label">Día de análisis</label>
+    </div>
+    <div class="col-auto d-flex align-items-center">
+      <input type="date" class="form-control input-form" name="fechaListadoAreaMaster" value="2023-08-11" required="" id="fechaListadoAreaMaster">
+    </div>
+    <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Visualiza todos los pacientes del area">
+      <input class="form-check-input" type="checkbox" value="" id="checkDiaAnalisis" style="margin: 5px">
+      <label class="form-check-label" for="checkDiaAnalisis">
+        Todos
+      </label>
+    </div>
+  </div>`)
+}, 200);
 
 inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
   {
@@ -259,7 +275,7 @@ $('#buttonBeneficiario').attr('disabled', false)
 // selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
 selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados,
   {
-    unSelect: true, reload: ['col-xl-9'], dblClick: true,
+    unSelect: true, reload: ['col-xl-9'], dblClick: true, movil: true,
     ClickClass: [
       {
         class: 'btn-editar',
