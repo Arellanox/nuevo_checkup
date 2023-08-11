@@ -10,12 +10,12 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     method: 'POST',
     url: '../../../api/recepcion_api.php',
     beforeSend: function () {
-      // loader("In")
+      loader("In")
       array_selected = null
       tablaRecepcionPacientesIngrersados.columns.adjust().draw()
     },
     complete: function () {
-      // loader("Out")
+      loader("Out")
 
       //Para ocultar segunda columna
       // reloadSelectTable()
