@@ -3,7 +3,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   scrollY: '56vh', //347px
   scrollCollapse: true,
   deferRender: true,
-  lengthMenu: [[20, 25, 30, 35, 40, 45, 50, -1], [20, 25, 30, 35, 40, 45, 50, "All"]],
+  lengthMenu: [[15, 20, 25, 30, 35, 40, 45, 50, -1], [15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
     dataType: 'json',
     data: function (d) { return $.extend(d, dataRecepcion); },

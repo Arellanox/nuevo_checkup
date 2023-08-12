@@ -2452,6 +2452,9 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
             row = array_selected;
             switch (tipPanel) {
               case 'paciente':
+                ajaxAwait({ api: 2, turno_id: id }, 'pacientes_api', { callbackAfter: true }, false, () => {
+
+                })
                 $.ajax({
                   url: http + servidor + "/" + appname + "/api/pacientes_api.php",
                   data: {
@@ -2462,75 +2465,52 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   dataType: 'json',
                   success: function (data) {
                     if (mensajeAjax(data)) {
-                      row = data['response']['data'][0];
-                      $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#edad-persona').html(formatoFecha(row.EDAD))
-                      $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
-                      $('#info-paci-alergias').html(row.ALERGIAS);
-                      $('#info-paci-procedencia').html(row.PROCEDENCIA)
-                      $('#info-paci-curp').html(row.CURP);
-                      $('#info-paci-telefono').html(row.CELULAR);
-                      $('#info-paci-correo').html(row.CORREO);
-                      $('#info-paci-sexo').html(row.GENERO);
-                      if (row.TURNO) {
-                        $('#info-paci-turno').html(row.TURNO);
-                      } else {
-                        $('#info-paci-turno').html('Sin generar');
-                      }
-                      $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
-                        row.MUNICIPIO + ", " + row.ESTADO);
-                      $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+                      const row = data['response']['data'][0];
 
-                      $('#info-paci-diagnostico').html(row.DIAGNOSTICO);
+                      const mappings = {
+                        'nombre-persona': row.NOMBRE_COMPLETO,
+                        'edad-persona': formatoFecha(row.EDAD),
+                        'nacimiento-persona': formatoFecha(row.NACIMIENTO),
+                        'info-paci-alergias': row.ALERGIAS,
+                        'info-paci-procedencia': row.PROCEDENCIA,
+                        'info-paci-curp': row.CURP,
+                        'info-paci-telefono': row.CELULAR,
+                        'info-paci-correo': row.CORREO,
+                        'info-paci-sexo': row.GENERO,
+                        'info-paci-turno': row.TURNO || 'Sin generar',
+                        'info-paci-directorio': `${row.CALLE}, ${row.COLONIA}, ${row.MUNICIPIO}, ${row.ESTADO}`,
+                        'info-paci-comentario': row.COMENTARIO_RECHAZO,
+                        'info-paci-diagnostico': row.DIAGNOSTICO,
+                        'info-paci-reagenda': row.FECHA_REAGENDA ? formatoFecha(row.FECHA_REAGENDA) : '',
+                        'info-paci-recepcion': row.FECHA_RECEPCION || '',
+                        'info-paci-prefolio': row.PREFOLIO
+                      };
 
-
-                      if (row.FECHA_REAGENDA != null) {
-                        $('#info-paci-reagenda').html(formatoFecha(row.FECHA_REAGENDA));
-                      }
-
-                      if (row.FECHA_RECEPCION != null) {
-                        $('#info-paci-recepcion').html(row.FECHA_RECEPCION);
-                      }
-
-                      $('#info-paci-prefolio').html(row.PREFOLIO)
+                      Object.keys(mappings).forEach(key => {
+                        $(`#${key}`).html(mappings[key]);
+                      });
 
                       if (row['ordenes']) {
-                        // let row = row['ordenes']
-                        // if ()
-
-                        let ordenes = row['ordenes'][0];
-
-                        let hash = {
+                        const ordenes = row['ordenes'][0];
+                        const hash = {
                           'LABORATORIO CLÍNICO': 6,
                           'ULTRASONIDO': 11,
                           'RAYOS X': 8
-                        }
+                        };
 
                         for (const key in ordenes) {
-                          if (Object.hasOwnProperty.call(ordenes, key)) {
-                            const element = ordenes[key];
-                            if (hash[element['area']] == area) {
-                              $('#contenedor-btn-ordenes-medicas').append(`
-                                <div class="col text-center">
-                                  <a type="button" target="_blank" class="btn btn-borrar"
-                                      href="${element['url']}">
-                                    <i class="bi bi-file-earmark-pdf"></i> ${element['area']}
-                                  </a>
-                                </div>
-                              `)
-                            }
-
+                          if (hash[ordenes[key]['area']] == area) {
+                            $('#contenedor-btn-ordenes-medicas').append(`
+        <div class="col text-center">
+          <a type="button" target="_blank" class="btn btn-borrar" href="${ordenes[key]['url']}">
+            <i class="bi bi-file-earmark-pdf"></i> ${ordenes[key]['area']}
+          </a>
+        </div>
+      `);
                           }
                         }
-
-
-                        try {
-                          let row = row['ordenes'][0]
-                        } catch (error) {
-
-                        }
-                      } else {
                       }
+
 
                     }
                   },

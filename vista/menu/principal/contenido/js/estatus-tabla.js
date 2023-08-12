@@ -186,6 +186,8 @@ $('a.toggle-vis').on('click', function (e) {
     if (column.visible())
         $(this).addClass('span-info');
 });
+
+
 $('a.toggle-vis').each(function () {
     var column = tablaMenuPrincipal.column($(this).attr('data-column'));
     if (column.visible())
