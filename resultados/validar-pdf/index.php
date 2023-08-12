@@ -20,7 +20,7 @@ $area = isset($_GET['modulo']) ?  $_GET['modulo'] : null;
 // $folio_numero = $explode[1];
 // $master = new Master();
 
-$url1 = "http://localhost/nuevo_checkup/api/qr_api.php";
+$url1 = "https://bimo-lab.com/nuevo_checkup/api/qr_api.php";
 // Los datos de enviados
 $datos = [
     "api" => 1,
@@ -496,7 +496,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
 
 
             $.ajax({
-                url: `http://localhost/nuevo_checkup/api/qr_api.php`,
+                url: `https://bimo-lab.com/nuevo_checkup/api/qr_api.php`,
                 data: formData,
                 processData: false,
                 contentType: false,
