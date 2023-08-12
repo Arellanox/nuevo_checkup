@@ -271,28 +271,27 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 //   </div>`)
 // }, 200);
 
-// inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
-//   {
-//     msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
-//     place: 'top'
-//   },
-//   {
-//     msj: `Dale click al icono de lapiz en la tabla para editar la información del paciente`,
-//     place: 'top'
-//   },
-//   {
-//     msj: 'Doble click a un paciente para obtener la información adicional',
-//     place: 'top'
-//   }
-
-// ], [], 'col-12')
+inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
+  {
+    msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
+    place: 'top'
+  },
+  {
+    msj: `Dale click al icono de lapiz en la tabla para editar la información del paciente`,
+    place: 'top'
+  },
+  {
+    msj: 'Doble click a un paciente para obtener la información adicional',
+    place: 'top'
+  }
+], [], 'col-12', 'col-12')
 
 
 $('#buttonBeneficiario').attr('disabled', false)
 // selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
 selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados,
   {
-    unSelect: true, reload: ['col-xl-9'], dblClick: true, movil: true,
+    unSelect: true, dblClick: true, movil: true,
     tabs: [
       {
         title: 'Pacientes',
