@@ -1626,60 +1626,59 @@ function inputBusquedaTable(
   classList = 'col-sm-12 col-md-6',
 ) {
 
-  htmlTooltip = '';
-  for (const key in tooltip) {
-    if (Object.hasOwnProperty.call(tooltip, key)) {
-      const element = tooltip[key];
-      htmlTooltip += '<span class="input-span" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="' + element['place'] + '"' +
-        'title="' + element['msj'] + '" style="margin-bottom: 0px !important">' +
-        '<i class="bi bi-info-circle"></i>' +
-        '</span>';
-    }
-  }
+  // htmlTooltip = '';
+  // for (const key in tooltip) {
+  //   if (Object.hasOwnProperty.call(tooltip, key)) {
+  //     const element = tooltip[key];
+  //     htmlTooltip += '<span class="input-span" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="' + element['place'] + '"' +
+  //       'title="' + element['msj'] + '" style="margin-bottom: 0px !important">' +
+  //       '<i class="bi bi-info-circle"></i>' +
+  //       '</span>';
+  //   }
+  // }
 
-  if (!$(`#${tablename}_filter`).exists()) {
-    setTimeout(() => {
-      inputBusquedaTable(tablename, datatable, tooltip, tooltipinput, classInput, classList)
-    }, 200);
-    return false;
-  }
+  // if (!$(`#${tablename}_filter`).exists()) {
+  //   setTimeout(() => {
+  //     inputBusquedaTable(tablename, datatable, tooltip, tooltipinput, classInput, classList)
+  //   }, 200);
+  //   return false;
+  // }
 
-  $(`#${tablename}_filter`).parent('div').removeAttr('class');
-  $(`#${tablename}_filter`).parent('div').attr('class', classInput);
+  // $(`#${tablename}_filter`).parent('div').removeAttr('class');
+  // $(`#${tablename}_filter`).parent('div').attr('class', classInput);
 
-  // let divList = padre.find('div')[0];
-  // divList.removeClass('col-sm-12 col-md-6');
-  // divList.addClass(classList)
+  // // let divList = padre.find('div')[0];
+  // // divList.removeClass('col-sm-12 col-md-6');
+  // // divList.addClass(classList)
 
-  tooltipinput['msj'] = tooltipinput['msj'] ? tooltipinput['msj'] : 'Filtra la lista por coincidencias';
-  tooltipinput['place'] = tooltipinput['place'] ? tooltipinput['place'] : 'top';
+  // tooltipinput['msj'] = tooltipinput['msj'] ? tooltipinput['msj'] : 'Filtra la lista por coincidencias';
+  // tooltipinput['place'] = tooltipinput['place'] ? tooltipinput['place'] : 'top';
 
-  $(`#${tablename}_filter`).html(
-    '<div class="text-center mt-2" style="">' +
-    '<div class="input-group flex-nowrap">' +
-    htmlTooltip +
-    '<input type="search" class="input-form form-control input-table-search" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important;"' +
-    'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="' + tablename + 'BuscarTablaLista"' +
-    'data-bs-toggle="tooltip" data-bs-placement="' + tooltipinput['place'] + '" title="' + tooltipinput['msj'] + '">' +
-    '</div></div>'
-  )
+  // $(`#${tablename}_filter`).html(
+  //   '<div class="text-center mt-2" style="">' +
+  //   '<div class="input-group flex-nowrap">' +
+  //   htmlTooltip +
+  //   '<input type="search" class="input-form form-control input-table-search" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important;"' +
+  //   'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="' + tablename + 'BuscarTablaLista"> ' +
+  //   '</div></div>'
+  // )
 
-  //Zoom table
-  $(`#${tablename}_wrapper`).children('div [class="row"]').eq(1).css('zoom', '90%')
+  // //Zoom table
+  // $(`#${tablename}_wrapper`).children('div [class="row"]').eq(1).css('zoom', '90%')
 
-  //Diseño de registros
-  $(`#${tablename}_wrapper`).children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
+  // //Diseño de registros
+  // $(`#${tablename}_wrapper`).children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
 
-  $('#' + tablename + 'BuscarTablaLista').on('keyup change click focus mouseenter mouseleave', function () {
-    datatable.search($(this).val()).draw();
-  });
+  // $('#' + tablename + 'BuscarTablaLista').on('keyup change click focus mouseenter mouseleave', function () {
+  //   datatable.search($(this).val()).draw();
+  // });
 
 
-  let select = $('select[name="' + tablename + '_length"]');
-  select.removeClass('form-select form-select-sm');
-  select.addClass('select-form input-form');
-  select.css('margin-bottom', '0px')
-  select.css('width', 'max-content')
+  // let select = $('select[name="' + tablename + '_length"]');
+  // select.removeClass('form-select form-select-sm');
+  // select.addClass('select-form input-form');
+  // select.css('margin-bottom', '0px')
+  // select.css('width', 'max-content')
 
 }
 //

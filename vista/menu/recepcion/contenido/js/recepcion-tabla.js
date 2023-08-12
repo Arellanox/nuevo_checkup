@@ -7,6 +7,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
     [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]
   ],
+  deferRender: true,
   ajax: {
     dataType: 'json',
     data: function (d) {
@@ -113,12 +114,12 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
 })
 
 
-inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
-  {
-    msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
-    place: 'left'
-  },
-])
+// inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
+//   {
+//     msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
+//     place: 'left'
+//   },
+// ])
 
 
 // selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: "#panel-informacion" }, function () {
