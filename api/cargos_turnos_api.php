@@ -62,7 +62,7 @@ switch ($api) {
         break;
     case 5:
         # recuperar el paquete que se le cargo al turno.
-        $response = $master->getByProcedure("sp_recuperar_nombre_paquete", [ $turno_id ]);
+        $response = $master->getByProcedure("sp_recuperar_nombre_paquete", [$turno_id]);
         break;
     default:
         $response = "Apino definida";

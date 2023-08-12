@@ -1,6 +1,6 @@
 @import "navbar.css?v=4";
 @import "imagen-navbar.css?v=4.1";
-@import "table.css?v=10";
+@import "table.css?v=11";
 @import "modal.css?v=9";
 @import "botones-registro.css?v=2";
 @import "loader.css?v=2";
@@ -40,7 +40,9 @@ body {
 
 
 div.dataTables_length,
-div.dataTables_filter {
+div.dataTables_filter,
+div.dataTables_info, div.dataTables_toolbar, div.dataTables_paginate
+ {
   display: contents;
   margin-left: 1em;
 }
