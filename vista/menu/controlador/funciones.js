@@ -2452,75 +2452,54 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
             row = array_selected;
             switch (tipPanel) {
               case 'paciente':
-                ajaxAwait({ api: 2, turno_id: id }, 'pacientes_api', { callbackAfter: true }, false, () => {
+                ajaxAwait({ api: 2, turno_id: id }, 'pacientes_api', { callbackAfter: true }, false, (data) => {
+                  const row = data['response']['data'][0];
+                  const mappings = {
+                    'nombre-persona': row.NOMBRE_COMPLETO,
+                    'edad-persona': formatoFecha(row.EDAD),
+                    'nacimiento-persona': formatoFecha(row.NACIMIENTO),
+                    'info-paci-alergias': row.ALERGIAS,
+                    'info-paci-procedencia': row.PROCEDENCIA,
+                    'info-paci-curp': row.CURP,
+                    'info-paci-telefono': row.CELULAR,
+                    'info-paci-correo': row.CORREO,
+                    'info-paci-sexo': row.GENERO,
+                    'info-paci-turno': row.TURNO || 'Sin generar',
+                    'info-paci-directorio': `${row.CALLE}, ${row.COLONIA}, ${row.MUNICIPIO}, ${row.ESTADO}`,
+                    'info-paci-comentario': row.COMENTARIO_RECHAZO,
+                    'info-paci-diagnostico': row.DIAGNOSTICO,
+                    'info-paci-reagenda': row.FECHA_REAGENDA ? formatoFecha(row.FECHA_REAGENDA) : '',
+                    'info-paci-recepcion': row.FECHA_RECEPCION || '',
+                    'info-paci-prefolio': row.PREFOLIO
+                  };
 
-                })
-                $.ajax({
-                  url: http + servidor + "/" + appname + "/api/pacientes_api.php",
-                  data: {
-                    api: 2,
-                    turno_id: id
-                  },
-                  type: "POST",
-                  dataType: 'json',
-                  success: function (data) {
-                    if (mensajeAjax(data)) {
-                      const row = data['response']['data'][0];
+                  Object.keys(mappings).forEach(key => {
+                    $(`#${key}`).html(mappings[key]);
+                  });
 
-                      const mappings = {
-                        'nombre-persona': row.NOMBRE_COMPLETO,
-                        'edad-persona': formatoFecha(row.EDAD),
-                        'nacimiento-persona': formatoFecha(row.NACIMIENTO),
-                        'info-paci-alergias': row.ALERGIAS,
-                        'info-paci-procedencia': row.PROCEDENCIA,
-                        'info-paci-curp': row.CURP,
-                        'info-paci-telefono': row.CELULAR,
-                        'info-paci-correo': row.CORREO,
-                        'info-paci-sexo': row.GENERO,
-                        'info-paci-turno': row.TURNO || 'Sin generar',
-                        'info-paci-directorio': `${row.CALLE}, ${row.COLONIA}, ${row.MUNICIPIO}, ${row.ESTADO}`,
-                        'info-paci-comentario': row.COMENTARIO_RECHAZO,
-                        'info-paci-diagnostico': row.DIAGNOSTICO,
-                        'info-paci-reagenda': row.FECHA_REAGENDA ? formatoFecha(row.FECHA_REAGENDA) : '',
-                        'info-paci-recepcion': row.FECHA_RECEPCION || '',
-                        'info-paci-prefolio': row.PREFOLIO
-                      };
+                  if (row['ordenes']) {
+                    const ordenes = row['ordenes'][0];
+                    const hash = {
+                      'LABORATORIO CLÍNICO': 6,
+                      'ULTRASONIDO': 11,
+                      'RAYOS X': 8
+                    };
 
-                      Object.keys(mappings).forEach(key => {
-                        $(`#${key}`).html(mappings[key]);
-                      });
-
-                      if (row['ordenes']) {
-                        const ordenes = row['ordenes'][0];
-                        const hash = {
-                          'LABORATORIO CLÍNICO': 6,
-                          'ULTRASONIDO': 11,
-                          'RAYOS X': 8
-                        };
-
-                        for (const key in ordenes) {
-                          if (hash[ordenes[key]['area']] == area) {
-                            $('#contenedor-btn-ordenes-medicas').append(`
-        <div class="col text-center">
-          <a type="button" target="_blank" class="btn btn-borrar" href="${ordenes[key]['url']}">
-            <i class="bi bi-file-earmark-pdf"></i> ${ordenes[key]['area']}
-          </a>
-        </div>
-      `);
-                          }
-                        }
+                    for (const key in ordenes) {
+                      if (hash[ordenes[key]['area']] == area) {
+                        $('#contenedor-btn-ordenes-medicas').append(`
+                              <div class="col text-center">
+                                <a type="button" target="_blank" class="btn btn-borrar" href="${ordenes[key]['url']}">
+                                  <i class="bi bi-file-earmark-pdf"></i> ${ordenes[key]['area']}
+                                </a>
+                              </div>
+                            `);
                       }
-
-
                     }
-                  },
-                  complete: function () {
-                    $(panel).fadeIn(100);
-                    resolve(1);
-                  },
-                  error: function (jqXHR, exception, data) {
-                    alertErrorAJAX(jqXHR, exception, data)
-                  },
+                  }
+
+                  $(panel).fadeIn(100);
+                  resolve(1);
                 })
 
                 break;
@@ -2891,7 +2870,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
               case 'listado_resultados':
                 ajaxAwait({ api: 21, turno_id: id }, 'consulta_api', { callbackAfter: true, ajaxComplete: resolve(1) }, false, (data) => {
                   //console.log(data)
-                  let array = {
+                  let areas = {
                     1: 'CONSULTORIO',
                     2: 'SOMATOMETRÍA',
                     3: 'OFTALMOLOGÍA',
@@ -2909,60 +2888,42 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     15: 'CERTIFICADO MÉDICO',
                     16: 'CONSULTORIO FASTCHECKUP'
                   }
-                  let row = data.response.data;
-                  // $('#append-html-historial-estudios').html('');
+                  const row = data.response.data;
 
-                  for (const key in array) {
-                    if (Object.hasOwnProperty.call(array, key)) {
-                      const element = array[key];
-
-                      let arrayArea = $.grep(row, function (n, i) {
-                        return n.AREA_LABEL === element;
-                      });
-
-                      //console.log(element, arrayArea)
-                      setListResultadosAreas('#append-html-historial-estudios', element, arrayArea)
-                    }
+                  let htmlToAppend = '';
+                  for (const key in areas) {
+                    const areaLabel = areas[key];
+                    const filteredArea = row.filter(n => n.AREA_LABEL === areaLabel);
+                    htmlToAppend += buildListResultadosAreas(areaLabel, filteredArea);
                   }
+
+                  $('#append-html-historial-estudios').html(htmlToAppend);
 
                   $(panel).fadeIn(100);
                   resolve(1);
                 })
 
-                function setListResultadosAreas(div, titulo, array) {
-                  let html = '';
-                  //titulo
-                  let lenghtArray = array.length;
-                  if (!lenghtArray)
-                    return false;
-                  html += `<li class="list-group-item d-flex justify-content-between align-items-start">
-                              <div class="ms-2 me-auto">`
-                  html += `<div class="fw-bold">
-                                <a class="" data-bs-toggle="collapse" href="#collapseEstudios${deleteSpace(titulo)}" role="button"
-                                    aria-expanded="false" aria-controls="collapseEstudios${deleteSpace(titulo)}">
-                                    ${titulo}
-                                </a>
-                            </div>`
-                  //Body 
-                  html += `<div class="collapse" id="collapseEstudios${deleteSpace(titulo)}">
-                                <ul style="list-style: disc;">`
+                function buildListResultadosAreas(titulo, array) {
+                  if (!array.length) return '';
 
-                  for (const key in array) {
-                    if (Object.hasOwnProperty.call(array, key)) {
-                      const element = array[key];
-                      html += `<li><a href="${element['RUTA']}" target="_blank">${formatoFecha2(element['FECHA_RECEPCION'], [0, 1, 2, 2, 0, 0, 0])}</a></li>`
-                    }
-                  }
-
-                  html += `</ul> </div>`
-
-                  //Finish and number span 
-                  html += `</div>
-                        <span class="badge bg-primary rounded-pill">${lenghtArray}</span>
-                    </li>`
-
-                  $(div).append(html);
-
+                  const cleanedTitle = deleteSpace(titulo);
+                  return `
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">
+                          <div class="fw-bold">
+                              <a class="" data-bs-toggle="collapse" href="#collapseEstudios${cleanedTitle}" role="button"
+                                aria-expanded="false" aria-controls="collapseEstudios${cleanedTitle}">
+                                  ${titulo}
+                              </a>
+                          </div>
+                          <div class="collapse" id="collapseEstudios${cleanedTitle}">
+                              <ul style="list-style: disc;">
+                                  ${array.map(item => `<li><a href="${item['RUTA']}" target="_blank">${formatoFecha2(item['FECHA_RECEPCION'], [0, 1, 2, 2, 0, 0, 0])}</a></li>`).join('')}
+                              </ul>
+                          </div>
+                      </div>
+                      <span class="badge bg-primary rounded-pill">${array.length}</span>
+                  </li>`;
                 }
 
                 break;
@@ -3231,43 +3192,21 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 }, 'turnero_api', { callbackAfter: true }, false, function (data) {
 
                   try {
-                    data = data.response.data[0]['AREAS_PENDIENTES']
-                    let html = '';
-                    console.log(data);
+                    const areasPendientes = data.response.data[0]['AREAS_PENDIENTES'];
 
-                    let filter = data.filter((data) => {
-                      return data.FINALIZADO === 0;
-                    });
-
-                    console.log(filter);
-
-                    for (const key in filter) {
-                      if (Object.hasOwnProperty.call(filter, key)) {
-                        const element = filter[key];
-                        html += `${element.AREA}, `;
-                      }
+                    function getAreasByFinalizadoStatus(status) {
+                      return areasPendientes
+                        .filter(area => area.FINALIZADO === status)
+                        .map(area => area.AREA)
+                        .join(', ');
                     }
 
-                    $('#areas_faltantes').html(html);
+                    $('#areas_faltantes').html(getAreasByFinalizadoStatus(0));
+                    $('#areas_terminadas').html(getAreasByFinalizadoStatus(1));
 
-
-                    html = '';
-                    // console.log(data);
-
-                    filter = data.filter((data) => {
-                      return data.FINALIZADO === 1;
-                    });
-
-                    for (const key in filter) {
-                      if (Object.hasOwnProperty.call(filter, key)) {
-                        const element = filter[key];
-                        html += `${element.AREA}, `;
-                      }
-                    }
-
-                    $('#areas_terminadas').html(html);
                   } catch (error) {
-
+                    // Puedes manejar el error aquí si es necesario.
+                    // Por ejemplo, mostrando un mensaje al usuario o registrándolo en algún lugar.
                   }
 
                   $(panel).fadeIn(100);

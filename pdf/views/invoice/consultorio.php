@@ -425,6 +425,7 @@ $encode_firma = base64_encode($ruta_firma);
         }
         ?>
 
+        <div class="break;"></div>
 
         <!-- DIAGNOSTICO -->
         <?php if (isset($resultados->DIAGNOSTICO)) {
