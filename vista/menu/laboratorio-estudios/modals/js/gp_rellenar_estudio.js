@@ -159,8 +159,7 @@ $(document).on('click', '#btn-guardar-grupo', function () {
     }, function () {
         // Llamar a esta función para obtener los datos tratados
         let arrayTratado = getTratadosDataFromTable();
-        console.log(arrayTratado);
-        console.log(array_selected['ID_SERVICIO'])
+
 
         ajaxAwait({
             api: 4,

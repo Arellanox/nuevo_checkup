@@ -163,39 +163,34 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
     {
       class: 'btn-pendiente',
       callback: function (data) {
-        if (array_selected != null) {
-          // if (!session['permiso']['RepIngPaci'] == 1)
-          if (!validarPermiso('RepIngPaci', 1))
-            return false;
+        if (!validarPermiso('RepIngPaci', 1))
+          return false;
 
-          alertMensajeConfirm({
-            title: '¿Está Seguro de regresar al paciente en espera?',
-            text: "¡Sus estudios anteriores no se cargarán!",
-            icon: 'warning',
-            confirmButtonText: 'Si, colocarlo en espera',
-          }, () => {
-            ajaxAwait({
-              id_turno: data['ID_TURNO'],
-              api: 2,
-              // estado: null
-            }, 'recepcion_api', { callbackAfter: true }, false, () => {
-              alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
-              try {
-                tablaRecepcionPacientes.ajax.reload();
-              } catch (e) {
+        alertMensajeConfirm({
+          title: '¿Está Seguro de regresar al paciente en espera?',
+          text: "¡Sus estudios anteriores no se cargarán!",
+          icon: 'warning',
+          confirmButtonText: 'Si, colocarlo en espera',
+        }, () => {
+          ajaxAwait({
+            id_turno: data['ID_TURNO'],
+            api: 2,
+            // estado: null
+          }, 'recepcion_api', { callbackAfter: true }, false, () => {
+            alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
+            try {
+              tablaRecepcionPacientes.ajax.reload();
+            } catch (e) {
 
-              }
-              try {
-                tablaRecepcionPacientesIngrersados.ajax.reload();
-              } catch (e) {
+            }
+            try {
+              tablaRecepcionPacientesIngrersados.ajax.reload();
+            } catch (e) {
 
-              }
-            })
-          }, 1)
+            }
+          })
+        }, 1)
 
-        } else {
-          alertSelectTable('No ha seleccionado ningún paciente', 'error')
-        }
       }
     },
     {

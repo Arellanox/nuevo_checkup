@@ -1994,6 +1994,7 @@ function selectTable(tablename, datatable,
       if (dataClick[1]) {
         //Verifica si ya esta seleccionado
         if (!$(tr).hasClass('selected')) {
+          array_selected = row.data();
 
           //Reselecciona el tr que interactuas
           selectTable_resetSelect(tr, config)
@@ -2017,7 +2018,7 @@ function selectTable(tablename, datatable,
     }
 
 
-    array_selected = row.data();
+
 
     selectTableClickCount++;
     if ($(tr).hasClass('selected')) {
@@ -2041,12 +2042,13 @@ function selectTable(tablename, datatable,
           $(`.tab-select`).addClass('disabled')
 
           //Regresa la funcion personalizada
+          array_selected = null
           callbackClick(0, null, callback, null, null);
           //
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
-
+          array_selected = row.data();
           callbackDblClick(1, dataRow, callback, tr, row)
 
         }
@@ -2077,7 +2079,7 @@ function selectTable(tablename, datatable,
 
       } else {
         //Para una sola seleccion
-
+        array_selected = row.data();
         //Activar otros tab
         $(`.tab-select`).removeClass('disabled');
         //Reselecciona
