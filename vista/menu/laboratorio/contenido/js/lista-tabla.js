@@ -5,7 +5,7 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
   lengthChange: false,
   info: false,
   paging: false,
-  scrollY: autoHeightDiv(0, 244),
+  scrollY: '73vh',
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
@@ -381,7 +381,7 @@ function generarFormularioPaciente(id) {
           // console.log(row)
           var count = Object.keys(row).length;
           // console.log(count);
-          html += '<ul class = "list-group card hover-list info-detalle mt-3" style="padding: 15px;" >';
+          html += '<ul class = "list-group hover-list info-detalle mt-3" style="padding: 3px;" >';
           html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
           for (var k in row) { //Empieza cada estudio del grupo
             // console.log(k, row[k])
