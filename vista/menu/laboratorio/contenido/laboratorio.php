@@ -31,7 +31,7 @@
 
   <div class="col-12 col-xl-3 tab-second overflow-auto" id="tab-informacion" style="margin-right: -5px !important; max-height:90vh;display:none !important">
     <div class="rounded p-3 shadow my-2" id="panel-informacion"> </div>
-    <div class="rounded p-3 shadow my-2">
+    <div class="rounded p-3 shadow my-2" style="margin-bottom: 18px !important;">
       <h4>Estudios anteriores</h4>
       <div class="accordion" id="accordionResultadosAnteriores">
       </div>
