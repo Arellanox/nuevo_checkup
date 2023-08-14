@@ -157,6 +157,7 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
       class: 'btn-rechazar',
       callback: function (data) {
         if (data != null) {
+          array_selected = data
           $("#modalPacienteRechazar").modal('show');
         } else {
           alertSelectTable();
@@ -168,6 +169,8 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
       callback: function (data) {
         if (!validarPermiso('RepIngPaci', 1))
           return false;
+
+        array_selected = data
 
         alertMensajeConfirm({
           title: '¿Está Seguro de regresar al paciente en espera?',
@@ -199,7 +202,8 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
     {
       class: 'btn-editar',
       callback: function (data) {
-        if (array_selected != null) {
+        if (data != null) {
+          array_selected = data
           $("#ModalEditarPaciente").modal('show');
         } else {
           alertSelectTable();
