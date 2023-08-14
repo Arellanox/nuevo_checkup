@@ -146,6 +146,7 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
       class: 'btn-aceptar',
       callback: function (data) {
         if (data != null) {
+          array_selected = data
           $("#modalPacienteAceptar").modal('show');
         } else {
           alertSelectTable();
