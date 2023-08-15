@@ -19,10 +19,11 @@
 
 <?php
 
-$lote = $body[count($body) - 1];
-$muestra = $body[count($body) - 2];
+$comentario = $body[count($body) - 1];
+$lote = $body[count($body) - 2];
+$muestra = $body[count($body) - 3];
 // $autorizacion = $body[count($body) - 3];
-$kit = $body[count($body) - 3];
+$kit = $body[count($body) - 4];
 
 ?>
 
@@ -82,5 +83,8 @@ $kit = $body[count($body) - 3];
     </tr>
     <tr>
         <td colspan="6" style="width: 15% ;"><strong>Kit Diagnóstico:</strong> <?php echo $kit->resultado ?> </td>
+    </tr>
+    <tr>
+        <td colspan="12" style="width: 15%"><strong>Comenatarios:</strong> <?php echo $comentario->resultado ?> </td>
     </tr>
 </table>
