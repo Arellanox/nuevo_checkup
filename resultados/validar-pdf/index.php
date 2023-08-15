@@ -5,9 +5,9 @@
 
 
 date_default_timezone_set('America/Mexico_City');
-session_start();
-session_unset();
-session_destroy();
+// session_start();
+// session_unset();
+// session_destroy();
 
 
 $clave = isset($_GET['clave']) ? $_GET['clave'] : null;
