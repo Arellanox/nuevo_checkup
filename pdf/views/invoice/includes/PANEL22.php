@@ -28,7 +28,7 @@ $kit = $body[count($body) - 3];
 
 <!-- <p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> -->
 <br>
-<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $muestra ?></strong> </p>
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $muestra->resultado; ?></strong> </p>
 
 <table class="resultados_resp" style="width: 100%; border-collapse: collapse; text-align: center;">
     <tr style="background-color: darkgrey;" class="bold">
@@ -82,6 +82,5 @@ $kit = $body[count($body) - 3];
     </tr>
     <tr>
         <td colspan="6" style="width: 15% ;"><strong>Kit Diagnóstico:</strong> <?php echo $kit->resultado ?> </td>
-        <!-- <td colspan="6" style="width: 0% ;"><strong>Registro Sanitario:</strong> <?php echo $autorizacion->resultado ?> </td> -->
     </tr>
 </table>
