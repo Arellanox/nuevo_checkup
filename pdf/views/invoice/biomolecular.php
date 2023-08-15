@@ -19,7 +19,7 @@
         body {
             font-family: 'Roboto', sans-serif;
             margin-top: 60px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-size: 10px;
             /* background-color: gray; */
         }
@@ -35,7 +35,7 @@
 
         .footer {
             position: fixed;
-            bottom: -165px;
+            bottom: -186px;
             left: 25px;
             right: 25px;
             height: 220px;
