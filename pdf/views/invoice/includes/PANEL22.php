@@ -76,7 +76,7 @@ $kit = $body[count($body) - 4];
     acuerdo a los datos clínicos que el paciente presente.
 
 </p>
-<table style="width: 100%;">
+<table style="width: 100%;margin-bottom:  10px">
     <tr>
         <td colspan="6" style="width: 15% ;"><strong>Equipo Utilizado:</strong> CFX96™ Real-Time System BIO-RAD </td>
         <td colspan="6" style="width: 0% ;"><strong>No. Lote:</strong> <?php echo $lote->resultado; ?> </td>
