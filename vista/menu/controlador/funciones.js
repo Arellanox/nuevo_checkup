@@ -369,14 +369,23 @@ function ifnull(data, siNull = '', values = ['option1', 'option2']) {
   if (typeof data === 'object' && data !== null) {
     for (const key of values) {
       if (data.hasOwnProperty(key)) {
-        return data[key]; // Devuelve el valor de la primera clave que exista
+        // return ifnull(data.key, siNull)
+        let value_def = ifnull(data[key]) 
+        if(value_def){
+          return data[key]
+        }else{
+          if(key == values[values.length - 1])
+            return siNull
+        }
+        // console.log(data[key], key, data)
+        // return ifnull(data[key], siNull); // Devuelve el valor de la primera clave que exista
       }
     }
     return siNull; // Devuelve siNull si no se encuentra ninguna clave
   }
   // Otros Casos
   else {
-    if (data === 'NaN' || typeof data === 'undefined' || data === '') return siNull;
+    if (data === 'NaN' || typeof data === 'undefined' || data === '' || data === 'null' || !data) return siNull;
     if (data) {
       data = `${data}`.replace(/["]+/g, '&quot;');
       return data;
