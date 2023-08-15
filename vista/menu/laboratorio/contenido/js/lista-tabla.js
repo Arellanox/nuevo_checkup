@@ -435,6 +435,12 @@ function generarFormularioPaciente(id) {
                 // los siguientes FTD
                 case '1075': case '1076': case '1077': case '1078': case '1079': case '1080':
                 case '1081':
+
+                // BF22
+
+                case '1130': case '1131': case '1132': case '1126': case '1127': case '1128': case '1121':
+                case '1122': case '1123': case '1124': case '1116': case '1117': case '1118': case '1119':
+                case '1112': case '1113': case '1114': case '1107': case '1108': case '1109': case '1110':
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 // Panel 21
