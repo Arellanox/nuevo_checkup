@@ -294,7 +294,7 @@ function generarFormularioPaciente(id) {
                   'clave': 'N/A'
                 }
               }
-              classSelect = 'selectTipoMuestraPanel21';
+              classSelect = 'selectTipoMuestraBF22';
               muestras = {
                 0: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO',
@@ -450,6 +450,8 @@ function generarFormularioPaciente(id) {
                 case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
 
                 case '692': case '706': case '734': case '991': case '1083':
+                // Bluefinder 22
+                case '1133':
                   anotherInput = crearSelectCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], ifnull(classSelect)); break;
                 case '693': case '707': case '735': case '992':
                   anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
@@ -458,7 +460,15 @@ function generarFormularioPaciente(id) {
                   anotherValue = ifnull(row[k]['RESULTADO'], 'A QUIEN CORRESPONDA')
                   break;
 
+                // No. Lote: 
+                // Bluefinder 22
+                case '1136':
+                  anotherValue = 'KBFMP130723'
+                  break;
+
                 case '695': case '700': case '708': case '736': case '756': case '994': case '1084':
+                // BlueFinder 22:
+                case '1135':
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
                 //Laboratorio Clinico:

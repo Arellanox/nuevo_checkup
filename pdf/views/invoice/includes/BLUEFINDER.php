@@ -64,12 +64,16 @@ $kit = $body[count($body) - 4];
     ?>
 
 </table>
-<p style="text-align: justify"><strong>Comentarios:</strong>La prueba está concebida como una ayuda en el diagnóstico de infecciones de las vías respiratorias causadas por el virus
-    de la gripe A (IAV), el virus de la gripe A subtipo H1N1 de linaje porcino (IAV [H1N1] swl), el virus de la gripe B (IBV), el rinovirus humano
-    (HRV), los coronavirus humanos (HCoV) 229E, NL63, HKU1 y OC43, los virus paragripales humanos (HPIV) 1 a 4, el metaneumovirus
-    humano (HMPV) A y B, el bocavirus humano (HBoV),Mycoplasma pneumoniae (M. pneumoniae), los virus respiratorios sincitiales
-    humanos (HRSV) A y B, el parecovirus humano (HPeV), el enterovirus (EV) y el adenovirus humano (HAdV).y el médico tratante es quien
-    realiza la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
+<p style="text-align: justify"><strong>Comentarios:</strong>La prueba está concebida como una ayuda en el diagnóstico de
+    infecciones de las vías respiratorias causadas por el bocavirus humano (HBoV), el enterovirus humano (EV),
+    el rinovirus humano (HRV), el adenovirus humano (HAdV), la bordetella parapertussis (B. parapertussis),
+    la bordetella pertussis/holmessi (B. pertussis/B. holmessi), el virus de la gripe A subtipo H3N2,
+    el virus de la gripe B (linaje Victoria), el virus de la gripe A subtipo H1N1 (pdm09), el virus de la gripe B
+    (linaje Yamagata), los virus respiratorios sincitiales humanos (HRSV) A y B, el metaneumovirus humano (HMPV),
+    el virus SARS-CoV-2, los virus paragripales humanos (HPIV 1, HPIV 3, HPIV 2/HPIV 4) y los coronavirus humanos
+    (HCoV) OC43, HKU1, 229E/NL63. Y el médico tratante es quien realiza la interpretación de este resultado de
+    acuerdo a los datos clínicos que el paciente presente.
+
 </p>
 <table style="width: 100%;">
     <tr>
