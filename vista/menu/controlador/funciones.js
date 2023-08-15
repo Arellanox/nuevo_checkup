@@ -1754,7 +1754,7 @@ function configSelectTable(config) {
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
   var esTabletaVertical = /iPad/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth;
-  var esDispositivoMovil = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  var esDispositivoMovil = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini|iPad/i.test(navigator.userAgent);
 
   if (esDispositivoMovil)
     callback(esDispositivoMovil);
