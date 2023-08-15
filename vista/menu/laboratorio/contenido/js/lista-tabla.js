@@ -290,7 +290,7 @@ function generarFormularioPaciente(id) {
             case '1103': // <-- BLUEFINDER 22 -->
               kitDiag = {
                 0: {
-                  'descripcion': 'FTD™ Respiratory Pathogens 21',
+                  'descripcion': 'BlueFinder 22',
                   'clave': 'N/A'
                 }
               }
