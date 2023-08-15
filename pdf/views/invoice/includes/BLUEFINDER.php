@@ -39,9 +39,9 @@ $kit = $body[count($body) - 4];
 
     <?php
 
-    $body = array_slice($body, 1, count($body) - 3);
+    $body = array_slice($body, 0, count($body) - 3);
     foreach ($body as $key => $value) {
-        if (isset($value->resultado)) {
+        if ($value->resultado != 'LABEL_BIOMOLECULAR') {
     ?>
             <tr>
                 <td style="text-align: left;" class="cursive"><?php echo $value->nombre ?></td>
@@ -52,10 +52,10 @@ $kit = $body[count($body) - 4];
         } else {
         ?>
             <tr>
-                <td colspan="12">&nbsp;</td>
+                <td colspan="12"></td>
             </tr>
             <tr class="bold">
-                <td colspan="12" style="text-align: left;">•<?php echo $value->nombre ?></td>
+                <td colspan="12" style="text-align: left;"><?php echo $value->nombre ?></td>
             </tr>
     <?php
         }

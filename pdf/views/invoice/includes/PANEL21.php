@@ -39,7 +39,7 @@ $kit = $body[count($body) - 4];
 
     <?php
 
-    $body = array_slice($body, 1, count($body) - 5);
+    $body = array_slice($body, 0, count($body) - 5);
     foreach ($body as $key => $value) {
         if (isset($value->resultado)) {
     ?>
