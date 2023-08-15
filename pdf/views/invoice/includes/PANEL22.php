@@ -19,11 +19,11 @@
 
 <?php
 
-$comentario = $body[count($body) - 1];
-$lote = $body[count($body) - 2];
-$muestra = $body[count($body) - 3];
+// $comentario = $body[count($body) - 1];
+$lote = $body[count($body) - 1];
+$muestra = $body[count($body) - 2];
 // $autorizacion = $body[count($body) - 3];
-$kit = $body[count($body) - 4];
+$kit = $body[count($body) - 3];
 
 ?>
 
@@ -42,7 +42,7 @@ $kit = $body[count($body) - 4];
 
     $body = array_slice($body, 0, count($body) - 3);
     foreach ($body as $key => $value) {
-        if ($value->resultado != 'LABEL_BIOMOLECULAR') {
+        if ($value->resultado != 'LABEL_BIOMOLECULAR' && $value->nombre != 'Comentarios') {
     ?>
             <tr>
                 <td style="text-align: left;" class="cursive"><?php echo $value->nombre ?></td>
@@ -50,7 +50,11 @@ $kit = $body[count($body) - 4];
                 <td><?php if ($value->resultado != 'N/A') echo "NEGATIVO"; ?></td>
             </tr>
         <?php
-        } else {
+        } else if ($value->nombre == 'Comentarios') { ?>
+            <tr>
+                <td colspan="12" style="text-align: left; font-size: 10px"> <strong style="font-size: 10px">Observaciones: </strong> <?php echo $value->resultado ?></td>
+            </tr>
+        <?php } else {
         ?>
             <tr>
                 <td colspan="12"></td>
@@ -63,6 +67,8 @@ $kit = $body[count($body) - 4];
     }
 
     ?>
+
+
 
 </table>
 <p style="text-align: justify"><strong>Comentarios:</strong>La prueba está concebida como una ayuda en el diagnóstico de
@@ -83,8 +89,5 @@ $kit = $body[count($body) - 4];
     </tr>
     <tr>
         <td colspan="6" style="width: 15% ;"><strong>Kit Diagnóstico:</strong> <?php echo $kit->resultado ?> </td>
-    </tr>
-    <tr>
-        <td colspan="12" style="width: 15%"><strong>Comenatarios:</strong> <?php echo $comentario->resultado ?> </td>
     </tr>
 </table>
