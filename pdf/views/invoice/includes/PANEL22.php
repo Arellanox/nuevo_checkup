@@ -21,14 +21,14 @@
 
 $lote = $body[count($body) - 1];
 $muestra = $body[count($body) - 2];
-$autorizacion = $body[count($body) - 3];
-$kit = $body[count($body) - 4];
+// $autorizacion = $body[count($body) - 3];
+$kit = $body[count($body) - 3];
 
 ?>
 
 <!-- <p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> -->
 <br>
-<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[7]->resultado ?></strong> </p>
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $muestra ?></strong> </p>
 
 <table class="resultados_resp" style="width: 100%; border-collapse: collapse; text-align: center;">
     <tr style="background-color: darkgrey;" class="bold">
