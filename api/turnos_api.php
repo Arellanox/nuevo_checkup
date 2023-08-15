@@ -159,12 +159,12 @@ switch ($api) {
         foreach ($setResultados as $key => $resultado) {
             #determinamos si el estudio de laboratorio tiene valor absoluto.
             $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
-            $group = strtolower($resultado['ID_GRUPO']) == "null" ? NULL: $resultado['ID_GRUPO'];
+            $group = strtolower($resultado['ID_GRUPO']) == "null" ? NULL : $resultado['ID_GRUPO'];
 
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $resultado['ID_SERVICIO'], $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto,$group));
-          
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $resultado['ID_SERVICIO'], $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto, $group));
+
             #  print_r($response);
             if (!is_numeric($response)) {
                 echo $master->returnApi($response);
@@ -246,7 +246,7 @@ switch ($api) {
                 if ($r) {
                     $response = 1;
                 } else {
-                    $response = "No se envió el resultado.";
+                    $response = "Hubo un problema al enviar los resultados. Por favor, revise los correos que deben ser enviados o consulte con un técnico de TI.I";
                 }
             } else {
                 $response = "No hay archivos para enviar.";
@@ -285,7 +285,7 @@ switch ($api) {
         # variable ['turno_completado']
         # mandar 1 para completado
         # mandar 0 para mandar incompleto
-        $response = $master->updateByProcedure("sp_turnos_completados_g", [ $id_turno, $turno_completado ]);
+        $response = $master->updateByProcedure("sp_turnos_completados_g", [$id_turno, $turno_completado]);
         break;
     case 20:
         # mostrar la lista de los pacientes/turnos completados
