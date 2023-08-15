@@ -323,6 +323,7 @@ function passdata($indice)
         "CITOLOGÍA" => 'CITOLOGIA',
         "rT-PCR-ETS" => 'PCR-ETS',
         "FTD Fiebre Tropical Multiplex" => 'FTDMultiplex',
+        "BLUEFINDER 22" => 'BLUEFINDER'
     ];
 
     // echo $indice;
