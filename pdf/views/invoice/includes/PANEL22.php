@@ -32,7 +32,7 @@ $kit = $body[count($body) - 4];
 
 <table class="resultados_resp" style="width: 100%; border-collapse: collapse; text-align: center;">
     <tr style="background-color: darkgrey;" class="bold">
-        <td style="text-align: left;">Prueba BlueFinder 22</td>
+        <td style="text-align: left;">Prueba rT-PCR Panel Respiratorio (22)</td>
         <td>Resultado</td>
         <td>Valor de Normalidad</td>
     </tr>
