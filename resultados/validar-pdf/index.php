@@ -170,11 +170,11 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                         </button>
                     </div>
                 </div>
-                <hr>
                 <?php
                 switch ($modulo) {
                     case 6: ?>
                         <!-- Laboratorio Clinico -->
+                        <hr>
                         <div id="6" style="display: none;" class="row mt-3">
                             <div class="col-12 col-lg-3">
                                 <div class="row">
@@ -258,6 +258,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     <?php break;
                     case 3: ?>
                         <!-- Oftalmologia -->
+                        <hr>
                         <div class="row mt-3" id="3" style="display: none;">
                             <div class="col-12 col-lg-3">
                                 <div class="row">
@@ -282,6 +283,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     <?php break;
                     case 5: ?>
                         <!-- ESPIROMETRIA -->
+                        <hr>
                         <div class="row mt-3" id="5" style="display: none;">
                             <div class="col-12 col-lg-3 mb-4">
                                 <div class="row">
@@ -298,6 +300,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     <?php break;
                     case 4: ?>
                         <!-- AUDIOMETRIA -->
+                        <hr>
                         <div class="row mt-3" id="4" style="display: none;">
                             <div class="col-12 col-lg-3  mb-4">
                                 <div class="row">
@@ -314,6 +317,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     <?php break;
                     case 2: ?>
                         <!-- SOMATOMETRIA -->
+                        <hr>
                         <div class="row mt-3 resultados-soma" id="2" style="display: none;">
                             <div class='col-12 col-md-4 overflow-auto' style="max-height: 80vh">
                                 <div class="row">
@@ -348,6 +352,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     <?php break;
                     case 1: ?>
                         <!-- CONSULTORIO 1 -->
+                        <hr>
                         <div class="row mt-3" id="1" style="display: none;">
                             <div class='col-12 col-md-4 overflow-auto' style="max-height: 80vh">
                                 <div class="row mt-3">
@@ -369,6 +374,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     <?php break;
                     case 19: ?>
                         <!-- CONSULTORIO 2 -->
+                        <hr>
                         <div class="row mt-3" id="19" style="display: none;">
                             <div class='col-12 col-md-4 overflow-auto' style="max-height: 80vh">
                                 <div class="row mt-3">
