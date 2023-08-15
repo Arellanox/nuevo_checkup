@@ -5,7 +5,7 @@ TablaGrupos = $('#TablaGrupos').DataTable({
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: autoHeightDiv(0, 284),
+    scrollY: '70vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -28,11 +28,11 @@ TablaGrupos = $('#TablaGrupos').DataTable({
         },
         dataSrc: 'response.data'
     },
-    /*  createdRow: function (row, data, dataIndex) {
-         if (data.FACTURADO == 1) {
-             $(row).addClass('bg-success text-white');
-         }
-     } */
+    createdRow: function (row, data, dataIndex) {
+        if (data.FACTURA !== 0) {
+            $(row).addClass('bg-success text-white');
+        }
+    },
     columns: [
         { data: 'COUNT' },
         {
@@ -76,7 +76,7 @@ inputBusquedaTable("TablaGrupos", TablaGrupos, [], {
 
 selectTable('#TablaGrupos', TablaGrupos, {
     unSelect: true, reload: ['col-xl-9'],
-    OnlyData: true,
+    // OnlyData: true,
     ClickClass: [
         {
             class: 'GrupoInfoCreditoBtn',
@@ -120,7 +120,7 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
     lengthChange: false,
     info: true,
     paging: false,
-    scrollY: autoHeightDiv(0, 284),
+    scrollY: '66vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -235,7 +235,8 @@ selectTable('#TablaGrupoDetalle', TablaGrupoDetalle, {
                         if (Object.hasOwnProperty.call(dataServicios, data)) {
                             const element = dataServicios[data];
 
-                            subtotal += ifnull(parseFloat(element['COSTO']), 0);
+                            // subtotal += ifnull(parseFloat(element['COSTO']), 0);
+                            subtotal += parseFloat(ifnull(element, 0, ['COSTO']))
                             totalServicio = ifnull((parseInt(element['CANTIDAD']) * parseFloat(element['COSTO'])).toFixed(2), 0)
 
                             let html = `
@@ -256,6 +257,7 @@ selectTable('#TablaGrupoDetalle', TablaGrupoDetalle, {
                     }
 
                     let subtotalconiva = parseFloat(subtotal * 0.16).toFixed(2);
+                    console.log(subtotal)
                     total = parseFloat(subtotal) + parseFloat(subtotalconiva)
 
                     $("#subtotal").html(`$${ifnull(subtotal.toFixed(2), 0)}`)

@@ -5,23 +5,26 @@
         <img src="https://www.bimo-lab.com/archivos/sistema/LogoConFondoAppAndroid.png" style="height: 36px;margin-right: 20px;" />
         <span class="fs-4">Bimo-lab</span>
       </div>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <hr>
     <span class="fs-4 text-center" id="bienvenida-user">Bienvenido | <?php echo $_SESSION['nombre'] ?></span>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto dropdown-lu">
+    <ul class="nav nav-pills dropdown-lu">
       <?php // navlink-normales
       include "navbar-menu/navlink-normales.php"; ?>
-      <hr><?php
-          // navlink-list
-          #include "navbar-menu/navlink-droplist-areas.php";
-          include "areas-windows-float.php";
-          ?>
-
-
+    </ul>
+    <hr>
+    <ul class="nav nav-pills mb-auto dropdown-lu overflow-auto">
+      <?php
+      // navlink-list
+      #include "navbar-menu/navlink-droplist-areas.php";
+      include "areas-windows-float.php";
+      ?>
 
     </ul>
+
+
     <hr>
     <div class="dropdown">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px">

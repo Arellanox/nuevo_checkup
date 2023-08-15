@@ -71,8 +71,7 @@ switch ($menu) {
 
       // echo $fecha_sumada; // imprime la nueva fecha en formato 'año-mes-día'
 
-      if (false && $menu != 'procedencia') :
-      ?>
+      if (false && $menu != 'procedencia') : ?>
 
         <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" id="decoration-cumple" />
         <div class="contenido-extra-cumple">
@@ -182,7 +181,8 @@ switch ($menu) {
               });
           });
         </script>
-      <?php endif; ?>
+      <?php
+      endif; ?>
 
 
       <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">
@@ -194,7 +194,7 @@ switch ($menu) {
           <?php
           if ($menu != 'procedencia') {
             include "navbar-menu/navlink-normales.php";
-            include "areas-windows-float.php";
+            // include "areas-windows-float.php";
           }
           ?>
 
@@ -251,6 +251,7 @@ switch ($menu) {
 
 <?php
     include "offcanvas.php";
+    include "menu-principal.php";
     break;
 }
 ?>

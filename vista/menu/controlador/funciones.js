@@ -370,11 +370,11 @@ function ifnull(data, siNull = '', values = ['option1', 'option2']) {
     for (const key of values) {
       if (data.hasOwnProperty(key)) {
         // return ifnull(data.key, siNull)
-        let value_def = ifnull(data[key]) 
-        if(value_def){
+        let value_def = ifnull(data[key])
+        if (value_def) {
           return data[key]
-        }else{
-          if(key == values[values.length - 1])
+        } else {
+          if (key == values[values.length - 1])
             return siNull
         }
         // console.log(data[key], key, data)
@@ -1634,74 +1634,63 @@ function inputBusquedaTable(
   classInput = 'col-sm-12 col-md-6',
   classList = 'col-sm-12 col-md-6',
 ) {
-  setTimeout(() => {
-    // Obtener elementos
-    const select = $(`#${tablename}_length label select`).first();
-    const filterDiv = $(`#${tablename}_filter`).first();
-    const input = $(`#${tablename}_filter label input`).first();
-    console.log(input);
-    const label = $(`#${tablename}_filter label`).first();
 
-    // Configurar tooltips
-    tooltipinput['msj'] = tooltipinput['msj'] || 'Filtra la lista por coincidencias';
-    tooltipinput['place'] = tooltipinput['place'] || 'top';
-
-    select.removeClass().addClass('input-form');
-    removeTextNode(label);
-
-    input.removeClass().addClass('input-form form-control')
-      .attr({
-        'placeholder': "Filtrar coincidencias",
-        'style': 'margin: 0px !important',
-        'data-bs-toggle': "tooltip",
-        'data-bs-placement': tooltipinput['place'],
-        title: tooltipinput['msj']
-      });
-
-
-
-
-
-    const newDivElement = $('<div>').addClass('text-center mt-2');
-    const newInputGroupDiv = $('<div>').addClass('input-group flex-nowrap');
-    newInputGroupDiv.append(createTooltipHtml(tooltip)).append(input);
-    newDivElement.append(newInputGroupDiv);
-
-    filterDiv.after(newDivElement);
-    $(`#${tablename}_wrapper`).children('div [class="row"]').eq(1).css('zoom', '90%');
-
-    let divList = filterDiv.parent();
-    divList.removeClass('col-sm-12 col-md-6');
-    divList.addClass(classInput)
-
-    filterDiv.empty();
-
-  }, 300);
-
-}
-
-function removeTextNode(node) {
-  node.contents().filter(function () {
-    return this.nodeType === 3; // Filtra los nodos de texto
-  }).remove();
-}
-
-function createTooltipHtml(tooltipData) {
-  let html = '';
-  for (const key in tooltipData) {
-    if (Object.hasOwnProperty.call(tooltipData, key)) {
-      const element = tooltipData[key];
-      html += `
-                <span class="input-span" id="addon-wrapping" data-bs-toggle="tooltip" 
-                    data-bs-placement="${element['place']}" title="${element['msj']}" 
-                    style="margin-bottom: 0px !important">
-                    <i class="bi bi-info-circle"></i>
-                </span>`;
+  htmlTooltip = '';
+  for (const key in tooltip) {
+    if (Object.hasOwnProperty.call(tooltip, key)) {
+      const element = tooltip[key];
+      htmlTooltip += '<span class="input-span" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="' + element['place'] + '"' +
+        'title="' + element['msj'] + '" style="margin-bottom: 0px !important">' +
+        '<i class="bi bi-info-circle"></i>' +
+        '</span>';
     }
   }
-  return html;
-}
 
+  if (!$(`#${tablename}_filter`).exists()) {
+    setTimeout(() => {
+      inputBusquedaTable(tablename, datatable, tooltip, tooltipinput, classInput, classList)
+    }, 200);
+    return false;
+  }
+
+  $(`#${tablename}_filter`).parent('div').removeAttr('class');
+  $(`#${tablename}_filter`).parent('div').attr('class', classInput);
+
+  // let divList = padre.find('div')[0];
+  // divList.removeClass('col-sm-12 col-md-6');
+  // divList.addClass(classList)
+
+  tooltipinput['msj'] = tooltipinput['msj'] ? tooltipinput['msj'] : 'Filtra la lista por coincidencias';
+  tooltipinput['place'] = tooltipinput['place'] ? tooltipinput['place'] : 'top';
+
+  $(`#${tablename}_filter`).html(
+    '<div class="text-center mt-2" style="">' +
+    '<div class="input-group flex-nowrap">' +
+    htmlTooltip +
+    '<input type="search" class="input-form form-control input-table-search" aria-controls="' + tablename + '" style="display: unset !important; margin-left: 0px !important;margin-bottom: 0px !important;"' +
+    'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="' + tablename + 'BuscarTablaLista"' +
+    'data-bs-toggle="tooltip" data-bs-placement="' + tooltipinput['place'] + '" title="' + tooltipinput['msj'] + '">' +
+    '</div></div>'
+  )
+
+  //Zoom table
+  $(`#${tablename}_wrapper`).children('div [class="row"]').eq(1).css('zoom', '90%')
+
+  //Diseño de registros
+  $(`#${tablename}_wrapper`).children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
+
+  $('#' + tablename + 'BuscarTablaLista').on('keyup change click focus mouseenter mouseleave', function () {
+    datatable.search($(this).val()).draw();
+  });
+
+
+  let select = $('select[name="' + tablename + '_length"]');
+  select.removeClass('form-select form-select-sm');
+  select.addClass('select-form input-form');
+  select.css('margin-bottom', '0px')
+  select.css('width', 'max-content')
+
+}
 //
 
 
@@ -1764,7 +1753,8 @@ function configSelectTable(config) {
 }
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
-  var esDispositivoMovil = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini|iPad/i.test(navigator.userAgent);
+  var esTabletaVertical = /iPad/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth;
+  var esDispositivoMovil = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || esTabletaVertical;
 
   if (esDispositivoMovil)
     callback(esDispositivoMovil);
@@ -1830,42 +1820,35 @@ function dinamicTabs() {
 $(document).on('click', '.tab-table', function () {
   // loader = loader
   let btn = $(this);
-  isMovil(() => {
-    if (!btn.hasClass('active')) {
-      $('.tab-first').fadeOut(100);
-      $('.tab-second').fadeOut(0);
+  if (!btn.hasClass('active')) {
+    $('.tab-first').fadeOut(100);
+    $('.tab-second').fadeOut(0);
 
-      $('.tab-table').removeClass('active');
-      btn.addClass('active');
+    $('.tab-table').removeClass('active');
+    btn.addClass('active');
 
-      setTimeout(() => {
-        let id = btn.attr('data-id-column');
-        // console.log(id);
-        let loaderVisible = false;
-        loaderVisible = function () {
-          console.log($(loader_selectTable))
-          if ($(loader_selectTable).is(":hidden")) {
-            $(`${id}`).fadeIn(100);
-            setTimeout(() => {
-              $.fn.dataTable
-                .tables({
-                  visible: true,
-                  api: true
-                })
-                .columns.adjust();
-            }, 100);
-            loaderVisible = false;
-          } else {
-            console.log(loader_selectTable)
-            setTimeout(() => {
-              loaderVisible();
-            }, 150);
-          }
+    setTimeout(() => {
+      let id = btn.attr('data-id-column');
+      // console.log(id);
+      let loaderVisible = false;
+
+      console.log(loader_selectTable)
+      loaderVisible = function () {
+        console.log($(loader_selectTable))
+        if ($(loader_selectTable).is(":hidden")) {
+          $(`${id}`).fadeIn(100);
+          loaderVisible = false;
+        } else {
+          console.log(loader_selectTable)
+          setTimeout(() => {
+            loaderVisible();
+          }, 150);
         }
-        loaderVisible()
-      }, 100);
-    }
-  })
+      }
+      loaderVisible()
+    }, 100);
+  }
+
 })
 
 //Agrega el circulo para cargar el panel
@@ -1990,9 +1973,15 @@ function selectTable(tablename, datatable,
         $('.tab-second').fadeIn(200)
       }
 
+      $.fn.dataTable
+        .tables({
+          visible: true,
+          api: true
+        })
+        .columns.adjust();
 
     }
-    $(loader_selectTable).attr("style", "display: none !important");
+    $(`#loaderDiv-${loader_selectTable}`).attr("style", "display: none !important");
 
   }
 
@@ -2019,7 +2008,6 @@ function selectTable(tablename, datatable,
       if (dataClick[1]) {
         //Verifica si ya esta seleccionado
         if (!$(tr).hasClass('selected')) {
-          array_selected = row.data();
 
           //Reselecciona el tr que interactuas
           selectTable_resetSelect(tr, config)
@@ -2043,7 +2031,7 @@ function selectTable(tablename, datatable,
     }
 
 
-
+    array_selected = row.data();
 
     selectTableClickCount++;
     if ($(tr).hasClass('selected')) {
@@ -2067,13 +2055,12 @@ function selectTable(tablename, datatable,
           $(`.tab-select`).addClass('disabled')
 
           //Regresa la funcion personalizada
-          array_selected = null
           callbackClick(0, null, callback, null, null);
           //
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
-          array_selected = row.data();
+
           callbackDblClick(1, dataRow, callback, tr, row)
 
         }
@@ -2104,7 +2091,7 @@ function selectTable(tablename, datatable,
 
       } else {
         //Para una sola seleccion
-        array_selected = row.data();
+
         //Activar otros tab
         $(`.tab-select`).removeClass('disabled');
         //Reselecciona
@@ -2131,7 +2118,7 @@ function selectTable(tablename, datatable,
 
   function selectTable_cargarVista() {
     $('.tab-second').fadeOut()
-    $(loader_selectTable).fadeIn(0);
+    $(`#loaderDiv-${loader_selectTable}`).fadeIn(0);
   }
 
   function selectTable_resetSelect(tr, config, resetTR = false) {
@@ -2478,54 +2465,95 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
             row = array_selected;
             switch (tipPanel) {
               case 'paciente':
-                ajaxAwait({ api: 2, turno_id: id }, 'pacientes_api', { callbackAfter: true }, false, (data) => {
-                  const row = data['response']['data'][0];
-                  const mappings = {
-                    'nombre-persona': row.NOMBRE_COMPLETO,
-                    'edad-persona': formatoFecha(row.EDAD),
-                    'nacimiento-persona': formatoFecha(row.NACIMIENTO),
-                    'info-paci-alergias': row.ALERGIAS,
-                    'info-paci-procedencia': row.PROCEDENCIA,
-                    'info-paci-curp': row.CURP,
-                    'info-paci-telefono': row.CELULAR,
-                    'info-paci-correo': row.CORREO,
-                    'info-paci-sexo': row.GENERO,
-                    'info-paci-turno': row.TURNO || 'Sin generar',
-                    'info-paci-directorio': `${row.CALLE}, ${row.COLONIA}, ${row.MUNICIPIO}, ${row.ESTADO}`,
-                    'info-paci-comentario': row.COMENTARIO_RECHAZO,
-                    'info-paci-diagnostico': row.DIAGNOSTICO,
-                    'info-paci-reagenda': row.FECHA_REAGENDA ? formatoFecha(row.FECHA_REAGENDA) : '',
-                    'info-paci-recepcion': row.FECHA_RECEPCION || '',
-                    'info-paci-prefolio': row.PREFOLIO
-                  };
-
-                  Object.keys(mappings).forEach(key => {
-                    $(`#${key}`).html(mappings[key]);
-                  });
-
-                  if (row['ordenes']) {
-                    const ordenes = row['ordenes'][0];
-                    const hash = {
-                      'LABORATORIO CLÍNICO': 6,
-                      'ULTRASONIDO': 11,
-                      'RAYOS X': 8
-                    };
-
-                    for (const key in ordenes) {
-                      if (hash[ordenes[key]['area']] == area) {
-                        $('#contenedor-btn-ordenes-medicas').append(`
-                              <div class="col text-center">
-                                <a type="button" target="_blank" class="btn btn-borrar" href="${ordenes[key]['url']}">
-                                  <i class="bi bi-file-earmark-pdf"></i> ${ordenes[key]['area']}
-                                </a>
-                              </div>
-                            `);
+                $.ajax({
+                  url: http + servidor + "/" + appname + "/api/pacientes_api.php",
+                  data: {
+                    api: 2,
+                    turno_id: id
+                  },
+                  type: "POST",
+                  dataType: 'json',
+                  success: function (data) {
+                    if (mensajeAjax(data)) {
+                      row = data['response']['data'][0];
+                      $('#nombre-persona').html(row.NOMBRE_COMPLETO);
+                      $('#edad-persona').html(formatoFecha(row.EDAD))
+                      $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                      $('#info-paci-alergias').html(row.ALERGIAS);
+                      $('#info-paci-procedencia').html(row.PROCEDENCIA)
+                      $('#info-paci-curp').html(row.CURP);
+                      $('#info-paci-telefono').html(row.CELULAR);
+                      $('#info-paci-correo').html(row.CORREO);
+                      $('#info-paci-sexo').html(row.GENERO);
+                      if (row.TURNO) {
+                        $('#info-paci-turno').html(row.TURNO);
+                      } else {
+                        $('#info-paci-turno').html('Sin generar');
                       }
-                    }
-                  }
+                      $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
+                        row.MUNICIPIO + ", " + row.ESTADO);
+                      $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
 
-                  $(panel).fadeIn(100);
-                  resolve(1);
+                      $('#info-paci-diagnostico').html(row.DIAGNOSTICO);
+
+
+                      if (row.FECHA_REAGENDA != null) {
+                        $('#info-paci-reagenda').html(formatoFecha(row.FECHA_REAGENDA));
+                      }
+
+                      if (row.FECHA_RECEPCION != null) {
+                        $('#info-paci-recepcion').html(row.FECHA_RECEPCION);
+                      }
+
+                      $('#info-paci-prefolio').html(row.PREFOLIO)
+
+                      if (row['ordenes']) {
+                        // let row = row['ordenes']
+                        // if ()
+
+                        let ordenes = row['ordenes'][0];
+
+                        let hash = {
+                          'LABORATORIO CLÍNICO': 6,
+                          'ULTRASONIDO': 11,
+                          'RAYOS X': 8
+                        }
+
+                        for (const key in ordenes) {
+                          if (Object.hasOwnProperty.call(ordenes, key)) {
+                            const element = ordenes[key];
+                            if (hash[element['area']] == area) {
+                              $('#contenedor-btn-ordenes-medicas').append(`
+                                <div class="col text-center">
+                                  <a type="button" target="_blank" class="btn btn-borrar"
+                                      href="${element['url']}">
+                                    <i class="bi bi-file-earmark-pdf"></i> ${element['area']}
+                                  </a>
+                                </div>
+                              `)
+                            }
+
+                          }
+                        }
+
+
+                        try {
+                          let row = row['ordenes'][0]
+                        } catch (error) {
+
+                        }
+                      } else {
+                      }
+
+                    }
+                  },
+                  complete: function () {
+                    $(panel).fadeIn(100);
+                    resolve(1);
+                  },
+                  error: function (jqXHR, exception, data) {
+                    alertErrorAJAX(jqXHR, exception, data)
+                  },
                 })
 
                 break;
@@ -2896,7 +2924,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
               case 'listado_resultados':
                 ajaxAwait({ api: 21, turno_id: id }, 'consulta_api', { callbackAfter: true, ajaxComplete: resolve(1) }, false, (data) => {
                   //console.log(data)
-                  let areas = {
+                  let array = {
                     1: 'CONSULTORIO',
                     2: 'SOMATOMETRÍA',
                     3: 'OFTALMOLOGÍA',
@@ -2914,42 +2942,60 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     15: 'CERTIFICADO MÉDICO',
                     16: 'CONSULTORIO FASTCHECKUP'
                   }
-                  const row = data.response.data;
+                  let row = data.response.data;
+                  // $('#append-html-historial-estudios').html('');
 
-                  let htmlToAppend = '';
-                  for (const key in areas) {
-                    const areaLabel = areas[key];
-                    const filteredArea = row.filter(n => n.AREA_LABEL === areaLabel);
-                    htmlToAppend += buildListResultadosAreas(areaLabel, filteredArea);
+                  for (const key in array) {
+                    if (Object.hasOwnProperty.call(array, key)) {
+                      const element = array[key];
+
+                      let arrayArea = $.grep(row, function (n, i) {
+                        return n.AREA_LABEL === element;
+                      });
+
+                      //console.log(element, arrayArea)
+                      setListResultadosAreas('#append-html-historial-estudios', element, arrayArea)
+                    }
                   }
-
-                  $('#append-html-historial-estudios').html(htmlToAppend);
 
                   $(panel).fadeIn(100);
                   resolve(1);
                 })
 
-                function buildListResultadosAreas(titulo, array) {
-                  if (!array.length) return '';
+                function setListResultadosAreas(div, titulo, array) {
+                  let html = '';
+                  //titulo
+                  let lenghtArray = array.length;
+                  if (!lenghtArray)
+                    return false;
+                  html += `<li class="list-group-item d-flex justify-content-between align-items-start">
+                              <div class="ms-2 me-auto">`
+                  html += `<div class="fw-bold">
+                                <a class="" data-bs-toggle="collapse" href="#collapseEstudios${deleteSpace(titulo)}" role="button"
+                                    aria-expanded="false" aria-controls="collapseEstudios${deleteSpace(titulo)}">
+                                    ${titulo}
+                                </a>
+                            </div>`
+                  //Body 
+                  html += `<div class="collapse" id="collapseEstudios${deleteSpace(titulo)}">
+                                <ul style="list-style: disc;">`
 
-                  const cleanedTitle = deleteSpace(titulo);
-                  return `
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                          <div class="fw-bold">
-                              <a class="" data-bs-toggle="collapse" href="#collapseEstudios${cleanedTitle}" role="button"
-                                aria-expanded="false" aria-controls="collapseEstudios${cleanedTitle}">
-                                  ${titulo}
-                              </a>
-                          </div>
-                          <div class="collapse" id="collapseEstudios${cleanedTitle}">
-                              <ul style="list-style: disc;">
-                                  ${array.map(item => `<li><a href="${item['RUTA']}" target="_blank">${formatoFecha2(item['FECHA_RECEPCION'], [0, 1, 2, 2, 0, 0, 0])}</a></li>`).join('')}
-                              </ul>
-                          </div>
-                      </div>
-                      <span class="badge bg-primary rounded-pill">${array.length}</span>
-                  </li>`;
+                  for (const key in array) {
+                    if (Object.hasOwnProperty.call(array, key)) {
+                      const element = array[key];
+                      html += `<li><a href="${element['RUTA']}" target="_blank">${formatoFecha2(element['FECHA_RECEPCION'], [0, 1, 2, 2, 0, 0, 0])}</a></li>`
+                    }
+                  }
+
+                  html += `</ul> </div>`
+
+                  //Finish and number span 
+                  html += `</div>
+                        <span class="badge bg-primary rounded-pill">${lenghtArray}</span>
+                    </li>`
+
+                  $(div).append(html);
+
                 }
 
                 break;
@@ -3218,21 +3264,43 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 }, 'turnero_api', { callbackAfter: true }, false, function (data) {
 
                   try {
-                    const areasPendientes = data.response.data[0]['AREAS_PENDIENTES'];
+                    data = data.response.data[0]['AREAS_PENDIENTES']
+                    let html = '';
+                    console.log(data);
 
-                    function getAreasByFinalizadoStatus(status) {
-                      return areasPendientes
-                        .filter(area => area.FINALIZADO === status)
-                        .map(area => area.AREA)
-                        .join(', ');
+                    let filter = data.filter((data) => {
+                      return data.FINALIZADO === 0;
+                    });
+
+                    console.log(filter);
+
+                    for (const key in filter) {
+                      if (Object.hasOwnProperty.call(filter, key)) {
+                        const element = filter[key];
+                        html += `${element.AREA}, `;
+                      }
                     }
 
-                    $('#areas_faltantes').html(getAreasByFinalizadoStatus(0));
-                    $('#areas_terminadas').html(getAreasByFinalizadoStatus(1));
+                    $('#areas_faltantes').html(html);
 
+
+                    html = '';
+                    // console.log(data);
+
+                    filter = data.filter((data) => {
+                      return data.FINALIZADO === 1;
+                    });
+
+                    for (const key in filter) {
+                      if (Object.hasOwnProperty.call(filter, key)) {
+                        const element = filter[key];
+                        html += `${element.AREA}, `;
+                      }
+                    }
+
+                    $('#areas_terminadas').html(html);
                   } catch (error) {
-                    // Puedes manejar el error aquí si es necesario.
-                    // Por ejemplo, mostrando un mensaje al usuario o registrándolo en algún lugar.
+
                   }
 
                   $(panel).fadeIn(100);

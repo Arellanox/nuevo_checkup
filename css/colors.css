@@ -17,3 +17,7 @@
 .pantone-7408-color {
     color: rgb(247, 190, 000) !important;
 }
+
+.bg-white a{
+    color: black !important;
+}

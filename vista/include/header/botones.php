@@ -241,7 +241,7 @@ $menu = $_POST['menu']; ?>
 
 
 <?php if ($menu == 'Pacientes (Crédito)') : ?>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltroPacientesFacturacion">
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="modalGruposPacienteCredito">
     <i class="bi bi-archive"></i> Generar Grupo
   </button>
 <?php endif; ?>

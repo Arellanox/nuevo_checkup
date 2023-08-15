@@ -159,7 +159,7 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 <!-- Otras Areas -->
 <?php if ($_SESSION['vista']['NUTRICION'] == 1 || $_SESSION['vista']['NUTRICION_CAPTURAS'] == 1) : ?>
   <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-nutricion" aria-expanded="false">
-    <img src="../../../archivos/sistema/nutrientes.svg" alt="" style="margin-top: -4px;    width: 17px;"> Nutrición
+    <img src="../../../archivos/sistema/nutrientes.svg" alt="" style="filter: invert(100%); margin-top: -4px;    width: 17px;"> Nutrición
   </a>
   <div class="collapse" id="board-nutricion">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">

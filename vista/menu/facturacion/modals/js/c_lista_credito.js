@@ -56,7 +56,7 @@ tFillPaciCredito = $('#TablaFiltradaCredito').DataTable({
         },
         method: 'POST',
         url: '../../../api/admon_grupos_api.php',
-        beforeSend: function () { loader("In"); tFillPaciCredito.clear().draw(); },
+        beforeSend: function () { tFillPaciCredito.clear().draw(); },
         complete: function () {
             // loader("Out", 'bottom')
 
@@ -119,7 +119,7 @@ tListPaciGrupo = $('#TablaPacientesNewGrupo').DataTable({
         },
         method: 'POST',
         url: '../../../api/admon_grupos_api.php',
-        beforeSend: function () { loader("In"); tFillPaciCredito.clear().draw(); },
+        beforeSend: function () { tFillPaciCredito.clear().draw(); },
         complete: function () {
             // loader("Out", 'bottom')
 

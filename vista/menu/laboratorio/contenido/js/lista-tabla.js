@@ -287,6 +287,23 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
+            case '1103': // <-- BLUEFINDER 22 -->
+              kitDiag = {
+                0: {
+                  'descripcion': 'FTD™ Respiratory Pathogens 21',
+                  'clave': 'N/A'
+                }
+              }
+              classSelect = 'selectTipoMuestraPanel21';
+              muestras = {
+                0: {
+                  'descripcion': 'HISOPADO NASOFARÍNGEO',
+                },
+                1: {
+                  'descripcion': 'FARÍNGEA',
+                }
+              }
+              break;
             case '743':
               classSelect = 'selectTipoMuestraCitologia';
               muestras = {
@@ -420,7 +437,10 @@ function generarFormularioPaciente(id) {
                 case '1081':
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
+                // Panel 21
                 case '710': case '715': case '720': case '724': case '729':
+                // BlueFinder 22
+                case '1106': case '1111': case '1115': case '1120': case '1125': case '1129':
                   onlyLabel = true; break;
 
                 //FTD KIT DIAGNOSTICO
@@ -452,6 +472,7 @@ function generarFormularioPaciente(id) {
                   anotherClassInput = `VALOR_ABSOLUTO${Tipo}`;
                   anotherClassInputAbsoluto = `RESULTADO_ABSOLUTO${Tipo}`;
                   break;
+
                 default: anotherValue = ''; break;
               }
               //

@@ -1,20 +1,13 @@
 <?php
 include "../../../variables.php";
-date_default_timezone_set('America/Mexico_City');
-if (
-  $menu !=
-  "PrincipalMenu"
-  //Excepciones
-  && $menu != 'Facturacion'
-  && $menu != 'ListaPrecios'
-) : ?>
-  <li class="nav-item">
-    <a href="<?php echo "$https$url/$appname/vista/menu/principal";
-              /*echo $https . $url . '/' . /$appname . '/vista/menu/principal/';*/ ?>">
-      <i class="bi bi-window"></i> Menú
-    </a>
-  </li>
-<?php endif; ?>
+date_default_timezone_set('America/Mexico_City'); ?>
+
+<li class="nav-item">
+  <a href="" data-bs-toggle="offcanvas" data-bs-target="#offCanvaMenuPrincipal" aria-controls="offCanvaMenuPrincipal">
+    <i class="bi bi-layout-sidebar-inset"></i> Menú
+  </a>
+</li>
+
 <!-- <?php if ($menu == "Mesometria") : ?>
   <li class="nav-item">
     <a href="<?php echo "$https$url/$appname/vista/menu/consultorio/"; ?>">
@@ -23,16 +16,7 @@ if (
   </li>
 <?php endif; ?> -->
 
-<?php
-if (
-  $menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1
-) : ?>
-  <li class="nav-item">
-    <a href="<?php echo "$https$url/$appname/vista/menu/recepcion/"; ?>">
-      <i class="bi bi-people-fill"></i> Recepción
-    </a>
-  </li>
-<?php endif; ?>
+
 
 
 <?php if ($menu == "Recepción") : ?>
@@ -248,22 +232,19 @@ if (
 <?php endif; ?>
 
 <?php if ($menu == 'Facturacion') : ?>
+
+
   <li class="nav-item">
-    <div class="dropdown ">
-      <a class="dropdown-toggle" id="dropCuentasFacturacion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-thunderbolt"></i> Cuentas
-      </a>
-      <!-- Estos botones se cargan en el servidor desde el archivo del include -->
-      <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropCuentasFacturacion">
-        <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CONTADO">
-            <i class="bi bi-dot"></i> Cuentas de Contado
-          </a> </li>
-        <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="#CREDITO">
-            <i class="bi bi-dot"></i> Crédito
-          </a> </li>
-      </ul>
-    </div>
+    <a href="#CONTADO">
+      <i class="bi bi-pass-fill"></i> Cuentas de Contado
+    </a>
   </li>
+  <li class="nav-item">
+    <a href="#CREDITO">
+      <i class="bi bi-box-seam"></i> Cuentas de Crédito
+    </a>
+  </li>
+
 <?php endif; ?>
 
 

@@ -60,3 +60,32 @@ function hasLocation() {
             break;
     }
 }
+
+
+
+function FacturarGruposCredito(facturado = null, id_grupo = null) {
+
+    let config = {
+        api: 1,
+        num_factura: "",
+        id_grupo: id_grupo,
+        facturado: 1
+    }
+
+    if (facturado) {
+        config.num_factura = facturado;
+    }
+
+    ajaxAwait(config, 'admon_grupos_api', { callbackAfter: true }, false, function (response) {
+        let modal = "#ModalTicketCreditoFacturado";
+        $(modal).modal('hide');
+
+        console.log(response)
+
+        alertToast("Factura guardada con exito", "success", 3000)
+
+        TablaGrupos.ajax.reload();
+
+    })
+
+}

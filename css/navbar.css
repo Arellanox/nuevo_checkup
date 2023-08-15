@@ -82,3 +82,13 @@ a:hover {
 .navbar-menu a{
   font-size: 14px
 }
+
+
+
+.offcanvas-header{
+  padding: 2px
+}
+
+.offcanvas li.nav-item {
+    width: 100%;
+}
