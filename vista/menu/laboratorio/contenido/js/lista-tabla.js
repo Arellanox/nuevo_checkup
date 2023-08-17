@@ -352,6 +352,34 @@ function generarFormularioPaciente(id) {
             case '972': case '973':
               //Sin cambios
               break;
+
+            //rT-PCR para Mycobacterium tuberculosis MDR y XDR
+            case '1139':
+              kitDiag = {
+                0: {
+                  'descripcion': 'Anyplex™ II MTB/MDR/XDR',
+                  'clave': 'N/A'
+                }
+              }
+              classSelect = 'selectTipoMuestroMMDYXDR';
+              muestras = {
+                0: {
+                  'descripcion': 'Expectoración',
+                },
+                1: {
+                  'descripcion': 'Cultivo',
+                },
+                2: {
+                  'descripcion': 'Tejido',
+                },
+                3: {
+                  'descripcion': 'Fresco',
+                },
+                4: {
+                  'descripcion': 'Lavado Bronquial'
+                }
+              }
+              break;
             case '1074':
               kitDiag = {
                 0: {
@@ -447,6 +475,8 @@ function generarFormularioPaciente(id) {
                 case '710': case '715': case '720': case '724': case '729':
                 // BlueFinder 22
                 case '1106': case '1111': case '1115': case '1120': case '1125': case '1129':
+                //rT-PCR para Mycobacterium tuberculosis MDR y XDR
+                case '1146': case '1150': case '1147': case '1152':
                   onlyLabel = true; break;
 
                 //FTD KIT DIAGNOSTICO
@@ -458,6 +488,8 @@ function generarFormularioPaciente(id) {
                 case '692': case '706': case '734': case '991': case '1083':
                 // Bluefinder 22
                 case '1133':
+                //rT-PCR para Mycobacterium tuberculosis MDR y XDR
+                case '1140':
                   anotherInput = crearSelectCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], ifnull(classSelect)); break;
                 case '693': case '707': case '735': case '992':
                   anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
@@ -475,6 +507,8 @@ function generarFormularioPaciente(id) {
                 case '695': case '700': case '708': case '736': case '756': case '994': case '1084':
                 // BlueFinder 22:
                 case '1135':
+                //rT-PCR para Mycobacterium tuberculosis MDR y XDR
+                case '1142':
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
                 //Laboratorio Clinico:

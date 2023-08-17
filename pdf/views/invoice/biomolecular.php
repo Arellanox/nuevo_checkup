@@ -323,7 +323,8 @@ function passdata($indice)
         "CITOLOGÍA" => 'CITOLOGIA',
         "rT-PCR-ETS" => 'PCR-ETS',
         "FTD Fiebre Tropical Multiplex" => 'FTDMultiplex',
-        "PANEL RESPIRATORIO 22" => 'PANEL22'
+        "PANEL RESPIRATORIO 22" => 'PANEL22',
+        "rT-PCR para Mycobacterium tuberculosis MDR y XDR" => 'mycobacte_tuberculosis'
     ];
 
     // echo $indice;
