@@ -8,7 +8,7 @@
 <!-- style="max-height: 60vh" -->
 <div class="row overflow-auto">
   <div class="col-12 col-xl-3 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
-    <div class="card mt-3 p-3" id="lista-pacientes">
+    <div class="rounded p-3 shadow my-2" id="lista-pacientes">
       <h5>Lista de pacientes</h5>
 
       <!-- Control de turnos -->
@@ -31,11 +31,11 @@
   </div>
 
   <div class="col-12 col-xl-3 tab-second" id="tab-informacion" style="margin-right: -5px !important;  display:none !important">
-    <div class="card mt-3" id="panel-informacion"> </div>
+    <div class="rounded p-3 shadow my-2" id="panel-informacion"> </div>
 
   </div>
   <div class="col-12 col-xl-6 tab-second" id="tab-reporte" style="margin-right: -5px !important;  display:none !important">
-    <div class="card mt-3 p-3">
+    <div class="rounded p-3 shadow my-2">
       <div class="row">
         <div class="col-12 col-lg-7">
           <h4>Estudios y contenedores</h4>

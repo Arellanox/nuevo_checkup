@@ -10,8 +10,8 @@
           <p class="text-center">Rellene todos los datos necesarios para un nuevo <strong>Estudio</strong> </p>
           <div class="row">
             <!-- Información servicio -->
-            <div class="col-4">
-              <div class="card p-3">
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="rounded p-3 shadow my-2">
                 <div class="row">
                   <h5>Información del estudios</h5>
                   <p>Rellene la información basica del estudio</p>
@@ -111,8 +111,8 @@
               </div>
             </div>
             <!-- Información clasificación equipo /  -->
-            <div class="col-4">
-              <div class="card p-3">
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="rounded p-3 shadow my-2">
                 <div class="row">
                   <h5>Grupo de examen</h5>
                   <p>Seleccione o agregue los grupo de examen del estudio</p>
@@ -224,8 +224,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-4">
-              <div class="card p-3">
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="rounded p-3 shadow my-2">
                 <h5>Equipo de laboratorio</h5>
                 <p>Seleccione o agregue los equipos del estudio</p>
                 <div class="" id="div-select-equipo">

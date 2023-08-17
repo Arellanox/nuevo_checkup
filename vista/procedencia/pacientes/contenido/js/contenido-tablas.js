@@ -278,7 +278,7 @@ selectTable('#tablaPacientes', tablaPacientes, {
             class: 'btn_offcanva',
             callback: async (data) => {
                 alertToast('Cargando datos', 'info', 2500)
-                await obtenerPanelInformacion(1, 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
+                await obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
                 var myOffcanvas = document.getElementById('offcanvasInfoPrincipal')
                 var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
                 bsOffcanvas.show()

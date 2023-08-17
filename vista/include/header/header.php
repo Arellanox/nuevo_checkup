@@ -194,6 +194,8 @@ switch ($menu) {
           <?php
           if ($menu != 'procedencia') {
             include "navbar-menu/navlink-normales.php";
+            $tip = 'floting';
+            include "navbar-menu/navlink-areas.php";
             // include "areas-windows-float.php";
           }
           ?>

@@ -56,7 +56,7 @@ session_start();
 
 <div class="row">
     <div class="col-12 col-xl-4 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
-        <div class="card mt-2 p-3" id="lista-pacientes">
+        <div class="rounded p-3 shadow my-2" id="lista-pacientes">
             <h4>Lista de pacientes</h4>
 
             <?php if ($control_turnos) : ?>
@@ -90,9 +90,9 @@ session_start();
     </div>
 
     <div class="col-12 col-xl-4 tab-second" id="tab-informacion" style="margin-right: -5px !important;display:none">
-        <div class="card mt-2" id="panel-informacion"> </div>
+        <div class="rounded p-3 shadow my-2" id="panel-informacion"> </div>
 
-        <div class="card mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
+        <div class="rounded p-3 shadow my-2" id="signos-vitales"> <!-- Signos vitales --> </div>
         <!-- <div class="card m-3 p-4">
       <h4>Estudios anteriores</h4>
       <div class="accordion" id="accordionResultadosAnteriores">
@@ -100,7 +100,7 @@ session_start();
     </div> -->
     </div>
     <div class="col-12 col-xl-4 tab-second" id="tab-reporte" style="margin-right: -5px !important;display:none">
-        <div class="card mt-2 p-3" id="panel">
+        <div class="rounded p-3 shadow my-2" id="panel">
             <div class="" id="
             ">
                 <div class="row">

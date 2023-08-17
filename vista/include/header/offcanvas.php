@@ -20,6 +20,7 @@
       // navlink-list
       #include "navbar-menu/navlink-droplist-areas.php";
       include "areas-windows-float.php";
+
       ?>
 
     </ul>

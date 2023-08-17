@@ -16,6 +16,14 @@ if (
     </li>
 <?php endif; ?>
 
+<?php if ($_SESSION['vista']['MENU_MAQUILA'] == 1) : ?>
+    <li class="nav-item">
+        <a href="<?php echo "$https$url/$appname/vista/procedencia/pacientes/#UJAT"; ?>">
+            <i class=" bi bi-thunderbolt"></i> UJAT
+        </a>
+    </li>
+<?php endif; ?>
+
 
 <?php if (
     $_SESSION['vista']['AGENDA_PACIENTES'] == 1
@@ -138,10 +146,10 @@ if (
 
 
             <!-- Estos botones se cargan en el servidor desde el archivo del include -->
-            <!-- <ul style="padding-left: 15px;" class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-                 <?php #include "navbar-menu/navlink-droplist-admin.php"; 
-                    ?>
-             </ul> -->
+            <ul style="padding-left: 15px;" class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
+                <?php include "navbar-menu/navlink-droplist-admin.php";
+                ?>
+            </ul>
         </div>
     </li>
 <?php endif; ?>

@@ -748,7 +748,7 @@ async function GeenerarReporteImagenologia(data) {
             // console.log(data[k]);
             let row = data[k];
 
-            html += '<div class="col-12 col-md-6 col-xxl-6"><div class="row card p-3 m-1">' +
+            html += '<div class="col-12 col-md-6 col-xxl-6"><div class="row rounded p-3 shadow my-2">' +
                 '<h4>' + row['SERVICIO'] + '</h4>';
             html += textAreaIMG('Técnica', row['ID_SERVICIO'], 'tecnica', row['TECNICA'], 1);
             html += textAreaIMG('Hallazgos', row['ID_SERVICIO'], 'hallazgo', row['HALLAZGO'], 2);

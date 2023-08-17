@@ -250,14 +250,11 @@ date_default_timezone_set('America/Mexico_City'); ?>
 
 
 
-<!-- Menu nuevo de la ujat -->
+<?php if (
+  $menu == 'Laboratorio' ||
+  $menu == 'muestras'
+) :
 
-<?php if ($_SESSION['vista']['MENU_MAQUILA'] == 1) : ?>
-  <li class="nav-item">
-    <a href="<?php echo "$https$url/$appname/vista/procedencia/pacientes/#UJAT"; ?>">
-      <i class=" bi bi-thunderbolt"></i> UJAT
-    </a>
-  </li>
-<?php endif; ?>
+  include "navbar-menu/buttons/lab-buttons.php";
 
-<!-- Aqui termine el menu nuevo de la ujat -->
+endif; ?>
