@@ -1052,7 +1052,21 @@ class Miscelaneus
         // $area_id = $area_id; #11 es el id para ultrasonido y rayosx.
         $response1 = $master->getByNext('sp_imagenologia_resultados_b', [null, $turno_id, $area_id]);
 
+        $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$turno_id, $area_id]);
+
         $arrayimg = [];
+        $arrayNuevascapturas = [];
+
+        // print_r($response2[0]['CAPTURAS']);
+
+
+
+        for ($i = 0; $i < count($response2); $i++) {
+            // print_r($decodedResponse2);
+            $decodedResponse2 = $master->decodeJsonRecursively($response2[$i]);
+            array_push($arrayNuevascapturas, $decodedResponse2['CAPTURAS']);
+        }
+
 
         for ($i = 0; $i < count($response1[1]); $i++) {
 
@@ -1073,7 +1087,8 @@ class Miscelaneus
         }
 
         return array(
-            'ESTUDIOS' => $arrayimg
+            'ESTUDIOS' => $arrayimg,
+            'IMAGENES' => $arrayNuevascapturas
         );
     }
 

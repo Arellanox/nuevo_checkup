@@ -40,13 +40,6 @@
             /* background-color: pink; 
         } */
 
-        a {
-            position: fixed;
-            padding: 0px;
-            top: -15px;
-            left: 40px
-        }
-
         .footer .page:after {
             content: counter(page);
         }
@@ -279,10 +272,12 @@ $encode_firma = base64_encode($ruta_firma);
                 <tr>
                     <td class="col-left" style="border-bottom: none">
 
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_IMAGEN; ?> </strong>
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_IMAGEN; ?>
+                        </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
+                        Edad: <strong style="font-size: 12px;">
+                            <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
@@ -293,10 +288,12 @@ $encode_firma = base64_encode($ruta_firma);
                         Nombre: <strong style="font-size: 12px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?> </strong>
+                        Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?>
+                        </strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
-                        Pasaporte: <strong style='font-size:12px'> <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
+                        Pasaporte: <strong style='font-size:12px'>
+                            <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
                     </td>
                 </tr>
                 <tr>
@@ -322,7 +319,8 @@ $encode_firma = base64_encode($ruta_firma);
             <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
         </p>
         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
-            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
+            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'> " . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?>
+            </strong>
         </p>
         <!-- <p>Aqui va el encabezado y es el espacio disponible hasta donde llegue el titulo siguiente.</p> -->
     </div>
@@ -347,10 +345,10 @@ $encode_firma = base64_encode($ruta_firma);
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
-                    <td colspan="6" style="text-align: center; width: 50%;height: 100px">
+                    <td colspan="6" style="text-align: center; width: 50%">
                         <?php
                         if ($preview == 0) {
-                            echo "<a target='_blank' href='$qr[0]'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
                         }
                         ?>
                     </td>
@@ -384,7 +382,8 @@ $encode_firma = base64_encode($ruta_firma);
         </table>
         <hr style="height: 0.5px; background-color: black ;">
         <p style="text-align: center;"><small>
-                <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
+                <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas,
+                    Villahermosa Tabasco, C.P. 86079</strong> <br>
                 <strong style="font-size: 11px;">Teléfonos: </strong>
                 <strong style="font-size: 11px;">993 634 0250, 993 634 6245</strong>
                 <strong style="font-size: 11px;">Correo electrónico:</strong>
@@ -422,17 +421,119 @@ $encode_firma = base64_encode($ruta_firma);
             }
         }
         ?>
+        <div class="break"></div>
+
+        <?php
+        // print_r($resultados->ESTUDIOS[0]);
+        $jsonData = $resultados->IMAGENES;
+        $j = 0;
+        $d = 0;
+        $countArray = count($resultados->ESTUDIOS);
+        $cierre = 1;
+        $img_pasadas = 1;
+        // print_r($area);
+
+        foreach ($resultados->ESTUDIOS as $key => $value) {
+            // code...
+            // echo "</tr>";
+            // echo "</table>";
+            // echo "<div class='break'></div>";c
+            echo "<h2 style='padding-bottom: 8px; padding-top:8px'>$value->ESTUDIO</h2>";
+
+            foreach ($jsonData[$key][0] as $key2 => $captura) {
+
+
+                if ($area == 8) {
+
+                    $ruta_img = file_get_contents($captura->url);
+
+                    $img_code = base64_encode($ruta_img);
+
+                    echo "<div class='img--container'><a href='$captura->url' target='_blank'><img style='max-width: 45%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
+                } else if ($area == 11) {
+                    if ($img_pasadas == 1) {
+                        echo "<table style='padding: 20px;width: 100%; border-collapse: collapse;'>";
+                    }
+
+                    if ($cierre == 1) {
+                        echo "<tr>";
+                    }
+                    $ruta_img = file_get_contents($captura->url);
+
+                    $img_code = base64_encode($ruta_img);
+
+                    echo "<td><a href='$captura->url' target='_blank'><img style='max-width: 100%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></td>";
+                    // echo "<div class='break'></div>";
+                    $cierre++;
+                    if ($cierre == 3) {
+                        echo "</tr>";
+                        $cierre = 1;
+                    }
+
+                    $img_pasadas++;
+                    if ($img_pasadas == 5) {
+                        echo "</table>";
+                        echo "<div class='break'></div>";
+                        $img_pasadas = 1;
+                    }
+                    $d++;
+                }
+            }
+            if ($area == 11) {
+
+                // echo "</table>";
+
+                if ($img_pasadas < 5) {
+                    for ($i = 0; $i <= 5 - $img_pasadas; $i++) {
+                        # code...
+                        echo "<td></td>";
+                        $cierre++;
+                        if ($cierre == 3) {
+                            echo "</tr>";
+                            $cierre = 1;
+                        }
+
+                        $img_pasadas++;
+                    }
+
+                    if ($img_pasadas == 5) {
+                        echo "</tr>";
+                        echo "</table>";
+                        // echo "<div class='break'></div>";
+                        $img_pasadas = 1;
+                    }
+                    // echo "</table>";
+                    // echo "<div class='break'></div>";   
+                }
+            }
+            $j++;
+            if ($j == $countArray - 1) {
+        ?>
+                <div class="break"></div>
+        <?php
+            }
+        }
+        ?>
     </div>
 </body>
 <?php
 $altura = 220;
-
 for ($i = 2; $i < $indice; $i++) {
     $altura = $altura + 50;
 }
 // echo $altura;
 ?>
 <style>
+    .img--container {
+        text-align: center;
+    }
+
+    .img--container img {
+        margin-top: 20px;
+        position: relative;
+    }
+
+
     .footer {
         position: fixed;
         bottom: -165px;
