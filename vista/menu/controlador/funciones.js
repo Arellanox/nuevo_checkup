@@ -2714,7 +2714,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   url: http + servidor + "/" + appname + "/api/recepcion_api.php",
                   type: "POST",
                   dataType: 'json',
-                  data: { api: 6, id_turno: row['ID_TURNO'] ? row['ID_TURNO'] : row['TURNO_ID'] },
+                  data: { api: 6, id_turno: ifnull(row, id, ['ID_TURNO', 'TURNO_ID']) },
                   success: async function (data) {
                     if (!mensajeAjax(data))
                       return false;
