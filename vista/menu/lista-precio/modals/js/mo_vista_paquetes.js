@@ -75,12 +75,12 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
     columnDefs: [
         // { target: 0, title: '#', className: 'all' },
         { target: 0, title: 'Descripción', className: 'all' },
-        { target: 1, title: 'CVE', className: 'all' },
-        { target: 2, title: 'Cantidad', className: 'all' },
-        { target: 3, title: 'Costo', className: 'all' },
+        { target: 1, title: 'CVE', className: 'min-tablet' },
+        { target: 2, title: 'Cantidad', className: 'min-tablet' },
+        { target: 3, title: 'Costo', className: 'desktop' },
         { target: 4, title: 'Costo Total', className: 'all' },
         { target: 5, title: 'Descuento', className: 'all' },
-        { target: 6, title: 'Precio Venta', className: 'all' },
+        { target: 6, title: 'Precio Venta', className: 'min-tablet' },
         { target: 7, title: 'Subtotal', className: 'all' },
     ],
     footer: true,
@@ -122,9 +122,11 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             .column(7)
             .data()
             .reduce(function (a, b) {
-                b = ifnull(b, '0', ['PRECIO_VENTA_UNITARIO', 'Subtotal'])
+                console.log(b);
+                b = ifnull(b, '0', ['PRECIO_VENTA_UNITARIO', 'SUBTOTAL'])
                 // Eliminar el símbolo "$" y los separadores de miles antes de sumar
                 var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
+                console.log(b, num);
                 return a + num;
             }, 0);
 
