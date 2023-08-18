@@ -452,6 +452,11 @@ function generarFormularioPaciente(id) {
                 case '686': case '687': case '688':
                   anotherValue = 'NEGATIVO'; break;
 
+                //rT-PCR para Mycobacterium tuberculosis MDR y XDR
+                case '1145': case'1148': case'1149': case'1151': case'1153': case'1153':
+                anotherValue = 'NO DETECTADO';
+                break;
+
                 case '690': case '699': case '702': case '726': case '727': case '728':
                 case '703': case '704': case '705': case '711': case '712': case '732':
                 case '713': case '714': case '716': case '717': case '718': case '731':
