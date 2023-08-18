@@ -4,6 +4,8 @@ modalOrdenesMedicas.addEventListener('show.bs.modal', event => {
     // document.getElementById("title-paciente_perfil_imagen").innerHTML = ;
     $('#title-orden_medica').html("Cargar ordenes medicas: <br />" + array_selected['NOMBRE_COMPLETO']);
 
+    $('input [type="file"]').val('');
+
 })
 
 //Rechazados
@@ -17,6 +19,7 @@ $("#formOrdenesMedicasPaciente").submit(async function (event) {
 
     if (dataAjax) {
         alertToast('Orden medicas cargada', 'success', 4000)
+        $('input [type="file"]').val('');
     }
 
     $('#modalOrdenesMedicas').modal('hide');
