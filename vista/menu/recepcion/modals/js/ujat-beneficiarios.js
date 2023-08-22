@@ -10,6 +10,8 @@ ModalBeneficiario.addEventListener('show.bs.modal', event => {
     // document.getElementById('formBeneficiadoTrabajador').reset
     $('#formBeneficiadoTrabajador').trigger("reset");
     $('#datos-nuevo-trabajador').fadeOut(200)
+
+    resetInputFile()
 })
 
 async function cargarModal() {
@@ -33,6 +35,7 @@ async function datosPacienteBeneficiado(turno) {
                 alertToast('Verificando si existen datos previos...', 'info', 4000);
             },
             success: function (data) {
+                trabajador_id_modal = 0
                 if (mensajeAjax(data)) {
                     if (data.response.data.length > 0) {
                         let row = data.response.data[0];
@@ -248,6 +251,10 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
                     // alertMensaje('info', 'Informacion cargada', 'Estamos actualiz')
                     // tablaRecepcionPacientes.ajax.reload();
 
+                    if (!document.getElementById('checkPacienteBeneficia').checked) {
+                        trabajador_id_modal = $('#lista-pacientes-trabajadores').val();
+                    }
+
 
                     if (TrabajadorData) {
                         $.ajax({
@@ -260,7 +267,7 @@ $("#formBeneficiadoTrabajador").submit(function (event) {
                                 curp: $('#curp-trabajador').val(),
                                 pasaporte: $('#input-pasaporte-trabajador').val(),
                                 numero_trabajador: $('#input-numero_trabajador-trabajador').val(),
-                                trabajador_id: trabajador_id_modal ? trabajador_id_modal : $('#lista-pacientes-trabajadores').val(),
+                                trabajador_id: trabajador_id_modal,
                                 api: 9
                             },
                             url: "../../../api/recepcion_api.php",

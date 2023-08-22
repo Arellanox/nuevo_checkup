@@ -365,6 +365,7 @@ function checkNumber(x, transform = 0) {
 
 
 function ifnull(data, siNull = '', values = ['option1', 'option2']) {
+
   // Caso de Objeto
   if (typeof data === 'object' && data !== null) {
     for (const key of values) {
@@ -464,7 +465,7 @@ $(document).on('change click', 'input[type="file"]', function () {
 })
 
 function resetInputFile() {
-  $('input[name="file"]').each(function () {
+  $('input[type="file"]').each(function () {
     $(this).val('')
     var label = $(this).parent('div').find('label[class="input-file-label"]')
     label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
