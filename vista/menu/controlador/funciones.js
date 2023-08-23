@@ -364,36 +364,42 @@ function checkNumber(x, transform = 0) {
 }
 
 
-function ifnull(data, siNull = '', values = ['option1', 'option2']) {
+function ifnull(data, siNull = '', values = [
+  'option1',
+  {
+    'option2': [
+      'suboption1',
+      {
+        'suboption2': ['valor']
+      }
+    ],
+    'option3': 'suboption1'
+  },
+  'option4',
+]) {
 
-  // Caso de Objeto
-  if (typeof data === 'object' && data !== null) {
-    for (const key of values) {
-      if (data.hasOwnProperty(key)) {
-        // return ifnull(data.key, siNull)
-        let value_def = ifnull(data[key])
-        if (value_def) {
-          return data[key]
-        } else {
-          if (key == values[values.length - 1])
-            return siNull
-        }
-        // console.log(data[key], key, data)
-        // return ifnull(data[key], siNull); // Devuelve el valor de la primera clave que exista
+  values = (typeof values === 'object' && !Array.isArray(values))
+    ? [values]
+    : values;
+
+  // Comprobar si el dato es nulo o no es un objeto
+  if (!data || typeof data !== 'object') {
+    return data === undefined || data === null || data === 'NaN' || data === '' ? siNull : data;
+  }
+
+  // Iterar a través de las claves en values
+  for (const key of values) {
+    if (typeof key === 'string' && key in data) {
+      return data[key] || siNull;
+    } else if (typeof key === 'object') {
+      for (const nestedKey in key) {
+        const result = ifnull(data[nestedKey], siNull, key[nestedKey]);
+        if (result) return result;
       }
     }
-    return siNull; // Devuelve siNull si no se encuentra ninguna clave
-  }
-  // Otros Casos
-  else {
-    if (data === 'NaN' || typeof data === 'undefined' || data === '' || data === 'null' || !data) return siNull;
-    if (data) {
-      data = `${data}`.replace(/["]+/g, '&quot;');
-      return data;
-    }
-    return siNull;
   }
 
+  return siNull;
 }
 
 

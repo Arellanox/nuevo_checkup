@@ -137,7 +137,7 @@
 
                     </li>
                     <li class="list-group-item">
-                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Masa Corporal</p>
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Índice de Masa Corporal</p>
                       <div class="input-group">
                         <input type="text" class="form-control input-form" data-id="calculoMasaCorpo" id="masaCorporal" name="medidas[3]" placeholder="" disabled>
                         <span class="input-span">kg/m2</span>
@@ -160,15 +160,28 @@
                     </script>
 
                     <li class="list-group-item">
-                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Masa Muscular</p>
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Masa Libre de Grasa</p>
                       <div class="input-group">
                         <input type="text" class="form-control input-form" id="masaMuscular" name="medidas[9]" placeholder="">
                         <span class="input-span">kg</span>
                       </div>
-
                     </li>
                     <li class="list-group-item">
-                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Porcentaje de Grasa Visceral</p>
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Masa Grasa Corporal</p>
+                      <div class="input-group">
+                        <input type="text" class="form-control input-form" id="masagrasaCorportal" name="medidas[18]" placeholder="">
+                        <span class="input-span">kg</span>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Minerales</p>
+                      <div class="input-group">
+                        <input type="text" class="form-control input-form" id="minerales" name="medidas[19]" placeholder="">
+                        <span class="input-span">kg</span>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Nivel de Grasa Visceral</p>
                       <div class="input-group">
                         <input type="text" class="form-control input-form" id="porcentajeGrasaVisceral" name="medidas[13]" placeholder="">
                         <span class="input-span">%</span>
@@ -178,19 +191,21 @@
 
                   </ul>
                 </div>
+
+
                 <div class="col-12 col-lg-6" style="padding-left: 0px;">
                   <ul class="list-group hover-list info-detalle">
 
                     <li class="list-group-item">
-                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Huesos</p>
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Músculo Esquelético</p>
                       <div class="input-group">
                         <input type="text" class="form-control input-form" id="huesos" name="medidas[14]" placeholder="">
-                        <span class="input-span">mm</span>
+                        <span class="input-span">kg</span>
                       </div>
 
                     </li>
                     <li class="list-group-item">
-                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Metabolismo</p>
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Tasa Metabólica Basal</p>
                       <div class="input-group">
                         <input type="text" class="form-control input-form" id="metabolismo" name="medidas[15]" placeholder="">
                         <span class="input-span">tmb</span>
@@ -198,14 +213,14 @@
 
                     </li>
 
-                    <li class="list-group-item">
+                    <!-- <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Edad del cuerpo</p>
                       <div class="input-group">
                         <input type="text" class="form-control input-form" id="edadCuerpo" name="medidas[17]" placeholder="">
                         <span class="input-span">años</span>
                       </div>
+                    </li> -->
 
-                    </li>
                     <li class="list-group-item">
                       <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Perímetro Cefálico</p>
                       <div class="input-group">
@@ -215,20 +230,19 @@
 
                     </li>
                     <li class="list-group-item">
-                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Porcentaje de Proteínas</p>
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Proteínas</p>
                       <div class="input-group">
                         <input type="text" class="form-control input-form" id="porcentajeProteinas" name="medidas[16]" placeholder="">
-                        <span class="input-span">%</span>
+                        <span class="input-span">kg</span>
                       </div>
 
                     </li>
                     <li class="list-group-item">
-                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Porcentaje de Agua</p>
+                      <p><i class="bi bi-box-arrow-in-right" style="zoom:120%"></i> Agua Corporal Total</p>
                       <div class="input-group">
                         <input type="text" class="form-control input-form" id="porcentajeAgua" name="medidas[12]" placeholder="">
-                        <span class="input-span">%</span>
+                        <span class="input-span">lt</span>
                       </div>
-
                     </li>
 
                   </ul>

@@ -20,6 +20,9 @@ tablaSignos = $('#TablaSignos').DataTable({
             //Para ocultar segunda columna
             reloadSelectTable()
         },
+        error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
+        },
         dataSrc: 'response.data'
     },
     createdRow: function (row, data, dataIndex) {
@@ -64,49 +67,49 @@ inputBusquedaTable('TablaSignos', tablaSignos, [{
 
 async function obtenerResultadosSignos(id) {
     return new Promise(resolve => {
-        $.ajax({
-            url: http + servidor + "/nuevo_checkup/api/somatometria_api.php",
-            dataType: 'json',
-            method: 'POST',
-            data: { id_turno: id, api: 2 },
-            success: function (data) {
-                if (mensajeAjax(data)) {
-                    let row = data.response.data;
-                    if (Object.keys(row).length > 2) {
-                        bloquearBotones(1)
-                        $('#frecuenciaCardiaca').val(row['FRECUENCIA CARDIACA']['VALOR'])
-                        $('#frecuenciaRespiratoria').val(row['FRECUENCIA RESPIRATORIA']['VALOR'])
-                        $('#sistolica').val(row['SISTOLICA']['VALOR'])
-                        $('#diastolica').val(row['DIASTOLICA']['VALOR'])
-                        $('#saturacionOxigeno').val(row['SATURACION DE OXIGENO']['VALOR'])
-                        $('#temperatura').val(row['TEMPERATURA']['VALOR'])
-                        $('#estatura').val(row['ESTATURA']['VALOR'])
-                        $('#peso').val(row['PESO']['VALOR'])
-                        $('#masaCorporal').val(row['MASA CORPORAL']['VALOR'])
-                        $('#masaMuscular').val(row['MASA MUSCULAR']['VALOR'])
-                        $('#porcentajeGrasaVisceral').val(row['PORCENTAJE DE GRASA VISCERAL']['VALOR'])
-                        $('#huesos').val(row['HUESOS']['VALOR'])
-                        $('#metabolismo').val(row['METABOLISMO']['VALOR'])
-                        $('#edadCuerpo').val(row['EDAD DEL CUERPO']['VALOR'])
-                        $('#perimetroCefalico').val(row['PERIMETRO CEFALICO']['VALOR'])
-                        $('#porcentajeProteinas').val(row['PORCENTAJE DE PROTEINAS']['VALOR'])
-                        $('#porcentajeAgua').val(row['PORCENTAJE DE AGUA']['VALOR'])
-                        $('#sistolica').val(row['SISTOLICA']['VALOR'])
-                        if (row['RUTA_REPORTE']) {
-                            $('#button_reporte').html('<a type="button" target="_blank" class="btn btn-borrar me-2" href="' + row['RUTA_REPORTE'] + '" style="margin-bottom:4px">' +
-                                '<i class="bi bi-file-earmark-pdf"></i>' +
-                                '</a>');
-                        } else {
-                            $('#button_reporte').html('');
-                        }
-                    } else {
-                        bloquearBotones(2)
-                    }
+        ajaxAwait({ id_tunro: id, api: 2 }, 'somatometria_api', { callbackAfter: true }, false, (row) => {
+            row = row.response.data;
+            if (Object.keys(row).length > 2) {
+                bloquearBotones(1)
+                console.log(row);
+                const elementMap = {
+                    'frecuenciaCardiaca': 'FRECUENCIA CARDIACA',
+                    'frecuenciaRespiratoria': 'FRECUENCIA RESPIRATORIA',
+                    'sistolica': 'SISTOLICA',
+                    'diastolica': 'DIASTOLICA',
+                    'saturacionOxigeno': 'SATURACION DE OXIGENO',
+                    'temperatura': 'TEMPERATURA',
+                    'estatura': 'ESTATURA',
+                    'peso': 'PESO',
+                    'masaCorporal': 'ÍNDICE DE MASA MUSCULAR',
+                    'masaMuscular': 'MASA LIBRE DE GRASA',
+                    'porcentajeGrasaVisceral': 'NIVEL DE GRASA VISCERAL',
+                    'huesos': 'MÚSCULO ESQUELÉTICO',
+                    'metabolismo': 'TASA METABÓLICA BASAL',
+                    'perimetroCefalico': 'PERIMETRO CEFALICO',
+                    'porcentajeProteinas': 'PROTEÍNAS',
+                    'porcentajeAgua': 'AGUA CORPORAL TOTAL',
+                    'masagrasaCorportal': 'MASA GRASA CORPORAL',
+                    'sistolimineralesca': 'MINERALES'
+                };
+
+                // Iterar sobre el mapeo para establecer los valores de los elementos
+                for (const [elementID, rowKey] of Object.entries(elementMap)) {
+                    $(`#${elementID}`).val(ifnull(row, '', { [rowKey]: ['VALOR'] }));
                 }
-            },
-            complete: function () {
-                resolve(1);
+
+                // Manejar el botón de reporte
+                const reportPath = ifnull(row, '', ['RUTA_REPORTE']);
+                if (reportPath) {
+                    $('#button_reporte').html(`<a type="button" target="_blank" class="btn btn-borrar me-2" href="${reportPath}" style="margin-bottom:4px"><i class="bi bi-file-earmark-pdf"></i></a>`);
+                } else {
+                    $('#button_reporte').html('');
+                }
+            } else {
+                bloquearBotones(2)
             }
+
+            resolve(1);
         })
     })
 }
