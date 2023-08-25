@@ -5,7 +5,7 @@ tablaSignos = $('#TablaSignos').DataTable({
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: autoHeightDiv(0, 330),
+    scrollY: '61vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -67,7 +67,7 @@ inputBusquedaTable('TablaSignos', tablaSignos, [{
 
 async function obtenerResultadosSignos(id) {
     return new Promise(resolve => {
-        ajaxAwait({ id_tunro: id, api: 2 }, 'somatometria_api', { callbackAfter: true }, false, (row) => {
+        ajaxAwait({ id_turno: id, api: 2 }, 'somatometria_api', { callbackAfter: true }, false, (row) => {
             row = row.response.data;
             if (Object.keys(row).length > 2) {
                 bloquearBotones(1)
@@ -81,16 +81,16 @@ async function obtenerResultadosSignos(id) {
                     'temperatura': 'TEMPERATURA',
                     'estatura': 'ESTATURA',
                     'peso': 'PESO',
-                    'masaCorporal': 'ÍNDICE DE MASA MUSCULAR',
+                    'masaCorporal': 'ÍNDICE DE MASA CORPORAL',
                     'masaMuscular': 'MASA LIBRE DE GRASA',
                     'porcentajeGrasaVisceral': 'NIVEL DE GRASA VISCERAL',
-                    'huesos': 'MÚSCULO ESQUELÉTICO',
+                    'huesos': 'MASA DE MÚSCULO ESQUELÉTICO',
                     'metabolismo': 'TASA METABÓLICA BASAL',
                     'perimetroCefalico': 'PERIMETRO CEFALICO',
                     'porcentajeProteinas': 'PROTEÍNAS',
                     'porcentajeAgua': 'AGUA CORPORAL TOTAL',
                     'masagrasaCorportal': 'MASA GRASA CORPORAL',
-                    'sistolimineralesca': 'MINERALES'
+                    'minerales': 'MINERALES'
                 };
 
                 // Iterar sobre el mapeo para establecer los valores de los elementos

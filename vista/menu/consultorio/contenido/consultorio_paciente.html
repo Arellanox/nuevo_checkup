@@ -16,8 +16,9 @@
 </div>
 <div class="row mt-2">
   <div class="col-12 col-lg-4">
-    <div class="info-detalle card" id="panel-informacion"> <!-- Informacion del paciente --> </div>
-    <div id="crear-notas" class="card mt-3">
+    <div class="info-detalle rounded p-3 shadow-sm my-2" id="panel-informacion"> <!-- Informacion del paciente -->
+    </div>
+    <div id="crear-notas" class="rounded p-3 shadow-sm my-2 d-flex flex-column">
       <h4 class="m-3">Bloc de Notas</h4>
       <hr class="dropdown-divider m-2">
       <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas"
@@ -31,14 +32,14 @@
     <div id="notas-historial"> <!-- Notas --> </div>
   </div>
   <div class="col-12 col-lg-4" style="margin-bottom:10px;">
-    <div class="card mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
-    <div class="card mt-2" id="listado-resultados"></div>
-    <div class="card mt-2 p-2" id="consultorio-conclusiones">
+    <div class="rounded p-3 shadow-sm my-2 mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
+    <div class="rounded p-3 shadow-sm my-2 mt-2" id="listado-resultados"></div>
+    <div class="rounded p-3 shadow-sm my-2 mt-2 p-2" id="consultorio-conclusiones">
       <h4>Conclusiones</h4>
     </div>
 
     <!-- Agregar certificado medico -->
-    <div class="card mt-2 p-3 medico-coordinador">
+    <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
 
       <h4>Certificado médico del paciente</h4>
 
@@ -59,7 +60,7 @@
       </form>
 
       <div class="col-12 text-end">
-        <button type="button" class="btn btn-borrar mt-2" id="btn-subir-certificado-medico" style="font-size: 16px;">
+        <button type="button" class="btn btn-hover mt-2" id="btn-subir-certificado-medico" style="font-size: 16px;">
           <i class="bi bi-file-earmark-pdf"></i> Guardar
         </button>
       </div>
@@ -75,7 +76,7 @@
 
   </div>
   <div class="col-12  col-lg-4">
-    <div class="card">
+    <div class="rounded p-3 shadow-sm my-2">
       <div id="btn-ir-consulta" class="medico-coordinador">
         <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
           data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">

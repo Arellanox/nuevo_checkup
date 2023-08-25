@@ -378,15 +378,15 @@ function ifnull(data, siNull = '', values = [
   'option4',
 ]) {
 
-  values = (typeof values === 'object' && !Array.isArray(values))
+  values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
     ? [values]
     : values;
 
   // Comprobar si el dato es nulo o no es un objeto
   if (!data || typeof data !== 'object') {
+    data = escapeHtmlEntities(`${data}`);
     return data === undefined || data === null || data === 'NaN' || data === '' ? siNull : data;
   }
-
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
@@ -412,6 +412,40 @@ function htmlCaracter(data) {
   st = st.replace(/"/g, "&amp;quot;");
   document.getElementById('result').innerHTML = '' + st;
 }
+
+function escapeHtmlEntities(input) {
+  if (!input || typeof input !== 'string') {
+    return input;
+  }
+
+  const replacements = {
+    '"': '&quot;',
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&apos;',
+    '-': '&ndash;',
+    '—': '&mdash;',
+    '\u00A0': '&nbsp;',
+    '\u2013': '&ndash;',
+    '\u2014': '&mdash;',
+    '\u2018': '&apos;',
+    '\u2019': '&apos;',
+    '\u201C': '&quot;',
+    '\u201D': '&quot;',
+    '\u2022': '&bull;',
+    '\u2026': '&hellip;',
+    '\u2032': '&prime;',
+    '\u2033': '&Prime;',
+    '\u00AE': '&reg;',
+    '\u2122': '&trade;'
+    // Agrega más reemplazos aquí si es necesario
+  };
+
+  const regex = new RegExp(Object.keys(replacements).join('|'), 'g');
+  return input.replace(regex, match => replacements[match]);
+}
+
 
 function firstMayus(str) {
   str = str.charAt(0).toUpperCase() + str.slice(1);
@@ -2471,7 +2505,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
       }).done(function () {
         setTimeout(async function () {
           if (id > 0) {
-            row = array_selected;
+            let row = array_selected;
             switch (tipPanel) {
               case 'paciente':
                 $.ajax({
@@ -2626,56 +2660,69 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 resolve(1);
                 break;
               case 'signos-vitales':
-                $.ajax({
-                  url: http + servidor + "/" + appname + "/api/somatometria_api.php",
-                  data: {
-                    api: 2,
-                    id_turno: id
-                  },
-                  type: "POST",
-                  dataType: 'json',
-                  success: function (data) {
-                    // data = jQuery.parseJSON(data);
-                    row = data['response']['data'];
-                    //console.log(row);
+                ajaxAwait({ api: 2, id_turno: id }, 'somatometria_api', { callbackAfter: true }, false, (data) => {
+                  data = data.response.data
+                  if (Object.keys(data).length > 2) {
+                    $('#fecha-signos').html(formatoFecha2(data['FECHA_REGISTRO']))
+                    const mappings = {
+                      signosVitales: [
+                        { id: 'frecuenciaCardiaca', label: 'Frec. Card.:', row: 'FRECUENCIA CARDIACA' },
+                        { id: 'frecuenciaRespiratoria', label: 'Frec. Resp.:', row: 'FRECUENCIA RESPIRATORIA' },
+                        { id: 'sistolica', label: 'Sistólica:', row: 'SISTOLICA' },
+                        { id: 'diastolica', label: 'Diastólica:', row: 'DIASTOLICA' },
+                        { id: 'saturacionOxigeno', label: 'Sa. Ox.:', row: 'SATURACION DE OXIGENO' },
+                        { id: 'temperatura', label: 'Temp:', row: 'TEMPERATURA' }
+                      ],
+                      somatometria: [
+                        { id: 'estatura', label: 'Estatura:', row: 'ESTATURA' },
+                        { id: 'peso', label: 'Peso:', row: 'PESO' },
+                        { id: 'masaCorporal', label: 'Índice de Masa Muscular:', row: 'ÍNDICE DE MASA MUSCULAR' },
+                        { id: 'masaMuscular', label: 'Masa Libre de Grasa:', row: 'MASA LIBRE DE GRASA' },
+                        { id: 'porcentajeGrasaVisceral', label: 'Perímetro Cefálico:', row: 'NIVEL DE GRASA VISCERAL' },
+                        { id: 'porcentajeAgua', label: 'Agua Corporal Total:', row: 'AGUA CORPORAL TOTAL' },
+                        { id: 'metabolismo', label: 'Nivel de Grasa Visceral:', row: 'TASA METABÓLICA BASAL' },
+                        { id: 'huesos', label: 'Masa de Músculo Esquelético:', row: 'MÚSCULO ESQUELÉTICO' },
+                        { id: 'perimetroCefalico', label: 'Tasa Metabólica Basal:', row: 'PERIMETRO CEFALICO' },
+                        { id: 'porcentajeProteinas', label: 'Proteínas:', row: 'PROTEÍNAS' },
+                        { id: 'edadCuerpo', label: 'Edad del cuerpo:', row: 'EDAD DEL CUERPO' }
+                      ]
+                    };
 
-                    if (mensajeAjax(data)) {
-                      if (Object.keys(row).length > 2) {
+                    const signosHTML = generateHTMLSection(mappings.signosVitales, 'col-12 col-xxl-6', { first: 'col-6 col-xxl-8', second: 'col-6 col-xxl-4' });
+                    const somatometriaHTML = generateHTMLSection(mappings.somatometria, 'col-12', { first: 'col-6 col-xxl-7', second: 'col-6 col-xxl-5' });
 
-                        $('#frecuenciaCardiaca').html(row['FRECUENCIA CARDIACA']['VALOR'] + " <strong>" + row['FRECUENCIA CARDIACA']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#frecuenciaRespiratoria').html(row['FRECUENCIA RESPIRATORIA']['VALOR'] + " <strong>" + row['FRECUENCIA RESPIRATORIA']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#sistolica').html(row['SISTOLICA']['VALOR'] + " <strong>" + row['SISTOLICA']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#diastolica').html(row['DIASTOLICA']['VALOR'] + " <strong>" + row['DIASTOLICA']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#saturacionOxigeno').html(row['SATURACION DE OXIGENO']['VALOR'] + " <strong>" + row['SATURACION DE OXIGENO']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#temperatura').html(row['TEMPERATURA']['VALOR'] + " <strong>" + row['TEMPERATURA']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#estatura').html(row['ESTATURA']['VALOR'] + " <strong>" + row['ESTATURA']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#peso').html(row['PESO']['VALOR'] + " <strong>" + row['PESO']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#masaCorporal').html(row['MASA CORPORAL']['VALOR'] + " <strong>" + row['MASA CORPORAL']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#masaMuscular').html(row['MASA MUSCULAR']['VALOR'] + " <strong>" + row['MASA MUSCULAR']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#porcentajeGrasaVisceral').html(row['PORCENTAJE DE GRASA VISCERAL']['VALOR'] + " <strong>" + row['PORCENTAJE DE GRASA VISCERAL']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#huesos').html(row['HUESOS']['VALOR'] + " <strong>" + row['HUESOS']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#metabolismo').html(row['METABOLISMO']['VALOR'] + " <strong>" + row['METABOLISMO']['UNIDAD_MEDIDA'] + "</strong>")
-                        try {
-                          $('#edadCuerpo').html(ifnull(row['EDAD DEL CUERPO']['VALOR']) + " <strong>" + row['EDAD DEL CUERPO']['UNIDAD_MEDIDA'] + "</strong>")
-                        } catch (error) {
-                          //console.log(error);
-                        }
-                        $('#perimetroCefalico').html(row['PERIMETRO CEFALICO']['VALOR'] + " <strong>" + row['PERIMETRO CEFALICO']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#porcentajeProteinas').html(row['PORCENTAJE DE PROTEINAS']['VALOR'] + " <strong>" + row['PORCENTAJE DE PROTEINAS']['UNIDAD_MEDIDA'] + "</strong>")
-                        $('#porcentajeAgua').html(row['PORCENTAJE DE AGUA']['VALOR'] + " <strong>" + row['PORCENTAJE DE AGUA']['UNIDAD_MEDIDA'] + "</strong>")
-                      } else {
-                        $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
-                      }
+                    $('#signos_portada').html(signosHTML);
+                    $('#cuerpo_soma').html(somatometriaHTML)
+
+                    function generateHTMLSection(items, div_class, col_class) {
+                      let row = '';
+                      return items.map(item => `
+                        <div class="${div_class}">
+                          <div class="row">
+                            <div class="${col_class.first} text-end info-detalle">
+                              <p>${item.label}</p>
+                            </div>
+                            <div class="${col_class.second} text-start d-flex align-items-center">
+                              <p class="none-p">
+                                ${ifnull(data, 'Sin tomar', [{ [item.row]: 'VALOR' }])} <strong>
+                                ${ifnull(data, '', [{ [item.row]: 'UNIDAD_MEDIDA' }])}</strong>
+                              </p>
+                            </div>
+                          </div>
+                          <hr style="margin: 3px" />
+                        </div>
+                      `).join('');
                     }
-                  },
-                  complete: function () {
-                    $(panel).fadeIn(100);
-                    resolve(1);
-                  },
-                  error: function (jqXHR, exception, data) {
-                    alertErrorAJAX(jqXHR, exception, data)
-                  },
+                  } else {
+                    $('#div-panel-signos').html('<p class="none-p"> Sin signos vitales</p>')
+                  }
+
+
+                  $(panel).fadeIn(100);
+                  resolve(1);
+
                 })
+
                 break;
               case 'cliente':
                 // //console.log(row)

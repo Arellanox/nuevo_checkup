@@ -43,7 +43,7 @@ if (validarVista('SOMATOMETRIA')) {
 
 async function obtenerContenidoSoma() {
   await obtenerTitulo('Somatometría | Signos Vitales');
-  $.post("contenido/somatometria.php", function (html) {
+  $.post("contenido/somatometria.html", function (html) {
     $("#body-js").html(html);
   }).done(function () {
     dataListaPaciente = { api: 5, area_id: 1, fecha_busqueda: $('#fechaListadoAreaMaster').val() };

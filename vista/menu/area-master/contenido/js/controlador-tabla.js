@@ -5,7 +5,7 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: autoHeightDiv(0, 330),
+    scrollY: '60vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
