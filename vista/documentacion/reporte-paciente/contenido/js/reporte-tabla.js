@@ -160,7 +160,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         .append(`<td>\$${sumTotal.toFixed(2)}</td>`)
         .append(`<td>${formatoFecha2(fechaRecepcion, [0, 1, 5, 2, 1, 1, 1])}</td>`)
         .append(`<td>${procedencia}</td>`)
-        .append(`<td>${equipo_serv}</td>`);
+        .append(`<td></td>`);
       // .append('<td>' + diagnostico + '</td>');
     }
   },
