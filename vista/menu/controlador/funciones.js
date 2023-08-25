@@ -2684,7 +2684,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         { id: 'huesos', label: 'Masa de Músculo Esquelético:', row: 'MÚSCULO ESQUELÉTICO' },
                         { id: 'perimetroCefalico', label: 'Tasa Metabólica Basal:', row: 'PERIMETRO CEFALICO' },
                         { id: 'porcentajeProteinas', label: 'Proteínas:', row: 'PROTEÍNAS' },
-                        { id: 'edadCuerpo', label: 'Edad del cuerpo:', row: 'EDAD DEL CUERPO' }
+                        // { id: 'edadCuerpo', label: 'Edad del cuerpo:', row: 'EDAD DEL CUERPO' }
                       ]
                     };
 
