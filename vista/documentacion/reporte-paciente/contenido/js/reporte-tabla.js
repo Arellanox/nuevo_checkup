@@ -5,7 +5,11 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
   },
   lengthChange: false,
   info: true,
-  paging: false,
+  paging: true,
+  lengthMenu: [
+    [20, 35, 50, 100, -1],
+    [20, 35, 50, 100, "All"]
+  ],
   scrollY: '61vh',
   scrollCollapse: true,
   ajax: {
