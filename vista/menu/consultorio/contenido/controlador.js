@@ -107,7 +107,7 @@ function obtenerContenidoConsulta(data, idvaloracion) {
 // Rellena la plantilla con metodos de espera Async Await
 async function obtenerConsultorio(id, idTurno, cliente, curp) {
   await obtenerPanelInformacion(idTurno, "pacientes_api", 'paciente')
-  await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_comprimido');
+  await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   await obtenerPanelInformacion(idTurno, 'consulta_api', 'listado_resultados', '#listado-resultados')
 
   getConclusionesHistoria(idTurno);
@@ -130,7 +130,7 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
 async function obtenerValoracion(data, idconsulta) {
   // console.log(data, idconsulta)
   await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
-  await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_col3');
+  await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
   $('.div-btn-guardarAntPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntNoPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
@@ -224,7 +224,7 @@ async function obtenerConsultaMedica(data, idconsulta) {
   await recuperarExploracionFisicaConsulta2(data['ID_TURNO'])
 
 
-  await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_col3');
+  await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   await obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
 
 
