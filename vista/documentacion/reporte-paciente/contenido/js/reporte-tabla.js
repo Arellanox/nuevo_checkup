@@ -142,6 +142,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       }, 0);
       var fechaRecepcion = rows.data()[0].FECHA_RECEPCION;
       var procedencia = rows.data()[0].PROCEDENCIA;
+      var equipo_serv = rows.data()[0].EQUIPO;
       var diagnostico = rows.data()[0].DIAGNOSTICO;
 
       let tr = $('<tr/>')
@@ -158,7 +159,8 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         .append(`<td>\$${sumIVA.toFixed(2)}</td>`)
         .append(`<td>\$${sumTotal.toFixed(2)}</td>`)
         .append(`<td>${formatoFecha2(fechaRecepcion, [0, 1, 5, 2, 1, 1, 1])}</td>`)
-        .append(`<td>${procedencia}</td>`);
+        .append(`<td>${procedencia}</td>`)
+        .append(`<td>${equipo_serv}</td>`);
       // .append('<td>' + diagnostico + '</td>');
     }
   },
