@@ -146,7 +146,7 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
 
                 if (datalist.CONFIRMADO_ESPIRO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
 
-                await obtenerPanelInformacion(datalist['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_col3');
+                await obtenerPanelInformacion(datalist['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
 
                 break;
             case 8: //Rayos X
