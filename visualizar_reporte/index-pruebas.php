@@ -64,7 +64,7 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, $area_id, 'electro', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'soma':
-        $r = $master->reportador($master, $turno_id, $area_id, 'reporte_masometria', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        $r = $master->reportador($master, $turno_id, 2, 'reporte_masometria', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'cotizacion':
         $r = $master->reportador($master, $turno_id, 15, 'cotizaciones', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
@@ -98,3 +98,4 @@ switch ($api) {
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
         break;
 }
+print_r($r);

@@ -42,7 +42,7 @@
             /* background-color: pink; */
         }
 
-        a {
+        #qr a {
             position: fixed;
             padding: 0px;
             top: -15px;

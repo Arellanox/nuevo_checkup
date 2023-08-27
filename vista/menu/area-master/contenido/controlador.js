@@ -11,6 +11,9 @@ var selectrue = 0,
 
 var formEspiroHTML;
 
+let cropper;
+
+
 hasLocation();
 $(window).on("hashchange", function (e) {
   hasLocation();

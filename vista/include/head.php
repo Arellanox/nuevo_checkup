@@ -133,6 +133,14 @@
 <script src="https:localhost/practicantes/js/xlsx.full.min.js">
 </script>
 
+
+<!-- cropperjs -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+
+
 <script>
     var traducciones;
 

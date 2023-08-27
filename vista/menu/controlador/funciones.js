@@ -384,8 +384,12 @@ function ifnull(data, siNull = '', values = [
 
   // Comprobar si el dato es nulo o no es un objeto
   if (!data || typeof data !== 'object') {
-    data = escapeHtmlEntities(`${data}`);
-    return data === undefined || data === null || data === 'NaN' || data === '' ? siNull : data;
+    if (data === undefined || data === null || data === 'NaN' || data === '') {
+      return siNull;
+    } else {
+      data = escapeHtmlEntities(`${data}`);
+      return data;
+    }
   }
   // Iterar a través de las claves en values
   for (const key of values) {
@@ -394,7 +398,7 @@ function ifnull(data, siNull = '', values = [
     } else if (typeof key === 'object') {
       for (const nestedKey in key) {
         const result = ifnull(data[nestedKey], siNull, key[nestedKey]);
-        if (result) return result;
+        if (result) return ifnull(result, siNull);
       }
     }
   }
@@ -503,6 +507,25 @@ $(document).on('change click', 'input[type="file"]', function () {
     label.html(`File: ${truncate(filename, 15)} | ${extension}`)
   }
 })
+
+let lightbox = '#lightbox';
+let lightbox_img = '#lightbox-img'
+// $(document).on('click', '.lightbox-image', (e) => {
+//   let imgSrc = $(this).prop('src');
+//   alert(imgSrc.split(',')[1]);
+
+//   let img = $(this)
+//   $(lightbox_img).prop('src', (img.prop("src")).split(',')[1])
+//   $(lightbox).css('display', 'flex');
+//   console.log($(lightbox), img)
+//   console.log('¡Imagen abierta!')
+// })
+
+// $(document).on('click', '#lightbox', (e) => {
+//   $(lightbox).css('display', 'none')
+// })
+
+
 
 function resetInputFile() {
   $('input[type="file"]').each(function () {
@@ -2704,8 +2727,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                             </div>
                             <div class="${col_class.second} text-start d-flex align-items-center">
                               <p class="none-p">
-                                ${ifnull(data, 'Sin tomar', [{ [item.row]: 'VALOR' }])} <strong>
-                                ${ifnull(data, '', [{ [item.row]: 'UNIDAD_MEDIDA' }])}</strong>
+                                ${ifnull(data, 'Sin tomar', [{ [item.row]: ['VALOR'] }])} <strong>
+                                ${ifnull(data, '', [{ [item.row]: ['UNIDAD_MEDIDA'] }])}</strong>
                               </p>
                             </div>
                           </div>

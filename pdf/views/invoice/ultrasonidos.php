@@ -396,8 +396,8 @@ $encode_firma = base64_encode($ruta_firma);
 
     <!-- body -->
     <!-- <?php ?> -->
-    <div class="invoice-content">
-        <?php
+    <!-- <div class="invoice-content">
+        <?php /*
         $count = 0;
         $conteo = count($resultados->ESTUDIOS);
         foreach ($resultados->ESTUDIOS as $key => $resultado) {
@@ -513,8 +513,9 @@ $encode_firma = base64_encode($ruta_firma);
         <?php
             }
         }
+        */
         ?>
-    </div>
+    </div> -->
 </body>
 <?php
 $altura = 220;
