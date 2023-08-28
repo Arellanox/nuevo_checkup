@@ -27,13 +27,6 @@
             /* background-color: cadetblue; */
         }
 
-        a {
-            position: fixed;
-            padding: 0px;
-            top: 80%;
-            left: 40px
-        }
-
         .footer .page:after {
             content: counter(page);
         }
@@ -379,20 +372,9 @@ if (!isset($qr)) {
                     <strong style="font-size: 12px;"><?php echo $resultados->ESTATURA; ?> cm </strong>
                 </td>
                 +<td colspan="3"> </td>
-                <td colspan="3" style="text-align: left;" class="cursive"></td>
+                <td colspan="3" style="text-align: left;" class="cursive">Peso</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"></strong>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: left;" class="cursive">Peso</td>
-                <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> kg</strong>
-                </td>
-                <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive"></td>
-                <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"></strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PESO; ?> kg </strong>
                 </td>
             </tr>
             <tr>
@@ -400,16 +382,49 @@ if (!isset($qr)) {
                 <td colspan="2" style="text-align: left;">
                     <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
                 </td>
-                <td colspan="3"></td>
-                <td colspan="3" style="text-align: left;" class="cursive"></td>
+                +<td colspan="3"> </td>
+                <td colspan="3" style="text-align: left;" class="cursive"> Grasa visceral </td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"></strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_GRASA_VISCERAL; ?> % </strong>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: left;" class="cursive"></td>
+                <td colspan="2" style="text-align: left;" class="cursive"> Minerales </td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"></strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->{'MINERAL_(INCOMPLETO)'}; ?> kg </strong>
+                </td>
+                +<td colspan="3"> </td>
+                <td colspan="3" style="text-align: left;" class="cursive">Proteinas</td>
+                <td colspan="2" style="text-align: left;">
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_PROTEINAS; ?> %</strong>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: left;" class="cursive"> Frecuencia cardíaca </td>
+                <td colspan="2" style="text-align: left;">
+                    <strong style="font-size: 12px;"><?php echo $resultados->FRECUENCIA_CARDIACA; ?> Kg/M2 </strong>
+                </td>
+                +<td colspan="3"> </td>
+                <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de agua</td>
+                <td colspan="2" style="text-align: left;">
+                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_AGUA; ?> % </strong>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: left;" class="cursive"> Masa muscular</td>
+                <td colspan="2" style="text-align: left;">
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> Kg </strong>
+                </td>
+                +<td colspan="3"> </td>
+                <td colspan="3" style="text-align: left;" class="cursive">Masa grasa muscular</td>
+                <td colspan="2" style="text-align: left;">
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_MUSCULAR; ?> Kg </strong>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
+                <td colspan="2" style="text-align: left;">
+                    <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> MM</strong>
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive"></td>
@@ -648,7 +663,7 @@ if (!isset($qr)) {
         <p style="text-align: center;"><small><strong>Avenidad Universidad S/N Colonia Casa Blanca, Villahermosa,
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>-->
-    <div style="padding-top: 150px;">
+    <div style="padding-top: 100px;">
         <div class="">
             <?php
             $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
