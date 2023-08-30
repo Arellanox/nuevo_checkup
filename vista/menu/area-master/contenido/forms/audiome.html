@@ -1,17 +1,383 @@
-<p class="text-center">Rellene los campos necesarios para el reporte de Audiometria</p>
-<div class="row">
-    <!-- <div class="col-6">
-        <label for="nombre_contacto" class="form-label">Nombre del Cliente</label>
-        <input type="text" class="form-control input-form" value="Nombre del paciente" readonly
-            id="nombre-paciente-interpretacion">
-    </div> -->
-    <div class="col-12">
-        <label for="reportes" class="form-label">Suba el archivo de interpretación (Solo formato PDF)</label>
-        <input type="file" name="reportes[]" class="form-control input-form" accept=".pdf" required
-            id="inputFilesInterpreArea">
+<p class="text-center">Cargue y mueva el recuadro de la imagen para capturar la tabla del reporte.</p>
+
+<form id="formSubirInterpretacionPRUEBA">
+    <div class="row">
+
+        <!-- Columna 1 -->
+        <div class="col-12 col-xl-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="rounded p-3 shadow my-2">
+                        <h4>Antecedentes</h4>
+                        <div class="row">
+                            <!-- Consumo de tabaco -->
+                            <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta"
+                                style="font-size: 20px;">
+                                <div class="col-12 col-lg-8 col-xl-7">
+                                    <label>¿TABACO?: </label>
+                                </div>
+                                <div
+                                    class="col-12 col-lg-4 col-xl-5 row d-flex align-items-start justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required id="tabaco_1" name="antecedentes[1][option]"
+                                            value="1">
+                                        <label for="tabaco_1">Sí</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required id="tabaco_2" name="antecedentes[1][option]"
+                                            value="2">
+                                        <label for="tabaco_2">No</label>
+                                    </div>
+                                </div>
+                                <div class="collapse">
+                                    <textarea name="antecedentes[1][comentario]" class="form-control input-form"
+                                        rows="2" cols="2" placeholder="Especifique"></textarea>
+                                </div>
+                            </div>
+                            <!-- Exposicion ruid -->
+                            <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta"
+                                style="font-size: 20px;">
+                                <div class="col-12 col-lg-8 col-xl-7">
+                                    <label>¿Exposición a ruido?: </label>
+                                </div>
+                                <div
+                                    class="col-12 col-lg-4 col-xl-5 row d-flex align-items-start justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required id="ruido_1" name="antecedentes[2][option]"
+                                            value="1">
+                                        <label for="ruido_1">Sí</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required id="ruido_2" name="antecedentes[2][option]"
+                                            value="2">
+                                        <label for="ruido_2">No</label>
+                                    </div>
+                                </div>
+                                <div class="collapse">
+                                    <textarea name="antecedentes[2][comentario]" class="form-control input-form"
+                                        rows="2" cols="2" placeholder="Especifique"></textarea>
+                                </div>
+                            </div>
+                            <hr class="dropdown-divider m-2">
+                            <!-- Exposicion solventes -->
+                            <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta"
+                                style="font-size: 20px;">
+                                <div class="col-12 col-lg-8 col-xl-7">
+                                    <label>¿Exposición a solventes?: </label>
+                                </div>
+                                <div
+                                    class="col-12 col-lg-4 col-xl-5 row d-flex align-items-start justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required id="solventes_1" name="antecedentes[3][option]"
+                                            value="1">
+                                        <label for="solventes_1">Sí</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required id="solventes_2" name="antecedentes[3][option]"
+                                            value="2">
+                                        <label for="solventes_2">No</label>
+                                    </div>
+                                </div>
+                                <div class="collapse">
+                                    <textarea name="antecedentes[3][comentario]" class="form-control input-form"
+                                        rows="2" cols="2" placeholder="Especifique"></textarea>
+                                </div>
+                            </div>
+                            <!-- Exposicion traumaticos -->
+                            <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta"
+                                style="font-size: 20px;">
+                                <div class="col-12 col-lg-8 col-xl-7">
+                                    <label>¿Traumas?: </label>
+                                </div>
+                                <div
+                                    class="col-12 col-lg-4 col-xl-5 row d-flex align-items-start justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="radio" required id="traumas_1" name="antecedentes[4][option]"
+                                            value="1">
+                                        <label for="traumas_1">Sí</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="radio" required id="traumas_2" name="antecedentes[4][option]"
+                                            value="2">
+                                        <label for="traumas_2">No</label>
+                                    </div>
+                                </div>
+                                <div class="collapse">
+                                    <textarea name="antecedentes[4][comentario]" class="form-control input-form"
+                                        rows="2" cols="2" placeholder="Especifique"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="rounded p-3 shadow my-2">
+                        <h4>Audimetría</h4>
+                        <p>Se realiza audiometría aérea, con los siguientes datos:</p>
+                        <div class="px-3">
+                            <table class="table mt-3 display responsive" id="tableAudioOido" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="oido all">Oído</th>
+                                        <th class="hz all">500hz</th>
+                                        <th class="hz all">1000hz</th>
+                                        <th class="hz all">2000hz</th>
+                                        <th class="hz min-tablet">3000hz</th>
+                                        <th class="hz min-tablet">4000hz</th>
+                                        <th class="hz min-tablet">6000hz</th>
+                                        <th class="hz desktop">8000hz</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>OD</td>
+                                        <td><input type="number" name="values[OD][500hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][1000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][2000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][3000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][4000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][6000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][8000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>OI</td>
+                                        <td><input type="number" name="values[OI][500hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][1000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][2000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][3000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][4000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][6000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][8000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12">
+                    <div class="rounded p-3 shadow my-2">
+                        <h4>Coomentarios</h4>
+                        <!-- <p></p> -->
+                        <div class="p-4">
+                            <textarea name="comentario" rows="10" cols="90" class="form-textarea-content"
+                                placeholder="Conclusiones" id="" style="width: 100%;margin: 0px !important;"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="comentario_oido_derecho" class="form-label">Oído Derecho:</label>
+                                <input type="text" class="form-control input-form" name="comentario_oido_derecho"
+                                    placeholder="" id="editar-posta">
+                            </div>
+                            <div class="col-12">
+                                <label for="comentario_oido_izquierdo" class="form-label">Oído Izquierdo:</label>
+                                <input type="text" class="form-control input-form" name="comentario_oido_izquierdo"
+                                    placeholder="" id="editar-posta">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Columna 2 -->
+        <div class="col-12 col-xl-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="rounded p-3 shadow my-2">
+                        <h4>Otoscopía</h4>
+                        <!-- <p>Se realiza audiometría aérea, con los siguientes datos:</p> -->
+                        <div class="p-4">
+                            <textarea name="otoscopia" rows="10" cols="90" class="form-textarea-content"
+                                placeholder="Ambos pabellones..." id=""
+                                style="width: 100%;margin: 0px !important;"></textarea>
+                        </div>
+                        <div class="input-file-contenedor">
+                            <label for="img_otoscopia" class="form-label">Cargue imagenes de otoscopía</label>
+                            <label for="img_otoscopia" class="input-file-label">
+                                <i class="bi bi-box-arrow-up"></i> Seleccione archivo(s)
+                            </label>
+                            <input type="file" name="img_otoscopia[]" id="img_otoscopia"
+                                accept=".png, .jpg, .jpeg, .pdf" multiple required class="input-file">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="rounded p-3 shadow my-2">
+                        <h4>Audimetría</h4>
+                        <p>Se realiza audiometría aérea, con los siguientes datos:</p>
+                        <div class="px-3">
+                            <table class="table mt-3 display responsive" id="oidosDescripcion" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="all">Oído Derecho</th>
+                                        <th class="all">Oído Izquierdo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><textarea name="audiometria_oido_derecho" class="form-textarea-content"
+                                                style="width: 100%;margin: 0px;"
+                                                placeholder="Conducto auditivo externo..."></textarea>
+                                        </td>
+                                        <td><textarea name="audiometria_oido_izquierdo" class="form-textarea-content"
+                                                style="width: 100%;margin: 0px;"
+                                                placeholder="Conducto auditivo externo..."></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-12">
+                    <div class="rounded p-3 shadow my-2">
+                        <h4>Recomendaciones</h4>
+                        <!-- <p></p> -->
+                        <div class="p-4">
+                            <textarea name="recomendaciones" rows="10" cols="90" class="form-textarea-content"
+                                placeholder="Uso de protección..." id=""
+                                style="width: 100%;margin: 0px !important;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class="col-12">
-        <label for="comentario" class="form-label">Observaciones</label>
-        <textarea name="comentario" class="md-textarea input-form" rows="4" cols="80"></textarea>
+
+    <div class="row my-4">
+        <hr class="dropdown-divider m-2">
+        <!-- Columna para visualizar el pdf -->
+        <div class="col-12 col-lg-8">
+            <div class="rounded p-2 shadow my-2">
+
+                <h4>Tabla de resultados</h4>
+                <p>Cargue, visualice y capture las tablas de reporte del equipo.</p>
+
+                <div id="viewer"> </div>
+            </div>
+        </div>
+
+        <!-- Columna para cargar el archivo y ver las capturas -->
+        <div class="col-12 col-lg-4">
+            <div class="mb-4">
+                <div class="input-file-contenedor">
+                    <label for="reporte_equipo" class="form-label">Cargar reporte</label>
+                    <label for="reporte_equipo" class="input-file-label">
+                        <i class="bi bi-box-arrow-up"></i> Seleccione archivo(s)
+                    </label>
+                    <input type="file" name="reporte_equipo[]" id="reporte_equipo" accept=".png, .jpg, .jpeg, .pdf"
+                        required class="input-file">
+                </div>
+            </div>
+            <div class="mb-4">
+                <button type="button" id="capture" class="btn btn-option w-100"><i class="bi bi-camera"></i>
+                    Capturar</button>
+            </div>
+            <div class="rounded p-3 shadow my-2">
+                <h5><i class="bi bi-images"></i> Capturas</h5>
+                <div class="" id="captures">
+                    <!-- Las capturas se mostrarán aquí -->
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+</form>
+
+<style>
+    #viewer {
+        height: 75vh;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+    }
+
+    #captures img {
+        width: 100%;
+        height: auto;
+        margin: 5px;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<script>
+    $(document).on("change keyup", "input[type='radio']", function () {
+        const parentElement = $(this).closest(".row.d-flex.justify-content-center.pregunta");
+        // console.log(parentElement)
+        let collapID = parentElement.children(".collapse");
+        // console.log(collapID);
+        if (!collapID) return; // Si no hay ID, no hacer nada
+
+        if (this.value == true) {
+            $(collapID).collapse("show")//.find(':textarea').prop('required', true);
+        } else {
+            $(collapID).collapse("hide")//.find(':textarea').val('').prop('required', false);
+        }
+    });
+
+
+
+    $('#tableAudioOido').DataTable({
+        language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
+        lengthChange: false,
+        info: false,
+        paging: false,
+        columnDefs: [
+            { width: "5%", targets: 0 },
+            { width: "10%", targets: [1, 2, 3, 4, 5, 6, 7] },
+        ],
+        ordering: false,
+        searching: false,
+    })
+
+
+    $('#oidosDescripcion').DataTable({
+        language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
+        lengthChange: false,
+        info: false,
+        paging: false,
+        columnDefs: [
+            { width: "50%", targets: [0, 1] },
+        ],
+        ordering: false,
+        searching: false,
+    })
+
+
+</script>

@@ -46,11 +46,18 @@ session_start();
   </div>
 </div> -->
 
-
+<!-- Precarga -->
 <div class="col-12 loader" id="loader">
     <div class="preloader" id="preloader"> </div>
 </div>
 
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+    <img id="lightbox-img" class="lightbox-img" src="" alt="">
+</div>
+
+
+<!-- Navegacion movil -->
 <div id="tab-button">
 </div>
 
@@ -174,22 +181,22 @@ session_start();
 
 </div>
 
-<div>
-    <div class="modal fade" id="modalSubirInterpretacion" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header header-modal">
-                    <h5 class="modal-title" id="title-paciente_aceptar">Reporte de interpretación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <!-- <div class="col-12 col-lg-7">
+
+<div class="modal fade" id="modalSubirInterpretacion" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="title-paciente_aceptar">Reporte de interpretación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- <div class="col-12 col-lg-7">
                             <h4>Reporte de interpretación</h4>
                             <p class="none-p"></p>
                         </div> -->
-                        <div class="row">
-                            <!-- <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
+                    <div class="row">
+                        <!-- <div class="col-6 text-start" style="margin-top:4px;margin-bottom:5px;">
                                 <button type="button" class="btn btn-hover me-2 btnResultados" style="margin-bottom:4px" id="btn-capturas-pdf">
                                     <i class="bi bi-clipboard2-plus"></i> Cargar capturas
                                 </button>
@@ -206,72 +213,111 @@ session_start();
                                     BTN para formulario global 
                                 </button>
                             </div> -->
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <?php
+                        switch ($form) {
+                                //<!-- Resultados de oftalmologia -->
+                            case 'formSubirInterpretacionOftalmo':
+                                echo '<form id="formSubirInterpretacionOftalmo">';
+                                include 'forms/oftalmo.html';
+                                echo '</form>';
+                                break;
 
-                            <?php
-                            switch ($form) {
-                                    //<!-- Resultados de oftalmologia -->
-                                case 'formSubirInterpretacionOftalmo':
-                                    echo '<form id="formSubirInterpretacionOftalmo">';
-                                    include 'forms/oftalmo.html';
-                                    echo '</form>';
-                                    break;
+                                //<!-- Resultados de oftalmologia -->
+                            case 'formSubirInterpretacionElectro':
+                                echo '<form id="formSubirInterpretacionElectro">';
+                                include 'forms/electro.html';
+                                echo '</form>';
+                                break;
 
-                                    //<!-- Resultados de oftalmologia -->
-                                case 'formSubirInterpretacionElectro':
-                                    echo '<form id="formSubirInterpretacionElectro">';
-                                    include 'forms/electro.html';
-                                    echo '</form>';
-                                    break;
+                                //<!-- Formulario general -->
+                            case 'formSubirInterpretacion':
+                                echo '<form id="formSubirInterpretacion">';
+                                include 'forms/form_general.html';
+                                echo '</form>';
+                                break;
+                            case 'formSubirInterpretacionCitologia':
+                                echo '<form id="formSubirInterpretacionCitologia">';
+                                include 'forms/form_citologia.html';
+                                echo '</form>';
+                                break;
+                                //<!--Formulario de Espirometria -->
+                            case 'formAreadeEspirometria':
+                                // echo '<form id="formAreadeEspirometria">';
+                                include 'forms/form_espiro.html';
+                                // echo '</form>';
+                                break;
+                                //<!--Formulario de Audiometria -->
+                            case 'formSubirInterpretacionPRUEBA':
+                                // echo '<form id="formSubirInterpretacionPRUEBA">';
+                                include 'forms/audiome.html';
+                                // echo '</form>';
+                                break;
+                        }
 
-                                    //<!-- Formulario general -->
-                                case 'formSubirInterpretacion':
-                                    echo '<form id="formSubirInterpretacion">';
-                                    include 'forms/form_general.html';
-                                    echo '</form>';
-                                    break;
-                                case 'formSubirInterpretacionCitologia':
-                                    echo '<form id="formSubirInterpretacionCitologia">';
-                                    include 'forms/form_citologia.html';
-                                    echo '</form>';
-                                    break;
-                                    //<!--Formulario de Espirometria -->
-                                case 'formAreadeEspirometria':
-                                    // echo '<form id="formAreadeEspirometria">';
-                                    include 'forms/form_espiro.html';
-                                    // echo '</form>';
-                                    break;
-                            }
-
-                            ?>
-                        </div>
+                        ?>
                     </div>
-                    <img id="full" class="hideimg" src="http://localhost/nuevo_checkup/archivos/sistema/temp/transparent.png" border="0" onclick="this.className='hideimg'">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Regresar</button>
-                    <!-- <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button> -->
+                <!-- <img id="full" class="hideimg" src="http://localhost/nuevo_checkup/archivos/sistema/temp/transparent.png" border="0" onclick="this.className='hideimg'"> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Regresar</button>
+                <!-- <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button> -->
 
-                    <button type="button" class="btn btn-borrar btnResultados" id="btn-ver-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa del reporte una vez guardado los cambios">
-                        <i class="bi bi-file-earmark-pdf"></i> Vista previa
-                    </button>
-                    <!-- BTN oftalmo -->
-                    <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar btnResultados" id="btn-inter-oftal" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
-                        <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
-                    </button>
-                    <!-- BTN GLOBAL -->
-                    <button type="submit" form="<?php echo $form; ?>" class="btn btn-confirmar btnResultados" id="btn-inter-areas" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
-                        <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
-                    </button>
+                <button type="button" class="btn btn-borrar btnResultados" id="btn-ver-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa del reporte una vez guardado los cambios">
+                    <i class="bi bi-file-earmark-pdf"></i> Vista previa
+                </button>
+                <!-- BTN oftalmo -->
+                <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar btnResultados" id="btn-inter-oftal" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
+                    <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
+                </button>
+                <!-- BTN GLOBAL -->
+                <button type="submit" form="<?php echo $form; ?>" class="btn btn-confirmar btnResultados" id="btn-inter-areas" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los cambios del reporte si desea ver la vista previa">
+                    <i class="bi bi-clipboard2-plus"></i> Guardar Interpretación
+                </button>
 
-                    <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirme el reporte una vez guardado los cambios">
-                        <i class="bi bi-file-earmark-pdf"></i> Confirmar reporte
-                    </button>
+                <button type="button" class="btn btn-confirmar btnResultados" id="btn-confirmar-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirme el reporte una vez guardado los cambios">
+                    <i class="bi bi-file-earmark-pdf"></i> Confirmar reporte
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--MODAL PARA SUBIR RESULTADOS DE ESPIROMETRIA-->
+
+<div class="modal fade" id="ModalSubirResultadosEspiro" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+    <div class="modal-dialog modal-xl  modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="title-paciente_aceptar">Cargue un nuevo estudio de EASYONE</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form id="subirResultadosEspiro">
+                            <h4>Seleccione el estudio de EASYONE a subir</h4>
+                            <input type="file" class="form-control input-form mt-3" name="resultado_espiro[]" accept=".pdf" id="resultado_espiro">
+                        </form>
+                    </div>
+
 
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-borrar" id="btn-limpiar-resultado-espiro">Limpiar</button>
+
+                <!-- BTN SUBIR RESULTADOS DE ESPIRO -->
+                <button type="submit" class="btn btn-confirmar" id="btn-subir-resultados-espiro" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los documentos subidos">
+                    <i class="bi bi-clipboard2-plus"></i> Subir resultados
+                </button>
             </div>
         </div>
     </div>
@@ -279,71 +325,37 @@ session_start();
 
 
 <!--MODAL PARA SUBIR RESULTADOS DE ESPIROMETRIA-->
-<div>
-    <div class="modal fade" id="ModalSubirResultadosEspiro" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
-        <div class="modal-dialog modal-xl  modal-dialog-centered ">
-            <div class="modal-content">
-                <div class="modal-header header-modal">
-                    <h5 class="modal-title" id="title-paciente_aceptar">Cargue un nuevo estudio de EASYONE</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <form id="subirResultadosEspiro">
-                                <h4>Seleccione el estudio de EASYONE a subir</h4>
-                                <input type="file" class="form-control input-form mt-3" name="resultado_espiro[]" accept=".pdf" id="resultado_espiro">
-                            </form>
-                        </div>
 
-
+<div class="modal fade" id="ModalSubirResultadosAudio" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+    <div class="modal-dialog modal-xl  modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="title-paciente_aceptar">Cargue un nuevo reporte de Audiometría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form id="subirResultadosAudio">
+                            <h4>Seleccione el estudio que decea subir: </h4>
+                            <input type="file" class="form-control input-form mt-3" name="resultado_audio[]" accept=".pdf" id="resultado_audio">
+                        </form>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-borrar" id="btn-limpiar-resultado-espiro">Limpiar</button>
 
-                    <!-- BTN SUBIR RESULTADOS DE ESPIRO -->
-                    <button type="submit" class="btn btn-confirmar" id="btn-subir-resultados-espiro" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los documentos subidos">
-                        <i class="bi bi-clipboard2-plus"></i> Subir resultados
-                    </button>
+
                 </div>
+            </div>
+            <div class="modal-footer">
+
+                <!-- BTN SUBIR RESULTADOS DE ESPIRO -->
+                <button type="submit" class="btn btn-confirmar" id="btn-subir-resultados-audio" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los documentos subidos">
+                    <i class="bi bi-clipboard2-plus"></i> Subir resultados
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<!--MODAL PARA SUBIR RESULTADOS DE ESPIROMETRIA-->
-<div>
-    <div class="modal fade" id="ModalSubirResultadosAudio" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
-        <div class="modal-dialog modal-xl  modal-dialog-centered ">
-            <div class="modal-content">
-                <div class="modal-header header-modal">
-                    <h5 class="modal-title" id="title-paciente_aceptar">Cargue un nuevo reporte de Audiometría</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <form id="subirResultadosAudio">
-                                <h4>Seleccione el estudio que decea subir: </h4>
-                                <input type="file" class="form-control input-form mt-3" name="resultado_audio[]" accept=".pdf" id="resultado_audio">
-                            </form>
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                    <!-- BTN SUBIR RESULTADOS DE ESPIRO -->
-                    <button type="submit" class="btn btn-confirmar" id="btn-subir-resultados-audio" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los documentos subidos">
-                        <i class="bi bi-clipboard2-plus"></i> Subir resultados
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
