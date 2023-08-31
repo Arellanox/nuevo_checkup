@@ -97,7 +97,7 @@ switch ($api) {
         # recuperar la lista de trabajo por area
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, NULL, $_SESSION['id']));
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, NULL, $_SESSION['id'], $cliente_id));
         break;
     case 10:
         #historial de servicios
