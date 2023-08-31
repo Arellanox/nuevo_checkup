@@ -20,7 +20,7 @@ $observaciones = isset($_POST['observaciones']) ? $_POST['observaciones'] : null
 $id_registro_temperatura = $_POST['id_registro_temperatura'];
 $turno = $_POST['turno'];
 $area = $_POST['area'];
-$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup" : "https://bimo-lab.com.mx/nuevo_checkup";
+$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup" : "https://bimo-lab.com/nuevo_checkup";
 /* 
 
 die();
