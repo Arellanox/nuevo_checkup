@@ -24,10 +24,10 @@ $turno_id = $_POST['turno_id'];
 $usuario_id = $_SESSION['id'];
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/practicantes/" : "https://bimo-lab.com/nuevo_checkup/";
 
+print_r($_POST['antecedentes']);
+exit;
 
-
-
-switch($api){
+switch ($api) {
 
     case 1:
 
@@ -67,7 +67,3 @@ switch($api){
 }
 
 echo $master->returnApi($response);
-
-
-
-?>
