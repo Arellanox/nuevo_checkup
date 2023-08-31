@@ -225,7 +225,7 @@ switch ($api) {
         # Cargar lista de trabajo para la segunda validacion de laboratorio
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, 1, $_SESSION['id'])); #fecha deseada, id_area, id_cliente.
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, 1, $_SESSION['id'], null)); #fecha deseada, id_area, id_cliente.
         break;
     case 13:
         # Dar el 2 check en resultados de laboratorio [particulares]
