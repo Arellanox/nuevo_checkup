@@ -51,6 +51,7 @@ $completado = $_POST['completado'];
 $comentario_rechazo = $_POST['comentario_rechazo'];
 $cliente_id = $_POST['cliente_id'];
 $segmento_id = $_POST['segmento_id'];
+$area_id = $_POST['area_id'];
 
 
 
@@ -255,7 +256,7 @@ switch ($api) {
         break;
     case 14:
 
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null, 0]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, $area_id, 1, null, 0]);
         $response = $response[count($response) - 1];
         //$response = $master->cleanAttachingFiles($response);
         break;
