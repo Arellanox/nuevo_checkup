@@ -19,11 +19,13 @@ $id_tipos_equipos = $_POST['id_tipos_equipos'];
 
 $id_equipo = $_POST['id_equipo'];
 
+$area_id = $_POST['area_id'];
+
 switch ($api) {
 
     case 1:
         # buscar equipos
-        $response = $master->getByProcedure("sp_laboratorio_equipos_b", [$id_equipo,  $id_tipos_equipos]);
+        $response = $master->getByProcedure("sp_laboratorio_equipos_b", [$id_equipo, $id_tipos_equipos, $area_id]);
         break;
     default:
         $response = "Api no definida.";

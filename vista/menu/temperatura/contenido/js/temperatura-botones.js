@@ -284,6 +284,13 @@ function agregarNota(element = [], div) {
 
 $(document).on("click", "#ConfiguracionTemperaturasbtn", async function () {
     alertToast('Cargando Configuración...', 'info', 2000)
+
+
+    $("#matutino_inicio").val("")
+    $("#matutino_final").val("")
+    $("#vespertino_inicio").val("")
+    $("#vespertino_final").val("")
+    $('#Domingos').prop('checked', false)
     await CargarConfiguracionTemperaturas()
 
 
@@ -400,12 +407,13 @@ async function CargarConfiguracionTemperaturas() {
     return await ajaxAwait({
         api: 11,
     }, 'temperatura_api', { callbackAfter: true, WithoutResponseData: true }, false, (row) => {
+        console.log(3)
+
         for (const key in row) {
             if (Object.hasOwnProperty.call(row, key)) {
                 const element = row[key];
                 dataConfig = element
-
-                Domingos_bit = parseInt(dataConfig['DOMINGOS'])
+                Domingos_bit = ifnull(parseInt(dataConfig['DOMINGOS']), 0)
                 domingos = Domingos_bit;
 
                 if (Domingos_bit == 1) {

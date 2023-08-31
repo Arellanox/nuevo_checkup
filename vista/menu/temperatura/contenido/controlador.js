@@ -35,11 +35,18 @@ function hasLocation() {
     $("a").removeClass("navlinkactive");
     $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
     switch (hash) {
-        case "TEMPERATURA":
+
+        case 'BIOMOLECULAR':
+            localStorage.setItem('area_fisica', 18)
+            obtenerTemperaturas();
+            break;
+
+        case 'LABORATORIO':
+            localStorage.setItem('area_fisica', 17)
             obtenerTemperaturas();
             break;
         default:
-            window.location.hash = '#TEMPERATURA';
+            // window.location.hash = '#TEMPERATURA';
             break;
     }
 }

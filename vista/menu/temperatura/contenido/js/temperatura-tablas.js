@@ -2,7 +2,7 @@
 enfriadorData = {}
 var DataMes = {};
 
-rellenarSelect("#Equipos", "equipos_api", 1, "ID_EQUIPO", "DESCRIPCION", { id_tipos_equipos: 5 })
+rellenarSelect("#Equipos", "equipos_api", 1, "ID_EQUIPO", "DESCRIPCION", { id_tipos_equipos: 5, area_id: localStorage.getItem('area_fisica') })
 
 
 
