@@ -124,11 +124,11 @@ $('#checkDiaAnalisis').click(function () {
 })
 
 function recargarVistaLab(fecha = 1) {
-  dataListaPaciente = {
-    api: 5,
-    // fecha_busqueda: $('#fechaListadoAreaMaster').val(),
-    area_id: 1
-  }
+  // dataListaPaciente = {
+  //   api: 5,
+  //   // fecha_busqueda: $('#fechaListadoAreaMaster').val(),
+  //   area_id: 1
+  // }
 
   if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
 
