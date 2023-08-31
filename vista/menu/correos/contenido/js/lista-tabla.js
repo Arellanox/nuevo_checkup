@@ -156,7 +156,7 @@ function getResultadoPaciente(turno) {
         $.ajax({
             url: `${http}${servidor}/${appname}/api/turnos_api.php`,
             dataType: 'json',
-            data: { id_turno: turno, api: 14 },
+            data: { id_turno: turno, api: 14, area_id: areaActiva },
             method: "POST",
             success: function (data) {
                 selectEstudio = new GuardarArreglo(data.response.data);
