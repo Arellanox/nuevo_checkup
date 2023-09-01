@@ -202,10 +202,12 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
                     return false;
                 }
 
-                dataFill_edit['ID_GRUPO'] = SelectedGruposCredito['id_grupo'];
+                dataFill_edit['id_grupo'] = SelectedGruposCredito['ID_GRUPO'];
                 tListPaciGrupo.ajax.reload();
                 //Para modificar el grupo
-                $('#title-grupo-factura').html(`Grupo: ${SelectedGruposCredito['FOLIO']}, ${SelectedGruposCredito['PROCEDENCIA']}, ${SelectedGruposCredito['FECHA_CREACION']}`)
+                title = '#title-grupo-factura';
+                $(title).html(`Grupo: ${SelectedGruposCredito['FOLIO']}, ${SelectedGruposCredito['PROCEDENCIA']}, ${formatoFecha2(SelectedGruposCredito['FECHA_CREACION'], [0, 1, 5, 2, 2, 2, 0])}`)
+                console.log($(title))
                 //Activa a que puede modificar el grupo
                 $('#modalFiltroPacientesFacturacion').modal('show');
 

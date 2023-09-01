@@ -88,7 +88,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       data: 'FECHA_RECEPCION',
       render: function (data) {
 
-        const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); // Tu función existente
+        const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null);
 
         // Separar la fecha y la hora basado en la coma
         const parts = formattedDate.split(', ');

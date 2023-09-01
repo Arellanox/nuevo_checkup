@@ -25,7 +25,6 @@ rellenarSelect('#cliente_fill', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCI
 
 const modalFiltroPacientesFacturacion = document.getElementById('modalFiltroPacientesFacturacion')
 modalFiltroPacientesFacturacion.addEventListener('show.bs.modal', event => {
-    $('#title-grupo-factura').html('')
     setTimeout(() => {
         $.fn.dataTable
             .tables({

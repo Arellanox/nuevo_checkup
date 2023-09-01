@@ -12,6 +12,7 @@
 
 $(document).on('click', '#modalGruposPacienteCredito', function (event) {
     dataFill_edit = { api: 3 }
+    $('#title-grupo-factura').html('Nuevo Grupo de Factura para procedencia')
     tListPaciGrupo.clear().draw();
     $('#modalFiltroPacientesFacturacion').modal('show');
 })
