@@ -72,7 +72,8 @@ class Reporte
             case 'corte':
             case 'consultorio2': //<--Consultorio2 (Creado Angel) 
             case 'receta': //<--Receta (Creado Angel) 
-            case 'solicitud_estudios': //<-- (Creado Angel)  
+            case 'solicitud_estudios': //<-- (Creado Angel)
+            case 'audiometria':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
             default:
@@ -226,6 +227,11 @@ class Reporte
                 $template = render_view('invoice/temperatura_refrigeradores.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'landscape');
+                break;
+            case 'audiometria':
+                $template = render_view('invoice/audiometria.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
                 break;
 
             default:
