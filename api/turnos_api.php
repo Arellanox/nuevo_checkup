@@ -75,7 +75,7 @@ $parametros = array(
     $segmento_id
 );
 $response = "";
-
+// Angel estuvo aqui XD
 $master = new Master();
 switch ($api) {
     case 1:
