@@ -134,6 +134,11 @@ session_start();
                                 <button type="button" class="btn btn-primary me-2" style="margin-bottom:4px; display:none" id="btn-resultados-audi-pdf">
                                     <i class="bi bi-plus-lg"></i> Subir reporte
                                 </button>
+
+                                <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none">
+                                    <i class="bi bi-ear"></i> Captura de Oidos
+                                </button>
+
                             </div>
 
                             <div class="col-6 text-end" style="margin-top:4px;margin-bottom:5px;">

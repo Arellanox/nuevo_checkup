@@ -40,7 +40,6 @@ async function obtenerConsultorioMain() {
 // Obtener el perfil del paciente (antecedentes);
 var pacienteActivo = new GuardarArreglo()
 var infoConsultaActivo = new GuardarArreglo();
-
 function obtenerContenidoAntecedentes(data) {
   activoConsultadorTurnero = false;
   loader("In")
@@ -103,7 +102,7 @@ function obtenerContenidoConsulta(data, idvaloracion) {
 
 
 
-// METODOS
+// METODOS PARA PERFIL DEL PACIENTE
 // Rellena la plantilla con metodos de espera Async Await
 async function obtenerConsultorio(id, idTurno, cliente, curp) {
   await obtenerPanelInformacion(idTurno, "pacientes_api", 'paciente')
@@ -124,8 +123,16 @@ async function obtenerConsultorio(id, idTurno, cliente, curp) {
   await obtenerHistorialConsultas(id);
   // alert("Funcion terminada")
   await obtenerHistorialConsultaMedica(idTurno);
+
+
+
   loader("Out")
 }
+
+
+
+
+
 
 async function obtenerValoracion(data, idconsulta) {
   // console.log(data, idconsulta)
