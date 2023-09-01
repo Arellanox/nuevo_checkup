@@ -225,7 +225,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
       //Area de audiometria
       case 4:
         $('#btn-capturas-pdf').fadeOut(0)
-        $('#btn-resultados-audi-pdf').fadeIn(0)
+        $('.btn_reporte_audiometria').fadeIn(0)
         $.getScript("modals/js/master_subir_interpretación.js");
 
         break;

@@ -130,6 +130,9 @@ function recargarVistaLab(fecha = 1) {
     area_id: 1
   }
 
+  if (session.cargo == 19)
+    dataListaPaciente['cliente_id'] = 16
+
   if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
 
   tablaMain.ajax.reload()

@@ -121,13 +121,26 @@ var SelectedEquiposTermometrosQR;
 selectTable('#TablaTermometros', TablaTermometrosDataTable, { unSelect: true, dblClick: true, noColumns: true }, async function (select, data, callback) {
 
     if (select) {
+        // Reinicia el form
         $('#activarFactorCorrecion').prop('checked', false)
         $('#factor_correcion').val('');
+
+        // Seteamos variable
         selectedEquiposTemperaturas = data;
+
+        // Verificamos permiso
         session.permisos.SupTemp == 1 ? $("#TermometrosTemperaturasForm").removeClass('disable-element') : $("#TermometrosTemperaturasForm").addClass('disable-element');
         $("#TermometrosTemperaturasForm").removeClass('disable-element');
+
+        // Agregamos valores
         $("#Termometros_Equipos").val(selectedEquiposTemperaturas['TERMOMETRO_ID']);
-        SwitchFactorCorrecion()
+        $('#factor_correcion').val(selectedEquiposTemperaturas['FACTOR_DE_CORRECCION']);
+
+        if (selectedEquiposTemperaturas['FACTOR_DE_CORRECCION'] != '0.00') {
+            $('#activarFactorCorrecion').prop('checked', true)
+            SwitchFactorCorrecion()
+        }
+
         SelectedEquiposTermometrosQR = true;
         FadeTermometro('In')
     } else {
@@ -136,6 +149,7 @@ selectTable('#TablaTermometros', TablaTermometrosDataTable, { unSelect: true, db
         $("#Termometros_Equipos").val("");
         SelectedEquiposTermometrosQR = false;
         FadeTermometro('Out')
+        SwitchFactorCorrecion()
     }
 })
 

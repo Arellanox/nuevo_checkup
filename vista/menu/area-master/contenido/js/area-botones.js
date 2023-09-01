@@ -219,3 +219,177 @@ function estudioSeleccionado(id, modal, serv) {
   servicio_nombre = serv;
   $(modal).modal("show");
 }
+
+
+
+
+const defaultCropBoxPercentages = {
+  width: 0.6403659233847913,
+  height: 0.4184027777777778,
+  left: 0.17981703830760437,
+  top: 0.1753472222222222
+};
+
+$('#reporte_equipo').on('change', function (event) {
+  let file = event.target.files[0];
+
+  if (file.type === 'application/pdf') {
+    let reader = new FileReader();
+    reader.onload = function (ev) {
+      let pdfData = new Uint8Array(ev.target.result);
+      pdfjsLib.getDocument({ data: pdfData }).promise.then(function (pdf) {
+        pdf.getPage(1).then(function (page) {
+          let viewport = page.getViewport({ scale: 2 });
+          let canvas = document.createElement('canvas');
+          let ctx = canvas.getContext('2d');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          let renderTask = page.render({
+            canvasContext: ctx,
+            viewport: viewport
+          });
+
+          renderTask.promise.then(function () {
+            $('#viewer').html('<img id="pdfImage" src="' + canvas.toDataURL() + '">');
+            cropper = new Cropper(document.getElementById('pdfImage'), {
+              viewMode: 1,
+              dragMode: 'move',
+              aspectRatio: NaN, // libre
+              restore: false,
+              ready: function () {
+                // Establecer el tamaño y posición del cropBox según los porcentajes predeterminados
+                setCropBoxByPercentage(defaultCropBoxPercentages);
+              }
+              // ready: function () {
+              //   // Definir en automatico donde quieres que capture el usuario las tablas
+              //   let cropBoxData = {
+              //     height: 300,
+              //     left: 394.63131313131316,
+              //     top: 127,
+              //     width: 452
+              //   };
+              //   cropper.setCropBoxData(cropBoxData);
+              // },
+              // cropmove: function () {
+              //   let cropBoxData = cropper.getCropBoxData();
+              //   let containerData = cropper.getContainerData();
+              //   let percentages = calculatePercentageValues(cropBoxData, containerData);
+              //   console.log('Porcentajes:', percentages);
+              // }
+            });
+          });
+        });
+      });
+    };
+    reader.readAsArrayBuffer(file);
+  } else if (['image/jpeg', 'image/png'].includes(file.type)) {
+    let reader = new FileReader();
+    reader.onload = function (e) {
+      $('#viewer').html('<img id="uploadedImage" src="' + e.target.result + '">');
+      cropper = new Cropper(document.getElementById('uploadedImage'), {
+        viewMode: 1,
+        dragMode: 'move',
+        aspectRatio: NaN, // libre
+        restore: false
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+$('#capture').on('click', function () {
+  if (cropper) {
+    let canvas = cropper.getCroppedCanvas();
+    let croppedImage = canvas.toDataURL('image/png');
+
+    console.log(croppedImage);
+
+    // Aquí puedes añadir la imagen recortada a la sección de "captures"
+
+    let imageContainer = $('<div>', { class: 'position-relative d-inline-block m-2' });
+
+    let img = $('<img>', {
+      src: croppedImage,
+      class: 'img-thumbnail lightbox-image'  // Estilo de Bootstrap
+    });
+
+    let deleteButton = $('<button>', {
+      class: 'btn btn-danger btn-sm position-absolute top-0 end-0',
+      style: 'translate(48%, -21%);',  // Posicionar en la esquina superior derecha
+      html: '<i class="bi-trash"></i>',  // Icono de Bootstrap Icons
+      click: function () {
+        $(this).closest('div').remove();  // Borrar el contenedor de la imagen
+      }
+    });
+
+    imageContainer.append(img, deleteButton);
+    $('#captures').append(imageContainer);
+
+    // Para enviar la imagen a través de AJAX como archivo:
+    let blob = dataURLtoBlob(croppedImage);
+    let formData = new FormData();
+    formData.append('croppedImage', blob, 'cropped.png');
+
+    // Ejemplo de AJAX con jQuery para enviar el archivo
+    // $.ajax({
+    //   url: '/tu_endpoint',  // Ruta a la cual deseas enviar el archivo
+    //   method: 'POST',
+    //   data: formData,
+    //   processData: false,
+    //   contentType: false,
+    //   success: function (response) {
+    //     console.log('Imagen enviada y guardada!', response);
+    //   },
+    //   error: function (error) {
+    //     console.error('Error al guardar la imagen', error);
+    //   }
+    // });
+  }
+});
+
+// Convertir DataURL a Blob para poder enviarlo como archivo
+function dataURLtoBlob(dataurl) {
+  var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
+}
+
+// Para saber posicion exacta (sin uso)
+function calculatePercentageValues(cropBoxData, containerData) {
+  let widthPercentage = cropBoxData.width / containerData.width;
+  let heightPercentage = cropBoxData.height / containerData.height;
+  let leftPercentage = cropBoxData.left / containerData.width;
+  let topPercentage = cropBoxData.top / containerData.height;
+
+  return {
+    width: widthPercentage,
+    height: heightPercentage,
+    left: leftPercentage,
+    top: topPercentage
+  };
+}
+
+
+// Darle por defecto una posicion
+function setCropBoxByPercentage(percentageValues) {
+  let containerData = cropper.getContainerData();
+  let cropBoxData = {
+    left: containerData.width * percentageValues.left,
+    top: containerData.height * percentageValues.top,
+    width: containerData.width * percentageValues.width,
+    height: containerData.height * percentageValues.height
+  };
+  cropper.setCropBoxData(cropBoxData);
+}
+
+// Si windows se recalcula, este mantiene por defecto el recuadro
+$(window).resize(function () {
+  if (cropper) {
+    // Reajustar el cropBox al redimensionar
+    setCropBoxByPercentage(defaultCropBoxPercentages);
+  }
+});

@@ -51,6 +51,7 @@ $completado = $_POST['completado'];
 $comentario_rechazo = $_POST['comentario_rechazo'];
 $cliente_id = $_POST['cliente_id'];
 $segmento_id = $_POST['segmento_id'];
+$area_id = $_POST['area_id'];
 
 
 
@@ -74,7 +75,7 @@ $parametros = array(
     $segmento_id
 );
 $response = "";
-
+// Angel estuvo aqui XD
 $master = new Master();
 switch ($api) {
     case 1:
@@ -97,7 +98,7 @@ switch ($api) {
         # recuperar la lista de trabajo por area
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, NULL, $_SESSION['id']));
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, NULL, $_SESSION['id'], $cliente_id));
         break;
     case 10:
         #historial de servicios
@@ -224,7 +225,7 @@ switch ($api) {
         # Cargar lista de trabajo para la segunda validacion de laboratorio
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, 1, $_SESSION['id'])); #fecha deseada, id_area, id_cliente.
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, 1, $_SESSION['id'], null)); #fecha deseada, id_area, id_cliente.
         break;
     case 13:
         # Dar el 2 check en resultados de laboratorio [particulares]
@@ -233,7 +234,7 @@ switch ($api) {
 
         if ($response >= 0) {
             # si se confirmo en la base de datos, enviamos el correo
-            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null, 0]);
+            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, $id_area, 1, null, 0]);
             $files = $master->cleanAttachingFiles($response);
 
             # creamos el arreglo para saber a cuantos correo hay que mandarlo
@@ -255,7 +256,7 @@ switch ($api) {
         break;
     case 14:
 
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null, 0]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, $area_id, 1, null, 0]);
         $response = $response[count($response) - 1];
         //$response = $master->cleanAttachingFiles($response);
         break;

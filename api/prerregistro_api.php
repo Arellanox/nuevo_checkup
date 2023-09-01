@@ -144,8 +144,9 @@ switch ($api) {
                 $posicion++;
             }
 
-
-            $response = $master->getByNext("sp_espiro_cuestionario_g", [json_encode($principal), $lastId, 5, $usuario_id, 0]);
+            if(!empty($principal)){
+                $response = $master->getByNext("sp_espiro_cuestionario_g", [json_encode($principal), $lastId, 5, $usuario_id, 0]);
+            }
         } else {
             # si no se puede insertar el turno, termina el ejecucion
             echo json_encode(array('response' => array('code' => 2, 'data' => "No hemos podido agendar su visita.")));

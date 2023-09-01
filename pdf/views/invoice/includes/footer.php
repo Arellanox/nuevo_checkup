@@ -7,7 +7,7 @@
             <td colspan="10">
             </td>
             <td colspan="2" style="text-align: left;">
-                <?php echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
+                <?php if (isset($encode_firma)) echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
             </td>
         </tr>
         <tr class="col-foot-three" style="font-size: 13px;">

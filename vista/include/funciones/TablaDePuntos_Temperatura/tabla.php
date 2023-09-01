@@ -10,7 +10,7 @@
 
 
     <?php
-    $url = "http://localhost/practicantes/api/temperatura_api.php";
+    $url = "https://bimo-lab.com/nuevo_checkup/api/temperatura_api.php";
     // Los datos de formulario
     $datos = [
         "api" => 7,
@@ -197,7 +197,7 @@
 
 
     <?php
-    $url = "http://localhost/practicantes/api/temperatura_api.php";
+    $url = "https://bimo-lab.com/nuevo_checkup/api/temperatura_api.php";
     // Los datos de formulario
     $datos = [
         "api" => 7,
@@ -374,7 +374,8 @@
 
 <script>
     dotInicial = <?php echo array_key_first($valores); ?>;
-    prevDot = `dot-<?php echo array_key_first($valores) ?>-<?php echo array_key_first($valores[array_key_first($valores)]) ?>`;
+    prevDot =
+        `dot-<?php echo array_key_first($valores) ?>-<?php echo array_key_first($valores[array_key_first($valores)]) ?>`;
 
     dotLast = <?php echo array_key_last($valores); ?>;
 

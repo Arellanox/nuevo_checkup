@@ -285,8 +285,12 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-$encode_firma = base64_encode($ruta_firma);
+// $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+if (isset($pie['datos_medicos'][0]['FIRMA'])) {
+    $ruta_firma = file_get_contents($pie['datos_medicos'][0]['FIRMA']);
+}
+if (isset($ruta_firma))
+    $encode_firma = base64_encode($ruta_firma);
 
 
 ?>
@@ -305,7 +309,15 @@ $encode_firma = base64_encode($ruta_firma);
 
     <div class="footer">
         <?php
-        $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        // $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        $nombre_doctor = $pie['datos_medicos']['0']['NOMBRE_COMPLETO'];
+        $uni = $pie['datos_medicos']['0']['UNIVERSIDAD'];
+        $cedula = $pie['datos_medicos']['0']['CEDULA'];
+
+        $footerDoctor = "$nombre_doctor <br>$uni - Cédula profesional: $cedula";
+
+
+
 
         include 'includes/footer.php';
         ?>
@@ -315,6 +327,19 @@ $encode_firma = base64_encode($ruta_firma);
     <br>
     <!-- body -->
     <div class="invoice-content">
+
+        <?php
+
+
+        // if ($pie['folio'] === "DBMHC0001") {
+
+        //     echo ('<pre>');
+        //     var_dump($pie['datos_medicos']);
+        //     echo ('</pre>');
+        //     echo $footerDoctor;
+        // }
+
+        ?>
 
         <!-- Nota consulta -->
         <section id="card-nota-consulta">
@@ -344,7 +369,8 @@ $encode_firma = base64_encode($ruta_firma);
                         <tr>
                             <td class="respuesta-row"><?php echo $diagnosticoPrincipal; ?></td>
                         </tr>
-                        <?php for ($i = 0; $i < count($resultados[0]); $i++) : ?>
+                        <?php
+                        for ($i = 0; $i < count($resultados[0]); $i++) : ?>
                             <?php if ($resultados[0][$i]->DIAGNOSTICO != $diagnosticoPrincipal) : ?>
                                 <?php $diagnosticoPrincipal = $resultados[0][$i]->DIAGNOSTICO; ?>
                                 <tr>

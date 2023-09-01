@@ -11,10 +11,8 @@
 
 
 $(document).on('click', '#modalGruposPacienteCredito', function (event) {
-
-
-
-
+    dataFill_edit = { api: 3 }
+    tListPaciGrupo.clear().draw();
     $('#modalFiltroPacientesFacturacion').modal('show');
 })
 

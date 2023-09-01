@@ -504,6 +504,8 @@ class Miscelaneus
             case "19":
                 #CONSULTORIO2
                 $arregloPaciente = $this->getBodyInfoConsultorio2($master, $turno_id);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
+                $datos_medicos = $this->getMedicalCarrier($info);
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_CONSULTA2'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "consulta_medica";
