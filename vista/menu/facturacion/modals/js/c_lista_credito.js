@@ -102,7 +102,7 @@ selectTable('#TablaFiltradaCredito', tFillPaciCredito, { unSelect: true, multipl
     SelectPaciFiltrada = dataRow
 })
 
-dataFill_edit = { api: 3, id_grupo: 18 }
+dataFill_edit = { api: 3 }
 tListPaciGrupo = $('#TablaPacientesNewGrupo').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"

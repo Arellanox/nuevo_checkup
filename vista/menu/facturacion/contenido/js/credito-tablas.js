@@ -29,7 +29,7 @@ TablaGrupos = $('#TablaGrupos').DataTable({
         dataSrc: 'response.data'
     },
     createdRow: function (row, data, dataIndex) {
-        if (data.FACTURA !== 0) {
+        if (parseInt(ifnull(data, 0, ['FACTURADO']))) {
             $(row).addClass('bg-success text-white');
         }
     },
@@ -202,6 +202,8 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
                     return false;
                 }
 
+                dataFill_edit['ID_GRUPO'] = SelectedGruposCredito['id_grupo'];
+                tListPaciGrupo.ajax.reload();
                 //Para modificar el grupo
                 $('#title-grupo-factura').html(`Grupo: ${SelectedGruposCredito['FOLIO']}, ${SelectedGruposCredito['PROCEDENCIA']}, ${SelectedGruposCredito['FECHA_CREACION']}`)
                 //Activa a que puede modificar el grupo
