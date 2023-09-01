@@ -476,6 +476,16 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
 
                 break;
+            case 4:
+            case "4":
+                #AUDIOMETRIA
+                $datos_medicos = array();
+                $arregloPaciente = $this->getBodyAudio($master, $turno_id);
+                $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_ESPIRO'];
+                $carpeta_guardado = "audiometria";
+                $folio = $infoPaciente[0]['FOLIO_AUDIO'];
+                $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_AUDIO'];
+                break;
 
             case 5:
             case "5":
@@ -1693,7 +1703,24 @@ class Miscelaneus
             return strlen($item) > 0;
         });
     }
+    public function getBodyAudio($master, $turno_id)
+    {
+        # recuperamos los datos del paciente
+        $response = $master->getByProcedure("sp_mesometria_signos_vitales_b", []);
 
+        # declaramos el array final 
+        $arregloPaciente = array();
+
+        # convertimos los tipo de signos en claves y su resultado en el valor del arreglo
+        foreach ($response as $sign) {
+            $clave = str_replace(" ", "_", $sign['TIPO_SIGNO']);
+            $arregloPaciente[$clave] = $sign['VALOR'];
+        }
+        $arregloPaciente['FECHA_REGISTRO'] = $response[0]['FECHA_REGISTRO'];
+
+
+        return $arregloPaciente;
+    }
     public function getBodyEspiro($master, $turno_id)
     {
         # json para el reporte de espirometria.
