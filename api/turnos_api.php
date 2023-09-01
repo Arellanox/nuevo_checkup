@@ -234,7 +234,7 @@ switch ($api) {
 
         if ($response >= 0) {
             # si se confirmo en la base de datos, enviamos el correo
-            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, 6, 1, null, 0]);
+            $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, $id_area, 1, null, 0]);
             $files = $master->cleanAttachingFiles($response);
 
             # creamos el arreglo para saber a cuantos correo hay que mandarlo
