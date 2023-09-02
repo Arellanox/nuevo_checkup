@@ -22,7 +22,7 @@ function obtenerPacientesContado() {
 
 //Globales
 
-SelectedPacienteCredito = {}, SelectedGruposCredito = {}, factura = null;
+SelectedPacienteCredito = {}, SelectedGruposCredito = {}, factura = null, grupoPacientesModificar = false;
 var TablaGrupos = false;
 function obtenerPacientesCredito() {
     obtenerTitulo('Pacientes (Crédito)'); //Aqui mandar el nombre de la area

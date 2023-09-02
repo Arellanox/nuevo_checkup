@@ -1349,6 +1349,9 @@ function alertMensajeConfirm(options, callback = function () { }, set = 0, callb
           // allowOutsideClick: false
           // timer: 4000,
           // timerProgressBar: true,
+          //   showDenyButton: true,
+          // denyButtonText: `Don't save`,
+          // denyButtonColor: "#d33";
         }
       }
       break;
@@ -1807,7 +1810,8 @@ function configSelectTable(config) {
         },
         selected: false
       }
-    ]
+    ],
+    divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -1886,6 +1890,7 @@ $(document).on('click', '.tab-table', function () {
   let btn = $(this);
   isMovil(() => {
     if (!btn.hasClass('active')) {
+
       $('.tab-first').fadeOut(100);
       $('.tab-second').fadeOut(0);
 
@@ -1932,6 +1937,7 @@ function setReloadSelecTable(name, param) {
   $('#reload-selectable').attr('id', `loaderDiv-${name}`)
 }
 
+// Sin uso
 function reloadSelectTable() {
   if (isMovil()) {
     //Manda al principio
@@ -2091,6 +2097,7 @@ function selectTable(tablename, datatable,
       return false;
     }
 
+    // Si desea solo obtener los datos
     if (config.OnlyData) {
       return callbackClick(1, dataRow, function (data) { return 'No action' }, tr, row);
     }
@@ -2101,9 +2108,9 @@ function selectTable(tablename, datatable,
     selectTableClickCount++;
     if ($(tr).hasClass('selected')) {
       clearTimeout(selectTableTimeOutClick)
+      console.log(selectTableClickCount)
 
       selectTableTimeOutClick = setTimeout(function () {
-
         if (selectTableClickCount === 1 && config.unSelect === true) {
           //Manda a cargar la vista
           selectTable_cargarVista()
@@ -2130,7 +2137,7 @@ function selectTable(tablename, datatable,
 
         }
 
-      }, 300)
+      }, 200)
 
     } else {
       //Manda a cargar la vista
@@ -2182,7 +2189,13 @@ function selectTable(tablename, datatable,
 
 
   function selectTable_cargarVista() {
-    $('.tab-second').fadeOut()
+    if (config.divPadre) {
+      console.log('Hola');
+      $(`${config.divPadre} .tab-second`).fadeOut()
+    } else {
+      $('.tab-second').fadeOut()
+    }
+
     console.log($(loader_selectTable))
     $(loader_selectTable).fadeIn(0);
   }

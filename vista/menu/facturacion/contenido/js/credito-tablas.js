@@ -75,7 +75,7 @@ inputBusquedaTable("TablaGrupos", TablaGrupos, [], {
 
 
 selectTable('#TablaGrupos', TablaGrupos, {
-    unSelect: true, reload: ['col-xl-9'],
+    unSelect: true, reload: ['col-xl-9'], divPadre: '#vistaGruposFactura',
     // OnlyData: true,
     ClickClass: [
         {
@@ -208,7 +208,9 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
                 title = '#title-grupo-factura';
                 $(title).html(`Grupo: ${SelectedGruposCredito['FOLIO']}, ${SelectedGruposCredito['PROCEDENCIA']}, ${formatoFecha2(SelectedGruposCredito['FECHA_CREACION'], [0, 1, 5, 2, 2, 2, 0])}`)
                 console.log($(title))
-                //Activa a que puede modificar el grupo
+
+                // Abrir modal para modificar
+                grupoPacientesModificar = SelectedGruposCredito['ID_GRUPO'];
                 $('#modalFiltroPacientesFacturacion').modal('show');
 
             }
@@ -218,7 +220,7 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
 
 
 selectTable('#TablaGrupoDetalle', TablaGrupoDetalle, {
-    OnlyData: true,
+    OnlyData: true, divPadre: '#false',
     ClickClass: [
         {
             class: 'ticketDataButton',

@@ -80,24 +80,29 @@ tFillPaciCredito = $('#TablaFiltradaCredito').DataTable({
         { data: 'PX' },
         { data: 'NUM_ESTADO_CUENTA' },
         { data: 'PREFOLIO' },
-        // { data: 'PROCEDENCIA' },
-        { data: 'FECHA_RECEPCION' }
+        { data: 'PROCEDENCIA' },
+        {
+            data: 'FECHA_RECEPCION', render: (data) => {
+                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0])
+            }
+        }
         // {defaultContent: 'En progreso...'}
     ],
 
     columnDefs: [
         { width: "0px", targets: 0, className: 'all', title: '#' },
-        { targets: 1, className: 'all', title: 'Paciente', width: '100%' },
+        { targets: 1, className: 'all', title: 'Paciente', width: '50%' },
         { targets: 2, className: 'none', title: 'Cuenta' },
         { targets: 3, className: 'none', title: 'Prefolio' },
-        { targets: 4, className: 'none', title: 'Recepción' }
+        { targets: 4, className: 'all', title: 'Procedencia' },
+        { targets: 5, className: 'min-tablet', title: 'Recepción' }
     ],
 })
 
 inputBusquedaTable('TablaFiltradaCredito', tFillPaciCredito, [], [], 'col-12')
 
 let SelectPaciFiltrada = [];
-selectTable('#TablaFiltradaCredito', tFillPaciCredito, { unSelect: true, multipleSelect: true }, (select, dataRow, callback) => {
+selectTable('#TablaFiltradaCredito', tFillPaciCredito, { unSelect: true, multipleSelect: true, divPadre: '#false' }, (select, dataRow, callback) => {
     SelectPaciFiltrada = dataRow
 })
 
@@ -137,24 +142,29 @@ tListPaciGrupo = $('#TablaPacientesNewGrupo').DataTable({
         { data: 'PX' },
         { data: 'NUM_ESTADO_CUENTA' },
         { data: 'PREFOLIO' },
-        // { data: 'PROCEDENCIA' },
-        { data: 'FECHA_RECEPCION' }
+        { data: 'PROCEDENCIA' },
+        {
+            data: 'FECHA_RECEPCION', render: (data) => {
+                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0])
+            }
+        }
         // {defaultContent: 'En progreso...'}
     ],
 
     columnDefs: [
         { width: "0px", targets: 0, className: 'all', title: '#' },
-        { targets: 1, className: 'all', title: 'Paciente', width: '100%' },
+        { targets: 1, className: 'all', title: 'Paciente', width: '50%' },
         { targets: 2, className: 'none', title: 'Cuenta' },
         { targets: 3, className: 'none', title: 'Prefolio' },
-        { targets: 4, className: 'none', title: 'Recepción' }
+        { targets: 4, className: 'all', title: 'Procedencia' },
+        { targets: 5, className: 'min-tablet', title: 'Recepción' }
     ],
 })
 
 inputBusquedaTable('TablaPacientesNewGrupo', tListPaciGrupo, [], [], 'col-12')
 
 let SelectPaciNewGrupo
-selectTable('#TablaPacientesNewGrupo', tListPaciGrupo, { unSelect: true, multipleSelect: true }, (select, dataRow, callback) => {
+selectTable('#TablaPacientesNewGrupo', tListPaciGrupo, { unSelect: true, multipleSelect: true, divPadre: '#false' }, (select, dataRow, callback) => {
     SelectPaciNewGrupo = dataRow
 })
 
@@ -182,32 +192,32 @@ $(document).on('click', '#QuitarPacientesGrupo', function () {
 //Filtrar la primera tabla
 $('#formFiltroListaCredito').submit(function (event) {
     event.preventDefault();
-
-
-
     cliente_id = cliente.val()
     let cliente_exist = false;
 
-    if (tFillPaciCredito.rows().count() > 0)
-
-        tFillPaciCredito.rows().every(function (rowIdx, tableLoop, rowLoop) {
+    if (tListPaciGrupo.rows().count() > 0) {
+        tListPaciGrupo.rows().every(function (rowIdx, tableLoop, rowLoop) {
             var rowData = this.data();
-            if (rowData.ID_CLIENTE !== cliente_id) {
+            console.log(rowIdx, this.data(), rowLoop);
+            if (rowData.CLIENTE_ID !== cliente_id) {
                 cliente_exist = true;
                 return false; // Detiene el bucle si la ID no existe en un registro
             }
         });
-
+    }
 
     if (cliente_exist) {
         //El cliente no existe en la  tabla
 
         alertMensajeConfirm({
             title: '¿Está seguro de filtrar otro cliente?',
-            text: '¡Todos los pacientes seleccionados se perderán!',
+            text: '¡Todos los pacientes seleccionados de la tabla por agregar/actualizar se perderán!',
             icon: 'warning',
-            confirmButtonText: 'Si, aceptar',
-            cancelButtonText: 'Cancelar'
+            confirmButtonText: 'Filtra sin eliminar',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: 'gray',
+            showDenyButton: true,
+            denyButtonText: 'Eliminalos y filtralo',
         }, () => {
 
             dataFill['fecha_inicial'] = fecha_inicial.val()
@@ -215,8 +225,16 @@ $('#formFiltroListaCredito').submit(function (event) {
             dataFill['cliente_id'] = cliente.val()
             tFillPaciCredito.ajax.reload();
 
+            // tListPaciGrupo.clear().draw();
+        }, 1, () => {
+
+            dataFill['fecha_inicial'] = fecha_inicial.val()
+            dataFill['fecha_final'] = fecha_final.val();
+            dataFill['cliente_id'] = cliente.val()
+            tFillPaciCredito.ajax.reload();
+
             tListPaciGrupo.clear().draw();
-        }, 1)
+        })
 
 
         console.log("La ID no está presente en todos los registros de la tabla2");
@@ -252,20 +270,25 @@ $(document).on('click', '#btn-facturar-grupo', function (event) {
         return false
     }
 
+    console.log(grupoPacientesModificar);
+
     alertPassConfirm({
-        title: '¿Desea crear el grupo con los pacientes seleccionados?',
+        title: '¿Deseas guardar el grupo con los pacientes seleccionados?',
         icon: 'warning',
     }, () => {
 
-        ajaxAwait({
+        let dataAjax = {
             api: 1,
             detalle_grupo: grupo,
             descripcion: $('#descripcion-grupo-factura').val(),
             cliente_id: cliente.val(),
-        }, 'admon_grupos_api', { callbackAfter: true }, false, (data) => {
+        }
+
+        if (grupoPacientesModificar) dataAjax['id_grupo'] = grupoPacientesModificar
+
+        ajaxAwait(dataAjax, 'admon_grupos_api', { callbackAfter: true }, false, (data) => {
             alertToast('¡Grupo Creado!', 'success', 4000);
-
-
+            TablaGrupos.ajax.reload();
         })
 
     })
