@@ -50,9 +50,15 @@ $kit = $body[count($body) - 3];
 
 
             echo '<tr>
-                    <td class="">
-                        ' . $estudio . '
-                    </td>
+                    <td class="">';
+                
+                    if($estudio === 'Mycobacterium tuberculosis '){
+                        echo "<span class="cursive">$estudio</span>";
+                    }else{
+echo $estudio;
+                    }
+                    
+            echo '</td>
                     <td>';
 
             if($respuesta === 'DETECTADO'){
@@ -105,7 +111,7 @@ $kit = $body[count($body) - 3];
 </p>
 
 <p style="text-align:justify;">
-    <strong>Comentarios: </strong> El Kit Anyplex II MTB / MDR / XDR es una prueba Multiplex de PCR en tiempo real que permite la amplificación simultánea y la detección de secuencias diana de Mycobacterium tuberculosis (MTB), 7 mutaciones que causan resistencia isoniacida (INH) [katG S315i, S315N, S315T, S315T, inhA promotor -15 (T), -8 (A), -8 (C)], 18 mutaciones que causan resistencia a rifampicina (RIF) [rpoB L511P, Q513K, Q513L, Q513P, 3 aminoácidos supresión en 513 ~ 516, D516V, D516Y, S522L, S522Q, H526C, H526D, H526L, H526N, H526R, H526Y, S531L, S531W, L533P, 7 mutaciones que causan resistencia a fluoroquinolonas (FQ)[gyrA A90V, S91P, D94A, D94G, D94H, D94N, D94Y], y 6 mutaciones que causan resistencia a drogas inyectables [RR 1401, 1402, 1484, promotor eis -37, -14, -10]. Y el Médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
+    <strong>Comentarios: </strong> El Kit Anyplex II MTB / MDR / XDR es una prueba Multiplex de PCR en tiempo real que permite la amplificación simultánea y la detección de secuencias diana de <span class="cursive">Mycobacterium tuberculosis</span> (MTB), 7 mutaciones que causan resistencia isoniacida (INH) [katG S315i, S315N, S315T, S315T, inhA promotor -15 (T), -8 (A), -8 (C)], 18 mutaciones que causan resistencia a rifampicina (RIF) [rpoB L511P, Q513K, Q513L, Q513P, 3 aminoácidos supresión en 513 ~ 516, D516V, D516Y, S522L, S522Q, H526C, H526D, H526L, H526N, H526R, H526Y, S531L, S531W, L533P, 7 mutaciones que causan resistencia a fluoroquinolonas (FQ)[gyrA A90V, S91P, D94A, D94G, D94H, D94N, D94Y], y 6 mutaciones que causan resistencia a drogas inyectables [RR 1401, 1402, 1484, promotor eis -37, -14, -10]. Y el Médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
 
 </p>
 <br>
