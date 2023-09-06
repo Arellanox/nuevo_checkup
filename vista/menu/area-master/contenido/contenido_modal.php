@@ -131,13 +131,13 @@ session_start();
                                     <i class="bi bi-plus-lg"></i> EASYONE
                                 </button>
 
-                                <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" id="btn-resultados-audi-pdf">
+                                <!-- <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" id="btn-resultados-audi-pdf">
                                     <i class="bi bi-plus-lg"></i> Subir reporte
-                                </button>
-
-                                <!-- <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none">
-                                    <i class="bi bi-ear"></i> Captura de Oidos
                                 </button> -->
+
+                                <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none">
+                                    <i class="bi bi-ear"></i> Captura de Oidos
+                                </button>
 
                             </div>
 
