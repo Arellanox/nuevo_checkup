@@ -18,3 +18,6 @@ include 'nutri_inbody-captura.html';
 include 'nutri_inbody-visualizar.html';
 
 include 'mostrar_pdf_captura.html';
+
+//Audiometria
+include '../../../include/funciones/carga_oidos/modal_captura_oidos.html';

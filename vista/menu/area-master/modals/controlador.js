@@ -11,4 +11,7 @@ $.post("modals/a_modals.php", function (html) {
 
   //Nutricion inbody
   $.getScript('modals/js/nutri_inbody_capturas.js');
+
+  //Modal para agregar imagenes en audiometria
+  $.getScript(`${http}${servidor}/${appname}/vista/include/funciones/carga_oidos/js/captura_oidos.js`);
 });
