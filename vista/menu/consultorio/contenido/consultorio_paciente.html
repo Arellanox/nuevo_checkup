@@ -9,6 +9,24 @@
     margin: -3px 15px 6px -11px !important;
     font-size: 13px !important;
   }
+
+
+
+  .drop-zone {
+    width: 392px;
+    height: 85px;
+    border: 2px dashed rgb(0 79 90 / 17%);
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-left: 8px;
+  }
+
+  .drop-zone.hover {
+    border-color: #00bbb9;
+    background-color: #c6cacc;
+  }
 </style>
 
 <div class="col-12 loader" id="loader">
@@ -16,6 +34,7 @@
 </div>
 <div class="row mt-2">
   <div class="col-12 col-lg-4">
+
     <div class="info-detalle rounded p-3 shadow-sm my-2" id="panel-informacion"> <!-- Informacion del paciente -->
     </div>
     <div class="rounded p-3 shadow-sm my-2 mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
@@ -38,47 +57,60 @@
     <div class="rounded p-3 shadow-sm my-2 mt-2 p-2" id="consultorio-conclusiones">
       <h4>Conclusiones</h4>
     </div>
+  
 
     <!-- Agregar certificado medico -->
     <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
-
       <h4>Certificado médico del paciente</h4>
-
       <form id="subirResultadosCertificadoMedico">
-        <!-- <h4>Seleccione el certificado que desea a subir</h4> -->
-        <div class="d-flex justify-content-center">
+        <div id="dropCertificadoMedico" class="drop-zone">
+          <label for="file-certificado-medico" style="cursor: pointer;" class="label-certificado-medico">Sube tu archivo
+            arrastrándolo
+            aquí</label>
+
+          <input type="file" id="certificado-medico[]" name="certificado-medico[]" style="display: none;">
+          <br>
+          <div class="spinner-border text-primary carga-certificado-medico" role="status" style="display: none;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+
+        </div>
+        <!-- <div class="d-flex justify-content-center">
+
           <div class="input-file-contenedor col-11">
-            <!-- <label for="certificado-medico[]" class="form-label">Cargar Capturas</label>-->
+            <label for="certificado-medico[]" class="form-label">Cargar Capturas</label>
+
             <label for="certificado-medico[]" class="input-file-label">
               <i class="bi bi-box-arrow-up"></i> Seleccione archivo(s)
             </label>
             <input type="file" name="certificado-medico[]" id="certificado-medico[]" accept=".pdf" required
               class="input-file">
           </div>
-        </div>
+        </div> -->
         <!-- <input type="file" class="form-control input-form mt-3" name="certificado-medico[]"
                                       accept=".pdf" id="certificado-medico"> -->
       </form>
 
-      <div class="col-12 text-end">
+      <!-- <div class="col-12 text-end">
         <button type="button" class="btn btn-hover mt-2" id="btn-subir-certificado-medico" style="font-size: 16px;">
           <i class="bi bi-file-earmark-pdf"></i> Guardar
         </button>
-      </div>
+      </div> -->
 
       <!-- <button type="button" class="btn btn-borrar btnResultados" data-bs-placement="top"
             id="recuperarPDfCerticicadoMedico" style="margin: 20px 17px 20px 17px !important;font-size: 16px;">
             <i class="bi bi-file-earmark-pdf"></i> Vista previa
           </button> -->
-
-
-
-
-
     </div>
 
-
-
+    <!-- Audiometría -->
+    <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
+      <h4>Audiometría</h4>
+      <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
+        data-bs-toggle="modal" data-bs-target="#modalCapturaOdios">
+        <i class="bi bi-ear"></i> Captura de Oidos
+      </button>
+    </div>
 
   </div>
   <div class="col-12 col-lg-4">

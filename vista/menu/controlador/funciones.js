@@ -508,6 +508,114 @@ $(document).on('change click', 'input[type="file"]', function () {
   }
 })
 
+
+// Esta funcion solo funciona para un solo input, 
+// si hay mas de uno debe llamarse tantas veces sea posible
+function InputDragDrop(divPadre, callback = () => { console.log('callback default') }) {
+
+  let dropArea = $(divPadre) // <- Recomendaible una ID tipo #divPadre
+  let inputArea = $(divPadre).find('input'); // <- Deseable a que solo exista un input
+  let labelArea = $(divPadre).find('label');// <- Si deseas modificar el texto del div añadelo
+  let divCarga = $(divPadre).find('div')//<- Opcional se agrego para hacer un Spinners de bootraps
+
+  // Efecto de hover
+  // Aviso al input que hay un archivo encima de él
+  let hoverInput = (cambio = false) => {
+
+    if (cambio) {
+      // Entrada 
+      dropArea.addClass('hover');
+
+
+    } else {
+      // Salida
+      dropArea.removeClass('hover');
+
+    }
+
+  }
+
+  // Efecto de cargando, subiendo
+  // Avisa se coloca aqui mismo antes de ejecutar callback
+  let cargandoInput = () => {
+    // Valida el tipo de archivo a mandar
+
+    //efecto para cambiar de color el div
+    dropArea.css({
+      // "color": "red",
+      // "font-size": "18px",
+      // "background-color": "yellow",
+      "border-color": "#00bbb9",
+      "background-color": "#c6cacc"
+
+    });
+    dropArea.css("font-weight", "bold");
+  }
+
+  // Efecto de cargando e imagen subida lista;
+  // Aviso que debe ejecutar callback para saber si ya se subió
+  let salidaInput = () => {
+    // Crear efecto de imagen subida
+    // console.log('Salida de input')
+
+    dropArea.css({
+      'background': '#f4fdff',
+      'border': '2px dashed rgb(0 79 90 / 17%)'
+    })
+  }
+
+
+  let envioFiles = () => {
+    callback(inputArea, labelArea, divCarga, salidaInput);
+  }
+
+
+  dropArea.on('dragenter dragover', function (e) {
+    // Prevenir recarga y propagation a otros input
+    e.preventDefault();
+    e.stopPropagation();
+
+    hoverInput(1)// <- Agrega efecto de entrada
+  })
+
+  dropArea.on('dragleave', function (e) {
+    // Prevenir recarga y propagation a otros input
+    e.preventDefault();
+    e.stopPropagation();
+    hoverInput(0) // <- Agrega efecto de salida
+  })
+
+  // Majeno de arrastrar y soltar
+  dropArea.on('drop', function (e) {
+    hoverInput(0) // <- Agrega efecto de salida y soltar
+
+    // Prevenir recarga y propagation a otros input
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Dar el efecto de cargando o subiendo
+    cargandoInput()
+
+    // callback
+    envioFiles() // <- Recordar que debes terminar el proceso de cargando a salida
+
+  })
+
+  labelArea.on('change', function () { // <- se cambio por labelArea
+    // Dar el efecto de cargando o subiendo
+    cargandoInput()
+
+    // callback
+    envioFiles() // <- Recordar que debes terminar el proceso de cargando a salida
+  })
+
+
+
+
+}
+
+
+
 let lightbox = '#lightbox';
 let lightbox_img = '#lightbox-img'
 // $(document).on('click', '.lightbox-image', (e) => {

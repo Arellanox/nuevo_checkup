@@ -1,0 +1,100 @@
+<style>
+    .drop-zone {
+        width: 392px;
+        height: 85px;
+        border: 2px dashed rgb(0 79 90 / 17%);
+        text-align: center;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        margin-left: 8px;
+    }
+
+    .drop-zone.hover {
+        border-color: #00bbb9;
+        background-color: #c6cacc;
+    }
+
+    label.label-captura-oido {
+        background: transparent;
+    }
+</style>
+
+
+<!-- modalCapturaOdios -->
+<div class="modal fade" id="modalCapturaOdios" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="title-paciente_aceptar">Captura de Oidos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-2 justify-content-center">
+
+                    <div class="col-12 col-lg-6 p-2 shadow-sm text-center">
+                        <h4>Subir captura de Oido izquierdo</h4>
+
+                        <form id="subirCapturaOidoIzquierdo" class="d-flex flex-column align-items-center">
+                            <div id="dropOidoIzquierdo" class="drop-zone mx-2">
+                                <label for="file-captura-oido-izquierdo" style="cursor: pointer;"
+                                    class="label-captura-oido">Sube
+                                    tu
+                                    archivo
+                                    arrastrándolo
+                                    aquí</label>
+
+                                <input type="file" id="file-captura-oido-izquierdo" name="certificado-medico[]"
+                                    style="display: none;">
+                                <br>
+                                <div class="spinner-border text-primary carga-captura-oido" role="status"
+                                    style="display: none;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </form>
+
+                        <img src="https://i0.wp.com/www.saera.eu/wp-content/uploads/2016/02/audiometria-oido-izquierdo.png?ssl=1"
+                            class="img-fluid mb-2" alt="...">
+
+                    </div>
+
+                    <div class="col-12 col-lg-6 p-2 shadow-sm text-center">
+                        <h4>Subir captura de Oido derecho</h4>
+
+                        <form id="subirCapturaOidoDerecho" class="d-flex flex-column align-items-center">
+                            <div id="dropOidoDerecho" class="drop-zone mx-2">
+                                <label for="file-captura-oido-derecho" style="cursor: pointer;"
+                                    class="label-captura-oido">Sube
+                                    tu
+                                    archivo
+                                    arrastrándolo
+                                    aquí</label>
+
+                                <input type="file" id="file-captura-oido-derecho" name="certificado-medico[]"
+                                    style="display: none;">
+                                <br>
+                                <div class="spinner-border text-primary carga-captura-oido" role="status"
+                                    style="display: none;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </form>
+
+                        <img src="https://i0.wp.com/www.saera.eu/wp-content/uploads/2016/02/audiometria-oido-izquierdo.png?ssl=1"
+                            class="img-fluid mb-2" alt="...">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-borrar" id="btn-limpiar-resultado-espiro">Limpiar</button> -->
+                <!-- <button type="submit" class="btn btn-confirmar" id="btn-subir-certificado-medico"
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los documentos subidos">
+                    <i class="bi bi-clipboard2-plus"></i> Guardar
+                </button> -->
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i>Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
