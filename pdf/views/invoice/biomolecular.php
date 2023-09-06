@@ -324,7 +324,7 @@ function passdata($indice)
         "rT-PCR-ETS" => 'PCR-ETS',
         "FTD Fiebre Tropical Multiplex" => 'FTDMultiplex',
         "PANEL RESPIRATORIO 22" => 'PANEL22',
-        "rT-PCR para Mycobacterium tuberculosis MDR y XDR" => 'mycobacte_tuberculosis'
+        "PCR PARA MYCOBACTERIUM TUBERCULOSIS MDR Y XDR" => 'mycobacte_tuberculosis'
     ];
 
     // echo $indice;

@@ -370,14 +370,14 @@ function generarFormularioPaciente(id) {
                   'descripcion': 'Cultivo',
                 },
                 2: {
-                  'descripcion': 'Tejido',
+                  'descripcion': 'Tejido Fresco',
                 },
                 3: {
-                  'descripcion': 'Fresco',
+                  'descripcion': 'Lavado Bronquial',
                 },
-                4: {
-                  'descripcion': 'Lavado Bronquial'
-                }
+                // 4: {
+                //   'descripcion': 'Lavado Bronquial'
+                // }
               }
               break;
             case '1074':
@@ -453,9 +453,9 @@ function generarFormularioPaciente(id) {
                   anotherValue = 'NEGATIVO'; break;
 
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
-                case '1145': case'1148': case'1149': case'1151': case'1153': case'1153':
-                anotherValue = 'NO DETECTADO';
-                break;
+                case '1145': case '1148': case '1149': case '1151': case '1153': case '1153':
+                  anotherValue = 'NO DETECTADO';
+                  break;
 
                 case '690': case '699': case '702': case '726': case '727': case '728':
                 case '703': case '704': case '705': case '711': case '712': case '732':
@@ -481,7 +481,7 @@ function generarFormularioPaciente(id) {
                 // BlueFinder 22
                 case '1106': case '1111': case '1115': case '1120': case '1125': case '1129':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
-                case '1146': case '1150': case '1147': case '1152':
+                case '1146': case '1150': case '1147': case '1152': case '1164':
                   onlyLabel = true; break;
 
                 //FTD KIT DIAGNOSTICO

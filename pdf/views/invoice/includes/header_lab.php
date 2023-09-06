@@ -50,7 +50,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-left" style="border-bottom: none">
-                                        Nombre: <strong style="font-size: 12px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
+                                        Nombre: <strong style="font-size: 11px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
                                     </td>
                                     <td class="col-center" style="border-bottom: none">
                                         Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?> </strong>
