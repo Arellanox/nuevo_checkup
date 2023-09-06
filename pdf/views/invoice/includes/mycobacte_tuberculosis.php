@@ -13,7 +13,6 @@ $kit = $body[count($body) - 3];
 
 <br>
 <br>
-<br>
 <p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $muestra->resultado; ?></strong> </p>
 <table style="width: 100%; font-size: 13px">
     <tr style="background-color: #BFBFBF;padding: 5px 8px">
@@ -101,7 +100,6 @@ $kit = $body[count($body) - 3];
 
 </table>
 <br>
-<br>
 <p style="text-align:justify;">
     <strong>Observaciones: </strong> <?php echo $obs->resultado; ?>
 </p>
@@ -115,7 +113,6 @@ $kit = $body[count($body) - 3];
     <strong>Equipo utilizado:</strong> CFX96™ Real-Time System BIO-RAD <br>
     <strong>Kit Diagnóstico:</strong> <?php echo $kit->resultado; ?>
 </p>
-<br>
 
 
 <style>
