@@ -2,10 +2,6 @@
 enfriadorData = {}
 var DataMes = {};
 
-rellenarSelect("#Equipos", "equipos_api", 1, "ID_EQUIPO", "DESCRIPCION", { id_tipos_equipos: 5, area_id: localStorage.getItem('area_fisica') })
-
-
-
 // rellenarSelect("#Termometro", "equipos_api", 1, "ID_EQUIPO", "DESCRIPCION", { id_tipos_equipos: 4 })
 
 //Tabla de temperaturas por mes
@@ -14,6 +10,7 @@ tablaTemperaturaFolio = $("#TablaTemperaturasFolio").DataTable({
     lengthChange: false,
     info: true,
     paging: false,
+    sorting: false,
     scrollY: '75vh',
     scrollCollapse: true,
     ajax: {
@@ -40,7 +37,13 @@ tablaTemperaturaFolio = $("#TablaTemperaturasFolio").DataTable({
                     api: true
                 })
                 .columns.adjust();
-            // $("#lista-meses-temperatura").fadeIn(0);
+            // $("#lista-meses-temperatura").fadeIn('slow');
+
+            // Hacer clic en la primera fila
+            var firstRow = tablaTemperaturaFolio.row(0).node(); // La fila 0 es la primera fila
+            $(firstRow).click(); // Simula un clic en la fila
+            $("#loader-TablaTemperaturasFolio").fadeOut('slow');
+
         },
         // error: function (jqXHR, textStatus, errorThrown) {
         //     alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -121,7 +124,7 @@ selectTable('#TablaTemperaturasFolio', tablaTemperaturaFolio, {
                         $('#Termometro_pdf').val(data[0]['TERMOMETRO_PRINCIPAL'])
                 })
 
-                URL_TABLA != null ? $('#btn-mostrar-formato-temperatura').fadeIn(0) : $('#btn-mostrar-formato-temperatura').fadeOut(0);
+                URL_TABLA != null ? $('#btn-mostrar-formato-temperatura').fadeIn('slow') : $('#btn-mostrar-formato-temperatura').fadeOut('slow');
 
                 $("#temperaturaPdfTitle").html(`Generar Formato del Mes: <b>${formatoFecha2(data['FECHA_REGISTRO'], [0, 1, 3, 0])}</b> (Folio:<b>${FolioMesEquipo}</b>)`)
 
@@ -194,10 +197,10 @@ var DataFolio = {
 
 function fadeRegistro(type) {
     if (type == 'Out') {
-        $("#lista-meses-temperatura").fadeOut(0);
+        $("#lista-meses-temperatura").fadeOut('slow');
     } else if (type == 'In') {
-        $("#lista-meses-temperatura").fadeIn(0);
-        // $('#btn-desbloquear-equipos').fadeIn(0)
+        $("#lista-meses-temperatura").fadeIn('slow');
+        // $('#btn-desbloquear-equipos').fadeIn('slow')
         $('#btn-desbloquear-equipos').removeClass('disable-element')
         $('#CapturarTemperaturabtn').removeClass('disable-element');
     }
@@ -205,11 +208,11 @@ function fadeRegistro(type) {
 
 function fadeTabla(type) {
     if (type == 'Out') {
-        $('#grafica-container').fadeOut(0)
-        $("#Equipos_Termometros").fadeOut(0);
+        $('#grafica-container').fadeOut('slow')
+        $("#Equipos_Termometros").fadeOut('slow');
     } else if (type == 'In') {
-        $('#grafica-container').fadeIn(0)
-        $("#Equipos_Termometros").fadeIn(0);
+        $('#grafica-container').fadeIn('slow')
+        $("#Equipos_Termometros").fadeIn('slow');
     }
 }
 

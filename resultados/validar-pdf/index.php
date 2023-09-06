@@ -172,7 +172,9 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                 </div>
                 <?php
                 switch ($modulo) {
-                    case 6: ?>
+                    case 6:
+                    case 12:
+                ?>
                         <!-- Laboratorio Clinico -->
                         <hr>
                         <div id="6" style="display: none;" class="row mt-3">
@@ -646,6 +648,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                         fade(modulo, 'In');
                         break;
                     case 6:
+                    case 12:
                         // Laboratorio Clinico
                         fade(modulo, 'In');
                         break;
@@ -683,7 +686,11 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
         function fade(modulo, type) {
             if (type == 'In') {
                 $('#body-js').fadeIn(0);
-                $(`#${modulo}`).fadeIn(0)
+                if (modulo == 12) {
+                    $(`#6`).fadeIn(0)
+                } else {
+                    $(`#${modulo}`).fadeIn(0)
+                }
             } else if (type == 'Out') {
                 $(`#${modulo}`).fadeOut(0)
             }

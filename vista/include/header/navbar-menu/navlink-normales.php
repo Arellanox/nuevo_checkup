@@ -20,7 +20,7 @@ date_default_timezone_set('America/Mexico_City'); ?>
 
 
 <?php if ($menu == "Recepción") : ?>
-<!-- <li class="nav-item">
+    <!-- <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">
       <i class="bi bi-person-plus"></i> Registrar
     </a>
@@ -38,124 +38,118 @@ date_default_timezone_set('America/Mexico_City'); ?>
       </svg> Solicitud
     </a>
   </li> -->
-<li class="nav-item">
-    <a href="#pendientes" type="button">
-        <i class="bi bi-person-bounding-box"></i> Espera
-    </a>
-</li>
-<li class="nav-item">
-    <a href="#rechazados" type="button">
-        <i class="bi bi-person-x-fill"></i> Rechazados
-    </a>
-</li>
-<li class="nav-item">
-    <a href="#ingresados" type="button">
-        <i class="bi bi-person-badge-fill"></i> Aceptados
-    </a>
-</li>
+    <li class="nav-item">
+        <a href="#pendientes" type="button">
+            <i class="bi bi-person-bounding-box"></i> Espera
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#rechazados" type="button">
+            <i class="bi bi-person-x-fill"></i> Rechazados
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#ingresados" type="button">
+            <i class="bi bi-person-badge-fill"></i> Aceptados
+        </a>
+    </li>
 
-<?php if ($_SESSION['perfil'] ==  1) : ?>
-<li class="nav-item">
-    <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button">
-        <i class="bi bi-person-check"></i> Finalizados
-    </a>
-</li>
-<?php endif; ?>
+    <?php if ($_SESSION['perfil'] ==  1) : ?>
+        <li class="nav-item">
+            <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button">
+                <i class="bi bi-person-check"></i> Finalizados
+            </a>
+        </li>
+    <?php endif; ?>
 
 
 <?php endif; ?>
 
 <?php if ($menu == "Usuarios" && $_SESSION['perfil'] == 1) : ?>
-<li class="nav-item">
-    <div class="dropdown ">
-        <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-journals"></i> Catalogos
+    <li class="nav-item">
+        <div class="dropdown ">
+            <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-journals"></i> Catalogos
+            </a>
+            <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
+                    <i class="bi bi-person-badge"></i> Cargos
+                </a>
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
+                    <i class="bi bi-briefcase"></i> Titulos
+                </a>
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
+                    <i class="bi bi-mortarboard"></i> Universidades
+                </a>
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
+                    <i class="bi bi-postcard"></i> Especialidades
+                </a>
+            </ul>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a href="#Usuarios" class="">
+            <i class="bi bi-person-lines-fill"></i> Usuarios
         </a>
-        <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-            <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal"
-                data-bs-target="#modalRegistrarcargos">
-                <i class="bi bi-person-badge"></i> Cargos
-            </a>
-            <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal"
-                data-bs-target="#modalRegistrartitulos">
-                <i class="bi bi-briefcase"></i> Titulos
-            </a>
-            <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal"
-                data-bs-target="#modalRegistraruniversidades">
-                <i class="bi bi-mortarboard"></i> Universidades
-            </a>
-            <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal"
-                data-bs-target="#modalRegistrarespecialidades">
-                <i class="bi bi-postcard"></i> Especialidades
-            </a>
-        </ul>
-    </div>
-</li>
-<li class="nav-item">
-    <a href="#Usuarios" class="">
-        <i class="bi bi-person-lines-fill"></i> Usuarios
-    </a>
-</li>
+    </li>
 <?php endif; ?>
 
 <?php if ($menu == "Servicios") : ?>
-<?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
-<li class="nav-item">
-    <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos">
-        <i class="bi bi-box"></i> Metodos
-    </a>
-</li>
-<?php endif; ?>
-<?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
-<li class="nav-item">
-    <a href="#Estudios">
-        <i class="bi bi-box"></i> Estudios
-    </a>
-</li>
-<?php endif; ?>
-<?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
-<li class="nav-item">
-    <a href="#Grupos">
-        <i class="bi bi-collection"></i> Grupos de examenes
-    </a>
-</li>
-<?php endif; ?>
-<?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
-<li class="nav-item">
-    <a href="#Equipos">
-        <i class="bi bi-thunderbolt"></i> Equipos
-    </a>
-</li>
-<?php endif; ?>
+    <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
+        <li class="nav-item">
+            <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos">
+                <i class="bi bi-box"></i> Metodos
+            </a>
+        </li>
+    <?php endif; ?>
+    <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
+        <li class="nav-item">
+            <a href="#Estudios">
+                <i class="bi bi-box"></i> Estudios
+            </a>
+        </li>
+    <?php endif; ?>
+    <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
+        <li class="nav-item">
+            <a href="#Grupos">
+                <i class="bi bi-collection"></i> Grupos de examenes
+            </a>
+        </li>
+    <?php endif; ?>
+    <?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
+        <li class="nav-item">
+            <a href="#Equipos">
+                <i class="bi bi-thunderbolt"></i> Equipos
+            </a>
+        </li>
+    <?php endif; ?>
 <?php endif; ?>
 
 <?php if ($menu == "ServiciosLab") : ?>
-<!-- <li class="nav-item">
+    <!-- <li class="nav-item">
     <a href="" onclick="history.go(-1)">
       <i class="bi bi-reply"></i> Regresar
     </a>
   </li> -->
 
 
-<li class="nav-item">
-    <div class="dropdown ">
-        <a class="dropdown-toggle" id="dropCatalogosLab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-journals"></i> Catalogos
-        </a>
-        <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropCatalogosLab">
-            <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal"
-                data-bs-target="#modalRegistrarmetodos">
-                <i class="bi bi-box"></i> Métodos
+    <li class="nav-item">
+        <div class="dropdown ">
+            <a class="dropdown-toggle" id="dropCatalogosLab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-journals"></i> Catalogos
             </a>
-            <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal"
-                data-bs-target="#modalRegistrarmaquila">
-                <i class="bi bi-box"></i> Laboratorio Maquila
-            </a>
-        </ul>
-    </div>
-</li>
+            <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropCatalogosLab">
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos">
+                    <i class="bi bi-box"></i> Métodos
+                </a>
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarmaquila">
+                    <i class="bi bi-box"></i> Laboratorio Maquila
+                </a>
+            </ul>
+        </div>
+    </li>
 
-<!-- <li class="nav-item">
+    <!-- <li class="nav-item">
     <a href="" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos">
       <i class="bi bi-box"></i> Metodos
     </a>
@@ -167,67 +161,65 @@ date_default_timezone_set('America/Mexico_City'); ?>
     </a>
   </li> -->
 
-<li class="nav-item">
-    <a href="#EstudiosLab">
-        <i class="bi bi-box"></i> Estudios
-    </a>
-</li>
+    <li class="nav-item">
+        <a href="#EstudiosLab">
+            <i class="bi bi-box"></i> Estudios
+        </a>
+    </li>
 
-<li class="nav-item">
-    <a href="#GruposLab">
-        <i class="bi bi-collection"></i> Grupos de examenes
-    </a>
-</li>
+    <li class="nav-item">
+        <a href="#GruposLab">
+            <i class="bi bi-collection"></i> Grupos de examenes
+        </a>
+    </li>
 
 <?php endif; ?>
 
 <?php if ($menu == "Laboratorio") : #$menu == "AreaMaster" 
 ?>
 
-<li class="nav-item">
-    <div class="dropdown ">
-        <!-- <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <li class="nav-item">
+        <div class="dropdown ">
+            <!-- <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-clipboard-heart"></i> Estudios del area
       </a> -->
-        <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-            <a class="dropdown-a align-items-center" type="button" href=""
-                onclick="cargarVistaServiciosPorArea('Estudios')">
-                <i class="bi bi-dot"></i> Estudios
-            </a>
-            <a class="dropdown-a align-items-center" type="button" href=""
-                onclick="cargarVistaServiciosPorArea('Grupos')">
-                <i class="bi bi-dot"></i> Grupos
-            </a>
-        </ul>
-    </div>
-</li>
+            <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
+                <a class="dropdown-a align-items-center" type="button" href="" onclick="cargarVistaServiciosPorArea('Estudios')">
+                    <i class="bi bi-dot"></i> Estudios
+                </a>
+                <a class="dropdown-a align-items-center" type="button" href="" onclick="cargarVistaServiciosPorArea('Grupos')">
+                    <i class="bi bi-dot"></i> Grupos
+                </a>
+            </ul>
+        </div>
+    </li>
 <?php endif; ?>
 
 <?php if ($menu == "ListaPrecios") : ?>
-<li class="nav-item">
-    <a href="#LISTA_PRECIOS">
-        <i class="bi bi-tags"></i> Precios Estudio
-    </a>
-</li>
-<li class="nav-item">
-    <a href="#PAQUETES_ESTUDIOS">
-        <i class="bi bi-box-fill"></i> Paquetes
-    </a>
-</li>
-<li class="nav-item">
-    <a href="#COTIZACIONES_ESTUDIOS">
-        <i class="bi bi-inbox"></i> Cotizaciones
-    </a>
-</li>
+    <li class="nav-item">
+        <a href="#LISTA_PRECIOS">
+            <i class="bi bi-tags"></i> Precios Estudio
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#PAQUETES_ESTUDIOS">
+            <i class="bi bi-box-fill"></i> Paquetes
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#COTIZACIONES_ESTUDIOS">
+            <i class="bi bi-inbox"></i> Cotizaciones
+        </a>
+    </li>
 <?php endif; ?>
 
 <?php if ($menu == "Consultorio") : ?>
-<li class="nav-item">
-    <a href="#" type="button" onclick="obtenerConsultorioMain()">
-        <i class="bi bi-thunderbolt"></i> Menú Historia Clínica
-    </a>
-</li>
-<!-- <li class="nav-item">
+    <li class="nav-item">
+        <a href="#" type="button" onclick="obtenerConsultorioMain()">
+            <i class="bi bi-thunderbolt"></i> Menú Historia Clínica
+        </a>
+    </li>
+    <!-- <li class="nav-item">
     <a href="#Perfil">
       <i class="bi bi-thunderbolt"></i> Perfil paciente
     </a>
@@ -242,62 +234,95 @@ date_default_timezone_set('America/Mexico_City'); ?>
 <?php if ($menu == 'Facturacion') : ?>
 
 
-<li class="nav-item">
-    <a href="#CONTADO">
-        <i class="bi bi-pass-fill"></i> Cuentas de Contado
-    </a>
-</li>
-<li class="nav-item">
-    <a href="#CREDITO">
-        <i class="bi bi-box-seam"></i> Cuentas de Crédito
-    </a>
-</li>
+    <li class="nav-item">
+        <a href="#CONTADO">
+            <i class="bi bi-pass-fill"></i> Cuentas de Contado
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#CREDITO">
+            <i class="bi bi-box-seam"></i> Cuentas de Crédito
+        </a>
+    </li>
 
 <?php endif; ?>
 
 
 
+
+<!-- Entradas de Laboratorio -->
 <?php if (
-  $menu == 'Laboratorio' ||
-  $menu == 'muestras' ||
-  $menu == 'ServiciosLab'
+    $menu == 'Laboratorio' ||
+    $menu == 'muestras' ||
+    $menu == 'ServiciosLab' ||
+    $menu == 'Temperatura'
 ) :
 
 
-  if ($_SESSION['vista']['ESTUDIOS_LABORATORIO'] == 1 && $menu != 'ServiciosLab') : ?>
-<li class="nav-item">
-    <a class="dropdown-a align-items-center" type="button"
-        href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio-estudios/#EstudiosLab'; ?>">
-        <i class="bi bi-box2-heart"></i> Estudios
-    </a>
-</li>
-<?php endif;
+    if ($_SESSION['vista']['ESTUDIOS_LABORATORIO'] == 1 && $menu != 'ServiciosLab') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio-estudios/#EstudiosLab'; ?>">
+                <i class="bi bi-box2-heart"></i> Estudios
+            </a>
+        </li>
+    <?php endif;
 
-  if ($_SESSION['vista']['LABORATORIO_MUESTRA_1'] == 1 && $menu != 'muestras') : ?>
-<li class="nav-item">
-    <a class="dropdown-a align-items-center" type="button"
-        href="<?php echo $https . $url . '/' . $appname . '/vista/menu/muestras/#LABORATORIO_MUESTRA_1'; ?>">
-        <i class="bi bi-droplet-half"></i> Toma de muestras
-    </a>
-</li>
-<?php endif;
+    if ($_SESSION['vista']['LABORATORIO_MUESTRA_1'] == 1 && $menu != 'muestras') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/muestras/#LABORATORIO_MUESTRA_1'; ?>">
+                <i class="bi bi-droplet-half"></i> Toma de muestras
+            </a>
+        </li>
+    <?php endif;
 
-  if ($_SESSION['vista']['LABORATORIO_MOLECULAR'] == 1 && $menu != 'Laboratorio') : ?>
-<li class="nav-item">
-    <a class="dropdown-a align-items-center" type="button"
-        href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio/#LABORATORIO_MOLECULAR'; ?>">
-        <i class="bi bi-virus"></i> Laboratorio Biomolecular
-    </a>
-</li>
-<?php endif;
+    if ($_SESSION['vista']['LABORATORIO_MOLECULAR'] == 1 && $menu != 'Laboratorio') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio/#LABORATORIO_MOLECULAR'; ?>">
+                <i class="bi bi-virus"></i> Laboratorio Biomolecular
+            </a>
+        </li>
+    <?php endif;
 
-  if ($_SESSION['vista']['LABORATORIO'] == 1 && $menu != 'Laboratorio') : ?>
-<li class="nav-item">
-    <a class="dropdown-a align-items-center" type="button"
-        href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio/#LABORATORIO'; ?>">
-        <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
-    </a>
-</li>
+    if ($_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1 && $menu == 'Laboratorio' && $menu != 'Temperatura') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center click_temperatura_btn" type="button">
+                <i class="bi bi-droplet-half"></i> Temperatura
+            </a>
+        </li>
+    <?php endif;
+
+    if ($_SESSION['vista']['LABORATORIO'] == 1 && $menu != 'Laboratorio') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio/#LABORATORIO'; ?>">
+                <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
+            </a>
+        </li>
 <?php endif;
 
 endif; ?>
+
+
+
+
+<!-- Agregar click dinamicos en areas dinamicas -->
+<script>
+    //  <!-- Laboratorio | Temperatura -->
+    $(document).on('click', '.click_temperatura_btn', function(event) {
+        event.preventDefault();
+
+        let hash = window.location.hash.substring(1);
+
+        switch (hash) {
+            case 'LABORATORIO_MOLECULAR':
+                // Redireccionar a una nueva página en la misma pestaña
+                window.location.href = `${http}${servidor}/${appname}/vista/menu/temperatura/#BIOMOLECULAR`;
+                break;
+
+            case 'LABORATORIO':
+                // Redireccionar a una nueva página en la misma pestaña
+                window.location.href = `${http}${servidor}/${appname}/vista/menu/temperatura/#LABORATORIO`;
+                break;
+        }
+
+    })
+</script>

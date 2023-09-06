@@ -1,15 +1,40 @@
 var checkFactorCorrecion;
 
 ListaEnfriadoresActiva = false;
-$(document).on("submit", '#EquiposTemperaturasForm', async function (e) {
-    e.preventDefault();
-    // $('#btn-equipo-temperatura').fadeOut(0)
+// $(document).on("submit", '#EquiposTemperaturasForm', async function (e) {
+//     e.preventDefault();
+//     // $('#btn-equipo-temperatura').fadeOut('slow')
+//     alertToast('Espere un momento...', 'info', 3000);
+
+
+// })
+
+async function switchEquipoSelect(time) {
     alertToast('Espere un momento...', 'info', 3000);
 
-    await buildPageTemperatura()
+    buildPageTemperatura(time)
+
+}
+
+$(document).on('change', '#Equipos', function (e) {
+    e.preventDefault()
+
+    ListaEnfriadoresActiva = false;
+    $("#Termometro").html("")
+    $("#formCapturarTemperatura").trigger("reset")
+
+    fadeMenuTemperatura('Out')
+
+    setTimeout(() => {
+        switchEquipoSelect(true)
+    }, 200);
+
+
 })
 
-async function buildPageTemperatura() {
+
+
+async function buildPageTemperatura(time = false) {
     return new Promise(function (resolve, reject) {
         $("#Tabla-termometro").html('')
         $("#Tabla-equipos").html('')
@@ -22,35 +47,41 @@ async function buildPageTemperatura() {
             Descripcion: selectedText
         }
         LoadTermometros(id_equipos, 'Termometro');
-        tablaTemperaturaFolio.ajax.reload()
+
         $('#Enfriador').val(id_equipos)
         $("#formCapturarTemperatura").trigger("reset")
         ListaEnfriadoresActiva = true;
         fadeMenuTemperatura('In')
 
+
+        if (time) {
+            tablaTemperaturaFolio.ajax.reload()
+        }
+
+        resolve(1);
     })
 }
 
 function fadeMenuTemperatura(type) {
     if (type == 'Out') {
-        $("#Equipos_Termometros").fadeOut(0);
-        $('#LibererDiaTemperatura').fadeOut(0);
+        $("#Equipos_Termometros").fadeOut('slow');
+        $('#LibererDiaTemperatura').fadeOut('slow');
         $('#btn-lock').removeClass('bi bi-unlock-fill')
         $('#btn-lock').addClass('bi bi-lock-fill')
-        $('#btn-equipo-temperatura').removeClass('disable-element')
-        $("#lista-meses-temperatura").fadeOut(0);
-        $(".grafica-temperatura").fadeOut(0);
+        // $('#btn-equipo-temperatura').removeClass('disable-element')
+        $("#lista-meses-temperatura").fadeOut('slow');
+        $(".grafica-temperatura").fadeOut('slow');
         $('#btn-desbloquear-equipos').addClass('disable-element')
-        $('#CapturarTemperaturabtn').addClass('disable-element');
-        // $("#SupervisorConfiguracion").fadeOut(0)
-        // $('#btn-equipo-temperatura').fadeIn(0)
-        // $('#btn-desbloquear-equipos').fadeOut(0)
-        $('#Equipos').removeClass('disable-element')
+        // $('#CapturarTemperaturabtn').addClass('disable-element');
+        // $("#SupervisorConfiguracion").fadeOut('slow')
+        // $('#btn-equipo-temperatura').fadeIn('slow')
+        // $('#btn-desbloquear-equipos').fadeOut('slow')
+        // $('#Equipos').removeClass('disable-element')
     } else if (type == 'In') {
-        $('#LibererDiaTemperatura').fadeIn(0);
-        $('#Equipos').addClass('disable-element')
-        $('#btn-equipo-temperatura').addClass('disable-element')
-        // $("#SupervisorConfiguracion").fadeIn(0)
+        $('#LibererDiaTemperatura').fadeIn('slow');
+        // $('#Equipos').addClass('disable-element')
+        // $('#btn-equipo-temperatura').addClass('disable-element')
+        // $("#SupervisorConfiguracion").fadeIn('slow')
         $('#btn-lock').removeClass('bi bi-lock-fill')
         $('#btn-lock').addClass('bi bi-unlock-fill')
         // $('#btn-desbloquear-equipos').removeClass('disable-element')
@@ -66,7 +97,6 @@ function LoadTermometros(id_equipos, input) {
         id_tipos_equipos: 5
     }, 'equipos_api', { callbackAfter: true }, false, (data) => {
         selectedEquipos = data.response.data;
-
         selectedEquipos.forEach(e => {
             $(`#${input}`).val(e['TERMOMETRO_ID']);
             Termometro = e['TERMOMETRO_ID'];
@@ -74,15 +104,6 @@ function LoadTermometros(id_equipos, input) {
     })
 
 }
-
-$(document).on('click', '#btn-desbloquear-equipos', function (e) {
-    e.preventDefault()
-    ListaEnfriadoresActiva = false;
-    $("#Termometro").html("")
-    $("#formCapturarTemperatura").trigger("reset")
-
-    fadeMenuTemperatura('Out')
-})
 
 // Checa si requiere o no aplicar el factor de correcion
 $(document).on('change', '#checkFactorCorrecion', function () {

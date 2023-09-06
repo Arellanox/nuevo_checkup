@@ -7,7 +7,7 @@
             <div class="col-12 col-xl-3">
                 <!-- Lista de los equipos a los que se debe capturar temperaturas -->
                 <div class="col-12">
-                    <div class="card mt-3 p-3" id="lista-pacientes">
+                    <div class="rounded p-3 shadow-sm my-2" id="lista-pacientes">
                         <h5>Lista de Equipos Enfriadores</h5>
 
                         <form name="EquiposTemperaturasForm" id="EquiposTemperaturasForm">
@@ -19,15 +19,15 @@
                             </div>
 
                             <div class="d-flex justify-content-end d-block d-lg-flex d-print-block">
-                                <button type="button" class="btn btn-pantone-3165 me-2 disable-element" id="CapturarTemperaturabtn">
+                                <button type="button" class="btn btn-pantone-3165 me-2" id="CapturarTemperaturabtn">
                                     <i class="bi bi-arrow-bar-up"></i> Capturar
                                 </button>
-                                <button class="btn btn-confirmar me-2 disable-element" id="btn-desbloquear-equipos">
+                                <!-- <button class="btn btn-confirmar me-2 disable-element" id="btn-desbloquear-equipos">
                                     <i id="btn-lock" class="bi bi-lock-fill"></i>
-                                </button>
-                                <button type="submit" form="EquiposTemperaturasForm" class="btn btn-confirmar " id="btn-equipo-temperatura">
+                                </button> -->
+                                <!-- <button type="submit" form="EquiposTemperaturasForm" class="btn btn-confirmar " id="btn-equipo-temperatura">
                                     <i class="bi bi-thermometer-half"></i> Mostrar
-                                </button>
+                                </button> -->
 
 
                             </div>
@@ -36,7 +36,7 @@
                 </div>
                 <!-- Tabla de los meses que se tienen registrado de los equipo -->
                 <div class="col-12" id="lista-meses-temperatura" style="margin-right: -5px !important; display:none;">
-                    <div class="card mt-3 p-3 ">
+                    <div class="rounded p-3 shadow-sm my-2">
                         <h5>Lista de Registro por Meses</h5>
                         <!-- <div class="d-flex justify-content-center my-2" id="btn-temperaturas-actions">
                             <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px; display:none ;" id="GenerarPDFTemperatura">
@@ -64,14 +64,14 @@
                                 <!-- Informacion del equipos -->
                                 <div class='col'>
                                     <!-- <p class="text-center mb-2">Equipo</p> -->
-                                    <div class="card p-3" id="Tabla-equipos">
+                                    <div class="rounded p-3 shadow-sm my-2" id="Tabla-equipos">
                                     </div>
                                 </div>
 
                                 <!-- Informacion del termometro -->
                                 <div class='col'>
                                     <!-- <p class="text-center mb-2">Termometro</p> -->
-                                    <div class="card p-3" id="Tabla-termometro">
+                                    <div class="rounded p-3 shadow-sm my-2" id="Tabla-termometro">
 
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                     </div>
                     <!-- Grafica -->
                     <div class="col-12" id="grafica-container" style="margin-right: -5px !important; display:none !important;">
-                        <div class="card mt-3 p-3 ">
+                        <div class="rounded p-3 shadow-sm my-2 d-flex flex-column position-relative">
                             <div class="table--container" style="width: fit-content;" id="grafica">
 
                             </div>
@@ -129,7 +129,7 @@
                         </div>
                         <div class="col-12 col-lg-12">
                             <div id="content-comentarios-registros">
-                                <div class="card m-3 p-3">
+                                <div class="rounded p-3 shadow-sm my-2">
                                     <h5>Comentario creado por</h5>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo libero obcaecati necessitatibus doloremque. Incidunt ad, alias corrupti nihil est cupiditate rerum itaque illo consequuntur quis aliquid laboriosam possimus magnam ipsa.</p>
                                 </div>

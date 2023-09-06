@@ -8,7 +8,7 @@ if (validarVista('REGISTRO_TEMPERATURA')) {
 }
 
 // Variables globales
-var selectRegistro, selectedEquipos, editRegistro = false, id_equipos = null, btnequipos = false, Termometro = null;
+var selectRegistro, selectedEquipos, selectDataEquipos, editRegistro = false, id_equipos = null, btnequipos = false, Termometro = null;
 var Domingos, dataConfig = {}, selectedEquiposTemperaturas = {}, SelectedFoliosData = {};
 
 var selectTableFolio = false, DataEquipo;
@@ -17,9 +17,19 @@ async function obtenerTemperaturas() {
     await obtenerTitulo('Registros de Temperatura'); //Aqui mandar el nombre de la area
     $.post("contenido/temperatura_refrigador.php", function (html) {
         $("#body-js").html(html);
-    }).done(function () {
+    }).done(async function () {
+        // Cargar los equipos primero
+        await rellenarSelect("#Equipos", "equipos_api", 1, "ID_EQUIPO", "DESCRIPCION", { id_tipos_equipos: 5, area_id: localStorage.getItem('area_fisica') }, function (data, html) {
+            selectDataEquipos = data;
+        })
+
+
+        // Carga de vista
+
         // Datatable
-        $.getScript("contenido/js/temperatura-tablas.js");
+        $.getScript("contenido/js/temperatura-tablas.js").done(function () {
+            switchEquipoSelect(false);
+        });
 
         // Filtros
         // $.getScript("contenido/js/filtro-temperatura.js");

@@ -86,8 +86,13 @@ tablaTemperatura = $('#TablaTemperatura').DataTable({
         {
             text: ' <i class="bi bi-box-arrow-up " style="cursor: pointer; font-size:18px;"></i>',
             className: 'btn btn-warning btn-liberar',
+            attr: {
+                style: function () {
+                    return validarPermiso("SupTemp") ? '' : 'display:none';
+                }
+            },
             action: function (data) {
-                if (selectedTableDetalles && validarPermiso("SupTemp")) {
+                if (selectedTableDetalles) {
                     if (selectRegistro['ESTATUS'] == 1) {
                         alertMensajeConfirm({
                             title: '¿Desea liberar este registro?',

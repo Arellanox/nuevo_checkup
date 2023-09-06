@@ -42,9 +42,8 @@ function getListAgenda(area = localStorage.getItem('areaActual'), fecha = format
                 html += `</p>`;
                 html += `<p class="none-p">Observaciones: ${ifnull(element.OBSERVACIONES, '<span style="font-style:italic">Sin observaciones</span>')}</p>`;
                 html += `<small>${formatoFecha2(element.CITA, [2, 1, 4, 1, 2, 2, 0])} | ${formatoFecha2(element.FINALIZA, [2, 1, 4, 1, 2, 2, 0])}</small> </br>
-<small>Registrado por: <strong>${element['REGISTRADO_POR']}</strong></small>
+<small>Registrado por: <strong>${element['REGISTRADO_POR']}</strong>${ifnull(element.FECHA_REGISTRO) ? " | " + formatoFecha2(element.FECHA_REGISTRO, [3, 1, 5, 2, 2, 2]) : ''}</small>
                 </button>`;
-
             }
         }
         $('#contenedor-list-agenda').html(html ? html : `<div class="alert alert-info" role="alert">
