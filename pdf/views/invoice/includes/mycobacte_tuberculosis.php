@@ -52,7 +52,7 @@ $kit = $body[count($body) - 3];
             echo '<tr>
                     <td class="">';
                 
-                    if($estudio === 'Mycobacterium tuberculosis '){
+                    if($estudio === 'Mycobacterium tuberculosis'){
                         echo "<span class='cursive'>$estudio</span>";
                     }else{
 echo $estudio;
