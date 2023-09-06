@@ -53,9 +53,16 @@ $kit = $body[count($body) - 2];
                     <td class="">
                         ' . $estudio . '
                     </td>
-                    <td>
-                        <strong> ' . $respuesta . ' </strong>
-                    </td>
+                    <td>';
+
+            if($respuesta === 'DETECTADO'){
+                echo '<strong> ' . $respuesta . ' </strong>';
+            }else{
+                echo $respuesta;
+            }         
+            
+            
+            echo '</td>
      
                     <td>
                         NO DETECTADO
