@@ -15,7 +15,7 @@ $kit = $body[count($body) - 2];
 <br>
 <p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $muestra->resultado; ?></strong> </p>
 <table style="width: 100%; font-size: 13px">
-    <tr style="background-color: darkgrey;padding: 5px 8px">
+    <tr style="background-color: #BFBFBF;padding: 5px 8px">
         <td style="padding: 3px 5px"><strong>rT-PCR para <span class="cursive">Mycobacterium tuberculosis</span> MDR y XDR</strong></td>
         <td style="padding: 3px 5px"><strong>Resultado</strong></td>
         <!-- <td style="padding: 3px 5px"><strong>Valor de Ct</strong></td> -->
