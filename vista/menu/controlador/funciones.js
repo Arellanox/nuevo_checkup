@@ -511,7 +511,9 @@ $(document).on('change click', 'input[type="file"]', function () {
 
 // Esta funcion solo funciona para un solo input, 
 // si hay mas de uno debe llamarse tantas veces sea posible
-function InputDragDrop(divPadre, callback = () => { console.log('callback default') }) {
+function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { multiple: false }) {
+
+  // config = myfunctionconfig(config);
 
   let dropArea = $(divPadre) // <- Recomendaible una ID tipo #divPadre
   let inputArea = $(divPadre).find('input'); // <- Deseable a que solo exista un input
@@ -540,6 +542,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
   let cargandoInput = () => {
     // Valida el tipo de archivo a mandar
 
+
     //efecto para cambiar de color el div
     dropArea.css({
       // "color": "red",
@@ -550,6 +553,8 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
     });
     dropArea.css("font-weight", "bold");
+    labelArea.html('Cargando...')
+    divCarga.css({ 'display': 'inline-block' })
   }
 
   // Efecto de cargando e imagen subida lista;
@@ -566,7 +571,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
 
   let envioFiles = () => {
-    callback(inputArea, labelArea, divCarga, salidaInput);
+    callback(inputArea, salidaInput);
   }
 
 
@@ -608,10 +613,6 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
     // callback
     envioFiles() // <- Recordar que debes terminar el proceso de cargando a salida
   })
-
-
-
-
 }
 
 
