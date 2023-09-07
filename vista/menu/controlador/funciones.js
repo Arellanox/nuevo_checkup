@@ -387,7 +387,7 @@ function ifnull(data, siNull = '', values = [
     if (data === undefined || data === null || data === 'NaN' || data === '') {
       return siNull;
     } else {
-      data = escapeHtmlEntities(`${data}`);
+      // data = escapeHtmlEntities(`${data}`);
       return data;
     }
   }
