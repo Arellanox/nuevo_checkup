@@ -9,35 +9,30 @@ if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
     // $tokenVerification->logout();
     // exit;
 }
- 
+
 $master = new Master();
 $api = $_POST['api'];
-$host = $_SERVER['SERVER_NAME'] =="localhost" ? "http://localhost/practicantes/" :  "https://bimo-lab.com/nuevo_checkup/";
+$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/practicantes/" :  "https://bimo-lab.com/nuevo_checkup/";
 $turno_id = $_POST['turno_id'];
 
 // print_r($_POST);
-switch($api){
+switch ($api) {
     case 1:
         # Guardar el pdf del certificado medico del paciente
         $dir = '../reportes/modulo/certificados_medicos/';
         $r = $master->createDir($dir);
-        $certificado = $master->guardarFiles($_FILES,'certificado-medico',$dir,"CERTIFICADO_MEDICO_$turno_id");
+        $certificado = $master->guardarFiles($_FILES, 'certificado-medico', $dir, "CERTIFICADO_MEDICO_$turno_id");
 
-        $ruta_certificado = str_replace("../",$host,$certificado[0]['url']);
+        $ruta_certificado = str_replace("../", $host, $certificado[0]['url']);
         $response = $master->insertByProcedure("sp_certificados_medicos_tmp_g", [$turno_id, $ruta_certificado]);
         // var_dump($response);
         // exit;
         break;
 
-    case 2: 
+    case 2:
         $response = $master->getByProcedure("sp_certificados_medicos_tmp_b", [$turno_id]);
-        break;    
+        break;
 }
 
 
 echo $master->returnApi($response);
-
-
-
-
-?>

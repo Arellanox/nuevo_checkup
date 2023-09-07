@@ -22,10 +22,23 @@ $id_turno = $_POST['id_turno'];
 $turno_id = $_POST['turno_id'];
 
 $usuario_id = $_SESSION['id'];
-$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/practicantes/" : "https://bimo-lab.com/nuevo_checkup/";
+$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 
-print_r($_POST['antecedentes']);
-exit;
+// print_r($_POST['antecedentes']);
+// exit;
+
+
+//agregado por para guardar las capturas
+$captura_izq = $_POST['captura_izq'];
+$captura_der = $_POST['captura_der'];
+$date = date("dmY_His");
+
+$gauardarCapturas = $master->setToNull(array(
+    $turno_id,
+    $captura_izq,
+    $captura_der
+));
+
 
 switch ($api) {
 
@@ -60,6 +73,27 @@ switch ($api) {
 
         $response = $master->getByProcedure('sp_audio_ruta_b', [$turno_id]);
 
+        break;
+
+        //Guardar capturas(img)
+    case 3:
+        $turno_id = $_POST['turno_id'];
+        $nombre_servicio = $_POST['nombre_servicio'];
+        $serv = str_replace(" ", "_", $nombre_servicio);
+
+        $ruta_saved = "reportes/modulo/audiometria/$date/$turno_id/capturas/";
+        $r = $master->createDir("../" . $ruta_saved);
+
+        if ($r != 1) {
+            $response = "No se pudo crear el directorio de carpetas. Capturas";
+            break;
+        }
+
+        $capturas = $master->guardarFiles($_FILES, 'capturas', "../" . $ruta_saved, "CAPTURAS_AUDIOMETRIA_$serv");
+        // for ( $i = 0; $i < count($capturas))
+
+
+        $response = $master->insertByProcedure('sp_audiometria_captura_g', $gauardarCapturas);
         break;
 
     default:

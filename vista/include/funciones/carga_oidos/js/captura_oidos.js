@@ -3,40 +3,32 @@ const modalCapturaOdios = document.getElementById('modalCapturaOdios')
 // modalCapturaOdios.addEventListener('shown.bs.modal', () => {
 
 //Subir captura del oido izquierdo
-InputDragDrop('#dropOidoIzquierdo', (inputArea, labelArea, divCarga, salidaInput) => {
+InputDragDrop('#dropOidoIzquierdo', (inputArea, salidaInput) => {
 
-    labelArea.html('Cargando...')
-    divCarga.css({ 'display': 'inline-block' })
-
-    // ajaxAwaitFormData({
-    //     turno_id: pacienteActivo.array['ID_TURNO'], api: 1
-    // }, 'certificado_medico_api', 'subirResultadosCertificadoMedico', { callbackAfter: true }, false, function () {
-    //     obtenerPanelInformacion(pacienteActivo.array['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
-    //     labelArea.html('Se ha subido su archivo')
-    //     divCarga.css({ 'display': 'none' })
-
-    // })
+    envioCapturaOidos('subirCapturaOidoIzquierdo')
 
     salidaInput();
+
 })
 
 //Subir captura del oido derecho
-InputDragDrop('#dropOidoDerecho', (inputArea, labelArea, divCarga, salidaInput) => {
+InputDragDrop('#dropOidoDerecho', (inputArea, salidaInput) => {
 
-    labelArea.html('Cargando...')
-    divCarga.css({ 'display': 'inline-block' })
-
-    // ajaxAwaitFormData({
-    //     turno_id: pacienteActivo.array['ID_TURNO'], api: 1
-    // }, 'certificado_medico_api', 'subirResultadosCertificadoMedico', { callbackAfter: true }, false, function () {
-    //     obtenerPanelInformacion(pacienteActivo.array['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
-    //     labelArea.html('Se ha subido su archivo')
-    //     divCarga.css({ 'display': 'none' })
-
-    // })
-
+    envioCapturaOidos('subirCapturaOidoDerecho')
     salidaInput();
 })
+
 // })
 
-//carga-captura-oido
+function envioCapturaOidos(formAudiometria) {
+
+    ajaxAwaitFormData({ api: 3, tuno_id: 38 },
+        'audiometria_api', formAudiometria, { callbackAfter: true }, false, function () {
+
+            // labelArea.html('Se ha subido su archivo')
+            // divCarga.css({ 'display': 'none' })
+
+            salidaInput();
+        })
+
+}
