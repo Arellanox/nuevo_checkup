@@ -39,24 +39,24 @@ date_default_timezone_set('America/Mexico_City'); ?>
     </a>
   </li> -->
     <li class="nav-item">
-        <a href="#pendientes" type="button" data-bs-dismiss="offcanvas">
+        <a href="#pendientes" type="button">
             <i class="bi bi-person-bounding-box"></i> Espera
         </a>
     </li>
     <li class="nav-item">
-        <a href="#rechazados" type="button" data-bs-dismiss="offcanvas">
+        <a href="#rechazados" type="button">
             <i class="bi bi-person-x-fill"></i> Rechazados
         </a>
     </li>
     <li class="nav-item">
-        <a href="#ingresados" type="button" data-bs-dismiss="offcanvas">
+        <a href="#ingresados" type="button">
             <i class="bi bi-person-badge-fill"></i> Aceptados
         </a>
     </li>
 
     <?php if ($_SESSION['perfil'] ==  1) : ?>
         <li class="nav-item">
-            <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button" data-bs-dismiss="offcanvas">
+            <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button">
                 <i class="bi bi-person-check"></i> Finalizados
             </a>
         </li>
@@ -72,18 +72,18 @@ date_default_timezone_set('America/Mexico_City'); ?>
                 <i class="bi bi-journals"></i> Catalogos
             </a>
             <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-                <span data-bs-dismiss="offcanvas">
-                    <a class="dropdown-a align-items-center" type="button" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
+                <span>
+                    <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
                         <i class="bi bi-person-badge"></i> Cargos
                     </a>
                 </span>
-                <a class="dropdown-a align-items-center" type="button" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
                     <i class="bi bi-briefcase"></i> Titulos
                 </a>
-                <a class="dropdown-a align-items-center" type="button" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
                     <i class="bi bi-mortarboard"></i> Universidades
                 </a>
-                <a class="dropdown-a align-items-center" type="button" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
                     <i class="bi bi-postcard"></i> Especialidades
                 </a>
             </ul>
