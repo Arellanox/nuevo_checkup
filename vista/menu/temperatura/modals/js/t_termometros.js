@@ -4,7 +4,7 @@ DataEquiposTermometros = {
 
 $(document).on("click", "#TermometrosbtnTemperaturas", async function (e) {
     DataEquiposTermometros = {
-        api: 13
+        api: 13, Enfriador: 5
     }
 
     TablaTermometrosDataTable.ajax.reload();

@@ -25,6 +25,7 @@ tablaTemperaturaFolio = $("#TablaTemperaturasFolio").DataTable({
             fadeRegistro('Out')
             loader("In")
             selectTableFolio = false
+            tablaTemperaturaFolio.clear().draw();
         },
         complete: function () {
             //Para ocultar segunda columna
@@ -343,11 +344,9 @@ function CrearTablaPuntos(id_grupo) {
                     positionDots();
                     drawLines();
 
-                    //Avisar cuando termine de cargar la tabla
-                    resolve(1);
                 }, 500)
-
-
+                //Avisar cuando termine de cargar la tabla
+                resolve(1);
             })
     });
 }

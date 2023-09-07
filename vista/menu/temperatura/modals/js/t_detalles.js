@@ -15,6 +15,7 @@ tablaTemperatura = $('#TablaTemperatura').DataTable({
         url: '../../../api/temperatura_api.php',
         beforeSend: function () {
             // $('#TablaDetallesTemperaturas').fadeOut(0)
+            tablaTemperatura.clear().draw();
         },
         complete: function () {
             // $('#TablaDetallesTemperaturas').fadeIn(0)

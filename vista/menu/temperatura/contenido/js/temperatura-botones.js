@@ -176,7 +176,7 @@ function CargarTemperatura() {
                 LoadTermometros(DataEquipo.Enfriador);
             }
 
-            editRegistro == true ? $('#detallesTemperaturaModal').modal('hide') : $('#CapturarTemperaturaModal').modal('hide')
+            // editRegistro == true ? $('#detallesTemperaturaModal').modal('hide') : $('#CapturarTemperaturaModal').modal('hide')
         })
     }, 1)
 }

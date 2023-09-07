@@ -410,10 +410,10 @@ function ifnull(data, siNull = '', values = [
 function htmlCaracter(data) {
 
   st = document.getElementById('ent').value;
-  st = st.replace(/&/g, "&amp;amp;");
-  st = st.replace(/</g, "&amp;lt;");
-  st = st.replace(/>/g, "&amp;gt;");
-  st = st.replace(/"/g, "&amp;quot;");
+  st = st.replace(/&/g, "&amp;");
+  st = st.replace(/</g, "&lt;");
+  st = st.replace(/>/g, "&gt;");
+  st = st.replace(/"/g, "&quot;");
   document.getElementById('result').innerHTML = '' + st;
 }
 
