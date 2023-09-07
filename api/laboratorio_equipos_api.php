@@ -14,6 +14,9 @@ $api = $_POST['api'];
 
 #buscar
 $id = $_POST['id'];
+$id_tipos_equipos = $_POST['id_tipos_equipos'];
+$area_id = $_POST['area_id'];
+
 
 #insertar
 $id_equipo = $_POST['id_equipo'];
@@ -58,18 +61,18 @@ $master = new Master();
 switch ($api) {
     case 1:
         # insertar
-        $dir = $master->urlComodin.$master->urlEquiposLaboratorio.$descripcion."/";
+        $dir = $master->urlComodin . $master->urlEquiposLaboratorio . $descripcion . "/";
         $r = $master->createDir($dir);
 
-        if($r==1){
+        if ($r == 1) {
             #si se cre correctamente el directorio, 
             #movemos el archivo a la caperta indicada
-            if(empty($_FILES)){    
+            if (empty($_FILES)) {
                 $response = $master->insertByProcedure("sp_laboratorio_equipos_g", $parametros);
             } else {
-                $return = $master->guardarFiles($_FILES,'foto',$dir,$descripcion);
-                
-                if(!empty($return)){
+                $return = $master->guardarFiles($_FILES, 'foto', $dir, $descripcion);
+
+                if (!empty($return)) {
                     # si el arreglo que regresa el subir los archivos no esta vacio,
                     # insertarmos el registro en la base de datos
 
@@ -77,7 +80,7 @@ switch ($api) {
                     #para poder enviarlo a la base de datos
                     $fotos = json_encode($return);
                     $parametros[14] = $fotos;
-                    
+
                     $response = $master->insertByProcedure("sp_laboratorio_equipos_g", $parametros);
                 } else {
                     $response = "No se puedieron mover los archivos.";
@@ -87,12 +90,12 @@ switch ($api) {
             $response = "No se pudo crear el directorio.";
         }
 
-      
-        
+
+
         break;
     case 2:
         # buscar
-        $response = $master->getByProcedure("sp_laboratorio_equipos_b", [$id]);
+        $response = $master->getByProcedure("sp_laboratorio_equipos_b", [$id, $id_tipos_equipos, $area_id]);
         break;
 
     case 3:
