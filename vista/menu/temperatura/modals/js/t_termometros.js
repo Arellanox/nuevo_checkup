@@ -2,7 +2,7 @@ DataEquiposTermometros = {
     api: 0
 }
 
-$("#TermometrosbtnTemperaturas").on("click", async function (e) {
+$(document).on("click", "#TermometrosbtnTemperaturas", async function (e) {
     DataEquiposTermometros = {
         api: 13
     }

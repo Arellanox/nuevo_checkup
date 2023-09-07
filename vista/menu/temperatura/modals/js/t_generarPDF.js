@@ -10,7 +10,7 @@ let dataJson = {
 };
 
 // Evento Click para generar el PDF y mostralo en una ventana nueva
-$("#btn-generar-formato-temperatura").on('click', async function (e) {
+$(document).on('click', "#btn-generar-formato-temperatura", async function (e) {
     // body...
     e.preventDefault();
 
@@ -45,7 +45,7 @@ $("#btn-generar-formato-temperatura").on('click', async function (e) {
 
 })
 
-$("#btn-mostrar-formato-temperatura").on('click', async function (e) {
+$(document).on('click', "#btn-mostrar-formato-temperatura", async function (e) {
     e.preventDefault();
 
     api = encodeURIComponent(window.btoa('temperatura'));

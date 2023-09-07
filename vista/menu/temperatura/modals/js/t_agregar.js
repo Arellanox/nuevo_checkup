@@ -1,4 +1,4 @@
-$("#CapturarTemperaturabtn").on('click', function (e) {
+$(document).on('click', "#CapturarTemperaturabtn", function (e) {
     e.preventDefault();
 
     $("#lectura").val("");
