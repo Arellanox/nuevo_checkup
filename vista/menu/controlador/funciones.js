@@ -563,6 +563,9 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
     // Crear efecto de imagen subida
     // console.log('Salida de input')
 
+    labelArea.html('Se ha subido su archivo')
+    divCarga.css({ 'display': 'none' })
+
     dropArea.css({
       'background': '#f4fdff',
       'border': '2px dashed rgb(0 79 90 / 17%)'
