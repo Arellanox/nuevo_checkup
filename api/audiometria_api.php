@@ -90,10 +90,13 @@ switch ($api) {
         }
 
         $capturas = $master->guardarFiles($_FILES, 'capturas', "../" . $ruta_saved, "CAPTURAS_AUDIOMETRIA_$serv");
-        // for ( $i = 0; $i < count($capturas))
+
+        for ($i = 0; $i < count($capturas); $i++) {
+            $capturas[$i]['url'] = str_replace("../", $host, $capturas[$i]['url']);
+        }
 
 
-        $response = $master->insertByProcedure('sp_audiometria_captura_g', $gauardarCapturas);
+        $response = $master->insertByProcedure('sp_audiometria_captura_g', [$turno_id, $captura_izq, $captura_der]);
         break;
 
     default:

@@ -181,22 +181,23 @@ $(document).on('click', '.guardarAnt ', function (event) {
 //   }, 1)
 // })
 
-InputDragDrop('#dropCertificadoMedico', (inputArea, labelArea, divCarga, salidaInput) => {
+InputDragDrop('#dropCertificadoMedico', (inputArea, salidaInput) => {
   // console.log('Hola estoy llamando a dragDrop');
 
-  labelArea.html('Cargando...')
-  divCarga.css({ 'display': 'inline-block' })
+  // labelArea.html('Cargando...')
+  // divCarga.css({ 'display': 'inline-block' })
 
   ajaxAwaitFormData({
     turno_id: pacienteActivo.array['ID_TURNO'], api: 1
   }, 'certificado_medico_api', 'subirResultadosCertificadoMedico', { callbackAfter: true }, false, function () {
     obtenerPanelInformacion(pacienteActivo.array['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
-    labelArea.html('Se ha subido su archivo')
-    divCarga.css({ 'display': 'none' })
+    // labelArea.html('Se ha subido su archivo')
+    // divCarga.css({ 'display': 'none' })
+
+    // Siempre se ejecuta al final del proceso
+    salidaInput();
 
   })
-  // Siempre se ejecuta al final del proceso
-  salidaInput();
 })
 
 // $(document).ready(function () {
