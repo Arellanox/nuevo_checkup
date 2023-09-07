@@ -37,12 +37,12 @@ tablaTemperaturaFolio = $("#TablaTemperaturasFolio").DataTable({
                     api: true
                 })
                 .columns.adjust();
-            // $("#lista-meses-temperatura").fadeIn('slow');
+            // $("#lista-meses-temperatura").fadeIn('fast');
 
             // Hacer clic en la primera fila
             var firstRow = tablaTemperaturaFolio.row(0).node(); // La fila 0 es la primera fila
             $(firstRow).click(); // Simula un clic en la fila
-            $("#loader-TablaTemperaturasFolio").fadeOut('slow');
+            $("#loader-TablaTemperaturasFolio").fadeOut('fast');
 
         },
         // error: function (jqXHR, textStatus, errorThrown) {
@@ -124,7 +124,7 @@ selectTable('#TablaTemperaturasFolio', tablaTemperaturaFolio, {
                         $('#Termometro_pdf').val(data[0]['TERMOMETRO_PRINCIPAL'])
                 })
 
-                URL_TABLA != null ? $('#btn-mostrar-formato-temperatura').fadeIn('slow') : $('#btn-mostrar-formato-temperatura').fadeOut('slow');
+                URL_TABLA != null ? $('#btn-mostrar-formato-temperatura').fadeIn('fast') : $('#btn-mostrar-formato-temperatura').fadeOut('fast');
 
                 $("#temperaturaPdfTitle").html(`Generar Formato del Mes: <b>${formatoFecha2(data['FECHA_REGISTRO'], [0, 1, 3, 0])}</b> (Folio:<b>${FolioMesEquipo}</b>)`)
 
@@ -149,7 +149,9 @@ selectTable('#TablaTemperaturasFolio', tablaTemperaturaFolio, {
 
         // Ejecutar Funciones
         CrearEncabezadoEquipos(data['FOLIO']);
-        CrearTablaPuntos(data['FOLIO']);
+        await CrearTablaPuntos(data['FOLIO']);
+
+
         fadeTabla('In')
         callback('In')
     } else {
@@ -197,10 +199,10 @@ var DataFolio = {
 
 function fadeRegistro(type) {
     if (type == 'Out') {
-        $("#lista-meses-temperatura").fadeOut('slow');
+        $("#lista-meses-temperatura").fadeOut('fast');
     } else if (type == 'In') {
-        $("#lista-meses-temperatura").fadeIn('slow');
-        // $('#btn-desbloquear-equipos').fadeIn('slow')
+        $("#lista-meses-temperatura").fadeIn('fast');
+        // $('#btn-desbloquear-equipos').fadeIn('fast')
         $('#btn-desbloquear-equipos').removeClass('disable-element')
         $('#CapturarTemperaturabtn').removeClass('disable-element');
     }
@@ -208,141 +210,144 @@ function fadeRegistro(type) {
 
 function fadeTabla(type) {
     if (type == 'Out') {
-        $('#grafica-container').fadeOut('slow')
-        $("#Equipos_Termometros").fadeOut('slow');
+        $('#grafica-container').fadeOut('fast')
+        $("#Equipos_Termometros").fadeOut('fast');
     } else if (type == 'In') {
-        $('#grafica-container').fadeIn('slow')
-        $("#Equipos_Termometros").fadeIn('slow');
+        $('#grafica-container').fadeIn('fast')
+        $("#Equipos_Termometros").fadeIn('fast');
     }
 }
 
 
 function CrearTablaPuntos(id_grupo) {
-    // console.log('se esta ejecutando esta funcion y quien sabe donde xd')
-    $.post(`${http}${servidor}/${appname}/vista/include/funciones/TablaDePuntos_Temperatura/tabla.php`, { folio: id_grupo }, function (html) {
-        $("#grafica").html(html);
-    }).done(
-        function () {
-            setTimeout(function () {
+    return new Promise(resolve => {
+        // console.log('se esta ejecutando esta funcion y quien sabe donde xd')
+        $.post(`${http}${servidor}/${appname}/vista/include/funciones/TablaDePuntos_Temperatura/tabla.php`, { folio: id_grupo }, function (html) {
+            $("#grafica").html(html);
+        }).done(
+            function () {
+                setTimeout(function () {
 
-                var canvas = document.getElementById('canvas');
-                var ctx = canvas.getContext('2d');
-                var dots = document.getElementsByClassName('dot');
+                    var canvas = document.getElementById('canvas');
+                    var ctx = canvas.getContext('2d');
+                    var dots = document.getElementsByClassName('dot');
 
-                function connectDots(dot1, dot2) {
-                    var rect1 = dot1.getBoundingClientRect();
-                    var rect2 = dot2.getBoundingClientRect();
-                    var x1 = (rect1.left + rect1.width / 2 - canvas.getBoundingClientRect().left) - 1.3;
-                    var y1 = (rect1.top + rect1.height / 2 - canvas.getBoundingClientRect().top) + 6.3;
-                    var x2 = (rect2.left + rect2.width / 2 - canvas.getBoundingClientRect().left) - 1.3;
-                    var y2 = (rect2.top + rect2.height / 2 - canvas.getBoundingClientRect().top) + 6.3;
-
-
-                    ctx.beginPath();
-                    ctx.moveTo(x1, y1);
-                    ctx.lineTo(x2, y2);
-                    ctx.lineWidth = 3;
-                    ctx.strokeStyle = "blue";
-                    ctx.stroke();
-                }
-
-                // function getDotCenter(dot) {
-                //     var rect = dot.getBoundingClientRect();
-                //     var x = rect.left + rect.width / 2 - canvas.getBoundingClientRect().left;
-                //     var y = rect.top + rect.height / 2 - canvas.getBoundingClientRect().top;
-
-                //     return {
-                //         x: x,
-                //         y: y
-                //     };
-                // }
-
-                // function connectDots(dot1, dot2) {
-                //     var dot1Center = getDotCenter(dot1);
-                //     var dot2Center = getDotCenter(dot2);
-
-                //     var x1 = dot1Center.x;
-                //     var y1 = dot1Center.y;
-                //     var x2 = dot2Center.x;
-                //     var y2 = dot2Center.y;
-
-                //     var controlX = (x1 + x2) / 2;
-                //     var controlY = (y1 + y2) / 2 - Math.abs(x1 - x2) / 4;
-
-                //     ctx.beginPath();
-                //     ctx.moveTo(x1, y1);
-                //     ctx.quadraticCurveTo(controlX, controlY, x2, y2);
-                //     ctx.strokeStyle = "blue "; // Cambiar el color de la línea a rojo
-                //     ctx.lineWidth = 3; // Ajustar el ancho de línea
-                //     ctx.stroke();
-                // }
+                    function connectDots(dot1, dot2) {
+                        var rect1 = dot1.getBoundingClientRect();
+                        var rect2 = dot2.getBoundingClientRect();
+                        var x1 = (rect1.left + rect1.width / 2 - canvas.getBoundingClientRect().left) - 1.3;
+                        var y1 = (rect1.top + rect1.height / 2 - canvas.getBoundingClientRect().top) + 6.3;
+                        var x2 = (rect2.left + rect2.width / 2 - canvas.getBoundingClientRect().left) - 1.3;
+                        var y2 = (rect2.top + rect2.height / 2 - canvas.getBoundingClientRect().top) + 6.3;
 
 
-                function positionDots() {
-                    var dotCount = dots.length;
-                    var containerWidth = dots[0].closest('table').offsetWidth;
-
-                    // Ajustar el tamaño del canvas al ancho del contenedor
-                    canvas.width = containerWidth;
-                    canvas.height = dots[0].closest('table').offsetHeight;
-
-
-                    for (var i = 0; i < dotCount; i++) {
-                        var dot = dots[i];
-                        var rect = dot.getBoundingClientRect();
-                        var x = rect.left + rect.width / 2 - canvas.getBoundingClientRect().left;
-                        var y = rect.top + rect.height / 2 - canvas.getBoundingClientRect().top;
-                        dot.dataset.x = x; // Guardar la posición x en un atributo de datos
-                        dot.dataset.y = y; // Guardar la posición y en un atributo de datos
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.lineWidth = 3;
+                        ctx.strokeStyle = "blue";
+                        ctx.stroke();
                     }
-                }
 
-                function drawLines() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // function getDotCenter(dot) {
+                    //     var rect = dot.getBoundingClientRect();
+                    //     var x = rect.left + rect.width / 2 - canvas.getBoundingClientRect().left;
+                    //     var y = rect.top + rect.height / 2 - canvas.getBoundingClientRect().top;
 
-                    // var prevDot;
-                    // for (var i = dotInicial; typeof (prevDot) != "object"; i++) {
-                    //     for (var j = 1; j <= 2; j++) {
-                    //         prevDot = document.getElementById('dot-' + i + '-' + j);
-
-                    //         if (typeof (prevDot) == "object") {
-                    //             // prevDot = document.getElementById('dot-' + i + '-' + j)
-                    //             j = 3
-                    //         }
-
-                    //     }
+                    //     return {
+                    //         x: x,
+                    //         y: y
+                    //     };
                     // }
 
-                    for (var i = dotInicial; i <= dotLast; i++) {
-                        for (var j = 1; j < 3; j++) {
-                            var currentDotId = 'dot-' + i + '-' + j;
-                            var currentDot = document.getElementById(currentDotId);
+                    // function connectDots(dot1, dot2) {
+                    //     var dot1Center = getDotCenter(dot1);
+                    //     var dot2Center = getDotCenter(dot2);
+
+                    //     var x1 = dot1Center.x;
+                    //     var y1 = dot1Center.y;
+                    //     var x2 = dot2Center.x;
+                    //     var y2 = dot2Center.y;
+
+                    //     var controlX = (x1 + x2) / 2;
+                    //     var controlY = (y1 + y2) / 2 - Math.abs(x1 - x2) / 4;
+
+                    //     ctx.beginPath();
+                    //     ctx.moveTo(x1, y1);
+                    //     ctx.quadraticCurveTo(controlX, controlY, x2, y2);
+                    //     ctx.strokeStyle = "blue "; // Cambiar el color de la línea a rojo
+                    //     ctx.lineWidth = 3; // Ajustar el ancho de línea
+                    //     ctx.stroke();
+                    // }
 
 
-                            if (currentDot == null) {
-                                prevDot = prevDot
-                            } else {
-                                if (currentDot) {
-                                    connectDots(prevDot, currentDot);
-                                    prevDot = currentDot;
-                                } else {
-                                    break;
-                                }
+                    function positionDots() {
+                        var dotCount = dots.length;
+                        var containerWidth = dots[0].closest('table').offsetWidth;
 
-                            }
+                        // Ajustar el tamaño del canvas al ancho del contenedor
+                        canvas.width = containerWidth;
+                        canvas.height = dots[0].closest('table').offsetHeight;
 
 
-
+                        for (var i = 0; i < dotCount; i++) {
+                            var dot = dots[i];
+                            var rect = dot.getBoundingClientRect();
+                            var x = rect.left + rect.width / 2 - canvas.getBoundingClientRect().left;
+                            var y = rect.top + rect.height / 2 - canvas.getBoundingClientRect().top;
+                            dot.dataset.x = x; // Guardar la posición x en un atributo de datos
+                            dot.dataset.y = y; // Guardar la posición y en un atributo de datos
                         }
                     }
-                }
 
-                positionDots();
-                drawLines();
+                    function drawLines() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                        // var prevDot;
+                        // for (var i = dotInicial; typeof (prevDot) != "object"; i++) {
+                        //     for (var j = 1; j <= 2; j++) {
+                        //         prevDot = document.getElementById('dot-' + i + '-' + j);
+
+                        //         if (typeof (prevDot) == "object") {
+                        //             // prevDot = document.getElementById('dot-' + i + '-' + j)
+                        //             j = 3
+                        //         }
+
+                        //     }
+                        // }
+
+                        for (var i = dotInicial; i <= dotLast; i++) {
+                            for (var j = 1; j < 3; j++) {
+                                var currentDotId = 'dot-' + i + '-' + j;
+                                var currentDot = document.getElementById(currentDotId);
 
 
-            }, 500)
+                                if (currentDot == null) {
+                                    prevDot = prevDot
+                                } else {
+                                    if (currentDot) {
+                                        connectDots(prevDot, currentDot);
+                                        prevDot = currentDot;
+                                    } else {
+                                        break;
+                                    }
+
+                                }
 
 
-        })
+
+                            }
+                        }
+                    }
+
+                    positionDots();
+                    drawLines();
+
+                    //Avisar cuando termine de cargar la tabla
+                    resolve(1);
+                }, 500)
+
+
+            })
+    });
 }
