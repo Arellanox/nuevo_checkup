@@ -291,7 +291,7 @@ $('#buttonBeneficiario').attr('disabled', false)
 // selectDatatable("TablaRecepcionPacientes-Ingresados", tablaRecepcionPacientesIngrersados, 1, 0, 0, 0, async function (select, data) {
 selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados,
   {
-    unSelect: true, dblClick: true, movil: true,
+    unSelect: true, dblClick: true, movil: true, reload: ['col-12 col-xl-9'],
     tabs: [
       {
         title: 'Pacientes',

@@ -559,11 +559,11 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   // Efecto de cargando e imagen subida lista;
   // Aviso que debe ejecutar callback para saber si ya se subió
-  let salidaInput = () => {
+  let salidaInput = (msj = 'Archivo actualizado') => {
     // Crear efecto de imagen subida
     // console.log('Salida de input')
 
-    labelArea.html('Se ha subido su archivo')
+    labelArea.html(`${msj}</br> <strong>¿Desea subir otro? </strong>`)
     divCarga.css({ 'display': 'none' })
 
     dropArea.css({
@@ -1684,7 +1684,7 @@ function dblclickDatatable(tablename, datatable, callback = function () { }) {
 //Solo doble click
 var dobleClickSelecTable = false; //Ultimo select ()
 function selectDatatabledblclick(callback = function (selected, data) { }, tablename, datatable, disabledDblclick = false) {
-  console.log(tablename)
+  // console.log(tablename)
   if (!disabledDblclick)
     dobleClickSelecTable = false
   $(tablename).on('click', 'tr', function () {
@@ -2014,14 +2014,14 @@ $(document).on('click', '.tab-table', function () {
         // console.log(id);
         let loaderVisible = false;
 
-        console.log(loader_selectTable)
+        // console.log(loader_selectTable)
         loaderVisible = function () {
-          console.log($(loader_selectTable))
+          // console.log($(loader_selectTable))
           if ($(loader_selectTable).is(":hidden")) {
             $(`${id}`).fadeIn(100);
             loaderVisible = false;
           } else {
-            console.log(loader_selectTable)
+            // console.log(loader_selectTable)}
             setTimeout(() => {
               loaderVisible();
             }, 150);
@@ -2061,7 +2061,7 @@ function reloadSelectTable() {
     $('.loader-tab').fadeOut(0)
   } else {
     $('.tab-second').fadeOut();
-    console.log($('.tab-first'))
+    // console.log($('.tab-first'))
     $('.tab-first').fadeIn();
     $('.loader-tab').fadeOut(0)
   }
