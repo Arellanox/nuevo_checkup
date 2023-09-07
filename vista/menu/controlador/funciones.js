@@ -508,12 +508,13 @@ $(document).on('change click', 'input[type="file"]', function () {
   }
 })
 
-
-// Esta funcion solo funciona para un solo input, 
+// config = myfunctionconfig(config);
+// Esta funcion solo funciona para un solo input,
 // si hay mas de uno debe llamarse tantas veces sea posible
+let selectedFilesCount = 0;
 function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { multiple: false }) {
 
-  // config = myfunctionconfig(config);
+
 
   let dropArea = $(divPadre) // <- Recomendaible una ID tipo #divPadre
   let inputArea = $(divPadre).find('input'); // <- Deseable a que solo exista un input
@@ -574,7 +575,27 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
 
   let envioFiles = () => {
-    callback(inputArea, salidaInput);
+
+    const files = inputArea[0].files;
+    if (config.multiple || files.length <= 1) {
+
+      callback(inputArea, salidaInput);
+    } else {
+
+      divCarga.css({ 'display': 'none' })
+
+      dropArea.css({
+        'background': '#f4fdff',
+        'border': '2px dashed rgb(0 79 90 / 17%)'
+      })
+      labelArea.html('No puedes subir más de un archivo.');
+      // alert('No puedes subir más de un archivo.');
+      // Restaura el contador de archivos seleccionados
+      selectedFilesCount = 0;
+      // Restaura el input de archivos
+      inputArea.val('No puedes subir más de un archivo.');
+    }
+    // callback(inputArea, salidaInput);
   }
 
 
