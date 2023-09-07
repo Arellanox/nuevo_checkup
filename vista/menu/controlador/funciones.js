@@ -595,6 +595,10 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   // Majeno de arrastrar y soltar
   dropArea.on('drop', function (e) {
+
+    const files = e.originalEvent.dataTransfer.files;
+    inputArea[0].files = files;
+
     hoverInput(0) // <- Agrega efecto de salida y soltar
 
     // Prevenir recarga y propagation a otros input

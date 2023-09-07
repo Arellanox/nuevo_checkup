@@ -277,6 +277,7 @@ InputDragDrop('#dropCertificadoMedico', (inputArea, salidaInput) => {
 
 //   }
 // });
+
 // ajaxAwait({ turno_id: pacienteActivo.array['ID_TURNO'], ruta_certificado: urlFile, api: 1 },
 //   'certificado_medico_api', { callbackAfter: true }, false, function () {
 //     alertToast('El certificado medico ya ha sido guardado', 'success', 4000)
@@ -287,69 +288,62 @@ InputDragDrop('#dropCertificadoMedico', (inputArea, salidaInput) => {
 
 
 
-//Variables globales para el dragAndDrop
-// var dropArea, fileInput;
-
+// Variables globales para el dragAndDrop
 // $(document).ready(function () {
-//   dropArea = $('#dropCertificadoMedico');
-//   fileInput = $('#file-certificado-medico');
+//   const dropArea = $('#dropCertificadoMedico');
+//   const fileInput = $('#file-certificado-medico');
 
 //   // Prevenir comportamiento predeterminado en eventos de arrastrar y soltar
 //   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-//     dropArea.on(eventName, function (e) {
-//       e.preventDefault();
-//       e.stopPropagation();
-//     });
+//     dropArea.on(eventName, preventDefault);
 //   });
 
 //   // Agregar y quitar clase 'hover' para resaltar la zona de soltar
 //   ['dragenter', 'dragover'].forEach(eventName => {
-//     dropArea.on(eventName, function () {
-//       dropArea.addClass('hover');
-//     });
+//     dropArea.on(eventName, () => dropArea.addClass('hover'));
 //   });
 
 //   ['dragleave', 'drop'].forEach(eventName => {
-//     dropArea.on(eventName, function () {
-//       dropArea.removeClass('hover');
-//     });
+//     dropArea.on(eventName, () => dropArea.removeClass('hover'));
 //   });
 
-//   // Manejar el evento de soltar
-//   dropArea.on('drop', function (e) {
-//     e.preventDefault();
-//     e.stopPropagation();
-
-//     let dt = e.originalEvent.dataTransfer;
-//     let files = dt.files;
-
-//     handleFiles(files);
-//   });
-
-//   // Manejar clic en el botón para seleccionar archivos
-//   fileInput.on('change', function () {
-//     let files = fileInput[0].files;
-//     handleFiles(files);
-//   });
+//   // Manejar el evento de soltar y el cambio de archivo de entrada
+//   dropArea.on('drop', handleDrop);
+//   fileInput.on('change', handleInputChange);
 
 //   // Manejar archivos soltados o seleccionados
+//   function handleDrop(e) {
+//     e.preventDefault();
+  
+//     handleFiles(files);
+//   }
+
+//   function handleInputChange() {
+//     const files = fileInput[0].files;
+//     handleFiles(files);
+//   }
+
 //   function handleFiles(files) {
-//     for (let i = 0; i < files.length; i++) {
-//       let file = files[i];
+//     for (const file of files) {
 //       if (file.type.startsWith('image/')) {
-//         // Obtener la URL de la imagen
-//         let imageUrl = URL.createObjectURL(file);
-
-
-//         ajaxAwait({ turno_id: pacienteActivo.array['ID_TURNO'], ruta_certificado: imageUrl, api: 1 },
-//           'certificado_medico_api', { callbackAfter: true }, false, function () {
-//             alertToast('El certificado medico ya ha sido guardado', 'success', 4000)
-//           })
+//         const imageUrl = URL.createObjectURL(file);
+//         console.log(imageUrl);
 //       }
 //     }
 //   }
+
+//   function preventDefault(e) {
+//     e.preventDefault();
+//     e.stopPropagation();
+//   }
 // });
 
+
+
+        // ajaxAwait({ turno_id: pacienteActivo.array['ID_TURNO'], ruta_certificado: imageUrl, api: 1 },
+        //   'certificado_medico_api', { callbackAfter: true }, false, function () {
+        //     alertToast('El certificado medico ya ha sido guardado', 'success', 4000)
+        //   })
 
 
 
