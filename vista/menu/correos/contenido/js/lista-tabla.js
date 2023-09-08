@@ -104,11 +104,30 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
         estadoBotones(0) //Habilitar botones
         $('#height-card-pdf').css('height', autoHeightDiv(0, 100))
         try {
-            await getResultadoPaciente(datalist['ID_TURNO']);
 
-            if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
-                estadoBotones(1) //Desactivar si ya fue enviado
 
+            ajaxAwait({ id_turno: datalist['ID_TURNO'], api: 14, area_id: areaActiva }, 'turnos_api', {
+                callbackAfter: true, response: false
+            }, false, (data) => {
+                if (data.response.code != 1) {
+                    alertMensaje('error', 'Error en recuperar registro', 'Hubo un problema en recuperar este resultado del paciente', 'Intente de nuevo o reporte el problema al soporte de TI')
+                } else {
+                    selectEstudio = new GuardarArreglo(data.response.data);
+                    // console.log(selectEstudio)
+                    let row = [data.response.data];
+
+                    if (row['DOBLE_CHECK'])
+                        selectEstudio.setguardado(1)
+
+
+
+                    // if (datalist.DOBLE_CHECK == 1 || selectEstudio.getguardado() == 1)
+                    //     estadoBotones(1) //Desactivar si ya fue enviado
+
+                    getNewView(selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO);
+                }
+
+            })
 
             // document.addEventListener("adobe_dc_view_sdk.ready", function () {
 
@@ -127,7 +146,7 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
             //     }
             // });
 
-            getNewView(selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO);
+
             // try {
             //     // vistaPDF('#pdfviewer', selectEstudio.array.RUTA, selectEstudio.array.NOMBRE_ARCHIVO)
             // } catch (error) {
@@ -151,27 +170,27 @@ $("#BuscarTablaListaLaboratorio").keyup(function () {
 });
 
 
-function getResultadoPaciente(turno) {
-    return new Promise(resolve => {
-        $.ajax({
-            url: `${http}${servidor}/${appname}/api/turnos_api.php`,
-            dataType: 'json',
-            data: { id_turno: turno, api: 14, area_id: areaActiva },
-            method: "POST",
-            success: function (data) {
-                selectEstudio = new GuardarArreglo(data.response.data);
-                // console.log(selectEstudio)
-                let row = [data.response.data];
+// function getResultadoPaciente(turno) {
+//     return new Promise(resolve => {
+//         $.ajax({
+//             url: `${http}${servidor}/${appname}/api/turnos_api.php`,
+//             dataType: 'json',
+//             data: { id_turno: turno, api: 14, area_id: areaActiva },
+//             method: "POST",
+//             success: function (data) {
+//                 selectEstudio = new GuardarArreglo(data.response.data);
+//                 // console.log(selectEstudio)
+//                 let row = [data.response.data];
 
-                if (row['DOBLE_CHECK'])
-                    selectEstudio.setguardado(1)
-            },
-            complete: function () {
-                resolve(1);
-            }
-        })
-    });
-}
+//                 if (row['DOBLE_CHECK'])
+//                     selectEstudio.setguardado(1)
+//             },
+//             complete: function () {
+//                 resolve(1);
+//             }
+//         })
+//     });
+// }
 
 function estadoBotones(estado) {
     switch (estado) {

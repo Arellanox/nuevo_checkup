@@ -277,10 +277,6 @@ inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientes
     place: 'top'
   },
   {
-    msj: `Dale click al icono de lapiz en la tabla para editar la información del paciente`,
-    place: 'top'
-  },
-  {
     msj: 'Doble click a un paciente para obtener la información adicional',
     place: 'top'
   }
