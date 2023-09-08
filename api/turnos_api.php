@@ -264,7 +264,7 @@ switch ($api) {
 
     case 15:
         #case 15 . Desconfirmar resultados
-        $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por]);
+        $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por, $area_id]);
         //$response = $master->cleanAttachingFiles($response);
         break;
 
