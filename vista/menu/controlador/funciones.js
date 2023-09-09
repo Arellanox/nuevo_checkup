@@ -387,7 +387,7 @@ function ifnull(data, siNull = '', values = [
     if (data === undefined || data === null || data === 'NaN' || data === '') {
       return siNull;
     } else {
-      // data = escapeHtmlEntities(`${data}`);
+      data = escapeHtmlEntities(`${data}`);
       return data;
     }
   }
@@ -417,6 +417,41 @@ function htmlCaracter(data) {
   document.getElementById('result').innerHTML = '' + st;
 }
 
+// function escapeHtmlEntities(input) {
+//   if (!input || typeof input !== 'string') {
+//     return input;
+//   }
+
+//   const replacements = {
+//     '"': '&quot;',
+//     '&': '&amp;',
+//     '<': '&lt;',
+//     '>': '&gt;',
+//     "'": '&apos;',
+//     '-': '&ndash;',
+//     '—': '&mdash;',
+//     '\u00A0': '&nbsp;',
+//     '\u2013': '&ndash;',
+//     '\u2014': '&mdash;',
+//     '\u2018': '&apos;',
+//     '\u2019': '&apos;',
+//     '\u201C': '&quot;',
+//     '\u201D': '&quot;',
+//     '\u2022': '&bull;',
+//     '\u2026': '&hellip;',
+//     '\u2032': '&prime;',
+//     '\u2033': '&Prime;',
+//     '\u00AE': '&reg;',
+//     '\u2122': '&trade;'
+//     // Agrega más reemplazos aquí si es necesario
+//   };
+
+
+
+//   const regex = new RegExp(Object.keys(replacements).join('|'), 'g');
+//   return input.replace(regex, match => replacements[match]);
+// }
+
 function escapeHtmlEntities(input) {
   if (!input || typeof input !== 'string') {
     return input;
@@ -424,7 +459,6 @@ function escapeHtmlEntities(input) {
 
   const replacements = {
     '"': '&quot;',
-    '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
     "'": '&apos;',
@@ -443,12 +477,20 @@ function escapeHtmlEntities(input) {
     '\u2033': '&Prime;',
     '\u00AE': '&reg;',
     '\u2122': '&trade;'
-    // Agrega más reemplazos aquí si es necesario
   };
 
   const regex = new RegExp(Object.keys(replacements).join('|'), 'g');
-  return input.replace(regex, match => replacements[match]);
+
+  const result = input.replace(regex, match => replacements[match]);
+
+  // Si el resultado aún contiene un & no reemplazado y no es seguido por caracteres, reemplazarlo con &amp;
+  if (result.includes('&') && !/[a-zA-Z0-9#]/.test(result.charAt(result.indexOf('&') + 1))) {
+    return result.replace('&', '&amp;');
+  }
+
+  return result;
 }
+
 
 
 function firstMayus(str) {
