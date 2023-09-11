@@ -175,6 +175,9 @@ class Correo
                 case 'cotizacion':
                     $mail->Body = $this->cuerpoCotizaciones();
                     break;
+                case "formularioContacto":
+                    $mail->Body = $this->cuerpoFormularioContacto($token);
+                    break;
             }
 
             # send email
@@ -187,6 +190,83 @@ class Correo
         }
     }
 
+    private function cuerpoFormularioContacto($data){
+        $html = "<!DOCTYPE html>
+        <html>
+        
+        <head>
+            <meta charset=\"UTF-8\">
+            <title>Datos de Contacto</title>
+            <style>
+                /* Estilos para dar formato al correo */
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: rgb(0, 78, 89);
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 100vh;
+                }
+        
+                .container {
+                    max-width: 600px;
+                    background-color: #fff;
+                    padding: 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+        
+                h1 {
+                    color: rgb(0, 78, 89);
+                    text-align: center;
+                }
+        
+                .info {
+                    margin-top: 20px;
+                }
+        
+                .info p {
+                    margin-bottom: 10px;
+                    color: rgb(0, 78, 89);
+                }
+        
+                .mensaje {
+                    background-color: rgb(0, 187, 185);
+                    padding: 20px;
+                    border-radius: 5px;
+                    margin-top: 20px;
+                }
+        
+                .mensaje p {
+                    font-size: 16px;
+                    color: #fff;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <div class=\"container\">
+                <h1>Datos de Contacto</h1>
+                <div class=\"info\">
+                    <p><strong>Nombre:</strong>".$data['nombre']."</p>
+                    <p><strong>Email:</strong> ".$data['email']."</p>
+                    <p><strong>Número de Teléfono:</strong> ".$data['telefono']."</p>
+                    <p><strong>Asunto:</strong> ".$data['asunto']."</p>
+                    <p><strong>Política de privacidad:</strong> ".$data['politica']."</p>
+                </div>
+                <div class=\"mensaje\">
+                    <p><strong>Mensaje:</strong></p>
+                    <p>".$data['comentario_ayuda']."</p>
+                </div>
+            </div>
+        </body>
+        
+        </html>";
+        
+        return $html;
+    }
     private function cuerpoCorreoFastCheckup($nombre)
     {
         $html = '<!DOCTYPE html>
