@@ -63,7 +63,7 @@ function obtenerContenidoAntecedentes(data) {
       // Botones
       $.getScript("contenido/js/consultorio-paciente-botones.js");
 
-      getFormOidosAudiometria(data);
+      // getFormOidosAudiometria(data);
     });
     select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
   });

@@ -114,7 +114,7 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
 
         // Subir audios
         // console.log(dataSelect['array'])
-        getFormOidosAudiometria(datalist);
+        // getFormOidosAudiometria(datalist);
 
         // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
         await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', areaActiva)
