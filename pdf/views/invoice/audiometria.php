@@ -567,12 +567,32 @@ if (!isset($qr)) {
                 </tbody>
             </table>
         </div>
-        <div>
-            <hr style="width: 300px;align-items:flex-start;">
-            Dra. LeonorAlvarado-Cortés
-            Médico- UJA 5849462
-            Certified Occupational Hearing Conservationist
-            CAOHC ID NUMBER: 516334
+        <div style="width: 100%; text-align: center;border-collapse: collapse; margin: 0px 0px 0px 30px;">
+            <strong>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Atentamente
+                            </td>
+                        </tr>
+                        <tr>
+                            <td line-height: 8;>
+                                .
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <hr style="width: 200px; margin-left: 0;">
+                                Dra. LeonorAlvarado-Cortés<br>
+                                Médico- UJA 5849462<br>
+                                Certified Occupational Hearing Conservationist<br>
+                                CAOHC ID NUMBER: 516334
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </strong>
         </div>
     </div>
 </body>
