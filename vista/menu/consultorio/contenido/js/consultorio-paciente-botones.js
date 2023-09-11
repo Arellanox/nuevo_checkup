@@ -182,23 +182,19 @@ $(document).on('click', '.guardarAnt ', function (event) {
 // })
 
 InputDragDrop('#dropCertificadoMedico', (inputArea, salidaInput) => {
-  // console.log('Hola estoy llamando a dragDrop');
-
-  // labelArea.html('Cargando...')
-  // divCarga.css({ 'display': 'inline-block' })
 
   ajaxAwaitFormData({
     turno_id: pacienteActivo.array['ID_TURNO'], api: 1
   }, 'certificado_medico_api', 'subirResultadosCertificadoMedico', { callbackAfter: true }, false, function () {
     obtenerPanelInformacion(pacienteActivo.array['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
-    // labelArea.html('Se ha subido su archivo')
-    // divCarga.css({ 'display': 'none' })
 
     // Siempre se ejecuta al final del proceso
     salidaInput();
 
   })
 })
+
+
 
 // $(document).ready(function () {
 //   dropArea = $('#dropCertificadoMedico');

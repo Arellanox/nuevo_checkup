@@ -31,7 +31,6 @@ $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup
 //agregado por para guardar las capturas
 $captura_izq = $_POST['captura_izq'];
 $captura_der = $_POST['captura_der'];
-$date = date("dmY_His");
 
 $gauardarCapturas = $master->setToNull(array(
     $turno_id,
@@ -77,27 +76,33 @@ switch ($api) {
 
         //Guardar capturas(img)
     case 3:
-        $turno_id = $_POST['turno_id'];
-        $nombre_servicio = $_POST['nombre_servicio'];
-        $serv = str_replace(" ", "_", $nombre_servicio);
+        $dir = '../reportes/modulo/audiometria/';
+        $r = $master->createDir($dir);
+        $audio_izq = $master->guardarFiles($_FILES, 'file-captura-oido-izquierdo', $dir, "AUDIO_IZQ_$turno_id");
+        $audio_der = $master->guardarFiles($_FILES, 'file-captura-oido-derecho', $dir, "AUDIO_DER_$turno_id");
 
-        $ruta_saved = "reportes/modulo/audiometria/$date/$turno_id/capturas/";
-        $r = $master->createDir("../" . $ruta_saved);
+        // print_r($audio_izq);
+        // exit;
 
-        if ($r != 1) {
-            $response = "No se pudo crear el directorio de carpetas. Capturas";
-            break;
-        }
+        $ruta_audio_izq = str_replace("../", $host, $audio_izq[0]['url']);
+        $ruta_audio_der = str_replace("../", $host, $audio_der[0]['url']);
 
-        $capturas = $master->guardarFiles($_FILES, 'capturas', "../" . $ruta_saved, "CAPTURAS_AUDIOMETRIA_$serv");
+        // print_r($audio_izq);
+        // exit;
+        $gauardarCapturas = $master->setToNull(array(
+            $turno_id,
+            $ruta_audio_izq,
+            $ruta_audio_der
+        ));
 
-        for ($i = 0; $i < count($capturas); $i++) {
-            $capturas[$i]['url'] = str_replace("../", $host, $capturas[$i]['url']);
-        }
-
-
-        $response = $master->insertByProcedure('sp_audiometria_captura_g', [$turno_id, $captura_izq, $captura_der]);
+        $response = $master->insertByProcedure("sp_audiometria_captura_g", $gauardarCapturas);
         break;
+
+        //Busca las capturas de audiometria
+    case 4:
+        $response = $master->getByProcedure("sp_audiometria_captura_b", [$turno_id]);
+        break;
+
 
     default:
         $response = "Api no definida";

@@ -62,6 +62,8 @@ function obtenerContenidoAntecedentes(data) {
       obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'], pacienteActivo.array['CLIENTE'], pacienteActivo.array['CURP'])
       // Botones
       $.getScript("contenido/js/consultorio-paciente-botones.js");
+
+      getFormOidosAudiometria(data);
     });
     select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
   });

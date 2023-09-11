@@ -1,34 +1,54 @@
-const modalCapturaOdios = document.getElementById('modalCapturaOdios')
+const getFormOidosAudiometria = (paciente) => {
+    // const modalCapturaOdios = document.getElementById('modalCapturaOdios')
+    recuperarCapturasOidos() // <- Intenta recuperar imagenes
+    // console.log(paciente)
+    const capturador = (area, direccion) => {
+        InputDragDrop(area, async (inputArea, salidaInput) => {
+            await envioCapturaOidos(direccion)
+            recuperarCapturasOidos() // <- Intenta recuperar imagenes
+            salidaInput(); // <- Marca salida
+        })
+    }
 
-// modalCapturaOdios.addEventListener('shown.bs.modal', () => {
+    //Subir captura del oido izquierdo
+    capturador('#dropOidoIzquierdo', 'subirCapturaOidoIzquierdo')
+    //Subir captura del oido derecho
+    capturador('#dropOidoDerecho', 'subirCapturaOidoDerecho')
 
-//Subir captura del oido izquierdo
-InputDragDrop('#dropOidoIzquierdo', (inputArea, salidaInput) => {
-
-    envioCapturaOidos('subirCapturaOidoIzquierdo')
-
-    salidaInput();
-
-})
-
-//Subir captura del oido derecho
-InputDragDrop('#dropOidoDerecho', (inputArea, salidaInput) => {
-
-    envioCapturaOidos('subirCapturaOidoDerecho')
-    salidaInput();
-})
-
-// })
-
-function envioCapturaOidos(formAudiometria) {
-
-    ajaxAwaitFormData({ api: 3, tuno_id: 38 },
-        'audiometria_api', formAudiometria, { callbackAfter: true }, false, function () {
-
-            // labelArea.html('Se ha subido su archivo')
-            // divCarga.css({ 'display': 'none' })
-
-            salidaInput();
+    function envioCapturaOidos(formAudiometria) {
+        return new Promise((resolve) => {
+            ajaxAwaitFormData(
+                { api: 3, turno_id: paciente.ID_TURNO },
+                'audiometria_api', formAudiometria, { callbackAfter: true }, false,
+                function () {
+                    resolve(1)
+                })
         })
 
+        // console.log(paciente);
+        // return false;
+    }
+
+    // Recupera y crea HTML de la imagen o mensaje de no disponible
+    function recuperarCapturasOidos() {
+
+        // Manda mensaje de respuesta, no hay imagenes disponibles
+        const derecho_error = () => { $('#contend-oido-der').html(`<p id="mensaje-oido-derecho">No hay imagen disponible para el oído derecho.</p>`) }
+        const izquierdo_error = () => { $("#contend-oido-izq").html(`<p id="mensaje-oido-derecho">No hay imagen disponible para el oído izquierdo.</p>`) }
+
+        ajaxAwait({ api: 4, turno_id: paciente.ID_TURNO }, 'audiometria_api', { callbackAfter: true, WithoutResponseData: true }, false, function (row) {
+            if (!ifnull(row, false, [0])) {
+                row = row[0];
+                // Muestra imagenes disponibles
+                ifnull(row, false, ['CAPTURA_IZQ']) ?
+                    $("#contend-oido-izq").html(`<img src="${row['CAPTURA_IZQ']}" class="img-fluid mb-2" alt="..." id="captura-oido-izquierdo">`) : izquierdo_error();
+                ifnull(row, false, ['CAPTURA_DER']) ?
+                    $("#contend-oido-der").html(`<img src="${row['CAPTURA_DER']}" class="img-fluid mb-2" alt="..." id="captura-oido-izquierdo">`) : derecho_error();
+            } else {
+                izquierdo_error()
+                derecho_error()
+            }
+
+        })
+    }
 }
