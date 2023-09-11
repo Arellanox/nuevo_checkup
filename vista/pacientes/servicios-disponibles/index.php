@@ -6,6 +6,12 @@ include "../../variables.php";
 
 // Configuración de areas
 $menu = "lista_servicios";
+
+if ($_GET['filter'] == '[6,12]') {
+  header('Location: https://bit.ly/45eBno8');
+  exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
