@@ -21,10 +21,10 @@ switch ($api) {
         # Guardar el pdf del certificado medico del paciente
         $dir = '../reportes/modulo/certificados_medicos/';
         $r = $master->createDir($dir);
-        print_r($_FILES);
+        // print_r($_FILES);
         $certificado = $master->guardarFiles($_FILES, 'certificado-medico', $dir, "CERTIFICADO_MEDICO_$turno_id");
-        var_dump($certificado);
-        exit;
+        // var_dump($certificado);
+        // exit;
         $ruta_certificado = str_replace("../", $host, $certificado[0]['url']);
         $response = $master->insertByProcedure("sp_certificados_medicos_tmp_g", [$turno_id, $ruta_certificado]);
         // var_dump($response);
