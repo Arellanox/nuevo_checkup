@@ -1,5 +1,5 @@
 const getFormOidosAudiometria = (paciente) => {
-    // const modalCapturaOdios = document.getElementById('modalCapturaOdios')
+
     recuperarCapturasOidos() // <- Intenta recuperar imagenes
     // console.log(paciente)
     const capturador = (area, direccion) => {
@@ -37,6 +37,7 @@ const getFormOidosAudiometria = (paciente) => {
         const izquierdo_error = () => { $("#contend-oido-izq").html(`<p id="mensaje-oido-derecho">No hay imagen disponible para el oído izquierdo.</p>`) }
 
         ajaxAwait({ api: 4, turno_id: paciente.ID_TURNO }, 'audiometria_api', { callbackAfter: true, WithoutResponseData: true }, false, function (row) {
+
             if (!ifnull(row, false, [0])) {
                 row = row[0];
                 // Muestra imagenes disponibles

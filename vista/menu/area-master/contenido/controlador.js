@@ -13,7 +13,6 @@ var formEspiroHTML;
 
 let cropper;
 
-
 hasLocation();
 $(window).on("hashchange", function (e) {
   hasLocation();
@@ -175,7 +174,6 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     btnLlamar = $('#llamar-paciente');
     btnLiberar = $('#liberar-paciente')
 
-
     dataListaPaciente = {
       api: 5,
       fecha_busqueda: $('#fechaListadoAreaMaster').val(),
@@ -186,6 +184,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     $('.btnResultados').fadeOut(0)
     // Datatable
     $.getScript("contenido/js/controlador-tabla.js");
+
     switch (area) {
 
       // case 18: case 9: //Eco y prueba de esfuerzo

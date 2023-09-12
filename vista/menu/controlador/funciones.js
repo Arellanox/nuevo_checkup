@@ -551,17 +551,26 @@ $(document).on('change click', 'input[type="file"]', function () {
 })
 
 // config = myfunctionconfig(config);
+
 // Esta funcion solo funciona para un solo input,
 // si hay mas de uno debe llamarse tantas veces sea posible
 let selectedFilesCount = 0;
 function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { multiple: false }) {
 
 
-
   let dropArea = $(divPadre) // <- Recomendaible una ID tipo #divPadre
   let inputArea = $(divPadre).find('input'); // <- Deseable a que solo exista un input
   let labelArea = $(divPadre).find('label');// <- Si deseas modificar el texto del div añadelo
   let divCarga = $(divPadre).find('div')//<- Opcional se agrego para hacer un Spinners de bootraps
+
+  // Antes de configurar la funcionalidad para el nuevo paciente, realiza la limpieza
+  dropArea.off();
+  labelArea.off();
+
+  // Restaura los elementos DOM al estado original
+  inputArea.val(''); // Elimina cualquier archivo seleccionado previamente
+  labelArea.html('Arrastra y suelta un archivo aquí o haz clic para seleccionar'); // Restaura el texto original
+  selectedFilesCount = 0; // Reinicia el contador si es necesario
 
   // Efecto de hover
   // Aviso al input que hay un archivo encima de él
@@ -684,7 +693,6 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
     envioFiles() // <- Recordar que debes terminar el proceso de cargando a salida
   })
 }
-
 
 
 let lightbox = '#lightbox';

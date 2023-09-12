@@ -21,3 +21,4 @@ include 'mostrar_pdf_captura.html';
 
 //Audiometria
 include '../../../include/funciones/carga_oidos/modal_captura_oidos.html';
+include '../../../include/funciones/carga_oidos/modal_captura_tablas.html';
