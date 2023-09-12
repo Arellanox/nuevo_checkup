@@ -27,7 +27,6 @@ $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup
 // print_r($_POST['antecedentes']);
 // exit;
 
-
 //agregado por para guardar las capturas
 $captura_izq = $_POST['captura_izq'];
 $captura_der = $_POST['captura_der'];
@@ -38,6 +37,41 @@ $gauardarCapturas = $master->setToNull(array(
     $captura_der
 ));
 
+
+
+# nuevo reporte de audiometria 
+
+$grafica = $_POST['tabla_reporte'];
+$audiometria_tonal = $_POST['values'];
+$antecedentes = $_POST['antecedentes'];
+$comentario = $_POST['comentario'];
+$comentario_od = $_POST['comentario_oido_derecho'];
+$comentario_oi = $_POST['comentario_oido_izquierdo'];
+$otoscopia = $_POSTp['otoscopia'];
+$resultado_od = $_POST['audiometria_oido_derecho'];
+$resultado_oi = $_POST['audiometria_oido_izquierdo'];
+$recomendaciones = $_POST['recomendaciones'];
+$id_audiometria = $_POST['id_audiometria'];
+$confirmado = $_POST['confirmado'];
+
+$audio_array = array(
+    $id_audiometria,
+    json_encode($antecedentes),
+    $turno_id,
+    json_encode($audiometria_tonal),
+    $confirmado,
+    $_SESSION['id'],
+    $otoscopia,
+    $resultado_od,
+    $resultado_oi,
+    $comentario,
+    $comentario_od,
+    $comentario_oi,
+    $recomendaciones,
+    null,
+    null,
+    $grafica
+);
 
 switch ($api) {
 
@@ -102,8 +136,25 @@ switch ($api) {
     case 4:
         $response = $master->getByProcedure("sp_audiometria_captura_b", [$turno_id]);
         break;
-
-
+    case 5:
+        # guardar los resultados de la audiometria tonal [TABLA]
+        $response = $master->insertByProcedure("sp_audio_hz_resultados_g", [json_encode($audiometria_tonal), $turno_id]);
+        break;
+    case 6:
+        # recuperar la informacion de la audiometria tonal [TABLA].
+        $result = $master->getByProcedure("sp_audiometria_hz_resultados_b",[$turno_id]);
+        $response = $master->decodeJson([$result[0][0]]);
+        break;
+    case 7:
+        # guardar el reporte de audiometria final
+        if($confirmado == 1){
+            $url = $master->reportador($master, $turno_id, 4, "audiometria", "url", 0);
+            $actualiza_ruta = $master->updateByProcedure("sp_reporte_actualizar_ruta", []);
+        } else {
+            
+            $response = $master->insertByProcedure("sp_audio_resultados_g", $audio_array);
+        }
+        break;
     default:
         $response = "Api no definida";
 }

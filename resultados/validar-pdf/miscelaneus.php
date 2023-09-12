@@ -465,6 +465,13 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "consulta_medica";
                 break;
+            case 4:
+            case "4":
+                # AUDIOMETRIA.
+                $datos_medicos = array();
+                $arregloPaciente = $this->getBodyAudio($master, $turno_id);
+                $carpeta_guardado = "audiometria_tonal";
+                break;
 
 
             case -1: #Formato de temperatura de equipos
@@ -525,6 +532,10 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, 6, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyAudio($master,$id_turno){
+        return null;
     }
 
     private function getBodyInfoSoma($master, $id_turno)

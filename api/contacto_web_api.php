@@ -1,5 +1,8 @@
 <?php
+include_once "../clases/master_class.php";
 include "../clases/correo_class.php";
+
+
  $datos = json_decode(file_get_contents('php://input'), true);
 
  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -26,8 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Enviar el correo hola@bimo.com.mx
     $correo = new Correo();
+    $master = new Master();
 
     $correo->sendEmail("formularioContacto", "Nuevo lead captado!",["josue.delacruz@bimo.com.mx"],$datos);
+    
+    # guardar los datos del lead.
+    $r = $master->insertByProcedure("sp_formulario_contacto_g", [
+        $datos['nombre'], 
+        $datos['email'], 
+        $datos['telefono'], 
+        $datos['asunto'],
+        $datos['comentario_ayuda'],
+        $datos['politica']
+    ]);
 
     // Devuelve una respuesta al cliente (JavaScript)
     $respuesta = ['success' => true, 'message' => 'Formulario enviado con éxito'];
