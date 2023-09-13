@@ -136,22 +136,26 @@ switch ($api) {
     case 4:
         $response = $master->getByProcedure("sp_audiometria_captura_b", [$turno_id]);
         break;
-    // case 5:
-    //     # guardar los resultados de la audiometria tonal [TABLA]
-    //     $response = $master->insertByProcedure("sp_audio_hz_resultados_g", [json_encode($audiometria_tonal), $turno_id]);
-    //     break;
-    // case 6:
-    //     # recuperar la informacion de la audiometria tonal [TABLA].
-    //     $result = $master->getByProcedure("sp_audiometria_hz_resultados_b", [$turno_id]);
-    //     $response = $master->decodeJson([$result[0][0]]);
-    //     break;
+        // case 5:
+        //     # guardar los resultados de la audiometria tonal [TABLA]
+        //     $response = $master->insertByProcedure("sp_audio_hz_resultados_g", [json_encode($audiometria_tonal), $turno_id]);
+        //     break;
+        // case 6:
+        //     # recuperar la informacion de la audiometria tonal [TABLA].
+        //     $result = $master->getByProcedure("sp_audiometria_hz_resultados_b", [$turno_id]);
+        //     $response = $master->decodeJson([$result[0][0]]);
+        //     break;
+
+    case 6:
+        #recupera la informacion del reporte de audiometria final
+        $response = $master->getByProcedure("sp_audiometria_resultados_b", [$turno_id]);
+        break;
     case 7:
         # guardar el reporte de audiometria final
         if ($confirmado == 1) {
             $url = $master->reportador($master, $turno_id, 4, "audiometria", "url", 0);
             $actualiza_ruta = $master->updateByProcedure("sp_reporte_actualizar_ruta", []);
         } else {
-
             $response = $master->insertByProcedure("sp_audiometria_resultados_g", $audio_array);
         }
         break;

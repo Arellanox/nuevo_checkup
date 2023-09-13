@@ -128,13 +128,19 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 if (selectEstudio.array.length)
                     await obtenerResultadosOftalmo(selectEstudio.array)
                 break;
+
             case 4:
+                // audiometria;
                 $('#btn-inter-areas').fadeIn(0);
 
                 // Subir audios y Tabla de equipos
                 // console.log(dataSelect['array'])
+
+                // Captura de oidos
                 getFormOidosAudiometria(datalist);
-                getFormCapturaEquipos(datalist);
+
+                // Recupera la info del reporte:
+                console.log(selectEstudio.array);
 
                 if (datalist.CONFIRMADO == 1) estadoFormulario(1)
                 break;
@@ -358,19 +364,26 @@ function limpiarCampos() {
 
 async function obtenerServicios(area, turno) {
     return new Promise(resolve => {
-        if (area == 3 || area == 10 || area == 14 || area == 5 || area == 4 || area == 18 || area == 9) {
-            // url = 'oftalmologia_api';
-            data = {
-                turno_id: turno,
-                api: 2
-            }
-        } else {
-            data = {
-                api: 3,
-                id_turno: turno,
-            }
-            // url = 'servicios_api'
+        let data = { turno_id: turno }
+        switch (area) {
+            case 3:
+            case 10:
+            case 14:
+            case 5:
+            case 18:
+            case 9:
+                data['api'] = 2
+                break;
+
+            case 4:
+                data['api'] = 6;
+                break;
+            default:
+                data['api'] = 3
+                break;
         }
+
+
         $.ajax({
             url: `${http}${servidor}/${appname}/api/${url_api}.php`,
             data: data,
