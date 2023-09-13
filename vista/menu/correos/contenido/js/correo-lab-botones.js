@@ -82,7 +82,8 @@ $('#btn-rechazar-resultado').click(function () {
             type: "POST",
             data: {
                 id_turno: turno,
-                api: 15
+                api: 15,
+                id_area: areaActiva
             },
             dataType: "json",
             beforeSend: function () {

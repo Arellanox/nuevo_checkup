@@ -30,6 +30,9 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     },
     dataSrc: 'response.data'
   },
+  // processing: true,
+  // serverSide: true,
+
   createdRow: function (row, data, dataIndex) {
     if (data.REAGENDADO == 1) {
       $(row).addClass('bg-info');

@@ -108,7 +108,7 @@ function hasLocation() {
         control_turnos = 5
         formulario = "formSubirInterpretacionPRUEBA";
         api_capturas = 2;
-        api_interpretacion = 1;
+        api_interpretacion = 7;
         url_api = 'audiometria_api';
         obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_modal.php');
         break;

@@ -51,14 +51,14 @@ $(`#${formulario}`).submit(function (event) {
 
             case 4:
                 // Busca y obtiene todas las capturas de la tabla
-                let capturesArray = []
-                let audiometria_tablas = "#captures img";
-                $(audiometria_tablas).each(function () {
-                    capturesArray.push($(this).attr('src'));
-                });
+                // let capturesArray = []
+                // let audiometria_tablas = "#captures img";
+                // $(audiometria_tablas).each(function () {
+                //     capturesArray.push($(this).attr('src'));
+                // });
 
-                // Convertir el arreglo a una cadena JSON 
-                jsonData['tabla_reporte'] = JSON.stringify(capturesArray);
+                // // Convertir el arreglo a una cadena JSON 
+                // jsonData['tabla_reporte'] = JSON.stringify(capturesArray);
 
                 break;
         }
