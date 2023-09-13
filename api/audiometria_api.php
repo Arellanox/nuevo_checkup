@@ -155,6 +155,10 @@ switch ($api) {
             $response = $master->insertByProcedure("sp_audiometria_resultados_g", $audio_array);
         }
         break;
+    case 8:
+        # guardar la captura de la tabla
+        $response = $master->insertByProcedure("sp_audiometria_grafica_g", [$turno_id, $grafica]);
+        break;
     default:
         $response = "Api no definida";
 }
