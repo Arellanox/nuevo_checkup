@@ -959,6 +959,7 @@ async function GenerarListaCapturasImagenologia(row) {
 async function obtenerResultadosOftalmo(data) {
     document.getElementById(formulario).reset()
     let row = data[0]
+
     $('#antecedentes_personales').val(ifnull(row.ANTECEDENTES_PERSONALES));
     $('#antecedentes_oftalmologicos').val(ifnull(row.ANTECEDENTES_OFTALMOLOGICOS));
     $('#padecimiento_actual').val(ifnull(row.PADECIMIENTO_ACTUAL));
@@ -997,7 +998,27 @@ async function obtenerResultadosElectro(data) {
 async function obtenerResultadosAudio(data) {
     document.getElementById(formulario).reset()
 
-    let row = data[0]
+    let row = data.array[0]
+
+    // Apartado de comentario
+    $('#audio-comenConclucion').val(row.COMENTARIOS)
+    $('#comentario_oido_derecho').val(ifnull(row.COMENTARIOS_OD))
+    $('#comentario_oido_izquierdo').val(ifnull(row.COMENTARIOS_OI))
+
+    //Apartado de otoscopia
+    $('#textArea-otoscopia').val(ifnull(row.OTOSCOPIA))
+
+    //Apartado de audiometria
+    $('#audiometria_oido_derecho').val(ifnull(row.RESULTADO_OD))
+    $('#audiometria_oido_izquierdo').val(ifnull(row.RESULTADO_OI))
+
+    //Apartado de recomendaciones
+    $('#textArea-recomendaciones').val(ifnull(row.RECOMENDACIONES))
+
+
+
+
+
 
 
 
