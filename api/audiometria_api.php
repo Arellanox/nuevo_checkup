@@ -108,21 +108,17 @@ switch ($api) {
 
         break;
 
-        //Guardar capturas(img)
     case 3:
+
+        //Guardar capturas oido izquierdo y derecho (Audiometria)
         $dir = '../reportes/modulo/audiometria/';
         $r = $master->createDir($dir);
         $audio_izq = $master->guardarFiles($_FILES, 'file-captura-oido-izquierdo', $dir, "AUDIO_IZQ_$turno_id");
         $audio_der = $master->guardarFiles($_FILES, 'file-captura-oido-derecho', $dir, "AUDIO_DER_$turno_id");
 
-        // print_r($audio_izq);
-        // exit;
-
         $ruta_audio_izq = str_replace("../", $host, $audio_izq[0]['url']);
         $ruta_audio_der = str_replace("../", $host, $audio_der[0]['url']);
 
-        // print_r($audio_izq);
-        // exit;
         $gauardarCapturas = $master->setToNull(array(
             $turno_id,
             $ruta_audio_izq,
@@ -132,8 +128,8 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_audiometria_captura_g", $gauardarCapturas);
         break;
 
-        //Busca las capturas de audiometria
     case 4:
+        //Busca las capturas de oido izquierdo y derecho (Audiometria)
         $response = $master->getByProcedure("sp_audiometria_captura_b", [$turno_id]);
         break;
         // case 5:
@@ -145,10 +141,10 @@ switch ($api) {
         //     $result = $master->getByProcedure("sp_audiometria_hz_resultados_b", [$turno_id]);
         //     $response = $master->decodeJson([$result[0][0]]);
         //     break;
-
     case 6:
         #recupera la informacion del reporte de audiometria final
         $response = $master->getByProcedure("sp_audiometria_resultados_b", [$turno_id]);
+        $response = $master->decodeJsonRecursively($response);
         break;
     case 7:
         # guardar el reporte de audiometria final

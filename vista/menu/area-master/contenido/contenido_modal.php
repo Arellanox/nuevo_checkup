@@ -144,6 +144,9 @@ session_start();
                                 <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" data-bs-toggle="modal" data-bs-target="#modalCapturaOidos">
                                     <i class="bi bi-ear"></i> Captura de Oidos
                                 </button>
+                                <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" data-bs-toggle="modal" data-bs-target="#modalCapturaOidos">
+                                    <i class="bi bi-ear"></i> Captura de Oidos
+                                </button>
 
                                 <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" data-bs-toggle="modal" data-bs-target="#modalCapturaTablas">
                                     <i class="bi bi-table"></i> Captura de Tabla
