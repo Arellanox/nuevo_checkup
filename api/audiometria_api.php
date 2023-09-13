@@ -142,16 +142,16 @@ switch ($api) {
         break;
     case 6:
         # recuperar la informacion de la audiometria tonal [TABLA].
-        $result = $master->getByProcedure("sp_audiometria_hz_resultados_b",[$turno_id]);
+        $result = $master->getByProcedure("sp_audiometria_hz_resultados_b", [$turno_id]);
         $response = $master->decodeJson([$result[0][0]]);
         break;
     case 7:
         # guardar el reporte de audiometria final
-        if($confirmado == 1){
+        if ($confirmado == 1) {
             $url = $master->reportador($master, $turno_id, 4, "audiometria", "url", 0);
             $actualiza_ruta = $master->updateByProcedure("sp_reporte_actualizar_ruta", []);
         } else {
-            
+
             $response = $master->insertByProcedure("sp_audio_resultados_g", $audio_array);
         }
         break;

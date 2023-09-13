@@ -112,10 +112,6 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
             turno: datalist['ID_TURNO']
         })
 
-        // Subir audios
-        // console.log(dataSelect['array'])
-        // getFormOidosAudiometria(datalist);
-
         // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
         await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', areaActiva)
         // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster')
@@ -134,6 +130,12 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 break;
             case 4:
                 $('#btn-inter-areas').fadeIn(0);
+
+                // Subir audios y Tabla de equipos
+                // console.log(dataSelect['array'])
+                getFormOidosAudiometria(datalist);
+                getFormCapturaEquipos(datalist);
+
                 if (datalist.CONFIRMADO == 1) estadoFormulario(1)
                 break;
             case 5:

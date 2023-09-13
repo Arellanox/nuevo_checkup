@@ -569,7 +569,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   // Restaura los elementos DOM al estado original
   inputArea.val(''); // Elimina cualquier archivo seleccionado previamente
-  labelArea.html('Arrastra y suelta un archivo aquí o haz clic para seleccionar'); // Restaura el texto original
+  labelArea.html(`Sube tu archivo arrastrándolo aquí`) // Restaura el texto original
   selectedFilesCount = 0; // Reinicia el contador si es necesario
 
   // Efecto de hover
@@ -578,12 +578,12 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
     if (cambio) {
       // Entrada 
-      dropArea.addClass('hover');
+      dropArea.addClass('hover_dropDrag');
 
 
     } else {
       // Salida
-      dropArea.removeClass('hover');
+      dropArea.removeClass('hover_dropDrag');
 
     }
 

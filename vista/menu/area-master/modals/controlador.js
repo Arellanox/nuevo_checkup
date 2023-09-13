@@ -16,4 +16,6 @@ $.post("modals/a_modals.php", function (html) {
   // $.getScript(`${http}${servidor}/${appname}/vista/include/funciones/carga_oidos/js/captura_oidos.js`).done();
   $.getScript(`${http}${servidor}/${appname}/vista/include/funciones/carga_oidos/js/captura_oidos.js`).done();
 
+  $.getScript(`${http}${servidor}/${appname}/vista/include/funciones/carga_oidos/js/captura_reporte_equipo.js`).done();
+
 });

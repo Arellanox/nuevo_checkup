@@ -43,37 +43,41 @@
                         </div>
                     </div>
 
-                    <!-- Columna para cargar el archivo y ver las capturas -->
-                    <div class="col-12 col-lg-4">
-                        <div class="mb-4">
-                            <div class="input-file-contenedor">
-                                <label for="reporte_equipo" class="form-label">Cargar reporte</label>
-                                <label for="reporte_equipo" class="input-file-label">
-                                    <i class="bi bi-box-arrow-up"></i> Seleccione archivo(s)
-                                </label>
-                                <input type="file" name="reporte_equipo[]" id="reporte_equipo"
-                                    accept=".png, .jpg, .jpeg, .pdf" required class="input-file">
+                    <form action="" id="formCapturaResultados">
+                        <!-- Columna para cargar el archivo y ver las capturas -->
+                        <div class="col-12 col-lg-4">
+                            <div class="mb-4">
+                                <div class="input-file-contenedor">
+                                    <label for="reporte_equipo" class="form-label">Cargar reporte</label>
+                                    <label for="reporte_equipo" class="input-file-label">
+                                        <i class="bi bi-box-arrow-up"></i> Seleccione archivo(s)
+                                    </label>
+                                    <input type="file" name="reporte_equipo[]" id="reporte_equipo"
+                                        accept=".png, .jpg, .jpeg, .pdf" required class="input-file">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <button type="button" id="capture" class="btn btn-option w-100"><i
+                                        class="bi bi-camera"></i>
+                                    Capturar</button>
+                            </div>
+                            <div class="rounded p-3 shadow my-2">
+                                <h5><i class="bi bi-images"></i> Capturas</h5>
+                                <div class="" id="captures">
+                                    <!-- Las capturas se mostrarán aquí -->
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-4">
-                            <button type="button" id="capture" class="btn btn-option w-100"><i class="bi bi-camera"></i>
-                                Capturar</button>
-                        </div>
-                        <div class="rounded p-3 shadow my-2">
-                            <h5><i class="bi bi-images"></i> Capturas</h5>
-                            <div class="" id="captures">
-                                <!-- Las capturas se mostrarán aquí -->
-                            </div>
-                        </div>
-                    </div>
+                    </form>
+
                 </div>
             </div>
             <div class="modal-footer">
                 <!-- <button type="button" class="btn btn-borrar" id="btn-limpiar-resultado-espiro">Limpiar</button> -->
-                <!-- <button type="submit" class="btn btn-confirmar" id="btn-subir-certificado-medico"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los documentos subidos">
+                <button type="button" class="btn btn-confirmar" id="btn-subir-reporte-equipo" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Guarda los documentos subidos">
                     <i class="bi bi-clipboard2-plus"></i> Guardar
-                </button> -->
+                </button>
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i>Cancelar</button>
             </div>
