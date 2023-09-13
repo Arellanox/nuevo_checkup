@@ -9,6 +9,29 @@
         <form id="formRegistrarAgenda">
           <?php include "formRegistrarAgenda.php"; ?>
         </form>
+
+        <br>
+        <div id="cuestionadioRegistro">
+          <h3>Cuestionario</h3>
+          <p class="none-p" style="margin-left: 10px" id="descripcion-antecedentes">
+            Si es su primer registro, rellene cada campo del cuestionario. Si ha tenido un registro previo podrá visualizar su
+            información y actualizarlos. <br>
+            Haga click en cada categoria del cuestionario para desplegar los campos del mismo.
+          </p>
+          <div class="mt-3" id="antecedentes-registro">
+
+          </div>
+        </div>
+
+        <!-- Cuestionario de espirometria -->
+        <div class="mt-3" id="formulario-espiro">
+
+        </div>
+
+        <!-- Cuestionario de citologia -->
+        <div class="mt-3" id="formulario-citologia">
+
+        </div>
       </div>
       <div class="modal-footer ">
         <!-- d-flex justify-content-between  -->

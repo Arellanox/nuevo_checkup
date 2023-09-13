@@ -2613,7 +2613,26 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
     });
   })
 }
-//
+
+//Obtener vista de Citologia
+function obtenerVistaCitologiaPaciente(div) {
+  return new Promise(resolve => {
+    $.post(`${http}${servidor}/${appname}/vista/menu/area-master/contenido/forms/form_citologia${language}.html`,
+
+      function (html) {
+        setTimeout(function () {
+          $(div).html(html);
+
+          resolve(1)
+        }, 100);
+      });
+  })
+}
+
+
+
+
+//Obtener vista de Espirometria
 
 function obtenerVistaEspiroPacientes(div) {
   return new Promise(resolve => {
@@ -2628,6 +2647,7 @@ function obtenerVistaEspiroPacientes(div) {
       });
   })
 }
+
 
 
 function obtenerDatosEspiroPacientes(curp) {

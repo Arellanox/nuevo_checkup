@@ -10,6 +10,7 @@ var selectrue = 0,
   confirmado;
 
 var formEspiroHTML;
+var formCitologiaHTML
 
 let cropper;
 
@@ -125,7 +126,7 @@ function hasLocation() {
         formulario = "formSubirInterpretacionCitologia";
         api_capturas = 5;
         api_interpretacion = 1;
-        url_api = 'electrocardiograma_api';
+        url_api = 'citologia_api'; 
         obtenerContenidoVistaMaster(13, 'Resultados de Citología', 'contenido_modal.php');
         break;
       case "PRUEBA_DE_ESFUERZO":
@@ -216,6 +217,17 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $('#btn-capturas-pdf').fadeOut(0)
         $('#formSubirInterpretacion').fadeIn(0)
         $('#btn-resultados-espiro-pdf').fadeIn(0)
+        // Subir resultado
+        $.getScript("modals/js/master_subir_interpretación.js");
+
+        break;
+      
+      //Area de citologia 
+      case 13:
+
+        $('#btn-analisis').fadeIn(0)
+        $('#btn-capturas-pdf').fadeOut(0)
+        $('#btn_info_clinica_citologia').fadeIn(0)
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
 

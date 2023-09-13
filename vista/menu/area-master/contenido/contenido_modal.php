@@ -129,6 +129,7 @@ session_start();
                                     <i class="bi bi-plus-lg"></i> Imágenes
                                 </button>
 
+                                <!-- ESPIROMETRIA -->
                                 <button type="button" class="btn btn-primary me-2" style="margin-bottom:4px; display:none" id="btn-resultados-espiro-pdf">
                                     <i class="bi bi-plus-lg"></i> EASYONE
                                 </button>
@@ -136,6 +137,11 @@ session_start();
                                 <!-- <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" id="btn-resultados-audi-pdf">
                                     <i class="bi bi-plus-lg"></i> Subir reporte
                                 </button> -->
+
+                                <!-- CITOLOGIA -->
+                                <button type="button" class="btn btn-primary me-2" style="margin-bottom:4px; display:none" id="btn_info_clinica_citologia">
+                                    <i class="bi bi-info-circle"></i> Información clinica
+                                </button>
 
                                 <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" data-bs-toggle="modal" data-bs-target="#modalCapturaOidos">
                                     <i class="bi bi-ear"></i> Captura de Oidos
@@ -255,7 +261,7 @@ session_start();
                                 break;
                             case 'formSubirInterpretacionCitologia':
                                 echo '<form id="formSubirInterpretacionCitologia">';
-                                include 'forms/form_citologia.html';
+                                // include 'forms/form_citologia.html';
                                 echo '</form>';
                                 break;
                                 //<!--Formulario de Espirometria -->
@@ -302,10 +308,34 @@ session_start();
     </div>
 </div>
 
+<!--MODAL PARA SUBIR LA INFORMACION CLINICA DE CITOLOGIA-->
+<div class="modal fade" id="ModalInfoClinicaCitologia" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+    <div class="modal-dialog modal-xl  modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="title-paciente_aceptar">Información clinica</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"> <!--FORMULARIO DE CITOLOGIA-->
+
+                <?php include 'forms/form_citologia.html'; ?>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Regresar</button>
+
+                <!-- BTN SUBIR NUEVOS RESULTADOS DE CITOLOGIA -->
+                <button type="submit" class="btn btn-confirmar" id="btn-subir-info-clinica-citologa" data-bs-toggle="tooltip" data-bs-placement="top" title="Guardar nueva información clinica">
+                    <i class="bi bi-clipboard2-plus"></i> Cargar información clinica
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!--MODAL PARA SUBIR RESULTADOS DE ESPIROMETRIA-->
-
 <div class="modal fade" id="ModalSubirResultadosEspiro" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
     <div class="modal-dialog modal-xl  modal-dialog-centered ">
         <div class="modal-content">
@@ -338,7 +368,7 @@ session_start();
 </div>
 
 
-<!--MODAL PARA SUBIR RESULTADOS DE ESPIROMETRIA-->
+<!--MODAL PARA SUBIR RESULTADOS DE AUDIOMETRIA-->
 
 <div class="modal fade" id="ModalSubirResultadosAudio" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
     <div class="modal-dialog modal-xl  modal-dialog-centered ">

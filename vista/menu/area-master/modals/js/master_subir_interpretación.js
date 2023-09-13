@@ -140,6 +140,40 @@ $('#btn-confirmar-reporte').click(function (event) {
     event.preventDefault()
 })
 
+
+//Formulario Para Los Informacion Clinica de Citologia
+$("#btn-subir-info-clinica-citologa").click(async function (event) {
+    event.preventDefault();
+
+    Swal.fire({
+        title: '¿Está seguro de subir esta información clinica?',
+        text: "¡Asegurece de que toda la información sea correcta! : )",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cargar información',
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            ajaxAwaitFormData({
+                id_turno: dataSelect.array['turno'],
+                api: 1
+            }, 'citologia_api', 'formAreadeCitoloiga', { callbackAfter: true }, false, function () {
+                alertToast('La nueva información ha sido guardada', 'success', 4000);
+
+            })
+
+            $('#ModalInfoClinicaCitologia').modal('hide');
+
+            event.preventDefault();
+        }
+    })
+})
+
+
+
 //Formulario Para Los Resultados de Espirometria
 $("#btn-subir-resultados-espiro").click(async function (event) {
     event.preventDefault();
@@ -171,7 +205,7 @@ $("#btn-subir-resultados-espiro").click(async function (event) {
         }
     })
 })
-
+ 
 
 //Subir resultados de audiometria
 $("#btn-subir-resultados-audio").click(async function (event) {

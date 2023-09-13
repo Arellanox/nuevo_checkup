@@ -19,7 +19,7 @@ $language = isset($_GET['language']) && !empty($_GET['language']) ? '-' . $_GET[
 //Cuestionarios
 $ant = isset($_GET['ant']) ? $_GET['ant'] : 0;
 $espiro = isset($_GET['']) ? $_GET[''] : 0;
-
+$citologia = isset($_GET['']) ? $_GET[''] : 0;
 
 include "../variables.php";
 $menu = "Pre-registro";
@@ -77,6 +77,7 @@ $menu = "Pre-registro";
   //Cuestionarios
   let ant = false
   let espiro = false
+  let citologia = false
 
 
   //
@@ -160,11 +161,12 @@ $menu = "Pre-registro";
     clienteRegistro = id
     idtoken = id_registro
 
-    cuestionarios = jQuery.parseJSON(cuestionarios)
+    // cuestionarios = jQuery.parseJSON(cuestionarios)
 
     //Cuestionario
     ant = cuestionarios[2] ? true : false;
     espiro = cuestionarios[1] ? true : false;
+    citologia = cuestionarios[4] ? true : false;
 
 
     //Antecedentes

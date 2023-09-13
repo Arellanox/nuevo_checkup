@@ -1,5 +1,6 @@
 //Formulario de registro de pruebas
 // $('#formDIV *').prop('disabled',true);
+var dataCliente
 $("#formDIV").fadeOut(400);
 $('#btn-formregistrar-agenda').prop('disabled', true);
 $('#eliminarForm').prop('disabled', true);
@@ -70,6 +71,12 @@ $("#formRegistrarAgenda").submit(function (event) {
     // alert('form');
   }
 
+  if (citologia) {
+    var citologiaCuestionario = $(document.forms['formAreadeCitoloiga']).serializeArray();
+    for (var i = 0; i < citologiaCuestionario.length; i++)
+      formData.append(citologiaCuestionario[i].name, citologiaCuestionario[i].value)
+  }
+
   if (espiro) {
     var espiroCuestionario = $(document.forms['formAreadeEspirometria']).serializeArray();
     //console.log(espiroCuestionario);
@@ -119,7 +126,8 @@ $("#formRegistrarAgenda").submit(function (event) {
 
   formData.set('fechaAgenda', $('#fecha-agenda').val())
   formData.set('api', 1);
-
+  formData.set('sexo', dataCliente['GENERO']);
+  formData.set('id_turno', dataCliente['ID_TURNO'])
 
   // console.log(formData);
   Swal.fire({
@@ -233,7 +241,7 @@ function mostrarAntecedente(btn, form) {
 var tipoPaciente = "0"; //Particular por defecto
 $(document).on('click', '#actualizarForm', async function () {
 
-  curp = $('#curp-paciente').val();
+  curp = $('#curp-paciente').val(); 
 
   if (ant) {
     await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
@@ -253,6 +261,11 @@ $(document).on('click', '#actualizarForm', async function () {
   }
 
 
+  if (citologia) {
+    await obtenerVistaCitologiaPaciente('#formulario-citologia')
+  } else {
+    $('#cuestionarioCitologia').fadeOut(100);
+  }
 
 
   //Solicitar si la curp existe
@@ -276,6 +289,7 @@ $(document).on('click', '#actualizarForm', async function () {
       },
       success: async function (data) {
         data = jQuery.parseJSON(data);
+        dataCliente = data.response.data[0];
         if (mensajeAjax(data)) {
           if (data['response']['data'].length > 0) {
             Toast.fire({
@@ -283,6 +297,15 @@ $(document).on('click', '#actualizarForm', async function () {
               title: `${traducir('CURP valida...', language)}`,
               timer: 2000
             });
+
+            // ESTO ES DE CITOOLOGIA PARA VALIDAR LOS CUESTIONARIOIS DEOPENDIENDO SI ES HOMBRE O MUJER
+            if (dataCliente['GENERO'] == 'MASCULINO') {
+              $('#cuestionarioMujer').css('display', 'none');
+            } else { 
+              $('#cuestionarioHombre').css('display', 'none');  
+            }
+
+
             $("#formDIV").fadeIn(400);
             $('#curp-paciente').prop('readonly', true);
             $('#eliminarForm').prop('disabled', false);

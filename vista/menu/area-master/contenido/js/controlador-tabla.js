@@ -194,6 +194,25 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                             botonElectroCaptura(1)
                 }
                 break;
+            case 13:
+                $('#btn-inter-areas').fadeIn(0);
+                document.getElementById('formAreadeCitoloiga').reset()
+                $(`#formAreadeCitoloiga`).html('');
+                $(`#formAreadeCitoloiga`).html(formCitologiaHTML)
+
+                if (selectEstudio.array.length) {
+                        if (selectEstudio.array[0].GENERO == 'MASCULINO') {
+                            $('#cuestionarioMujer').css('display', 'none');
+
+                        } else {
+                            $('#cuestionarioHombre').css('display', 'none');
+                        }
+                        
+                    recuperarInfoClinicaCitologia(selectEstudio.array[0])
+                    }
+                
+                
+                break;
             case 14: //Nutricion
                 $('#btn-inter-areas').fadeIn(0);
                 if (formulario != 1) {
@@ -356,7 +375,7 @@ function limpiarCampos() {
 
 async function obtenerServicios(area, turno) {
     return new Promise(resolve => {
-        if (area == 3 || area == 10 || area == 14 || area == 5 || area == 4 || area == 18 || area == 9) {
+        if (area == 3 || area == 10 || area == 14 || area == 5 || area == 4 || area == 18 || area == 9 || area == 13 ) {
             // url = 'oftalmologia_api';
             data = {
                 turno_id: turno,
@@ -1044,6 +1063,30 @@ function btnTomaCapturas(e, servicio /* nombre */, url = '') {
     }
 
     $('#vistaCapturasAreas').fadeIn(0)
+}
+
+function recuperarInfoClinicaCitologia(entrada) {
+    for (var clave in entrada) {
+        if (Object.hasOwnProperty.call(entrada, clave)) {
+
+            pregunta = clave
+            respuesta = entrada[clave];
+
+            if (respuesta == 'Sí' || respuesta == 'No') {
+                var radio = $(`input[type="radio"][id="${pregunta}${respuesta}"][value="${respuesta}"]`);
+                
+                if (radio.length > 0) {
+                    radio.prop('checked', true);
+                } else {
+                    
+                    $(`input[type="text"][id="${pregunta}"]`).val(respuesta);
+                }
+                
+            } else {
+                $(`input[id="${pregunta}"]`).val(respuesta);
+            }
+        }
+    }
 }
 
 

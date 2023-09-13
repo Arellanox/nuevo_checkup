@@ -39,6 +39,47 @@ $antecedentes = array_slice($_POST, 0, count($_POST) - 6); // < - Elimina la can
 $espirometria = $_POST['respuestas'];
 
 
+#Datos de citologia
+$sexo = $_POST['sexo'];
+$turno_id = $_POST['id_turno'];
+$inicio_vida_sexual  = $_POST['inicio_vida_sexual'];
+$tratamiento_hormonal = $_POST['tratamiento_hormonal'];
+$dato_relevante = $_POST['dato_relevante'];
+$vasectomia = $_POST['vasectomia'];
+$lesiones_visibles = $_POST['lesiones_visibles'];
+$espezifique_zona = $_POST['espezifique_zona'];
+$primera_mestruacion = $_POST['primera_mestruacion'];
+$ultima_mestruacion = $_POST['ultima_mestruacion'];
+$n_embarazos = $_POST['n_embarazos'];
+$n_partos = $_POST['n_partos'];
+$n_abortos = $_POST['n_abortos'];
+$n_cesarias = $_POST['n_cesarias'];
+$salpingoclasia = $_POST['salpingoclasia'];
+$coloco_diu = $_POST['coloco_diu'];
+
+
+$parametros = $master->setToNull(array(
+
+    $sexo,
+    $turno_id,
+    $inicio_vida_sexual,
+    $tratamiento_hormonal,
+    $dato_relevante,
+    $vasectomia,
+    $lesiones_visibles,
+    $espezifique_zona,
+    $primera_mestruacion,
+    $ultima_mestruacion,
+    $n_embarazos,
+    $n_partos,
+    $n_abortos,
+    $n_cesarias,
+    $salpingoclasia,
+    $coloco_diu
+
+));
+
+
 
 switch ($api) {
     case 1:
@@ -147,6 +188,11 @@ switch ($api) {
             if(!empty($principal)){
                 $response = $master->getByNext("sp_espiro_cuestionario_g", [json_encode($principal), $lastId, 5, $usuario_id, 0]);
             }
+
+            if(isset($inicio_vida_sexual)){
+                $response = $master->insertByProcedure('sp_citologia_formularios_g', $parametros);
+            }
+
         } else {
             # si no se puede insertar el turno, termina el ejecucion
             echo json_encode(array('response' => array('code' => 2, 'data' => "No hemos podido agendar su visita.")));

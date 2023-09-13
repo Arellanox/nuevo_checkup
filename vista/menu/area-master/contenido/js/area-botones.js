@@ -124,7 +124,12 @@ $('#btn-resultados-audi-pdf').click(function () {
   $('#ModalSubirResultadosAudio').modal('show');
 
 })
+ 
+$('#btn_info_clinica_citologia').click(function () {
 
+  $('#ModalInfoClinicaCitologia').modal('show');
+
+})
 
 
 $('#btn-ver-reporte').click(function () {
