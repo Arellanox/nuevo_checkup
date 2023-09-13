@@ -375,53 +375,72 @@ if (!isset($qr)) {
         <table>
             <tbody>
                 <tr>
-                    <td class="col-der" style="border-bottom: none; text-align: left;">
-                        <h1>INFORME AUDIOMETRÍA</h1>
+                    <td class="col-der" style="border-bottom: none">
+                        <h4>
+                            DIAGNÓSTICO BIOMOLECULAR S.A.de C.V. <br>
+                            Checkup Clínica y Prevención<br>
+                            Reporte de Audiometría
+                        </h4>
                     </td>
                     <td class="col-izq" style="border-bottom: none; text-align:center;">
                         <?php
-                        echo "<img src='data:image/png;base64, " . $encode . "' height='80' >";
+                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
                         // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
                         ?>
 
                     </td>
                 </tr>
-
             </tbody>
         </table>
-        <div>
-            <table style="width: 100%; border-collapse: collapse; text-align: left; align-items: center;" border="2" colspan="4">
-                <tbody>
-                    <tr>
-                        <td style="width: 100%; text-align: center; background-color: #d8e0e2;" colspan="4"><b>INFORMACIÓN DEL PACIENTE</b></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 20%;" colspan="1"><b>Nombre:</b></td>
-                        <td style="width: 80%;" colspan="3"><b><?php echo $encabezado->NOMBRE; ?></b></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 40%;" colspan="2"><b>Fecha de nacimiento:</b></td>
-                        <td style="width: 30%;" colspan="1"><b>Edad:</b> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></td>
-                        <td style="width: 30%;" colspan="1"><b>Género:</b> <?php echo $encabezado->SEXO; ?></td>
+        <hr style="height: 1px; background-color: black ;">
+        <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>DATOS DEL PACIENTE</strong></p>
+        <hr style="height: 1px; background-color: black ;">
+        <br>
+        <table style="width: 100%; border-collapse: collapse; text-align: left; align-items: center;" colspan="4">
+            <tbody>
+                <tr>
+                    <td class="col-left" style="border-bottom: none">
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_AUDIO ?> </strong>
+                    </td>
+                    <td class="col-center" style="border-bottom: none">
+                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
+                    </td>
+                    <td class="col-right" style="border-bottom: none">
+                        Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-left" style="border-bottom: none">
+                        Nombre: <strong style="font-size: 12px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
+                    </td>
+                    <td class="col-center" style="border-bottom: none">
+                        Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO_DETALLE; ?> </strong>
+                    </td>
+                    <td class="col-right" style="border-bottom: none">
+                        Pasaporte: <strong style='font-size:12px'> <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-left" style="border-bottom: none">
+                        Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO_AUDIO; ?> </strong>
+                    </td>
+                    <td class="col-center" style="border-bottom: none">
+                        Tipo de estudio: <strong style="font-size: 12px;">Audiometría tonal aérea</strong>
+                    </td>
+                    <td class="col-right" style="border-bottom: none">
+                        <!-- Tipo de Muestra: <strong>Sangre</strong> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-left" style="border-bottom: none">
+                        <!-- Procedencia -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-                    </tr>
-                    <tr>
-                        <td style="width:50%;" colspan="2"><b>Fecha de realización del estudio:</b></td>
-                        <td style="width:50%;" colspan="2"><b>Fecha de resultado:</b> <?php echo $encabezado->FECHA_RESULTADO_MESO; ?></td>
-                    </tr>
-                    <tr>
-                        <td style="width:30%" colspan="1"><b>Checkup:</b></td>
-                        <td style="width:70%" colspan="3"><b>Tipo estudio:</b></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!--<p style="font-size: 12px; padding-left: 3.5px; margin: -1px
-        ; margin-top: 5px">
-            <?php // echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; 
-            ?> </strong>
-        </p>
-         COMENTAR ESTA LINEA<p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> 
+    <!--<p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> 
         <br>-->
     </div>
 
@@ -488,7 +507,7 @@ if (!isset($qr)) {
                         <td><strong>Otoscopia:</strong></td>
                     </tr>
                     <tr>
-                        <td>Ambos pabellones auriculares sin alteraciones.</td>
+                        <td><?php echo $response->OTOSCOPIA; ?></td>
                     </tr>
                     <tr style="line-height: 2; color: white;">
                         <td>.</td>
@@ -501,8 +520,8 @@ if (!isset($qr)) {
                                     <td><strong> Oído izquierdo </strong></td>
                                 </tr>
                                 <tr>
-                                    <td>Conducto auditivo externo normal. Membrana timpánica sin alteraciones Otoscopia norma</td>
-                                    <td>Conducto auditivo externo normal Tapón de cerumen </td>
+                                    <td><?php echo $response->RESULTADO_OD; ?></td>
+                                    <td><?php echo $response->RESULTADO_OI; ?></td>
                                 </tr>
                             </table>
                         </td>
@@ -511,20 +530,19 @@ if (!isset($qr)) {
                         <td>.</td>
                     </tr>
                     <tr style="line-height: 2;">
-                        <td><strong>Comentarios:</strong> Audiometría tonal </td>
+                        <td><strong>Comentarios:</strong> <?php echo $response->COMENTARIOS ?></td>
                     </tr>
                     <tr style="line-height: 2;">
-                        <td><strong>Oido derecho:</strong> Audición normal</td>
+                        <td><strong>Oido derecho:</strong> <?php echo $response->COMENTARIOS_OD ?></td>
                     </tr>
                     <tr style="line-height: 2;">
-                        <td><strong>Oido izquierdo:</strong> </td>
+                        <td><strong>Oido izquierdo:</strong> <?php echo $response->COMENTARIOS_OI ?></td>
                     </tr>
                     <tr>
-                        <td><strong> Recomendaciones:</strong></td>
+                        <td><strong> Recomendaciones:</strong> <?php echo $response->RECOMENDACIONES ?></td>
                     </tr>
                     <tr>
-                        <td>Uso de protección auditiva, evitar inhalación de solventes y evitar medicamentos que dañen la
-                            audición (ototóxicos): amikacina, garamicina, gentamicina. </td>
+                        <td><?php echo $response->RECOMENDACIONES ?></td>
                     </tr>
                 </tbody>
             </table>
@@ -568,6 +586,11 @@ if (!isset($qr)) {
             </table>
         </div>
         <div style="width: 100%; text-align: center;border-collapse: collapse; margin: 0px 0px 0px 30px;">
+            <p style="font-size: 12px; padding-left: 3.5px; margin: -1px
+        ; margin-top: 5px">
+                <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : "";
+                ?> </strong>
+            </p>
             <strong>
                 <table>
                     <tbody>

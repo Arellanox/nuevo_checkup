@@ -479,9 +479,8 @@ class Miscelaneus
             case 4:
             case "4":
                 #AUDIOMETRIA
-                $datos_medicos = array();
                 $arregloPaciente = $this->getBodyAudio($master, $turno_id);
-                $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_ESPIRO'];
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_AUDIO'];
                 $carpeta_guardado = "audiometria";
                 $folio = $infoPaciente[0]['FOLIO_AUDIO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_AUDIO'];
@@ -504,8 +503,6 @@ class Miscelaneus
             case "19":
                 #CONSULTORIO2
                 $arregloPaciente = $this->getBodyInfoConsultorio2($master, $turno_id);
-                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
-                $datos_medicos = $this->getMedicalCarrier($info);
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_CONSULTA2'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "consulta_medica";
@@ -1705,23 +1702,24 @@ class Miscelaneus
             return strlen($item) > 0;
         });
     }
-    public function getBodyAudio($master, $turno_id)
+    public function getBodyAudio($master, $id_turno)
     {
         # recuperamos los datos del paciente
-        $response = $master->getByProcedure("sp_mesometria_signos_vitales_b", []);
+        $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno]);
 
-        # declaramos el array final 
-        $arregloPaciente = array();
+        $arrayAudio = array(
+            "OTOSCOPIA" => $response[0]['OTOSCOPIA'],
+            "RESULTADO_OD" => $response[0]['RESULTADO_OD'],
+            "RESULTADO_OI" => $response[0]['RESULTADO_OI'],
+            "COMENTARIOS" => $response[0]['COMENTARIOS'],
+            "COMENTARIOS_OD" => $response[0]['COMENTARIOS_OD'],
+            "COMENTARIOS_OI" => $response[0]['COMENTARIOS_OI'],
+            "RECOMENDACIONES" => $response[0]['RECOMENDACIONES'],
+            "ANTECEDENTES" =>  $response[0]['ANTECEDENTES'],
+            "AUDIOMETRIA" => $response[0]['AUDIOMETRIA']
+        );
 
-        # convertimos los tipo de signos en claves y su resultado en el valor del arreglo
-        foreach ($response as $sign) {
-            $clave = str_replace(" ", "_", $sign['TIPO_SIGNO']);
-            $arregloPaciente[$clave] = $sign['VALOR'];
-        }
-        $arregloPaciente['FECHA_REGISTRO'] = $response[0]['FECHA_REGISTRO'];
-
-
-        return $arregloPaciente;
+        return $arrayAudio;
     }
     public function getBodyEspiro($master, $turno_id)
     {
