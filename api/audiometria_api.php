@@ -152,7 +152,7 @@ switch ($api) {
             $actualiza_ruta = $master->updateByProcedure("sp_reporte_actualizar_ruta", []);
         } else {
 
-            $response = $master->insertByProcedure("sp_audio_resultados_g", $audio_array);
+            $response = $master->insertByProcedure("sp_audiometria_resultados_g", $audio_array);
         }
         break;
     default:
