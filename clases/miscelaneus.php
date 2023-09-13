@@ -1487,15 +1487,19 @@ class Miscelaneus
             if (is_array($value)) {
                 $decodedArray[$key] = $this->decodeJsonRecursively($value);
             } else {
-                $decodedValue = json_decode($value, true);
+                if ($this->str_ends_with($value, ']') || $this->str_ends_with($value, '}')) {
+                    $decodedValue = json_decode($value, true);
 
-                // Si json_decode devuelve NULL, significa que el valor no es un JSON válido,
-                // por lo que simplemente lo mantenemos tal como está.
-                // De lo contrario, seguimos decodificando recursivamente.
-                if ($decodedValue === NULL) {
-                    $decodedArray[$key] = $value;
+                    // Si json_decode devuelve NULL, significa que el valor no es un JSON válido,
+                    // por lo que simplemente lo mantenemos tal como está.
+                    // De lo contrario, seguimos decodificando recursivamente.
+                    if ($decodedValue === NULL) {
+                        $decodedArray[$key] = $value;
+                    } else {
+                        $decodedArray[$key] = $this->decodeJsonRecursively($decodedValue);
+                    }
                 } else {
-                    $decodedArray[$key] = $this->decodeJsonRecursively($decodedValue);
+                    $decodedArray[$key] = $value;
                 }
             }
         }

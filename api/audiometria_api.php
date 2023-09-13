@@ -144,6 +144,13 @@ switch ($api) {
     case 6:
         #recupera la informacion del reporte de audiometria final
         $response = $master->getByProcedure("sp_audiometria_resultados_b", [$turno_id]);
+        // echo 1;
+        // $response[0]['ANTECEDENTES'] = $master->decodeJson([$response[0]['ANTECEDENTES']]);
+        // echo 1;
+        // $response[0]['AUDIOMETRIA'] = $master->decodeJson([$response[0]['AUDIOMETRIA']]);
+        // echo 1;
+        // $response[0]['CAPTURA_OIDOS'] = $master->decodeJson([$response[0]['CAPTURA_OIDOS']]);
+        // echo 1;
         $response = $master->decodeJsonRecursively($response);
         break;
     case 7:

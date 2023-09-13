@@ -141,6 +141,8 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
 
                 // Recupera la info del reporte:
                 console.log(selectEstudio.array);
+                if (ifnull(selectEstudio, false, ['array']))
+                    await obtenerResultadosAudio(selectEstudio);
 
                 if (datalist.CONFIRMADO == 1) estadoFormulario(1)
                 break;
@@ -990,6 +992,16 @@ async function obtenerResultadosElectro(data) {
     $('#tecnica_electro').val(ifnull(row.TECNICA))
     $('#hallazgo_electro').val(ifnull(row.HALLAZGO))
     $('#interpretacion_electro').val(ifnull(row.INTERPRETACION))
+}
+
+async function obtenerResultadosAudio(data) {
+    document.getElementById(formulario).reset()
+
+    let row = data[0]
+
+
+
+
 }
 
 function mostrarElectroInterpretacion(url) {
