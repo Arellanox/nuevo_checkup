@@ -144,7 +144,7 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 if (ifnull(selectEstudio, false, ['array']))
                     await obtenerResultadosAudio(selectEstudio);
 
-                if (datalist.CONFIRMADO == 1) estadoFormulario(1)
+                if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
                 break;
             case 5:
                 $('#btn-inter-areas').fadeIn(0);
@@ -419,6 +419,7 @@ async function obtenerServicios(area, turno) {
                             // console.log(key, row[0][key]['GUARDADO'], row[0][key]['CONFIRMADO'])
                             if (row[0][key]['GUARDADO'] == 1)
                                 trueResultados = 1
+
                             if (row[0][key]['CONFIRMADO'] == 1)
                                 trueResultados = 2
 
@@ -1018,8 +1019,40 @@ async function obtenerResultadosAudio(data) {
 
 
 
+    // $('#div-antecedentes')
+    // Antecedentes de audio
+    $('#div-antecedentes input[type="radio"]').prop('checked', false);
+    $('#div-antecedentes div.collapse, div.collapse.show').collapse('hide');
+    // console.log(row, row['ANTECEDENTES']);
+    if (ifnull(row, false, ['ANTECEDENTES'])) {
+        const antecedentes = row['ANTECEDENTES'];
+        for (const key in antecedentes) {
+            const val = antecedentes[key];
+            $(`#div-antecedentes input[name="antecedentes[${val.ID_ANTECEDENTE}][option]"][value="${val.ID_RESPUESTA}"][type="radio"]`).prop('checked', true);
 
+            if (ifnull(val, false, ['ID_RESPUESTA']) === 1) {
+                console.log("SI collapse")
+                $(`#div-antecedentes textarea[name="antecedentes[${val.ID_ANTECEDENTE}][comentario]"]`).val(val.COMENTARIO);
+                // console.log($(`#div-antecedentes div.target-${val.ID_ANTECEDENTE}.collapse`))
+                $(`#div-antecedentes div.target-${val.ID_ANTECEDENTE}.collapse`).collapse('show');
+                // console.log(div);
+                // if (div.attr('data-id-target') == ifnull(val, 0, ['ID_RESPUESTA']))
+                //     div.collapse('show');
+            }
+        }
+    }
 
+    // HZ del paciente
+    if (ifnull(row, false, ['AUDIOMETRIA'])) {
+        const audio = row['AUDIOMETRIA'];
+        for (const key in audio) {
+            const tipo = audio[key];
+            for (const key_2 in tipo) {
+                const hz = tipo[key_2];
+                $(`#tableAudioOido input[name="values[${key}][${key_2}]"]`).val(ifnull(hz, 0))
+            }
+        }
+    }
 
 
 
