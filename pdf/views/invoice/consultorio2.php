@@ -340,6 +340,21 @@ if (isset($ruta_firma))
         // }
 
         ?>
+        <!-- Nota consulta -->
+        <section id="card-nota-consulta">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="pregunta-row">Motivo de consulta</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="respuesta-row"><?php echo $resultados[0][0]->MOTIVO_CONSULTA; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
         <!-- Nota consulta -->
         <section id="card-nota-consulta">
@@ -355,6 +370,29 @@ if (isset($ruta_firma))
                     </tr>
                 </tbody>
             </table>
+        </section>
+
+
+        <!-- Exploracion fisica -->
+        <section id="card-exploracion-clinica">
+            <div id="notas-historial-consultorio">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="pregunta-row">Exploracion física</th>
+                            <th class="pregunta-row"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php for ($i = 0; $i < count($resultados[1]); $i++) : ?>
+                            <tr>
+                                <td class="respuesta-row"><?php echo $resultados[1][$i]->TIPO_EXPLORACION; ?></td>
+                                <td class="comentario-row"><?php echo $resultados[1][$i]->EXPLORACION; ?></td>
+                            </tr>
+                        <?php endfor; ?>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- Diagnosticos -->
@@ -403,27 +441,6 @@ if (isset($ruta_firma))
             </table>
         </section>
 
-        <!-- Exploracion fisica -->
-        <section id="card-exploracion-clinica">
-            <div id="notas-historial-consultorio">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="pregunta-row">Exploracion física</th>
-                            <th class="pregunta-row"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php for ($i = 0; $i < count($resultados[1]); $i++) : ?>
-                            <tr>
-                                <td class="respuesta-row"><?php echo $resultados[1][$i]->TIPO_EXPLORACION; ?></td>
-                                <td class="comentario-row"><?php echo $resultados[1][$i]->EXPLORACION; ?></td>
-                            </tr>
-                        <?php endfor; ?>
-                    </tbody>
-                </table>
-            </div>
-        </section>
 
     </div>
 

@@ -479,7 +479,7 @@
                                                 ?>
                                                     <tr>
                                                         <td class="col-one" style="font-size: 12px">
-                                                            <?php echo "<strong style='font-size: 12px'>Observaciones: </strong>" . $analito->observaciones ?>
+                                                            <?php echo "<strong style='font-size: 12px'>Observaciones:" . $analito->observaciones . " </strong>"; ?>
                                                         </td>
                                                         <td class="col-two">
                                                         </td>
@@ -524,7 +524,7 @@
                                     <?php
                                     if ($estudio->observaciones == '' || $estudio->observaciones == null) {
                                     } else {
-                                        echo "<strong style='font-size: 12px'>Observaciones: </strong>" . $estudio->observaciones;
+                                        echo "<strong style='font-size: 12px'>Observaciones:" . $estudio->observaciones . "</strong>";
                                     }
                                     ?>
                                 </div>
