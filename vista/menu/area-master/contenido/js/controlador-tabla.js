@@ -1000,20 +1000,21 @@ async function obtenerResultadosAudio(data) {
 
     let row = data.array[0]
 
-    // Apartado de comentario
-    $('#audio-comenConclucion').val(row.COMENTARIOS)
-    $('#comentario_oido_derecho').val(ifnull(row.COMENTARIOS_OD))
-    $('#comentario_oido_izquierdo').val(ifnull(row.COMENTARIOS_OI))
+
+    // Apartado de cometarios
+    $('#audio-comenConclucion').val(ifnull(row, false, ['COMENTARIOS']) ? row.COMENTARIOS : '');
+    $('#comentario_oido_derecho').val(ifnull(row, false, ['COMENTARIOS_OD']) ? row.COMENTARIOS_OD : '')
+    $('#comentario_oido_izquierdo').val(ifnull(row, false, ['COMENTARIOS_OI']) ? row.COMENTARIOS_OI : '')
 
     //Apartado de otoscopia
-    $('#textArea-otoscopia').val(ifnull(row.OTOSCOPIA))
+    $('#textArea-otoscopia').val(ifnull(row, false, ['OTOSCOPIA']) ? row.OTOSCOPIA : '')
 
     //Apartado de audiometria
-    $('#audiometria_oido_derecho').val(ifnull(row.RESULTADO_OD))
-    $('#audiometria_oido_izquierdo').val(ifnull(row.RESULTADO_OI))
+    $('#audiometria_oido_derecho').val(ifnull(row, false, ['RESULTADO_OD']) ? row.RESULTADO_OD : '')
+    $('#audiometria_oido_izquierdo').val(ifnull(row, false, ['RESULTADO_OI']) ? row.RESULTADO_OI : '')
 
     //Apartado de recomendaciones
-    $('#textArea-recomendaciones').val(ifnull(row.RECOMENDACIONES))
+    $('#textArea-recomendaciones').val(ifnull(row, false, ['RECOMENDACIONES']) ? row.RECOMENDACIONES : '')
 
 
 
