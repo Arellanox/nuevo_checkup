@@ -223,12 +223,7 @@ function estudioSeleccionado(id, modal, serv) {
 
 
 
-const defaultCropBoxPercentages = {
-  width: 0.6403659233847913,
-  height: 0.4184027777777778,
-  left: 0.17981703830760437,
-  top: 0.1753472222222222
-};
+
 
 $('#reporte_equipo').on('change', function (event) {
   let file = event.target.files[0];
