@@ -1,5 +1,5 @@
 <div class="modal fade" id="ModalRegistrarCliente" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-fullscreen  modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <h5 class="modal-title" id="filtrador">Añadir Nuevo Cliente</h5>
@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-md-6">
                         <form class="" id="formRegistrarCliente">
                             <p class="text-center">Agrege un nuevo <strong>Cliente</strong> </p>
                             <div class="row">
