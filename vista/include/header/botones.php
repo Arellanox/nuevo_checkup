@@ -286,3 +286,11 @@ $menu = $_POST['menu']; ?>
   </div>
 
 <?php endif; ?>
+
+
+
+<?php if ($menu == "Corte de caja" && $_SESSION['permisos']['AdminCaja'] == 1) : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-ModalRegistraCaja" data-bs-toggle="modal" data-bs-target="#ModalRegistraCaja">
+    <i class="bi bi-plus-square"></i> Agregar caja
+  </button>
+<?php endif; ?>
