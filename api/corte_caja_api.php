@@ -21,8 +21,10 @@ $usuario = $_SESSION['id'];
 #OBTENCION DE DATOS
 $id_caja = $_POST['id_caja'];
 $descripcion_caja = $_POST['descripcion_caja'];
-$usuarios = $_POST['usuarios']; #esto es un arreglo
+$usuario_encargado = $_POST['usuario_encargado'];
 
+
+# ========================================================================
 #Arrays
 
 #Parametros para agregar
@@ -30,6 +32,16 @@ $cajas_g = array(
     $descripcion_caja,
     $usuario
 );
+
+#parametros para agregar un encargado de caja *usuario
+$cajas_usuarios_g = array(
+    $id_caja,
+    $usuario_encargado,
+    $usuario
+);
+
+# ========================================================================
+
 
 switch ($api) {
     case 1:
@@ -48,7 +60,7 @@ switch ($api) {
         break;
     case 5:
         #Insertar Usuarios a las cajas
-
+        $response = $master->insertByProcedure("sp_agregar_usuarios_cajas", $cajas_usuarios_g);
         break;
 
     case 5:
