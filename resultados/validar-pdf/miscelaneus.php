@@ -535,7 +535,8 @@ class Miscelaneus
     }
 
     private function getBodyAudio($master,$id_turno){
-        return null;
+        $data = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
+        return $this->decodeJsonRecursively($data);
     }
 
     private function getBodyInfoSoma($master, $id_turno)

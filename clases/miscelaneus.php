@@ -479,9 +479,8 @@ class Miscelaneus
             case 4:
             case "4":
                 #AUDIOMETRIA
-                $datos_medicos = array();
                 $arregloPaciente = $this->getBodyAudio($master, $turno_id);
-                $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_ESPIRO'];
+                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_AUDIO'];
                 $carpeta_guardado = "audiometria";
                 $folio = $infoPaciente[0]['FOLIO_AUDIO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_AUDIO'];
@@ -707,7 +706,7 @@ class Miscelaneus
     }
 
 
-    //Consultorio
+    //Consultorio 2
     private function getBodyInfoConsultorio2($master, $turno_id)
     {
         $response = $master->getByNext('sp_consultorio2', [$turno_id]);
@@ -1490,15 +1489,19 @@ class Miscelaneus
             if (is_array($value)) {
                 $decodedArray[$key] = $this->decodeJsonRecursively($value);
             } else {
-                $decodedValue = json_decode($value, true);
+                if ($this->str_ends_with($value, ']') || $this->str_ends_with($value, '}')) {
+                    $decodedValue = json_decode($value, true);
 
-                // Si json_decode devuelve NULL, significa que el valor no es un JSON válido,
-                // por lo que simplemente lo mantenemos tal como está.
-                // De lo contrario, seguimos decodificando recursivamente.
-                if ($decodedValue === NULL) {
-                    $decodedArray[$key] = $value;
+                    // Si json_decode devuelve NULL, significa que el valor no es un JSON válido,
+                    // por lo que simplemente lo mantenemos tal como está.
+                    // De lo contrario, seguimos decodificando recursivamente.
+                    if ($decodedValue === NULL) {
+                        $decodedArray[$key] = $value;
+                    } else {
+                        $decodedArray[$key] = $this->decodeJsonRecursively($decodedValue);
+                    }
                 } else {
-                    $decodedArray[$key] = $this->decodeJsonRecursively($decodedValue);
+                    $decodedArray[$key] = $value;
                 }
             }
         }
@@ -1705,23 +1708,24 @@ class Miscelaneus
             return strlen($item) > 0;
         });
     }
-    public function getBodyAudio($master, $turno_id)
+    public function getBodyAudio($master, $id_turno)
     {
         # recuperamos los datos del paciente
-        $response = $master->getByProcedure("sp_mesometria_signos_vitales_b", []);
+        $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno]);
 
-        # declaramos el array final 
-        $arregloPaciente = array();
+        $arrayAudio = array(
+            "OTOSCOPIA" => $response[0]['OTOSCOPIA'],
+            "RESULTADO_OD" => $response[0]['RESULTADO_OD'],
+            "RESULTADO_OI" => $response[0]['RESULTADO_OI'],
+            "COMENTARIOS" => $response[0]['COMENTARIOS'],
+            "COMENTARIOS_OD" => $response[0]['COMENTARIOS_OD'],
+            "COMENTARIOS_OI" => $response[0]['COMENTARIOS_OI'],
+            "RECOMENDACIONES" => $response[0]['RECOMENDACIONES'],
+            "ANTECEDENTES" =>  $response[0]['ANTECEDENTES'],
+            "AUDIOMETRIA" => $response[0]['AUDIOMETRIA']
+        );
 
-        # convertimos los tipo de signos en claves y su resultado en el valor del arreglo
-        foreach ($response as $sign) {
-            $clave = str_replace(" ", "_", $sign['TIPO_SIGNO']);
-            $arregloPaciente[$clave] = $sign['VALOR'];
-        }
-        $arregloPaciente['FECHA_REGISTRO'] = $response[0]['FECHA_REGISTRO'];
-
-
-        return $arregloPaciente;
+        return $arrayAudio;
     }
     public function getBodyEspiro($master, $turno_id)
     {

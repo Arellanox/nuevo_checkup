@@ -47,7 +47,7 @@ $antecedentes = $_POST['antecedentes'];
 $comentario = $_POST['comentario'];
 $comentario_od = $_POST['comentario_oido_derecho'];
 $comentario_oi = $_POST['comentario_oido_izquierdo'];
-$otoscopia = $_POSTp['otoscopia'];
+$otoscopia = $_POST['otoscopia'];
 $resultado_od = $_POST['audiometria_oido_derecho'];
 $resultado_oi = $_POST['audiometria_oido_izquierdo'];
 $recomendaciones = $_POST['recomendaciones'];
@@ -57,7 +57,7 @@ $confirmado = $_POST['confirmado'];
 $audio_array = array(
     $id_audiometria,
     json_encode($antecedentes),
-    $turno_id,
+    $id_turno,
     json_encode($audiometria_tonal),
     $confirmado,
     $_SESSION['id'],
@@ -108,21 +108,17 @@ switch ($api) {
 
         break;
 
-        //Guardar capturas(img)
     case 3:
+
+        //Guardar capturas oido izquierdo y derecho (Audiometria)
         $dir = '../reportes/modulo/audiometria/';
         $r = $master->createDir($dir);
         $audio_izq = $master->guardarFiles($_FILES, 'file-captura-oido-izquierdo', $dir, "AUDIO_IZQ_$turno_id");
         $audio_der = $master->guardarFiles($_FILES, 'file-captura-oido-derecho', $dir, "AUDIO_DER_$turno_id");
 
-        // print_r($audio_izq);
-        // exit;
-
         $ruta_audio_izq = str_replace("../", $host, $audio_izq[0]['url']);
         $ruta_audio_der = str_replace("../", $host, $audio_der[0]['url']);
 
-        // print_r($audio_izq);
-        // exit;
         $gauardarCapturas = $master->setToNull(array(
             $turno_id,
             $ruta_audio_izq,
@@ -132,18 +128,24 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_audiometria_captura_g", $gauardarCapturas);
         break;
 
-        //Busca las capturas de audiometria
     case 4:
+        //Busca las capturas de oido izquierdo y derecho (Audiometria)
         $response = $master->getByProcedure("sp_audiometria_captura_b", [$turno_id]);
         break;
-    case 5:
-        # guardar los resultados de la audiometria tonal [TABLA]
-        $response = $master->insertByProcedure("sp_audio_hz_resultados_g", [json_encode($audiometria_tonal), $turno_id]);
-        break;
+        // case 5:
+        //     # guardar los resultados de la audiometria tonal [TABLA]
+        //     $response = $master->insertByProcedure("sp_audio_hz_resultados_g", [json_encode($audiometria_tonal), $turno_id]);
+        //     break;
+        // case 6:
+        //     # recuperar la informacion de la audiometria tonal [TABLA].
+        //     $result = $master->getByProcedure("sp_audiometria_hz_resultados_b", [$turno_id]);
+        //     $response = $master->decodeJson([$result[0][0]]);
+        //     break;
     case 6:
-        # recuperar la informacion de la audiometria tonal [TABLA].
-        $result = $master->getByProcedure("sp_audiometria_hz_resultados_b", [$turno_id]);
-        $response = $master->decodeJson([$result[0][0]]);
+        #recupera la informacion del reporte de audiometria final
+
+        $response = $master->getByProcedure("sp_audiometria_resultados_b", [$turno_id, null, null, null]);
+        $response = $master->decodeJsonRecursively($response);
         break;
     case 7:
         # guardar el reporte de audiometria final
@@ -151,9 +153,12 @@ switch ($api) {
             $url = $master->reportador($master, $turno_id, 4, "audiometria", "url", 0);
             $actualiza_ruta = $master->updateByProcedure("sp_reporte_actualizar_ruta", []);
         } else {
-
-            $response = $master->insertByProcedure("sp_audio_resultados_g", $audio_array);
+            $response = $master->insertByProcedure("sp_audiometria_resultados_g", $audio_array);
         }
+        break;
+    case 8:
+        # guardar la captura de la tabla
+        $response = $master->insertByProcedure("sp_audiometria_grafica_g", [$turno_id, $grafica]);
         break;
     default:
         $response = "Api no definida";

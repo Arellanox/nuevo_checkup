@@ -71,6 +71,13 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_espiro_cuestionario_g", [json_encode($principal), $id_turno, $area_id, $usuario_id, 0]);
 
         if ($confirmado == 1) {
+            # verificamos que tenga permiso para confirmar el reporte.
+            $permiso = $master->insertByProcedure("sp_comprobar_permiso", [$_SESSION['id'], 33]);
+
+            if($permiso == 0){
+                $response = "No tienes permiso para confirmar reportes.";
+                break;
+            }
 
             //Mandamnos a llamar el siguinete procedure para ver si existe el reporte de espiro (EASYONE)
             $response = $master->getByProcedure("sp_espiro_ruta_reporte_b", [$id_turno]);

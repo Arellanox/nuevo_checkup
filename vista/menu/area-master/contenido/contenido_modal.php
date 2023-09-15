@@ -108,6 +108,8 @@ session_start();
       </div>
     </div> -->
     </div>
+
+
     <div class="col-12 col-xl-4 tab-second" id="tab-reporte" style="margin-right: -5px !important;display:none">
         <div class="rounded p-3 shadow my-2" id="panel">
             <div class="" id="
@@ -124,41 +126,55 @@ session_start();
                     </div>
                     <div class="row">
                         <?php if ($tipovista != 'tomaCapturas') : ?>
-                        <div class="col-12 d-grid gap-2 d-md-flex justify-content-center"
-                            style="margin-top:4px;margin-bottom:5px;">
-                            <button type="button" class="btn btn-primary me-2 btnResultados" style="margin-bottom:4px"
-                                id="btn-capturas-pdf">
-                                <i class="bi bi-plus-lg"></i> Imágenes
-                            </button>
+                        <div class="col-12 mb-2 d-flex row justify-content-between"
+                            style="margin-top:4px; margin-bottom:5px;">
 
-                            <button type="button" class="btn btn-primary me-2" style="margin-bottom:4px; display:none"
-                                id="btn-resultados-espiro-pdf">
-                                <i class="bi bi-plus-lg"></i> EASYONE
-                            </button>
+                            <div class="col-auto btn-capturas-pdf" style="display:none">
+                                <button type="button" class="btn btn-primary me-2 btnResultados btn-capturas-pdf"
+                                    style="margin-bottom:4px" id="btn-capturas-pdf">
+                                    <i class="bi bi-plus-lg"></i> Imágenes
+                                </button>
+                            </div>
 
-                            <!-- <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" id="btn-resultados-audi-pdf">
+                            <!-- Espirometria -->
+                            <div class="col-auto btn-resultados-espiro-pdf" style="display:none">
+                                <button type="button" class="btn btn-primary me-2"
+                                    style="margin-bottom:4px; display:none" id="btn-resultados-espiro-pdf">
+                                    <i class="bi bi-plus-lg"></i> EASYONE
+                                </button>
+                            </div>
+
+
+                            <!-- Captura de audio -->
+                            <div class="col-auto btn_reporte_audiometria" style="display:none">
+                                <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria"
+                                    style="margin-bottom:4px; display:none" id="btn-resultados-audi-pdf">
                                     <i class="bi bi-plus-lg"></i> Subir reporte
-                                </button> -->
+                                </button>
+                            </div>
+                            <div class="col-auto btn_reporte_audiometria" style="display:none">
+                                <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria"
+                                    style="margin-bottom:4px; display:none" data-bs-toggle="modal"
+                                    data-bs-target="#modalCapturaOidos">
+                                    <i class="bi bi-ear"></i> Captura de Oidos
+                                </button>
+                            </div>
 
-                            <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria"
-                                style="margin-bottom:4px; display:none" data-bs-toggle="modal"
-                                data-bs-target="#modalCapturaOidos">
-                                <i class="bi bi-ear"></i> Captura de Oidos
-                            </button>
+                            <div class="col-auto btn_reporte_audiometria" style="display:none">
+                                <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria"
+                                    style="margin-bottom:4px; display:none" data-bs-toggle="modal"
+                                    data-bs-target="#modalCapturaTablas">
+                                    <i class="bi bi-table"></i> Captura de Tabla
+                                </button>
+                            </div>
 
-                            <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria"
-                                style="margin-bottom:4px; display:none" data-bs-toggle="modal"
-                                data-bs-target="#modalCapturaTablas">
-                                <i class="bi bi-table"></i> Captura de Tabla
-                            </button>
-
-
-                            <!-- Subir interpretacion por areas -->
-                            <button type="button" id="abrirModalResultados" class="btn btn-confirmar me-2"
-                                style="margin-bottom:4px">
-                                <i class="bi bi-clipboard2-plus"></i> Interpretación
-                            </button>
-
+                            <!-- Button para interpretaciones de las areas -->
+                            <div class="col-auto">
+                                <button type="button" id="abrirModalResultados" class="btn btn-confirmar me-2"
+                                    style="margin-bottom:4px">
+                                    <i class="bi bi-clipboard2-plus"></i> Interpretación
+                                </button>
+                            </div>
                         </div>
 
                         <!-- <div class="col text-end" style="margin-top:4px;margin-bottom:5px;">
