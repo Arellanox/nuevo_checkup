@@ -60,7 +60,7 @@ switch ($api) {
         break;
     case 5:
         #Insertar Usuarios a las cajas
-        $response = $master->insertByProcedure("sp_agregar_usuarios_cajas", $cajas_usuarios_g);
+        $response = $master->insertByProcedure("sp_agregar_usuarios_cajas_g", $cajas_usuarios_g);
         break;
     case 6:
         # Buscar usuarios
