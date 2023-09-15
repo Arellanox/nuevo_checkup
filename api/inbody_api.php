@@ -41,20 +41,29 @@ switch($api){
     case 3:
         # Enviar el reporte de inbody por correo electronico
 
-        $mail = new Correo();
-        $attachment = $master->cleanAttachFilesImage($master, $turno_id, 14, 1);
-        
-        if (!empty($attachment[0])) {
+        # Comprobar si tiene el permiso
+        #34 es el permiso que autoriza el envio de inbodies.
+        $permiso = $master->insertByProcedure("sp_comprobar_permiso", [$_SESSION['id'], 34]);
+
+        if($permiso > 0){
+            # Tiene permitido enviar correos
             $mail = new Correo();
-            if ($mail->sendEmail('resultados', '[bimo] ESTUDIO DE COMPOSICION CORPORAL (InBody)', [$attachment[1]], null, $attachment[0], 1)) {
-                $master->setLog("Correo enviado.", "Inbody");
-                $response = ["Correo enviado."];
-                # cambiar el estado del campo enviado en la base de datos
-                # para que se pinte el icono de correo en el menu principal
-                $result = $master->updateByProcedure("sp_inbody_correo_enviado", [$turno_id]);
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 14, 1);
+            
+            if (!empty($attachment[0])) {
+                $mail = new Correo();
+                if ($mail->sendEmail('resultados', '[bimo] ESTUDIO DE COMPOSICION CORPORAL (InBody)', [$attachment[1]], null, $attachment[0], 1)) {
+                    $master->setLog("Correo enviado.", "Inbody");
+                    $response = ["Correo enviado."];
+                    # cambiar el estado del campo enviado en la base de datos
+                    # para que se pinte el icono de correo en el menu principal
+                    $result = $master->updateByProcedure("sp_inbody_correo_enviado", [$turno_id]);
+                }
+            } else {
+                $response = "No hay archivos para adjuntar.";
             }
         } else {
-            $response = "No hay archivos para adjuntar.";
+            $response = "No tienes permiso para enviar correos de inbody.";
         }
         break;
     
