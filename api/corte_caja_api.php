@@ -50,8 +50,7 @@ $cajas_usuarios_g = array(
 #parametros para buscar usuarios encargados de las cajas
 $cajas_usuarios_b = array(
     $id_caja,
-    null
-    #$usuario_encargado
+    $usuario_encargado
 );
 
 #parametros para eliminar usuarios encargados de las cajas
