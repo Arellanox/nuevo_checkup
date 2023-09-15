@@ -36,8 +36,8 @@ $cajas_g = array(
 #parametros para agregar un encargado de caja *usuario
 $cajas_usuarios_g = array(
     $id_caja,
-    $usuario_encargado,
-    $usuario
+    $usuario,
+    $usuario_encargado
 );
 
 # ========================================================================
