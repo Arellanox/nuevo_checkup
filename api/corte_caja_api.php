@@ -21,7 +21,7 @@ $usuario = $_SESSION['id'];
 #OBTENCION DE DATOS
 $id_caja = $_POST['id_caja'];
 $descripcion_caja = $_POST['descripcion_caja'];
-$usuario_encargado = $_POST['usuario_encargado'];
+$usuario_encargado = isset($_POST['usuario_encargado']) ? $_POST['usuario_encargado'] : null;
 $id_cajas_usuarios = $_POST['id_cajas_usuarios'];
 
 
