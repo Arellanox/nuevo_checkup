@@ -56,17 +56,20 @@ switch ($api) {
         # Actualizar
         break;
     case 4:
-        # Eliminar
+        # Eliminar caja
         break;
     case 5:
         #Insertar Usuarios a las cajas
         $response = $master->insertByProcedure("sp_agregar_usuarios_cajas", $cajas_usuarios_g);
         break;
-    case 5:
+    case 6:
         # Buscar usuarios
         $response = $master->getByProcedure("sp_usuarios_b", [null, null]);
         break;
+    case 7:
+        #eliminar usuarios encargados de caja
 
+        break;
     default:
         # code...
         $response = "API no definida";
