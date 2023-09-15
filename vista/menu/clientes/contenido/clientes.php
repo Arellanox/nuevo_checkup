@@ -14,6 +14,9 @@
                 <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="generar-codigoqr">
                     <i class="bi bi-qr-code"></i> Código QR
                 </button>
+                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-descuentoCliente">
+                    <i class="bi bi-percent"></i> Descuento
+                </button>
             </div>
             <table class="table table-hover display responsive tableContenido" id="TablaClientes" style="width: 100%">
                 <thead class="" style="width: 100%">
@@ -47,11 +50,11 @@
 
 
 <style media="screen">
-#TablaContacto_filter {
-    display: none;
-}
+    #TablaContacto_filter {
+        display: none;
+    }
 
-#TablaSegmentosAdmin_filter {
-    display: none;
-}
+    #TablaSegmentosAdmin_filter {
+        display: none;
+    }
 </style>

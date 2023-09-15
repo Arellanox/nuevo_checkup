@@ -50,21 +50,18 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="regimen" class="form-label">Régimen fiscal</label>
-                                    <select class="form-control input-form" name="regimen"
-                                        id="selectRegimenFiscal-agregar" required>
+                                    <select class="form-control input-form" name="regimen" id="selectRegimenFiscal-agregar" required>
                                     </select>
                                 </div>
                                 <div class="col-6">
                                     <label for="cfdi" class="form-label">Uso de CFDI</label>
-                                    <select class="form-control input-form" name="cfdi" id="select-cfdi-agregar"
-                                        required>
+                                    <select class="form-control input-form" name="cfdi" id="select-cfdi-agregar" required>
 
                                     </select>
                                 </div>
                                 <div class="col-6">
                                     <label for="convenio" class="form-label">Convenio</label>
-                                    <select class="form-control input-form" name="convenio" id="selectConvenio-agregar"
-                                        required>
+                                    <select class="form-control input-form" name="convenio" id="selectConvenio-agregar" required>
                                         <option value="1">ASEGURADORAS </option>
                                         <option value="2">INSTITUCIONES PUBLICAS </option>
                                         <option value="3">INSTITUCIONES PRIVADAS </option>
@@ -75,34 +72,47 @@
                         </form>
                     </div>
 
-                    <div class="col-12 col-md-6">
+                    <!-- <div class="col-12 col-md-6">
                         <div class="accordion" id="accordionDescuentoClientes">
+
+
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         Descuento
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionDescuentoClientes">
+                                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionDescuentoClientes">
                                     <div class="accordion-body">
-                                        <p>¿Desea un descuento?</p>
 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                General
-                                            </label>
+
+                                        <div class="d-flex align-items-center">
+                                            <p class="mr-3">¿Desea un descuento?</p>
+                                            <div class="form-check m-2">
+
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkDescuentoSi">
+                                                <label class="form-check-label" for="checkDescuentoSi">
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check m-2">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkDescuentoNo">
+                                                <label class="form-check-label" for="checkDescuentoNo">
+                                                    No
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                Area
-                                            </label>
+
+                                        <div id="contentDescuento" style="display: none;">
+                                            <hr>
+                                            <p>Areas</p>
+                                            <select name="" id="selectDescuentoCliente" class="form-select input-form">
+                                                <option value="13">Sistema hemolinfopoyético</option>
+                                                <option value="14">Aparato osteomuscular</option>
+                                                <option value="15">Sistema nervioso central</option>
+                                            </select>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -110,18 +120,17 @@
                         </div>
 
 
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
-                        class="bi bi-arrow-left-short"></i> Cancelar</button>
-                <button type="submit" form="formRegistrarCliente" class="btn btn-confirmar"
-                    id="submit-registrarEstudio">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+                <button type="submit" form="formRegistrarCliente" class="btn btn-confirmar" id="submit-registrarEstudio">
                     <i class="bi bi-person-plus"></i> Crear
                 </button>
             </div>
         </div>
     </div>
+</div>
