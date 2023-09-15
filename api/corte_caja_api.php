@@ -22,6 +22,7 @@ $usuario = $_SESSION['id'];
 $id_caja = $_POST['id_caja'];
 $descripcion_caja = $_POST['descripcion_caja'];
 $usuario_encargado = $_POST['usuario_encargado'];
+$id_cajas_usuarios = $_POST['id_cajas_usuarios'];
 
 
 # ========================================================================
@@ -33,12 +34,31 @@ $cajas_g = array(
     $usuario
 );
 
+#Parametros para elimiar cajas
+$cajas_e = array(
+    $id_caja,
+    $usuario
+);
+
 #parametros para agregar un encargado de caja *usuario
 $cajas_usuarios_g = array(
     $id_caja,
     $usuario,
     $usuario_encargado
 );
+
+#parametros para buscar usuarios encargados de las cajas
+$cajas_usuarios_b = array(
+    $id_caja,
+    $usuario_encargado
+);
+
+#parametros para eliminar usuarios encargados de las cajas
+$cajas_usuarios_e = array(
+    $id_cajas_usuarios,
+    $usuario
+);
+
 
 # ========================================================================
 
@@ -57,18 +77,19 @@ switch ($api) {
         break;
     case 4:
         # Eliminar caja
+        $response = $master->insertByProcedure("sp_cajas_e", $cajas_e);
         break;
     case 5:
         #Insertar Usuarios a las cajas
         $response = $master->insertByProcedure("sp_agregar_usuarios_cajas_g", $cajas_usuarios_g);
         break;
     case 6:
-        # Buscar usuarios
-        $response = $master->getByProcedure("sp_usuarios_b", [null, null]);
+        # Buscar usuarios encargados de las cajas
+        $response = $master->getByProcedure("sp_agregar_usuarios_cajas_b", [$cajas_usuarios_b]);
         break;
     case 7:
         #eliminar usuarios encargados de caja
-
+        $response = $master->insertByProcedure("sp_usuarios_cajas_e", $cajas_usuarios_e);
         break;
     default:
         # code...
