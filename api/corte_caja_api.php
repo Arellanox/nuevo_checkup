@@ -62,7 +62,6 @@ switch ($api) {
         #Insertar Usuarios a las cajas
         $response = $master->insertByProcedure("sp_agregar_usuarios_cajas", $cajas_usuarios_g);
         break;
-
     case 5:
         # Buscar usuarios
         $response = $master->getByProcedure("sp_usuarios_b", [null, null]);
