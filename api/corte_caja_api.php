@@ -27,7 +27,7 @@ $usuario_encargado = $_POST['usuario_encargado'];
 # ========================================================================
 #Arrays
 
-#Parametros para agregar
+#Parametros para agregar 
 $cajas_g = array(
     $descripcion_caja,
     $usuario

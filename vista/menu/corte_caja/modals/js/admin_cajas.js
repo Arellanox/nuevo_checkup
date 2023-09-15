@@ -1,7 +1,7 @@
 var responsablesCajaEnviar = new Array();
 
 
-$("#crearCaja").on("click", function (e) {
+$("#formCrearCaja").on("submit", function (e) {
     e.preventDefault();
 
     alertMensajeConfirm({
@@ -15,6 +15,10 @@ $("#crearCaja").on("click", function (e) {
         }, 'corte_caja_api', 'formCrearCaja', { callbackAfter: true }, false, function (data) {
 
             alertToast("La caja fue agregada con exito", "success", 5000)
+
+            $("#formCrearCaja").trigger("reset");
+            TablaTotaldeCajas.ajax.reload();
+
 
         })
 
@@ -42,27 +46,19 @@ var TablaTotaldeCajas = $('#TablaTotaldeCajas').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
+        {data: "COUNT"},
+        { data: "DESCRIPCION" },
         {
-
-            data: "COUNT", render: function (data) {
-                // Mes
-                return "COUNT";
+            data: "MONTO", render: function (data) {
+                const monte_actual = parseFloat(ifnull(data, '0')).toFixed(2)
+                return `$${monte_actual}`;
             }
-        },
-        {
-            data: "DESCRIPCION", render: function (data) {
-
-                return "DESCRIPCION";
-            }
-        },
-        {
-            data: "MONTO",
         }
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all' },
-        { target: 1, title: 'NOMBRE', className: 'all' },
-        { target: 2, title: 'MONTO', className: 'none' }
+        { target: 1, title: 'Nombre', className: 'all' },
+        { target: 2, title: 'Monto Actual', className: 'min-tablet' }
     ],
 
 })
@@ -75,6 +71,21 @@ inputBusquedaTable("TablaTotaldeCajas", TablaTotaldeCajas, [{
     place: 'top'
 }, "col-12")
 
+
+let id_caja = ''
+selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
+    unSelect: true,
+}, (data) => {
+
+    $("#nombreCaja").text(array_selected["DESCRIPCION"])
+    $("#btnAgregarResponsableCaja").prop('disabled', false)
+    $("#select-user").prop('disabled', false)
+
+})
+
+
+
+//----------------------------------------------------------------
 
 const adminCajasModal = document.getElementById('ModalAdministrarCajas')
 adminCajasModal.addEventListener('show.bs.modal', event => {
@@ -93,7 +104,7 @@ adminCajasModal.addEventListener('show.bs.modal', event => {
 
 select2("#select-user", "ModalAdministrarCajas", 'Seleccione un responsable para esta caja');
 
-rellenarSelect("#select-user", "corte_caja_api", 5, 'ID_USUARIO','nombrecompleto', {
+rellenarSelect("#select-user", "corte_caja_api", 6, 'ID_USUARIO', 'nombrecompleto', {
 
 }, function (data) {
     estudiosLab = data;
@@ -138,3 +149,23 @@ $(document).on('click', '.eliminarfilaEncargado', function () {
     $(parent_element).remove()
 
 });
+
+
+//----------------------------------------------------------------AGREGAR USUARIOS
+$("#btnAgregarResponsableCaja").on('click', function () { 
+
+        dataJson_agreagarUsuarios = {
+            api: 5,
+            id_caja: array_selected["ID_CAJAS"],
+            usuario_encargado: $("#select-user").val()
+        }
+
+        ajaxAwait(dataJson_agreagarUsuarios, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
+            
+            alertToast('Usuario agregado :)', 'success', 4000)
+
+        })
+
+
+
+})

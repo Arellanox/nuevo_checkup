@@ -19,30 +19,33 @@
                                                 <div class="col-6">
                                                     <h5>Crear una nueva caja</h5>
                                                 </div>
-                                                <div class="col-6">
-                                                    <button type="button" class="btn btn-confirmar" id="crearCaja">
-                                                        <i class="bi bi-receipt-cutoff"></i> Crear caja
-                                                    </button>
-                                                </div>
                                                 <div class="col-12">
                                                     <form id="formCrearCaja" name="formCrearCaja">
                                                         <div class="mb-3">
                                                             <label for="NumeroFactura">Descripción:</label>
-                                                            <input type="text" name="descripcion_caja" class="mt-2 form-control input-form"
+                                                            <input type="text" name="descripcion_caja"
+                                                                class="mt-2 form-control input-form"
                                                                 id="descripcion_caja">
                                                         </div>
                                                     </form>
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-confirmar"
+                                                        form="formCrearCaja">
+                                                        <i class="bi bi-receipt-cutoff"></i> Crear caja
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mt-2">                                   
+                                <div class="col-12 mt-2">
                                     <div class="card text-start">
                                         <div class="card-body">
                                             <div class="col-12">
-                                                <table class="table display responsive" id="TablaTotaldeCajas" style="width: 100%">
-                            
+                                                <table class="table display responsive" id="TablaTotaldeCajas"
+                                                    style="width: 100%">
+
                                                 </table>
                                             </div>
                                         </div>
@@ -53,17 +56,19 @@
                         <div class="col-8">
                             <div class="card text-start" style="width: 100%;">
                                 <div class="card-body">
-                                    <h4 class="card-title">Agregar responsables para la caja : <span class="label-span">Recepcion</span></h4>
+                                    <h4 class="card-title">Agregar responsables para la caja : <span
+                                            class="label-span" id="nombreCaja"></span></h4>
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-12 total_responsables">
-                            
-                                                <select class="" id="select-user">
+
+                                                <select class="" id="select-user" disabled>
                                                 </select>
-                            
+
                                             </div>
                                             <div class="col-12">
-                                                <button type="button" class="btn btn-confirmar" id="btnAgregarResponsableCaja">
+                                                <button type="button" class="btn btn-confirmar"
+                                                    id="btnAgregarResponsableCaja" disabled>
                                                     <i class="bi bi-person-badge"></i> Agregar
                                                 </button>
                                             </div>
@@ -76,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
