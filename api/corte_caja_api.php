@@ -91,6 +91,10 @@ switch ($api) {
         #eliminar usuarios encargados de caja
         $response = $master->insertByProcedure("sp_usuarios_cajas_e", $cajas_usuarios_e);
         break;
+    case 8:
+        #recuperar todos los usuarios
+        $response = $master->getByProcedure("sp_usuarios_b", [null, null]);
+        break;
     default:
         # code...
         $response = "API no definida";
