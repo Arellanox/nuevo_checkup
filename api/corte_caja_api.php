@@ -21,7 +21,7 @@ $usuario = $_SESSION['id'];
 #OBTENCION DE DATOS
 $id_caja = $_POST['id_caja'];
 $descripcion_caja = $_POST['descripcion_caja'];
-$usuario_encargado = isset($_POST['usuario_encargado']) ? $_POST['usuario_encargado'] : null;
+$usuario_encargado = $_POST['usuario_encargado'];
 $id_cajas_usuarios = $_POST['id_cajas_usuarios'];
 
 
@@ -85,7 +85,7 @@ switch ($api) {
         break;
     case 6:
         # Buscar usuarios encargados de las cajas
-        $response = $master->getByProcedure("sp_agregar_usuarios_cajas_b", [$cajas_usuarios_b]);
+        $response = $master->getByProcedure("sp_agregar_usuarios_cajas_b", $cajas_usuarios_b);
         break;
     case 7:
         #eliminar usuarios encargados de caja
