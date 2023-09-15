@@ -52,6 +52,14 @@ switch ($api) {
         # lista de pacientes de contado que no han sido facturados aun.
         $response = $master->getByProcedure("sp_admon_pacientes_contado", [$fecha_inicial, $fecha_final]);
         break;
+    case 6:
+        # costo total del grupo
+        $response = $master->getByProcedure("sp_admon_detalle_grupo_monetario", [$id_grupo]);
+        break;
+    case 7:
+        # costo total de grupo por areas.
+        $response = $master->getByProcedure("", []);
+        break;
     default:
         $response = "API no definida";
 }
