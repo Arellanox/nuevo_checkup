@@ -1,0 +1,94 @@
+<div class="modal fade" id="ModalAdministrarCajas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liberarDiaTitle">Administración de cajas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card text-start">
+                                        <div class="card-body">
+                                            <div class="row align-items-end">
+                                                <div class="col-6">
+                                                    <h5>Crear una nueva caja</h5>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-confirmar" id="crearCaja">
+                                                        <i class="bi bi-receipt-cutoff"></i> Crear caja
+                                                    </button>
+                                                </div>
+                                                <div class="col-12">
+                                                    <form id="formCrearCaja" name="formCrearCaja">
+                                                        <div class="mb-3">
+                                                            <label for="NumeroFactura">Descripción:</label>
+                                                            <input type="text" name="descripcion_caja" class="mt-2 form-control input-form"
+                                                                id="descripcion_caja">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-2">                                   
+                                    <div class="card text-start">
+                                        <div class="card-body">
+                                            <div class="col-12">
+                                                <table class="table display responsive" id="TablaTotaldeCajas" style="width: 100%">
+                            
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="card text-start" style="width: 100%;">
+                                <div class="card-body">
+                                    <h4 class="card-title">Agregar responsables para la caja : <span class="label-span">Recepcion</span></h4>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12 total_responsables">
+                            
+                                                <select class="" id="select-user">
+                                                </select>
+                            
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-confirmar" id="btnAgregarResponsableCaja">
+                                                    <i class="bi bi-person-badge"></i> Agregar
+                                                </button>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <ul class="list-group" id="listResponsablesCajas">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="button" class="btn btn-confirmar" id="guardarResponsablesCaja">
+                    <i class="bi bi-floppy"></i> Guardar cambios de la caja actual
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

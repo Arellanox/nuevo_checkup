@@ -46,6 +46,8 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   }, function (data) {
     estudiosLab = data;
   });
+
+  
   rellenarSelect("#select-labbio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
     id_area: 12,
     cliente_id: array_selected['CLIENTE_ID']

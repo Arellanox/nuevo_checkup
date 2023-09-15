@@ -1,3 +1,3 @@
 <?php
 
-include 'crear_caja.html';
+include 'admin_cajas.html';

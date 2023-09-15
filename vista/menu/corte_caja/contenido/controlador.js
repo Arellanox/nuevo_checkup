@@ -8,7 +8,7 @@ async function obtenerVistaCorteCaja() {
         // DataTable
         $.getScript('contenido/js/historial-tabla-cortes.js')
         // // Botones
-        $.getScript('contenido/modal/js/corte_caja1.js')
+        $.getScript('contenido/js/corte_botones.js')
     });
 }
 

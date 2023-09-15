@@ -8,17 +8,19 @@
             </div>
 
             <div class="modal-body container-fluid">
-                <h5>Nueva caja</h5>
-                <hr>
 
                 <div class="container-fluid">
                     <form id="formCrearCaja" name="formCrearCaja">
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="NumeroFactura">Numero de la Factura:</label>
-                                    <input type="text" name="NumeroFactura" value=""
-                                        class="mt-2 form-control input-form" id="NumeroFactura">
+                                    <label for="NumeroFactura">Descripción:</label>
+                                    <input type="text" name="descripcion_caja" 
+                                    class="mt-2 form-control input-form" id="descripcion_caja">
+
+
+                                    <label for="NumeroFactura">Motivo:</label>
+                                    <input type="text" name="motivo_caja" class="mt-2 form-control input-form" id="motivo_caja">
                                 </div>
                             </div>
 
@@ -31,7 +33,8 @@
                         class="bi bi-arrow-left-short"></i>
                     Cancelar</button>
                 </button>
-                <button type="submit" form="formCrearCaja" class="btn btn-confirmar">
+
+                <button type="button" class="btn btn-confirmar" id="crearCaja">
                     <i class="bi bi-receipt-cutoff"></i> Crear caja
                 </button>
             </div>

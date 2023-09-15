@@ -4,7 +4,8 @@ $.post("modals/c_modal.php", function (html) {
     // Modal para rechazar
     // $.getScript('modals/js/subir-perfil.js');
 }).done(function () {
-    // Modal para aceptar
-    $.getScript('modals/js/corte_caja1.js');
+    
+    $.getScript('modals/js/admin_cajas.js');
+
 
 });
