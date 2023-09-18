@@ -72,9 +72,8 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
-        data: {
-            api: 7,
-            id_cliente: array_selected['ID_CLIENTE']
+        data: function (d) {
+            return $.extend(d, dataDescuentoTable);
         },
         method: 'POST',
         url: `${http}${servidor}/${appname}/api/clientes_api.php`,
