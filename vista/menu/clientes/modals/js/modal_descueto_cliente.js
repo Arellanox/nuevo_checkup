@@ -113,8 +113,8 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
         {
             data: null, render: function (data) {
                 //si estan vacios por el datos de descuento general los pone vacios
-                return ifnull(data, false, ['ID_AREA']) ? data.ID_AREA : `<i class="bi bi-trash eliminar-cliente-area" data-id = "${data}" style = "cursor: pointer" 
-                        onclick = "desactivarTablaClienteArea.call(this)"></i>`;
+                return ifnull(data, false, ['ID_AREA']) ? `<i class="bi bi-trash eliminar-cliente-area" data-id = "${data.ID_AREA}" style = "cursor: pointer" 
+                        onclick = "desactivarTablaClienteArea.call(this)"></i>`: ''
 
             }
         }
