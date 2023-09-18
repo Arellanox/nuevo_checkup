@@ -57,6 +57,11 @@ $parametros = array(
     $cfdi
 );
 
+# variables para el descuento de los clientes
+$descuento_general = $_POST['descuento_general'];
+$descuento_area = $_POST['descuento_area'];
+$area_id = $_POST['area_id'];
+
 $response = "";
 
 $master = new Master();
@@ -102,6 +107,14 @@ switch ($api) {
         $url = $master->generarQRURL("cliente", $qr, $nombreCliente, QR_ECLEVEL_H, 10);
         echo json_encode(array("url" => $url, "url_qr" => $qr, "nombre" => $nombreCliente));
         exit;
+    case 6:
+        #agregar descuentos para el cliente.
+        $response = $master->updateByProcedure("sp_clientes_asignar_descuento", [$id_cliente, $descuento_general, $descuento_area, $area_id]);
+
+        break;
+    case 7:
+        # buscar los descuentos del cliente.
+        break;
 
     default:
         $response = "api no reconocida";
