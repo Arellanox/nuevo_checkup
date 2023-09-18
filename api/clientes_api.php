@@ -116,6 +116,10 @@ switch ($api) {
         # buscar los descuentos del cliente.
         $response = $master->getByProcedure("sp_clientes_recuperar_descuentos", [$id_cliente]);
         break;
+    case 8:
+        # eliminar descuento
+        $response = $master->deleteByProcedure("sp_clientes_eliminar_descuentos",[$id_cliente, $area_id]);
+        break;
 
     default:
         $response = "api no reconocida";
