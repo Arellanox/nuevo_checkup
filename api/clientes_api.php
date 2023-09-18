@@ -109,7 +109,7 @@ switch ($api) {
         exit;
     case 6:
         #agregar descuentos para el cliente.
-        $response = $master->updateByProcedure("sp_clientes_asignar_descuento", [$id_cliente, $descuento_general, $descuento_area, $area_id]);
+        $response = $master->updateByProcedure("sp_cliente_asignar_descuento", [$id_cliente, $descuento_general, $descuento_area, $area_id]);
 
         break;
     case 7:

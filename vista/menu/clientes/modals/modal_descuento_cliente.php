@@ -14,20 +14,17 @@
 
                             <div class="text-center">
                                 <div class="form-check m-2 form-check-inline">
-                                    <input class="form-check-input check" type="radio" name="flexRadioDefault"
-                                        id="checkDescuentoGeneral">
+                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoGeneral">
                                     <label class="form-check-label" for="checkDescuentoGeneral">General</label>
                                 </div>
 
                                 <div class="form-check m-2 form-check-inline">
-                                    <input class="form-check-input check" type="radio" name="flexRadioDefault"
-                                        id="checkDescuentoArea">
+                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoArea">
                                     <label class="form-check-label" for="checkDescuentoArea">Área</label>
                                 </div>
 
                                 <div class="form-check m-2 form-check-inline">
-                                    <input class="form-check-input check" type="radio" name="flexRadioDefault"
-                                        id="checkDescuentoNo" checked>
+                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoNo" checked>
                                     <label class="form-check-label" for="checkDescuentoNo">No</label>
                                 </div>
                             </div>
@@ -38,8 +35,7 @@
                                 <h5>Descuento General</h5>
                                 <p>Descuento</p>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control input-form" id="inputDescuentoGeneral"
-                                        placeholder="00">
+                                    <input type="number" class="form-control input-form" id="inputDescuentoGeneral" placeholder="00">
                                     <span class="input-span" id="basic-addon1">%</span>
                                 </div>
                                 <!-- <div class="d-flex justify-content-end col-12">
@@ -62,8 +58,7 @@
                                 <div class="col-12 col-md-4">
                                     <p>Descuento</p>
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control input-form" id="inputDescuentoArea"
-                                            placeholder="00">
+                                        <input type="number" class="form-control input-form" id="inputDescuentoArea" placeholder="00">
                                         <span class="input-span" id="basic-addon1">%</span>
                                     </div>
                                 </div>
@@ -75,15 +70,13 @@
                                 </div>
                                 <!-- </div> -->
                                 <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit" form="formRegistrarCliente" class="btn btn-confirmar"
-                                        id="submit-registrarEstudio">
+                                    <button type="click" class="btn btn-confirmar" id="btn-descuentoClienteArea">
                                         <i class="bi bi-file-earmark-plus"></i> Agregar
                                     </button>
                                 </div>
 
                             </div>
-                            <table class="table table-hover display responsive" id="TablaDescuentoCliente"
-                                style="width: 100%;">
+                            <table class="table table-hover display responsive" id="TablaDescuentoCliente" style="width: 100%;">
                                 <thead>
                                 </thead>
                                 <tbody>
@@ -110,10 +103,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
-                        class="bi bi-arrow-left-short"></i> Cancelar</button>
-                <button type="submit" form="formRegistrarCliente" class="btn btn-confirmar"
-                    id="submit-registrarEstudio">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+                <button type="submit" form="formRegistrarCliente" class="btn btn-confirmar" id="btn-descuentoClienteGeneral">
                     <i class="bi bi-person-plus"></i> Guardar
                 </button>
             </div>
