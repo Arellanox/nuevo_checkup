@@ -115,10 +115,19 @@ switch ($api) {
     case 7:
         # buscar los descuentos del cliente.
         $response = $master->getByProcedure("sp_clientes_recuperar_descuentos", [$id_cliente]);
+        // $h = $master->setToNull($response);
+        $g = $master->checkArray($response);
+        // print_r($response);
+
+        if (empty($g)) {
+            echo json_encode([]);
+            exit;
+        }
+        // $response = $master->decodeJsonRecursively($response);
         break;
     case 8:
         # eliminar descuento
-        $response = $master->deleteByProcedure("sp_clientes_eliminar_descuentos",[$id_cliente, $area_id]);
+        $response = $master->deleteByProcedure("sp_clientes_eliminar_descuentos", [$id_cliente, $area_id]);
         break;
 
     default:

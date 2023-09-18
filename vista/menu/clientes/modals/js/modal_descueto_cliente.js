@@ -5,13 +5,21 @@
 $("#btn-descuentoCliente").click(function () {
     if (array_selected != null) {
         $("#modalDescuentoCliente").modal("show");
-        console.log(array_selected)
+        setTimeout(() => {
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+
+        }, 200);
     } else {
         alertSelectTable('No ha seleccionado un cliente');
     }
 });
 
-//Busca todas las areas
+//Busca todas las areas en descuento por área
 select2('#selectDescuentoCliente', "modalDescuentoCliente", 'Cargando...')
 rellenarSelect('#selectDescuentoCliente', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
 
@@ -24,18 +32,16 @@ $('.check').change(function () {
     switch (id_check) {
 
         case 'checkDescuentoGeneral':
+            //case de descuento general
             if ($(this).is(':checked')) {
-                //Alert que diga que se esta cambiando al otro()
-
                 $('#divDescuentoGeneral').removeClass('disable-element')
                 $('#divDescuentoArea').addClass('disable-element')
             } else
                 $('#divDescuentoGeneral, #divDescuentoArea').removeClass('disable-element')
-
             break;
 
         case 'checkDescuentoArea':
-            //Bloqeua el descuento general
+            //case de descuento por area
             if ($(this).is(':checked')) {
 
                 $('#divDescuentoArea').removeClass('disable-element')
@@ -61,7 +67,6 @@ $('.check').change(function () {
 $('#divDescuentoGeneral, #divDescuentoArea').addClass('disable-element');
 
 
-
 //Tabla de descuentos de clientes
 TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
@@ -74,6 +79,7 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
         dataType: 'json',
         data: function (d) {
             return $.extend(d, dataDescuentoTable);
+
         },
         method: 'POST',
         url: `${http}${servidor}/${appname}/api/clientes_api.php`,
@@ -91,25 +97,80 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
     columns: [
         { data: 'COUNT' },
         { data: 'CLIENTE' },
-        { data: 'DESCUENTO' },
         {
-            data: 'ID_CLIENTE', render: function (data) {
+            data: null, render: function (data) {
+                //si estan vacios por el datos de descuento general los pone vacios
+                return ifnull(data, false, ['AREA']) ? data.AREA : ''
+            }
+        },
+        {
+            data: null, render: function (data) {
+                //si estan vacios por el datos de descuento general los pone vacios
+                return ifnull(data, false, ['DESCUENTO']) ? data.DESCUENTO : ''
 
-                return `<i class="bi bi-trash eliminar-cliente-area" data-id = "${data}" style = "cursor: pointer""></i>`;
-                // onclick = "desactivarTablaEstudio.call(this)
+            }
+        },
+        {
+            data: null, render: function (data) {
+                //si estan vacios por el datos de descuento general los pone vacios
+                return ifnull(data, false, ['ID_AREA']) ? data.ID_AREA : `<i class="bi bi-trash eliminar-cliente-area" data-id = "${data}" style = "cursor: pointer" 
+                        onclick = "desactivarTablaClienteArea.call(this)"></i>`;
+
             }
         }
-
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all' },
         { target: 1, title: 'Cliente', className: 'all' },
-        { target: 2, title: 'Descuento', className: 'all' },
-        { target: 3, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
-    ]
+        { target: 2, title: 'Area', className: 'all' },
+        { target: 3, title: 'Descuento', className: 'all' },
+        { target: 4, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
+    ],
+    createdRow: function (row, data, dataIndex) {
+        //Los que son por descuento general los pone vacios en la tabla
+        var countValue = data.ES_DESCUENTO_GENERAL;
+        if (countValue == 1) {
+            $(row).find('td').eq(0).html('');
+            $(row).find('td').eq(1).html('');
+            $(row).find('td').eq(2).html('');
+            $(row).find('td').eq(3).html('');
+            $(row).find('td').eq(4).html('');
+
+            $('#inputDescuentoGeneral').val(data.DESCUENTO)
+        } else {
+            //si es por area todos sigue normal y quita el campo que se lleno anteriormente de descuento general
+            $('#inputDescuentoGeneral').val('')
+        }
+    }
 })
 
+
 inputBusquedaTable('TablaDescuentoCliente', TablaDescuentoCliente, [], [], 'col-18')
+
+//Desativa los descuentos por área
+function desactivarTablaClienteArea() {
+    var id_descuento_area = $(this).data("id");
+
+    alertMensajeConfirm({
+        title: '¿Está seguro que desea desactivar el descuento?',
+        text: 'No podrá modificarlo despues',
+        icon: 'warning',
+    }, function () {
+
+        dataJson_eliminarDescuentoArea = {
+            api: 8,
+            id_cliente: array_selected['ID_CLIENTE'],
+            area_id: id_descuento_area
+        }
+
+        ajaxAwait(dataJson_eliminarDescuentoArea, 'clientes_api', { callbackAfter: true }, false, function (data) {
+            alertToast('Descuento eliminado!', 'success', 4000)
+
+            TablaDescuentoCliente.ajax.reload();
+        })
+    }, 1)
+
+}
 
 //Agrega Nuevos datos a clientes por area
 $('#btn-descuentoClienteArea').on('click', function (e) {
@@ -130,6 +191,8 @@ $('#btn-descuentoClienteArea').on('click', function (e) {
         ajaxAwait(dataJson_Clientes_area, 'clientes_api', { callbackAfter: true }, false, function (data) {
             alertToast('Descuento por área guardado', 'success', 4000)
             TablaDescuentoCliente.ajax.reload();
+
+            $('#inputDescuentoArea').val('')
         })
     }, 1)
 })
@@ -151,6 +214,8 @@ $('#btn-descuentoClienteGeneral').on('click', function (e) {
 
         ajaxAwait(dataJson_Clientes_general, 'clientes_api', { callbackAfter: true }, false, function (data) {
             alertToast('Descuento general guardado', 'success', 4000)
+
+            $('#inputDescuentoGeneral').val('')
         })
     }, 1)
 })
