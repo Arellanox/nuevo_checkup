@@ -114,6 +114,7 @@ switch ($api) {
         break;
     case 7:
         # buscar los descuentos del cliente.
+        $response = $master->getByProcedure("sp_clientes_recuperar_descuentos", [$id_cliente]);
         break;
 
     default:
