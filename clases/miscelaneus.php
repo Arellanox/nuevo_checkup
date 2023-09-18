@@ -480,6 +480,7 @@ class Miscelaneus
             case "4":
                 #AUDIOMETRIA
                 $arregloPaciente = $this->getBodyAudio($master, $turno_id);
+                print_r($arregloPaciente);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_AUDIO'];
                 $carpeta_guardado = "audiometria";
                 $folio = $infoPaciente[0]['FOLIO_AUDIO'];
@@ -1710,19 +1711,23 @@ class Miscelaneus
     }
     public function getBodyAudio($master, $id_turno)
     {
+
         # recuperamos los datos del paciente
-        $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno]);
+        // $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
+        $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
+
 
         $arrayAudio = array(
-            "OTOSCOPIA" => $response[0]['OTOSCOPIA'],
-            "RESULTADO_OD" => $response[0]['RESULTADO_OD'],
-            "RESULTADO_OI" => $response[0]['RESULTADO_OI'],
-            "COMENTARIOS" => $response[0]['COMENTARIOS'],
-            "COMENTARIOS_OD" => $response[0]['COMENTARIOS_OD'],
-            "COMENTARIOS_OI" => $response[0]['COMENTARIOS_OI'],
-            "RECOMENDACIONES" => $response[0]['RECOMENDACIONES'],
-            "ANTECEDENTES" =>  $response[0]['ANTECEDENTES'],
-            "AUDIOMETRIA" => $response[0]['AUDIOMETRIA']
+            "OTOSCOPIA" => $response['OTOSCOPIA'],
+            "RESULTADO_OD" => $response['RESULTADO_OD'],
+            "RESULTADO_OI" => $response['RESULTADO_OI'],
+            "COMENTARIOS" => $response['COMENTARIOS'],
+            "COMENTARIOS_OD" => $response['COMENTARIOS_OD'],
+            "COMENTARIOS_OI" => $response['COMENTARIOS_OI'],
+            "RECOMENDACIONES" => $response['RECOMENDACIONES'],
+            "ANTECEDENTES" => json_decode($response['ANTECEDENTES'], true),
+            "AUDIOMETRIA" => json_decode($response['AUDIOMETRIA'], true),
+            "CAPTURA_OIDOS" => json_decode($response['CAPTURA_OIDOS'], true)
         );
 
         return $arrayAudio;
