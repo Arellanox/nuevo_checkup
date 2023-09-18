@@ -1983,7 +1983,7 @@ function configSelectTable(config) {
     ],
     "tab-id": '#tab-button',
     "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
-    reload: false, //Activa la rueda
+    reload: false, //Activa la rueda [Example:  reload: ['col-xl-9'] ]
     movil: false, //Activa la version movil
     multipleSelect: false,
     OnlyData: false,
@@ -2040,7 +2040,7 @@ function selecTableTabs() {
 }
 
 // Para la version movil crea y visualiza columnas
-function getBtnTabs(config) {
+function getBtnTabs(config, reloadName) {
   if (config.tabs) {
     let row = config.tabs;
     let html = `<ul class="nav nav-tabs mt-2 tab-page-table" style="display:none">`;
@@ -2049,7 +2049,7 @@ function getBtnTabs(config) {
         const element = row[key];
 
         html += `<li class="nav-item">
-                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" id="tab-btn-${element.title}" style="cursor: pointer">${element.title}</a>
+                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" data-reload-column="${reloadName}" id="tab-btn-${element.title}" style="cursor: pointer">${element.title}</a>
                   </li>`;
       }
     }
@@ -2063,7 +2063,7 @@ function getBtnTabs(config) {
 //Visualiza la columna solo en movil
 let dinamicTabFunction = false;
 let documentClick = false;
-let loader_selectTable = false;
+let loader_selectTable = false;  //No usar, en desuso global, solo en selectTable
 function dinamicTabs() {
   // dinamicTabFunction = false;
   // // loader = loader
@@ -2094,17 +2094,25 @@ $(document).on('click', '.tab-table', function () {
 
       setTimeout(() => {
         let id = btn.attr('data-id-column');
+        let loader = btn.attr('data-reload-column');
         // console.log(id);
         let loaderVisible = false;
 
         // console.log(loader_selectTable)
         loaderVisible = function () {
           // console.log($(loader_selectTable))
-          if ($(loader_selectTable).is(":hidden")) {
+          if ($(loader).is(":hidden")) {
             $(`${id}`).fadeIn(100);
+            $.fn.dataTable
+              .tables({
+                visible: true,
+                api: true
+              })
+              .columns.adjust();
+
             loaderVisible = false;
           } else {
-            // console.log(loader_selectTable)}
+            // console.log(loader)
             setTimeout(() => {
               loaderVisible();
             }, 150);
@@ -2187,10 +2195,10 @@ function eventClassClick(event, tr, config, data) {
   return [false, false];
 }
 
-function resizeConfigMovil(config, nameTable) {
+function resizeConfigMovil(config, loaderName) {
   if (config.movil) {
     //Cambia la vista del dispositivo
-    getBtnTabs(config);
+    getBtnTabs(config, loaderName);
     //Activa los botones si es movil
     // console.log(`#loaderDiv-${nameTable}`)
 
@@ -2206,8 +2214,8 @@ function selectTable(tablename, datatable,
   config = {
     dblClick: false,
   },
-  callbackClick = (select = 1, dataRow = [], tr = '1', row = []) => { },
-  callbackDblClick = (select = 1, dataRow = [], tr = '1', row = []) => { }
+  callbackClick = (select = 1, dataRow = [], callback, tr = '1', row = []) => { },
+  callbackDblClick = (select = 1, dataRow = [], callback, tr = '1', row = []) => { }
 ) {
   //manda valores por defecto
   config = configSelectTable(config)
@@ -2391,7 +2399,7 @@ function selectTable(tablename, datatable,
       $('.tab-second').fadeOut()
     }
 
-    console.log($(loader_selectTable))
+    // console.log($(loader_selectTable))
     $(loader_selectTable).fadeIn(0);
   }
 

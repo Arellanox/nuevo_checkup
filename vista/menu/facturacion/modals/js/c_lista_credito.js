@@ -211,13 +211,14 @@ $('#formFiltroListaCredito').submit(function (event) {
 
         alertMensajeConfirm({
             title: '¿Está seguro de filtrar otro cliente?',
-            text: '¡Todos los pacientes seleccionados de la tabla por agregar/actualizar se perderán!',
+            text: '¡Todos los pacientes seleccionados de la tabla por agregar/actualizar se perderán y cambiará el grupo de clinete!',
             icon: 'warning',
-            confirmButtonText: 'Filtra sin eliminar',
+            confirmButtonText: 'Si, limpia la tabla',
+            confirmButtonColor: 'red',
             cancelButtonText: 'Cancelar',
             cancelButtonColor: 'gray',
-            showDenyButton: true,
-            denyButtonText: 'Eliminalos y filtralo',
+            // showDenyButton: true,
+            // denyButtonText: 'Eliminalos y filtralo',
         }, () => {
 
             dataFill['fecha_inicial'] = fecha_inicial.val()
@@ -226,15 +227,17 @@ $('#formFiltroListaCredito').submit(function (event) {
             tFillPaciCredito.ajax.reload();
 
             // tListPaciGrupo.clear().draw();
-        }, 1, () => {
+        }, 1,
+            // , () => {
 
-            dataFill['fecha_inicial'] = fecha_inicial.val()
-            dataFill['fecha_final'] = fecha_final.val();
-            dataFill['cliente_id'] = cliente.val()
-            tFillPaciCredito.ajax.reload();
+            // dataFill['fecha_inicial'] = fecha_inicial.val()
+            // dataFill['fecha_final'] = fecha_final.val();
+            // dataFill['cliente_id'] = cliente.val()
+            // tFillPaciCredito.ajax.reload();
 
-            tListPaciGrupo.clear().draw();
-        })
+            // tListPaciGrupo.clear().draw();
+            // }
+        )
 
 
         console.log("La ID no está presente en todos los registros de la tabla2");

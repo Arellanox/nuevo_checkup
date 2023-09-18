@@ -12,4 +12,5 @@ $.post("modals/a_modals.php", function (html) {
     $.getScript('modals/js/c_facturado.js');
     $.getScript('modals/js/c_grupo_info.js');
     $.getScript('modals/js/c_lista_credito.js');
+    $.getScript('modals/js/c_detalle_grupo.js');
 });

@@ -9,3 +9,5 @@ include("c_facturado.html");
 include("c_grupo_info.html");
 
 include('c_grupo_pacientes.html');
+
+include 'c_detalle_grupo.html';

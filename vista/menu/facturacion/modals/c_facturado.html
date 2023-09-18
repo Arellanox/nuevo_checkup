@@ -16,12 +16,28 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="NumeroFactura">Numero de la Factura:</label>
-                                    <input type="text" name="NumeroFactura" value=""
-                                        class="mt-2 form-control input-form" id="NumeroFactura">
+                                    <label for="NumeroFactura">Numero de la factura</label>
+                                    <input type="text" name="num_factura" value="" class="mt-2 form-control input-form"
+                                        id="NumeroFactura" required>
                                 </div>
                             </div>
-
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="tipo_pago">Tipo de pago</label>
+                                    <select name="tipo_pago" class="input-form form-control"
+                                        id="credito-tipo-pago"></select>
+                                    <!-- <input type="text" name="tipo_pago" value="" class="mt-2 form-control input-form"
+                                        id="tipo_pago"> -->
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="forma_pago">Método de pago</label>
+                                    <p>PPD</p>
+                                    <!-- <input type="text" name="forma_pago" value="" class="mt-2 form-control input-form"
+                                                                    id="forma_pago"> -->
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
