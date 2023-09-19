@@ -286,7 +286,7 @@ switch ($api) {
         # variable ['turno_completado']
         # mandar 1 para completado
         # mandar 0 para mandar incompleto
-        $response = $master->updateByProcedure("sp_turnos_completados_g", [$id_turno, $turno_completado]);
+        $response = $master->updateByProcedure("sp_turnos_completados_g", [$id_turno, $turno_completado, $confirmado_por]);
         break;
     case 20:
         # mostrar la lista de los pacientes/turnos completados
