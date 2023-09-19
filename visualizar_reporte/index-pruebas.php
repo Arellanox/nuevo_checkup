@@ -32,9 +32,9 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = 'biomolecular';
-$turno_id = '1657';
-$area_id = 12;
+$api = "audiometria";
+$area_id = 4;
+$turno_id = 489;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
