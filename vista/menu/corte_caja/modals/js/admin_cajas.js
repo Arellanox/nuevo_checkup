@@ -83,7 +83,7 @@ let id_caja = ''
 selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
     unSelect: true, ClickClass: [
         {
-           
+
             class: 'borarCaja',
             callback: async function (data) {
                 console.log(data)
@@ -106,7 +106,7 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
                 }, 1)
 
             }
-}
+        }
     ]
 
 }, (select, data) => {
@@ -116,11 +116,11 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
         $("#select-user").prop('disabled', false)
 
         dataUsuariosResponsables['id_caja'] = data["ID_CAJAS"]
-        console.log(data)
+        // console.log(data)
         TablaUsuariosResponsables.ajax.reload()
-    } 
-    
-   
+    }
+
+
 
 })
 
@@ -168,10 +168,9 @@ TablaUsuariosResponsables = $('#TablaUsuariosResponsables').DataTable({
         { data: "USUARIO_ID" },
         { data: "px" },
         {
-            data: null, render: function (data) {
-                let html = `
-                        <i class="bi bi-trash borarUsuarioResponsable" style = "cursor:pointer"></i>`
-                return html;
+            data: 'ID_CAJAS_USUARIOS', render: function (data) {
+                return `<i class="bi bi-trash" data-id = "${data}" style = "cursor: pointer"
+                onclick="desactivarTablaResponsables.call(this)"></i>`;
             }
         },
 
@@ -179,7 +178,7 @@ TablaUsuariosResponsables = $('#TablaUsuariosResponsables').DataTable({
     columnDefs: [
         { target: 0, title: '#', className: 'all' },
         { target: 1, title: 'Nombre', className: 'all' },
-        { target: 2, title: 'Acción', className: 'all', width: '10px' }
+        { target: 2, title: '<i class="bi bi-trash borarUsuarioResponsable"></i>', className: 'all', width: '10px' }
     ],
 
 })
@@ -210,23 +209,35 @@ $("#btnAgregarResponsableCaja").on('click', function () {
         usuario_encargado: $("#select-user").val()
     }
 
-        alertMensajeConfirm({
-            title: "¿Esta seguro de agregar este usuario?",
-            text: "Es necesario confirmar para realizar esta acción",
-            icon: "question"
-        }, function () {
+    alertMensajeConfirm({
+        title: "¿Esta seguro de agregar este usuario?",
+        text: "Es necesario confirmar para realizar esta acción",
+        icon: "question"
+    }, function () {
 
-            ajaxAwait(dataJson_agreagarUsuarios, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
-                alertToast('Usuario agregado :)', 'success', 4000)
-                TablaUsuariosResponsables.ajax.reload()
+        ajaxAwait(dataJson_agreagarUsuarios, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
+            alertToast('Usuario agregado', 'success', 4000)
+            TablaUsuariosResponsables.ajax.reload()
 
-            })
-        }, 1)
-
-
- 
-
-
-
+        })
+    }, 1)
 })
+
+//Eliminar en tabla de usuario responsable
+function desactivarTablaResponsables() {
+
+    var usuario_Responsable = $(this).data("id");
+
+    alertMensajeConfirm({
+        title: '¿Está seguro que desea desactivar el registro?',
+        text: 'No podrá modificarlo despues',
+        icon: 'warning',
+    }, function () {
+        ajaxAwait({ api: 7, id_cajas_usuarios: usuario_Responsable }, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
+            alertToast('Responsable eliminado eliminado!', 'success', 4000)
+
+            TablaUsuariosResponsables.ajax.reload();
+        })
+    }, 1)
+}
 
