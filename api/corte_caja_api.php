@@ -109,6 +109,9 @@ switch ($api) {
         #recuperar todos los usuarios
         $response = $master->getByProcedure("sp_usuarios_b", [null, null]);
         break;
+    case 9:
+        #Mostrar la informacion de los historiales de los cortes de cajas
+        $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$id_corte]);
     default:
         # code...
         $response = "API no definida";
