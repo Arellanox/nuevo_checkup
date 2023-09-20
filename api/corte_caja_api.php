@@ -20,9 +20,12 @@ $usuario = $_SESSION['id'];
 
 #OBTENCION DE DATOS
 $id_caja = $_POST['id_caja'];
+$id_corte = $_POST['id_corte'];
 $descripcion_caja = $_POST['descripcion_caja'];
 $usuario_encargado = $_POST['usuario_encargado'];
 $id_cajas_usuarios = $_POST['id_cajas_usuarios'];
+$subtotal = $_POST['subtotal'];
+$total = $_POST['total'];
 
 
 # ========================================================================
@@ -60,6 +63,16 @@ $cajas_usuarios_e = array(
 );
 
 
+#Parametros para guardar un nuevo corte de caja
+$data_corte_caja = $master->setToNull(array(
+
+    $id_caja,
+    $usuario,
+    $subtotal,
+    $total
+
+));
+
 # ========================================================================
 
 
@@ -70,10 +83,11 @@ switch ($api) {
         break;
     case 2:
         # Mostrar las cajas asignadas a usuarios
-        $response = $master->getByProcedure("sp_cajas_b", [$id_caja, $usuario]);
+        $response = $master->getByNext("sp_cajas_b", [$id_caja, $usuario, $id_corte]);
         break;
     case 3:
-        # Actualizar
+        # Finalizar el corte de caja
+        $response = $master->getByProcedure("sp_corte_cajas_finalizar_g", $data_corte_caja);
         break;
     case 4:
         # Eliminar caja
