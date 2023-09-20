@@ -25,6 +25,7 @@ $.getScript('contenido/js/corte_botones.js').done(function () {
 var index_caja_id;
 var dataTablaHistorialCortes;
 var SelectedHistorialCaja;
+var dataTablePacientesCaja;
 
 hasLocation()
 $(window).on("hashchange", function (e) {

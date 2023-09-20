@@ -52,7 +52,7 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
         }
     },
     columns: [
-        { data: 'COUNT' },
+        { data: 'FOLIO' },
         {
             data: 'FECHA_INICIO', render: function (data) {
                 return formatoFecha2(data, [0, 1, 3, 1]);
@@ -86,7 +86,7 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
         { target: 1, title: 'FECHA', className: 'all' },
         { target: 2, title: 'Finalizado:', className: 'none' },
         { target: 3, title: 'Realizado por:', className: 'none' },
-        { target: 4, title: 'Estatus:', className: 'all mx-auto d-flex justify-content-center' }
+        { target: 4, title: 'Estatus:', className: 'all ' }
 
     ],
 
@@ -118,7 +118,11 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
 
     if (select) {
         fadeDetalleTable("In")
-        $("#fecha_corte_selected").html(`(${formatoFecha2(data['FECHA_INICIO'], [0, 1, 3, 1])})`)
+        $("#fecha_corte_selected").html(`(${data['FOLIO']})`)
+
+        dataTablePacientesCaja = {
+
+        }
     } else {
         fadeDetalleTable("Out")
     }
@@ -136,6 +140,61 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
     sorting: false,
     scrollY: '75vh',
     scrollCollapse: true,
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return $.extend(d, dataTablePacientesCaja);
+        },
+        // data: { api: 2, equipo: id_equipos },
+        method: 'POST',
+        url: '../../../api/corte_caja_api.php',
+        beforeSend: function () {
+            loader("In")
+            fadeTable('Out')
+            fadeDetalleTable("Out")
+        },
+        complete: function () {
+            //Para ocultar segunda columna
+            loader("Out", 'bottom')
+            fadeTable("In")
+
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+
+
+            // Hacer clic en la primera fila
+            var firstRow = TablaHistorialCortes.row(0).node(); // La fila 0 es la primera fila
+            $(firstRow).click(); // Simula un clic en la fila
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        },
+        dataSrc: 'response.data'
+    },
+    columns: [
+        { data: 'FOLIO' },
+        {
+            data: 'FECHA_INICIO', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1]);
+            }
+        },
+        {
+            data: 'FECHA_FINAL', render: function (data) {
+                return ifnull(formatoFecha2(data, [0, 1, 3, 1]), "N/A");
+            }
+        }
+    ],
+    columnDefs: [
+        { target: 0, title: '#', className: 'all' },
+        { target: 1, title: 'FECHA', className: 'all' },
+        { target: 2, title: 'Finalizado:', className: 'none' }
+
+    ],
+
 })
 
 
@@ -153,7 +212,15 @@ function BuildHeaderCorte() {
     let html;
 
     html = `
-    
+    <div class="row">        
+        <div class="col-12 col-xl-6 col-xxl-6">
+
+        </div>
+
+        <div class="col-12 col-xl-6 col-xxl-6">
+
+        </div>
+    </div>
 
     `
 
