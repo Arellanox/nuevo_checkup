@@ -68,6 +68,12 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
                     $(row).addClass('bg-success text-white');
                 }
                 break;
+
+            case 4:
+                if (data.CONFIRMADO_AUDIO == 1) {
+                    $(row).addClass('bg-success text-white');
+                }
+                break;
             // if (data.CONFIRMADO_ULTRASO == 1) $(row).addClass('bg-success text-white'); break;
 
             default:
