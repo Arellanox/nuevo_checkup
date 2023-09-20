@@ -161,10 +161,9 @@ switch ($api) {
         break;
     case 8:
         $response2 = $master->getByProcedure("sp_audiometria_resultados_b", [$turno_id, null, null, null]);
-        if (empty($response2['CONFIRMADO'])) {
-            // print_r($response2['CONFIRMADO']);
+        if (empty($response2[0])) {
             $response = 'Primero necesita llenar los datos de interpretación.';
-        } else if ($response2[0]['CONFIRMADO'] === 0) {
+        } else if ($response2[0]['CONFIRMADO'] === '0') {
 
             # guardar la captura de la tabla
             $img64 = explode(",", $grafica);
