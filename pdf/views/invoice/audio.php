@@ -10,287 +10,285 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
     <style>
-    @page {
-        margin: 165px 10px;
-    }
+        @page {
+            margin: 165px 10px;
+        }
 
-    body {
-        font-family: 'Roboto', sans-serif;
-        margin-top: 60px;
-        margin-bottom: 40px;
-        font-size: 10px;
-        /* background-color: gray; */
-    }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            font-size: 10px;
+            /* background-color: gray; */
+        }
 
-    .header {
-        position: fixed;
-        top: -175px;
-        left: 25px;
-        right: 25px;
-        height: 220px;
-        margin-top: 0;
-    }
+        .header {
+            position: fixed;
+            top: -175px;
+            left: 25px;
+            right: 25px;
+            height: 220px;
+            margin-top: 0;
+        }
 
-    .footer {
-        position: fixed;
-        bottom: -195px;
-        left: 25px;
-        right: 25px;
-        height: 220px;
-        /* background-color: pink; */
-    }
+        .footer {
+            position: fixed;
+            bottom: -200px;
+            left: 25px;
+            right: 25px;
+            height: 220px;
+            /* background-color: pink; */
+        }
 
-    a {
-        position: fixed;
-        padding: 0px;
-        top: -15px;
-        left: 40px
-    }
+        a {
+            position: fixed;
+            padding: 0px;
+            top: -15px;
+            left: 40px
+        }
 
-    .footer .page:after {
-        content: counter(page);
-    }
+        .footer .page:after {
+            content: counter(page);
+        }
 
-    /* Saltar a nueva pagina */
-    .break {
-        page-break-after: always;
-    }
+        /* Saltar a nueva pagina */
+        .break {
+            page-break-after: always;
+        }
 
-    /* Content */
-    .invoice-content {
-        border-radius: 4px;
-        padding-bottom: 10px;
-        padding-right: 30px;
-        padding-left: 30px;
-        text-align: justify;
-        text-justify: inter-word;
-        /* background-color: pink; */
-    }
-
-
-    h1 {
-        font-size: 22px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-    }
-
-    h2 {
-        font-size: 15px;
-        margin-top: 18px;
-        /* margin-bottom: 10px; */
-        text-align: center;
-        background-color: rgba(215, 222, 228, 0.748);
-        /* padding-top: 10px; */
-    }
-
-    h3 {
-        font-size: 16px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-    }
-
-    h4 {
-        font-size: 14px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-        line-height: 1;
-    }
-
-    h5 {
-        font-size: 12.5px;
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-
-    p {
-        font-size: 12px;
-        line-height: 1;
-    }
-
-    strong {
-        font-size: 12px;
-        /* line-height: 1.3; */
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-
-    }
-
-    .align-center {
-        text-align: center;
-    }
-
-    table {
-        width: 100%;
-        max-width: 100%;
-        margin: auto;
-        white-space: normal;
-        word-break: break-all;
-        /* table-layout:fixed; */
-    }
-
-    th,
-    td {
-        width: 100%;
-        max-width: 100%;
-        word-break: break-all;
-    }
-
-    /* Para divisiones de 3 encabezado*/
-    .col-left {
-        width: 44%;
-        max-width: 44%;
-        text-align: left;
-        font-size: 11px;
-        margin-left: 2px;
-    }
-
-    .col-center {
-        width: 32%;
-        max-width: 32%;
-        text-align: left;
-        font-size: 11px;
-        margin-left: 2px;
-    }
-
-    .col-right {
-        width: 24%;
-        max-width: 24%;
-        text-align: left;
-        font-size: 11px;
-        margin-left: 2px;
-    }
-
-    /* divisiones de 3 footer */
-    .col-foot-one {
-        width: 30%;
-        max-width: 30%;
-        text-align: left;
-        font-size: 12px;
-    }
-
-    .col-foot-two {
-        width: 40%;
-        max-width: 40%;
-        text-align: center;
-        font-size: 12px;
-    }
-
-    .col-foot-three {
-        width: 30%;
-        max-width: 30%;
-        text-align: right;
-        font-size: 12px;
-    }
-
-    /* Para divisiones de 4 */
-    .result {
-        font-size: 12px
-    }
-
-    /* diviciones de 2 */
-    .col-izq {
-        width: 30%;
-        max-width: 30%;
-        text-align: center;
-    }
-
-    .col-der {
-        width: 70%;
-        max-width: 70%;
-        text-align: left;
-    }
-
-    /* Fivisiones de cinco */
-    .col-one {
-        width: 30%;
-        max-width: 30%;
-        text-align: left;
-    }
-
-    .col-two {
-        width: 20%;
-        max-width: 20%;
-        text-align: right;
-    }
-
-    .col-three {
-        width: 25%;
-        max-width: 25%;
-        text-align: center;
-
-    }
-
-    .col-four {
-        width: 25%;
-        max-width: 25%;
-        text-align: center;
-    }
-
-    .invoice-content>.table-ant {
-        border-collapse: collapse;
-        width: 100%;
-    }
+        /* Content */
+        .invoice-content {
+            border-radius: 4px;
+            padding-bottom: 10px;
+            padding-right: 30px;
+            padding-left: 30px;
+            text-align: justify;
+            text-justify: inter-word;
+            /* background-color: pink; */
+        }
 
 
-    .invoice-content>.table-ant>.th,
-    .td {
-        padding: 4px;
-        text-align: center !important;
-        border-bottom: 1px solid #ddd;
-    }
+        h1 {
+            font-size: 22px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
 
-    .invoice-content>.table-ant>.th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-    }
+        h2 {
+            font-size: 15px;
+            margin-top: 18px;
+            /* margin-bottom: 10px; */
+            text-align: center;
+            background-color: rgba(215, 222, 228, 0.748);
+            /* padding-top: 10px; */
+        }
+
+        h3 {
+            font-size: 16px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        h4 {
+            font-size: 14px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+
+        h5 {
+            font-size: 12.5px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        p {
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        strong {
+            font-size: 12px;
+            /* line-height: 1.3; */
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            max-width: 100%;
+            margin: auto;
+            white-space: normal;
+            word-break: break-all;
+            /* table-layout:fixed; */
+        }
+
+        th,
+        td {
+            width: 100%;
+            max-width: 100%;
+            word-break: break-all;
+        }
+
+        /* Para divisiones de 3 encabezado*/
+        .col-left {
+            width: 44%;
+            max-width: 44%;
+            text-align: left;
+            font-size: 11px;
+            margin-left: 2px;
+        }
+
+        .col-center {
+            width: 32%;
+            max-width: 32%;
+            text-align: left;
+            font-size: 11px;
+            margin-left: 2px;
+        }
+
+        .col-right {
+            width: 24%;
+            max-width: 24%;
+            text-align: left;
+            font-size: 11px;
+            margin-left: 2px;
+        }
+
+        /* divisiones de 3 footer */
+        .col-foot-one {
+            width: 30%;
+            max-width: 30%;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .col-foot-two {
+            width: 40%;
+            max-width: 40%;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .col-foot-three {
+            width: 30%;
+            max-width: 30%;
+            text-align: right;
+            font-size: 12px;
+        }
+
+        /* Para divisiones de 4 */
+        .result {
+            font-size: 12px
+        }
+
+        /* diviciones de 2 */
+        .col-izq {
+            width: 30%;
+            max-width: 30%;
+            text-align: center;
+        }
+
+        .col-der {
+            width: 70%;
+            max-width: 70%;
+            text-align: left;
+        }
+
+        /* Fivisiones de cinco */
+        .col-one {
+            width: 30%;
+            max-width: 30%;
+            text-align: left;
+        }
+
+        .col-two {
+            width: 20%;
+            max-width: 20%;
+            text-align: right;
+        }
+
+        .col-three {
+            width: 25%;
+            max-width: 25%;
+            text-align: center;
+
+        }
+
+        .col-four {
+            width: 25%;
+            max-width: 25%;
+            text-align: center;
+        }
+
+        .invoice-content>.table-ant {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
 
-    /* Estilos para la tabla de audiometria tonal */
-    .tonal>.table-tonal {
-        border-collapse: collapse;
-        width: 70%;
-    }
+        .invoice-content>.table-ant>.th,
+        .td {
+            padding: 4px;
+            text-align: center !important;
+            border-bottom: 1px solid #ddd;
+        }
 
-    .tonal>.table-tonal>.th-tonal,
-    .td-tonal {
-        border: 2px solid black;
-        padding: 2px;
-        text-align: center;
-    }
-
-    .tonal>.table-tonal>.th-tonal {
-        background-color: #f2f2f2;
-    }
-
-    /* termina estilos para tabla de audiometria tonal */
+        .invoice-content>.table-ant>.th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
 
 
-    /* Estilos de tabla de audiometria */
-    .img-audiometria table {
-        width: 100%;
-        border-collapse: collapse;
-        /* Elimina el espacio entre celdas */
-    }
+        /* Estilos para la tabla de audiometria tonal */
+        .tonal>.table-tonal {
+            border-collapse: collapse;
+            width: 70%;
+        }
 
-    .img-audiometria th,
-    .img-audiometria td {
-        border: 1px solid black;
-        /* Borde para celdas */
-        padding: 8px;
-        text-align: center;
-    }
+        .tonal>.table-tonal>.th-tonal,
+        .td-tonal {
+            border: 2px solid black;
+            padding: 2px;
+            text-align: center;
+        }
 
-    .img-audiometria th {
-        background-color: #e1e6ea;
-        /* Color de fondo de los encabezados */
-        color: black;
-        /* Color de texto de los encabezados */
-    }
+        .tonal>.table-tonal>.th-tonal {
+            background-color: #f2f2f2;
+        }
 
-    .img-audiometria img {
-        max-width: 100%;
-        height: auto;
-    }
+        /* termina estilos para tabla de audiometria tonal */
+
+
+        /* Estilos de tabla de audiometria */
+        .img-audiometria table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .img-audiometria th,
+        .img-audiometria td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .img-audiometria th {
+            background-color: #e1e6ea;
+            color: black;
+        }
+
+        .img-audiometria img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Fin de estilos de audiometria */
     </style>
 </head>
 
@@ -305,7 +303,7 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+$ruta_firma = file_get_contents('../pdf/public/assets/firma_audio.png');
 $encode_firma = base64_encode($ruta_firma);
 
 
@@ -325,7 +323,8 @@ $encode_firma = base64_encode($ruta_firma);
 
     <div class="footer">
         <?php
-        $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        $footerDoctor = 'Dra. Leonor Alvarado-Cortés <br>UJAT - Cédula profesional: 584962 
+                        <br>Certified Occupational Hearing Conservationist <br>CAOHC ID NUMBER: 516334';
 
         include 'includes/footer.php';
         ?>
@@ -424,8 +423,9 @@ $encode_firma = base64_encode($ruta_firma);
             <tr>
                 <td><img src="data:image/jpg;base64,<?php echo $encode; ?>" alt="Oído Derecho" width='190' height='190'>
                 </td>
-                <td><img src="data:image/jpg;base64,<?php echo $encode2; ?>" alt="Oído Izquierdo" width=' 190'
-                        height='190'></td>
+
+                <td><img src="data:image/jpg;base64,<?php echo $encode2; ?>" alt="Oído Izquierdo" width=' 190' height='190'></td>
+
             </tr>
             <tr>
                 <td><?php echo $resultados->RESULTADO_OD; ?></td>
