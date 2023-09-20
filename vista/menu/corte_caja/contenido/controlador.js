@@ -3,14 +3,28 @@ async function obtenerVistaCorteCaja() {
     await obtenerTitulo("Corte de caja");
     $.post("contenido/corte_caja.html", function (html) {
         $("#body-js").html(html);
-    }).done(function () {
-      
+    }).done(async function () {
+
+        // Rellenar Select
+        await rellenarSelect("#cajas", "corte_caja_api", 2, "ID_CAJAS", "DESCRIPCION", {}, function () {
+            switchCajasSelect(false)
+        })
+
         // DataTable
-        $.getScript('contenido/js/historial-tabla-cortes.js')
-        // // Botones
-        $.getScript('contenido/js/corte_botones.js')
+        $.getScript('contenido/js/historial-tabla-cortes.js').done(function () {
+        })
     });
 }
+
+// Botones
+$.getScript('contenido/js/corte_botones.js').done(function () {
+
+})
+
+// Variables globales locales
+var index_caja_id;
+var dataTablaHistorialCortes;
+var SelectedHistorialCaja;
 
 hasLocation()
 $(window).on("hashchange", function (e) {

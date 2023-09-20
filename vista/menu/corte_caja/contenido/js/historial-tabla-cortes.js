@@ -1,47 +1,93 @@
+
+// Tabla historial de cortes de caja
 var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
     lengthChange: false,
-    info: false,
+    info: true,
     paging: false,
     sorting: false,
     scrollY: '75vh',
     scrollCollapse: true,
-    // ajax: {
-    //     dataType: 'json',
-    //     data: { api: 2 },
-    //     method: 'POST',
-    //     url: '../../../api/corte_caja_api.php',
-    //     beforeSend: function () { loader("In") },
-    //     complete: function () { loader("Out") },
-    //     dataSrc: 'response.data'
-    // },
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return $.extend(d, dataTablaHistorialCortes);
+        },
+        // data: { api: 2, equipo: id_equipos },
+        method: 'POST',
+        url: '../../../api/corte_caja_api.php',
+        beforeSend: function () {
+            loader("In")
+            fadeTable('Out')
+            fadeDetalleTable("Out")
+        },
+        complete: function () {
+            //Para ocultar segunda columna
+            loader("Out", 'bottom')
+            fadeTable("In")
+
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+
+
+            // Hacer clic en la primera fila
+            var firstRow = TablaHistorialCortes.row(0).node(); // La fila 0 es la primera fila
+            $(firstRow).click(); // Simula un clic en la fila
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        },
+        dataSrc: 'response.data'
+    },
+    createdRow: function (row, data, dataIndex) {
+        if (data.FINALIZADO == 0) {
+            $(row).addClass('bg-warning text-black');
+        } else if (data.FINALIZADO == 1) {
+        }
+    },
     columns: [
+        { data: 'COUNT' },
         {
-
-            data: null, render: function (data) {
-                // Mes
-                return "0001";
+            data: 'FECHA_INICIO', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1]);
             }
         },
         {
-            data: null, render: function (data) {
-
-                return "12/12/2015";
+            data: 'FECHA_FINAL', render: function (data) {
+                return ifnull(formatoFecha2(data, [0, 1, 3, 1]), "N/A");
             }
         },
         {
-            data: null, render: function (data) {
+            data: 'px'
+        },
+        {
+            data: 'FINALIZADO', render: function (data) {
+                let html;
 
-                return "12/12/2015";
+
+                if (data === "0") {
+                    html = `<i class="bi bi-x-square-fill text-danger"></i>`
+                } else if (data === "1") {
+                    html = `<i class="bi bi-check-square-fill text-success"></i>`
+                }
+
+                return html
             }
         }
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all' },
         { target: 1, title: 'FECHA', className: 'all' },
-        { target: 2, title: 'nose', className: 'none' }
+        { target: 2, title: 'Finalizado:', className: 'none' },
+        { target: 3, title: 'Realizado por:', className: 'none' },
+        { target: 4, title: 'Estatus:', className: 'all mx-auto d-flex justify-content-center' }
+
     ],
 
 })
@@ -53,7 +99,6 @@ inputBusquedaTable("TablaHistorialCortesCaja", TablaHistorialCortes, [{
     msj: "Filtre los resultados",
     place: 'top'
 }, "col-12")
-
 
 //Funcion para cambiar el estatus (funcion global)
 selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
@@ -68,4 +113,68 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
         },
 
     ], dblClick: true, reload: ['col-xl-9']
+}, async function (select, data, callback) {
+    SelectedHistorialCaja = data
+
+    if (select) {
+        fadeDetalleTable("In")
+        $("#fecha_corte_selected").html(`(${formatoFecha2(data['FECHA_INICIO'], [0, 1, 3, 1])})`)
+    } else {
+        fadeDetalleTable("Out")
+    }
 })
+
+
+// Tabla de los pacientes que estan en la caja seleccionada
+TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    lengthChange: false,
+    info: true,
+    paging: false,
+    sorting: false,
+    scrollY: '75vh',
+    scrollCollapse: true,
+})
+
+
+inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [{
+    msj: 'Tabla de los pacientes que estan en la caja',
+    place: 'top'
+}], {
+    msj: "Filtre los resultados",
+    place: 'top'
+}, "col-12")
+
+
+// Funcion para crear la cabecera con la informacion del corte de caja
+function BuildHeaderCorte() {
+    let html;
+
+    html = `
+    
+
+    `
+
+
+    $('#headerDetalleCorteCaja').html(html)
+}
+
+
+// Function fadeTabla
+function fadeTable(type) {
+    if (type === "Out") {
+        $('#table_historial_corte_caja').fadeOut()
+    } else if (type === "In") {
+        $('#table_historial_corte_caja').fadeIn()
+    }
+}
+
+function fadeDetalleTable(type) {
+    if (type === "Out") {
+        $('#corte_caja_detalle').fadeOut()
+    } else if (type === "In") {
+        $('#corte_caja_detalle').fadeIn()
+    }
+}

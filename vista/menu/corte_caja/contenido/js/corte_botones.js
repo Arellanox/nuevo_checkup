@@ -1,0 +1,35 @@
+async function switchCajasSelect(time) {
+    alertToast('Espere un momento...', 'info', 3000);
+
+    await buildPageCajas(time)
+}
+
+// Function para construir la pagina principal
+async function buildPageCajas(time) {
+    // Obtenemos el id de la caja
+    return new Promise(function (resolve, reject) {
+        index_caja_id = $("#cajas").val()
+
+        // Setear la variable de id_caja para mostrar el historial de esa caja
+        dataTablaHistorialCortes = {
+            api: 2,
+            id_caja: index_caja_id
+        }
+
+        if (time) {
+            TablaHistorialCortes.ajax.reload()
+        }
+
+        resolve(1)
+    })
+
+
+
+}
+
+// Escucha los cambios del select #cajas
+$(document).on("change", "#cajas", function () {
+    setTimeout(() => {
+        switchCajasSelect(true)
+    }, 200);
+})
