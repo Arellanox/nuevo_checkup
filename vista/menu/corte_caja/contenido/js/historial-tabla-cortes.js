@@ -72,9 +72,9 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
 
 
                 if (data === "0") {
-                    html = `<i class="bi bi-x-square-fill text-danger"></i>`
+                    html = `<i class="bi bi-x-circle"></i>`
                 } else if (data === "1") {
-                    html = `<i class="bi bi-check-square-fill text-success"></i>`
+                    html = `<i class="bi bi-check-circle"></i>`
                 }
 
                 return html
@@ -120,14 +120,19 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
         fadeDetalleTable("In")
         $("#fecha_corte_selected").html(`(${data['FOLIO']})`)
 
-        dataTablePacientesCaja = {
+        BuildHeaderCorte(data)
 
-        }
+        dataTablePacientesCaja.id_corte = SelectedHistorialCaja['ID_CORTE']
+
+        TablaPacientesCaja.ajax.reload()
     } else {
         fadeDetalleTable("Out")
     }
 })
-
+dataTablePacientesCaja = {
+    api: 9,
+    id_caja: null,
+}
 
 // Tabla de los pacientes que estan en la caja seleccionada
 TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
@@ -145,56 +150,33 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         data: function (d) {
             return $.extend(d, dataTablePacientesCaja);
         },
-        // data: { api: 2, equipo: id_equipos },
         method: 'POST',
-        url: '../../../api/corte_caja_api.php',
-        beforeSend: function () {
-            loader("In")
-            fadeTable('Out')
-            fadeDetalleTable("Out")
-        },
+        url: `../../../api/corte_caja_api.php`,
+        beforeSend: function () { loader("In") },
         complete: function () {
-            //Para ocultar segunda columna
             loader("Out", 'bottom')
-            fadeTable("In")
-
-            $.fn.dataTable
-                .tables({
-                    visible: true,
-                    api: true
-                })
-                .columns.adjust();
-
-
-            // Hacer clic en la primera fila
-            var firstRow = TablaHistorialCortes.row(0).node(); // La fila 0 es la primera fila
-            $(firstRow).click(); // Simula un clic en la fila
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alertErrorAJAX(jqXHR, textStatus, errorThrown);
         },
         dataSrc: 'response.data'
     },
-    columns: [
-        { data: 'FOLIO' },
-        {
-            data: 'FECHA_INICIO', render: function (data) {
-                return formatoFecha2(data, [0, 1, 3, 1]);
-            }
-        },
-        {
-            data: 'FECHA_FINAL', render: function (data) {
-                return ifnull(formatoFecha2(data, [0, 1, 3, 1]), "N/A");
-            }
-        }
-    ],
-    columnDefs: [
-        { target: 0, title: '#', className: 'all' },
-        { target: 1, title: 'FECHA', className: 'all' },
-        { target: 2, title: 'Finalizado:', className: 'none' }
+    // columns: [
 
-    ],
+    // ],
+    // columnDefs: [
+    //     { target: 0, className: 'all', title: 'Paciente' },
+    //     { target: 1, className: 'min-tablet', title: 'Servicios' },
+    //     { target: 2, className: 'desktop', title: 'Costo' },
+    //     { target: 3, className: 'desktop', title: 'Prefolio' },
+    //     { target: 4, className: 'min-tablet', title: 'Unitario', width: '7%' },
+    //     { target: 5, className: 'all', title: 'Subtotal', width: '7%' },
+    //     { target: 6, className: 'all', title: 'IVA', width: '7%' },
+    //     { target: 7, className: 'all', title: 'Total', width: '7%' },
+    //     { target: 8, className: 'none', title: 'Fecha Recepción', width: '12%' },
+    //     { target: 9, className: 'desktop', title: 'Procedencia' }
+    // ],
 
+    // rowGroup: {
+
+    // }
 })
 
 
@@ -208,24 +190,12 @@ inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [{
 
 
 // Funcion para crear la cabecera con la informacion del corte de caja
-function BuildHeaderCorte() {
-    let html;
+function BuildHeaderCorte(data) {
 
-    html = `
-    <div class="row">        
-        <div class="col-12 col-xl-6 col-xxl-6">
-
-        </div>
-
-        <div class="col-12 col-xl-6 col-xxl-6">
-
-        </div>
-    </div>
-
-    `
-
-
-    $('#headerDetalleCorteCaja').html(html)
+    $('#detalle_fecha_corte').html(formatoFecha2(data['FECHA_FINAL'], [0, 0, 0, 0, 1, 1,]))
+    $('#detalle_usuario').html(session['nombre'] + ' ' + session['apellidos'])
+    $('#detalle_caja_id').html(data['CAJAS_ID'])
+    $('#detalle_total').html(`MXN ${data['TOTAL']}`)
 }
 
 

@@ -112,6 +112,7 @@ switch ($api) {
     case 9:
         #Mostrar la informacion de los historiales de los cortes de cajas
         $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$id_corte]);
+        break;
     default:
         # code...
         $response = "API no definida";

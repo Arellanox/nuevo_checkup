@@ -33,3 +33,16 @@ $(document).on("change", "#cajas", function () {
         switchCajasSelect(true)
     }, 200);
 })
+
+
+$(document).on('click', '#btnCerrarCaja', function () {
+    alertMensajeConfirm({
+        title: '¿Estas seguro de cerrar la caja?',
+        text: 'No podra revertir los cambios',
+        icon: 'warning',
+        confirmButtonText: 'Si, estoy seguro',
+        cancelButtonText: 'No'
+    }, () => {
+        console.log("si cerro la caja")
+    }, 1)
+})

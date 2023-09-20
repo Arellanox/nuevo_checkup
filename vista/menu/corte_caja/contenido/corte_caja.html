@@ -45,18 +45,46 @@
                 <!-- Iva -->
                 <!-- Total -->
                 <div class="rounded p-3 shadow-sm my-2">
-                    <p class="h5">Datos del corte:
-                        <span class="fw-bold text-dark" id="fecha_corte_selected"></span>
-                    </p>
+                    <div class="d-flex justify-content-between">
+                        <h5>
+                            Datos de corte:
+                            <span class="fw-bold text-dark" id="fecha_corte_selected"></span>
+                        </h5>
+
+                        <button class="btn btn-borrar" id="btnCerrarCaja">
+                            <i class="bi bi-x-circle-fill me-2"></i>Cerrar Caja
+                        </button>
+                    </div>
+
 
                     <div id="headerDetalleCorteCaja">
                         <div class="row">
                             <div class="col-12 col-xl-6 col-xxl-6">
-                                <span class="fw-bold">Fecha corte:</span>12/09/2003
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="fw-bold">Fecha corte:</span>
+                                        <span id="detalle_fecha_corte">12/09/2003 11:20 </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="fw-bold">Usuario:</span>
+                                        <span id="detalle_usuario">Juan Daniel Hernandez Garcia</span>
+                                    </div>
+
+                                </div>
                             </div>
 
-                            <div class="col-12 col-xl-6 col-xxl-6">
 
+                            <div class="col-12 col-xl-6 col-xxl-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="fw-bold">Caja:</span>
+                                        <span id="detalle_caja_id">1</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="fw-bold">Total:</span>
+                                        <span id="detalle_total">MXN 130.00</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
