@@ -83,7 +83,7 @@ switch ($api) {
         break;
     case 2:
         # Mostrar las cajas asignadas a usuarios
-        $response = $master->getByNext("sp_cajas_b", [$id_caja, $usuario, $id_corte]);
+        $response = $master->getByProcedure("sp_cajas_b", [$id_caja, $usuario]);
         break;
     case 3:
         # Finalizar el corte de caja
