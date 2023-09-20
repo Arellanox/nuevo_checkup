@@ -380,51 +380,51 @@ if (!isset($qr)) {
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive">Índice de Masa corporal</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_CORPORAL; ?> kg/m2</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->ÍNDICE_DE_MASA_CORPORAL; ?> kg/m2</strong>
                 </td>
                 +<td colspan="3"> </td>
                 <td colspan="3" style="text-align: left;" class="cursive"> Grasa visceral </td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_GRASA_VISCERAL; ?> % </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->NIVEL_DE_GRASA_VISCERAL; ?> % </strong>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive"> Minerales </td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->{'MINERAL_(INCOMPLETO)'}; ?> kg </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->MINERALES; ?> kg </strong>
                 </td>
                 +<td colspan="3"> </td>
                 <td colspan="3" style="text-align: left;" class="cursive">Proteinas</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_PROTEINAS; ?> %</strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->PROTEÍNAS; ?> %</strong>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;" class="cursive"> Frecuencia cardíaca </td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->FRECUENCIA_CARDIACA; ?> Kg/M2 </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->FRECUENCIA_CARDIACA; ?> BPM </strong>
                 </td>
-                +<td colspan="3"> </td>
+                <td colspan="3"> </td>
                 <td colspan="3" style="text-align: left;" class="cursive">Porcentaje de agua</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->PORCENTAJE_DE_AGUA; ?> % </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->AGUA_CORPORAL_TOTAL; ?> % </strong>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: left;" class="cursive"> Masa muscular</td>
+                <td colspan="2" style="text-align: left;" class="cursive"> Masa libre de grasa</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_MUSCULAR; ?> Kg </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_LIBRE_DE_GRASA; ?> Kg </strong>
                 </td>
                 +<td colspan="3"> </td>
                 <td colspan="3" style="text-align: left;" class="cursive">Masa grasa muscular</td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_MUSCULAR; ?> Kg </strong>
+                    <strong style="font-size: 12px;"><?php echo $resultados->MASA_GRASA_CORPORAL; ?> Kg </strong>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: left;" class="cursive">Huesos</td>
+                <td colspan="2" style="text-align: left;" class="cursive"></td>
                 <td colspan="2" style="text-align: left;">
-                    <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> MM</strong>
+                    <!-- <strong style="font-size: 12px;"><?php echo $resultados->HUESOS; ?> MM</strong> -->
                 </td>
                 <td colspan="3"></td>
                 <td colspan="3" style="text-align: left;" class="cursive"></td>

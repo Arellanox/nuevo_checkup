@@ -409,10 +409,12 @@ if (!isset($qr)) {
                 <tbody>
                     <tr>
                         <td class="col-left" style="border-bottom: none">
-                            No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_AUDIO ?> </strong>
+                            No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_AUDIO ?>
+                            </strong>
                         </td>
                         <td class="col-center" style="border-bottom: none">
-                            Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
+                            Edad: <strong style="font-size: 12px;">
+                                <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                         </td>
                         <td class="col-right" style="border-bottom: none">
                             Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
@@ -423,15 +425,18 @@ if (!isset($qr)) {
                             Nombre: <strong style="font-size: 12px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
                         </td>
                         <td class="col-center" style="border-bottom: none">
-                            Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO_DETALLE; ?> </strong>
+                            Fecha de Nacimiento: <strong style="font-size: 12px;">
+                                <?php echo $encabezado->NACIMIENTO_DETALLE; ?> </strong>
                         </td>
                         <td class="col-right" style="border-bottom: none">
-                            Pasaporte: <strong style='font-size:12px'> <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
+                            Pasaporte: <strong style='font-size:12px'>
+                                <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-left" style="border-bottom: none">
-                            Fecha de Resultado: <strong style="font-size: 12px;"> <?php echo $encabezado->FECHA_RESULTADO_AUDIO; ?> </strong>
+                            Fecha de Resultado: <strong style="font-size: 12px;">
+                                <?php echo $encabezado->FECHA_RESULTADO_AUDIO; ?> </strong>
                         </td>
                         <td class="col-right" style="border-bottom: none">
                             <!-- Tipo de Muestra: <strong>Sangre</strong> -->
@@ -534,7 +539,8 @@ if (!isset($qr)) {
                 </tr>
                 <tr>
                     <td>
-                        Grados de pérdida auditiva según la recomendacion de la OMS ( En caso de perdida de auditiva moderada, el rango para niños es de 31 a 60
+                        Grados de pérdida auditiva según la recomendacion de la OMS ( En caso de perdida de auditiva
+                        moderada, el rango para niños es de 31 a 60
                         dB)
                     </td>
                 </tr>
@@ -553,7 +559,8 @@ if (!isset($qr)) {
                 </tr>
             </table>
         </div>
-
+        <div class="break"></div>
+        <h1>Hoal</h1>
         <div style="width: 100%;padding-top: 220px; border-top-width: 80px; font-size: 10;margin: 0px 0px 10px 28px; font-size: 10;">
 
             <table>
@@ -645,6 +652,7 @@ if (!isset($qr)) {
             </strong>
         </div>
     </div>
+
     <div style="display: flex; justify-content: space-between; flex-basis: auto; align-content: center;" border="2" class="foot">
         <table>
             <tbody>

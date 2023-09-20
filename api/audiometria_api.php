@@ -150,15 +150,31 @@ switch ($api) {
     case 7:
         # guardar el reporte de audiometria final
         if ($confirmado == 1) {
-            $url = $master->reportador($master, $turno_id, 4, "audiometria", "url", 0);
-            $actualiza_ruta = $master->updateByProcedure("sp_reporte_actualizar_ruta", []);
+            $url = $master->reportador($master, $id_turno, 4, "audiometria", "url", 0);
+            $response = $master->insertByProcedure("sp_audiometria_resultados_g", $audio_array);
+            // var_dump($response);
+            // echo $id_turno;
+            $response = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['audio_resultados', 'RUTA_REPORTE', $url, $id_turno, null]);
         } else {
             $response = $master->insertByProcedure("sp_audiometria_resultados_g", $audio_array);
         }
         break;
     case 8:
         # guardar la captura de la tabla
-        $response = $master->insertByProcedure("sp_audiometria_grafica_g", [$turno_id, $grafica]);
+        $img64 = explode(",", $grafica);
+        $img64 = substr($img64[1], 0, -2);
+
+        # creamos el directorio si no existe
+        $dir = "reportes/modulo/audiometria/grafica_tonal";
+        $r = $master->createDir("../" . $dir);
+        if ($r == 1) {
+            $file = $dir . "/" . $id_turno . ".txt";
+            file_put_contents("../" . $file, $img64);
+            $response = $master->insertByProcedure("sp_audiometria_grafica_g", [$id_turno, $host . $file]);
+        } else {
+            $response = "Imposible crear el directorio para guardar la grafica.";
+        }
+
         break;
     default:
         $response = "Api no definida";
