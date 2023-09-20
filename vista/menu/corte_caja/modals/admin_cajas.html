@@ -10,15 +10,15 @@
             <div class="modal-body container-fluid">
                 <div class="container-fluid">
                     <div class="row">
+                        <!-- Crear y visualizar cajas -->
                         <div class="col-4">
                             <div class="row">
+                                <!-- Formulario para crear una nueva caja -->
                                 <div class="col-12">
-                                    <div class="card text-start">
-                                        <div class="card-body">
+                                    <div class="text-start">
+                                        <div class="shadow-sm rounded p-3 card-body">
                                             <div class="row align-items-end">
-                                                <div class="col-6">
-                                                    <h5>Crear una nueva caja</h5>
-                                                </div>
+                                                <h5 class="text-dark">Crear una nueva caja</h5>
                                                 <div class="col-12">
                                                     <form id="formCrearCaja" name="formCrearCaja">
                                                         <div class="mb-3">
@@ -39,42 +39,41 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Tabla de cajas -->
                                 <div class="col-12 mt-2">
-                                    <div class="card text-start">
-                                        <div class="card-body">
-                                            <div class="col-12">
-                                                <table class="table display responsive" id="TablaTotaldeCajas"
-                                                    style="width: 100%">
+                                    <div class="shadow-sm rounded p-3 ">
+                                        <div class="col-12">
+                                            <h5 class="text-dark">Lista de cajas</h5>
+                                            <table class="table display responsive" id="TablaTotaldeCajas"
+                                                style="width: 100%">
 
-                                                </table>
-                                            </div>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Agregar Responsables de la caja -->
                         <div class="col-8">
-                            <div class="card text-start" style="width: 100%;">
+                            <div id="form_tabla_responsable" class="  text-start" style="width: 100%;">
                                 <div class="card-body">
-                                    <h4 class="card-title">Agregar responsables para la caja : <span
-                                            class="label-span" id="nombreCaja"></span></h4>
+                                    <h4 class="card-title">Agregar responsables para la caja : <span class="label-span"
+                                            id="nombreCaja"></span></h4>
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 total_responsables">
-
-                                                <select class="" id="select-user" disabled>
+                                            <div class="col-12 shadow-sm rounded p-3 total_responsables">
+                                                <select class="my-3" id="select-user" disabled>
                                                 </select>
 
-                                            </div>
-                                            <div class="col-12">
-                                                <button type="button" class="btn btn-confirmar"
+                                                <button type="button" class="btn btn-confirmar mt-4"
                                                     id="btnAgregarResponsableCaja" disabled>
                                                     <i class="bi bi-person-badge"></i> Agregar
                                                 </button>
                                             </div>
-                                            <div class="col-12 mt-3">
-                                                <table class="table display responsive" id="TablaUsuariosResponsables" style="width: 100%"></table>
-                                                
+                                            <div class="col-12 shadow-sm rounded p-3 mt-3">
+                                                <table class="table display responsive" id="TablaUsuariosResponsables"
+                                                    style="width: 100%"></table>
+
                                                 </table>
                                             </div>
                                         </div>

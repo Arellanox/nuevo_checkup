@@ -19,7 +19,7 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
     // },
     columns: [
         {
-            
+
             data: null, render: function (data) {
                 // Mes
                 return "0001";
@@ -31,7 +31,7 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
                 return "12/12/2015";
             }
         },
-                {
+        {
             data: null, render: function (data) {
 
                 return "12/12/2015";
@@ -58,14 +58,14 @@ inputBusquedaTable("TablaHistorialCortesCaja", TablaHistorialCortes, [{
 //Funcion para cambiar el estatus (funcion global)
 selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
     unSelect: true, ClickClass: [
-        { 
+        {
             callback: async function (data) {
 
                 console.log(data)
 
 
-            },selected: true
-        }, 
-    
+            }, selected: true
+        },
+
     ], dblClick: true, reload: ['col-xl-9']
 })

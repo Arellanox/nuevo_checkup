@@ -3,11 +3,26 @@
 </div> -->
 
 <!-- Menu Main -->
-<div class="cointainer">
-    <div class="row">
-        <div class="border col-12 col-xxl-3 col-xl-3 col-sm-6">
-            <!-- Tabla del historial de los cortes de caja -->
-            <div class="col-12" id="historial_corte_caja" style="margin-right: -5px !important;">
+<div class="row">
+    <!-- Select de la lista de cajas y historial de cajas -->
+    <div class="col-12 col-xl-3 col-xxl-3">
+        <div class="row">
+            <div class="col-12">
+                <!-- Select de lista  de cajas -->
+                <div class="rounded p-3 shadow-sm ">
+                    <h5>Lista de cajas</h5>
+                    <form name="CajasForm" id="CajasForm">
+                        <div class="mb-3">
+                            <label for="caja" class="form-label p-0 m-0">Cajas:</label>
+                            <select class="form-select input-form" name="caja" id="caja" required>
+                                <option selected>Seleccione una caja</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12">
+                <!-- Tabla Historial de cajas -->
                 <div class="rounded p-3 shadow-sm my-2">
                     <h5>Historial de cortes de caja</h5>
                     <table class="table display responsive" id="TablaHistorialCortesCaja" style="width: 100%">
@@ -20,13 +35,14 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="border col-12 col-xxl-9 col-xl-9 col-sm-6">
-            <div class="row">
-                <div class="col-12">
-                    <div class="col-12" id="titleCorteCaja">
-                        <h5>Datos para el corte de caja</h5>
-                    </div>
+    <!-- Formulario para hacer un corte de caja -->
+    <div class=" col-12 col-xxl-9 col-xl-9 col-sm-6">
+        <div class="row">
+            <div class="col-12">
+                <div class="rounded p-3 shadow-sm my-2">
+
                 </div>
             </div>
         </div>

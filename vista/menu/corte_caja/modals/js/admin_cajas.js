@@ -24,13 +24,13 @@ $("#formCrearCaja").on("submit", function (e) {
     }, 1)
 })
 
-
+// Tabla de cajas
 var TablaTotaldeCajas = $('#TablaTotaldeCajas').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
     lengthChange: false,
-    info: false,
+    info: true,
     paging: false,
     sorting: false,
     scrollY: '75vh',
@@ -40,7 +40,10 @@ var TablaTotaldeCajas = $('#TablaTotaldeCajas').DataTable({
         data: { api: 2 },
         method: 'POST',
         url: '../../../api/corte_caja_api.php',
-        beforeSend: function () { loader("In") },
+        beforeSend: function () {
+            loader("In")
+            fadeTabla('Out')
+        },
         complete: function () { loader("Out") },
         dataSrc: 'response.data'
     },
@@ -110,14 +113,21 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
     ]
 
 }, (select, data) => {
+    // fadeTabla('Out')
     if (select) {
         $("#nombreCaja").text(data["DESCRIPCION"])
         $("#btnAgregarResponsableCaja").prop('disabled', false)
         $("#select-user").prop('disabled', false)
 
         dataUsuariosResponsables['id_caja'] = data["ID_CAJAS"]
-        // console.log(data)
+
+        fadeTabla('In')
+
         TablaUsuariosResponsables.ajax.reload()
+    } else {
+        // Parametros o funciones que hara cuando un row no este seleccionado
+
+        fadeTabla('Out')
     }
 
 
@@ -143,12 +153,13 @@ adminCajasModal.addEventListener('show.bs.modal', event => {
 
 
 let dataUsuariosResponsables = { api: 6, id_caja: 0 }
+// Tabla de usuarios responsable de una caja
 TablaUsuariosResponsables = $('#TablaUsuariosResponsables').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
     lengthChange: false,
-    info: false,
+    info: true,
     paging: false,
     sorting: false,
     scrollY: '75vh',
@@ -229,7 +240,7 @@ function desactivarTablaResponsables() {
     var usuario_Responsable = $(this).data("id");
 
     alertMensajeConfirm({
-        title: '¿Está seguro que desea desactivar el registro?',
+        title: '¿Está seguro de eliminar este usuario?',
         text: 'No podrá modificarlo despues',
         icon: 'warning',
     }, function () {
@@ -239,5 +250,14 @@ function desactivarTablaResponsables() {
             TablaUsuariosResponsables.ajax.reload();
         })
     }, 1)
+}
+
+// Function Fade
+function fadeTabla(type) {
+    if (type === "Out") {
+        $('#form_tabla_responsable').fadeOut();
+    } else if (type === "In") {
+        $('#form_tabla_responsable').fadeIn();
+    }
 }
 
