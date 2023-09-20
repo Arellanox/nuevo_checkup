@@ -160,21 +160,29 @@ switch ($api) {
         }
         break;
     case 8:
-        # guardar la captura de la tabla
-        $img64 = explode(",", $grafica);
-        $img64 = substr($img64[1], 0, -2);
+        $response2 = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
+        // var_dump($response2);
+        // exit;
+        if (empty($response2[0]['TURNO_ID'])) {
+            $response = 'Primero necesita llenar los datos de interpretación.';
+        } else if ($response2[0]['CONFIRMADO'] === '0') {
+            # guardar la captura de la tabla
+            $img64 = explode(",", $grafica);
+            $img64 = substr($img64[1], 0, -2);
 
-        # creamos el directorio si no existe
-        $dir = "reportes/modulo/audiometria/grafica_tonal";
-        $r = $master->createDir("../" . $dir);
-        if ($r == 1) {
-            $file = $dir . "/" . $id_turno . ".txt";
-            file_put_contents("../" . $file, $img64);
-            $response = $master->insertByProcedure("sp_audiometria_grafica_g", [$id_turno, $host . $file]);
+            # creamos el directorio si no existe
+            $dir = "reportes/modulo/audiometria/grafica_tonal";
+            $r = $master->createDir("../" . $dir);
+            if ($r == 1) {
+                $file = $dir . "/" . $id_turno . ".txt";
+                file_put_contents("../" . $file, $img64);
+                $response = $master->insertByProcedure("sp_audiometria_grafica_g", [$id_turno, $host . $file]);
+            } else {
+                $response = "Imposible crear el directorio para guardar la grafica.";
+            }
         } else {
-            $response = "Imposible crear el directorio para guardar la grafica.";
+            $response = "Ya confirmaste la interpretacion, no puedes actualizar.";
         }
-
         break;
     default:
         $response = "Api no definida";

@@ -142,7 +142,7 @@ $('#btn-ver-reporte').click(function () {
       area_nombre = 'espiro'
       break;
     case 4: case '4':
-      area_nombre = 'audio'
+      area_nombre = 'audiometria'
       break;
 
     default:

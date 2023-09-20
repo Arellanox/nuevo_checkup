@@ -31,12 +31,15 @@ const getFormOidosAudiometria = (paciente) => {
 
     // Recupera y crea HTML de la imagen o mensaje de no disponible
     function recuperarCapturasOidos() {
-
         // Manda mensaje de respuesta, no hay imagenes disponibles
         const derecho_error = () => { $('#contend-oido-der').html(`<p id="mensaje-oido-derecho">No hay imagen disponible para el oído derecho.</p>`) }
         const izquierdo_error = () => { $("#contend-oido-izq").html(`<p id="mensaje-oido-derecho">No hay imagen disponible para el oído izquierdo.</p>`) }
 
         ajaxAwait({ api: 4, turno_id: paciente.ID_TURNO }, 'audiometria_api', { callbackAfter: true, WithoutResponseData: true }, false, function (row) {
+
+            // Reseteamos la imagen para nueva carga
+            $('#contend-oido-der').html('');
+            $("#contend-oido-izq").html('');
 
             if (!ifnull(row, false, [0])) {
                 row = row[0];

@@ -32,9 +32,9 @@ $usuario_id = $_SESSION['id'];
 
 $preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
-$api = "audiometria";
-$area_id = 4;
-$turno_id = 489;
+// $api = "audiometria";
+// $area_id = 4;
+// $turno_id = 489;
 
 switch ($api) {
     case 'imagenologia':
