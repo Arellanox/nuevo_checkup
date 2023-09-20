@@ -69,8 +69,8 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_cajas_g", $cajas_g);
         break;
     case 2:
-        # Buscar cajas
-        $response = $master->getByProcedure("sp_cajas_b", [$id_caja]);
+        # Mostrar las cajas asignadas a usuarios
+        $response = $master->getByProcedure("sp_cajas_b", [$id_caja, $usuario]);
         break;
     case 3:
         # Actualizar
