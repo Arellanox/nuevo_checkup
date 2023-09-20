@@ -1710,22 +1710,11 @@ class Miscelaneus
     }
     public function getBodyAudio($master, $id_turno)
     {
+
         # recuperamos los datos del paciente
-        $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno]);
-
-        $arrayAudio = array(
-            "OTOSCOPIA" => $response[0]['OTOSCOPIA'],
-            "RESULTADO_OD" => $response[0]['RESULTADO_OD'],
-            "RESULTADO_OI" => $response[0]['RESULTADO_OI'],
-            "COMENTARIOS" => $response[0]['COMENTARIOS'],
-            "COMENTARIOS_OD" => $response[0]['COMENTARIOS_OD'],
-            "COMENTARIOS_OI" => $response[0]['COMENTARIOS_OI'],
-            "RECOMENDACIONES" => $response[0]['RECOMENDACIONES'],
-            "ANTECEDENTES" =>  $response[0]['ANTECEDENTES'],
-            "AUDIOMETRIA" => $response[0]['AUDIOMETRIA']
-        );
-
-        return $arrayAudio;
+        $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
+        return $this->decodeJsonRecursively($response[0]);
+    
     }
     public function getBodyEspiro($master, $turno_id)
     {

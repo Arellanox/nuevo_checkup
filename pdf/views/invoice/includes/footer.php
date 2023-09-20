@@ -20,7 +20,7 @@
         </tr>
     </tbody>
 </table>
-<hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
+<hr style="margin-top: -15px; height: 0.5px; background-color: black ;">
 <p style="text-align: center;">
     <small>
         <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
