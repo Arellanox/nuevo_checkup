@@ -151,24 +151,9 @@ switch ($api) {
         # guardar el reporte de audiometria final
         if ($confirmado == 1) {
             $url = $master->reportador($master, $id_turno, 4, "audiometria", "url", 0);
-            $response = $master->insertByProcedure("sp_audiometria_resultados_g", [
-                null,
-                null,
-                $id_turno,
-                null,
-                $confirmado,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            ]);
+            $response = $master->insertByProcedure("sp_audiometria_resultados_g", $audio_array);
+            // var_dump($response);
+            // echo $id_turno;
             $response = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['audio_resultados', 'RUTA_REPORTE', $url, $id_turno, null]);
         } else {
             $response = $master->insertByProcedure("sp_audiometria_resultados_g", $audio_array);
