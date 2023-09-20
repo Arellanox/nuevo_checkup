@@ -481,6 +481,8 @@ class Miscelaneus
                 #AUDIOMETRIA
                 $arregloPaciente = $this->getBodyAudio($master, $turno_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_AUDIO'];
+                $infoPaciente[0]['FECHA_RESULTADO'] =
+                    $infoPaciente[0]['FECHA_RESULTADO_AUDIO'];
                 $carpeta_guardado = "audiometria";
                 $folio = $infoPaciente[0]['FOLIO_AUDIO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_AUDIO'];
@@ -1714,7 +1716,6 @@ class Miscelaneus
         # recuperamos los datos del paciente
         $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
         return $this->decodeJsonRecursively($response[0]);
-    
     }
     public function getBodyEspiro($master, $turno_id)
     {
