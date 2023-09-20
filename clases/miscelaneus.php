@@ -483,6 +483,8 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_AUDIO'];
                 $infoPaciente[0]['FECHA_RESULTADO'] =
                     $infoPaciente[0]['FECHA_RESULTADO_AUDIO'];
+                // print_r($infoPaciente);
+                // exit;
                 $carpeta_guardado = "audiometria";
                 $folio = $infoPaciente[0]['FOLIO_AUDIO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_AUDIO'];
