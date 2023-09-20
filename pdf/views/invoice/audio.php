@@ -395,8 +395,13 @@ $encode_firma = base64_encode($ruta_firma);
 
             <?php
             // var_dump( $resultados );
-            echo "<img src='data:image/png;base64, " . file_get_contents($resultados->GRAFICA) . "' height='300' >";
-            // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+            if (!isset($resultados->GRAFICA)) {
+                echo "<h5>Sin captura de grafica de oidos</h5>";
+                echo '<div class="break"></div>';
+            } else {
+                echo "<img src='data:image/png;base64, " . file_get_contents($resultados->GRAFICA) . "' height='300' >";
+                // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+            }
             ?>
             <br>
         </div>
@@ -421,10 +426,23 @@ $encode_firma = base64_encode($ruta_firma);
                 <th>Oído Izquierdo</th>
             </tr>
             <tr>
-                <td><img src="data:image/jpg;base64,<?php echo $encode; ?>" alt="Oído Derecho" width='190' height='190'>
+                <td>
+                    <?php if (!isset($resultados->CAPTURA_OIDOS[0]->CAPTURA_DER)) {
+                        echo "Sin captura oído derecho";
+                    } else {
+                        echo '<img src="data:image/jpg;base64,' . $encode . '" alt="Oído Derecho" width="190" height="190">';
+                    }
+                    ?>
                 </td>
 
-                <td><img src="data:image/jpg;base64,<?php echo $encode2; ?>" alt="Oído Izquierdo" width=' 190' height='190'></td>
+                <td>
+                    <?php if (!isset($resultados->CAPTURA_OIDOS[0]->CAPTURA_IZQ)) {
+                        echo "Sin captura oído izquierdo";
+                    } else {
+                        echo '<img src="data:image/jpg;base64,' . $encode2 . '" alt="Oído Izquierdo" width="190" height="190">';
+                    }
+                    ?>
+                </td>
 
             </tr>
             <tr>
