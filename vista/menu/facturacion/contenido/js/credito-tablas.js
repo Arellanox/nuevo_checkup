@@ -302,5 +302,5 @@ function setInfoGeneral(data) {
     $('#info-procedencia').html(`${ifnull(data, 'desconocido', ['PROCEDENCIA'])}`)
     $('#info-creado').html(`${formatoFecha2(ifnull(data, '', ['FECHA_CREACION']), [0, 1, 3, 1])}`)
     $('#info-factura').html(`${ifnull(data, 'Sin facturar', ['FACTURA'])}`)
-    $('#info-facturado').html(`${formatoFecha2(ifnull(data, '', ['FECHA_FACTURA']), [0, 1, 3, 1])}`)
+    $('#info-facturado').html(`${formatoFecha2(ifnull(data, null, ['FECHA_FACTURA']), [0, 1, 3, 1])}`)
 }

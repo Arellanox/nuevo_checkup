@@ -458,7 +458,8 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_TICKET'];
                 $carpeta_guardado = "ticket";
                 $folio = $infoPaciente[0]['FOLIO_TICKET'];
-                // print_r($arregloPaciente);
+                // var_dump($arregloPaciente);
+                // exit;
                 break;
             case 17:
                 #FAST CHECKUP
@@ -598,7 +599,8 @@ class Miscelaneus
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
-        // print_r(json_encode($arregloPaciente));
+        // echo (1);
+        // print_r($arregloPaciente);
         // // print_r(json_encode($infoPaciente[0]));
         // exit;
 
@@ -736,22 +738,35 @@ class Miscelaneus
         # recuperamos los datos del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-        $response = $master->getByProcedure("sp_cargos_turnos_b", [$id_turno]);
-        $infoDetalle = $master->getByNext('sp_cargos_turnos_b', [$id_turno]);
+        $response = $master->getByNext("sp_cargos_turnos_b", [$id_turno]);
+        // $infoDetalle = $master->getByNext('sp_cargos_turnos_b', [$id_turno]);
         //print_r($infoDetalle);
 
         $arrayServicios = [];
-        for ($i = 0; $i < count($response); $i++) {
+        // for ($i = 0; $i < count($response); $i++) {
 
-            $cargosT = [
-                "PRODUCTO" => $response[$i]['PAQUETES'] == "" ? $response[$i]['SERVICIOS'] : $response[$i]['PAQUETES'],
-                "PRECIO" => $response[$i]['PRECIO_VENTA'],
-                "CANTIDAD" => $response[$i]['CANTIDAD'],
-                "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) * 100))
-            ];
+        //     $cargosT = [
+        //         "PRODUCTO" => $response[$i]['PAQUETES'] == "" ? $response[$i]['SERVICIOS'] : $response[$i]['PAQUETES'],
+        //         "PRECIO" => $response[$i]['PRECIO_VENTA'],
+        //         "CANTIDAD" => $response[$i]['CANTIDAD'],
+        //         "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) * 100))
+        //     ];
+        //     array_push($arrayServicios, $cargosT);
+        // }
 
-            array_push($arrayServicios, $cargosT);
-        }
+
+
+        // $servicios = $response[0];
+        // foreach ($servicios as $key => $value) {
+        //     $cargosT = [
+        //         "PRODUCTO" => $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'],
+        //         "PRECIO" => $value['PRECIO_VENTA'],
+        //         "CANTIDAD" => $value['CANTIDAD'],
+        //         "TOTAL" => (($value['CANTIDAD'] * $value['PRECIO_VENTA']) - (($response[1][0]['DESCUENTO']) / ($value['CANTIDAD'] * $value['PRECIO_VENTA']) * 100))
+        //     ];
+
+        //     array_push($arrayServicios, json_encode($cargosT));
+        // }
 
         // $arrayTckt = array_merge($locales, $subroga);
         # declaramos el array final 
@@ -759,18 +774,23 @@ class Miscelaneus
         $arregloTicket = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "FOLIO" => $infoPaciente[0]['FOLIO_TICKET'],
-            "FECHA_TICKET" => $infoDetalle[1][0]['FECHA_IMPRESION'],
+            "FECHA_TICKET" => $response[1][0]['FECHA_IMPRESION'],
             "FECHA_NACIMIENTO" => $infoPaciente[0]['NACIMIENTO'],
             'CELULAR' => $infoPaciente[0]['CELULAR'],
             'RFC' => $infoPaciente[0]['RFC'],
-            'ESTUDIOS_DETALLE' => $arrayServicios,
-            "SUBTOTAL" => $infoDetalle[1][0]['SUBTOTAL'],
-            "DESCUENTO" => $infoDetalle[1][0]['DESCUENTO'],
-            "IVA" => $infoDetalle[1][0]['IVA'],
-            "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL'],
-            "USUARIO" => $infoDetalle[1][0]['USUARIO'],
+            'ESTUDIOS_DETALLE' => $response[0],
+            "SUBTOTAL" => $response[1][0]['SUBTOTAL'],
+            "DESCUENTO" => $response[1][0]['DESCUENTO'],
+            "IVA" => $response[1][0]['IVA'],
+            "TOTAL_DETALLE" => $response[1][0]['TOTAL'],
+            "USUARIO" => $response[1][0]['USUARIO'],
             'FOLIO_TICKET' => $infoPaciente[0][0]['FOLIO_TICKET']
         );
+
+        // var_dump($arregloTicket);
+        // echo "<br>";
+        // exit;
+
 
         return $arregloTicket;
     }

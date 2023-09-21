@@ -113,7 +113,7 @@ tablaContados = $('#TablaContados').DataTable({
 
 
 selectTable('#TablaContados', tablaContados, {
-    OnlyData: true, divPadre: '#false',
+    OnlyData: false, divPadre: '#false',
     ClickClass: [
         {
             class: 'detalleCuenta',
