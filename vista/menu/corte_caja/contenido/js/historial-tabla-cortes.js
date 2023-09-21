@@ -245,6 +245,38 @@ function BuildHeaderCorte(data) {
     }
 }
 
+function getResumen(tableDetalle) {
+
+    if (forma_pago.length) {
+        alertMensaje('warning', 'No hay tipo de pagos definidos', 'Si ves este error, algo ha pasado.', 'Si');
+    }
+
+    let object = tableDetalle.rows().data();
+    $('#formas-pago').html('');
+
+    for (const key in object) {
+        if (Object.hasOwnProperty.call(object, key)) {
+            const element = object[key];
+            calculos[ifnull(element, 'otros', ['ID_PAGO'])] += ifnull(element, 0, ['TOTAL'])
+        }
+    }
+
+    for (const key in calculos) {
+        if (Object.hasOwnProperty.call(calculos, key)) {
+            const element = calculos[key];
+            let tipo_pago = forma_pago.filter((pago) => pago.ID_PAGO = key);
+            $('#formas-pago').append(`
+                <div class="col-12 col-md-4">
+                    <span class="fw-bold">${ifnull(tipo_pago, 'Otros', ['DESCRIPCION'])}:</span>
+                    <span>${element}</span>
+                </div>
+            `)
+
+        }
+    }
+
+}
+
 // Function fadeTabla para ocultar o aparecer la primera tabla del menu es decir la de historial de cajas
 function fadeTable(type) {
     if (type === "Out") {
