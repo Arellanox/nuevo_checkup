@@ -44,6 +44,8 @@
                 <!-- Subtotal -->
                 <!-- Iva -->
                 <!-- Total -->
+
+                <!-- Header -->
                 <div class="rounded p-3 shadow-sm my-2">
                     <div class="d-flex justify-content-between">
                         <h5>
@@ -54,9 +56,14 @@
                         <button class="btn btn-borrar" id="btnCerrarCaja">
                             <i class="bi bi-x-circle-fill me-2"></i>Cerrar Caja
                         </button>
+                        <button class="btn btn-borrar" id="btnVisualizarReporte">
+                            <i class="bi bi-file-earmark-pdf-fill me-2"></i>Visualizar Reporte
+                        </button>
                     </div>
+                </div>
 
-
+                <!-- Fechas y usuarios quien hizo o hara el corte de caja -->
+                <div class="rounded p-3 shadow-sm my-2">
                     <div id="headerDetalleCorteCaja">
                         <div class="row">
                             <div class="col-12 col-xl-6 col-xxl-6">
@@ -65,27 +72,61 @@
                                         <span class="fw-bold">Fecha corte:</span>
                                         <span id="detalle_fecha_corte">12/09/2003 11:20 </span>
                                     </div>
+                                    <div class="col-12" id="fecha_termino">
+                                        <span class="fw-bold">Fecha termino:</span>
+                                        <span id="detalle_fecha_termino">12/09/2003 11:20 </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-6 col-xxl-6">
+                                <div class="row">
                                     <div class="col-12">
                                         <span class="fw-bold">Usuario:</span>
                                         <span id="detalle_usuario">Juan Daniel Hernandez Garcia</span>
                                     </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="col-12 col-xl-6 col-xxl-6">
-                                <div class="row">
                                     <div class="col-12">
                                         <span class="fw-bold">Caja:</span>
                                         <span id="detalle_caja_id">1</span>
                                     </div>
-                                    <div class="col-12">
-                                        <span class="fw-bold">Total:</span>
-                                        <span id="detalle_total">MXN 130.00</span>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información y desglose del monto -->
+                <div class="rounded p-3 shadow-sm my-2">
+                    <div class="row" id="Tipos_Pago">
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Efectivo:</span>
+                            <span id="Efectivo"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Transferencia:</span>
+                            <span id="Transferencia"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Tarjeta de Credito:</span>
+                            <span id="TarjetaCredito"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Tarjeta de Debito:</span>
+                            <span id="TarjetaDebito"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Cheques:</span>
+                            <span id="Cheques"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Credito:</span>
+                            <span id="Credito"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-xxl-6 col-xl-6"></div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Total:</span>
+                            <span id="detalle_total">MXN 130.00</span>
                         </div>
                     </div>
                 </div>

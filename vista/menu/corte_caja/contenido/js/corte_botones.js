@@ -1,3 +1,12 @@
+// ==============================================================================
+
+// ###################### BUILDPAGE #############################################
+
+// ==============================================================================
+
+// Funcion para llamar a la funcion de contruir la pagina se reciben 2 parametros
+// Si quiere actualizar toda la pagina incluido el select se manda 2 veces true
+// Si solo quiere actualizar las tablas solo se manda true una vez
 async function switchCajasSelect(time, select = false) {
     alertToast('Espere un momento...', 'info', 3000);
 
@@ -30,6 +39,12 @@ async function buildPageCajas(time, select) {
 
 }
 
+// ==============================================================================
+
+// ###################### Eventos y Botones #####################################
+
+// ==============================================================================
+
 // Escucha los cambios del select #cajas
 $(document).on("change", "#cajas", function () {
     setTimeout(() => {
@@ -37,8 +52,9 @@ $(document).on("change", "#cajas", function () {
     }, 200);
 })
 
-
+// Escuchar el evento click del boton para cerrar la caja
 $(document).on('click', '#btnCerrarCaja', function () {
+    // Alerta de confirmación si esta seguro de cerrar la caja
     alertMensajeConfirm({
         title: '¿Estas seguro de cerrar la caja?',
         text: 'No podra revertir los cambios',
@@ -46,10 +62,17 @@ $(document).on('click', '#btnCerrarCaja', function () {
         confirmButtonText: 'Si, estoy seguro',
         cancelButtonText: 'No'
     }, () => {
-        // console.log("si cerro la caja")
+        // Se manda a llamar a la función para cerrar la caja y se le mandan los argumentos necesarios
+        // En este caso es el ID_CORTE de la tabla Historial de corte
         HacerCorteCaja(SelectedHistorialCaja['ID_CORTE'])
     }, 1)
 })
+
+// ==============================================================================
+
+// ###################### FUNCIONES #############################################
+
+// ==============================================================================
 
 // Function para cerrar una caja
 function HacerCorteCaja(id_corte) {
@@ -61,3 +84,4 @@ function HacerCorteCaja(id_corte) {
         alertToast('Corte de caja realizado con exito', 'success', 4000)
     })
 }
+

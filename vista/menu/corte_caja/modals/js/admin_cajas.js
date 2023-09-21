@@ -18,7 +18,7 @@ $("#formCrearCaja").on("submit", function (e) {
             TablaTotaldeCajas.ajax.reload();
 
             await switchCajasSelect(true, true)
-            alertToast("La caja fue agregada con exito", "success", 5000)
+            alertToast("La caja fue agregada con exito", "success", 4000)
 
 
         })

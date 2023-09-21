@@ -1,3 +1,8 @@
+// ==============================================================================
+
+// ###################### TABLA HISTORIAL DE CORTES DE CAJA #####################
+
+// ==============================================================================
 
 // Tabla historial de cortes de caja
 var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
@@ -129,9 +134,14 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
         fadeDetalleTable("Out")
     }
 })
+
+// ==============================================================================
+
+// ###################### TABLA DETALLES PACIENTES ##############################
+
+// ==============================================================================
 dataTablePacientesCaja = {
-    api: 9,
-    id_caja: null,
+    api: 9
 }
 
 // Tabla de los pacientes que estan en la caja seleccionada
@@ -187,25 +197,45 @@ inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [{
     place: 'top'
 }, "col-12")
 
+// ==============================================================================
+
+// ###################### FUNCIONES #############################################
+
+// ==============================================================================
 
 // Funcion para crear la cabecera con la informacion del corte de caja
 function BuildHeaderCorte(data) {
 
-    $('#detalle_fecha_corte').html(formatoFecha2(data['FECHA_FINAL'], [0, 0, 0, 0, 1, 1,]))
+    $('#detalle_fecha_corte').html(formatoFecha2(data['FECHA_INICIO'], [0, 0, 0, 0, 1, 1,]))
     $('#detalle_caja_id').html(data['CAJAS_ID'])
-    $('#detalle_total').html(`MXN ${data['TOTAL']}`)
+    $('#detalle_total').html(` $${ifnull(data['TOTAL'], "00.00")}`)
 
+    // Desglose de todo el monto por tipo de pagos
+    // Se desglosa todo el monto recaudado por el tipo de pago
+    $('Efectivo').html(ifnull('Data', '$00.00'))
+    $('Transferencia').html(ifnull('Data', '$00.00'))
+    $('TarjetaCredito').html(ifnull('Data', '$00.00'))
+    $('TarjetaDebito').html(ifnull('Data', '$00.00'))
+    $('Cheques').html(ifnull('Data', '$00.00'))
+    $('Credito').html(ifnull('Data', '$00.00'))
+
+    // Se evalua si el corte ya esta finalizado o apenas se inicio
     if (data['FINALIZADO'] === "0") {
-        $('#btnCerrarCaja').fadeIn(0)
+        // Como no han cerrado la caja aparecera el usuario en sesion para cerrar la caja *if tiene permiso
         $('#detalle_usuario').html(session['nombre'] + ' ' + session['apellidos'])
+
+        // No ha finalizado aparecera el boton para poder cerrar la caja
+        fadeDetalleHeader("Out")
     } else if (data['FINALIZADO'] === "1") {
-        $('#btnCerrarCaja').fadeOut(0)
+        // Si la caja ya esta finalizada no se mostrara el boton para cerrar por que por logica ya esta cerrada xd y se mostrara el boton para visualizar el reporte generado al cerrar la caja
         $('#detalle_usuario').html(data['px'])
+        $('#detalle_fecha_termino').html(formatoFecha2(data['FECHA_FINAL'], [0, 0, 0, 0, 1, 1,]))
+
+        fadeDetalleHeader("In")
     }
 }
 
-
-// Function fadeTabla
+// Function fadeTabla para ocultar o aparecer la primera tabla del menu es decir la de historial de cajas
 function fadeTable(type) {
     if (type === "Out") {
         $('#table_historial_corte_caja').fadeOut()
@@ -214,7 +244,7 @@ function fadeTable(type) {
     }
 }
 
-// Function para la columna de detalle 
+// Function para la columna de detalle donde estan los datos del corte y el detalle del paciente
 function fadeDetalleTable(type) {
     if (type === "Out") {
         $('#corte_caja_detalle').fadeOut()
@@ -222,3 +252,18 @@ function fadeDetalleTable(type) {
         $('#corte_caja_detalle').fadeIn()
     }
 }
+
+// Function para el encabezado donde esta el detalle del corte de caja
+function fadeDetalleHeader(type) {
+    if (type === "Out") {
+        $('#btnCerrarCaja').fadeIn(0)
+        $('#fecha_termino').fadeOut(0)
+        $('#btnVisualizarReporte').fadeOut(0)
+    } else if (type === "In") {
+        $('#btnCerrarCaja').fadeOut(0)
+        $('#fecha_termino').fadeIn(0)
+        $('#btnVisualizarReporte').fadeIn(0)
+    }
+}
+
+// ==============================================================================
