@@ -23,6 +23,24 @@ function obtenerPacientesContado() {
 //Globales
 SelectedPacienteCredito = {}, SelectedGruposCredito = {}, factura = null, grupoPacientesModificar = false;
 var TablaGrupos = false, tablaDetallePrecio = false, dataDetallePrecio = { api: 0 };
+const detalles_grupo = {
+    "subtotal": {
+        id: 'info-subtotal',
+        target: 'SUBTOTAL',
+    },
+    "descuento": {
+        id: 'info-descuento',
+        target: 'DESCUENTO',
+    },
+    "iva": {
+        id: 'info-iva',
+        target: 'MONTO_IVA',
+    },
+    "total": {
+        id: 'info-total',
+        target: 'TOTAL',
+    }
+};
 function obtenerPacientesCredito() {
     obtenerTitulo('Pacientes (Crédito)'); //Aqui mandar el nombre de la area
     $.post("contenido/credito.html", function (html) {

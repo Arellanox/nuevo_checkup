@@ -226,7 +226,7 @@ $('#formFiltroListaCredito').submit(function (event) {
             dataFill['cliente_id'] = cliente.val()
             tFillPaciCredito.ajax.reload();
 
-            // tListPaciGrupo.clear().draw();
+            tListPaciGrupo.clear().draw();
         }, 1,
             // , () => {
 

@@ -745,9 +745,9 @@ class Miscelaneus
 
             $cargosT = [
                 "PRODUCTO" => $response[$i]['PAQUETES'] == "" ? $response[$i]['SERVICIOS'] : $response[$i]['PAQUETES'],
-                "PRECIO" => $response[$i]['PRECIO'],
+                "PRECIO" => $response[$i]['PRECIO_VENTA'],
                 "CANTIDAD" => $response[$i]['CANTIDAD'],
-                "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']) * 100))
+                "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) * 100))
             ];
 
             array_push($arrayServicios, $cargosT);

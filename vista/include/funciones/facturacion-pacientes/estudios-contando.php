@@ -9,76 +9,60 @@
 
                 <div class="row">
                     <div class="col-12 col-md-8">
-                        <div style="display:none" class="tabla-estudios" id="container-estudios-11">
-                            <div class="card m-1 p-3">
-                                <h5>Ultrasonido</h5>
-                                <!-- 11 -->
-                                <table class="table table-hover" id="">
-                                    <thead class="">
-                                        <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Servicio</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="contenido-estudios" id="cargos-estudios-11">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div style="display:none" class="tabla-estudios" id="container-estudios-6">
-                            <div class="card m-1 p-3">
-                                <h5>Laboratorio</h5>
-                                <!-- 6 -->
-                                <table class="table table-hover" id="">
-                                    <thead class="">
-                                        <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Servicio</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="contenido-estudios" id="cargos-estudios-6">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div style="display:none" class="tabla-estudios" id="container-estudios-8">
-                            <div class="card m-1 p-3">
-                                <h5>Rayos X</h5>
-                                <!-- 8 -->
-                                <table class="table table-hover" id="">
-                                    <thead class="">
-                                        <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Servicio</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="contenido-estudios" id="cargos-estudios-8">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div style="display:none" class="tabla-estudios" id="container-estudios-0">
-                            <div class="card m-1 p-3">
-                                <h5>Otros estudios</h5>
-                                <!-- 0 -->
-                                <table class="table table-hover" id="">
-                                    <thead class="">
-                                        <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Servicio</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="contenido-estudios" id="cargos-estudios-0">
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="shadow p-3">
+                            <h5>Cargos del paciente</h5>
+                            <!-- 11 -->
+                            <table class="table table-hover shadow-sm" style="display:none" id="container-estudios-11">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="d-flex justify-content-center" class="col-6">Ultrasonido (Estudios)</th>
+                                        <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                        <!-- subtotal sin descuento -->
+                                        <th scope="d-flex justify-content-center" class="col-4">Subtotal</th>
+                                        <th scope="d-flex justify-content-center" class="col-2">Descuento</th>
+                                        <!-- Subtotal con descuento -->
+                                        <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="contenido-estudios" id="cargos-estudios-11">
+                                </tbody>
+                            </table>
+                            <!-- 8 -->
+                            <table class="table table-hover shadow-sm" style="display:none" id="container-estudios-8">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="d-flex justify-content-center" class="col-6">Rayos X (Estudios)</th>
+                                        <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                        <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="contenido-estudios" id="cargos-estudios-8">
+                                </tbody>
+                            </table>
+                            <!-- 6 -->
+                            <table class="table table-hover shadow-sm" style="display:none" id="container-estudios-6">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="d-flex justify-content-center" class="col-6">Laboratorio Clinico (Estudios)</th>
+                                        <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                        <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="contenido-estudios" id="cargos-estudios-6">
+                                </tbody>
+                            </table>
+                            <!-- 0 -->
+                            <table class="table table-hover shadow-sm" style="display:none" id="container-estudios-0">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="d-flex justify-content-center" class="col-6">Otros Estudios</th>
+                                        <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                        <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="contenido-estudios" id="cargos-estudios-0">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="col-12 col-md-4">
