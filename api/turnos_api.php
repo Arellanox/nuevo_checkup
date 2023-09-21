@@ -279,7 +279,7 @@ switch ($api) {
         break;
     case 18:
         // agregar un estudio a un turno
-        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id]);
+        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id, $_SESSION['id']]);
         break;
     case 19:
         # marcar un turno como completado o marcarlo como incompleto

@@ -108,7 +108,7 @@ switch ($api) {
         if ($estado_paciente == 1) {
             # si el paciente es aceptado, cargar los estudios correspondientes
             rename($identificacion, "../../archivos/identificaciones/" . $idTurno . ".png");
-            $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null));
+            $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null, $_SESSION['id']));
             #aqui subir las ordenes medicas si las hay
             #crear la carpeta de tunos dentro de 
 
@@ -148,7 +148,7 @@ switch ($api) {
                 # si hay algo en el arreglo lo insertamos
                 foreach ($servicios as $key => $value) {
                     // print_r($servicios);
-                    $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value));
+                    $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, $_SESSION['id']));
                 }
             }
         }
