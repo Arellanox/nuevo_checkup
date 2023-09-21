@@ -111,9 +111,10 @@ switch ($api) {
         break;
     case 9:
         #Mostrar la informacion de los historiales de los cortes de cajas
-        $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$id_corte]);
+        $response = $master->getByNext("sp_recuperar_info_hostorial_caja", [$id_corte]);
         break;
     case 10:
+        #Aqui finalizamos el corte de caja
         $response = $master->getByProcedure('sp_corte_cajas_finalizar_g', [$id_corte, $usuario]);
         break;
     default:
