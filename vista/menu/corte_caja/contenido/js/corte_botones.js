@@ -74,9 +74,9 @@ $(document).on('click', '#btnVisualizarReporte', function (e) {
 
     api = encodeURIComponent(window.btoa('temperatura'));
     area = encodeURIComponent(window.btoa(-1));
-    turno = encodeURIComponent(window.btoa(FolioMesEquipo));
+    id_corte = encodeURIComponent(window.btoa(FolioMesEquipo));
 
-    var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank')
+    var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${id_corte}&area=${area}`, '_blank')
 
     win.focus();
 })
