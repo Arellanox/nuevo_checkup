@@ -254,7 +254,7 @@ function getResumen(tableDetalle) {
     for (const key in object) {
         if (Object.hasOwnProperty.call(object, key)) {
             const element = object[key];
-            calculos[element.ID_PAGO] += element.TOTAL
+            calculos[ifnull(element, 'otros', ['ID_PAGO'])] += ifnull(element, 0, ['TOTAL'])
         }
     }
 
@@ -264,7 +264,7 @@ function getResumen(tableDetalle) {
             let tipo_pago = forma_pago.filter((pago) => pago.ID_PAGO = key);
             $('#formas-pago').append(`
                 <div class="col-12 col-md-4">
-                    <span class="fw-bold">${tipo_pago['DESCRIPCION']}:</span>
+                    <span class="fw-bold">${ifnull(tipo_pago, 'Otros', ['DESCRIPCION'])}:</span>
                     <span>${element}</span>
                 </div>
             `)
