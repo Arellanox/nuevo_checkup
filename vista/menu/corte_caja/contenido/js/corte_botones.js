@@ -72,9 +72,9 @@ $(document).on('click', '#btnCerrarCaja', function (e) {
 $(document).on('click', '#btnVisualizarReporte', function (e) {
     e.preventDefault();
 
-    api = encodeURIComponent(window.btoa('temperatura'));
-    area = encodeURIComponent(window.btoa(-1));
-    id_corte = encodeURIComponent(window.btoa(FolioMesEquipo));
+    api = encodeURIComponent(window.btoa('corte'));
+    area = encodeURIComponent(window.btoa(-4));
+    id_corte = encodeURIComponent(window.btoa(SelectedHistorialCaja['ID_CORTE']));
 
     var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${id_corte}&area=${area}`, '_blank')
 
