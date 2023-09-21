@@ -534,6 +534,10 @@ class Miscelaneus
                 $carpeta_guardado = "solicitud_estudios";
 
                 break;
+            case -4:
+                #Corte de caja
+                $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
+                break;
         }
 
 
@@ -1878,6 +1882,48 @@ class Miscelaneus
         #Jaime
 
         $response['DIAS'] = $result;
+
+        return $response;
+    }
+
+    public function getBodyCorteCaja($master, $turno_id)
+    {
+        $folio = $turno_id;
+        #Llenar tabla del formato PDF, pasar ID del FOLIO
+        $response = $master->getByNext('sp_recuperar_info_hostorial_caja', [$folio]);
+
+
+        $result = array();
+        $i = 0;
+
+
+        foreach ($response as $key => $e) {
+
+            $prefolio = $e['PREFOLIO'];
+            $nombre_paciente = $e['PACIENTE'];
+            $subtotal = $e['SUBTOTAL'];
+            $iva = $e['MONTO_IVA'];
+            $total = $e['TOTAL'];
+            $forma_pago = $e['FORMA_PAGO'];
+            $factura = $e['FACTURA'];
+
+            $result[$i] =  array(
+                "PREFOLIO" => $prefolio,
+                "NOMBRE_PACIENTE" => $nombre_paciente,
+                "SUBTOTAL" => $subtotal,
+                "IVA" => $iva,
+                "TOTAL" => $total,
+                "FORMA_PAGO" => $forma_pago,
+                "FACTURA" => $factura
+            );
+
+            $i++;
+        }
+
+
+
+        $response = [];
+        $response = $result;
 
         return $response;
     }
