@@ -9,20 +9,22 @@ $(document).on('click', '#terminar-proceso-cargo', function (event) {
     //Pregunta al usuario el tipo de factura
     alertMensajeConfirm({
         title: '¿El paciente requiere factura?', text: 'Verifique que el tipo de dato sea correcto', icon: '',
-        confirmButtonText: 'Si',
-        denyButtonText: `No`,
+        confirmButtonText: 'Facturar',
+        denyButtonText: `No Facturar`,
         denyButtonColor: 'gray',
         showDenyButton: true,
-        cancelButtonText: 'Cancelar'
+        cancelButtonText: 'Facturar después',
+        cancelButtonColor: 'rgb(247, 190, 000)'
     }, function () {
         //Si fue si, abrir el modal de factura
         $('#modalEstudiosContado').modal('hide')
         configurarFactura(dataPaciente)
 
     }, 1, function () {
-        //Si fue no, terminar el proceso con el tipo de pago contado...
-        $('#modalEstudiosContado').modal('hide')
+        $('#modalEstudiosContado').modal('hide')//Si fue no, terminar el proceso con el tipo de pago contado...
         metodo()
+    }, function () {
+        metodo(2);
     })
 
 })
@@ -37,12 +39,23 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
         confirmButtonText: 'Si, estoy seguro'
     }, function () {
         //envio de datos (factura y tipo de pago_datos)
-        ajaxAwaitFormData({
+        let dataJson = {
             api: 1, turno_id: dataPaciente['ID_TURNO'],
-            descuento_porcentaje: dataPrecios['descuento_porcentaje'], descuento: dataPrecios['descuento'], total_cargos: dataPrecios['total_cargos'],
-            subtotal: dataPrecios['subtotal'], iva: dataPrecios['iva'], total: dataPrecios['total'], pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), requiere_factura: 1
-        }, 'tickets_api', 'formularioPacienteFactura', { callbackAfter: true }, false, function (data) {
+            requiere_factura: 1, metodo_pago: 1
+        }
 
+        if (!onlyFactura) {
+            dataJson.descuento_porcentaje = dataPrecios['descuento_porcentaje']
+            dataJson.descuento = dataPrecios['descuento']
+            dataJson.total_cargos = dataPrecios['total_cargos']
+            dataJson.subtotal = dataPrecios['subtotal']
+            dataJson.iva = dataPrecios['iva']
+            dataJson.total = dataPrecios['total']
+            dataJson.pago = $('#contado-tipo-pago').val()
+            dataJson.referencia = $('#referencia-contado').val()
+        }
+
+        ajaxAwaitFormData(dataJson, 'tickets_api', 'formularioPacienteFactura', { callbackAfter: true }, false, function (data) {
             finalizarProcesoRecepcion(dataPaciente)
             alertTicket(data, 'Factura y ticket guardado')
         })
@@ -57,6 +70,9 @@ function configurarModal(data) {
     //Estatus en proceso
     tipo_pago = $('#contado-tipo-pago').val()
     tipo_factura = false
+
+    onlyFactura = false
+
     dataPaciente = data
     $('#nombre-paciente-contado').html(`${data['NOMBRE_COMPLETO']}`)
     //Mensaje de espera al usuario
@@ -72,7 +88,6 @@ function configurarModal(data) {
         //let row = data.response.data // todos los datos
 
         data = data.response.data //Todos los datos para el detalle
-
 
         //Quitar duplicidad
         if (data['FACTURADO'] == 1) {
@@ -181,13 +196,15 @@ function configurarModal(data) {
 function configurarFactura(data) {
     tipo_factura = true
 
+    dataPaciente = data;
+
     $('#nombre-paciente-factura').html(`${data['NOMBRE_COMPLETO']}`)
 
     //Mensaje de espera al usuario
     alertToast('Espere un momento', 'info', 4000)
 
     rellenarSelect('#regimen_fiscal-factura', 'sat_regimen_api', 1, 'ID_REGIMEN', 'REGIMEN_FISCAL')
-    rellenarSelect('#uso-factura', 'sat_catalogo_api', 2, 'SAT_ID_CODIGO', 'COMPLETO')
+    rellenarSelect('#uso-factura', 'cfdi_api', 1, 'ID_CFDI', 'CLAVE.DESCRIPCION')
 
     $('#rfc-factura').val(data['RFC'])
 
@@ -196,17 +213,15 @@ function configurarFactura(data) {
 }
 
 //No requiere factura o el mensaje de factura le dio que no
-function metodo() {
+function metodo(factura = 0) {
     //Termina el proceso del paciente con las llamadas que hizo el usuario
-
-
     finalizarProcesoRecepcion(dataPaciente)
     ajaxAwait({
         api: 1, turno_id: dataPaciente['ID_TURNO'],
         descuento_porcentaje: dataPrecios['descuento_porcentaje'],
         descuento: dataPrecios['descuento'], total_cargos: dataPrecios['total_cargos'],
         subtotal: dataPrecios['subtotal'], iva: dataPrecios['iva'], total: dataPrecios['total'],
-        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), requiere_factura: 0
+        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), requiere_factura: factura
     }, 'tickets_api', { callbackAfter: false }, function (data) {
         alertTicket(data, 'Ticket guardado')
     })

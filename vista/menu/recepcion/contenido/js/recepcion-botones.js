@@ -97,6 +97,17 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
 
 });
 
+$(document).on('click', '#btn-facturar', function (e) {
+  if (array_selected) {
+    alertToast('Complete los siguientes datos a facturar', 'info', 4000);
+    // $('#modalEstudiosContado').modal('hide')
+    onlyFactura = true;
+    configurarFactura(array_selected)
+  } else {
+    alertSelectTable();
+  }
+})
+
 //Finaliza el proceso del paciente
 function finalizarProcesoRecepcion(paciente, factura = false, pago = false) {
   let data = ajaxAwait({

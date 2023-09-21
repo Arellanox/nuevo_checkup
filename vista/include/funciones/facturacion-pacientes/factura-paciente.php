@@ -33,11 +33,12 @@
                     <div class="col-12 col-lg-6">
                         <label for="metodo_pago" class="form-label">Método de pago</label>
                         <!-- <input type="text" name="domicilio" value="" class="form-control input-form"> -->
-                        <select name="metodo_pago" class="input-form form-select">
+                        <!-- <select name="metodo_pago" class="input-form form-select">
                             <option>Seleccione un metodo de pago...</option>
                             <option value="1">PUE</option>
                             <option value="2">PDD</option>
-                        </select>
+                        </select> -->
+                        <p>PUE</p>
                     </div>
                 </form>
             </div>

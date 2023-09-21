@@ -11,7 +11,7 @@ if (! $tokenValido){
 
 $master = new Master();
 $api = $_POST['api'];
-
+$id = $_POST['id'];
 
 switch ($api) {
     case 1:
@@ -24,4 +24,3 @@ switch ($api) {
         break;
 }
 echo $master->returnApi($response);
-?>

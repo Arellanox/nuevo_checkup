@@ -37,6 +37,16 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     if (data.REAGENDADO == 1) {
       $(row).addClass('bg-info');
     }
+
+    // Factura
+    switch (data.COMPLETADO) {
+      case 2: case "2":
+        $(row).addClass('bg-warning');
+        break;
+
+      default:
+        break;
+    }
   },
   columns: [
     { data: 'COUNT' },
@@ -124,7 +134,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         if (servidor == 'drjb.com.mx' && data == 1)
           return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
-        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
+        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
       }
     },
     { data: null },
@@ -354,7 +364,7 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
     if (select) {
       // return false;
 
-      if (array_selected['CLIENTE_ID'] == 18) {
+      if (select['CLIENTE_ID'] == 18) {
         $('#buttonBeneficiario').attr('disabled', false)
       } else {
         $('#buttonBeneficiario').attr('disabled', true);
@@ -371,6 +381,13 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
             <i class="bi bi-person-check"></i> Paciente Cerrado
         </button>
         `)
+      } else if (data['COMPLETADO'] == 2) {
+        $('#contenedor-btn-cerrar-paciente').html(`
+        <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-facturar"
+            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Necesita actualizar datos de factura">
+            <i class="bi bi-person-check"></i> Actualizar Factura
+        </button>
+    `)
       } else {
         $('#contenedor-btn-cerrar-paciente').html(`
         <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
