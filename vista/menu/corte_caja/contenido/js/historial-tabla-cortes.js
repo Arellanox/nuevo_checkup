@@ -248,6 +248,10 @@ function BuildHeaderCorte(data) {
 
 function getResumen(tableDetalle) {
 
+    if (forma_pago.length) {
+        alertMensaje('warning', 'No hay tipo de pagos definidos', 'Si ves este error, algo ha pasado.', 'Si');
+    }
+
     let object = tableDetalle.rows().data();
     $('#formas-pago').html('');
 
