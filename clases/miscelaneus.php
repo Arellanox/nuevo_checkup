@@ -1888,9 +1888,9 @@ class Miscelaneus
 
     public function getBodyCorteCaja($master, $turno_id)
     {
-        $folio = $turno_id;
+        $folio = 5;
         #Llenar tabla del formato PDF, pasar ID del FOLIO
-        $response = $master->getByNext('sp_recuperar_info_hostorial_caja', [$folio]);
+        $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$folio]);
 
 
         $result = array();
@@ -1932,10 +1932,8 @@ class Miscelaneus
             $resumen_credito += $e['CLIENTE'] != 1 ? $total :  0;
         }
 
-
-
         $response = [];
-        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_contado, $resumen_credito];
+        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_contado, $resumen_credito, $folio];
 
         return $response;
     }

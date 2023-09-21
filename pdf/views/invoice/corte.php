@@ -308,6 +308,23 @@
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
+
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        $objeto = (array)$objeto;
+    }
+    if (is_array($objeto)) {
+        return array_map('convertirObjetoAArray', $objeto);
+    }
+    return $objeto;
+}
+
+$array = convertirObjetoAArray($resultados);
+
+// echo "<pre>";
+// var_dump($array);
+// echo "</pre>";
 ?>
 
 <body>
@@ -339,7 +356,7 @@ $encode = base64_encode($ruta);
         <br>
         <div>
             <p>Fecha:<strong> Lunes 05 de Junio del 2023</strong></p>
-            <p>Folio:<b> 0004 </b></p>
+            <p>Folio:<b> <?php echo $array[6] ?> </b></p>
         </div>
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>
@@ -357,7 +374,25 @@ $encode = base64_encode($ruta);
                 </tr>
             </thead>
             <tbody style="height: 420px">
-                <tr>
+
+                <?php
+                foreach ($array[0] as $key => $e) { ?>
+
+                    <tr>
+                        <td style="width: 11%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
+                        <td style="width: 30%; text-align: left;"> <?php echo $e['NOMBRE_PACIENTE'] ?></td>
+                        <td style="width: 11%; text-align: right;"> <?php echo $e['SUBTOTAL'] ?></td>
+                        <td style="width: 11%; text-align: center;"> <?php echo $e['IVA'] ?> (16%) </td>
+                        <td style="width: 11%; text-align: right;"> <?php echo $e['TOTAL'] ?></td>
+                        <td style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td>
+                        <td style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
+                    </tr>
+
+                <?php
+                }
+
+                ?>
+                <!-- <tr>
                     <td style="width: 11%; text-align: center;"> 001</td>
                     <td style="width: 30%; text-align: left;">E48 -Unidad de servicio</td>
                     <td style="width: 11%; text-align: right;">$ 100</td>
@@ -365,7 +400,7 @@ $encode = base64_encode($ruta);
                     <td style="width: 11%; text-align: right;">$ 116</td>
                     <td style="width: 15%; text-align: center;">Crédito </td>
                     <td style="width: 11%; text-align: right;">002</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <!--Inicio tabla totales -->
