@@ -114,7 +114,7 @@ switch ($api) {
         $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$id_corte]);
         break;
     case 10:
-        $response = $master->getByProcedure('sp_corte_cajas_finalizar_g', [$id_caja, $usuario]);
+        $response = $master->getByProcedure('sp_corte_cajas_finalizar_g', [$id_corte, $usuario]);
         break;
     default:
         # code...
