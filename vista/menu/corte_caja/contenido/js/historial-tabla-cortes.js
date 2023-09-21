@@ -164,6 +164,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         url: `../../../api/corte_caja_api.php`,
         beforeSend: function () { },
         complete: function () {
+            getResumen(TablaPacientesCaja);
         },
         dataSrc: 'response.data'
     },
@@ -243,6 +244,34 @@ function BuildHeaderCorte(data) {
 
         fadeDetalleHeader("In")
     }
+}
+
+function getResumen(tableDetalle) {
+
+    let object = tableDetalle.rows().data();
+    $('#formas-pago').html('');
+
+    for (const key in object) {
+        if (Object.hasOwnProperty.call(object, key)) {
+            const element = object[key];
+            calculos[element.ID_PAGO] += element.TOTAL
+        }
+    }
+
+    for (const key in calculos) {
+        if (Object.hasOwnProperty.call(calculos, key)) {
+            const element = calculos[key];
+            let tipo_pago = forma_pago.filter((pago) => pago.ID_PAGO = key);
+            $('#formas-pago').append(`
+                <div class="col-12 col-md-4">
+                    <span class="fw-bold">${tipo_pago['DESCRIPCION']}:</span>
+                    <span>${element}</span>
+                </div>
+            `)
+
+        }
+    }
+
 }
 
 // Function fadeTabla para ocultar o aparecer la primera tabla del menu es decir la de historial de cajas
