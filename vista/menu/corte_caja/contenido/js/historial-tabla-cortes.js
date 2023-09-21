@@ -152,27 +152,26 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         },
         method: 'POST',
         url: `../../../api/corte_caja_api.php`,
-        beforeSend: function () { loader("In") },
+        beforeSend: function () { },
         complete: function () {
-            loader("Out", 'bottom')
         },
         dataSrc: 'response.data'
     },
-    // columns: [
+    columns: [
 
-    // ],
-    // columnDefs: [
-    //     { target: 0, className: 'all', title: 'Paciente' },
-    //     { target: 1, className: 'min-tablet', title: 'Servicios' },
-    //     { target: 2, className: 'desktop', title: 'Costo' },
-    //     { target: 3, className: 'desktop', title: 'Prefolio' },
-    //     { target: 4, className: 'min-tablet', title: 'Unitario', width: '7%' },
-    //     { target: 5, className: 'all', title: 'Subtotal', width: '7%' },
-    //     { target: 6, className: 'all', title: 'IVA', width: '7%' },
-    //     { target: 7, className: 'all', title: 'Total', width: '7%' },
-    //     { target: 8, className: 'none', title: 'Fecha Recepción', width: '12%' },
-    //     { target: 9, className: 'desktop', title: 'Procedencia' }
-    // ],
+    ],
+    columnDefs: [
+        { target: 0, className: 'all', title: 'Paciente' },
+        { target: 1, className: 'min-tablet', title: 'Servicios' },
+        { target: 2, className: 'desktop', title: 'Costo' },
+        { target: 3, className: 'desktop', title: 'Prefolio' },
+        { target: 4, className: 'min-tablet', title: 'Unitario', width: '7%' },
+        { target: 5, className: 'all', title: 'Subtotal', width: '7%' },
+        { target: 6, className: 'all', title: 'IVA', width: '7%' },
+        { target: 7, className: 'all', title: 'Total', width: '7%' },
+        { target: 8, className: 'none', title: 'Fecha Recepción', width: '12%' },
+        { target: 9, className: 'desktop', title: 'Procedencia' }
+    ],
 
     // rowGroup: {
 
@@ -196,6 +195,12 @@ function BuildHeaderCorte(data) {
     $('#detalle_usuario').html(session['nombre'] + ' ' + session['apellidos'])
     $('#detalle_caja_id').html(data['CAJAS_ID'])
     $('#detalle_total').html(`MXN ${data['TOTAL']}`)
+
+    if (data['FINALIZADO'] === "0") {
+        $('#btnCerrarCaja').fadeIn(0)
+    } else if (data['FINALIZADO'] === "1") {
+        $('#btnCerrarCaja').fadeOut(0)
+    }
 }
 
 
@@ -208,6 +213,7 @@ function fadeTable(type) {
     }
 }
 
+// Function para la columna de detalle 
 function fadeDetalleTable(type) {
     if (type === "Out") {
         $('#corte_caja_detalle').fadeOut()

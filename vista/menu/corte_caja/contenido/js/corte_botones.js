@@ -43,6 +43,18 @@ $(document).on('click', '#btnCerrarCaja', function () {
         confirmButtonText: 'Si, estoy seguro',
         cancelButtonText: 'No'
     }, () => {
-        console.log("si cerro la caja")
+        // console.log("si cerro la caja")
+        HacerCorteCaja(SelectedHistorialCaja['ID_CORTE'])
     }, 1)
 })
+
+// Function para cerrar una caja
+function HacerCorteCaja(id_corte) {
+    ajaxAwait({
+        api: 10,
+        id_corte: id_corte
+    }, 'corte_caja_api', { callbackAfter: true }, false, (data) => {
+        alertToast('Corte de caja realizado con exito', 'success', 4000)
+        switchCajasSelect(true)
+    })
+}
