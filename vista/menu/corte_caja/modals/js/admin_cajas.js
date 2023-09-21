@@ -11,12 +11,14 @@ $("#formCrearCaja").on("submit", function (e) {
 
         ajaxAwaitFormData({
             api: 1,
-        }, 'corte_caja_api', 'formCrearCaja', { callbackAfter: true }, false, function (data) {
+        }, 'corte_caja_api', 'formCrearCaja', { callbackAfter: true }, false, async function (data) {
 
-            alertToast("La caja fue agregada con exito", "success", 5000)
 
             $("#formCrearCaja").trigger("reset");
             TablaTotaldeCajas.ajax.reload();
+
+            await switchCajasSelect(true, true)
+            alertToast("La caja fue agregada con exito", "success", 5000)
 
 
         })
@@ -102,9 +104,12 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
                 }, function () {
 
                     ajaxAwait(data, 'corte_caja_api', { callbackAfter: true }, false,
-                        function (data) {
-                            alertToast('La caja fue eliminada conexito', 'info', 4000)
+                        async function (data) {
                             TablaTotaldeCajas.ajax.reload();
+
+                            await switchCajasSelect(true, true)
+
+                            alertToast('La caja fue eliminada con exito', 'success', 4000)
                         })
                 }, 1)
 

@@ -1,12 +1,12 @@
-async function switchCajasSelect(time) {
+async function switchCajasSelect(time, select = false) {
     alertToast('Espere un momento...', 'info', 3000);
 
-    await buildPageCajas(time)
+    await buildPageCajas(time, select)
 }
 
 // Function para construir la pagina principal
-async function buildPageCajas(time) {
-    return new Promise(function (resolve, reject) {
+async function buildPageCajas(time, select) {
+    return new Promise(async function (resolve, reject) {
         index_caja_id = $("#cajas").val()
 
         // Setear la variable de id_caja para mostrar el historial de esa caja
@@ -17,6 +17,10 @@ async function buildPageCajas(time) {
 
         if (time) {
             TablaHistorialCortes.ajax.reload()
+        }
+
+        if (select) {
+            await rellenarSelect("#cajas", "corte_caja_api", 2, "ID_CAJAS", "DESCRIPCION", {}, function () { })
         }
 
         resolve(1)
@@ -52,8 +56,8 @@ function HacerCorteCaja(id_corte) {
     ajaxAwait({
         api: 10,
         id_corte: id_corte
-    }, 'corte_caja_api', { callbackAfter: true }, false, (data) => {
+    }, 'corte_caja_api', { callbackAfter: true }, false, async (data) => {
+        await switchCajasSelect(true)
         alertToast('Corte de caja realizado con exito', 'success', 4000)
-        switchCajasSelect(true)
     })
 }
