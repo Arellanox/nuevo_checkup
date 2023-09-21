@@ -355,7 +355,7 @@ $array = convertirObjetoAArray($resultados);
         <hr style="height: 1px; background-color: black ;">
         <br>
         <div>
-            <p>Fecha:<strong> Lunes 05 de Junio del 2023</strong></p>
+            <p>Fecha:<strong> <?php echo $array[7] ?></strong></p>
             <p>Folio:<b> <?php echo $array[6] ?> </b></p>
         </div>
         <!--FIN DE TABLA INFORMACIÓN-->
@@ -414,11 +414,11 @@ $array = convertirObjetoAArray($resultados);
                         <td style="background-color: darkgrey;"><b>Total</b></td>
                     </tr>
                     <tr>
-                        <td><?php echo "$ 100" . $resultados->SUBTOTAL; ?></td>
+                        <td><?php echo $array[1] ?></td>
                         <td>
-                            <p><?php echo "$ 16" . $resultados->IVA; ?></p>
+                            <p><?php echo $array[2] ?> </p>
                         </td>
-                        <td style="background-color: darkgrey;"><b></p><?php echo "$ 116" . $resultados->TOTAL_DETALLE; ?> </b></td>
+                        <td style="background-color: darkgrey;"><b></p><?php echo $array[3] ?> </b></td>
                     </tr>
                 </tbody>
             </table>
@@ -440,7 +440,7 @@ $array = convertirObjetoAArray($resultados);
                 <tbody>
                     <tr>
                         <td style="text-align: right;">Crédito</td>
-                        <td><b>$100</b></td>
+                        <td><b><?php echo $array[4] ?> </b></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -448,7 +448,7 @@ $array = convertirObjetoAArray($resultados);
                     </tr>
                     <tr>
                         <td style="text-align: right;">Contado</td>
-                        <td><b>$200</b></td>
+                        <td><b><?php echo $array[5] ?> </b></td>
                     </tr>
                     <tr>
                         <td></td>
