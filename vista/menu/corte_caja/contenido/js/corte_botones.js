@@ -46,14 +46,14 @@ async function buildPageCajas(time, select) {
 // ==============================================================================
 
 // Escucha los cambios del select #cajas
-$(document).on("change", "#cajas", function () {
+$(document).on("change", "#cajas", function (e) {
     setTimeout(() => {
         switchCajasSelect(true)
     }, 200);
 })
 
 // Escuchar el evento click del boton para cerrar la caja
-$(document).on('click', '#btnCerrarCaja', function () {
+$(document).on('click', '#btnCerrarCaja', function (e) {
     // Alerta de confirmación si esta seguro de cerrar la caja
     alertMensajeConfirm({
         title: '¿Estas seguro de cerrar la caja?',
@@ -66,6 +66,19 @@ $(document).on('click', '#btnCerrarCaja', function () {
         // En este caso es el ID_CORTE de la tabla Historial de corte
         HacerCorteCaja(SelectedHistorialCaja['ID_CORTE'])
     }, 1)
+})
+
+// Escuchar el evento click del boton para visualziar el reporte *PDF
+$(document).on('click', '#btnVisualizarReporte', function (e) {
+    e.preventDefault();
+
+    api = encodeURIComponent(window.btoa('temperatura'));
+    area = encodeURIComponent(window.btoa(-1));
+    turno = encodeURIComponent(window.btoa(FolioMesEquipo));
+
+    var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank')
+
+    win.focus();
 })
 
 // ==============================================================================
