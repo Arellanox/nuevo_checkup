@@ -25,36 +25,45 @@ rellenarSelect('#selectDescuentoCliente', 'areas_api', 2, 'ID_AREA', 'DESCRIPCIO
 
 
 //check para bloquear los descuentos ya sea por area o general
-var id_check
+var id_check = 3 //<- Su valor sera asi para que se guarde sin descuento.
 $('.check').change(function () {
-    id_check = $(this).attr('id')
+    id_check = $(this).val()
 
     switch (id_check) {
-
-        case 'checkDescuentoGeneral':
+        case '1':
             //case de descuento general
             if ($(this).is(':checked')) {
-                $('#divDescuentoGeneral').removeClass('disable-element')
+                alertToast('Estas saliendo de descuento general', 'info', 2000)
+
+                $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').removeClass('disable-element')
                 $('#divDescuentoArea').addClass('disable-element')
+
             } else
                 $('#divDescuentoGeneral, #divDescuentoArea').removeClass('disable-element')
             break;
 
-        case 'checkDescuentoArea':
+        case '2':
             //case de descuento por area
             if ($(this).is(':checked')) {
+                alertToast('Estas saliendo de descuento por area', 'info', 2000)
 
                 $('#divDescuentoArea').removeClass('disable-element')
-                $('#divDescuentoGeneral').addClass('disable-element')
+                $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').addClass('disable-element')
 
                 $('#TablaDescuentoCliente').removeClass('disable-element')
+
             } else
                 $('#divDescuentoGeneral, #divDescuentoArea').removeClass('disable-element')
             break;
 
-        case 'checkDescuentoNo':
+        case '3':
             //Bloquea los div de descuento general y area
+            alertToast('Añadiras descuentos', 'info', 2000)
+
             $('#divDescuentoGeneral, #divDescuentoArea').addClass('disable-element')
+            $('#btn-descuentoClienteGeneral').removeClass('disable-element')
+
+
             break
 
         default:
@@ -127,6 +136,9 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
         { target: 4, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
     ],
     createdRow: function (row, data, dataIndex) {
+        let row2 = data.ES_DESCUENTO_GENERAL
+
+        buscarDescuento(row2)
         //Los que son por descuento general los pone vacios en la tabla
         var countValue = data.ES_DESCUENTO_GENERAL;
         if (countValue == 1) {
@@ -161,6 +173,7 @@ function desactivarTablaClienteArea() {
             api: 8,
             id_cliente: array_selected['ID_CLIENTE'],
             area_id: id_descuento_area
+
         }
 
         ajaxAwait(dataJson_eliminarDescuentoArea, 'clientes_api', { callbackAfter: true }, false, function (data) {
@@ -185,7 +198,8 @@ $('#btn-descuentoClienteArea').on('click', function (e) {
             api: 6,
             id_cliente: array_selected['ID_CLIENTE'],
             descuento_area: $('#inputDescuentoArea').val(),
-            area_id: $('#selectDescuentoCliente').val()
+            area_id: $('#selectDescuentoCliente').val(),
+            descuento: 2
         }
 
         ajaxAwait(dataJson_Clientes_area, 'clientes_api', { callbackAfter: true }, false, function (data) {
@@ -193,6 +207,8 @@ $('#btn-descuentoClienteArea').on('click', function (e) {
             TablaDescuentoCliente.ajax.reload();
 
             $('#inputDescuentoArea').val('')
+            // $("#modalDescuentoCliente").hide();
+
         })
     }, 1)
 })
@@ -201,22 +217,73 @@ $('#btn-descuentoClienteArea').on('click', function (e) {
 $('#btn-descuentoClienteGeneral').on('click', function (e) {
     e.preventDefault()
 
-    alertMensajeConfirm({
-        title: '¿Está seguro que desea guardar el descuento general?',
-        text: 'No podrá actualizarlo',
-        icon: 'info',
-    }, function () {
-        dataJson_Clientes_general = {
-            api: 6,
-            id_cliente: array_selected['ID_CLIENTE'],
-            descuento_general: $('#inputDescuentoGeneral').val()
-        }
+    if (id_check == 3) {
+        alertMensajeConfirm({
+            title: '¿Está seguro que desea guardar sin descuento?',
+            text: 'No podrá actualizarlo',
+            icon: 'info',
+        }, function () {
+            dataJson_Clientes_sinDescuento = {
+                api: 6,
+                id_cliente: array_selected['ID_CLIENTE'],
+                descuento: id_check
+            }
 
-        ajaxAwait(dataJson_Clientes_general, 'clientes_api', { callbackAfter: true }, false, function (data) {
-            alertToast('Descuento general guardado', 'success', 4000)
+            ajaxAwait(dataJson_Clientes_sinDescuento, 'clientes_api', { callbackAfter: true }, false, function (data) {
+                alertToast('Sin descuento guardado', 'success', 4000)
 
-            $('#inputDescuentoGeneral').val('')
-        })
-    }, 1)
+                TablaDescuentoCliente.ajax.reload();
+                $('#inputDescuentoGeneral').val('')
+
+            })
+        }, 1)
+
+    } else {
+        alertMensajeConfirm({
+            title: '¿Está seguro que desea guardar el descuento general?',
+            text: 'No podrá actualizarlo',
+            icon: 'info',
+        }, function () {
+            dataJson_Clientes_general = {
+                api: 6,
+                id_cliente: array_selected['ID_CLIENTE'],
+                descuento_general: $('#inputDescuentoGeneral').val(),
+                descuento: id_check
+            }
+
+            ajaxAwait(dataJson_Clientes_general, 'clientes_api', { callbackAfter: true }, false, function (data) {
+                alertToast('Descuento general guardado', 'success', 4000)
+                TablaDescuentoCliente.ajax.reload();
+
+                $('#inputDescuentoGeneral').val('')
+            })
+        }, 1)
+    }
 })
+
+
+function buscarDescuento(row2) {
+
+
+    if (row2 == 1) {
+        $('#checkDescuentoGeneral').prop("checked", true)
+
+        $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').removeClass('disable-element')
+        $('#divDescuentoArea').addClass('disable-element')
+
+    } else if (row2 == 2) {
+        $('#checkDescuentoArea').prop("checked", true)
+
+        $('#divDescuentoArea').removeClass('disable-element')
+        $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').addClass('disable-element')
+
+        $('#TablaDescuentoCliente').removeClass('disable-element')
+
+    } else {
+        $('#checkDescuentoNo').prop("checked", true)
+
+        $('#divDescuentoGeneral, #divDescuentoArea').addClass('disable-element')
+        $('#btn-descuentoClienteGeneral').removeClass('disable-element')
+    }
+}
 
