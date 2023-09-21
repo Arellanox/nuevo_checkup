@@ -339,7 +339,7 @@ $encode = base64_encode($ruta);
         <br>
         <div>
             <p>Fecha:<strong> Lunes 05 de Junio del 2023</strong></p>
-            <p>Folio:<br><b> <?php echo $encabezado->FOLIO_TICKET; ?> </b></p>
+            <p>Folio:<b> 0004 </b></p>
         </div>
         <!--FIN DE TABLA INFORMACIÓN-->
         <p style="line-height: .5"></p>

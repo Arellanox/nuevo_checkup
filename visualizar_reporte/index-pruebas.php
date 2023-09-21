@@ -32,7 +32,7 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "audiometria";
+$api = "corte";
 $area_id = 4;
 $turno_id = 489;
 

@@ -168,7 +168,44 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
-
+        {
+            data: 'PACIENTE'
+        },
+        {
+            data: 'SERVICIO'
+        },
+        {
+            data: 'COSTO_BASE'
+        },
+        {
+            data: 'PREFOLIO'
+        }, {
+            data: 'PRECIO_VENTA'
+        },
+        {
+            data: 'SUBTOTAL'
+        },
+        {
+            data: 'MONTO_IVA'
+        },
+        {
+            data: 'TOTAL'
+        }
+        , {
+            data: 'FECHA_RECEPCION'
+        },
+        {
+            data: 'NOMBRE_COMERCIAL'
+        }
+        // , {
+        //     data: 'FORMA_PAGO'
+        // }
+        // , {
+        //     data: ''
+        // }
+        // , {
+        // data: ''
+        // }
     ],
     columnDefs: [
         { target: 0, className: 'all', title: 'Paciente' },
@@ -180,7 +217,11 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         { target: 6, className: 'all', title: 'IVA', width: '7%' },
         { target: 7, className: 'all', title: 'Total', width: '7%' },
         { target: 8, className: 'none', title: 'Fecha Recepción', width: '12%' },
-        { target: 9, className: 'desktop', title: 'Procedencia' }
+        { target: 9, className: 'desktop', title: 'Procedencia' },
+        // { target: 10, className: 'desktop', title: 'Forma de pago' },
+        // { target: 11, className: 'desktop', title: 'Tipo-Metodo de pago' },
+        // { target: 12, className: 'desktop', title: 'Estado de cuenta' }
+
     ],
 
     // rowGroup: {
