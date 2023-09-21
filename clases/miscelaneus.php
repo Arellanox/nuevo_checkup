@@ -1896,6 +1896,11 @@ class Miscelaneus
         $result = array();
         $i = 0;
 
+        $subtotal_general = 0;
+        $iva_general = 0;
+        $total_general = 0;
+        $resumen_credito = 0;
+        $resumen_contado = 0;
 
         foreach ($response as $key => $e) {
 
@@ -1918,12 +1923,19 @@ class Miscelaneus
             );
 
             $i++;
+
+            $subtotal_general += $subtotal;
+            $iva_general += $iva;
+            $total_general += $total;
+
+            $resumen_contado += $e['CLIENTE'] = 1 ? $total :  0;
+            $resumen_credito += $e['CLIENTE'] != 1 ? $total :  0;
         }
 
 
 
         $response = [];
-        $response = $result;
+        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_contado, $resumen_credito];
 
         return $response;
     }
