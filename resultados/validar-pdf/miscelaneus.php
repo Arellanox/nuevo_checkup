@@ -495,6 +495,13 @@ class Miscelaneus
                 $carpeta_guardado = "solicitud_estudios";
 
                 break;
+
+            case -4:
+                #Corte caja
+
+
+
+                break;
         }
 
 
@@ -534,7 +541,8 @@ class Miscelaneus
         return $renderpdf;
     }
 
-    private function getBodyAudio($master,$id_turno){
+    private function getBodyAudio($master, $id_turno)
+    {
         $data = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
         return $this->decodeJsonRecursively($data);
     }

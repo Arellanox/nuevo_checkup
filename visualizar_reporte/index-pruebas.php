@@ -33,8 +33,8 @@ $usuario_id = $_SESSION['id'];
 
 
 $api = "corte";
-$area_id = 4;
-$turno_id = 489;
+$area_id = -4;
+$turno_id = 5; #Corte id
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;

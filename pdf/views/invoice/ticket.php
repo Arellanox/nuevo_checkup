@@ -390,37 +390,37 @@ switch ($idioma) {
         $count = count((array)$resultArray);
         #// echo $count;
 
-        // for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
 
-        //     $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
-
-        //     $formateado = number_format($numero, 2);
-        //     echo "  <tr>
-        //                             <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
-        //                             <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
-        //                             <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO_VENTA'] . "</td>
-        //                             <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
-        //                             <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
-        //                             <td style=\"width: 11%; text-align: center;\">16% </td>
-        //                             <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
-        //                         </tr>";
-        // }
-
-        foreach ($resultArray as $key => $value) {
-            # code...
-            $total = $value['CANTIDAD'] * $value['PRECIO_VENTA'] - ($resultados->DESCUENTO / $value['CANTIDAD'] * $value['PRECIO_VENTA'] * 100);
-
-            $formateado = number_format($total, 2);
+            $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
+            $paquete = json_decode(json_encode($resultArray[$i]), true)['PAQUETES'] == "" ? json_decode(json_encode($resultArray[$i]), true)['SERVICIOS'] : json_decode(json_encode($resultArray[$i]), true)['PAQUETES'];
+            $formateado = number_format($numero, 2);
             echo "  <tr>
-                                    <td style=\"width: 34%; text-align: left;\">" . $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'] . "</td>
+                                    <td style=\"width: 34%; text-align: left;\">" . $paquete . "</td>
                                     <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
-                                    <td style=\"width: 11%; text-align: right;\">$" . $value['PRECIO_VENTA'] . "</td>
-                                    <td style=\"width: 11%; text-align: center;\">" . $value['CANTIDAD'] . ".00</td>
+                                    <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO_VENTA'] . "</td>
+                                    <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
                                     <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
                                     <td style=\"width: 11%; text-align: center;\">16% </td>
                                     <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
                                 </tr>";
         }
+
+        // foreach ($resultArray as $key => $value) {
+        //     # code...
+        //     $total = $value['CANTIDAD'] * $value['PRECIO_VENTA'] - ($resultados->DESCUENTO / $value['CANTIDAD'] * $value['PRECIO_VENTA'] * 100);
+
+        //     $formateado = number_format($total, 2);
+        //     echo "  <tr>
+        //                             <td style=\"width: 34%; text-align: left;\">" . $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'] . "</td>
+        //                             <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
+        //                             <td style=\"width: 11%; text-align: right;\">$" . $value['PRECIO_VENTA'] . "</td>
+        //                             <td style=\"width: 11%; text-align: center;\">" . $value['CANTIDAD'] . ".00</td>
+        //                             <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
+        //                             <td style=\"width: 11%; text-align: center;\">16% </td>
+        //                             <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
+        //                         </tr>";
+        // }
 
         echo "</tbody>
             </table>
@@ -551,37 +551,43 @@ switch ($idioma) {
         $resultArray = $resultados->ESTUDIOS_DETALLE;
         $count = count((array)$resultArray);
         // echo $count;
-        // for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
 
-        //     $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
+            $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
 
-        //     $formateado = number_format($numero, 2);
-        //     echo "  <tr>
-        //                             <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
-        //                             <td style=\"width: 11%; text-align: left;\">E48 -Service unit</td>
-        //                             <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO_VENTA'] . "</td>
-        //                             <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
-        //                             <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
-        //                             <td style=\"width: 11%; text-align: center;\">16% </td>
-        //                             <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
-        //                         </tr>";
-        // }
 
-        foreach ($resultArray as $key => $value) {
-            # code...
-            $total = $value['CANTIDAD'] * $value['PRECIO_VENTA'] - ($resultados->DESCUENTO / $value['CANTIDAD'] * $value['PRECIO_VENTA'] * 100);
 
-            $formateado = number_format($value['TOTAL'], 2);
+
+
+            $formateado = number_format($numero, 2);
             echo "  <tr>
-                                    <td style=\"width: 34%; text-align: left;\">" . $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'] . "</td>
+                                    <td style=\"width: 34%; text-align: left;\">" .
+                json_decode(json_encode($response[$i]), true)['PAQUETES'] == "" ? json_decode(json_encode($response[$i]), true)['SERVICIOS'] : json_decode(json_encode($response[$i]), true)['PAQUETES'] . "</td>
                                     <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
-                                    <td style=\"width: 11%; text-align: right;\">$" . $value['PRECIO_VENTA'] . "</td>
-                                    <td style=\"width: 11%; text-align: center;\">" . $value['CANTIDAD'] . ".00</td>
+                                    <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO_VENTA'] . "</td>
+                                    <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
                                     <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
                                     <td style=\"width: 11%; text-align: center;\">16% </td>
                                     <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
                                 </tr>";
         }
+
+
+        // foreach ($resultArray as $key => $value) {
+        //     # code...
+        //     $total = $value['CANTIDAD'] * $value['PRECIO_VENTA'] - ($resultados->DESCUENTO / $value['CANTIDAD'] * $value['PRECIO_VENTA'] * 100);
+
+        //     $formateado = number_format($value['TOTAL'], 2);
+        //     echo "  <tr>
+        //                             <td style=\"width: 34%; text-align: left;\">" . $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'] . "</td>
+        //                             <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
+        //                             <td style=\"width: 11%; text-align: right;\">$" . $value['PRECIO_VENTA'] . "</td>
+        //                             <td style=\"width: 11%; text-align: center;\">" . $value['CANTIDAD'] . ".00</td>
+        //                             <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
+        //                             <td style=\"width: 11%; text-align: center;\">16% </td>
+        //                             <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
+        //                         </tr>";
+        // }
 
         echo "</tbody>
             </table>
