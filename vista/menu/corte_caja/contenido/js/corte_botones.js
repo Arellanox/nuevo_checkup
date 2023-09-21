@@ -6,7 +6,6 @@ async function switchCajasSelect(time) {
 
 // Function para construir la pagina principal
 async function buildPageCajas(time) {
-    // Obtenemos el id de la caja
     return new Promise(function (resolve, reject) {
         index_caja_id = $("#cajas").val()
 

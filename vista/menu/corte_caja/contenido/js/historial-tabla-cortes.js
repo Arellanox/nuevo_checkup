@@ -192,14 +192,15 @@ inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [{
 function BuildHeaderCorte(data) {
 
     $('#detalle_fecha_corte').html(formatoFecha2(data['FECHA_FINAL'], [0, 0, 0, 0, 1, 1,]))
-    $('#detalle_usuario').html(session['nombre'] + ' ' + session['apellidos'])
     $('#detalle_caja_id').html(data['CAJAS_ID'])
     $('#detalle_total').html(`MXN ${data['TOTAL']}`)
 
     if (data['FINALIZADO'] === "0") {
         $('#btnCerrarCaja').fadeIn(0)
+        $('#detalle_usuario').html(session['nombre'] + ' ' + session['apellidos'])
     } else if (data['FINALIZADO'] === "1") {
         $('#btnCerrarCaja').fadeOut(0)
+        $('#detalle_usuario').html(data['px'])
     }
 }
 
