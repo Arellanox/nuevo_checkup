@@ -1633,7 +1633,7 @@ function mensajeAjax(data, modulo = null) {
           icon: 'error',
           title: 'Oops...',
           text: '¡Ha ocurrido un error!',
-          footer: 'Codigo: ' + data['response']['msj']
+          footer: 'Respuesta: ' + data['response']['msj']
         })
         break;
       case "repetido":
@@ -1648,7 +1648,7 @@ function mensajeAjax(data, modulo = null) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Codigo: ' + data['response']['msj']
+          text: 'Respuesta: ' + data['response']['msj']
         })
         break;
       case "Token": case "Usernovalid":

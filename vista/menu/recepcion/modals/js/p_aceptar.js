@@ -124,8 +124,8 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   alertMensajeConfirm({
     title: "¿Está seguro de aceptar el paciente?",
     text: "¡Revisa que todo este correcto!",
-    icon: "Warning",
-    confirmButtonColor: "#d33",
+    icon: "warning",
+    // confirmButtonColor: "#d33",
     confirmButtonText: "Aceptar",
     allowOutsideClick: false
   }, function () {
