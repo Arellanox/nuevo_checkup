@@ -381,9 +381,9 @@ $array = convertirObjetoAArray($resultados);
                     <tr>
                         <td style="width: 11%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
                         <td style="width: 30%; text-align: left;"> <?php echo $e['NOMBRE_PACIENTE'] ?></td>
-                        <td style="width: 11%; text-align: right;"> <?php echo $e['SUBTOTAL'] ?></td>
-                        <td style="width: 11%; text-align: center;"> <?php echo $e['IVA'] ?> (16%) </td>
-                        <td style="width: 11%; text-align: right;"> <?php echo $e['TOTAL'] ?></td>
+                        <td style="width: 11%; text-align: center;"> $<?php echo $e['SUBTOTAL'] ?></td>
+                        <td style="width: 11%; text-align: center;"> $<?php echo $e['IVA'] ?> (16%) </td>
+                        <td style="width: 11%; text-align: right;"> $<?php echo $e['TOTAL'] ?></td>
                         <td style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td>
                         <td style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
                     </tr>
