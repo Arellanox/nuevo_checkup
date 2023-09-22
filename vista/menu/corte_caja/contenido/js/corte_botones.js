@@ -24,6 +24,7 @@ async function buildPageCajas(time, select) {
 
         // Setear la variable de id_caja para mostrar el historial de esa caja
         dataTablaHistorialCortes = {
+
             api: 2,
             id_caja: index_caja_id
         }
@@ -72,9 +73,11 @@ $(document).on('click', '#btnVisualizarReporte', function (e) {
 
     api = encodeURIComponent(window.btoa('corte'));
     area = encodeURIComponent(window.btoa(-4));
-    id_corte = encodeURIComponent(window.btoa(SelectedHistorialCaja['ID_CORTE']));
+    id_cortes = encodeURIComponent(window.btoa(id_corte));
 
-    var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${id_corte}&area=${area}`, '_blank')
+    console.log(id_cortes)
+
+    var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${id_cortes}&area=${area}`, '_blank')
 
     win.focus();
 })
