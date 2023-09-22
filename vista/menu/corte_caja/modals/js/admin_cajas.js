@@ -59,10 +59,17 @@ var TablaTotaldeCajas = $('#TablaTotaldeCajas').DataTable({
             }
         },
         {
-            data: null, render: function (data) {
-                let html = `
-                    <i class="bi bi-trash borarCaja" style = "cursor:pointer"></i>`
-                return data['MONTO'] == '0' ? html : '';
+            data: null, render: function (meta) {
+                let html;
+
+                if (meta['MONTO'] < 1 || meta['MONTO'] === null || meta['MONTO'] === "null") {
+                    html = `
+                    <i class="bi bi-trash borarCaja" style = "cursor:pointer"></i>`;
+                } else {
+                    html = "";
+                }
+
+                return html;
             }
         }
     ],
@@ -120,6 +127,7 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
 }, (select, data) => {
     // fadeTabla('Out')
     if (select) {
+        console.log(data)
         $("#nombreCaja").text(data["DESCRIPCION"])
         $("#btnAgregarResponsableCaja").prop('disabled', false)
         $("#select-user").prop('disabled', false)
