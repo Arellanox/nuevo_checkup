@@ -395,12 +395,15 @@ switch ($idioma) {
             $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
             $paquete = json_decode(json_encode($resultArray[$i]), true)['PAQUETES'] == "" ? json_decode(json_encode($resultArray[$i]), true)['SERVICIOS'] : json_decode(json_encode($resultArray[$i]), true)['PAQUETES'];
             $formateado = number_format($numero, 2);
+
+            // $descuento = $resultados->DESCUENTO != 0 ? $resultados->DESCUENTO : json_decode(json_encode($resultArray[$i], true)['DESCUENTO_REPORTE']);
+            $descuento = isset(json_decode(json_encode($resultArray[$i]), true)['DESCUENTO_REPORTE']) ? json_decode(json_encode($resultArray[$i]), true)['DESCUENTO_REPORTE'] : $resultado->DESCUENTO;
             echo "  <tr>
                                     <td style=\"width: 34%; text-align: left;\">" . $paquete . "</td>
                                     <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
                                     <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO_VENTA'] . "</td>
                                     <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
-                                    <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
+                                    <td style=\"width: 11%; text-align: right;\">" . (isset($descuento) ? $descuento : "0.00") . "%</td>
                                     <td style=\"width: 11%; text-align: center;\">16% </td>
                                     <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
                                 </tr>";
