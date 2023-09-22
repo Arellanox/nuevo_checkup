@@ -9,6 +9,7 @@ if (!$tokenValido) {
     // exit;
 }
 
+$master = new Master();
 #api
 $api = $_POST['api'];
 
@@ -61,10 +62,20 @@ $parametros = array(
 $descuento_general = $_POST['descuento_general'];
 $descuento_area = $_POST['descuento_area'];
 $area_id = $_POST['area_id'];
+$descuento = $_POST['descuento']; //<- sirve para decirdir en que case entra en el sp
+
+
+$descuentos = $master->setToNull(array(
+    $id_cliente,
+    $descuento_general,
+    $descuento_area,
+    $area_id,
+    $descuento
+));
 
 $response = "";
 
-$master = new Master();
+
 switch ($api) {
     case 1:
         $response = $master->insertByProcedure("sp_clientes_g", $parametros);
@@ -109,7 +120,7 @@ switch ($api) {
         exit;
     case 6:
         #agregar descuentos para el cliente.
-        $response = $master->updateByProcedure("sp_cliente_asignar_descuento", [$id_cliente, $descuento_general, $descuento_area, $area_id]);
+        $response = $master->updateByProcedure("sp_cliente_asignar_descuento", $descuentos);
 
         break;
     case 7:

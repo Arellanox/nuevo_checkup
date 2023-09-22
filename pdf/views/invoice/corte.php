@@ -320,6 +320,18 @@ function convertirObjetoAArray($objeto)
     return $objeto;
 }
 
+
+
+function ifnull($variable, $msj = "00.00")
+{
+    if ($variable == '') {
+        return $msj;
+    } else {
+        return $variable;
+    }
+}
+
+
 $array = convertirObjetoAArray($resultados);
 
 // echo "<pre>";
@@ -367,7 +379,7 @@ $array = convertirObjetoAArray($resultados);
                     <th style="width: 34%;">Prefolio</th>
                     <th style="width: 11%;">Nombre</th>
                     <th style="width: 11%;">Subtotal</th>
-                    <th style="width: 11%;">iva</th>
+                    <th style="width: 11%;">IVA</th>
                     <th style="width: 11%;">Total</th>
                     <th style="width: 11%;">Forma de pago</th>
                     <th style="width: 11%;">Factura</th>
@@ -377,17 +389,15 @@ $array = convertirObjetoAArray($resultados);
 
                 <?php
                 foreach ($array[0] as $key => $e) { ?>
-
                     <tr>
-                        <td style="width: 11%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
+                        <td style="width: 6%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
                         <td style="width: 30%; text-align: left;"> <?php echo $e['NOMBRE_PACIENTE'] ?></td>
-                        <td style="width: 11%; text-align: right;"> <?php echo $e['SUBTOTAL'] ?></td>
-                        <td style="width: 11%; text-align: center;"> <?php echo $e['IVA'] ?> (16%) </td>
-                        <td style="width: 11%; text-align: right;"> <?php echo $e['TOTAL'] ?></td>
+                        <td style="width: 11%; text-align: center;"> $<?php echo ifnull($e['SUBTOTAL']) ?></td>
+                        <td style="width: 16%; text-align: center;"> $<?php echo ifnull($e['IVA']) ?> (16%) </td>
+                        <td style="width: 11%; text-align: right;"> $<?php echo ifnull($e['TOTAL']) ?></td>
                         <td style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td>
                         <td style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
                     </tr>
-
                 <?php
                 }
 
@@ -414,11 +424,11 @@ $array = convertirObjetoAArray($resultados);
                         <td style="background-color: darkgrey;"><b>Total</b></td>
                     </tr>
                     <tr>
-                        <td><?php echo $array[1] ?></td>
+                        <td>$<?php echo ifnull($array[1]) ?></td>
                         <td>
-                            <p><?php echo $array[2] ?> </p>
+                            <p>$<?php echo ifnull($array[2]) ?> </p>
                         </td>
-                        <td style="background-color: darkgrey;"><b></p><?php echo $array[3] ?> </b></td>
+                        <td style="background-color: darkgrey;"><b></p>$<?php echo ifnull($array[3]) ?> </b></td>
                     </tr>
                 </tbody>
             </table>
@@ -440,7 +450,7 @@ $array = convertirObjetoAArray($resultados);
                 <tbody>
                     <tr>
                         <td style="text-align: right;">Crédito</td>
-                        <td><b><?php echo $array[4] ?> </b></td>
+                        <td><b>$<?php echo ifnull($array[4]) ?> </b></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -448,7 +458,7 @@ $array = convertirObjetoAArray($resultados);
                     </tr>
                     <tr>
                         <td style="text-align: right;">Contado</td>
-                        <td><b><?php echo $array[5] ?> </b></td>
+                        <td><b>$<?php echo ifnull($array[5]) ?> </b></td>
                     </tr>
                     <tr>
                         <td></td>

@@ -14,17 +14,17 @@
 
                             <div class="text-center">
                                 <div class="form-check m-2 form-check-inline">
-                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoGeneral">
+                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoGeneral" value="1">
                                     <label class="form-check-label" for="checkDescuentoGeneral">General</label>
                                 </div>
 
                                 <div class="form-check m-2 form-check-inline">
-                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoArea">
+                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoArea" value="2">
                                     <label class="form-check-label" for="checkDescuentoArea">Área</label>
                                 </div>
 
                                 <div class="form-check m-2 form-check-inline">
-                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoNo" checked>
+                                    <input class="form-check-input check" type="radio" name="flexRadioDefault" id="checkDescuentoNo" value="3" checked>
                                     <label class="form-check-label" for="checkDescuentoNo">No</label>
                                 </div>
                             </div>

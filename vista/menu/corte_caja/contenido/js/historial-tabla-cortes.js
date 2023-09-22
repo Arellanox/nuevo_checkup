@@ -164,7 +164,6 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         url: `../../../api/corte_caja_api.php`,
         beforeSend: function () { },
         complete: function () {
-            getResumen(TablaPacientesCaja);
         },
         dataSrc: 'response.data'
     },
@@ -324,11 +323,11 @@ function fadeDetalleHeader(type) {
     if (type === "Out") {
         $('#btnCerrarCaja').fadeIn(0)
         $('#fecha_termino').fadeOut(0)
-        $('#btnVisualizarReporte').fadeOut(0)
+        // $('#btnVisualizarReporte').fadeOut(0)
     } else if (type === "In") {
         $('#btnCerrarCaja').fadeOut(0)
         $('#fecha_termino').fadeIn(0)
-        $('#btnVisualizarReporte').fadeIn(0)
+        // $('#btnVisualizarReporte').fadeIn(0)
     }
 }
 

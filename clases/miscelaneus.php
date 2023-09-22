@@ -1928,11 +1928,11 @@ class Miscelaneus
             $iva_general += $iva;
             $total_general += $total;
 
-            $resumen_contado += $e['CLIENTE'] = 1 ? $total :  0;
-            $resumen_credito += $e['CLIENTE'] != 1 ? $total :  0;
+            $resumen_contado += $e['CLIENTE'] === 1 ? $total :  0;
+            $resumen_credito += $e['CLIENTE'] !== 1 ? $total :  0;
             $folio = $e['FOLIO'];
 
-            $fecha_final = $e['FECHA_FINAL'];
+            $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
         }
 
         $response = [];
