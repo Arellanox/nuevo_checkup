@@ -68,8 +68,8 @@ $(document).on('click', '#btnCerrarCaja', function (e) {
 })
 
 // Escuchar el evento click del boton para visualziar el reporte *PDF
-$(document).on('click', '#btnVisualizarReporte', function () {
-
+$(document).on('click', '#btnVisualizarReporte', function (e) {
+    e.preventDefault();
 
     api = encodeURIComponent(window.btoa('corte'));
     area = encodeURIComponent(window.btoa(-4));
