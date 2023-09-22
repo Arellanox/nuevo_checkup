@@ -5,6 +5,9 @@
 $("#btn-descuentoCliente").click(function () {
     if (array_selected != null) {
         $("#modalDescuentoCliente").modal("show");
+        // console.log(array_selected)
+        $('#nomdescuntoCliente').text(`Descuento: ${array_selected.NOMBRE_COMERCIAL}`)
+
         setTimeout(() => {
             $.fn.dataTable
                 .tables({
@@ -22,7 +25,6 @@ $("#btn-descuentoCliente").click(function () {
 //Busca todas las areas en descuento por área
 select2('#selectDescuentoCliente', "modalDescuentoCliente", 'Cargando...')
 rellenarSelect('#selectDescuentoCliente', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
-
 
 //check para bloquear los descuentos ya sea por area o general
 var id_check = 3 //<- Su valor sera asi para que se guarde sin descuento.
@@ -117,7 +119,7 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
         {
             data: null, render: function (data) {
                 //si estan vacios por el datos de descuento general los pone vacios
-                return ifnull(data, false, ['DESCUENTO']) ? data.DESCUENTO : ''
+                return ifnull(data, false, ['DESCUENTO']) ? data.DESCUENTO + '%' : ''
 
             }
         },
@@ -208,7 +210,7 @@ $('#btn-descuentoClienteArea').on('click', function (e) {
             alertToast('Descuento por área guardado', 'success', 4000)
             TablaDescuentoCliente.ajax.reload();
 
-            $('#inputDescuentoArea').val('')
+            // $('#inputDescuentoArea').val('')
             // $("#modalDescuentoCliente").hide();
 
         })
