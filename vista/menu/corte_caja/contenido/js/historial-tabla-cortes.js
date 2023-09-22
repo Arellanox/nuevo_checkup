@@ -127,6 +127,8 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
 
         BuildHeaderCorte(data)
 
+        id_corte = SelectedHistorialCaja['ID_CORTE']
+
         dataTablePacientesCaja.id_corte = SelectedHistorialCaja['ID_CORTE']
 
         TablaPacientesCaja.ajax.reload()

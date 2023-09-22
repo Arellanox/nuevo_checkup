@@ -39,6 +39,7 @@ var index_caja_id;
 var dataTablaHistorialCortes;
 var SelectedHistorialCaja;
 var dataTablePacientesCaja;
+var id_corte;
 
 hasLocation()
 $(window).on("hashchange", function (e) {
