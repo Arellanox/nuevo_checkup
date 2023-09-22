@@ -1928,15 +1928,15 @@ class Miscelaneus
             $iva_general += $iva;
             $total_general += $total;
 
-            $resumen_contado += $e['CLIENTE'] === 1 ? $total :  0;
-            $resumen_credito += $e['CLIENTE'] !== 1 ? $total :  0;
+            $resumen_contado += $e['CLIENTE_ID'] == 1 ? $total :  0;
+            $resumen_credito += $e['CLIENTE_ID'] != 1 ? $total :  0;
             $folio = $e['FOLIO'];
 
             $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
         }
 
         $response = [];
-        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_contado, $resumen_credito, $folio, $fecha_final];
+        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_final];
 
         return $response;
     }
