@@ -392,9 +392,9 @@ $array = convertirObjetoAArray($resultados);
                     <tr>
                         <td style="width: 6%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
                         <td style="width: 30%; text-align: left;"> <?php echo $e['NOMBRE_PACIENTE'] ?></td>
-                        <td style="width: 11%; text-align: center;"> $<?php echo ifnull($e['SUBTOTAL']) ?></td>
-                        <td style="width: 16%; text-align: center;"> $<?php echo ifnull($e['IVA']) ?> (16%) </td>
-                        <td style="width: 11%; text-align: right;"> $<?php echo ifnull($e['TOTAL']) ?></td>
+                        <td style="width: 11%; text-align: center;"> $<?php echo ifnull(number_format($e['SUBTOTAL'], 2)) ?></td>
+                        <td style="width: 16%; text-align: center;"> $<?php echo ifnull(number_format($e['IVA'], 2)) ?> (16%) </td>
+                        <td style="width: 11%; text-align: right;"> $<?php echo ifnull(number_format($e['TOTAL'], 2)) ?></td>
                         <td style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td>
                         <td style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
                     </tr>
@@ -424,11 +424,11 @@ $array = convertirObjetoAArray($resultados);
                         <td style="background-color: darkgrey;"><b>Total</b></td>
                     </tr>
                     <tr>
-                        <td>$<?php echo ifnull($array[1]) ?></td>
+                        <td>$<?php echo ifnull(number_format($array[1], 2)) ?></td>
                         <td>
-                            <p>$<?php echo ifnull($array[2]) ?> </p>
+                            <p>$<?php echo ifnull(number_format($array[2], 2)) ?> </p>
                         </td>
-                        <td style="background-color: darkgrey;"><b></p>$<?php echo ifnull($array[3]) ?> </b></td>
+                        <td style="background-color: darkgrey;"><b></p>$<?php echo ifnull(number_format($array[3], 2)) ?> </b></td>
                     </tr>
                 </tbody>
             </table>
@@ -450,7 +450,7 @@ $array = convertirObjetoAArray($resultados);
                 <tbody>
                     <tr>
                         <td style="text-align: right;">Crédito</td>
-                        <td><b>$<?php echo ifnull($array[4]) ?> </b></td>
+                        <td><b>$<?php echo ifnull(number_format($array[4], 2)) ?> </b></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -458,7 +458,7 @@ $array = convertirObjetoAArray($resultados);
                     </tr>
                     <tr>
                         <td style="text-align: right;">Contado</td>
-                        <td><b>$<?php echo ifnull($array[5]) ?> </b></td>
+                        <td><b>$<?php echo ifnull(number_format($array[5], 2)) ?> </b></td>
                     </tr>
                     <tr>
                         <td></td>
