@@ -1906,9 +1906,9 @@ class Miscelaneus
 
             $prefolio = $e['PREFOLIO'];
             $nombre_paciente = $e['PACIENTE'];
-            $subtotal = is_null($e['SUBTOTAL']) ? "00.00" : $e['SUBTOTAL'];
-            $iva = is_null($e['MONTO_IVA']) ? "00.00" : $e['MONTO_IVA'];
-            $total = is_null($e['TOTAL']) ? "00.00" : $e['TOTAL'];
+            $subtotal = $e['SUBTOTAL'];
+            $iva = $e['MONTO_IVA'];
+            $total = $e['TOTAL'];
             $forma_pago = $e['FORMA_PAGO'];
             $factura = $e['FACTURA'];
 
@@ -1928,8 +1928,8 @@ class Miscelaneus
             $iva_general += $iva;
             $total_general += $total;
 
-            $resumen_contado += $e['CLIENTE'] = 1 ? $total :  0;
-            $resumen_credito += $e['CLIENTE'] != 1 ? $total :  0;
+            $resumen_contado += $e['CLIENTE'] === 1 ? $total :  0;
+            $resumen_credito += $e['CLIENTE'] !== 1 ? $total :  0;
             $folio = $e['FOLIO'];
 
             $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
