@@ -78,6 +78,8 @@ class Master extends Miscelaneus
             $resultSet = $sentencia->fetchAll();
             $sentencia->closeCursor();
 
+            # cerramos la conexion a la base de datos.
+            $conexion = null;
             return $resultSet;
         } catch (Exception $e) {
 
