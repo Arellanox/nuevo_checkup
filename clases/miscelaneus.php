@@ -1886,7 +1886,7 @@ class Miscelaneus
         return $response;
     }
 
-    public function getBodyCorteCaja($master, $turno_id = 5)
+    public function getBodyCorteCaja($master, $turno_id)
     {
         #Llenar tabla del formato PDF, pasar ID del FOLIO
         $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
