@@ -172,7 +172,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
     },
     // 
     createdRow: function (row, data, dataIndex) {
-        if (!data.ID_TICKET) {
+        if (!data.COMPLETADO) {
             $(row).addClass('bg-warning');
         }
     },
@@ -277,6 +277,7 @@ function getResumen(tableDetalle) {
     }
     let datos = tableDetalle.rows().data().toArray();
     console.log(datos)
+    calculo = calculoDef;
     calculo['otros'] = 0;
     for (const key in datos) {
         if (Object.hasOwnProperty.call(datos, key)) {

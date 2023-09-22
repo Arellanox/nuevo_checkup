@@ -10,11 +10,11 @@ $("#formFacturarGrupoCredito").on('submit', function (e) {
     }, () => {
 
         id_grupo = SelectedGruposCredito['ID_GRUPO']
-        FacturarGruposCredito(facturado, id_grupo)
+        // FacturarGruposCredito(facturado, id_grupo)
 
         ajaxAwaitFormData({
             api: 1,
-            num_factura: "",
+            // num_factura: "",
             id_grupo: id_grupo,
             facturado: 1
         }, 'admon_grupos_api', 'formFacturarGrupoCredito', { callbackAfter: true }, false,

@@ -21,7 +21,7 @@ function getInfoEstadoCuenta(px, turno) {
 
 
                 // subtotal con descuento
-                subtotal += parseFloat(ifnull(element, 0, ['PRECIO_VENTA']))
+                subtotal += parseFloat(ifnull(element, 0, ['TOTAL']))
 
                 // totalServicio = ifnull((parseInt(element['CANTIDAD']) * parseFloat(element['PRECIO_VENTA'])).toFixed(2), 0)
 
@@ -42,13 +42,13 @@ function getInfoEstadoCuenta(px, turno) {
             }
         }
 
-        let subtotalconiva = parseFloat(subtotal * 0.16).toFixed(2);
+        // let subtotalconiva = parseFloat(subtotal * 0.16).toFixed(2);
         // console.log(subtotal)
-        total = parseFloat(subtotal) + parseFloat(subtotalconiva)
+        // total = parseFloat(subtotal) + parseFloat(subtotalconiva)
 
-        $("#subtotal").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
-        $("#Iva").html(`$${ifnull(subtotalconiva, 0)}`)
-        $("#total").html(`$${ifnull(total.toFixed(2), 0)}`)
+        // $("#subtotal").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
+        // $("#Iva").html(`$${ifnull(subtotalconiva, 0)}`)
+        $("#total").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
 
         $("#ModalTicketCredito").modal('show');
     })

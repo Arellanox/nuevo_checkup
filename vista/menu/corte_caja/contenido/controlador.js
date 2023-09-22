@@ -19,6 +19,8 @@ async function obtenerVistaCorteCaja() {
                     calculo[element.ID_PAGO] = 0;
                 }
             }
+
+            calculoDef = calculo;
         })
 
         // DataTable
@@ -34,7 +36,7 @@ $.getScript('contenido/js/corte_botones.js').done(function () {
 
 
 // Variables globales locales
-var forma_pago = [], calculo = [];
+var forma_pago = [], calculo = [], calculoDef = [];
 var index_caja_id;
 var dataTablaHistorialCortes;
 var SelectedHistorialCaja;
