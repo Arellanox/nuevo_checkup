@@ -166,7 +166,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         url: `../../../api/corte_caja_api.php`,
         beforeSend: function () { },
         complete: function () {
-            getResumen(TablaPacientesCaja);
+            // getResumen(TablaPacientesCaja);
         },
         dataSrc: 'response.data'
     },
@@ -248,6 +248,9 @@ function BuildHeaderCorte(data) {
     // $('Cheques').html(ifnull('Data', '$00.00'))
     // $('Credito').html(ifnull('Data', '$00.00'))
 
+
+    $('#monto_acumulado').html(data['MONTO']);
+
     // Se evalua si el corte ya esta finalizado o apenas se inicio
     if (data['FINALIZADO'] === "0") {
         // Como no han cerrado la caja aparecera el usuario en sesion para cerrar la caja *if tiene permiso
@@ -263,6 +266,7 @@ function BuildHeaderCorte(data) {
         fadeDetalleHeader("In")
     }
 }
+
 
 function getResumen(tableDetalle) {
     if (!forma_pago.length) {
@@ -334,4 +338,7 @@ function fadeDetalleHeader(type) {
     }
 }
 
-// ==============================================================================   
+// ==============================================================================
+
+
+// Cambios a realizar si no hay ninguna caja no se muestra nada o  creo que depende del navegador
