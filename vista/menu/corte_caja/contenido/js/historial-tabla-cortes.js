@@ -277,7 +277,13 @@ function getResumen(tableDetalle) {
     }
     let datos = tableDetalle.rows().data().toArray();
     console.log(datos)
-    calculo = calculoDef;
+    // calculo = calculoDef;
+    for (const key in calculo) {
+        if (Object.hasOwnProperty.call(calculo, key)) {
+            const element = calculo[key];
+            calculo[key] = 0;
+        }
+    }
     calculo['otros'] = 0;
     for (const key in datos) {
         if (Object.hasOwnProperty.call(datos, key)) {

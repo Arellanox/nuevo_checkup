@@ -17,10 +17,10 @@ async function obtenerVistaCorteCaja() {
                 if (Object.hasOwnProperty.call(forma_pago, key)) {
                     const element = forma_pago[key];
                     calculo[element.ID_PAGO] = 0;
+                    calculoDef[element.ID_PAGO] = 0;
                 }
             }
 
-            calculoDef = calculo;
         })
 
         // DataTable
