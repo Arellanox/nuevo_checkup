@@ -168,11 +168,21 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         },
         dataSrc: 'response.data'
     },
+    // 
+    createdRow: function (row, data, dataIndex) {
+        if (!data.ID_TICKET) {
+            $(row).addClass('bg-warning');
+        }
+    },
     columns: [
         { data: 'PACIENTE' },
         { data: 'PREFOLIO' },
         { data: 'NUM_ESTADO_CUENTA' },
-        { data: 'TOTAL' },
+        {
+            data: 'TOTAL', render: function (data) {
+                return `$${parseFloat(ifnull(data, 0)).toFixed(2)}`
+            }
+        },
         { data: 'FECHA_RECEPCION' },
         { data: 'NOMBRE_COMERCIAL' },
         { data: 'FORMA_PAGO' }
@@ -200,10 +210,16 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
 })
 
 
-inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [{
-    msj: 'Tabla de los pacientes que estan en la caja',
-    place: 'top'
-}], {
+inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [
+    {
+        msj: 'Tabla de los pacientes que estan en la caja',
+        place: 'top'
+    },
+    {
+        msj: "¡Los pacientes por pagar, se mostrarán en amarillo!",
+        place: 'top'
+    }
+], {
     msj: "Filtre los resultados",
     place: 'top'
 }, "col-12")
@@ -247,8 +263,8 @@ function BuildHeaderCorte(data) {
 }
 
 function getResumen(tableDetalle) {
-
-    if (forma_pago.length) {
+    console.log(forma_pago)
+    if (!forma_pago.length) {
         alertMensaje('warning', 'No hay tipo de pagos definidos', 'Si ves este error, algo ha pasado.', 'Si');
     }
 
@@ -256,20 +272,27 @@ function getResumen(tableDetalle) {
     $('#formas-pago').html('');
 
     for (const key in object) {
-        if (Object.hasOwnProperty.call(object, key)) {
-            const element = object[key];
-            calculos[ifnull(element, 'otros', ['ID_PAGO'])] += ifnull(element, 0, ['TOTAL'])
+
+    }
+    let datos = tableDetalle.rows().data().toArray();
+    calculo['otros'] = 0;
+    for (const key in datos) {
+        if (Object.hasOwnProperty.call(datos, key)) {
+            const element = datos[key];
+            console.log(ifnull(element, 'otros', ['ID_PAGO']), ifnull(element, 0, ['TOTAL']))
+            calculo[ifnull(element, 'otros', ['ID_PAGO'])] += parseFloat(ifnull(element, 0, ['TOTAL']))
         }
     }
 
-    for (const key in calculos) {
-        if (Object.hasOwnProperty.call(calculos, key)) {
-            const element = calculos[key];
-            let tipo_pago = forma_pago.filter((pago) => pago.ID_PAGO = key);
+    for (const key in calculo) {
+        if (Object.hasOwnProperty.call(calculo, key)) {
+            const element = calculo[key];
+            let tipo_pago = forma_pago.filter((pago) => pago.ID_PAGO == key);
+            console.log(tipo_pago, calculo)
             $('#formas-pago').append(`
                 <div class="col-12 col-md-4">
-                    <span class="fw-bold">${ifnull(tipo_pago, 'Otros', ['DESCRIPCION'])}:</span>
-                    <span>${element}</span>
+                    <span class="fw-bold">${ifnull(tipo_pago, 'Sin pagar', { 0: 'DESCRIPCION' })}:</span>
+                    <span>$${element.toFixed(2)}</span>
                 </div>
             `)
 
