@@ -191,7 +191,9 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
       medico_tratante: $('#medico-aceptar-paciente').val(),
       medico_correo: $('#medico-correo-aceptar').val(),
 
-    }, 'recepcion_api', 'formAceptarPacienteRecepcion', { callbackAfter: true }, false, (data) => {
+    }, 'recepcion_api', 'formAceptarPacienteRecepcion', { callbackAfter: true, callbackBefore: true }, () => {
+      alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
+    }, (data) => {
       Swal.fire({
         position: 'center',
         icon: 'success',
