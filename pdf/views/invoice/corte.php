@@ -374,124 +374,144 @@ $array = convertirObjetoAArray($resultados);
         <p style="line-height: .5"></p>
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
         <table style="text-align: center; width: 100%;" class="rounded2">
-            <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
-                <tr>
-                    <th style="width: 34%;">Prefolio</th>
-                    <th style="width: 11%;">Nombre</th>
-                    <th style="width: 11%;">Subtotal</th>
-                    <th style="width: 11%;">IVA</th>
-                    <th style="width: 11%;">Total</th>
-                    <th style="width: 11%;">Forma de pago</th>
-                    <th style="width: 11%;">Factura</th>
-                </tr>
-            </thead>
-            <tbody style="height: 420px">
+            <?php
+            $c = 0; // Contador
+            $limit = 25; // Límite de elementos antes de un salto de página
 
-                <?php
-                foreach ($array[0] as $key => $e) { ?>
+            foreach ($array[0] as $key => $e) {
+                if ($c % $limit == 0) {
+                    // Si c es 0 o un múltiplo del límite, imprime encabezados
+                    echo '<thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                     <tr>
-                        <td style="width: 6%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
-                        <td style="width: 30%; text-align: left;"> <?php echo $e['NOMBRE_PACIENTE'] ?></td>
-                        <td style="width: 11%; text-align: center;"> $<?php echo ifnull(number_format($e['SUBTOTAL'], 2)) ?></td>
-                        <td style="width: 16%; text-align: center;"> $<?php echo ifnull(number_format($e['IVA'], 2)) ?> (16%) </td>
-                        <td style="width: 11%; text-align: right;"> $<?php echo ifnull(number_format($e['TOTAL'], 2)) ?></td>
-                        <td style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td>
-                        <td style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
-                    </tr>
-                <?php
-                }
-
-                ?>
-                <!-- <tr>
-                    <td style="width: 11%; text-align: center;"> 001</td>
-                    <td style="width: 30%; text-align: left;">E48 -Unidad de servicio</td>
-                    <td style="width: 11%; text-align: right;">$ 100</td>
-                    <td style="width: 11%; text-align: center;">16 %</td>
-                    <td style="width: 11%; text-align: right;">$ 116</td>
-                    <td style="width: 15%; text-align: center;">Crédito </td>
-                    <td style="width: 11%; text-align: right;">002</td>
-                </tr> -->
-            </tbody>
-        </table>
-        <!--Inicio tabla totales -->
-        <p style="line-height: 2"></p>
-        <div style=" float: right;width: 100%;">
-            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
-                <tbody>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td>IVA (16.00%)</td>
-                        <td style="background-color: darkgrey;"><b>Total</b></td>
-                    </tr>
-                    <tr>
-                        <td>$<?php echo ifnull(number_format($array[1], 2)) ?></td>
-                        <td>
-                            <p>$<?php echo ifnull(number_format($array[2], 2)) ?> </p>
-                        </td>
-                        <td style="background-color: darkgrey;"><b></p>$<?php echo ifnull(number_format($array[3], 2)) ?> </b></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div style=" float: center;width: 100%;">
-            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px; background-color: solid grey;">
-                <thead>
-                    <tr>
-                        <td colspan="2" style="text-align: center;">Resumen</td>
+                        <th style="width: 10%;">Prefolio</th>
+                        <th style="width: 15%;">Nombre</th>
+                        <th style="width: 15%;">Subtotal</th>
+                        <th style="width: 15%;">IVA</th>
+                        <th style="width: 15%;">Total</th>
+                        <th style="width: 15%;">Forma de pago</th>
+                        <th style="width: 15%;">Factura</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: right;">Crédito</td>
-                        <td><b>$<?php echo ifnull(number_format($array[4], 2)) ?> </b></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right;">Contado</td>
-                        <td><b>$<?php echo ifnull(number_format($array[5], 2)) ?> </b></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!---FIN DE LA TABLA DE PRODUCTOS--->
-        <div style="float: left;width: 70%;">
-            <table style="width: 100%; padding-top: 6%; border-collapse: collapse;" align="left">
+                <tbody style="height: 420px">';
+                }
 
-                <td><b></p><?php $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
-                            ?></b></td>
-                </tr>
-            </table>
-        </div>
+                echo '<tr>
+                <td style="width: 6%; text-align: center;">' . $e['PREFOLIO'] . '</td>
+                <td style="width: 30%; text-align: left;">' . $e['NOMBRE_PACIENTE'] . '</td>
+                <td style="width: 11%; text-align: center;"> $' . (isset($e['SUBTOTAL']) ? number_format($e['SUBTOTAL'], 2) : "0.00") . '</td>
+                <td style="width: 16%; text-align: center;"> $' . (isset($e['IVA']) ? number_format($e['IVA'], 2) : "0.00") . ' (16%) </td>
+                <td style="width: 11%; text-align: right;"> $' . (isset($e['TOTAL']) ? number_format($e['TOTAL'], 2) : "0.00") . '</td>
+                <td style="width: 15%; text-align: center;">' . $e['FORMA_PAGO'] . '</td>
+                <td style="width: 11%; text-align: right;">' . $e['FACTURA'] . '</td>
+            </tr>';
+
+                $c++;
+
+                if ($c % $limit == 0 || $c == count($array[0])) {
+                    // Si c es múltiplo del límite o es el último elemento, cierra tbody y table
+                    echo '</tbody></table>';
+
+                    // Si no es el último elemento, añade salto de página y nueva tabla
+                    if ($c != count($array[0])) {
+                        echo '<div class="break"></div>';
+                        echo '<table style="text-align: center; width: 100%;" class="rounded2">';
+                    }
+                }
+            }
+            ?>
+
+
+
+
+
+
+
+
+
+            <?php
+            if ($c >= 27) {
+                echo '<div class="break"></div>';
+            }
+            ?>
+            <!--Inicio tabla totales -->
+            <p style="line-height: 2"></p>
+            <div style=" float: right;width: 100%;">
+                <table style=" width: 100%; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
+                    <tbody>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td>IVA (16.00%)</td>
+                            <td style="background-color: darkgrey;"><b>Total</b></td>
+                        </tr>
+                        <tr>
+                            <td>$<?php echo ifnull(number_format($array[1], 2)) ?></td>
+                            <td>
+                                <p>$<?php echo ifnull(number_format($array[2], 2)) ?> </p>
+                            </td>
+                            <td style="background-color: darkgrey;"><b></p>$<?php echo ifnull(number_format($array[3], 2)) ?> </b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div style=" float: center;width: 100%;">
+                <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px; background-color: solid grey;">
+                    <thead>
+                        <tr>
+                            <td colspan="2" style="text-align: center;">Resumen</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: right;">Crédito</td>
+                            <td><b>$<?php echo ifnull(number_format($array[4], 2)) ?> </b></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">Contado</td>
+                            <td><b>$<?php echo ifnull(number_format($array[5], 2)) ?> </b></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!---FIN DE LA TABLA DE PRODUCTOS--->
+            <div style="float: left;width: 70%;">
+                <table style="width: 100%; padding-top: 6%; border-collapse: collapse;" align="left">
+
+                    <td><b></p><?php $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
+                                ?></b></td>
+                    </tr>
+                </table>
+            </div>
     </div>
 </body>
 

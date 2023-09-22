@@ -47,9 +47,7 @@ async function buildPageCajas(time, select) {
 
 // Escucha los cambios del select #cajas
 $(document).on("change", "#cajas", function (e) {
-    setTimeout(() => {
-        switchCajasSelect(true)
-    }, 200);
+    switchCajasSelect(true)
 })
 
 // Escuchar el evento click del boton para cerrar la caja

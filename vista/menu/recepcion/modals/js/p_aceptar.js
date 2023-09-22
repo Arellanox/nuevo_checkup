@@ -190,7 +190,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
       segmento_id: $('#select-segmento-aceptar').val(),
       medico_tratante: $('#medico-aceptar-paciente').val(),
       medico_correo: $('#medico-correo-aceptar').val(),
-
+      servicios: estudiosEnviar,
     }, 'recepcion_api', 'formAceptarPacienteRecepcion', { callbackAfter: true, callbackBefore: true }, () => {
       alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
     }, (data) => {
@@ -206,7 +206,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
       tablaRecepcionPacientes.ajax.reload();
     })
 
-  })
+  }, 1)
 
 
   event.preventDefault();
