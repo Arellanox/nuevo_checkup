@@ -47,7 +47,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
     estudiosLab = data;
   });
 
-  
+
   rellenarSelect("#select-labbio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
     id_area: 12,
     cliente_id: array_selected['CLIENTE_ID']
@@ -121,56 +121,92 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
 
   event.preventDefault();
 
-  var form = document.getElementById("formAceptarPacienteRecepcion");
-  var formData = new FormData(form);
-  formData.set('api', 2);
-  formData.set('url', url_paciente);
-  formData.set('id_turno', array_selected['ID_TURNO']);
-  formData.set('estado', 1);
-  formData.set('comentario_rechazo', $('#Observaciones-aceptar').val());
-  formData.set('alergias', $('#alergias-aceptar-paciente').val());
-  formData.set('diagnostico', $('#diagnostico-aceptar-paciente').val());
-  formData.set('segmento_id', $('#select-segmento-aceptar').val())
-  //Medico tratante
-  formData.set('medico_tratante', $('#medico-aceptar-paciente').val());
-  formData.set('medico_correo', $('#medico-correo-aceptar').val())
+  alertMensajeConfirm({
+    title: "¿Está seguro de aceptar el paciente?",
+    text: "¡Revisa que todo este correcto!",
+    icon: "Warning",
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Aceptar",
+    allowOutsideClick: false
+  }, function () {
+    // var form = document.getElementById("formAceptarPacienteRecepcion");
+    // var formData = new FormData(form);
+    // formData.set('api', 2);
+    // formData.set('url', url_paciente);
+    // formData.set('id_turno', array_selected['ID_TURNO']);
+    // formData.set('estado', 1);
+    // formData.set('comentario_rechazo', $('#Observaciones-aceptar').val());
+    // formData.set('alergias', $('#alergias-aceptar-paciente').val());
+    // formData.set('diagnostico', $('#diagnostico-aceptar-paciente').val());
+    // formData.set('segmento_id', $('#select-segmento-aceptar').val())
+    // //Medico tratante
+    // formData.set('medico_tratante', $('#medico-aceptar-paciente').val());
+    // formData.set('medico_correo', $('#medico-correo-aceptar').val())
 
 
-  formData.set('servicios', estudiosEnviar);
+    // formData.set('servicios', estudiosEnviar);
 
 
-  if (!$('#checkPaqueteAceptar').is(":checked")) {
-    formData.set('id_paquete', $('#select-paquetes').val());
-  }
+    // if (!$('#checkPaqueteAceptar').is(":checked")) {
+    //   formData.set('id_paquete', $('#select-paquetes').val());
+    // }
 
-  // console.log(estudiosEnviar);
-  // document.getElementById("btn-confirmar-paciente").disabled = true;
-  $.ajax({
-    url: "../../../api/recepcion_api.php",
-    type: "POST",
-    data: formData,
-    processData: false,
-    contentType: false,
-    beforeSend: function () {
-      alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
-    },
-    success: function (data) {
-      data = jQuery.parseJSON(data);
-      console.log(data);
-      if (true) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Turno: ' + data.response.data[1]['TURNO'],
-          text: '¡Paciente aceptado! Recuerda generar sus documentos.',
-          showCloseButton: false,
-        })
-        limpiarFormAceptar();
-        $("#modalPacienteAceptar").modal("hide");
-        tablaRecepcionPacientes.ajax.reload();
-      }
-    },
-  });
+    // // console.log(estudiosEnviar);
+    // // document.getElementById("btn-confirmar-paciente").disabled = true;
+    // $.ajax({
+    //   url: "../../../api/recepcion_api.php",
+    //   type: "POST",
+    //   data: formData,
+    //   processData: false,
+    //   contentType: false,
+    //   beforeSend: function () {
+    //     alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
+    //   },
+    //   success: function (data) {
+    //     data = jQuery.parseJSON(data);
+    //     console.log(data);
+    //     if (true) {
+    //       Swal.fire({
+    //         position: 'center',
+    //         icon: 'success',
+    //         title: 'Turno: ' + data.response.data[1]['TURNO'],
+    //         text: '¡Paciente aceptado! Recuerda generar sus documentos.',
+    //         showCloseButton: false,
+    //       })
+    //       limpiarFormAceptar();
+    //       $("#modalPacienteAceptar").modal("hide");
+    //       tablaRecepcionPacientes.ajax.reload();
+    //     }
+    //   },
+    // });
+
+
+
+    ajaxAwaitFormData({
+      api: 2, url: url_paciente, id_turno: array_selected['ID_TURNO'],
+      estado: 1, comentario_rechazo: $('#Observaciones-aceptar').val(),
+      alergias: $('#alergias-aceptar-paciente').val(),
+      diagnostico: $('#diagnostico-aceptar-paciente').val(),
+      segmento_id: $('#select-segmento-aceptar').val(),
+      medico_tratante: $('#medico-aceptar-paciente').val(),
+      medico_correo: $('#medico-correo-aceptar').val(),
+
+    }, 'recepcion_api', 'formAceptarPacienteRecepcion', { callbackAfter: true }, false, (data) => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Turno: ' + data.response.data[1]['TURNO'],
+        text: '¡Paciente aceptado! Recuerda generar sus documentos.',
+        showCloseButton: false,
+      })
+      limpiarFormAceptar();
+      $("#modalPacienteAceptar").modal("hide");
+      tablaRecepcionPacientes.ajax.reload();
+    })
+
+  })
+
+
   event.preventDefault();
 })
 
