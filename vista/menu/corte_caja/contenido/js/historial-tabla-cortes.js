@@ -164,6 +164,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         url: `../../../api/corte_caja_api.php`,
         beforeSend: function () { },
         complete: function () {
+            getResumen();
         },
         dataSrc: 'response.data'
     },
@@ -262,7 +263,6 @@ function BuildHeaderCorte(data) {
 }
 
 function getResumen(tableDetalle) {
-    console.log(forma_pago)
     if (!forma_pago.length) {
         alertMensaje('warning', 'No hay tipo de pagos definidos', 'Si ves este error, algo ha pasado.', 'Si');
     }
@@ -278,7 +278,6 @@ function getResumen(tableDetalle) {
     for (const key in datos) {
         if (Object.hasOwnProperty.call(datos, key)) {
             const element = datos[key];
-            console.log(ifnull(element, 'otros', ['ID_PAGO']), ifnull(element, 0, ['TOTAL']))
             calculo[ifnull(element, 'otros', ['ID_PAGO'])] += parseFloat(ifnull(element, 0, ['TOTAL']))
         }
     }
@@ -287,7 +286,6 @@ function getResumen(tableDetalle) {
         if (Object.hasOwnProperty.call(calculo, key)) {
             const element = calculo[key];
             let tipo_pago = forma_pago.filter((pago) => pago.ID_PAGO == key);
-            console.log(tipo_pago, calculo)
             $('#formas-pago').append(`
                 <div class="col-12 col-md-4">
                     <span class="fw-bold">${ifnull(tipo_pago, 'Sin pagar', { 0: 'DESCRIPCION' })}:</span>
