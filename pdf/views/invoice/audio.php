@@ -316,7 +316,7 @@ $encode_firma = base64_encode($ruta_firma);
         $titulo = 'Checkup Clínica y Prevención';
         $tituloPersonales = 'Información del paciente';
         $subtitulo = 'Audiometría Tonal Aérea';
-        $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
+        $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_AUDIO;
         include 'includes/header.php';
         ?>
     </div>
