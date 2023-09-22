@@ -164,7 +164,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         url: `../../../api/corte_caja_api.php`,
         beforeSend: function () { },
         complete: function () {
-            getResumen();
+            getResumen(TablaPacientesCaja);
         },
         dataSrc: 'response.data'
     },
