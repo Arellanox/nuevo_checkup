@@ -104,7 +104,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-                <button type="submit" form="formRegistrarCliente" class="btn btn-confirmar" id="btn-descuentoClienteGeneral">
+                <button type="button" class="btn btn-confirmar" id="btn-descuentoClienteGeneral">
                     <i class="bi bi-person-plus"></i> Guardar
                 </button>
             </div>

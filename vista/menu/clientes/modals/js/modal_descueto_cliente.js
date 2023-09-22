@@ -56,7 +56,7 @@ $('.check').change(function () {
             //Bloquea los div de descuento general y area
             $('#divDescuentoGeneral, #divDescuentoArea').addClass('disable-element')
             $('#btn-descuentoClienteGeneral').removeClass('disable-element')
-
+            TablaDescuentoCliente.clear().draw();
 
             break
 
@@ -98,8 +98,16 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
         dataSrc: 'response.data'
     },
     columns: [
-        { data: 'COUNT' },
-        { data: 'CLIENTE' },
+        {
+            data: null, render: function (meta) {
+                return ifnull(meta, null, ['COUNT']);
+            }
+        },
+        {
+            data: null, render: function (meta) {
+                return ifnull(meta, null, ['CLIENTE']);
+            }
+        },
         {
             data: null, render: function (data) {
                 //si estan vacios por el datos de descuento general los pone vacios
@@ -227,7 +235,8 @@ $('#btn-descuentoClienteGeneral').on('click', function (e) {
             ajaxAwait(dataJson_Clientes_sinDescuento, 'clientes_api', { callbackAfter: true }, false, function (data) {
                 alertToast('Sin descuento guardado', 'success', 4000)
 
-                TablaDescuentoCliente.ajax.reload();
+                // TablaDescuentoCliente.ajax.reload();
+                TablaDescuentoCliente.clear().draw();
                 $('#inputDescuentoGeneral').val('')
 
             })
