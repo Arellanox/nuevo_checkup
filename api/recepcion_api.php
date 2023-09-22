@@ -101,15 +101,14 @@ switch ($api) {
         // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
         #
         $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante, $medico_correo, $_SESSION['id'])); #<-- la id de segmento manda error si no se le envia algo
-        $aleta = $response[0][0]['E2'];
+        $aleta = $response[0][0][0];
+
         #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
         if (
             $aleta == "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES PROCEGUIR CON EL PROCESO" ||
-            $aleta == "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN POROCESO DEL DÍA ANTERIOR" ||
-            $aleta == "E2" ||
-            !isset($response[0][0]['E2'])
+            $aleta == "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN PROCESO DEL DÍA ANTERIOR"
         ) {
-            $response = "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN POROCESO DEL DÍA ANTERIOR";
+            $response = $aleta;
             break;
         }
 
@@ -162,7 +161,8 @@ switch ($api) {
                     $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, $_SESSION['id']));
                 }
 
-                $response3 = $master->insertByProcedure('sp_corte_caja_iniciar_g',[$idTurno, $_SESSION['id']]);
+                $response3 = $master->insertByProcedure('sp_corte_caja_iniciar_g', [$idTurno, $_SESSION['id']]);
+                // var_dump($response3);
             }
         }
 

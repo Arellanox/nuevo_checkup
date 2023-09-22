@@ -108,7 +108,7 @@ function configurarModal(data) {
                 let html = `<tr>
                                 <th>${element['SERVICIOS']}</th> 
                                 <td>${ifnull(element['CANTIDAD'], 0)}</td>
-                                <td>$${ifnull(element['PRECIO_VENTA'], 0)}</td>
+                                <td>$${ifnull(element['TOTAL'], 0)}</td>
                             </tr>`
 
                 //Adjunta a las tablas la area correspondiente

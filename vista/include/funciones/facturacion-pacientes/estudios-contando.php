@@ -19,9 +19,9 @@
                                         <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
                                         <!-- subtotal sin descuento -->
                                         <th scope="d-flex justify-content-center" class="col-4">Subtotal</th>
-                                        <th scope="d-flex justify-content-center" class="col-2">Descuento</th>
+                                        <!-- <th scope="d-flex justify-content-center" class="col-2">Descuento</th> -->
                                         <!-- Subtotal con descuento -->
-                                        <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th>
+                                        <!-- <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th> -->
                                     </tr>
                                 </thead>
                                 <tbody class="contenido-estudios" id="cargos-estudios-11">
