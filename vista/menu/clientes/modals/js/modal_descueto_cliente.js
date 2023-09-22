@@ -33,8 +33,6 @@ $('.check').change(function () {
         case '1':
             //case de descuento general
             if ($(this).is(':checked')) {
-                alertToast('Estas saliendo de descuento general', 'info', 2000)
-
                 $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').removeClass('disable-element')
                 $('#divDescuentoArea').addClass('disable-element')
 
@@ -45,8 +43,6 @@ $('.check').change(function () {
         case '2':
             //case de descuento por area
             if ($(this).is(':checked')) {
-                alertToast('Estas saliendo de descuento por area', 'info', 2000)
-
                 $('#divDescuentoArea').removeClass('disable-element')
                 $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').addClass('disable-element')
 
@@ -58,8 +54,6 @@ $('.check').change(function () {
 
         case '3':
             //Bloquea los div de descuento general y area
-            alertToast('Añadiras descuentos', 'info', 2000)
-
             $('#divDescuentoGeneral, #divDescuentoArea').addClass('disable-element')
             $('#btn-descuentoClienteGeneral').removeClass('disable-element')
 
@@ -137,7 +131,6 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
     ],
     createdRow: function (row, data, dataIndex) {
         let row2 = data.ES_DESCUENTO_GENERAL
-
         buscarDescuento(row2)
         //Los que son por descuento general los pone vacios en la tabla
         var countValue = data.ES_DESCUENTO_GENERAL;
@@ -213,10 +206,11 @@ $('#btn-descuentoClienteArea').on('click', function (e) {
     }, 1)
 })
 
-//Agregar Nuevos datos a clientes General
+//Agregar Nuevos datos a clientes General o a sin descuento
 $('#btn-descuentoClienteGeneral').on('click', function (e) {
     e.preventDefault()
 
+    //compara si esta en el check de no
     if (id_check == 3) {
         alertMensajeConfirm({
             title: '¿Está seguro que desea guardar sin descuento?',
@@ -226,7 +220,7 @@ $('#btn-descuentoClienteGeneral').on('click', function (e) {
             dataJson_Clientes_sinDescuento = {
                 api: 6,
                 id_cliente: array_selected['ID_CLIENTE'],
-                descuento: id_check
+                descuento: 3
             }
 
             ajaxAwait(dataJson_Clientes_sinDescuento, 'clientes_api', { callbackAfter: true }, false, function (data) {
@@ -238,6 +232,7 @@ $('#btn-descuentoClienteGeneral').on('click', function (e) {
             })
         }, 1)
 
+        //si no esta en el check de no, entonces es un descuento genereal
     } else {
         alertMensajeConfirm({
             title: '¿Está seguro que desea guardar el descuento general?',
@@ -248,7 +243,7 @@ $('#btn-descuentoClienteGeneral').on('click', function (e) {
                 api: 6,
                 id_cliente: array_selected['ID_CLIENTE'],
                 descuento_general: $('#inputDescuentoGeneral').val(),
-                descuento: id_check
+                descuento: 1
             }
 
             ajaxAwait(dataJson_Clientes_general, 'clientes_api', { callbackAfter: true }, false, function (data) {
@@ -261,29 +256,36 @@ $('#btn-descuentoClienteGeneral').on('click', function (e) {
     }
 })
 
-
+//funcion que busca en que estado se encuentra el descuento (tiene tres estados y cambia el check)
 function buscarDescuento(row2) {
-
-
+    //Descuento general (primer estado)
     if (row2 == 1) {
-        $('#checkDescuentoGeneral').prop("checked", true)
+        id_check = $('#checkDescuentoGeneral').prop("checked", true) //<- al check que esta se le agrega el valor en el cual estra
 
         $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').removeClass('disable-element')
         $('#divDescuentoArea').addClass('disable-element')
 
+        //Descuento por area (segundo estado)
     } else if (row2 == 2) {
-        $('#checkDescuentoArea').prop("checked", true)
+
+        id_check = $('#checkDescuentoArea').prop("checked", true)
+        console.log(id_check)
 
         $('#divDescuentoArea').removeClass('disable-element')
         $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').addClass('disable-element')
 
         $('#TablaDescuentoCliente').removeClass('disable-element')
 
-    } else {
-        $('#checkDescuentoNo').prop("checked", true)
+        //Sin descuento (tercer estado)
+    } else if (row2 == 3) {
+
+        id_check = $('#checkDescuentoNo').prop("checked", true)
+        console.log(id_check)
 
         $('#divDescuentoGeneral, #divDescuentoArea').addClass('disable-element')
         $('#btn-descuentoClienteGeneral').removeClass('disable-element')
+    } else {
+        alertToast('No esta entrando en ningun lado', 'warning', 2000)
     }
 }
 
