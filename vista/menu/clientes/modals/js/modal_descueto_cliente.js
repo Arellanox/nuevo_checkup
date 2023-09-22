@@ -131,7 +131,7 @@ TablaDescuentoCliente = $("#TablaDescuentoCliente").DataTable({
     ],
     createdRow: function (row, data, dataIndex) {
         let row2 = data.ES_DESCUENTO_GENERAL
-        console.log(row2)
+
         buscarDescuento(row2)
         //Los que son por descuento general los pone vacios en la tabla
         var countValue = data.ES_DESCUENTO_GENERAL;
@@ -270,7 +270,6 @@ function buscarDescuento(row2) {
     } else if (row2 == 2) {
 
         id_check = $('#checkDescuentoArea').prop("checked", true)
-        console.log(id_check)
 
         $('#divDescuentoArea').removeClass('disable-element')
         $('#divDescuentoGeneral, #btn-descuentoClienteGeneral').addClass('disable-element')
@@ -281,7 +280,6 @@ function buscarDescuento(row2) {
     } else {
 
         id_check = $('#checkDescuentoNo').prop("checked", true)
-        console.log(id_check)
 
         $('#divDescuentoGeneral, #divDescuentoArea').addClass('disable-element')
         $('#btn-descuentoClienteGeneral').removeClass('disable-element')
