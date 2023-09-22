@@ -87,7 +87,7 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
         }
     ],
     columnDefs: [
-        { target: 0, title: '#', className: 'all' },
+        { target: 0, title: 'FOLIO', className: 'all' },
         { target: 1, title: 'FECHA', className: 'all' },
         { target: 2, title: 'Finalizado:', className: 'none' },
         { target: 3, title: 'Realizado por:', className: 'none' },
@@ -239,12 +239,12 @@ function BuildHeaderCorte(data) {
 
     // Desglose de todo el monto por tipo de pagos
     // Se desglosa todo el monto recaudado por el tipo de pago
-    $('Efectivo').html(ifnull('Data', '$00.00'))
-    $('Transferencia').html(ifnull('Data', '$00.00'))
-    $('TarjetaCredito').html(ifnull('Data', '$00.00'))
-    $('TarjetaDebito').html(ifnull('Data', '$00.00'))
-    $('Cheques').html(ifnull('Data', '$00.00'))
-    $('Credito').html(ifnull('Data', '$00.00'))
+    // $('Efectivo').html(ifnull('Data', '$00.00'))
+    // $('Transferencia').html(ifnull('Data', '$00.00'))
+    // $('TarjetaCredito').html(ifnull('Data', '$00.00'))
+    // $('TarjetaDebito').html(ifnull('Data', '$00.00'))
+    // $('Cheques').html(ifnull('Data', '$00.00'))
+    // $('Credito').html(ifnull('Data', '$00.00'))
 
     // Se evalua si el corte ya esta finalizado o apenas se inicio
     if (data['FINALIZADO'] === "0") {
@@ -274,6 +274,7 @@ function getResumen(tableDetalle) {
 
     }
     let datos = tableDetalle.rows().data().toArray();
+    console.log(datos)
     calculo['otros'] = 0;
     for (const key in datos) {
         if (Object.hasOwnProperty.call(datos, key)) {
@@ -281,6 +282,8 @@ function getResumen(tableDetalle) {
             calculo[ifnull(element, 'otros', ['ID_PAGO'])] += parseFloat(ifnull(element, 0, ['TOTAL']))
         }
     }
+
+    console.log(calculo)
 
     for (const key in calculo) {
         if (Object.hasOwnProperty.call(calculo, key)) {
