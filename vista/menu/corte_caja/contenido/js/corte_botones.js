@@ -16,6 +16,10 @@ async function switchCajasSelect(time, select = false) {
 // Function para construir la pagina principal
 async function buildPageCajas(time, select) {
     return new Promise(async function (resolve, reject) {
+        if (select) {
+            await rellenarSelect("#cajas", "corte_caja_api", 2, "ID_CAJAS", "DESCRIPCION", {}, function () { })
+        }
+
         index_caja_id = $("#cajas").val()
 
         // Setear la variable de id_caja para mostrar el historial de esa caja
@@ -26,10 +30,6 @@ async function buildPageCajas(time, select) {
 
         if (time) {
             TablaHistorialCortes.ajax.reload()
-        }
-
-        if (select) {
-            await rellenarSelect("#cajas", "corte_caja_api", 2, "ID_CAJAS", "DESCRIPCION", {}, function () { })
         }
 
         resolve(1)
