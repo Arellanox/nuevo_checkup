@@ -20,11 +20,16 @@ async function buildPageCajas(time, select) {
             await rellenarSelect("#cajas", "corte_caja_api", 2, "ID_CAJAS", "DESCRIPCION", {}, function () { })
         }
 
+        // // Rellenar Select
+        // await rellenarSelect("#cajas", "corte_caja_api", 2, "ID_CAJAS", "DESCRIPCION", {}, function () {
+        //     switchCajasSelect(false)
+        // })
+
+
         index_caja_id = $("#cajas").val()
 
         // Setear la variable de id_caja para mostrar el historial de esa caja
         dataTablaHistorialCortes = {
-
             api: 2,
             id_caja: index_caja_id
         }

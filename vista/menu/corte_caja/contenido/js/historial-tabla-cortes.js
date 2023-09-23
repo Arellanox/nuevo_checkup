@@ -5,7 +5,7 @@
 // ==============================================================================
 
 // Tabla historial de cortes de caja
-var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
+TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
@@ -24,14 +24,14 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
         method: 'POST',
         url: '../../../api/corte_caja_api.php',
         beforeSend: function () {
-            loader("In")
-            fadeTable('Out')
-            fadeDetalleTable("Out")
+            // loader("In")
+            // fadeTable('Out')
+            // fadeDetalleTable("Out")
         },
         complete: function () {
             //Para ocultar segunda columna
-            loader("Out", 'bottom')
-            fadeTable("In")
+            // loader("Out", 'bottom')
+            // fadeTable("In")
 
             $.fn.dataTable
                 .tables({
@@ -42,8 +42,10 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
 
 
             // Hacer clic en la primera fila
-            var firstRow = TablaHistorialCortes.row(0).node(); // La fila 0 es la primera fila
-            $(firstRow).click(); // Simula un clic en la fila
+            if (!isMovil()) {
+                var firstRow = TablaHistorialCortes.row(0).node(); // La fila 0 es la primera fila
+                $(firstRow).click(); // Simula un clic en la fila
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -89,21 +91,23 @@ var TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
     columnDefs: [
         { target: 0, title: 'FOLIO', className: 'all' },
         { target: 1, title: 'FECHA', className: 'all' },
-        { target: 2, title: 'Finalizado:', className: 'none' },
-        { target: 3, title: 'Realizado por:', className: 'none' },
+        { target: 2, title: 'Finalizado:', className: 'tablet' },
+        { target: 3, title: 'Realizado por:', className: 'tablet' },
         { target: 4, title: 'Estatus:', className: 'all ' }
 
     ],
 
 })
 
-inputBusquedaTable("TablaHistorialCortesCaja", TablaHistorialCortes, [{
-    msj: 'Tabla de historial de cortes de caja',
-    place: 'top'
-}], {
-    msj: "Filtre los resultados",
-    place: 'top'
-}, "col-12")
+setTimeout(() => {
+    inputBusquedaTable("TablaHistorialCortesCaja", TablaHistorialCortes, [{
+        msj: 'Tabla de historial de cortes de caja',
+        place: 'top'
+    }], {
+        msj: "Filtre los resultados",
+        place: 'top'
+    }, "col-12")
+}, 100);
 
 //Funcion para cambiar el estatus (funcion global)
 selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
@@ -117,12 +121,25 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
             }, selected: true
         },
 
-    ], dblClick: true, reload: ['col-xl-9']
+    ], dblClick: true, reload: ['col-xl-9'],
+    movil: true, divPadre: '#vistaGruposFactura', "tab-default": 'Detalle',
+    tabs: [
+        {
+            title: 'Cajas',
+            element: '#tab-caja_cortes',
+            class: 'active',
+        },
+        {
+            title: 'Detalle',
+            element: '#tab-datos_corte',
+            class: 'disabled tab-select'
+        },
+    ],
 }, async function (select, data, callback) {
     SelectedHistorialCaja = data
 
     if (select) {
-        fadeDetalleTable("In")
+        // fadeDetalleTable("In")
         $("#fecha_corte_selected").html(`(${data['FOLIO']})`)
 
         BuildHeaderCorte(data)
@@ -132,8 +149,10 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
         dataTablePacientesCaja.id_corte = SelectedHistorialCaja['ID_CORTE']
 
         TablaPacientesCaja.ajax.reload()
+        callback('In')
     } else {
-        fadeDetalleTable("Out")
+        callback('Out')
+        // fadeDetalleTable("Out")
     }
 })
 

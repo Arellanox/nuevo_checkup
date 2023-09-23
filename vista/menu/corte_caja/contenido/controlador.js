@@ -6,10 +6,7 @@ async function obtenerVistaCorteCaja() {
         $("#body-js").html(html);
     }).done(async function () {
 
-        // Rellenar Select
-        await rellenarSelect("#cajas", "corte_caja_api", 2, "ID_CAJAS", "DESCRIPCION", {}, function () {
-            switchCajasSelect(false)
-        })
+
 
         await ajaxAwait({ api: 2 }, 'formas_pago_api', { callbackAfter: true }, false, (data) => {
             forma_pago = data.response.data;
@@ -20,19 +17,19 @@ async function obtenerVistaCorteCaja() {
                     calculoDef[element.ID_PAGO] = 0;
                 }
             }
-
         })
+
+        await switchCajasSelect(false, true);
 
         // DataTable
-        $.getScript('contenido/js/historial-tabla-cortes.js').done(function () {
-        })
+        $.getScript('contenido/js/historial-tabla-cortes.js')
     });
 }
 
 // Botones
 $.getScript('contenido/js/corte_botones.js').done(function () {
-
-})
+    hasLocation()
+});
 
 
 // Variables globales locales
@@ -42,8 +39,8 @@ var dataTablaHistorialCortes;
 var SelectedHistorialCaja;
 var dataTablePacientesCaja;
 var id_corte;
+var TablaHistorialCortes; //Tabla
 
-hasLocation()
 $(window).on("hashchange", function (e) {
     hasLocation();
 });
