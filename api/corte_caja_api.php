@@ -84,6 +84,7 @@ switch ($api) {
     case 2:
         # Mostrar las cajas asignadas a usuarios
         $response = $master->getByProcedure("sp_cajas_b", [$id_caja, $usuario]);
+        $response = $master->decodeJsonRecursively($response);
         break;
     case 3:
         # Finalizar el corte de caja
