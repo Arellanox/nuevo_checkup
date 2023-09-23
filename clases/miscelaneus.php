@@ -1893,6 +1893,11 @@ class Miscelaneus
         #Llenar tabla del formato PDF, pasar ID del FOLIO
         $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
 
+        // echo "<pre>";
+        // var_dump($response);
+        // echo "</pre>";
+
+        // exit;
 
         $result = array();
         $i = 0;
@@ -1934,11 +1939,14 @@ class Miscelaneus
             $resumen_credito += $e['CLIENTE_ID'] != 1 ? $total :  0;
             $folio = $e['FOLIO'];
 
+            $fecha_inicio = $e['FECHA_INICIO'];
             $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
+
+            $cortador = is_null($e['px']) ?  "No hay" : $e['px'];
         }
 
         $response = [];
-        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_final];
+        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador];
 
         return $response;
     }

@@ -49,9 +49,9 @@
                 <div class="rounded p-3 shadow-sm my-2">
                     <div class="row">
                         <div class="col-12 col-xl-6 col-xxl-6 d-flex my-auto">
-                            <h5 class="d-flex my-auto">
+                            <h5 class="d-flex my-auto ">
                                 Datos de corte del folio:
-                                <span class="fw-bold text-dark" id="fecha_corte_selected"></span>
+                                <span class="fw-bold text-dark ms-3" id="fecha_corte_selected"></span>
                             </h5>
                         </div>
                         <div class="col-12 col-xl-6 col-xxl-6 my-2 d-flex justify-content-end">
@@ -72,34 +72,34 @@
                             <div class="col-12 col-xl-6 col-xxl-6">
                                 <div class="row">
                                     <div class="col-12">
-                                        <span class="fw-bold">Fecha corte:</span>
-                                        <span id="detalle_fecha_corte">12/09/2003 11:20 </span>
+                                        <p class="fw-bold">Fecha corte:</p>
+                                        <span class="fw-bold" id="detalle_fecha_corte">12/09/2003 11:20 </span>
                                     </div>
                                     <div class="col-12" id="fecha_termino">
-                                        <span class="fw-bold">Fecha termino:</span>
-                                        <span id="detalle_fecha_termino">12/09/2003 11:20 </span>
+                                        <p class="fw-bold">Fecha termino:</p>
+                                        <span class="fw-bold" id="detalle_fecha_termino">12/09/2003 11:20 </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-xl-6 col-xxl-6">
                                 <div class="row">
                                     <div class="col-12">
-                                        <span class="fw-bold">Usuario:</span>
-                                        <span id="detalle_usuario">Juan Daniel Hernandez Garcia</span>
+                                        <p class="fw-bold">Usuario:</p>
+                                        <span class="fw-bold" id="detalle_usuario">Juan Daniel Hernandez Garcia</span>
                                     </div>
                                     <div class="col-12">
-                                        <span class="fw-bold">Caja:</span>
-                                        <span id="detalle_caja_id">1</span>
+                                        <p class="fw-bold">Caja:</p>
+                                        <span class="fw-bold" id="detalle_caja_id">1</span>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Formas de pago -->
-                            <div class="col-12 row" id="formas-pago">
-
-                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="rounded p-3 shadow-sm my-2">
+                    <!-- Formas de pago -->
+                    <div class="col-12 row" id="formas-pago"></div>
                 </div>
 
                 <!-- Información y desglose del monto -->
@@ -150,3 +150,13 @@
         </div>
     </div>
 </div>
+
+
+<style>
+    .text-b {
+        color: rgb(000, 175, 170);
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-bottom: 0;
+    }
+</style>

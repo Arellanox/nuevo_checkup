@@ -236,7 +236,7 @@ inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [
 function BuildHeaderCorte(data) {
 
     $('#detalle_fecha_corte').html(formatoFecha2(data['FECHA_INICIO'], [0, 0, 0, 0, 1, 1,]))
-    $('#detalle_caja_id').html(data['CAJAS_ID'])
+    $('#detalle_caja_id').html(data['DESCRIPCION'])
     $('#detalle_total').html(` $${ifnull(data['TOTAL'], "00.00")}`)
 
     // Desglose de todo el monto por tipo de pagos
@@ -300,8 +300,8 @@ function getResumen(tableDetalle) {
             let tipo_pago = forma_pago.filter((pago) => pago.ID_PAGO == key);
             $('#formas-pago').append(`
                 <div class="col-12 col-md-4">
-                    <span class="fw-bold">${ifnull(tipo_pago, 'Sin pagar', { 0: 'DESCRIPCION' })}:</span>
-                    <span>$${element.toFixed(2)}</span>
+                    <p class="fw-bold">${ifnull(tipo_pago, 'Sin pagar', { 0: 'DESCRIPCION' })}:</p>
+                    <span class='fw-bold'>$${element.toFixed(2)}</span>
                 </div>
             `)
 
