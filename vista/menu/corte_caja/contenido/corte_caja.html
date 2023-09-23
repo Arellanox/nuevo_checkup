@@ -2,10 +2,13 @@
     <div class="preloader" id="preloader"> </div>
 </div>
 
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
 <!-- Menu Main -->
-<div class="row">
+<div class="row" id="vistaGruposFactura">
     <!-- Select de la lista de cajas y historial de cajas -->
-    <div class="col-12 col-xl-3 col-xxl-3">
+    <div class="col-12 col-xl-3 col-xxl-3 tab-first" id="tab-caja_cortes">
         <div class="row">
             <div class="col-12">
                 <!-- Select de lista  de cajas -->
@@ -21,7 +24,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-12" id="table_historial_corte_caja" style="display: none;">
+            <div class="col-12" id="table_historial_corte_caja">
                 <!-- Tabla Historial de cajas -->
                 <div class="rounded p-3 shadow-sm">
                     <h5>Historial de cortes de caja</h5>
@@ -33,8 +36,8 @@
     </div>
 
     <!-- Formulario para hacer un corte de caja -->
-    <div class=" col-12 col-xxl-9 col-xl-9 col-sm-6 col-md-12">
-        <div class="row" id="corte_caja_detalle" style="display: none;">
+    <div class=" col-12 col-xxl-9 col-xl-9 col-sm-6 col-md-12 tab-second" id="tab-datos_corte" style="display: none;">
+        <div class="row" id="corte_caja_detalle">
             <div class="col-12">
                 <!-- Tarjetas con informacion del detalle del corte -->
                 <!-- Quien Lo Hizo -->
@@ -152,6 +155,12 @@
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <!-- Tercera Columna visual -->
+    <div id="reload-selectable">
+
     </div>
 </div>
 
