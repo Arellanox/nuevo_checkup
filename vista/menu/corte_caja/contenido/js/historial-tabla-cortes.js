@@ -300,8 +300,10 @@ function getResumen(tableDetalle) {
             let tipo_pago = forma_pago.filter((pago) => pago.ID_PAGO == key);
             $('#formas-pago').append(`
                 <div class="col-12 col-md-4">
-                    <p class="fw-bold">${ifnull(tipo_pago, 'Sin pagar', { 0: 'DESCRIPCION' })}:</p>
-                    <span class='fw-bold'>$${element.toFixed(2)}</span>
+                    <p class="fw-bold">
+                        ${ifnull(tipo_pago, 'Sin pagar', { 0: 'DESCRIPCION' })}:  
+                        <span class='fw-bold text-dark'>$${element.toFixed(2)}</span>
+                    </p>
                 </div>
             `)
 

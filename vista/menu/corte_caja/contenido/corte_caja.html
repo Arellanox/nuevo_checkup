@@ -45,31 +45,31 @@
                 <!-- Iva -->
                 <!-- Total -->
 
-                <!-- Header -->
-                <div class="rounded p-3 shadow-sm my-2">
-                    <div class="row">
-                        <div class="col-12 col-xl-6 col-xxl-6 d-flex my-auto">
-                            <h5 class="d-flex my-auto ">
-                                Datos de corte del folio:
-                                <span class="fw-bold text-dark ms-3" id="fecha_corte_selected"></span>
-                            </h5>
-                        </div>
-                        <div class="col-12 col-xl-6 col-xxl-6 my-2 d-flex justify-content-end">
-                            <button class="btn btn-borrar me-3" id="btnVisualizarReporte">
-                                <i class="bi bi-file-earmark-pdf-fill me-2"></i>Visualizar Reporte
-                            </button>
-                            <button class="btn btn-pantone-3165" id="btnCerrarCaja">
-                                <i class="bi bi-x-circle-fill me-2"></i>Cerrar Caja
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fechas y usuarios quien hizo o hara el corte de caja -->
                 <div class="rounded p-3 shadow-sm my-2">
                     <div id="headerDetalleCorteCaja">
                         <div class="row">
-                            <div class="col-12 col-xl-6 col-xxl-6">
+                            <div class="col-12">
+                                <!-- Header -->
+                                <div class="row">
+                                    <div class="col-12 col-md-6 d-flex justify-content-start align-content-center">
+                                        <h5 class="d-flex my-auto ">
+                                            Datos de corte del folio:
+                                            <span class="fw-bold text-dark ms-3" id="fecha_corte_selected"></span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
+                                        <button class="btn btn-borrar me-3" id="btnVisualizarReporte">
+                                            <i class="bi bi-file-earmark-pdf-fill me-2"></i>Visualizar Reporte
+                                        </button>
+                                        <button class="btn btn-pantone-3165" id="btnCerrarCaja">
+                                            <i class="bi bi-x-circle-fill me-2"></i>Cerrar Caja
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- Fechas y usuarios quien hizo o hara el corte de caja -->
+                            <div class="col-12 col-md-6 ">
                                 <div class="row">
                                     <div class="col-12">
                                         <p class="fw-bold">Fecha corte:</p>
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-xl-6 col-xxl-6">
+                            <div class="col-12 col-md-6">
                                 <div class="row">
                                     <div class="col-12">
                                         <p class="fw-bold">Usuario:</p>
@@ -93,14 +93,18 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <!-- Formas de pago -->
+                            <div class="col-12 mt-2">
+                                <hr>
+                                <div class="col-12 row" id="formas-pago"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="rounded p-3 shadow-sm my-2">
-                    <!-- Formas de pago -->
-                    <div class="col-12 row" id="formas-pago"></div>
-                </div>
+
 
                 <!-- Información y desglose del monto -->
                 <!-- <div class="rounded p-3 shadow-sm my-2">

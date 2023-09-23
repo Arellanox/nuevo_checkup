@@ -3,24 +3,28 @@ var TablaUsuariosResponsables = ''
 $("#formCrearCaja").on("submit", function (e) {
     e.preventDefault();
 
+
+
     alertMensajeConfirm({
         title: "¿Desea agregar un nueva caja?",
         text: "Es necesario confirmar para añadir esta nueva caja",
         icon: "question"
     }, function () {
 
-        ajaxAwaitFormData({
-            api: 1,
-        }, 'corte_caja_api', 'formCrearCaja', { callbackAfter: true }, false, async function (data) {
+        alertPassConfirm({
+            title: "Agregue su contraseña para continuar", icon: "info"
+        }, () => {
+            ajaxAwaitFormData({
+                api: 1,
+            }, 'corte_caja_api', 'formCrearCaja', { callbackAfter: true }, false, async function (data) {
 
+                $("#formCrearCaja").trigger("reset");
+                TablaTotaldeCajas.ajax.reload();
 
-            $("#formCrearCaja").trigger("reset");
-            TablaTotaldeCajas.ajax.reload();
+                await switchCajasSelect(true, true)
+                alertToast("La caja fue agregada con exito", "success", 4000)
 
-            await switchCajasSelect(true, true)
-            alertToast("La caja fue agregada con exito", "success", 4000)
-
-
+            })
         })
 
     }, 1)
@@ -109,15 +113,18 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
                     text: "Es necesario confirmar para eliminar esta nueva caja",
                     icon: "question"
                 }, function () {
+                    alertPassConfirm({
+                        title: "Agregue su contraseña para continuar", icon: "info"
+                    }, () => {
+                        ajaxAwait(data, 'corte_caja_api', { callbackAfter: true }, false,
+                            async function (data) {
+                                TablaTotaldeCajas.ajax.reload();
 
-                    ajaxAwait(data, 'corte_caja_api', { callbackAfter: true }, false,
-                        async function (data) {
-                            TablaTotaldeCajas.ajax.reload();
+                                await switchCajasSelect(true, true)
 
-                            await switchCajasSelect(true, true)
-
-                            alertToast('La caja fue eliminada con exito', 'success', 4000)
-                        })
+                                alertToast('La caja fue eliminada con exito', 'success', 4000)
+                            })
+                    })
                 }, 1)
 
             }
@@ -238,11 +245,14 @@ $("#btnAgregarResponsableCaja").on('click', function () {
         text: "Es necesario confirmar para realizar esta acción",
         icon: "question"
     }, function () {
+        alertPassConfirm({
+            title: "Agregue su contraseña para continuar", icon: "info"
+        }, () => {
+            ajaxAwait(dataJson_agreagarUsuarios, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
+                alertToast('Usuario agregado', 'success', 4000)
+                TablaUsuariosResponsables.ajax.reload()
 
-        ajaxAwait(dataJson_agreagarUsuarios, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
-            alertToast('Usuario agregado', 'success', 4000)
-            TablaUsuariosResponsables.ajax.reload()
-
+            })
         })
     }, 1)
 })
@@ -257,10 +267,14 @@ function desactivarTablaResponsables() {
         text: 'No podrá modificarlo despues',
         icon: 'warning',
     }, function () {
-        ajaxAwait({ api: 7, id_cajas_usuarios: usuario_Responsable }, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
-            alertToast('Responsable eliminado eliminado!', 'success', 4000)
+        alertPassConfirm({
+            title: "Agregue su contraseña para continuar", icon: "info"
+        }, () => {
+            ajaxAwait({ api: 7, id_cajas_usuarios: usuario_Responsable }, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
+                alertToast('Responsable eliminado eliminado!', 'success', 4000)
 
-            TablaUsuariosResponsables.ajax.reload();
+                TablaUsuariosResponsables.ajax.reload();
+            })
         })
     }, 1)
 }

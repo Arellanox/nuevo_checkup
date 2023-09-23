@@ -61,9 +61,13 @@ $(document).on('click', '#btnCerrarCaja', function (e) {
         confirmButtonText: 'Si, estoy seguro',
         cancelButtonText: 'No'
     }, () => {
-        // Se manda a llamar a la función para cerrar la caja y se le mandan los argumentos necesarios
-        // En este caso es el ID_CORTE de la tabla Historial de corte
-        HacerCorteCaja(SelectedHistorialCaja['ID_CORTE'])
+        alertPassConfirm({
+            title: "Agregue su contraseña para continuar", icon: "info"
+        }, () => {
+            // Se manda a llamar a la función para cerrar la caja y se le mandan los argumentos necesarios
+            // En este caso es el ID_CORTE de la tabla Historial de corte
+            HacerCorteCaja(SelectedHistorialCaja['ID_CORTE'])
+        })
     }, 1)
 })
 
