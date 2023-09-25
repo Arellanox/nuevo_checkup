@@ -471,6 +471,11 @@ switch ($api) {
 
         break;
 
+    case 13:
+        //Actualiza la procedencia en recepcion(aceptados)
+        $response = $master->updateByProcedure("sp_actualizar_procedencia_g", [$idTurno, $cliente_id]);
+        break;
+
     default:
         $response = "Api no definida.";
         break;

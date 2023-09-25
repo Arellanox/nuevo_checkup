@@ -238,6 +238,59 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       }
     },
     {
+      text: '<i class="bi bi-arrow-repeat"></i> Actualizar procedencia',
+      className: 'btn btn-pantone-7408',
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Actualice la procedencia de un paciente que esté en proceso."
+      },
+      action: function () {
+        setTimeout(() => {
+
+          if (array_selected.COMPLETADO != 1) {
+            $('#modalActualizarProsedencia').modal('show');
+            select2('#select-cambioProcedencia', 'modalActualizarProsedencia')
+            rellenarSelect('#select-cambioProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+
+            $('#btn-actualizarProcedencia').on('click', function () {
+
+              $('#select-cambioProcedencia').val()
+
+              alertMensajeConfirm({
+                title: '¿Está Seguro que desea cambiar la procedencia de este paciente?',
+                text: "Podra volver a modificarlo despues",
+                icon: 'info',
+              }, () => {
+                ajaxAwait({
+                  api: 13,
+                  id_turno: array_selected['ID_TURNO'],
+                  cliente_id: $('#select-cambioProcedencia').val()
+                },
+                  'recepcion_api', { callbackAfter: true }, false, () => {
+                    alertToast('Se actualizo la procedecia', 'success', 4000)
+                    $('#modalActualizarProsedencia').modal('hide');
+                    try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                    try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                  })
+
+                // ajaxAwait({
+                //   id_turno: array_selected['ID_TURNO'], api: 2,// estado: null
+                // }, 'recepcion_api', { callbackAfter: true }, false, () => {
+                //   alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
+                //   try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                //   try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                // })
+              }, 1)
+            })
+
+          } else {
+            alertSelectTable('No puede actualizar la procedencia a pacientes finalizados.', 'error')
+          }
+        }, 300);
+      }
+    },
+    {
       extend: 'excelHtml5',
       text: '<i class="fa fa-file-excel-o"></i> Excel',
       className: 'btn btn-success',
