@@ -6,6 +6,22 @@ function formatoFecha(texto) {
   return '';
 }
 
+//formatea la Edad de sql
+function formatoEdad(texto) {
+  if (texto) {
+    // Convierte la cadena en un número
+    var numero = parseFloat(texto);
+
+    // Verifica si el número tiene decimales y cuántos
+    var decimales = (numero % 1 !== 0) ? texto.split('.')[1].length : 0;
+
+    // Utiliza toFixed para formatear el número con la cantidad correcta de decimales
+    return numero.toFixed(decimales).replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
+  }
+
+  return '';
+}
+
 jQuery.fn.exists = function () { return this.length > 0; }
 
 function formatoFechaSQL(fecha, formato) {
@@ -2756,7 +2772,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     if (mensajeAjax(data)) {
                       row = data['response']['data'][0];
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#edad-persona').html(formatoFecha(row.EDAD))
+                      $('#edad-persona').html(formatoEdad(row.EDAD))
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                       $('#info-paci-alergias').html(row.ALERGIAS);
                       $('#info-paci-procedencia').html(row.PROCEDENCIA)
