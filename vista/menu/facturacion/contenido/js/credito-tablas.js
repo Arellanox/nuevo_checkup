@@ -40,7 +40,7 @@ TablaGrupos = $('#TablaGrupos').DataTable({
     columns: [
         { data: 'COUNT' },
         {
-            data: 'FOLIO', render: function (data) {
+            data: 'FOLIO_ETIQUETA', render: function (data) {
                 let html = `<div class="d-flex justify-content-center GrupoInfoCreditoBtn" style="width: 40px">  ${ifnull(data, '')}  </div>`
                 return html
             }
@@ -62,7 +62,7 @@ TablaGrupos = $('#TablaGrupos').DataTable({
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '1%' },
         { target: 1, title: 'Folio', className: 'all', width: '20px' },
-        { target: 2, title: 'Procedencia', className: 'min-tablet' },
+        { target: 2, title: 'Procedencia', className: 'all' },
         { target: 3, title: 'Creacion', className: 'none' },
         { target: 4, title: 'Fecha de Factura', className: 'tablet' },
         { target: 5, title: 'Factura', className: 'tablet' }

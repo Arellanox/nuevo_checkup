@@ -3,7 +3,8 @@
 function getInfoEstadoCuenta(px, turno) {
 
     alertToast('Cargando, espere un momento', 'info', 3000)
-    $('#PacienteCreditoColumn').html("");
+    // $('#PacienteCreditoColumn').html("");
+    tablaTicketCredito.clear().draw();
 
     ajaxAwait({
         api: 1,
@@ -25,19 +26,27 @@ function getInfoEstadoCuenta(px, turno) {
 
                 // totalServicio = ifnull((parseInt(element['CANTIDAD']) * parseFloat(element['PRECIO_VENTA'])).toFixed(2), 0)
 
-                let html = `
-                                    <tr>
-                                        <td>${element['SERVICIOS']}</td>
-                                        <td>E48 -Unidad de
-                                            servicio
-                                        </td>
-                                        <td>${ifnull(element, 0, ['PRECIO_VENTA'])}</td>
-                                        <td>${ifnull(element, 1, ['CANTIDAD'])}</td>
-                                        <td>$${ifnull(element, 0, ['TOTAL'])}</td>
-                                    </tr>
-                                    `;
+                // let html = `
+                //                     <tr>
+                //                         <td>${element['SERVICIOS']}</td>
+                //                         <td>E48 -Unidad de
+                //                             servicio
+                //                         </td>
+                //                         <td>${ifnull(element, 0, ['PRECIO_VENTA'])}</td>
+                //                         <td>${ifnull(element, 1, ['CANTIDAD'])}</td>
+                //                         <td>$${ifnull(element, 0, ['TOTAL'])}</td>
+                //                     </tr>
+                //                     `;
 
-                $('#PacienteCreditoColumn').append(html);
+                tablaTicketCredito.row.add([
+                    ifnull(element, 'Servicio Desconocido', ['SERVICIOS']),
+                    'E48 -Unidad de servicio',
+                    `$${ifnull(element, 0.00, ['PRECIO_VENTA'])}`,
+                    ifnull(element, 1, ['CANTIDAD']),
+                    `$${ifnull(element, 0.00, ['TOTAL'])}`
+                ]).draw();
+
+                // $('#PacienteCreditoColumn').append(html);
 
             }
         }
@@ -51,5 +60,31 @@ function getInfoEstadoCuenta(px, turno) {
         $("#total").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
 
         $("#ModalTicketCredito").modal('show');
+
+        setTimeout(() => {
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+        }, 250);
     })
 }
+
+
+let tablaTicketCredito = $('#TablaTicketCredito').DataTable({
+    language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
+    searching: false,
+    lengthChange: false,
+    info: false,
+    paging: false,
+    ordering: false,
+    // scrollY: autoHeightDiv(0, 374),
+    // scrollCollapse: true,
+    // deferRender: true,
+    // lengthMenu: [
+    //     [20, 25, 30, 35, 40, 45, 50, -1],
+    //     [20, 25, 30, 35, 40, 45, 50, "All"]
+    // ],
+})

@@ -113,7 +113,7 @@ tablaContados = $('#TablaContados').DataTable({
 
 
 selectTable('#TablaContados', tablaContados, {
-    OnlyData: false, divPadre: '#false',
+    OnlyData: false,
     ClickClass: [
         {
             class: 'detalleCuenta',
@@ -122,8 +122,22 @@ selectTable('#TablaContados', tablaContados, {
                 getInfoEstadoCuenta(px, data['TURNO_ID']);
             }
         }
-    ]
-}, async (select, data) => {
+    ],
+    // Configuracion Movil
+    movil: true, "tab-default": 'Información', divPadre: '#ListaPacientesContados', reload: ['col-xl-9'],
+    tabs: [
+        {
+            title: 'Lista',
+            element: '#tab-pacientes_contados',
+            class: 'active',
+        },
+        {
+            title: 'Información',
+            element: '#tab-informacion_paciente',
+            class: 'disabled tab-select'
+        },
+    ],
+}, async (select, data, callback) => {
     selectTicket = data;
     if (select) {
         selectCuenta = new GuardarArreglo({
@@ -132,7 +146,9 @@ selectTable('#TablaContados', tablaContados, {
             id: data['TURNO_ID']
         })
         await obtenerPanelInformacion(data['TURNO_ID'], 'tickets_api', 'PanelTickets', '#InformacionTickets')
+        callback('In')
     } else {
+        callback('Out')
         selectTicket = null;
         selectCuenta = false
         await obtenerPanelInformacion(0, 'tickets_api', 'PanelTickets', '#InformacionTickets')

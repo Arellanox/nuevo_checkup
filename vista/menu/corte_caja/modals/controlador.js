@@ -4,8 +4,9 @@ $.post("modals/c_modal.php", function (html) {
     // Modal para rechazar
     // $.getScript('modals/js/subir-perfil.js');
 }).done(function () {
-    
+
     $.getScript('modals/js/admin_cajas.js');
 
 
+    $.getScript(`${http}${servidor}/${appname}/vista/menu/facturacion/modals/js/c_detalle_cuenta.js`);
 });

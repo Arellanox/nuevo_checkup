@@ -13,7 +13,7 @@
                         <input type="text" name="razon_social" value="" class="form-control input-form">
                     </div>
                     <div class="col-12 col-lg-6">
-                        <label for="domicilio" class="form-label">Domicilio fiscal</label>
+                        <label for="domicilio" class="form-label">Código postal</label>
                         <input type="text" name="domicilio" value="" class="form-control input-form">
                     </div>
                     <div class="col-12 col-lg-6">

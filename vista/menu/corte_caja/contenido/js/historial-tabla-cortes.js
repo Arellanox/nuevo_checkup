@@ -198,7 +198,12 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
     columns: [
         { data: 'PACIENTE' },
         { data: 'PREFOLIO' },
-        { data: 'NUM_ESTADO_CUENTA' },
+        {
+            data: 'NUM_ESTADO_CUENTA', render: function (data) {
+                let html = `<div class="d-flex justify-content-center PacienteInfoCargo" style="width: 40px">  ${ifnull(data, '')}  </div>`
+                return html
+            }
+        },
         {
             data: 'TOTAL', render: function (data) {
                 return `$${parseFloat(ifnull(data, 0)).toFixed(2)}`
@@ -244,6 +249,19 @@ inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [
     msj: "Filtre los resultados",
     place: 'top'
 }, "col-12")
+
+selectTable('#TablaPacientesCaja', TablaPacientesCaja, {
+    OnlyData: true, divPadre: '#false',
+    ClickClass: [
+        {
+            class: 'PacienteInfoCargo',
+            callback: function (data) {
+                let px = data['PACIENTE']
+                getInfoEstadoCuenta(px, data['TURNO_ID']);
+            }
+        }
+    ]
+})
 
 // ==============================================================================
 

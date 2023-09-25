@@ -2165,19 +2165,26 @@ function reloadSelectTable() {
 }
 
 //Evalua el estado de click de selectTable
+// Arreglo de clases a ignorar
+let ignoredClasses = [
+  'noClicked', //Algun elemento que podamos crear para que no implique selección
+  'dtr-control', //Cuando le da click al primer td con el boton + de visualizar mas columnas
+  'child',  //Cuando muestra las columnas ocultas de un regitro
+  'dataTables_empty', //Cuando la  tabla esta vacia, no selecciona
+];
+// Función para verificar si un elemento tiene alguna de las clases ignoradas
+const hasIgnoredClass = (elem) => ignoredClasses.some(className => elem.classList.contains(className));
+
 function eventClassClick(event, tr, config, data) {
   //Evalua donde está dando click el usuario
   var clickedElement = event.target;
+  ignoredClasses.push(config.ignoreClass) //Ignora el click por algun objeto en clase
   // var computedStyle = window.getComputedStyle(clickedElement, '::before');
   // computedStyle.getPropertyValue('property') === 'value'
   // console.log(computedStyle.getPropertyValue('property') === 'value')
   //Cancela la funcion si el elemento que hace click tiene la siguiente clase
-  if (
-    $(clickedElement).hasClass('noClicked') //Algun elemento que podamos crear para que no implique selección
-    || ($(clickedElement).hasClass('dtr-control')) //Cuando le da click al primer td con el boton + de visualizar mas columnas
-    || $(tr).hasClass('child') //Cuando muestra las columnas ocultas de un regitro
-    || $(tr).hasClass('dataTables_empty')  //Cuando la  tabla esta vacia, no selecciona
-    || $(tr).hasClass(`${config.ignoreClass}`) //Ignora el click por algun objeto en clase
+  if (hasIgnoredClass(clickedElement)
+    || hasIgnoredClass(tr)
     || $(tr).find('td').hasClass('dataTables_empty') //Ignora si no hay datos que mostrar (serverside)
   )
     return [true, false];
