@@ -111,6 +111,8 @@ class Master extends Miscelaneus
 
             $sentencia->closeCursor();
 
+            # cerramos la conexion a la base de datos.
+            $conexion = null;
             return $global;
         } catch (Exception $e) {
 
@@ -144,6 +146,10 @@ class Master extends Miscelaneus
 
 
         $sentencia->closeCursor();
+
+        # cerramos la conexion a la base de datos.
+        $conexion = null;
+        
         return $retorno;
     }
 
