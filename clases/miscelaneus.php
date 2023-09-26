@@ -1863,4 +1863,19 @@ class Miscelaneus
 
         return $response;
     }
+
+    public function setLogEmail(
+        $master,
+        $turno_id, 
+        $area_id, 
+        $correo_origen, 
+        $correo_destino, 
+        $tipo_correo, 
+        $notas, 
+        $enviado){
+        # Guarda el comportamiento de los correo de resultados o cualquier otro correo enviado por bimo.
+        $response = $master->insertByProcedure("", []);
+
+        return true;
+    }
 }

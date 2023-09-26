@@ -246,6 +246,7 @@ switch ($api) {
                 $r = $mail->sendEmail("resultados", "Resultados de laboratorio", array_unique($mails), null, $files, 1);
                 if ($r) {
                     $response = 1;
+                    
                 } else {
                     $response = "No se envió el resultado.";
                 }

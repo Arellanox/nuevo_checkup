@@ -12,6 +12,7 @@ use PHPMailer\PHPMailer\Exception;
 class Correo
 {
     private $emailCred;
+    public $correo_seleccionado;
 
     function Correo()
     {
@@ -99,7 +100,13 @@ class Correo
         }
     }
 
+    public function getCorreoSeleccionado(){
+        return $this->correo_seleccionado;
+    }
 
+    private function setCorreoSeleccionado($correo){
+        $this->correo_seleccionado = $correo;
+    }
     function sendEmail($bodySelected, $subject, $emails = array(), $token = null, $reportes = array(), $resultados = 0, $paciente = null)
     # $bodyselected indica el cuerpo que se envia en el correo.
     # $emails, direcciones de correo electronico de destino.
@@ -115,10 +122,13 @@ class Correo
         if ($resultados == 0) {
             $username = 'hola@bimo-lab.com';
             // $password = 'X@96ck6B1V4&tm!4QZp3F';
+            $this->setCorreoSeleccionado($username);
             $password = $this->emailCred->hola;
             $fromName = 'bimo';
+
         } else {
             $username = 'resultados@bimo-lab.com';
+            $this->setCorreoSeleccionado($username);
             // $password = 'Bimo2023!';
             $password = $this->emailCred->resultados;
             $fromName = 'Resultados [bimo]';
