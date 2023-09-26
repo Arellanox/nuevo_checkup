@@ -3,9 +3,11 @@
 // ObtenerTabla o cambiar
 // obtenerContenidoRecepcion();
 var tablaRecepcionPacientes, dataRecepcion = { api: 1 };
+var TablaReportesNoEnviados, dataReporteNoEnviados = { api: 2, enviaod: 0 }
 
 var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
-var hash;
+var hash, btn_alerta_reporte;
+
 
 //Validacion de usuario
 switch (session['cargo']) {
@@ -22,6 +24,25 @@ if (validarVista('RECEPCIÓN')) {
   });
 }
 
+//Notificacion de reportes faltantes
+function notificacionReportesNoEnviados() {
+  ajaxAwait({ api: 1 }, 'correos_api', { callbackAfter: true }, false, function (data) {
+    btn_alerta_reporte = data.response.data[0]['NOTIFICACION']
+
+    //Comprueba si hay notificaciones
+    if (btn_alerta_reporte > 0) {
+      //Si hay notificaciones
+      $('#numReportes').html(btn_alerta_reporte) // <- le muestras cuantas notificaciones hay
+      $('#btn-modalNotificacionesReportes').addClass('animated-button'); //<- y se agrega una clase que hace que baile como macarebna
+
+    } else { //<- en caso que no haya se remueven las clasesm tanto para vibrar como para que se vea el numero de reportes faltantes
+      $('#numReportes').removeClass()
+      $('#numReportes').html(''); // <- Se puso esto ya que el span quedaba como 1 por alguna razon
+      $('#btn-modalNotificacionesReportes').removeClass('animated-button');
+      $('#btn-modalNotificacionesReportes').addClass('animated-button-normal');
+    }
+  })
+}
 
 
 // Botones
@@ -34,6 +55,7 @@ function obtenerContenidoEspera() {
   }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-tabla.js");
+    notificacionReportesNoEnviados() //<- Se agrega para que se pueda ver en todos los estados en recepcion
   });
 }
 
@@ -45,6 +67,7 @@ function obtenerContenidoAceptados() {
   }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-aceptados-tabla.js");
+    notificacionReportesNoEnviados() //<- Se agrega para que se pueda ver en todos los estados en recepcion
   });
 }
 
@@ -56,6 +79,7 @@ function obtenerContenidoRechazados() {
   }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-tabla.js");
+    notificacionReportesNoEnviados() //<- Se agrega para que se pueda ver en todos los estados en recepcion
   });
 }
 
@@ -119,3 +143,5 @@ function recepciónPaciente(estatus, id) {
 }
 
 obtenerPanelInformacion(0, 0, 0)
+
+//Detener animacionde boton de los reportes no entregados
