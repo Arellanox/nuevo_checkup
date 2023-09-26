@@ -238,23 +238,24 @@ switch ($api) {
                     }
                 }
 
+                // print_r($archivos_paciente);
                 # enzipamos los archivos correspondientes al zip actual.
                 foreach ($archivos_paciente as $a) {
                     $ruta = explode("nuevo_checkup", $a);
                     $ruta = ".." . $ruta[1];
 
-                    // if ($zip->open("../tmp/".$nombre_zip[0].".zip") === TRUE) {
-                    //     $zip->addFile($ruta, basename($ruta));
-                    //     $zip->close();
-                    // } else {
-                    //     echo 'failed';
-                    // }
-                    if ($zip->open("../tmp/" . $nombre_zip[0] . ".zip") === TRUE) {
-                        $zip->addFile("../checkup.sql", basename($ruta));
+                    if ($zip->open("../tmp/".$nombre_zip[0].".zip") === TRUE) {
+                        $zip->addFile($ruta, basename($ruta));
                         $zip->close();
                     } else {
                         echo 'failed';
                     }
+                    // if ($zip->open("../tmp/" . $nombre_zip[0] . ".zip") === TRUE) {
+                    //     $zip->addFile("../checkup.sql", basename($ruta));
+                    //     $zip->close();
+                    // } else {
+                    //     echo 'failed';
+                    // }
                 }
             }
 
