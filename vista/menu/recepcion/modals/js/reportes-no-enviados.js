@@ -70,3 +70,17 @@ function desactivarTablaReportes() {
         })
     }, 1)
 }
+
+$('#btn-reenviarReportes').on('click', function () {
+    alertMensajeConfirm({
+        title: '¿Está seguro que desea reenviar todos los reportes?',
+        text: 'No podrá modificarlo despues',
+        icon: 'warning',
+    }, function () {
+        ajaxAwait({ api: 4 }, 'correos_api', { callbackAfter: true }, false, function (data) {
+            alertToast('Reportes reenviados!', 'success', 4000)
+            notificacionReportesNoEnviados()
+            TablaReportesNoEnviados.ajax.reload();
+        })
+    }, 1)
+})
