@@ -126,6 +126,13 @@ class Correo
             $password = $this->emailCred->hola;
             $fromName = 'bimo';
 
+        } else if ($resultados == 1){
+            $username = 'soporte@bimo-lab.com';
+            $this->setCorreoSeleccionado($username);
+            // $password = 'Bimo2023!';
+            $password = $this->emailCred->soporte;
+            $fromName = 'Resultados [bimo]';
+        
         } else {
             $username = 'resultados@bimo-lab.com';
             $this->setCorreoSeleccionado($username);
