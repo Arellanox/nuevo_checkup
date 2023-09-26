@@ -1,3 +1,40 @@
+<style>
+  .animated-button {
+    animation: shake 0.3s ease infinite;
+    /* Agrega la animación "shake" */
+  }
+
+  .animated-button-normal {
+    cursor: pointer;
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-5px);
+      /* Mueve el botón a la izquierda */
+    }
+
+    50% {
+      transform: translateX(5px);
+      /* Mueve el botón a la derecha */
+    }
+
+    75% {
+      transform: translateX(-5px);
+      /* Mueve el botón a la izquierda */
+    }
+
+    100% {
+      transform: translateX(0);
+      /* Regresa a la posición original */
+    }
+  }
+</style>
+
 <?php
 session_start();
 date_default_timezone_set('America/Mexico_City');
@@ -52,6 +89,14 @@ $menu = $_POST['menu']; ?>
     <i class="bi bi-qr-code"></i> QR
   </button>
 
+  <!-- Boton para recibir notificaciones de reportes no enviados(abre un modal a una vista previa de los reportes no enviados) -->
+  <button type="button" class="btn btn-hover position-relative me-2 animated-button" style="margin-bottom:4px" id="btn-modalNotificacionesReportes" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Notificacion de reportes no entregados">
+    <i class="bi bi-bell-fill"></i> No entregado
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="numReportes">
+      <span class="visually-hidden">unread messages
+      </span>
+    </span>
+  </button>
 
 <?php endif; ?>
 
