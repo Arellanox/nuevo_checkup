@@ -26,12 +26,15 @@ $fecha = $_POST['fecha'];
 
 switch($api){
     case 1:
+        # notificacion de los resultados no enviados por correo electronico.
+        $response = $master->getByProcedure("sp_correos_notificacion", []);
         break;
     case 2:
         # buscar informacion de la tabla de correos.
         $response = $master->getByProcedure("sp_correos_b", [$turno_id, $fecha, $enviado, $area_id]);
         break;
     case 3:
+        # eliminar un registro de la tabla de correos.
         $response = $master->deleteByProcedure("sp_correos_e", [$id_correo]);
         break;
     default:
