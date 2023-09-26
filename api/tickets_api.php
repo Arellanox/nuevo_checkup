@@ -2,7 +2,7 @@
 include "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
-$tokenVerification = new TokenVerificacion();
+$tokenVerification = new TokenVerificacion(); 
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
     // $tokenVerification->logout();
@@ -31,6 +31,7 @@ $regimen_fiscal = $_POST['regimen_fiscal'];
 $rfc = $_POST['rfc'];
 $uso = $_POST['uso'];
 $metodo_pago = $_POST['metodo_pago'];
+$formas_pagos_ticket = $_POST['formas_pagos_ticket'];
 
 
 
@@ -52,7 +53,8 @@ $params = $master->setToNull(array(
     $rfc,
     $uso,
     $metodo_pago,
-    $_SESSION['id']
+    $_SESSION['id'],
+    $formas_pagos_ticket
 ));
 # datos de factura
 
