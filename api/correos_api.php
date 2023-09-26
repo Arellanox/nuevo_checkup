@@ -32,6 +32,7 @@ switch($api){
         $response = $master->getByProcedure("sp_correos_b", [$turno_id, $fecha, $enviado, $area_id]);
         break;
     case 3:
+        $response = $master->deleteByProcedure("sp_correos_e", [$id_correo]);
         break;
     default:
         $response = "API no reconocida.";
