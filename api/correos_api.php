@@ -59,7 +59,7 @@ switch($api){
 
              # enviamos el correo.
              if (!empty($files[0])) {
-                $r = $mail->sendEmail("resultados", $asunto, $mails, null, $files[0], 2);
+                $r = $mail->sendEmail("resultados", $asunto, $mails, null, $files[0], 1);
                 if ($r) {
                     # cambiamos el estado del correo a enviado.
                     $response = $master->updateByProcedure("sp_correos_cambiar_estado", [$current['ID_CORREO']]);
