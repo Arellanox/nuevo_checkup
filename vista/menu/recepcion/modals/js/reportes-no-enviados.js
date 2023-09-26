@@ -45,10 +45,10 @@ TablaReportesNoEnviados = $("#TablaReportesNoEnviados").DataTable({
         { target: 3, title: 'Procedencia', className: 'all' },
         { target: 4, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
     ]
-    // ,
-    // createdRow: function (row, data, dataIndex) {
-    //     $('#numReportes').html(btn_alerta_reporte)
-    // }
+    ,
+    createdRow: function (row, data, dataIndex) {
+        console.log(data.ENVIADO)
+    }
 })
 
 

@@ -3,7 +3,7 @@
 // ObtenerTabla o cambiar
 // obtenerContenidoRecepcion();
 var tablaRecepcionPacientes, dataRecepcion = { api: 1 };
-var TablaReportesNoEnviados, dataReporteNoEnviados = { api: 2, enviaod: 0 }
+var TablaReportesNoEnviados, dataReporteNoEnviados = { api: 2, enviado: 0 }
 
 var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
 var hash, btn_alerta_reporte;
