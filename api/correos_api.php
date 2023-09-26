@@ -31,4 +31,10 @@ switch($api){
         # buscar informacion de la tabla de correos.
         $response = $master->getByProcedure("sp_correos_b", [$turno_id, $fecha, $enviado, $area_id]);
         break;
+    case 3:
+        break;
+    default:
+        $response = "API no reconocida.";
 }
+
+echo $master->returnApi($response);
