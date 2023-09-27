@@ -90,9 +90,9 @@ $menu = $_POST['menu']; ?>
   </button>
 
   <!-- Boton para recibir notificaciones de reportes no enviados(abre un modal a una vista previa de los reportes no enviados) -->
-  <button type="button" class="btn btn-hover position-relative me-2 animated-button" style="margin-bottom:4px" id="btn-modalNotificacionesReportes" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Notificacion de reportes no entregados">
+  <button type="button" class="btn btn-hover position-relative me-2" style="margin-bottom:4px" id="btn-modalNotificacionesReportes" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Notificacion de reportes no entregados">
     <i class="bi bi-bell-fill"></i> No entregado
-    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="numReportes">
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="numReportes" style="display: none;">
       <span class="visually-hidden">unread messages
       </span>
     </span>

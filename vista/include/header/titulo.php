@@ -16,7 +16,7 @@ $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : 0 ?>
         ?>
 
         <div class="col-auto d-flex justify-content-start">
-          <h2 class="text-center" style="margin: 0px;"><?php echo $menu; ?></h2> <!-- Dinamico -->
+          <h2 class="text-center" style="margin: 0px;" id="titulo_area"><?php echo $menu; ?></h2> <!-- Dinamico -->
         </div>
 
       </div>
