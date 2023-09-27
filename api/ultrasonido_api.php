@@ -84,6 +84,11 @@ switch ($api) {
             # enviar el correo con el reporte y las imagenes capturadas
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
 
+            # conseguir el segundo correo y el correo del medico tratante
+            $mails = $master->getEmailMedico($master, $turno_id);
+            
+            # incluir en el arreglo el correo principal del paciente.
+
             if (!empty($attachment[0])) {
                 $mail = new Correo();
                 if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)) {
