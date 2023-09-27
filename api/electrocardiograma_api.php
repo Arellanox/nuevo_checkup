@@ -61,7 +61,7 @@ switch ($api) {
 
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', [$attachment[1]], null, $attachment[0], 1,$turno_id, 10, $master)) {
                     $master->setLog("Correo enviado.", "Electrocardiograma");
                 }
             }
