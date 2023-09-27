@@ -35,7 +35,10 @@ $formas_pagos_ticket = $_POST['formas_pagos_ticket'];
 
 
 
-$params = $master->setToNull(array(
+
+
+
+$params = array(
     $id_ticket,
     $turno_id,
     $descuento_porcentaje,
@@ -55,11 +58,16 @@ $params = $master->setToNull(array(
     $metodo_pago,
     $_SESSION['id'],
     $formas_pagos_ticket
-));
+    
+);
 # datos de factura
 
-//  print_r($params);
-//  exit;
+// print_r($formas_pagos_ticket);
+
+echo "<pre>";
+var_dump($params);
+echo "</pre>";
+exit;
 
 
 

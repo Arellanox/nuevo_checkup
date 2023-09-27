@@ -78,7 +78,7 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
         let dataJson = {
             api: 1, turno_id: dataPaciente['ID_TURNO'],
             requiere_factura: 1, metodo_pago: 1,
-            formas_pagos_ticket: array_pagos
+            formas_pagos_ticket: JSON.stringify(array_pagos)
 
         }
 
@@ -317,7 +317,7 @@ function metodo(factura = 0) {
         descuento_porcentaje: dataPrecios['descuento_porcentaje'],
         descuento: dataPrecios['descuento'], total_cargos: dataPrecios['total_cargos'],
         subtotal: dataPrecios['subtotal'], iva: dataPrecios['iva'], total: dataPrecios['total'],
-        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), formas_pagos_ticket: array_pagos, requiere_factura: factura
+        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), formas_pagos_ticket: JSON.stringify(array_pagos), requiere_factura: factura
     }, 'tickets_api', { callbackAfter: false }, function (data) {
         alertTicket(data, 'Ticket guardado')
     })
@@ -491,7 +491,7 @@ function MontoFaltante() {
 
 function ReiniarFormasPago() {
     array_pagos = [];
-    $('#formasPagoDiv').html()
+    $('#formasPagoDiv').html("")
 }
 // ==============================================================================
 
