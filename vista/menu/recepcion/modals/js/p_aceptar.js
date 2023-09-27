@@ -121,10 +121,31 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
 
   event.preventDefault();
 
+  let dataJson = {
+    api: 2, url: url_paciente, id_turno: array_selected['ID_TURNO'],
+    estado: 1, comentario_rechazo: $('#Observaciones-aceptar').val(),
+    alergias: $('#alergias-aceptar-paciente').val(),
+    diagnostico: $('#diagnostico-aceptar-paciente').val(),
+    segmento_id: $('#select-segmento-aceptar').val(),
+    medico_tratante: $('#medico-aceptar-paciente').val(),
+    medico_correo: $('#medico-correo-aceptar').val(),
+    servicios: estudiosEnviar,
+  }
+
+  let paquete = '';
+  if (!$('#checkPaqueteAceptar').is(":checked")) {
+    if ($('#select-paquetes').val()) {
+      dataJson['id_paquete'] = $('#select-paquetes').val()
+      paquete = `Cagarás el paquete ${$('#select-paquetes option:selected').text()} \n`
+    }
+  }
+
+
+
   alertMensajeConfirm({
-    title: "¿Está seguro de aceptar el paciente?",
-    text: "¡Revisa que todo este correcto!",
-    icon: "warning",
+    title: `${paquete}¿Está seguro de aceptar el paciente?`,
+    text: "¡Recuerda revisar que todo este en orden!",
+    icon: paquete != '' ? 'warning' : 'info',
     // confirmButtonColor: "#d33",
     confirmButtonText: "Aceptar",
     allowOutsideClick: false
@@ -181,17 +202,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     // });
 
 
-
-    ajaxAwaitFormData({
-      api: 2, url: url_paciente, id_turno: array_selected['ID_TURNO'],
-      estado: 1, comentario_rechazo: $('#Observaciones-aceptar').val(),
-      alergias: $('#alergias-aceptar-paciente').val(),
-      diagnostico: $('#diagnostico-aceptar-paciente').val(),
-      segmento_id: $('#select-segmento-aceptar').val(),
-      medico_tratante: $('#medico-aceptar-paciente').val(),
-      medico_correo: $('#medico-correo-aceptar').val(),
-      servicios: estudiosEnviar,
-    }, 'recepcion_api', 'formAceptarPacienteRecepcion', { callbackAfter: true, callbackBefore: true }, () => {
+    ajaxAwaitFormData(dataJson, 'recepcion_api', 'formAceptarPacienteRecepcion', { callbackAfter: true, callbackBefore: true }, () => {
       alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
     }, (data) => {
       Swal.fire({

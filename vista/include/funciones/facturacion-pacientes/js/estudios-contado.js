@@ -87,10 +87,12 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
             dataJson.total = dataPrecios['total']
             dataJson.pago = $('#contado-tipo-pago').val()
             dataJson.referencia = $('#referencia-contado').val()
+
         }
 
         ajaxAwaitFormData(dataJson, 'tickets_api', 'formularioPacienteFactura', { callbackAfter: true }, false, function (data) {
             finalizarProcesoRecepcion(dataPaciente)
+
             alertTicket(data, 'Factura y ticket guardado')
         })
     }, 1)
@@ -293,6 +295,7 @@ function configurarFactura(data) {
     $('#modalFacturaPaciente').modal('show')
 
 }
+
 
 //No requiere factura o el mensaje de factura le dio que no
 function metodo(factura = 0) {

@@ -130,6 +130,9 @@ function finalizarProcesoRecepcion(paciente, factura = false, pago = false) {
     try { tablaRecepcionPacientesIngrersados.ajax.reload() } catch (error) { }
     // try { tablaRecepcionPacientes.ajax.reload() } catch (error) { }
   }
+
+
+
 }
 
 
