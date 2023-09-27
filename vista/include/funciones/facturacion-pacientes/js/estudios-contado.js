@@ -77,7 +77,9 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
         //envio de datos (factura y tipo de pago_datos)
         let dataJson = {
             api: 1, turno_id: dataPaciente['ID_TURNO'],
-            requiere_factura: 1, metodo_pago: 1
+            requiere_factura: 1, metodo_pago: 1,
+            formas_pagos_ticket, array_pagos
+
         }
 
         if (!onlyFactura) {
@@ -90,11 +92,13 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
             dataJson.pago = $('#contado-tipo-pago').val()
             dataJson.referencia = $('#referencia-contado').val()
 
+
+
         }
 
         ajaxAwaitFormData(dataJson, 'tickets_api', 'formularioPacienteFactura', { callbackAfter: true }, false, function (data) {
             finalizarProcesoRecepcion(dataPaciente)
-            FinalizarPago()
+            // FinalizarPago()
             alertTicket(data, 'Factura y ticket guardado')
         })
     }, 1)
@@ -305,14 +309,14 @@ function configurarFactura(data) {
 function metodo(factura = 0) {
     //Termina el proceso del paciente con las llamadas que hizo el usuario
     finalizarProcesoRecepcion(dataPaciente)
-    FinalizarPago()
+    // FinalizarPago()
 
     ajaxAwait({
         api: 1, turno_id: dataPaciente['ID_TURNO'],
         descuento_porcentaje: dataPrecios['descuento_porcentaje'],
         descuento: dataPrecios['descuento'], total_cargos: dataPrecios['total_cargos'],
         subtotal: dataPrecios['subtotal'], iva: dataPrecios['iva'], total: dataPrecios['total'],
-        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), requiere_factura: factura
+        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), formas_pagos_ticket, array_pagos, requiere_factura: factura
     }, 'tickets_api', { callbackAfter: false }, function (data) {
         alertTicket(data, 'Ticket guardado')
     })
@@ -444,12 +448,7 @@ function monto() {
     }
 }
 
-function FinalizarPago() {
-    ajaxAwait({
-        api: 1,
-        formas_pagos_ticket, array_pagos
-    }, 'tickets_api')
-}
+
 
 // Oculta todas las tablas
 function OcultarTablas() {
