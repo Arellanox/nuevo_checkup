@@ -86,7 +86,7 @@ switch ($api) {
 
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1, null, $turno_id, 11, $master)) {
                     $master->setLog("Correo enviado.", "ultrasonido");
                 }
             }

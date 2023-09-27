@@ -243,11 +243,12 @@ switch ($api) {
             $mails[] = $response[0]['CORREO'];
 
             if (!empty($files)) {
-                $r = $mail->sendEmail("resultados", "Resultados de laboratorio", array_unique($mails), null, $files, 1);
+                $r = $mail->sendEmail("resultados", "Resultados de laboratorio", array_unique($mails), null, $files, 1, null, $id_turno, $id_area, $master);
                 if ($r) {
                     $response = 1;
                     
                 } else {
+                    $x = $master->insertByProcedure("sp_correos_g", [$id_turno, $id_area, $mail->getCorreoSeleccionado(), ]);
                     $response = "No se envió el resultado.";
                 }
             } else {

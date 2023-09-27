@@ -88,7 +88,7 @@ switch ($api) {
 
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', 'Resultados Rayos X', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', 'Resultados Rayos X', [$attachment[1]], null, $attachment[0], 1, null, $turno_id, 8, $master)) {
                     $master->setLog("Correo enviado. turno $turno_id.", "[rayos x]");
                 }
             }

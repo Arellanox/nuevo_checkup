@@ -63,7 +63,7 @@ switch ($api) {
     
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de somatometría', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de somatometría', [$attachment[1]], null, $attachment[0], 1,null, $id_turno, 2, $master)) {
                     $master->setLog("Correo enviado.", "Somatometría");
                 }
             }

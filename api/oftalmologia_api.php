@@ -96,7 +96,7 @@ switch ($api) {
 
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de oftalmología', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de oftalmología', [$attachment[1]], null, $attachment[0], 1, null, $turno_id, 3, $master)) {
                     $master->setLog("Correo enviado.", "Oftalmología");
                 }
             }
