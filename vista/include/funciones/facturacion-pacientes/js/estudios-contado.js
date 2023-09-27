@@ -27,12 +27,14 @@ $(document).on('click', '#terminar-proceso-cargo', function (event) {
 
     // Validar si el monto que se esta ingresando concuerda con el total que se muestra en el modal
     // Si no es asi entonces no puede continuar por que el pago no esta completo
-    // if (!monto()) {
-    //     alertToast('No se puede continuar por que la cantidad ingresada no concuerda con el total.', 'error', 4000)
-    // }
-
     if (array_pagos.length === 0) {
-        // return true;
+        idPago = $("#contado-tipo-pago").val()
+        array_pagos = [
+            {
+                id_pago: idPago,
+                monto: total_cliente
+            }
+        ]
     } else {
         if (!monto()) {
             return false;
@@ -92,7 +94,7 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
 
         ajaxAwaitFormData(dataJson, 'tickets_api', 'formularioPacienteFactura', { callbackAfter: true }, false, function (data) {
             finalizarProcesoRecepcion(dataPaciente)
-
+            FinalizarPago()
             alertTicket(data, 'Factura y ticket guardado')
         })
     }, 1)
@@ -113,6 +115,7 @@ $(document).on('click', '#agregarformapago', async function (e) {
 
         if (tipoDePagoEncontrado) {
             armarTiposPagos(tipoDePagoEncontrado);
+            MontoFaltante()
         } else {
             alertToast('Tipo de pago no encontrado.', 'error', 4000)
         }
@@ -133,6 +136,7 @@ $(document).on('click', '.eliminarformapago', function (e) {
     })
 
     html.remove()
+    MontoFaltante()
 })
 
 // ==============================================================================
@@ -144,6 +148,7 @@ $(document).on('click', '.eliminarformapago', function (e) {
 //Vista de estudios que se le hicieron al paciente
 function configurarModal(data) {
     //Estatus en proceso
+    OcultarTablas()
     tipo_pago = $('#contado-tipo-pago').val()
     tipo_factura = false
 
@@ -296,11 +301,12 @@ function configurarFactura(data) {
 
 }
 
-
 //No requiere factura o el mensaje de factura le dio que no
 function metodo(factura = 0) {
     //Termina el proceso del paciente con las llamadas que hizo el usuario
     finalizarProcesoRecepcion(dataPaciente)
+    FinalizarPago()
+
     ajaxAwait({
         api: 1, turno_id: dataPaciente['ID_TURNO'],
         descuento_porcentaje: dataPrecios['descuento_porcentaje'],
@@ -353,7 +359,10 @@ function armarTiposPagos(tipoDePagoEncontrado) {
             <label class="form-label" for="tipo_pago">${tipoDePagoEncontrado.DESCRIPCION}:</label>
         </div>
         <div class="col-4">
-            <input type="number" placeholder="Monto:" value='0' class="form-control input-form">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text input-span">$</span>
+                <input type="number" placeholder="Monto:" id='id_pago_${tipoDePagoEncontrado.ID_PAGO}' value='0' class="form-control input-form" onkeyup="MontoFaltante()">
+            </div>
         </div>
         <div class="col-4">
             <button class="btn eliminarformapago" data_id='${tipoDePagoEncontrado.ID_PAGO}' id="">
@@ -364,7 +373,6 @@ function armarTiposPagos(tipoDePagoEncontrado) {
     </div>
     `;
     $('#formasPagoDiv').append(html)
-
 }
 
 // Crear el array con los tipos de pago que se crearon junto con su ID y MONTO
@@ -391,11 +399,14 @@ function AlmacenarFormasPago() {
         array_pagos.push({
             id_pago: idPago,
             tipo: tipo,
-            monto: parseFloat(monto).toFixed(2)
+            monto: parseFloat(ifnull(monto, 0)).toFixed(2)
         })
     })
 
-    console.log(array_pagos)
+    // console.log(array_pagos)
+
+
+    return array_pagos
 }
 
 // Valida si el monto que se ingreso concuerda con el total calculado del paciente
@@ -405,27 +416,76 @@ function monto() {
 
     $.each(array_pagos, function (index, formaPago) {
         var monto = parseFloat(formaPago.monto);
-        if (formaPago.monto === "NaN" || formaPago.monto === "0.00" || formaPago.monto === "0" || monto === 0) {
-            alertToast('No se puede continuar por que hay un monto vacio o esta en 0.', 'error', 4000)
-            return false;
-        } else if (!isNaN(monto)) {
+        if (!isNaN(monto)) {
             sumaMontos += monto;
         }
     });
 
-    // console.log(sumaMontos.toFixed(2))
 
-    if (sumaMontos.toFixed(2) === total) {
+
+    var total2 = (parseFloat(total)).toFixed(2)
+
+    // console.log(typeof (sumaMontos))
+    // console.log(typeof (total2))
+    // console.log(sumaMontos.toFixed(2))
+    // console.log(total2)
+
+
+    if (sumaMontos.toFixed(2) === total2) {
         return true
-    } else if (sumaMontos.toFixed(2) < total) {
+    } else if (sumaMontos.toFixed(2) < total2) {
+        console.log('entro al menor')
         alertToast('No se puede continuar por que la cantidad ingresada es menor al total.', 'error', 4000)
         return false;
-    } else if (sumaMontos.toFixed(2) > total) {
+    } else if (sumaMontos.toFixed(2) > total2) {
+        console.log('entro al mayor')
         alertToast('No se puede continuar por que la cantidad ingresada es mayor al total.', 'error', 4000)
         return false;
     }
 }
 
+function FinalizarPago() {
+    ajaxAwait({
+        api: 1,
+        formas_pagos_ticket, array_pagos
+    }, 'tickets_api')
+}
+
+// Oculta todas las tablas
+function OcultarTablas() {
+    $('#container-estudios-11').fadeOut()
+    $('#container-estudios-8').fadeOut()
+    $('#container-estudios-6').fadeOut()
+    $('#container-estudios-0').fadeOut()
+}
+
+function MontoFaltante() {
+    const Array = AlmacenarFormasPago()
+    let Suma = 0;
+    let residuo = 0;
+
+    if (array_pagos.length > 0) {
+        for (const key in Array) {
+            if (Object.hasOwnProperty.call(Array, key)) {
+                const element = Array[key];
+
+                Suma += parseFloat(ifnull(element, 0, ['monto']));
+            }
+        }
+
+        console.log(parseFloat(total_cliente), Suma)
+
+        residuo = parseFloat(total_cliente) - Suma
+
+        if (residuo !== 0) {
+            $('#precio-faltante').html(`$${residuo.toFixed(2)}`)
+        } else {
+            $('#precio-faltante').html('Pago listo')
+        }
+    } else {
+        $('#precio-faltante').html('Pago listo')
+    }
+}
 // ==============================================================================
 
 // ###################### Otras cosas ###########################################

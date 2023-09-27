@@ -100,7 +100,11 @@
 
                             <div class="col-8 text-end">
                                 Descuento ( % )
-                                <input type="number" placeholder="% de descuento:" class="form-control input-form" value="0" id="descuento">
+                                <div class="input-group flex-nowrap">
+                                    <input type="number" placeholder="% de descuento:" class="form-control input-form text-end" value="0" id="descuento">
+                                    <span class="input-group-text input-span">%</span>
+                                </div>
+
                             </div>
                             <div class="col-4 text-start" id="precio-descuento"> $0<!-- calculo --></div>
                             <div class="col-8 text-end">Subtotal:</div>
@@ -109,6 +113,8 @@
                             <div class="col-4 text-start" id="precio-iva"> 16 %<!-- calculo --></div>
                             <div class="col-8 text-end">Total:</div>
                             <div class="col-4 text-start" id="precio-total"> $0<!-- calculo --></div>
+                            <div class="col-8 text-end">Faltante:</div>
+                            <div class="col-4 text-start" id="precio-faltante"> $0<!-- residuo --></div>
                         </div>
                     </div>
                 </div>
