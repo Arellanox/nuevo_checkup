@@ -112,7 +112,9 @@ switch ($api) {
         break;
     case 9:
         #Mostrar la informacion de los historiales de los cortes de cajas
-        $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$id_corte]);
+        $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$id_corte]);
+        $response2 = $master->getByProcedure("sp_corte_detalle_pagos", [$id_corte]);
+        $response = array_merge($response1, $response2);
         break;
     case 10:
         #Aqui finalizamos el corte de caja
