@@ -78,7 +78,7 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
         let dataJson = {
             api: 1, turno_id: dataPaciente['ID_TURNO'],
             requiere_factura: 1, metodo_pago: 1,
-            formas_pagos_ticket, array_pagos
+            formas_pagos_ticket: array_pagos
 
         }
 
@@ -153,6 +153,7 @@ $(document).on('click', '.eliminarformapago', function (e) {
 function configurarModal(data) {
     //Estatus en proceso
     OcultarTablas()
+    ReiniarFormasPago()
     tipo_pago = $('#contado-tipo-pago').val()
     tipo_factura = false
 
@@ -316,7 +317,7 @@ function metodo(factura = 0) {
         descuento_porcentaje: dataPrecios['descuento_porcentaje'],
         descuento: dataPrecios['descuento'], total_cargos: dataPrecios['total_cargos'],
         subtotal: dataPrecios['subtotal'], iva: dataPrecios['iva'], total: dataPrecios['total'],
-        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), formas_pagos_ticket, array_pagos, requiere_factura: factura
+        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), formas_pagos_ticket: array_pagos, requiere_factura: factura
     }, 'tickets_api', { callbackAfter: false }, function (data) {
         alertTicket(data, 'Ticket guardado')
     })
@@ -474,7 +475,9 @@ function MontoFaltante() {
 
         console.log(parseFloat(total_cliente), Suma)
 
-        residuo = parseFloat(total_cliente) - Suma
+        residuo = (parseFloat(total_cliente)).toFixed(2) - Suma.toFixed(2)
+
+        console.log(residuo)
 
         if (residuo !== 0) {
             $('#precio-faltante').html(`$${residuo.toFixed(2)}`)
@@ -484,6 +487,11 @@ function MontoFaltante() {
     } else {
         $('#precio-faltante').html('Pago listo')
     }
+}
+
+function ReiniarFormasPago() {
+    array_pagos = [];
+    $('#formasPagoDiv').html()
 }
 // ==============================================================================
 
