@@ -279,6 +279,14 @@ $(document).on('click', '#get-modal-qr-clientes', function () {
 //modal para notificar si cuentan con algun reporte sin enviar
 $(document).on('click', '#btn-modalNotificacionesReportes', function () {
   $('#modalNotificacionReportesNoEnviados').modal('show');
+  setTimeout(() => {
+    $.fn.dataTable
+      .tables({
+        visible: true,
+        api: true
+      })
+      .columns.adjust();
+  }, 230);
 })
 
 

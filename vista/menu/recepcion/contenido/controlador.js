@@ -25,66 +25,85 @@ if (validarVista('RECEPCIÓN')) {
 }
 
 //Notificacion de reportes faltantes
-function notificacionReportesNoEnviados() {
-  ajaxAwait({ api: 1 }, 'correos_api', { callbackAfter: true }, false, function (data) {
-    btn_alerta_reporte = data.response.data[0]['NOTIFICACION']
+//animated-button
+notificacionReportesNoEnviados(null)
+async function notificacionReportesNoEnviados(count) {
+  let span = '#numReportes';
+  let btn = '#btn-modalNotificacionesReportes';
 
-    //Comprueba si hay notificaciones
-    if (btn_alerta_reporte > 0) {
-      //Si hay notificaciones
-      $('#numReportes').html(btn_alerta_reporte) // <- le muestras cuantas notificaciones hay
-      $('#btn-modalNotificacionesReportes').addClass('animated-button'); //<- y se agrega una clase que hace que baile como macarebna
+  return new Promise((resolve) => {
+    ajaxAwait({ api: 1 }, 'correos_api', { callbackAfter: true }, false, function (data) {
+      // resolve(data);
+      const noti = ifnull(data.response.data, false, { 0: 'NOTIFICACION' });
+      // Verificamos si existe una nueva notificacion
+      if (noti > 0 && noti != count) {
+        $(span).fadeIn('fast');
+        $(span).html(noti)
+        $(btn).addClass('animated-button');
+        setTimeout(() => {
+          $(btn).removeClass('animated-button');
+        }, 130);
 
-    } else { //<- en caso que no haya se remueven las clasesm tanto para vibrar como para que se vea el numero de reportes faltantes
-      $('#numReportes').removeClass()
-      $('#numReportes').html(''); // <- Se puso esto ya que el span quedaba como 1 por alguna razon
-      $('#btn-modalNotificacionesReportes').removeClass('animated-button');
-      $('#btn-modalNotificacionesReportes').addClass('animated-button-normal');
-    }
-  })
+        try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
+
+      } else if (noti != count) {
+        //Borramos si no existe
+        $(span).fadeOut(0);
+        $(btn).removeClass('animated-button')
+
+        try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
+      }
+
+      //Volvemos a repetir la funcion para tiempo real
+      setTimeout(() => {
+        notificacionReportesNoEnviados(noti)
+        resolve(1);
+      }, 1300);
+    });
+  });
+
 }
+
 
 
 // Botones
 $.getScript("contenido/js/recepcion-botones.js");
 
 function obtenerContenidoEspera() {
-  obtenerTitulo('Recepción | Espera'); //Aqui mandar el nombre de la area
+  $('#titulo_area').html('Recepción | Espera'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion.html", function (html) {
     $("#body-js").html(html);
   }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-tabla.js");
-    notificacionReportesNoEnviados() //<- Se agrega para que se pueda ver en todos los estados en recepcion
   });
 }
 
 function obtenerContenidoAceptados() {
-  obtenerTitulo('Recepción | Aceptados'); //Aqui mandar el nombre de la area
+  $('#titulo_area').html('Recepción | Aceptados'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion-ingresados.html", function (html) {
     $("#body-js").html(html);
     dataRecepcion = { api: 1, estado: 1 };
   }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-aceptados-tabla.js");
-    notificacionReportesNoEnviados() //<- Se agrega para que se pueda ver en todos los estados en recepcion
   });
 }
 
 function obtenerContenidoRechazados() {
-  obtenerTitulo('Recepción | Rechazados'); //Aqui mandar el nombre de la area
+  $('#titulo_area').html('Recepción | Rechazados'); //Aqui mandar el nombre de la area
   $.post("contenido/recepcion-rechazados.html", function (html) {
     $("#body-js").html(html);
     dataRecepcion = { api: 1, estado: 0 };
   }).done(function () {
     // Datatable
     $.getScript("contenido/js/recepcion-tabla.js");
-    notificacionReportesNoEnviados() //<- Se agrega para que se pueda ver en todos los estados en recepcion
   });
 }
 
 
-
+hash = ''
+obtenerTitulo('Recepción | Espera');
 function hasLocation() {
   hash = window.location.hash.substring(1);
   $("a").removeClass("navlinkactive");

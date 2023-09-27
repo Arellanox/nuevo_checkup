@@ -45,10 +45,10 @@ TablaReportesNoEnviados = $("#TablaReportesNoEnviados").DataTable({
         { target: 3, title: 'Procedencia', className: 'all' },
         { target: 4, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
     ]
-    ,
-    createdRow: function (row, data, dataIndex) {
-        console.log(data.ENVIADO)
-    }
+    // ,
+    // createdRow: function (row, data, dataIndex) {
+    //     console.log(data.ENVIADO)
+    // }
 })
 
 
@@ -65,7 +65,7 @@ function desactivarTablaReportes() {
     }, function () {
         ajaxAwait({ api: 3, id_correo: id_correo }, 'correos_api', { callbackAfter: true }, false, function (data) {
             alertToast('Reporte eliminado!', 'success', 4000)
-            notificacionReportesNoEnviados()
+
             TablaReportesNoEnviados.ajax.reload();
         })
     }, 1)
@@ -79,7 +79,6 @@ $('#btn-reenviarReportes').on('click', function () {
     }, function () {
         ajaxAwait({ api: 4 }, 'correos_api', { callbackAfter: true }, false, function (data) {
             alertToast('Reportes reenviados!', 'success', 4000)
-            notificacionReportesNoEnviados()
             TablaReportesNoEnviados.ajax.reload();
         })
     }, 1)
