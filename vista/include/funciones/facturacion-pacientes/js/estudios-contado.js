@@ -1,10 +1,43 @@
+// ==============================================================================
+
+// ###################### Variables #############################################
+
+// ==============================================================================
+
 //Variable globales
 var tipo_pago = false, tipo_factura = false
 var dataPaciente, dataPrecios = {};
+var formasPagos = []; // Array para guardar las formas de pago
+var array_pagos = []; // Array para guardar los pagos generados
+var array_data = [] // Array para guardar la informacion del cliente que viene de cargos_turnos_api
+var total_cliente; // Total que debe pagar el cliente
 
+// ==============================================================================
 
+// ###################### Eventos y Botones #####################################
+
+// ==============================================================================
+
+// Boton para terminar el proceso de carga
 $(document).on('click', '#terminar-proceso-cargo', function (event) {
     event.preventDefault()
+
+    // Seteamos y armamos el array de los diferentes metodos de pagos que se hicieron
+    AlmacenarFormasPago()
+
+    // Validar si el monto que se esta ingresando concuerda con el total que se muestra en el modal
+    // Si no es asi entonces no puede continuar por que el pago no esta completo
+    // if (!monto()) {
+    //     alertToast('No se puede continuar por que la cantidad ingresada no concuerda con el total.', 'error', 4000)
+    // }
+
+    if (array_pagos.length === 0) {
+        // return true;
+    } else {
+        if (!monto()) {
+            return false;
+        }
+    }
 
     //Pregunta al usuario el tipo de factura
     alertMensajeConfirm({
@@ -29,6 +62,7 @@ $(document).on('click', '#terminar-proceso-cargo', function (event) {
 
 })
 
+// Formulario para facturar un paciente 
 $(document).on('submit', '#formularioPacienteFactura', function (event) {
     event.preventDefault()
 
@@ -64,6 +98,46 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
     event.preventDefault()
 })
 
+// Boton para agregar formas de pago
+$(document).on('click', '#agregarformapago', async function (e) {
+    e.preventDefault();
+
+    var tipoDePago = $("#contado-tipo-pago").val()
+
+    if (tipoDePago) {
+        var tipoDePagoEncontrado = formasPagos.find(function (tipo) {
+            return tipo.ID_PAGO === tipoDePago;
+        });
+
+        if (tipoDePagoEncontrado) {
+            armarTiposPagos(tipoDePagoEncontrado);
+        } else {
+            alertToast('Tipo de pago no encontrado.', 'error', 4000)
+        }
+    } else {
+        alertToast('Selecciona un tipo de pago válido.', 'error', 4000)
+    }
+})
+
+// Boton para eliminar el tipo de pago
+$(document).on('click', '.eliminarformapago', function (e) {
+    e.stopPropagation();
+
+    var id_pago = $(this).attr("data_id")
+    var html = $(`#pago_${id_pago}`);
+
+    array_pagos = array_pagos.filter(function (formaPago) {
+        return formaPago.ID_PAGO !== id_pago
+    })
+
+    html.remove()
+})
+
+// ==============================================================================
+
+// ###################### FUNCIONES #############################################
+
+// ==============================================================================
 
 //Vista de estudios que se le hicieron al paciente
 function configurarModal(data) {
@@ -78,7 +152,10 @@ function configurarModal(data) {
     //Mensaje de espera al usuario
     alertToast('Espere un momento', 'info', 4000)
 
-    rellenarSelect('#contado-tipo-pago', 'formas_pago_api', '2', 'ID_PAGO', 'DESCRIPCION')
+    rellenarSelect('#contado-tipo-pago', 'formas_pago_api', '2', 'ID_PAGO', 'DESCRIPCION', {}, function (data) {
+        formasPagos = data;
+        // console.log(formasPagos)
+    })
 
     ajaxAwait({
         api: 1,
@@ -88,6 +165,7 @@ function configurarModal(data) {
         //let row = data.response.data // todos los datos
 
         data = data.response.data //Todos los datos para el detalle
+        array_data = data;
 
         //Quitar duplicidad
         if (data['FACTURADO'] == 1) {
@@ -137,6 +215,8 @@ function configurarModal(data) {
         let total = subtotal + iva
         $('#precio-total').html(`$${total.toFixed(2)}`)
 
+        total_cliente = total.toFixed(2);
+
         dataPrecios = {
             descuento_porcentaje: 0,
             descuento: 0,
@@ -162,6 +242,8 @@ function configurarModal(data) {
 
             let total = subtotal + iva
             $('#precio-total').html(`$${total.toFixed(2)}`)
+
+            total_cliente = total.toFixed(2)
 
             dataPrecios = {
                 descuento_porcentaje: porcentaje_descuento,
@@ -248,6 +330,104 @@ function alertTicket(data, textAlert) {
     $('#modalFacturaPaciente').modal('hide')
 }
 
+// Configura las configuraciones para hacer hacer el ingreso de dos formas de pagos
+function ConfigurarFormasPago(type) {
+    if (type === "Out") {
+        $('#TipoPago1').removeClass('disable-element');
+        $('#eliminarformapago').fadeOut(0);
+    } else if (type === "In") {
+        $('#TipoPago1').addClass('disable-element');
+        $('#eliminarformapago').fadeIn(0);
+    }
+}
+
+// Arma todo el esquelo HTML de los tipos de pago con el input de monto
+function armarTiposPagos(tipoDePagoEncontrado) {
+
+    let html = `
+    <div class="row" id='pago_${tipoDePagoEncontrado.ID_PAGO}'>
+        <div class="col-4">
+            <label class="form-label" for="tipo_pago">${tipoDePagoEncontrado.DESCRIPCION}:</label>
+        </div>
+        <div class="col-4">
+            <input type="number" placeholder="Monto:" value='0' class="form-control input-form">
+        </div>
+        <div class="col-4">
+            <button class="btn eliminarformapago" data_id='${tipoDePagoEncontrado.ID_PAGO}' id="">
+                <i class="bi bi-trash me-2"></i>
+                Eliminar
+            </button>
+        </div>
+    </div>
+    `;
+    $('#formasPagoDiv').append(html)
+
+}
+
+// Crear el array con los tipos de pago que se crearon junto con su ID y MONTO
+function AlmacenarFormasPago() {
+    array_pagos = [];
+
+    // FormasPagos = [
+    //     {
+    //         tipo: "Efectivo",
+    //         monto: "120.00"
+    //     },
+    //     {
+    //         tipo: "Tarjeta",
+    //         monto: "120.00"
+    //     }
+    // ]
+
+
+    $("#formasPagoDiv > div").each(function () {
+        var idPago = $(this).find(".eliminarformapago").attr("data_id")
+        var tipo = $(this).find("label").text().replace(":", "").trim()
+        var monto = $(this).find("input").val()
+
+        array_pagos.push({
+            id_pago: idPago,
+            tipo: tipo,
+            monto: parseFloat(monto).toFixed(2)
+        })
+    })
+
+    console.log(array_pagos)
+}
+
+// Valida si el monto que se ingreso concuerda con el total calculado del paciente
+function monto() {
+    var sumaMontos = 0;
+    var total = total_cliente
+
+    $.each(array_pagos, function (index, formaPago) {
+        var monto = parseFloat(formaPago.monto);
+        if (formaPago.monto === "NaN" || formaPago.monto === "0.00" || formaPago.monto === "0" || monto === 0) {
+            alertToast('No se puede continuar por que hay un monto vacio o esta en 0.', 'error', 4000)
+            return false;
+        } else if (!isNaN(monto)) {
+            sumaMontos += monto;
+        }
+    });
+
+    // console.log(sumaMontos.toFixed(2))
+
+    if (sumaMontos.toFixed(2) === total) {
+        return true
+    } else if (sumaMontos.toFixed(2) < total) {
+        alertToast('No se puede continuar por que la cantidad ingresada es menor al total.', 'error', 4000)
+        return false;
+    } else if (sumaMontos.toFixed(2) > total) {
+        alertToast('No se puede continuar por que la cantidad ingresada es mayor al total.', 'error', 4000)
+        return false;
+    }
+}
+
+// ==============================================================================
+
+// ###################### Otras cosas ###########################################
+
+// ==============================================================================
 
 select2('#regimen_fiscal-factura', 'modalFacturaPaciente', 'Espere un momento')
 select2('#uso-factura', 'modalFacturaPaciente', 'Espere un momento')

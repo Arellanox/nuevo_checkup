@@ -65,11 +65,32 @@
                             </table>
                         </div>
                     </div>
+                    <!-- Columna 2 Tipos de pago, referencia, total -->
                     <div class="col-12 col-md-4">
-                        <div class="mb-2">
+                        <div class="mb-2" id="TipoPago1">
                             <label class="form-label" for="tipo_pago">Tipo de pago</label>
                             <select name="tipo_pago" class="input-form form-control" id="contado-tipo-pago"></select>
+                        </div>
+                        <!-- Columna donde se agregaran la cantidad a pagar y el monto -->
+                        <div id="formasPagoDiv"></div>
+                        <div class="mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <!-- <button class="btn" id="eliminarformapago">
+                                        <i class="bi bi-trash me-2"></i>
+                                        Eliminar
+                                    </button> -->
+                                </div>
+                                <div class="col-6  d-flex justify-content-end">
+                                    <button class="btn" id="agregarformapago">
+                                        <i class="bi bi-plus me-2"></i>
+                                        agregar forma de pago
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="mb-2">
                             <label for="referencia-contado" class="form-label">Referencia</label>
                             <input type="text" id="referencia-contado" class="input-form form-control">
                         </div>

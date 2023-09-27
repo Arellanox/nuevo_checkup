@@ -11,297 +11,297 @@
     <title>Corte de caja</title>
 
     <style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        font-size: 10px;
-    }
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 10px;
+        }
 
-    .header {
-        position: fixed;
-        top: -165px;
-        left: 25px;
-        right: 25px;
-        height: 220px;
-        margin-top: 0;
-        /* background-color: cadetblue; */
-    }
+        .header {
+            position: fixed;
+            top: -165px;
+            left: 25px;
+            right: 25px;
+            height: 220px;
+            margin-top: 0;
+            /* background-color: cadetblue; */
+        }
 
-    .footer .page:after {
-        content: counter(page);
-    }
+        .footer .page:after {
+            content: counter(page);
+        }
 
-    /* Saltar a nueva pagina */
-    .break {
-        page-break-after: always;
-    }
+        /* Saltar a nueva pagina */
+        .break {
+            page-break-after: always;
+        }
 
-    /* Content */
-    .invoice-content {
-        border-radius: 4px;
-        padding-bottom: 10px;
-        padding-right: 30px;
-        padding-left: 30px;
-        text-align: justify;
-        text-justify: inter-word;
-    }
+        /* Content */
+        .invoice-content {
+            border-radius: 4px;
+            padding-bottom: 10px;
+            padding-right: 30px;
+            padding-left: 30px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
 
 
-    h1 {
-        font-size: 22px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-    }
+        h1 {
+            font-size: 22px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
 
-    h2 {
-        font-size: 15px;
-        margin-top: 18px;
-        /* margin-bottom: 10px; */
-        text-align: center;
-        background-color: rgba(215, 222, 228, 0.748);
-        /* padding-top: 10px; */
-    }
+        h2 {
+            font-size: 15px;
+            margin-top: 18px;
+            /* margin-bottom: 10px; */
+            text-align: center;
+            background-color: rgba(215, 222, 228, 0.748);
+            /* padding-top: 10px; */
+        }
 
-    h3 {
-        font-size: 16px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-    }
+        h3 {
+            font-size: 16px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
 
-    h4 {
-        font-size: 14px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-    }
+        h4 {
+            font-size: 14px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
 
-    h5 {
-        font-size: 12.5px;
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
+        h5 {
+            font-size: 12.5px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
 
-    p {
-        font-size: 12px;
-    }
+        p {
+            font-size: 12px;
+        }
 
-    strong {
-        font-size: 12px;
-    }
+        strong {
+            font-size: 12px;
+        }
 
-    .align-center {
-        text-align: center;
-    }
+        .align-center {
+            text-align: center;
+        }
 
-    table {
-        width: 100%;
-        max-width: 100%;
-        margin: auto;
-        white-space: normal;
-        word-break: break-all;
-        /* table-layout:fixed; */
-    }
+        table {
+            width: 100%;
+            max-width: 100%;
+            margin: auto;
+            white-space: normal;
+            word-break: break-all;
+            /* table-layout:fixed; */
+        }
 
-    th,
-    td {
-        width: 100%;
-        max-width: 100%;
-        word-break: break-all;
-    }
+        th,
+        td {
+            width: 100%;
+            max-width: 100%;
+            word-break: break-all;
+        }
 
-    .td-border-vertical {
-        border-right: 1px solid black;
-        border-left: 1px solid black;
-    }
+        .td-border-vertical {
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+        }
 
-    /* Para divisiones de 3 encabezado*/
-    .col-left {
-        width: 42%;
-        max-width: 42%;
-        text-align: left;
-        font-size: 11px;
-        margin-left: 2px;
-    }
+        /* Para divisiones de 3 encabezado*/
+        .col-left {
+            width: 42%;
+            max-width: 42%;
+            text-align: left;
+            font-size: 11px;
+            margin-left: 2px;
+        }
 
-    .col-center {
-        width: 41%;
-        max-width: 41%;
-        text-align: left;
-        font-size: 11px;
-        margin-left: 2px;
-    }
+        .col-center {
+            width: 41%;
+            max-width: 41%;
+            text-align: left;
+            font-size: 11px;
+            margin-left: 2px;
+        }
 
-    .col-right {
-        width: 17%;
-        max-width: 17%;
-        text-align: left;
-        font-size: 11px;
-        margin-left: 2px;
-    }
+        .col-right {
+            width: 17%;
+            max-width: 17%;
+            text-align: left;
+            font-size: 11px;
+            margin-left: 2px;
+        }
 
-    /* divisiones de 3 footer */
-    .col-foot-one {
-        width: 30%;
-        max-width: 30%;
-        text-align: left;
-        font-size: 12px;
-    }
+        /* divisiones de 3 footer */
+        .col-foot-one {
+            width: 30%;
+            max-width: 30%;
+            text-align: left;
+            font-size: 12px;
+        }
 
-    .col-foot-two {
-        width: 40%;
-        max-width: 40%;
-        text-align: center;
-        font-size: 12px;
-    }
+        .col-foot-two {
+            width: 40%;
+            max-width: 40%;
+            text-align: center;
+            font-size: 12px;
+        }
 
-    .col-foot-three {
-        width: 30%;
-        max-width: 30%;
-        text-align: right;
-        font-size: 12px;
-    }
+        .col-foot-three {
+            width: 30%;
+            max-width: 30%;
+            text-align: right;
+            font-size: 12px;
+        }
 
-    /* Para divisiones de 4 */
-    .result {
-        font-size: 12px
-    }
+        /* Para divisiones de 4 */
+        .result {
+            font-size: 12px
+        }
 
-    /* diviciones de 2 */
-    .col-izq {
-        width: 30%;
-        max-width: 30%;
-        text-align: left;
-    }
+        /* diviciones de 2 */
+        .col-izq {
+            width: 30%;
+            max-width: 30%;
+            text-align: left;
+        }
 
-    .col-der {
-        width: 70%;
-        max-width: 70%;
-        text-align: center;
-    }
+        .col-der {
+            width: 70%;
+            max-width: 70%;
+            text-align: center;
+        }
 
-    /* Fivisiones de cinco */
-    .col-one {
-        width: 30%;
-        max-width: 30%;
-        text-align: left;
-    }
+        /* Fivisiones de cinco */
+        .col-one {
+            width: 30%;
+            max-width: 30%;
+            text-align: left;
+        }
 
-    .col-two {
-        width: 20%;
-        max-width: 20%;
-        text-align: right;
-    }
+        .col-two {
+            width: 20%;
+            max-width: 20%;
+            text-align: right;
+        }
 
-    .col-three {
-        width: 25%;
-        max-width: 25%;
-        text-align: center;
+        .col-three {
+            width: 25%;
+            max-width: 25%;
+            text-align: center;
 
-    }
+        }
 
-    .col-four {
-        width: 25%;
-        max-width: 25%;
-        text-align: center;
-    }
+        .col-four {
+            width: 25%;
+            max-width: 25%;
+            text-align: center;
+        }
 
-    body {
-        font-size: 11px;
-    }
+        body {
+            font-size: 11px;
+        }
 
-    .cuartos {
-        width: 25%;
-    }
+        .cuartos {
+            width: 25%;
+        }
 
-    .venticinco {
-        width: 25%;
-    }
+        .venticinco {
+            width: 25%;
+        }
 
-    .setentaycinco {
-        width: 75%;
-    }
+        .setentaycinco {
+            width: 75%;
+        }
 
-    .footer {
-        position: fixed;
-        bottom: -40px;
-        left: 0px;
-        right: 0px;
-    }
+        .footer {
+            position: fixed;
+            bottom: -40px;
+            left: 0px;
+            right: 0px;
+        }
 
-    .bold {
-        font-weight: bold;
-    }
+        .bold {
+            font-weight: bold;
+        }
 
-    .cursive {
-        font-style: italic;
-    }
+        .cursive {
+            font-style: italic;
+        }
 
-    .content {
-        border-radius: 3px;
-        background-color: #f7be16;
-    }
+        .content {
+            border-radius: 3px;
+            background-color: #f7be16;
+        }
 
-    .rojo {
-        color: red;
-    }
+        .rojo {
+            color: red;
+        }
 
-    .rounded {
-        border-radius: 5px;
-        /*border: 1px solid transparent;*/
-        /*border-bottom: 1px solid transparent;*/
-        /*border-bottom: none;*/
-        border-spacing: 0;
-    }
+        .rounded {
+            border-radius: 5px;
+            /*border: 1px solid transparent;*/
+            /*border-bottom: 1px solid transparent;*/
+            /*border-bottom: none;*/
+            border-spacing: 0;
+        }
 
-    .rounded2 {
-        border-radius: 5px;
-        border: 1px solid darkgrey;
-        /*border-bottom: 1px solid darkgrey;*/
-        border-spacing: 0;
-    }
+        .rounded2 {
+            border-radius: 5px;
+            border: 1px solid darkgrey;
+            /*border-bottom: 1px solid darkgrey;*/
+            border-spacing: 0;
+        }
 
-    .colored-cell {
-        border-top: 0px solid darkgrey;
-        border-right: 0px solid darkgrey;
-        border-bottom: 1px solid darkgrey;
-        border-left: 1px solid darkgrey;
-    }
+        .colored-cell {
+            border-top: 0px solid darkgrey;
+            border-right: 0px solid darkgrey;
+            border-bottom: 1px solid darkgrey;
+            border-left: 1px solid darkgrey;
+        }
 
-    .cell {
-        border-top: 0px solid darkgrey;
-        border-right: 0px solid darkgrey;
-        border-bottom: 1px solid white;
-        border-left: 1px solid darkgrey;
-    }
+        .cell {
+            border-top: 0px solid darkgrey;
+            border-right: 0px solid darkgrey;
+            border-bottom: 1px solid white;
+            border-left: 1px solid darkgrey;
+        }
 
-    .esquina-inferior {
-        border-radius: 5px;
-        border: 0px solid darkgrey;
-        border-bottom: 0px solid darkgrey;
-        border-spacing: 0;
+        .esquina-inferior {
+            border-radius: 5px;
+            border: 0px solid darkgrey;
+            border-bottom: 0px solid darkgrey;
+            border-spacing: 0;
 
-    }
+        }
 
-    .bordes-detalle {
-        border-width: 6px 6px 6px 6px;
-        border-color: red green blue yellow;
-        border-style: solid;
-    }
+        .bordes-detalle {
+            border-width: 6px 6px 6px 6px;
+            border-color: red green blue yellow;
+            border-style: solid;
+        }
 
-    .bordes-detalle2 {
-        border-width: 1px 1px 1px 1px;
-        border-color: transparent darkgrey darkgrey transparent;
-        border-style: solid;
-    }
+        .bordes-detalle2 {
+            border-width: 1px 1px 1px 1px;
+            border-color: transparent darkgrey darkgrey transparent;
+            border-style: solid;
+        }
 
-    .bordes-detalle3 {
-        border-width: 3px 3px 3px 3px;
-        border-color: red blue green pink;
-        border-style: solid;
-    }
+        .bordes-detalle3 {
+            border-width: 3px 3px 3px 3px;
+            border-color: red blue green pink;
+            border-style: solid;
+        }
 
-    .vertical-line {
-        border-left: 1px solid black;
-        height: 100px;
-    }
+        .vertical-line {
+            border-left: 1px solid black;
+            height: 100px;
+        }
     </style>
 </head>
 <?php
@@ -387,12 +387,12 @@ $array = convertirObjetoAArray($resultados);
         <p style="line-height: .5"></p>
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
         <table style="text-align: center; width: 100%;" class="rounded2">
-            <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
+            <thead style="text-align: center; background-color: darkgrey; font-size: 10px;">
                 <tr>
                     <th style="width: 10%;">Prefolio</th>
                     <th style="width: 15%;">Nombre</th>
                     <th style="width: 15%;">Subtotal</th>
-                    <th style="width: 15%;">IVA</th>
+                    <th style="width: 15%;">IVA (16%)</th>
                     <th style="width: 15%;">Total</th>
                     <th style="width: 15%;">Forma de pago</th>
                     <th style="width: 15%;">Factura</th>
@@ -403,18 +403,18 @@ $array = convertirObjetoAArray($resultados);
                 <?php
                 $c = 0;
                 foreach ($array[0] as $key => $e) { ?>
-                <tr>
-                    <td style="width: 6%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
-                    <td style="width: 30%; text-align: left;"> <?php echo $e['NOMBRE_PACIENTE'] ?></td>
-                    <td style="width: 11%; text-align: center;"> $<?php echo ifnull(number_format($e['SUBTOTAL'], 2)) ?>
-                    </td>
-                    <td style="width: 16%; text-align: center;"> $<?php echo ifnull(number_format($e['IVA'], 2)) ?>
-                        (16%) </td>
-                    <td style="width: 11%; text-align: right;"> $<?php echo ifnull(number_format($e['TOTAL'], 2)) ?>
-                    </td>
-                    <td style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td>
-                    <td style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
-                </tr>
+                    <tr>
+                        <td class="my" style="width: 6%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
+                        <td class="my" style="width: 30%; text-align: left;"> <?php echo $e['NOMBRE_PACIENTE'] ?></td>
+                        <td class="my" style="width: 11%; text-align: center;"> $<?php echo ifnull(number_format($e['SUBTOTAL'], 2)) ?>
+                        </td>
+                        <td class="my" style="width: 16%; text-align: center;"> $<?php echo ifnull(number_format($e['IVA'], 2)) ?>
+                        </td>
+                        <td class="my" style="width: 11%; text-align: right;"> $<?php echo ifnull(number_format($e['TOTAL'], 2)) ?>
+                        </td>
+                        <td class="my" style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td>
+                        <td class="my" style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
+                    </tr>
                 <?php
                     $c += 1;
                 }
@@ -439,8 +439,7 @@ $array = convertirObjetoAArray($resultados);
         <!--Inicio tabla totales -->
         <p style="line-height: 2"></p>
         <div style=" float: right;width: 100%;">
-            <table
-                style=" width: 100%; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
+            <table style=" width: 100%; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
                 <tbody>
                     <tr>
                         <td>Subtotal</td>
@@ -465,9 +464,8 @@ $array = convertirObjetoAArray($resultados);
         <br>
         <br>
         <br>
-        <div style=" float: center;width: 100%;">
-            <table
-                style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px; background-color: solid grey;">
+        <div style="width: 100%;">
+            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px; background-color: solid grey;">
                 <thead>
                     <tr>
                         <td colspan="2" style="text-align: center;">Resumen</td>
@@ -511,43 +509,57 @@ $array = convertirObjetoAArray($resultados);
         </div>
 
         <!-- Desglose de los precios de contado -->
-        <div class="break"></div>
+        <!-- <div class="break"></div> -->
+        <style>
+            #tipos_pagos {
+                margin-top: 20px;
+            }
+
+            .my {
+                padding: 4px;
+            }
+
+            .td-border-my {
+                /* border-top: 1px solid black !important; */
+                border-bottom: 1px solid darkgrey !important;
+            }
+        </style>
         <div id="tipos_pagos">
             <table style="text-align: center; width: 100%;" class="rounded2">
-                <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
-                    <tr>
-                        <th style="width: 50%;">Contado</th>
-                        <th style="width: 50%;">Total</th>
+                <thead style="text-align: center; background-color: darkgrey; font-size: 10px;">
+                    <tr class="">
+                        <th class="my" style="width: 50%;">Resumen</th>
+                        <th class="my" style="width: 50%;">Total</th>
                     </tr>
                 </thead>
                 <tbody style="height: 420px">
                     <tr>
-                        <td style="width: 50%; text-align: center; font-weight bold">Contado</td>
-                        <td style="width: 50%; text-align: center;"></td>
+                        <td class="my" style="width: 50%; text-align: left;">Crédito</td>
+                        <td class="my" style="width: 50%; text-align: center;">$<?php echo ifnull(number_format($array[4], 2)) ?></td>
+                    </tr>
+                    <tr class="td-border-my" style="border-bottom:1px solid black !important">
+                        <td class="td-border-my my" style="width: 50%; text-align: left;">Contado</td>
+                        <td class="td-border-my my" style="width: 50%; text-align: center;">$<?php echo ifnull(number_format($array[5], 2)) ?></td>
                     </tr>
                     <tr>
-                        <td style="width: 50%; text-align: left;">EFECTIVO</td>
-                        <td style="width: 50%; text-align: center;">$ 100</td>
+                        <td class="my" style="width: 50%; text-align: left;">1. Efectivo</td>
+                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
                     </tr>
                     <tr>
-                        <td style="width: 50%; text-align: left;">TRANSFERENCIA</td>
-                        <td style="width: 50%; text-align: center;">$ 100</td>
+                        <td class="my" style="width: 50%; text-align: left;">2. Transferencia</td>
+                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
                     </tr>
                     <tr>
-                        <td style="width: 50%; text-align: left;">TARJETA DE CREDITO</td>
-                        <td style="width: 50%; text-align: center;">$ 100</td>
+                        <td class="my" style="width: 50%; text-align: left;">3. Tarjeta de credito</td>
+                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
                     </tr>
                     <tr>
-                        <td style="width: 50%; text-align: left;">TARJETA DE DEBITO</td>
-                        <td style="width: 50%; text-align: center;">$ 100</td>
+                        <td class="my" style="width: 50%; text-align: left;">4. Tarjeta de debito</td>
+                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
                     </tr>
                     <tr>
-                        <td style="width: 50%; text-align: left;">CHEQUES</td>
-                        <td style="width: 50%; text-align: center;">$ 100</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50%; text-align: left;">CREDITO</td>
-                        <td style="width: 50%; text-align: center;">$ 100</td>
+                        <td class="my" style="width: 50%; text-align: left;">5. Cheques</td>
+                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
                     </tr>
                 </tbody>
             </table>
