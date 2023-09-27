@@ -129,7 +129,7 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
 
             }
         }
-    ]
+    ], divPadre: '#div_container-cajas'
 
 }, (select, data) => {
     // fadeTabla('Out')
