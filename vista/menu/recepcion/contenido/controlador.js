@@ -40,9 +40,6 @@ async function notificacionReportesNoEnviados(count) {
         $(span).fadeIn('fast');
         $(span).html(noti)
         $(btn).addClass('animated-button');
-        setTimeout(() => {
-          $(btn).removeClass('animated-button');
-        }, 130);
 
         try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
 
@@ -53,12 +50,6 @@ async function notificacionReportesNoEnviados(count) {
 
         try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
       }
-
-      //Volvemos a repetir la funcion para tiempo real
-      setTimeout(() => {
-        notificacionReportesNoEnviados(noti)
-        resolve(1);
-      }, 1300);
     });
   });
 
