@@ -565,10 +565,13 @@ $array = convertirObjetoAArray($resultados);
                 <tbody>
                     <?php
                     foreach ($array[10] as $key1 => $value1) {
-                        echo '<tr>';
-                        echo '<td class="desglose">' . $value1['DESCRIPCION'] . '</td>';
-                        echo '<td class="desglose" style="text-align:center;">$' . number_format($value1['MONTO'], 2) . '</td>';
-                        echo '</tr>';
+
+                        if ($value1['IGNORAR'] == 0) {
+                            echo '<tr>';
+                            echo '<td class="desglose">' . $value1['DESCRIPCION'] . '</td>';
+                            echo '<td class="desglose" style="text-align:center;">$' . number_format($value1['MONTO'], 2) . '</td>';
+                            echo '</tr>';
+                        }
                     }
                     ?>
                 </tbody>

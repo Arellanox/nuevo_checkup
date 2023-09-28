@@ -1956,10 +1956,12 @@ class Miscelaneus
             # code...
             $tipo_pago = $value1['TIPO_PAGO'];
             $total_tipo_pago = $value1['TOTAL'];
+            $ignorar = $value1['IGNORAR'];
 
             $tipos_precio[$x] = array(
                 "DESCRIPCION" => $tipo_pago,
-                "MONTO" => $total_tipo_pago
+                "MONTO" => $total_tipo_pago,
+                "IGNORAR" => $ignorar
             );
 
             $x++;
