@@ -211,7 +211,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         },
         { data: 'FECHA_RECEPCION' },
         { data: 'NOMBRE_COMERCIAL' },
-        { data: 'FORMA_PAGO' }
+        // { data: 'FORMA_PAGO' }
     ],
     columnDefs: [
         { target: 0, className: 'all', title: 'Paciente' },
@@ -224,7 +224,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         { target: 3, className: 'all', title: 'Total', width: '7%' },
         { target: 4, className: 'none', title: 'Fecha Recepción', width: '12%' },
         { target: 5, className: 'desktop', title: 'Procedencia' },
-        { target: 6, className: 'desktop', title: 'Forma de pago' }, // PUE o PPD
+        // { target: 6, className: 'desktop', title: 'Forma de pago' }, // PUE o PPD
         // { target: 11, className: 'desktop', title: 'Tipo-Metodo de pago' },
         // { target: 12, className: 'desktop', title: 'Estado de cuenta' }
 
