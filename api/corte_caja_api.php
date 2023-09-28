@@ -27,6 +27,8 @@ $id_cajas_usuarios = $_POST['id_cajas_usuarios'];
 $subtotal = $_POST['subtotal'];
 $total = $_POST['total'];
 
+$turno_id = $_POST['turno_id'];
+
 
 # ========================================================================
 #Arrays
@@ -120,6 +122,10 @@ switch ($api) {
     case 10:
         #Aqui finalizamos el corte de caja
         $response = $master->updateByProcedure('sp_corte_cajas_finalizar_g', [$id_corte, $usuario]);
+        break;
+    case 11:
+        #Aqui finalizamos el corte de caja
+        $response = $master->updateByProcedure('sp_forma_pago_monto_detalle_corte_b', [$turno_id, $id_corte]);
         break;
     default:
         # code...
