@@ -161,7 +161,7 @@ switch ($api) {
                     $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, $_SESSION['id']));
                 }
 
-                $response3 = $master->insertByProcedure('sp_corte_caja_iniciar_g', [$idTurno, $_SESSION['id']]);
+                // $response3 = $master->insertByProcedure('sp_corte_caja_iniciar_g', [$idTurno, $_SESSION['id']]);
                 // var_dump($response3);
             }
         }
