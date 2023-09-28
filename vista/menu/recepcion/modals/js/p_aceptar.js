@@ -5,6 +5,7 @@ var url_paciente = null,
   validarEstudiosImg = 0,
   validarEstudiosOtros = 0;
 var estudiosEnviar = new Array();
+var PaquetesDatos;
 
 select2("#select-paquetes", "modalPacienteAceptar", 'Seleccione un paquete');
 select2("#select-lab", "modalPacienteAceptar", 'Seleccione un estudio');
@@ -15,7 +16,8 @@ select2("#select-otros", "modalPacienteAceptar", 'Seleccione un estudio');
 select2('#select-segmento-aceptar', "modalPacienteAceptar", 'Seleccione un segmento');
 
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
-modalPacienteAceptar.addEventListener('show.bs.modal', event => {
+modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
+  limpiarFormAceptar();
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
   // document.getElementById("btn-confirmar-paciente").disabled = true;
 
@@ -31,6 +33,8 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
 
   rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
     'cliente_id': array_selected['CLIENTE_ID']
+  }, (data) => {
+    PaquetesDatos = data
   })
 
   rellenarSelect('#select-segmento-aceptar', 'segmentos_api', 2, 0, 'DESCRIPCION', {
@@ -39,43 +43,62 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
     array_selected['ID_SEGMENTO'] ? $('#select-segmento-aceptar').val(array_selected['ID_SEGMENTO']).trigger('change') : false;
   });
 
+
+
   //Pruebas
-  rellenarSelect("#select-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-    id_area: 6,
+  await rellenarSelect("#select-lab", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    area_id: 6,
     cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     estudiosLab = data;
   });
 
 
-  rellenarSelect("#select-labbio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-    id_area: 12,
+  await rellenarSelect("#select-labbio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    area_id: 12,
     cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosLabBio = data;
   });
-  rellenarSelect('#select-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-    id_area: 11,
+  await rellenarSelect('#select-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    area_id: 11,
     cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosUltra = data;
   });
-  rellenarSelect('#select-rx', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-    id_area: 8,
+  await rellenarSelect('#select-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    area_id: 8,
     cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosRX = data;
   });
-  rellenarSelect('#select-otros', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-    id_area: 0,
+  await rellenarSelect('#select-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    area_id: 0,
     cliente_id: array_selected['CLIENTE_ID'],
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosOtros = data;
   });
+
+  // Convertir los objetos en arrays
+  const lab = Object.values(estudiosLab);
+  const bio = Object.values(estudiosLabBio);
+  const ultra = Object.values(estudiosUltra);
+  const rx = Object.values(estudiosRX);
+  const otros = Object.values(estudiosOtros);
+
+  // Fusionar los arrays
+  const arrayFusionado = [...lab, ...bio, ...ultra, ...rx, ...otros];
+
+  // Convertir el array fusionado en un objeto con claves consecutivas
+  estudiosTodos = {};
+  arrayFusionado.forEach((item, index) => {
+    estudiosTodos[index] = item;
+  });
+  estudiosTodos = Object.values(estudiosTodos);
 
 
   // rellenarSelect("#select-lab", "servicios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
@@ -233,6 +256,7 @@ $('#btn-AgregarEstudioLab').on('click', function () {
   let text = $("#select-lab option:selected").text();
   let id = $("#select-lab").val();
   validarEstudiosLab = 1;
+  actualizarTotal(id, estudiosLab, true)
   agregarFilaDiv('#list-estudios-laboratorio', text, id)
 })
 // Create an observer instance.
@@ -256,6 +280,7 @@ Obserlab.observe(document.querySelector('#list-estudios-laboratorio'), {
 $('#btn-agregarEstudioRX').on('click', function () {
   let text = $("#select-rx option:selected").text();
   let id = $("#select-rx").val();
+  actualizarTotal(id, estudiosRX, true)
   agregarFilaDiv('#list-estudios-rx', text, id)
 })
 // Create an observer instance.
@@ -279,6 +304,7 @@ ObserRX.observe(document.querySelector('#list-estudios-rx'), {
 $('#btn-agregarEstudioImg').on('click', function () {
   let text = $("#select-us option:selected").text();
   let id = $("#select-us").val();
+  actualizarTotal(id, estudiosUltra, true)
   agregarFilaDiv('#list-estudios-ultrasonido', text, id)
 })
 // Create an observer instance.
@@ -302,6 +328,7 @@ ObserULTRSONIDO.observe(document.querySelector('#list-estudios-ultrasonido'), {
 $('#btn-agregarEstudioOtros').on('click', function () {
   let text = $("#select-otros option:selected").text();
   let id = $("#select-otros").val();
+  actualizarTotal(id, estudiosOtros, true)
   agregarFilaDiv('#list-estudios-otros', text, id)
 })
 // Create an observer instance.
@@ -321,6 +348,7 @@ ObserOtros.observe(document.querySelector('#list-estudios-otros'), {
 $('#btn-AgregarEstudioLabBio').on('click', function () {
   let text = $("#select-labbio option:selected").text();
   let id = $("#select-labbio").val();
+  actualizarTotal(id, estudiosLabBio, true)
   agregarFilaDiv('#list-estudios-laboratorio-biomolecular', text, id)
 })
 // Create an observer instance.
@@ -357,8 +385,8 @@ function agregarFilaDiv(appendDiv, text, id) {
 
 $(document).on('click', '.eliminarfilaEstudio', function () {
   let id = $(this).attr('data-bs-id');
+  actualizarTotal(id, estudiosTodos, false)
   eliminarElementoArray(id);
-  console.log(id);
   var parent_element = $(this).closest("li[class='list-group-item']");
   $(parent_element).remove()
 
@@ -390,8 +418,58 @@ function limpiarFormAceptar() {
   validarEstudiosOtros = 0;
   $('#Observaciones-aceptar').val('')
   estudiosEnviar = [];
+
+
+  //Precio final
+  totalAcumulado = 0;
+  $('#aceptar-totalCargado').html('$0.00')
 }
 
 
+$('.SecondPage-aceptar').fadeOut(0);
+$('.pagination-aceptar').on('click', function (e) {
+  e.preventDefault();
+
+  const page = $(this).attr('page');
+  const next = $(this).attr('nextPage');
+
+  console.log(page);
+  console.log(next);
+
+  $(`.${page}`).fadeOut('fast');
+  setTimeout(() => {
+    $(`.${next}`).fadeIn('fast')
+  }, 100);
+
+})
+
+// Variable global para almacenar el total acumulado
+let totalAcumulado = 0;
+
+function actualizarTotal(id, servicios, sumar = true) {
+  console.log(servicios);
+  const servicio = servicios.find(servicio => servicio.ID_SERVICIO == id);
+  if (servicio) {
+    console.log(servicio);
+    totalAcumulado += sumar ? parseFloat(servicio.PRECIO_VENTA) : -parseFloat(servicio.PRECIO_VENTA);
+  }
+  // Actualizar el elemento HTML con el total acumulado
+  $('#aceptar-totalCargado').html(`$${totalAcumulado.toFixed(2)}`);
+}
 
 
+$('#checkPaqueteAceptar, #select-paquetes').on('change', function () {
+
+  const id = $('#select-paquetes').val();
+  const paquete = PaquetesDatos.find(paquete => paquete.ID_PAQUETE == id);
+  const total = parseFloat(paquete.PRECIO_VENTA);
+  console.log(PaquetesDatos, id, paquete, total)
+
+  // return productoSeleccionado ? productoSeleccionado.PRECIO_VENTA : 0;
+
+  if (!$('#checkPaqueteAceptar').prop('checked')) {
+    $('#aceptar-totalPaqueteCargado').text(`$${parseFloat(total).toFixed(2)}`);
+  } else {
+    $('#aceptar-totalPaqueteCargado').text('$0.00');
+  }
+});
