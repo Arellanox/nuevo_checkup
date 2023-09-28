@@ -335,7 +335,7 @@ function ifnull($variable, $msj = "00.00")
 $array = convertirObjetoAArray($resultados);
 
 // echo "<pre>";
-// var_dump($array);
+// var_dump($array[10]);
 // echo "</pre>";
 ?>
 
@@ -362,9 +362,11 @@ $array = convertirObjetoAArray($resultados);
         </table>
         <!--CORTE DE CAJA-->
         <!--INICIO DE TABLA INFORMACIÓN-->
-        <hr style="height: 1px; background-color: black ;">
+        <!-- <hr style="height: 1px; background-color: black ;">
         <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>CORTE DE CAJA</strong></p>
-        <hr style="height: 1px; background-color: black ;">
+        <hr style="height: 1px; background-color: black ;"> -->
+        <h2 style="padding-bottom: 6px; padding-top: 6px;">CORTE DE CAJA </h2>
+
         <br>
         <div>
             <table style="width: 100%;">
@@ -442,13 +444,17 @@ $array = convertirObjetoAArray($resultados);
             <table style=" width: 100%; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
                 <tbody>
                     <tr>
-                        <td>Subtotal</td>
-                        <td>IVA (16.00%)</td>
+                        <td style="text-align: center;">Subtotal</td>
+                        <td style="text-align: center;">IVA (16.00%)</td>
                         <td style="background-color: darkgrey;"><b>Total</b></td>
                     </tr>
                     <tr>
-                        <td>$<?php echo ifnull(number_format($array[1], 2)) ?></td>
-                        <td>
+                        <td style="text-align: center; background-color:white; ">
+                            <p>
+                                $<?php echo ifnull(number_format($array[1], 2)) ?>
+                            </p>
+                        </td>
+                        <td style="text-align: center; background-color:white; ">
                             <p>$<?php echo ifnull(number_format($array[2], 2)) ?> </p>
                         </td>
                         <td style="background-color: darkgrey;"><b></p>
@@ -464,55 +470,27 @@ $array = convertirObjetoAArray($resultados);
         <br>
         <br>
         <br>
+        <?php
+        if ($c >= 15) {
+            echo '<div class="break"></div>';
+        }
+        ?>
         <div style="width: 100%;">
-            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px; background-color: solid grey;">
-                <thead>
-                    <tr>
-                        <td colspan="2" style="text-align: center;">Resumen</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: right;">Crédito</td>
-                        <td><b>$<?php echo ifnull(number_format($array[4], 2)) ?> </b></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right;">Contado</td>
-                        <td><b>$<?php echo ifnull(number_format($array[5], 2)) ?> </b></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <!--INICIO DE TABLA INFORMACIÓN-->
+            <!-- <hr style="height: 1px; background-color: black ;"> -->
+            <!-- <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>RESUMEN</strong></p> -->
+            <!-- <hr style="height: 1px; background-color: black ;"> -->
+
+
+            <!-- Otoscopía -->
+            <!-- <h2 style="padding-bottom: 6px; padding-top: 6px;">RESUMEN </h2> -->
         </div>
 
         <!-- Desglose de los precios de contado -->
         <!-- <div class="break"></div> -->
         <style>
             #tipos_pagos {
-                margin-top: 20px;
+                margin-top: 10px;
             }
 
             .my {
@@ -524,43 +502,75 @@ $array = convertirObjetoAArray($resultados);
                 border-bottom: 1px solid darkgrey !important;
             }
         </style>
+        <style>
+            table {
+                width: 50%;
+                margin: 0 auto;
+                border-collapse: collapse;
+                font-size: 10px;
+            }
+
+            th,
+            td {
+                text-align: left;
+                padding: 8px;
+            }
+
+            th {
+                background-color: darkgrey;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .total {
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .desglose {
+                font-size: 10px;
+                font-weight: normal;
+            }
+        </style>
         <div id="tipos_pagos">
-            <table style="text-align: center; width: 100%;" class="rounded2">
-                <thead style="text-align: center; background-color: darkgrey; font-size: 10px;">
-                    <tr class="">
-                        <th class="my" style="width: 50%;">Resumen</th>
-                        <th class="my" style="width: 50%;">Total</th>
+            <table class="rounded2">
+                <thead>
+                    <tr>
+                        <th colspan="2">Resumen</th>
                     </tr>
                 </thead>
-                <tbody style="height: 420px">
+                <tbody>
                     <tr>
-                        <td class="my" style="width: 50%; text-align: left;">Crédito</td>
-                        <td class="my" style="width: 50%; text-align: center;">$<?php echo ifnull(number_format($array[4], 2)) ?></td>
-                    </tr>
-                    <tr class="td-border-my" style="border-bottom:1px solid black !important">
-                        <td class="td-border-my my" style="width: 50%; text-align: left;">Contado</td>
-                        <td class="td-border-my my" style="width: 50%; text-align: center;">$<?php echo ifnull(number_format($array[5], 2)) ?></td>
+                        <td>Crédito:</td>
+                        <td class="total" style="text-align:center;">$<?php echo number_format($array[4], 2) ?></td>
                     </tr>
                     <tr>
-                        <td class="my" style="width: 50%; text-align: left;">1. Efectivo</td>
-                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
+                        <td>Contado:</td>
+                        <td class="total" style="text-align:center;">$<?php echo number_format($array[5], 2) ?></td>
                     </tr>
+                </tbody>
+            </table>
+            <br>
+            <table class="rounded2">
+                <thead>
                     <tr>
-                        <td class="my" style="width: 50%; text-align: left;">2. Transferencia</td>
-                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
+                        <th>Formas de pago</th>
+                        <th>Monto</th>
                     </tr>
-                    <tr>
-                        <td class="my" style="width: 50%; text-align: left;">3. Tarjeta de credito</td>
-                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
-                    </tr>
-                    <tr>
-                        <td class="my" style="width: 50%; text-align: left;">4. Tarjeta de debito</td>
-                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
-                    </tr>
-                    <tr>
-                        <td class="my" style="width: 50%; text-align: left;">5. Cheques</td>
-                        <td class="my" style="width: 50%; text-align: center;">$ 100</td>
-                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($array[10] as $key1 => $value1) {
+                        echo '<tr>';
+                        echo '<td class="desglose">' . $value1['DESCRIPCION'] . '</td>';
+                        echo '<td class="desglose" style="text-align:center;">$' . number_format($value1['MONTO'], 2) . '</td>';
+                        echo '</tr>';
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

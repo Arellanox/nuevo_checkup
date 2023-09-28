@@ -1891,10 +1891,13 @@ class Miscelaneus
     public function getBodyCorteCaja($master, $turno_id)
     {
         #Llenar tabla del formato PDF, pasar ID del FOLIO
-        $response = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
+        $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
+        $response2 = $master->getByProcedure("sp_corte_detalle_pagos", [$turno_id]);
+        $response = [$response1, $response2];
 
         // echo "<pre>";
-        // var_dump($response);
+        // echo $turno_id; 
+        // var_dump($response[1]);
         // echo "</pre>";
 
         // exit;
@@ -1909,7 +1912,8 @@ class Miscelaneus
         $resumen_credito = 0;
         $resumen_contado = 0;
 
-        foreach ($response as $key => $e) {
+        // Datos de todos los pacientes que entraron en el cierre de caja
+        foreach ($response[0] as $key => $e) {
 
             $prefolio = $e['PREFOLIO'];
             $nombre_paciente = $e['PACIENTE'];
@@ -1945,8 +1949,25 @@ class Miscelaneus
             $cortador = is_null($e['px']) ?  "No hay" : $e['px'];
         }
 
+        $tipos_precio = array();
+        $x = 0;
+        // Desglose de todos los tipos de precios con sus respectivos montos
+        foreach ($response[1] as $key1 => $value1) {
+            # code...
+            $tipo_pago = $value1['TIPO_PAGO'];
+            $total_tipo_pago = $value1['TOTAL'];
+
+            $tipos_precio[$x] = array(
+                "DESCRIPCION" => $tipo_pago,
+                "MONTO" => $total_tipo_pago
+            );
+
+            $x++;
+        }
+
+
         $response = [];
-        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador];
+        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador, $tipos_precio];
 
         return $response;
     }

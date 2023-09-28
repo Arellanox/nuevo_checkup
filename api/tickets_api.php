@@ -58,16 +58,9 @@ $params = array(
     $metodo_pago,
     $_SESSION['id'],
     $formas_pagos_ticket
-    
+
 );
 # datos de factura
-
-// print_r($formas_pagos_ticket);
-
-echo "<pre>";
-var_dump($params);
-echo "</pre>";
-exit;
 
 
 

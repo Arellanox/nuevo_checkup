@@ -187,7 +187,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         complete: function () {
             getResumen(TablaPacientesCaja);
         },
-        dataSrc: 'response.data'
+        dataSrc: 'response.data.0'
     },
     // 
     createdRow: function (row, data, dataIndex) {
