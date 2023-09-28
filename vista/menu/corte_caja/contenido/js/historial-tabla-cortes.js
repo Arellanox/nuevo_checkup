@@ -258,6 +258,8 @@ selectTable('#TablaPacientesCaja', TablaPacientesCaja, {
             callback: function (data) {
                 let px = data['PACIENTE']
                 getInfoEstadoCuenta(px, data['TURNO_ID']);
+                BuildFormasPago(data['TURNO_ID'], SelectedHistorialCaja['ID_CORTE']);
+
             }
         }
     ]

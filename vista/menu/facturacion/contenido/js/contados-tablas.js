@@ -120,6 +120,7 @@ selectTable('#TablaContados', tablaContados, {
             callback: function (data) {
                 let px = data['NOMBRE_COMPLETO']
                 getInfoEstadoCuenta(px, data['TURNO_ID']);
+                BuildFormasPago(data['TURNO_ID']);
             }
         }
     ],
