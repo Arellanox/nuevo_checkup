@@ -1,5 +1,4 @@
 // Rellena todos los campos con los datos seleccionado
-
 function getInfoEstadoCuenta(px, turno) {
 
     alertToast('Cargando, espere un momento', 'info', 3000)
