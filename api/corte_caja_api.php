@@ -75,6 +75,14 @@ $data_corte_caja = $master->setToNull(array(
 
 ));
 
+
+#Parametros para buscar la forma y montos de pagos de los pacientes
+$data_forma_pago_monto = $master->setToNull(array(
+    $turno_id,
+    $id_corte
+
+));
+
 # ========================================================================
 
 
@@ -124,8 +132,8 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_corte_cajas_finalizar_g', [$id_corte, $usuario]);
         break;
     case 11:
-        #Aqui finalizamos el corte de caja
-        $response = $master->updateByProcedure('sp_forma_pago_monto_detalle_corte_b', [$turno_id, $id_corte]);
+        #Aqui busacmos la forma y monto de pago por cada paciente
+        $response = $master->getByProcedure('sp_forma_pago_monto_detalle_corte_b', $data_forma_pago_monto);
         break;
     default:
         # code...
