@@ -12,7 +12,7 @@ var selectrue = 0,
 var formEspiroHTML;
 
 let cropper;
-const defaultCropBoxPercentages = {
+let defaultCropBoxPercentages = {
   width: 0.6403659233847913,
   height: 0.4184027777777778,
   left: 0.17981703830760437,

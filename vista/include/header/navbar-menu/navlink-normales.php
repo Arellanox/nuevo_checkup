@@ -2,11 +2,13 @@
 include "../../../variables.php";
 date_default_timezone_set('America/Mexico_City'); ?>
 
+<?php if ($_SESSION['cargo'] != 19 || $_SESSION['cargo'] != 18) ?>
 <li class="nav-item">
     <a href="" data-bs-toggle="offcanvas" data-bs-target="#offCanvaMenuPrincipal" aria-controls="offCanvaMenuPrincipal">
         <i class="bi bi-layout-sidebar-inset"></i> Menú
     </a>
 </li>
+<?php ?>
 
 <!-- <?php if ($menu == "Mesometria") : ?>
   <li class="nav-item">
