@@ -125,7 +125,7 @@ switch ($api) {
         $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$id_corte]);
         $response2 = $master->getByProcedure("sp_corte_detalle_pagos", [$id_corte]);
         $response = [$response1, $response2];
-        // $response = array_merge($response1, $response2);
+
         break;
     case 10:
         #Aqui finalizamos el corte de caja
