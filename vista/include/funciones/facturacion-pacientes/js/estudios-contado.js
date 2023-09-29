@@ -43,13 +43,19 @@ $(document).on('click', '#terminar-proceso-cargo', function (event) {
 
     //Pregunta al usuario el tipo de factura
     alertMensajeConfirm({
-        title: '¿El paciente requiere factura?', text: 'Verifique que el tipo de dato sea correcto', icon: '',
-        confirmButtonText: 'Facturar',
-        denyButtonText: `No Facturar`,
-        denyButtonColor: 'gray',
+        title: '¿El paciente requiere factura?', text: 'Selecciona la opcion que el paciente necesita.', icon: 'warning',
+        // Facturar
+        confirmButtonText: '<i class="bi bi-receipt"></i> Facturar',
+        confirmButtonColor: 'rgb(30, 132, 73)',
+
+        // No Facturar
+        denyButtonText: '<i class="bi bi-file-earmark-excel"></i> No Facturar',
+        denyButtonColor: 'rgb(192, 56, 43)',
         showDenyButton: true,
-        cancelButtonText: 'Facturar después',
-        cancelButtonColor: 'rgb(247, 190, 000)'
+
+        // Facturar Después
+        cancelButtonText: '<i class="bi bi-clock"></i> Facturar después',
+        cancelButtonColor: 'rgb(171, 104, 255)',
     }, function () {
         //Si fue si, abrir el modal de factura
         $('#modalEstudiosContado').modal('hide')

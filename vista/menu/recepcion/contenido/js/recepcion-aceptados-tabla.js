@@ -171,26 +171,33 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
-    // {
-    //   text: '<i class="bi bi-receipt-cutoff"></i> Ticket',
-    //   className: 'btn btn-secondary',
-    //   action: function () {
-    //     if (array_selected) {
-    //       alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
+    {
+      text: '<i class="bi bi-receipt"></i> Ticket',
+      className: 'btn btn-secondary',
+      attr: {
+        disabled: true,
+        id: 'btn_recepcionTicket',
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Generar el ticket del paciente particular finalizado"
+      },
+      action: function () {
+        if (array_selected) {
+          alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
 
-    //       api = encodeURIComponent(window.btoa('ticket'));
-    //       turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
-    //       area = encodeURIComponent(window.btoa(16));
+          api = encodeURIComponent(window.btoa('ticket'));
+          turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
+          area = encodeURIComponent(window.btoa(16));
 
 
-    //       window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+          window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 
 
-    //     } else {
-    //       alertToast('Por favor, seleccione un paciente', 'info', 4000)
-    //     }
-    //   }
-    // },
+        } else {
+          alertToast('Por favor, seleccione un paciente', 'info', 4000)
+        }
+      }
+    },
     {
       text: '<i class="bi bi-calendar2-event"></i> Re-agendar paciente',
       className: 'btn btn-pantone-325',
@@ -416,12 +423,14 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
   async function (select, data, callback) {
     if (select) {
       // return false;
+      $(`#${'buttonBeneficiario'}`).attr('disabled', ifnull(data, false, ['CLIENTE_ID']) == '18' ? false : true)
+      $(`#${'btn_recepcionTicket'}`).attr('disabled', ifnull(data, false, ['COMPLETADO']) == '1' && ifnull(data, false, ['CLIENTE_ID']) == '1' ? false : true)
 
-      if (select['CLIENTE_ID'] == 18) {
-        $('#buttonBeneficiario').attr('disabled', false)
-      } else {
-        $('#buttonBeneficiario').attr('disabled', true);
-      }
+      // if (select['CLIENTE_ID'] == 18) {
+      //   $('#buttonBeneficiario').attr('disabled', false)
+      // } else {
+      //   $('#buttonBeneficiario').attr('disabled', true);
+      // }
 
       obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
       obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
@@ -453,7 +462,8 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       callback('In')
     } else {
       callback('Out')
-      $('#buttonBeneficiario').attr('disabled', true);
+      $(`#${'buttonBeneficiario'}`).attr('disabled', true);
+      $(`#${'btn_recepcionTicket'}`).attr('disabled', true);
       obtenerPanelInformacion(0, 'paciente_api', 'paciente')
       obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
       obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')

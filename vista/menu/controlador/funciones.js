@@ -401,10 +401,26 @@ function ifnull(data, siNull = '', values = [
   // Comprobar si el dato es nulo o no es un objeto
   if (!data || typeof data !== 'object') {
     if (data === undefined || data === null || data === 'NaN' || data === '' || data === NaN) {
-      return siNull == 'number' ? 0 : siNull;
+      switch (siNull) {
+        case 'number': return 0
+        case 'boolean': return data ? true : false;
+        default: return siNull;
+      }
     } else {
-      if (siNull != 'number')
-        data = escapeHtmlEntities(`${data}`);
+
+      let data_modificado = escapeHtmlEntities(`${data}`);
+
+      switch (siNull) {
+        case 'number':
+          // No hará modificaciones
+          break;
+        case 'boolean': return ifnull(data, false) ? true : false;
+        default:
+          //Agregará las modificaciones nuevas
+          data = data_modificado
+          break;
+      }
+
       return data;
     }
   }
