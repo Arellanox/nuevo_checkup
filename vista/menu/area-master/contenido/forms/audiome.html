@@ -23,7 +23,7 @@
 <p class="text-center">Cargue y mueva el recuadro de la imagen para capturar la tabla del reporte.</p>
 
 <form id="formSubirInterpretacionPRUEBA">
-    <div class="row">
+    <div class="row container-pages">
 
 
 
@@ -694,6 +694,22 @@
         height: auto;
         margin: 5px;
         border: 1px solid #ccc;
+    }
+
+    .page.animate__animated {
+        animation-duration: 0.5s;
+        /* Ajusta este valor según lo rápido que quieras que sea */
+    }
+
+    .container-pages {
+        position: relative;
+    }
+
+    .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
     }
 </style>
 
