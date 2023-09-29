@@ -143,7 +143,7 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
         $("#fecha_corte_selected").html(`(${data['FOLIO']})`)
 
         BuildHeaderCorte(data)
-        ConstruirDesaglosePrecios(SelectedHistorialCaja['ID_CORTE'])
+        ConstruirDesglosePrecios(SelectedHistorialCaja['ID_CORTE'])
 
         id_corte = SelectedHistorialCaja['ID_CORTE']
 
@@ -153,6 +153,7 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
         callback('In')
     } else {
         callback('Out')
+        DestruirDesglosePrecios()
         // fadeDetalleTable("Out")
     }
 })
@@ -384,7 +385,7 @@ function fadeDetalleHeader(type) {
 }
 
 // Function para mostrar los desglose de los precios por corte de caja
-function ConstruirDesaglosePrecios(corte_id) {
+function ConstruirDesglosePrecios(corte_id) {
     // Se hace la peticion a la api
     ajaxAwait({
         api: 9,
@@ -414,4 +415,8 @@ function ConstruirDesaglosePrecios(corte_id) {
     })
 }
 
+
+function DestruirDesglosePrecios() {
+    $('#formas-pago').html("");
+}
 // ==============================================================================   
