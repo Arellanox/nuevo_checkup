@@ -118,7 +118,8 @@ $(document).on('click', '#agregarformapago', async function (e) {
         });
 
         if (tipoDePagoEncontrado) {
-            armarTiposPagos(tipoDePagoEncontrado);
+            let precio_input = obtenerPrecioDar();
+            armarTiposPagos(tipoDePagoEncontrado, precio_input);
             MontoFaltante()
         } else {
             alertToast('Tipo de pago no encontrado.', 'error', 4000)
@@ -126,6 +127,14 @@ $(document).on('click', '#agregarformapago', async function (e) {
     } else {
         alertToast('Selecciona un tipo de pago válido.', 'error', 4000)
     }
+})
+
+// Detectar cambio de precio en botones
+$(document).on('keyup, change', 'input.inputPagosPartes', function (event) {
+    event.preventDefault();
+    event.stopPropagation(); // para no esparcir a otros campos
+    let input = $(this) // boton con jquery
+    input.attr('modificado', '1');
 })
 
 // Boton para eliminar el tipo de pago
@@ -356,7 +365,7 @@ function ConfigurarFormasPago(type) {
 }
 
 // Arma todo el esquelo HTML de los tipos de pago con el input de monto
-function armarTiposPagos(tipoDePagoEncontrado) {
+function armarTiposPagos(tipoDePagoEncontrado, precio) {
 
     let html = `
     <div class="row" id='pago_${tipoDePagoEncontrado.ID_PAGO}'>
@@ -366,7 +375,7 @@ function armarTiposPagos(tipoDePagoEncontrado) {
         <div class="col-4">
             <div class="input-group flex-nowrap">
                 <span class="input-group-text input-span">$</span>
-                <input type="number" placeholder="Monto:" id='id_pago_${tipoDePagoEncontrado.ID_PAGO}' value='0' class="form-control input-form" onkeyup="MontoFaltante()">
+                <input type="number" placeholder="Monto:" id='id_pago_${tipoDePagoEncontrado.ID_PAGO}' value='${precio}' class="form-control input-form inputPagosPartes" onkeyup="MontoFaltante()" modificado="0">
             </div>
         </div>
         <div class="col-4">
@@ -377,8 +386,37 @@ function armarTiposPagos(tipoDePagoEncontrado) {
         </div>
     </div>
     `;
+
+
     $('#formasPagoDiv').append(html)
 }
+
+// Detecta inputs y cuanto falta por pagar
+function obtenerPrecioDar() {
+    // Obtener o saber si existe mas de un input para rellenar faltantes
+    // Saber si existe input sin modificar y es mas de 1
+    // Saber si ya ha modificado un input para saber cuanto falta y darselo al siguiente input, osea que si el input sin modificar solo es 1 pero existe ya uno modificado este si se lo pone precio
+    let class_btn = 'inputPagosPartes';
+
+    $(`input.${class_btn}[modificado="0"]`).val(0)
+
+    let faltante = parseFloat(MontoFaltante());
+    if (ifnull(faltante, 'number')) {
+        // Para asignar precios faltantes
+
+        let precio_dar = faltante / ($(`input.inputPagosPartes[modificado="0"]`).length + 1);
+        precio_dar = parseFloat(ifnull(precio_dar, 0)).toFixed(2);
+
+        $(`input.${class_btn}[modificado="0"]`).val(precio_dar)
+
+        // Si es primera vez o es el primer input
+        return precio_dar;
+    } else {
+        return 0;
+    }
+
+}
+
 
 // Crear el array con los tipos de pago que se crearon junto con su ID y MONTO
 function AlmacenarFormasPago() {
@@ -473,14 +511,15 @@ function MontoFaltante() {
             }
         }
 
-        console.log(parseFloat(total_cliente), Suma)
+        // console.log(parseFloat(total_cliente), Suma)
 
         residuo = (parseFloat(total_cliente)).toFixed(2) - Suma.toFixed(2)
 
-        console.log(residuo)
+        // console.log(residuo)
 
         if (residuo !== 0) {
             $('#precio-faltante').html(`$${residuo.toFixed(2)}`)
+            return residuo.toFixed(2);
         } else {
             $('#precio-faltante').html('Pago listo')
         }

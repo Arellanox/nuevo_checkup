@@ -400,7 +400,7 @@ function ifnull(data, siNull = '', values = [
 
   // Comprobar si el dato es nulo o no es un objeto
   if (!data || typeof data !== 'object') {
-    if (data === undefined || data === null || data === 'NaN' || data === '') {
+    if (data === undefined || data === null || data === 'NaN' || data === '' || data === NaN) {
       return siNull == 'number' ? 0 : siNull;
     } else {
       if (siNull != 'number')
