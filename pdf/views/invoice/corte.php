@@ -458,7 +458,11 @@ $array = convertirObjetoAArray($resultados);
                             <p>$<?php echo ifnull(number_format($array[2], 2)) ?> </p>
                         </td>
                         <td style="background-color: darkgrey;"><b></p>
-                                $<?php echo ifnull(number_format($array[3], 2)) ?> </b></td>
+                                <p>
+                                    $<?php echo ifnull(number_format($array[3], 2)) ?>
+                            </b>
+                            </p>
+                        </td>
                     </tr>
                 </tbody>
             </table>

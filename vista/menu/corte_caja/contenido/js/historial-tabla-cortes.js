@@ -382,4 +382,15 @@ function fadeDetalleHeader(type) {
     }
 }
 
+// Function para mostrar los desglose de los precios por corte de caja
+function ConstruirDesaglosePrecios(corte_id) {
+    // Se hace la peticion a la api
+    ajaxAwait({
+        api: 9,
+        id_corte: corte_id
+    }, "corte_caja_api", { callbackAfter: true }, false, function (data) {
+        let row = data.response.data;
+    })
+}
+
 // ==============================================================================   
