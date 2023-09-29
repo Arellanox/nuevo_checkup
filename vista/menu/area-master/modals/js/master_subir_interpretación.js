@@ -207,12 +207,47 @@ $("#btn-subir-resultados-audio").click(async function (event) {
 
 
 
-function updatePage($newPage) {
-    $('.page').hide();
-    $newPage.show();
+function updatePage($newPage, direction = false) {
+    // $('.page:visible').slideUp(400).fadeOut(400, function () {
+    //     $newPage.slideDown(400).fadeIn(400);
+
+    //     // Verificar si es la última página
+    if ($newPage.is('.page:last')) {
+        $('.pagination-interpretacion').fadeIn(400);
+    } else {
+        $('.pagination-interpretacion').hide();
+    }
+    // });
+
+    const $currentVisiblePage = $('.page:visible');
+
+    if (!direction) {
+        $newPage.show();
+        return;
+    }
+
+    if (direction === 'next') {
+        $currentVisiblePage.addClass('animate__animated animate__slideOutLeft');
+        $newPage.show().addClass('animate__animated animate__slideInRight');
+    } else if (direction === 'back') {
+        $currentVisiblePage.addClass('animate__animated animate__slideOutRight');
+        $newPage.show().addClass('animate__animated animate__slideInLeft');
+    }
+
+    $currentVisiblePage.one('animationend', function () {
+        $currentVisiblePage.removeClass('animate__animated animate__slideOutLeft animate__slideOutRight').hide();
+    });
+
+    $newPage.one('animationend', function () {
+        $newPage.removeClass('animate__animated animate__slideInRight animate__slideInLeft');
+    });
+
+
 }
 
 $(document).on('click', '.control-pagina-interpretacion', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
     const $btn = $(this);
     const action = $btn.attr('target');
     const $visiblePage = $('.page:visible');
@@ -222,14 +257,14 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
             const $prevPage = $visiblePage.prev('.page');
             console.log($visiblePage.prev('.page'))
             if ($prevPage.length) {
-                updatePage($prevPage);
+                updatePage($prevPage, action);
             }
             break;
         case 'next':
             const $nextPage = $visiblePage.next('.page');
             console.log($visiblePage.next('.page'))
             if ($nextPage.length) {
-                updatePage($nextPage);
+                updatePage($nextPage, action);
             }
             break;
         default:
