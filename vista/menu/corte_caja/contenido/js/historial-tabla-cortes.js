@@ -143,6 +143,7 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
         $("#fecha_corte_selected").html(`(${data['FOLIO']})`)
 
         BuildHeaderCorte(data)
+        ConstruirDesaglosePrecios(SelectedHistorialCaja['ID_CORTE'])
 
         id_corte = SelectedHistorialCaja['ID_CORTE']
 
@@ -185,7 +186,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         url: `../../../api/corte_caja_api.php`,
         beforeSend: function () { },
         complete: function () {
-            getResumen(TablaPacientesCaja);
+            // getResumen(TablaPacientesCaja);
         },
         dataSrc: 'response.data.0'
     },
@@ -389,7 +390,27 @@ function ConstruirDesaglosePrecios(corte_id) {
         api: 9,
         id_corte: corte_id
     }, "corte_caja_api", { callbackAfter: true }, false, function (data) {
-        let row = data.response.data;
+        let row = data.response.data[1];
+
+        for (const key in row) {
+            if (Object.hasOwnProperty.call(row, key)) {
+                const element = row[key];
+                var DESCRIPCION = element['TIPO_PAGO'];
+                var TOTAL = (parseFloat(element['TOTAL'])).toFixed(2);
+
+
+                let html = ` 
+                <div class="col-12 col-md-4">
+                    <p class="fw-bold">
+                        ${ifnull(DESCRIPCION, 'N/A')}:  
+                        <span class='fw-bold text-dark'>$${ifnull(TOTAL, '0.00')}</span>
+                    </p>
+                </div>`;
+
+
+                $('#formas-pago').append(html);
+            }
+        }
     })
 }
 
