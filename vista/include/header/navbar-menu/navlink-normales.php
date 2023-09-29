@@ -259,9 +259,23 @@ date_default_timezone_set('America/Mexico_City'); ?>
     $menu == 'Laboratorio' ||
     $menu == 'muestras' ||
     $menu == 'ServiciosLab' ||
-    $menu == 'Temperatura'
+    $menu == 'Temperatura' || ($menu == 'PrincipalMenu')
 ) :
+    if ($_SESSION['vista']['LABORATORIO'] == 1 && $menu != 'Laboratorio') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio/#LABORATORIO'; ?>">
+                <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
+            </a>
+        </li>
+    <?php endif;
 
+    if ($_SESSION['vista']['LABORATORIO_MOLECULAR'] == 1 && $menu != 'Laboratorio') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio/#LABORATORIO_MOLECULAR'; ?>">
+                <i class="bi bi-virus"></i> Laboratorio Biomolecular
+            </a>
+        </li>
+    <?php endif;
 
     if ($_SESSION['vista']['ESTUDIOS_LABORATORIO'] == 1 && $menu != 'ServiciosLab') : ?>
         <li class="nav-item">
@@ -279,10 +293,18 @@ date_default_timezone_set('America/Mexico_City'); ?>
         </li>
     <?php endif;
 
-    if ($_SESSION['vista']['LABORATORIO_MOLECULAR'] == 1 && $menu != 'Laboratorio') : ?>
+    if ($_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1 && $menu == 'PrincipalMenu' && $menu != 'Temperatura') : ?>
         <li class="nav-item">
-            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio/#LABORATORIO_MOLECULAR'; ?>">
-                <i class="bi bi-virus"></i> Laboratorio Biomolecular
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/temperatura/#LABORATORIO'; ?>">
+                <i class="bi bi-droplet-half"></i> Temperatura Laboratorio Clinico
+            </a>
+        </li>
+    <?php endif;
+
+    if ($_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1 && $menu == 'PrincipalMenu' && $menu != 'Temperatura') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/temperatura/#BIOMOLECULAR'; ?>">
+                <i class="bi bi-droplet-half"></i> Temperatura Laboratorio Biomolecular
             </a>
         </li>
     <?php endif;
@@ -291,14 +313,6 @@ date_default_timezone_set('America/Mexico_City'); ?>
         <li class="nav-item">
             <a class="dropdown-a align-items-center click_temperatura_btn" type="button">
                 <i class="bi bi-droplet-half"></i> Temperatura
-            </a>
-        </li>
-    <?php endif;
-
-    if ($_SESSION['vista']['LABORATORIO'] == 1 && $menu != 'Laboratorio') : ?>
-        <li class="nav-item">
-            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/laboratorio/#LABORATORIO'; ?>">
-                <i class="bi bi-heart-pulse"></i> Laboratorio Clínico
             </a>
         </li>
 <?php endif;
