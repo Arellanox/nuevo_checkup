@@ -1896,7 +1896,7 @@ class Miscelaneus
         $response = [$response1, $response2];
 
         // echo "<pre>";
-        // echo $turno_id; 
+        // echo $turno_id;
         // var_dump($response[1]);
         // echo "</pre>";
 
@@ -1945,8 +1945,6 @@ class Miscelaneus
 
             $fecha_inicio = $e['FECHA_INICIO'];
             $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
-
-            $cortador = is_null($e['px']) ?  "CORTE SIN FINALIZAR" : $e['px'];
         }
 
         $tipos_precio = array();
@@ -1963,6 +1961,9 @@ class Miscelaneus
                 "MONTO" => $total_tipo_pago,
                 "IGNORAR" => $ignorar
             );
+
+            $cortador = is_null($value1['HECHO_POR']) ?  "CORTE SIN FINALIZAR" : $value1['HECHO_POR'];
+
 
             $x++;
         }

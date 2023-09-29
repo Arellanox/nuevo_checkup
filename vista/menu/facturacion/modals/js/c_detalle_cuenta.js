@@ -101,7 +101,7 @@ function BuildFormasPago(turno, corte_id = null) {
                 let html;
                 html = `
                  <div class="col-12 col-xl col-xxl d-flex">
-                    <p class="fw-bold">}
+                    <p class="fw-bold">
                         ${PrimeraLetraMayuscula(DESCRIPCION)}:  
                         <span class='fw-bold text-dark'>$${MONTO}</span>
                     </p>
