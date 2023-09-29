@@ -374,19 +374,18 @@ $array = convertirObjetoAArray($resultados);
                     <td style="width: 50%">
                         <p>Fecha Inicio:<strong> <?php echo $array[7] ?></strong></p>
                         <p>Fecha Final:<strong> <?php echo $array[8] ?></strong></p>
-                        <p>Folio:<b> <?php echo $array[6] ?> </b></p>
+                        <p></p>
                     </td>
                     <td style="width: 50%;">
                         <p>Realizado por:<strong> <?php echo $array[9] ?></strong></p>
-                        <p style="opacity:0 ">Fecha Final:<strong> <?php echo $array[8] ?></strong></p>
-                        <p style="opacity:0">Folio:<b> <?php echo $array[6] ?> </b></p>
+                        <p>Folio:<b> <?php echo $array[6] ?> </b></p>
+                        <p></p>
                     </td>
                 </tr>
             </table>
-
         </div>
         <!--FIN DE TABLA INFORMACIÓN-->
-        <p style="line-height: .5"></p>
+        <!-- <p style="line-height: .5"></p> -->
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
         <table style="text-align: center; width: 100%;" class="rounded2">
             <thead style="text-align: center; background-color: darkgrey; font-size: 10px;">
