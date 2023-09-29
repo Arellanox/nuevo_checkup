@@ -51,7 +51,7 @@ $('#btn-confirmarenviar-resultado').click(function () {
                 },
                 success: function (data) {
                     if (mensajeAjax(data)) {
-                        alertMensaje('success', '¡Reporte validado y enviado!', 'El reporte a sido enviado excitosamente')
+                        alertMensaje('success', '¡Reporte validado y enviado!', 'El reporte ha sido enviado exitosamente.')
                     }
                 },
                 error: function (jqXHR, exception, data) {

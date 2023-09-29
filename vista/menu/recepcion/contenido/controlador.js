@@ -4,7 +4,7 @@
 // obtenerContenidoRecepcion();
 var tablaRecepcionPacientes, dataRecepcion = { api: 1 };
 
-var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
+var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [], estudiosTodos = [];
 var hash;
 
 //Validacion de usuario
