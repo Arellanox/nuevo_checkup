@@ -207,3 +207,35 @@ $("#btn-subir-resultados-audio").click(async function (event) {
 
 
 
+function updatePage($newPage) {
+    $('.page').hide();
+    $newPage.show();
+}
+
+$(document).on('click', '.control-pagina-interpretacion', function (event) {
+    const $btn = $(this);
+    const action = $btn.attr('target');
+    const $visiblePage = $('.page:visible');
+    console.log($visiblePage)
+    switch (action) {
+        case 'back':
+            const $prevPage = $visiblePage.prev('.page');
+            console.log($visiblePage.prev('.page'))
+            if ($prevPage.length) {
+                updatePage($prevPage);
+            }
+            break;
+        case 'next':
+            const $nextPage = $visiblePage.next('.page');
+            console.log($visiblePage.next('.page'))
+            if ($nextPage.length) {
+                updatePage($nextPage);
+            }
+            break;
+        default:
+            break;
+    }
+});
+
+// Inicializamos mostrando la primera página
+updatePage($('.page').first());

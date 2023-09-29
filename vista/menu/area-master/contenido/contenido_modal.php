@@ -293,7 +293,15 @@ session_start();
                 <!-- <img id="full" class="hideimg" src="http://localhost/nuevo_checkup/archivos/sistema/temp/transparent.png" border="0" onclick="this.className='hideimg'"> -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Regresar</button>
+
+                <!-- Paginacion del formulario -->
+
+                <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="back"><i class="bi bi-arrow-left-short"></i> Regresar</button>
+                <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="next"><i class="bi bi-arrow-left-short"></i> Siguiente</button>
+
+                <!-- /////// -->
+
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
                 <!-- <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button> -->
 
                 <button type="button" class="btn btn-borrar btnResultados" id="btn-ver-reporte" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa del reporte una vez guardado los cambios">

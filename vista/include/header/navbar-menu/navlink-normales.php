@@ -259,7 +259,7 @@ date_default_timezone_set('America/Mexico_City'); ?>
     $menu == 'Laboratorio' ||
     $menu == 'muestras' ||
     $menu == 'ServiciosLab' ||
-    $menu == 'Temperatura' || ($menu == 'PrincipalMenu')
+    $menu == 'Temperatura' || ($menu == 'PrincipalMenu' && $_SESSION['cargo'] == 4)
 ) :
     if ($_SESSION['vista']['LABORATORIO'] == 1 && $menu != 'Laboratorio') : ?>
         <li class="nav-item">
