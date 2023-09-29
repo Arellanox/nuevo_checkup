@@ -139,6 +139,7 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
     SelectedHistorialCaja = data
 
     if (select) {
+        DestruirDesglosePrecios(); // <-- No quitar
         // fadeDetalleTable("In")
         $("#fecha_corte_selected").html(`(${data['FOLIO']})`)
 
