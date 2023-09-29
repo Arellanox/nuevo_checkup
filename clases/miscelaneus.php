@@ -1946,7 +1946,7 @@ class Miscelaneus
             $fecha_inicio = $e['FECHA_INICIO'];
             $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
 
-            $cortador = is_null($e['px']) ?  "No hay" : $e['px'];
+            $cortador = is_null($e['px']) ?  "CORTE SIN FINALIZAR" : $e['px'];
         }
 
         $tipos_precio = array();
