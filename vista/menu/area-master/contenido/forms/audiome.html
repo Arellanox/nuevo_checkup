@@ -1,24 +1,13 @@
 <style>
-    .drop-zone-izquierdo {
+    .drop-zone {
         width: 392px;
         height: 85px;
         border: 2px dashed rgb(0 79 90 / 17%);
-        text-align: center !important;
+        text-align: center;
         padding: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 25px !important;
         border-radius: 10px;
-        margin-left: 151px !important;
-    }
-
-    .drop-zone-derecho {
-        width: 392px;
-        height: 85px;
-        border: 2px dashed rgb(0 79 90 / 17%);
-        text-align: center !important;
-        padding: 12px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        margin-left: 8px !important;
+        margin-left: 8px;
     }
 
     .drop-zone.hover_dropDrag {
@@ -29,6 +18,8 @@
     label.label-captura-oido {
         background: transparent;
     }
+</style>
+
 </style>
 
 <p class="text-center">Cargue y mueva el recuadro de la imagen para capturar la tabla del reporte.</p>
@@ -134,85 +125,155 @@
 
         <!-- Otoscopia -->
         <section class="page" style="display: none;">
-            <h5>Otoscopia</h5>
+            <h2>Otoscopia</h2>
 
             <!-- Captura de odios -->
-            <h5 id="title-paciente_aceptar">Captura de Oídos</h5>
-            <div class="row mt-2 justify-content-center">
+            <!-- <h5 id="title-paciente_aceptar">Captura de Oídos</h5> -->
+
+            <!-- <div class="row mt-2 justify-content-center">
+
+
+
                 <div class="col-12 col-lg-6 p-2 shadow-sm text-center">
-                    <h4>Subir captura de Oído izquierdo</h4>
 
-                    <form id="subirCapturaOidoIzquierdo" class="d-flex flex-column align-items-end">
-                        <div id="dropOidoIzquierdo" class="drop-zone-izquierdo mx-2">
-                            <label for="file-captura-oido-izquierdo" style="text-align: center; cursor: pointer;"
-                                class="label-captura-oido text-center">Sube
-                                tu
-                                archivo
-                                arrastrándolo
-                                aquí</label>
+                </div>
 
-                            <input type="file" id="file-captura-oido-izquierdo" name="file-captura-oido-izquierdo[]"
-                                style="display: none;">
-                            <br>
-                            <div class="spinner-border text-primary carga-captura-oido" role="status"
-                                style="display: none;">
-                                <span class="visually-hidden">Loading...</span>
+            </div> -->
+            <!-- <div class="row">
+                <div class="col-6">
+                    <div class="row shadow-sm">
+                        
+                        <h4>Subir captura de Oído izquierdo</h4>
+                        <form id="subirCapturaOidoIzquierdo" class="d-flex flex-column align-items-center">
+                            <div id="dropOidoIzquierdo" class="drop-zone mx-2">
+                                <label for="file-captura-oido-izquierdo" style="cursor: pointer;"
+                                    class="label-captura-oido">Sube
+                                    tu
+                                    archivo
+                                    arrastrándolo
+                                    aquí</label>
+
+                                <input type="file" id="file-captura-oido-izquierdo" name="file-captura-oido-izquierdo[]"
+                                    style="display: none;">
+                                <br>
+                                <div class="spinner-border text-primary carga-captura-oido" role="status"
+                                    style="display: none;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    <div class="row shadow-sm">
+                        <h4>Subir captura de Oído derecho</h4>
+                        <form id="subirCapturaOidoDerecho" class="d-flex flex-column align-items-center">
+                            <div id="dropOidoDerecho" class="drop-zone mx-2">
+                                <label for="file-captura-oido-derecho" style="cursor: pointer;"
+                                    class="label-captura-oido">Sube
+                                    tu
+                                    archivo
+                                    arrastrándolo
+                                    aquí</label>
 
-                    <div class="text-center" id="contend-oido-izq">
+                                <input type="file" id="file-captura-oido-derecho" name="file-captura-oido-derecho[]"
+                                    style="display: none;">
+                                <br>
+                                <div class="spinner-border text-primary carga-captura-oido" role="status"
+                                    style="display: none;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6 p-2 shadow-sm text-center">
-                    <h4>Subir captura de Oído derecho</h4>
 
-                    <form id="subirCapturaOidoDerecho" class="d-flex flex-column align-items-center">
-                        <div id="dropOidoDerecho" class="drop-zone-derecho mx-2">
-                            <label for="file-captura-oido-derecho" style="cursor: pointer;"
-                                class="label-captura-oido">Sube
-                                tu
-                                archivo
-                                arrastrándolo
-                                aquí</label>
 
-                            <input type="file" id="file-captura-oido-derecho" name="file-captura-oido-derecho[]"
-                                style="display: none;">
-                            <br>
-                            <div class="spinner-border text-primary carga-captura-oido" role="status"
-                                style="display: none;">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
+                <div class="col-6">
+                    <div class="row shadow-sm">
+                        
+
+                        <div class="text-center" id="contend-oido-izq">
                         </div>
-                    </form>
-                    <div class="text-center" id="contend-oido-der">
+
+                        <div class="text-center" id="contend-oido-der">
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- <div class="px-3">
-                    <table class="table mt-3 display responsive" id="oidosDescripcion" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th class="all">Oído Izquierdo</th>
-                                <th class="all">Oído Derecho</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><textarea name="audiometria_oido_izquierdo" class="form-textarea-content"
-                                        style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..."
-                                        id="audiometria_oido_izquierdo"></textarea>
-                                </td>
-                                <td><textarea name="audiometria_oido_derecho" class="form-textarea-content"
-                                        style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..."
-                                        id="audiometria_oido_derecho"></textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> -->
+            </div> -->
+
+
+            <div class="row">
+                <!-- Aqui va el oido derecho -->
+                <div class="row shadow-sm">
+                    <div class="col-6">
+                        <h5>Subir captura de Oído izquierdo</h5>
+                        <form id="subirCapturaOidoIzquierdo" class="d-flex flex-column align-items-center">
+                            <div id="dropOidoIzquierdo" class="drop-zone mx-2">
+                                <label for="file-captura-oido-izquierdo" style="cursor: pointer;"
+                                    class="label-captura-oido">Sube
+                                    tu
+                                    archivo
+                                    arrastrándolo
+                                    aquí</label>
+
+                                <input type="file" id="file-captura-oido-izquierdo" name="file-captura-oido-izquierdo[]"
+                                    style="display: none;">
+                                <br>
+                                <div class="spinner-border text-primary carga-captura-oido" role="status"
+                                    style="display: none;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </form>
+                        <textarea name="audiometria_oido_izquierdo" class="form-textarea-content"
+                            style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..."
+                            id="audiometria_oido_izquierdo"></textarea>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center" id="contend-oido-izq">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aqui va el oido izquierdo -->
+                <div class="row shadow-sm mt-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Subir captura de Oído derecho</h5>
+                            <form id="subirCapturaOidoDerecho" class="d-flex flex-column align-items-center">
+                                <div id="dropOidoDerecho" class="drop-zone mx-2">
+                                    <label for="file-captura-oido-derecho" style="cursor: pointer;"
+                                        class="label-captura-oido">Sube
+                                        tu
+                                        archivo
+                                        arrastrándolo
+                                        aquí</label>
+
+                                    <input type="file" id="file-captura-oido-derecho" name="file-captura-oido-derecho[]"
+                                        style="display: none;">
+                                    <br>
+                                    <div class="spinner-border text-primary carga-captura-oido" role="status"
+                                        style="display: none;">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </form>
+                            <textarea name="audiometria_oido_derecho" class="form-textarea-content"
+                                style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..."
+                                id="audiometria_oido_derecho"></textarea>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="text-center" id="contend-oido-der">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
 
             <!-- Otoscopia -->
             <div class="rounded p-3 shadow my-2">
