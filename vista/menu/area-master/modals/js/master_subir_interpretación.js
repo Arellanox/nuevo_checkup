@@ -206,10 +206,11 @@ $("#btn-subir-resultados-audio").click(async function (event) {
 })
 
 
-
-function updatePage($newPage, direction = false) {
-    // $('.page:visible').slideUp(400).fadeOut(400, function () {
-    //     $newPage.slideDown(400).fadeIn(400);
+let isAnimating = false;
+function updatePage($newPage, direction) {
+    const $currentVisiblePage = $('.page:visible');
+    const $prevButton = $('button.control-pagina-interpretacion[target="back"]')
+    const $nextButton = $('button.control-pagina-interpretacion[target="next"]')
 
     //     // Verificar si es la última página
     if ($newPage.is('.page:last')) {
@@ -218,13 +219,15 @@ function updatePage($newPage, direction = false) {
         $('.pagination-interpretacion').hide();
     }
     // });
-
-    const $currentVisiblePage = $('.page:visible');
-
     if (!direction) {
         $newPage.show();
+        $currentVisiblePage.hide();
         return;
     }
+
+    if (isAnimating) return;  // Si una animación está en curso, no hacemos nada
+
+    isAnimating = true;  // Establecer el semáforo a verdadero
 
     if (direction === 'next') {
         $currentVisiblePage.addClass('animate__animated animate__slideOutLeft');
@@ -240,10 +243,18 @@ function updatePage($newPage, direction = false) {
 
     $newPage.one('animationend', function () {
         $newPage.removeClass('animate__animated animate__slideInRight animate__slideInLeft');
+        isAnimating = false;
+
+        // Determinar la página actual y ajustar la visibilidad de los botones
+        const isFirstPage = $newPage.is($('.page').first());
+        const isLastPage = $newPage.is($('.page').last());
+
+
+        $prevButton.attr('disabled', isFirstPage ? true : false)
+        $nextButton.attr('disabled', isLastPage ? true : false)
     });
-
-
 }
+
 
 $(document).on('click', '.control-pagina-interpretacion', function (event) {
     event.preventDefault();
@@ -271,6 +282,30 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
             break;
     }
 });
+
+
+$('#modalSubirInterpretacion').on('shown.bs.modal', function () {
+    const hammertime = new Hammer(document.querySelector('#modalSubirInterpretacion .modal-body'));
+
+    hammertime.on('swipeleft', function () {
+        const $visiblePage = $('.page:visible');
+        const $nextPage = $visiblePage.next('.page');
+        if ($nextPage.length) {
+            updatePage($nextPage, 'next');
+        }
+    });
+
+    hammertime.on('swiperight', function () {
+        const $visiblePage = $('.page:visible');
+        const $prevPage = $visiblePage.prev('.page');
+        if ($prevPage.length) {
+            updatePage($prevPage, 'back');
+        }
+    });
+});
+
+
+
 
 // Inicializamos mostrando la primera página
 updatePage($('.page').first());
