@@ -1239,7 +1239,7 @@ function setProcedenciaOption(select, idProcedencia) {
 }
 
 // Obtener cargo y tipos de usuarios
-function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback = function (array) { }) {
+function rellenarSelect(select = false, api, apinum, v, c, placeholder, values = {}, callback = function (array) { }) {
   return new Promise(resolve => {
     values.api = apinum;
 
@@ -1250,6 +1250,11 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
     }
 
     $(select).find('option').remove().end()
+
+    if (placeholder) {
+      $(select).append(new Option(placeholder, null));
+    }
+
     $.ajax({
       url: http + servidor + "/" + appname + "/api/" + api + ".php",
       data: values,
@@ -2594,9 +2599,9 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
           }
 
           if (array[i][0] == 1 || array[i][0] == null) {
-            $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
+            $(DIV[i]).find("textarea.form-control.input-form").val(array[i][1])
           } else {
-            $(DIV[i]).find("textarea[class='form-control input-form']").val('')
+            $(DIV[i]).find("textarea.form-control.input-form").val('')
           }
         } catch (error) {
           //console.log(error);

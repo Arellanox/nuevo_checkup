@@ -13,7 +13,7 @@ if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
 $master = new Master();
 $api = $_POST['api'];
 
-$ignorarALevenshtein = $_POST['$ignorarALevenshtein']; # enviar 1 para ignorar, 0 para hacerle caso a levenshtein
+$ignorarALevenshtein = $_POST['ignorarALevenshtein']; # enviar 1 para ignorar, 0 para hacerle caso a levenshtein
 $id_medico = $_POST['id_medico'];
 $nombre_medico = $_POST['nombre_medico'];
 $email = $_POST['email'];
@@ -24,7 +24,7 @@ switch ($api) {
         #insertar un nuevo medico.
         if ($ignorarALevenshtein == 1) {
             # si deciden ignorar a levenshtein lo insertamos
-            $response = $master->insertByProcedure("sp_medicos_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
+            $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
         } else {
             # si no ignoran a levenshtein obtenemos la lista de pacientes y devolvemos las coincidencias aproximadas
             $medicos = $master->getByProcedure("sp_medicos_tratantes_b", []);
@@ -41,7 +41,7 @@ switch ($api) {
 
             if (count($coincidencias) == 0) {
                 # si levenshtein dice que no hay coincidencias, insertamos al medico.
-                $response = $master->insertByProcedure("sp_medicos_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
+                $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
             } else {
                 # si existen coincidencias, las devolvemos enel response
                 $response = $master->getFormValues($coincidencias);
@@ -50,7 +50,7 @@ switch ($api) {
         break;
     case 2:
         # buscar los medicos tratantes
-        $response = $master->getByProcedure("sp_medicos_tratantes", [$id_medico, $nombre_medico, $email]);
+        $response = $master->getByProcedure("sp_medicos_tratantes_b", [$id_medico, $nombre_medico, $email]);
         break;
     case 3:
         $response = $master->deleteByProcedure("", []);
