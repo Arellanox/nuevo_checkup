@@ -13,35 +13,35 @@ if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
 $master = new Master();
 $api = $_POST['api'];
 
-$ignorarALevenshtein = $_POST['$ignorarALevenshtein'];# enviar 1 para ignorar, 0 para hacerle caso a levenshtein
+$ignorarALevenshtein = $_POST['$ignorarALevenshtein']; # enviar 1 para ignorar, 0 para hacerle caso a levenshtein
 $id_medico = $_POST['id_medico'];
 $nombre_medico = $_POST['nombre_medico'];
 $email = $_POST['email'];
 $usuario_id = $_POST['usuario_id'];
 
-switch($api){
+switch ($api) {
     case 1:
         #insertar un nuevo medico.
-        if ($ignorarALevenshtein == 1){
+        if ($ignorarALevenshtein == 1) {
             # si deciden ignorar a levenshtein lo insertamos
-            $response = $master->insertByProcedure("sp_medicos_g", [$id_medico, $nombre_medico, $email]);
+            $response = $master->insertByProcedure("sp_medicos_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
         } else {
             # si no ignoran a levenshtein obtenemos la lista de pacientes y devolvemos las coincidencias aproximadas
-            $medicos = $master->getByProcedure("sp_medicos_tratantes_b",[]);
-            
+            $medicos = $master->getByProcedure("sp_medicos_tratantes_b", []);
+
             $x = [];
-            foreach($medicos as $medico){
+            foreach ($medicos as $medico) {
                 $medico['distancia'] = $master->getLevenshteinDistance($nombre_medico, $medico['NOMBRE_MEDICO']);
-                $x = $medico;                
+                $x = $medico;
             }
-            
-            $coincidencias = array_filter($x,function($obj){
+
+            $coincidencias = array_filter($x, function ($obj) {
                 return $obj['distancia'] <= 9;
             });
 
-            if(count($coincidencias)==0){
+            if (count($coincidencias) == 0) {
                 # si levenshtein dice que no hay coincidencias, insertamos al medico.
-                $response = $master->insertByProcedure("sp_medicos_g", [$id_medico, $nombre_medico, $email]);
+                $response = $master->insertByProcedure("sp_medicos_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
             } else {
                 # si existen coincidencias, las devolvemos enel response
                 $response = $master->getFormValues($coincidencias);
@@ -50,7 +50,7 @@ switch($api){
         break;
     case 2:
         # buscar los medicos tratantes
-        $response = $master->getByProcedure("sp_medicos_tratantes", [$id_medico, $nombre_medico, $email ]);
+        $response = $master->getByProcedure("sp_medicos_tratantes", [$id_medico, $nombre_medico, $email]);
         break;
     case 3:
         $response = $master->deleteByProcedure("", []);
@@ -60,4 +60,3 @@ switch($api){
 }
 
 echo $master->returnApi($response);
-?>
