@@ -1863,4 +1863,43 @@ class Miscelaneus
 
         return $response;
     }
+
+    public function getLevenshteinDistance($str1, $str2){
+        $str1 = strtolower($str1);
+        $str2 = strtolower($str2);
+
+        $len1 = strlen($str1);
+        $len2 = strlen($str2);
+
+        // Crear una matriz para almacenar los resultados de los subproblemas
+        $dp = array();
+        for ($i = 0; $i <= $len1; $i++) {
+            $dp[$i] = array();
+            for ($j = 0; $j <= $len2; $j++) {
+                $dp[$i][$j] = 0;
+            }
+        }
+
+        // Llenar la matriz con valores iniciales
+        for ($i = 0; $i <= $len1; $i++) {
+            $dp[$i][0] = $i;
+        }
+        for ($j = 0; $j <= $len2; $j++) {
+            $dp[0][$j] = $j;
+        }
+
+        // Calcular la distancia de Levenshtein
+        for ($i = 1; $i <= $len1; $i++) {
+            for ($j = 1; $j <= $len2; $j++) {
+                $cost = ($str1[$i - 1] != $str2[$j - 1]) ? 1 : 0;
+                $dp[$i][$j] = min(
+                    $dp[$i - 1][$j] + 1,
+                    $dp[$i][$j - 1] + 1,
+                    $dp[$i - 1][$j - 1] + $cost
+                );
+            }
+        }
+
+        return $dp[$len1][$len2];
+    }
 }
