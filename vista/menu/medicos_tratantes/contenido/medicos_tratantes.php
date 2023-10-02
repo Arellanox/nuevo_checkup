@@ -30,17 +30,6 @@
 
     <div class="col-8 p-2 shadow-sm my-2">
         <table class="table table-hover display responsive tableContenido" id="TablaVistaMedicosTratantes" style="width: 100%">
-            <thead class="" style="width: 100%">
-                <tr>
-                    <th scope="col d-flex justify-content-center" class="all">#</th>
-                    <th scope="col d-flex justify-content-center" class="all">Nombre del Médico</th>
-                    <th scope="col d-flex justify-content-center" class="min-tablet">Email</th>
-                    <th scope="col d-flex justify-content-center" class="min-tablet"><i class="bi bi-trash3"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-
         </table>
     </div>
 </div>
