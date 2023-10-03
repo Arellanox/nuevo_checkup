@@ -34,11 +34,11 @@ switch ($api) {
             $x = [];
 
             # si recibimos la id del usuarios
-            if (isset($usuario_id)) {                
-                $usuario = ($master->getByProcedure("sp_usuarios_b", [$usuario, null]))[0];
-                $nombre_medico = $usuario['NOMBRE']. ' ' . $usuario['PATERNO']. ' '. $usuario['MATERNO'];
+            if (isset($usuario_id)) {
+                $usuario = ($master->getByProcedure("sp_usuarios_b", [$usuario_id, null]))[0];
+                $nombre_medico = $usuario['NOMBRE'] . ' ' . $usuario['PATERNO'] . ' ' . $usuario['MATERNO'];
             }
-            
+
             foreach ($medicos as $medico) {
                 $medico['distancia'] = $master->getLevenshteinDistance($nombre_medico, $medico['NOMBRE_MEDICO']);
                 $x[] = $medico;

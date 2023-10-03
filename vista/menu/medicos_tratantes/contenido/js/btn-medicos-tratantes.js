@@ -39,6 +39,7 @@ $('#btn-subir-medico-tratante').on('click', function () {
             } else {
                 // Si no se encontraron nombres de médicos
                 alertToast('Médico tratante agregado', 'success', 4000);
+                $('#select-usuarios-medicos-tratantes').empty()
                 $('#nombre-medicoTrarante').html('')
                 $('#email-medicoTratante').html('')
                 TablaVistaMedicosTratantes.ajax.reload();
