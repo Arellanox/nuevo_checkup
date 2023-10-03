@@ -24,15 +24,6 @@ if (
     </li>
 <?php endif; ?>
 
-<?php if ($_SESSION['vista']['MEDICOS_TRATANTES'] == 1) : ?>
-    <li class="nav-item">
-        <a href="<?php echo "$https$url/$appname/vista/menu/medicos_tratantes/#MEDICOS_TRATANTES"; ?>">
-            <i class="bi bi-person-hearts"></i> Médicos tratantes
-        </a>
-    </li>
-<?php endif; ?>
-
-
 <?php if (
     $_SESSION['vista']['AGENDA_PACIENTES'] == 1
     //Excepciones

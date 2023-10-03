@@ -10,7 +10,6 @@
 
                     <label>Nombre de Usuario</label>
                     <select id="select-usuarios-medicos-tratantes" class="form-control input-form">
-                        <option selected>No</option>
                     </select>
                 </div>
 

@@ -4,7 +4,7 @@ require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) { 
+if (!$tokenValido) {
     // $tokenVerification->logout();
     // exit;
 }
@@ -74,9 +74,10 @@ switch ($api) {
         break;
     case 4:
         # vista de los usuarios tipo medico tratante.
-        
+
         #lista de pacientes que estan siendo atendidos por el usuario - medico tratante
         $response = $master->getByProcedure("sp_medicos_tratantes_vista", [$_SESSION['id'], $fecha_inicio, $fecha_fin]);
+        break;
     default:
         $response = "API no definida.";
 }

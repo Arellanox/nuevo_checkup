@@ -9,6 +9,25 @@ date_default_timezone_set('America/Mexico_City');
 <?php endif; ?>
 
 <?php
+if ($_SESSION['vista']['MEDICOS_TRATANTES'] == 1) : ?>
+    <!-- Medicos tratantes -->
+    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-medicos-tratantes" aria-expanded="false">
+        <i class="bi bi-person-hearts"></i> Médicos tratantes
+    </a>
+    <div class="collapse" id="board-medicos-tratantes">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
+            <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/medicos_tratantes/#MEDICOS'; ?>"><i class="bi bi-dot"></i> Médicos</a></li>
+
+            <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/medicos_tratantes/#PACIENTES'; ?>"><i class="bi bi-dot"></i> Pacientes</a></li>
+
+            <hr class="dropdown-divider">
+        </ul>
+    </div>
+
+<?php endif; ?>
+
+<?php
 if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     <!-- Administrativos -->
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
