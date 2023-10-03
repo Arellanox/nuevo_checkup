@@ -1,3 +1,4 @@
+//Tbla donde se vizualiza los Médicos tratantes ya registrados en la base de datos
 TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
     lengthChange: false,
@@ -53,12 +54,12 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
 
 inputBusquedaTable('TablaVistaMedicosTratantes', TablaVistaMedicosTratantes, [], [], 'col-18')
 
-
+//Funcion para eliminar los medicos tratantes
 function desactivarTablaMedicosTratantes() {
     var id_medico = $(this).data("id");
 
     alertMensajeConfirm({
-        title: '¿Está seguro que desea desactivar este médico?',
+        title: '¿Está seguro que desea eliminar este médico?',
         text: 'No podrá modificarlo despues',
         icon: 'warning',
     }, function () {
@@ -68,9 +69,8 @@ function desactivarTablaMedicosTratantes() {
             id_medico: id_medico
         }
 
-        ajaxAwait(dataJson_eliminarDiagnosticos, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
+        ajaxAwait(dataJson_eliminarMedico, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
             alertToast('Médico tratante eliminado!', 'success', 4000)
-
             TablaVistaMedicosTratantes.ajax.reload();
         })
     }, 1)

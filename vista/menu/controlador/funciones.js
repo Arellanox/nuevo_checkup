@@ -193,11 +193,13 @@ async function ajaxAwait(dataJson, apiURL,
           }
         } catch (error) {
           alertMensaje('error', 'Error', 'Datos/Configuración erronea', error);
+
         }
 
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
+        console.log('Error')
       },
     })
   });
