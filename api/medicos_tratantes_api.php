@@ -17,23 +17,26 @@ $ignorarALevenshtein = $_POST['ignorarALevenshtein']; # enviar 1 para ignorar, 0
 $id_medico = $_POST['id_medico'];
 $nombre_medico = $_POST['nombre_medico'];
 $email = $_POST['email'];
-$usuario_id = $_POST['usuario_id'];
+$usuario_id = $master->setToNull([$_POST['usuario_id']])[0];
 
 switch ($api) {
     case 1:
         #insertar un nuevo medico.
         if ($ignorarALevenshtein == 1) {
+           
             # si deciden ignorar a levenshtein lo insertamos
             $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
         } else {
+            
             # si no ignoran a levenshtein obtenemos la lista de pacientes y devolvemos las coincidencias aproximadas
-            $medicos = $master->getByProcedure("sp_medicos_tratantes_b", []);
+            $medicos = $master->getByProcedure("sp_medicos_tratantes_b", [null,null,null]);
 
             $x = [];
             foreach ($medicos as $medico) {
                 $medico['distancia'] = $master->getLevenshteinDistance($nombre_medico, $medico['NOMBRE_MEDICO']);
-                $x = $medico;
+                $x[] = $medico;
             }
+            
 
             $coincidencias = array_filter($x, function ($obj) {
                 return $obj['distancia'] <= 9;
@@ -44,7 +47,8 @@ switch ($api) {
                 $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
             } else {
                 # si existen coincidencias, las devolvemos enel response
-                $response = $master->getFormValues($coincidencias);
+                echo json_encode(array('code' => 2, "msj" => $master->getFormValues($coincidencias)));
+                exit;
             }
         }
         break;
