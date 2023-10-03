@@ -16,7 +16,7 @@ $('#btn-subir-medico-tratante').on('click', function () {
         }
         ajaxAwait(dataJson_insertMedicos, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
             alertToast('Médico tratante agregado', 'success', 4000)
-            TablaListaDiagnosticos.ajax.reload();
+            TablaVistaMedicosTratantes.ajax.reload();
         })
     }, 1)
 })

@@ -71,7 +71,7 @@ function desactivarTablaMedicosTratantes() {
         ajaxAwait(dataJson_eliminarDiagnosticos, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
             alertToast('Médico tratante eliminado!', 'success', 4000)
 
-            TablaListaDiagnosticos.ajax.reload();
+            TablaVistaMedicosTratantes.ajax.reload();
         })
     }, 1)
 }
