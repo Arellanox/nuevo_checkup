@@ -23,23 +23,23 @@ switch ($api) {
     case 1:
         #insertar un nuevo medico.
         if ($ignorarALevenshtein == 1) {
-           
+
             # si deciden ignorar a levenshtein lo insertamos
             $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
         } else {
-            
+
             # si no ignoran a levenshtein obtenemos la lista de pacientes y devolvemos las coincidencias aproximadas
-            $medicos = $master->getByProcedure("sp_medicos_tratantes_b", [null,null,null]);
+            $medicos = $master->getByProcedure("sp_medicos_tratantes_b", [null, null, null]);
 
             $x = [];
             foreach ($medicos as $medico) {
                 $medico['distancia'] = $master->getLevenshteinDistance($nombre_medico, $medico['NOMBRE_MEDICO']);
                 $x[] = $medico;
             }
-            
+
 
             $coincidencias = array_filter($x, function ($obj) {
-                return $obj['distancia'] <= 9;
+                return $obj['distancia'] <= 8;
             });
 
             if (count($coincidencias) == 0) {
@@ -47,8 +47,9 @@ switch ($api) {
                 $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
             } else {
                 # si existen coincidencias, las devolvemos enel response
-                echo json_encode(array('code' => 2, "msj" => $master->getFormValues($coincidencias)));
-                exit;
+                // echo json_encode(array('code' => 2, "msj" => $master->getFormValues($coincidencias)));
+                $response = $coincidencias;
+                // exit;
             }
         }
         break;

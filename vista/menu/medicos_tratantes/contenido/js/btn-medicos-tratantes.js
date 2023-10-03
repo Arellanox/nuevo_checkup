@@ -15,8 +15,38 @@ $('#btn-subir-medico-tratante').on('click', function () {
             ignorarALevenshtein: 0
         }
         ajaxAwait(dataJson_insertMedicos, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
-            alertToast('Médico tratante agregado', 'success', 4000)
-            TablaVistaMedicosTratantes.ajax.reload();
+            //Metemos lo que trae data en una variable en este caso lo que nos recupera es el arreglo
+            const row = data.response.data;
+
+            // Creamos una variable donde se inicializa como vacia donde se guardara los nombres de los medicos
+            let html = '';
+
+            // Iterar a través de los objetos en el row
+            for (const clave in row) {
+                if (row.hasOwnProperty(clave)) {
+                    const campos = row[clave];
+                    if (campos.hasOwnProperty("NOMBRE_MEDICO")) { //<- verifica si la propiedad actual (clave) realmente pertenece al objeto row
+                        const nombreMedico = campos["NOMBRE_MEDICO"];
+                        html += `<li style = "list-style-type: none;">${nombreMedico}</li>`; // Usar \n para el salto de línea
+                    }
+                }
+            }
+
+            if (typeof (row) === 'object') { //<- Verificamos que sea un objeto
+
+                // Si se encontraron nombres de médicos, mostrar el mensaje
+                alertMensaje('warning', 'Este médico tiene coincidencias', 'Verifique que no sea el mismo', `${html}`, null);
+            } else {
+                // Si no se encontraron nombres de médicos
+                alertToast('Médico tratante agregado', 'success', 4000);
+                $('#nombre-medicoTrarante').html('')
+                $('#email-medicoTratante').html('')
+                TablaVistaMedicosTratantes.ajax.reload();
+            }
+
+
+
+
         })
     }, 1)
 })
