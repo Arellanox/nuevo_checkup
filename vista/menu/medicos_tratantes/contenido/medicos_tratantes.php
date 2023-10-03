@@ -17,6 +17,7 @@
                 <div class="col-6 d-flex flex-column">
                     <label>Correo del Médico tratante</label>
                     <input type="email" class="form-control input-form" id="email-medicoTratante">
+
                     <div class="mt-auto d-flex justify-content-end">
                         <button type="button" class="btn btn-confirmar" id="btn-subir-medico-tratante" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los Médicos tratantes">
                             <i class="bi bi-person-plus"></i> Guardar
