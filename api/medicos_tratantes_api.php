@@ -57,7 +57,8 @@ switch ($api) {
         $response = $master->getByProcedure("sp_medicos_tratantes_b", [$id_medico, $nombre_medico, $email]);
         break;
     case 3:
-        $response = $master->deleteByProcedure("", [$id_medico]);
+        # eliminar medico tratante
+        $response = $master->deleteByProcedure("sp_medicos_tratantes_e", [$id_medico]);
         break;
     default:
         $response = "API no definida.";
