@@ -4,7 +4,7 @@ require_once "../clases/token_auth.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
+if (!$tokenValido) { 
     // $tokenVerification->logout();
     // exit;
 }
@@ -18,6 +18,10 @@ $id_medico = $_POST['id_medico'];
 $nombre_medico = $_POST['nombre_medico'];
 $email = $_POST['email'];
 $usuario_id = $master->setToNull([$_POST['usuario_id']])[0];
+
+# variables para la vista del medico
+$fecha_inicio = $_POST['fecha_iniciio'];
+$fecha_fin = $_POST['fecha_fin'];
 
 switch ($api) {
     case 1:
@@ -68,6 +72,11 @@ switch ($api) {
         # eliminar medico tratante
         $response = $master->deleteByProcedure("sp_medicos_tratantes_e", [$id_medico]);
         break;
+    case 4:
+        # vista de los usuarios tipo medico tratante.
+        
+        #lista de pacientes que estan siendo atendidos por el usuario - medico tratante
+        $response = $master->getByProcedure("sp_medicos_tratantes_vista", [$_SESSION['id'], $fecha_inicio, $fecha_fin]);
     default:
         $response = "API no definida.";
 }
