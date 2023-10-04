@@ -41,17 +41,17 @@
             <h5>Agregar medico tratante</h5>
             <form id="form-medicoTratante">
                 <div class="row">
-                    <div class="col-12 col-xxl col-xl mb-3">
+                    <div class="col-12 col-xxl-12 col-xl-12 mb-3">
                         <label>Nombre:</label>
                         <input type="text" class="form-control input-form" id="nombre-medicoTrarante">
                     </div>
-                    <div class="col-12 col-xxl col-xl mb-3">
+                    <div class="col-12 col-xxl-12 col-xl-12 mb-3">
                         <label>Usuario:</label>
                         <select id="select-usuarios-medicos-tratantes" class="form-control input-form">
                         </select>
                     </div>
 
-                    <div class="col-12 col-xxl col-xl mb-3">
+                    <div class="col-12 col-xxl-12 col-xl-12 mb-3">
                         <label>Correo:</label>
                         <input type="email" class="form-control input-form" id="email-medicoTratante">
                     </div>
