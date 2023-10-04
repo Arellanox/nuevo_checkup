@@ -14,6 +14,7 @@ $master = new Master();
 $api = $_POST['api'];
 
 $ignorarALevenshtein = $_POST['ignorarALevenshtein']; # enviar 1 para ignorar, 0 para hacerle caso a levenshtein
+$adjuntar_usuario = $_POST['adjuntar_usuario']; # enviar 1 para hacerle caso al usuario que se le va a agregar al medico tratante, 0 para ignorar
 $id_medico = $_POST['id_medico'];
 $nombre_medico = $_POST['nombre_medico'];
 $email = $_POST['email'];
