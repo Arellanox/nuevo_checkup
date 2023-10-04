@@ -20,10 +20,11 @@ $email = $_POST['email'];
 $usuario_id = $master->setToNull([$_POST['usuario_id']])[0];
 
 # variables para la vista del medico
-$fecha_inicio = $_POST['fecha_iniciio'];
+$fecha_inicio = $_POST['fecha_inicio'];
 $fecha_fin = $_POST['fecha_fin'];
 
 $nuevo_medico = $_POST['nuevo_medico'];
+$usuario_id = isset($_SESSION['id']) ? $_SESSION['id'] : $_POST['usuario_id'];
 
 switch ($api) {
     case 1:
@@ -78,7 +79,7 @@ switch ($api) {
         # vista de los usuarios tipo medico tratante.
 
         #lista de pacientes que estan siendo atendidos por el usuario - medico tratante
-        $response = $master->getByProcedure("sp_medicos_tratantes_vista", [$_SESSION['id'], $fecha_inicio, $fecha_fin]);
+        $response = $master->getByProcedure("sp_medicos_tratantes_vista", [$usuario_id, $fecha_inicio, $fecha_fin]);
         break;
     default:
         $response = "API no definida.";
