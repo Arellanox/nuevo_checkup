@@ -50,13 +50,19 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
             data: 'EMAIL'
         },
         {
-            data: null, render: function (data) {
-                return 0
-            }
+            data: 'PACIENTES_ENVIADO'
         },
         {
-            data: null, render: function data() {
-                return 0
+            data: 'ES_USUARIO', render: function (data) {
+                let html;
+
+                if (data === "1") {
+                    html = `<i class="bi bi-check-square text-success"></i>`;
+                } else if (data === "0") {
+                    html = `<i class="bi bi-x-square text-danger fw-bold"></i>`;
+                }
+
+                return html;
             }
         },
         {
