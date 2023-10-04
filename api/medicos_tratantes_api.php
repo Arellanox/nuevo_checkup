@@ -23,6 +23,8 @@ $usuario_id = $master->setToNull([$_POST['usuario_id']])[0];
 $fecha_inicio = $_POST['fecha_iniciio'];
 $fecha_fin = $_POST['fecha_fin'];
 
+$nuevo_medico = $_POST['nuevo_medico'];
+
 switch ($api) {
     case 1:
         #insertar un nuevo medico.
