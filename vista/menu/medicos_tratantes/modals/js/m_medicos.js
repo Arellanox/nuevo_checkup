@@ -3,9 +3,9 @@ $(document).on('change', '#usuario_medico_check', function () {
     ChangeAdjuntarUsuario('usuario_medico_check')
 })
 
-$(document).on('submit', '#form-medicos-tratantes-a', function (e) {
+$(document).on('click', '#btn--medicoTratante--a', function (e) {
     e.preventDefault()
-    EnviarMedicoTratante("Update")
+    ActualizarMedicoTratante('form-medicos-tratantes-a')
 })
 
 function ChangeAdjuntarUsuario(checkbox) {
@@ -15,7 +15,6 @@ function ChangeAdjuntarUsuario(checkbox) {
         AdjuntarUsuario = 1;
         $('#usuarios_medicos').prop('disabled', false);
     } else {
-        AdjuntarUsuario = 1;
         AdjuntarUsuario = 0;
         $('#usuarios_medicos').prop('disabled', true);
     }

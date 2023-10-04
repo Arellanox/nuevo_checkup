@@ -38,12 +38,7 @@ $('#btn-subir-medico-tratante').on('click', function () {
                 alertMensaje('warning', 'Este médico tiene coincidencias', 'Verifique que no sea el mismo', `${html}`, null);
             } else {
                 // Si no se encontraron nombres de médicos
-                alertToast('Médico tratante agregado', 'success', 4000);
-
-                $('#select-usuarios-medicos-tratantes').prop('selectedIndex', 0).trigger('change');
-                $('#nombre-medicoTrarante').html('')
-                $('#email-medicoTratante').html('')
-                TablaVistaMedicosTratantes.ajax.reload();
+                VolverConstruirPagina(1)
             }
 
 
