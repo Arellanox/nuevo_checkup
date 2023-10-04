@@ -219,8 +219,8 @@ function VolverConstruirPagina(type) {
             // Agregar Medico tratante
             alertToast('Médico tratante agregado', 'success', 4000);
             $('#select-usuarios-medicos-tratantes').prop('selectedIndex', 0).trigger('change');
-            $('#nombre-medicoTrarante').html('')
-            $('#email-medicoTratante').html('')
+            $('#nombre-medicoTrarante').val('')
+            $('#email-medicoTratante').val('')
             break;
         case 2:
             // Actualizar Medico tratante
