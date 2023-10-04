@@ -1,3 +1,17 @@
+// ==============================================================================
+
+// ###################### Variables #############################################
+
+// ==============================================================================
+
+
+
+
+// ==============================================================================
+
+// ###################### Eventos y Botones  ####################################
+
+// ==============================================================================
 
 $('#btn-subir-medico-tratante').on('click', function () {
     alertMensajeConfirm({
@@ -47,3 +61,43 @@ $('#btn-subir-medico-tratante').on('click', function () {
         })
     }, 1)
 })
+
+// Escuchar los cambios del checkbox #usuario_check_g
+$(document).on('change', '#usuario_check_g', function () {
+    SwitchCheckboxUsuariosG('usuario_check_g');
+})
+
+// ==============================================================================
+
+// ###################### FUNCIONES #############################################
+
+// ==============================================================================
+
+
+
+// Para el formulario de registro:
+// La constante en la operacion sera el correo, ese siempre se va a poner
+// El nombre se pondra automaticamente del usuario que eliga del select
+//  SIEMPRE Y CUANDO EL CHECKBOX ESTE DESACTIVADO
+//  si el checkbox esta activado entonces el usuario podra ingresar el nombre del medico pero tambien el select de los usuarios se va a desactivar
+
+function SwitchCheckboxUsuariosG(ELEMENT) {
+
+    let btn = $(`#${ELEMENT}`).is(':checked');
+
+    if (btn) {
+        $('#select-usuarios-medicos-tratantes').prop('disabled', false);
+        $('#nombre-medicoTrarante').prop('disabled', true);
+    } else {
+        $('#select-usuarios-medicos-tratantes').prop('disabled', true);
+        $('#nombre-medicoTrarante').prop('disabled', false);
+    }
+}
+
+// ==============================================================================
+
+// ###################### OTROS #################################################
+
+// ==============================================================================
+
+SwitchCheckboxUsuariosG('usuario_check_g');

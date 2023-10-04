@@ -143,6 +143,12 @@ async function configurarModal() {
     await rellenarSelect("#usuarios_medicos", "usuarios_api", 2, "ID_USUARIO", "nombrecompleto");
     select2('#usuarios_medicos', 'UsuarioMedicoTratante ', 'Selecciona un usuario para el medico tratante');
 
+
+    // Para el modal:
+    // El usuario no va a poder cambiar el nombre si tiene el checkbox de "#AdjuntarUsuario" activado ya que el nombre que va aparecer en el input de name, es el del "USUARIO" que seleccione, siempre y cuando este activo el checbox
+
+    // En caso contrario que el checkbox no este activo es decir que "#AdjuntarUsuario" esta desactivado. el input estara activo y el usuario podra ingresar el nombre del medico tratante
+
     $('#UsuarioMedicoTratante').modal('show');
 }
 
@@ -235,6 +241,7 @@ function VolverConstruirPagina(type) {
 
     TablaVistaMedicosTratantes.ajax.reload();
 }
+
 
 // ==============================================================================
 
