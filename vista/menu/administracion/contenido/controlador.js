@@ -21,6 +21,7 @@ function obtenerContenidoUsuarios() {
   });
 }
 
+var TablaVistaMedicosTratantes, dataMedicosTratantes = { api: 2 }
 async function ObtenerContenidoMedicosTratantes() {
   await obtenerTitulo("Médicos Tratantes");
   $.post("contenido/medicos_tratantes.php", function (html) {
@@ -73,6 +74,9 @@ function hasLocation() {
     switch (hash) {
       case "USUARIOS":
         obtenerContenidoUsuarios("usuario.php", "Usuarios");
+        break;
+      case "MEDICOS":
+        ObtenerContenidoMedicosTratantes();
         break;
       // case "Servicios":
       //   obtenerContenidoServicios("servicios.php", "Servicios");

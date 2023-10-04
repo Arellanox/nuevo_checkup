@@ -22,7 +22,7 @@ if ($_SESSION['vista']['MEDICOS_TRATANTES'] == 1) : ?>
     <div class="collapse" id="board-medicos-tratantes">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 
-            <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/medicos_tratantes/#MEDICOS'; ?>"><i class="bi bi-dot"></i> Médicos</a></li>
+            <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>"><i class="bi bi-dot"></i> Médicos</a></li>
 
             <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/medicos_tratantes/#PACIENTES'; ?>"><i class="bi bi-dot"></i> Pacientes</a></li>
 
