@@ -302,7 +302,7 @@
                       <div class="mt-3">
                         <label for="medico_tratante" class="form-label">Médico tratante: </label>
                         <select id="select-recepcion-medicos-tratantes" class="form-control input-form"
-                          name="medico_tratante">
+                          name="medico_tratante_id">
                         </select>
                       </div>
                       <!-- <div class="mt-3">
@@ -315,67 +315,61 @@
                       </div> -->
 
                       <!-- <div class="mt-3">
-                  <label for="est_medico_solicita" class="form-label">Médico que solicita: </label>
-                  <select class="input-form" style="width: 100%;" id="medico-aceptar-paciente" name="medico_solicita">
+                              <label for="est_medico_solicita" class="form-label">Médico que solicita: </label>
+                              <select class="input-form" style="width: 100%;" id="medico-aceptar-paciente" name="medico_solicita">
 
-                  </select>
+                              </select>
 
-                  <script>
-                    $("#medico-aceptar-paciente").select2({
-                      tags: true,
-                      dropdownParent: $('#modalPacienteAceptar'),
-                      tokenSeparators: [",", " "],
-                      createSearchChoice: function (term, data) {
-                        if ($(data).filter(function () {
-                          return this.text.localeCompare(term) === 0;
-                        }).length === 0) {
-                          return {
-                            id: term,
-                            text: term
-                          };
-                        }
-                      },
-                      multiple: true,
-                      ajax: {
-                        url: 'http://localhost/nuevo_checkup/api/buscar_select_api.php?searchTerm=ger',
-                        dataType: "json",
-                        data: function (term, page) {
-                          return {
-                            searchTerm: term
-                          };
-                        },
-                        results: function (data, page) {
-                          return {
-                            results: data
-                          };
-                        }
-                      }
-                    });
-                  </script>
+                              <script>
+                                $("#medico-aceptar-paciente").select2({
+                                  tags: true,
+                                  dropdownParent: $('#modalPacienteAceptar'),
+                                  tokenSeparators: [",", " "],
+                                  createSearchChoice: function (term, data) {
+                                    if ($(data).filter(function () {
+                                      return this.text.localeCompare(term) === 0;
+                                    }).length === 0) {
+                                      return {
+                                        id: term,
+                                        text: term
+                                      };
+                                    }
+                                  },
+                                  multiple: true,
+                                  ajax: {
+                                    url: 'http://localhost/nuevo_checkup/api/buscar_select_api.php?searchTerm=ger',
+                                    dataType: "json",
+                                    data: function (term, page) {
+                                      return {
+                                        searchTerm: term
+                                      };
+                                    },
+                                    results: function (data, page) {
+                                      return {
+                                        results: data
+                                      };
+                                    }
+                                  }
+                                });
+                              </script>
 
-                   <input type="text" name="est_medico_solicita" value="" class="form-control input-form" required=""
-                    id="diagnostico-aceptar-paciente"> 
-              </div> -->
-
-
-                      <div class="col-12 mt-3">
-                        <p>Formas de pago: </p>
-                        <p>Total del paquete: <strong></strong></p>
-                        <p>Total de estudios individuales: <strong></strong></p>
-                      </div>
+                              <input type="text" name="est_medico_solicita" value="" class="form-control input-form" required=""
+                                id="diagnostico-aceptar-paciente"> 
+                          </div> -->
                     </div>
                     <!-- <div class="overflow-auto" style="max-width: 100%; max-height: 220px;margin-bottom:10px;">
-                <ul class="list-group" id="list-estudiosPaciente">
-                  <li class="list-group-item">An item</li>
-                  <li class="list-group-item">A second item</li>
-                  <li class="list-group-item">A third item</li>
-                </ul>
-              </div> -->
-                    <div class="col-12">
+                        <ul class="list-group" id="list-estudiosPaciente">
+                          <li class="list-group-item">An item</li>
+                          <li class="list-group-item">A second item</li>
+                          <li class="list-group-item">A third item</li>
+                        </ul>
+                      </div> -->
 
-                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer" style="zoom:90%">
