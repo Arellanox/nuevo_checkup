@@ -17,20 +17,7 @@
             <!-- Tabla -->
             <div class="p-3" id="TablaPacientesTratantesContainer">
                 <table class="table table-hover display responsive" id="tablaPacientesTratantes" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th scope="" class="col-number all">#</th>
-                            <th scope="" class="col-20% all">Fecha recepcion</th>
-                            <!-- <th scope="" class="col-20% mobile-l desktop">Procedencia</th> -->
-                            <th scope="" class="col-8% all">Descripcion</th>
-                            <th scope="" class="col-8% desktop">Paciente (Nombre)</th>
 
-                            <!-- Laboratorio 4 -->
-                            <th scope="" class="col-icons min-tablet">Prefolio.</th>
-
-                            <th scope="" class="all tools"><i class="bi bi-info-square"></i></th>
-                        </tr>
-                    </thead>
                 </table>
             </div>
         </div>
