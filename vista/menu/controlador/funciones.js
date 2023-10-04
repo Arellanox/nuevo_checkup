@@ -193,11 +193,13 @@ async function ajaxAwait(dataJson, apiURL,
           }
         } catch (error) {
           alertMensaje('error', 'Error', 'Datos/Configuración erronea', error);
+
         }
 
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
+        console.log('Error')
       },
     })
   });
@@ -1266,6 +1268,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
     }
 
     $(select).find('option').remove().end()
+
     $.ajax({
       url: http + servidor + "/" + appname + "/api/" + api + ".php",
       data: values,
@@ -1317,7 +1320,6 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
 
         // //console.log(data);
         callback(data, selectHTML);
-
       },
       complete: function (data) {
         resolve(1);
@@ -1328,6 +1330,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
     })
   });
 }
+
 
 function setSelectContent(array, select, v, c, reset = 1, selected) {
   //console.log(array);
@@ -2625,9 +2628,9 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
           }
 
           if (array[i][0] == 1 || array[i][0] == null) {
-            $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
+            $(DIV[i]).find("textarea.form-control.input-form").val(array[i][1])
           } else {
-            $(DIV[i]).find("textarea[class='form-control input-form']").val('')
+            $(DIV[i]).find("textarea.form-control.input-form").val('')
           }
         } catch (error) {
           //console.log(error);

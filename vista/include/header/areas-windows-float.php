@@ -24,7 +24,6 @@ if (
     </li>
 <?php endif; ?>
 
-
 <?php if (
     $_SESSION['vista']['AGENDA_PACIENTES'] == 1
     //Excepciones
