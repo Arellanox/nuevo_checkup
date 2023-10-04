@@ -2,7 +2,7 @@
 TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
     lengthChange: false,
-    info: false,
+    info: true,
     paging: false,
     scrollY: '38vh',
     scrollCollapse: true,
