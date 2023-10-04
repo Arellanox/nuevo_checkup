@@ -3,7 +3,7 @@
 
 session_start();
 include "../../variables.php";
-$menu = "muestras";
+$menu = "externos";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

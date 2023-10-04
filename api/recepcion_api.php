@@ -53,6 +53,8 @@ $parametro = $_POST['parametro'];
 $foto_paciente = $_POST['avatar'];
 $medico_tratante = $_POST['medico_tratante'];
 $medico_correo = $_POST['medico_correo'];
+$new_medico = $_POST['nuevo_medico']; # Tipo booleano
+$medico_tratante_id = $_POST['medico_tratante_id']; # Usuario
 
 
 
@@ -99,8 +101,14 @@ switch ($api) {
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
         // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
+
+        # Agrega nuevo medico si es requerido
+        if ($new_medico) {
+            $response = $master->insertByProcedure('sp_medicos_tratantes_g', [null, $medico_tratante, $medico_correo, null]);
+            $medico_tratante_id = $response;
+        }
         #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante, $medico_correo, $_SESSION['id'])); #<-- la id de segmento manda error si no se le envia algo
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'])); #<-- la id de segmento manda error si no se le envia algo
         $aleta = $response[0][0][0];
 
         #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
@@ -244,7 +252,7 @@ switch ($api) {
                     $ruta = explode("nuevo_checkup", $a);
                     $ruta = ".." . $ruta[1];
 
-                    if ($zip->open("../tmp/".$nombre_zip[0].".zip") === TRUE) {
+                    if ($zip->open("../tmp/" . $nombre_zip[0] . ".zip") === TRUE) {
                         $zip->addFile($ruta, basename($ruta));
                         $zip->close();
                     } else {

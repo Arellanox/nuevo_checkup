@@ -84,7 +84,9 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
     estudiosOtros = data;
   });
 
-  rellenarSelect('#select-recepcion-medicos-tratantes', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto')
+  rellenarSelect('#select-recepcion-medicos-tratantes', 'medicos_tratantes_api', 2, 'ID_MEDICO', 'NOMBRE_MEDICO', {}, () => {
+    $('#select-recepcion-medicos-tratantes').val(0).trigger('change');
+  })
 
   // Convertir los objetos en arrays
   const lab = Object.values(estudiosLab);
@@ -153,9 +155,16 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     alergias: $('#alergias-aceptar-paciente').val(),
     diagnostico: $('#diagnostico-aceptar-paciente').val(),
     segmento_id: $('#select-segmento-aceptar').val(),
-    medico_tratante: $('#medico-aceptar-paciente').val(),
-    medico_correo: $('#select-recepcion-medicos-tratantes').val(),
     servicios: estudiosEnviar,
+    nuevo_medico: 0,
+  }
+
+  if ($("#checkBox-NewMedico").is(":checked")) {
+    dataJson['medico_tratante'] = $('#medico-aceptar-paciente').val()
+    dataJson['medico_correo'] = $('#medico-correo-aceptar').val()
+    dataJson['nuevo_medico'] = 1
+  } else {
+    dataJson['medico_tratante_id'] = $('#select-recepcion-medicos-tratantes').val();
   }
 
   let paquete = '';
@@ -426,22 +435,44 @@ function limpiarFormAceptar() {
   //Precio final
   totalAcumulado = 0;
   $('#aceptar-totalCargado').html('$0.00')
+
+
+
+  // New set page
+  const page = 'SecondPage-acepta';
+  const next = 'FirstPage-acepta';
+  $(`.${page}:not(button)`).fadeOut('fast');
+  setTimeout(() => {
+    $(`.${next}:not(button)`).fadeIn('fast')
+    // btn.attr('disabled', false)
+  }, 100);
+
+  // Medico tratante 
+  $(`#${'checkBox-NewMedico'}`).prop('checked', false)
+  $("#CollapseNuevoMedico").collapse("hide");
+  $('#select-recepcion-medicos-tratantes').attr('disabled', false)
+  $('.input-new-medico').val('');
+  $('#select-recepcion-medicos-tratantes').val(0)
 }
 
 
-$('.SecondPage-aceptar').fadeOut(0);
+$('.SecondPage-aceptar:not(button)').fadeOut(0);
+$('button.SecondPage-aceptar').attr('disabled', true);
 $('.pagination-aceptar').on('click', function (e) {
   e.preventDefault();
 
   const page = $(this).attr('page');
   const next = $(this).attr('nextPage');
 
-  console.log(page);
-  console.log(next);
+  $('button.SecondPage-aceptar, button.FirstPage-aceptar').attr('disabled', true);
+  const btn = $(`button.${next}`);
 
-  $(`.${page}`).fadeOut('fast');
+  $(`.${page}:not(button)`).fadeOut('fast');
+  // btn.fadeIn(0);
+  btn.attr('disabled', false)
   setTimeout(() => {
-    $(`.${next}`).fadeIn('fast')
+    $(`.${next}:not(button)`).fadeIn('fast')
+    // btn.attr('disabled', false)
   }, 100);
 
 })
@@ -474,5 +505,19 @@ $('#checkPaqueteAceptar, #select-paquetes').on('change', function () {
     $('#aceptar-totalPaqueteCargado').text(`$${parseFloat(total).toFixed(2)}`);
   } else {
     $('#aceptar-totalPaqueteCargado').text('$0.00');
+  }
+});
+
+// Cuando cambie el estado del checkbox
+$(`#${'checkBox-NewMedico'}`).change(function () {
+  if (this.checked) {
+    // bloquea el select y muestra ambos campos
+    $("#CollapseNuevoMedico").collapse("show");
+    $('#select-recepcion-medicos-tratantes').attr('disabled', true)
+  } else {
+    // desbloquea el select y oculta los campos
+    $("#CollapseNuevoMedico").collapse("hide");
+    $('#select-recepcion-medicos-tratantes').attr('disabled', false)
+    $('.input-new-medico').val('');
   }
 });
