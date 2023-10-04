@@ -173,6 +173,23 @@ function desactivarTablaMedicosTratantes() {
     }, 1)
 }
 
+// Function para enviar los datos de los medicos tratantes ya sea para agregar uno nuevo o actualizar
+function EnviarMedicoTratante(type) {
+    alertMensajeConfirm({
+        title: '¿Está seguro que desea agregar este médico?',
+        text: 'No podrá modificarlo despues',
+        icon: 'warning',
+    }, function () {
+
+
+        return false;
+
+        ajaxAwait(dataJson_insertMedicos, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
+
+        })
+    }, 1)
+}
+
 // ==============================================================================
 
 // ###################### Otras cosas ###########################################
