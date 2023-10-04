@@ -55,9 +55,9 @@
                         <label>Correo:</label>
                         <input type="email" class="form-control input-form" id="email-medicoTratante">
                     </div>
-                    <div class="col-12 col-xxl col-xl border">
+                    <div class="col-12 col-xxl-1 col-xl-1 my-auto">
                         <button type="button" class="btn btn-sm btn-confirmar" id="btn-subir-medico-tratante" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los Médicos tratantes">
-                            <i class="bi bi-person-plus"></i> Guardar
+                            <i class="bi bi-person-plus"></i> Agregar
                         </button>
                     </div>
                 </div>

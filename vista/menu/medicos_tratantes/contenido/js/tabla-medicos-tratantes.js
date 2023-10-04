@@ -1,4 +1,18 @@
-//Tbla donde se vizualiza los Médicos tratantes ya registrados en la base de datos
+// ==============================================================================
+
+// ###################### Variables #############################################
+
+// ==============================================================================
+
+var SelectedMedicosTratantes;
+
+// ==============================================================================
+
+// ###################### Tablas ################################################
+
+// ==============================================================================
+
+//Tabla donde se vizualiza los Médicos tratantes ya registrados en la base de datos
 TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
     lengthChange: false,
@@ -36,6 +50,16 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
             data: 'EMAIL'
         },
         {
+            data: null, render: function (data) {
+                return 0
+            }
+        },
+        {
+            data: null, render: function data() {
+                return 0
+            }
+        },
+        {
             data: 'ID_MEDICO', render: function (data) {
                 return `<i class="bi bi-trash eliminar-diagnostico" data-id = "${data}" style = "cursor: pointer"
                 onclick="desactivarTablaMedicosTratantes.call(this)"></i>`;
@@ -47,12 +71,85 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         { target: 0, title: '#', className: 'all' },
         { target: 1, title: 'Nombre del Médico', className: 'all' },
         { target: 2, title: 'Email', className: 'all' },
-        { target: 3, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
+        { target: 3, title: 'Pacientes', className: 'all' },
+        { target: 4, title: 'Usuario', className: 'all' },
+        { target: 5, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
+    ],
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            text: '<i class="bi bi-person-fill-up"  style="cursor: pointer; font-size:18px;"></i> ',
+            className: 'btn btn-success btn-equipos-qr ',
+            titleAttr: 'Moficar a un médico tratante',
+            action: function (data) {
+                if (!SelectedMedicosTratantes) {
+                    alertToast('Por favor seleccione un médico')
+                    return false;
+                }
+
+                configurarModal()
+            }
+        },
     ]
 })
 
-
 inputBusquedaTable('TablaVistaMedicosTratantes', TablaVistaMedicosTratantes, [], [], 'col-18')
+
+selectTable('#TablaVistaMedicosTratantes', TablaVistaMedicosTratantes, { unSelect: true, dblClick: false, noColumns: true }, async function (select, data, callback) {
+
+    if (select) {
+        SaveDataMedicoTratante(data)
+    } else {
+        SaveDataMedicoTratante()
+    }
+})
+
+
+// ==============================================================================
+
+// ###################### FUNCIONES #############################################
+
+// ==============================================================================
+
+// Funcion para setear variables cuando le da select a la tabla Lista de medicos tratantes
+function SaveDataMedicoTratante(data = false) {
+
+    if (data) {
+        SelectedMedicosTratantes = data
+    } else {
+        SelectedMedicosTratantes = null;
+    }
+}
+
+// Function para configurar el modal para agregar o actualizar un usuario a un medico tratante
+async function configurarModal() {
+    LimpiarModal()
+    const NOMBRE_MEDICO = SelectedMedicosTratantes['NOMBRE_MEDICO'];
+    const EMAIL_MEDICO = SelectedMedicosTratantes['EMAIL'];
+    const ID_MEDICO = SelectedMedicosTratantes['ID_MEDICO'];
+    const USUARIO_ID = SelectedMedicosTratantes['USUARIO_ID'];
+
+    $('#usuarioMedicoTitle').html(`Modificar información del médico: <b>${NOMBRE_MEDICO}</b>`)
+
+
+    $('#nombre-medicoTrarante-a').val(NOMBRE_MEDICO)
+    $('#email-medicoTratante-a').val(ifnull(EMAIL_MEDICO, 'Sin correo'))
+
+    await rellenarSelect("#usuarios_medicos", "usuarios_api", 2, "ID_USUARIO", "nombrecompleto");
+    select2('#usuarios_medicos', 'UsuarioMedicoTratante ', 'Selecciona un usuario para el medico tratante');
+
+    $('#UsuarioMedicoTratante').modal('show');
+}
+
+// Function para limpiar el modal #UsuarioMedicoTratante
+function LimpiarModal() {
+    $('#usuarioMedicoTitle').html("");
+    $('#nombre-medicoTrarante-a').val("");
+    $('#email-medicoTratante-a').val("");
+
+    $('#usuario_medico_check').prop('checked', false);
+    ChangeAdjuntarUsuario('usuario_medico_check');
+}
 
 //Funcion para eliminar los medicos tratantes
 function desactivarTablaMedicosTratantes() {
@@ -75,3 +172,10 @@ function desactivarTablaMedicosTratantes() {
         })
     }, 1)
 }
+
+// ==============================================================================
+
+// ###################### Otras cosas ###########################################
+
+// ==============================================================================
+
