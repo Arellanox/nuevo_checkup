@@ -151,7 +151,7 @@ function LimpiarModal() {
     ChangeAdjuntarUsuario('usuario_medico_check');
 }
 
-//Funcion para eliminar los medicos tratantes
+//Funcion para eliminar los medicos tratantes   
 function desactivarTablaMedicosTratantes() {
     var id_medico = $(this).data("id");
 

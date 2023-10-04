@@ -12,7 +12,7 @@ $('#btn-subir-medico-tratante').on('click', function () {
             nombre_medico: $('#nombre-medicoTrarante').val(),
             email: $('#email-medicoTratante').val(),
             usuario_id: ifnull(usuario_id, 'null', usuario_id),
-            ignorarALevenshtein: 0
+            ignorarALevenshtein: 0 //Busca al coincidencia
         }
         ajaxAwait(dataJson_insertMedicos, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
             //Metemos lo que trae data en una variable en este caso lo que nos recupera es el arreglo
