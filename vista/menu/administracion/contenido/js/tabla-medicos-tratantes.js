@@ -212,8 +212,6 @@ function ActualizarMedicoTratante() {
         // }
 
         ajaxAwaitFormData(dataJson_Medicos_a, 'medicos_tratantes_api', 'form_medicos_tratantes_a', { callbackAfter: true }, false, function (data) {
-
-            return false;
             VolverConstruirPagina(2)
         })
     }, 1)
