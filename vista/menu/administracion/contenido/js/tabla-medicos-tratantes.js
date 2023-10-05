@@ -57,9 +57,9 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
                 let html;
 
                 if (data === "1") {
-                    html = `<i class="bi bi-check-square text-success"></i>`;
+                    html = `<i class="bi bi-check-square-fill text-success "></i>`;
                 } else if (data === "0") {
-                    html = `<i class="bi bi-x-square text-danger fw-bold"></i>`;
+                    html = `<i class="bi bi-x-square-fill text-danger  "></i>`;
                 }
 
                 return html;
@@ -203,7 +203,8 @@ function ActualizarMedicoTratante() {
             ignorarALevenshtein: 1,
             // nombre_medico: NOMBRE_MEDICO,
             // email: EMAIL,
-            id_medico: ID_MEDICO
+            id_medico: ID_MEDICO,
+            usuario_id: 0,
             // adjuntar_usuario: ADJUNTAR_USUARIO
         }
 
