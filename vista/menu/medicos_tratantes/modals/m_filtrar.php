@@ -25,8 +25,7 @@ session_start();
                     <?php if ($_SESSION['permisos']['filPacientes'] == 1) : ?>
                         <div class="form-check form-switch m-2" id="div-check-filtro">
                             <input class="form-check-input" type="checkbox" role="switch" value="1" id="check_filtro_pacientes">
-                            <label class="form-check-label" for="check_filtro_pacientes"> ¿Desea ver todos los pacientes de
-                                todos los médicos? </label>
+                            <label class="form-check-label" for="check_filtro_pacientes"> ¿Desea no filtrar sus pacientes? </label>
                         </div>
                     <?php endif; ?>
                 </form>

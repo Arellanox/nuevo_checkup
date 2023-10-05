@@ -13,8 +13,8 @@ $menu = $_POST['menu']; ?>
 <?php endif; ?>
 
 <?php if ($menu == "Pacientes Tratantes") : ?>
-  <button type="button" class="btn btn-hover me-2 filtro_paciente_tratnte" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTablaPacientes">
-    <i class="bi bi-person-lines-fill"></i> Ampliar pacientes
+  <button type="button" class="btn btn-hover me-2 filtro_paciente_tratnte" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTablaPacientes" title="Filtre los paciente dependiendo de la fecha">
+    <i class=" bi bi-person-lines-fill"></i> Ampliar pacientes
   </button>
 <?php endif; ?>
 

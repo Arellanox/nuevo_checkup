@@ -3,8 +3,8 @@ tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
     lengthChange: false,
     info: false,
-    paging: false,
-    scrollY: '45vh',
+    paging: true,
+    scrollY: '43vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -28,25 +28,35 @@ tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
     columns: [
         { data: 'COUNT' },
         { data: 'PX' },
+        { data: 'NOMBRE_MEDICO' },
         { data: 'CLIENTE' },
-        { data: 'FECHA_RECEPCION' },
+        {
+            data: 'FECHA_RECEPCION', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1])
+            }
+        },
         { data: 'PREFOLIO' },
         { data: 'ID_TURNO' },
+        {
+            data: 'EDAD', render: function (data) {
+                return formatoEdad(data)
+            }
+        },
         { data: 'GENERO' },
-        { data: 'EDAD' },
         { data: null },
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '1%' },
         { target: 1, title: 'Nombre del Paciente', className: 'all' },
-        { target: 2, title: 'Procedencia', className: 'all' },
-        { target: 3, title: 'Fecha de recepcion', className: 'all' },
-        { target: 4, title: 'Prefolio', className: 'all' },
-        { target: 5, title: 'Turno', className: 'none' },
-        { target: 6, title: 'Edad', className: 'none' },
-        { target: 7, title: 'Sexo', className: 'none' },
+        { target: 2, title: 'Médico Tratante', className: 'all' },
+        { target: 3, title: 'Procedencia', className: 'all' },
+        { target: 4, title: 'Fecha de recepcion', className: 'all' },
+        { target: 5, title: 'Prefolio', className: 'all' },
+        { target: 6, title: 'Turno', className: 'none' },
+        { target: 7, title: 'Edad', className: 'none' },
+        { target: 8, title: 'Sexo', className: 'none' },
         {
-            targets: 8,
+            targets: 9,
             title: '#',
             className: 'all actions',
             width: '1%',
