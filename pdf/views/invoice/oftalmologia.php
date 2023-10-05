@@ -344,8 +344,8 @@ if (!isset($qr)) {
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
                         <?php
-                        if ($preview == 0) {
-                            echo "<a target='_blank' href='$qr[0]'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                        if ($preview == 0) {           # $qr[0]
+                            echo "<a target='_blank' href='".$validacion."'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
                         }
                         ?>
                     </td>
