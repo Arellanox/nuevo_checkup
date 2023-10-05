@@ -51,67 +51,36 @@ switch ($api) {
 
     case 5:
 
-        $base = "Juan Daniel Hernández Garcia";
-        $userInput = "Riley Antonio Hernandez";
+        if (strlen($nombre_medico) <= 3) {
+            $response = [];
+        } else {
+            $medicos = $master->getByProcedure("sp_medicos_tratantes_b", [null, null, null]);
+            $coincidencias = [];
+            $nombre_medico = strtolower($nombre_medico);
+            foreach ($medicos as $medico) {
+                $base = strtolower($medico['NOMBRE_MEDICO']);
+                $baseTokens = explode(' ', $base);
+                $userTokens = explode(' ', $nombre_medico);
 
-        $baseTokens = explode(' ', $base);
-        $userTokens = explode(' ', $userInput);
+                $matches = 0;
+                foreach ($userTokens as $userToken) {
+                    foreach ($baseTokens as $baseToken) {
+                        if (levenshtein($baseToken, $userToken) <= 2) { // Umbral de distancia
+                            $matches++;
+                            break;
+                        }
+                    }
+                }
 
-        $matches = 0;
-        foreach ($baseTokens as $baseToken) {
-            foreach ($userTokens as $userToken) {
-                if (levenshtein($baseToken, $userToken) <= 2) { // Umbral de distancia
-                    $matches++;
-                    break;
+                $score = $matches / count($userTokens); // Cambio clave aquí: ahora consideramos la proporción basada en el userInput
+
+                if ($score > 0.7) { // Puedes ajustar este umbral según lo necesites
+                    $coincidencias[] = $medico['NOMBRE_MEDICO'];
                 }
             }
+
+            $response = $coincidencias;
         }
-
-        // Cambiamos la forma de calcular el score:
-        $score = $matches / min(count($baseTokens), count($userTokens));
-
-        if ($score > 0.3) { // Puedes ajustar este umbral según lo necesites
-            echo "Las cadenas son similares";
-        } else {
-            echo "Las cadenas no son similares";
-        }
-
-        exit;
-
-
-        #Busca si tiene alguna coincidencia
-
-        # si no ignoran a levenshtein obtenemos la lista de pacientes y devolvemos las coincidencias aproximadas
-        $medicos = $master->getByProcedure("sp_medicos_tratantes_b", [null, null, null]);
-
-        $x = [];
-
-        # si recibimos la id del usuarios
-        // if (isset($usuario_id)) {
-        //     $usuario = ($master->getByProcedure("sp_usuarios_b", [$usuario_id, null]))[0];
-        //     $nombre_medico = $usuario['NOMBRE'] . ' ' . $usuario['PATERNO'] . ' ' . $usuario['MATERNO'];
-        // }
-
-
-        foreach ($medicos as $medico) {
-            $medico['distancia'] = $master->getLevenshteinDistance($nombre_medico, $medico['NOMBRE_MEDICO']);
-            $x[] = $medico;
-        }
-
-
-        $coincidencias = array_filter($x, function ($obj) {
-            return $obj['distancia'] <= 8;
-        });
-
-        // if (count($coincidencias) == 0) {
-        # si levenshtein dice que no hay coincidencias, insertamos al medico.
-        // $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
-        // } else {
-        # si existen coincidencias, las devolvemos enel response
-        // echo json_encode(array('code' => 2, "msj" => $master->getFormValues($coincidencias)));
-        $response = $coincidencias;
-        // exit;
-        // }
 
         break;
 

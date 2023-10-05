@@ -1,17 +1,15 @@
 <div class="row">
     <div class="col-12 col-xl-3 col-xxl-3">
-        <div class="card shadow-sm p-3 my-3">
+        <div class="shadow p-3 my-3">
             <h5>Agregar medico tratante</h5>
             <form id="form-medicoTratante">
                 <div class="row">
                     <div class="col-12 mb-3">
                         <label>Nombre:</label>
                         <input type="text" class="form-control input-form" name="nombre_medico" id="nombre-medicoTrarante">
-                        <div id="suggestionsBox" class="d-none mt-2 card">
-                            <div class="card-body">
-                                <h6 class="card-title">Sugerencias:</h6>
-                                <ul id="suggestionsList" class="list-group list-group-flush"></ul>
-                            </div>
+                        <div id="suggestionsBox" class="d-none">
+                            <span>Médicos Existentes:</span>
+                            <div id="suggestionsList"></div>
                         </div>
                     </div>
                     <div class="col-12 mb-3">
@@ -39,10 +37,27 @@
         </div>
     </div>
     <div class="col-12 col-xl-9 col-xxl-9">
-        <div class="card shadow-sm my-3 p-3">
+        <div class="shadow my-3 p-3">
             <h5>Lista de Médico tratantes</h5>
             <table class="table table-hover display responsive tableContenido" id="TablaVistaMedicosTratantes" style="width: 100%">
             </table>
         </div>
     </div>
 </div>
+
+
+<style>
+    .chip {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 16px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        /* background-color: #f1f1f1; */
+        font-size: 13px;
+    }
+
+    .chip:hover {
+        /* background-color: #ddd; */
+    }
+</style>

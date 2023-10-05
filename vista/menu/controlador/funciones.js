@@ -1654,21 +1654,20 @@ function formpassword() {
 
 // Levenshtein
 function detectCoincidence(input, api, config = {}) {
-  alert(1)
+  // alert(1);
   $(document).on('change', `${input}`, function (e) {
-    alert(2)
+    // alert(2);
     e.preventDefault();
+
     ajaxAwait({
       api: 5, nombre_medico: $(input).val(),
     }, 'medicos_tratantes_api', { callbackAfter: true }, false, (data) => {
-      const row = data.response.data;
 
-      const html = row.map(campos => {
-        if (campos.hasOwnProperty("NOMBRE_MEDICO")) {
-          return `<li class="list-group-item">${campos["NOMBRE_MEDICO"]}</li>`;
-        }
-        return '';  // Devolver un string vacío si no se encuentra la propiedad NOMBRE_MEDICO
-      }).join('');
+      const names = data.response.data;
+
+      const html = names.map(name => {
+        return `<span class="chip btn-pantone-7541 ">${name}</span>`;
+      }).join(' ');
 
       if (html !== '') {
         $(`#${'suggestionsList'}`).html(html);
@@ -1678,9 +1677,22 @@ function detectCoincidence(input, api, config = {}) {
       } else {
         $(`#${'suggestionsBox'}`).addClass('d-none');
       }
-    })
-  })
+    });
+
+    // Añadir listener de clic a los chips
+    $(".chip").click(function () {
+      const textToCopy = $(this).text();
+      const tempInput = $("<input>");
+      $("body").append(tempInput);
+      tempInput.val(textToCopy).select();
+      document.execCommand("copy");
+      tempInput.remove();
+
+      alertToast("Nombre copiado: " + textToCopy, 'info');
+    });
+  });
 }
+
 
 
 function mensajeAjax(data, modulo = null) {
