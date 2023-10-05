@@ -115,6 +115,11 @@ switch ($api) {
 
         break;
 
+    case 6:
+        # recuperar reportes de paciente por el turno
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$turno_id, null, null, null, null]);
+        break;
+
     default:
         $response = "API no definida.";
 }
