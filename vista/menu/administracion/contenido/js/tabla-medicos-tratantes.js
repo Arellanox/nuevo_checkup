@@ -228,7 +228,7 @@ function VolverConstruirPagina(type) {
             break;
         case 2:
             // Actualizar Medico tratante
-            // $('#UsuarioMedicoTratante').modal('hide');
+            $('#UsuarioMedicoTratante').modal('hide');
             alertToast('Médico tratante modificado con exito', 'success', 4000);
             LimpiarModal();
             SaveDataMedicoTratante();
