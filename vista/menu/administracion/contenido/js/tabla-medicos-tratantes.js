@@ -194,7 +194,7 @@ function ActualizarMedicoTratante() {
 
         // const NOMBRE_MEDICO = $('#nombre-medicoTrarante-a').val();
         // const EMAIL = $('#email-medicoTratante-a').val();
-        // const ID_MEDICO = ifnull(SelectedMedicosTratantes['ID_MEDICO'], 'null');
+        const ID_MEDICO = ifnull(SelectedMedicosTratantes['ID_MEDICO'], 'null');
         // const ADJUNTAR_USUARIO = ChangeAdjuntarUsuario('usuario_medico_check');
         // const USUARIO_ID = $('#usuarios_medicos').val();
 
@@ -203,7 +203,7 @@ function ActualizarMedicoTratante() {
             ignorarALevenshtein: 1,
             // nombre_medico: NOMBRE_MEDICO,
             // email: EMAIL,
-            // id_medico: ID_MEDICO,
+            id_medico: ID_MEDICO
             // adjuntar_usuario: ADJUNTAR_USUARIO
         }
 
