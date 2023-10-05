@@ -28,9 +28,6 @@ $nuevo_medico = $_POST['nuevo_medico'];
 
 switch ($api) {
     case 1:
-
-        var_dump($id_medico, $nombre_medico, $email, $usuario_id);
-        exit;
         #Actualiza un nuevo medico
         $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
         break;
