@@ -1,3 +1,31 @@
+//Funcion para eliminar los medicos tratantes
+// function desactivarTablaMedicosTratantes() {
+//     var id_medico = $(this).data("id");
+// btn-vizu-reporte
+
+//         ajaxAwait(dataJson_eliminarMedico, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
+//             alertToast('Médico tratante eliminado!', 'success', 4000)
+//             tablaPacientesTratantes.ajax.reload();
+//         })
+//     }, 1)
+// }
+
+
+
+// ==============================================================================
+
+// ###################### Variables #############################################
+
+// ==============================================================================
+
+var selectedPacientes;
+
+// ==============================================================================
+
+// ###################### Tablas ################################################
+
+// ==============================================================================
+
 //Tbla donde se vizualiza los Médicos tratantes ya registrados en la base de datos
 tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
@@ -69,13 +97,7 @@ tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
     ]
 })
 
-
 inputBusquedaTable('tablaPacientesTratantes', tablaPacientesTratantes, [], [], 'col-18')
-
-//Funcion para eliminar los medicos tratantes
-// function desactivarTablaMedicosTratantes() {
-//     var id_medico = $(this).data("id");
-// btn-vizu-reporte
 
 selectTable('#tablaPacientesTratantes', tablaPacientesTratantes,
     {
@@ -85,9 +107,9 @@ selectTable('#tablaPacientesTratantes', tablaPacientesTratantes,
                 class: 'btn-vizu-reporte',
                 callback: function (data) {
                     // Cargar modal de estudios del paciente
-                    $("#ModalVisualizarEstudiosPaciente").modal('show');
+                    configurarModal(data)
                 },
-                // selected: true,
+                selected: true,
             },
         ]
     }, false, function (select, data) {
@@ -95,9 +117,35 @@ selectTable('#tablaPacientesTratantes', tablaPacientesTratantes,
         // dobleClickSelectTableRecepcion(data);
     }
 )
-//         ajaxAwait(dataJson_eliminarMedico, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
-//             alertToast('Médico tratante eliminado!', 'success', 4000)
-//             tablaPacientesTratantes.ajax.reload();
-//         })
-//     }, 1)
-// }
+
+// ==============================================================================
+
+// ###################### FUNCIONES #############################################
+
+// ==============================================================================
+
+// function para configurar el modal
+function configurarModal(data) {
+    ChangePacienteData(data)
+    const NOMBRE = selectedPacientes['PX'];
+
+    $('#estudios_nombre-paciente').html(NOMBRE)
+
+    $("#ModalVisualizarEstudiosPaciente").modal('show');
+}
+
+// Funcion para setear o limpiar en una variable la informacion del paciente
+function ChangePacienteData(data = false) {
+
+    if (data) {
+        selectedPacientes = data;
+    } else {
+        selectedPacientes = null;
+    }
+}
+
+// ==============================================================================
+
+// ###################### Otras cosas ###########################################
+
+// ==============================================================================
