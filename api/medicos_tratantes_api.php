@@ -17,14 +17,15 @@ $ignorarALevenshtein = $_POST['ignorarALevenshtein']; # enviar 1 para ignorar, 0
 $id_medico = $_POST['id_medico'];
 $nombre_medico = $_POST['nombre_medico'];
 $email = $_POST['email'];
-$usuario_id = $master->setToNull([$_POST['usuario_id']])[0];
+// $usuario_id = $master->setToNull([$_POST['usuario_id']])[0];
 
 # variables para la vista del medico
 $fecha_inicio = $_POST['fecha_inicio'];
 $fecha_fin = $_POST['fecha_fin'];
 
 $nuevo_medico = $_POST['nuevo_medico'];
-// $usuario_id = isset($_SESSION['id']) ? $_SESSION['id'] : $_POST['usuario_id'];
+$usuario_id = $_SESSION['id'];
+$filtrar_todos = $_POST['filtrar_todos'];
 
 switch ($api) {
     case 1:
@@ -45,7 +46,7 @@ switch ($api) {
         # vista de los usuarios tipo medico tratante.
 
         #lista de pacientes que estan siendo atendidos por el usuario - medico tratante
-        $response = $master->getByProcedure("sp_medicos_tratantes_vista", [$usuario_id, $fecha_inicio, $fecha_fin]);
+        $response = $master->getByProcedure("sp_medicos_tratantes_vista", [$usuario_id, $fecha_inicio, $fecha_fin, $filtrar_todos]);
         break;
 
     case 5:
@@ -57,10 +58,10 @@ switch ($api) {
         $x = [];
 
         # si recibimos la id del usuarios
-        if (isset($usuario_id)) {
-            $usuario = ($master->getByProcedure("sp_usuarios_b", [$usuario_id, null]))[0];
-            $nombre_medico = $usuario['NOMBRE'] . ' ' . $usuario['PATERNO'] . ' ' . $usuario['MATERNO'];
-        }
+        // if (isset($usuario_id)) {
+        //     $usuario = ($master->getByProcedure("sp_usuarios_b", [$usuario_id, null]))[0];
+        //     $nombre_medico = $usuario['NOMBRE'] . ' ' . $usuario['PATERNO'] . ' ' . $usuario['MATERNO'];
+        // }
 
         foreach ($medicos as $medico) {
             $medico['distancia'] = $master->getLevenshteinDistance($nombre_medico, $medico['NOMBRE_MEDICO']);

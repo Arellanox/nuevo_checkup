@@ -21,7 +21,10 @@ async function contenidoMedicosTratantes() {
     })
 }
 
-var tablaPacientesTratantes, dataPacientesTratantes = { api: 4, fecha_inicio: "2023-01-01" }
+var tablaPacientesTratantes, dataPacientesTratantes = { api: 4 }
+// console.log('Valida el paciente')
+// console.log(validarPermiso('filPacientes'))
+
 async function contenidoPacientesTratantes() {
     await obtenerTitulo("Pacientes Tratantes");
     $.post("contenido/pacientes_tratantes.php", function (html) {

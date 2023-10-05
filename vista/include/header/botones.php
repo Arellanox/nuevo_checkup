@@ -12,6 +12,12 @@ $menu = $_POST['menu']; ?>
   </button>
 <?php endif; ?>
 
+<?php if ($menu == "Pacientes Tratantes") : ?>
+  <button type="button" class="btn btn-hover me-2 filtro_paciente_tratnte" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTablaPacientes">
+    <i class="bi bi-person-lines-fill"></i> Ampliar pacientes
+  </button>
+<?php endif; ?>
+
 
 <?php if ($menu == "Recepción | Espera" || $menu == "Recepción | Aceptados" || $menu == "Recepción | Rechazados") : ?>
   <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
