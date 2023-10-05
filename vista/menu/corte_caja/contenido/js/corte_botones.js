@@ -60,14 +60,14 @@ $(document).on("change", "#cajas", function (e) {
 $(document).on('click', '#btnCerrarCaja', function (e) {
     // Alerta de confirmación si esta seguro de cerrar la caja
     alertMensajeConfirm({
-        title: '¿Estas seguro de cerrar la caja?',
-        text: 'No podra revertir los cambios',
+        title: '¿Estás seguro de que quieres cerrar la caja?',
+        text: 'Ten en cuenta que esta acción no se puede revertir',
         icon: 'warning',
         confirmButtonText: 'Si, estoy seguro',
-        cancelButtonText: 'No'
+        cancelButtonText: 'No cerrar'
     }, () => {
         alertPassConfirm({
-            title: "Agregue su contraseña para continuar", icon: "info"
+            title: "Por favor, ingrese su contraseña para continuar.", icon: "info"
         }, () => {
             // Se manda a llamar a la función para cerrar la caja y se le mandan los argumentos necesarios
             // En este caso es el ID_CORTE de la tabla Historial de corte
@@ -104,7 +104,7 @@ function HacerCorteCaja(id_corte) {
         id_corte: id_corte
     }, 'corte_caja_api', { callbackAfter: true }, false, async (data) => {
         await switchCajasSelect(true)
-        alertToast('Corte de caja realizado con exito', 'success', 4000)
+        alertToast('Corte de caja realizado con éxito', 'success', 4000)
     })
 }
 

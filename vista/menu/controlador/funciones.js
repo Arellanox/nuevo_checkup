@@ -1652,6 +1652,36 @@ function formpassword() {
 
 }
 
+// Levenshtein
+function detectCoincidence(input, api, config = {}) {
+  alert(1)
+  $(document).on('change', `${input}`, function (e) {
+    alert(2)
+    e.preventDefault();
+    ajaxAwait({
+      api: 5, nombre_medico: $(input).val(),
+    }, 'medicos_tratantes_api', { callbackAfter: true }, false, (data) => {
+      const row = data.response.data;
+
+      const html = row.map(campos => {
+        if (campos.hasOwnProperty("NOMBRE_MEDICO")) {
+          return `<li class="list-group-item">${campos["NOMBRE_MEDICO"]}</li>`;
+        }
+        return '';  // Devolver un string vacío si no se encuentra la propiedad NOMBRE_MEDICO
+      }).join('');
+
+      if (html !== '') {
+        $(`#${'suggestionsList'}`).html(html);
+        $(`#${'suggestionsBox'}`)
+          .removeClass('d-none')
+          .addClass('animate__animated animate__fadeIn');
+      } else {
+        $(`#${'suggestionsBox'}`).addClass('d-none');
+      }
+    })
+  })
+}
+
 
 function mensajeAjax(data, modulo = null) {
   if (modulo != null) {

@@ -88,6 +88,8 @@
                         <h5 class="px-2">Información de pago</h5>
                         <div class="px-3">
                             <div class="mb-2" id="TipoPago1">
+                                <select name="tipo_pago" class="input-form form-control" id="contado-tipo-pago"></select>
+
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="tipo_pago">Tipo de pago</label>
                                     <button class="btn" id="agregarformapago">
@@ -95,7 +97,6 @@
                                         agregar forma de pago
                                     </button>
                                 </div>
-                                <select name="tipo_pago" class="input-form form-control" id="contado-tipo-pago"></select>
                             </div>
                             <!-- Columna donde se agregaran la cantidad a pagar y el monto -->
                             <div id="formasPagoDiv"></div>

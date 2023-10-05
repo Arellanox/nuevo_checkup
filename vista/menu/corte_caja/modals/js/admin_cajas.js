@@ -6,13 +6,13 @@ $("#formCrearCaja").on("submit", function (e) {
 
 
     alertMensajeConfirm({
-        title: "¿Desea agregar un nueva caja?",
-        text: "Es necesario confirmar para añadir esta nueva caja",
+        title: "¿Desea agregar una nueva caja ahora?",
+        text: "Debe confirmar para agregar esta nueva caja.",
         icon: "question"
     }, function () {
 
         alertPassConfirm({
-            title: "Agregue su contraseña para continuar", icon: "info"
+            title: "Por favor, ingrese su contraseña para continuar.", icon: "info"
         }, () => {
             ajaxAwaitFormData({
                 api: 1,
@@ -22,7 +22,7 @@ $("#formCrearCaja").on("submit", function (e) {
                 TablaTotaldeCajas.ajax.reload();
 
                 await switchCajasSelect(true, true)
-                alertToast("La caja fue agregada con exito", "success", 4000)
+                alertToast("La caja fue agregada con éxito", "success", 4000)
 
             })
         })
@@ -109,12 +109,12 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
                 }
 
                 alertMensajeConfirm({
-                    title: "¿Esta seguro de eliminar esta caja?",
-                    text: "Es necesario confirmar para eliminar esta nueva caja",
+                    title: "¿Está seguro de eliminar esta caja?",
+                    text: "Debe confirmar la eliminación de esta caja.",
                     icon: "question"
                 }, function () {
                     alertPassConfirm({
-                        title: "Agregue su contraseña para continuar", icon: "info"
+                        title: "Por favor, ingrese su contraseña para continuar.", icon: "info"
                     }, () => {
                         ajaxAwait(data, 'corte_caja_api', { callbackAfter: true }, false,
                             async function (data) {
@@ -122,7 +122,7 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
 
                                 await switchCajasSelect(true, true)
 
-                                alertToast('La caja fue eliminada con exito', 'success', 4000)
+                                alertToast('La caja fue eliminada con éxito', 'success', 4000)
                             })
                     })
                 }, 1)
@@ -241,8 +241,8 @@ $("#btnAgregarResponsableCaja").on('click', function () {
     }
 
     alertMensajeConfirm({
-        title: "¿Esta seguro de agregar este usuario?",
-        text: "Es necesario confirmar para realizar esta acción",
+        title: "¿Está seguro de agregar este usuario a caja?",
+        text: "El usuario podrá aceptar nuevos pacientes",
         icon: "question"
     }, function () {
         alertPassConfirm({
@@ -264,14 +264,14 @@ function desactivarTablaResponsables() {
 
     alertMensajeConfirm({
         title: '¿Está seguro de eliminar este usuario?',
-        text: 'No podrá modificarlo despues',
+        text: 'No podrá aceptar mas pacientes',
         icon: 'warning',
     }, function () {
         alertPassConfirm({
             title: "Agregue su contraseña para continuar", icon: "info"
         }, () => {
             ajaxAwait({ api: 7, id_cajas_usuarios: usuario_Responsable }, 'corte_caja_api', { callbackAfter: true }, false, function (data) {
-                alertToast('Responsable eliminado eliminado!', 'success', 4000)
+                alertToast('¡Responsable eliminado!', 'success', 4000)
 
                 TablaUsuariosResponsables.ajax.reload();
             })

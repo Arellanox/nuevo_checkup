@@ -40,9 +40,9 @@ function getInfoEstadoCuenta(px, turno) {
                 tablaTicketCredito.row.add([
                     ifnull(element, 'Servicio Desconocido', ['SERVICIOS']),
                     'E48 -Unidad de servicio',
-                    `$${ifnull(element, 0.00, ['PRECIO_VENTA'])}`,
+                    `$${parseFloat(ifnull(element, 0, ['PRECIO_VENTA'])).toFixed(2)}`,
                     ifnull(element, 1, ['CANTIDAD']),
-                    `$${ifnull(element, 0.00, ['TOTAL'])}`
+                    `$${parseFloat(ifnull(element, 0, ['TOTAL'])).toFixed(2)}`
                 ]).draw();
 
                 // $('#PacienteCreditoColumn').append(html);

@@ -13,7 +13,7 @@ TablaHistorialCortes = $('#TablaHistorialCortesCaja').DataTable({
     info: true,
     paging: false,
     sorting: false,
-    scrollY: '75vh',
+    scrollY: '68vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -177,7 +177,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
     info: true,
     paging: false,
     sorting: false,
-    scrollY: '75vh',
+    scrollY: '50vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -212,6 +212,15 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
                 return `$${parseFloat(ifnull(data, 0)).toFixed(2)}`
             }
         },
+        {
+            data: null, render: function (meta) {
+                monto = '';
+                if (ifnull(meta, false, ['FORMA_PAGO_MONTO'])) {
+                    monto = `: $${parseFloat(ifnull(meta, 0, ['FORMA_PAGO_MONTO'])).toFixed(2)}`;
+                }
+                return `<strong>${ifnull(meta, 'Sin pagar', ['FORMA_PAGO'])}</strong>${monto}`
+            }
+        },
         { data: 'FECHA_RECEPCION' },
         { data: 'NOMBRE_COMERCIAL' },
         // { data: 'FORMA_PAGO' }
@@ -225,8 +234,9 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
         // { target: 5, className: 'all', title: 'Subtotal', width: '7%' },
         // { target: 6, className: 'all', title: 'IVA', width: '7%' },
         { target: 3, className: 'all', title: 'Total', width: '7%' },
-        { target: 4, className: 'none', title: 'Fecha Recepción', width: '12%' },
-        { target: 5, className: 'desktop', title: 'Procedencia' },
+        { target: 4, className: 'desktop', title: 'Forma de pago' },
+        { target: 5, className: 'none', title: 'Fecha Recepción', width: '12%' },
+        { target: 6, className: 'desktop', title: 'Procedencia' },
         // { target: 6, className: 'desktop', title: 'Forma de pago' }, // PUE o PPD
         // { target: 11, className: 'desktop', title: 'Tipo-Metodo de pago' },
         // { target: 12, className: 'desktop', title: 'Estado de cuenta' }

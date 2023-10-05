@@ -17,9 +17,9 @@ $('#seleccionar-cliente').change(function () {
         language: {
           url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
         },
-        lengthChange: false,
-        info: false,
-        paging: false,
+        // lengthChange: false,
+        // info: false,
+        // paging: false,
         columnDefs: columnsDefinidas
       });
 
@@ -261,9 +261,9 @@ $('input[type=radio][name=selectTipLista]').change(function () {
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    lengthChange: false,
-    info: false,
-    paging: false,
+    // lengthChange: false,
+    // info: false,
+    // paging: false,
     columnDefs: columnsDefinidas
   });
   inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
@@ -281,7 +281,7 @@ listaPreciosExelModal = $('#listaPreciosExel').DataTable({
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
   lengthChange: false,
-  info: false,
+  // info: false,
   paging: false,
   scrollY: "50vh",
   scrollCollapse: true,

@@ -22,6 +22,7 @@ function obtenerContenidoUsuarios() {
 }
 
 var TablaVistaMedicosTratantes, dataMedicosTratantes = { api: 2 }
+detectCoincidence('#nombre-medicoTrarante')
 async function ObtenerContenidoMedicosTratantes() {
   await obtenerTitulo("Médicos Tratantes");
   $.post("contenido/medicos_tratantes.php", function (html) {

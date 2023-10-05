@@ -120,13 +120,20 @@ $(document).on('click', '#agregarformapago', async function (e) {
 
     if (tipoDePago) {
         var tipoDePagoEncontrado = formasPagos.find(function (tipo) {
-            return tipo.ID_PAGO === tipoDePago;
+            return tipo.ID_PAGO == tipoDePago;
         });
 
         if (tipoDePagoEncontrado) {
-            let precio_input = obtenerPrecioDar();
-            armarTiposPagos(tipoDePagoEncontrado, precio_input);
-            MontoFaltante()
+            const exist_pago = array_pagos.filter(function (formaPago) {
+                return formaPago.id_pago == tipoDePago
+            })
+            if (!exist_pago.length) {
+                let precio_input = obtenerPrecioDar();
+                armarTiposPagos(tipoDePagoEncontrado, precio_input);
+                MontoFaltante()
+            } else {
+                alertToast('Elige otra forma de pago', 'warning', 4000);
+            }
         } else {
             alertToast('Tipo de pago no encontrado.', 'error', 4000)
         }
@@ -212,8 +219,8 @@ function configurarModal(data) {
                 //Crea la fila de la tabla, Nombre del servicio, cantidad, y precio antes de iva
                 let html = `<tr>
                                 <th>${element['SERVICIOS']}</th> 
-                                <td>${ifnull(element['CANTIDAD'], 0)}</td>
-                                <td>$${ifnull(element['TOTAL'], 0)}</td>
+                                <td>${parseFloat(ifnull(element['CANTIDAD']).toFixed(2), 0)}</td>
+                                <td>$${parseFloat(ifnull(element['TOTAL']).toFixed(2), 0)}</td>
                             </tr>`
 
                 //Adjunta a las tablas la area correspondiente

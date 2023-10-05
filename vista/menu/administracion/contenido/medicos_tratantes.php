@@ -7,6 +7,12 @@
                     <div class="col-12 mb-3">
                         <label>Nombre:</label>
                         <input type="text" class="form-control input-form" name="nombre_medico" id="nombre-medicoTrarante">
+                        <div id="suggestionsBox" class="d-none mt-2 card">
+                            <div class="card-body">
+                                <h6 class="card-title">Sugerencias:</h6>
+                                <ul id="suggestionsList" class="list-group list-group-flush"></ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-12 mb-3">
                         <label>Correo:</label>

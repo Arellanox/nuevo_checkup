@@ -160,7 +160,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         .append(`<td>${rows.count()} servicios</td>`)
         .append(`<td> --- </td>`)
         .append(`<td>$${costo_servicio.toFixed(2)}</tr>`)
-        .append(`<td>$${costo_servicio.toFixed(2)}</tr>`)
         .append(`<td>${group}</td>`)
         .append(`<td>\$${sumUnitario.toFixed(2)}</td>`)
         .append(`<td>\$${sumSubtotal.toFixed(2)}</td>`)

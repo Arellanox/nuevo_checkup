@@ -37,7 +37,7 @@
 
 <div class="row">
     <div class="col-12 col-xl-3 col-xxl-3">
-        <div class="card shadow-sm p-3 my-3">
+        <div class="shadow-sm p-3 my-3">
             <h5>Agregar medico tratante</h5>
             <form id="form-medicoTratante">
                 <div class="row">
@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="col-12 col-xl-9 col-xxl-9">
-        <div class="card shadow-sm my-3 p-3">
+        <div class="shadow-sm my-3 p-3">
             <h5>Lista de Médico tratantes</h5>
             <table class="table table-hover display responsive tableContenido" id="TablaVistaMedicosTratantes" style="width: 100%">
             </table>
