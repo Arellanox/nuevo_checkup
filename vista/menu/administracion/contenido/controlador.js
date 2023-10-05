@@ -29,7 +29,7 @@ async function ObtenerContenidoMedicosTratantes() {
   }).done(function () {
 
     select2('#select-usuarios-medicos-tratantes', null, 'Selecciona un médico tratante');
-    rellenarSelect('#select-usuarios-medicos-tratantes', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto', 'Seleccione un usuario')
+    rellenarSelect('#select-usuarios-medicos-tratantes', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto')
 
     $.getScript("contenido/js/btn-medicos-tratantes.js");
     $.getScript("contenido/js/tabla-medicos-tratantes.js");

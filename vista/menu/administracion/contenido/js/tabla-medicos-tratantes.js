@@ -192,26 +192,28 @@ function ActualizarMedicoTratante() {
         icon: 'warning',
     }, function () {
 
-        const NOMBRE_MEDICO = $('#nombre-medicoTrarante-a').val();
-        const EMAIL = $('#email-medicoTratante-a').val();
-        const ID_MEDICO = ifnull(SelectedMedicosTratantes['ID_MEDICO'], 'null');
-        const ADJUNTAR_USUARIO = ChangeAdjuntarUsuario('usuario_medico_check');
-        const USUARIO_ID = $('#usuarios_medicos').val();
+        // const NOMBRE_MEDICO = $('#nombre-medicoTrarante-a').val();
+        // const EMAIL = $('#email-medicoTratante-a').val();
+        // const ID_MEDICO = ifnull(SelectedMedicosTratantes['ID_MEDICO'], 'null');
+        // const ADJUNTAR_USUARIO = ChangeAdjuntarUsuario('usuario_medico_check');
+        // const USUARIO_ID = $('#usuarios_medicos').val();
 
         let dataJson_Medicos_a = {
             api: 1,
             ignorarALevenshtein: 1,
-            nombre_medico: NOMBRE_MEDICO,
-            email: EMAIL,
-            id_medico: ID_MEDICO,
-            adjuntar_usuario: ADJUNTAR_USUARIO
+            // nombre_medico: NOMBRE_MEDICO,
+            // email: EMAIL,
+            // id_medico: ID_MEDICO,
+            // adjuntar_usuario: ADJUNTAR_USUARIO
         }
 
-        if (ADJUNTAR_USUARIO === 1) {
-            dataJson_Medicos_a.usuario_id = USUARIO_ID
-        }
+        // if (ADJUNTAR_USUARIO === 1) {
+        //     dataJson_Medicos_a.usuario_id = USUARIO_ID
+        // }
 
-        ajaxAwait(dataJson_Medicos_a, 'medicos_tratantes_api', { callbackAfter: true }, false, function (data) {
+        ajaxAwaitFormData(dataJson_Medicos_a, 'medicos_tratantes_api', 'form_medicos_tratantes_a', { callbackAfter: true }, false, function (data) {
+
+            return false;
             VolverConstruirPagina(2)
         })
     }, 1)
@@ -224,13 +226,11 @@ function VolverConstruirPagina(type) {
         case 1:
             // Agregar Medico tratante
             alertToast('Médico tratante agregado', 'success', 4000);
-            $('#select-usuarios-medicos-tratantes').prop('selectedIndex', 0).trigger('change');
-            $('#nombre-medicoTrarante').val('')
-            $('#email-medicoTratante').val('')
+            LimpiarFormularioRegistro()
             break;
         case 2:
             // Actualizar Medico tratante
-            $('#UsuarioMedicoTratante').modal('hide');
+            // $('#UsuarioMedicoTratante').modal('hide');
             alertToast('Médico tratante modificado con exito', 'success', 4000);
             LimpiarModal();
             SaveDataMedicoTratante();
@@ -241,6 +241,7 @@ function VolverConstruirPagina(type) {
 
     TablaVistaMedicosTratantes.ajax.reload();
 }
+
 
 
 // ==============================================================================
