@@ -19,6 +19,7 @@
 // ==============================================================================
 
 var selectedPacientes;
+var dataJsonTablaEstudiosPaciente;
 
 // ==============================================================================
 
@@ -112,7 +113,7 @@ selectTable('#tablaPacientesTratantes', tablaPacientesTratantes,
                 selected: true,
             },
         ]
-    }, false, function (select, data) {
+    }, function (select, data) {
         // Como en recepcion, ver estudios cargados
         // dobleClickSelectTableRecepcion(data);
     }
@@ -128,8 +129,16 @@ selectTable('#tablaPacientesTratantes', tablaPacientesTratantes,
 function configurarModal(data) {
     ChangePacienteData(data)
     const NOMBRE = selectedPacientes['PX'];
+    const TURNO_ID = selectedPacientes['ID_TURNO'];
 
     $('#estudios_nombre-paciente').html(NOMBRE)
+
+    dataJsonTablaEstudiosPaciente = {
+        api: 6,
+        turno_id: TURNO_ID
+    }
+
+    TablaEstudiosCargadosPaciente.ajax.reload()
 
     $("#ModalVisualizarEstudiosPaciente").modal('show');
 }

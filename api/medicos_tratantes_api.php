@@ -27,6 +27,9 @@ $nuevo_medico = $_POST['nuevo_medico'];
 $usuario_id = $_SESSION['id'];
 $filtrar_todos = $_POST['filtrar_todos'];
 
+# Turno ID
+$turno_id = $_POST['turno_id'];
+
 switch ($api) {
     case 1:
         #Actualiza un nuevo medico

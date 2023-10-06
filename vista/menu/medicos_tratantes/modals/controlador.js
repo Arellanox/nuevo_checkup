@@ -6,4 +6,9 @@ $.post("modals/m_medicos.php", function (html) {
 
     //Modal para filtrar pacientes
     $.getScript('modals/js/m_btn_filtrar.js');
+
+
+    // Modal para visualizar los estudios cargados del paciente
+    $.getScript('modals/js/m_estudios_paciente.js');
+
 })
