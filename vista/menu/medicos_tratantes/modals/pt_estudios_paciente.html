@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-3">
-                        <div class="shadow p-3 rounded-1" id="modal-body-show_estudios">
+                        <div class="shadow p-3 rounded-3" id="modal-body-show_estudios">
                             <!-- Estudios Cargados del paciente -->
                             <h5 class="text-dark">Estudios cargados del paciente</h5>
                             <table class="table table-hover" id="tablaEstudiosCargadosPaciente" style="width: 100%;">
@@ -19,8 +19,12 @@
                         </div>
                     </div>
                     <div class="col-9">
-                        <div class="shadow p-3 rounded-1">
+                        <div class="shadow p-3 rounded-3">
                             <h5 class="text-dark">Visualizar el estudio</h5>
+
+                            <div id="pdfviewer h-100" style="height: 100%;">
+                                <div id="adobe-dc-view"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
