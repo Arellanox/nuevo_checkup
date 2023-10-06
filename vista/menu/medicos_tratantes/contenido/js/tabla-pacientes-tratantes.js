@@ -110,12 +110,9 @@ selectTable('#tablaPacientesTratantes', tablaPacientesTratantes,
                     // Cargar modal de estudios del paciente
                     configurarModal(data)
                 },
-                selected: true,
+                selected: false,
             },
         ]
-    }, function (select, data) {
-        // Como en recepcion, ver estudios cargados
-        // dobleClickSelectTableRecepcion(data);
     }
 )
 

@@ -52,14 +52,13 @@ TablaEstudiosCargadosPaciente = $("#tablaEstudiosCargadosPaciente").DataTable({
     ]
 })
 
-selectTable('#tablaEstudiosCargadosPaciente', TablaEstudiosCargadosPaciente, { unSelect: true, dblClick: false, noColumns: true }, async function (select, data, callback) {
 
-    // if (select) {
-    //     SaveDataEstudiosPacientes(data)
-    // } else {
-    //     SaveDataEstudiosPacientes()
-    // }
-})
+selectTable('#tablaEstudiosCargadosPaciente', TablaEstudiosCargadosPaciente,
+    { unSelect: true, dblClick: false, noColumns: true, divPadre: '#modal-body-show_estudios' },
+    async function (select, data, callback) {
+        console.log(data);
+    }
+)
 
 inputBusquedaTable('tablaEstudiosCargadosPaciente', TablaEstudiosCargadosPaciente, [], [], 'col-18')
 
