@@ -130,6 +130,7 @@ switch ($api) {
         $response = $master->insertByProcedure('sp_capturas_imagen_g', [null, $turno_id, $servicio_id, json_encode($capturas), $comentario, $usuario]);
         break;
     case 3:
+        $turno_id = $_POST['id_turno'];
         # recuperar las capturas
         $response = array();
         #recupera la interpretacion.
