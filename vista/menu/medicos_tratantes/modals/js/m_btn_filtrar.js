@@ -1,4 +1,4 @@
-$(document).on('click', '.filtro_paciente_tratnte', function () {
+$(document).ready(function () {
     const fechaActual = new Date()
     const diaSemana = fechaActual.getDay()
     const primerDiaSemana = new Date(fechaActual);
