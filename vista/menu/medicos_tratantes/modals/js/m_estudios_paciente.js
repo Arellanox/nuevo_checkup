@@ -76,7 +76,11 @@ selectTable('#tablaEstudiosCargadosPaciente', TablaEstudiosCargadosPaciente,
 
 inputBusquedaTable('tablaEstudiosCargadosPaciente', TablaEstudiosCargadosPaciente, [
     {
-        msj: "Si el icono del PDF no aparece en rojo es por que ese estudio no cuenta con un reporte",
+        msj: "Si el icono del PDF no aparece en rojo oes por que ese estudio no cuenta con un reporte",
+        place: "top"
+    },
+    {
+        msj: "Si no aparecen datos es por que el paciente no tiene ningun estudio cargado",
         place: "top"
     }
 ], [], 'col-18')
