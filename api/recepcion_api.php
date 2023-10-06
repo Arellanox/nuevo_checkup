@@ -54,7 +54,7 @@ $foto_paciente = $_POST['avatar'];
 $medico_tratante = $_POST['medico_tratante'];
 $medico_correo = $_POST['medico_correo'];
 $new_medico = $_POST['nuevo_medico']; # Tipo booleano
-$medico_tratante_id = $_POST['medico_tratante_id']; # Usuario
+$medico_tratante_id = ($master->setToNull([$_POST['medico_tratante_id']]))[0]; # Usuario
 
 
 
