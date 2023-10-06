@@ -12,7 +12,9 @@ $(document).on('submit', '#form_medicos_tratantes_a', function (e) {
     ActualizarMedicoTratante()
 })
 
+let AlertaUsuarioMedico = true;
 function ChangeAdjuntarUsuario(checkbox) {
+    const USUARIO = SelectedMedicosTratantes['USUARIO_ID'];
     let btn = $(`#${checkbox}`).is(':checked');
     let AdjuntarUsuario;
     if (btn) {
@@ -21,6 +23,12 @@ function ChangeAdjuntarUsuario(checkbox) {
         $('#nombre-medicoTrarante-a').prop('disabled', true);
         ObtenerDibujarNombreDelUsuario(2)
     } else {
+
+        if (USUARIO && AlertaUsuarioMedico) {
+            alertMensaje('warning', 'Acceso a los pacientes del médico', 'Al cambiar el usuario asociado a este médico, se eliminará el acceso a los pacientes. El usuario anterior ya no estará vinculado a este médico y no podrá visualizar a los pacientes.', null, null, null)
+            AlertaUsuarioMedico = false;
+        }
+
         AdjuntarUsuario = 0;
         $('#usuarios_medicos').prop('disabled', true);
         $('#nombre-medicoTrarante-a').prop('disabled', false);

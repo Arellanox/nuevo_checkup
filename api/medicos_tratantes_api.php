@@ -17,6 +17,7 @@ $ignorarALevenshtein = $_POST['ignorarALevenshtein']; # enviar 1 para ignorar, 0
 $id_medico = $_POST['id_medico'];
 $nombre_medico = $_POST['nombre_medico'];
 $email = $_POST['email'];
+$medico_usuario_id = $_POST['usuario_id'];
 // $usuario_id = $master->setToNull([$_POST['usuario_id']])[0];
 
 # variables para la vista del medico
@@ -33,7 +34,7 @@ $turno_id = $_POST['turno_id'];
 switch ($api) {
     case 1:
         #Actualiza un nuevo medico
-        $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $usuario_id]);
+        $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $medico_usuario_id]);
         break;
 
     case 2:

@@ -29,6 +29,7 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         method: 'POST',
         url: `${http}${servidor}/${appname}/api/medicos_tratantes_api.php`,
         beforeSend: function () {
+            SelectedMedicosTratantes = null;
         },
         complete: function () {
             TablaVistaMedicosTratantes.columns.adjust().draw()
@@ -121,8 +122,6 @@ function SaveDataMedicoTratante(data = false) {
 
     if (data) {
         SelectedMedicosTratantes = data
-    } else {
-        SelectedMedicosTratantes = null;
     }
 }
 
@@ -132,7 +131,6 @@ async function configurarModal() {
     const NOMBRE_MEDICO = SelectedMedicosTratantes['NOMBRE_MEDICO'];
     const EMAIL_MEDICO = SelectedMedicosTratantes['EMAIL'];
     const ID_MEDICO = SelectedMedicosTratantes['ID_MEDICO'];
-    // const USUARIO_ID = SelectedMedicosTratantes['USUARIO_ID'];
 
     $('#usuarioMedicoTitle').html(`Modificar información del médico: <b>${NOMBRE_MEDICO}</b>`)
 
@@ -141,14 +139,15 @@ async function configurarModal() {
     $('#email-medicoTratante-a').val(ifnull(EMAIL_MEDICO, 'Sin correo'))
 
     await rellenarSelect("#usuarios_medicos", "usuarios_api", 2, "ID_USUARIO", "nombrecompleto");
-    select2('#usuarios_medicos', 'UsuarioMedicoTratante ', 'Selecciona un usuario para el medico tratante');
+    ObtenerUsuario()
+    // select2('#usuarios_medicos', 'UsuarioMedicoTratante ', 'Selecciona un usuario para el medico tratante');
 
 
     // Para el modal:
     // El usuario no va a poder cambiar el nombre si tiene el checkbox de "#AdjuntarUsuario" activado ya que el nombre que va aparecer en el input de name, es el del "USUARIO" que seleccione, siempre y cuando este activo el checbox
 
     // En caso contrario que el checkbox no este activo es decir que "#AdjuntarUsuario" esta desactivado. el input estara activo y el usuario podra ingresar el nombre del medico tratante
-
+    AlertaUsuarioMedico = true;
     $('#UsuarioMedicoTratante').modal('show');
 }
 
@@ -158,7 +157,7 @@ function LimpiarModal() {
     $('#nombre-medicoTrarante-a').val("");
     $('#email-medicoTratante-a').val("");
 
-    $('#usuario_medico_check').prop('checked', false);
+    ObtenerUsuario();
     ChangeAdjuntarUsuario('usuario_medico_check');
 }
 
@@ -208,18 +207,20 @@ function ActualizarMedicoTratante() {
             // adjuntar_usuario: ADJUNTAR_USUARIO
         }
 
-        // if (ADJUNTAR_USUARIO === 1) {
-        //     dataJson_Medicos_a.usuario_id = USUARIO_ID
-        // }
+        // if (ADJUNTAR_USUARIO === 0)
+        //     dataJson_Medicos_a.usuario_id = 0
 
         ajaxAwaitFormData(dataJson_Medicos_a, 'medicos_tratantes_api', 'form_medicos_tratantes_a', { callbackAfter: true }, false, function (data) {
+            console.log(dataJson_Medicos_a);
+            alertToast('Médico tratante actualizado', 'success', 4000);
+
             VolverConstruirPagina(2)
         })
     }, 1)
 }
 
 // Function para volver a construir la pagina cuando agrego o actualizo un medico
-function VolverConstruirPagina(type) {
+function VolverConstruirPagina(type, state = true) {
 
     switch (type) {
         case 1:
@@ -230,9 +231,10 @@ function VolverConstruirPagina(type) {
         case 2:
             // Actualizar Medico tratante
             $('#UsuarioMedicoTratante').modal('hide');
-            alertToast('Médico tratante modificado con exito', 'success', 4000);
-            LimpiarModal();
+            if (!state)
+                alertToast('Médico tratante modificado con exito', 'success', 4000);
             SaveDataMedicoTratante();
+            LimpiarModal();
             break;
         default:
             break;
@@ -241,7 +243,25 @@ function VolverConstruirPagina(type) {
     TablaVistaMedicosTratantes.ajax.reload();
 }
 
+// Function que valida si el medico seleccionado tiene un usuario asignado
+function ObtenerUsuario() {
+    try {
+        // Alerta: si cambia el usuario del medico, el medico no podra ver los pacientes
+        const ID_USUARIO = SelectedMedicosTratantes['USUARIO_ID'];
+        // const USUARIO_ID = SelectedMedicosTratantes['USUARIO_ID'];
 
+        if (ID_USUARIO) {
+            $('#usuario_medico_check').prop('checked', true);
+            $('#usuarios_medicos').val(ID_USUARIO);
+            return true;
+        } else {
+            $('#usuario_medico_check').prop('checked', false);
+            return false;
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 // ==============================================================================
 

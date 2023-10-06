@@ -257,7 +257,9 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
     for (const key in dataJson) {
       if (Object.hasOwnProperty.call(dataJson, key)) {
         const element = dataJson[key];
-        formData.set(`${key}`, element);
+        if (!ifnull(formData.get(`${key}`), false)) {
+          formData.set(`${key}`, element);
+        }
       }
     }
 
