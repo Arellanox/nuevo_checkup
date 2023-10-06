@@ -494,7 +494,11 @@ $array = convertirObjetoAArray($resultados);
                         </td>
                         <td class="my" style="width: 11%; text-align: right;"> $<?php echo ifnull(number_format($e['TOTAL'], 2)) ?>
                         </td>
-                        <td class="my" style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td>
+                        <td class="my" style="width: 15%; text-align: center;">
+                            <?php echo $e['FORMA_PAGO'] ?>
+                            <!-- <b><?php #echo isset($e['MONTO_PAGO_TIPO']) ? ': $' . $e['MONTO_PAGO_TIPO']  : "" 
+                                    ?></b> -->
+                        </td>
                         <td class="my" style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
                     </tr>
                 <?php

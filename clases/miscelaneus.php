@@ -1936,8 +1936,8 @@ class Miscelaneus
         $response = [$response1, $response2];
 
         // echo "<pre>";
-        // echo $turno_id;
-        // var_dump($response[1]);
+        // // echo $turno_id;
+        // var_dump($response[0]);
         // echo "</pre>";
 
         // exit;
@@ -1963,6 +1963,8 @@ class Miscelaneus
             $forma_pago = $e['FORMA_PAGO'];
             $factura = $e['FACTURA'];
 
+            $monto_tipo_pago = $e['FORMA_PAGO_MONTO']; # Monto por tipo de pago;
+
             $result[$i] =  array(
                 "PREFOLIO" => $prefolio,
                 "NOMBRE_PACIENTE" => $nombre_paciente,
@@ -1970,6 +1972,7 @@ class Miscelaneus
                 "IVA" => $iva,
                 "TOTAL" => $total,
                 "FORMA_PAGO" => $forma_pago,
+                "MONTO_PAGO_TIPO" => $monto_tipo_pago,
                 "FACTURA" => $factura
             );
 
