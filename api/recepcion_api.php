@@ -63,8 +63,10 @@ $fecha_reagenda = $_POST['fecha_reagenda'];
 
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
-if (!is_null($_POST['servicios'])) {
+if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
     $servicios = explode(",", $_POST['servicios']); //array
+} else {
+    $servicios = null;
 }
 
 #ordenes medicas
