@@ -53,7 +53,7 @@ switch ($api) {
         break;
 
     case 5:
-
+        # Verificacion de las coincidencias encontradas
         if (strlen($nombre_medico) <= 3) {
             $response = [];
         } else {
