@@ -219,8 +219,8 @@ function configurarModal(data) {
                 //Crea la fila de la tabla, Nombre del servicio, cantidad, y precio antes de iva
                 let html = `<tr>
                                 <th>${element['SERVICIOS']}</th> 
-                                <td>${parseFloat(ifnull(element['CANTIDAD']).toFixed(2), 0)}</td>
-                                <td>$${parseFloat(ifnull(element['TOTAL']).toFixed(2), 0)}</td>
+                                <td>${parseFloat(ifnull(element, 0, ['CANTIDAD'])).toFixed(2)}</td>
+                                <td>$${parseFloat(ifnull(element, 0, ['TOTAL'])).toFixed(2)}</td>
                             </tr>`
 
                 //Adjunta a las tablas la area correspondiente
@@ -294,7 +294,7 @@ function configurarModal(data) {
 
 
         //Lista de precio, total de estudios, detalle fuera
-        $('#precio-total-cargo').html(`$${ifnull(data['TOTAL_CARGO'].toFixed(2))}`) //CHECAR LA FUNCION ifnull PARA RECIBIR DATOS NUMERICOS :)
+        $('#precio-total-cargo').html(`$${parseFloat(ifnull(data['TOTAL_CARGO'], 0)).toFixed(2)}`) //CHECAR LA FUNCION ifnull PARA RECIBIR DATOS NUMERICOS :)
         // $('#precio-descuento').html(`$${ifnull(data['DESCUENTO'])}`)
         // $('#precio-subtotal').html(`$${ifnull(data['SUBTOTAL'])}`)
         // $('#precio-iva').html(`$${ifnull(data['IVA'])}`)
