@@ -35,6 +35,7 @@ async function buildPageCajas(time, select) {
         }
 
         if (time) {
+            fadeDetalleTable("Out")
             TablaHistorialCortes.ajax.reload()
         }
 

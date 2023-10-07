@@ -140,7 +140,7 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
 
     if (select) {
         DestruirDesglosePrecios(); // <-- No quitar
-        // fadeDetalleTable("In")
+        fadeDetalleTable("In")
         $("#fecha_corte_selected").html(`(${data['FOLIO']})`)
 
         BuildHeaderCorte(data)
@@ -155,7 +155,7 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
     } else {
         callback('Out')
         DestruirDesglosePrecios()
-        // fadeDetalleTable("Out")
+        fadeDetalleTable("Out")
     }
 })
 
@@ -376,9 +376,9 @@ function fadeTable(type) {
 // Function para la columna de detalle donde estan los datos del corte y el detalle del paciente
 function fadeDetalleTable(type) {
     if (type === "Out") {
-        $('#corte_caja_detalle').fadeOut()
+        $('#corte_caja_detalle').fadeOut(0)
     } else if (type === "In") {
-        $('#corte_caja_detalle').fadeIn()
+        $('#corte_caja_detalle').fadeIn(0)
     }
 }
 
