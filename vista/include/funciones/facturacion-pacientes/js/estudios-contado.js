@@ -504,10 +504,7 @@ function monto() {
 
 // Oculta todas las tablas
 function OcultarTablas() {
-    $('#container-estudios-11').fadeOut()
-    $('#container-estudios-8').fadeOut()
-    $('#container-estudios-6').fadeOut()
-    $('#container-estudios-0').fadeOut()
+    $('[id^="container-estudios-"]').fadeOut();
 }
 
 function MontoFaltante() {
