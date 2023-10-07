@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-12 col-xl-12 col-lg-12">
         <div class="rounded p-1 card my-2 shadow my-2">
-            <div class="p-3">
+            <div class="p-1">
                 <h5> Pacientes que estan relacionados con el médico tratante</h5>
             </div>
             <!-- Tabla -->

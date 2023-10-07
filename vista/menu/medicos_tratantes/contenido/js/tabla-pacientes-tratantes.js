@@ -33,7 +33,7 @@ tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
     lengthChange: false,
     info: false,
     paging: true,
-    scrollY: '43vh',
+    scrollY: '40vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
