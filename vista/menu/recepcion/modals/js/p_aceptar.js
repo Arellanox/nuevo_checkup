@@ -439,9 +439,15 @@ function limpiarFormAceptar() {
 
 
   // New set page
-  const page = 'SecondPage-acepta';
-  const next = 'FirstPage-acepta';
+  const page = 'SecondPage-aceptar';
+  const next = 'FirstPage-aceptar';
+
+  $('button.SecondPage-aceptar, button.FirstPage-aceptar').attr('disabled', true);
+  const btn = $(`button.${next}`);
+
   $(`.${page}:not(button)`).fadeOut('fast');
+  // btn.fadeIn(0);
+  btn.attr('disabled', false)
   setTimeout(() => {
     $(`.${next}:not(button)`).fadeIn('fast')
     // btn.attr('disabled', false)
