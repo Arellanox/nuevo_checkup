@@ -435,7 +435,7 @@ switch ($idioma) {
                     </tr>
                     <tr>
                         <td>Descuento (" . $resultados->PORCENTAJE_DESCUENTO . "%)</td>
-                        <td>$ " . $resultados->SUBTOTAL. "</td>
+                        <td>$ " . $resultados->DESCUENTO. "</td>
                     </tr>
                     <tr>
                         <td>IVA (16.00%)</td>

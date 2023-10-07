@@ -1934,7 +1934,6 @@ class Miscelaneus
         $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
         $response2 = $master->getByProcedure("sp_corte_detalle_pagos", [$turno_id]);
         $response = [$response1, $response2];
-
         // echo "<pre>";
         // // echo $turno_id;
         // var_dump($response[0]);
@@ -1953,6 +1952,7 @@ class Miscelaneus
         $resumen_contado = 0;
 
         // Datos de todos los pacientes que entraron en el cierre de caja
+        $array_prefolios = array();
         foreach ($response[0] as $key => $e) {
 
             $prefolio = $e['PREFOLIO'];
@@ -1971,16 +1971,21 @@ class Miscelaneus
                 "SUBTOTAL" => $subtotal,
                 "IVA" => $iva,
                 "TOTAL" => $total,
-                "FORMA_PAGO" => $forma_pago,
+                "FORMA_PAGO" => substr($forma_pago,0,4),
                 "MONTO_PAGO_TIPO" => $monto_tipo_pago,
                 "FACTURA" => $factura
             );
 
             $i++;
 
-            $subtotal_general += $subtotal;
-            $iva_general += $iva;
-            $total_general += $total;
+            if(!in_array($prefolio, $array_prefolios)){
+                $subtotal_general += $subtotal;
+                $iva_general += $iva;
+                $total_general += $total;
+            }
+            
+
+            array_push($array_prefolios,$prefolio);
 
             $resumen_contado += $e['CLIENTE_ID'] == 1 ? $total :  0;
             $resumen_credito += $e['CLIENTE_ID'] != 1 ? $total :  0;
