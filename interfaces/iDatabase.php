@@ -7,5 +7,9 @@ interface iDatabase{
     public function guardarDefinicionesTablas();
 }
 
-
+# recupera la lista de las tablas y funciones que se agregaran en una base de datos.
+interface iDatabaseDiferencias{
+    public function recuperarListaFuncionesNuevas();
+    public function recuperarListaTablasNuevas();
+}
 ?>
