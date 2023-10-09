@@ -54,7 +54,7 @@ $(document).on('click', '#terminar-proceso-cargo', function (event) {
         showDenyButton: true,
 
         // Facturar Después
-        cancelButtonText: '<i class="bi bi-clock"></i> Facturar después',
+        cancelButtonText: '<i class="bi bi-clock"></i> Facturar Después',
         cancelButtonColor: 'rgb(171, 104, 255)',
     }, function () {
         //Si fue si, abrir el modal de factura
@@ -65,7 +65,8 @@ $(document).on('click', '#terminar-proceso-cargo', function (event) {
         $('#modalEstudiosContado').modal('hide')//Si fue no, terminar el proceso con el tipo de pago contado...
         metodo()
     }, function () {
-        metodo(2);
+        $('#modalEstudiosContado').modal('hide')
+        metodo(2); // Terminar proceso pero dejar la opcion de poder facturar
     })
 
 })

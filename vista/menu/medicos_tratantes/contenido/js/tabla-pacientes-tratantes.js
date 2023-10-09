@@ -33,7 +33,7 @@ tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
     lengthChange: false,
     info: false,
     paging: true,
-    scrollY: '43vh',
+    scrollY: '40vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -64,6 +64,11 @@ tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
                 return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
+        {
+            data: 'FECHA_AGENDA', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1])
+            }
+        },
         { data: 'PREFOLIO' },
         { data: 'ID_TURNO' },
         {
@@ -80,12 +85,13 @@ tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
         { target: 2, title: 'Médico Tratante', className: 'all' },
         { target: 3, title: 'Procedencia', className: 'all' },
         { target: 4, title: 'Fecha de recepcion', className: 'all' },
-        { target: 5, title: 'Prefolio', className: 'all' },
-        { target: 6, title: 'Turno', className: 'none' },
-        { target: 7, title: 'Edad', className: 'none' },
-        { target: 8, title: 'Sexo', className: 'none' },
+        { target: 5, title: 'Fecha agendado', className: 'all' },
+        { target: 6, title: 'Prefolio', className: 'all' },
+        { target: 7, title: 'Turno', className: 'none' },
+        { target: 8, title: 'Edad', className: 'none' },
+        { target: 9, title: 'Sexo', className: 'none' },
         {
-            targets: 9,
+            targets: 10,
             title: '#',
             className: 'all actions',
             width: '1%',
