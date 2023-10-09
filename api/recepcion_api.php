@@ -115,7 +115,7 @@ switch ($api) {
 
         #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
         if (
-            $aleta == "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES PROCEGUIR CON EL PROCESO" ||
+            $aleta == "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES CONTINUAR CON EL PROCESO" ||
             $aleta == "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN PROCESO DEL DÍA ANTERIOR"
         ) {
             $response = $aleta;
