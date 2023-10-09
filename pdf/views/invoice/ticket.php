@@ -318,10 +318,10 @@ switch ($idioma) {
         <div class=\"container-fluid\">
             <table style=\"width: 100%; text-align: center;\">
                 <tr>
-                    <td style=\"width: 25%\">
+                    <td style=\"width: 30%\">
                         <img src='data:image/png;base64, \" . $encode . \"' height='65' >
                     </td>
-                    <td style=\"width: 50%;text-align: center;\">
+                    <td style=\"width: 70%;text-align: center;\">
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                             RFC DBI2012084N2<br>
@@ -331,11 +331,7 @@ switch ($idioma) {
                             hola@bimo.com.mx
                         </p>
                     </td>
-                    <td style=\"width: 25%;text-align: center;\">
-                        <p>Folio<br>
-                            <b>" . $encabezado->FOLIO_TICKET . " </b>
-                        </p>
-                    </td>
+                    
                 </tr>
             </table>
             <!--COTIZACIONES-->
