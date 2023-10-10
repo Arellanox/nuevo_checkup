@@ -17,6 +17,8 @@ async function getDataFirst(row) {
   await rellenarSelect('#registrar-concepto-facturacion', 'sat_catalogo_api', 2, 0, 'COMPLETO');
   if (row) {
     id_servicio = row['ID_SERVICIO']
+    console.log('despues del if de row')
+    console.log(row)
     $('#formEstudios input[name="descripcion"]').val(row['DESCRIPCION']);
     $('#formEstudios input[name="abreviatura"]').val(row['ABREVIATURA']);
     $('#formEstudios select[name="area"]').val(row['ID_AREA']).change();
@@ -44,15 +46,15 @@ $(document).on('submit', '#formEstudios', function (event) {
 
   alertMensajeConfirm({
     title: '¿Desea guardar este estudios?',
-    text: 'Asegurese que todos los datos sean correctos',
+    text: 'Asegúrese que todos los datos sean correctos',
     icon: 'info',
   }, function () {
     dataJson = {
       api: 1,
-      area: areaActiva,
+      id_area: areaActiva,
       producto: 1, local: 1, es_grupo: 0, es_producto: 0
     }
-
+    console.log(dataJson);
     if (id_servicio)
       dataJson['id_servicio'] = id_servicio
 
