@@ -171,7 +171,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   if (!$('#checkPaqueteAceptar').is(":checked")) {
     if ($('#select-paquetes').val()) {
       dataJson['id_paquete'] = $('#select-paquetes').val()
-      paquete = `Cagarás el paquete ${$('#select-paquetes option:selected').text()} \n`
+      paquete = `Cargarás el paquete ${$('#select-paquetes option:selected').text()} \n`
     }
   }
 

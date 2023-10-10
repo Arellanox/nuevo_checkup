@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12 col-xl-3 col-xxl-3">
         <div class="shadow p-3 my-3">
-            <h5>Agregar medico tratante</h5>
+            <h5>Agregar médico tratante</h5>
             <form id="form-medicoTratante">
                 <div class="row">
                     <div class="col-12 mb-3">
