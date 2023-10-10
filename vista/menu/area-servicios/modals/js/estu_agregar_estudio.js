@@ -56,7 +56,7 @@ $(document).on('submit', '#formEstudios', function (event) {
     }
 
     if (areaActiva == 'todos') {
-      dataJson['area'] = $('#cont-area-estudios').val();
+      dataJson['area'] = $('#registrar-area-estudio').val();
     }
 
     if (id_servicio)
