@@ -54,7 +54,11 @@ $(document).on('submit', '#formEstudios', function (event) {
       id_area: areaActiva,
       producto: 1, local: 1, es_grupo: 0, es_producto: 0
     }
-    console.log(dataJson);
+
+    if (areaActiva == 'todos') {
+      dataJson['area'] = $('#cont-area-estudios').val();
+    }
+
     if (id_servicio)
       dataJson['id_servicio'] = id_servicio
 
