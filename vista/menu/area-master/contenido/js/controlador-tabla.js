@@ -387,9 +387,8 @@ async function obtenerServicios(area, turno) {
             case 9:
                 data['api'] = 2
                 break;
-
             case 4:
-                data['api'] = 6;
+                data['api'] = 2;
                 break;
             default:
                 data['api'] = 3
