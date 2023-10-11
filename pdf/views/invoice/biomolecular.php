@@ -268,6 +268,7 @@ $areas = $resultados->areas[0];
         include 'includes/header_lab.php'; ?>
     </div>
 
+    <!-- Footer 1 chido -->
     <div class="footer">
         <?php
         $footerDoctor = 'Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445';

@@ -32,9 +32,9 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "corte";
-$area_id = -4;
-$turno_id = 5; #Corte id
+$api = "cotizacion";
+$area_id = 11;
+$turno_id = 19; #Corte id
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
