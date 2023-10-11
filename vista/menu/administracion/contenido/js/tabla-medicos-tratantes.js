@@ -67,6 +67,16 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
             }
         },
         {
+            data: 'TELEFONO', render: function (data) {
+                return ifnull(data, 'N/A')
+            }
+        },
+        {
+            data: 'ESPECIALIDAD', render: function (data) {
+                return ifnull(data, 'N/A')
+            }
+        },
+        {
             data: 'ID_MEDICO', render: function (data) {
                 return `<i class="bi bi-trash eliminar-diagnostico" data-id = "${data}" style = "cursor: pointer"
                 onclick="desactivarTablaMedicosTratantes.call(this)"></i>`;
@@ -80,7 +90,9 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         { target: 2, title: 'Email', className: 'all' },
         { target: 3, title: 'Pacientes', className: 'all' },
         { target: 4, title: 'Usuario', className: 'all' },
-        { target: 5, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
+        { target: 5, title: 'Teléfono: ', className: 'none' },
+        { target: 6, title: 'Especialidad: ', className: 'none' },
+        { target: 7, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' }
     ],
     dom: 'Bfrtip',
     buttons: [
