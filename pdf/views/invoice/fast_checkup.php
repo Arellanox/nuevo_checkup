@@ -461,6 +461,7 @@ if ($tipoAdvertencia === "LEVE") {
     </div>
 
     <div style="padding-top: 100px;">
+        <!-- Tiene el footer 1 chido -->
         <div class="footer">
             <?php
             $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';

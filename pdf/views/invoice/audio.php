@@ -321,6 +321,7 @@ $encode_firma = base64_encode($ruta_firma);
         ?>
     </div>
 
+    <!-- Footer 1 chido -->
     <div class="footer">
         <?php
         $footerDoctor = 'Dra. Leonor Alvarado-Cortés <br>UJAT - Cédula profesional: 584962 

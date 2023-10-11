@@ -664,6 +664,7 @@ if (!isset($qr)) {
                     Tabasco - Teléfono: 993 131 00 42 Correo electrónico:
                     biologia.molecular@hguadalupe.com</strong></small></p>-->
     <div style="padding-top: 100px;">
+        <!-- Footer 1 chido -->
         <div class="">
             <?php
             $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
