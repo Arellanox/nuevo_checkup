@@ -60,6 +60,20 @@ $(`#${formulario}`).submit(function (event) {
                 // // Convertir el arreglo a una cadena JSON 
                 // jsonData['tabla_reporte'] = JSON.stringify(capturesArray);
 
+
+
+                let capturasArraya = []
+                let audiometria_tablas = '#captures img'
+                $(audiometria_tablas).each(function () {
+                    capturasArraya.push($(this).attr('src'))
+                })
+                jsonData['tabla_reporte'] = JSON.stringify(capturasArraya)
+
+                ajaxAwaitFormData(jsonData, 'audiometria_api', 'formCapturaResultados', { callbackAfter: true }, false,
+                    (data) => {
+                        // alertToast('Su captura se ha guardado correctamente', 'success', 4000)
+                    })
+
                 break;
         }
 
@@ -90,6 +104,27 @@ $(`#${formulario}`).submit(function (event) {
     }
     event.preventDefault();
 });
+
+// Boton de capturar Tabla en el modal Reporte de interpretacion
+$(document).on('click', '#AbrirModalCapturarTabla', function () {
+    CapturarTablaModalConfig("show");
+})
+
+
+// Funcion para abrir el modal de capturar tabla
+function CapturarTablaModalConfig(type) {
+    if (type === "show") {
+        $('#modalCapturaTablas').modal('show');
+    } else if (type === "hide") {
+        $('#modalCapturaTablas').modal('hide');
+    }
+}
+
+function ResetCapturasDeTablaDeAudio() {
+    $('#captures').html('');
+    $('#viewer').html('')
+    resetInputLabel()
+}
 
 
 

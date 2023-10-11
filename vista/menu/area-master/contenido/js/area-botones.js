@@ -322,9 +322,13 @@ $('#capture').on('click', function () {
     $('#captures').append(imageContainer);
 
     // Para enviar la imagen a través de AJAX como archivo:
-    let blob = dataURLtoBlob(croppedImage);
-    let formData = new FormData();
-    formData.append('croppedImage', blob, 'cropped.png');
+    // let blob = dataURLtoBlob(croppedImage);
+    // let formData = new FormData();
+    // formData.append('croppedImage', blob, 'cropped.png');
+
+    // Aqui se pondra la funcion para cerrar el modal de capturar la tabla y volver abrir el modal de interpretacion
+
+    CapturarTablaModalConfig("hide");
 
     // Ejemplo de AJAX con jQuery para enviar el archivo
     // $.ajax({
