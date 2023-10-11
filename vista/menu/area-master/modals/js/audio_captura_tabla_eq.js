@@ -27,6 +27,7 @@ $(document).on('submit', '#formCapturaResultados', function (e) {
 
 })
 
+// LIMITARLO A 1
 
 function SubirCapturasAudiometria() {
     console.log(1)
