@@ -12,27 +12,29 @@ if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
 
 $master = new Master();
 $api = $_POST['api'];
-$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/practicantes/" :  "https://bimo-lab.com/nuevo_checkup/";
 $turno_id = $_POST['turno_id'];
+$usuario_id = $_SESSION['id'];
+$d_certificado = $_POST['id_certificado'];
+$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 
-// print_r($_POST);
 switch ($api) {
     case 1:
-        # Guardar el pdf del certificado medico del paciente
+        # Guardar el pdf del certificado poe del paciente
         $dir = '../reportes/modulo/certificados_poe/';
         $r = $master->createDir($dir);
         // print_r($_FILES);
-        $certificado = $master->guardarFiles($_FILES, 'certificado-poe', $dir, "CERTIFICADO_POE_$turno_id");
+        $certificado = $master->guardarFiles($_FILES, 'certificado-POE', $dir, "CERTIFICADO_POE_$turno_id");
         // var_dump($certificado);
         // exit;
         $ruta_certificado = str_replace("../", $host, $certificado[0]['url']);
-        $response = $master->insertByProcedure("sp_certificados_medicos_tmp_g", [$turno_id, $ruta_certificado]);
+        $response = $master->insertByProcedure("sp_certificados_poe_g", [$d_certificado, $ruta_certificado, $turno_id, $usuario_id]);
+
         // var_dump($response);
         // exit;
         break;
 
     case 2:
-        $response = $master->getByProcedure("sp_certificados_medicos_tmp_b", [$turno_id]);
+        $response = $master->getByProcedure("sp_certificados_poe_b", [$turno_id]);
         break;
 }
 

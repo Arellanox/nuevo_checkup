@@ -1982,13 +1982,15 @@ class Miscelaneus
                 $subtotal_general += $subtotal;
                 $iva_general += $iva;
                 $total_general += $total;
+
+                $resumen_contado += $e['CLIENTE_ID'] == 1 ? $total :  0;
+                $resumen_credito += $e['CLIENTE_ID'] != 1 ? $total :  0;
             }
             
 
             array_push($array_prefolios,$prefolio);
 
-            $resumen_contado += $e['CLIENTE_ID'] == 1 ? $total :  0;
-            $resumen_credito += $e['CLIENTE_ID'] != 1 ? $total :  0;
+           
             $folio = $e['FOLIO'];
 
             $fecha_inicio = $e['FECHA_INICIO'];
@@ -2019,7 +2021,12 @@ class Miscelaneus
 
         $response = [];
         $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador, $tipos_precio];
-
+        // foreach($response as $i){
+        //     print_r($i);
+        //     echo "<br>";
+        // }
+        // echo $response[5];
+        // exit;
         return $response;
     }
 }
