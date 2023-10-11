@@ -1971,14 +1971,14 @@ class Miscelaneus
                 "SUBTOTAL" => $subtotal,
                 "IVA" => $iva,
                 "TOTAL" => $total,
-                "FORMA_PAGO" => substr($forma_pago,0,4),
+                "FORMA_PAGO" => substr($forma_pago, 0, 4),
                 "MONTO_PAGO_TIPO" => $monto_tipo_pago,
                 "FACTURA" => $factura
             );
 
             $i++;
 
-            if(!in_array($prefolio, $array_prefolios)){
+            if (!in_array($prefolio, $array_prefolios)) {
                 $subtotal_general += $subtotal;
                 $iva_general += $iva;
                 $total_general += $total;
@@ -1986,11 +1986,11 @@ class Miscelaneus
                 $resumen_contado += $e['CLIENTE_ID'] == 1 ? $total :  0;
                 $resumen_credito += $e['CLIENTE_ID'] != 1 ? $total :  0;
             }
-            
 
-            array_push($array_prefolios,$prefolio);
 
-           
+            array_push($array_prefolios, $prefolio);
+
+
             $folio = $e['FOLIO'];
 
             $fecha_inicio = $e['FECHA_INICIO'];
@@ -2028,5 +2028,21 @@ class Miscelaneus
         // echo $response[5];
         // exit;
         return $response;
+    }
+
+    public function setLogEmail(
+        $master,
+        $turno_id,
+        $area_id,
+        $correo_origen,
+        $correo_destino,
+        $tipo_correo,
+        $notas,
+        $enviado
+    ) {
+        # Guarda el comportamiento de los correo de resultados o cualquier otro correo enviado por bimo.
+        $response = $master->insertByProcedure("", []);
+
+        return true;
     }
 }

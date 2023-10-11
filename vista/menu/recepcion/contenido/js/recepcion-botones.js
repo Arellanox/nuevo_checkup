@@ -14,7 +14,6 @@
 //   }
 // })
 
-
 $(document).on('click', '#btn-espera-estatus', function () {
   alertMsj({
     icon: '',
@@ -290,3 +289,19 @@ $(document).on('click', '#btn-correo-particular', function () {
 $(document).on('click', '#get-modal-qr-clientes', function () {
   $('#modalQRClientes').modal('show');
 })
+
+//modal para notificar si cuentan con algun reporte sin enviar
+$(document).on('click', '#btn-modalNotificacionesReportes', function () {
+  $('#modalNotificacionReportesNoEnviados').modal('show');
+  setTimeout(() => {
+    $.fn.dataTable
+      .tables({
+        visible: true,
+        api: true
+      })
+      .columns.adjust();
+  }, 230);
+})
+
+
+
