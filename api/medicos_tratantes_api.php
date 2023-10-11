@@ -30,11 +30,13 @@ $filtrar_todos = $_POST['filtrar_todos'];
 
 # Turno ID
 $turno_id = $_POST['turno_id'];
+$telefono = $_POST['telefono'];
+$especialidad = $_POST['especialidad'];
 
 switch ($api) {
     case 1:
         #Actualiza un nuevo medico
-        $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $medico_usuario_id]);
+        $response = $master->insertByProcedure("sp_medicos_tratantes_g", [$id_medico, $nombre_medico, $email, $medico_usuario_id, $telefono, $especialidad]);
         break;
 
     case 2:
