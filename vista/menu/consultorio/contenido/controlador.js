@@ -44,7 +44,7 @@ function obtenerContenidoAntecedentes(data) {
   activoConsultadorTurnero = false;
   loader("In")
   obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
-  $.post("contenido/consultorio_paciente.html", function (html) {
+  $.post("contenido/consultorio_paciente.php", function (html) {
     var idrow;
     $("#body-js").html(html) // Rellenar la plantilla de consulta
   }).done(function () {
