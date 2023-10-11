@@ -90,6 +90,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
     <div class="header">
     </div>
     <div class="footer">
+        <!-- Etiquetas no tiene footer -->
     </div>
     <div class="label">
         <?php

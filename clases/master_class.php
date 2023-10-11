@@ -78,6 +78,8 @@ class Master extends Miscelaneus
             $resultSet = $sentencia->fetchAll();
             $sentencia->closeCursor();
 
+            # cerramos la conexion a la base de datos.
+            $conexion = null;
             return $resultSet;
         } catch (Exception $e) {
 
@@ -109,6 +111,8 @@ class Master extends Miscelaneus
 
             $sentencia->closeCursor();
 
+            # cerramos la conexion a la base de datos.
+            $conexion = null;
             return $global;
         } catch (Exception $e) {
 
@@ -136,12 +140,18 @@ class Master extends Miscelaneus
         } else {
             $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
             $this->mis->setLog($error_msj, $nombreProcedimiento);
+            $this->mis->setLog("call ".$nombreProcedimiento."(".implode(",",$parametros).")","[Reproduce el error en la base]");
+
             # return "ERROR. No se pudieron recuperar los datos.";
             $retorno = "Alerta: la consulta al servidor no se realizó correctamente";
         }
 
 
         $sentencia->closeCursor();
+
+        # cerramos la conexion a la base de datos.
+        $conexion = null;
+        
         return $retorno;
     }
 

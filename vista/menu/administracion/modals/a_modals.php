@@ -1,4 +1,8 @@
 <?php
+
+// Medicos Tratantes Actualizar
+include "m_usuario.php";
+
 // Usuario
 include "user_agregar_usuario.html";
 include "user_editar_usuario.html";

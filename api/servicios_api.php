@@ -59,7 +59,7 @@ $parametros = array(
     $id_servicio,
     $descripcion,
     $abreviatura,
-    $area,
+    $id_area,
     $clasificacion_id,
     $metodo_id,
     $medida_id,
@@ -94,6 +94,7 @@ switch ($api) {
     case 1:
         #insert
         $response = $master->insertByProcedure("sp_servicios_g", $parametros);
+
         if (is_numeric($response)) {
             echo json_encode(array(
                 'response' => array(
@@ -600,14 +601,14 @@ switch ($api) {
         exit;
         break;
 
-        case 17:
-            $response = $master->getByProcedure('sp_consultorio_servicios_b', [$id_servicio, $descripcion, $abreviatura]);
-            echo $master->returnApi($response);
-            exit;
-            break;  
+    case 17:
+        $response = $master->getByProcedure('sp_consultorio_servicios_b', [$id_servicio, $descripcion, $abreviatura]);
+        echo $master->returnApi($response);
+        exit;
+        break;
     default:
         echo "Api no reconocida.";
-        break; 
+        break;
 }
 
 #$servicios (conjunto de datos clasificados), $clasificacion (nombre de la clasificacion)

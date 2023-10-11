@@ -308,6 +308,35 @@
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
+
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        $objeto = (array)$objeto;
+    }
+    if (is_array($objeto)) {
+        return array_map('convertirObjetoAArray', $objeto);
+    }
+    return $objeto;
+}
+
+
+
+function ifnull($variable, $msj = "00.00")
+{
+    if ($variable == '') {
+        return $msj;
+    } else {
+        return $variable;
+    }
+}
+
+
+$array = convertirObjetoAArray($resultados);
+
+// echo "<pre>";
+// var_dump($array[10]);
+// echo "</pre>";
 ?>
 
 <body>
@@ -333,31 +362,66 @@ $encode = base64_encode($ruta);
         </table>
         <!--CORTE DE CAJA-->
         <!--INICIO DE TABLA INFORMACIÓN-->
-        <hr style="height: 1px; background-color: black ;">
+        <!-- <hr style="height: 1px; background-color: black ;">
         <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>CORTE DE CAJA</strong></p>
-        <hr style="height: 1px; background-color: black ;">
+        <hr style="height: 1px; background-color: black ;"> -->
+        <h2 style="padding-bottom: 6px; padding-top: 6px;">CORTE DE CAJA </h2>
+
         <br>
         <div>
-            <p>Fecha:<strong> Lunes 05 de Junio del 2023</strong></p>
-            <p>Folio:<br><b> <?php echo $encabezado->FOLIO_TICKET; ?> </b></p>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 50%">
+                        <p>Fecha Inicio:<strong> <?php echo $array[7] ?></strong></p>
+                        <p>Fecha Final:<strong> <?php echo $array[8] ?></strong></p>
+                        <p></p>
+                    </td>
+                    <td style="width: 50%;">
+                        <p>Realizado por:<strong> <?php echo $array[9] ?></strong></p>
+                        <p>Folio:<b> <?php echo $array[6] ?> </b></p>
+                        <p></p>
+                    </td>
+                </tr>
+            </table>
         </div>
         <!--FIN DE TABLA INFORMACIÓN-->
-        <p style="line-height: .5"></p>
+        <!-- <p style="line-height: .5"></p> -->
         <!---INICIO DE LA TABLA DE PRODUCTOS--->
         <table style="text-align: center; width: 100%;" class="rounded2">
-            <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
+            <thead style="text-align: center; background-color: darkgrey; font-size: 10px;">
                 <tr>
-                    <th style="width: 34%;">Prefolio</th>
-                    <th style="width: 11%;">Nombre</th>
-                    <th style="width: 11%;">Subtotal</th>
-                    <th style="width: 11%;">iva</th>
-                    <th style="width: 11%;">Total</th>
-                    <th style="width: 11%;">Forma de pago</th>
-                    <th style="width: 11%;">Factura</th>
+                    <th style="width: 10%;">Prefolio</th>
+                    <th style="width: 15%;">Nombre</th>
+                    <th style="width: 15%;">Subtotal</th>
+                    <th style="width: 15%;">IVA (16%)</th>
+                    <th style="width: 15%;">Total</th>
+                    <!-- <th style="width: 15%;">Forma de pago</th> -->
+                    <th style="width: 15%;">Factura</th>
                 </tr>
             </thead>
             <tbody style="height: 420px">
-                <tr>
+
+                <?php
+                $c = 0;
+                foreach ($array[0] as $key => $e) { ?>
+                    <tr>
+                        <td class="my" style="width: 6%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
+                        <td class="my" style="width: 30%; text-align: left;"> <?php echo $e['NOMBRE_PACIENTE'] ?></td>
+                        <td class="my" style="width: 11%; text-align: center;"> $<?php echo ifnull(number_format($e['SUBTOTAL'], 2)) ?>
+                        </td>
+                        <td class="my" style="width: 16%; text-align: center;"> $<?php echo ifnull(number_format($e['IVA'], 2)) ?>
+                        </td>
+                        <td class="my" style="width: 11%; text-align: right;"> $<?php echo ifnull(number_format($e['TOTAL'], 2)) ?>
+                        </td>
+                        <!-- <td class="my" style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td> -->
+                        <td class="my" style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
+                    </tr>
+                <?php
+                    $c += 1;
+                }
+
+                ?>
+                <!-- <tr>
                     <td style="width: 11%; text-align: center;"> 001</td>
                     <td style="width: 30%; text-align: left;">E48 -Unidad de servicio</td>
                     <td style="width: 11%; text-align: right;">$ 100</td>
@@ -365,25 +429,39 @@ $encode = base64_encode($ruta);
                     <td style="width: 11%; text-align: right;">$ 116</td>
                     <td style="width: 15%; text-align: center;">Crédito </td>
                     <td style="width: 11%; text-align: right;">002</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
+        <?php
+        if ($c >= 27) {
+            echo '<div class="break"></div>';
+        }
+        ?>
         <!--Inicio tabla totales -->
         <p style="line-height: 2"></p>
         <div style=" float: right;width: 100%;">
-            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
+            <table style=" width: 100%; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
                 <tbody>
                     <tr>
-                        <td>Subtotal</td>
-                        <td>IVA (16.00%)</td>
+                        <td style="text-align: center;">Subtotal</td>
+                        <td style="text-align: center;">IVA (16.00%)</td>
                         <td style="background-color: darkgrey;"><b>Total</b></td>
                     </tr>
                     <tr>
-                        <td><?php echo "$ 100" . $resultados->SUBTOTAL; ?></td>
-                        <td>
-                            <p><?php echo "$ 16" . $resultados->IVA; ?></p>
+                        <td style="text-align: center; background-color:white; ">
+                            <p>
+                                $<?php echo ifnull(number_format($array[1], 2)) ?>
+                            </p>
                         </td>
-                        <td style="background-color: darkgrey;"><b></p><?php echo "$ 116" . $resultados->TOTAL_DETALLE; ?> </b></td>
+                        <td style="text-align: center; background-color:white; ">
+                            <p>$<?php echo ifnull(number_format($array[2], 2)) ?> </p>
+                        </td>
+                        <td style="background-color: darkgrey;"><b></p>
+                                <p>
+                                    $<?php echo ifnull(number_format($array[3], 2)) ?>
+                            </b>
+                            </p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -395,46 +473,110 @@ $encode = base64_encode($ruta);
         <br>
         <br>
         <br>
-        <div style=" float: center;width: 100%;">
-            <table style=" width: 200px; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse; font-size: 13px; background-color: solid grey;">
+        <?php
+        if ($c >= 15) {
+            echo '<div class="break"></div>';
+        }
+        ?>
+        <div style="width: 100%;">
+            <!--INICIO DE TABLA INFORMACIÓN-->
+            <!-- <hr style="height: 1px; background-color: black ;"> -->
+            <!-- <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>RESUMEN</strong></p> -->
+            <!-- <hr style="height: 1px; background-color: black ;"> -->
+
+
+            <!-- Otoscopía -->
+            <!-- <h2 style="padding-bottom: 6px; padding-top: 6px;">RESUMEN </h2> -->
+        </div>
+
+        <!-- Desglose de los precios de contado -->
+        <!-- <div class="break"></div> -->
+        <style>
+            #tipos_pagos {
+                margin-top: 10px;
+            }
+
+            .my {
+                padding: 4px;
+            }
+
+            .td-border-my {
+                /* border-top: 1px solid black !important; */
+                border-bottom: 1px solid darkgrey !important;
+            }
+        </style>
+        <style>
+            table {
+                width: 50%;
+                margin: 0 auto;
+                border-collapse: collapse;
+                font-size: 10px;
+            }
+
+            th,
+            td {
+                text-align: left;
+                padding: 8px;
+            }
+
+            th {
+                background-color: darkgrey;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .total {
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .desglose {
+                font-size: 10px;
+                font-weight: normal;
+            }
+        </style>
+        <div id="tipos_pagos">
+            <table class="rounded2">
                 <thead>
                     <tr>
-                        <td colspan="2" style="text-align: center;">Resumen</td>
+                        <th colspan="2">Resumen</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="text-align: right;">Crédito</td>
-                        <td><b>$100</b></td>
+                        <td>Crédito:</td>
+                        <td class="total" style="text-align:center;">$<?php echo number_format($array[4], 2) ?></td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
+                        <td>Contado:</td>
+                        <td class="total" style="text-align:center;">$<?php echo number_format($array[5], 2) ?></td>
                     </tr>
+                </tbody>
+            </table>
+            <br>
+            <table class="rounded2">
+                <thead>
                     <tr>
-                        <td style="text-align: right;">Contado</td>
-                        <td><b>$200</b></td>
+                        <th>Formas de pago</th>
+                        <th>Monto</th>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($array[10] as $key1 => $value1) {
+
+                        if ($value1['IGNORAR'] == 0) {
+                            echo '<tr>';
+                            echo '<td class="desglose">' . $value1['DESCRIPCION'] . '</td>';
+                            echo '<td class="desglose" style="text-align:center;">$' . number_format($value1['MONTO'], 2) . '</td>';
+                            echo '</tr>';
+                        }
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

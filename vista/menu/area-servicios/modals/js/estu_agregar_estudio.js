@@ -44,13 +44,17 @@ $(document).on('submit', '#formEstudios', function (event) {
 
   alertMensajeConfirm({
     title: '¿Desea guardar este estudios?',
-    text: 'Asegurese que todos los datos sean correctos',
+    text: 'Asegúrese que todos los datos sean correctos',
     icon: 'info',
   }, function () {
     dataJson = {
       api: 1,
-      area: areaActiva,
+      id_area: areaActiva,
       producto: 1, local: 1, es_grupo: 0, es_producto: 0
+    }
+
+    if (areaActiva == 'todos') {
+      dataJson['id_area'] = $('#registrar-area-estudio').val();
     }
 
     if (id_servicio)

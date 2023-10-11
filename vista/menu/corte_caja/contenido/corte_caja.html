@@ -1,0 +1,182 @@
+<div class="col-12 loader" id="loader">
+    <div class="preloader" id="preloader"> </div>
+</div>
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
+<!-- Menu Main -->
+<div class="row" id="vistaGruposFactura">
+    <!-- Select de la lista de cajas y historial de cajas -->
+    <div class="col-12 col-xl-3 col-xxl-3 tab-first" id="tab-caja_cortes">
+        <div class="row">
+            <div class="col-12">
+                <!-- Select de lista  de cajas -->
+                <div class="rounded p-3 my-2 shadow card ">
+                    <h5>Lista de cajas</h5>
+                    <form name="CajasForm" id="CajasForm">
+                        <div class="mb-3">
+                            <label for="cajas" class="form-label p-0 m-0">Cajas:</label>
+                            <select class="form-select input-form" name="cajas" id="cajas" required>
+                                <option selected>Seleccione una caja</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12" id="table_historial_corte_caja">
+                <!-- Tabla Historial de cajas -->
+                <div class="rounded p-3 shadow card">
+                    <h5>Historial de cortes de caja</h5>
+                    <table class="table display responsive" id="TablaHistorialCortesCaja" style="width: 100%">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario para hacer un corte de caja -->
+    <div class=" col-12 col-xxl-9 col-xl-9 col-sm-6 col-md-12 tab-second" id="tab-datos_corte" style="display: none;">
+        <div class="row" id="corte_caja_detalle">
+            <div class="col-12">
+                <!-- Tarjetas con informacion del detalle del corte -->
+                <!-- Quien Lo Hizo -->
+                <!-- Fecha -->
+                <!-- Hora -->
+                <!-- Caja -->
+                <!-- Subtotal -->
+                <!-- Iva -->
+                <!-- Total -->
+
+                <div class="rounded p-3 shadow card my-2">
+                    <div id="headerDetalleCorteCaja">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Header -->
+                                <div class="row">
+                                    <div class="col-12 col-md-6 d-flex justify-content-start align-content-center">
+                                        <h5 class="d-flex my-auto ">
+                                            Datos de corte del folio:
+                                            <span class="fw-bold text-dark ms-3" id="fecha_corte_selected"></span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
+                                        <button class="btn btn-borrar me-3" id="btnVisualizarReporte">
+                                            <i class="bi bi-file-earmark-pdf-fill me-2"></i>Visualizar Reporte
+                                        </button>
+                                        <button class="btn btn-pantone-3165" id="btnCerrarCaja">
+                                            <i class="bi bi-x-circle-fill me-2"></i>Cerrar Caja
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- Fechas y usuarios quien hizo o hara el corte de caja -->
+                            <div class="col-12 col-md-6 ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="fw-bold">Fecha Inicio:</p>
+                                        <span class="fw-bold" id="detalle_fecha_corte">12/09/2003 11:20 </span>
+                                    </div>
+                                    <div class="col-12" id="fecha_termino">
+                                        <p class="fw-bold">Fecha corte:</p>
+                                        <span class="fw-bold" id="detalle_fecha_termino">12/09/2003 11:20 </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="fw-bold">Usuario:</p>
+                                        <span class="fw-bold" id="detalle_usuario">Juan Daniel Hernandez Garcia</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="fw-bold">Caja:</p>
+                                        <span class="fw-bold" id="detalle_caja_id">1</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Formas de pago -->
+                            <div class="col-12 mt-2">
+                                <hr>
+                                <div class="col-12 row" id="formas-pago"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Información y desglose del monto -->
+                <!-- <div class="rounded p-3 shadow card my-2">
+                    <div class="row" id="Tipos_Pago">
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Efectivo:</span>
+                            <span id="Efectivo"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Transferencia:</span>
+                            <span id="Transferencia"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Tarjeta de Credito:</span>
+                            <span id="TarjetaCredito"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Tarjeta de Debito:</span>
+                            <span id="TarjetaDebito"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Cheques:</span>
+                            <span id="Cheques"></span>
+                        </div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Credito:</span>
+                            <span id="Credito"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-xxl-6 col-xl-6"></div>
+                        <div class="col-12 col-xxl-6 col-xl-6">
+                            <span class="fw-bold">Total:</span>
+                            <span id="detalle_total">MXN 130.00</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-12">
+                <div class="rounded p-3 shadow card my-2">
+                    <h5>Detalles de los pacientes </h5>
+                    <!-- Tabla del detalle del corte -->
+                    <table class="table display responsive" id="TablaPacientesCaja" style="width: 100%">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tercera Columna visual -->
+    <div id="reload-selectable">
+
+    </div>
+</div>
+
+
+<style>
+    .text-b {
+        color: rgb(000, 175, 170);
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-bottom: 0;
+    }
+
+    .PacienteInfoCargo {
+        cursor: pointer;
+        pointer-events: all;
+        color: blue;
+        text-decoration: underline;
+    }
+</style>

@@ -131,7 +131,10 @@
                             <div id="content-comentarios-registros">
                                 <div class="rounded p-3 shadow-sm my-2">
                                     <h5>Comentario creado por</h5>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo libero obcaecati necessitatibus doloremque. Incidunt ad, alias corrupti nihil est cupiditate rerum itaque illo consequuntur quis aliquid laboriosam possimus magnam ipsa.</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo libero
+                                        obcaecati necessitatibus doloremque. Incidunt ad, alias corrupti nihil est
+                                        cupiditate rerum itaque illo consequuntur quis aliquid laboriosam possimus
+                                        magnam ipsa.</p>
                                 </div>
                             </div>
                         </div>

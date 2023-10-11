@@ -31,3 +31,6 @@ if ($_SESSION['permisos']['RepActEstudios'])
 
 
 include "p_qr-clientes.html";
+
+//Actualizar procedencia
+include "modal_actualizar_procedencia.html";

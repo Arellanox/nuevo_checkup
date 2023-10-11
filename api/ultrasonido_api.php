@@ -9,9 +9,10 @@ include "../clases/correo_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
+
 
 $master = new Master();
 $api = $_POST['api'];
@@ -19,6 +20,7 @@ $api = $_POST['api'];
 # Datos para la interpretacion
 $id_imagen = $_POST['id_imagen'];
 $turno_id = $_POST['id_turno'];
+$id_turno = $_POST['turno_id'];
 $usuario = $_SESSION['id'];
 $area_id = 11; #$_POST['area_id']; # el id 11 es para el area de ultrasonido
 
@@ -80,15 +82,24 @@ switch ($api) {
             $url = crearReporteUltrasonido($turno_id, $area_id);
 
             $res_url = $master->updateByProcedure("sp_imagenologia_resultados_a", [$turno_id, $area_id, $url, $confirmado, $usuario]);
+            if(is_numeric($res_url)){
+                 # enviar el correo con el reporte y las imagenes capturadas
+                $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
 
-            # enviar el correo con el reporte y las imagenes capturadas
-            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
+                # conseguir el segundo correo y el correo del medico tratante
+                $mails = $master->getEmailMedico($master, $turno_id);
+                
+                # incluir en el arreglo el correo principal del paciente.
 
-            if (!empty($attachment[0])) {
-                $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)) {
-                    $master->setLog("Correo enviado.", "ultrasonido");
+                if (!empty($attachment[0])) {
+                    $mail = new Correo();
+                    if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1)) {
+                        $master->setLog("Correo enviado.", "ultrasonido");
+                    }
                 }
+            } else {
+                $response = $res_url;
+                break;
             }
         }
 
@@ -131,11 +142,12 @@ switch ($api) {
         $response = array();
         #recupera la interpretacion.
         $area_id = 11; # 11 es el id para ultrasonido.
-        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen, $turno_id, $area_id]);
+
+        $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen, $id_turno, $area_id]);
 
         # recupera la capturas del turno.
         # necesitamos enviarle el area del estudio para hacer el filtro.
-        $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$turno_id, $area_id]);
+        $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$id_turno, $area_id]);
 
         $capturas = [];
         foreach ($response2 as $current) {

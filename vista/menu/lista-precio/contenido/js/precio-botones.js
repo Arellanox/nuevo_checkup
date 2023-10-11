@@ -17,9 +17,9 @@ $('#seleccionar-cliente').change(function () {
         language: {
           url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
         },
-        lengthChange: false,
-        info: false,
-        paging: false,
+        // lengthChange: false,
+        // info: false,
+        // paging: false,
         columnDefs: columnsDefinidas
       });
 
@@ -150,6 +150,8 @@ $('#btn-precios-guardar').click(function () {
 //Guarda toda la tabla (Manda a ajax)
 $('#btn-guardar-lista').click(function () {
   //Alerta de verificacion de contraseña
+  const cliente = 'seleccionar-cliente'
+  const cliente_id = $(`#${cliente}`).val()
   Swal.fire({
     title: '¿Está seguro de guardar está lista?',
     text: 'Use su contraseña para confirmar',
@@ -188,17 +190,20 @@ $('#btn-guardar-lista').click(function () {
           case '1': //Concepto
             console.log(getListaConcepto());
             listaConcepto = getListaConcepto();
+            console.log(listaConcepto)
             ajaxMandarLista({ api: 1, contenedorListaPrecios: listaConcepto }, 'precios_api');
             break;
           case '2': //Precios
             console.log(getListaPrecios('ID_SERVICIO'))
             listaConcepto = getListaPrecios('ID_SERVICIO');
-            ajaxMandarLista({ api: 6, servicios: listaConcepto, cliente_id: $('#seleccionar-cliente').val() }, 'precios_api');
+            console.log(listaConcepto)
+            ajaxMandarLista({ api: 6, servicios: listaConcepto, cliente_id: cliente_id }, 'precios_api');
             break;
           case '3': //Paquetes
             console.log(getListaPrecios('ID_PAQUETE'))
             listaConcepto = getListaPrecios('ID_PAQUETE');
-            ajaxMandarLista({ api: 7, contenedorPaquetes: listaConcepto, cliente_id: $('#seleccionar-cliente').val() }, 'paquetes_api');
+            console.log(listaConcepto)
+            ajaxMandarLista({ api: 7, contenedorPaquetes: listaConcepto, cliente_id: cliente_id }, 'paquetes_api');
             break;
           default:
             alert('No a seleccionado ninguna opcion')
@@ -256,9 +261,9 @@ $('input[type=radio][name=selectTipLista]').change(function () {
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    lengthChange: false,
-    info: false,
-    paging: false,
+    // lengthChange: false,
+    // info: false,
+    // paging: false,
     columnDefs: columnsDefinidas
   });
   inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
@@ -276,7 +281,7 @@ listaPreciosExelModal = $('#listaPreciosExel').DataTable({
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
   lengthChange: false,
-  info: false,
+  // info: false,
   paging: false,
   scrollY: "50vh",
   scrollCollapse: true,
