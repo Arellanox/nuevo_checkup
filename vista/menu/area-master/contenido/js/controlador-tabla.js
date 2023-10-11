@@ -136,6 +136,8 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 break;
 
             case 4:
+                // Cada que seleccione reinicie la interpretacion
+                ResetCapturasDeTablaDeAudio();
                 // audiometria;
                 $('#btn-inter-areas').fadeIn(0);
 

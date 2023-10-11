@@ -26,3 +26,7 @@ $(document).on('submit', '#formCapturaResultados', function (e) {
     }, 1)
 
 })
+
+$(document).on('click', '#RegresarModalCapturarTablas', function () {
+    CapturarTablaModalConfig("hide");
+})

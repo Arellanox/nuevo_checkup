@@ -154,11 +154,11 @@ session_start();
                                     </button>
                                 </div> -->
 
-                                <div class="col-auto btn_reporte_audiometria" style="display:none">
+                                <!-- <div class="col-auto btn_reporte_audiometria" style="display:none">
                                     <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" data-bs-toggle="modal" data-bs-target="#modalCapturaTablas">
                                         <i class="bi bi-table"></i> Captura de Tabla
                                     </button>
-                                </div>
+                                </div> -->
 
                                 <!-- Button para interpretaciones de las areas -->
                                 <div class="col-auto">
