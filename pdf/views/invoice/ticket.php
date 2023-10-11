@@ -325,8 +325,8 @@ switch ($idioma) {
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                             RFC DBI2012084N2<br>
-                            Calle AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
-                            VILLAHERMOSA, TABASCO, 86060, MEX<br>
+                           Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas,
+                    Villahermosa Tabasco, C.P. 86079 <br>
                             9936340250<br>
                             hola@bimo.com.mx
                         </p>
@@ -486,8 +486,8 @@ switch ($idioma) {
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                             RFC DBI2012084N2<br>
-                            STREET AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
-                            VILLAHERMOSA, TABASCO, 86060, MEX<br>
+                           Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas,
+                    Villahermosa Tabasco, C.P. 86079 <br>
                             9936340250<br>
                             hola@bimo.com.mx
                         </p>
