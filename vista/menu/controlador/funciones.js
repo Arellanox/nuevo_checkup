@@ -567,6 +567,11 @@ $(document).on('change click', 'input[type="file"]', function () {
   }
 })
 
+function resetInputLabel() {
+  const label = $(`input[type="file"]`).parent('div').find('label[class="input-file-label"]')
+  label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+}
+
 // config = myfunctionconfig(config);
 
 // Esta funcion solo funciona para un solo input,
