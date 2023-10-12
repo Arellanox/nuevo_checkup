@@ -18,7 +18,7 @@ $api = $_POST['api'];
 
 # Datos para la interpretacion
 $id_imagen = $_POST['id_imagen'];
-$turno_id = $_POST['id_turno'];
+$turno_id = $_POST['turno_id'];
 $usuario = $_SESSION['id'];
 $area_id = 11; #$_POST['area_id']; # el id 11 es para el area de ultrasonido
 
