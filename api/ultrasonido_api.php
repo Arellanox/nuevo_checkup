@@ -16,6 +16,7 @@ if (!$tokenValido) {
 $master = new Master();
 $api = $_POST['api'];
 
+
 # Datos para la interpretacion
 $id_imagen = $_POST['id_imagen'];
 $turno_id = $_POST['turno_id'];
