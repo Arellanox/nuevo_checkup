@@ -24,7 +24,7 @@ $notas = $_POST['notas'];
 $enviado = $_POST['enviado'];
 $fecha = $_POST['fecha'];
 
-switch ($api) {
+switch($api){
     case 1:
         # notificacion de los resultados no enviados por correo electronico.
         $response = $master->getByProcedure("sp_correos_notificacion", []);
@@ -43,7 +43,7 @@ switch ($api) {
         #recuperamos la lista de los pacientes afectados.
         $no_entregados = $master->getByProcedure("sp_correos_b", [null, null, 0, null]);
 
-        foreach ($no_entregados as $current) {
+        foreach($no_entregados as $current){
             # creamos el asunto del correo.
             $asunto = crearAsunto($current['AREA_ID']);
 
@@ -57,18 +57,20 @@ switch ($api) {
             # creamos el objeto de correo.
             $mail = new Correo();
 
-            # enviamos el correo.
-            if (!empty($files[0])) {
-                $r = $mail->sendEmail("resultados", $asunto, $mails, null, $files[0], 1, $turno_id, $area_id, $master);
+             # enviamos el correo.
+             if (!empty($files[0])) {
+                $r = $mail->sendEmail("resultados", $asunto, $mails, null, $files[0], 1,$turno_id,$area_id, $master);
                 if ($r) {
                     # cambiamos el estado del correo a enviado.
                     $response = $master->updateByProcedure("sp_correos_cambiar_estado", [$current['ID_CORREO']]);
+                    
                 } else {
                     $response = "No se envió el resultado.";
                 }
             } else {
                 $response = "No hay archivos para enviar.";
             }
+
         }
         break;
     default:
@@ -78,9 +80,8 @@ switch ($api) {
 echo $master->returnApi($response);
 
 
-function crearAsunto($area_id)
-{
-    switch ($area_id) {
+function crearAsunto($area_id){
+    switch($area_id){
         case 1:
             $asunto = "Resultados de Consultorio";
             break;

@@ -8,8 +8,8 @@ include "../clases/correo_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 $master = new Master();
@@ -61,7 +61,7 @@ switch ($api) {
 
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', [$attachment[1]], null, $attachment[0], 1,$turno_id, 10, $master)) {
                     $master->setLog("Correo enviado.", "Electrocardiograma");
                 }
             }
@@ -140,14 +140,20 @@ switch ($api) {
         $folder = "../electro_img/";
 
         $electros = scandir($folder);
+        
+
+        $electros = array_filter($electros, function($item){
+            return strlen($item) > 4;
+        });
 
         $files = [];
-        for ($i = 0; $i < count($electros); $i++) {
-            if ($i > 1) {
-                $path = $host . "electro_img/" . $electros[$i];
-                $files[] = [$path, $electros[$i]];
-            }
+        foreach ($electros as $electro) {
+           
+            $path = $host . "electro_img/" . $electro;
+            $files[] = [$path, $electro];
+            
         }
+
         $response = $files;
         break;
     case 4:

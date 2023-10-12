@@ -44,15 +44,20 @@ $params = $master->setToNull([
     $registrado_por,
     $observaciones,
     json_encode(explode(",", $detalle_servicios)),
-    $hora_agenda
-    // $paquete_id
+    $hora_agenda,
+    $paquete_id
 ]);
 
 switch ($api) {
     case 1:
         # agregar una agenda
         if (isset($_SESSION['id'])) {
-            $response = $master->insertByProcedure("sp_agenda_g", $params);
+            $result = $master->getByNext("sp_agenda_g", $params);
+            
+            $response = [];
+            foreach($result as $item){
+                $response[] = codeAgenda($item[0]);
+            }
         } else {
             $response = "Sesión caducada, por favor vuelva a iniciar sesión para continuar.";
         }
@@ -125,3 +130,17 @@ function crearHorarios($inicial, $final, $intervalo)
 
     return $horarios;
 }
+
+function codeAgenda($cadena){
+
+    if (strpos($cadena, '@') === 0) {
+        // La cadena tiene un "@" al principio
+       return array("code"=> 2, "data" => substr($cadena, 1)); // Quitar el "@" al principio
+    } else {
+        return array("code"=> 1, "data" => $cadena);
+    }
+    
+    
+}
+
+

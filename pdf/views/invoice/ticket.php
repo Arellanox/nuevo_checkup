@@ -309,6 +309,8 @@
 $idioma = 1;
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
+
+// echo var_dump($resultados->ESTUDIOS_DETALLE);
 switch ($idioma) {
     case 1:
         echo
@@ -316,24 +318,20 @@ switch ($idioma) {
         <div class=\"container-fluid\">
             <table style=\"width: 100%; text-align: center;\">
                 <tr>
-                    <td style=\"width: 25%\">
+                    <td style=\"width: 30%\">
                         <img src='data:image/png;base64, \" . $encode . \"' height='65' >
                     </td>
-                    <td style=\"width: 50%;text-align: center;\">
+                    <td style=\"width: 70%;text-align: center;\">
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                             RFC DBI2012084N2<br>
-                            Calle AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
-                            VILLAHERMOSA, TABASCO, 86060, MEX<br>
+                           Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas,
+                    Villahermosa Tabasco, C.P. 86079 <br>
                             9936340250<br>
                             hola@bimo.com.mx
                         </p>
                     </td>
-                    <td style=\"width: 25%;text-align: center;\">
-                        <p>Folio<br>
-                            <b>" . $encabezado->FOLIO_TICKET . " </b>
-                        </p>
-                    </td>
+                    
                 </tr>
             </table>
             <!--COTIZACIONES-->
@@ -387,21 +385,41 @@ switch ($idioma) {
         $resultArray = $resultados->ESTUDIOS_DETALLE;
         $count = count((array)$resultArray);
         #// echo $count;
+
         for ($i = 0; $i < $count; $i++) {
 
             $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
-
+            $paquete = json_decode(json_encode($resultArray[$i]), true)['PAQUETES'] == "" ? json_decode(json_encode($resultArray[$i]), true)['SERVICIOS'] : json_decode(json_encode($resultArray[$i]), true)['PAQUETES'];
             $formateado = number_format($numero, 2);
+
+            // $descuento = $resultados->DESCUENTO != 0 ? $resultados->DESCUENTO : json_decode(json_encode($resultArray[$i], true)['DESCUENTO_REPORTE']);
+            $descuento = isset(json_decode(json_encode($resultArray[$i]), true)['DESCUENTO_REPORTE']) ? json_decode(json_encode($resultArray[$i]), true)['DESCUENTO_REPORTE'] : $resultado->DESCUENTO;
             echo "  <tr>
-                                    <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
+                                    <td style=\"width: 34%; text-align: left;\">" . $paquete . "</td>
                                     <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
-                                    <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO'] . "</td>
+                                    <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO_VENTA'] . "</td>
                                     <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
-                                    <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
+                                    <td style=\"width: 11%; text-align: right;\">" . (isset($descuento) ? $descuento : "0.00") . "%</td>
                                     <td style=\"width: 11%; text-align: center;\">16% </td>
                                     <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
                                 </tr>";
         }
+
+        // foreach ($resultArray as $key => $value) {
+        //     # code...
+        //     $total = $value['CANTIDAD'] * $value['PRECIO_VENTA'] - ($resultados->DESCUENTO / $value['CANTIDAD'] * $value['PRECIO_VENTA'] * 100);
+
+        //     $formateado = number_format($total, 2);
+        //     echo "  <tr>
+        //                             <td style=\"width: 34%; text-align: left;\">" . $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'] . "</td>
+        //                             <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
+        //                             <td style=\"width: 11%; text-align: right;\">$" . $value['PRECIO_VENTA'] . "</td>
+        //                             <td style=\"width: 11%; text-align: center;\">" . $value['CANTIDAD'] . ".00</td>
+        //                             <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
+        //                             <td style=\"width: 11%; text-align: center;\">16% </td>
+        //                             <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
+        //                         </tr>";
+        // }
 
         echo "</tbody>
             </table>
@@ -468,8 +486,8 @@ switch ($idioma) {
                         <p>
                             <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                             RFC DBI2012084N2<br>
-                            STREET AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
-                            VILLAHERMOSA, TABASCO, 86060, MEX<br>
+                           Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas,
+                    Villahermosa Tabasco, C.P. 86079 <br>
                             9936340250<br>
                             hola@bimo.com.mx
                         </p>
@@ -531,22 +549,44 @@ switch ($idioma) {
 
         $resultArray = $resultados->ESTUDIOS_DETALLE;
         $count = count((array)$resultArray);
-        #// echo $count;
+        // echo $count;
         for ($i = 0; $i < $count; $i++) {
 
             $numero = json_decode(json_encode($resultArray[$i]), true)['TOTAL'];
 
+
+
+
+
             $formateado = number_format($numero, 2);
             echo "  <tr>
-                                    <td style=\"width: 34%; text-align: left;\">" . json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] . "</td>
-                                    <td style=\"width: 11%; text-align: left;\">E48 -Service unit</td>
-                                    <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO'] . "</td>
+                                    <td style=\"width: 34%; text-align: left;\">" .
+                json_decode(json_encode($response[$i]), true)['PAQUETES'] == "" ? json_decode(json_encode($response[$i]), true)['SERVICIOS'] : json_decode(json_encode($response[$i]), true)['PAQUETES'] . "</td>
+                                    <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
+                                    <td style=\"width: 11%; text-align: right;\">$" . json_decode(json_encode($resultArray[$i]), true)['PRECIO_VENTA'] . "</td>
                                     <td style=\"width: 11%; text-align: center;\">" . json_decode(json_encode($resultArray[$i]), true)['CANTIDAD'] . ".00</td>
                                     <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
                                     <td style=\"width: 11%; text-align: center;\">16% </td>
                                     <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
                                 </tr>";
         }
+
+
+        // foreach ($resultArray as $key => $value) {
+        //     # code...
+        //     $total = $value['CANTIDAD'] * $value['PRECIO_VENTA'] - ($resultados->DESCUENTO / $value['CANTIDAD'] * $value['PRECIO_VENTA'] * 100);
+
+        //     $formateado = number_format($value['TOTAL'], 2);
+        //     echo "  <tr>
+        //                             <td style=\"width: 34%; text-align: left;\">" . $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'] . "</td>
+        //                             <td style=\"width: 11%; text-align: left;\">E48 -Unidad de servicio</td>
+        //                             <td style=\"width: 11%; text-align: right;\">$" . $value['PRECIO_VENTA'] . "</td>
+        //                             <td style=\"width: 11%; text-align: center;\">" . $value['CANTIDAD'] . ".00</td>
+        //                             <td style=\"width: 11%; text-align: right;\">" . $resultados->DESCUENTO . ".00%</td>
+        //                             <td style=\"width: 11%; text-align: center;\">16% </td>
+        //                             <td style=\"width: 11%; text-align: right;\">$" . $formateado . "</td>
+        //                         </tr>";
+        // }
 
         echo "</tbody>
             </table>

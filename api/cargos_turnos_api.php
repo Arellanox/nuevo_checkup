@@ -27,7 +27,7 @@ switch ($api) {
         $total_cargos = 0;
 
         foreach ($response as $e) {
-            $total_cargos = $total_cargos + $e['PRECIO'];
+            $total_cargos = $total_cargos + $e['PRECIO_VENTA'];
         }
 
         // $areas = array();

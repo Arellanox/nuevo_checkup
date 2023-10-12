@@ -21,6 +21,24 @@ function obtenerContenidoUsuarios() {
   });
 }
 
+var TablaVistaMedicosTratantes, dataMedicosTratantes = { api: 2 }
+detectCoincidence('#nombre-medicoTrarante')
+async function ObtenerContenidoMedicosTratantes() {
+  await obtenerTitulo("Médicos Tratantes");
+  $.post("contenido/medicos_tratantes.php", function (html) {
+    $("#body-js").html(html);
+  }).done(function () {
+
+    select2('#select-usuarios-medicos-tratantes', null, 'Selecciona un médico tratante');
+    rellenarSelect('#select-usuarios-medicos-tratantes', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto')
+
+    $.getScript("contenido/js/btn-medicos-tratantes.js");
+    $.getScript("contenido/js/tabla-medicos-tratantes.js");
+
+  })
+
+}
+
 // function obtenerContenidoServicios(tabla, titulo){
 //   obtenerTitulo(titulo); //Aqui mandar el nombre de la area
 //   $.post("contenido/servicios.php", function (html) {
@@ -57,6 +75,9 @@ function hasLocation() {
     switch (hash) {
       case "USUARIOS":
         obtenerContenidoUsuarios("usuario.php", "Usuarios");
+        break;
+      case "MEDICOS":
+        ObtenerContenidoMedicosTratantes();
         break;
       // case "Servicios":
       //   obtenerContenidoServicios("servicios.php", "Servicios");

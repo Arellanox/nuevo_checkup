@@ -48,7 +48,7 @@ switch ($menu) {
 
   default:
 ?>
-  <nav class="navbar navbar-expand-xl border-3 border-bottom border-dark bg-navbar navbar-menu" id="navbar_principal">
+  <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar navbar-menu" id="navbar_principal">
     <div class="container-fluid">
 
       <?php

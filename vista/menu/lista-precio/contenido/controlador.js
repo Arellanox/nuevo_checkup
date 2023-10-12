@@ -43,9 +43,9 @@ function obtenerContenidoPrecios() {
         language: {
           url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
         },
-        lengthChange: false,
-        info: false,
-        paging: false,
+        // lengthChange: false,
+        // info: false,
+        // paging: true,
         columnDefs: columnsDefinidas,
       });
 
@@ -76,9 +76,9 @@ function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
-    lengthChange: false,
-    info: false,
-    paging: false,
+    // lengthChange: false,
+    // info: false,
+    // paging: false,
     scrollY: "63vh",
     scrollCollapse: true,
     columnDefs: columnDefs,

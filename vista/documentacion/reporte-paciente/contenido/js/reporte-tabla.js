@@ -35,6 +35,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'PARENTESCO' },
     { data: 'NUM_PASE' },
     { data: 'SERVICIOS' },
+    { data: 'AREA' },
     {
       data: 'COSTO_BASE', render: function (data) {
         return `$${parseDataTable(data)}`;
@@ -102,25 +103,26 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 5, className: 'none beneficiario', title: 'Parentesco', visible: false },
     { target: 6, className: 'none beneficiario', title: 'No. Pase', width: '7%', visible: false },
     { target: 7, className: 'all', title: 'Servicios' },
-    { target: 8, className: 'all', title: 'Costo' },
-    { target: 9, className: 'all', title: 'Prefolio' },
-    { target: 10, className: 'none', title: 'Cantidad' },
-    { target: 11, className: 'all', title: 'Unitario', width: '7%' },
-    { target: 12, className: 'all', title: 'Subtotal', width: '7%' },
-    { target: 13, className: 'all', title: 'IVA', width: '7%' },
-    { target: 14, className: 'all', title: 'Total', width: '7%' },
-    { target: 15, className: 'all', title: 'Fecha Recepción', width: '12%' },
-    { target: 16, className: 'all', title: 'Procedencia' },
-    { target: 17, className: 'all', title: 'Equipo' },
-    { target: 18, className: 'none beneficiario', title: 'Trabajador', visible: false },
-    { target: 19, className: 'none beneficiario', title: 'Verificacion (url)', visible: false },
-    { target: 20, className: 'none beneficiario', title: 'Categoria', visible: false },
-    { target: 21, className: 'none beneficiario', title: 'Ures', visible: false },
-    { target: 22, className: 'none', title: 'Diagnostico' },
-    { target: 23, className: 'none', title: 'abreviatura', visible: false, searchable: true },
-    { target: 24, className: 'none', title: 'Forma de Pago' },
-    { target: 25, className: 'none', title: 'Método de Pago' },
-    { target: 26, className: 'none', title: 'No. Factura' },
+    { target: 8, className: 'all', title: 'Area' },
+    { target: 9, className: 'all', title: 'Costo' },
+    { target: 10, className: 'all', title: 'Prefolio' },
+    { target: 11, className: 'none', title: 'Cantidad' },
+    { target: 12, className: 'all', title: 'Unitario', width: '7%' },
+    { target: 13, className: 'all', title: 'Subtotal', width: '7%' },
+    { target: 14, className: 'all', title: 'IVA', width: '7%' },
+    { target: 15, className: 'all', title: 'Total', width: '7%' },
+    { target: 16, className: 'all', title: 'Fecha Recepción', width: '12%' },
+    { target: 17, className: 'all', title: 'Procedencia' },
+    { target: 18, className: 'all', title: 'Equipo' },
+    { target: 19, className: 'none beneficiario', title: 'Trabajador', visible: false },
+    { target: 20, className: 'none beneficiario', title: 'Verificacion (url)', visible: false },
+    { target: 21, className: 'none beneficiario', title: 'Categoria', visible: false },
+    { target: 22, className: 'none beneficiario', title: 'Ures', visible: false },
+    { target: 23, className: 'none', title: 'Diagnostico' },
+    { target: 24, className: 'none', title: 'abreviatura', visible: false, searchable: true },
+    { target: 25, className: 'none', title: 'Forma de Pago' },
+    { target: 26, className: 'none', title: 'Método de Pago' },
+    { target: 27, className: 'none', title: 'No. Factura' },
   ],
 
 
@@ -156,6 +158,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       return tr
         .append('<td>' + paciente + '</td>')
         .append(`<td>${rows.count()} servicios</td>`)
+        .append(`<td> --- </td>`)
         .append(`<td>$${costo_servicio.toFixed(2)}</tr>`)
         .append(`<td>${group}</td>`)
         .append(`<td>\$${sumUnitario.toFixed(2)}</td>`)

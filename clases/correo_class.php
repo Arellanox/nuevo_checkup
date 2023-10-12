@@ -3,6 +3,7 @@ include_once("miscelaneus.php");
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
+include_once("credenciales_access/email_connect.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -10,9 +11,12 @@ use PHPMailer\PHPMailer\Exception;
 
 class Correo
 {
+    private $emailCred;
+    public $correo_seleccionado;
 
     function Correo()
     {
+        $this->emailCred = new EmailConnect();
     }
 
     function sendLinkByEmail($email, $token)
@@ -96,8 +100,19 @@ class Correo
         }
     }
 
+    public function getCorreoSeleccionado(){
+        return $this->correo_seleccionado;
+    }
 
-    function sendEmail($bodySelected, $subject, $emails = array(), $token = null, $reportes = array(), $resultados = 0, $paciente = null)
+    private function setCorreoSeleccionado($correo){
+        $this->correo_seleccionado = $correo;
+    }
+    function sendEmail($bodySelected, $subject, $emails = array(), $token = null, $reportes = array(), $resultados = 0, $paciente = null, 
+        # estas variables son para insertar en la tabla de correos.
+        $id_turno = null,
+        $area_id = null,
+        $master = null
+    )
     # $bodyselected indica el cuerpo que se envia en el correo.
     # $emails, direcciones de correo electronico de destino.
     # $token, se usa para enviar el link de prerregistro.
@@ -111,11 +126,23 @@ class Correo
         #configuramos el correo de donde saldran los mensajes, la cabecer, etc
         if ($resultados == 0) {
             $username = 'hola@bimo-lab.com';
-            $password = 'X@96ck6B1V4&tm!4QZp3F';
+            // $password = 'X@96ck6B1V4&tm!4QZp3F';
+            $this->setCorreoSeleccionado($username);
+            $password = $this->emailCred->hola;
             $fromName = 'bimo';
+
+        } else if ($resultados == 1){
+            $username = 'soporte@bimo-lab.com';
+            $this->setCorreoSeleccionado($username);
+            // $password = 'Bimo2023!';
+            $password = $this->emailCred->soporte;
+            $fromName = 'Resultados [bimo]';
+        
         } else {
             $username = 'resultados@bimo-lab.com';
-            $password = 'Bimo2023!';
+            $this->setCorreoSeleccionado($username);
+            // $password = 'Bimo2023!';
+            $password = $this->emailCred->resultados;
             $fromName = 'Resultados [bimo]';
         }
 
@@ -182,9 +209,29 @@ class Correo
 
             # send email
             $mail->send();
+            $response = $master->insertByProcedure("sp_correos_g", [
+                $id_turno, 
+                $area_id, 
+                $this->getCorreoSeleccionado(),
+                json_encode($emails),
+                null,
+                "CORRECTO",
+                1 
+            ]);
 
             return true;
         } catch (Exception $e) {
+
+            $response = $master->insertByProcedure("sp_correos_g", [
+                $id_turno, 
+                $area_id, 
+                $this->getCorreoSeleccionado(),
+                json_encode($emails),
+                null,
+                "ERROR",
+                0 
+            ]);
+
             $mis->setLog($e, "Clase correo [sendMail]");
             return false;
         }

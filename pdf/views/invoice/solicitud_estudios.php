@@ -330,6 +330,7 @@ $encode_firma = base64_encode($ruta_firma);
     </div>
 
     <div class="footer">
+        <!-- Footer 1 chido -->
         <?php
         $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
 
@@ -348,7 +349,7 @@ $encode_firma = base64_encode($ruta_firma);
             <tbody>
                 <?php for ($i = 0; $i < count($resultados[2]); $i++) : ?>
                     <tr>
-                        <td class="respuesta-row"><?php echo $resultados[2][$i]->DESCRIPCION.' - '.$resultados[2][$i]->ABREVIATURA; ?></td>
+                        <td class="respuesta-row"><?php echo $resultados[2][$i]->DESCRIPCION . ' - ' . $resultados[2][$i]->ABREVIATURA; ?></td>
                     </tr>
                 <?php endfor; ?>
             </tbody>

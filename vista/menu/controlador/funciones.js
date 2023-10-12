@@ -193,11 +193,13 @@ async function ajaxAwait(dataJson, apiURL,
           }
         } catch (error) {
           alertMensaje('error', 'Error', 'Datos/Configuración erronea', error);
+          console.error(error);
         }
 
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
+        // console.log('Error')
       },
     })
   });
@@ -255,7 +257,9 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
     for (const key in dataJson) {
       if (Object.hasOwnProperty.call(dataJson, key)) {
         const element = dataJson[key];
-        formData.set(`${key}`, element);
+        if (!ifnull(formData.get(`${key}`), false)) {
+          formData.set(`${key}`, element);
+        }
       }
     }
 
@@ -400,11 +404,27 @@ function ifnull(data, siNull = '', values = [
 
   // Comprobar si el dato es nulo o no es un objeto
   if (!data || typeof data !== 'object') {
-    if (data === undefined || data === null || data === 'NaN' || data === '') {
-      return siNull == 'number' ? 0 : siNull;
+    if (data === undefined || data === null || data === 'NaN' || data === '' || data === NaN) {
+      switch (siNull) {
+        case 'number': return 0
+        case 'boolean': return data ? true : false;
+        default: return siNull;
+      }
     } else {
-      if (siNull != 'number')
-        data = escapeHtmlEntities(`${data}`);
+
+      let data_modificado = escapeHtmlEntities(`${data}`);
+
+      switch (siNull) {
+        case 'number':
+          // No hará modificaciones
+          break;
+        case 'boolean': return ifnull(data, false) ? true : false;
+        default:
+          //Agregará las modificaciones nuevas
+          data = data_modificado
+          break;
+      }
+
       return data;
     }
   }
@@ -707,7 +727,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   })
 
-  labelArea.on('change', function () { // <- se cambio por labelArea
+  inputArea.on('change', function () { // <- se cambio por labelArea
     // Dar el efecto de cargando o subiendo
     cargandoInput()
 
@@ -1255,6 +1275,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
     }
 
     $(select).find('option').remove().end()
+
     $.ajax({
       url: http + servidor + "/" + appname + "/api/" + api + ".php",
       data: values,
@@ -1306,7 +1327,6 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
 
         // //console.log(data);
         callback(data, selectHTML);
-
       },
       complete: function (data) {
         resolve(1);
@@ -1317,6 +1337,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
     })
   });
 }
+
 
 function setSelectContent(array, select, v, c, reset = 1, selected) {
   //console.log(array);
@@ -1638,6 +1659,48 @@ function formpassword() {
 
 }
 
+// Levenshtein
+function detectCoincidence(input, api, config = {}) {
+  // alert(1);
+  $(document).on('change', `${input}`, function (e) {
+    // alert(2);
+    e.preventDefault();
+
+    ajaxAwait({
+      api: 5, nombre_medico: $(input).val(),
+    }, 'medicos_tratantes_api', { callbackAfter: true }, false, (data) => {
+
+      const names = data.response.data;
+
+      const html = names.map(name => {
+        return `<span class="chip btn-pantone-7541 ">${name}</span>`;
+      }).join(' ');
+
+      if (html !== '') {
+        $(`#${'suggestionsList'}`).html(html);
+        $(`#${'suggestionsBox'}`)
+          .removeClass('d-none')
+          .addClass('animate__animated animate__fadeIn');
+      } else {
+        $(`#${'suggestionsBox'}`).addClass('d-none');
+      }
+    });
+
+    // Añadir listener de clic a los chips
+    $(".chip").click(function () {
+      const textToCopy = $(this).text();
+      const tempInput = $("<input>");
+      $("body").append(tempInput);
+      tempInput.val(textToCopy).select();
+      document.execCommand("copy");
+      tempInput.remove();
+
+      alertToast("Nombre copiado: " + textToCopy, 'info');
+    });
+  });
+}
+
+
 
 function mensajeAjax(data, modulo = null) {
   if (modulo != null) {
@@ -1654,7 +1717,7 @@ function mensajeAjax(data, modulo = null) {
           icon: 'error',
           title: 'Oops...',
           text: '¡Ha ocurrido un error!',
-          footer: 'Codigo: ' + data['response']['msj']
+          footer: 'Respuesta: ' + data['response']['msj']
         })
         break;
       case "repetido":
@@ -1669,7 +1732,7 @@ function mensajeAjax(data, modulo = null) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Codigo: ' + data['response']['msj']
+          text: 'Respuesta: ' + data['response']['msj']
         })
         break;
       case "Token": case "Usernovalid":
@@ -2009,7 +2072,7 @@ function configSelectTable(config) {
     ],
     "tab-id": '#tab-button',
     "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
-    reload: false, //Activa la rueda
+    reload: false, //Activa la rueda [Example:  reload: ['col-xl-9'] ]
     movil: false, //Activa la version movil
     multipleSelect: false,
     OnlyData: false,
@@ -2066,7 +2129,7 @@ function selecTableTabs() {
 }
 
 // Para la version movil crea y visualiza columnas
-function getBtnTabs(config) {
+function getBtnTabs(config, reloadName) {
   if (config.tabs) {
     let row = config.tabs;
     let html = `<ul class="nav nav-tabs mt-2 tab-page-table" style="display:none">`;
@@ -2075,7 +2138,7 @@ function getBtnTabs(config) {
         const element = row[key];
 
         html += `<li class="nav-item">
-                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" id="tab-btn-${element.title}" style="cursor: pointer">${element.title}</a>
+                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" data-reload-column="${reloadName}" id="tab-btn-${element.title}" style="cursor: pointer">${element.title}</a>
                   </li>`;
       }
     }
@@ -2089,7 +2152,7 @@ function getBtnTabs(config) {
 //Visualiza la columna solo en movil
 let dinamicTabFunction = false;
 let documentClick = false;
-let loader_selectTable = false;
+let loader_selectTable = false;  //No usar, en desuso global, solo en selectTable
 function dinamicTabs() {
   // dinamicTabFunction = false;
   // // loader = loader
@@ -2120,17 +2183,25 @@ $(document).on('click', '.tab-table', function () {
 
       setTimeout(() => {
         let id = btn.attr('data-id-column');
+        let loader = btn.attr('data-reload-column');
         // console.log(id);
         let loaderVisible = false;
 
         // console.log(loader_selectTable)
         loaderVisible = function () {
           // console.log($(loader_selectTable))
-          if ($(loader_selectTable).is(":hidden")) {
+          if ($(loader).is(":hidden")) {
             $(`${id}`).fadeIn(100);
+            $.fn.dataTable
+              .tables({
+                visible: true,
+                api: true
+              })
+              .columns.adjust();
+
             loaderVisible = false;
           } else {
-            // console.log(loader_selectTable)}
+            // console.log(loader)
             setTimeout(() => {
               loaderVisible();
             }, 150);
@@ -2178,19 +2249,26 @@ function reloadSelectTable() {
 }
 
 //Evalua el estado de click de selectTable
+// Arreglo de clases a ignorar
+let ignoredClasses = [
+  'noClicked', //Algun elemento que podamos crear para que no implique selección
+  'dtr-control', //Cuando le da click al primer td con el boton + de visualizar mas columnas
+  'child',  //Cuando muestra las columnas ocultas de un regitro
+  'dataTables_empty', //Cuando la  tabla esta vacia, no selecciona
+];
+// Función para verificar si un elemento tiene alguna de las clases ignoradas
+const hasIgnoredClass = (elem) => ignoredClasses.some(className => elem.classList.contains(className));
+
 function eventClassClick(event, tr, config, data) {
   //Evalua donde está dando click el usuario
   var clickedElement = event.target;
+  ignoredClasses.push(config.ignoreClass) //Ignora el click por algun objeto en clase
   // var computedStyle = window.getComputedStyle(clickedElement, '::before');
   // computedStyle.getPropertyValue('property') === 'value'
   // console.log(computedStyle.getPropertyValue('property') === 'value')
   //Cancela la funcion si el elemento que hace click tiene la siguiente clase
-  if (
-    $(clickedElement).hasClass('noClicked') //Algun elemento que podamos crear para que no implique selección
-    || ($(clickedElement).hasClass('dtr-control')) //Cuando le da click al primer td con el boton + de visualizar mas columnas
-    || $(tr).hasClass('child') //Cuando muestra las columnas ocultas de un regitro
-    || $(tr).hasClass('dataTables_empty')  //Cuando la  tabla esta vacia, no selecciona
-    || $(tr).hasClass(`${config.ignoreClass}`) //Ignora el click por algun objeto en clase
+  if (hasIgnoredClass(clickedElement)
+    || hasIgnoredClass(tr)
     || $(tr).find('td').hasClass('dataTables_empty') //Ignora si no hay datos que mostrar (serverside)
   )
     return [true, false];
@@ -2213,10 +2291,10 @@ function eventClassClick(event, tr, config, data) {
   return [false, false];
 }
 
-function resizeConfigMovil(config, nameTable) {
+function resizeConfigMovil(config, loaderName) {
   if (config.movil) {
     //Cambia la vista del dispositivo
-    getBtnTabs(config);
+    getBtnTabs(config, loaderName);
     //Activa los botones si es movil
     // console.log(`#loaderDiv-${nameTable}`)
 
@@ -2232,8 +2310,8 @@ function selectTable(tablename, datatable,
   config = {
     dblClick: false,
   },
-  callbackClick = (select = 1, dataRow = [], tr = '1', row = []) => { },
-  callbackDblClick = (select = 1, dataRow = [], tr = '1', row = []) => { }
+  callbackClick = (select = 1, dataRow = [], callback, tr = '1', row = []) => { },
+  callbackDblClick = (select = 1, dataRow = [], callback, tr = '1', row = []) => { }
 ) {
   //manda valores por defecto
   config = configSelectTable(config)
@@ -2417,7 +2495,7 @@ function selectTable(tablename, datatable,
       $('.tab-second').fadeOut()
     }
 
-    console.log($(loader_selectTable))
+    // console.log($(loader_selectTable))
     $(loader_selectTable).fadeIn(0);
   }
 
@@ -3208,7 +3286,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     13: 'NUTRICIÓN',
                     14: 'INBODY',
                     15: 'CERTIFICADO MÉDICO',
-                    16: 'CONSULTORIO FASTCHECKUP'
+                    16: 'CONSULTORIO FASTCHECKUP',
+                    17: 'CERTIFICADO POE'
                   }
                   let row = data.response.data;
                   // $('#append-html-historial-estudios').html('');

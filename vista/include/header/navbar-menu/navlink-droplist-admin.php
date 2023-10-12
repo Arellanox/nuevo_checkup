@@ -1,6 +1,11 @@
 <?php
 date_default_timezone_set('America/Mexico_City');
 ?>
+<?php if ($_SESSION['vista']['CAJA'] == 1) : ?>
+    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/corte_caja/#CORTECAJA'; ?>">
+        <i class="bi bi-cash-stack"></i> Corte de caja
+    </a>
+<?php endif; ?>
 
 <?php if ($_SESSION['vista']['CLIENTES'] == 1) : ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/clientes/'; ?>">

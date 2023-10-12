@@ -78,7 +78,7 @@ switch ($api) {
            
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('fastck', '[bimo] Fast Checkup', [$attachment[1]], null, $attachment[0], 1, $nombre_paciente)) {
+                if ($mail->sendEmail('fastck', '[bimo] Fast Checkup', [$attachment[1]], null, $attachment[0], 1, $nombre_paciente, $turno_id,1, $master )) {
                     $master->setLog("Correo enviado.", "fast - checkup");
                 }
             }
