@@ -315,8 +315,15 @@ if (!isset($qr)) {
         <!-- <p>Aqui va el encabezado y es el espacio disponible hasta donde llegue el titulo siguiente.</p> -->
     </div>
 
+    <!-- Se puso el footer2 -->
     <div class="footer">
-        <table>
+        <?php
+        $pie_data_1 = $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+
+        $pie_especialidad = $pie['datos_medicos'][0]['ESPECIALIDADES'];
+        include 'includes/footer2.php';
+        ?>
+        <!-- <table>
             <tbody>
                 <tr class="col-foot-one">
                     <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
@@ -326,31 +333,31 @@ if (!isset($qr)) {
                     </td>
                     <td colspan="2" style="text-align: left;">
                         <?php
-                        if ($preview == 0) {
-                            echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
-                        }
+                        // if ($preview == 0) {
+                        //     echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> ";
+                        // }
                         ?>
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
                         <?php
-                        if ($preview == 0) {
-                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                        }
+                        // if ($preview == 0) {
+                        //     echo "<a target='_blank' href='" . $validacion . "'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                        // }
                         ?>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
                             <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
-                            $indice = 1;
-                            foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
-                                // $contador = count($value);
-                                $indice++;
-                                echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
-                                echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
-                            }
+                            // echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            // $indice = 1;
+                            // foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
+                            //     // $contador = count($value);
+                            //     $indice++;
+                            //     echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
+                            //     echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
+                            // }
                             ?>
                         </strong>
                     </td>
@@ -358,7 +365,7 @@ if (!isset($qr)) {
             </tbody>
         </table>
         <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> <strong style="font-size: 12px;"> Teléfonos: 993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; </strong> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="font-size: 12px;">hola@bimo.com.mx</strong></small></p>
+        <p style="text-align: center;"><small><strong style="font-size: 12px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br> <strong style="font-size: 12px;"> Teléfonos: 993 634 0251, 993 634 1469, 993 634 1483, 993 634 1484, 993 634 0245, 993 634 0246; </strong> <strong style="font-size: 12px;">Correo electrónico:</strong> <strong style="font-size: 12px;">hola@bimo.com.mx</strong></small></p> -->
     </div>
 
     <!-- body -->

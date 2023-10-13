@@ -31,7 +31,6 @@
             right: 25px;
             height: 220px;
             margin-top: 0;
-            margin-bottom: 20px;
         }
 
         .footer {
@@ -235,6 +234,8 @@ $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
 $encode_firma = base64_encode($ruta_firma);
 
 //Reportes hechos
+// var_dump($resultados);
+// exit();
 $areas = $resultados->areas[0];
 
 // var_dump($resultados->areas);
@@ -269,6 +270,7 @@ $areas = $resultados->areas[0];
         include 'includes/header_lab.php'; ?>
     </div>
 
+    <!-- Footer 1 chido -->
     <div class="footer">
         <?php
         $footerDoctor = 'Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445';
@@ -284,18 +286,34 @@ $areas = $resultados->areas[0];
 
 
 
-        foreach ($areas->estudios as $key => $json) {
+        foreach ($estudiosOtros->estudios as $key => $json) {
             $body = $json->analitos;
             // print_r($body[0]);
+            $body_html = passdata($json->estudio);
+            if (isset($body_html)) {
+                // $areas = array_filter($areas, function($data){
+                //     return $data
+                // })
+                $resultados->areas = eliminarKey($resultados->areas, $key);
+                include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
+            } else {
+                include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/laboratorios_global.php";
+            }
 
-            include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
-
-            if (count($areas->estudios) - 1 > $key)
+            if (count($estudiosOtros->estudios) - 1 > $key)
                 echo '<div class="break"></div>';
         }
 
 
+        function eliminarKey($data, $key)
+        {
+            // unset($data[$key]);
+            foreach ($data as $index => $value) {
+                unset($data[$index]->estudios[$key]);
+            }
 
+            return $data;
+        }
 
         // include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
 

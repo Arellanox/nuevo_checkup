@@ -138,6 +138,10 @@
             margin-left: 2px;
         }
 
+        .border-1{
+            border: 1px solid black;
+        }
+
         .col-right {
             width: 17%;
             max-width: 17%;
@@ -327,7 +331,14 @@ $encode_firma = base64_encode($ruta_firma);
 
 
     <div class="footer">
-        <table>
+        <!-- Se cambio al footer 2 -->
+        <?php
+        $pie_data_1 = $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> ' . $pie['datos_medicos'][0]['CARRERA'] . ' - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+
+        $pie_especialidad = $pie['datos_medicos'][0]['ESPECIALIDADES'];
+        include 'includes/footer2.php';
+        ?>
+        <!-- <table>
             <tbody>
                 <tr class="col-foot-one">
                     <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
@@ -337,48 +348,48 @@ $encode_firma = base64_encode($ruta_firma);
                     </td>
                     <td colspan="2" style="text-align: left;">
                         <?php
-                        if ($preview == 0) {
-                            // echo $encode_firma;
-                            echo "<img style='position:absolute; right:25px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='117px'> ";
-                        }
+                        // if ($preview == 0) {
+                        //     // echo $encode_firma;
+                        //     echo "<img style='position:absolute; right:25px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='117px'> ";
+                        // }
                         ?>
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
                         <?php
-                        if ($preview == 0) {
-                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                        }
+                        // if ($preview == 0) {
+                        //     echo "<a target='_blank' href='" . $validacion . "'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                        // }
                         ?>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
                             <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> ' . $pie['datos_medicos'][0]['CARRERA'] . ' - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
-                            $indice = 1;
-                            foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
-                                // $contador = count($value);
-                                $indice++;
-                                echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'];
-                                if ($value['CEDULA'] != 0) {
-                                    echo  ' / '  . $value['CEDULA'];
-                                }
+                            // echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> ' . $pie['datos_medicos'][0]['CARRERA'] . ' - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            // $indice = 1;
+                            // foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
+                            //     // $contador = count($value);
+                            //     $indice++;
+                            //     echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'];
+                            //     if ($value['CEDULA'] != 0) {
+                            //         echo  ' / '  . $value['CEDULA'];
+                            //     }
 
-                                echo '<br>';
+                            //     echo '<br>';
 
-                                if ($value['CERTIFICADO_POR'] != 0)
-                                    echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
-                            }
+                            //     if ($value['CERTIFICADO_POR'] != 0)
+                            //         echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
+                            // }
                             ?>
-                            <!-- Dra. Zoila Aideé Quiroz Colorado <br>
+                           Dra. Zoila Aideé Quiroz Colorado <br>
                             Cédula profesional <br>
                             Radiologia e imagen <br>
-                            Subespecialista en radiología pediátrica -->
-                        </strong>
-                    </td>
-                </tr>
-            </tbody>
+                            Subespecialista en radiología pediátrica 
+        </strong>
+        </td>
+        </tr>
+        </tbody>
         </table>
         <hr style="height: 0.5px; background-color: black ;">
         <p style="text-align: center;"><small>
@@ -390,7 +401,7 @@ $encode_firma = base64_encode($ruta_firma);
                 <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">resultados@</strong>
                 <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
                 <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
-            </small></p>
+            </small></p> -->
     </div>
 
 
@@ -421,18 +432,18 @@ $encode_firma = base64_encode($ruta_firma);
             }
         }
         ?>
-        <!--
+        
     <div class="break"></div>
-        <?php /*
-        // print_r($resultados->ESTUDIOS[0]);
+        <?php 
+   
         $jsonData = $resultados->IMAGENES;
         $j = 0;
         $d = 0;
         $countArray = count($resultados->ESTUDIOS);
         $cierre = 1;
         $img_pasadas = 1;
-        // print_r($area);
 
+        
         foreach ($resultados->ESTUDIOS as $key => $value) {
             // code...
             // echo "</tr>";
@@ -440,36 +451,42 @@ $encode_firma = base64_encode($ruta_firma);
             // echo "<div class='break'></div>";c
             echo "<h2 style='padding-bottom: 8px; padding-top:8px'>$value->ESTUDIO</h2>";
 
-            foreach ($jsonData[$key][0] as $key2 => $captura) {
+            // echo "<pre>";
+            // var_dump($jsonData);
+            // echo "</pre>;";
 
+         
 
+            
+            foreach ($jsonData[$key] as $key2 => $captura) {
+                
                 if ($area == 8) {
-
+                    
                     $ruta_img = file_get_contents($captura->url);
-
+                    
                     $img_code = base64_encode($ruta_img);
-
-                    echo "<div class='img--container'><a href='$captura->url' target='_blank'><img style='max-width: 45%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
+                    
+                    echo "<div class='img--container'><a href='$captura->url' target='_blank'><img style='max-width: 5%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
                 } else if ($area == 11) {
                     if ($img_pasadas == 1) {
                         echo "<table style='padding: 20px;width: 100%; border-collapse: collapse;'>";
                     }
-
+                    
                     if ($cierre == 1) {
-                        echo "<tr>";
+                        echo "<tr >";
                     }
                     $ruta_img = file_get_contents($captura->url);
-
+                    
                     $img_code = base64_encode($ruta_img);
-
-                    echo "<td><a href='$captura->url' target='_blank'><img style='max-width: 100%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></td>";
-                    // echo "<div class='break'></div>";
+                    
+                    echo "<td class='border-1'><a href='$captura->url' target='_blank'><img style='max-width: 100%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></td>";
+                    echo "<div class='break'></div>";
                     $cierre++;
                     if ($cierre == 3) {
                         echo "</tr>";
                         $cierre = 1;
                     }
-
+                    
                     $img_pasadas++;
                     if ($img_pasadas == 5) {
                         echo "</table>";
@@ -478,24 +495,24 @@ $encode_firma = base64_encode($ruta_firma);
                     }
                     $d++;
                 }
-            }
+            } 
+            
             if ($area == 11) {
-
                 // echo "</table>";
-
+                
                 if ($img_pasadas < 5) {
                     for ($i = 0; $i <= 5 - $img_pasadas; $i++) {
                         # code...
-                        echo "<td></td>";
+                        echo "<td class='border-1'></td>";
                         $cierre++;
                         if ($cierre == 3) {
                             echo "</tr>";
                             $cierre = 1;
                         }
-
+                        
                         $img_pasadas++;
                     }
-
+                    
                     if ($img_pasadas == 5) {
                         echo "</tr>";
                         echo "</table>";
@@ -508,14 +525,15 @@ $encode_firma = base64_encode($ruta_firma);
             }
             $j++;
             if ($j == $countArray - 1) {
-        ?>
+                ?>
                 <div class="break"></div>
-        <?php
+                <?php
             }
         }
-        */
+
+        
         ?>
-    -->
+   
     </div>
 </body>
 <?php

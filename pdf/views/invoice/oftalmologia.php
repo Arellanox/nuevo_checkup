@@ -316,6 +316,11 @@ if (!isset($qr)) {
         </table>
         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
             <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
+
+            <span style="margin-left: 20px;">
+                <!-- Tipo de muestra  -->
+                <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
+            </span>
         </p>
         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
             <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
@@ -324,6 +329,7 @@ if (!isset($qr)) {
 
     </div>
 
+    <!-- Oftalmologia se necesita volverlo hacer -->
     <div class="footer">
         <table>
             <tbody>
@@ -344,8 +350,8 @@ if (!isset($qr)) {
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
                         <?php
-                        if ($preview == 0) {
-                            echo "<a target='_blank' href='$qr[0]'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                        if ($preview == 0) {           # $qr[0]
+                            echo "<a target='_blank' href='" . $validacion . "'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
                         }
                         ?>
                     </td>

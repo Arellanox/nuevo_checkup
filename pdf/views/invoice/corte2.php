@@ -1,29 +1,46 @@
-<!DOCTYPE html>
 <html>
+
+</html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de Laboratorio Biomolecular</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <title>Corte de caja</title>
 
     <style>
+        @page {
+            margin: 165px 10px;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
+            margin-top: 60px;
+            margin-bottom: -100px;
             font-size: 10px;
+            /* background-color: gray; */
         }
 
         .header {
+            /* background-color: red; */
             position: fixed;
             top: -165px;
             left: 25px;
             right: 25px;
-            height: 220px;
             margin-top: 0;
-            /* background-color: cadetblue; */
+            /* margin-bottom: 600px; */
+        }
+
+
+
+        #qr a {
+            position: fixed;
+            padding: 0px;
+            top: -15px;
+            left: 40px
         }
 
         .footer .page:after {
@@ -37,6 +54,7 @@
 
         /* Content */
         .invoice-content {
+            /* padding-top: 100px; */
             border-radius: 4px;
             padding-bottom: 10px;
             padding-right: 30px;
@@ -80,7 +98,15 @@
         }
 
         p {
+            margin: 0px;
+            padding: 5px;
             font-size: 12px;
+        }
+
+
+        #invoice-content p {
+            padding: 10px !important;
+
         }
 
         strong {
@@ -114,27 +140,24 @@
 
         /* Para divisiones de 3 encabezado*/
         .col-left {
-            width: 42%;
-            max-width: 42%;
+            width: 35%;
+            max-width: 35%;
             text-align: left;
-            font-size: 11px;
-            margin-left: 2px;
+            font-size: 12px;
         }
 
         .col-center {
-            width: 41%;
-            max-width: 41%;
+            width: 5%;
+            max-width: 5%;
             text-align: left;
-            font-size: 11px;
-            margin-left: 2px;
+            font-size: 12px;
         }
 
         .col-right {
-            width: 17%;
-            max-width: 17%;
+            width: 60%;
+            max-width: 60%;
             text-align: left;
-            font-size: 11px;
-            margin-left: 2px;
+            font-size: 12px;
         }
 
         /* divisiones de 3 footer */
@@ -203,9 +226,6 @@
             text-align: center;
         }
 
-        body {
-            font-size: 11px;
-        }
 
         .cuartos {
             width: 25%;
@@ -303,11 +323,74 @@
             height: 100px;
         }
     </style>
+    <style>
+        #tipos_pagos {
+            margin-top: 10px;
+        }
+
+        .my {
+            padding: 4px;
+        }
+
+        .td-border-my {
+            /* border-top: 1px solid black !important; */
+            border-bottom: 1px solid darkgrey !important;
+        }
+    </style>
+    <style>
+        #invoice-content table {
+            width: 50%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        #invoice-content th,
+        #invoice-content td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        #invoice-content th {
+            background-color: darkgrey;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #invoice-content tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #invoice-content .total {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        #invoice-content .desglose {
+            font-size: 10px;
+            font-weight: normal;
+        }
+    </style>
 </head>
+
 <?php
+
+// para el path del logo 
+// $ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
+// $encode = base64_encode($ruta);
+
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
+
+// Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
+//los datos de abajo son meramente informativos y solo sirven para rellenar la informacion del documento
+// echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
+
+// path firma
+$ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
+$encode_firma = base64_encode($ruta_firma);
+
 
 function convertirObjetoAArray($objeto)
 {
@@ -334,13 +417,13 @@ function ifnull($variable, $msj = "00.00")
 
 $array = convertirObjetoAArray($resultados);
 
-// echo "<pre>";
-// var_dump($array[10]);
-// echo "</pre>";
+//Reportes hechos
+// Corte de caja no tiene footer 
 ?>
 
 <body>
-    <div class="container-fluid">
+    <!-- header -->
+    <div class="header">
         <table style="width: 100%; text-align: center;">
             <tr>
                 <td style="width: 6%">
@@ -361,13 +444,7 @@ $array = convertirObjetoAArray($resultados);
             </tr>
         </table>
         <!--CORTE DE CAJA-->
-        <!--INICIO DE TABLA INFORMACIÓN-->
-        <!-- <hr style="height: 1px; background-color: black ;">
-        <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>CORTE DE CAJA</strong></p>
-        <hr style="height: 1px; background-color: black ;"> -->
-        <h2 style="padding-bottom: 6px; padding-top: 6px;">CORTE DE CAJA </h2>
-
-        <br>
+        <h2 style="padding:0px !important;">CORTE DE CAJA </h2>
         <div>
             <table style="width: 100%;">
                 <tr>
@@ -384,9 +461,12 @@ $array = convertirObjetoAArray($resultados);
                 </tr>
             </table>
         </div>
-        <!--FIN DE TABLA INFORMACIÓN-->
-        <!-- <p style="line-height: .5"></p> -->
-        <!---INICIO DE LA TABLA DE PRODUCTOS--->
+    </div>
+
+
+    <!-- body -->
+    <!-- <?php ?> -->
+    <div class="invoice-content" id="invoice-content">
         <table style="text-align: center; width: 100%;" class="rounded2">
             <thead style="text-align: center; background-color: darkgrey; font-size: 10px;">
                 <tr>
@@ -395,14 +475,15 @@ $array = convertirObjetoAArray($resultados);
                     <th style="width: 15%;">Subtotal</th>
                     <th style="width: 15%;">IVA (16%)</th>
                     <th style="width: 15%;">Total</th>
-                    <!-- <th style="width: 15%;">Forma de pago</th> -->
+                    <th style="width: 15%;">Forma de pago</th>
                     <th style="width: 15%;">Factura</th>
                 </tr>
             </thead>
             <tbody style="height: 420px">
 
                 <?php
-                $c = 0;
+                global $c;
+                $c = 1;
                 foreach ($array[0] as $key => $e) { ?>
                     <tr>
                         <td class="my" style="width: 6%; text-align: center;"> <?php echo $e['PREFOLIO'] ?></td>
@@ -413,31 +494,41 @@ $array = convertirObjetoAArray($resultados);
                         </td>
                         <td class="my" style="width: 11%; text-align: right;"> $<?php echo ifnull(number_format($e['TOTAL'], 2)) ?>
                         </td>
-                        <!-- <td class="my" style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td> -->
+                        <td class="my" style="width: 15%; text-align: center;">
+                            <?php echo $e['FORMA_PAGO'] ?>
+                            <b><?php echo isset($e['MONTO_PAGO_TIPO']) ? ': $' . $e['MONTO_PAGO_TIPO']  : ""
+                                ?></b>
+                        </td>
                         <td class="my" style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
                     </tr>
                 <?php
-                    $c += 1;
+                    if ($c > 19) {
+                        $c = 0;
+                        echo '<div class="break"></div>';
+                    } else {
+                        $c = $c + 1;
+                    }
                 }
 
                 ?>
-                <!-- <tr>
-                    <td style="width: 11%; text-align: center;"> 001</td>
-                    <td style="width: 30%; text-align: left;">E48 -Unidad de servicio</td>
-                    <td style="width: 11%; text-align: right;">$ 100</td>
-                    <td style="width: 11%; text-align: center;">16 %</td>
-                    <td style="width: 11%; text-align: right;">$ 116</td>
-                    <td style="width: 15%; text-align: center;">Crédito </td>
-                    <td style="width: 11%; text-align: right;">002</td>
-                </tr> -->
             </tbody>
         </table>
         <?php
-        if ($c >= 27) {
+        // echo $c; 
+        if ($c === 0) {
             echo '<div class="break"></div>';
         }
+        // if ($c >= 20) {
+        //     echo '<div class="break"></div>';
+        // }
+
+
+        // si es mayor a 23 -> no lo va hacer 
         ?>
-        <!--Inicio tabla totales -->
+
+        <!-- <div class="break"></div> -->
+
+        <!--    Desglose de precio -->
         <p style="line-height: 2"></p>
         <div style=" float: right;width: 100%;">
             <table style=" width: 100%; text-align: center; border-bottom: transparent; align-items:right; border-collapse: collapse;">
@@ -458,9 +549,10 @@ $array = convertirObjetoAArray($resultados);
                         </td>
                         <td style="background-color: darkgrey;"><b></p>
                                 <p>
-                                    $<?php echo ifnull(number_format($array[3], 2)) ?>
-                            </b>
-                            </p>
+                                    <b>
+                                        $<?php echo ifnull(number_format($array[3], 2)) ?>
+                                    </b>
+                                </p>
                         </td>
                     </tr>
                 </tbody>
@@ -474,71 +566,10 @@ $array = convertirObjetoAArray($resultados);
         <br>
         <br>
         <?php
-        if ($c >= 15) {
-            echo '<div class="break"></div>';
-        }
+        // if ($c >= 15) {
+        //     echo '<div class="break"></div>';
+        // }
         ?>
-        <div style="width: 100%;">
-            <!--INICIO DE TABLA INFORMACIÓN-->
-            <!-- <hr style="height: 1px; background-color: black ;"> -->
-            <!-- <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>RESUMEN</strong></p> -->
-            <!-- <hr style="height: 1px; background-color: black ;"> -->
-
-
-            <!-- Otoscopía -->
-            <!-- <h2 style="padding-bottom: 6px; padding-top: 6px;">RESUMEN </h2> -->
-        </div>
-
-        <!-- Desglose de los precios de contado -->
-        <!-- <div class="break"></div> -->
-        <style>
-            #tipos_pagos {
-                margin-top: 10px;
-            }
-
-            .my {
-                padding: 4px;
-            }
-
-            .td-border-my {
-                /* border-top: 1px solid black !important; */
-                border-bottom: 1px solid darkgrey !important;
-            }
-        </style>
-        <style>
-            table {
-                width: 50%;
-                margin: 0 auto;
-                border-collapse: collapse;
-                font-size: 10px;
-            }
-
-            th,
-            td {
-                text-align: left;
-                padding: 8px;
-            }
-
-            th {
-                background-color: darkgrey;
-                font-weight: bold;
-                text-align: center;
-            }
-
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-
-            .total {
-                font-weight: bold;
-                text-align: right;
-            }
-
-            .desglose {
-                font-size: 10px;
-                font-weight: normal;
-            }
-        </style>
         <div id="tipos_pagos">
             <table class="rounded2">
                 <thead>
@@ -580,16 +611,24 @@ $array = convertirObjetoAArray($resultados);
                 </tbody>
             </table>
         </div>
-        <!---FIN DE LA TABLA DE PRODUCTOS--->
-        <div style="float: left;width: 70%;">
-            <table style="width: 100%; padding-top: 6%; border-collapse: collapse;" align="left">
-
-                <td><b></p><?php $counteo = json_decode($resultados->ESTUDIOS_DETALLE, true);
-                            ?></b></td>
-                </tr>
-            </table>
-        </div>
+        <!-- <div class="break"></div> -->
     </div>
 </body>
+
+
+<?php
+
+// function getPDF($name)
+// {
+//     ob_start();
+//     return ob_get_clean();
+//     // return $htmlPCR;
+// }
+
+
+
+
+
+?>
 
 </html>
