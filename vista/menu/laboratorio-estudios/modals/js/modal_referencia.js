@@ -51,7 +51,7 @@ TablaValoresReferencia = $('#TablaValoresReferencia').DataTable({
                 if (meta['PRESENTACION'] == null) {
                     presentacion = ValidarPresentacion(meta)
                 } else {
-                    presentacion = `${ifnull(meta, 'Indefinido', ['PRESENTACION'])} ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])}-${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+                    presentacion = `${ifnull(meta, '', ['PRESENTACION'])} ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
                 }
 
                 return insertarSaltosDeLinea(presentacion, 25);
@@ -69,13 +69,13 @@ TablaValoresReferencia = $('#TablaValoresReferencia').DataTable({
 
 
                 // Calcular si esta llegando el minmo y maximo, si no llega no es un rango es una referencia, operador logico y referencia juntos
-                return `${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])}-${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+                return `${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
             }
         },
         {
             data: null, render: function (meta) {
 
-                if (meta.VALOR_NORMALIDAD == "1") {
+                if (ifnull(meta, 0, ['VALOR_NORMALIDAD']) == "1") {
                     html = `<i class="bi bi-check-circle-fill text-success"></i>`
                 } else {
                     html = `<i class="bi bi-x-circle-fill text-danger"></i>`
@@ -331,15 +331,15 @@ function ValidarPresentacion(meta) {
     // Entra al case donde evalua cada opcion que tiene para mostrar la presentación
     if (sexo !== "AMBOS") {
         if (edad !== null) {
-            res = `${ifnull(meta, 'null ', ['DESCRIPCION_DIRIGIDO_A'])} ${ifnull(meta, '0', ['EDAD_MINIMA'])} - ${ifnull(meta, '+100', ['EDAD_MAXIMA'])} AÑOS ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])}-${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+            res = `${ifnull(meta, 'null ', ['DESCRIPCION_DIRIGIDO_A'])} ${ifnull(meta, '0', ['EDAD_MINIMA'])} a ${ifnull(meta, '+100', ['EDAD_MAXIMA'])} AÑOS ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
         } else {
-            res = `${ifnull(meta, '', ['DESCRIPCION_DIRIGIDO_A'])} ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])}-${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+            res = `${ifnull(meta, '', ['DESCRIPCION_DIRIGIDO_A'])} ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
         }
     } else {
         if (edad !== null) {
-            res = `${ifnull(meta, '0', ['EDAD_MINIMA'])} - ${ifnull(meta, '+100', ['EDAD_MAXIMA'])} AÑOS ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])}-${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+            res = `${ifnull(meta, '0', ['EDAD_MINIMA'])} a ${ifnull(meta, '+100', ['EDAD_MAXIMA'])} AÑOS ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
         } else {
-            res = `${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])}-${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+            res = `${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
         }
     }
 
