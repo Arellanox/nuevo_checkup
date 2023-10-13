@@ -19,7 +19,7 @@ $api = $_POST['api'];
 
 # Datos para la interpretacion
 $id_imagen = $_POST['id_imagen'];
-$turno_id = $_POST['turno_id'];
+$turno_id = $_POST['id_turno'];
 $usuario = $_SESSION['id'];
 $area_id = 11; #$_POST['area_id']; # el id 11 es para el area de ultrasonido
 
@@ -129,6 +129,7 @@ switch ($api) {
         break;
     case 3:
         # recuperar las capturas
+        $turno_id = $_POST['turno_id'];
         $response = array();
         #recupera la interpretacion.
         $area_id = 11; # 11 es el id para ultrasonido.
@@ -137,7 +138,7 @@ switch ($api) {
         # recupera la capturas del turno.
         # necesitamos enviarle el area del estudio para hacer el filtro.
         $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$turno_id, $area_id]);
-
+     
         $capturas = [];
         foreach ($response2 as $current) {
             $capturas_child = [];
@@ -147,6 +148,8 @@ switch ($api) {
             $current['CAPTURAS'] = $capturas_child;
             $capturas[] = $current;
         }
+
+        // $capturas = $master->decodeJsonRecursively($response2);
 
         $merge = [];
         for ($i = 0; $i < count($response1[0]); $i++) {
