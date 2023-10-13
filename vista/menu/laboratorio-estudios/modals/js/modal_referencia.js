@@ -151,8 +151,9 @@ $(document).on('change, keyup, click', '#cambioReferencia', function () {
 })
 
 
+// 2302 pin de edgar para entrar a su lap :) 
 function ChangeReferencias() {
-    let btn = $('#cambioReferencia');
+    let btn = $('#cambioReferencia'); //  <- boton de jquery
 
     if (btn.is(':checked')) {
         $('#resultado-select-rango').fadeIn(1);
