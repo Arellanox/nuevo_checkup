@@ -1,4 +1,4 @@
-select2('#select-operador-referencia', 'modalReferencia')
+// select2('#select-operador-referencia', 'modalReferencia')
 rellenarSelect("#select-operador-referencia", "valores_referencia_api", 2, "ID_OPERADORES_LOGICOS", "DESCRIPCION");
 
 var minimaReferencia = $('#edad-minima-referencia');
