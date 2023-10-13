@@ -135,8 +135,6 @@ $(document).ready(function () {
 
 //Desactiva los imput de maximo y minimo de edad
 $('#SinEdad').on('click', function (e) {
-
-
     if ($(this).prop('checked')) {
         minimaReferencia.addClass('disable-element');
         maximaReferencia.addClass('disable-element');
@@ -149,9 +147,14 @@ $('#SinEdad').on('click', function (e) {
 })
 
 $(document).on('change, keyup, click', '#cambioReferencia', function () {
+    ChangeReferencias();
+})
 
 
-    if ($(this).is(':checked')) {
+function ChangeReferencias() {
+    let btn = $('#cambioReferencia');
+
+    if (btn.is(':checked')) {
         $('#resultado-select-rango').fadeIn(1);
         $('#cambio-rango-referencia').fadeOut(1);
         checkedCambiarReferencia = 1
@@ -163,7 +166,8 @@ $(document).on('change, keyup, click', '#cambioReferencia', function () {
         checkedCambiarReferencia = 0
         limpiarInputs('cambioReferencia', false)
     }
-})
+}
+
 
 $(document).on('click', '#btn-guardar-referencia', function (e) {
     e.preventDefault();
@@ -198,6 +202,7 @@ $(document).on('click', '#btn-guardar-referencia', function (e) {
 
             $('#formGuardarReferencia').trigger("reset");
             $('#SinEdad').prop('checked', false);
+            ChangeReferencias()
             minimaReferencia.removeClass('disable-element');
             maximaReferencia.removeClass('disable-element');
         })
@@ -255,6 +260,7 @@ myModal.addEventListener('shown.bs.modal', () => {
         if (formulario) {
             console.log(1)
             formulario.reset();
+            ChangeReferencias()
         }
     }, 250);
 });
