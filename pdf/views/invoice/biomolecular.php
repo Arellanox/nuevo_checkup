@@ -31,6 +31,7 @@
             right: 25px;
             height: 220px;
             margin-top: 0;
+            margin-bottom: 20px;
         }
 
         .footer {
