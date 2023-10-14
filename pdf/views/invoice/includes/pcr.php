@@ -13,10 +13,10 @@
         <td><strong>rT-PCR-SARS-CoV2 (Coronavirus)</strong></td>
         <td>
             <strong>
-                <?php if ($body[0]->resultados != "NEGATIVO" && $body[1]->resultado != "NEGATIVO" && $body[2]->resultado != "NEGATIVO") {
-                    echo 'POSITIVO';
-                } else {
+                <?php if ($body[0]->resultados == "NEGATIVO" && $body[1]->resultado == "NEGATIVO" && $body[2]->resultado == "NEGATIVO") {
                     echo 'NEGATIVO';
+                } else {
+                    echo 'POSITIVO';
                 } ?>
             </strong>
         </td>
