@@ -434,106 +434,143 @@ $encode_firma = base64_encode($ruta_firma);
         ?>
         
     <div class="break"></div>
-        <?php 
+    <?php 
    
-        $jsonData = $resultados->IMAGENES;
-        $j = 0;
-        $d = 0;
-        $countArray = count($resultados->ESTUDIOS);
-        $cierre = 1;
-        $img_pasadas = 1;
+   $jsonData = $resultados->IMAGENES;
+   $j = 0;
+   $d = 0;
+   $countArray = count($resultados->ESTUDIOS);
+   $cierre = 1;
+   $img_pasadas = 1;
+   // print_r($jsonData);
+   // exit;
+   // print_r($resultados);
 
+   foreach ($resultados->ESTUDIOS as $key => $value) {
+
+
+
+       echo "<h2 style='padding-bottom: 8px; padding-top:8px'>$value->ESTUDIO</h2>";
+
+       foreach ($jsonData[$key] as $key1 => $e) {
+
+           if ($area == 8) {
+               
+               $ruta_img = file_get_contents($e->url);
+               
+               $img_code = base64_encode($ruta_img);
+               
+               echo "<div class='img--container'><a href='$e->url' target='_blank'><img style='max-width: 5%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
+           }else {
+                   # code...
+
+                   if ($img_pasadas == 1){
+                       echo "<table>";
+                       // echo "&lt;table&gt;";
+                   }
+
+                   if($cierre == 1){
+                       echo "<tr>";
+                       // echo '&lt;tr&gt;';
+                   }
+
+                   $ruta_img = file_get_contents($e->url);
+                       
+                   $img_code = base64_encode($ruta_img);
+
+                   echo "<td class=''><a href='$e->url' target='_blank'><img style='max-width: 90%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></td>";
+                   // echo "&lt;td&gt;&lt;/td&gt;";
+
+                   $cierre++;
+                   $img_pasadas = $img_pasadas + 1;
+
+
+                   if ($cierre === 3){
+                       echo "</tr>";
+
+                       // echo '&lt;/tr&gt;';
+                       $cierre = 1;
+                   }
+
+                   if ($img_pasadas === 5){
+                       echo "</table>";
+
+                       // echo '&lt;/table&gt;';
+                       if  ($d % 3 === 0){
+                           echo "<div class='break'></div>QEWR";
+                       }
+
+                       $img_pasadas = 1;
+                   }
+                   $d++;
+           }
         
-        foreach ($resultados->ESTUDIOS as $key => $value) {
-            // code...
-            // echo "</tr>";
-            // echo "</table>";
-            // echo "<div class='break'></div>";c
-            echo "<h2 style='padding-bottom: 8px; padding-top:8px'>$value->ESTUDIO</h2>";
+       }
 
-            // echo "<pre>";
-            // var_dump($jsonData);
-            // echo "</pre>;";
+       // Si es menos de 4 imagenes hay que hacer un calculo para rellenar las imagenes y sea 2 por 2 para hacer la tabla completa
+       // echo $cierre;
+       // echo $img_pasadas;
 
-         
+       if ($area == 11){
 
-            
-            foreach ($jsonData[$key] as $key2 => $captura) {
-                
-                if ($area == 8) {
-                    
-                    $ruta_img = file_get_contents($captura->url);
-                    
-                    $img_code = base64_encode($ruta_img);
-                    
-                    echo "<div class='img--container'><a href='$captura->url' target='_blank'><img style='max-width: 5%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
-                } else if ($area == 11) {
-                    if ($img_pasadas == 1) {
-                        echo "<table style='padding: 20px;width: 100%; border-collapse: collapse;'>";
-                    }
-                    
-                    if ($cierre == 1) {
-                        echo "<tr >";
-                    }
-                    $ruta_img = file_get_contents($captura->url);
-                    
-                    $img_code = base64_encode($ruta_img);
-                    
-                    echo "<td class='border-1'><a href='$captura->url' target='_blank'><img style='max-width: 100%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></td>";
-                    echo "<div class='break'></div>";
-                    $cierre++;
-                    if ($cierre == 3) {
-                        echo "</tr>";
-                        $cierre = 1;
-                    }
-                    
-                    $img_pasadas++;
-                    if ($img_pasadas == 5) {
-                        echo "</table>";
-                        echo "<div class='break'></div>";
-                        $img_pasadas = 1;
-                    }
-                    $d++;
-                }
-            } 
-            
-            if ($area == 11) {
-                // echo "</table>";
-                
-                if ($img_pasadas < 5) {
-                    for ($i = 0; $i <= 5 - $img_pasadas; $i++) {
-                        # code...
-                        echo "<td class='border-1'></td>";
-                        $cierre++;
-                        if ($cierre == 3) {
-                            echo "</tr>";
-                            $cierre = 1;
-                        }
-                        
-                        $img_pasadas++;
-                    }
-                    
-                    if ($img_pasadas == 5) {
-                        echo "</tr>";
-                        echo "</table>";
-                        // echo "<div class='break'></div>";
-                        $img_pasadas = 1;
-                    }
-                    // echo "</table>";
-                    // echo "<div class='break'></div>";   
-                }
-            }
-            $j++;
-            if ($j == $countArray - 1) {
-                ?>
-                <div class="break"></div>
-                <?php
-            }
-        }
+           if  ($d % 4 !== 0){
+               for ($i=0;$i <= 5 - $img_pasadas;$i++) {
 
-        
-        ?>
+          
+
+                   if ($cierre == 3){
+                       echo "</tr>";
+                       // echo '&lt;/tr&gt;';
+                       $cierre = 1;
+                   } 
+
+                   if ($cierre == 1){
+                       echo "<tr>";
+                       // echo '&lt;tr&gt;';
+                       }
+
+                   // echo "&lt;td&gt;&lt;/td&gt;";
+                   echo "<td></td>";
+                   // echo $cierre;
+
+                   
+
+                   if ($img_pasadas === 5){
+                       // echo '</tr>';
+                       $img_pasadas = 1;
+                   }
+
+                   // echo "<td class='border-1'></td>";
+
+                   $cierre++;
+                   $img_pasadas = $img_pasadas + 1;
+               }
+
+
+
+               echo "</tr>";
+               echo "</table>";
+
+           }
+
+           
+           // echo '&lt;/tr&gt;';
+           // echo '&lt;/table&gt;';
+             
+
+       }
+       
+       $cierre = 1;
+       $img_pasadas = 1;
+
+       if (next($resultados->ESTUDIOS)){
+           echo "<div class='break'>HOL</div>HOL";
+       }
+   }
+
    
+   ?>
+
     </div>
 </body>
 <?php
