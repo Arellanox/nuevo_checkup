@@ -28,7 +28,7 @@
             top: -165px;
             left: 25px;
             right: 25px;
-            height: 220px;
+            height: 235px;
             margin-top: 0;
             /* background-color: cadetblue; */
         }
@@ -204,6 +204,53 @@
             max-width: 25%;
             text-align: center;
         }
+
+        .table {
+            margin-top: 1px !important;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            margin: auto;
+            white-space: normal;
+            word-break: break-all;
+        }
+
+        .table>tr,
+        .table>tr>td {
+            text-align: left;
+            padding: 5px !important;
+            border-bottom: 1px solid #ddd;
+
+        }
+
+        .table>tr {
+            background-color: #f2f2f2;
+        }
+
+        .pregunta-row {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            padding: 3px;
+            text-align: left;
+            font-size: 10px;
+        }
+
+        .respuesta-row,
+        .comentario-row {
+            background-color: #fff;
+            padding: 2px;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 9px;
+        }
+
+        .respuesta2-row {
+            background-color: #fff;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 11px;
+        }
     </style>
 </head>
 
@@ -237,8 +284,7 @@ if (!isset($qr)) {
 
 <body>
     <div class="header">
-        <br><br>
-
+        <br>
         <table>
             <tbody>
                 <tr>
@@ -396,30 +442,78 @@ if (!isset($qr)) {
     <!-- body -->
     <div class="invoice-content">
         <br>
-        <p>
-            <strong>
-                ANTECEDENTES PERSONALES
-            </strong>
-            <br>
-            <?php echo $resultados->ANTECEDENTES_PERSONALES; ?> <br>
-        </p>
-        <p>
-            <strong>
-                ANTECEDENTES OFTALMOLÓGICOS
-            </strong>
-            <br>
-            <?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?> <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">ANTECEDENTES PERSONALES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->ANTECEDENTES_PERSONALES; ?> </td>
+                </tr>
+            </tbody>
+        </table>
 
+        <!-- <p class="pregunta-row">
+            ANTECEDENTES PERSONALES
         </p>
-        <p>
+        <?php echo $resultados->ANTECEDENTES_PERSONALES; ?> <br> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">ANTECEDENTES OFTALMOLÓGICOS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="respuesta-row"> <?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p class="pregunta-row">ANTECEDENTES OFTALMOLÓGICOS</p>
+        <p class="respuesta-row"><?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?></p> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">PADECIMIENTO ACTUAL.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="respuesta-row"> <?php echo $resultados->PADECIMIENTO_ACTUAL; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p>
             <strong>
                 PADECIMIENTO ACTUAL.
             </strong>
             <br>
             <?php echo $resultados->PADECIMIENTO_ACTUAL; ?><br>
 
-        </p>
-        <p>
+        </p> -->
+
+
+        <table class="table">
+            <tr>
+                <th class="pregunta-row" style="text-align: center;" colspan="2">AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN</th>
+            </tr>
+            <tr>
+                <td class="respuesta-row" style="text-align: center;">OD</td>
+                <td class=" respuesta-row" style="text-align: center;">OI</td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->OD; ?></td>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->OI; ?></td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;" colspan="2">VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE RESENBAUM: <?php echo $resultados->JAEGER; ?></td>
+            </tr>
+        </table>
+        <!-- <p>
             <strong>
                 AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN
             </strong>
@@ -437,8 +531,25 @@ if (!isset($qr)) {
                 VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE RESENBAUM:
             </strong>
             <?php echo $resultados->JAEGER; ?> <br>
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <tr>
+                <th class="pregunta-row" style="text-align: center;" colspan="2">AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN</th>
+            </tr>
+            <tr>
+                <td class="respuesta-row" style="text-align: center;">OD</td>
+                <td class=" respuesta-row" style="text-align: center;">OI</td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->CON_OD; ?></td>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->OI; ?></td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;" colspan="2">VISIÓN CERCANA CON CORRECCIÓN TARJETA DE RESENBAUM: <?php echo $resultados->CON_JAEGER; ?></td>
+            </tr>
+        </table>
+        <!-- <p>
             <strong>
                 AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN
             </strong>
@@ -456,43 +567,122 @@ if (!isset($qr)) {
                 VISIÓN CERCANA CON CORRECCIÓN TARJETA DE RESENBAUM:
             </strong>
             <?php echo $resultados->CON_JAEGER; ?> <br>
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">REFRACCIÓN:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->REFRACCION; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p>
             <strong>
                 REFRACCIÓN:
             </strong>
             <?php echo "$resultados->REFRACCION"; ?>
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">PRUEBA ISHIHARA:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->PRUEBA; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p>
             <strong>
                 PRUEBA ISHIHARA:
             </strong>
             <?php echo $resultados->PRUEBA; ?>
 
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">EXPLORACIÓN OFTALMOLÓGICA:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->EXPLORACION_OFTALMOLOGICA; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p>
             <strong>
                 EXPLORACIÓN OFTALMOLÓGICA:
             </strong>
             <br>
             <?php echo $resultados->EXPLORACION_OFTALMOLOGICA; ?>
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">FORIAS:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->FORIAS; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p>
             <strong>
                 FORIAS:
             </strong>
             <?php echo $resultados->FORIAS; ?>
 
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">CAMPIMETRÍA POR CONFRONTACIÓN:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->CAMPIMETRIA; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p>
             <strong>
                 CAMPIMETRÍA POR CONFRONTACIÓN:
             </strong>
             <?php echo $resultados->CAMPIMETRIA; ?>
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <tr>
+                <th class="pregunta-row" style="text-align: center;" colspan="2">PRESIÓN INTRAOCULAR.</th>
+            </tr>
+            <tr>
+                <td class="respuesta-row" style="text-align: center;">OD</td>
+                <td class=" respuesta-row" style="text-align: center;">OI</td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->PRESION_INTRAOCULAR_OD; ?></td>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->PRESION_INTRAOCULAR_OI; ?></td>
+            </tr>
+        </table>
+        <!-- <p>
             <strong>
-                PRESIÓN INTRAOCULAR.
+                PRESIÓN INTRAOCULAR
             </strong>
             <br>
             <strong>
@@ -503,28 +693,68 @@ if (!isset($qr)) {
                 OI:
             </strong>
             <?php echo $resultados->PRESION_INTRAOCULAR_OI ?>
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">DIAGNÓSTICO:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->DIAGNOSTICO; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p>
             <strong>
                 DIAGNÓSTICO.
             </strong>
             <br>
             <?php echo $resultados->DIAGNOSTICO ?>
-        </p>
-        <p>
+        </p> -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">PLAN:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->PLAN; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p>
             <strong>
                 PLAN:
             </strong>
             <?php echo " $resultados->PLAN" ?>
-        </p>
-        <p>
+        </p> -->
+        <?php if ($resultados->OBSERVACIONES) { ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="pregunta-row">OBSERVACIONES:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="comentario-row"> <?php echo $resultados->OBSERVACIONES; ?> </td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php } ?>
+        <!-- <p>
             <?php if ($resultados->OBSERVACIONES) { ?>
                 <strong>
                     OBSERVACIONES:
                 </strong>
             <?php echo " $resultados->OBSERVACIONES";
             } ?>
-        </p>
+        </p> -->
     </div>
 </body>
 
