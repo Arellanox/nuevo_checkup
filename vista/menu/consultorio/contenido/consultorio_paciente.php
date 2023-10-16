@@ -62,7 +62,7 @@ session_start();
 
 
   </div>
-  <div class="col-12 col-lg" style="margin-bottom:10px;">
+  <div class="col-12 col-lg-4" style="margin-bottom:10px;">
 
     <div class="rounded p-3 shadow-sm my-2 mt-2" id="listado-resultados"></div>
     <div class="rounded p-3 shadow-sm my-2 mt-2 p-2" id="consultorio-conclusiones">
@@ -153,7 +153,7 @@ session_start();
     </div>
 
     <!-- Audiometría -->
-    <!-- <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
+    <!-- <div >
       <h4>Audiometría</h4>
       <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
         data-bs-toggle="modal" data-bs-target="#modalCapturaOidos">
