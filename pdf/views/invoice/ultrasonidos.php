@@ -460,7 +460,7 @@ $encode_firma = base64_encode($ruta_firma);
                
                $img_code = base64_encode($ruta_img);
                
-               echo "<div class='img--container'><a href='$e->url' target='_blank'><img style='max-width: 5%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
+               echo "<div class='img--container'><a href='$e->url' target='_blank'><img style='max-width: 50%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
            }else {
                    # code...
 
@@ -497,7 +497,7 @@ $encode_firma = base64_encode($ruta_firma);
 
                        // echo '&lt;/table&gt;';
                        if  ($d % 3 === 0){
-                           echo "<div class='break'></div>QEWR";
+                           echo "<div class='break'></div>";
                        }
 
                        $img_pasadas = 1;
@@ -564,7 +564,7 @@ $encode_firma = base64_encode($ruta_firma);
        $img_pasadas = 1;
 
        if (next($resultados->ESTUDIOS)){
-           echo "<div class='break'>HOL</div>HOL";
+           echo "<div class='break'></div>";
        }
    }
 
