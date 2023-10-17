@@ -1,6 +1,6 @@
 contenidoMuestras()
 
-var TablaTablaReporteEpidemiologico, dataReporteEpidemiologico = {}
+var TablaTablaReporteEpidemiologico, dataReporteEpidemiologico
 
 async function contenidoMuestras() {
     await obtenerTitulo("Reporte epidemiológico");

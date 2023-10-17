@@ -14,7 +14,7 @@ $menu = $_POST['menu']; ?>
 
 
 <?php if ($menu == "Reporte epidemiológico") : ?>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTabla">
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTablaReporteEpidemio">
     <i class="bi bi-archive"></i> Filtro
   </button>
 <?php endif; ?>
