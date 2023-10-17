@@ -11,17 +11,17 @@
                 <form id="filtroTablaFormPacientes" name="filtroTablaFormPacientes" class="row">
                     <p>Selecciona un rango de fecha a filtrar</p>
                     <div class="col-12">
-                        <label for="fecha_inicial_pacientes" class="form-label">Fecha Inicial</label>
-                        <input type="date" name="fecha_inicial_pacientes" id="fecha_inicial_pacientes" class="form-input input-form" required>
+                        <label for="fecha_inicial_epidemio" class="form-label">Fecha Inicial</label>
+                        <input type="date" name="fecha_inicial_epidemio" id="fecha_inicial_epidemio" class="form-input input-form" required>
                     </div>
                     <div class="col-12">
-                        <label for="fecha_final_pacientes" class="form-label">Fecha Final</label>
-                        <input type="date" name="fecha_final_pacientes" id="fecha_final_pacientes" class="form-input input-form" required>
+                        <label for="fecha_final_epidemio" class="form-label">Fecha Final</label>
+                        <input type="date" name="fecha_final_epidemio" id="fecha_final_epidemio" class="form-input input-form" required>
                     </div>
 
                     <div class="col-12">
-                        <label for="fecha_final_pacientes" class="form-label">Resultado</label>
-                        <input type="text" name="fecha_final_pacientes" id="fecha_final_pacientes" class="form-input input-form" required>
+                        <label for="resultado_epidemio" class="form-label">Resultado</label>
+                        <input type="text" name="resultado_epidemio" id="resultado_epidemio" class="form-input input-form" required>
                     </div>
 
                 </form>

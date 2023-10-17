@@ -96,6 +96,17 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
         //             <i class="bi bi-clipboard2-pulse-fill btn-vizu-reporte"></i>
         //         </button>`
         // }
+    ],
+    buttons: [
+        {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i> Excel',
+            className: 'btn btn-success',
+            titleAttr: 'Excel',
+            action: function () {
+                alert(1);
+            }
+        }
     ]
 })
 
