@@ -216,28 +216,34 @@ class Correo
 
             # send email
             $mail->send();
-            $response = $master->insertByProcedure("sp_correos_g", [
-                $id_turno,
-                $area_id,
-                $this->getCorreoSeleccionado(),
-                json_encode($emails),
-                null,
-                "CORRECTO",
-                1
-            ]);
+            if(isset($id_turno)){
+
+                $response = $master->insertByProcedure("sp_correos_g", [
+                    $id_turno,
+                    $area_id,
+                    $this->getCorreoSeleccionado(),
+                    json_encode($emails),
+                    null,
+                    "CORRECTO",
+                    1
+                ]);
+            }
 
             return true;
         } catch (Exception $e) {
 
-            $response = $master->insertByProcedure("sp_correos_g", [
-                $id_turno,
-                $area_id,
-                $this->getCorreoSeleccionado(),
-                json_encode($emails),
-                null,
-                "ERROR",
-                0
-            ]);
+            if(isset($id_turno)){
+
+                $response = $master->insertByProcedure("sp_correos_g", [
+                    $id_turno,
+                    $area_id,
+                    $this->getCorreoSeleccionado(),
+                    json_encode($emails),
+                    null,
+                    "ERROR",
+                    0
+                ]);
+            }
 
             $mis->setLog($e, "Clase correo [sendMail]");
             return false;
