@@ -28,7 +28,7 @@
             top: -165px;
             left: 25px;
             right: 25px;
-            height: 220px;
+            height: 235px;
             margin-top: 0;
             /* background-color: cadetblue; */
         }
@@ -204,6 +204,53 @@
             max-width: 25%;
             text-align: center;
         }
+
+        .table {
+            margin-top: 1px !important;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            margin: auto;
+            white-space: normal;
+            word-break: break-all;
+        }
+
+        .table>tr,
+        .table>tr>td {
+            text-align: left;
+            padding: 5px !important;
+            border-bottom: 1px solid #ddd;
+
+        }
+
+        .table>tr {
+            background-color: #f2f2f2;
+        }
+
+        .pregunta-row {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            padding: 3px;
+            text-align: left;
+            font-size: 10px;
+        }
+
+        .respuesta-row,
+        .comentario-row {
+            background-color: #fff;
+            padding: 2px;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 9px;
+        }
+
+        .respuesta2-row {
+            background-color: #fff;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 11px;
+        }
     </style>
 </head>
 
@@ -236,295 +283,231 @@ if (!isset($qr)) {
 ?>
 
 <body>
+    <!-- header -->
     <div class="header">
-        <br><br>
-
-        <table>
-            <tbody>
-                <tr>
-                    <td class="col-der" style="border-bottom: none">
-                        <h4>
-                            DIAGNÓSTICO BIOMOLECULAR S.A.de C.V. <br>
-                            Checkup Clínica y Prevención<br>
-                            Reporte de Oftalmologia
-                        </h4>
-                    </td>
-                    <td class="col-izq" style="border-bottom: none; text-align:center;">
-                        <?php
-                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
-                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
-                        ?>
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table>
-            <tbody>
-                <tr>
-                    <td style="text-align: center; border-style: solid none solid none; ">
-                        <h3>
-                            Datos del paciente
-                        </h3>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table>
-            <tbody>
-                <tr>
-                    <td class="col-left" style="border-bottom: none">
-                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_OFTALMO; ?> </strong>
-                    </td>
-                    <td class="col-center" style="border-bottom: none">
-                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
-                    </td>
-                    <td class="col-right" style="border-bottom: none">
-                        Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-left" style="border-bottom: none">
-                        Nombre: <strong style="font-size: 12px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
-                    </td>
-                    <td class="col-center" style="border-bottom: none">
-                        Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?> </strong>
-                    </td>
-                    <td class="col-right" style="border-bottom: none">
-                        Pasaporte: <strong style='font-size:12px'> <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-left" style="border-bottom: none">
-                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_OFTALMO; ?> </strong>
-                    </td>
-                    <td class="col-center" style="border-bottom: none">
-                    </td>
-                    <td class="col-right" style="border-bottom: none">
-                        <!-- Tipo de Muestra: <strong>Sangre</strong> -->
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-left" style="border-bottom: none">
-                    </td>
-                    <td class="col-center" style="border-bottom: none">
-                    </td>
-                    <td class="col-right" style="border-bottom: none">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
-            <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
-
-            <span style="margin-left: 20px;">
-                <!-- Tipo de muestra  -->
-                <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
-            </span>
-        </p>
-        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
-            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
-        </p>
-        <!-- <p>Aqui va el encabezado y es el espacio disponible hasta donde llegue el titulo siguiente.</p> -->
-
+        <?php
+        $titulo = 'Checkup Clínica y Prevención';
+        $tituloPersonales = 'Informacón del paciente';
+        $subtitulo = 'Reporte de Oftalmologia';
+        $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
+        include 'includes/header.php';
+        ?>
     </div>
 
-    <!-- Oftalmologia se necesita volverlo hacer -->
+    <!-- Footer 1 chido -->
     <div class="footer">
-        <table>
-            <tbody>
-                <tr class="col-foot-one">
-                    <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
-                </tr>
-                <tr class="col-foot-two">
-                    <td colspan="10">
-                    </td>
-                    <td colspan="2" style="text-align: left;">
-                        <?php
-                        if ($preview == 0) {
-                            echo "<img style='position:absolute; right:5px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
-                        }
-                        ?>
-                    </td>
-                </tr>
-                <tr class="col-foot-three" style="font-size: 13px;">
-                    <td colspan="6" style="text-align: center; width: 50%">
-                        <?php
-                        if ($preview == 0) {           # $qr[0]
-                            echo "<a target='_blank' href='" . $validacion . "'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                        }
-                        ?>
-                    </td>
-                    <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                        <strong style="font-size: 10px;">
-                            <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br>' . $pie['datos_medicos'][0]['CARRERA'] . ' - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
-                            $indice = 1;
-                            foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
-                                $indice++;
-                                echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
-                                echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
-                            }
-                            ?>
+        <?php
+        // $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        $nombre_doctor = $pie['datos_medicos']['0']['NOMBRE_COMPLETO'];
+        $uni = $pie['datos_medicos']['0']['UNIVERSIDAD'];
+        $cedula = $pie['datos_medicos']['0']['CEDULA'];
 
-                            <?php
-                            // echo $pie['datos_medicos'];
-                            ?>
-                            <!-- Dra. Zoila Aideé Quiroz Colorado <br> 
-                            Universidad - Cedula <br>
-                            Radiologia / Universidad / Cedula <br>
-                            Certificado por: Quien certifica <br>
-                            Subespecialista en radiología pediátrica / Universidad / Cedula<br>
-                            Certificado por: escuela de doctores <br> -->
-                        </strong>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <hr style="height: 0.5px; background-color: black ;">
-        <p style="text-align: center;"><small>
-                <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
-                <strong style="font-size: 11px;">Teléfonos: </strong>
-                <strong style="font-size: 11px;">993 634 0250, 993 634 6245</strong>
-                <strong style="font-size: 11px;">Correo electrónico:</strong>
-                <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">resultados@</strong>
-                <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
-                <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
-            </small></p>
+        $footerDoctor = "$nombre_doctor <br>$uni - Cédula profesional: $cedula";
+
+
+
+
+        include 'includes/footer.php';
+        ?>
     </div>
 
     <!-- body -->
     <div class="invoice-content">
         <br>
-        <p>
-            <strong>
-                ANTECEDENTES PERSONALES
-            </strong>
-            <br>
-            <?php echo $resultados->ANTECEDENTES_PERSONALES; ?> <br>
-        </p>
-        <p>
-            <strong>
-                ANTECEDENTES OFTALMOLÓGICOS
-            </strong>
-            <br>
-            <?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?> <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">ANTECEDENTES PERSONALES:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->ANTECEDENTES_PERSONALES; ?> </td>
+                </tr>
+            </tbody>
+        </table>
 
-        </p>
-        <p>
-            <strong>
-                PADECIMIENTO ACTUAL.
-            </strong>
-            <br>
-            <?php echo $resultados->PADECIMIENTO_ACTUAL; ?><br>
 
-        </p>
-        <p>
-            <strong>
-                AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN
-            </strong>
-            <?php //echo $resultados->AGUDEZA_VISUAL; //_CON 
-            ?> <br>
-            <strong>
-                OD:
-            </strong>
-            <?php echo $resultados->OD; ?><br>
-            <strong>
-                OI:
-            </strong>
-            <?php echo $resultados->OI; ?> <br>
-            <strong>
-                VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE RESENBAUM:
-            </strong>
-            <?php echo $resultados->JAEGER; ?> <br>
-        </p>
-        <p>
-            <strong>
-                AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN
-            </strong>
-            <?php //echo $resultados->AGUDEZA_VISUAL_CON_CORRECCION; //_CON 
-            ?> <br>
-            <strong>
-                OD:
-            </strong>
-            <?php echo $resultados->CON_OD; ?><br>
-            <strong>
-                OI:
-            </strong>
-            <?php echo $resultados->CON_OI; ?> <br>
-            <strong>
-                VISIÓN CERCANA CON CORRECCIÓN TARJETA DE RESENBAUM:
-            </strong>
-            <?php echo $resultados->CON_JAEGER; ?> <br>
-        </p>
-        <p>
-            <strong>
-                REFRACCIÓN:
-            </strong>
-            <?php echo "$resultados->REFRACCION"; ?>
-        </p>
-        <p>
-            <strong>
-                PRUEBA ISHIHARA:
-            </strong>
-            <?php echo $resultados->PRUEBA; ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">ANTECEDENTES OFTALMOLÓGICOS:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="respuesta-row"> <?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?> </td>
+                </tr>
+            </tbody>
+        </table>
 
-        </p>
-        <p>
-            <strong>
-                EXPLORACIÓN OFTALMOLÓGICA:
-            </strong>
-            <br>
-            <?php echo $resultados->EXPLORACION_OFTALMOLOGICA; ?>
-        </p>
-        <p>
-            <strong>
-                FORIAS:
-            </strong>
-            <?php echo $resultados->FORIAS; ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">PADECIMIENTO ACTUAL:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="respuesta-row"> <?php echo $resultados->PADECIMIENTO_ACTUAL; ?> </td>
+                </tr>
+            </tbody>
+        </table>
 
-        </p>
-        <p>
-            <strong>
-                CAMPIMETRÍA POR CONFRONTACIÓN:
-            </strong>
-            <?php echo $resultados->CAMPIMETRIA; ?>
-        </p>
-        <p>
-            <strong>
-                PRESIÓN INTRAOCULAR.
-            </strong>
-            <br>
-            <strong>
-                OD:
-            </strong>
-            <?php echo $resultados->PRESION_INTRAOCULAR_OD ?>
-            <strong>
-                OI:
-            </strong>
-            <?php echo $resultados->PRESION_INTRAOCULAR_OI ?>
-        </p>
-        <p>
-            <strong>
-                DIAGNÓSTICO.
-            </strong>
-            <br>
-            <?php echo $resultados->DIAGNOSTICO ?>
-        </p>
-        <p>
-            <strong>
-                PLAN:
-            </strong>
-            <?php echo " $resultados->PLAN" ?>
-        </p>
-        <p>
-            <?php if ($resultados->OBSERVACIONES) { ?>
-                <strong>
-                    OBSERVACIONES:
-                </strong>
-            <?php echo " $resultados->OBSERVACIONES";
-            } ?>
-        </p>
+        <table class="table">
+            <tr>
+                <th class="pregunta-row" style="text-align: center;" colspan="2">AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN</th>
+            </tr>
+            <tr>
+                <td class="respuesta-row" style="text-align: center;">OD</td>
+                <td class=" respuesta-row" style="text-align: center;">OI</td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->OD; ?></td>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->OI; ?></td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;" colspan="2">VISIÓN CERCANA SIN CORRECCIÓN TARJETA DE RESENBAUM: <?php echo $resultados->JAEGER; ?></td>
+            </tr>
+        </table>
+
+        <table class="table">
+            <tr>
+                <th class="pregunta-row" style="text-align: center;" colspan="2">AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN</th>
+            </tr>
+            <tr>
+                <td class="respuesta-row" style="text-align: center;">OD</td>
+                <td class=" respuesta-row" style="text-align: center;">OI</td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->CON_OD; ?></td>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->CON_OI; ?></td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;" colspan="2">VISIÓN CERCANA CON CORRECCIÓN TARJETA DE RESENBAUM: <?php echo $resultados->CON_JAEGER; ?></td>
+            </tr>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">REFRACCIÓN:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->REFRACCION; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">PRUEBA ISHIHARA:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->PRUEBA; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">EXPLORACIÓN OFTALMOLÓGICA:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->EXPLORACION_OFTALMOLOGICA; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">FORIAS:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->FORIAS; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">CAMPIMETRÍA POR CONFRONTACIÓN:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->CAMPIMETRIA; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <tr>
+                <th class="pregunta-row" style="text-align: center;" colspan="2">PRESIÓN INTRAOCULAR</th>
+            </tr>
+            <tr>
+                <td class="respuesta-row" style="text-align: center;">OD</td>
+                <td class=" respuesta-row" style="text-align: center;">OI</td>
+            </tr>
+            <tr>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->PRESION_INTRAOCULAR_OD; ?></td>
+                <td class=" respuesta-row" style="text-align: center;"><?php echo $resultados->PRESION_INTRAOCULAR_OI; ?></td>
+            </tr>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">DIAGNÓSTICO:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->DIAGNOSTICO; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pregunta-row">PLAN:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="comentario-row"> <?php echo $resultados->PLAN; ?> </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <?php if ($resultados->OBSERVACIONES) { ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="pregunta-row">OBSERVACIONES:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="comentario-row"> <?php echo $resultados->OBSERVACIONES; ?> </td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php } ?>
+
     </div>
 </body>
 
