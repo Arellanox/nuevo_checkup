@@ -3,6 +3,7 @@ include_once("miscelaneus.php");
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
+include_once("credenciales_access/email_connect.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -10,9 +11,12 @@ use PHPMailer\PHPMailer\Exception;
 
 class Correo
 {
+    private $emailCred;
+    public $correo_seleccionado;
 
     function Correo()
     {
+        $this->emailCred = new EmailConnect();
     }
 
     function sendLinkByEmail($email, $token)
@@ -131,7 +135,9 @@ class Correo
         #configuramos el correo de donde saldran los mensajes, la cabecer, etc
         if ($resultados == 0) {
             $username = 'hola@bimo-lab.com';
-            $password = 'X@96ck6B1V4&tm!4QZp3F';
+            // $password = 'X@96ck6B1V4&tm!4QZp3F';
+            $this->setCorreoSeleccionado($username);
+            $password = $this->emailCred->hola;
             $fromName = 'bimo';
         } else if ($resultados == 1) {
             $username = 'soporte@bimo-lab.com';
@@ -141,7 +147,9 @@ class Correo
             $fromName = 'Resultados [bimo]';
         } else {
             $username = 'resultados@bimo-lab.com';
-            $password = 'Bimo2023!';
+            $this->setCorreoSeleccionado($username);
+            // $password = 'Bimo2023!';
+            $password = $this->emailCred->resultados;
             $fromName = 'Resultados [bimo]';
         }
 
