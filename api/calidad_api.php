@@ -14,7 +14,7 @@ $master = new Master();
 $api = $_POST['api'];
 $fecha_inicio = $_POST['fecha_inicio'];
 $fecha_final = $_POST['fecha_final'];
-$resultado = $_POST['resultado'];
+$resultado = $master->setToNull([$_POST['resultado']])[0];
 
 switch ($api) {
     case 1:
