@@ -61,11 +61,23 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
             }
         },
         { data: 'SERVICIO' },
-        { data: 'LABORATORIO' },
+        {
+            data: 'LABORATORIO', render: function (data) {
+                return ifnull(data, 'N/A')
+            }
+        },
         { data: 'PATOGENOS' },
 
-        { data: 'FOLIO' },
-        { data: 'EDAD' },
+        {
+            data: 'FOLIO', render: function (data) {
+                return ifnull(data, 'N/A')
+            }
+        },
+        {
+            data: 'EDAD', render: function (data) {
+                return `${data} años`;
+            }
+        },
         { data: 'GENERO' },
         { data: 'CELULAR' },
         {
