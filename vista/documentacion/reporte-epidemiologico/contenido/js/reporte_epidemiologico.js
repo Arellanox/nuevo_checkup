@@ -19,7 +19,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
     lengthChange: false,
     info: false,
     paging: true,
-    scrollY: '40vh',
+    scrollY: '35vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -28,7 +28,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
 
         },
         method: 'POST',
-        url: `${http}${servidor}/${appname}/api/medicos_tratantes_api.php`,
+        url: `${http}${servidor}/${appname}/api/calidad_api.php`,
         beforeSend: function () {
         },
         complete: function () {
@@ -41,49 +41,60 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
         dataSrc: 'response.data'
     },
     columns: [
-        // { data: 'COUNT' },
-        // { data: 'PX' },
-        // { data: 'NOMBRE_MEDICO' },
-        // { data: 'CLIENTE' },
-        // {
-        //     data: 'FECHA_RECEPCION', render: function (data) {
-        //         return formatoFecha2(data, [0, 1, 3, 1])
-        //     }
-        // },
-        // {
-        //     data: 'FECHA_AGENDA', render: function (data) {
-        //         return formatoFecha2(data, [0, 1, 3, 1])
-        //     }
-        // },
-        // { data: 'PREFOLIO' },
-        // { data: 'ID_TURNO' },
-        // {
-        //     data: 'EDAD', render: function (data) {
-        //         return formatoEdad(data)
-        //     }
-        // },
-        // { data: 'GENERO' },
-        // { data: null },
+        { data: 'numero_de_registro' },
+        { data: 'NOMBRE_COMPLETO' },
+        {
+            data: 'FECHA', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1])
+            }
+        },
+        { data: 'PREFOLIO' },
+        {
+            data: 'FECHA_CONFIRMADO', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1])
+            }
+        },
+        { data: 'RESULTADO_GLOBAL' },
+        {
+            data: 'FECHA_RESULTADO', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1])
+            }
+        },
+        { data: 'SERVICIO' },
+        { data: 'LABORATORIO' },
+        { data: 'PATOGENOS' },
+
+        { data: 'FOLIO' },
+        { data: 'EDAD' },
+        { data: 'GENERO' },
+        { data: 'CELULAR' },
+        {
+            data: 'NACIMIENTO', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1])
+            }
+        },
+        { data: 'MUNICIPIO' },
+        { data: 'DOMICILIO' },
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '1%' },
         { target: 1, title: 'Nombre', className: 'all' },
-        { target: 2, title: 'Num. Registro', className: 'all' },
-        { target: 3, title: 'Fecha de recepcion', className: 'all' },
-        { target: 4, title: 'Prefolio', className: 'all' },
-        { target: 5, title: 'Fecha confirmado', className: 'all' },
-        { target: 6, title: 'Resultado', className: 'all' },
-        { target: 7, title: 'Fecha resultado', className: 'all' },
-        { target: 8, title: 'Servicio', className: 'all' },
-        { target: 9, title: 'Laboratorio', className: 'all' },
+        { target: 2, title: 'Fecha recepción', className: 'all' },
+        { target: 3, title: 'Prefolio', className: 'all' },
+        { target: 4, title: 'Fecha confirmado', className: 'all' },
+        { target: 5, title: 'Resultado', className: 'all' },
+        { target: 6, title: 'Fecha resultado', className: 'all' },
+        { target: 7, title: 'Servicio', className: 'all' },
+        { target: 8, title: 'Laboratorio', className: 'all' },
+        { target: 9, title: 'Patogenos', className: 'all' },
 
-        { target: 10, title: 'Edad', className: 'none' },
-        { target: 11, title: 'Sexo', className: 'none' },
-        { target: 12, title: 'Domicilio', className: 'none' },
+        { target: 10, title: 'Folio', className: 'none' },
+        { target: 11, title: 'Edad', className: 'none' },
+        { target: 12, title: 'Sexo', className: 'none' },
         { target: 13, title: 'Celular', className: 'none' },
-        { target: 14, title: 'Folio', className: 'none' },
-        { target: 15, title: 'Fecha de Nacimiento', className: 'none' },
-        { target: 16, title: 'Municipio', className: 'none' },
+        { target: 14, title: 'Fecha de Nacimiento', className: 'none' },
+        { target: 15, title: 'Municipio', className: 'none' },
+        { target: 16, title: 'Domicilio', className: 'none' },
 
         // {
         //     targets: 10,
@@ -97,6 +108,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
         //         </button>`
         // }
     ],
+    dom: 'Bfrtip',
     buttons: [
         {
             extend: 'excelHtml5',

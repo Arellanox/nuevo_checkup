@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <!-- <h5></h5>
                 <hr> -->
-                <form id="filtroTablaFormPacientes" name="filtroTablaFormPacientes" class="row">
+                <form id="filtroTablaFormEpidemiologico" name="filtroTablaFormEpidemiologico" class="row">
                     <p>Selecciona un rango de fecha a filtrar</p>
                     <div class="col-12">
                         <label for="fecha_inicial_epidemio" class="form-label">Fecha Inicial</label>
@@ -23,13 +23,12 @@
                         <label for="resultado_epidemio" class="form-label">Resultado</label>
                         <input type="text" name="resultado_epidemio" id="resultado_epidemio" class="form-input input-form" required>
                     </div>
-
                 </form>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
-                <button type="button" class="btn btn-confirmar" form="filtroTablaFormPacientes" id="actualizar_tabla_pacientes">
+                <button type="button" class="btn btn-confirmar" form="filtroTablaFormEpidemiologico" id="actualizar_tabla_epidemio">
                     <i class="bi bi-search"></i> Filtrar
                 </button>
             </div>

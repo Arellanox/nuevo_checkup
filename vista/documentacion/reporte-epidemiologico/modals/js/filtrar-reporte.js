@@ -10,14 +10,14 @@ $(document).ready(function () {
     document.getElementById('fecha_final_epidemio').valueAsDate = fechaActual;
 })
 
-$(document).on('click', '#actualizar_tabla_pacientes', function (e) {
+$(document).on('click', '#actualizar_tabla_epidemio', function (e) {
     e.preventDefault();
 
-    dataPacientesTratantes['fecha_inicio'] = $('#fecha_inicial_epidemio').val();
-    dataPacientesTratantes['fecha_fin'] = $('#fecha_final_epidemio').val();
-    dataPacientesTratantes['resultado'] = $('#resultado_epidemio').val();
+    dataReporteEpidemiologico['fecha_inicio'] = $('#fecha_inicial_epidemio').val();
+    dataReporteEpidemiologico['resultado'] = $('#resultado_epidemio').val();
+    dataReporteEpidemiologico['fecha_final'] = $('#fecha_final_epidemio').val();
 
-    tablaPacientesTratantes.ajax.reload();
+    TablaTablaReporteEpidemiologico.ajax.reload();
 
     alertMsj({
         title: 'Cargando...',
