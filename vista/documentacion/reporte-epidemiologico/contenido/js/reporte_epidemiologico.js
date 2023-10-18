@@ -42,35 +42,22 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
     },
     columns: [
         { data: 'numero_de_registro' },
-        { data: 'NOMBRE_COMPLETO' },
+        { data: 'PREFOLIO' },
+        {
+            data: 'FOLIO', render: function (data) {
+                return ifnull(data, 'N/A')
+            }
+        },
         {
             data: 'FECHA', render: function (data) {
                 return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
-        { data: 'PREFOLIO' },
-        {
-            data: 'FECHA_CONFIRMADO', render: function (data) {
-                return formatoFecha2(data, [0, 1, 3, 1])
-            }
-        },
-        { data: 'RESULTADO_GLOBAL' },
-        {
-            data: 'FECHA_RESULTADO', render: function (data) {
-                return formatoFecha2(data, [0, 1, 3, 1])
-            }
-        },
-        { data: 'SERVICIO' },
-        {
-            data: 'LABORATORIO', render: function (data) {
-                return ifnull(data, 'N/A')
-            }
-        },
-        { data: 'PATOGENOS' },
+        { data: 'NOMBRE_COMPLETO' },
 
         {
-            data: 'FOLIO', render: function (data) {
-                return ifnull(data, 'N/A')
+            data: 'NACIMIENTO', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
         {
@@ -79,34 +66,52 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
             }
         },
         { data: 'GENERO' },
+        { data: 'MUNICIPIO' },
+        { data: 'DOMICILIO' },
         { data: 'CELULAR' },
         {
-            data: 'NACIMIENTO', render: function (data) {
+            data: 'FECHA_CONFIRMADO', render: function (data) {
                 return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
-        { data: 'MUNICIPIO' },
-        { data: 'DOMICILIO' },
+        { data: 'SERVICIO' },
+        { data: 'RESULTADO_GLOBAL' },
+        {
+            data: 'PATOGENOS', render: function (data) {
+                return ifnull(data, 'N/A')
+            }
+        },
+        {
+            data: 'LABORATORIO', render: function (data) {
+                return ifnull(data, 'N/A')
+            }
+        },
+        {
+            data: 'FECHA_RESULTADO', render: function (data) {
+                return formatoFecha2(data, [0, 1, 3, 1])
+            }
+        },
+
+
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '1%' },
-        { target: 1, title: 'Nombre', className: 'all' },
-        { target: 2, title: 'Fecha recepción', className: 'all' },
-        { target: 3, title: 'Prefolio', className: 'all' },
-        { target: 4, title: 'Fecha confirmado', className: 'all' },
-        { target: 5, title: 'Resultado', className: 'all' },
-        { target: 6, title: 'Fecha resultado', className: 'all' },
-        { target: 7, title: 'Servicio', className: 'all' },
-        { target: 8, title: 'Laboratorio', className: 'all' },
-        { target: 9, title: 'Patogenos', className: 'all' },
-
-        { target: 10, title: 'Folio', className: 'none' },
-        { target: 11, title: 'Edad', className: 'none' },
-        { target: 12, title: 'Sexo', className: 'none' },
-        { target: 13, title: 'Celular', className: 'none' },
-        { target: 14, title: 'Fecha de Nacimiento', className: 'none' },
-        { target: 15, title: 'Municipio', className: 'none' },
-        { target: 16, title: 'Domicilio', className: 'none' },
+        { target: 1, title: 'Prefolio', className: 'all' },
+        { target: 2, title: 'Folio', className: 'none' },
+        { target: 3, title: 'Fecha recepción', className: 'all' },
+        { target: 4, title: 'Nombre', className: 'all' },
+        { target: 5, title: 'Fecha de Nacimiento', className: 'none' },
+        { target: 6, title: 'Edad', className: 'none' },
+        { target: 7, title: 'Sexo', className: 'none' },
+        { target: 8, title: 'Municipio', className: 'none' },
+        { target: 9, title: 'Domicilio', className: 'none' },
+        { target: 10, title: 'Celular', className: 'none' },
+        { target: 11, title: 'Fecha confirmado', className: 'all' },
+        { target: 12, title: 'Servicio', className: 'all' },
+        { target: 13, title: 'Resultado', className: 'all' },
+        { target: 14, title: 'Patogenos', className: 'all' },
+        { target: 15, title: 'Laboratorio', className: 'all' },
+        { target: 16, title: 'Fecha resultado', className: 'all' },
 
         // {
         //     targets: 10,
@@ -134,7 +139,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
             },
             exportOptions: {
                 // Especifica las columnas que deseas exportar
-                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
             }
 
         }
