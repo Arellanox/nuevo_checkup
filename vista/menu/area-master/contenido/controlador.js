@@ -223,6 +223,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $('.btn-capturas-pdf').fadeOut(0)
         $('#formSubirInterpretacion').fadeIn(0)
         $('.btn-resultados-espiro-pdf').fadeIn(0)
+        $('#btn-resultados-espiro-pdf').fadeIn(0)
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
 
