@@ -127,9 +127,16 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
             text: '<i class="fa fa-file-excel-o"></i> Excel',
             className: 'btn btn-success',
             titleAttr: 'Excel',
-            action: function () {
-                alert(1);
+            attr: {
+                'data-bs-toggle': "tooltip",
+                'data-bs-placement': "top",
+                title: "Genere el formato por toda la tabla de pacientes o filtrado (Filtrado por: Fecha, Procedencia...)"
+            },
+            exportOptions: {
+                // Especifica las columnas que deseas exportar
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
             }
+
         }
     ]
 })
