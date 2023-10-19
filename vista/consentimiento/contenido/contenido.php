@@ -75,19 +75,23 @@
             <div class="mt-3" id="">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between">
+                        <!-- Titulo y instrucciones de la firma -->
                         <div>
                             <h3 class="" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Firma:</h3>
                             <p>Dibuje su Firma en el recuadro, su firma se guardara automaticamente</p>
                         </div>
+                        <!-- Boton para reiniciar el canva de la firmas -->
                         <div>
                             <button class="btn btn-hover" onclick="resetFirma()" data_tipo="guardar" type="button">Reiniciar
                                 Firma</button>
                         </div>
                     </div>
+                    <!-- Canvas el cual contendra la firma -->
                     <div class="col-12 d-flex justify-content-center mt-3">
                         <canvas id="firmaCanvas" class="border shadow-sm" width="300" height="200"></canvas required>
                         <input type="hidden" id="firma" name="firma" required />
                     </div>
+                    <!-- Boton para enviar la firma y guardarla -->
                     <div class="col-12 d-flex justify-content-end mt-3">
                         <button class="btn btn-pantone-3165" id="enviar_firma_btn">
                             Enviar firma
