@@ -70,9 +70,9 @@
                 <br>
 
             </div>
-
+            <hr>
             <!-- Canvas para firmar -->
-            <div class="mt-3" id="">
+            <div class="mt-3" id="firma_div" style="display: none;">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between">
                         <!-- Titulo y instrucciones de la firma -->
@@ -96,6 +96,23 @@
                         <button class="btn btn-pantone-3165" id="enviar_firma_btn">
                             Enviar firma
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aviso que ya firmo y boton de visualizar reporte -->
+            <div class="mt-3" id="aviso_reporte" style="display: none;">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Titulo en caso de que ya haya firmado -->
+                        <div class="my-auto">
+                            <h3 class="my-auto" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">La firma ya ha sido guardada</h3>
+                        </div>
+                        <div class="mt-3">
+                            <button type="click" class="btn btn-borrar" id="btn-mostrar-formato-consentimiento" data-bs-toggle='tooltip' data-bs-placement='top' title="Visualizar el reporte con sus datos y firma">
+                                <i class="bi bi-file-earmark-pdf-fill"></i> Vista Previa
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

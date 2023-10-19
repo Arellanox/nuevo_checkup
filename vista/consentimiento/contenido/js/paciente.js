@@ -1,18 +1,73 @@
 // ----------- Formulario, Botones y PDF -----------------------------------
+$(document).ready(function () {
+    validar_si_existe_firma();
+});
+
+// Escucha el boton "Enviar firma"
 $(document).on("click", "#enviar_firma_btn", function () {
-    validarFormulario()
+
+    // Valida el canva si esta vacio manda una alerta
+    if (!validarFormulario())
+        return false;
+
+    // Se le manda un mensaje de alerta al usuario ya que no podra realizar esta accion una vez se envie
+    alertMensajeConfirm({
+        title: '¿Ha realizado su firma correctamente?',
+        text: 'Una vez envie su firma no podra volver a realizar esta acción',
+        icon: 'warning',
+        confirmButtonText: 'Si, estoy seguro',
+        cancelButtonText: 'No'
+    }, () => {
+        // Se manda a llamar al metodo para enviar la firma
+        enviar_firma();
+    }, 1)
+
 })
 
+// Function para enivar la firma
+function enviar_firma() {
+    // Se obtiene la firma codificada en base 64
+    let FIRMA = $("#firma").val();
 
+    // ajaxAwait({
+    //     api: 6,
+    //     id_registro_temperatura: selectRegistro['ID_REGISTRO_TEMPERATURA'],
+    //     estatus: 0
+    // }, 'temperatura_api', { callbackAfter: true }, false, () => {
 
+    // })
 
+    alertMsj({
+        title: '¡Su firma se ha guardado!', text: 'ya puede visualizar su reporte',
+        icon: 'success', allowOutsideClick: false, showCancelButton: false, showConfirmButton: true
+    })
 
+    limpiarFirma();
+    validar_si_existe_firma(true);
+}
 
+// Function para limpiar la firma en caso de que se haya enviado con exito
+function limpiarFirma() {
+    resetFirma();
+    $("#firma").val("");
+}
 
+// Funcion para validar si la firma existe
+function validar_si_existe_firma(firma = false) {
+    let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
+    let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
 
-
+    if (firma)/* si tiene firma */ {
+        // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
+        aviso_div.fadeIn(500);
+        firma_div.fadeOut(500);
+    } else {
+        // En caso de que no tenga firma aparecera el canvas y el boton para que pueda firmar y enviar
+        firma_div.fadeIn(1);
+        aviso_div.fadeOut(1);
+    }
+}
 // ------------------------------------------------------------------------
-
 
 
 
