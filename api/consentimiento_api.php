@@ -69,9 +69,10 @@ switch ($api) {
         $response = $master->getByProcedure("sp_consentimiento_estudios_e" , $data_consentimiento_e);
 
         break;
+
     default:
         $response = "api no reconocida";
-        break;
+        
 }
 
 echo $master->returnApi($response);
