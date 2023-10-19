@@ -10,6 +10,10 @@ $(document).ready(function () {
     document.getElementById('fecha_final_epidemio').valueAsDate = fechaActual;
 })
 
+//select multiple
+// select2('#prueba', 'modalFiltrarTablaReporteEpidemio')
+
+
 $(document).on('click', '#actualizar_tabla_epidemio', function (e) {
     e.preventDefault();
 

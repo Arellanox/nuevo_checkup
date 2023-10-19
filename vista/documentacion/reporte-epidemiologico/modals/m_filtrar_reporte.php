@@ -23,6 +23,16 @@
                         <label for="resultado_epidemio" class="form-label">Resultado</label>
                         <input type="text" name="resultado_epidemio" id="resultado_epidemio" class="form-input input-form" required>
                     </div>
+
+                    <!-- <div class="col-12">
+                        <label for="resultado_epidemio" class="form-label">Servicios</label>
+                        <select class="form-control prueba" multiple="multiple" id="prueba">
+                            <option>orange</option>
+                            <option>white</option>
+                            <option>purple</option>
+                        </select>
+                    </div> -->
+
                 </form>
 
             </div>
