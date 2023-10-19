@@ -54,6 +54,9 @@ $segmento_id = $_POST['segmento_id'];
 $area_id = $_POST['area_id'];
 
 
+# nuevos datos
+$categoria_turno = $_POST['categoria'];
+
 
 $parametros = array(
     $id_turno,
@@ -279,7 +282,7 @@ switch ($api) {
         break;
     case 18:
         // agregar un estudio a un turno
-        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id, $confirmado_por]);
+        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id]);
         break;
     case 19:
         # marcar un turno como completado o marcarlo como incompleto
@@ -293,6 +296,9 @@ switch ($api) {
         # por la fecha de recepcion ['fecha_recepcion'].
         $response = $master->getByProcedure("sp_turnos_completados_b", [$turno_completado, $fecha_recepcion]);
         break;
+    case 21:
+        # agregra una categoria al paciente de empresas.
+        $response = $master->insertByProcedure("sp_agregar_categoria_turno",[$id_turno, $categoria_turno]);
 
     default:
         $response = "api no reconocida";
