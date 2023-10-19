@@ -88,7 +88,7 @@
                     </div>
                     <!-- Canvas el cual contendra la firma -->
                     <div class="col-12 d-flex justify-content-center mt-3">
-                        <canvas id="firmaCanvas" class="border shadow-sm" width="300" height="200"></canvas required>
+                        <canvas id="firmaCanvas" class="border shadow-sm" width="400" height="300"></canvas required>
                         <input type="hidden" id="firma" name="firma" required />
                     </div>
                     <!-- Boton para enviar la firma y guardarla -->
