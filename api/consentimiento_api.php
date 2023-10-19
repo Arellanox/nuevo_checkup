@@ -22,27 +22,26 @@ $servicios = $_POST['servicios'];
 $id_consentimiento = $_POST['id_consentimiento'];
 
 
-
-$data_firma_g = $master->setToNull(array(
+$data_firma_g = array(
     $turno_id,
     $firma,
     $servicio_id,
     $url
 
-));
+);
 
-$data_consentimiento_g = $master->setToNull(array(
+$data_consentimiento_g = array(
     $url,
     $descripcion,
     $servicios,
     $id_consentimiento
-));
+);
 
 
-$data_consentimiento_e = $master->setToNull(array(
+$data_consentimiento_e = array(
     $id_consentimiento,
     $servicio_id
-));
+);
 
 
 
