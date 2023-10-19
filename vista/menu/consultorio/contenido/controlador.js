@@ -136,7 +136,7 @@ async function obtenerConsultorio(id, turno, cliente, curp) {
 $(document).on('click', '#paciente_categoria', function (event) {
   event.preventDefault();
   alertMensajeConfirm({
-    tittle: '¿Está seguro de guardar su categoría?',
+    title: '¿Está seguro de guardar su categoría?',
     text: 'Los resultados aún sin reportar se verá reflejado su categoría.',
     icon: 'warning'
   }, function () {
@@ -144,7 +144,7 @@ $(document).on('click', '#paciente_categoria', function (event) {
       id_turno: idturno,
       api: 21,
       categoria_turno: $(`#${'categoria_paciente_input'}`).val()
-    }, 'turnos_api', { callbackAfter: true }, () => {
+    }, 'turnos_api', { callbackAfter: true }, false, () => {
       alertToast('Cargando información, espere un momento', 'info', 4000)
       obtenerPanelInformacion(idturno, "pacientes_api", 'paciente')
     })
