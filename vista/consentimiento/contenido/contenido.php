@@ -68,33 +68,7 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod repudiandae tenetur inventore repellat placeat nostrum aspernatur ullam tempora ut libero a ex perferendis, at consequuntur odio, nulla ab vero.
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit fuga, eaque libero quae odio, vero ad ducimus quo repudiandae adipisci ab magni reiciendis neque vel impedit officiis eius eum quod.
                 <br>
-                <br>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore minima necessitatibus cum rerum vel cupiditate aspernatur aut recusandae laborum in officiis placeat, laudantium voluptatem quaerat libero nisi eveniet? Nemo, officia.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sequi quaerat blanditiis sunt, tenetur reprehenderit nam, sit eos saepe eum quasi voluptates quas libero rem odio officia! Sequi, quasi quam?
-                <br>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis temporibus soluta, autem ex incidunt sed voluptatum pariatur voluptas tempore optio cumque aut cupiditate. Perspiciatis temporibus delectus, consequuntur velit assumenda architecto.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure consequuntur ab, quia quis incidunt sint harum velit tempora delectus laboriosam itaque odit perspiciatis voluptas sunt iusto nobis temporibus, dolorem natus?
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam ea maiores quod dolorum velit molestiae culpa. Aliquam nesciunt tenetur facilis quis perferendis blanditiis modi quo saepe, tempora dolorum possimus. Illum?
-                <br>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non voluptates minima autem deleniti sunt. Repudiandae suscipit, eaque perspiciatis odit similique, quis molestias quas quod sapiente, nesciunt cupiditate fugit dignissimos nostrum.
-                <br>
-                <br>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic tempora nesciunt assumenda unde distinctio perferendis suscipit ipsum magnam repellendus. Quasi, rem nisi deserunt saepe consectetur reprehenderit vitae autem fugiat obcaecati!
 
-                <br>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis rerum, quasi, assumenda consequuntur aut odit quae ducimus architecto dolor doloribus nam quod, exercitationem esse laudantium facilis porro repellendus. Repudiandae, aliquid?
-
-                <br>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem sint aut laudantium at labore delectus, totam, vitae facere voluptates porro ipsum, sequi fugiat voluptate maxime! Qui aperiam molestiae in ullam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod repudiandae tenetur inventore repellat placeat nostrum aspernatur ullam tempora ut libero a ex perferendis, at consequuntur odio, nulla ab vero.
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit fuga, eaque libero quae odio, vero ad ducimus quo repudiandae adipisci ab magni reiciendis neque vel impedit officiis eius eum quod.
-                <br>
-                <br>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore minima necessitatibus cum rerum vel cupiditate aspernatur aut recusandae laborum in officiis placeat, laudantium voluptatem quaerat libero nisi eveniet? Nemo, officia.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sequi quaerat blanditiis sunt, tenetur reprehenderit nam, sit eos saepe eum quasi voluptates quas libero rem odio officia! Sequi, quasi quam?
-                <br>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis temporibus soluta, autem ex incidunt sed voluptatum pariatur voluptas tempore optio cumque aut cupiditate. Perspiciatis temporibus delectus, consequuntur velit assumenda architecto.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure consequuntur ab, quia quis incidunt sint harum velit tempora delectus laboriosam itaque odit perspiciatis voluptas sunt iusto nobis temporibus, dolorem natus?
             </div>
 
             <!-- Canvas para firmar -->
@@ -113,6 +87,11 @@
                     <div class="col-12 d-flex justify-content-center mt-3">
                         <canvas id="firmaCanvas" class="border shadow-sm" width="300" height="200"></canvas required>
                         <input type="hidden" id="firma" name="firma" required />
+                    </div>
+                    <div class="col-12 d-flex justify-content-end mt-3">
+                        <button class="btn btn-pantone-3165" id="enviar_firma_btn">
+                            Enviar firma
+                        </button>
                     </div>
                 </div>
             </div>

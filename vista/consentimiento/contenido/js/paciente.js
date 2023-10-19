@@ -1,3 +1,22 @@
+// ----------- Formulario, Botones y PDF -----------------------------------
+$(document).on("click", "#enviar_firma_btn", function () {
+    validarFormulario()
+})
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------
+
+
+
+
+// ------------ Script para la firma --------------------------------------
 // Obtén una referencia al elemento canvas y al contexto de dibujo
 var canvas = document.getElementById('firmaCanvas');
 var ctx = canvas.getContext('2d');
@@ -106,4 +125,4 @@ function validarFormulario() {
 
 // Inicializar SignaturePad en el canvas
 // var canvas = document.getElementById('firmaCanvas');
-var signaturePad = new SignaturePad(canvas);
+// var signaturePad = new SignaturePad(canvas);
