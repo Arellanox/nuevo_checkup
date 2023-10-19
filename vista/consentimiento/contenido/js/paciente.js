@@ -42,6 +42,9 @@ function ContruirPagina() {
         // Se construye el header con la informacion del paciente
         rellenarInformacionPaciente(row);
 
+        // Se construye los cuerpos de los consentimiento por cada area si es que manda mas de una
+        construiBodyConsentimiento(row);
+
         // Se valida si la firma ya existe
         validar_si_existe_firma(row);
     })
@@ -80,6 +83,22 @@ function rellenarInformacionPaciente(row) {
             header_div.html(HTML);
         }
     }
+}
+
+// Function para construir el cuerpo de cada consentimiento por area, si es que existe mas de una
+function construiBodyConsentimiento(row) {
+
+    let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
+
+    for (const key in row) {
+        if (Object.hasOwnProperty.call(row, key)) {
+            const element = row[key];
+            const CONSENTIMIENTO = element.CONSENTIMIENTO;
+
+            div.append(CONSENTIMIENTO);
+        }
+    }
+
 }
 
 // Funcion para validar si la firma existe

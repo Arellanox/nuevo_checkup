@@ -25,25 +25,12 @@
                 <p>Por favor, lea cuidadosamente el texto a continuación antes de firmar su consentimiento.</p>
             </div>
             <!-- Cuerpo del texto del consentimiento -->
-            <div id="texto de consentimiento mt-3">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam ea maiores quod dolorum velit molestiae culpa. Aliquam nesciunt tenetur facilis quis perferendis blanditiis modi quo saepe, tempora dolorum possimus. Illum?
-                <br>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non voluptates minima autem deleniti sunt. Repudiandae suscipit, eaque perspiciatis odit similique, quis molestias quas quod sapiente, nesciunt cupiditate fugit dignissimos nostrum.
-                <br>
-                <br>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic tempora nesciunt assumenda unde distinctio perferendis suscipit ipsum magnam repellendus. Quasi, rem nisi deserunt saepe consectetur reprehenderit vitae autem fugiat obcaecati!
-
-                <br>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis rerum, quasi, assumenda consequuntur aut odit quae ducimus architecto dolor doloribus nam quod, exercitationem esse laudantium facilis porro repellendus. Repudiandae, aliquid?
-
-                <br>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem sint aut laudantium at labore delectus, totam, vitae facere voluptates porro ipsum, sequi fugiat voluptate maxime! Qui aperiam molestiae in ullam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod repudiandae tenetur inventore repellat placeat nostrum aspernatur ullam tempora ut libero a ex perferendis, at consequuntur odio, nulla ab vero.
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit fuga, eaque libero quae odio, vero ad ducimus quo repudiandae adipisci ab magni reiciendis neque vel impedit officiis eius eum quod.
-                <br>
+            <div id="texto_consentimiento">
 
             </div>
             <hr>
+        </div>
+        <div class="col-12">
             <!-- Canvas para firmar -->
             <div class="mt-3" id="firma_div" style="display: none;">
                 <div class="row">

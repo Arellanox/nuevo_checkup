@@ -1,25 +1,25 @@
 <?php
 require_once "../clases/master_class.php";
-require_once "../clases/token_auth.php";
+// require_once "../clases/token_auth.php";
 
-$tokenVerification = new TokenVerificacion();
-$tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    // $tokenVerification->logout();
-    // exit;
-}
+// $tokenVerification = new TokenVerificacion();
+// $tokenValido = $tokenVerification->verificar();
+// if (!$tokenValido) {
+//     // $tokenVerification->logout();
+//     // exit;
+// }
 
 $master = new Master();
 
 
 $api = $_POST['api'];
 $turno_id = $_POST['turno_id'];
-$firma = $_POST['firma'];
-$servicio_id = $_POST['servicio_id'];
-$url = $_POST['url']; 
-$descripcion = $_POST['descripcion'];
-$servicios = $_POST['servicios']; 
-$id_consentimiento = $_POST['id_consentimiento'];
+$firma = isset($_POST['firma']) ? $_POST['firma'] : null;
+$servicio_id = isset($_POST['servicio_id']) ? $_POST['servicio_id'] : null;
+$url = isset($_POST['url']) ? $_POST['url'] : null;
+$descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
+$servicios = isset($_POST['servicios']) ? $_POST['servicios'] : null;
+$id_consentimiento = isset($_POST['id_consentimiento']) ? $_POST['id_consentimiento'] : null;
 
 
 $data_firma_g = array(
@@ -27,7 +27,6 @@ $data_firma_g = array(
     $firma,
     $servicio_id,
     $url
-
 );
 
 $data_consentimiento_g = array(
@@ -66,13 +65,12 @@ switch ($api) {
         break;
     case 4:
         #ELIMINA LOS SERVICIOS DE UIN CONSENTIMIENTO
-        $response = $master->getByProcedure("sp_consentimiento_estudios_e" , $data_consentimiento_e);
+        $response = $master->getByProcedure("sp_consentimiento_estudios_e", $data_consentimiento_e);
 
         break;
 
     default:
         $response = "api no reconocida";
-        
 }
 
 echo $master->returnApi($response);
