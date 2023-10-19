@@ -298,8 +298,8 @@ switch ($api) {
         break;
     case 21:
         # agregra una categoria al paciente de empresas.
-        $response = $master->insertByProcedure("sp_agregar_categoria_turno",[$id_turno, $categoria_turno]);
-
+        $response = $master->insertByProcedure("sp_agregar_categoria_turno", [$id_turno, $categoria_turno]);
+        break;
     default:
         $response = "api no reconocida";
         break;

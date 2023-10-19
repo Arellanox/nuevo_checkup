@@ -213,9 +213,9 @@ function obtenerHistorialConsultas(id) {
   });
 }
 
-function obtenerHistorialConsultaMedica(idTurno) {
+function obtenerHistorialConsultaMedica(turno) {
   console.log("aqui empieza obtener consulta medica")
-  console.log(idTurno);
+  console.log(turno);
 
   return new Promise(resolve => {
     $.ajax({
