@@ -2847,11 +2847,12 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                         // Categoria del paciente, no particulares
                         if (ifnull(row, false, ['ID_CLIENTE']) != '1') {
-
-                          // Aparece las categorias
-                          $('.categoria_paciente').fadeIn('fast');
-                          $('#categoria_paciente_input').val(ifnull(row, '', ['CATEGORIA']))
-                          $('#info-categoria_cargado').html(ifnull(row, '', ['CATEGORIA']))
+                          if (validarPermiso('histoClinico')) {
+                            // Aparece las categorias
+                            $('.categoria_paciente').fadeIn('fast');
+                            $('#categoria_paciente_input').val(ifnull(row, '', ['CATEGORIA']))
+                            $('#info-categoria_cargado').html(ifnull(row, '', ['CATEGORIA']))
+                          }
 
                         }
 
