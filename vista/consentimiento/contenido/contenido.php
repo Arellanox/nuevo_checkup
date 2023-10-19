@@ -8,34 +8,7 @@
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil" style="width:150px !Important">
         </div>
         <div class="col-auto col-md-6 info-detalle">
-            <div class="row">
-                <div class="col-12">
-                    <p class="" id="nombre-persona"> Juan Daniel Hernandez Garcia</p>
-                    <p class="none-p "> <strong id="edad-persona" class="none-p">12</strong> años | <strong id="nacimiento-persona" class="none-p">12-03-2003</strong> </p>
-                </div>
-
-                <div class="col-12 row mt-3">
-                    <div class="col-12 col-md-12 col-lg-auto">
-                        <p class="none-p" id="nacimiento-paciente-consulta">Procedencia:</p>
-                        <p class="info-detalle-p">Particular</p>
-                    </div>
-                    <div class="col-12 col-md-12 col-lg-auto">
-                        <p class="none-p" id="edad-paciente-consulta">Diagnóstico:</p>
-                        <p class='info-detalle-p'>
-                            Sano</p>
-                    </div>
-                    <div class="col-12 col-md-12 col-lg-auto">
-                        <p class="none-p" id="genero-paciente-consulta">Teléfono:</p>
-                        <p class='info-detalle-p'>
-                            993443045 </p>
-                    </div>
-                    <div class="col-12 col-md-12 col-lg-auto">
-                        <p class="none-p" id="correo-paciente-consulta">Correo:</p>
-                        <p class='info-detalle-p'>
-                            juandanielhernandezgarcia40@gmail.com </p>
-                    </div>
-                </div>
-            </div>
+            <div class="row" id="header_paciente"></div>
         </div>
         <!-- <p>Pagina en mantenimiento :)</p>
             <p>Vuelva pronto para validar sus resultados correctamente.</p> -->
