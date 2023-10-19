@@ -159,6 +159,9 @@ async function obtenerValoracion(data, idconsulta) {
   // console.log(data, idconsulta)
   await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
   await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
+  $('.categoria_paciente').fadeIn('fast');
+
+
   $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
   $('.div-btn-guardarAntPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntNoPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
