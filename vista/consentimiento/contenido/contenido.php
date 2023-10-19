@@ -1,0 +1,121 @@
+<!-- Contenido de la pagina -->
+<!-- BODY -->
+<div class="rounded p-3 shadow-sm mt-3">
+    <!-- informacion paciente -->
+    <h3 class="" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Información personal</h3>
+    <div class="row">
+        <div class="col-12 col-md-auto d-flex justify-content-center">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil" style="width:150px !Important">
+        </div>
+        <div class="col-auto col-md-6 info-detalle">
+            <div class="row">
+                <div class="col-12">
+                    <p class="" id="nombre-persona"> Juan Daniel Hernandez Garcia</p>
+                    <p class="none-p "> <strong id="edad-persona" class="none-p">12</strong> años | <strong id="nacimiento-persona" class="none-p">12-03-2003</strong> </p>
+                </div>
+
+                <div class="col-12 row mt-3">
+                    <div class="col-12 col-md-12 col-lg-auto">
+                        <p class="none-p" id="nacimiento-paciente-consulta">Procedencia:</p>
+                        <p class="info-detalle-p">Particular</p>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-auto">
+                        <p class="none-p" id="edad-paciente-consulta">Diagnóstico:</p>
+                        <p class='info-detalle-p'>
+                            Sano</p>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-auto">
+                        <p class="none-p" id="genero-paciente-consulta">Teléfono:</p>
+                        <p class='info-detalle-p'>
+                            993443045 </p>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-auto">
+                        <p class="none-p" id="correo-paciente-consulta">Correo:</p>
+                        <p class='info-detalle-p'>
+                            juandanielhernandezgarcia40@gmail.com </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <p>Pagina en mantenimiento :)</p>
+            <p>Vuelva pronto para validar sus resultados correctamente.</p> -->
+    </div>
+</div>
+
+<!-- Texto plano con la informacion que tiene que leer el paciente para dar su consentimiento -->
+<div class="rounded p-3 shadow-sm mt-3">
+    <div class="row my-4">
+        <div class="col-12">
+            <!-- Header de la segunda carta -->
+            <div class="mb-3">
+                <h3 class="" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Consentimiento del paciente</h3>
+                <p>Por favor, lea cuidadosamente el texto a continuación antes de firmar su consentimiento.</p>
+            </div>
+            <!-- Cuerpo del texto del consentimiento -->
+            <div id="texto de consentimiento mt-3">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam ea maiores quod dolorum velit molestiae culpa. Aliquam nesciunt tenetur facilis quis perferendis blanditiis modi quo saepe, tempora dolorum possimus. Illum?
+                <br>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non voluptates minima autem deleniti sunt. Repudiandae suscipit, eaque perspiciatis odit similique, quis molestias quas quod sapiente, nesciunt cupiditate fugit dignissimos nostrum.
+                <br>
+                <br>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic tempora nesciunt assumenda unde distinctio perferendis suscipit ipsum magnam repellendus. Quasi, rem nisi deserunt saepe consectetur reprehenderit vitae autem fugiat obcaecati!
+
+                <br>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis rerum, quasi, assumenda consequuntur aut odit quae ducimus architecto dolor doloribus nam quod, exercitationem esse laudantium facilis porro repellendus. Repudiandae, aliquid?
+
+                <br>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem sint aut laudantium at labore delectus, totam, vitae facere voluptates porro ipsum, sequi fugiat voluptate maxime! Qui aperiam molestiae in ullam.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod repudiandae tenetur inventore repellat placeat nostrum aspernatur ullam tempora ut libero a ex perferendis, at consequuntur odio, nulla ab vero.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit fuga, eaque libero quae odio, vero ad ducimus quo repudiandae adipisci ab magni reiciendis neque vel impedit officiis eius eum quod.
+                <br>
+                <br>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore minima necessitatibus cum rerum vel cupiditate aspernatur aut recusandae laborum in officiis placeat, laudantium voluptatem quaerat libero nisi eveniet? Nemo, officia.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sequi quaerat blanditiis sunt, tenetur reprehenderit nam, sit eos saepe eum quasi voluptates quas libero rem odio officia! Sequi, quasi quam?
+                <br>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis temporibus soluta, autem ex incidunt sed voluptatum pariatur voluptas tempore optio cumque aut cupiditate. Perspiciatis temporibus delectus, consequuntur velit assumenda architecto.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure consequuntur ab, quia quis incidunt sint harum velit tempora delectus laboriosam itaque odit perspiciatis voluptas sunt iusto nobis temporibus, dolorem natus?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam ea maiores quod dolorum velit molestiae culpa. Aliquam nesciunt tenetur facilis quis perferendis blanditiis modi quo saepe, tempora dolorum possimus. Illum?
+                <br>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non voluptates minima autem deleniti sunt. Repudiandae suscipit, eaque perspiciatis odit similique, quis molestias quas quod sapiente, nesciunt cupiditate fugit dignissimos nostrum.
+                <br>
+                <br>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic tempora nesciunt assumenda unde distinctio perferendis suscipit ipsum magnam repellendus. Quasi, rem nisi deserunt saepe consectetur reprehenderit vitae autem fugiat obcaecati!
+
+                <br>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis rerum, quasi, assumenda consequuntur aut odit quae ducimus architecto dolor doloribus nam quod, exercitationem esse laudantium facilis porro repellendus. Repudiandae, aliquid?
+
+                <br>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem sint aut laudantium at labore delectus, totam, vitae facere voluptates porro ipsum, sequi fugiat voluptate maxime! Qui aperiam molestiae in ullam.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod repudiandae tenetur inventore repellat placeat nostrum aspernatur ullam tempora ut libero a ex perferendis, at consequuntur odio, nulla ab vero.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit fuga, eaque libero quae odio, vero ad ducimus quo repudiandae adipisci ab magni reiciendis neque vel impedit officiis eius eum quod.
+                <br>
+                <br>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore minima necessitatibus cum rerum vel cupiditate aspernatur aut recusandae laborum in officiis placeat, laudantium voluptatem quaerat libero nisi eveniet? Nemo, officia.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sequi quaerat blanditiis sunt, tenetur reprehenderit nam, sit eos saepe eum quasi voluptates quas libero rem odio officia! Sequi, quasi quam?
+                <br>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis temporibus soluta, autem ex incidunt sed voluptatum pariatur voluptas tempore optio cumque aut cupiditate. Perspiciatis temporibus delectus, consequuntur velit assumenda architecto.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure consequuntur ab, quia quis incidunt sint harum velit tempora delectus laboriosam itaque odit perspiciatis voluptas sunt iusto nobis temporibus, dolorem natus?
+            </div>
+
+            <!-- Canvas para firmar -->
+            <div class="mt-3" id="">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between">
+                        <div>
+                            <h3 class="" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Firma:</h3>
+                            <p>Dibuje su Firma en el recuadro, su firma se guardara automaticamente</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-hover" onclick="resetFirma()" data_tipo="guardar" type="button">Reiniciar
+                                Firma</button>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center mt-3">
+                        <canvas id="firmaCanvas" class="border shadow-sm" width="300" height="200"></canvas required>
+                        <input type="hidden" id="firma" name="firma" required />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

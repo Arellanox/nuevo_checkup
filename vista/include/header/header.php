@@ -15,7 +15,8 @@ switch ($menu) {
 
   <?php break;
   case 'Login':
-  case 'Temperatura_movil': ?>
+  case 'Temperatura_movil':
+  case 'Consentimiento_paciente': ?>
     <nav class="navbar border-3 border-bottom border-dark bg-navbar">
       <div class="container-fluid d-flex justify-content-center">
         <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
