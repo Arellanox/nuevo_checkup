@@ -1,8 +1,8 @@
 <?php
 //Variables dinamicas;
 include "../variables.php";
-#Aqui se recibe el ID del equipo que llega por la URL 
-// $equipo_id = $_GET['equipo'];
+#Aqui se recibe el ID del turno que llega por la URL 
+$turno_id = $_GET['turno'];
 $menu = "Consentimiento_paciente";
 ?>
 <!DOCTYPE html>
@@ -15,6 +15,7 @@ $menu = "Consentimiento_paciente";
 
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">
+    turno_id = '<?php echo $turno_id ?>';
     vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
 
     function vista(menu, url) {

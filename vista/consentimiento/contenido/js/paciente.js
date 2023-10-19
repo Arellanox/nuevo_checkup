@@ -1,6 +1,7 @@
 // ----------- Formulario, Botones y PDF -----------------------------------
+let firma_exist;
 $(document).ready(function () {
-    validar_si_existe_firma();
+    ContruirPagina()
 });
 
 // Escucha el boton "Enviar firma"
@@ -24,26 +25,119 @@ $(document).on("click", "#enviar_firma_btn", function () {
 
 })
 
+/* ----------------------------------------------------------------- */
+
+/* --------------- Funciones ------------------------------------ */
+
+// Function para construir todo la pagina
+function ContruirPagina() {
+    firma_exist = false;
+    ajaxAwait({
+        api: 1,
+        turno_id: turno_id
+    }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
+        let row = data.response.data;
+
+
+        // Se construye el header con la informacion del paciente
+        rellenarInformacionPaciente(row);
+
+        // Se valida si la firma ya existe
+        validar_si_existe_firma(row);
+    })
+}
+
+// Function para rellenar la informacion del paciente en el header
+function rellenarInformacionPaciente(row) {
+    let header_div = $("#header_paciente");
+
+    for (const key in row) {
+        if (Object.hasOwnProperty.call(row, key)) {
+            const element = row[key];
+            let HTML = `
+            <div class="col-12">
+                <p class="" id="nombre-persona">${element.NOMBRE_PACIENTE} </p>
+                <p class="none-p "> <strong id="edad-persona" class="none-p">${element.EDAD}</strong> años | <strong id="nacimiento-persona" class="none-p">${element.NACIMIENTO}</strong> </p>
+            </div>
+
+            <div class="col-12 row mt-3">
+                <div class="col-12 col-md-12 col-lg-auto">
+                    <p class="none-p" id="nacimiento-paciente-consulta">Procedencia:</p>
+                    <p class="info-detalle-p">${element.PROCEDENCIA}</p>
+                </div>
+                <div class="col-12 col-md-12 col-lg-auto">
+                    <p class="none-p" id="genero-paciente-consulta">Teléfono:</p>
+                    <p class='info-detalle-p'>
+                        ${element.TELEFONO} </p>
+                </div>
+                <div class="col-12 col-md-12 col-lg-auto">
+                    <p class="none-p" id="correo-paciente-consulta">Correo:</p>
+                    <p class='info-detalle-p'>
+                        ${element.CORREO}</p>
+                </div>
+            </div>
+            `;
+            header_div.html(HTML);
+        }
+    }
+}
+
+// Funcion para validar si la firma existe
+function validar_si_existe_firma(row) {
+    let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
+    let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
+    let FIRMA;
+
+    for (const key in row) {
+        if (Object.hasOwnProperty.call(row, key)) {
+            const element = row[key];
+            FIRMA = element.FIRMA;
+        }
+    }
+
+    if (!FIRMA === "0")/* si tiene firma */ {
+        // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
+        aviso_div.fadeIn(500);
+        firma_div.fadeOut(500);
+        firma_exist = true;
+    } else {
+        // En caso de que no tenga firma aparecera el canvas y el boton para que pueda firmar y enviar
+        firma_div.fadeIn(1);
+        aviso_div.fadeOut(1);
+        firma_exist = false;
+    }
+}
+
+// Function para construir el cuerpo del o los consentimientos
+function dibujarConsentimientos(row) {
+    let body_div = $("#");
+
+    for (const key in row) {
+        if (Object.hasOwnProperty.call(row, key)) {
+            const element = row[key];
+
+        }
+    }
+}
+
 // Function para enivar la firma
 function enviar_firma() {
     // Se obtiene la firma codificada en base 64
     let FIRMA = $("#firma").val();
 
-    // ajaxAwait({
-    //     api: 6,
-    //     id_registro_temperatura: selectRegistro['ID_REGISTRO_TEMPERATURA'],
-    //     estatus: 0
-    // }, 'temperatura_api', { callbackAfter: true }, false, () => {
+    ajaxAwait({
+        api: 2,
+        turno_id: turno_id,
+        firma: FIRMA
+    }, 'consentimiento_api', { callbackAfter: true }, false, () => {
+        alertMsj({
+            title: '¡Su firma se ha guardado!', text: 'ya puede visualizar su reporte',
+            icon: 'success', allowOutsideClick: false, showCancelButton: false, showConfirmButton: true
+        })
 
-    // })
-
-    alertMsj({
-        title: '¡Su firma se ha guardado!', text: 'ya puede visualizar su reporte',
-        icon: 'success', allowOutsideClick: false, showCancelButton: false, showConfirmButton: true
+        limpiarFirma();
+        ContruirPagina();
     })
-
-    limpiarFirma();
-    validar_si_existe_firma(true);
 }
 
 // Function para limpiar la firma en caso de que se haya enviado con exito
@@ -52,24 +146,7 @@ function limpiarFirma() {
     $("#firma").val("");
 }
 
-// Funcion para validar si la firma existe
-function validar_si_existe_firma(firma = false) {
-    let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
-    let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
-
-    if (firma)/* si tiene firma */ {
-        // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
-        aviso_div.fadeIn(500);
-        firma_div.fadeOut(500);
-    } else {
-        // En caso de que no tenga firma aparecera el canvas y el boton para que pueda firmar y enviar
-        firma_div.fadeIn(1);
-        aviso_div.fadeOut(1);
-    }
-}
 // ------------------------------------------------------------------------
-
-
 
 // ------------ Script para la firma --------------------------------------
 // Obtén una referencia al elemento canvas y al contexto de dibujo
