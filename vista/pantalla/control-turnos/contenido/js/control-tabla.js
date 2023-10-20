@@ -32,22 +32,26 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
+        { data: 'COUNT' },
         {
-            data: 'COUNT'
-        }, {
-            data: 'PACIENTE'
-        }, {
-            data: 'ETIQUETA_TURNO'
-        }, {
-            data: 'MODULO'
-        }
+            data: null, render: function (data, type, row, meta) {
+                // console.log(meta, data, type, row);
+                return ` <span class="etiqueta_h2">${ifnull(row, '', ['ETIQUETA_TURNO'])}</span> </br>
+                        <span>${ifnull(row, '', ['PACIENTE'])}</span> </br>
+                        <span>${ifnull(row, '', ['MODULO'])}</span>`
+            }
+        },
+        // { data: 'PACIENTE' },
+        // { data: 'ETIQUETA_TURNO' },
+        // { data: 'MODULO' }
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
         { targets: 0, visible: true },
-        { targets: 1, width: '60%' },
-        { targets: 2, width: '5%' },
-        { targets: 3, width: '35%' }
+        { targets: 1 },
+        // { targets: 2, visible: false },
+        // { targets: 3, visible: false },
+        // { targets: 4, visible: false }
 
     ],
     // drawCallback: function () {
