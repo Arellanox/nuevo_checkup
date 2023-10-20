@@ -16,20 +16,30 @@
 </div>
 
 <!-- Texto plano con la informacion que tiene que leer el paciente para dar su consentimiento -->
-<div class="rounded p-3 card shadow-sm my-3">
+<div class="rounded p-3 card shadow-sm mt-3">
     <div class="row my-4">
         <div class="col-12">
             <!-- Header de la segunda carta -->
-            <div class="mb-3">
+            <div class="">
                 <h3 class="" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Consentimiento del paciente</h3>
                 <p>Por favor, lea cuidadosamente el texto a continuación antes de firmar su consentimiento.</p>
             </div>
-            <!-- Cuerpo del texto del consentimiento -->
-            <div id="texto_consentimiento">
+            <!-- <div id="texto_consentimiento">
 
             </div>
-            <hr>
+            <hr> -->
         </div>
+    </div>
+</div>
+
+<!-- Texto plano con la informacion de los consentimientos -->
+<div class="row p-3" id="texto_consentimiento">
+</div>
+
+
+<!-- Canva para firmar o Boton para visualizar los PDF -->
+<div class="rounded p-3 card shadow-sm my-3">
+    <div class="row">
         <div class="col-12">
             <!-- Canvas para firmar -->
             <div class="mt-3" id="firma_div" style="display: none;">

@@ -101,10 +101,13 @@ function construiBodyConsentimiento() {
             const $nombre = ' ' + paciente_data.NOMBRE_PACIENTE;
 
             let html = `
-                <hr>
-                <div class='mx-auto'>
-                    ${CONSENTIMIENTO}
-                </div>
+
+            <div class="col-12 rounded-3 p-3 card shadow-sm mt-3">
+                <!-- Cuerpo del texto del consentimiento -->
+                    <div class='mx-auto'>
+                        ${CONSENTIMIENTO}
+                    </div>
+            </div>
             `;
 
 
