@@ -90,7 +90,7 @@ function construiBodyConsentimiento() {
     let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
     div.html("");
 
-    row = JSON.parse(paciente_data.FORMATO);
+    row = paciente_data.FORMATO;
 
     for (const key in row) {
         if (Object.hasOwnProperty.call(row, key)) {
@@ -113,28 +113,22 @@ function construiBodyConsentimiento() {
 }
 
 // Funcion para validar si la firma existe
-function validar_si_existe_firma(firma = false) {
+function validar_si_existe_firma() {
     let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
     let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
-    let FIRMA;
 
+    let firma = paciente_data.FIRMA;
 
-    if (firma) {
-        FIRMA = "1"; // <-- si la firma esta en 1 es por que si existe
-    } else {
-        FIRMA = paciente_data.FIRMA;
-    }
-
-    if (!FIRMA === "0")/* si tiene firma */ {
-        // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
-        aviso_div.fadeIn(500);
-        firma_div.fadeOut(500);
-        firma_exist = true;
-    } else {
+    if (firma === "0")/* no tiene firma */ {
         // En caso de que no tenga firma aparecera el canvas y el boton para que pueda firmar y enviar
         firma_div.fadeIn(1);
         aviso_div.fadeOut(1);
         firma_exist = false;
+    } else {
+        // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
+        aviso_div.fadeIn(500);
+        firma_div.fadeOut(500);
+        firma_exist = true;
     }
 }
 

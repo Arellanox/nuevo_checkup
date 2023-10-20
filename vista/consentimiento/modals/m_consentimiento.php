@@ -6,16 +6,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Vista previa del formato con su firma, lea cuidadosamente antes de dar su consentimiento</p>
-
                 <div class="row container-pages my-3">
                     <!-- Section con el reporte y check para dar el consentimiento -->
                     <section class="page" style="display: none;">
                         <!-- Reporte del paciente con su firma y datos -->
                         <div class="col-12">
-                            <div id="pdfviewer h-100" style="height: 100%;">
+                            <h1>ventana 1</h1>
+                            <!-- <div id="pdfviewer h-100" style="height: 100%;">
                                 <div id="adobe-dc-view"></div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- Checkbox para dar su consentimiento -->
                         <div class="col-12 my-3">
@@ -31,9 +30,10 @@
                     <section class="page" style="display: none;">
                         <!-- Reporte del paciente con su firma y datos -->
                         <div class="col-12">
-                            <div id="pdfviewer h-100" style="height: 100%;">
+                            <h1>ventana 2</h1>
+                            <!-- <div id="pdfviewer h-100" style="height: 100%;">
                                 <div id="adobe-dc-view"></div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- Checkbox para dar su consentimiento -->
                         <div class="col-12 my-3">

@@ -1,6 +1,6 @@
 <!-- Contenido de la pagina -->
 <!-- BODY -->
-<div class="rounded p-3 shadow-sm mt-3">
+<div class="rounded p-3 card shadow-sm mt-3">
     <!-- informacion paciente -->
     <h3 class="" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Información personal</h3>
     <div class="row">
@@ -16,7 +16,7 @@
 </div>
 
 <!-- Texto plano con la informacion que tiene que leer el paciente para dar su consentimiento -->
-<div class="rounded p-3 shadow-sm mt-3">
+<div class="rounded p-3 card shadow-sm my-3">
     <div class="row my-4">
         <div class="col-12">
             <!-- Header de la segunda carta -->
