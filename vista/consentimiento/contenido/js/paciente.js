@@ -1,5 +1,5 @@
 // ----------- Formulario, Botones y PDF -----------------------------------
-let firma_exist;
+let paciente_data; // <-- aqui se guarda un array con toda la informacion del paciente
 $(document).ready(function () {
     ContruirPagina()
 });
@@ -38,45 +38,61 @@ function ContruirPagina() {
     }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
         let row = data.response.data;
 
+        // Se recorre el array para acceder a los datos
+        paciente_data = Object.keys(row).map(function (key) {
+            const element = row[key];
+            return {
+                px: element.NOMBRE_PACIENTE,
+                edad: element.EDAD,
+                fecha_nacimiento: element.NACIMIENTO,
+                procedencia: element.PROCEDENCIA,
+                telefono: element.TELEFONO,
+                correo: element.CORREO,
+                consentimiento: element.CONSENTIMIENTO,
+                servicio_id: element.SERVICIO_ID,
+                firma: element.FIRMA
+            };
+        });
+
 
         // Se construye el header con la informacion del paciente
-        rellenarInformacionPaciente(row);
+        rellenarInformacionPaciente();
 
         // Se construye los cuerpos de los consentimiento por cada area si es que manda mas de una
-        construiBodyConsentimiento(row);
+        construiBodyConsentimiento();
 
         // Se valida si la firma ya existe
-        validar_si_existe_firma(row);
+        validar_si_existe_firma();
     })
 }
 
 // Function para rellenar la informacion del paciente en el header
-function rellenarInformacionPaciente(row) {
+function rellenarInformacionPaciente() {
     let header_div = $("#header_paciente");
 
-    for (const key in row) {
-        if (Object.hasOwnProperty.call(row, key)) {
-            const element = row[key];
+    for (const key in paciente_data) {
+        if (Object.hasOwnProperty.call(paciente_data, key)) {
+            const element = paciente_data[key];
             let HTML = `
             <div class="col-12">
-                <p class="" id="nombre-persona">${element.NOMBRE_PACIENTE} </p>
-                <p class="none-p "> <strong id="edad-persona" class="none-p">${element.EDAD}</strong> años | <strong id="nacimiento-persona" class="none-p">${element.NACIMIENTO}</strong> </p>
+                <p class="" id="nombre-persona">${element.px} </p>
+                <p class="none-p "> <strong id="edad-persona" class="none-p">${element.edad}</strong> años | <strong id="nacimiento-persona" class="none-p">${element.NACIMIENTO}</strong> </p>
             </div>
 
             <div class="col-12 row mt-3">
                 <div class="col-12 col-md-12 col-lg-auto">
                     <p class="none-p" id="nacimiento-paciente-consulta">Procedencia:</p>
-                    <p class="info-detalle-p">${element.PROCEDENCIA}</p>
+                    <p class="info-detalle-p">${element.procedencia}</p>
                 </div>
                 <div class="col-12 col-md-12 col-lg-auto">
                     <p class="none-p" id="genero-paciente-consulta">Teléfono:</p>
                     <p class='info-detalle-p'>
-                        ${element.TELEFONO} </p>
+                        ${element.telefono} </p>
                 </div>
                 <div class="col-12 col-md-12 col-lg-auto">
                     <p class="none-p" id="correo-paciente-consulta">Correo:</p>
                     <p class='info-detalle-p'>
-                        ${element.CORREO}</p>
+                        ${element.correo}</p>
                 </div>
             </div>
             `;
@@ -86,14 +102,14 @@ function rellenarInformacionPaciente(row) {
 }
 
 // Function para construir el cuerpo de cada consentimiento por area, si es que existe mas de una
-function construiBodyConsentimiento(row) {
+function construiBodyConsentimiento() {
 
     let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
-
-    for (const key in row) {
-        if (Object.hasOwnProperty.call(row, key)) {
-            const element = row[key];
-            const CONSENTIMIENTO = element.CONSENTIMIENTO;
+    div.html("");
+    for (const key in paciente_data) {
+        if (Object.hasOwnProperty.call(paciente_data, key)) {
+            const element = paciente_data[key];
+            const CONSENTIMIENTO = element.consentimiento;
 
             div.append(CONSENTIMIENTO);
         }
@@ -102,17 +118,24 @@ function construiBodyConsentimiento(row) {
 }
 
 // Funcion para validar si la firma existe
-function validar_si_existe_firma(row) {
+function validar_si_existe_firma(firma = false) {
     let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
     let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
     let FIRMA;
 
-    for (const key in row) {
-        if (Object.hasOwnProperty.call(row, key)) {
-            const element = row[key];
-            FIRMA = element.FIRMA;
+
+    if (firma) {
+        FIRMA = "1"; // <-- si la firma esta en 1 es por que si existe
+    } else {
+        for (const key in paciente_data) {
+            if (Object.hasOwnProperty.call(paciente_data, key)) {
+                const element = paciente_data[key];
+                FIRMA = element.firma;
+            }
         }
     }
+
+
 
     if (!FIRMA === "0")/* si tiene firma */ {
         // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
@@ -128,12 +151,12 @@ function validar_si_existe_firma(row) {
 }
 
 // Function para construir el cuerpo del o los consentimientos
-function dibujarConsentimientos(row) {
+function dibujarConsentimientos() {
     let body_div = $("#");
 
-    for (const key in row) {
-        if (Object.hasOwnProperty.call(row, key)) {
-            const element = row[key];
+    for (const key in paciente_data) {
+        if (Object.hasOwnProperty.call(paciente_data, key)) {
+            const element = paciente_data[key];
 
         }
     }
@@ -155,7 +178,7 @@ function enviar_firma() {
         })
 
         limpiarFirma();
-        ContruirPagina();
+        validar_si_existe_firma();
     })
 }
 
