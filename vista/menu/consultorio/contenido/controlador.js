@@ -146,7 +146,7 @@ $(document).on('click', '#paciente_categoria', function (event) {
       categoria_turno: $(`#${'categoria_paciente_input'}`).val()
     }, 'turnos_api', { callbackAfter: true }, false, () => {
       alertToast('Cargando información, espere un momento', 'info', 4000)
-      obtenerPanelInformacion(idturno, "pacientes_api", 'paciente')
+      obtenerPanelInformacion(idturno, "pacientes_api", 'paciente', '#panel-informacion', '', 1)
     })
   }, 1)
 })
