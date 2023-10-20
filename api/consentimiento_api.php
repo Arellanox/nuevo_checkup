@@ -13,8 +13,8 @@ $master = new Master();
 
 
 $api = $_POST['api'];
-$turno_id = $_POST['turno_id'];
-$firma = isset($_POST['firma']) ? $_POST['firma'] : null;
+$turno_id = isset($_POST['turno_id']) ? $_POST['turno_id'] : null;
+$firma =isset($_POST['firma']) ? $_POST['firma'] : null;
 $servicio_id = isset($_POST['servicio_id']) ? $_POST['servicio_id'] : null;
 $url = isset($_POST['url']) ? $_POST['url'] : null;
 $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
@@ -41,7 +41,6 @@ $data_consentimiento_e = array(
     $id_consentimiento,
     $servicio_id
 );
-
 
 
 
