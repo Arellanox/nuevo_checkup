@@ -55,7 +55,7 @@ $area_id = $_POST['area_id'];
 
 
 # nuevos datos
-$categoria_turno = $_POST['categoria'];
+$categoria_turno = $_POST['categoria_turno'];
 
 
 $parametros = array(
