@@ -65,10 +65,10 @@
                 <div class="row">
                     <div class="col-12">
                         <!-- Titulo en caso de que ya haya firmado -->
-                        <div class="my-auto">
+                        <div class="d-flex justify-content-center my-auto">
                             <h3 class="my-auto" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">La firma ya ha sido guardada</h3>
                         </div>
-                        <div class="mt-3">
+                        <div class="d-flex justify-content-center mt-3">
                             <button type="click" class="btn btn-borrar" id="btn-mostrar-formato-consentimiento" data-bs-toggle='tooltip' data-bs-placement='top' title="Visualizar el reporte con sus datos y firma">
                                 <i class="bi bi-file-earmark-pdf-fill"></i> Vista Previa
                             </button>
