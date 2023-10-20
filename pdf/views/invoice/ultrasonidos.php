@@ -431,11 +431,6 @@ $encode_firma = base64_encode($ruta_firma);
             }
             // echo "<div class='break'></div>";
             $count++;
-            if ($count % 2 == 0 && $count < $conteo) {
-        ?>
-                <div class="break"></div>
-        <?php
-            }
         }
         ?>
 
@@ -518,7 +513,7 @@ $encode_firma = base64_encode($ruta_firma);
 
             if ($area == 11) {
 
-                if ($d % 4 !== 0 && $img_pasadas != 1 ) {
+                if ($d % 4 !== 0 && $img_pasadas != 1) {
                     for ($i = 0; $i <= 5 - $img_pasadas; $i++) {
 
 
