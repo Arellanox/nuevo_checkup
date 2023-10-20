@@ -79,3 +79,14 @@
         </div>
     </div>
 </div>
+
+
+
+<style>
+    #texto_consentimiento p {
+        color: rgb(000, 078, 89) !important;
+        font-weight: normal;
+        font-size: 1.25rem;
+        letter-spacing: 0px !important;
+    }
+</style>

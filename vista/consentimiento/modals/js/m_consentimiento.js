@@ -55,14 +55,15 @@ async function construirReportes(
                             <!-- Checkbox para dar su consentimiento -->
                             <!-- Reporte del paciente con su firma y datos -->
                             <div class="col-12 mx-auto p-3">
-                                <iframe src="${element.url}" style="width:100%; height:700px;" frameborder="0">
-                                </iframe>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="consentimiento_check_${element.id_servicio}">
                                     <label class="form-check-label" for="consentimiento_check_${element.id_servicio}" data-bs-toggle='tooltip' data-bs-placement='top' title="Si estas de acuerdo en dar tu consentimiento da click a esta casilla">
                                         Doy mi consentimiento.
                                     </label>
                                 </div>
+                                <iframe src="${element.url}" style="width:100%; height:700px;" frameborder="0">
+                                </iframe>
+                                
                             </div>
 
                         </div>
