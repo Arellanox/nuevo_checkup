@@ -92,6 +92,7 @@ function construiBodyConsentimiento() {
 
     row = paciente_data.FORMATO;
 
+
     for (const key in row) {
         if (Object.hasOwnProperty.call(row, key)) {
             const element = row[key];
@@ -107,9 +108,13 @@ function construiBodyConsentimiento() {
             `;
 
 
+
+
             div.append(html);
         }
     }
+
+    $("#nombre_paciente").html(paciente_data.NOMBRE_PACIENTE);
 }
 
 // Funcion para validar si la firma existe

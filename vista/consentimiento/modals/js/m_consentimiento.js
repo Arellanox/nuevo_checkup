@@ -1,27 +1,9 @@
-$(document).on("click", "#btn-mostrar-formato-consentimiento", function () {
-    MostrarReportePDF();
+$(document).on("click", "#btn-mostrar-formato-consentimiento", async function () {
+    await construirReportes()
+    $("#consentimiento_paciente_modal").modal("show");
 })
 
-// Function para mostrar en el modal el visualizador de reporte, obvio con el reporte seleccionado xd
-async function MostrarReportePDF() {
-    const RUTA = "null";
-    const NOMBRE = "null";
-
-    if (RUTA === null) {
-        alertMsj({
-            title: '¡No se pudo obtener su reporte!', text: 'Hubo un problema al obtener su reporte, por favor de contactar al soporte de bimo',
-            icon: 'error', allowOutsideClick: true, showCancelButton: false, showConfirmButton: true
-        })
-        $("#consentimiento_paciente_modal").modal("hide");
-        return false;
-    } else {
-        await construirReportes()
-        $("#consentimiento_paciente_modal").modal("show");
-    }
-
-}
-
-
+// Funciton para construir todo el cuerpo del modal
 async function construirReportes(
     data = [
         {
