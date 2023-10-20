@@ -98,6 +98,7 @@ function construiBodyConsentimiento() {
             const element = row[key];
             const NOMBRE_SERVICIO = element.NOMBRE_SERVICIO;
             const CONSENTIMIENTO = element.CONSENTIMIENTO;
+            const $nombre = ' ' + paciente_data.NOMBRE_PACIENTE;
 
             let html = `
                 <hr>
@@ -110,10 +111,10 @@ function construiBodyConsentimiento() {
 
 
             div.append(html);
+            $(".nombre_paciente").html($nombre);
         }
     }
 
-    $("#nombre_paciente").html(' ' + paciente_data.NOMBRE_PACIENTE);
 }
 
 // Funcion para validar si la firma existe
