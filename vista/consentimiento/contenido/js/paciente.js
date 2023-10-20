@@ -37,22 +37,8 @@ function ContruirPagina() {
         turno_id: turno_id
     }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
         let row = data.response.data;
-
         // Se recorre el array para acceder a los datos
-        paciente_data = Object.keys(row).map(function (key) {
-            const element = row[key];
-            return {
-                px: element.NOMBRE_PACIENTE,
-                edad: element.EDAD,
-                fecha_nacimiento: element.NACIMIENTO,
-                procedencia: element.PROCEDENCIA,
-                telefono: element.TELEFONO,
-                correo: element.CORREO,
-                consentimiento: element.CONSENTIMIENTO,
-                servicio_id: element.SERVICIO_ID,
-                firma: element.FIRMA
-            };
-        });
+        paciente_data = row[0];
 
 
         // Se construye el header con la informacion del paciente
@@ -70,35 +56,32 @@ function ContruirPagina() {
 function rellenarInformacionPaciente() {
     let header_div = $("#header_paciente");
 
-    for (const key in paciente_data) {
-        if (Object.hasOwnProperty.call(paciente_data, key)) {
-            const element = paciente_data[key];
-            let HTML = `
+
+    let HTML = `
             <div class="col-12">
-                <p class="" id="nombre-persona">${element.px} </p>
-                <p class="none-p "> <strong id="edad-persona" class="none-p">${element.edad}</strong> años | <strong id="nacimiento-persona" class="none-p">${element.NACIMIENTO}</strong> </p>
+                <p class="" id="nombre-persona">${paciente_data.NOMBRE_PACIENTE} </p>
+                <p class="none-p "> <strong id="edad-persona" class="none-p">${paciente_data.EDAD}</strong> años | <strong id="nacimiento-persona" class="none-p">${paciente_data.NACIMIENTO}</strong> </p>
             </div>
 
             <div class="col-12 row mt-3">
                 <div class="col-12 col-md-12 col-lg-auto">
                     <p class="none-p" id="nacimiento-paciente-consulta">Procedencia:</p>
-                    <p class="info-detalle-p">${element.procedencia}</p>
+                    <p class="info-detalle-p">${paciente_data.PROCEDENCIA}</p>
                 </div>
                 <div class="col-12 col-md-12 col-lg-auto">
                     <p class="none-p" id="genero-paciente-consulta">Teléfono:</p>
                     <p class='info-detalle-p'>
-                        ${element.telefono} </p>
+                        ${paciente_data.TELEFONO} </p>
                 </div>
                 <div class="col-12 col-md-12 col-lg-auto">
                     <p class="none-p" id="correo-paciente-consulta">Correo:</p>
                     <p class='info-detalle-p'>
-                        ${element.correo}</p>
+                        ${paciente_data.CORREO}</p>
                 </div>
             </div>
             `;
-            header_div.html(HTML);
-        }
-    }
+
+    header_div.html(HTML);
 }
 
 // Function para construir el cuerpo de cada consentimiento por area, si es que existe mas de una
@@ -106,15 +89,27 @@ function construiBodyConsentimiento() {
 
     let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
     div.html("");
-    for (const key in paciente_data) {
-        if (Object.hasOwnProperty.call(paciente_data, key)) {
-            const element = paciente_data[key];
-            const CONSENTIMIENTO = element.consentimiento;
 
-            div.append(CONSENTIMIENTO);
+    row = JSON.parse(paciente_data.FORMATO);
+
+    for (const key in row) {
+        if (Object.hasOwnProperty.call(row, key)) {
+            const element = row[key];
+            const NOMBRE_SERVICIO = element.NOMBRE_SERVICIO;
+            const CONSENTIMIENTO = element.CONSENTIMIENTO;
+
+            let html = `
+                <hr>
+                <h2 class="text-center" style="font-size: 20px; margin-bottom: 15px;">Consentimiento de <strong>(${NOMBRE_SERVICIO})</strong></h2>
+                <div class='mx-auto'>
+                    ${CONSENTIMIENTO}
+                </div>
+            `;
+
+
+            div.append(html);
         }
     }
-
 }
 
 // Funcion para validar si la firma existe
@@ -127,15 +122,8 @@ function validar_si_existe_firma(firma = false) {
     if (firma) {
         FIRMA = "1"; // <-- si la firma esta en 1 es por que si existe
     } else {
-        for (const key in paciente_data) {
-            if (Object.hasOwnProperty.call(paciente_data, key)) {
-                const element = paciente_data[key];
-                FIRMA = element.firma;
-            }
-        }
+        FIRMA = paciente_data.FIRMA;
     }
-
-
 
     if (!FIRMA === "0")/* si tiene firma */ {
         // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
@@ -178,7 +166,8 @@ function enviar_firma() {
         })
 
         limpiarFirma();
-        validar_si_existe_firma();
+        ContruirPagina();
+        // validar_si_existe_firma();
     })
 }
 

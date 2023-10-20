@@ -1,7 +1,7 @@
 <?php
 $menu = $_POST['menu'];
 $tipoUrl = isset($_POST['tipoUrl']) ?  $_POST['tipoUrl'] : 1;
-$tip = isset($_POST['tip']) ? $_POST['tip'] : null;
+$tip = $_POST['tip'];
 date_default_timezone_set('America/Mexico_City');
 session_start();
 include "../../variables.php";
