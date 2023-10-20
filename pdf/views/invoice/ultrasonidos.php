@@ -518,7 +518,7 @@ $encode_firma = base64_encode($ruta_firma);
 
             if ($area == 11) {
 
-                if ($d % 4 !== 0) {
+                if ($d % 4 !== 0 && $img_pasadas != 1 ) {
                     for ($i = 0; $i <= 5 - $img_pasadas; $i++) {
 
 
