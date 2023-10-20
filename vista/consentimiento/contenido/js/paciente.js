@@ -35,17 +35,17 @@ function ContruirPagina() {
     ajaxAwait({
         api: 1,
         turno_id: turno_id
-    }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
+    }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
         let row = data.response.data;
         // Se recorre el array para acceder a los datos
         paciente_data = row[0];
 
 
         // Se construye el header con la informacion del paciente
-        rellenarInformacionPaciente();
+        await rellenarInformacionPaciente();
 
         // Se construye los cuerpos de los consentimiento por cada area si es que manda mas de una
-        construiBodyConsentimiento();
+        await construiBodyConsentimiento();
 
         // Se valida si la firma ya existe
         validar_si_existe_firma();
@@ -53,11 +53,12 @@ function ContruirPagina() {
 }
 
 // Function para rellenar la informacion del paciente en el header
-function rellenarInformacionPaciente() {
-    let header_div = $("#header_paciente");
+async function rellenarInformacionPaciente() {
+    return new Promise(function (resolve, reject) {
+        let header_div = $("#header_paciente");
 
 
-    let HTML = `
+        let HTML = `
             <div class="col-12">
                 <p class="" id="nombre-persona">${paciente_data.NOMBRE_PACIENTE} </p>
                 <p class="none-p "> <strong id="edad-persona" class="none-p">${paciente_data.EDAD}</strong> años | <strong id="nacimiento-persona" class="none-p">${paciente_data.NACIMIENTO}</strong> </p>
@@ -81,31 +82,46 @@ function rellenarInformacionPaciente() {
             </div>
             `;
 
-    header_div.html(HTML);
+        header_div.html(HTML);
+
+        resolve(1)
+    })
 }
 
 // Function para construir el cuerpo de cada consentimiento por area, si es que existe mas de una
-function construiBodyConsentimiento() {
+async function construiBodyConsentimiento() {
+    return new Promise(function (resolve, reject) {
+        let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
+        div.html("");
 
-    let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
-    div.html("");
-
-    row = paciente_data.FORMATO;
+        row = paciente_data.FORMATO;
 
 
-    for (const key in row) {
-        if (Object.hasOwnProperty.call(row, key)) {
-            const element = row[key];
-            const NOMBRE_SERVICIO = element.NOMBRE_SERVICIO;
-            const CONSENTIMIENTO = element.CONSENTIMIENTO;
-            const $nombre = ' ' + paciente_data.NOMBRE_PACIENTE;
+        for (const key in row) {
+            if (Object.hasOwnProperty.call(row, key)) {
+                const element = row[key];
+                const NOMBRE_SERVICIO = element.NOMBRE_SERVICIO;
+                const CONSENTIMIENTO = element.CONSENTIMIENTO;
+                const $id_servicio = element.SERVICIO_ID;
+                const $nombre = ' ' + paciente_data.NOMBRE_PACIENTE;
 
-            let html = `
-
+                let html = `
             <div class="col-12 rounded-3 p-3 card shadow-sm mt-3">
                 <!-- Cuerpo del texto del consentimiento -->
                     <div class='mx-auto'>
                         ${CONSENTIMIENTO}
+                    </div>
+                    <div class='my-3 justify-content-center' style='display:none;' id='checkbox_consentimiendo_div'>
+                    <hr>
+                        <div class="form-check  d-flex justify-content-center gap-2"">
+                            <input class="form-check-input" type="checkbox" value="" id="consentimiento_check_${$id_servicio}">
+                            <label class="form-check-label" for="consentimiento_check_${$id_servicio}" data-bs-toggle='tooltip'
+                                data-bs-placement='top'
+                                title="Si estas de acuerdo en dar tu consentimiento da click a esta casilla">
+                                Doy mi consentimiento.
+                            </label>
+                        </div>
+                    <hr>
                     </div>
             </div>
             `;
@@ -113,10 +129,13 @@ function construiBodyConsentimiento() {
 
 
 
-            div.append(html);
-            $(".nombre_paciente").html($nombre);
+                div.append(html);
+                $(".nombre_paciente").html($nombre);
+            }
+
+            resolve(1)
         }
-    }
+    })
 
 }
 
@@ -124,6 +143,7 @@ function construiBodyConsentimiento() {
 function validar_si_existe_firma() {
     let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
     let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
+    let $consentimiento_checkbox_div = $("#checkbox_consentimiendo_div");
 
     let firma = paciente_data.FIRMA;
 
@@ -131,11 +151,13 @@ function validar_si_existe_firma() {
         // En caso de que no tenga firma aparecera el canvas y el boton para que pueda firmar y enviar
         firma_div.fadeIn(1);
         aviso_div.fadeOut(1);
+        $consentimiento_checkbox_div.fadeIn(1);
         firma_exist = false;
     } else {
         // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
         aviso_div.fadeIn(500);
         firma_div.fadeOut(500);
+        $consentimiento_checkbox_div.fadeOut(500);
         firma_exist = true;
     }
 }
