@@ -21,19 +21,23 @@
             </div>
             <div class="modal-footer">
                 <!-- Paginacion del formulario -->
-                <button class="btn btn-cancelar" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <i class="bi bi-arrow-left"></i>
-                    Regresar</button>
-                <button class="btn btn-cancelar" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <i class="bi bi-arrow-right"></i>
-                    Siguiente</button>
+                <div>
+                    <button class="btn btn-cancelar" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <i class="bi bi-arrow-left"></i>
+                        Regresar</button>
+                    <button class="btn btn-cancelar" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <i class="bi bi-arrow-right"></i>
+                        Siguiente</button>
+                </div>
                 <!-- /////// -->
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
-                    Cerrar
-                </button>
-                <button type="submit" class="btn btn-confirmar" data-bs-toggle='tooltip' data-bs-placement='top' title="Se enviara mi reporte y doy mi consentimiento" id="btn-enviar-consentimiento">
-                    <i class="bi bi-box-arrow-down"></i> Guardar
-                </button>
+                <div>
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
+                        Cerrar
+                    </button>
+                    <button type="submit" class="btn btn-confirmar" data-bs-toggle='tooltip' data-bs-placement='top' title="Se enviara mi reporte y doy mi consentimiento" id="btn-enviar-consentimiento">
+                        <i class="bi bi-box-arrow-down"></i> Guardar
+                    </button>
+                </div>
             </div>
         </div>
     </div>
