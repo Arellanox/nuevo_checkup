@@ -50,7 +50,7 @@ $data_consentimiento_e = array(
 switch ($api) {
     case 1:
         #RECUPERA LA INFORMACION DEL PACIENTE Y EL CONSENTIMIENTO
-        $response = $master->getByProcedure("sp_consentimiento_formato_b", [$turno_id]);
+        $response = $master->decodeJsonRecursively($master->getByProcedure("sp_consentimiento_formato_b", [$turno_id]));
 
         break;
     case 2:
