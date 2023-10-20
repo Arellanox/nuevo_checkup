@@ -283,3 +283,7 @@ function validarFormulario() {
 // Inicializar SignaturePad en el canvas
 // var canvas = document.getElementById('firmaCanvas');
 // var signaturePad = new SignaturePad(canvas);
+
+
+/* -------------------------- funciones para el modal -------------------------------- */
+
