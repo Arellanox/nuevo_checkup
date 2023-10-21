@@ -20,12 +20,12 @@ $url = isset($_POST['url']) ? $_POST['url'] : null;
 $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
 $servicios = isset($_POST['servicios']) ? $_POST['servicios'] : null;
 $id_consentimiento = isset($_POST['id_consentimiento']) ? $_POST['id_consentimiento'] : null;
-
+$consentimiento = isset($_POST['consentimiento']) ? $_POST['consentimiento'] : null ;
 
 $data_firma_g = array(
     $turno_id,
     $firma,
-    $servicio_id,
+    $consentimiento,
     $url
 );
 
