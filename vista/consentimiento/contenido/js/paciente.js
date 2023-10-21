@@ -115,13 +115,13 @@ async function construiBodyConsentimiento() {
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="${$id_servicio}" id="flexRadioDefault1_${$id_servicio}">
                         <label class="form-check-label" for="flexRadioDefault1_${$id_servicio}">
-                            Si, estoy deacuerdo
+                            Si estoy deacuerdo
                         </label>
                         </div>
                         <div class="form-check">
                         <input class="form-check-input" type="radio" name="${$id_servicio}" id="flexRadioDefault2_${$id_servicio}" checked>
                         <label class="form-check-label" for="flexRadioDefault2_${$id_servicio}">
-                            No, No estoy deacuerdo
+                            No estoy deacuerdo
                         </label>
                     </div>
                      
