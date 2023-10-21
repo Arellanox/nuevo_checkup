@@ -71,6 +71,8 @@ function rowdrawalert() {
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
     $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
     VozActiva = true;
+    videoElement.volume = 0.2; // Establecer volumen al máximo
+
     setTimeout(() => {
         say()
     }, 300);
@@ -137,6 +139,7 @@ let voice = new SpeechSynthesisUtterance();
 let jarvis = window.speechSynthesis;
 
 const playVoice = text => {
+
     // Reproduce la voz
     voice.lang = 'es_ES';
     voice.text = text;
@@ -153,6 +156,7 @@ function say() {
 
         turno = temp['ETIQUETA_TURNO'];
         area = temp['MODULO'];
+
         document.getElementById('alert-paciente').play();
         setTimeout(() => {
             try {
@@ -164,6 +168,8 @@ function say() {
 
         setTimeout(() => {
             VozActiva = false;
+            videoElement.volume = 1; // Establecer volumen al máximo
+
         }, 7000);
     } catch (error) {
         console.error(error);
@@ -218,4 +224,37 @@ function SetFullScreen(elto) {
         return false;
     }
     return true;
+}
+
+
+
+
+// Auto play videos
+let videoArray = [
+    "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_1.mp4",
+    "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_2.mp4",
+    "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_3.mp4",
+    "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_4.mp4",
+    "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_5.mp4",
+]      // Almacena la lista de videos
+let currentIndex = 0;     // Índice del video que se está reproduciendo actualmente
+let videoElement = $("#videoPlayer").get(0);
+
+// Cuando el video termine de reproducirse, reproduce el siguiente
+$("#videoPlayer").on("ended", function () {
+    console.log("El video terminó de reproducirse."); // Registra un mensaje cuando el video termine
+    playNextVideo();
+});
+playNextVideo()
+
+function playNextVideo() {
+    if (currentIndex >= videoArray.length) {
+        currentIndex = 0; // Si es el último video, vuelve al primero
+    }
+    $("#videoPlayer").attr("src", videoArray[currentIndex]);  // Establece la fuente del video al video actual
+    $("#videoPlayer").get(0).play();  // Reproduce el video
+    currentIndex++;  // Avanza al siguiente índice
+
+    videoElement.volume = 1.0; // Establecer volumen al máximo
+
 }
