@@ -168,7 +168,7 @@ function say() {
 
         setTimeout(() => {
             VozActiva = false;
-            videoElement.volume = 1; // Establecer volumen al máximo
+            videoElement.volume = 0.7; // Establecer volumen al máximo
 
         }, 7000);
     } catch (error) {
@@ -255,6 +255,6 @@ function playNextVideo() {
     $("#videoPlayer").get(0).play();  // Reproduce el video
     currentIndex++;  // Avanza al siguiente índice
 
-    videoElement.volume = 1.0; // Establecer volumen al máximo
+    videoElement.volume = 0.8; // Establecer volumen al máximo
 
 }
