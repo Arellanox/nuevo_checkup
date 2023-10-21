@@ -98,5 +98,6 @@
         font-weight: normal;
         font-size: 1.25rem;
         letter-spacing: 0px !important;
+        text-align: justify !important;
     }
 </style>
