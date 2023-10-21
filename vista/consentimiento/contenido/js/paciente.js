@@ -117,14 +117,14 @@ async function construiBodyConsentimiento() {
                     <div class='my-3 justify-content-center checkbox_consentimiendo_div' style='display:none;'>
                     <p class=''>Marcar en las casillas si esta de acuerdo o no con el consentimiento informado</p>
                     <div class="form-check mt-3">
-                        <input class="form-check-input" type="radio" name="${$id_servicio}" id="flexRadioDefault1_${$id_servicio}">
-                        <label class="form-check-label fw-bold" for="flexRadioDefault1_${$id_servicio}">
+                        <input class="form-check-input" type="radio" name="${$id_servicio}" id="check_consentimiento_${$id_servicio}" checked>
+                        <label class="form-check-label fw-bold" for="check_consentimiento_${$id_servicio}">
                             Si estoy deacuerdo
                         </label>
                         </div>
                         <div class="form-check">
-                        <input class="form-check-input" type="radio" name="${$id_servicio}" id="flexRadioDefault2_${$id_servicio}" checked>
-                        <label class="form-check-label fw-bold" for="flexRadioDefault2_${$id_servicio}">
+                        <input class="form-check-input" type="radio" name="${$id_servicio}" id="check_consentimiento_${$id_servicio}">
+                        <label class="form-check-label fw-bold" for="check_consentimiento_${$id_servicio}">
                             No estoy deacuerdo
                         </label>
                     </div>
