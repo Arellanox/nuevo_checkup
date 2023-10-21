@@ -25,9 +25,12 @@ $consentimiento = isset($_POST['consentimiento']) ? $_POST['consentimiento'] : n
 $data_firma_g = array(
     $turno_id,
     $firma,
-    $consentimiento,
-    $url
+    json_encode($consentimiento)
 );
+
+
+// var_dump($data_firma_g);
+// exit;
 
 $data_consentimiento_g = array(
     $url,
