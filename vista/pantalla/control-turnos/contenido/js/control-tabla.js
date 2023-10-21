@@ -32,26 +32,22 @@ tablaControlTurnos = $('#TablaControlTurnos').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
-        { data: 'COUNT' },
         {
-            data: null, render: function (data, type, row, meta) {
-                // console.log(meta, data, type, row);
-                return ` <span class="etiqueta_h2">${ifnull(row, '', ['ETIQUETA_TURNO'])}</span> </br>
-                        <span>${ifnull(row, '', ['PACIENTE'])}</span> </br>
-                        <span>${ifnull(row, '', ['MODULO'])}</span>`
-            }
-        },
-        // { data: 'PACIENTE' },
-        // { data: 'ETIQUETA_TURNO' },
-        // { data: 'MODULO' }
+            data: 'COUNT'
+        }, {
+            data: 'PACIENTE'
+        }, {
+            data: 'ETIQUETA_TURNO'
+        }, {
+            data: 'MODULO'
+        }
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
         { targets: 0, visible: true },
-        { targets: 1 },
-        // { targets: 2, visible: false },
-        // { targets: 3, visible: false },
-        // { targets: 4, visible: false }
+        { targets: 1, width: '60%' },
+        { targets: 2, width: '5%' },
+        { targets: 3, width: '35%' }
 
     ],
     // drawCallback: function () {
@@ -71,8 +67,6 @@ function rowdrawalert() {
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
     $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
     VozActiva = true;
-    videoElement.volume = 0.2; // Establecer volumen al máximo
-
     setTimeout(() => {
         say()
     }, 300);
@@ -139,7 +133,6 @@ let voice = new SpeechSynthesisUtterance();
 let jarvis = window.speechSynthesis;
 
 const playVoice = text => {
-
     // Reproduce la voz
     voice.lang = 'es_ES';
     voice.text = text;
@@ -156,7 +149,6 @@ function say() {
 
         turno = temp['ETIQUETA_TURNO'];
         area = temp['MODULO'];
-
         document.getElementById('alert-paciente').play();
         setTimeout(() => {
             try {
@@ -168,8 +160,6 @@ function say() {
 
         setTimeout(() => {
             VozActiva = false;
-            videoElement.volume = 0.7; // Establecer volumen al máximo
-
         }, 7000);
     } catch (error) {
         console.error(error);
@@ -224,38 +214,4 @@ function SetFullScreen(elto) {
         return false;
     }
     return true;
-}
-
-
-
-
-// Auto play videos
-let videoArray = [
-    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_1.mp4",
-    // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_2.mp4",
-    // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_3.mp4",
-    // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_4.mp4",
-    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_5.mp4",
-    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_6.mp4",
-]      // Almacena la lista de videos
-let currentIndex = 0;     // Índice del video que se está reproduciendo actualmente
-let videoElement = $("#videoPlayer").get(0);
-
-// Cuando el video termine de reproducirse, reproduce el siguiente
-$("#videoPlayer").on("ended", function () {
-    console.log("El video terminó de reproducirse."); // Registra un mensaje cuando el video termine
-    playNextVideo();
-});
-playNextVideo()
-
-function playNextVideo() {
-    if (currentIndex >= videoArray.length) {
-        currentIndex = 0; // Si es el último video, vuelve al primero
-    }
-    $("#videoPlayer").attr("src", videoArray[currentIndex]);  // Establece la fuente del video al video actual
-    $("#videoPlayer").get(0).play();  // Reproduce el video
-    currentIndex++;  // Avanza al siguiente índice
-
-    videoElement.volume = 0.8; // Establecer volumen al máximo
-
 }
