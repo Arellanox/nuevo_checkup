@@ -231,12 +231,12 @@ function SetFullScreen(elto) {
 
 // Auto play videos
 let videoArray = [
-    "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_1.mp4",
-    // "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_2.mp4",
-    // "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_3.mp4",
-    // "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_4.mp4",
-    "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_5.mp4",
-    "http://localhost/nuevo_checkup/archivos/sistema/turnero/turnero_6.mp4",
+    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_1.mp4",
+    // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_2.mp4",
+    // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_3.mp4",
+    // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_4.mp4",
+    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_5.mp4",
+    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_6.mp4",
 ]      // Almacena la lista de videos
 let currentIndex = 0;     // Índice del video que se está reproduciendo actualmente
 let videoElement = $("#videoPlayer").get(0);
