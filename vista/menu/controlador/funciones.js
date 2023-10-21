@@ -707,7 +707,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   })
 
-  labelArea.on('change', function () { // <- se cambio por labelArea
+  inputArea.on('change', function () { // <- se cambio por labelArea
     // Dar el efecto de cargando o subiendo
     cargandoInput()
 

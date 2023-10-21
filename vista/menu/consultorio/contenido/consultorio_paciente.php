@@ -70,14 +70,15 @@ session_start();
     </div>
 
 
-    <!-- Agregar certificado medico -->
+
     <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
 
+      <!-- Agregar certificado medico -->
       <?php if ($_SESSION['permisos']['certificadoMedica'] == 1) : ?>
         <h4>Certificado médico del paciente</h4>
         <form id="subirResultadosCertificadoMedico" class="d-flex flex-column align-items-center">
           <div id="dropCertificadoMedico" class="drop-zone mx-2">
-            <label for=file-certificado-medico" style="cursor: pointer;" class="label-certificado-medico">Sube tu
+            <label for="certificado-medico" style="cursor: pointer;" class="label-certificado-medico">Sube tu
               archivo
               arrastrándolo
               aquí</label>
@@ -96,7 +97,8 @@ session_start();
         <h4>Certificado POE</h4>
         <form id="subirResultadosCertificadoPOE" class="d-flex flex-column align-items-center">
           <div id="dropCertificadoPOE" class="drop-zone mx-2">
-            <label for=file-certificado-POE" style="cursor: pointer;" class="label-certificado-POE">Sube tu
+            <label for="certificado-POE" style="cursor: pointer;" class="label-captura-oido">Sube
+              tu
               archivo
               arrastrándolo
               aquí</label>
@@ -108,6 +110,10 @@ session_start();
             </div>
           </div>
         </form>
+
+
+
+
       <?php endif; ?>
 
       <!-- 
