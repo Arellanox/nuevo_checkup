@@ -117,13 +117,13 @@ async function construiBodyConsentimiento() {
                     <div class='my-3 justify-content-center checkbox_consentimiendo_div' style='display:none;'>
                     <p class=''>Marcar en las casillas si esta de acuerdo o no con el consentimiento informado.</p>
                     <div class="form-check mt-3">
-                        <input class="form-check-input" value='0' type="radio" name="${$id_servicio}" id="check_consentimiento_si_${$id_servicio}" checked>
+                        <input class="form-check-input" value='1' type="radio" name="${$id_servicio}" id="check_consentimiento_si_${$id_servicio}" checked>
                         <label class="form-check-label fw-bold" for="check_consentimiento_si_${$id_servicio}">
                             Si estoy deacuerdo
                         </label>
                         </div>
                         <div class="form-check">
-                        <input class="form-check-input" value='1' type="radio" name="${$id_servicio}" id="check_consentimiento_no_${$id_servicio}">
+                        <input class="form-check-input" value='0' type="radio" name="${$id_servicio}" id="check_consentimiento_no_${$id_servicio}">
                         <label class="form-check-label fw-bold" for="check_consentimiento_no_${$id_servicio}">
                             No estoy deacuerdo
                         </label>
@@ -182,9 +182,9 @@ function enviar_firma() {
 
             // Se evalua cual check esta seleccionando y se le asigna un valor 0 es que acepto  1 es que no acepto
             if ($(`#check_consentimiento_si_${ID}`).is(":checked")) {
-                valor = 0 //<-- Acepto el consentimiento
+                valor = 1 //<-- Acepto el consentimiento
             } else {
-                valor = 1 // <-- No acepto el consentimiento
+                valor = 0 // <-- No acepto el consentimiento
             }
 
             // Se inserta en el json los valores de los consentimientos
@@ -195,16 +195,9 @@ function enviar_firma() {
         }
     }
 
-    console.log(data_json)
-
-    return false;
-    ajaxAwait({
-        api: 2,
-        turno_id: turno_id,
-        firma: FIRMA
-    }, 'consentimiento_api', { callbackAfter: true }, false, () => {
+    ajaxAwait(data_json, 'consentimiento_api', { callbackAfter: true }, false, () => {
         alertMsj({
-            title: '¡Su firma se ha guardado!', text: 'ya puede visualizar su reporte',
+            title: '¡Su firma y consentimiento se han guardado!', text: 'ya puede visualizar su reporte',
             icon: 'success', allowOutsideClick: false, showCancelButton: false, showConfirmButton: true
         })
 
