@@ -41,14 +41,10 @@ switch ($menu) {
 
     </div>
   </nav>
-  <?php break;
+<?php break;
 
     // case 'procedencia': 
-  ?>
-
-
-
-<?php // break;
+    // break;
 
   default:
 ?>
