@@ -11,8 +11,8 @@ $(document).ready(function () {
 })
 
 //select multiple
-select2('#select_servicio_epidemio', 'modalFiltrarTablaReporteEpidemio')
-rellenarSelect('#select_servicio_epidemio', 'formas_pago_api', '2', 'ID_PAGO', 'DESCRIPCION')
+// select2('#select_servicio_epidemio', 'modalFiltrarTablaReporteEpidemio')
+// rellenarSelect('#select_servicio_epidemio', 'formas_pago_api', '2', 'ID_PAGO', 'DESCRIPCION')
 
 
 $(document).on('click', '#actualizar_tabla_epidemio', function (e) {
