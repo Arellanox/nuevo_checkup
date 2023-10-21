@@ -111,17 +111,20 @@ async function construiBodyConsentimiento() {
                     <div class='mx-auto'>
                         ${CONSENTIMIENTO}
                     </div>
-                    <div class='my-3 justify-content-center' style='display:none;' id='checkbox_consentimiendo_div'>
-                    <hr>
-                        <div class="form-check  d-flex justify-content-center gap-2"">
-                            <input class="form-check-input" type="checkbox" value="" id="consentimiento_check_${$id_servicio}">
-                            <label class="form-check-label" for="consentimiento_check_${$id_servicio}" data-bs-toggle='tooltip'
-                                data-bs-placement='top'
-                                title="Si estas de acuerdo en dar tu consentimiento da click a esta casilla">
-                                Doy mi consentimiento.
-                            </label>
+                    <div class='my-3 justify-content-center checkbox_consentimiendo_div' style='display:none;'>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="${$id_servicio}" id="flexRadioDefault1_${$id_servicio}">
+                        <label class="form-check-label" for="flexRadioDefault1_${$id_servicio}">
+                            Si, estoy deacuerdo
+                        </label>
                         </div>
-                    <hr>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="${$id_servicio}" id="flexRadioDefault2_${$id_servicio}" checked>
+                        <label class="form-check-label" for="flexRadioDefault2_${$id_servicio}">
+                            No, No estoy deacuerdo
+                        </label>
+                    </div>
+                     
                     </div>
             </div>
             `;
@@ -143,7 +146,7 @@ async function construiBodyConsentimiento() {
 function validar_si_existe_firma() {
     let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
     let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
-    let $consentimiento_checkbox_div = $("#checkbox_consentimiendo_div");
+    let $consentimiento_checkbox_div = $(".checkbox_consentimiendo_div");
 
     let firma = paciente_data.FIRMA;
 
@@ -162,23 +165,14 @@ function validar_si_existe_firma() {
     }
 }
 
-// Function para construir el cuerpo del o los consentimientos
-function dibujarConsentimientos() {
-    let body_div = $("#");
-
-    for (const key in paciente_data) {
-        if (Object.hasOwnProperty.call(paciente_data, key)) {
-            const element = paciente_data[key];
-
-        }
-    }
-}
-
 // Function para enivar la firma
 function enviar_firma() {
     // Se obtiene la firma codificada en base 64
     let FIRMA = $("#firma").val();
 
+
+
+    return false;
     ajaxAwait({
         api: 2,
         turno_id: turno_id,
