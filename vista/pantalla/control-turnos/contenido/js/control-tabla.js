@@ -71,7 +71,7 @@ function rowdrawalert() {
     $('#TablaControlTurnos tbody tr:first').addClass('selected');
     $('#TablaControlTurnos tbody tr:first').addClass('firstSelect');
     VozActiva = true;
-    videoPlayer.volume = 0.2; // Establecer volumen al máximo
+    videoElement.volume = 0.2; // Establecer volumen al máximo
 
     setTimeout(() => {
         say()
@@ -168,7 +168,7 @@ function say() {
 
         setTimeout(() => {
             VozActiva = false;
-            videoPlayer.volume = 0.7; // Establecer volumen al máximo
+            videoElement.volume = 0.7; // Establecer volumen al máximo
 
         }, 7000);
     } catch (error) {
@@ -231,35 +231,31 @@ function SetFullScreen(elto) {
 
 // Auto play videos
 let videoArray = [
-    "http://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_1.mp4",
-    // "hsttp://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_2.mp4",
-    // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_3.mp4",
-    // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_4.mp4",
-    "http://sbimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_5.mp4",
+    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_1.mp4",
+    // "http://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_2.mp4",
+    // "http://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_3.mp4",
+    // "http://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_4.mp4",
+    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_5.mp4",
     "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_6.mp4",
-]      //s Almacena la lista de videos
+]      // Almacena la lista de videos
 let currentIndex = 0;     // Índice del video que se está reproduciendo actualmente
+let videoElement = $("#videoPlayer").get(0);
 
-// Obtiene la referencia del elemento video
-var videoPlayer = document.getElementById("videoPlayer");
-
-// Inicia la reproducción de videos
-playNextVideo();
-
-// Añade un listener para el evento 'ended'
-videoPlayer.addEventListener('ended', function () {
-    console.log("El video terminó de reproducirse.");
+// Cuando el video termine de reproducirse, reproduce el siguiente
+$("#videoPlayer").on("ended", function () {
+    console.log("El video terminó de reproducirse."); // Registra un mensaje cuando el video termine
     playNextVideo();
 });
+playNextVideo()
 
 function playNextVideo() {
     if (currentIndex >= videoArray.length) {
-        currentIndex = 0;
+        currentIndex = 0; // Si es el último video, vuelve al primero
     }
+    $("#videoPlayer").attr("src", videoArray[currentIndex]);  // Establece la fuente del video al video actual
+    $("#videoPlayer").get(0).play();  // Reproduce el video
+    currentIndex++;  // Avanza al siguiente índice
 
-    videoPlayer.src = videoArray[currentIndex];
-    videoPlayer.play();
-    videoPlayer.volume = 0.8;  // Establecer volumen al 80%
+    videoElement.volume = 0.8; // Establecer volumen al máximo
 
-    currentIndex++;
 }
