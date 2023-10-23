@@ -714,6 +714,10 @@ class Miscelaneus
     private function getBodyInfoConsultorio2($master, $turno_id)
     {
         $response = $master->getByNext('sp_consultorio2', [$turno_id]);
+        $recetas = $master->getByNext('sp_recetas', [$turno_id]);
+
+
+        $response = array_merge($response, $recetas);
 
         return $response;
     }
