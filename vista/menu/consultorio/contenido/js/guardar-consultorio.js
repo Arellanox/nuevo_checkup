@@ -93,7 +93,7 @@ $(document).on('click', '#btn-guardar-plan-tratamiento', function (event) {
 })
 
 //Boton para terminar consulta
-$(document).on('click', '#btn-consulta-terminar', function (event) {
+$(document).on('click', '#btn-consulta-terminar-medica', function (event) {
     event.preventDefault()
     title = '¿Deseas concluir la consulta médica?';
     texto = 'Confirmarás y enviarás el resultado y no podrás volver a modificarlo.'
