@@ -80,7 +80,7 @@ switch ($api) {
                     'FECHA_ACTUAL' => $item['FECHA'],
                     'ANIO' => $item['ANIO_ACTUAL'],
                     'NOMBRE_PACIENTE' => $item['NOMBRE_PACIENTE'],
-                    'NOMBRE_PACIENTE_RESPOPNSABLE' => $item['NOMBRE_PACIENTE'],
+                    'NOMBRE_PACIENTE_RESPONSABLE' => $item['NOMBRE_PACIENTE'],
                     'FIRMA_PACIENTE' => $item['FIRMA'],
                 );
             } else {
