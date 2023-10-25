@@ -81,7 +81,7 @@ switch ($api) {
                     'ANIO' => $item['ANIO_ACTUAL'],
                     'NOMBRE_PACIENTE' => $item['NOMBRE_PACIENTE'],
                     'NOMBRE_PACIENTE_RESPONSABLE' => $item['NOMBRE_PACIENTE'],
-                    'FIRMA_PACIENTE' => $item['FIRMA'],
+                    'FRIMA_PACIENTE' => $item['FIRMA'],
                 );
             } else {
 
@@ -92,7 +92,7 @@ switch ($api) {
                     'NOMBRE_PACIENTE' => $item['NOMBRE_PACIENTE'],
                     'NOMBRE_PACIENTE_NEGACION' => $item['NOMBRE_PACIENTE'],
                     'FECHA_NEGACION' => $item['FECHA_NEGACION'],
-                    'FIRMA_PACIENTE_NEGACION' => $item['FIRMA'],
+                    'FRIMA_PACIENTE_NEGACION' => $item['FIRMA'],
                     'NOMBRE_PACIENTE_REVOCACION' => $item['NOMBRE_PACIENTE'],
                     'FECHA_REVOCACION' => $item['FECHA_NEGACION'],
                     'FIRMA_PACIENTE_REVOCACION' => $item['FIRMA']
