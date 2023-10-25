@@ -69,7 +69,9 @@ switch ($api) {
             $archivo_original = $item['PDF_BLANCO'];
             $firma_paciente = $item['FIRMA'];
 
-            $pdf = new FPDM($archivo_original);
+            $ruta_si = str_replace($host, '../', $item['PDF_BLANCO']);
+
+            $pdf = new FPDM($ruta_si);
             $pdf->useCheckboxParser = true;
 
             if ($item['CONSENTIMIENTO'] == 1) {
