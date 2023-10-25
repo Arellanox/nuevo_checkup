@@ -362,6 +362,7 @@ class Correo
         </div>
     </body>
         </html>';
+        return $html;
     }
     private function cuerpoCorreoLaboratorio()
     {
