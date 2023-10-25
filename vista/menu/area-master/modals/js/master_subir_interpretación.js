@@ -62,17 +62,6 @@ $(`#${formulario}`).submit(function (event) {
 
 
 
-                let capturasArraya = []
-                let audiometria_tablas = '#captures img'
-                $(audiometria_tablas).each(function () {
-                    capturasArraya.push($(this).attr('src'))
-                })
-                jsonData['tabla_reporte'] = JSON.stringify(capturasArraya)
-
-                ajaxAwaitFormData(jsonData, 'audiometria_api', 'formCapturaResultados', { callbackAfter: true }, false,
-                    (data) => {
-                        // alertToast('Su captura se ha guardado correctamente', 'success', 4000)
-                    })
 
                 break;
         }
@@ -83,6 +72,8 @@ $(`#${formulario}`).submit(function (event) {
             icon: "warning",
         }, function () {
 
+
+
             ajaxAwaitFormData(jsonData, url_api, formulario, { callbackAfter: true, callbackBefore: true },
                 () => {
                     $(`#${formulario}:submit`).prop('disabled', true)
@@ -92,6 +83,18 @@ $(`#${formulario}`).submit(function (event) {
                     alertMensaje('success', '¡Interpretación guardada!', 'Consulte o confirme el reporte despues de guardar');
                     estadoFormulario(2)
                     obtenerServicios(areaActiva, dataSelect.array['turno'])
+
+
+                    switch (areaActiva) {
+                        case 4:
+                            SubirCapturasAudiometria();
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
 
                     $("#formSubirInterpretacion:submit").prop('disabled', false)
                 }

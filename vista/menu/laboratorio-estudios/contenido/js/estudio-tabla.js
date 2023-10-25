@@ -6,7 +6,7 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
   lengthMenu: [[15, 20, 25, 30, 35, 40, 45, 50, -1], [15, 20, 25, 30, 35, 40, 45, 50, "All"]],
   ajax: {
     dataType: 'json',
-    data: { api: 2, id_area: 6, tipgrupo: 0 },
+    data: { api: 2, id_area: '6,12', tipgrupo: 0 },
     method: 'POST',
     url: '../../../api/servicios_api.php',
     beforeSend: function () { loader("In") },

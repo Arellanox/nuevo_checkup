@@ -2857,6 +2857,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
                       $('#edad-persona').html(formatoEdad(row.EDAD))
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                      $('#info-paquete_cargado').html(ifnull(row, '', ['PAQUETE_CARGADO']))
                       $('#info-paci-alergias').html(row.ALERGIAS);
                       $('#info-paci-procedencia').html(row.PROCEDENCIA)
                       $('#info-paci-curp').html(row.CURP);
@@ -2920,6 +2921,22 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         } catch (error) {
 
                         }
+
+
+                        // Categoria del paciente, no particulares
+                        if (ifnull(row, false, ['ID_CLIENTE']) != '1') {
+                          $('#info-categoria_cargado').html(ifnull(row, '', ['CATEGORIA']))
+                          // console.log(area);
+                          if (area === 1) {
+                            // Aparece las categorias
+                            $('.categoria_paciente').fadeIn('fast');
+                            $('#categoria_paciente_input').val(ifnull(row, '', ['CATEGORIA']))
+                          }
+
+                        }
+
+
+
                       } else {
                       }
 
@@ -2934,52 +2951,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   },
                 })
 
-                break;
-              case 'paciente_lab':
-                $.ajax({
-                  url: http + servidor + "/" + appname + "/api/pacientes_api.php",
-                  data: {
-                    api: 2,
-                    turno_id: id
-                  },
-                  type: "POST",
-                  dataType: 'json',
-                  success: function (data) {
-                    if (mensajeAjax(data)) {
-                      row = data['response']['data'][0];
-                      $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#edad-persona').html(formatoFecha(row.EDAD))
-                      $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
-
-
-                      $('#info-paci-curp').html(row.CURP);
-                      $('#info-paci-telefono').html(row.CELULAR);
-                      $('#info-paci-correo').html(row.CORREO);
-                      $('#info-paci-sexo').html(row.GENERO);
-                      if (row.TURNO) {
-                        $('#info-paci-turno').html(row.TURNO);
-                      } else {
-                        $('#info-paci-turno').html('Sin generar');
-                      }
-                      $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
-                        row.MUNICIPIO + ", " + row.ESTADO);
-                      $('#info-paci-procedencia').html(row.NOMBRE_COMERCIAL);
-                      $('#info-paci-prefolio').html(row.PREFOLIO)
-
-                      $('#info-paci-reagenda').val(row.FECHA_RECEPCION);
-                      $('#info-paci-reagenda').val(row.FECHA_REAGENDA);
-
-
-                    }
-                  },
-                  complete: function () {
-                    $(panel).fadeIn(100);
-                    resolve(1);
-                  },
-                  error: function (jqXHR, exception, data) {
-                    alertErrorAJAX(jqXHR, exception, data)
-                  },
-                })
                 break;
               case 'equipo':
                 $('#nombre-equipo').html(row.MARCA + "-" + row.MODELO);

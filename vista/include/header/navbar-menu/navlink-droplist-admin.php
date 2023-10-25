@@ -135,6 +135,11 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
                         <i class="bi bi-file-earmark-spreadsheet"></i> Estudios
                     </a>
                 </li>
+                <li>
+                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-epidemiologico/'; ?>" class="dropdown-a" type="button">
+                        <i class="bi bi-journal-text"></i> Reporte epidemiológico
+                    </a>
+                </li>
             <?php endif; ?>
             <hr class="dropdown-divider">
         </ul>

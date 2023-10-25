@@ -100,14 +100,23 @@ class Correo
         }
     }
 
-    public function getCorreoSeleccionado(){
+    public function getCorreoSeleccionado()
+    {
         return $this->correo_seleccionado;
     }
 
-    private function setCorreoSeleccionado($correo){
+    private function setCorreoSeleccionado($correo)
+    {
         $this->correo_seleccionado = $correo;
     }
-    function sendEmail($bodySelected, $subject, $emails = array(), $token = null, $reportes = array(), $resultados = 0, $paciente = null, 
+    function sendEmail(
+        $bodySelected,
+        $subject,
+        $emails = array(),
+        $token = null,
+        $reportes = array(),
+        $resultados = 0,
+        $paciente = null,
         # estas variables son para insertar en la tabla de correos.
         $id_turno = null,
         $area_id = null,
@@ -130,14 +139,12 @@ class Correo
             $this->setCorreoSeleccionado($username);
             $password = $this->emailCred->hola;
             $fromName = 'bimo';
-
-        } else if ($resultados == 1){
+        } else if ($resultados == 1) {
             $username = 'soporte@bimo-lab.com';
             $this->setCorreoSeleccionado($username);
             // $password = 'Bimo2023!';
             $password = $this->emailCred->soporte;
             $fromName = 'Resultados [bimo]';
-        
         } else {
             $username = 'resultados@bimo-lab.com';
             $this->setCorreoSeleccionado($username);
@@ -209,35 +216,42 @@ class Correo
 
             # send email
             $mail->send();
-            $response = $master->insertByProcedure("sp_correos_g", [
-                $id_turno, 
-                $area_id, 
-                $this->getCorreoSeleccionado(),
-                json_encode($emails),
-                null,
-                "CORRECTO",
-                1 
-            ]);
+            if (isset($id_turno)) {
+
+                $response = $master->insertByProcedure("sp_correos_g", [
+                    $id_turno,
+                    $area_id,
+                    $this->getCorreoSeleccionado(),
+                    json_encode($emails),
+                    null,
+                    "CORRECTO",
+                    1
+                ]);
+            }
 
             return true;
         } catch (Exception $e) {
 
-            $response = $master->insertByProcedure("sp_correos_g", [
-                $id_turno, 
-                $area_id, 
-                $this->getCorreoSeleccionado(),
-                json_encode($emails),
-                null,
-                "ERROR",
-                0 
-            ]);
+            if (isset($id_turno)) {
+
+                $response = $master->insertByProcedure("sp_correos_g", [
+                    $id_turno,
+                    $area_id,
+                    $this->getCorreoSeleccionado(),
+                    json_encode($emails),
+                    null,
+                    "ERROR",
+                    0
+                ]);
+            }
 
             $mis->setLog($e, "Clase correo [sendMail]");
             return false;
         }
     }
 
-    private function cuerpoFormularioContacto($data){
+    private function cuerpoFormularioContacto($data)
+    {
         $html = "<!DOCTYPE html>
         <html>
         
@@ -290,15 +304,15 @@ class Correo
             <div class=\"container\">
                 <h1>Datos de Contacto</h1>
                 <div class=\"info\">
-                    <p><strong>Nombre:</strong> ".$data['nombre']."</p>
-                    <p><strong>Email:</strong> ".$data['email']."</p>
-                    <p><strong>Número de Teléfono:</strong> ".$data['telefono']. "</p>
-                    <p><strong>Asunto:</strong>". $data['asunto']."</p>
-                    <p><strong>Política de privacidad:</strong> ". $data['politica']."</p>
+                    <p><strong>Nombre:</strong> " . $data['nombre'] . "</p>
+                    <p><strong>Email:</strong> " . $data['email'] . "</p>
+                    <p><strong>Número de Teléfono:</strong> " . $data['telefono'] . "</p>
+                    <p><strong>Asunto:</strong>" . $data['asunto'] . "</p>
+                    <p><strong>Política de privacidad:</strong> " . $data['politica'] . "</p>
                 </div>
                 <div class=\"mensaje\">
                     <p><strong>Mensaje:</strong></p>
-                    <p>".$data['comentario_ayuda']." ?></p>
+                    <p>" . $data['comentario_ayuda'] . " ?></p>
                 </div>
             </div>
         </body>

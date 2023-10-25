@@ -54,6 +54,9 @@ $segmento_id = $_POST['segmento_id'];
 $area_id = $_POST['area_id'];
 
 
+# nuevos datos
+$categoria_turno = $_POST['categoria_turno'];
+
 
 $parametros = array(
     $id_turno,
@@ -246,9 +249,8 @@ switch ($api) {
                 $r = $mail->sendEmail("resultados", "Resultados de laboratorio", array_unique($mails), null, $files, 1, null, $id_turno, $id_area, $master);
                 if ($r) {
                     $response = 1;
-                    
                 } else {
-                    $x = $master->insertByProcedure("sp_correos_g", [$id_turno, $id_area, $mail->getCorreoSeleccionado(), ]);
+                    $x = $master->insertByProcedure("sp_correos_g", [$id_turno, $id_area, $mail->getCorreoSeleccionado(),]);
                     $response = "No se envió el resultado.";
                 }
             } else {
@@ -295,7 +297,10 @@ switch ($api) {
         # por la fecha de recepcion ['fecha_recepcion'].
         $response = $master->getByProcedure("sp_turnos_completados_b", [$turno_completado, $fecha_recepcion]);
         break;
-
+    case 21:
+        # agregra una categoria al paciente de empresas.
+        $response = $master->insertByProcedure("sp_agregar_categoria_turno", [$id_turno, $categoria_turno]);
+        break;
     default:
         $response = "api no reconocida";
         break;

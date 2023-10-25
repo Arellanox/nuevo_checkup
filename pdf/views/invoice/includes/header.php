@@ -84,10 +84,20 @@
                         </table>
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
                             <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
-                            <span style="margin-left: 20px;">
-                                <!-- Tipo de muestra  -->
-                                <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
-                            </span>
+
+                            <?php if ($encabezado->PAQUETE_CARGADO) { ?>
+                                <span style="margin-left: 20px;">
+                                    <!-- Tipo de muestra  -->
+                                    <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
+                                </span>
+                            <?php } ?>
+
+                            <?php if ($encabezado->CATEGORIA) { ?>
+                                <span style="margin-left: 20px;">
+                                    <!-- Tipo de muestra  -->
+                                    <?php echo "Categoría: <strong style='font-size: 12px;'> $encabezado->CATEGORIA"; ?> </strong>
+                                </span>
+                            <?php } ?>
                         </p>
 
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
