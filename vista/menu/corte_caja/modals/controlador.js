@@ -7,6 +7,7 @@ $.post("modals/c_modal.php", function (html) {
 
     $.getScript('modals/js/admin_cajas.js');
 
+    $.getScript('modals/js/caja_detalle_paciente.js');
 
     $.getScript(`${http}${servidor}/${appname}/vista/menu/facturacion/modals/js/c_detalle_cuenta.js`);
 });
