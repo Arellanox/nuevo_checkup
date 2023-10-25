@@ -1,9 +1,40 @@
 $(document).on("click", "#btn-mostrar-formato-consentimiento", async function () {
-    await construirReportes()
-    $("#consentimiento_paciente_modal").modal("show");
+    configurarModal()
 })
 
-// Funciton para construir todo el cuerpo del modal
+// Function para configurar el modal
+async function configurarModal() {
+
+    let data = []; //<-- array que se le va a pasar a la funcion para armar el modal
+
+    // Se obtiene el array donde esta toda la informacion de los formatos
+    row = paciente_data.FORMATO;
+
+
+    // Se recorre el array para acceder a sus keys
+    for (const key in row) {
+        if (Object.hasOwnProperty.call(row, key)) {
+            const element = row[key];
+
+            const $NOMBRE = element.NOMBRE_CONSENTIMIENTO;
+            const $URL = element.RUTA;
+
+            data[key] = {
+                nombre_servicio: $NOMBRE,
+                url: $URL
+            }
+
+        }
+    }
+
+    // Se le manda a la funcion el array armado para que se muestre en el modal
+    await construirReportes(data);
+
+    // Una vez se realizo todos los metodos se abre e   l modal
+    $("#consentimiento_paciente_modal").modal("show");
+}
+
+// Function para construir todo el cuerpo del modal
 async function construirReportes(
     data = [
         {

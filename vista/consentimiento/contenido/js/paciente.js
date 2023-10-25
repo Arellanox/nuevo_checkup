@@ -1,7 +1,20 @@
 // ----------- Formulario, Botones y PDF -----------------------------------
 let paciente_data; // <-- aqui se guarda un array con toda la informacion del paciente
-$(document).ready(function () {
-    ContruirPagina()
+
+// Una vez cargue todo el contenido de la pagina se empieza a construir
+$(document).ready(async function () {
+    if (!turno_id) {
+        $('#body-js').html('');
+        alertMsj({
+            title: '¡Falta definir Turno!', text: 'No se encontro ningun turno',
+            icon: 'error', allowOutsideClick: false, showCancelButton: false, showConfirmButton: false
+        })
+
+        return false;
+    }
+
+
+    await ContruirPagina()
 });
 
 // Escucha el boton "Enviar firma"
@@ -30,25 +43,28 @@ $(document).on("click", "#enviar_firma_btn", function () {
 /* --------------- Funciones ------------------------------------ */
 
 // Function para construir todo la pagina
-function ContruirPagina() {
-    firma_exist = false;
-    ajaxAwait({
-        api: 1,
-        turno_id: turno_id
-    }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
-        let row = data.response.data;
-        // Se recorre el array para acceder a los datos
-        paciente_data = row[0];
+async function ContruirPagina() {
+    return new Promise(async function (resolve, reject) {
+        // Se inicializa la firma en false, por que no existe
+        firma_exist = false;
+        await ajaxAwait({
+            api: 1,
+            turno_id: turno_id
+        }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
+            let row = data.response.data;
+            // Se recorre el array para acceder a los datos
+            paciente_data = row[0];
 
+            // Se construye el header con la informacion del paciente
+            await rellenarInformacionPaciente();
 
-        // Se construye el header con la informacion del paciente
-        await rellenarInformacionPaciente();
+            // Se construye los cuerpos de los consentimiento por cada area si es que manda mas de una
+            await construiBodyConsentimiento();
 
-        // Se construye los cuerpos de los consentimiento por cada area si es que manda mas de una
-        await construiBodyConsentimiento();
-
-        // Se valida si la firma ya existe
-        validar_si_existe_firma();
+            // Se valida si la firma ya existe
+            validar_si_existe_firma();
+        })
+        resolve(1);
     })
 }
 
@@ -100,41 +116,56 @@ async function construiBodyConsentimiento() {
         for (const key in row) {
             if (Object.hasOwnProperty.call(row, key)) {
                 const element = row[key];
-                const NOMBRE_SERVICIO = element.NOMBRE_SERVICIO;
                 const CONSENTIMIENTO = element.CONSENTIMIENTO;
                 const $id_servicio = element.SERVICIO_ID;
                 const $nombre = ' ' + paciente_data.NOMBRE_PACIENTE;
 
+                const $ACEPTADO_CONSENTIMIENTO = element.ACEPTADO;
+                let $badge = "";
+
+                if ($ACEPTADO_CONSENTIMIENTO === 1) {
+                    $badge = `<h5 class="text-success fw-bold">
+                    <i class="bi bi-check-circle-fill"></i> Aceptado
+                    </h5>`;
+                } else {
+                    $badge = `<h5 class="text-danger fw-bold">
+                    <i class="bi bi-x-circle-fill"></i> No aceptado
+                    </h5>`;
+                }
+
                 let html = `
-            <div class="col-12 rounded-3 p-3 card shadow mt-3">
-                <!-- Cuerpo del texto del consentimiento -->
-                    <div class='row'>
-                        <div class='col-12'>
-                        ${CONSENTIMIENTO}
+                <div class="col-12 rounded-3 p-3 card shadow mt-3">
+                    <!-- Cuerpo del texto del consentimiento -->
+                        <div class='row'>
+                            <div class='col-12'>
+                            ${CONSENTIMIENTO}
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class='my-3 justify-content-center checkbox_consentimiendo_div' style='display:none;'>
-                    <p class=''>Marcar en las casillas si esta de acuerdo o no con el consentimiento informado.</p>
-                    <div class="form-check mt-3">
-                        <input class="form-check-input" value='1' type="radio" name="${$id_servicio}" id="check_consentimiento_si_${$id_servicio}" checked>
-                        <label class="form-check-label fw-bold" for="check_consentimiento_si_${$id_servicio}">
-                            Si estoy deacuerdo
-                        </label>
+                        <hr>
+                        <!-- Aviso del consentimiento en caso de que haya aceptado o no -->
+                        <div class='aceptado_aviso' style='display:none;'>
+                            <div class='d-flex justify-content-center'>
+                                ${$badge}
+                            </div>
                         </div>
-                        <div class="form-check">
-                        <input class="form-check-input" value='0' type="radio" name="${$id_servicio}" id="check_consentimiento_no_${$id_servicio}">
-                        <label class="form-check-label fw-bold" for="check_consentimiento_no_${$id_servicio}">
-                            No estoy deacuerdo
-                        </label>
-                    </div>
-                     
-                    </div>
-            </div>
-            `;
-
-
-
+                        <!-- Checkbox para aceptar los consentimientoss -->
+                        <div class='my-3 justify-content-center checkbox_consentimiendo_div' style='display:none;'>
+                            <p class=''>Marcar en las casillas si esta de acuerdo o no con el consentimiento informado.</p>
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" value='1' type="radio" name="${$id_servicio}" id="check_consentimiento_si_${$id_servicio}" checked>
+                                    <label class="form-check-label fw-bold" for="check_consentimiento_si_${$id_servicio}">
+                                        Si estoy deacuerdo
+                                    </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" value='0' type="radio" name="${$id_servicio}" id="check_consentimiento_no_${$id_servicio}">
+                                    <label class="form-check-label fw-bold" for="check_consentimiento_no_${$id_servicio}">
+                                        No estoy deacuerdo
+                                    </label>
+                            </div>
+                        </div>
+                </div >
+                `;
 
                 div.append(html);
                 $(".nombre_paciente").html($nombre);
@@ -151,7 +182,7 @@ function validar_si_existe_firma() {
 
     let firma = paciente_data.FIRMA;
 
-    if (firma === "0")/* no tiene firma */ {
+    if (firma === "0") /* no tiene firma */ {
         firma_exist = false;
     } else {
         firma_exist = true;
@@ -169,7 +200,7 @@ function enviar_firma() {
     // Se crea y prepara el array que se le va a enviar a la api
     let data_json = {
         api: 2, //<-- API a la que va dirigido
-        turno_id: turno_id,// <-- Turno del cliente
+        turno_id: turno_id, // <-- Turno del cliente
         firma: FIRMA, // <-- Firma del cliente
         consentimiento: [] // <-- ID y Checkbox de los consentimiento
     }
@@ -181,7 +212,7 @@ function enviar_firma() {
             const ID = element.SERVICIO_ID; // <-- ID del servicio
 
             // Se evalua cual check esta seleccionando y se le asigna un valor 0 es que acepto  1 es que no acepto
-            if ($(`#check_consentimiento_si_${ID}`).is(":checked")) {
+            if ($(`#check_consentimiento_si_${ID} `).is(":checked")) {
                 valor = 1 //<-- Acepto el consentimiento
             } else {
                 valor = 0 // <-- No acepto el consentimiento
@@ -195,10 +226,15 @@ function enviar_firma() {
         }
     }
 
+    // Se hace la peticion y se manda un alerta si se hizo la captura correctamente
     ajaxAwait(data_json, 'consentimiento_api', { callbackAfter: true }, false, () => {
         alertMsj({
-            title: '¡Su firma y consentimiento se han guardado!', text: 'ya puede visualizar su reporte',
-            icon: 'success', allowOutsideClick: false, showCancelButton: false, showConfirmButton: true
+            title: '¡Su firma y consentimiento se han guardado!',
+            text: 'ya puede visualizar su reporte',
+            icon: 'success',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            showConfirmButton: true
         })
 
         limpiarFirma();
@@ -217,15 +253,19 @@ function fadeConsentimiento(firma) {
     let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
     let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
     let $consentimiento_checkbox_div = $(".checkbox_consentimiendo_div");
+    let $aceptado_aviso = $('.aceptado_aviso');
+
     if (firma) {
         // En el caso de que tenga firma se mostrara el boton para visualizar el pdf
         aviso_div.fadeIn(500);
+        $aceptado_aviso.fadeIn(500);
         firma_div.fadeOut(500);
         $consentimiento_checkbox_div.fadeOut(500);
     } else {
         // En caso de que no tenga firma aparecera el canvas y el boton para que pueda firmar y enviar
         firma_div.fadeIn(1);
         aviso_div.fadeOut(1);
+        $aceptado_aviso.fadeOut(1);
         $consentimiento_checkbox_div.fadeIn(1);
     }
 }
@@ -344,4 +384,3 @@ function validarFormulario() {
 
 
 /* -------------------------- funciones para el modal -------------------------------- */
-
