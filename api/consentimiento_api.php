@@ -132,7 +132,3 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
-
-
-
-http://localhost/nuevo_checkup/archivos/consentimiento_base/ULTRASONIDO_TRANSRECTAL_TK.pdf
