@@ -17,7 +17,7 @@ async function configurarModal() {
             const element = row[key];
 
             const $NOMBRE = element.NOMBRE_CONSENTIMIENTO;
-            const $URL = element.RUTA;
+            const $URL = element.URL_PDF;
 
             data[key] = {
                 nombre_servicio: $NOMBRE,
