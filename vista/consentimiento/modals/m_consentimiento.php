@@ -11,7 +11,7 @@
                     <div class="carousel-inner"></div>
                     <!-- <button>
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                        <span class ="visually-hidden">Previous</span>
                     </button>
                     <button>
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -22,21 +22,21 @@
             <div class="modal-footer">
                 <!-- Paginacion del formulario -->
                 <div>
-                    <button class="btn btn-cancelar" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <button class="btn btn-confirmar" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <i class="bi bi-arrow-left"></i>
                         Regresar</button>
-                    <button class="btn btn-cancelar" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <button class="btn btn-confirmar" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                         <i class="bi bi-arrow-right"></i>
                         Siguiente</button>
                 </div>
                 <!-- /////// -->
                 <div>
-                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                         Cerrar
                     </button>
-                    <button type="submit" class="btn btn-confirmar" data-bs-toggle='tooltip' data-bs-placement='top' title="Se enviara mi reporte y doy mi consentimiento" id="btn-enviar-consentimiento">
+                    <!--  <button type="submit" class="btn btn-confirmar" data-bs-toggle='tooltip' data-bs-placement='top' title="Se enviara mi reporte y doy mi consentimiento" id="btn-enviar-consentimiento">
                         <i class="bi bi-box-arrow-down"></i> Guardar
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>
