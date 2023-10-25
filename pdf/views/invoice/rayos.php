@@ -312,6 +312,22 @@ if (!isset($qr)) {
                 </tr>
             </tbody>
         </table>
+
+        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
+            <?php if ($encabezado->PAQUETE_CARGADO) { ?>
+                <span style="margin-left: 20px;">
+                    <!-- Tipo de muestra  -->
+                    <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
+                </span>
+            <?php } ?>
+
+            <?php if ($encabezado->CATEGORIA) { ?>
+                <span style="margin-left: 20px;">
+                    <!-- Tipo de muestra  -->
+                    <?php echo "Categoría: <strong style='font-size: 12px;'> $encabezado->CATEGORIA"; ?> </strong>
+                </span>
+            <?php } ?>
+        </p>
         <!-- <p>Aqui va el encabezado y es el espacio disponible hasta donde llegue el titulo siguiente.</p> -->
     </div>
 

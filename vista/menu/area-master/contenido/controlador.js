@@ -191,6 +191,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     // Datatable
     $.getScript("contenido/js/controlador-tabla.js");
 
+    $('.abrirModalResultados').attr('disabled', false);
     switch (area) {
 
       // case 18: case 9: //Eco y prueba de esfuerzo
@@ -222,6 +223,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $('.btn-capturas-pdf').fadeOut(0)
         $('#formSubirInterpretacion').fadeIn(0)
         $('.btn-resultados-espiro-pdf').fadeIn(0)
+        $('#btn-resultados-espiro-pdf').fadeIn(0)
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
 
@@ -230,6 +232,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
       //Area de audiometria
       case 4:
         $('.btn-capturas-pdf').fadeOut(0)
+        $('.abrirModalResultados').attr('disabled', true);
         $('.btn_reporte_audiometria').fadeIn(0)
         $.getScript("modals/js/master_subir_interpretación.js");
 

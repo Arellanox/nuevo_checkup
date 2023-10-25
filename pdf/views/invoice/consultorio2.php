@@ -13,6 +13,16 @@
         @page {
             margin: 165px 10px;
         }
+        .tratamiento-cuerpo {
+
+            padding: 0.2em;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 13px;
+            z-index: -1;
+
+        }
+
 
         body {
             font-family: 'Roboto', sans-serif;
@@ -339,7 +349,6 @@ if (isset($ruta_firma))
         //     echo ('</pre>');
         //     echo $footerDoctor;
         // }
-
         ?>
         <!-- Nota consulta -->
         <section id="card-nota-consulta">
@@ -425,13 +434,37 @@ if (isset($ruta_firma))
                 </table>
             </div>
         </section>
+        <div class="break"></div>
+        <!-- Plan de tratamiento -->
+        <section id="card-receta">
+            <div>
+                <div class="pregunta-row">Tratamiento:</div>
+                <?php
+                // print_r($resultados[3]);
+                $medicamentos = $resultados[3];
+                // exit;
+                    for ($i = 0; $i < count($medicamentos); $i++) {
+                        $recetas = $medicamentos[$i];
 
-        <!-- Plan de tratamiento-->
+                        // if ($resultados[0][$i] != $recetas->ID_RECETA) {
+                            echo '
+                            <div class="tratamiento-cuerpo">
+                                <p>' . $recetas->NOMBRE_GENERICO . ', ' . $recetas->FORMA_FARMACEUTICA . ', ' . $recetas->DOSIS . ', ' . $recetas->PRESENTACION . '</p>
+                                <p>' . $recetas->FRECUENCIA . ', ' . $recetas->VIA_DE_ADMINISTRACION . ' ' . $recetas->DURACION_DEL_TRATAMIENTO . ', ' . $recetas->INDICACIONES_PARA_EL_USO . '</p>
+                            </div>';
+                        // }
+                    }
+                
+                ?>
+            </div>
+        </section>
+
+        <!-- Conclusiones -->
         <section id="card-plan-tratamiento">
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="pregunta-row">Plan de Tratamiento</th>
+                        <th class="pregunta-row">Conclusiones</th>
                     </tr>
                 </thead>
                 <tbody>
