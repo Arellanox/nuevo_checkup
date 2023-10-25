@@ -110,9 +110,11 @@ switch ($api) {
             $ruta = '../reportes/consentimientos/' . $turno_id . '/';
             $r = $master->createDir($ruta);
 
-            $pdf->Output("F", $ruta . $turno_id . "_" . $item['DESCRIPCION'] . ".pdf");
-            $ruta_tabla = str_replace('../', $host, $ruta);
+            $archivo_final =  $ruta . $turno_id . "_" . $item['DESCRIPCION'] . ".pdf";
+            $pdf->Output("F", $archivo_final);
 
+            $ruta_tabla = str_replace('../', $host, $archivo_final);
+            
             $response2 = $master->updateByProcedure('sp_actualizar_ruta_consentimientos_g', [$turno_id, $item['SERVICIO_ID'], $ruta_tabla ]);
         };
         
