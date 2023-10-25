@@ -1099,7 +1099,7 @@ class Miscelaneus
         // print_r($response2[0]['CAPTURAS']);
 
 
-           
+
 
         for ($i = 0; $i < count($response2); $i++) {
             // print_r($decodedResponse2);
@@ -1107,7 +1107,7 @@ class Miscelaneus
             array_push($arrayNuevascapturas, $decodedResponse2['CAPTURAS_REPORTE']);
         }
 
-        
+
         // echo "<pre>";
         // var_dump($arrayNuevascapturas);
         // echo "</pre>;";
@@ -1973,6 +1973,8 @@ class Miscelaneus
 
             $monto_tipo_pago = $e['FORMA_PAGO_MONTO']; # Monto por tipo de pago;
 
+            $nombre_caja = $e['NOMBRE_CAJA']; # nombre de la caja
+
             $result[$i] =  array(
                 "PREFOLIO" => $prefolio,
                 "NOMBRE_PACIENTE" => $nombre_paciente,
@@ -2028,7 +2030,7 @@ class Miscelaneus
 
 
         $response = [];
-        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador, $tipos_precio];
+        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador, $tipos_precio, $nombre_caja];
         // foreach($response as $i){
         //     print_r($i);
         //     echo "<br>";
