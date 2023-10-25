@@ -256,7 +256,7 @@ session_start();
                                 // echo '</form>';
                                 break;
                                 //<!--Formulario de Audiometria -->
-                            case 'formSubirInterpretacionPRUEBA':
+                            case 'formSubirInterpretacionAudio-1':
                                 // echo '<form id="formSubirInterpretacionPRUEBA">';
                                 include 'forms/audiome.html';
                                 // echo '</form>';

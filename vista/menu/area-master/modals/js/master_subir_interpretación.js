@@ -51,17 +51,20 @@ $(`#${formulario}`).submit(function (event) {
 
             case 4:
                 // Busca y obtiene todas las capturas de la tabla
-                // let capturesArray = []
-                // let audiometria_tablas = "#captures img";
-                // $(audiometria_tablas).each(function () {
-                //     capturesArray.push($(this).attr('src'));
-                // });
+                let capturesArray = []
+                let audiometria_tablas = "#captures img";
+                $(audiometria_tablas).each(function () {
+                    capturesArray.push($(this).attr('src'));
+                });
 
-                // // Convertir el arreglo a una cadena JSON 
-                // jsonData['tabla_reporte'] = JSON.stringify(capturesArray);
+                // Convertir el arreglo a una cadena JSON 
+                jsonData['tabla_reporte'] = JSON.stringify(capturesArray);
 
 
-
+                // Agregar mas campos
+                jsonData['otoscopia'] = $('#textArea-otoscopia').val();
+                jsonData['audiometria_oido_derecho'] = $('#audiometria_oido_derecho').val();
+                jsonData['audiometria_oido_izquierdo'] = $('#audiometria_oido_izquierdo').val();
 
                 break;
         }
@@ -74,7 +77,7 @@ $(`#${formulario}`).submit(function (event) {
 
 
 
-            ajaxAwaitFormData(jsonData, url_api, formulario, { callbackAfter: true, callbackBefore: true },
+            ajaxAwaitFormData(jsonData, url_api, formulario, { callbackAfter: true, callbackBefore: true, formulariosExtras: ['formSubirInterpretacionAudio-2'] },
                 () => {
                     $(`#${formulario}:submit`).prop('disabled', true)
                     alertMensaje('info', 'Cargando datos de interpretación', 'Espere un momento mientras el sistema registra todos los datos');

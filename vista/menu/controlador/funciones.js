@@ -218,6 +218,7 @@ function configAjaxAwait(config) {
     resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
     ajaxComplete: () => { }, //Mete una funcion para cuando se complete
     ajaxError: () => { }, //Mete una funcion para cuando de error
+    formulariosExtras: [], // Agrega nuevos fomrularios para enviar a formData
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -263,6 +264,19 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
       }
     }
 
+    if (config.formulariosExtras.length > 0) {
+      config.formulariosExtras.forEach(function (idForm) {
+        let form = new FormData(document.getElementById(idForm));
+        console.log(form);
+        // Añadir los datos del segundo formulario al primero
+        for (var [key_2, value] of form.entries()) {
+          console.log(key_2, value);
+          formData.append(key_2, value);
+        }
+
+      })
+
+    }
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
       data: formData,

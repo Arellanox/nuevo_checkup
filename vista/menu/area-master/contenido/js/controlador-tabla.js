@@ -1007,6 +1007,7 @@ async function obtenerResultadosElectro(data) {
 }
 
 async function obtenerResultadosAudio(data) {
+    console.log(formulario)
     document.getElementById(formulario).reset()
 
     let row = data.array[0]

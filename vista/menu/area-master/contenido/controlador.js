@@ -112,7 +112,7 @@ function hasLocation() {
         break;
       case "AUDIOMETRIA":
         control_turnos = 5
-        formulario = "formSubirInterpretacionPRUEBA";
+        formulario = "formSubirInterpretacionAudio-1";
         api_capturas = 2;
         api_interpretacion = 7;
         url_api = 'audiometria_api';
