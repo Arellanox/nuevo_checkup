@@ -11,7 +11,7 @@ $('#checkDiaAnalisis').click(function () {
         recargarVistaLab();
         $('#fechaListadoLaboratorio').prop('disabled', false)
     }
-})
+}) 
 
 function recargarVistaLab(fecha = 1) {
     dataListaPaciente = {

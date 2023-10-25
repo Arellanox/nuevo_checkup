@@ -2,4 +2,13 @@
 28/07/23 12:59:46 sp_agenda_horarios_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_hora_inicial' in 'field list'
 28/07/23 15:33:56 sp_agenda_horarios_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`agenda_horarios`, CONSTRAINT `fk_agenda_horarios_areas_1` FOREIGN KEY (`AREA_ID`) REFERENCES `areas` (`ID_AREA`) ON DELETE CASCADE ON UPDATE CASCADE)
 28/07/23 16:16:58  Area: 1
- 
+ 21/10/23 12:51:59 sp_consentimiento_firma_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_checkup_copio.sp_consentimiento_firma_g; expected 3, got 4
+21/10/23 12:52:26 sp_consentimiento_firma_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_turno' in 'field list'
+23/10/23 12:46:17  Area: 6
+23/10/23 13:02:39  Area: 6
+23/10/23 14:26:35  Area: 6
+24/10/23 19:49:08 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+24/10/23 19:49:15 fn_connect_db Could not connect to the database u808450138_checkup_copio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+24/10/23 19:57:25  Area: 6
