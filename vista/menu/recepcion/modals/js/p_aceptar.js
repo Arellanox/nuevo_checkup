@@ -13,7 +13,7 @@ select2("#select-rx", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-us", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-otros", "modalPacienteAceptar", 'Seleccione un estudio');
 select2('#select-segmento-aceptar', "modalPacienteAceptar", 'Seleccione un segmento');
-// select2('#select-vendedor', 'modalPacienteAceptar') //<-- //Rellena el select de los vendedores
+select2('#select-vendedor', 'modalPacienteAceptar', 'Selecciona un vendedor') //<-- //Rellena el select de los vendedores
 
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
@@ -78,7 +78,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
     estudiosOtros = data;
   });
   rellenarSelect('#select-vendedor', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto', {}, () => {
-    $('#select-vendedor').val(0);
+    $('#select-vendedor').val(0).trigger("change")
   })
 
 
