@@ -11,7 +11,7 @@ $(document).ready(async function () {
             icon: 'error', allowOutsideClick: false, showCancelButton: false, showConfirmButton: false
         })
 
-        return false;
+        // return false;
     }
 
 
@@ -41,8 +41,30 @@ $(document).on("click", "#enviar_firma_btn", function () {
 
 })
 
+// Escucha los cambios de todos los input de type radio
 $(document).on('change', 'input[type=radio]', function () {
-    console.log("esta presionando un radio")
+    // Se saca el id del input de type radio
+    const id = $(this).attr('data_id');
+
+    // Se obtiene los 2 input de aceptar o no
+    const $aceptar = $(`#check_consentimiento_si_${id}`);
+    const $denego = $(`#check_consentimiento_no_${id}`);
+
+    // Contenedor de las opciones
+    const $div_si = $(`#si_${id}`); // <-- Div que contiene al input y label de aceptar
+    const $div_no = $(`#no_${id}`); // <-- Div que contiene al input y label de no aceptar
+
+    // Se valida si el input de type radio esta checkeado o no 
+    if ($aceptar.is(":checked")) {
+        // Se pinta un background color al input de type radio cuando esta seleccionada
+        $div_si.addClass('opcion')
+        $div_no.removeClass('opcion')
+    } else {
+        $div_no.addClass('opcion')
+        $div_si.removeClass('opcion')
+    }
+
+    // Se scrollea la pantalla del usuario al final de la pagina, donde esta la firma
     window.scrollTo(0, document.body.scrollHeight)
 })
 
@@ -161,20 +183,20 @@ async function construiBodyConsentimiento() {
                         </div>
                         <!-- Checkbox para aceptar los consentimientoss -->
                         <div class='my-3 justify-content-center checkbox_consentimiendo_div' style='display:none;'>
-                            <p class='text-center d-flex justify-content-center'>Marcar en las casillas si esta de acuerdo o no con el consentimiento informado.</p>
+                            <p class='text-center d-flex justify-content-center fw-bold'>Marcar en las casillas si esta de acuerdo o no con el consentimiento informado.</p>
                             <div class='row mt-3'>
                                 <div class='col-6 d-flex justify-content-center'>
-                                    <div class="form-check">
-                                        <input class="form-check-input" value='1' type="radio" name="${$id_servicio}" id="check_consentimiento_si_${$id_servicio}" >
-                                            <label class="form-check-label fw-bold" for="check_consentimiento_si_${$id_servicio}">
+                                    <div class="" id="si_${$id_servicio}" style='padding:10px;'>
+                                        <input class="form-check-input" value='1' type="radio" name="${$id_servicio}" data_id="${$id_servicio}" id="check_consentimiento_si_${$id_servicio}" >
+                                            <label style='font-size:1.20rem;' class="form-check-label fw-bold" for="check_consentimiento_si_${$id_servicio}">
                                                 Si estoy deacuerdo
                                             </label>
                                     </div>
                                 </div>
                                 <div class='col-6 d-flex justify-content-center'>
-                                    <div class="form-check">
-                                        <input class="form-check-input" value='0' type="radio" name="${$id_servicio}" id="check_consentimiento_no_${$id_servicio}">
-                                            <label class="form-check-label fw-bold" for="check_consentimiento_no_${$id_servicio}">
+                                    <div class=""  id="no_${$id_servicio}" style='padding:10px;'>
+                                        <input class="form-check-input" value='0' type="radio" name="${$id_servicio}" data_id="${$id_servicio}" id="check_consentimiento_no_${$id_servicio}">
+                                            <label style='font-size:1.20rem;' class="form-check-label fw-bold" for="check_consentimiento_no_${$id_servicio}">
                                                 No estoy deacuerdo
                                             </label>
                                     </div>

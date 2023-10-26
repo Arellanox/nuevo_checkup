@@ -101,4 +101,9 @@
         letter-spacing: 0px !important;
         text-align: justify !important;
     }
+
+    .opcion {
+        background-color: rgb(152 219 228);
+        border-radius: 5px;
+    }
 </style>
