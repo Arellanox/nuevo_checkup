@@ -65,7 +65,7 @@ $(document).on('change', 'input[type=radio]', function () {
     }
 
     // Se scrollea la pantalla del usuario al final de la pagina, donde esta la firma
-    // window.scrollTo(0, document.body.scrollHeight)
+    window.scrollTo(0, document.body.scrollHeight)
 })
 
 /* ----------------------------------------------------------------- */
@@ -97,8 +97,6 @@ async function ContruirPagina() {
             url_pdf = paciente_data.FORMATO[0].PDF_BLANCO
 
             resolve(1);
-
-            body_pages.TouchHammer('#texto_consentimiento')
         })
     })
 }
@@ -142,7 +140,7 @@ async function rellenarInformacionPaciente() {
 // Function para construir el cuerpo de cada consentimiento por area, si es que existe mas de una
 async function construiBodyConsentimiento() {
     return new Promise(function (resolve, reject) {
-        let div = $("div.container-pages") // <-- contenedor de todo el cuerpo
+        let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
         div.html("");
 
         row = paciente_data.FORMATO;
@@ -169,7 +167,7 @@ async function construiBodyConsentimiento() {
                 }
 
                 let html = `
-                <section class="page col-12  mt-3" style="display: none;">
+                <div class="col-12 rounded-3 p-3 card shadow mt-3">
                     <!-- Cuerpo del texto del consentimiento -->
                         <div class='row'>
                             <div class='col-12'>
@@ -206,17 +204,15 @@ async function construiBodyConsentimiento() {
                             </div>
                         
                         </div>
-                </section >
+                </div >
                 `;
 
                 div.append(html);
                 $(".nombre_paciente").html($nombre);
             }
+
+            resolve(1)
         }
-
-        body_pages.firstPage();
-        resolve(1)
-
     })
 
 }

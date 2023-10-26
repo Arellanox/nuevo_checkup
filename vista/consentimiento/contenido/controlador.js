@@ -20,10 +20,6 @@ async function ObtenerContenido() {
 }
 
 
-const modal_pages = new paginacion_div('#consentimiento_paciente_modal')
-const body_pages = new paginacion_div('#texto_consentimiento')
-
-
 
 function hasLocation() {
     var hash = window.location.hash.substring(1);

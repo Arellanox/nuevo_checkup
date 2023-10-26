@@ -1108,84 +1108,60 @@ function isJson(str) {
   // return true;
 }
 
-let isAnimating = false;
-function updatePage(div, $newPage, direction) {
-  console.log($(`${div} .page:visible`))
-  const $currentVisiblePage = $(`${div} .page:visible`);
-  const $prevButton = $(`${div} button.control-pagina-interpretacion[target="back"]`)
-  const $nextButton = $(`${div} button.control-pagina-interpretacion[target="next"]`)
-
-  //     // Verificar si es la última página
-  if ($newPage.is(`${div} .page:last`)) {
-    $(`${div} .pagination-interpretacion`).fadeIn(400);
-  } else {
-    $(`${div} .pagination-interpretacion`).hide();
-  }
-  // });
-  if (!direction) {
-    $newPage.show();
-    $currentVisiblePage.hide();
-    return;
-  }
-
-  if (isAnimating) return;  // Si una animación está en curso, no hacemos nada
-
-  isAnimating = true;  // Establecer el semáforo a verdadero
-
-  if (direction === 'next') {
-    $currentVisiblePage.addClass('animate__animated animate__slideOutLeft');
-    $newPage.show().addClass('animate__animated animate__slideInRight');
-  } else if (direction === 'back') {
-    $currentVisiblePage.addClass('animate__animated animate__slideOutRight');
-    $newPage.show().addClass('animate__animated animate__slideInLeft');
-  }
-
-  $currentVisiblePage.one('animationend', function () {
-    $currentVisiblePage.removeClass('animate__animated animate__slideOutLeft animate__slideOutRight').hide();
-  });
-
-  $newPage.one('animationend', function () {
-    $newPage.removeClass('animate__animated animate__slideInRight animate__slideInLeft');
-    isAnimating = false;
-
-    // Determinar la página actual y ajustar la visibilidad de los botones
-    const isFirstPage = $newPage.is($(`${div} .page`).first());
-    const isLastPage = $newPage.is($(`${div} .page`).last());
-
-
-    $prevButton.attr('disabled', isFirstPage ? true : false)
-    $nextButton.attr('disabled', isLastPage ? true : false)
-  });
-}
 
 // Segmentacion de paginacion
-function paginacion_div(div = '#idDiv') {
+const paginacion_div = (div = '#idDiv') => {
+  updatePage($(`${div} .page`).first());
 
-  this.div = div;
+  let isAnimating = false;
+  function updatePage($newPage, direction) {
+    const $currentVisiblePage = $(`${div} .page:visible`);
+    const $prevButton = $(`${div} button.control-pagina-interpretacion[target="back"]`)
+    const $nextButton = $(`${div} button.control-pagina-interpretacion[target="next"]`)
 
-  this.firstPage = () => {
-    updatePage(this.div, $(`${this.div} .page`).first())
-  }
+    //     // Verificar si es la última página
+    if ($newPage.is(`${div} .page:last`)) {
+      $(`${div} .pagination-interpretacion`).fadeIn(400);
+    } else {
+      $(`${div} .pagination-interpretacion`).hide();
+    }
+    // });
+    if (!direction) {
+      $newPage.show();
+      $currentVisiblePage.hide();
+      return;
+    }
 
-  this.TouchHammer = (querySelector) => {
-    const hammertime = new Hammer(document.querySelector(querySelector));
+    if (isAnimating) return;  // Si una animación está en curso, no hacemos nada
 
-    hammertime.on('swipeleft', function () {
-      const $visiblePage = $(`${this.div}.page:visible`);
-      const $nextPage = $visiblePage.next('.page');
-      if ($nextPage.length) {
-        updatePage($nextPage, 'next');
-      }
+    isAnimating = true;  // Establecer el semáforo a verdadero
+
+    if (direction === 'next') {
+      $currentVisiblePage.addClass('animate__animated animate__slideOutLeft');
+      $newPage.show().addClass('animate__animated animate__slideInRight');
+    } else if (direction === 'back') {
+      $currentVisiblePage.addClass('animate__animated animate__slideOutRight');
+      $newPage.show().addClass('animate__animated animate__slideInLeft');
+    }
+
+    $currentVisiblePage.one('animationend', function () {
+      $currentVisiblePage.removeClass('animate__animated animate__slideOutLeft animate__slideOutRight').hide();
     });
 
-    hammertime.on('swiperight', function () {
-      const $visiblePage = $(`${this.div}.page:visible`);
-      const $prevPage = $visiblePage.prev('.page');
-      if ($prevPage.length) {
-        updatePage($prevPage, 'back');
-      }
+    $newPage.one('animationend', function () {
+      $newPage.removeClass('animate__animated animate__slideInRight animate__slideInLeft');
+      isAnimating = false;
+
+      // Determinar la página actual y ajustar la visibilidad de los botones
+      const isFirstPage = $newPage.is($(`${div} .page`).first());
+      const isLastPage = $newPage.is($(`${div} .page`).last());
+
+
+      $prevButton.attr('disabled', isFirstPage ? true : false)
+      $nextButton.attr('disabled', isLastPage ? true : false)
     });
   }
+
 
   $(document).on('click', `${div} .control-pagina-interpretacion`, function (event) {
     event.preventDefault();
@@ -1199,14 +1175,14 @@ function paginacion_div(div = '#idDiv') {
         const $prevPage = $visiblePage.prev('.page');
         console.log($visiblePage.prev('.page'))
         if ($prevPage.length) {
-          updatePage(div, $prevPage, action);
+          updatePage($prevPage, action);
         }
         break;
       case 'next':
         const $nextPage = $visiblePage.next('.page');
         console.log($visiblePage.next('.page'))
         if ($nextPage.length) {
-          updatePage(div, $nextPage, action);
+          updatePage($nextPage, action);
         }
         break;
       default:
