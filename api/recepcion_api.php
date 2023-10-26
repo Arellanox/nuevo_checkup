@@ -150,7 +150,7 @@ switch ($api) {
                 # si hay algo en el arreglo lo insertamos
                 foreach ($servicios as $key => $value) {
                     // print_r($servicios);
-                    $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value));
+                    $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, null));
                 }
             }
         }
