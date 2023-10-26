@@ -5,7 +5,7 @@
     <h3 class="" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Información personal</h3>
     <div class="row">
         <div class="col-12 col-md-auto d-flex justify-content-center">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil" style="width:150px !Important; height:150px !Important">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="perfil" class="imagen-perfil" style="width:150px !Important">
         </div>
         <div class="col-auto col-md-6 info-detalle">
             <div class="row" id="header_paciente"></div>
