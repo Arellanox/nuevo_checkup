@@ -1,5 +1,6 @@
 // ----------- Formulario, Botones y PDF -----------------------------------
 let paciente_data; // <-- aqui se guarda un array con toda la informacion del paciente
+const { PDFDocument } = window['pdf-lib']; // <-- aqui se crea el const para el pdf
 
 // Una vez cargue todo el contenido de la pagina se empieza a construir
 $(document).ready(async function () {
@@ -63,8 +64,9 @@ async function ContruirPagina() {
 
             // Se valida si la firma ya existe
             validar_si_existe_firma();
+
+            resolve(1);
         })
-        resolve(1);
     })
 }
 
@@ -377,6 +379,44 @@ function validarFormulario() {
 
     return true;
 }
+
+// Modificacion al pdf
+async function embedSignature(url_pdf) {
+    // 1. Carga el PDF original
+    const existingPdfBytes = await fetch(url_pdf).then(res => res.arrayBuffer());
+
+    // 2. Carga la firma desde el canvas (o donde sea que la tengas)
+    const signatureCanvas = document.getElementById('firmaCanvas');
+    const signatureDataUrl = signatureCanvas.toDataURL('image/png');
+    const signatureBytes = await fetch(signatureDataUrl).then(res => res.arrayBuffer());
+
+    // 3. Crea un documento PDF con pdf-lib
+    const pdfDoc = await PDFDocument.load(existingPdfBytes);
+    const signatureImage = await pdfDoc.embedPng(signatureBytes);
+
+    // 4. Selecciona la página del PDF donde quieres incrustar la firma
+    const page = pdfDoc.getPages()[0];
+
+    // 5. Agrega la firma
+    // Estos números representan la posición (x,y) y el tamaño (ancho, alto) de la firma en el PDF.
+    page.drawImage(signatureImage, {
+        x: 50,
+        y: 500,
+        width: 200,
+        height: 100
+    });
+
+    // 6. Guarda el PDF
+    const pdfBytes = await pdfDoc.save();
+
+    // Opcional: puedes descargar el PDF
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'documento_con_firma.pdf';
+    link.click();
+}
+
 
 // Inicializar SignaturePad en el canvas
 // var canvas = document.getElementById('firmaCanvas');
