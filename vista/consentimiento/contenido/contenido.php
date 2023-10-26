@@ -10,6 +10,24 @@
         <div class="col-auto col-md-6 info-detalle">
             <div class="row" id="header_paciente"></div>
         </div>
+        <div class="col-auto col-md-4">
+            <!-- Aviso que ya firmo y boton de visualizar reporte -->
+            <div class="mt-4" id="aviso_reporte" style="display: none;">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Titulo en caso de que ya haya firmado -->
+                        <div class=" my-auto">
+                            <h3 class="my-auto" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">La firma ya ha sido guardada</h3>
+                        </div>
+                        <div class="mt-3">
+                            <button type="click" class="btn btn-borrar" id="btn-mostrar-formato-consentimiento" data-bs-toggle='tooltip' data-bs-placement='top' title="Visualizar el reporte con sus datos y firma">
+                                <i class="bi bi-file-earmark-pdf-fill"></i> Vista Previa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- <p>Pagina en mantenimiento :)</p>
             <p>Vuelva pronto para validar sus resultados correctamente.</p> -->
     </div>
@@ -33,17 +51,33 @@
 </div>
 
 <!-- Texto plano con la informacion de los consentimientos -->
-<div class="row p-3" id="texto_consentimiento">
+<div class="rounded p-3 card shadow my-3">
+    <div class="row" id="texto_consentimiento">
+        <!-- Botones de paginacion para el contenido de los consentimiento -->
+        <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="back" disabled>
+                <i class="bi bi-arrow-left"></i>
+                Regresar</button>
+            <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="next">
+                <i class="bi bi-arrow-right"></i>
+                Siguiente</button>
+        </div>
+
+        <!-- Contenido de todos los consentimientos -->
+        <div class="container-pages row">
+
+        </div>
+    </div>
+
 </div>
 
 
-
 <!-- Canva para firmar o Boton para visualizar los PDF -->
-<div class="rounded p-3 card shadow my-3">
+<div class="">
     <div class="row">
         <div class="col-12">
             <!-- Canvas para firmar -->
-            <div class="mt-3" id="firma_div" style="display: none;">
+            <div class="my-3 card shadow p-3" id="firma_div" style="display: none;">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between">
                         <!-- Titulo y instrucciones de la firma -->
@@ -71,22 +105,6 @@
                 </div>
             </div>
 
-            <!-- Aviso que ya firmo y boton de visualizar reporte -->
-            <div class="mt-3" id="aviso_reporte" style="display: none;">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Titulo en caso de que ya haya firmado -->
-                        <div class="d-flex justify-content-center my-auto">
-                            <h3 class="my-auto" style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">La firma ya ha sido guardada</h3>
-                        </div>
-                        <div class="d-flex justify-content-center mt-3">
-                            <button type="click" class="btn btn-borrar" id="btn-mostrar-formato-consentimiento" data-bs-toggle='tooltip' data-bs-placement='top' title="Visualizar el reporte con sus datos y firma">
-                                <i class="bi bi-file-earmark-pdf-fill"></i> Vista Previa
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -105,5 +123,21 @@
     .opcion {
         background-color: rgb(152 219 228);
         border-radius: 5px;
+    }
+
+    .page.animate__animated {
+        animation-duration: 0.5s;
+        /* Ajusta este valor según lo rápido que quieras que sea */
+    }
+
+    .container-pages {
+        position: relative;
+    }
+
+    .page {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
     }
 </style>

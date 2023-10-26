@@ -2,9 +2,10 @@ $(document).on("click", "#btn-mostrar-formato-consentimiento", async function ()
     configurarModal()
 })
 
+
+
 // Function para configurar el modal
 async function configurarModal() {
-
     let data = []; //<-- array que se le va a pasar a la funcion para armar el modal
 
     // Se obtiene el array donde esta toda la informacion de los formatos
@@ -33,25 +34,6 @@ async function configurarModal() {
     // Una vez se realizo todos los metodos se abre e   l modal
     $("#consentimiento_paciente_modal").modal("show");
 
-    setTimeout(() => {
-        const hammertime = new Hammer(document.querySelector('#consentimiento_paciente_modal .modal-body'));
-
-        hammertime.on('swipeleft', function () {
-            const $visiblePage = $('.page:visible');
-            const $nextPage = $visiblePage.next('.page');
-            if ($nextPage.length) {
-                updatePage($nextPage, 'next');
-            }
-        });
-
-        hammertime.on('swiperight', function () {
-            const $visiblePage = $('.page:visible');
-            const $prevPage = $visiblePage.prev('.page');
-            if ($prevPage.length) {
-                updatePage($prevPage, 'back');
-            }
-        });
-    }, 200);
 }
 
 
@@ -109,11 +91,10 @@ async function construirReportes(
             }
         }
 
+        modal_pages.firstPage();
+
         // Inicializamos mostrando la primera página
-        // 
         resolve(1)
     })
 
 }
-
-paginacion_div('#consentimiento_paciente_modal')

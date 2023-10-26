@@ -5,7 +5,7 @@
                 <h5>Hola</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="touch-action: pan-y;user-select: none;-webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
                 <!-- <h5 class="modal-title fw-bold text-center" id="temperaturaPdfTitle">Vista previa</h5>
                 <hr> -->
                 <!-- <div id="carouselExample" class="carousel slide"> -->
@@ -43,21 +43,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .page.animate__animated {
-        animation-duration: 0.5s;
-        /* Ajusta este valor según lo rápido que quieras que sea */
-    }
-
-    .container-pages {
-        /* position: relative; */
-    }
-
-    .page {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-    }
-</style>
