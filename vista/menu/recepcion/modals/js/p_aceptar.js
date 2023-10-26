@@ -13,6 +13,7 @@ select2("#select-rx", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-us", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-otros", "modalPacienteAceptar", 'Seleccione un estudio');
 select2('#select-segmento-aceptar', "modalPacienteAceptar", 'Seleccione un segmento');
+select2('#select-vendedor', 'modalPacienteAceptar') //<-- //Rellena el select de los vendedores
 
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
@@ -74,6 +75,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
     // Se usa en el hover  de  detalle
     estudiosOtros = data;
   });
+  rellenarSelect('#select-vendedor', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto')
 
 
   // rellenarSelect("#select-lab", "servicios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
@@ -132,6 +134,9 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   //Medico tratante
   formData.set('medico_tratante', $('#medico-aceptar-paciente').val());
   formData.set('medico_correo', $('#medico-correo-aceptar').val())
+
+  //Vendedor
+  formData.set('vendedor', $('#select-vendedor').val())
 
 
   formData.set('servicios', estudiosEnviar);
