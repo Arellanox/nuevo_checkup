@@ -54,6 +54,22 @@ $recomendaciones = $_POST['recomendaciones'];
 $id_audiometria = $_POST['id_audiometria'];
 $confirmado = $_POST['confirmado'];
 
+# tratamiento para la captura de la grafica
+$dir = "reportes/modulo/audiometria/grafica_tonal";
+$r = $master->createDir("../" . $dir);
+
+$img64 = explode(",", $grafica);
+$img64 = substr($img64[1], 0, -2);
+
+$file = $dir . "/" . $id_turno . ".txt";
+
+if(isset($grafica)){
+
+    file_put_contents("../" . $file, $img64);
+    $grafica = $host . $file;
+}
+
+
 $audio_array = array(
     $id_audiometria,
     json_encode($antecedentes),
@@ -189,3 +205,14 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
+
+
+
+
+function saveScreenShotTonal(
+    $file
+){
+
+
+
+}
