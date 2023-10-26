@@ -32,7 +32,28 @@ async function configurarModal() {
 
     // Una vez se realizo todos los metodos se abre e   l modal
     $("#consentimiento_paciente_modal").modal("show");
+
+    setTimeout(() => {
+        const hammertime = new Hammer(document.querySelector('#consentimiento_paciente_modal .modal-body'));
+
+        hammertime.on('swipeleft', function () {
+            const $visiblePage = $('.page:visible');
+            const $nextPage = $visiblePage.next('.page');
+            if ($nextPage.length) {
+                updatePage($nextPage, 'next');
+            }
+        });
+
+        hammertime.on('swiperight', function () {
+            const $visiblePage = $('.page:visible');
+            const $prevPage = $visiblePage.prev('.page');
+            if ($prevPage.length) {
+                updatePage($prevPage, 'back');
+            }
+        });
+    }, 200);
 }
+
 
 // Function para construir todo el cuerpo del modal
 async function construirReportes(
@@ -52,7 +73,7 @@ async function construirReportes(
 
     return new Promise(function (resolve, reject) {
 
-        let div = $('.carousel-inner'); // <-- contenedor
+        let div = $('div.container-pages'); // <-- contenedor
 
         // Limpiamos el contenedor si es que llega a tener algo que no necesitamos
         div.html("");
@@ -63,23 +84,9 @@ async function construirReportes(
         for (const key in data) {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
-
-                // Se setea la variable de la clase del carousel para que funcione
-                var $class = "carousel-item";
-
-                // Se evalue si el, elemento que esta pasando es el primero
-                if (i === 0) {
-                    // Si es el primero se le pone la clase de active
-                    $class = "carousel-item active"
-                } else {
-                    // Si no es el primero se le pone la clase por defecto
-                    $class = $class
-                }
-
                 // Armamos el body del item
                 let html = `
-                <div class="${$class}">
-                    <section class="page shadow-sm p-3">
+                    <section class="page shadow-sm p-3" style="display: none;">
                         <h3 class="text-center fw-bold">${element.nombre_servicio}</h3>
                         <hr>
                         <div class="row">
@@ -92,7 +99,7 @@ async function construirReportes(
 
                         </div>
                     </section>
-                </div>`;
+                `;
 
                 // Lo renderizamos por cada objeto que este en el arreglo
                 div.append(html);
@@ -102,7 +109,11 @@ async function construirReportes(
             }
         }
 
+        // Inicializamos mostrando la primera página
+        // 
         resolve(1)
     })
 
 }
+
+paginacion_div('#consentimiento_paciente_modal')
