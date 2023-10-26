@@ -102,7 +102,7 @@ switch ($api) {
         #
         $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, 
         
-        /*$medico_tratante, $medico_correo,*/null, $_SESSION['id'], $vendedor_id)); #<-- la id de segmento manda error si no se le envia algo
+        $medico_tratante, $medico_correo, $vendedor_id)); #<-- la id de segmento manda error si no se le envia algo
 
         $etiqueta_turno = $response[1];
 
