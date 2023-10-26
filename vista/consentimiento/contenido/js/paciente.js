@@ -1,6 +1,6 @@
 // ----------- Formulario, Botones y PDF -----------------------------------
 let paciente_data; // <-- aqui se guarda un array con toda la informacion del paciente
-const { PDFDocument } = window['pdf-lib']; // <-- aqui se crea el const para el pdf
+let url_pdf = '';
 
 // Una vez cargue todo el contenido de la pagina se empieza a construir
 $(document).ready(async function () {
@@ -25,6 +25,8 @@ $(document).on("click", "#enviar_firma_btn", function () {
     if (!validarFormulario())
         return false;
 
+    const pdfBytes = embedSignature(url_pdf)
+
     // Se le manda un mensaje de alerta al usuario ya que no podra realizar esta accion una vez se envie
     alertMensajeConfirm({
         title: '¿Ha realizado su firma correctamente y aceptado los consentimientos?',
@@ -34,7 +36,7 @@ $(document).on("click", "#enviar_firma_btn", function () {
         cancelButtonText: 'Cancelar'
     }, () => {
         // Se manda a llamar al metodo para enviar la firma
-        enviar_firma();
+        enviar_firma(pdfBytes);
     }, 1)
 
 })
@@ -64,6 +66,8 @@ async function ContruirPagina() {
 
             // Se valida si la firma ya existe
             validar_si_existe_firma();
+
+            url_pdf = paciente_data.FORMATO[0].PDF_BLANCO
 
             resolve(1);
         })
@@ -194,7 +198,10 @@ function validar_si_existe_firma() {
 }
 
 // Function para enivar la firma
-function enviar_firma() {
+function enviar_firma(pdf) {
+
+    // Enviar pdf
+    const pdfBlob = pdf
     // Se obtiene la firma codificada en base 64
     let FIRMA = $("#firma").val();
     // Se saca todos los consentimiento que tenga el paciente
@@ -383,38 +390,51 @@ function validarFormulario() {
 // Modificacion al pdf
 async function embedSignature(url_pdf) {
     // 1. Carga el PDF original
-    const existingPdfBytes = await fetch(url_pdf).then(res => res.arrayBuffer());
+    const pdfBytes = await fetch(url_pdf).then(res => res.arrayBuffer());
+    const firmaDataURL = document.getElementById('firmaCanvas').toDataURL();
 
-    // 2. Carga la firma desde el canvas (o donde sea que la tengas)
-    const signatureCanvas = document.getElementById('firmaCanvas');
-    const signatureDataUrl = signatureCanvas.toDataURL('image/png');
-    const signatureBytes = await fetch(signatureDataUrl).then(res => res.arrayBuffer());
+    const pdfFirmadoBytes = await agregarFirmaAlPDF(pdfBytes, firmaDataURL);
 
-    // 3. Crea un documento PDF con pdf-lib
-    const pdfDoc = await PDFDocument.load(existingPdfBytes);
-    const signatureImage = await pdfDoc.embedPng(signatureBytes);
+    return pdfFirmadoBytes
+    // // Convierte los bytes del PDF firmado a un Blob y descárgalo
+    // const blob = new Blob([pdfFirmadoBytes], { type: 'application/pdf' });
+    // const link = document.createElement('a');
+    // link.href = URL.createObjectURL(blob);
+    // link.download = 'PDF_firmado.pdf';
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
 
-    // 4. Selecciona la página del PDF donde quieres incrustar la firma
-    const page = pdfDoc.getPages()[0];
+}
 
-    // 5. Agrega la firma
-    // Estos números representan la posición (x,y) y el tamaño (ancho, alto) de la firma en el PDF.
-    page.drawImage(signatureImage, {
-        x: 50,
-        y: 500,
-        width: 200,
-        height: 100
+async function agregarFirmaAlPDF(pdfBytes, firmaDataURL) {
+    // Carga el PDF existente
+    const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
+
+    // Decodifica la imagen de la firma desde el DataURL
+    const firmaBytes = Uint8Array.from(atob(firmaDataURL.split(',')[1]), c => c.charCodeAt(0));
+
+    // Agrega la imagen de la firma al PDF
+    const firmaImage = await pdfDoc.embedPng(firmaBytes);
+
+    // Obtiene la primera página del PDF
+    const pagina = pdfDoc.getPages()[1];
+
+    // Define las dimensiones y posición de la firma en la página
+    const { width, height } = firmaImage.scale(0.5);
+    console.log(width, height);
+    console.log(pagina.getWidth() / 2 - width / 2);
+    pagina.drawImage(firmaImage, {
+        x: 400,
+        y: 580,
+        width: 100,
+        height: 70,
     });
 
-    // 6. Guarda el PDF
-    const pdfBytes = await pdfDoc.save();
+    // Serializa el PDF a bytes
+    const pdfBytesActualizado = await pdfDoc.save();
 
-    // Opcional: puedes descargar el PDF
-    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'documento_con_firma.pdf';
-    link.click();
+    return pdfBytesActualizado;
 }
 
 
