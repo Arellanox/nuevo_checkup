@@ -22,10 +22,10 @@
             <div class="modal-footer">
                 <!-- Paginacion del formulario -->
                 <div>
-                    <button class="btn btn-confirmar" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <button class="btn btn-confirmar btn-modal-paginacion" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <i class="bi bi-arrow-left"></i>
                         Regresar</button>
-                    <button class="btn btn-confirmar" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <button class="btn btn-confirmar btn-modal-paginacion" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                         <i class="bi bi-arrow-right"></i>
                         Siguiente</button>
                 </div>

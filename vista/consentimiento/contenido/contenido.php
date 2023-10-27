@@ -52,11 +52,11 @@
 
 <!-- Texto plano con la informacion de los consentimientos -->
 <div class="p-3 card shadow my-3">
-    <div class="d-flex justify-content-end gap-2">
-        <button class="btn btn-cancelar" type="button" data-bs-target="#carouselExample1" data-bs-slide="prev">
+    <div class="d-flex justify-content-end gap-2" id="botones_paginacion_body">
+        <button class="btn btn-cancelar botones_paginacion_body" style="display: none;" type="button" data-bs-target="#carouselExample1" data-bs-slide="prev">
             <i class="bi bi-arrow-left"></i>
             Regresar</button>
-        <button class="btn btn-cancelar" type="button" data-bs-target="#carouselExample1" data-bs-slide="next">
+        <button class="btn btn-cancelar botones_paginacion_body" style="display: none;" type="button" data-bs-target="#carouselExample1" data-bs-slide="next">
             <i class="bi bi-arrow-right"></i>
             Siguiente</button>
     </div>

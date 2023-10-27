@@ -63,6 +63,7 @@ async function construirReportes(
         for (const key in data) {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
+                let $btn_modal_paginacion = $('.btn-modal-paginacion') // <-- Boton para la paginacion del modal
 
                 // Se setea la variable de la clase del carousel para que funcione
                 var $class = "carousel-item";
@@ -71,9 +72,11 @@ async function construirReportes(
                 if (i === 0) {
                     // Si es el primero se le pone la clase de active
                     $class = "carousel-item active"
+                    $btn_modal_paginacion.fadeOut(0);
                 } else {
                     // Si no es el primero se le pone la clase por defecto
                     $class = $class
+                    $btn_modal_paginacion.fadeIn(0);
                 }
 
                 // Armamos el body del item

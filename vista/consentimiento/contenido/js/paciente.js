@@ -65,7 +65,7 @@ $(document).on('change', 'input[type=radio]', function () {
     }
 
     // Se scrollea la pantalla del usuario al final de la pagina, donde esta la firma
-    window.scrollTo(0, document.body.scrollHeight)
+    // window.scrollTo(0, document.body.scrollHeight)
 })
 
 /* ----------------------------------------------------------------- */
@@ -155,6 +155,8 @@ async function construiBodyConsentimiento() {
                 const $id_servicio = element.SERVICIO_ID;
                 const $nombre = ' ' + paciente_data.NOMBRE_PACIENTE;
 
+                let $btn_paginacion = $('.botones_paginacion_body') // <-- Boton de paginacion de los consentimientos
+
                 const $ACEPTADO_CONSENTIMIENTO = element.ACEPTADO;
                 let $badge = "";
 
@@ -175,9 +177,11 @@ async function construiBodyConsentimiento() {
                 if (i === 0) {
                     // Si es el primero se le pone la clase de active
                     $class = "carousel-item active"
+                    $btn_paginacion.fadeOut(100);
                 } else {
                     // Si no es el primero se le pone la clase por defecto
                     $class = $class
+                    $btn_paginacion.fadeIn(100);
                 }
 
                 let html = `
