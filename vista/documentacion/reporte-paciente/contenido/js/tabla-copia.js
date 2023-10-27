@@ -83,7 +83,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         { target: 13, className: 'all', title: 'Total', width: '7%' },
         { target: 14, className: 'all', title: 'Fecha Recepción', width: '12%' },
         { target: 15, className: 'all', title: 'Procedencia' },
-        { target: 16, className: 'none', title: 'Vendedor' },
+        { target: 16, className: 'all', title: 'Vendedor' },
         { target: 17, className: 'none beneficiario', title: 'Trabajador', visible: false },
         { target: 18, className: 'none beneficiario', title: 'Verificacion (url)', visible: false },
         { target: 19, className: 'none beneficiario', title: 'Categoria', visible: false },
