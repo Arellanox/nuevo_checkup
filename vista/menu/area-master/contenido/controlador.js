@@ -236,6 +236,9 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         $('.btn_reporte_audiometria').fadeIn(0)
         $.getScript("modals/js/master_subir_interpretación.js");
 
+        // Visualizar la paginacion del formulario
+        $('#panel-paginacion').fadeIn(0);
+
         break;
       case 10:
         $('#btn-analisis').fadeIn(0)

@@ -272,12 +272,14 @@ session_start();
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
 
                 <!-- Paginacion del formulario -->
-                <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="back">
-                    <i class="bi bi-arrow-left"></i>
-                    Regresar</button>
-                <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="next">
-                    <i class="bi bi-arrow-right"></i>
-                    Siguiente</button>
+                <div id="panel-paginacion" style="display: none;">
+                    <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="back">
+                        <i class="bi bi-arrow-left"></i>
+                        Regresar</button>
+                    <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="next">
+                        <i class="bi bi-arrow-right"></i>
+                        Siguiente</button>
+                </div>
                 <!-- /////// -->
 
                 <!-- <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button> -->
