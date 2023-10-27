@@ -145,7 +145,7 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 // console.log(dataSelect['array'])
 
                 // Captura de oidos
-                getFormOidosAudiometria(datalist);
+                // getFormOidosAudiometria(datalist);
 
                 // Recupera la info del reporte:
                 console.log(selectEstudio.array);
