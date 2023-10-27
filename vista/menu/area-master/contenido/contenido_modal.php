@@ -148,6 +148,13 @@ session_start();
                                         <i class="bi bi-plus-lg"></i> Subir reporte
                                     </button>
                                 </div>
+
+                                <!-- Button para subir reportes en citologia -->
+                                <div class="col-auto btn_reporte_citologia" style="display:none" id="btn_reporte_citologia">
+                                    <button type="button" class="btn btn-primary me-2 btn_reporte_citologia" style="margin-bottom:4px;">
+                                        <i class="bi bi-plus-lg"></i> Subir reporte
+                                    </button>
+                                </div>
                                 <!-- <div class="col-auto btn_reporte_audiometria" style="display:none">
                                     <button type="button" class="btn btn-primary me-2 btn_reporte_audiometria" style="margin-bottom:4px; display:none" data-bs-toggle="modal" data-bs-target="#modalCapturaOidos">
                                         <i class="bi bi-ear"></i> Captura de Oidos
