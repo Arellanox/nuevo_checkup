@@ -124,10 +124,17 @@ $('#btn-resultados-audi-pdf').click(function () {
   $('#ModalSubirResultadosAudio').modal('show');
 
 })
- 
+
 $('#btn_info_clinica_citologia').click(function () {
 
   $('#ModalInfoClinicaCitologia').modal('show');
+
+})
+
+//BTN QUE ABRE MODAL DE REPORTE DE CITOLOGIA
+$('#btn_reporte_citologia').click(function () {
+
+  $('#ModalReporteCitologia').modal('show');
 
 })
 

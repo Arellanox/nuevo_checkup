@@ -34,6 +34,9 @@ $salpingoclasia = $_POST['salpingoclasia'];
 $coloco_diu = $_POST['coloco_diu'];
 
 
+$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+
+
 $parametros = $master->setToNull(array(
 
     $sexo,
@@ -83,16 +86,17 @@ switch ($api) {
         $r = $master->createDir($dir);
         $url_pdf = $master->guardarFiles($_FILES, 'reporte-citologia', $dir, "CITOLOGIA_RESULTADO_$turno_id");
 
+        $ruta_reporte_cito = str_replace("../", $host, $url_pdf[0]['url']);
+
 
         $response = $master->insertByProcedure(
             'sp_reportes_areas_g',
             [
-                null, // actualizar
                 $turno_id, // Paciente
-                13, // Area de resultado
-                null, // Clave de validacion QR
-                $url_pdf, // Pdf de resultado
-                null // Folio de resultado
+                $ruta_reporte_cito, // Pdf de resultado
+                $id_citologia_resultado_varios,
+                $tipo
+
             ]
         );
         break;

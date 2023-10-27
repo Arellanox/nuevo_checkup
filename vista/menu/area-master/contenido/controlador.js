@@ -244,8 +244,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
         //Subir reportes
-        $.getScript("modals/js/master_subir_interpretación.js");
-
+        $.getScript("modals/js/modal_reporte_citologia.js");
 
         break;
 

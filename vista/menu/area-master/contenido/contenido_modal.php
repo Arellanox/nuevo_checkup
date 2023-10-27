@@ -151,7 +151,7 @@ session_start();
 
                                 <!-- Button para subir reportes en citologia -->
                                 <div class="col-auto btn_reporte_citologia" style="display:none" id="btn_reporte_citologia">
-                                    <button type="button" class="btn btn-primary me-2 btn_reporte_citologia" style="margin-bottom:4px;">
+                                    <button type="button" class="btn btn-primary me-2 btn_reporte_citologia" style="margin-bottom:4px;" id=" btn_reporte_citologia">
                                         <i class="bi bi-plus-lg"></i> Subir reporte
                                     </button>
                                 </div>
