@@ -31,6 +31,7 @@ function hasLocation() {
   // $("a").removeClass("navlinkactive");
   // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   if (validarVista(hash) == true) {
+
     subtipo = false;
     switch (hash) {
       case "ULTRASONIDO":
@@ -128,11 +129,11 @@ function hasLocation() {
         obtenerContenidoVistaMaster(3, 'Resultados de Oftalmología', 'contenido_modal.php');
         break;
       case "CITALOGIA":
-        control_turnos = null;
-        formulario = "formSubirInterpretacionCitologia";
-        api_capturas = 5;
-        api_interpretacion = 1;
-        url_api = 'citologia_api';
+        control_turnos = null; // Activa el turnero
+        formulario = "formSubirInterpretacionCitologia"; // Formulario para la carga de resultado
+        api_capturas = 10; // captura de citología del sistema anterior
+        api_interpretacion = 1; // Para la carga de resultado
+        url_api = 'citologia_api'; // A dirigir
         obtenerContenidoVistaMaster(13, 'Resultados de Citología', 'contenido_modal.php');
         break;
       case "PRUEBA_DE_ESFUERZO":
@@ -234,6 +235,8 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
       case 13:
 
         $('#btn-analisis').fadeIn(0)
+
+        $('#abrirModalResultados').fadeOut(0);
         $('#btn-capturas-pdf').fadeOut(0)
         $('#btn_info_clinica_citologia').fadeIn(0)
         $('#btn_reporte_citologia').fadeIn(0)

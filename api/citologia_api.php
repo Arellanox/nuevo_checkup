@@ -62,10 +62,21 @@ switch ($api) {
 
         $response = $master->insertByProcedure('sp_citologia_formularios_g', $parametros);
 
-        break; 
+        break;
     case 2:
 
         $response = $master->getByProcedure('sp_citologia_formularios_b', [$turno_id]);
+
+        break;
+
+
+    case 9:
+        # Recuperación del reporte anterior
+
+        break;
+
+    case 10:
+        #Carga de reporte individual o reporte generado en el sistema anterior
 
         break;
     default:

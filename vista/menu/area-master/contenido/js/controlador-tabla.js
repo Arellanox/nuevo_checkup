@@ -390,6 +390,9 @@ async function obtenerServicios(area, turno) {
             case 4:
                 data['api'] = 2;
                 break;
+            // Citologia
+            case 13: data['api'] = 9; // Temporal Return Reporte cargado
+                break;
             default:
                 data['api'] = 3
                 break;

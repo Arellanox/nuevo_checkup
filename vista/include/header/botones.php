@@ -211,6 +211,7 @@ $menu = $_POST['menu']; ?>
   || $menu == 'Somatometría | Signos Vitales'
   || $menu == 'Consultorio'
   || $menu == 'Estudio de Composición Corporal (InBody)'
+  || $menu == 'Resultados de Citología'
 ) : ?>
   <div class="row">
     <div class="col-auto d-flex align-items-center">
