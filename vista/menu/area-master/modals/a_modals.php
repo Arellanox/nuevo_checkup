@@ -1,5 +1,6 @@
 <?php
 
+include "cito_informacion_clinica.php";
 
 //Boton para subir interpretacion
 // include 'ar_subirprueba-area.html';

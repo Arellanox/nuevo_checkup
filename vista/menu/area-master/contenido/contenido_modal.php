@@ -170,9 +170,16 @@ session_start();
                                 <!-- Button para interpretaciones de las areas -->
                                 <div class="col-auto">
                                     <button type="button" id="abrirModalResultados" class="btn btn-confirmar me-2" style="margin-bottom:4px">
-                                        <i class="bi bi-clipboard2-plus"></i> Interpretación
+                                        <i class="bi bi-clipboard2-plus-fill"></i> Interpretación
                                     </button>
                                 </div>
+
+                                <div class="col-auto">
+                                    <button type="button" id="abrirModalInformacionClinica" class="btn btn-success me-2" style="margin-bottom:4px">
+                                        <i class="bi bi-clipboard2-pulse-fill"></i>Información clinica
+                                    </button>
+                                </div>
+
                             </div>
 
                             <!-- <div class="col text-end" style="margin-top:4px;margin-bottom:5px;">
@@ -217,6 +224,7 @@ session_start();
 
 </div>
 
+<!-- MODAL PARA SUBIR INTERPRETACIÓN -->
 
 <div class="modal fade" id="modalSubirInterpretacion" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
@@ -228,7 +236,7 @@ session_start();
             <div class="modal-body">
 
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 px-5">
                         <?php
                         switch ($form) {
                                 //<!-- Resultados de oftalmologia -->
@@ -253,7 +261,7 @@ session_start();
                                 break;
                             case 'formSubirInterpretacionCitologia':
                                 echo '<form id="formSubirInterpretacionCitologia">';
-                                include 'forms/form_citologia.html';
+                                include 'forms/form_citologia_interpretacion.html';
                                 echo '</form>';
                                 break;
                                 //<!--Formulario de Espirometria -->
@@ -314,7 +322,7 @@ session_start();
     </div>
 </div>
 
-
+<!-- MODAL PARA LA INFORMACIÓN CLINICA -->
 
 <!--MODAL PARA SUBIR RESULTADOS DE ESPIROMETRIA-->
 

@@ -218,6 +218,25 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 }
                 break;
             case 13: // Citologia
+                // Sacamos el genero del paciente
+                const $genero = array_selected.GENERO;
+
+                // Se obtienen los 2 formularios para la intrpretaciónd de citologias
+                const $form_mujer_interpretacion = $('#cuestionarioMujer_interpretacion');
+                const $form_hombre_interpretacion = $('#cuestionarioHombre_interpretacion');
+
+                $form_mujer_interpretacion.fadeOut(0)
+                $form_hombre_interpretacion.fadeOut(0)
+
+                // Se valida si el genero es hombre o mujer
+                if ($genero === "FEMENINO") /* El genero es femenino */ {
+                    $form_mujer_interpretacion.fadeIn(0)
+                } else /* El genero es Masculino */ {
+                    $form_hombre_interpretacion.fadeIn(0)
+                }
+
+                // Recuperar la información clinica del paciente
+
                 resetDragDrop('#dropReporteCitologia')
                 break;
             case 14: //Nutricion
