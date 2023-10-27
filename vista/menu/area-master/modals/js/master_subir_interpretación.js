@@ -243,7 +243,7 @@ $("#btn-subir-resultados-espiro").click(async function (event) {
         }
     })
 })
- 
+
 
 //Subir resultados de audiometria
 $("#btn-subir-resultados-audio").click(async function (event) {
@@ -265,7 +265,7 @@ $("#btn-subir-resultados-audio").click(async function (event) {
                 id_turno: dataSelect.array['turno'],
                 api: 1
             }, 'audiometria_api', 'subirResultadosAudio', { callbackAfter: true }, false, function () {
-                alertToast('El estuido ya ha sido guardado', 'success', 4000);
+                alertToast('El estudio ya ha sido guardado', 'success', 4000);
 
                 obtenerServicios(areaActiva, dataSelect.array['turno'])
             })

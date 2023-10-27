@@ -576,6 +576,11 @@ function resetInputLabel() {
 
 // Esta funcion solo funciona para un solo input,
 // si hay mas de uno debe llamarse tantas veces sea posible
+
+function resetDragDrop(id_div = '#drop_Nombre') {
+  $(`${id_div} label`).html('Sube tu archivo arrastrándolo aquí');
+}
+
 let selectedFilesCount = 0;
 function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { multiple: false }) {
 

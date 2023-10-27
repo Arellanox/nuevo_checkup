@@ -76,7 +76,7 @@ switch ($api) {
 
     case 9:
         # Recuperación del reporte anterior
-        $master = $master->getByProcedure('sp_citologia_reporte_varios', [$id_citologia_resultado_varios, $turno_id]);
+        $response = $master->getByProcedure('sp_citologia_reporte_varios', [null, $turno_id, null, null, 2 /* Va recuperar */]);
         break;
 
     case 10:
@@ -91,13 +91,13 @@ switch ($api) {
 
 
         $response = $master->insertByProcedure(
-            'sp_reportes_areas_g',
+            'sp_citologia_reporte_varios',
             [
+                null, // para actualizar, pero por ahora no
                 $turno_id, // Paciente
                 $ruta_reporte_cito, // Pdf de resultado
-                $id_citologia_resultado_varios,
-                $tipo
-
+                $usuario,
+                1 // Insertar
             ]
         );
         break;

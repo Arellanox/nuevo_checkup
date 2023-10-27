@@ -118,6 +118,8 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
             turno: datalist['ID_TURNO']
         })
 
+
+
         // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
         await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', areaActiva)
         // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster')
@@ -214,6 +216,9 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                         if (selectEstudio.array[0].ELECTRO_PDF)
                             botonElectroCaptura(1)
                 }
+                break;
+            case 13: // Citologia
+                resetDragDrop('#dropReporteCitologia')
                 break;
             case 14: //Nutricion
                 $('#btn-inter-areas').fadeIn(0);
