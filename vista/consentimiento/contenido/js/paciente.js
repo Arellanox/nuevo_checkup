@@ -5,13 +5,8 @@ let url_pdf = '';
 // Una vez cargue todo el contenido de la pagina se empieza a construir
 $(document).ready(async function () {
     if (!turno_id) {
-        $('#body-js').html('');
-        alertMsj({
-            title: '¡Falta definir Turno!', text: 'No se encontro ningun turno',
-            icon: 'error', allowOutsideClick: false, showCancelButton: false, showConfirmButton: false
-        })
-
-        // return false;
+        CerrarPagina();
+        return false;
     }
 
 
@@ -84,6 +79,11 @@ async function ContruirPagina() {
             let row = data.response.data;
             // Se recorre el array para acceder a los datos
             paciente_data = row[0];
+
+            if (paciente_data === undefined) {
+                await CerrarPagina();
+                return false;
+            }
 
             // Se construye el header con la informacion del paciente
             await rellenarInformacionPaciente();
@@ -331,6 +331,19 @@ function fadeConsentimiento(firma) {
         $aceptado_aviso.fadeOut(1);
         $consentimiento_checkbox_div.fadeIn(1);
     }
+}
+
+// Function para cerrar la pagina en caso de que algo falle 
+function CerrarPagina() {
+    return new Promise(function (resolve, reject) {
+        $('#body-js').html('');
+        alertMsj({
+            title: '¡Falta definir Turno!', text: 'No se encontro ningun turno o el turno al que intenta entrar no existe',
+            icon: 'error', allowOutsideClick: false, showCancelButton: false, showConfirmButton: false
+        })
+
+        resolve(1)
+    })
 }
 // ------------------------------------------------------------------------
 
