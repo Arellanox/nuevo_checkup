@@ -177,11 +177,11 @@ async function construiBodyConsentimiento() {
                 if (i === 0) {
                     // Si es el primero se le pone la clase de active
                     $class = "carousel-item active"
-                    $btn_paginacion.fadeOut(100);
+                    $btn_paginacion.fadeOut(100); //<-- El boton de paginacion desaparece por que solo hay 1 coonsentimiento
                 } else {
                     // Si no es el primero se le pone la clase por defecto
                     $class = $class
-                    $btn_paginacion.fadeIn(100);
+                    $btn_paginacion.fadeIn(100); //<-- El boton de paginacion desaparece por que hay mas de 1 consentimiento
                 }
 
                 let html = `
