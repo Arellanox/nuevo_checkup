@@ -45,6 +45,9 @@
           <p class="none-p">Estudios cargados del paciente </p>
         </div>
         <div class="col-12 col-lg-6 d-flex justify-content-end align-items-start">
+          <button type="button" class="btn btn-primary me-2 btn_captura_microscopio" style="margin-bottom:4px; display:none" id="btn-capturas-microscopio">
+            <i class="fas fa-microscope"></i> Capturas
+          </button>
           <button type="button" data-attribute="guardar" class="btn btn-hover subir-resultado-lab" style="margin-bottom:4px" data-bs-toggle="tooltip" data-bs-placement="top" title="Guarde su progreso">
             <i class="bi bi-clipboard2-pulse"></i> Guardar
           </button>

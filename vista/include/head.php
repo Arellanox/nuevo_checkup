@@ -144,6 +144,10 @@
 <!-- Hammer -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
+<!-- Enlaza Font Awesome a través de una CDN (Coloca esto en el <head> de tu documento HTML) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+
 
 
 <script>
