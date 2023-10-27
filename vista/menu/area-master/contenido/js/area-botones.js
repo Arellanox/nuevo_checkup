@@ -147,7 +147,7 @@ $('#btn-ver-reporte').click(function () {
       area_nombre = 'espiro'
       break;
     case 4: case '4':
-      area_nombre = 'audio'
+      area_nombre = 'audiometria'
       break;
 
     default:
@@ -228,12 +228,7 @@ function estudioSeleccionado(id, modal, serv) {
 
 
 
-const defaultCropBoxPercentages = {
-  width: 0.6403659233847913,
-  height: 0.4184027777777778,
-  left: 0.17981703830760437,
-  top: 0.1753472222222222
-};
+
 
 $('#reporte_equipo').on('change', function (event) {
   let file = event.target.files[0];
@@ -332,9 +327,13 @@ $('#capture').on('click', function () {
     $('#captures').append(imageContainer);
 
     // Para enviar la imagen a través de AJAX como archivo:
-    let blob = dataURLtoBlob(croppedImage);
-    let formData = new FormData();
-    formData.append('croppedImage', blob, 'cropped.png');
+    // let blob = dataURLtoBlob(croppedImage);
+    // let formData = new FormData();
+    // formData.append('croppedImage', blob, 'cropped.png');
+
+    // Aqui se pondra la funcion para cerrar el modal de capturar la tabla y volver abrir el modal de interpretacion
+
+    CapturarTablaModalConfig("hide");
 
     // Ejemplo de AJAX con jQuery para enviar el archivo
     // $.ajax({

@@ -341,6 +341,13 @@
         .espacio {
             margin-top: 2px;
         }
+
+        .tamaño {
+
+            background-color: lightblue;
+            max-height: calc(100vh - (200 + -200));
+            overflow-y: auto;
+        }
     </style>
 </head>
 
@@ -371,69 +378,111 @@ if (!isset($qr)) {
 ?>
 
 <body>
-    <div style=" font-size: 9;" class="header">
-        <table>
-            <tbody>
-                <tr>
-                    <td class="col-der" style="border-bottom: none; text-align: left;">
-                        <h1>INFORME AUDIOMETRÍA</h1>
-                    </td>
-                    <td class="col-izq" style="border-bottom: none; text-align:center;">
-                        <?php
-                        echo "<img src='data:image/png;base64, " . $encode . "' height='80' >";
-                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
-                        ?>
+    <header style="position: fixed;">
 
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-        <div>
-            <table style="width: 100%; border-collapse: collapse; text-align: left; align-items: center;" border="2" colspan="4">
+        <div style=" font-size: 9;" class="header">
+            <table>
                 <tbody>
                     <tr>
-                        <td style="width: 100%; text-align: center; background-color: #d8e0e2;" colspan="4"><b>INFORMACIÓN DEL PACIENTE</b></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 20%;" colspan="1"><b>Nombre:</b></td>
-                        <td style="width: 80%;" colspan="3"><b><?php echo $encabezado->NOMBRE; ?></b></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 40%;" colspan="2"><b>Fecha de nacimiento:</b></td>
-                        <td style="width: 30%;" colspan="1"><b>Edad:</b> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></td>
-                        <td style="width: 30%;" colspan="1"><b>Género:</b> <?php echo $encabezado->SEXO; ?></td>
+                        <td class="col-der" style="border-bottom: none">
+                            <h4>
+                                DIAGNÓSTICO BIOMOLECULAR S.A.de C.V. <br>
+                                Checkup Clínica y Prevención<br>
+                                Audiometría tonal aérea
+                            </h4>
+                        </td>
+                        <td class="col-izq" style="border-bottom: none; text-align:center;">
+                            <?php
+                            echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
+                            // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+                            ?>
 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="height: 1px; background-color: black ;">
+            <p style="text-align: center; margin: -4px; font-size: 16px;"><strong>DATOS DEL PACIENTE</strong></p>
+            <hr style="height: 1px; background-color: black ;">
+            <br>
+            <table style="width: 100%; border-collapse: collapse; text-align: left; align-items: center;" colspan="4">
+                <tbody>
+                    <tr>
+                        <td class="col-left" style="border-bottom: none">
+                            No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_AUDIO ?>
+                            </strong>
+                        </td>
+                        <td class="col-center" style="border-bottom: none">
+                            Edad: <strong style="font-size: 12px;">
+                                <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
+                        </td>
+                        <td class="col-right" style="border-bottom: none">
+                            Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
+                        </td>
                     </tr>
                     <tr>
-                        <td style="width:50%;" colspan="2"><b>Fecha de realización del estudio:</b></td>
-                        <td style="width:50%;" colspan="2"><b>Fecha de resultado:</b> <?php echo $encabezado->FECHA_RESULTADO_MESO; ?></td>
+                        <td class="col-left" style="border-bottom: none">
+                            Nombre: <strong style="font-size: 12px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
+                        </td>
+                        <td class="col-center" style="border-bottom: none">
+                            Fecha de Nacimiento: <strong style="font-size: 12px;">
+                                <?php echo $encabezado->NACIMIENTO_DETALLE; ?> </strong>
+                        </td>
+                        <td class="col-right" style="border-bottom: none">
+                            Pasaporte: <strong style='font-size:12px'>
+                                <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
+                        </td>
                     </tr>
                     <tr>
-                        <td style="width:30%" colspan="1"><b>Checkup:</b></td>
-                        <td style="width:70%" colspan="3"><b>Tipo estudio:</b></td>
+                        <td class="col-left" style="border-bottom: none">
+                            Fecha de Resultado: <strong style="font-size: 12px;">
+                                <?php echo $encabezado->FECHA_RESULTADO_AUDIO; ?> </strong>
+                        </td>
+                        <td class="col-right" style="border-bottom: none">
+                            <!-- Tipo de Muestra: <strong>Sangre</strong> -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-left" style="border-bottom: none">
+                            <!-- Procedencia -->
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <!--<p style="font-size: 12px; padding-left: 3.5px; margin: -1px
-        ; margin-top: 5px">
-            <?php // echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; 
-            ?> </strong>
-        </p>
-         COMENTAR ESTA LINEA<p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> 
+    </header>
+
+    <!--<p style="background-color: darkgrey; padding: 5px;text-align: center;"><strong>INFORMACIÓN CLÍNICA</strong></p> 
         <br>-->
     </div>
 
-    <div class="espacio">
-        <div style="width: 93%;padding-top: 200px; border-top-width: 80px; font-size: 10;margin: 0px 0px 10px 28px">
+    <div class=" tamaño">
+        <div style="width: 93%;padding-top: 200px; border-top-width: 80px; font-size: 10;margin: 20px 0px 10px 28px">
             <div>
                 <table>
                     <tr>
-                        <td><b>Antecedentes:</b></td>
+                        <td><b><?php echo $response->DESCRIPCION; ?></b></td>
                     </tr>
                     <tr>
-                        <td>Niega tabaquismo, refiere exposición laboral a ruido y a solventes, niega antecedentes traumáticos<br></td>
+                        <td>Respuesta 1<br></td>
+                    </tr>
+                    <tr>
+                        <td><b>Antecedentes pregunta 2</b></td>
+                    </tr>
+                    <tr>
+                        <td>Respuesta 2<br></td>
+                    </tr>
+                    <tr>
+                        <td><b>Antecedentes pregunta 3</b></td>
+                    </tr>
+                    <tr>
+                        <td>Respuesta 3<br></td>
+                    </tr>
+                    <tr>
+                        <td><b>Antecedentes pregunta 4</b></td>
+                    </tr>
+                    <tr>
+                        <td>Respuesta 4<br></td>
                     </tr>
                     <tr style="line-height: 2;">
                         <td><b>Audiometría:</b></td>
@@ -443,6 +492,7 @@ if (!isset($qr)) {
                     </tr>
                 </table>
             </div>
+
             <br>
             <strong>
                 <table style="width: 100%; text-align: center;border-collapse: collapse; margin: 0px 0px 0px 2px;" border="2">
@@ -467,7 +517,7 @@ if (!isset($qr)) {
                         <td>5 </td>
                     </tr>
                     <tr>
-                        <td style="background-color: #d8e0e2;"> Oi* </td>
+                        <td style="background-color: #d8e0e2;"> OI* </td>
                         <td>10 </td>
                         <td>10 </td>
                         <td>10 </td>
@@ -480,7 +530,38 @@ if (!isset($qr)) {
             </strong>
             <p style="margin: -1px 0px 0px 50px;">*Valores en decibeles (dB)</p>
         </div>
-        <div style="width: 93%;padding-top: 20px; border-top-width: 80px; font-size: 10;margin: 0px 0px 10px 28px; font-size: 10;">
+        <div style="text-align:center;">
+            <table>
+                <tr>
+                    <td style="text-align: center;">
+                        <strong>Audiometría Tonal</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Grados de pérdida auditiva según la recomendacion de la OMS ( En caso de perdida de auditiva
+                        moderada, el rango para niños es de 31 a 60
+                        dB)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <?php
+                        echo "<img src='data:image/png;base64, " . base64_encode(file_get_contents('../pdf/public/assets/resultado_audio_ejemplo.png')) . "' height='325' >";
+                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+                        ?>
+                    </td>
+                <tr>
+                    <td style="text-align: center;">
+                        <strong> Dispositivo: MA28 Fecha de calibración 01.06. 23</strong>
+                    </td>
+                </tr>
+                </tr>
+            </table>
+        </div>
+        <div class="break"></div>
+        <h1>Hoal</h1>
+        <div style="width: 100%;padding-top: 220px; border-top-width: 80px; font-size: 10;margin: 0px 0px 10px 28px; font-size: 10;">
 
             <table>
                 <tbody>
@@ -488,7 +569,7 @@ if (!isset($qr)) {
                         <td><strong>Otoscopia:</strong></td>
                     </tr>
                     <tr>
-                        <td>Ambos pabellones auriculares sin alteraciones.</td>
+                        <td><?php echo $response->OTOSCOPIA; ?></td>
                     </tr>
                     <tr style="line-height: 2; color: white;">
                         <td>.</td>
@@ -501,8 +582,22 @@ if (!isset($qr)) {
                                     <td><strong> Oído izquierdo </strong></td>
                                 </tr>
                                 <tr>
-                                    <td>Conducto auditivo externo normal. Membrana timpánica sin alteraciones Otoscopia norma</td>
-                                    <td>Conducto auditivo externo normal Tapón de cerumen </td>
+                                    <td>
+                                        <?php
+                                        echo "<img src='data:image/png;base64, " . base64_encode(file_get_contents('../pdf/public/assets/OD.png')) . "' height='175' >";
+                                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+                                        ?>
+                                        <br>esto es un ejemplo
+                                        <?php echo $response->RESULTADO_OD; ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        echo "<img src='data:image/png;base64, " . base64_encode(file_get_contents('../pdf/public/assets/OI.png')) . "' height='175' >";
+                                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+                                        ?>
+                                        <br>esto es un ejemplo
+                                        <?php echo $response->RESULTADO_OI; ?>
+                                    </td>
                                 </tr>
                             </table>
                         </td>
@@ -511,62 +606,24 @@ if (!isset($qr)) {
                         <td>.</td>
                     </tr>
                     <tr style="line-height: 2;">
-                        <td><strong>Comentarios:</strong> Audiometría tonal </td>
+                        <td><strong>Comentarios:</strong> <?php echo $response->COMENTARIOS ?></td>
                     </tr>
                     <tr style="line-height: 2;">
-                        <td><strong>Oido derecho:</strong> Audición normal</td>
+                        <td><strong>Oido derecho:</strong> <?php echo $response->COMENTARIOS_OD ?></td>
                     </tr>
                     <tr style="line-height: 2;">
-                        <td><strong>Oido izquierdo:</strong> </td>
+                        <td><strong>Oido izquierdo:</strong> <?php echo $response->COMENTARIOS_OI ?></td>
                     </tr>
                     <tr>
-                        <td><strong> Recomendaciones:</strong></td>
+                        <td><strong> Recomendaciones:</strong> <?php echo $response->RECOMENDACIONES ?></td>
                     </tr>
                     <tr>
-                        <td>Uso de protección auditiva, evitar inhalación de solventes y evitar medicamentos que dañen la
-                            audición (ototóxicos): amikacina, garamicina, gentamicina. </td>
+                        <td><?php echo $response->RECOMENDACIONES ?></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div style="display: flex; justify-content: space-between; flex-basis: auto; align-content: center;" border="2" class="foot">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <table style="width: 110%; border-collapse: collapse; text-align: left; margin: -1px 0px 0px 0px;font-size: 9;">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Diagnóstico Biomolecular S.A de C.V</strong></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Administración</strong></td>
-                                        <td><strong>Laboratorio-Clinica checkups</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Blvd Adolfo Ruíz Cortines 1344, Piso 2 Suite 245 Col. Tabasco 2000</td>
-                                        <td>Av. Jóse Pagés Llergo #150. Col. Arboledas</td>
-                                    </tr>
-                                    <tr>
-                                        <td>C.P.86079 Villahermosa, Centro Tabasco.</td>
-                                        <td>C.P 86035 Villahermosa, Centro Tabasco.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>hola</strong>@bimo.com.mx | Tel: <strong>993 500029</strong></td>
-                                        <td><strong>hola</strong>@bimo.com.mx | Tel: <strong>9936 340250</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         <div style="width: 100%; text-align: center;border-collapse: collapse; margin: 0px 0px 0px 30px;">
             <strong>
                 <table>
@@ -594,6 +651,44 @@ if (!isset($qr)) {
                 </table>
             </strong>
         </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; flex-basis: auto; align-content: center;" border="2" class="foot">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <table style="width: 110%; border-collapse: collapse; text-align: left; margin: -1px 0px 0px 0px;font-size: 9;">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Diagnóstico Biomolecular S.A de C.V</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Administración</strong></td>
+                                    <td><strong>Laboratorio-Clinica checkups</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Blvd Adolfo Ruíz Cortines 1344, Piso 2 Suite 245 Col. Tabasco 2000</td>
+                                    <td>Av. Jóse Pagés Llergo #150. Col. Arboledas</td>
+                                </tr>
+                                <tr>
+                                    <td>C.P.86079 Villahermosa, Centro Tabasco.</td>
+                                    <td>C.P 86035 Villahermosa, Centro Tabasco.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>hola</strong>@bimo.com.mx | Tel: <strong>993 500029</strong></td>
+                                    <td><strong>hola</strong>@bimo.com.mx | Tel: <strong>9936 340250</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </body>

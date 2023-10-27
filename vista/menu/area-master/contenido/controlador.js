@@ -13,6 +13,12 @@ var formEspiroHTML;
 var formCitologiaHTML
 
 let cropper;
+let defaultCropBoxPercentages = {
+  width: 0.6403659233847913,
+  height: 0.4184027777777778,
+  left: 0.17981703830760437,
+  top: 0.1753472222222222
+};
 
 hasLocation();
 $(window).on("hashchange", function (e) {
@@ -109,7 +115,7 @@ function hasLocation() {
         control_turnos = 5
         formulario = "formSubirInterpretacionPRUEBA";
         api_capturas = 2;
-        api_interpretacion = 1;
+        api_interpretacion = 7;
         url_api = 'audiometria_api';
         obtenerContenidoVistaMaster(4, 'Resultados de Audiometría', 'contenido_modal.php');
         break;
@@ -186,6 +192,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     // Datatable
     $.getScript("contenido/js/controlador-tabla.js");
 
+    $('.abrirModalResultados').attr('disabled', false);
     switch (area) {
 
       // case 18: case 9: //Eco y prueba de esfuerzo
@@ -203,7 +210,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
 
       default: //Areas Genericas
         $('#btn-analisis').fadeIn(0)
-        $('#btn-capturas-pdf').fadeIn(0)
+        $('.btn-capturas-pdf').fadeIn(0)
         $('#formSubirInterpretacion').fadeIn(0)
 
         // Subir resultado
@@ -214,8 +221,9 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
       case 5:
 
         $('#btn-analisis').fadeIn(0)
-        $('#btn-capturas-pdf').fadeOut(0)
+        $('.btn-capturas-pdf').fadeOut(0)
         $('#formSubirInterpretacion').fadeIn(0)
+        $('.btn-resultados-espiro-pdf').fadeIn(0)
         $('#btn-resultados-espiro-pdf').fadeIn(0)
         // Subir resultado
         $.getScript("modals/js/master_subir_interpretación.js");
@@ -235,14 +243,15 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
 
       //Area de audiometria
       case 4:
-        $('#btn-capturas-pdf').fadeOut(0)
+        $('.btn-capturas-pdf').fadeOut(0)
+        $('.abrirModalResultados').attr('disabled', true);
         $('.btn_reporte_audiometria').fadeIn(0)
         $.getScript("modals/js/master_subir_interpretación.js");
 
         break;
       case 10:
         $('#btn-analisis').fadeIn(0)
-        $('#btn-capturas-pdf').fadeIn(0)
+        $('.btn-capturas-pdf').fadeIn(0)
         $('#formSubirInterpretacion').fadeIn(0)
 
         // Subir resultado
@@ -261,7 +270,7 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
       // Versión anterior (Absoleta)
       // default:
       //   $('#btn-analisis-pdf').fadeIn(0)
-      //   $('#btn-capturas-pdf').fadeIn(0)
+      //   $('.btn-capturas-pdf').fadeIn(0)
       //   $('.btnResultados').fadeOut(0)
       //   // Datatable
       //   $.getScript("contenido/js/vista-tabla.js");

@@ -6,6 +6,22 @@ function formatoFecha(texto) {
   return '';
 }
 
+//formatea la Edad de sql
+function formatoEdad(texto) {
+  if (texto) {
+    // Convierte la cadena en un número
+    var numero = parseFloat(texto);
+
+    // Verifica si el número tiene decimales y cuántos
+    var decimales = (numero % 1 !== 0) ? texto.split('.')[1].length : 0;
+
+    // Utiliza toFixed para formatear el número con la cantidad correcta de decimales
+    return numero.toFixed(decimales).replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
+  }
+
+  return '';
+}
+
 jQuery.fn.exists = function () { return this.length > 0; }
 
 function formatoFechaSQL(fecha, formato) {
@@ -385,9 +401,10 @@ function ifnull(data, siNull = '', values = [
   // Comprobar si el dato es nulo o no es un objeto
   if (!data || typeof data !== 'object') {
     if (data === undefined || data === null || data === 'NaN' || data === '') {
-      return siNull;
+      return siNull == 'number' ? 0 : siNull;
     } else {
-      data = escapeHtmlEntities(`${data}`);
+      if (siNull != 'number')
+        data = escapeHtmlEntities(`${data}`);
       return data;
     }
   }
@@ -464,19 +481,19 @@ function escapeHtmlEntities(input) {
     "'": '&apos;',
     '-': '&ndash;',
     '—': '&mdash;',
-    '\u00A0': '&nbsp;',
-    '\u2013': '&ndash;',
-    '\u2014': '&mdash;',
-    '\u2018': '&apos;',
-    '\u2019': '&apos;',
-    '\u201C': '&quot;',
-    '\u201D': '&quot;',
-    '\u2022': '&bull;',
-    '\u2026': '&hellip;',
-    '\u2032': '&prime;',
-    '\u2033': '&Prime;',
-    '\u00AE': '&reg;',
-    '\u2122': '&trade;'
+    // '\u00A0': '&nbsp;',
+    // '\u2013': '&ndash;',
+    // '\u2014': '&mdash;',
+    // '\u2018': '&apos;',
+    // '\u2019': '&apos;',
+    // '\u201C': '&quot;',
+    // '\u201D': '&quot;',
+    // '\u2022': '&bull;',
+    // '\u2026': '&hellip;',
+    // '\u2032': '&prime;',
+    // '\u2033': '&Prime;',
+    // '\u00AE': '&reg;',
+    // '\u2122': '&trade;'
   };
 
   const regex = new RegExp(Object.keys(replacements).join('|'), 'g');
@@ -550,6 +567,11 @@ $(document).on('change click', 'input[type="file"]', function () {
   }
 })
 
+function resetInputLabel() {
+  const label = $(`input[type="file"]`).parent('div').find('label[class="input-file-label"]')
+  label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+}
+
 // config = myfunctionconfig(config);
 
 // Esta funcion solo funciona para un solo input,
@@ -569,7 +591,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   // Restaura los elementos DOM al estado original
   inputArea.val(''); // Elimina cualquier archivo seleccionado previamente
-  labelArea.html('Arrastra y suelta un archivo aquí o haz clic para seleccionar'); // Restaura el texto original
+  labelArea.html(`Sube tu archivo arrastrándolo aquí`) // Restaura el texto original
   selectedFilesCount = 0; // Reinicia el contador si es necesario
 
   // Efecto de hover
@@ -578,12 +600,12 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
     if (cambio) {
       // Entrada 
-      dropArea.addClass('hover');
+      dropArea.addClass('hover_dropDrag');
 
 
     } else {
       // Salida
-      dropArea.removeClass('hover');
+      dropArea.removeClass('hover_dropDrag');
 
     }
 
@@ -685,7 +707,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   })
 
-  labelArea.on('change', function () { // <- se cambio por labelArea
+  inputArea.on('change', function () { // <- se cambio por labelArea
     // Dar el efecto de cargando o subiendo
     cargandoInput()
 
@@ -1485,7 +1507,9 @@ function alertMsj(options, callback = function () { }) {
   })
 }
 
-function alertMensajeConfirm(options, callback = function () { }, set = 0, callbackDenied = function () { }) {
+function alertMensajeConfirm(options, callback = function () { }, set = 0, callbackDenied = function () { }, callbackCanceled = function () {
+
+}) {
 
   //Options si existe
   switch (set) {
@@ -1550,6 +1574,8 @@ function alertMensajeConfirm(options, callback = function () { }, set = 0, callb
       callback()
     } else if (result.isDenied) {
       callbackDenied();
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      callbackCanceled();
     }
   })
 }
@@ -2015,7 +2041,8 @@ function configSelectTable(config) {
 }
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
-  var esTabletaVertical = /iPad/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth;
+  var esTabletaVertical = /iPad/i.test(navigator.userAgent)
+  // && window.innerHeight > window.innerWidth;
   var esDispositivoMovil = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || esTabletaVertical;
 
   if (esDispositivoMovil)
@@ -2572,9 +2599,9 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
           }
 
           if (array[i][0] == 1 || array[i][0] == null) {
-            $(DIV[i]).find("textarea[class='form-control input-form']").val(array[i][1])
+            $(DIV[i]).find("textarea.form-control.input-form").val(array[i][1])
           } else {
-            $(DIV[i]).find("textarea[class='form-control input-form']").val('')
+            $(DIV[i]).find("textarea.form-control.input-form").val('')
           }
         } catch (error) {
           //console.log(error);
@@ -2770,8 +2797,9 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     if (mensajeAjax(data)) {
                       row = data['response']['data'][0];
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#edad-persona').html(formatoFecha(row.EDAD))
+                      $('#edad-persona').html(formatoEdad(row.EDAD))
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
+                      $('#info-paquete_cargado').html(ifnull(row, '', ['PAQUETE_CARGADO']))
                       $('#info-paci-alergias').html(row.ALERGIAS);
                       $('#info-paci-procedencia').html(row.PROCEDENCIA)
                       $('#info-paci-curp').html(row.CURP);
@@ -2835,6 +2863,22 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         } catch (error) {
 
                         }
+
+
+                        // Categoria del paciente, no particulares
+                        if (ifnull(row, false, ['ID_CLIENTE']) != '1') {
+                          $('#info-categoria_cargado').html(ifnull(row, '', ['CATEGORIA']))
+                          // console.log(area);
+                          if (area === 1) {
+                            // Aparece las categorias
+                            $('.categoria_paciente').fadeIn('fast');
+                            $('#categoria_paciente_input').val(ifnull(row, '', ['CATEGORIA']))
+                          }
+
+                        }
+
+
+
                       } else {
                       }
 
@@ -2849,52 +2893,6 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   },
                 })
 
-                break;
-              case 'paciente_lab':
-                $.ajax({
-                  url: http + servidor + "/" + appname + "/api/pacientes_api.php",
-                  data: {
-                    api: 2,
-                    turno_id: id
-                  },
-                  type: "POST",
-                  dataType: 'json',
-                  success: function (data) {
-                    if (mensajeAjax(data)) {
-                      row = data['response']['data'][0];
-                      $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#edad-persona').html(formatoFecha(row.EDAD))
-                      $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
-
-
-                      $('#info-paci-curp').html(row.CURP);
-                      $('#info-paci-telefono').html(row.CELULAR);
-                      $('#info-paci-correo').html(row.CORREO);
-                      $('#info-paci-sexo').html(row.GENERO);
-                      if (row.TURNO) {
-                        $('#info-paci-turno').html(row.TURNO);
-                      } else {
-                        $('#info-paci-turno').html('Sin generar');
-                      }
-                      $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
-                        row.MUNICIPIO + ", " + row.ESTADO);
-                      $('#info-paci-procedencia').html(row.NOMBRE_COMERCIAL);
-                      $('#info-paci-prefolio').html(row.PREFOLIO)
-
-                      $('#info-paci-reagenda').val(row.FECHA_RECEPCION);
-                      $('#info-paci-reagenda').val(row.FECHA_REAGENDA);
-
-
-                    }
-                  },
-                  complete: function () {
-                    $(panel).fadeIn(100);
-                    resolve(1);
-                  },
-                  error: function (jqXHR, exception, data) {
-                    alertErrorAJAX(jqXHR, exception, data)
-                  },
-                })
                 break;
               case 'equipo':
                 $('#nombre-equipo').html(row.MARCA + "-" + row.MODELO);
@@ -3246,7 +3244,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     13: 'NUTRICIÓN',
                     14: 'INBODY',
                     15: 'CERTIFICADO MÉDICO',
-                    16: 'CONSULTORIO FASTCHECKUP'
+                    16: 'CONSULTORIO FASTCHECKUP',
+                    17: 'CERTIFICADO POE'
                   }
                   let row = data.response.data;
                   // $('#append-html-historial-estudios').html('');

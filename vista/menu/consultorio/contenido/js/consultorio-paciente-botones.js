@@ -194,6 +194,19 @@ InputDragDrop('#dropCertificadoMedico', (inputArea, salidaInput) => {
   })
 })
 
+// Subir certificado para POE
+InputDragDrop('#dropCertificadoPOE', (inputArea, salidaInput) => {
+  ajaxAwaitFormData({
+    turno_id: pacienteActivo.array['ID_TURNO'], api: 1
+  }, 'certificado_poe_api', 'subirResultadosCertificadoPOE', { callbackAfter: true }, false, function () {
+    obtenerPanelInformacion(pacienteActivo.array['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
+
+    salidaInput();
+
+  })
+})
+
+
 
 
 // $(document).ready(function () {

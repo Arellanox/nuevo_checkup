@@ -328,8 +328,8 @@ switch ($idioma) {
                     <p>
                         <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                         RFC DBI2012084N2<br>
-                        Calle AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
-                        VILLAHERMOSA, TABASCO, 86060, MEX<br>
+                        Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas,
+                    Villahermosa Tabasco, C.P. 86079 <br>
                         9936340250<br>
                         hola@bimo.com.mx
                     </p>
@@ -353,7 +353,7 @@ switch ($idioma) {
                 </tr>
                 <tr>
                     <td style=\"background-color: darkgrey; width: 15%; border-radius: 0px 0px 0px 0px;\"><b>DOMICILIO FISCAL</b></td>
-                    <td style=\"width: 55%;text-align: left; border-top: 1px solid darkgrey;\" colspan=\"3\" class=\"cell\">".$resultados->DOMICILIO_FISCAL."</td>
+                    <td style=\"width: 55%;text-align: left; border-top: 1px solid darkgrey;\" colspan=\"3\" class=\"cell\">" . $resultados->DOMICILIO_FISCAL . "</td>
                     <td style=\"width: 30%;text-align: center; border-left: 1px solid darkgrey;\">" . $resultados->FECHA_CREACION . "</td>
                 </tr>
                 <tr>
@@ -423,7 +423,7 @@ switch ($idioma) {
                 </tr>
             </tbody>
         </table>
-        <p><strong>Comentarios:</strong><br>".$resultados->OBSERVACIONES."</p>
+        <p><strong>Comentarios:</strong><br>" . $resultados->OBSERVACIONES . "</p>
         <!--Inicio tabla totales -->
         <p style=\"line-height: 2.5\"></p>
         <div style=\" float: right;width: 30%;\">
@@ -435,7 +435,7 @@ switch ($idioma) {
                     </tr>
                     <tr>
                         <td>Descuento (" . $resultados->PORCENTAJE_DESCUENTO . "%)</td>
-                        <td>$ " . $resultados->SUBTOTAL. "</td>
+                        <td>$ " . $resultados->DESCUENTO . "</td>
                     </tr>
                     <tr>
                         <td>IVA (16.00%)</td>
@@ -479,8 +479,8 @@ switch ($idioma) {
                     <p>
                         <b>DIAGNOSTICO BIOMOLECULAR</b><br>
                         RFC DBI2012084N2<br>
-                        Street AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
-                        VILLAHERMOSA, TABASCO, 86060, MEX<br>
+                        Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas,
+                    Villahermosa Tabasco, C.P. 86079 <br>
                         9936340250<br>
                         hola@bimo.com.mx
                     </p>

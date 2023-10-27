@@ -22,12 +22,12 @@
 
 
 <!-- modalCapturaOdios -->
-<div class="modal fade" id="modalCapturaTablas" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+<div class="modal fade" id="modalCapturaTablas" tabindex="1" aria-labelledby="resultados" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <h5 class="modal-title" id="title-paciente_aceptar">Captura de Tablas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body">
                 <div class="row my-4">
@@ -44,7 +44,7 @@
                     </div>
 
                     <!-- Columna para cargar el archivo y ver las capturas -->
-                    <div class="col-12 col-lg-4">
+                    <form id="formCapturaResultados" class="col-12 col-lg-4">
                         <div class="mb-4">
                             <div class="input-file-contenedor">
                                 <label for="reporte_equipo" class="form-label">Cargar reporte</label>
@@ -59,23 +59,31 @@
                             <button type="button" id="capture" class="btn btn-option w-100"><i class="bi bi-camera"></i>
                                 Capturar</button>
                         </div>
-                        <div class="rounded p-3 shadow my-2">
+                        <!-- <div class="rounded p-3 shadow my-2">
                             <h5><i class="bi bi-images"></i> Capturas</h5>
                             <div class="" id="captures">
-                                <!-- Las capturas se mostrarán aquí -->
                             </div>
-                        </div>
-                    </div>
+                        </div> -->
+                    </form>
+
                 </div>
             </div>
             <div class="modal-footer">
                 <!-- <button type="button" class="btn btn-borrar" id="btn-limpiar-resultado-espiro">Limpiar</button> -->
-                <!-- <button type="submit" class="btn btn-confirmar" id="btn-subir-certificado-medico"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="Guarda los documentos subidos">
+
+                <button class="btn btn-cancelar" id="RegresarModalCapturarTablas">
+                    <i class="bi bi-arrow-left"></i> Regresar
+                </button>
+
+
+                <!-- <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i>Cancelar</button> -->
+
+                <!-- <button type="submit" id="btn-subir-capturas-tablas" class="btn btn-confirmar"
+                    form="formCapturaResultados" data-bs-toggle="tooltip" style="display: none;" data-bs-placement="top"
+                    title="Guarda las capturas realizadas">
                     <i class="bi bi-clipboard2-plus"></i> Guardar
                 </button> -->
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
-                    <i class="bi bi-arrow-left-short"></i>Cancelar</button>
             </div>
         </div>
     </div>

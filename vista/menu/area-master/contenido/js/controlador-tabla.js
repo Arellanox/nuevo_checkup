@@ -68,6 +68,12 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
                     $(row).addClass('bg-success text-white');
                 }
                 break;
+
+            case 4:
+                if (data.CONFIRMADO_AUDIO == 1) {
+                    $(row).addClass('bg-success text-white');
+                }
+                break;
             // if (data.CONFIRMADO_ULTRASO == 1) $(row).addClass('bg-success text-white'); break;
 
             default:
@@ -112,10 +118,6 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
             turno: datalist['ID_TURNO']
         })
 
-        // Subir audios
-        // console.log(dataSelect['array'])
-        // getFormOidosAudiometria(datalist);
-
         // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
         await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab', areaActiva)
         // await obtenerPanelInformacion(1, null, 'resultados-areas', '#panel-resultadosMaster')
@@ -132,9 +134,28 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 if (selectEstudio.array.length)
                     await obtenerResultadosOftalmo(selectEstudio.array)
                 break;
+
             case 4:
+                // Cada que seleccione reinicie la interpretacion
+                ResetCapturasDeTablaDeAudio();
+                // audiometria;
                 $('#btn-inter-areas').fadeIn(0);
-                if (datalist.CONFIRMADO == 1) estadoFormulario(1)
+
+                // Subir audios y Tabla de equipos
+                // console.log(dataSelect['array'])
+
+                // Captura de oidos
+                getFormOidosAudiometria(datalist);
+
+                // Recupera la info del reporte:
+                console.log(selectEstudio.array);
+                if (ifnull(selectEstudio, false, ['array']))
+                    await obtenerResultadosAudio(selectEstudio);
+
+                // Inicializamos mostrando la primera página
+                updatePage($('.page').first());
+
+                if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
                 break;
             case 5:
                 $('#btn-inter-areas').fadeIn(0);
@@ -193,25 +214,6 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                         if (selectEstudio.array[0].ELECTRO_PDF)
                             botonElectroCaptura(1)
                 }
-                break;
-            case 13:
-                $('#btn-inter-areas').fadeIn(0);
-                document.getElementById('formAreadeCitoloiga').reset()
-                $(`#formAreadeCitoloiga`).html('');
-                $(`#formAreadeCitoloiga`).html(formCitologiaHTML)
-
-                if (selectEstudio.array.length) {
-                        if (selectEstudio.array[0].GENERO == 'MASCULINO') {
-                            $('#cuestionarioMujer').css('display', 'none');
-
-                        } else {
-                            $('#cuestionarioHombre').css('display', 'none');
-                        }
-                        
-                    recuperarInfoClinicaCitologia(selectEstudio.array[0])
-                    }
-                
-                
                 break;
             case 14: //Nutricion
                 $('#btn-inter-areas').fadeIn(0);
@@ -375,19 +377,25 @@ function limpiarCampos() {
 
 async function obtenerServicios(area, turno) {
     return new Promise(resolve => {
-        if (area == 3 || area == 10 || area == 14 || area == 5 || area == 4 || area == 18 || area == 9 || area == 13 ) {
-            // url = 'oftalmologia_api';
-            data = {
-                turno_id: turno,
-                api: 2
-            }
-        } else {
-            data = {
-                api: 3,
-                id_turno: turno,
-            }
-            // url = 'servicios_api'
+        let data = { turno_id: turno }
+        switch (area) {
+            case 3:
+            case 10:
+            case 14:
+            case 5:
+            case 18:
+            case 9:
+                data['api'] = 2
+                break;
+            case 4:
+                data['api'] = 2;
+                break;
+            default:
+                data['api'] = 3
+                break;
         }
+
+
         $.ajax({
             url: `${http}${servidor}/${appname}/api/${url_api}.php`,
             data: data,
@@ -421,6 +429,7 @@ async function obtenerServicios(area, turno) {
                             // console.log(key, row[0][key]['GUARDADO'], row[0][key]['CONFIRMADO'])
                             if (row[0][key]['GUARDADO'] == 1)
                                 trueResultados = 1
+
                             if (row[0][key]['CONFIRMADO'] == 1)
                                 trueResultados = 2
 
@@ -961,6 +970,7 @@ async function GenerarListaCapturasImagenologia(row) {
 async function obtenerResultadosOftalmo(data) {
     document.getElementById(formulario).reset()
     let row = data[0]
+
     $('#antecedentes_personales').val(ifnull(row.ANTECEDENTES_PERSONALES));
     $('#antecedentes_oftalmologicos').val(ifnull(row.ANTECEDENTES_OFTALMOLOGICOS));
     $('#padecimiento_actual').val(ifnull(row.PADECIMIENTO_ACTUAL));
@@ -994,6 +1004,69 @@ async function obtenerResultadosElectro(data) {
     $('#tecnica_electro').val(ifnull(row.TECNICA))
     $('#hallazgo_electro').val(ifnull(row.HALLAZGO))
     $('#interpretacion_electro').val(ifnull(row.INTERPRETACION))
+}
+
+async function obtenerResultadosAudio(data) {
+    document.getElementById(formulario).reset()
+
+    let row = data.array[0]
+
+
+    // Apartado de cometarios
+    $('#audio-comenConclucion').val(ifnull(row, false, ['COMENTARIOS']) ? row.COMENTARIOS : '');
+    $('#comentario_oido_derecho').val(ifnull(row, false, ['COMENTARIOS_OD']) ? row.COMENTARIOS_OD : '')
+    $('#comentario_oido_izquierdo').val(ifnull(row, false, ['COMENTARIOS_OI']) ? row.COMENTARIOS_OI : '')
+
+    //Apartado de otoscopia
+    $('#textArea-otoscopia').val(ifnull(row, false, ['OTOSCOPIA']) ? row.OTOSCOPIA : '')
+
+    //Apartado de audiometria
+    $('#audiometria_oido_derecho').val(ifnull(row, false, ['RESULTADO_OD']) ? row.RESULTADO_OD : '')
+    $('#audiometria_oido_izquierdo').val(ifnull(row, false, ['RESULTADO_OI']) ? row.RESULTADO_OI : '')
+
+    //Apartado de recomendaciones
+    $('#textArea-recomendaciones').val(ifnull(row, false, ['RECOMENDACIONES']) ? row.RECOMENDACIONES : '')
+
+
+
+    // $('#div-antecedentes')
+    // Antecedentes de audio
+    $('#div-antecedentes input[type="radio"]').prop('checked', false);
+    $('#div-antecedentes div.collapse, div.collapse.show').collapse('hide');
+    // console.log(row, row['ANTECEDENTES']);
+    if (ifnull(row, false, ['ANTECEDENTES'])) {
+        const antecedentes = row['ANTECEDENTES'];
+        for (const key in antecedentes) {
+            const val = antecedentes[key];
+            $(`#div-antecedentes input[name="antecedentes[${val.ID_ANTECEDENTE}][option]"][value="${val.ID_RESPUESTA}"][type="radio"]`).prop('checked', true);
+
+            if (ifnull(val, false, ['ID_RESPUESTA']) === 1) {
+                console.log("SI collapse")
+                $(`#div-antecedentes textarea[name="antecedentes[${val.ID_ANTECEDENTE}][comentario]"]`).val(val.COMENTARIO);
+                // console.log($(`#div-antecedentes div.target-${val.ID_ANTECEDENTE}.collapse`))
+                $(`#div-antecedentes div.target-${val.ID_ANTECEDENTE}.collapse`).collapse('show');
+                // console.log(div);
+                // if (div.attr('data-id-target') == ifnull(val, 0, ['ID_RESPUESTA']))
+                //     div.collapse('show');
+            }
+        }
+    }
+
+    // HZ del paciente
+    if (ifnull(row, false, ['AUDIOMETRIA'])) {
+        const audio = row['AUDIOMETRIA'];
+        for (const key in audio) {
+            const tipo = audio[key];
+            for (const key_2 in tipo) {
+                const hz = tipo[key_2];
+                $(`#tableAudioOido input[name="values[${key}][${key_2}]"]`).val(ifnull(hz, 0))
+            }
+        }
+    }
+
+
+
+
 }
 
 function mostrarElectroInterpretacion(url) {
@@ -1063,30 +1136,6 @@ function btnTomaCapturas(e, servicio /* nombre */, url = '') {
     }
 
     $('#vistaCapturasAreas').fadeIn(0)
-}
-
-function recuperarInfoClinicaCitologia(entrada) {
-    for (var clave in entrada) {
-        if (Object.hasOwnProperty.call(entrada, clave)) {
-
-            pregunta = clave
-            respuesta = entrada[clave];
-
-            if (respuesta == 'Sí' || respuesta == 'No') {
-                var radio = $(`input[type="radio"][id="${pregunta}${respuesta}"][value="${respuesta}"]`);
-                
-                if (radio.length > 0) {
-                    radio.prop('checked', true);
-                } else {
-                    
-                    $(`input[type="text"][id="${pregunta}"]`).val(respuesta);
-                }
-                
-            } else {
-                $(`input[id="${pregunta}"]`).val(respuesta);
-            }
-        }
-    }
 }
 
 

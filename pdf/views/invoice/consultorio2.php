@@ -13,6 +13,16 @@
         @page {
             margin: 165px 10px;
         }
+        .tratamiento-cuerpo {
+
+            padding: 0.2em;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 13px;
+            z-index: -1;
+
+        }
+
 
         body {
             font-family: 'Roboto', sans-serif;
@@ -307,6 +317,7 @@ if (isset($ruta_firma))
         ?>
     </div>
 
+    <!-- Footer 1 chido -->
     <div class="footer">
         <?php
         // $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
@@ -338,8 +349,22 @@ if (isset($ruta_firma))
         //     echo ('</pre>');
         //     echo $footerDoctor;
         // }
-
         ?>
+        <!-- Nota consulta -->
+        <section id="card-nota-consulta">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="pregunta-row">Motivo de consulta</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="respuesta-row"><?php echo $resultados[0][0]->MOTIVO_CONSULTA; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
         <!-- Nota consulta -->
         <section id="card-nota-consulta">
@@ -355,6 +380,29 @@ if (isset($ruta_firma))
                     </tr>
                 </tbody>
             </table>
+        </section>
+
+
+        <!-- Exploracion fisica -->
+        <section id="card-exploracion-clinica">
+            <div id="notas-historial-consultorio">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="pregunta-row">Exploracion física</th>
+                            <th class="pregunta-row"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php for ($i = 0; $i < count($resultados[1]); $i++) : ?>
+                            <tr>
+                                <td class="respuesta-row"><?php echo $resultados[1][$i]->TIPO_EXPLORACION; ?></td>
+                                <td class="comentario-row"><?php echo $resultados[1][$i]->EXPLORACION; ?></td>
+                            </tr>
+                        <?php endfor; ?>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- Diagnosticos -->
@@ -386,13 +434,37 @@ if (isset($ruta_firma))
                 </table>
             </div>
         </section>
+        <div class="break"></div>
+        <!-- Plan de tratamiento -->
+        <section id="card-receta">
+            <div>
+                <div class="pregunta-row">Tratamiento:</div>
+                <?php
+                // print_r($resultados[3]);
+                $medicamentos = $resultados[3];
+                // exit;
+                    for ($i = 0; $i < count($medicamentos); $i++) {
+                        $recetas = $medicamentos[$i];
 
-        <!-- Plan de tratamiento-->
+                        // if ($resultados[0][$i] != $recetas->ID_RECETA) {
+                            echo '
+                            <div class="tratamiento-cuerpo">
+                                <p>' . $recetas->NOMBRE_GENERICO . ', ' . $recetas->FORMA_FARMACEUTICA . ', ' . $recetas->DOSIS . ', ' . $recetas->PRESENTACION . '</p>
+                                <p>' . $recetas->FRECUENCIA . ', ' . $recetas->VIA_DE_ADMINISTRACION . ' ' . $recetas->DURACION_DEL_TRATAMIENTO . ', ' . $recetas->INDICACIONES_PARA_EL_USO . '</p>
+                            </div>';
+                        // }
+                    }
+                
+                ?>
+            </div>
+        </section>
+
+        <!-- Conclusiones -->
         <section id="card-plan-tratamiento">
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="pregunta-row">Plan de Tratamiento</th>
+                        <th class="pregunta-row">Conclusiones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -403,27 +475,6 @@ if (isset($ruta_firma))
             </table>
         </section>
 
-        <!-- Exploracion fisica -->
-        <section id="card-exploracion-clinica">
-            <div id="notas-historial-consultorio">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="pregunta-row">Exploracion física</th>
-                            <th class="pregunta-row"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php for ($i = 0; $i < count($resultados[1]); $i++) : ?>
-                            <tr>
-                                <td class="respuesta-row"><?php echo $resultados[1][$i]->TIPO_EXPLORACION; ?></td>
-                                <td class="comentario-row"><?php echo $resultados[1][$i]->EXPLORACION; ?></td>
-                            </tr>
-                        <?php endfor; ?>
-                    </tbody>
-                </table>
-            </div>
-        </section>
 
     </div>
 

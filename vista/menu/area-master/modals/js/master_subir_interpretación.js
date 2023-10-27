@@ -51,14 +51,17 @@ $(`#${formulario}`).submit(function (event) {
 
             case 4:
                 // Busca y obtiene todas las capturas de la tabla
-                let capturesArray = []
-                let audiometria_tablas = "#captures img";
-                $(audiometria_tablas).each(function () {
-                    capturesArray.push($(this).attr('src'));
-                });
+                // let capturesArray = []
+                // let audiometria_tablas = "#captures img";
+                // $(audiometria_tablas).each(function () {
+                //     capturesArray.push($(this).attr('src'));
+                // });
 
-                // Convertir el arreglo a una cadena JSON 
-                jsonData['tabla_reporte'] = JSON.stringify(capturesArray);
+                // // Convertir el arreglo a una cadena JSON 
+                // jsonData['tabla_reporte'] = JSON.stringify(capturesArray);
+
+
+
 
                 break;
         }
@@ -69,6 +72,8 @@ $(`#${formulario}`).submit(function (event) {
             icon: "warning",
         }, function () {
 
+
+
             ajaxAwaitFormData(jsonData, url_api, formulario, { callbackAfter: true, callbackBefore: true },
                 () => {
                     $(`#${formulario}:submit`).prop('disabled', true)
@@ -78,6 +83,18 @@ $(`#${formulario}`).submit(function (event) {
                     alertMensaje('success', '¡Interpretación guardada!', 'Consulte o confirme el reporte despues de guardar');
                     estadoFormulario(2)
                     obtenerServicios(areaActiva, dataSelect.array['turno'])
+
+
+                    switch (areaActiva) {
+                        case 4:
+                            SubirCapturasAudiometria();
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
 
                     $("#formSubirInterpretacion:submit").prop('disabled', false)
                 }
@@ -90,6 +107,27 @@ $(`#${formulario}`).submit(function (event) {
     }
     event.preventDefault();
 });
+
+// Boton de capturar Tabla en el modal Reporte de interpretacion
+$(document).on('click', '#AbrirModalCapturarTabla', function () {
+    CapturarTablaModalConfig("show");
+})
+
+
+// Funcion para abrir el modal de capturar tabla
+function CapturarTablaModalConfig(type) {
+    if (type === "show") {
+        $('#modalCapturaTablas').modal('show');
+    } else if (type === "hide") {
+        $('#modalCapturaTablas').modal('hide');
+    }
+}
+
+function ResetCapturasDeTablaDeAudio() {
+    $('#captures').html('');
+    $('#viewer').html('')
+    resetInputLabel()
+}
 
 
 
@@ -240,4 +278,106 @@ $("#btn-subir-resultados-audio").click(async function (event) {
 })
 
 
+let isAnimating = false;
+function updatePage($newPage, direction) {
+    const $currentVisiblePage = $('.page:visible');
+    const $prevButton = $('button.control-pagina-interpretacion[target="back"]')
+    const $nextButton = $('button.control-pagina-interpretacion[target="next"]')
 
+    //     // Verificar si es la última página
+    if ($newPage.is('.page:last')) {
+        $('.pagination-interpretacion').fadeIn(400);
+    } else {
+        $('.pagination-interpretacion').hide();
+    }
+    // });
+    if (!direction) {
+        $newPage.show();
+        $currentVisiblePage.hide();
+        return;
+    }
+
+    if (isAnimating) return;  // Si una animación está en curso, no hacemos nada
+
+    isAnimating = true;  // Establecer el semáforo a verdadero
+
+    if (direction === 'next') {
+        $currentVisiblePage.addClass('animate__animated animate__slideOutLeft');
+        $newPage.show().addClass('animate__animated animate__slideInRight');
+    } else if (direction === 'back') {
+        $currentVisiblePage.addClass('animate__animated animate__slideOutRight');
+        $newPage.show().addClass('animate__animated animate__slideInLeft');
+    }
+
+    $currentVisiblePage.one('animationend', function () {
+        $currentVisiblePage.removeClass('animate__animated animate__slideOutLeft animate__slideOutRight').hide();
+    });
+
+    $newPage.one('animationend', function () {
+        $newPage.removeClass('animate__animated animate__slideInRight animate__slideInLeft');
+        isAnimating = false;
+
+        // Determinar la página actual y ajustar la visibilidad de los botones
+        const isFirstPage = $newPage.is($('.page').first());
+        const isLastPage = $newPage.is($('.page').last());
+
+
+        $prevButton.attr('disabled', isFirstPage ? true : false)
+        $nextButton.attr('disabled', isLastPage ? true : false)
+    });
+}
+
+
+$(document).on('click', '.control-pagina-interpretacion', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const $btn = $(this);
+    const action = $btn.attr('target');
+    const $visiblePage = $('.page:visible');
+    console.log($visiblePage)
+    switch (action) {
+        case 'back':
+            const $prevPage = $visiblePage.prev('.page');
+            console.log($visiblePage.prev('.page'))
+            if ($prevPage.length) {
+                updatePage($prevPage, action);
+            }
+            break;
+        case 'next':
+            const $nextPage = $visiblePage.next('.page');
+            console.log($visiblePage.next('.page'))
+            if ($nextPage.length) {
+                updatePage($nextPage, action);
+            }
+            break;
+        default:
+            break;
+    }
+});
+
+
+$('#modalSubirInterpretacion').on('shown.bs.modal', function () {
+    const hammertime = new Hammer(document.querySelector('#modalSubirInterpretacion .modal-body'));
+
+    hammertime.on('swipeleft', function () {
+        const $visiblePage = $('.page:visible');
+        const $nextPage = $visiblePage.next('.page');
+        if ($nextPage.length) {
+            updatePage($nextPage, 'next');
+        }
+    });
+
+    hammertime.on('swiperight', function () {
+        const $visiblePage = $('.page:visible');
+        const $prevPage = $visiblePage.prev('.page');
+        if ($prevPage.length) {
+            updatePage($prevPage, 'back');
+        }
+    });
+});
+
+
+
+
+// Inicializamos mostrando la primera página
+updatePage($('.page').first());

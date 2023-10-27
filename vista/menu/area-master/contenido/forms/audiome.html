@@ -1,17 +1,360 @@
+<style>
+    .drop-zone {
+        width: 392px;
+        height: 85px;
+        border: 2px dashed rgb(0 79 90 / 17%);
+        text-align: center;
+        padding: 12px;
+        margin-bottom: 25px !important;
+        border-radius: 10px;
+        margin-left: 8px;
+    }
+
+    .drop-zone.hover_dropDrag {
+        border-color: #00bbb9 !important;
+        background-color: #c6cacc !important;
+    }
+
+    label.label-captura-oido {
+        background: transparent;
+    }
+</style>
+
+</style>
+
 <p class="text-center">Cargue y mueva el recuadro de la imagen para capturar la tabla del reporte.</p>
 
-<form id="formSubirInterpretacionPRUEBA">
-    <div class="row">
+<form id="formSubirInterpretacionPRUEBA" style="display: none;">
+    <div class="row container-pages">
+        <!-- Interrogatorio -->
+        <section class="page px-4" style="display: none;">
+            <div class="rounded p-3 shadow my-2">
+                <h4>Antecedentes</h4>
+                <div class="row" id="div-antecedentes">
+                    <!-- Consumo de tabaco -->
+                    <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+                        style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Antecedente de tabaquismo?: </label>
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="tabaco_1" name="antecedentes[1][option]" value="1">
+                                <label for="tabaco_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="tabaco_2" name="antecedentes[1][option]" value="2">
+                                <label for="tabaco_2">No</label>
+                            </div>
+                        </div>
+                        <div class="target-1 collapse">
+                            <textarea name="antecedentes[1][comentario]" class="form-control input-form" rows="2"
+                                cols="2" placeholder="Especifique"></textarea>
+                        </div>
+                    </div>
+                    <!-- Exposicion ruid -->
+                    <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+                        style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Exposición a ruido?: </label>
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="ruido_1" name="antecedentes[2][option]" value="1">
+                                <label for="ruido_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="ruido_2" name="antecedentes[2][option]" value="2">
+                                <label for="ruido_2">No</label>
+                            </div>
+                        </div>
+                        <div class="target-2 collapse">
+                            <textarea name="antecedentes[2][comentario]" class="form-control input-form" rows="2"
+                                cols="2" placeholder="Especifique"></textarea>
+                        </div>
+                    </div>
+                    <hr class="dropdown-divider m-2">
+                    <!-- Exposicion solventes -->
+                    <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+                        style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Exposición a solventes?: </label>
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="solventes_1" name="antecedentes[3][option]" value="1">
+                                <label for="solventes_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="solventes_2" name="antecedentes[3][option]" value="2">
+                                <label for="solventes_2">No</label>
+                            </div>
+                        </div>
+                        <div class="target-3 collapse">
+                            <textarea name="antecedentes[3][comentario]" class="form-control input-form" rows="2"
+                                cols="2" placeholder="Especifique"></textarea>
+                        </div>
+                    </div>
+                    <!-- Exposicion traumaticos -->
+                    <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+                        style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Antecedente de traumatismo?: </label>
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="traumas_1" name="antecedentes[4][option]" value="1">
+                                <label for="traumas_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="traumas_2" name="antecedentes[4][option]" value="2">
+                                <label for="traumas_2">No</label>
+                            </div>
+                        </div>
+                        <div class="target-4 collapse">
+                            <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2"
+                                cols="2" placeholder="Especifique"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Otoscopia -->
+        <section class="page" style="display: none;">
+            <h2>Otoscopia</h2>
+
+            <!-- Aqui va el oido derecho -->
+            <div class="rounded p-3 shadow my-2">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Subir captura de Oído izquierdo</h5>
+                        <form id="subirCapturaOidoIzquierdo" class="d-flex flex-column align-items-center">
+                            <div id="dropOidoIzquierdo" class="drop-zone mx-2">
+                                <label for="file-captura-oido-izquierdo" style="cursor: pointer;"
+                                    class="label-captura-oido">Sube
+                                    tu
+                                    archivo
+                                    arrastrándolo
+                                    aquí</label>
+
+                                <input type="file" id="file-captura-oido-izquierdo" name="file-captura-oido-izquierdo[]"
+                                    style="display: none;">
+                                <br>
+                                <div class="spinner-border text-primary carga-captura-oido" role="status"
+                                    style="display: none;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </form>
+                        <textarea name="audiometria_oido_izquierdo" class="form-textarea-content"
+                            style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..."
+                            id="audiometria_oido_izquierdo"></textarea>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center" id="contend-oido-izq">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aqui va el oido izquierdo -->
+            <div class="rounded p-3 shadow my-2">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Subir captura de Oído derecho</h5>
+                        <form id="subirCapturaOidoDerecho" class="d-flex flex-column align-items-center">
+                            <div id="dropOidoDerecho" class="drop-zone mx-2">
+                                <label for="file-captura-oido-derecho" style="cursor: pointer;"
+                                    class="label-captura-oido">Sube
+                                    tu
+                                    archivo
+                                    arrastrándolo
+                                    aquí</label>
+
+                                <input type="file" id="file-captura-oido-derecho" name="file-captura-oido-derecho[]"
+                                    style="display: none;">
+                                <br>
+                                <div class="spinner-border text-primary carga-captura-oido" role="status"
+                                    style="display: none;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </form>
+                        <textarea name="audiometria_oido_derecho" class="form-textarea-content"
+                            style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..."
+                            id="audiometria_oido_derecho"></textarea>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="text-center" id="contend-oido-der">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Otoscopia -->
+            <div class="rounded p-3 shadow my-2">
+                <!-- <h4>Otoscopía</h4> -->
+                <p>Ambos pabellones:</p>
+                <div class="p-4">
+                    <textarea name="otoscopia" rows="10" cols="90" class="form-textarea-content" placeholder="Análisis"
+                        id="textArea-otoscopia" style="width: 100%;margin: 0px !important;"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audiometria -->
+        <section class="page px-4" style="display: none;">
+            <h4>Audimetría</h4>
+            <!-- Tabla de HZ -->
+
+            <div class="rounded p-3 shadow my-2">
+                <div class="d-flex">
+                    <p class="me-3">Se realiza audiometría aérea, con los siguientes datos:</p>
+                    <button type="button" class="btn btn-pantone-3165 btn-sm" id="AbrirModalCapturarTabla">
+                        <i class="bi bi-table me-2"></i>Capturar Tabla
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-xl-6">
+                        <div class="rounded p-3 shadow my-2">
+                            <h5><i class="bi bi-images"></i> Capturas</h5>
+                            <div class="" id="captures">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-xl-6">
+                        <div class="px-3">
+                            <table class="table mt-3 display responsive" id="tableAudioOido" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="oido all">Oído</th>
+                                        <th class="hz all">500hz</th>
+                                        <th class="hz all">1000hz</th>
+                                        <th class="hz all">2000hz</th>
+                                        <th class="hz min-tablet">3000hz</th>
+                                        <th class="hz min-tablet">4000hz</th>
+                                        <th class="hz min-tablet">6000hz</th>
+                                        <th class="hz min-tablet">8000hz</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>OD</td>
+                                        <td><input type="number" name="values[OD][500hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][1000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][2000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][3000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][4000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][6000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OD][8000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>OI</td>
+                                        <td><input type="number" name="values[OI][500hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][1000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][2000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][3000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][4000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][6000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                        <td><input type="number" name="values[OI][8000hz]"
+                                                class="form-control input-form text-center">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Comentarios -->
+                <div class="col-12 col-xl-6">
+                    <div class="rounded p-3 shadow my-2">
+                        <h4>Comentarios</h4>
+                        <!-- <p></p> -->
+                        <div class="p-4">
+                            <textarea name="comentario" rows="10" cols="90" class="form-textarea-content"
+                                placeholder="Conclusiones" id="audio-comenConclucion"
+                                style="width: 100%;margin: 0px !important;"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="comentario_oido_derecho" class="form-label">Oído Derecho:</label>
+                                <input type="text" class="form-control input-form" name="comentario_oido_derecho"
+                                    placeholder="" id="comentario_oido_derecho">
+                            </div>
+                            <div class="col-12">
+                                <label for="comentario_oido_izquierdo" class="form-label">Oído Izquierdo:</label>
+                                <input type="text" class="form-control input-form" name="comentario_oido_izquierdo"
+                                    placeholder="" id="comentario_oido_izquierdo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recomendaciones -->
+                <div class="col-12 col-xl-6">
+                    <div class="rounded p-3 shadow my-2">
+                        <h4>Recomendaciones</h4>
+                        <!-- <p></p> -->
+                        <div class="p-4">
+                            <textarea name="recomendaciones" rows="10" cols="90" class="form-textarea-content"
+                                placeholder="Uso de protección..." id="textArea-recomendaciones"
+                                style="width: 100%;margin: 0px !important;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
 
         <!-- Columna 1 -->
-        <div class="col-12 col-xl-6">
+        <!-- <div class="col-12 col-xl-6">
             <div class="row">
                 <div class="col-12">
                     <div class="rounded p-3 shadow my-2">
                         <h4>Antecedentes</h4>
-                        <div class="row">
-                            <!-- Consumo de tabaco -->
-                            <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta"
+                        <div class="row" id="div-antecedentes"> -->
+        <!-- Consumo de tabaco -->
+        <!-- <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
                                 style="font-size: 20px;">
                                 <div class="col-12 col-lg-8">
                                     <label>¿Antecedente de tabaquismo?: </label>
@@ -28,13 +371,13 @@
                                         <label for="tabaco_2">No</label>
                                     </div>
                                 </div>
-                                <div class="collapse">
+                                <div class="target-1 collapse">
                                     <textarea name="antecedentes[1][comentario]" class="form-control input-form"
                                         rows="2" cols="2" placeholder="Especifique"></textarea>
                                 </div>
-                            </div>
-                            <!-- Exposicion ruid -->
-                            <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta"
+                            </div> -->
+        <!-- Exposicion ruid -->
+        <!-- <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
                                 style="font-size: 20px;">
                                 <div class="col-12 col-lg-8">
                                     <label>¿Exposición a ruido?: </label>
@@ -51,14 +394,14 @@
                                         <label for="ruido_2">No</label>
                                     </div>
                                 </div>
-                                <div class="collapse">
+                                <div class="target-2 collapse">
                                     <textarea name="antecedentes[2][comentario]" class="form-control input-form"
                                         rows="2" cols="2" placeholder="Especifique"></textarea>
-                                </div>
+                                </div> 
                             </div>
-                            <hr class="dropdown-divider m-2">
-                            <!-- Exposicion solventes -->
-                            <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta"
+                            <hr class="dropdown-divider m-2">-->
+        <!-- Exposicion solventes -->
+        <!-- <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
                                 style="font-size: 20px;">
                                 <div class="col-12 col-lg-8">
                                     <label>¿Exposición a solventes?: </label>
@@ -75,13 +418,13 @@
                                         <label for="solventes_2">No</label>
                                     </div>
                                 </div>
-                                <div class="collapse">
+                                <div class="target-3 collapse">
                                     <textarea name="antecedentes[3][comentario]" class="form-control input-form"
                                         rows="2" cols="2" placeholder="Especifique"></textarea>
                                 </div>
-                            </div>
-                            <!-- Exposicion traumaticos -->
-                            <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta"
+                            </div> -->
+        <!-- Exposicion traumaticos -->
+        <!-- <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
                                 style="font-size: 20px;">
                                 <div class="col-12 col-lg-8">
                                     <label>¿Antecedente de traumatismo?: </label>
@@ -98,17 +441,17 @@
                                         <label for="traumas_2">No</label>
                                     </div>
                                 </div>
-                                <div class="collapse">
+                                <div class="target-4 collapse">
                                     <textarea name="antecedentes[4][comentario]" class="form-control input-form"
                                         rows="2" cols="2" placeholder="Especifique"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-12">
-                    <div class="rounded p-3 shadow my-2">
+        <!-- <div class="col-12"> -->
+        <!-- <div class="rounded p-3 shadow my-2">
                         <h4>Audimetría</h4>
                         <p>Se realiza audiometría aérea, con los siguientes datos:</p>
                         <div class="px-3">
@@ -122,7 +465,7 @@
                                         <th class="hz min-tablet">3000hz</th>
                                         <th class="hz min-tablet">4000hz</th>
                                         <th class="hz min-tablet">6000hz</th>
-                                        <th class="hz desktop">8000hz</th>
+                                        <th class="hz min-tablet">8000hz</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -179,47 +522,49 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
 
-                <div class="col-12">
+        <!-- <div class="col-12">
                     <div class="rounded p-3 shadow my-2">
-                        <h4>Comentarios</h4>
-                        <!-- <p></p> -->
-                        <div class="p-4">
+                        <h4>Comentarios</h4> -->
+        <!-- <p></p> -->
+        <!-- <div class="p-4">
                             <textarea name="comentario" rows="10" cols="90" class="form-textarea-content"
-                                placeholder="Conclusiones" id="" style="width: 100%;margin: 0px !important;"></textarea>
+                                placeholder="Conclusiones" id="audio-comenConclucion"
+                                style="width: 100%;margin: 0px !important;"></textarea>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <label for="comentario_oido_derecho" class="form-label">Oído Derecho:</label>
                                 <input type="text" class="form-control input-form" name="comentario_oido_derecho"
-                                    placeholder="" id="editar-posta">
+                                    placeholder="" id="comentario_oido_derecho">
                             </div>
                             <div class="col-12">
                                 <label for="comentario_oido_izquierdo" class="form-label">Oído Izquierdo:</label>
                                 <input type="text" class="form-control input-form" name="comentario_oido_izquierdo"
-                                    placeholder="" id="editar-posta">
+                                    placeholder="" id="comentario_oido_izquierdo">
                             </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
 
         <!-- Columna 2 -->
-        <div class="col-12 col-xl-6">
+        <!-- <div class="col-12 col-xl-6">
             <div class="row">
-                <div class="col-12">
-                    <div class="rounded p-3 shadow my-2">
-                        <h4>Otoscopía</h4>
-                        <!-- <p>Se realiza audiometría aérea, con los siguientes datos:</p> -->
-                        <div class="p-4">
+                <div class="col-12"> -->
+
+        <!-- <div class="rounded p-3 shadow my-2">
+                        <h4>Otoscopía</h4> -->
+        <!-- <p>Se realiza audiometría aérea, con los siguientes datos:</p> -->
+        <!-- <div class="p-4">
                             <textarea name="otoscopia" rows="10" cols="90" class="form-textarea-content"
-                                placeholder="Ambos pabellones..." id=""
+                                placeholder="Ambos pabellones..." id="textArea-otoscopia"
                                 style="width: 100%;margin: 0px !important;"></textarea>
-                        </div>
-                        <!-- <div class="input-file-contenedor">
+                        </div> -->
+        <!-- <div class="input-file-contenedor">
                             <label for="img_otoscopia" class="form-label">Cargue imagenes de otoscopía</label>
                             <label for="img_otoscopia" class="input-file-label">
                                 <i class="bi bi-box-arrow-up"></i> Seleccione archivo(s)
@@ -227,10 +572,11 @@
                             <input type="file" name="img_otoscopia[]" id="img_otoscopia"
                                 accept=".png, .jpg, .jpeg, .pdf" multiple required class="input-file">
                         </div> -->
-                    </div>
-                </div>
+        <!-- </div> -->
 
-                <div class="col-12">
+        <!-- </div> -->
+
+        <!-- <div class="col-12">
                     <div class="rounded p-3 shadow my-2">
                         <h4>Audimetría</h4>
                         <p>Se realiza audiometría aérea, con los siguientes datos:</p>
@@ -246,11 +592,13 @@
                                     <tr>
                                         <td><textarea name="audiometria_oido_derecho" class="form-textarea-content"
                                                 style="width: 100%;margin: 0px;"
-                                                placeholder="Conducto auditivo externo..."></textarea>
+                                                placeholder="Conducto auditivo externo..."
+                                                id="audiometria_oido_derecho"></textarea>
                                         </td>
                                         <td><textarea name="audiometria_oido_izquierdo" class="form-textarea-content"
                                                 style="width: 100%;margin: 0px;"
-                                                placeholder="Conducto auditivo externo..."></textarea>
+                                                placeholder="Conducto auditivo externo..."
+                                                id="audiometria_oido_izquierdo"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -258,23 +606,21 @@
                         </div>
                     </div>
 
-                </div>
-
-
-                <div class="col-12">
+                </div> -->
+        <!--  <div class="col-12">
                     <div class="rounded p-3 shadow my-2">
-                        <h4>Recomendaciones</h4>
-                        <!-- <p></p> -->
-                        <div class="p-4">
+                        <h4>Recomendaciones</h4> -->
+        <!-- <p></p> -->
+        <!-- <div class="p-4">
                             <textarea name="recomendaciones" rows="10" cols="90" class="form-textarea-content"
-                                placeholder="Uso de protección..." id=""
+                                placeholder="Uso de protección..." id="textArea-recomendaciones"
                                 style="width: 100%;margin: 0px !important;"></textarea>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-            </div>
-        </div>
+        <!-- </div>
+        </div> -->
     </div>
 
     <!-- <div class="row my-4">
@@ -328,6 +674,22 @@
         height: auto;
         margin: 5px;
         border: 1px solid #ccc;
+    }
+
+    .page.animate__animated {
+        animation-duration: 0.5s;
+        /* Ajusta este valor según lo rápido que quieras que sea */
+    }
+
+    .container-pages {
+        position: relative;
+    }
+
+    .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
     }
 </style>
 

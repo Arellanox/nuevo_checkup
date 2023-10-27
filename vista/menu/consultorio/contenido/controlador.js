@@ -44,7 +44,7 @@ function obtenerContenidoAntecedentes(data) {
   activoConsultadorTurnero = false;
   loader("In")
   obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
-  $.post("contenido/consultorio_paciente.html", function (html) {
+  $.post("contenido/consultorio_paciente.php", function (html) {
     var idrow;
     $("#body-js").html(html) // Rellenar la plantilla de consulta
   }).done(function () {
@@ -106,31 +106,50 @@ function obtenerContenidoConsulta(data, idvaloracion) {
 
 // METODOS PARA PERFIL DEL PACIENTE
 // Rellena la plantilla con metodos de espera Async Await
-async function obtenerConsultorio(id, idTurno, cliente, curp) {
-  await obtenerPanelInformacion(idTurno, "pacientes_api", 'paciente')
-  await obtenerPanelInformacion(idTurno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
-  await obtenerPanelInformacion(idTurno, 'consulta_api', 'listado_resultados', '#listado-resultados')
+async function obtenerConsultorio(id, turno, cliente, curp) {
+  idturno = turno
+  await obtenerPanelInformacion(turno, "pacientes_api", 'paciente', '#panel-informacion', '', 1)
+  await obtenerPanelInformacion(turno, "signos-vitales_api", 'signos-vitales', '#signos-vitales');
+  await obtenerPanelInformacion(turno, 'consulta_api', 'listado_resultados', '#listado-resultados')
 
-  getConclusionesHistoria(idTurno);
+  getConclusionesHistoria(turno);
   // alert("Antes de antecedentes")
-  // setValues(idTurno) //llamar los valores para los antecedentes
+  // setValues(turno) //llamar los valores para los antecedentes
 
   // alert("Antes de notas historial")
   await obtenerNotasHistorial(id);
 
   //Verificar si hay consulta actual
-  await consultarConsulta(idTurno);
-  await consultarConsultaMedica(idTurno);
+  await consultarConsulta(turno);
+  await consultarConsultaMedica(turno);
 
   await obtenerHistorialConsultas(id);
   // alert("Funcion terminada")
-  await obtenerHistorialConsultaMedica(idTurno);
+  await obtenerHistorialConsultaMedica(turno);
 
 
 
   loader("Out")
 }
 
+// Insertar una nueva categoria en el perfil del paciente
+$(document).on('click', '#paciente_categoria', function (event) {
+  event.preventDefault();
+  alertMensajeConfirm({
+    title: '¿Está seguro de guardar su categoría?',
+    text: 'Los resultados aún sin reportar se verá reflejado su categoría.',
+    icon: 'warning'
+  }, function () {
+    ajaxAwait({
+      id_turno: idturno,
+      api: 21,
+      categoria_turno: $(`#${'categoria_paciente_input'}`).val()
+    }, 'turnos_api', { callbackAfter: true }, false, () => {
+      alertToast('Cargando información, espere un momento', 'info', 4000)
+      obtenerPanelInformacion(idturno, "pacientes_api", 'paciente', '#panel-informacion', '', 1)
+    })
+  }, 1)
+})
 
 
 

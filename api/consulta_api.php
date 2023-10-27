@@ -193,7 +193,7 @@ switch ($api) {
     case 11:
         # terminar consulta
         $url = $master->reportador($master, $turno_id, 1, "consultorio", 'url', 0);
-        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url]);
+        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url, $_SESSION['id']]);
 
         //Enviamos correo
         $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);

@@ -54,6 +54,9 @@ $segmento_id = $_POST['segmento_id'];
 $area_id = $_POST['area_id'];
 
 
+# nuevos datos
+$categoria_turno = $_POST['categoria_turno'];
+
 
 $parametros = array(
     $id_turno,
@@ -264,7 +267,7 @@ switch ($api) {
 
     case 15:
         #case 15 . Desconfirmar resultados
-        $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por, $area_id]);
+        $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por, $id_area]);
         //$response = $master->cleanAttachingFiles($response);
         break;
 
@@ -293,7 +296,10 @@ switch ($api) {
         # por la fecha de recepcion ['fecha_recepcion'].
         $response = $master->getByProcedure("sp_turnos_completados_b", [$turno_completado, $fecha_recepcion]);
         break;
-
+    case 21:
+        # agregra una categoria al paciente de empresas.
+        $response = $master->insertByProcedure("sp_agregar_categoria_turno", [$id_turno, $categoria_turno]);
+        break;
     default:
         $response = "api no reconocida";
         break;

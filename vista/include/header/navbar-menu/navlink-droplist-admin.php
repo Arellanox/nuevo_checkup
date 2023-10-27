@@ -118,24 +118,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 <?php endif; ?>
 
 
-<?php if ($_SESSION['vista']['ESTUDIOS_CALIDAD_EXCEL'] == 1) : ?>
-    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-calidad" aria-expanded="false">
-        <i class="bi bi-suit-heart"></i> Calidad
-    </a>
-    <div class="collapse" id="board-calidad">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <?php if ($_SESSION['vista']['ESTUDIOS_CALIDAD_EXCEL'] == 1) : ?>
-                <li>
-                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-calidad/'; ?>" class="dropdown-a" type="button">
-                        <i class="bi bi-file-earmark-spreadsheet"></i> Estudios
-                    </a>
-                </li>
-            <?php endif; ?>
-            <hr class="dropdown-divider">
-        </ul>
-    </div>
 
-<?php endif; ?>
 
 <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-TALENTOHUMANO" aria-expanded="false">

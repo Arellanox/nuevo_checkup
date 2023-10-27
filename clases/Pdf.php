@@ -229,7 +229,7 @@ class Reporte
                 $pdf->setPaper('letter', 'landscape');
                 break;
             case 'audiometria':
-                $template = render_view('invoice/audiometria.php', $view_vars);
+                $template = render_view('invoice/audio.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;

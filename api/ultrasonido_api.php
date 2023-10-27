@@ -129,6 +129,7 @@ switch ($api) {
     case 3:
         # recuperar las capturas
         $response = array();
+        $turno_id = $_POST['turno_id'];
         #recupera la interpretacion.
         $area_id = 11; # 11 es el id para ultrasonido.
         $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen, $turno_id, $area_id]);

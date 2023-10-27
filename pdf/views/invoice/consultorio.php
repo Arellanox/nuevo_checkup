@@ -256,6 +256,7 @@ $encode_firma = base64_encode($ruta_firma);
         ?>
     </div>
 
+    <!-- Footer 1 chido -->
     <div class="footer">
         <?php
         $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
@@ -429,6 +430,7 @@ $encode_firma = base64_encode($ruta_firma);
 
         <!-- DIAGNOSTICO -->
         <?php if (isset($resultados->DIAGNOSTICO)) {
+            echo "<div class=\"break;\"></div>";
             echo '</br><h2 style="padding-bottom: 6px; padding-top: 6px;">Diagnóstico</h2>';
             echo "<p>" . $resultados->DIAGNOSTICO . "</p>";
         } ?>

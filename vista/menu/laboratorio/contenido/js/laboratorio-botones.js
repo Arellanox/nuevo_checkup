@@ -10,7 +10,7 @@ $('#formAnalisisLaboratorio').submit(function (event) {
     formData.set('api', 9);
     // console.log(formData);
     if ($('.subir-resultado-lab:focus').attr('data-attribute') == 'confirmar') {
-      formData.set('confirmar', true);
+      formData.set('confirmar', 1);
       title = "¿Está seguro de confirmar los resultados?";
       text = "¡No podrá revertir esta acción!";
       alertmeensj = 'Cerrando y generando formato de laboratorio';

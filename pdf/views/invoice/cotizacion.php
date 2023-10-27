@@ -312,7 +312,9 @@ $encode_firma = base64_encode($ruta_firma);
         <!-- <p>Aqui va el encabezado y es el espacio disponible hasta donde llegue el titulo siguiente.</p> -->
     </div>
 
-    <div class="footer">
+    <!-- Footer 2 dinamico   -->
+    .
+    <!-- <div class="footer">
         <table>
             <tbody>
                 <tr class="col-foot-one">
@@ -323,37 +325,37 @@ $encode_firma = base64_encode($ruta_firma);
                     </td>
                     <td colspan="2" style="text-align: left;">
                         <?php
-                        if ($preview == 0) {
+                        // if ($preview == 0) {
 
-                            echo "<img style='position:absolute; right:25px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
-                        }
+                        //     echo "<img style='position:absolute; right:25px; margin-top: -48px ' src='data:image/png;base64, " . $encode_firma . "' height='137px'> ";
+                        // }
                         ?>
                     </td>
                 </tr>
                 <tr class="col-foot-three" style="font-size: 13px;">
                     <td colspan="6" style="text-align: center; width: 50%">
                         <?php
-                        if ($preview == 0) {
-                            echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
-                        }
+                        // if ($preview == 0) {
+                        //     echo "<a target='_blank' href='#'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                        // }
                         ?>
                     </td>
                     <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
                         <strong style="font-size: 12px;">
                             <?php
-                            echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> Médico Radiódiologo - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
-                            $indice = 1;
-                            foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
-                                // $contador = count($value);
-                                $indice++;
-                                echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
-                                echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
-                            }
+                            // echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'] . '<br> Médico Radiódiologo - ' . $pie['datos_medicos'][0]['UNIVERSIDAD'] . ' - ' . $pie['datos_medicos'][0]['CEDULA'];
+                            // $indice = 1;
+                            // foreach ($pie['datos_medicos'][0]['ESPECIALIDADES'] as $key => $value) {
+                            //     // $contador = count($value);
+                            //     $indice++;
+                            //     echo '<br>' . $value['CARRERA'] . ' / ' . $value['UNIVERSIDAD'] . ' / '  . $value['CEDULA'] . '<br>';
+                            //     echo 'Certificado por: ' . $value['CERTIFICADO_POR'];
+                            // }
                             ?>
-                            <!-- Dra. Zoila Aideé Quiroz Colorado <br>
+                             Dra. Zoila Aideé Quiroz Colorado <br>
                             Cédula profesional <br>
                             Radiologia e imagen <br>
-                            Subespecialista en radiología pediátrica -->
+                            Subespecialista en radiología pediátrica
                         </strong>
                     </td>
                 </tr>
@@ -369,7 +371,7 @@ $encode_firma = base64_encode($ruta_firma);
                 <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
                 <strong style="font-size: 11px;color: rgb(247, 190, 000); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
             </small></p>
-    </div>
+    </div> -->
 
 
     <!-- body -->

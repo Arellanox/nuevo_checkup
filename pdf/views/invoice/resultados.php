@@ -11,7 +11,7 @@
 
                         body {
                             font-family: 'Roboto', sans-serif;
-                            margin-top: 40px;
+                            margin-top: 60px;
                             margin-bottom: 40px;
                             font-size: 10px;
                             /* background-color: gray; */
@@ -312,8 +312,23 @@
                                 </tr>
                             </tbody>
                         </table>
+
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
                             <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
+
+                            <?php if ($encabezado->PAQUETE_CARGADO) { ?>
+                                <span style="margin-left: 20px;">
+                                    <!-- Tipo de muestra  -->
+                                    <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
+                                </span>
+                            <?php } ?>
+
+                            <?php if ($encabezado->CATEGORIA) { ?>
+                                <span style="margin-left: 20px;">
+                                    <!-- Tipo de muestra  -->
+                                    <?php echo "Categoría: <strong style='font-size: 12px;'> $encabezado->CATEGORIA"; ?> </strong>
+                                </span>
+                            <?php } ?>
                         </p>
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
                             <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
@@ -322,38 +337,11 @@
                     </div>
 
                     <div class="footer">
-                        <table>
-                            <tbody>
-                                <tr class="col-foot-one">
-                                    <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
-                                </tr>
-                                <tr class="col-foot-two">
-                                    <td colspan="10">
-                                    </td>
-                                    <td colspan="2" style="text-align: left;">
-                                        <?php echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='80px'> " ?>
-                                    </td>
-                                </tr>
-                                <tr class="col-foot-three" style="font-size: 13px;">
-                                    <td colspan="6" style="text-align: center; width: 50%; height: 100px">
-                                        <a target="_blank" href="<?= $qr[1] ?>"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
-                                    </td>
-                                    <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                                        <strong style="font-size: 12px;">Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <hr style="margin-top: -20px; height: 0.5px; background-color: black ;">
-                        <p style="text-align: center;"><small>
-                                <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
-                                <strong style="font-size: 11px;">Teléfonos: </strong>
-                                <strong style="font-size: 11px;">993 634 0250, 993 634 6245</strong>
-                                <strong style="font-size: 11px;">Correo electrónico:</strong>
-                                <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">resultados@</strong>
-                                <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
-                                <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
-                            </small></p>
+                        <!-- lo tenia directo y se cambio al footer 1 -->
+                        <!-- Footer 1 chido -->
+                        <?php
+                        $footerDoctor = 'Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445';
+                        include "includes/footer.php"; ?>
                     </div>
 
                     <!-- body -->
@@ -479,7 +467,7 @@
                                                 ?>
                                                     <tr>
                                                         <td class="col-one" style="font-size: 12px">
-                                                            <?php echo "<strong style='font-size: 12px'>Observaciones: </strong>" . $analito->observaciones ?>
+                                                            <?php echo "<strong style='font-size: 12px'>Observaciones:" . $analito->observaciones . " </strong>"; ?>
                                                         </td>
                                                         <td class="col-two">
                                                         </td>
@@ -524,7 +512,7 @@
                                     <?php
                                     if ($estudio->observaciones == '' || $estudio->observaciones == null) {
                                     } else {
-                                        echo "<strong style='font-size: 12px'>Observaciones: </strong>" . $estudio->observaciones;
+                                        echo "<strong style='font-size: 12px'>Observaciones:" . $estudio->observaciones . "</strong>";
                                     }
                                     ?>
                                 </div>
