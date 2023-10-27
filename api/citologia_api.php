@@ -32,6 +32,7 @@ $n_abortos = $_POST['n_abortos'];
 $n_cesarias = $_POST['n_cesarias'];
 $salpingoclasia = $_POST['salpingoclasia'];
 $coloco_diu = $_POST['coloco_diu'];
+$usuario = $_SESSION['id'];
 
 
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
