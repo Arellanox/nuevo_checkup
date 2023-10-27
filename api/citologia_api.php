@@ -72,12 +72,29 @@ switch ($api) {
 
     case 9:
         # Recuperación del reporte anterior
-
+        $master = $master->getByProcedure('sp_citologia_reporte_varios', [$id_citologia_resultado_varios, $turno_id]);
         break;
 
     case 10:
         #Carga de reporte individual o reporte generado en el sistema anterior
 
+        // Trabajar el pdf
+        $dir = '../reportes/modulo/citologia/reportes_varios/';
+        $r = $master->createDir($dir);
+        $url_pdf = $master->guardarFiles($_FILES, 'reporte-citologia', $dir, "CITOLOGIA_RESULTADO_$turno_id");
+
+
+        $response = $master->insertByProcedure(
+            'sp_reportes_areas_g',
+            [
+                null, // actualizar
+                $turno_id, // Paciente
+                13, // Area de resultado
+                null, // Clave de validacion QR
+                $url_pdf, // Pdf de resultado
+                null // Folio de resultado
+            ]
+        );
         break;
     default:
         $response = "Api no definida";
