@@ -16,8 +16,8 @@ async function configurarModal() {
         if (Object.hasOwnProperty.call(row, key)) {
             const element = row[key];
 
-            const $NOMBRE = element.NOMBRE_CONSENTIMIENTO;
-            const $URL = element.URL_PDF;
+            const $NOMBRE = element.NOMBRE_CONSENTIMIENTO; // <--Nombre del consentimiento
+            const $URL = element.URL_PDF; // <-- URL del pdf del consentimiento
 
             data[key] = {
                 nombre_servicio: $NOMBRE,
@@ -30,7 +30,7 @@ async function configurarModal() {
     // Se le manda a la funcion el array armado para que se muestre en el modal
     await construirReportes(data);
 
-    // Una vez se realizo todos los metodos se abre e   l modal
+    // Una vez se realizo todos los metodos se abre el modal
     $("#consentimiento_paciente_modal").modal("show");
 }
 
