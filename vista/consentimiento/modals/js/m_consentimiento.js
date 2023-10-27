@@ -52,7 +52,7 @@ async function construirReportes(
 
     return new Promise(function (resolve, reject) {
 
-        let div = $('.carousel-inner'); // <-- contenedor
+        let div = $('#consentimiento_paciente_modal .carousel-inner'); // <-- contenedor
 
         // Limpiamos el contenedor si es que llega a tener algo que no necesitamos
         div.html("");

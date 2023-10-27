@@ -146,6 +146,8 @@ async function construiBodyConsentimiento() {
         row = paciente_data.FORMATO;
 
 
+        // Se inicializa una variable para contar cuantas veces esta haciendo el for
+        let i = 0;
         for (const key in row) {
             if (Object.hasOwnProperty.call(row, key)) {
                 const element = row[key];
@@ -166,8 +168,20 @@ async function construiBodyConsentimiento() {
                     </h5>`;
                 }
 
+                // Se setea la variable de la clase del carousel para que funcione
+                var $class = "carousel-item";
+
+                // Se evalue si el, elemento que esta pasando es el primero
+                if (i === 0) {
+                    // Si es el primero se le pone la clase de active
+                    $class = "carousel-item active"
+                } else {
+                    // Si no es el primero se le pone la clase por defecto
+                    $class = $class
+                }
+
                 let html = `
-                <div class="col-12 rounded-3 p-3 card shadow mt-3">
+                <div class="col-12 ${$class}">
                     <!-- Cuerpo del texto del consentimiento -->
                         <div class='row'>
                             <div class='col-12'>
@@ -209,6 +223,8 @@ async function construiBodyConsentimiento() {
 
                 div.append(html);
                 $(".nombre_paciente").html($nombre);
+                // Incrementamos la variable
+                i++;
             }
 
             resolve(1)
