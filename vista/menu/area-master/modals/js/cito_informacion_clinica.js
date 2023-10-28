@@ -20,5 +20,6 @@ function configurarModalInformacionClinica() {
     }
 
 
+    // Abrimos el modal
     $('#modalInformacionClinica').modal('show');
 }

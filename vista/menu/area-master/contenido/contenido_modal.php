@@ -175,7 +175,7 @@ session_start();
                                 </div>
 
                                 <div class="col-auto">
-                                    <button type="button" id="abrirModalInformacionClinica" class="btn btn-success me-2" style="margin-bottom:4px">
+                                    <button type="button" id="abrirModalInformacionClinica" class="btn btn-success me-2" style="margin-bottom:4px; display:none;">
                                         <i class="bi bi-clipboard2-pulse-fill"></i>Información clinica
                                     </button>
                                 </div>

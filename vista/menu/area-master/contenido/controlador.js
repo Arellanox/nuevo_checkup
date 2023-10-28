@@ -236,6 +236,9 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
 
         $('#btn-analisis').fadeIn(0)
 
+        // Mostramos la informacion clinica solo en el area de citologia
+        $('#abrirModalInformacionClinica').fadeIn(0);
+
         // $('#abrirModalResultados').fadeOut(0);
         $('#btn-capturas-pdf').fadeOut(0)
         $('#btn_info_clinica_citologia').fadeIn(0)
