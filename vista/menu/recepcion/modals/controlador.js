@@ -8,6 +8,10 @@ $.post("modals/m_recepcion.php", function (html) {
   });
   // Modal para rechazar
   $.getScript('modals/js/p_rechazar.js');
+
+  // Modal para la configuracion de los consentimiento de los pacientes
+  $.getScript('modals/js/consentimiento_config.js');
+
   // Modal para reagendar
   $.getScript('modals/js/p_reagendar.js');
   // Modal para subir avatar

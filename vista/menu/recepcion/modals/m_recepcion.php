@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+include "consentimiento_config.php";
 include "rechazados.html";
 include "p_aceptar.html";
 include "p_rechazar.html";

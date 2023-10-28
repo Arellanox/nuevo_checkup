@@ -281,9 +281,8 @@ $(document).on('click', '#get-modal-qr-clientes', function () {
 // Boton para los consentimiento de los pacientes
 $(document).on('click', "#btn-consentimientos-paciente", function () {
   if (array_selected != null) {
-    alert(1)
-    return false;
-    $("#modalPacientePerfil").modal('show');
+    Swal.close();
+    configurarModalConsentimientoConfiguracion();
   } else {
     alertSelectTable();
   }
