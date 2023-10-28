@@ -1,5 +1,5 @@
 <?php
-// require_once "../lib/fpdf/autoload.php";
+require_once "../lib/fpdf/autoload.php";
 require_once "../clases/master_class.php";
 // require_once "../clases/token_auth.php";
 

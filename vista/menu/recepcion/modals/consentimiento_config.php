@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-6">
                         <p class="text-center fw-bold">
-                            Escanee el qr para firmar el consentimiento
+                            Escanee el QR para firmar el consentimiento
                         </p>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
                     Cancelar</button>
 
-                <button type="submit" class="btn btn-confirmar" id="btn-solicitar-consentimiento" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Solicitar el qr para poder visualizar y firmar el consentimiento del paciente">
+                <button type="submit" class="btn btn-confirmar" id="btn-solicitar-consentimiento" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Solicitar el QR para poder visualizar y firmar el consentimiento del paciente">
                     <i class="bi bi-check2-square"></i> Solicitar Consentimiento
                 </button>
             </div>
