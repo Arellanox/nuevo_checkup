@@ -1,5 +1,5 @@
 <?php
-require_once "../lib/fpdf/autoload.php";
+// require_once "../lib/fpdf/autoload.php";
 require_once "../clases/master_class.php";
 // require_once "../clases/token_auth.php";
 
@@ -24,6 +24,12 @@ $id_consentimiento = isset($_POST['id_consentimiento']) ? $_POST['id_consentimie
 $consentimiento = isset($_POST['consentimiento']) ? $_POST['consentimiento'] : null;
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 
+
+// Variables para recuperar el qr y el pdf de los consentimientos
+$quimico = $_POST['quimico'];
+$tomador_muestra  = $_POST['tomador_muestra'];
+$medico = $_POST['medico'];
+
 $data_firma_g = array(
     $turno_id,
     $firma,
@@ -47,7 +53,12 @@ $data_consentimiento_e = array(
     $servicio_id
 );
 
-
+$data_PDF_QR = array(
+    $turno_id,
+    $quimico,
+    $tomador_muestra,
+    $medico
+);
 
 
 
@@ -133,6 +144,11 @@ switch ($api) {
 
         break;
 
+    case 5:
+        #QR para los consentimientos 
+
+
+        break;
     default:
         $response = "api no reconocida";
 }

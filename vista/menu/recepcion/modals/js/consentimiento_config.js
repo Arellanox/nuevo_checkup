@@ -29,8 +29,10 @@ function solicitarConsentimiento() {
 
     // se hace la petiicon a la api para recuperar el qr del consentimiento del paciente
     ajaxAwait({
-        api: 18,
-        Enfriador: EQUIPO_ID
+        api: 5,
+        quimico: $quimico,
+        tomador_muestra: $muestra,
+        medico: $medico
     }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
         data = data.response.data
 
