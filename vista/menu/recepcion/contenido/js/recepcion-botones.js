@@ -276,3 +276,15 @@ $(document).on('click', '#btn-correo-particular', function () {
 $(document).on('click', '#get-modal-qr-clientes', function () {
   $('#modalQRClientes').modal('show');
 })
+
+
+// Boton para los consentimiento de los pacientes
+$(document).on('click', "#btn-consentimientos-paciente", function () {
+  if (array_selected != null) {
+    alert(1)
+    return false;
+    $("#modalPacientePerfil").modal('show');
+  } else {
+    alertSelectTable();
+  }
+})

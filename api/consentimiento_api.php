@@ -15,13 +15,13 @@ $master = new Master();
 
 $api = $_POST['api'];
 $turno_id = isset($_POST['turno_id']) ? $_POST['turno_id'] : null;
-$firma =isset($_POST['firma']) ? $_POST['firma'] : null;
+$firma = isset($_POST['firma']) ? $_POST['firma'] : null;
 $servicio_id = isset($_POST['servicio_id']) ? $_POST['servicio_id'] : null;
 $url = isset($_POST['url']) ? $_POST['url'] : null;
 $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
 $servicios = isset($_POST['servicios']) ? $_POST['servicios'] : null;
 $id_consentimiento = isset($_POST['id_consentimiento']) ? $_POST['id_consentimiento'] : null;
-$consentimiento = isset($_POST['consentimiento']) ? $_POST['consentimiento'] : null ;
+$consentimiento = isset($_POST['consentimiento']) ? $_POST['consentimiento'] : null;
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 
 $data_firma_g = array(
@@ -55,6 +55,8 @@ switch ($api) {
     case 1:
         #RECUPERA LA INFORMACION DEL PACIENTE Y EL CONSENTIMIENTO
         $response = $master->decodeJsonRecursively($master->getByProcedure("sp_consentimiento_formato_b", [$turno_id]));
+
+
 
         break;
     case 2:
@@ -114,10 +116,10 @@ switch ($api) {
             $pdf->Output("F", $archivo_final);
 
             $ruta_tabla = str_replace('../', $host, $archivo_final);
-            
-            $response2 = $master->updateByProcedure('sp_actualizar_ruta_consentimientos_g', [$turno_id, $item['SERVICIO_ID'], $ruta_tabla ]);
+
+            $response2 = $master->updateByProcedure('sp_actualizar_ruta_consentimientos_g', [$turno_id, $item['SERVICIO_ID'], $ruta_tabla]);
         };
-        
+
 
         break;
     case 3:

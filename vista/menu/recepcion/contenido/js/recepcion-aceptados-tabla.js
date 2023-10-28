@@ -332,7 +332,10 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
                 </button> 
                 <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-ordenes-paciente">
                   <i class="bi bi-files"></i> Ordenes médicas
-                </button> 
+                </button>
+                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-consentimientos-paciente">
+                  <i class="bi bi-file-earmark-medical"></i> Consentimientos pacientes
+                </button>
             `,
             showCancelButton: false,
             showConfirmButton: false,
