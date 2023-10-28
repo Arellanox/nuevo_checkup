@@ -121,6 +121,15 @@ if ($_SESSION['vista']['CORREOSLAB'] == 1 || $_SESSION['vista']['CORREOSLABBIOMO
                     </a>
                 </li>
             <?php endif; ?>
+            <?php if ($_SESSION['vista']['CORREOSCITOLOGIA'] == 1) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/correos/#CORREOSCITOLOGIA'; ?>">
+                        <!-- <i class="bi bi-virus"></i> -->
+                        <i class="bi bi-dot"></i>
+                        Citología
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
     </div>
 <?php endif; ?>

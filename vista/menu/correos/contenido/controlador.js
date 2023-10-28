@@ -37,6 +37,9 @@ function hasLocation() {
             case "CORREOSLABBIOMOLECULAR":
                 areaActiva = 12
                 obtenerVistaCorreosLaboratorio('particular');
+            case "CORREOSCITOLOGIA":
+                areaActiva = 13
+                obtenerVistaCorreosLaboratorio('particular');
                 break;
             default: avisoArea(); break;
         }
