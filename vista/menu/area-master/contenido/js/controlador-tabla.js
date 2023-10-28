@@ -218,6 +218,13 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 }
                 break;
             case 13: // Citologia
+
+                // Recuperar la información clinica del paciente
+
+
+
+
+
                 // Sacamos el genero del paciente
                 const $genero = array_selected.GENERO;
 
@@ -234,8 +241,6 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 } else /* El genero es Masculino */ {
                     $form_hombre_interpretacion.fadeIn(0)
                 }
-
-                // Recuperar la información clinica del paciente
 
                 resetDragDrop('#dropReporteCitologia')
                 break;
