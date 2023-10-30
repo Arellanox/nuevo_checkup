@@ -1867,4 +1867,35 @@ class Miscelaneus
 
         return $response;
     }
+
+    function llamar_api()
+    {
+
+        // Datos que deseas enviar a la API
+        $datos = array(
+            'api' => '1',
+            'user' => 'TurneroUno',
+            'pass' => 'TurneroUno'
+        );
+
+        $url1 = "https://bimo-lab.com/nuevo_checkup/api/login_api.php";
+
+        // Crear opciones de la petición HTTP
+        $opciones = array(
+            "http" => array(
+                "header" => "Content-type: application/x-www-form-urlencoded\r\n",
+                "method" => "POST",
+                "content" => http_build_query($datos), # Agregar el contenido definido antes
+            ),
+        );
+        # Preparar petición
+        $contexto = stream_context_create($opciones);
+        # Hacerla
+        $json = file_get_contents($url1, false, $contexto);
+
+        $res = json_decode($json, true);
+
+
+        return $res;
+    }
 }
