@@ -351,6 +351,44 @@
                 </ul>
               </div> -->
               <div class="col-12">
+                      <div class="mt-3">
+                        <label for="medico_tratante" class="form-label">Médico tratante: </label>
+                        <select id="select-recepcion-medicos-tratantes" class="form-control input-form"
+                          name="medico_tratante_id">
+                        </select>
+
+                        <div class="form-check mt-1">
+                          <input class="form-check-input" type="checkbox" id="checkBox-NewMedico">
+                          <label class="form-check-label" for="checkBox-NewMedico">
+                            Agregar nuevo
+                          </label>
+                        </div>
+                        <div class="collapse" id="CollapseNuevoMedico">
+                          <div class="shadow rounded p-3">
+
+                            <input type="text" name="medico_tratante" placeholder="Nombre del médico tratante"
+                              class="input-new-medico form-control input-form" id="medico-aceptar-paciente"
+                              style="text-transform:uppercase;" autocomplete="off"
+                              onkeyup="javascript:this.value=this.value.toUpperCase();">
+
+                            <div id="suggestionsBox" class="d-none">
+                              <span>Médicos Existentes:</span>
+                              <div id="suggestionsList"></div>
+                            </div>
+
+                            <input type="text" name="medico_correo" placeholder="Correo del médico tratante"
+                              autocomplete="off" class="input-new-medico form-control input-form"
+                              id="medico-correo-aceptar">
+
+                            <input type="number" name="medico_telefono" placeholder="Teléfono del médico tratante"
+                              autocomplete="off" class="input-new-medico form-control input-form"
+                              id="medico-telefono-aceptar">
+
+                            <input type="text" name="medico_especialidad" placeholder="Especialidad del médico tratante"
+                              autocomplete="off" class="input-new-medico form-control input-form"
+                              id="medico-especialidad-aceptar">
+                          </div>
+                        </div>
 
               </div>
             </div>
