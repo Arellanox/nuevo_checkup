@@ -14,6 +14,7 @@ select2("#select-us", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-otros", "modalPacienteAceptar", 'Seleccione un estudio');
 select2('#select-segmento-aceptar', "modalPacienteAceptar", 'Seleccione un segmento');
 select2('#select-vendedor', 'modalPacienteAceptar', 'Selecciona un vendedor') //<-- //Rellena el select de los vendedores
+select2('#select-recepcion-medicos-tratantes', 'modalPacienteAceptar', 'Seleccione un medico tratante')
 
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
@@ -82,6 +83,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   })
 
 
+  rellenarSelect('#select-recepcion-medicos-tratantes', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto')
 
 
   // rellenarSelect("#select-lab", "servicios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
@@ -143,6 +145,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
 
   //Vendedor
   formData.set('vendedor', $('#select-vendedor').val())
+  formData.set('medico_tratante', $('#select-recepcion-medicos-tratantes').val());
 
 
   formData.set('servicios', estudiosEnviar);
