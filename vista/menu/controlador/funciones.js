@@ -2797,6 +2797,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#info-paci-alergias').html(row.ALERGIAS);
                       $('#info-paci-procedencia').html(row.PROCEDENCIA)
                       $('#info-paci-curp').html(row.CURP);
+                      $('#info-paci-naciondalidad').html(row.NACIONALIDAD)
                       $('#info-paci-telefono').html(row.CELULAR);
                       $('#info-paci-correo').html(row.CORREO);
                       $('#info-paci-sexo').html(row.GENERO);
