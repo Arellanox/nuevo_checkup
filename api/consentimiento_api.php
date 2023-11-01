@@ -82,6 +82,7 @@ switch ($api) {
                     'ANIO' => $item['ANIO_ACTUAL'],
                     'NOMBRE_PACIENTE' => $item['NOMBRE_PACIENTE'],
                     'NOMBRE_PACIENTE_RESPONSABLE' => $item['NOMBRE_PACIENTE'],
+                    'QUIMICO' => $item['QUIMICO']
                     
                 );
             } else {
@@ -91,9 +92,9 @@ switch ($api) {
                     'FECHA_ACTUAL' => $item['FECHA'],
                     'ANIO' => $item['ANIO_ACTUAL'],
                     'NOMBRE_PACIENTE' => $item['NOMBRE_PACIENTE'],
+                    'QUIMICO' => $item['QUIMICO'],
                     'NOMBRE_PACIENTE_NEGACION' => $item['NOMBRE_PACIENTE'],
                     'FECHA_NEGACION' => $item['FECHA_NEGACION'],
-                    'FIRMA_PACIENTE_NEGACION' => base64_decode($item['FIRMA']),
                     'NOMBRE_PACIENTE_REVOCACION' => $item['NOMBRE_PACIENTE'],
                     'FECHA_REVOCACION' => $item['FECHA_NEGACION'],
                    
@@ -119,7 +120,7 @@ switch ($api) {
         break;
     case 3:
         
-
+            #POR EL MOMENTO NO FUNCIONA
         break;
     case 4:
         #ELIMINA LOS SERVICIOS DE UIN CONSENTIMIENTO
