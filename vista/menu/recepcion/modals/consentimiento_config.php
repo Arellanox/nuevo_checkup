@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalConsentimientoConfiguracion" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+<div class="modal fade" id="modalConsentimientoConfiguracion" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true" data-bs-keyboard="false">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
@@ -21,7 +21,7 @@
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
                     Cancelar</button>
 
-                <button type="submit" class="btn btn-confirmar" id="btn-solicitar-consentimiento" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Solicitar el QR para poder visualizar y firmar el consentimiento del paciente">
+                <button type="submit" class="btn btn-confirmar" id="btn-solicitar-consentimiento" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Solicitar el QR para poder visualizar el consentimiento del paciente y que el paciente pueda firmarlo">
                     <i class="bi bi-check2-square"></i> Solicitar Consentimiento
                 </button>
             </div>

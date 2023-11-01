@@ -57,7 +57,7 @@ async function construiConsentimientoFormulario() {
                     <h5 class='fw-bold'>${$NOMBRE}</h5>
                     <div class="col-12">
                         <div class="mb-3">
-                            <label for="quimico_${$ID}  " class="form-label p-0 m-0">Quimico:</label>
+                            <label for="quimico_${$ID}" class="form-label p-0 m-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="La quimica por defecto no se puede cambiar">Quimico:</label>
                             <select class=" form-select input-form" name="quimico_${$ID}" id="quimico_${$ID}" disabled>
                                 <option value="57">NERY FABIOLA ORNELAS RESENDIZ</option>
                             </select>
@@ -145,7 +145,7 @@ async function solicitarConsentimiento() {
                 <p class="text-center fw-bold">
                     Escanee el QR para firmar el consentimiento
                 </p>
-                <img class="img-fluid shadow rounded-1 my-1 mx-auto d-flex justify-content-center w-75" src="${$imagen}" href='${$ruta}' alt="${$ruta}" target="_blank" />
+                <img class="img-fluid shadow rounded-2 my-1 mx-auto d-flex justify-content-center w-75" src="${$imagen}" href='${$ruta}' alt="${$ruta}" target="_blank" />
                 <a href="${$ruta}" target="_blank" style="display:flex; justify-content:center;"> ${$ruta}</a>
             `;
 
