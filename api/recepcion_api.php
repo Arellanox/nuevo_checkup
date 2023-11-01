@@ -110,9 +110,11 @@ switch ($api) {
             $medico_tratante_id = $response;
         }
         #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, 
-        
-        $medico_tratante, $medico_correo, $vendedor_id)); #<-- la id de segmento manda error si no se le envia algo
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array(
+            $idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null,
+
+            $medico_tratante, $medico_correo, $vendedor_id, $medico_tratante_id
+        )); #<-- la id de segmento manda error si no se le envia algo
 
         $etiqueta_turno = $response[1];
 
@@ -469,7 +471,7 @@ switch ($api) {
         $response = $master->getByProcedure("sp_cuestionarios_b", []);
 
         break;
-        
+
     default:
         $response = "Api no definida.";
         break;

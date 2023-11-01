@@ -154,13 +154,13 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   formData.set('servicios', estudiosEnviar);
 
   if ($("#checkBox-NewMedico").is(":checked")) {
-    dataJson['medico_tratante'] = $('#medico-aceptar-paciente').val()
-    dataJson['medico_correo'] = $('#medico-correo-aceptar').val()
-    dataJson['medico_telefono'] = $('#medico-telefono-aceptar').val()
-    dataJson['medico_especialidad'] = $('#medico-especialidad-aceptar').val()
-    dataJson['nuevo_medico'] = 1
+    formData.set('medico_tratante', $('#medico-aceptar-paciente').val());
+    formData.set('medico_correo', $('#medico-correo-aceptar').val());
+    formData.set('medico_telefono', $('#medico-telefono-aceptar').val());
+    formData.set('medico_especialidad', $('#medico-especialidad-aceptar').val());
+    formData.set('nuevo_medico', 1);
   } else {
-    dataJson['medico_tratante_id'] = $('#select-recepcion-medicos-tratantes').val();
+    formData.set('medico_tratante_id', $('#select-recepcion-medicos-tratantes').val());
   }
 
   if (!$('#checkPaqueteAceptar').is(":checked")) {
