@@ -93,7 +93,7 @@ async function solicitarConsentimiento() {
                 const $ID = element.ID_CONSENTIMIENTO; // <-- ID del consentimiento
 
                 // Obtenemos todos los valores del formulario
-                var $quimico = $(`quimico_${$ID}`)
+                var $quimico = "NERY FABIOLA ORNELAS RESENDIZ" //$(`quimico_${$ID}`)
                 var $muestra = $(`muestra_${$ID}`)
                 var $medico = $(`medico_${$ID}`)
 
@@ -110,9 +110,14 @@ async function solicitarConsentimiento() {
         // se hace la peticion a la api para recuperar el QR del consentimiento del paciente
         await ajaxAwait({
             api: 5,
-            consentimientos: $data
+            data_consentimiento: $adta
         }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
             data = data.response.data
+
+
+            console.log(data)
+
+            return false;
 
             // Sacamos la imagen y ruta del QR
             const $ruta = data.ruta; // <-- Ruta del QR
