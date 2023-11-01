@@ -226,8 +226,8 @@ class Miscelaneus
         QRcode::png($codeContents, '../' . $tempDir . $nombre . '.png', $frame, $size, 2);
 
         # retorna la URL donde se ubica el archivo
-        return 'https://bimo-lab.com/nuevo_checkup/' . $tempDir . $nombre . '.png';
-        #return 'http://localhost/practicantes/' . $tempDir . $nombre . '.png';
+        // return 'https://bimo-lab.com/nuevo_checkup/' . $tempDir . $nombre . '.png';
+        return 'http://localhost/nuevo_checkup/' . $tempDir . $nombre . '.png';
     }
 
     function guardarFiles($files, $posicion = 'default', $dir/*, $carpetas = ['temp/']*/, $nombre)
@@ -534,7 +534,8 @@ class Miscelaneus
         return $renderpdf;
     }
 
-    private function getBodyAudio($master,$id_turno){
+    private function getBodyAudio($master, $id_turno)
+    {
         $data = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
         return $this->decodeJsonRecursively($data);
     }

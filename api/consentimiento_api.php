@@ -118,9 +118,7 @@ switch ($api) {
 
         break;
     case 3:
-        #GUARDA EL CONCENTIMIENTOS CON TODO Y SERVICIOS
-        $response = $master->getByProcedure("sp_consentimieto_g", 
-        [json_encode($data_consentimiento_g)]);
+        
 
         break;
     case 4:
@@ -130,9 +128,17 @@ switch ($api) {
         break;
 
     case 5:
-        #RECUPERARA LOS QR PARA LOS CONSENTIMIENTOS
+        #GUARDA EL CONCENTIMIENTOS CON TODO Y SERVICIOS
+        // $response = $master->getByProcedure("sp_consentimieto_g",
+        // [json_encode($data_consentimiento_g)]);
 
-        
+
+        #RECUPERARA LOS QR PARA LOS CONSENTIMIENTOS
+        $tipo = "Consentimiento";
+        $turno_id = base64_encode($turno_id);
+        $codeContents = "$host/vista/consentimiento/?turno=$turno_id";
+        $nombre = 'TurnoID-' . $turno_id;
+        $response = ["qr" => $master->generarQRURL($tipo, $codeContents, $nombre), "url" => $codeContents, "fileName" => $nombre];
 
         break;
     default:
