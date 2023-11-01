@@ -45,7 +45,7 @@ async function construiConsentimientoFormulario() {
                         <div class="mb-3">
                             <label for="quimico_${$ID}" class="form-label p-0 m-0">Quimico:</label>
                             <select class="select-usuario form-select input-form" name="quimico_${$ID}" id=" quimico_${$ID}" disabled>
-                                <option>NERY FABIOLA ORNELAS RESENDIZ</option>
+                                <option value="NERY FABIOLA ORNELAS RESENDIZ">NERY FABIOLA ORNELAS RESENDIZ</option>
                             </select>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ async function solicitarConsentimiento() {
         // se hace la peticion a la api para recuperar el QR del consentimiento del paciente
         await ajaxAwait({
             api: 5,
-            consentimientos: $data
+            data_consentimiento: $data
         }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
             data = data.response.data
 
