@@ -8,10 +8,10 @@
             <div class="modal-body">
                 <p class="fw-bold">Para poder obtener el consentimiento del paciente, rellene los campos necesarios para continuar</p>
                 <div class="row my-3">
-                    <div class="col-12 col-xl-6" id="formularios_consentimiento">
+                    <div class="col-12 col-xl-6 col-lg-6" id="formularios_consentimiento">
 
                     </div>
-                    <div class="col-12 col-xl-6">
+                    <div class="col-12 col-xl-6 col-lg-6">
 
                         <div class="" id="qr" style="display: none;">
                             <p class="text-center fw-bold">

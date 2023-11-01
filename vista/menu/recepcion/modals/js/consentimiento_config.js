@@ -4,6 +4,9 @@ $(document).on('click', '#btn-solicitar-consentimiento', solicitarConsentimiento
 // Function para configurar el modal para solicitar el consentimiento de un paciente
 async function configurarModalConsentimientoConfiguracion() {
 
+    // Se limpia el modal cada vez que se abre para eliminar cualquier defecto que pueda tener
+    clearModal()
+
     // Se saca el nombre del paciente
     const $px = array_selected.NOMBRE_COMPLETO;
 
@@ -51,7 +54,7 @@ async function construiConsentimientoFormulario() {
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="quimico_${$ID}" class="form-label p-0 m-0">Quimico:</label>
-                            <select class=" form-select input-form" name="quimico_${$ID}" id=" quimico_${$ID}" disabled>
+                            <select class=" form-select input-form" name="quimico_${$ID}" id="quimico_${$ID}" disabled>
                                 <option value="57">NERY FABIOLA ORNELAS RESENDIZ</option>
                             </select>
                         </div>
@@ -59,7 +62,7 @@ async function construiConsentimientoFormulario() {
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="muestra_${$ID}" class="form-label p-0 m-0">Tomador:</label>
-                            <select class="select-usuario form-select input-form" name="muestra_${$ID}" id=" muestra_${$ID}" required>
+                            <select class="select-usuario form-select input-form" name="muestra_${$ID}" id="muestra_${$ID}" required>
                                 <option selected>Elige el que va a tomar la muestra</option>
                             </select>
                         </div>
@@ -67,7 +70,7 @@ async function construiConsentimientoFormulario() {
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="medico_${$ID}" class="form-label p-0 m-0">Medico:</label>
-                            <select class="select-usuario form-select input-form" name="medico_${$ID}" id=" medico_${$ID}" required>
+                            <select class="select-usuario form-select input-form" name="medico_${$ID}" id="medico_${$ID}" required>
                                 <option selected>Elige un medico</option>
                             </select>
                         </div>
@@ -81,7 +84,6 @@ async function construiConsentimientoFormulario() {
         resolve(1)
     })
 }
-
 
 // Function para solicitar y regresar el qr para visualizar el consentimiento del paciente
 async function solicitarConsentimiento() {
@@ -101,8 +103,8 @@ async function solicitarConsentimiento() {
 
                 // Obtenemos todos los valores del formulario
                 var $quimico = 57 //$(`quimico_${$ID}`)
-                var $muestra = $(`muestra_${$ID}`).val()
-                var $medico = $(`medico_${$ID}`).val()
+                var $muestra = $(`#muestra_${$ID}`).val()
+                var $medico = $(`#medico_${$ID}`).val()
 
                 // Armamos el array de todos los formularios
                 $data[key] = {
@@ -120,7 +122,11 @@ async function solicitarConsentimiento() {
             turno_id: array_selected.ID_TURNO,
             data_consentimiento: $data
         }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
+            // Alerta para mostrarle al usuario que el proceso se realizo con exito
+            alertToast('¡QR generado con éxito!', 'success', 2000)
+
             data = data.response.data
+
             // Sacamos la imagen y ruta del QR
             const $ruta = data.url; // <-- Ruta del QR
             const $imagen = data.qr; // <-- Imagen del qr
@@ -140,4 +146,11 @@ async function solicitarConsentimiento() {
         })
         resolve(1)
     })
+}
+
+// Function para limpiar el modal 
+function clearModal() {
+    $('#qr').html('');
+    $('#formularios_consentimiento').html('')
+    $('#title-consentimientoConfiguracion').html('')
 }
