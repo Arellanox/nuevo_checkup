@@ -88,7 +88,7 @@ async function ContruirPagina() {
             // Se construye el header con la informacion del paciente
             await rellenarInformacionPaciente();
 
-            // Se construye los cuerpos de los consentimiento por cada area si es que manda mas de una
+            // Se construye los cuerpos de los consentimiento por cadas area si es que manda mas de una
             await construiBodyConsentimiento();
 
             // Se valida si la firma ya existe
@@ -141,7 +141,7 @@ async function rellenarInformacionPaciente() {
 async function construiBodyConsentimiento() {
     return new Promise(function (resolve, reject) {
         let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
-        div.html("");
+        div.html(""); // <-- se borra todo el contenido existente para remplazarlo con el nuevo
 
         row = paciente_data.FORMATO;
 
@@ -151,20 +151,24 @@ async function construiBodyConsentimiento() {
         for (const key in row) {
             if (Object.hasOwnProperty.call(row, key)) {
                 const element = row[key];
-                const CONSENTIMIENTO = element.CONSENTIMIENTO;
-                const $id_servicio = element.SERVICIO_ID;
-                const $nombre = ' ' + paciente_data.NOMBRE_PACIENTE;
+                const CONSENTIMIENTO = element.CONSENTIMIENTO; // <-- Cuerpo del consentimiento
+                const $id_servicio = element.SERVICIO_ID; // <-- ID del servicio
+                const $nombre = ' ' + paciente_data.NOMBRE_PACIENTE; // <-- Nombre del paciente
+
+                const $quimico = element.QUIMICO; // <-- Nombre del quimico
 
                 let $btn_paginacion = $('.botones_paginacion_body') // <-- Boton de paginacion de los consentimientos
 
-                const $ACEPTADO_CONSENTIMIENTO = element.ACEPTADO;
+                const $ACEPTADO_CONSENTIMIENTO = element.ACEPTADO; // <-- INT para saber si el consentimiento fue aceptado o no
+
                 let $badge = "";
 
-                if ($ACEPTADO_CONSENTIMIENTO === 1) {
+                // Se evalua si el consentimiento es aceptado
+                if ($ACEPTADO_CONSENTIMIENTO === 1) /* El consentimiento esta aceptado */ {
                     $badge = `<h5 class="text-success fw-bold">
                     <i class="bi bi-check-circle-fill"></i> Aceptado
                     </h5>`;
-                } else {
+                } else /* El consentimiento no fue aceptado */ {
                     $badge = `<h5 class="text-danger fw-bold">
                     <i class="bi bi-x-circle-fill"></i> No aceptado
                     </h5>`;
@@ -225,8 +229,14 @@ async function construiBodyConsentimiento() {
                 </div >
                 `;
 
+                // Ponemos todos los consentimientos creados dentro de su contenedor
                 div.append(html);
-                $(".nombre_paciente").html($nombre);
+
+                // Pintamos la informacion para el cuerpo del consentimiento
+                $(".nombre_paciente").html($nombre); // <<-- Nombre del paciente
+                $('.quimico').html($quimico); // <<-- Quimico
+
+
                 // Incrementamos la variable
                 i++;
             }
