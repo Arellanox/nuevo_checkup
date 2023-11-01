@@ -6,40 +6,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Para poder obtener el consentimiento del paciente, rellene los campos necesarios para continuar</p>
+                <p class="fw-bold">Para poder obtener el consentimiento del paciente, rellene los campos necesarios para continuar</p>
                 <div class="row my-3">
-                    <div class="col-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="quimico" class="form-label p-0 m-0">Quimico en turno:</label>
-                                    <select class="form-select input-form" name="   quimico" id=" quimico" required>
-                                        <option selected>Elige un quimico</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="muestra" class="form-label p-0 m-0">Tomador de muestra:</label>
-                                    <select class="form-select input-form" name="   muestra" id=" muestra" required>
-                                        <option selected>Elige el que va a tomar la muestra</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="medico" class="form-label p-0 m-0">Medico:</label>
-                                    <select class="form-select input-form" name="   medico" id=" medico" required>
-                                        <option selected>Elige un medico</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-12 col-xl-6" id="formularios_consentimiento">
+
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-xl-6">
                         <p class="text-center fw-bold">
                             Escanee el QR para firmar el consentimiento
                         </p>
+                        <div class="" id="qr" style="display: none;">
+
+                            <p class="text-center">Escanee el qr para visualizar el consentimiento del paciente</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,3 +33,12 @@
         </div>
     </div>
 </div>
+
+
+<style>
+    #formularios_consentimiento {
+        max-height: 60vh;
+        position: relative;
+        overflow: auto !important;
+    }
+</style>
