@@ -153,6 +153,15 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
 
   formData.set('servicios', estudiosEnviar);
 
+  if ($("#checkBox-NewMedico").is(":checked")) {
+    dataJson['medico_tratante'] = $('#medico-aceptar-paciente').val()
+    dataJson['medico_correo'] = $('#medico-correo-aceptar').val()
+    dataJson['medico_telefono'] = $('#medico-telefono-aceptar').val()
+    dataJson['medico_especialidad'] = $('#medico-especialidad-aceptar').val()
+    dataJson['nuevo_medico'] = 1
+  } else {
+    dataJson['medico_tratante_id'] = $('#select-recepcion-medicos-tratantes').val();
+  }
 
   if (!$('#checkPaqueteAceptar').is(":checked")) {
     formData.set('id_paquete', $('#select-paquetes').val());
@@ -356,8 +365,23 @@ function limpiarFormAceptar() {
   validarEstudiosOtros = 0;
   $('#Observaciones-aceptar').val('')
   estudiosEnviar = [];
+  $(`#${'checkBox-NewMedico'}`).prop('checked', false)
 }
 
 
 
 
+
+// Cuando cambie el estado del checkbox
+$(`#${'checkBox-NewMedico'}`).change(function () {
+  if (this.checked) {
+    // bloquea el select y muestra ambos campos
+    $("#CollapseNuevoMedico").collapse("show");
+    $('#select-recepcion-medicos-tratantes').attr('disabled', true)
+  } else {
+    // desbloquea el select y oculta los campos
+    $("#CollapseNuevoMedico").collapse("hide");
+    $('#select-recepcion-medicos-tratantes').attr('disabled', false)
+    $('.input-new-medico').val('');
+  }
+});
