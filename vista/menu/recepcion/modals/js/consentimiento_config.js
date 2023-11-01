@@ -59,7 +59,7 @@ async function construiConsentimientoFormulario() {
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="quimico_${$ID}" class="form-label p-0 m-0">Quimico:</label>
-                            <select class=" form-select input-form" name="quimico_${$ID}" id=" quimico_${$ID}" disabled>
+                            <select class=" form-select input-form" name="quimico_${$ID}" id="quimico_${$ID}" disabled>
                                 <option value="57">NERY FABIOLA ORNELAS RESENDIZ</option>
                             </select>
                         </div>
@@ -67,7 +67,7 @@ async function construiConsentimientoFormulario() {
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="muestra_${$ID}" class="form-label p-0 m-0">Tomador:</label>
-                            <select class="select-usuario form-select input-form" name="muestra_${$ID}" id=" muestra_${$ID}" required>
+                            <select class="select-usuario form-select input-form" name="muestra_${$ID}" id="muestra_${$ID}" required>
                                 <option selected>Elige el que va a tomar la muestra</option>
                             </select>
                         </div>
@@ -75,7 +75,7 @@ async function construiConsentimientoFormulario() {
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="medico_${$ID}" class="form-label p-0 m-0">Medico:</label>
-                            <select class="select-usuario form-select input-form" name="medico_${$ID}" id=" medico_${$ID}" required>
+                            <select class="select-usuario form-select input-form" name="medico_${$ID}" id="medico_${$ID}" required>
                                 <option selected>Elige un medico</option>
                             </select>
                         </div>
