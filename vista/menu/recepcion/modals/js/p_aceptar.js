@@ -18,6 +18,7 @@ select2('#select-recepcion-medicos-tratantes', 'modalPacienteAceptar', 'Seleccio
 
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
+  limpiarFormAceptar();
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
 
 
@@ -35,6 +36,8 @@ modalPacienteAceptar.addEventListener('show.bs.modal', event => {
 
   rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
     'cliente_id': array_selected['CLIENTE_ID']
+  }, (data) => {
+    PaquetesDatos = data
   })
 
   rellenarSelect('#select-segmento-aceptar', 'segmentos_api', 2, 0, 'DESCRIPCION', {
