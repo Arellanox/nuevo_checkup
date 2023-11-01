@@ -24,27 +24,15 @@ $id_consentimiento = isset($_POST['id_consentimiento']) ? $_POST['id_consentimie
 $consentimiento = isset($_POST['consentimiento']) ? $_POST['consentimiento'] : null;
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 
+#DATOS PARA MANDAR EL QUIMICO, MEDICO, TOMADOR DE MUETRA, ETC.
+$data_consentimiento_g = $_POST['data_consentimiento']; 
 
-// Variables para recuperar el qr y el pdf de los consentimientos
-$quimico = $_POST['quimico'];
-$tomador_muestra  = $_POST['tomador_muestra'];
-$medico = $_POST['medico'];
+
 
 $data_firma_g = array(
     $turno_id,
     $firma,
     json_encode($consentimiento)
-);
-
-
-// var_dump($data_firma_g);
-// exit;
-
-$data_consentimiento_g = array(
-    $url,
-    $descripcion,
-    $servicios,
-    $id_consentimiento
 );
 
 
@@ -68,8 +56,8 @@ switch ($api) {
         $response = $master->decodeJsonRecursively($master->getByProcedure("sp_consentimiento_formato_b", [$turno_id]));
 
 
-
         break;
+
     case 2:
         #GUARDA LA FIRMA DEL COSENTIMIENTO
         $response = $master->getByProcedure("sp_consentimiento_firma_g", $data_firma_g);
@@ -80,7 +68,7 @@ switch ($api) {
         foreach ($response1 as $item) {
 
             $archivo_original = $item['PDF_BLANCO'];
-            $firma_paciente = $item['FIRMA'];
+           
 
             $ruta_si = str_replace($host, '../', $item['PDF_BLANCO']);
 
@@ -94,7 +82,7 @@ switch ($api) {
                     'ANIO' => $item['ANIO_ACTUAL'],
                     'NOMBRE_PACIENTE' => $item['NOMBRE_PACIENTE'],
                     'NOMBRE_PACIENTE_RESPONSABLE' => $item['NOMBRE_PACIENTE'],
-                    'FIRMA_PACIENTE' => base64_decode($item['FIRMA']),
+                    
                 );
             } else {
 
@@ -108,13 +96,9 @@ switch ($api) {
                     'FIRMA_PACIENTE_NEGACION' => base64_decode($item['FIRMA']),
                     'NOMBRE_PACIENTE_REVOCACION' => $item['NOMBRE_PACIENTE'],
                     'FECHA_REVOCACION' => $item['FECHA_NEGACION'],
-                    'FIRMA_PACIENTE_REVOCACION' => base64_decode($item['FIRMA']),
-
+                   
                 );
             }
-
-
-
 
             $pdf->Load($fields, true);
             $pdf->Merge();
@@ -135,7 +119,8 @@ switch ($api) {
         break;
     case 3:
         #GUARDA EL CONCENTIMIENTOS CON TODO Y SERVICIOS
-        $response = $master->getByProcedure("sp_consentimieto_g", $data_consentimiento_g);
+        $response = $master->getByProcedure("sp_consentimieto_g", 
+        [json_encode($data_consentimiento_g)]);
 
         break;
     case 4:
@@ -145,8 +130,9 @@ switch ($api) {
         break;
 
     case 5:
-        #QR para los consentimientos 
+        #RECUPERARA LOS QR PARA LOS CONSENTIMIENTOS
 
+        
 
         break;
     default:
