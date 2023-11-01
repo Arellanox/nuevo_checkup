@@ -2,7 +2,7 @@
 $(document).on('click', '#btn-solicitar-consentimiento', function () {
     alertMensajeConfirm({
         title: '¿Ha rellenado todos los campos correctamente?',
-        text: 'Los datos se reflejaran en el PDF del consentimiento.',
+        text: 'Los datos seleccionado se reflejaran en el PDF del consentimiento.',
         icon: 'info'
     }, function () {
         solicitarConsentimiento();
@@ -53,12 +53,11 @@ async function construiConsentimientoFormulario() {
 
                 // Se arma el html para el formulario
                 let $html = `
-                 <div class="row my-3">
-                 <hr>
+                 <div class="card shadow mx-1 my-3 p-3 row my-3">
                     <h5 class='fw-bold'>${$NOMBRE}</h5>
                     <div class="col-12">
                         <div class="mb-3">
-                            <label for="quimico_${$ID}" class="form-label p-0 m-0">Quimico:</label>
+                            <label for="quimico_${$ID}  " class="form-label p-0 m-0">Quimico:</label>
                             <select class=" form-select input-form" name="quimico_${$ID}" id="quimico_${$ID}" disabled>
                                 <option value="57">NERY FABIOLA ORNELAS RESENDIZ</option>
                             </select>
@@ -131,7 +130,7 @@ async function solicitarConsentimiento() {
             data = data.response.data
 
             // Le mostramos al usuario una alerta avisandole que el proceso se realizo con exito
-            alertToast('!QR generado con exito.!', 'success', 20000)
+            alertToast('!QR generado con exito.!', 'success', 2000)
 
             // Sacamos la imagen y ruta del QR
             const $ruta = data.url; // <-- Ruta del QR
@@ -143,7 +142,10 @@ async function solicitarConsentimiento() {
 
             // Armamos la estructura HTML para mostrar el QR
             let html = `
-                <img class="img-fluid mx-auto d-flex justify-content-center w-75" src="${$imagen}" href='${$ruta}' alt="${$ruta}" target="_blank" />
+                <p class="text-center fw-bold">
+                    Escanee el QR para firmar el consentimiento
+                </p>
+                <img class="img-fluid shadow rounded-1 my-1 mx-auto d-flex justify-content-center w-75" src="${$imagen}" href='${$ruta}' alt="${$ruta}" target="_blank" />
                 <a href="${$ruta}" target="_blank" style="display:flex; justify-content:center;"> ${$ruta}</a>
             `;
 
