@@ -20,8 +20,9 @@ $(document).on("click", "#enviar_firma_btn", function () {
     if (!validarFormulario())
         return false;
 
-    if (!validarConsentimientos())
+    if (!validarConsentimientos()) {
         return false;
+    }
 
     const pdfBytes = embedSignature(url_pdf)
 
@@ -365,7 +366,6 @@ function validarConsentimientos() {
     // En los casos de que se le olvide firmar al paciente o que no haya seleccionado alguna de las acciones para los consentimientos
     // Es decir si no acepto o no algun consentimiento, no se pueden dejar blanco hay que validar eso
 
-
     // Se saca todos los consentimiento que tenga el paciente
     let row = paciente_data.FORMATO
 
@@ -374,16 +374,23 @@ function validarConsentimientos() {
         if (Object.hasOwnProperty.call(row, key)) {
             const element = row[key];
             const ID = element.SERVICIO_ID; // <-- ID del servicio
+            const $NOMBRE = element.NOMBRE_CONSENTIMIENTO // <<-- Nombre del consentimiento
 
             // Se evalua cual check esta seleccionando y se le asigna un valor 0 es que acepto  1 es que no acepto
-            if ($(`#check_consentimiento_si_${ID}`).is(":checked") || $(`#check_consentimiento_no_${ID}`).is(":checked")) {
-                console.log("esta checkeado: " + ID)
+            if ($(`#check_consentimiento_si_${ID}`).is(":checked") ||
+                $(`#check_consentimiento_no_${ID}`).is(":checked")
+            ) {
+                continue;
             } else {
-                console.log("no selecciono el check:" + ID)
+                alertToast(`No se marcaron todos los consentimiento.`, 'info', 3000);
+                return false;
             }
         }
     }
 
+
+    // Si todos los checkboxes están marcados, retorna true para permitir que el formulario se envíe
+    return true
 }
 // ------------------------------------------------------------------------
 
