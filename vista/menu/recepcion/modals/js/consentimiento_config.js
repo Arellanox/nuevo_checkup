@@ -12,6 +12,9 @@ $(document).on('click', '#btn-solicitar-consentimiento', function () {
 // Function para configurar el modal para solicitar el consentimiento de un paciente
 async function configurarModalConsentimientoConfiguracion() {
 
+    // Se limpia el modal cada vez que se abre para eliminar cualquier defecto que pueda tener
+    clearModal()
+
     // Se saca el nombre del paciente
     const $px = array_selected.NOMBRE_COMPLETO;
 
@@ -155,4 +158,11 @@ async function solicitarConsentimiento() {
         })
         resolve(1)
     })
+}
+
+// Function para limpiar el modal 
+function clearModal() {
+    $('#qr').html('');
+    $('#formularios_consentimiento').html('')
+    $('#title-consentimientoConfiguracion').html('')
 }
