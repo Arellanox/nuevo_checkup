@@ -123,7 +123,7 @@ async function solicitarConsentimiento() {
 
             // Armamos la estructura HTML para mostrar el QR
             let html = `
-                <img class="img-fluid" src="${$imagen}" href='${$ruta}' alt="${$ruta}" target="_blank" />
+                <img class="img-fluid mx-auto d-flex justify-content-center w-75" src="${$imagen}" href='${$ruta}' alt="${$ruta}" target="_blank" />
                 <a href="${$ruta}" target="_blank" style="display:flex; justify-content:center;"> ${$ruta}</a>
             `;
 
