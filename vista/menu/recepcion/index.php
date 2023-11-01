@@ -12,7 +12,7 @@ $menu = "Recepción";
   <title><?php echo $menu; ?> | Bimo</title>
 </head>
 
-<body class="" id="body-controlador"> </body>
+<body class="p-0" id="body-controlador"> </body>
 <script type="text/javascript">
   registroAgendaRecepcion = 1;
   nombreCliente = null;

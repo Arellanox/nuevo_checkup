@@ -1,5 +1,13 @@
 // Evento click para el boton de recepción para solicitar un consentimiento
-$(document).on('click', '#btn-solicitar-consentimiento', solicitarConsentimiento)
+$(document).on('click', '#btn-solicitar-consentimiento', function () {
+    alertMensajeConfirm({
+        title: '¿Ha rellenado todos los campos correctamente?',
+        text: 'Los datos se reflejaran en el PDF del consentimiento.',
+        icon: 'info'
+    }, function () {
+        solicitarConsentimiento();
+    }, 1)
+})
 
 // Function para configurar el modal para solicitar el consentimiento de un paciente
 async function configurarModalConsentimientoConfiguracion() {
@@ -133,6 +141,7 @@ async function solicitarConsentimiento() {
 
             // Contenedor del QR para mostrarlo
             const $div_QR = $('#qr');
+            $div_QR.html(''); // <-- Limpiamos el contenedor del QR en caso de que tenga algo no deseado para remplazarlo con el nuevo
 
             // Armamos la estructura HTML para mostrar el QR
             let html = `
