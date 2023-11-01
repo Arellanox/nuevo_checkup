@@ -2,7 +2,7 @@
 //Variables dinamicas;
 include "../variables.php";
 #Aqui se recibe el ID del turno que llega por la URL 
-$turno_id = base64_decode($_GET['turno']);
+$turno_id = $_GET['turno'];
 $menu = "Consentimiento_paciente";
 ?>
 <!DOCTYPE html>

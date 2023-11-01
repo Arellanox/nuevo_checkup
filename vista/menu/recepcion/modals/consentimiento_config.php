@@ -12,11 +12,11 @@
 
                     </div>
                     <div class="col-12 col-xl-6">
-
+                        <p class="text-center fw-bold">
+                            Escanee el QR para firmar el consentimiento
+                        </p>
                         <div class="" id="qr" style="display: none;">
-                            <p class="text-center fw-bold">
-                                Escanee el QR para firmar el consentimiento
-                            </p>
+
                             <p class="text-center">Escanee el qr para visualizar el consentimiento del paciente</p>
                         </div>
                     </div>

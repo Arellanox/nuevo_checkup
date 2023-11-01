@@ -13,13 +13,6 @@ async function configurarModalConsentimientoConfiguracion() {
     // Se construyen los formularios del consentimiento
     await construiConsentimientoFormulario();
 
-    await rellenarSelect('.select-usuario', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto', {}, () => {
-        // $('#select-vendedor').val(0).trigger("change")
-    })
-
-    await select2('.select-usuario', 'modalConsentimientoConfiguracion')
-
-
     // Se abre el modal
     $("#modalConsentimientoConfiguracion").modal('show');
 }
@@ -51,8 +44,8 @@ async function construiConsentimientoFormulario() {
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="quimico_${$ID}" class="form-label p-0 m-0">Quimico:</label>
-                            <select class=" form-select input-form" name="quimico_${$ID}" id=" quimico_${$ID}" disabled>
-                                <option value="57">NERY FABIOLA ORNELAS RESENDIZ</option>
+                            <select class="select-usuario form-select input-form" name="quimico_${$ID}" id=" quimico_${$ID}" disabled>
+                                <option>NERY FABIOLA ORNELAS RESENDIZ</option>
                             </select>
                         </div>
                     </div>
@@ -100,7 +93,7 @@ async function solicitarConsentimiento() {
                 const $ID = element.ID_CONSENTIMIENTO; // <-- ID del consentimiento
 
                 // Obtenemos todos los valores del formulario
-                var $quimico = 57 //$(`quimico_${$ID}`)
+                var $quimico = "NERY FABIOLA ORNELAS RESENDIZ" //$(`quimico_${$ID}`)
                 var $muestra = $(`muestra_${$ID}`).val()
                 var $medico = $(`medico_${$ID}`).val()
 
@@ -136,7 +129,7 @@ async function solicitarConsentimiento() {
 
 
             $div_QR.html(html); // <-- Mostramos la imgen del QR para que pueda ser escaneada
-            $div_QR.fadeIn(100); // <-- Hacemos que aparezca todo el contenido
+            $div_QR.fadeIn(100);
         })
         resolve(1)
     })
