@@ -124,12 +124,13 @@ async function solicitarConsentimiento() {
             // Armamos la estructura HTML para mostrar el QR
             let html = `
                 <img class="img-fluid" src="${$imagen}" href='${$ruta}' alt="" target="_blank" />
-                <a href="${data.url}" target="_blank"> ${$ruta}</a>
+                <a href="${$ruta}" target="_blank"> ${$ruta}</a>
             `;
-            $div_QR.html(html); // <-- Mostramos la imgen del QR para que pueda ser escaneada
-        })
 
-        console.log($data)
+
+            $div_QR.html(html); // <-- Mostramos la imgen del QR para que pueda ser escaneada
+            $div_QR.fadeIn(100);
+        })
         resolve(1)
     })
 }
