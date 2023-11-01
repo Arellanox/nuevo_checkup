@@ -84,7 +84,7 @@ async function solicitarConsentimiento() {
         let $row = JSON.parse(array_selected.CONSENTIMIENTO);
 
         // Inicializamos la variable data donde se guardara el array de todos los consentimientos con sus formularios
-        let $data;
+        let $data = [];
 
         // Recorremos el array de los consentimientos para acceder a la informacion de los formularioss
         for (const key in $row) {
@@ -94,8 +94,8 @@ async function solicitarConsentimiento() {
 
                 // Obtenemos todos los valores del formulario
                 var $quimico = "NERY FABIOLA ORNELAS RESENDIZ" //$(`quimico_${$ID}`)
-                var $muestra = $(`muestra_${$ID}`)
-                var $medico = $(`medico_${$ID}`)
+                var $muestra = $(`muestra_${$ID}`).val()
+                var $medico = $(`medico_${$ID}`).val()
 
                 // Armamos el array de todos los formularios
                 $data[key] = {
@@ -108,28 +108,28 @@ async function solicitarConsentimiento() {
         }
 
         // se hace la peticion a la api para recuperar el QR del consentimiento del paciente
-        await ajaxAwait({
+        ajaxAwait({
             api: 5,
-            data_consentimiento: $adta
+            turno_id: array_selected.ID_TURNO,
+            data_consentimiento: $data
         }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
             data = data.response.data
-
-
-            console.log(data)
-
-            return false;
-
             // Sacamos la imagen y ruta del QR
-            const $ruta = data.ruta; // <-- Ruta del QR
-            const $imagen = data.imagen; // <-- Imagen del qr
+            const $ruta = data.url; // <-- Ruta del QR
+            const $imagen = data.qr; // <-- Imagen del qr
 
             // Contenedor del QR para mostrarlo
             const $div_QR = $('#qr');
 
             // Armamos la estructura HTML para mostrar el QR
-            let html = `<img class="img-fluid" src="${$imagen}" href='${$ruta}' alt="" target="_blank" />`;
+            let html = `
+                <img class="img-fluid" src="${$imagen}" href='${$ruta}' alt="" target="_blank" />
+                <a href="${data.url}" target="_blank"> ${$ruta}</a>
+            `;
             $div_QR.html(html); // <-- Mostramos la imgen del QR para que pueda ser escaneada
         })
+
+        console.log($data)
         resolve(1)
     })
 }
