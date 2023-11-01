@@ -129,8 +129,8 @@ switch ($api) {
 
     case 5:
         #GUARDA EL CONCENTIMIENTOS CON TODO Y SERVICIOS
-        // $response = $master->getByProcedure("sp_consentimieto_g",
-        // [json_encode($data_consentimiento_g)]);
+        $response = $master->getByProcedure("sp_consentimieto_g",
+        [json_encode($data_consentimiento_g)]);
 
 
         #RECUPERARA LOS QR PARA LOS CONSENTIMIENTOS
