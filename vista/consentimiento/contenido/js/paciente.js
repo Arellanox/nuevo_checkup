@@ -20,6 +20,7 @@ $(document).on("click", "#enviar_firma_btn", function () {
     if (!validarFormulario())
         return false;
 
+
     if (!validarConsentimientos()) {
         return false;
     }
