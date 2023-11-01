@@ -54,6 +54,11 @@ $foto_paciente = $_POST['avatar'];
 $medico_tratante = $_POST['medico_tratante'];
 $medico_correo = $_POST['medico_correo'];
 $vendedor_id = $_POST['vendedor'];
+$new_medico = $_POST['nuevo_medico']; # Tipo booleano
+$medico_tratante_id = ($master->setToNull([$_POST['medico_tratante_id']]))[0]; # Usuario
+$medico_telefono = $_POST['medico_telefono'];
+$medico_especialidad = $_POST['medico_especialidadz'];
+
 
 
 # reagendar
@@ -99,6 +104,11 @@ switch ($api) {
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
         // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
+        # Agrega nuevo medico si es requerido
+        if ($new_medico) {
+            $response = $master->insertByProcedure('sp_medicos_tratantes_g', [null, $medico_tratante, $medico_correo, null, $medico_telefono, $medico_especialidad]);
+            $medico_tratante_id = $response;
+        }
         #
         $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, 
         
