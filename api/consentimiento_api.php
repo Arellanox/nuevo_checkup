@@ -136,7 +136,7 @@ switch ($api) {
         #RECUPERARA LOS QR PARA LOS CONSENTIMIENTOS
         $tipo = "Consentimiento";
         $turno_id = base64_encode($turno_id);
-        $codeContents = "$host/vista/consentimiento/?turno=$turno_id";
+        $codeContents = $host."vista/consentimiento/?turno=$turno_id";
         $nombre = 'TurnoID-' . $turno_id;
         $response = ["qr" => $master->generarQRURL($tipo, $codeContents, $nombre), "url" => $codeContents, "fileName" => $nombre];
 

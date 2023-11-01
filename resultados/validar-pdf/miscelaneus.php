@@ -226,8 +226,8 @@ class Miscelaneus
         QRcode::png($codeContents, '../' . $tempDir . $nombre . '.png', $frame, $size, 2);
 
         # retorna la URL donde se ubica el archivo
-        // return 'https://bimo-lab.com/nuevo_checkup/' . $tempDir . $nombre . '.png';
-        return 'http://localhost/nuevo_checkup/' . $tempDir . $nombre . '.png';
+        return 'https://bimo-lab.com/nuevo_checkup/' . $tempDir . $nombre . '.png';
+        // return 'http://localhost/nuevo_checkup/' . $tempDir . $nombre . '.png';
     }
 
     function guardarFiles($files, $posicion = 'default', $dir/*, $carpetas = ['temp/']*/, $nombre)
@@ -1369,6 +1369,7 @@ class Miscelaneus
                 break;
             default:
                 $preUrl = "https://bimo-lab.com/nuevo_checkup/";
+                // $preUrl  = "http://localhost/nuevo_checkup/";
                 break;
         }
 
