@@ -109,8 +109,8 @@ async function solicitarConsentimiento() {
 
                 // Obtenemos todos los valores del formulario
                 var $quimico = 57 //$(`quimico_${$ID}`)
-                var $muestra = $(`muestra_${$ID}`).val()
-                var $medico = $(`medico_${$ID}`).val()
+                var $muestra = $(`#muestra_${$ID}`).val()
+                var $medico = $(`#medico_${$ID}`).val()
 
                 // Armamos el array de todos los formularios
                 $data[key] = {
@@ -129,6 +129,10 @@ async function solicitarConsentimiento() {
             data_consentimiento: $data
         }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
             data = data.response.data
+
+            // Le mostramos al usuario una alerta avisandole que el proceso se realizo con exito
+            alertToast('!QR generado con exito.!', 'success', 20000)
+
             // Sacamos la imagen y ruta del QR
             const $ruta = data.url; // <-- Ruta del QR
             const $imagen = data.qr; // <-- Imagen del qr
