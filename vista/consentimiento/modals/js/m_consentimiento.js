@@ -2,9 +2,12 @@ $(document).on("click", "#btn-mostrar-formato-consentimiento", async function ()
     configurarModal()
 })
 
+
+modal_data;
 // Function para configurar el modal
 async function configurarModal() {
 
+    const $name = paciente_data.NOMBRE_PACIENTE // <<-- Nombre del paciente
     let data = []; //<-- array que se le va a pasar a la funcion para armar el modal
 
     // Se obtiene el array donde esta toda la informacion de los formatos
@@ -28,7 +31,10 @@ async function configurarModal() {
     }
 
     // Se le manda a la funcion el array armado para que se muestre en el modal
+    modal_data = data
     await construirReportes(data);
+
+    $('#modalTitleConsentimiento').html(`Vista previa de los reportes del paciente: (<strong>${$name}</strong>)`);
 
     // Una vez se realizo todos los metodos se abre el modal
     $("#consentimiento_paciente_modal").modal("show");

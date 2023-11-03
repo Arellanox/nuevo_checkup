@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold">Vista previa de los reportes</h5>
+                <h5 class="modal-title" id="modalTitleConsentimiento">Vista previa de los reportes</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
