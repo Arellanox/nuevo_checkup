@@ -25,7 +25,7 @@ $consentimiento = isset($_POST['consentimiento']) ? $_POST['consentimiento'] : n
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 
 #DATOS PARA MANDAR EL QUIMICO, MEDICO, TOMADOR DE MUETRA, ETC.
-$data_consentimiento_g = $_POST['data_consentimiento']; 
+$data_consentimiento_g = $_POST['data_consentimiento'];
 
 
 
@@ -68,7 +68,7 @@ switch ($api) {
         foreach ($response1 as $item) {
 
             $archivo_original = $item['PDF_BLANCO'];
-           
+
 
             $ruta_si = str_replace($host, '../', $item['PDF_BLANCO']);
 
@@ -83,7 +83,7 @@ switch ($api) {
                     'NOMBRE_PACIENTE' => $item['NOMBRE_PACIENTE'],
                     'NOMBRE_PACIENTE_RESPONSABLE' => $item['NOMBRE_PACIENTE'],
                     'QUIMICO' => $item['QUIMICO']
-                    
+
                 );
             } else {
 
@@ -97,7 +97,7 @@ switch ($api) {
                     'FECHA_NEGACION' => $item['FECHA_NEGACION'],
                     'NOMBRE_PACIENTE_REVOCACION' => $item['NOMBRE_PACIENTE'],
                     'FECHA_REVOCACION' => $item['FECHA_NEGACION'],
-                   
+
                 );
             }
 
@@ -121,24 +121,25 @@ switch ($api) {
         break;
     case 3:
         #POR EL MOMENTO NO FUNCIONA
-        
+        $response = $master->getByProcedure("si", [$turno_id]);
         break;
     case 4:
         #ELIMINA LOS SERVICIOS DE UIN CONSENTIMIENTO
         $response = $master->getByProcedure("sp_consentimiento_estudios_e", $data_consentimiento_e);
-
         break;
 
     case 5:
         #GUARDA EL CONCENTIMIENTOS CON TODO Y SERVICIOS
-        $response = $master->getByProcedure("sp_consentimieto_g",
-        [json_encode($data_consentimiento_g)]);
+        $response = $master->getByProcedure(
+            "sp_consentimieto_g",
+            [json_encode($data_consentimiento_g)]
+        );
 
 
         #RECUPERARA LOS QR PARA LOS CONSENTIMIENTOS
         $tipo = "Consentimiento";
         $turno_id = base64_encode($turno_id);
-        $codeContents = $host."vista/consentimiento/?turno=$turno_id";
+        $codeContents = $host . "vista/consentimiento/?turno=$turno_id";
         $nombre = 'TurnoID-' . $turno_id;
         $response = ["qr" => $master->generarQRURL($tipo, $codeContents, $nombre), "url" => $codeContents, "fileName" => $nombre];
 
