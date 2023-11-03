@@ -118,6 +118,7 @@ $menu = "Pre-registro";
           row = data.response.data[0];
           // console.log(row);
           if (data.response.data[0]) {
+            cuestionarios = '';
             completarCliente(row['ID_CLIENTE'], row['NOMBRE_COMERCIAL'], data.response.data[0]['ID_PREREGISTRO'], row['CUESTIONARIOS'])
           } else {
             redireccionarPrerregistro()
@@ -163,6 +164,7 @@ $menu = "Pre-registro";
     // cuestionarios = jQuery.parseJSON(cuestionarios)
 
     //Cuestionario
+    console.log(cuestionarios)
     ant = cuestionarios[2] ? true : false;
     espiro = cuestionarios[1] ? true : false;
 
