@@ -60,7 +60,7 @@ switch ($api) {
 
     case 2:
         #GUARDA LA FIRMA DEL COSENTIMIENTO
-        $response = $master->getByProcedure("sp_consentimiento_firma_g", $data_firma_g);
+        $response0 = $master->getByProcedure("sp_consentimiento_firma_g", $data_firma_g);
 
         #REALIZAMOS EL  RELLANADO DEL DOCUMENTO PARA LA VISTA PREVIA Y PARA GUARDAR LA URL YA RELLENADO
         $response1 = $master->getByProcedure("sp_insertar_datos_consentimiento_b", [$turno_id]);
@@ -116,11 +116,12 @@ switch ($api) {
             $response2 = $master->updateByProcedure('sp_actualizar_ruta_consentimientos_g', [$turno_id, $item['SERVICIO_ID'], $ruta_tabla]);
         };
 
+        $response = $master->getByProcedure('sp_consentimiento_formato_b', [$turno_id]);
 
         break;
     case 3:
+        #POR EL MOMENTO NO FUNCIONA
         
-            #POR EL MOMENTO NO FUNCIONA
         break;
     case 4:
         #ELIMINA LOS SERVICIOS DE UIN CONSENTIMIENTO
