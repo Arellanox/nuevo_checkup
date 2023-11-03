@@ -145,6 +145,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
 
+<!-- PDF-Lib -->
+<script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
+
 
 <script>
     var traducciones;
