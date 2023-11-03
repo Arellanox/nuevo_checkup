@@ -116,7 +116,7 @@ switch ($api) {
             $response2 = $master->updateByProcedure('sp_actualizar_ruta_consentimientos_g', [$turno_id, $item['SERVICIO_ID'], $ruta_tabla]);
         };
 
-        $response = $master->getByProcedure('sp_consentimiento_formato_b', [$turno_id]);
+        $response = $master->decodeJsonRecursively($master->getByProcedure("sp_consentimiento_formato_b", [$turno_id]));
 
         break;
     case 3:
