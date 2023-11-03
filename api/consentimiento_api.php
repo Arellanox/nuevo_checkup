@@ -121,7 +121,7 @@ switch ($api) {
         break;
     case 3:
         #POR EL MOMENTO NO FUNCIONA
-        $response = $master->getByProcedure("si", [$turno_id]);
+        $response = $master->decodeJsonRecursively($master->getByProcedure("si", [$turno_id]));
         break;
     case 4:
         #ELIMINA LOS SERVICIOS DE UIN CONSENTIMIENTO
