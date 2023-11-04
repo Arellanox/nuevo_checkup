@@ -211,7 +211,7 @@ session_start();
 </div>
 
 
-<div class="modal fade" id="modalSubirInterpretacion" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+<div class="modal fade" id="modalSubirInterpretacion" data-bs-keyboard="false" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
