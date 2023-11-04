@@ -144,7 +144,7 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 // Subir audios y Tabla de equipos
                 // console.log(dataSelect['array'])
 
-                // Captura de oidos
+                // Captura de oidos (real por activar)
                 // getFormOidosAudiometria(datalist);
 
                 // Recupera la info del reporte:
@@ -176,24 +176,10 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
 
                 break;
             case 8: //Rayos X
-                $('#btn-inter-areas').fadeIn(0);
-                if (formulario == 1) {
-                    await GenerarListaCapturasImagenologia(selectEstudio.array);
-                    // console.log("lista");
-                } else {
-                    await GeenerarReporteImagenologia(selectEstudio.array);
-                    if (datalist.CONFIRMADO_RX == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-                }
+                masterImagenología('CONFIRMADO_RX', datalist)
                 break;
-            case 11: //Ultrasonido
-                $('#btn-inter-areas').fadeIn(0);
-                if (formulario == 1) {
-                    await GenerarListaCapturasImagenologia(selectEstudio.array);
-                    // console.log("lista");
-                } else {
-                    await GeenerarReporteImagenologia(selectEstudio.array);
-                    if (datalist.CONFIRMADO_ULTRASO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
-                }
+            case 11: //Ultrasonido 
+                masterImagenología('CONFIRMADO_ULTRASO', datalist)
                 break;
             case 10: //Electrocardiograma
                 $('#btn-inter-areas').fadeIn(0);
@@ -772,83 +758,99 @@ function estadoFormulario(estado) {
 //Nueva version
 async function GeenerarReporteImagenologia(data) {
     return new Promise(resolve => {
-        $('#formulario-estudios').html('')
-        let endDiv = '</div>';
+        const formularioEstudios = $('#formulario-estudios');
 
-        let html = '';
+        let mainContent = data.map(row => {
+            let formSection = generateFormSection(row);
+            let carouselSection = generateCarouselSection(row['CAPTURAS']);
+            return `
+                <div class="row rounded p-3 shadow m-2">
+                    <h4 class="p-3">${row['SERVICIO']}</h4>
+                    ${formSection}
+                    ${carouselSection}
+                </div>`;
+        }).join('');
 
-        for (const k in data) {
-            // console.log(data[k]);
-            let row = data[k];
+        formularioEstudios.html(`
+            <div class="col-12 mt-3">
+                ${mainContent}
+            </div>`);
 
-            html += '<div class="col-12 col-md-6 col-xxl-6"><div class="row rounded p-3 shadow my-2">' +
-                '<h4>' + row['SERVICIO'] + '</h4>';
-            html += textAreaIMG('Técnica', row['ID_SERVICIO'], 'tecnica', row['TECNICA'], 1);
-            html += textAreaIMG('Hallazgos', row['ID_SERVICIO'], 'hallazgo', row['HALLAZGO'], 2);
-            html += textAreaIMG('Diagnóstico', row['ID_SERVICIO'], 'interpretacion', row['INTERPRETACION_DETALLE'], 1);
-            html += textAreaIMG('Comentario', row['ID_SERVICIO'], 'comentario', row['COMENTARIO'], 1);
+        resolve(1);
 
-            html += endDiv + endDiv;
-            console.log(row);
-
-            try {
-                capturas = row['CAPTURAS'][0]['CAPTURAS'][0];
-                capturasID = row['CAPTURAS'][0]['ID_CAPTURA'];
-
-                //Carrusel
-                html += '<div class="col-md-6 col-xxl-6 d-none d-lg-block d-md-block d-xl-block d-xxl-block">' +
-                    '<div id="CapturasImagen' + capturasID + '" class="carousel slide">' +
-                    '<div class="carousel-indicators">';
-
-                let current = '';
-                for (const key in capturas) {
-                    if (Object.hasOwnProperty.call(capturas, key)) {
-                        const element = capturas[key];
-                        if (key == 0) {
-                            current = 'class="active" aria-current="true"';
-                        } else {
-                            current = '';
-                        }
-                        html += `<button type="button" data-bs-target="#CapturasImagen${capturasID}" data-bs-slide-to="${key}" ${current} aria-label="Slide ${(key) + 1}"></button>`;
-                    }
-                }
-                html += '</div>' +
-                    '<div class="carousel-inner">';
-                let active = '';
-
-                for (const key in capturas) {
-                    if (Object.hasOwnProperty.call(capturas, key)) {
-                        const element = capturas[key];
-                        if (key == 0) {
-                            active = 'active';
-                        } else {
-                            active = '';
-                        }
-                        html += `<div class="carousel-item ${active}"><img src="${element['url']}" class="d-block w-100" alt="img" data-enlargable></div>`;
-                    }
-                }
-
-
-                html += '</div>' +
-                    '<button class="carousel-control-prev" type="button" data-bs-target="#CapturasImagen' + capturasID + '" data-bs-slide="prev">' +
-                    '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
-                    '<span class="visually-hidden">Previous</span>' +
-                    '</button>' +
-                    '<button class="carousel-control-next" type="button" data-bs-target="#CapturasImagen' + capturasID + '" data-bs-slide="next">' +
-                    '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
-                    '<span class="visually-hidden">Next</span>' +
-                    '</button>' +
-                    '</div> </div>';
-            } catch (error) {
-                console.log(error);
+        // Crea la galeria
+        const carousels = document.querySelectorAll(".f-carousel");
+        const options = {
+            Thumbs: {
+                type: "classic"
             }
-        }
+        };
 
-        $('#formulario-estudios').html(html)
-        autosize(document.querySelectorAll('textarea'))
-        resolve(1)
+        carousels.forEach((carousel) => {
+            new Carousel(carousel, options, { Thumbs });
+        });
+
+        Fancybox.bind('[data-fancybox]', {
+            Toolbar: {
+                display: {
+                    left: ["infobar"],
+                    middle: ["zoomIn", "zoomOut", "flipX", "flipY"],
+                    right: ["close"]
+                }
+            },
+            Images: {
+                initialSize: "fit"
+            },
+            contentClick: "iterateZoom",
+            Panzoom: {
+                maxScale: 2
+            },
+            Thumbs: {
+                type: "classic",
+            },
+            Hash: false,
+        });
     });
 }
+
+function generateFormSection(row) {
+    return `
+        <div class="col-12 col-lg-6 pt-3">
+            <div class="row">
+                ${textAreaIMG('Técnica', row['ID_SERVICIO'], 'tecnica', row['TECNICA'], 1)}
+                ${textAreaIMG('Hallazgos', row['ID_SERVICIO'], 'hallazgo', row['HALLAZGO'], 2)}
+                ${textAreaIMG('Diagnóstico', row['ID_SERVICIO'], 'interpretacion', row['INTERPRETACION_DETALLE'], 1)}
+                ${textAreaIMG('Comentario', row['ID_SERVICIO'], 'comentario', row['COMENTARIO'], 1)}
+            </div>
+        </div>`;
+}
+
+function generateCarouselSection(capturasData) {
+    if (!capturasData || !capturasData[0] || !capturasData[0]['CAPTURAS'] || !capturasData[0]['CAPTURAS'][0]) return '<p>Guarda y carga previamente las capturas de los estudios faltantes</p>';
+
+    try {
+        const capturas = capturasData[0]['CAPTURAS'][0];
+        const capturasID = capturasData[0]['ID_CAPTURA'];
+
+        let carouselItems = capturas.map((element, index) => `
+            <div data-fancybox="galeria${capturasID}" class="f-carousel__slide" data-src="${element['url']}" data-thumb-src="${element['url']}">
+                <img data-lazy-src="${element['url']}" alt="Imagen ${index + 1}">
+            </div>`).join('');
+
+        return `
+            <div class="col-12 col-lg-6">
+                <div class="f-carousel">
+                    ${carouselItems}
+                </div>
+            </div>`;
+    } catch (error) {
+        console.error('Error generating carousel section:', error);
+        return '';
+    }
+}
+
+
+
 
 function textAreaIMG(campo, id, campoAjax, texto, rows) {
     let htmlinnput = '';
@@ -1202,3 +1204,18 @@ function recuperarDatosEspiro(row) {
 
 
 }
+
+
+async function masterImagenología(confirm, datalist) {
+    $('#btn-inter-areas').fadeIn(0);
+    if (formulario == 1) {
+        await GenerarListaCapturasImagenologia(selectEstudio.array);
+        // console.log("lista");
+    } else {
+        await GeenerarReporteImagenologia(selectEstudio.array);
+        if (datalist[confirm] == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+    }
+}
+
+
+
