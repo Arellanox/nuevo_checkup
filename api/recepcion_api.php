@@ -53,7 +53,7 @@ $parametro = $_POST['parametro'];
 $foto_paciente = $_POST['avatar'];
 $medico_tratante = $_POST['medico_tratante'];
 $medico_correo = $_POST['medico_correo'];
-$vendedor_id = $_POST['vendedor'];
+$vendedor_id = $master->setToNull([$_POST['vendedor']])[0];
 
 
 # reagendar
