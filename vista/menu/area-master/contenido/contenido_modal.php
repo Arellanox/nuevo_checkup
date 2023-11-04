@@ -448,3 +448,31 @@ session_start();
 
     // });
 </script>
+
+
+<style>
+    .f-carousel__slide {
+        height: 100%;
+        /* Puedes ajustar esta altura según tus necesidades */
+        display: flex;
+        align-items: center;
+        /* Centrar verticalmente */
+        justify-content: center;
+        /* Centrar horizontalmente */
+    }
+
+    .f-carousel__slide img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    div.modal-backdrop.fade.show {
+        z-index: 99;
+    }
+
+    #modalSubirInterpretacion {
+        z-index: 100;
+    }
+</style>
