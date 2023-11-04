@@ -585,6 +585,13 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
   let labelArea = $(divPadre).find('label');// <- Si deseas modificar el texto del div añadelo
   let divCarga = $(divPadre).find('div')//<- Opcional se agrego para hacer un Spinners de bootraps
 
+
+  // Personalización 
+  if (ifnull(config, false, ['width'])) {
+    dropArea.css('width', config.width)
+  }
+
+
   // Antes de configurar la funcionalidad para el nuevo paciente, realiza la limpieza
   dropArea.off();
   labelArea.off();
@@ -651,7 +658,6 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
     const files = inputArea[0].files;
     if (config.multiple || files.length <= 1) {
-
       callback(inputArea, salidaInput);
     } else {
 
