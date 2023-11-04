@@ -809,6 +809,10 @@ async function GeenerarReporteImagenologia(data) {
                 type: "classic",
             },
             Hash: false,
+            contentClick: "iterateZoom",
+            Panzoom: {
+                maxScale: 3  // Permite un zoom de hasta 3 veces el tamaño original
+            }
         });
     });
 }
