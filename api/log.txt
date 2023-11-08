@@ -3,14 +3,3 @@
 28/07/23 15:33:56 sp_agenda_horarios_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`agenda_horarios`, CONSTRAINT `fk_agenda_horarios_areas_1` FOREIGN KEY (`AREA_ID`) REFERENCES `areas` (`ID_AREA`) ON DELETE CASCADE ON UPDATE CASCADE)
 28/07/23 16:16:58  Area: 1
 13/10/23 14:18:32  Area: 5
-08/11/23 10:34:21 fn_connect_db Could not connect to the database checkup_copio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
-
-08/11/23 10:34:45 fn_connect_db Could not connect to the database checkup_copio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
-
-08/11/23 10:48:56 fn_connect_db Could not connect to the database checkup_copio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
-
-08/11/23 12:42:18 sp_turnos_historial_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'serv.METODO_ID' in 'on clause'
-08/11/23 12:42:21 sp_turnos_historial_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'serv.METODO_ID' in 'on clause'
-08/11/23 12:42:40 sp_turnos_historial_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'serv.METODO_ID' in 'on clause'
-08/11/23 12:42:42 sp_turnos_historial_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'serv.METODO_ID' in 'on clause'
-08/11/23 12:42:46 sp_turnos_historial_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'serv.METODO_ID' in 'on clause'

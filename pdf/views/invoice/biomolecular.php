@@ -343,9 +343,7 @@ function passdata($indice)
         "FTD Fiebre Tropical Multiplex" => 'FTDMultiplex',
         "PANEL RESPIRATORIO 22" => 'PANEL22',
         "PCR PARA MYCOBACTERIUM TUBERCULOSIS MDR Y XDR" => 'mycobacte_tuberculosis',
-        // "Prueba rT-PCR TICK" => 'rt-PCR_TICK'
-        "Prueba rT-PCR TICK BORNE DISEASES " => ''
-
+        "Prueba rT-PCR TICK" => 'rt-PCR_TICK'
     ];
 
     // echo $indice;
