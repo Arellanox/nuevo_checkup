@@ -24,7 +24,7 @@
     </tr>
     <?php
 
-    $body = array_slice($body, 0, count($body) - 4);
+    # $body = array_slice($body, 0, count($body) - 4);
     foreach ($body as $key => $value) {
         if ($value->resultado != 'LABEL_BIOMOLECULAR') {
     ?>
