@@ -136,6 +136,7 @@ class Master extends Miscelaneus
         } else {
             $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
             $this->mis->setLog($error_msj, $nombreProcedimiento);
+            parent::setLog("Esto recibió","call $nombreProcedimiento(".implode(",",$parametros).")");
             # return "ERROR. No se pudieron recuperar los datos.";
             $retorno = "Alerta: la consulta al servidor no se realizó correctamente";
         }
