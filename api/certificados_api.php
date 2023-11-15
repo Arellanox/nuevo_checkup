@@ -16,6 +16,9 @@ $api = $_POST['api'];
 # variables para lista de trabajo.
 $fecha = $_POST['fecha_busqueda'];
 
+# variables para certificado slb
+$turno_id = $_POST['turno_id'];
+
 
 switch($api){
     case 1:
