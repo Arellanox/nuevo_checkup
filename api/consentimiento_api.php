@@ -144,6 +144,11 @@ switch ($api) {
         $response = ["qr" => $master->generarQRURL($tipo, $codeContents, $nombre), "url" => $codeContents, "fileName" => $nombre];
 
         break;
+    case 6:
+        #RECUPERAR LOS CONSENTIMIENTOS DEL PACIENTE, PARA SU HISTORIAL
+        $response = $master->getByProcedure('sp_consentimiento_b', [$turno_id]);
+
+        break;
     default:
         $response = "api no reconocida";
 }
