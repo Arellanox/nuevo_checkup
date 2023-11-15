@@ -120,8 +120,35 @@ switch ($api) {
 
         break;
     case 3:
-        #POR EL MOMENTO NO FUNCIONA
-        $response = $master->decodeJsonRecursively($master->getByProcedure("si", [$turno_id]));
+        #RECUPERAR LAS FIRMAS JUNTO CON LAS CONFIGURACIONES DE ESTA
+        $response = $master->decodeJsonRecursively($master->getByProcedure("sp_consentimiento_firma_configuracion", [$turno_id]));
+
+        // Nuevo array con la estructura deseada
+        $nuevoArray = [
+            "response" => [
+                "code" => 1,
+                "data" => [
+                   
+                    "JSON_UNIDO" => []
+                    
+
+                ]
+            ]
+        ];
+
+        
+        foreach ($response as $index => $jsonOriginal) {
+            
+            $nuevoArray["response"]["data"]["JSON_UNIDO"][] = $jsonOriginal["JSON_FIRMAS"];
+        }
+
+        // Convertir el nuevo array a formato JSON
+        $jsonFinal = json_encode($nuevoArray, JSON_PRETTY_PRINT);
+
+        // Imprimir el resultado
+        echo $jsonFinal;
+        exit;
+
         break;
     case 4:
         #ELIMINA LOS SERVICIOS DE UIN CONSENTIMIENTO
