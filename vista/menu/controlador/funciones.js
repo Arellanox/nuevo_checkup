@@ -2746,6 +2746,7 @@ function select2(select, modal = null, placeholder = 'Selecciona una opción', w
 
 
 //Creador vistas
+let turno_prueba;
 pacienteTurnoActivo = new GuardarArreglo();
 function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel = '#panel-informacion', nivel = null, area = null) {
   return new Promise(resolve => {
@@ -3596,6 +3597,57 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                 break;
 
+              /* case para consentimientos */
+              case 'consentimiento':
+                ajaxAwait({ api: 6, turno_id: id }, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
+                  data = data.response.data
+                  turno_prueba = data;
+
+                  var html = "" // <-- cuerpo de toda la lista de los consentimientos
+                  $("#consentimiento_historial").html(""); // <-- se limpia el contenedor en caso de que tenga algo no deseado
+
+                  // se abre el elemento ul para organizar la lista
+                  html += `<div class="list-group">`;
+
+                  // Se recorre el array para poder acceder a los datos de cada consentimiento
+                  for (const key in data) {
+                    if (Object.hasOwnProperty.call(data, key)) {
+                      const element = data[key];
+
+                      // sacamos las variables para utilizar
+                      const id = element.SERVICIO_ID // <-- id del servicio
+                      const nombre = element.NOMBRE_CONSENTIMIENTO // <-- nombre del consentimiento
+                      const ruta = element.URL // <-- ruta del pdf donde firmo el consentimiento
+
+                      html += createLI(id, nombre, ruta); // <-- se llama a la función para crear los li que iran dentro de la lista
+                    }
+                  }
+
+                  // se cierra el elemento ul
+                  html += `</div>`;
+
+                  // se inserta en el div contenedor la lista de los consentimientos
+                  $("#consentimiento_historial").html(html);
+
+
+                  // Function para crear la lista de los consentimientos
+                  function createLI(key, nombre, url) {
+                    return `<a href="${url}" target="_blank" class="list-group-item list-group-item-action rounded-0" id="${key}">${nombre}</a>`
+                  }
+
+
+
+                  setTimeout(() => {
+                    $(panel).fadeIn(100);
+                  }, 100)
+                  resolve(1);
+
+                })
+
+
+
+
+                break;
 
               default:
                 console.log('Sin opción panel')

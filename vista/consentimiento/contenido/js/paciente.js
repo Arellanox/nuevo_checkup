@@ -438,15 +438,22 @@ function posicionarFirmas(
     switch ($ID_SERVICIO) {
         case 1:
             // Consentimiento Informado para Toma de Muestra Sanguínea
+
+            // Si acepto
             embedSignature($PDF, $FIRMA, {
                 x: 456,
                 y: 550,
                 width: 100,
                 height: 70,
             })
+
+
+            // No acepto
             break;
         case 2:
             // Consentimiento Informado Ultrasonido Transrectal Prostática
+
+            // Si acepto
             embedSignature($PDF, $FIRMA, {
                 x: 456,
                 y: 608,
@@ -456,9 +463,25 @@ function posicionarFirmas(
             break;
         case 3:
             // Consentimiento Informado para la toma de citologia anal y virus del papiloma humano
+
+            // Si acepto
+            embedSignature($PDF, $FIRMA, {
+                x: 456,
+                y: 600,
+                width: 100,
+                height: 70,
+            })
             break;
         case 4:
             // Consentimiento Informado para la toma de citologia uretal y virus del papiloma humano
+
+            // Si acepto
+            embedSignature($PDF, $FIRMA, {
+                x: 456,
+                y: 608,
+                width: 100,
+                height: 70,
+            })
             break;
         default:
             break;
@@ -579,17 +602,46 @@ function validarFormulario() {
 /* ==================== Funciones para poner la firma en el PDF =========================================== */
 
 // Modificacion al pdf
-async function embedSignature(url_pdf, firmaDataURL, config = {
-    x: 400,
-    y: 580,
-    width: 100,
-    height: 70,
-}) {
-    // 1. Carga el PDF original
-    const pdfBytes = await fetch(url_pdf).then(res => res.arrayBuffer());
-    // const firmaDataURL = document.getElementById('firmaCanvas').toDataURL();
+async function embedSignature(url_pdf = [
+    "asdasd",
+    "asdasdsa",
+    "sadsadsa"
+], firmaDataURL, CONFIG) {
 
-    const pdfFirmadoBytes = await agregarFirmaAlPDF(pdfBytes, firmaDataURL, config);
+    let arreglo_pdf = []; // <-- arreglo donde se guardaran todos los PDF ya modificados con sus firmas
+
+    // Se tiene recorre el arreglo para acceder a los PDF
+    for (const key in url_pdf) {
+        if (Object.hasOwnProperty.call(url_pdf, key)) {
+            const element = url_pdf[key];
+            const ruta_original = element.pdf; // <-- Ruta original del PDF sin modificar la firma
+            const FIRMAS = element.firmas // <-- Arreglo donde estan todas las firmas necesarias para el PDF
+
+
+            // 1. Carga el PDF original
+            const pdfBytes = await fetch(ruta_original).then(res => res.arrayBuffer());
+
+            // Se manda a llamar al metodo para agregar las firmas al PDF
+            const pdfFirmadoBytes = await agregarFirmaAlPDF(
+                pdfBytes, // <-- PDF original
+                FIRMAS // <-- Arreglo de todas las firmas del PDF
+            );
+
+
+            const blob = new Blob([pdfFirmadoBytes], { type: 'application/pdf' });
+
+
+            // for (const key in FIRMAS) {
+            //     if (Object.hasOwnProperty.call(FIRMAS, key)) {
+            //         const element = FIRMAS[key];
+            //         console.log(element)
+            //     }
+            // }
+        }
+    }
+
+
+
 
     // return pdfFirmadoBytes
     // Convierte los bytes del PDF firmado a un Blob y descárgalo
@@ -603,7 +655,26 @@ async function embedSignature(url_pdf, firmaDataURL, config = {
 
 }
 
-async function agregarFirmaAlPDF(pdfBytes, firmaDataURL, CONFIG) {
+async function agregarFirmaAlPDF(pdfBytes, FIRMAS = [
+    {
+        hoja: 1,
+        config: {
+            x: 12,
+            y: 12
+        },
+        firma: "añsldjklasjdolasjdlsqjadlisa",
+        tipo: 1
+
+    }
+]) {
+
+    for (const key in FIRMAS) {
+        if (Object.hasOwnProperty.call(FIRMAS, key)) {
+            const element = FIRMAS[key];
+
+        }
+    }
+
     // Carga el PDF existente
     const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
 
@@ -622,6 +693,7 @@ async function agregarFirmaAlPDF(pdfBytes, firmaDataURL, CONFIG) {
     console.log(pagina.getWidth() / 2 - width / 2);
     pagina.drawImage(firmaImage, CONFIG);
 
+
     // Serializa el PDF a bytes
     const pdfBytesActualizado = await pdfDoc.save();
 
@@ -637,4 +709,109 @@ async function agregarFirmaAlPDF(pdfBytes, firmaDataURL, CONFIG) {
 /* ==================== Fin =========================================== */
 
 
-/* -------------------------- funciones para el modal -------------------------------- */
+/* -------------------------- funciones para el modal ---   ----------------------------- */
+
+
+let array_prueba;
+function prueba_firma() {
+    ajaxAwait({
+        api: 3,
+        turno_id: 621
+    }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
+        let row = data.response.data;
+        // Se recorre el array para acceder a los datos
+        array_prueba = row[0][0];
+    })
+}
+
+prueba_firma();
+
+
+
+
+// row = array_prueba;
+// arreglo_pdf = [];
+
+// // Se recorre todo el arreglo para acceder a su data
+// for (const key in row) {
+//     if (Object.hasOwnProperty.call(row, key)) {
+//         const element = row[key];
+//         // variables por cada PDF que nos serviran mas tarde
+//         const $URL_PDF = element.URL_PDF // Ruta del PDF original sin las firmas
+//         const $ID = element.SERVICIO_ID // ID del consentimiento
+//         const $FIRMAS = element.FIRMAS // Array que contiene todas las firmas que se pondran en el PDF
+
+//         // Se debe de obtener el PDF ya que solo me llega la ruta, entonces tengo que sacar el archivo como tal
+//         const pdfBytes = await fetch($URL_PDF).then(res => res.arrayBuffer());
+
+
+//         // Despues tengo que ejecutar la función para poner las N firmas en el PDF
+//         let $pdf_firmado = agregarFirmas(pdfBytes, $FIRMAS, $ID);
+
+//         // Se convierte el PDF a tipo Blob para que pueda ser guardado
+//         const blob = new Blob([$pdf_firmado], {
+//             type: 'application/pdf'
+//         });
+
+
+//         // La funcion me retorna el PDF ya con las firmas hechas entonces ya se mete en el arreglo para enviarlo a back
+//         arreglo_pdf[key] = {
+//             pdf: blob
+//         }
+
+//     }
+// }
+
+
+
+// // Funcion para agregar N cantidad de firmas al PDF que se recibe
+// async function agregarFirmas(
+//     $pdf, // <-- PDF del consentimiento
+//     $firmas, // <-- Array que contiene todas las firmas que se pondran en el PDF
+//     $id, // <-- ID del consentimiento
+// ) {
+//     // Se carga el PDF existente para poder editarlo, y se por cada PDF que se le mande, es decir las veces que se ejecute la 	  función
+//     const pdfDoc = await PDFLib.PDFDocument.load($pdf);
+
+//     // Se recorre el arreglo de firmas para poder acceder a todas las firmas que se pondran en el PDF
+//     for (const key in $firmas) {
+//         if (Object.hasOwnProperty.call($firmas, key)) {
+//             const element = $firmas[key];
+//             const $acepto = element.CONSENTIMIENTO; // <-- BIT para saber si acepto el consentimiento o no
+//             const $firma = element.FIRMA; // <-- Firmas en base64
+//             const $tipo = element.TIPO; // <-- Tipo de usuario que es la firma es decir paciente o medico
+
+//             // Variables para la configuracion de la firma
+//             const $config = element.CONFIG; // <-- Configuración de las firmas como la posicion en la que debe estar
+//             const $pagina = $config.hoja; // <-- Numero de hoja en la cual se va a poner la firma
+
+
+//             // Decodifica la imagen de la firma desde el DataURL
+//             const firmaBytes = Uint8Array.from(atob($firma.split(',')[1]), c => c.charCodeAt(0));
+
+//             // Agrega la imagen de la firma al PDF
+//             const firmaImage = await pdfDoc.embedPng(firmaBytes);
+
+//             // Obtiene la primera página del PDF
+//             const pagina = pdfDoc.getPages()[$pagina];
+
+//             // Define las dimensiones y posición de la firma en la página
+//             const {
+//                 width,
+//                 height
+//             } = firmaImage.scale(0.5);
+
+//             // Se pone la firma en el PDF con las configuraciones establecidas
+//             pagina.drawImage(firmaImage, $config);
+
+//         }
+//     }
+
+//     // Serializa el PDF a bytes
+//     const pdfBytesActualizado = await pdfDoc.save();
+
+//     // Se regresa el PDF serealizado ya editado con todas las firmas
+//     return pdfBytesActualizado;
+
+
+// }

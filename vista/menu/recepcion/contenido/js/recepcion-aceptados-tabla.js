@@ -403,6 +403,9 @@ async function dobleClickSelectTableRecepcion(data) {
   await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'lista-documentos-paciente', '#panel-documentos-paciente')
   await obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
 
+  // Mostrar el panel de los consentimientos
+  await obtenerPanelInformacion(data['ID_TURNO'], 'consentimiento_api', 'consentimiento', '#panel-consentimientos-paciente')
+
   var myOffcanvas = document.getElementById('offcanvasInfoPaciente')
   var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
   bsOffcanvas.show()
