@@ -1,14 +1,13 @@
-<div class="row" style="height: 100%;">
-    <div class="col-5" style="padding: 0px !important; max-height: 100%;">
+<div class="row">
+    <div class="col-12" style="padding: 0px !important;">
         <table class="table table-striped display responsive" id="TablaControlTurnos"
             style="width: 100%; border-radius: 0px;">
-            <thead class="d-none">
+            <thead>
                 <tr>
                     <th scope="col d-flex justify-content-center" class="all">COUNT</th>
-                    <th scope="col d-flex justify-content-center" class="all"></th>
-                    <!-- <th scope="col d-flex justify-content-center" class="all">PACIENTE</th>
+                    <th scope="col d-flex justify-content-center" class="all">PACIENTE</th>
                     <th scope="col d-flex justify-content-center" class="all">TURNO</th>
-                    <th scope="col d-flex justify-content-center" class="all">AREA</th> -->
+                    <th scope="col d-flex justify-content-center" class="all">AREA</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -47,93 +46,14 @@
             </tbody>
         </table>
     </div>
-    <div class="col-7" style="padding: 0px !important;">
-        <div class="d-flex justify-content-center align-content-center" style="height: 100%;">
-            <div class="px-2 mb-2" style="width: 100%;">
-                <div class="video-container">
-                    <video id="videoPlayer" autoplay
-                        src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_1.mp4"></video>
-                </div>
+    <!-- <div class="col-8" style="padding: 0px !important;">
+        <div class="">
+            <div class="turnoActivo alert-success" role="alert">
+                Turno: bimo1 - Area: Consultorio 1
             </div>
         </div>
-
-        <!-- Autoplay videos -->
-        <style>
-            .video-container {
-                width: 100%;
-                /* Cambia según tu necesidad */
-                height: 100%;
-                /* Cambia según tu necesidad */
-                overflow: hidden;
-                /* Oculta cualquier contenido que se desborde del contenedor */
-                position: relative;
-                /* background-color: #000; */
-                /* Fondo negro para áreas no cubiertas por el video */
-            }
-
-            #videoPlayer {
-                max-width: 100%;
-                /* Asegura que el video no exceda el ancho del contenedor */
-                max-height: 100%;
-                /* Asegura que el video no exceda la altura del contenedor */
-                object-fit: contain;
-                /* Mantiene la relación de aspecto del video y lo ajusta dentro del contenedor */
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                border-radius: 12px;
-                /* width: 100%; */
-            }
-        </style>
-    </div>
+    </div> -->
 </div>
-
-<footer>
-    <div class="footer-content">
-        <p class="none-p">Avenida José Pagés Llergo, Núm. 150, Colonia Arboledas, C.P. 86079, Villahermosa, Centro,
-            Tabasco</p>
-    </div>
-</footer>
-
-<script>
-    $('#body-js').css('height', '100%')
-</script>
-
-<!-- Footer -->
-<style>
-    body,
-    html {
-        height: 100%;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        padding-bottom: 50px;
-        /* Esto es para asegurar que el contenido de la página no quede oculto detrás del footer */
-    }
-
-    footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: rgb(0, 175, 170);
-        color: #fff;
-        padding: 10px 0;
-        text-align: left;
-        border-top: 5px solid rgb(82 217 213);
-        /* Línea superior en blanco para diferenciar el footer */
-        /* box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); */
-        margin-left: -12px;
-        /* Una sombra ligera para darle profundidad al footer */
-    }
-
-    .footer-content p {
-        /* margin: 0;
-        padding: 0; */
-        font-size: 15px;
-        padding-left: 21px;
-        color: rgb(000, 078, 89) !important
-    }
-</style>
 
 <audio src="https://bimo-lab.com/nuevo_checkup/archivos/sistema/audios/pantalla/ringtone-1-46486.mp3"
     id="alert-paciente" preload="auto" autoplay>
@@ -152,11 +72,11 @@
         /* Estilos para pantallas 1080p y superiores */
         /* Por ejemplo: */
         tbody {
-            font-size: 32px;
+            font-size: 45px;
         }
 
-        .firstSelect td span {
-            font-size: 40px !important;
+        .firstSelect td {
+            font-size: 55px !important;
         }
 
     }
@@ -171,24 +91,15 @@
         text-align: center !important;
     }
 
-    .firstSelect td span {
-        font-size: 30px;
+    .firstSelect td {
+        font-size: 35px;
         text-align: center;
         padding-top: 35px;
         padding-bottom: 35px;
         font-weight: bolder;
     }
 
-    .firstSelect td .etiqueta_h2 {
-        font-size: 40px;
-        color: white !important;
-    }
-
-    .etiqueta_h2 {
-        font-size: 30px;
-    }
-
-    .firstSelect td span {
+    .firstSelect td {
         color: white !important;
         /* background-color: #1ABC9C; */
         /* border-color: green; */

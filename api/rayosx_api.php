@@ -34,7 +34,7 @@ $formulario = $_POST['servicios'];
 $hallazgo = $_POST['hallazgo'];
 $inter_texto = $_POST['inter_texto'];
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/practicantes/" : "https://bimo-lab.com/nuevo_checkup/";
-$host = $master->selectHost($_SERVER['SERVER_NAME']);
+$host = $master->selectHost("localhost");
 $date = date("dmY_His");
 $confirmado = $_POST['confirmado'];
 

@@ -93,77 +93,20 @@ switch ($api) {
         //No usable
     case 0:
 
-        // // echo var_dump($_POST['quest-riesgo']);
+        // echo var_dump($_POST['quest-riesgo']);
 
-        // foreach ($_POST['quest-riesgo'] as $key => $value) {
-        //     # code...
-        //     $id = $key;
-        //     $respuesta = $value['valor'];
-        //     $ponderacion_respuesta = $value['ponderacion'];
+        foreach ($_POST['quest-riesgo'] as $key => $value) {
+            # code...
+            $id = $key;
+            $respuesta = $value['valor'];
+            $ponderacion_respuesta = $value['ponderacion'];
 
-        //     if (!empty($respuesta)) {
-        //         echo "Pregunta $key: $id, $respuesta, $ponderacion_respuesta </br>";
-        //     }
-        // }
-
-        // exit;
-
-        $miArreglo = array(
-            2208,
-            2209,
-            2210,
-            2211,
-            2212,
-            2213,
-            2215,
-            2216,
-            2217,
-            2218,
-            2219,
-            2220,
-            2221,
-            2222,
-            2223,
-            2224,
-            2225,
-            2226,
-            2227,
-            2228,
-            2229,
-            2230,
-            2231,
-            2234,
-            2236,
-            2237,
-            2238,
-            2239,
-            2240,
-            2241,
-            2242,
-            2243,
-            2244,
-            2245,
-            2246
-        );
-        
-        foreach($miArreglo as $turno_id){
-
-            $nombre_paciente = $master->getByPatientNameByTurno($master,$turno_id);
-            #enviamos todos sus reportes por correo (laboratorio, signos vitales, fast checkup).
-            $attachment = $master->cleanAttachFilesImage($master, $turno_id,null,19);
-
-            
-            if (!empty($attachment[0])) {
-                $mail = new Correo();
-                if ($mail->sendEmail('fastck', '[bimo] Fast Checkup', [$attachment[1]], null, $attachment[0], 1, $nombre_paciente)) {
-                    $master->setLog("Correo enviado. $turno_id", "fast - checkup");
-                }
+            if (!empty($respuesta)) {
+                echo "Pregunta $key: $id, $respuesta, $ponderacion_respuesta </br>";
             }
-  
         }
-     
-        
-    
+
+        exit;
         break;
 }
 

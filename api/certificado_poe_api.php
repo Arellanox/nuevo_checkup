@@ -34,7 +34,6 @@ switch ($api) {
         break;
 
     case 2:
-        //Buscar el certificado poe en la base de datos
         $response = $master->getByProcedure("sp_certificados_poe_b", [$turno_id]);
         break;
 }

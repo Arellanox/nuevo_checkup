@@ -379,7 +379,7 @@ if ($tipoAdvertencia === "LEVE") {
                         No. Identificación: <strong style="font-size: 12px;"> <?php echo $resultados->FOLIO ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?></strong>
+                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         Sexo: <strong style="font-size: 12px;"><?php echo $resultados->SEXO; ?> </strong>

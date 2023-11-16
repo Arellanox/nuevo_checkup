@@ -7,7 +7,6 @@ require_once "../clases/token_auth.php";
 include_once "../clases/Pdf.php";
 include_once "../clases/turnero_class.php";
 
-
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
@@ -16,15 +15,13 @@ if (!$tokenValido) {
 }
 
 #api
-$api = isset($_POST['api']) ? $_POST['api'] : $_GET['api'];
+$api = $_POST['api'];
 
 $turno_id = $_POST['turno_id'];
 $area_fisica_id = $_POST['area_fisica_id'];
 
 $master = new Master();
 $jsonData = new JsonData();
-
-$clave_secreta = isset($_POST['clave_secreta']) ? $_POST['clave_secreta'] : $_GET['clave_secreta'];
 
 $listaGlobal;
 
@@ -162,13 +159,13 @@ switch ($api) {
         # En sala de espera, o el nombre del area.
 
         $res = $master->getByProcedure("sp_turnero_paciente_area_actual", [$turno_id]);
-
+    
         $response = [];
-        foreach ($res as $current) {
+        foreach($res as $current){
             $current['AREAS_PENDIENTES'] = $master->decodeJson([$current['AREAS_PENDIENTES']])[0];
             $response[] = $current;
         }
-
+        
         break;
     case 6:
         # paciente actual en el area.
@@ -191,31 +188,6 @@ switch ($api) {
             changeStatusOptimizador(true, $response[0][0]['AREA_FISICA_ID']);
         }
 
-        break;
-
-    case 8:
-        //Inicio de sesion para el turnero pero con codigo
-        $clave_turnero = $master->database->clave_turnero();
-
-        if ($clave_turnero === $clave_secreta) {
-            $llamar_api = $master->llamar_api();
-            if ($llamar_api['response']['code'] === 1) {
-
-                echo json_encode(
-                    ['status' => 1]
-                );
-
-                exit;
-            } else {
-                $response = 'Error de sesión';
-                echo $master->returnApi($response);
-            }
-        } else {
-            $response = 'Clave incorrecta';
-            echo $master->returnApi($response);
-        }
-
-        exit;
         break;
     default:
         $response = "api no reconocida";

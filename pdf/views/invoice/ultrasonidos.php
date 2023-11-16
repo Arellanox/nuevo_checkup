@@ -138,10 +138,6 @@
             margin-left: 2px;
         }
 
-        .border-1 {
-            border: 1px solid black;
-        }
-
         .col-right {
             width: 17%;
             max-width: 17%;
@@ -281,7 +277,7 @@ $encode_firma = base64_encode($ruta_firma);
                     </td>
                     <td class="col-center" style="border-bottom: none">
                         Edad: <strong style="font-size: 12px;">
-                            <?php echo $encabezado->EDAD; ?></strong>
+                            <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
@@ -321,20 +317,6 @@ $encode_firma = base64_encode($ruta_firma);
         </table>
         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
             <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
-
-            <?php if ($encabezado->PAQUETE_CARGADO) { ?>
-                <span style="margin-left: 20px;">
-                    <!-- Tipo de muestra  -->
-                    <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
-                </span>
-            <?php } ?>
-
-            <?php if ($encabezado->CATEGORIA) { ?>
-                <span style="margin-left: 20px;">
-                    <!-- Tipo de muestra  -->
-                    <?php echo "Categoría: <strong style='font-size: 12px;'> $encabezado->CATEGORIA"; ?> </strong>
-                </span>
-            <?php } ?>
         </p>
         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
             <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'> " . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?>
@@ -421,7 +403,6 @@ $encode_firma = base64_encode($ruta_firma);
 
     <!-- body -->
     <!-- <?php ?> -->
-    <?php $numCaracteres = 800 ?>
     <div class="invoice-content">
         <?php
         $count = 0;
@@ -439,155 +420,110 @@ $encode_firma = base64_encode($ruta_firma);
             if ($resultado->COMENTARIO != "" || $resultado->COMENTARIO != null) {
                 echo "<strong>Comentario: </strong>" . $resultado->COMENTARIO . "</p><br>";
             }
-
-            if (next($resultados->ESTUDIOS)) {
-                echo "<div class='break'></div>";
-            }
-            // echo "<div class='break'></div>";
             $count++;
+            if ($count % 2 == 0 && $count < $conteo) {
+        ?>
+                <div class="break"></div>
+        <?php
+            }
         }
         ?>
-
-        <div class="break"></div>
-        <?php
-
+        <!--
+    <div class="break"></div>
+        <?php /*
+        // print_r($resultados->ESTUDIOS[0]);
         $jsonData = $resultados->IMAGENES;
         $j = 0;
         $d = 0;
         $countArray = count($resultados->ESTUDIOS);
         $cierre = 1;
         $img_pasadas = 1;
-        // print_r($jsonData);
-        // exit;
-        // print_r($resultados);
+        // print_r($area);
 
         foreach ($resultados->ESTUDIOS as $key => $value) {
-
-
-
+            // code...
+            // echo "</tr>";
+            // echo "</table>";
+            // echo "<div class='break'></div>";c
             echo "<h2 style='padding-bottom: 8px; padding-top:8px'>$value->ESTUDIO</h2>";
 
-            foreach ($jsonData[$key] as $key1 => $e) {
+            foreach ($jsonData[$key][0] as $key2 => $captura) {
+
 
                 if ($area == 8) {
 
-                    $ruta_img = file_get_contents($e->url);
+                    $ruta_img = file_get_contents($captura->url);
 
                     $img_code = base64_encode($ruta_img);
 
-                    echo "<div class='img--container'><a href='$e->url' target='_blank'><img style='max-width: 50%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
-                } else {
-                    # code...
-
+                    echo "<div class='img--container'><a href='$captura->url' target='_blank'><img style='max-width: 45%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></div>";
+                } else if ($area == 11) {
                     if ($img_pasadas == 1) {
-                        echo "<table>";
-                        // echo "&lt;table&gt;";
+                        echo "<table style='padding: 20px;width: 100%; border-collapse: collapse;'>";
                     }
 
                     if ($cierre == 1) {
                         echo "<tr>";
-                        // echo '&lt;tr&gt;';
                     }
-
-                    $ruta_img = file_get_contents($e->url);
+                    $ruta_img = file_get_contents($captura->url);
 
                     $img_code = base64_encode($ruta_img);
 
-                    echo "<td class=''><a href='$e->url' target='_blank'><img style='max-width: 90%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></td>";
-                    // echo "&lt;td&gt;&lt;/td&gt;";
-
+                    echo "<td><a href='$captura->url' target='_blank'><img style='max-width: 100%;' class='img' src='data:image/png;base64,$img_code' alt='Imagen'></a></td>";
+                    // echo "<div class='break'></div>";
                     $cierre++;
-                    $img_pasadas = $img_pasadas + 1;
-
-
-                    if ($cierre === 3) {
+                    if ($cierre == 3) {
                         echo "</tr>";
-
-                        // echo '&lt;/tr&gt;';
                         $cierre = 1;
                     }
 
-                    if ($img_pasadas === 5) {
+                    $img_pasadas++;
+                    if ($img_pasadas == 5) {
                         echo "</table>";
-
-                        // echo '&lt;/table&gt;';
-                        if ($d % 3 === 0) {
-                            echo "<div class='break'></div>";
-                        }
-
+                        echo "<div class='break'></div>";
                         $img_pasadas = 1;
                     }
                     $d++;
                 }
             }
-
-            // Si es menos de 4 imagenes hay que hacer un calculo para rellenar las imagenes y sea 2 por 2 para hacer la tabla completa
-            // echo $cierre;
-            // echo $img_pasadas;
-
             if ($area == 11) {
 
-                if ($d % 4 !== 0 && $img_pasadas != 1) {
+                // echo "</table>";
+
+                if ($img_pasadas < 5) {
                     for ($i = 0; $i <= 5 - $img_pasadas; $i++) {
-
-
-
+                        # code...
+                        echo "<td></td>";
+                        $cierre++;
                         if ($cierre == 3) {
                             echo "</tr>";
-                            // echo '&lt;/tr&gt;';
                             $cierre = 1;
                         }
 
-                        if ($cierre == 1) {
-                            echo "<tr>";
-                            // echo '&lt;tr&gt;';
-                        }
-
-                        // echo "&lt;td&gt;&lt;/td&gt;";
-                        echo "<td></td>";
-                        // echo $cierre;
-
-
-
-                        if ($img_pasadas === 5) {
-                            // echo '</tr>';
-                            $img_pasadas = 1;
-                        }
-
-                        // echo "<td class='border-1'></td>";
-
-                        $cierre++;
-                        $img_pasadas = $img_pasadas + 1;
+                        $img_pasadas++;
                     }
 
-
-
-                    echo "</tr>";
-                    echo "</table>";
+                    if ($img_pasadas == 5) {
+                        echo "</tr>";
+                        echo "</table>";
+                        // echo "<div class='break'></div>";
+                        $img_pasadas = 1;
+                    }
+                    // echo "</table>";
+                    // echo "<div class='break'></div>";   
                 }
-
-
-                // echo '&lt;/tr&gt;';
-                // echo '&lt;/table&gt;';
-
-
             }
-
-            $cierre = 1;
-            $img_pasadas = 1;
-
-            if (next($resultados->ESTUDIOS)) {
-                echo "<div class='break'></div>";
+            $j++;
+            if ($j == $countArray - 1) {
+        ?>
+                <div class="break"></div>
+        <?php
             }
         }
-
-
+        */
         ?>
-
+    -->
     </div>
-
-
-
 </body>
 <?php
 $altura = 220;

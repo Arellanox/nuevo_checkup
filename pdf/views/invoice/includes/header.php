@@ -42,7 +42,7 @@
                                         No. Identificación: <strong style="font-size: 12px;"> <?php echo $pie['folio']; ?> </strong>
                                     </td>
                                     <td class="col-center" style="border-bottom: none">
-                                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?></strong>
+                                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
                                     </td>
                                     <td class="col-right" style="border-bottom: none">
                                         Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
@@ -84,20 +84,10 @@
                         </table>
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
                             <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
-
-                            <?php if ($encabezado->PAQUETE_CARGADO) { ?>
-                                <span style="margin-left: 20px;">
-                                    <!-- Tipo de muestra  -->
-                                    <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
-                                </span>
-                            <?php } ?>
-
-                            <?php if ($encabezado->CATEGORIA) { ?>
-                                <span style="margin-left: 20px;">
-                                    <!-- Tipo de muestra  -->
-                                    <?php echo "Categoría: <strong style='font-size: 12px;'> $encabezado->CATEGORIA"; ?> </strong>
-                                </span>
-                            <?php } ?>
+                            <span style="margin-left: 20px;">
+                                <!-- Tipo de muestra  -->
+                                <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
+                            </span>
                         </p>
 
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">

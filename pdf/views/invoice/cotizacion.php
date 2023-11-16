@@ -270,7 +270,7 @@ $encode_firma = base64_encode($ruta_firma);
                         No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_ELECTRO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?></strong>
+                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?> años</strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>

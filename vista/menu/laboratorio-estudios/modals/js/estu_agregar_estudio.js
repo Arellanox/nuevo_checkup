@@ -280,7 +280,7 @@ async function getDataFirst(edit = false, id = false) {
     rellenoMetodoSelect = o
   })
 
-  await rellenarSelect('.select-contenedor-Grupo', 'servicios_api', 7, 0, 'DESCRIPCION', { id_area: '6,12' }, function (data, o) {
+  await rellenarSelect('.select-contenedor-Grupo', 'servicios_api', 7, 0, 'DESCRIPCION', { id_area: 6 }, function (data, o) {
     rellenoGrupoSelect = o
   })
 

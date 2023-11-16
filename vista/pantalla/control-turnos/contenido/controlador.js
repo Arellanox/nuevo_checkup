@@ -16,29 +16,12 @@ function obtenerVistaTurnero() {
     });
 }
 
-// alertMensajeConfirm({
-//     title: '¿Activar vista del turnero?',
-//     text: false,
-//     confirmButtonText: 'Aceptar',
-//     showCancelButton: false,
-//     allowOutsideClick: true,
-// }, function () {
-//     obtenerVistaTurnero();
-// }, 1)
-
-
-
-
-confirmarCodigo();
-
-function confirmarCodigo() {
-    alertPassConfirm({
-        title: "Introduce el código de acceso", icon: "info",
-        placeholder: 'XXXXX',
-        fetch: "turnero"
-    }, () => {
-        obtenerVistaTurnero();
-    })
-}
-
-
+alertMensajeConfirm({
+    title: '¿Activar vista del turnero?',
+    text: false,
+    confirmButtonText: 'Aceptar',
+    showCancelButton: false,
+    allowOutsideClick: true,
+}, function () {
+    obtenerVistaTurnero();
+}, 1)

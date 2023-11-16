@@ -58,8 +58,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
                 return formatoFecha2(data, [0, 1, 5, 2, 1, 1, 1]);
             }
         },
-        // { data: 'PROCEDENCIA' },
-        { data: 'VENDEDOR' },
+        { data: 'PROCEDENCIA' },
         { data: 'TRABAJADOR' },
         { data: 'VERIFICACION' },
         { data: 'CATEGORIA' },
@@ -82,13 +81,12 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         { target: 12, className: 'all', title: 'IVA', width: '7%' },
         { target: 13, className: 'all', title: 'Total', width: '7%' },
         { target: 14, className: 'all', title: 'Fecha Recepción', width: '12%' },
-        // { target: 15, className: 'all', title: 'Procedencia' },
-        { target: 16, className: 'all', title: 'Vendedor' },
-        { target: 17, className: 'none beneficiario', title: 'Trabajador', visible: false },
-        { target: 18, className: 'none beneficiario', title: 'Verificacion (url)', visible: false },
-        { target: 19, className: 'none beneficiario', title: 'Categoria', visible: false },
-        { target: 20, className: 'none beneficiario', title: 'Ures', visible: false },
-        { target: 21, className: 'all', title: 'Diagnostico' },
+        { target: 15, className: 'all', title: 'Procedencia' },
+        { target: 16, className: 'none beneficiario', title: 'Trabajador', visible: false },
+        { target: 17, className: 'none beneficiario', title: 'Verificacion (url)', visible: false },
+        { target: 18, className: 'none beneficiario', title: 'Categoria', visible: false },
+        { target: 19, className: 'none beneficiario', title: 'Ures', visible: false },
+        { target: 20, className: 'all', title: 'Diagnostico' },
     ],
 
 

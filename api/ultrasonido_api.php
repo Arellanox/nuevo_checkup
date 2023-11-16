@@ -140,7 +140,6 @@ switch ($api) {
     case 3:
         # recuperar las capturas
         $response = array();
-        $turno_id = $_POST['turno_id'];
         #recupera la interpretacion.
         $area_id = 11; # 11 es el id para ultrasonido.
 

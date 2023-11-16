@@ -31,20 +31,20 @@ switch ($menu) {
   </nav>
 <?php break;
   case 'TURNERO': ?>
-  <nav class="navbar border-dark row">
-
-    <div class="col-5 text-center">
-      <span style="font-size: 26px; color: rgb(000, 078, 89); font-weight: 900;">Pacientes</span>
-    </div>
-    <div class="col-7 text-end px-5">
-      <a href="#" class="navbar-brand" id=""> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" style="height: 40px;border-radius: 6px;" /> </a>
-
+  <nav class="navbar border-dark bg-navbar">
+    <div class="container-fluid d-flex justify-content-center divTurnoNav">
+      <!-- Turnos- Areas -->
+      <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
     </div>
   </nav>
-<?php break;
+  <?php break;
 
     // case 'procedencia': 
-    // break;
+  ?>
+
+
+
+<?php // break;
 
   default:
 ?>

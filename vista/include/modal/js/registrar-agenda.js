@@ -235,11 +235,6 @@ $(document).on('click', '#actualizarForm', async function () {
 
   curp = $('#curp-paciente').val();
 
-  //Evalua si el cliente es distinto a 1 se mostrara los segmentos en el preRegistro
-  if (clienteRegistro != 1) {
-    $('#divSelecSegmentos').fadeIn(0)
-  }
-
   if (ant) {
     await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
     await obtenerAntecedentesPaciente(null, curp);
