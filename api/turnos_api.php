@@ -54,6 +54,9 @@ $segmento_id = $_POST['segmento_id'];
 $area_id = $_POST['area_id'];
 
 
+# nuevos datos
+$categoria_turno = $_POST['categoria_turno'];
+
 
 $parametros = array(
     $id_turno,
@@ -275,25 +278,28 @@ switch ($api) {
 
     case 17:
         //eliminar servicio de un turno
-        $response = $master->deleteByProcedure('sp_recepcion_paciente_detalle_e', [$id_turno, $servicio_id, $paquete_id]);
+        $response = $master->deleteByProcedure('sp_recepcion_paciente_detalle_e', [$id_turno, $servicio_id]);
         break;
     case 18:
         // agregar un estudio a un turno
-        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id, $_SESSION['id']]);
+        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id]);
         break;
     case 19:
         # marcar un turno como completado o marcarlo como incompleto
         # variable ['turno_completado']
         # mandar 1 para completado
         # mandar 0 para mandar incompleto
-        $response = $master->updateByProcedure("sp_turnos_completados_g", [$id_turno, $turno_completado, $confirmado_por]);
+        $response = $master->updateByProcedure("sp_turnos_completados_g", [$id_turno, $turno_completado]);
         break;
     case 20:
         # mostrar la lista de los pacientes/turnos completados
         # por la fecha de recepcion ['fecha_recepcion'].
         $response = $master->getByProcedure("sp_turnos_completados_b", [$turno_completado, $fecha_recepcion]);
         break;
-
+    case 21:
+        # agregra una categoria al paciente de empresas.
+        $response = $master->insertByProcedure("sp_agregar_categoria_turno", [$id_turno, $categoria_turno]);
+        break;
     default:
         $response = "api no reconocida";
         break;

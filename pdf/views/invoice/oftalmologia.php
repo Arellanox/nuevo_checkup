@@ -28,7 +28,7 @@
             top: -165px;
             left: 25px;
             right: 25px;
-            height: 220px;
+            height: 235px;
             margin-top: 0;
             /* background-color: cadetblue; */
         }
@@ -204,6 +204,53 @@
             max-width: 25%;
             text-align: center;
         }
+
+        .table {
+            margin-top: 1px !important;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            margin: auto;
+            white-space: normal;
+            word-break: break-all;
+        }
+
+        .table>tr,
+        .table>tr>td {
+            text-align: left;
+            padding: 5px !important;
+            border-bottom: 1px solid #ddd;
+
+        }
+
+        .table>tr {
+            background-color: #f2f2f2;
+        }
+
+        .pregunta-row {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            padding: 3px;
+            text-align: left;
+            font-size: 10px;
+        }
+
+        .respuesta-row,
+        .comentario-row {
+            background-color: #fff;
+            padding: 2px;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 9px;
+        }
+
+        .respuesta2-row {
+            background-color: #fff;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 11px;
+        }
     </style>
 </head>
 
@@ -237,8 +284,7 @@ if (!isset($qr)) {
 
 <body>
     <div class="header">
-        <br><br>
-
+        <br>
         <table>
             <tbody>
                 <tr>
@@ -277,7 +323,7 @@ if (!isset($qr)) {
                         No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_OFTALMO; ?> </strong>
                     </td>
                     <td class="col-center" style="border-bottom: none">
-                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 10) . " meses" : $encabezado->EDAD . " años"; ?></strong>
+                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?></strong>
                     </td>
                     <td class="col-right" style="border-bottom: none">
                         Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
@@ -317,10 +363,19 @@ if (!isset($qr)) {
         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
             <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
 
-            <span style="margin-left: 20px;">
-                <!-- Tipo de muestra  -->
-                <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
-            </span>
+            <?php if ($encabezado->PAQUETE_CARGADO) { ?>
+                <span style="margin-left: 20px;">
+                    <!-- Tipo de muestra  -->
+                    <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
+                </span>
+            <?php } ?>
+
+            <?php if ($encabezado->CATEGORIA) { ?>
+                <span style="margin-left: 20px;">
+                    <!-- Tipo de muestra  -->
+                    <?php echo "Categoría: <strong style='font-size: 12px;'> $encabezado->CATEGORIA"; ?> </strong>
+                </span>
+            <?php } ?>
         </p>
         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
             <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
@@ -395,22 +450,21 @@ if (!isset($qr)) {
 
     <!-- body -->
     <div class="invoice-content">
-        <br>
+
         <p>
             <strong>
                 ANTECEDENTES PERSONALES
             </strong>
             <br>
+
             <?php echo $resultados->ANTECEDENTES_PERSONALES; ?> <br>
         </p>
-        <p>
-            <strong>
-                ANTECEDENTES OFTALMOLÓGICOS
-            </strong>
-            <br>
-            <?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?> <br>
 
+        <p><strong>ANTECEDENTES OFTALMOLÓGICOS</strong>
+            <br>
+            <?php echo $resultados->ANTECEDENTE_OFTALMOLOGICOS; ?>
         </p>
+
         <p>
             <strong>
                 PADECIMIENTO ACTUAL.
@@ -419,6 +473,8 @@ if (!isset($qr)) {
             <?php echo $resultados->PADECIMIENTO_ACTUAL; ?><br>
 
         </p>
+
+
         <p>
             <strong>
                 AGUDEZA VISUAL SIN CORRECCIÓN TABLA DE SNELLEN
@@ -438,6 +494,8 @@ if (!isset($qr)) {
             </strong>
             <?php echo $resultados->JAEGER; ?> <br>
         </p>
+
+
         <p>
             <strong>
                 AGUDEZA VISUAL CON CORRECCIÓN TABLA DE SNELLEN
@@ -457,12 +515,16 @@ if (!isset($qr)) {
             </strong>
             <?php echo $resultados->CON_JAEGER; ?> <br>
         </p>
+
+
         <p>
             <strong>
                 REFRACCIÓN:
             </strong>
             <?php echo "$resultados->REFRACCION"; ?>
         </p>
+
+
         <p>
             <strong>
                 PRUEBA ISHIHARA:
@@ -470,6 +532,8 @@ if (!isset($qr)) {
             <?php echo $resultados->PRUEBA; ?>
 
         </p>
+
+
         <p>
             <strong>
                 EXPLORACIÓN OFTALMOLÓGICA:
@@ -477,6 +541,8 @@ if (!isset($qr)) {
             <br>
             <?php echo $resultados->EXPLORACION_OFTALMOLOGICA; ?>
         </p>
+
+
         <p>
             <strong>
                 FORIAS:
@@ -484,15 +550,18 @@ if (!isset($qr)) {
             <?php echo $resultados->FORIAS; ?>
 
         </p>
+
         <p>
             <strong>
                 CAMPIMETRÍA POR CONFRONTACIÓN:
             </strong>
             <?php echo $resultados->CAMPIMETRIA; ?>
         </p>
+
+        </table>
         <p>
             <strong>
-                PRESIÓN INTRAOCULAR.
+                PRESIÓN INTRAOCULAR
             </strong>
             <br>
             <strong>
@@ -504,6 +573,8 @@ if (!isset($qr)) {
             </strong>
             <?php echo $resultados->PRESION_INTRAOCULAR_OI ?>
         </p>
+
+
         <p>
             <strong>
                 DIAGNÓSTICO.
@@ -511,12 +582,15 @@ if (!isset($qr)) {
             <br>
             <?php echo $resultados->DIAGNOSTICO ?>
         </p>
+
+
         <p>
             <strong>
                 PLAN:
             </strong>
             <?php echo " $resultados->PLAN" ?>
         </p>
+
         <p>
             <?php if ($resultados->OBSERVACIONES) { ?>
                 <strong>

@@ -43,7 +43,7 @@
         <p id="procedencia-registro"></p>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-6" style="display: none;" id="divSelecSegmentos">
       <label for="segmento" class="form-label">Seleccionar segmento</label>
       <select class="form-control input-form" id="selectSegmentos">
       </select>

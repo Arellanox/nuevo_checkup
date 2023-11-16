@@ -388,6 +388,7 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       {
         class: 'btn-cargar-documentos',
         callback: function (data) {
+          array_selected = data;
           alertMsj({
             icon: '',
             title: 'Documentación del paciente <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Cargue/Guarde la documentación del paciente"></i>',
