@@ -93,7 +93,7 @@ async function ContruirPagina() {
 
             // Se construye el header con la informacion del paciente
             await rellenarInformacionPaciente();
-
+                
             // Se construye los cuerpos de los consentimiento por cadas area si es que manda mas de una
             await construiBodyConsentimiento();
 
@@ -268,6 +268,7 @@ function validar_si_existe_firma() {
 }
 
 // Function para enivar la firma y recuperar los pdf para acomodar la firma
+let prueba_paciente_arreglo;
 function enviar_firma() {
 
     // Enviar pdf
@@ -322,6 +323,7 @@ function enviar_firma() {
             let arreglo_paciente = row.JSON_UNIDO; // arreglo con los pdf modificados y las firmas
 
             const arreglo_pdf = await configurar_pdf_firma(arreglo_paciente); // <-- se manda a llamar a la funcion para configurar todos los pdf
+            prueba_paciente_arreglo = arreglo_pdf;
             console.log(arreglo_pdf);
 
             ajaxAwait({
@@ -334,7 +336,7 @@ function enviar_firma() {
                     text: 'ya puede visualizar su reporte',
                     icon: 'success',
                     allowOutsideClick: false,
-                    showCancelButton: false,
+                    showCancelButton: false,    
                     showConfirmButton: true
                 })
                 limpiarFirma(); // <-- se limpia el canva de la firma
@@ -627,7 +629,7 @@ function prueba_firma() {
     })
 }
 
-// prueba_firma();
+//prueba_firma();
 let arreglo_final;
 // function para configurar el pdf y ordenar todos los datos para ponerlo dentro del PDF
 async function configurar_pdf_firma(row) {
@@ -648,10 +650,13 @@ async function configurar_pdf_firma(row) {
                 // Despues tengo que ejecutar la función para poner las N firmas en el PDF
                 let $pdf_firmado = await draw_firmas(pdfBytes, $FIRMAS, $ID);
 
-                // Se convierte el PDF a tipo Blob para que pueda ser guardado
-                let blob = new Blob([$pdf_firmado], {
-                    type: 'application/pdf'
-                });
+                // Convierte el PDF a formato Base64
+                const pdfBase64 = arrayBufferToBase64($pdf_firmado);
+
+                // // Se convierte el PDF a tipo Blob para que pueda ser guardado
+                // let blob = new Blob([$pdf_firmado], {
+                //     type: 'application/pdf'
+                // });
 
                 // const link = document.createElement('a');
                 // link.href = URL.createObjectURL(blob);
@@ -663,9 +668,9 @@ async function configurar_pdf_firma(row) {
                 //La funcion me retorna el PDF ya con las firmas hechas entonces ya se mete en el arreglo para enviarlo a back
                 arreglo_pdf[key] = {
                     id_consentimiento: $ID,
-                    pdf: blob
+                    pdf: pdfBase64
                 }
-            } catch (error) {
+            } catch (error) {   
                 // se manejan los errores por si llega a suceder algo imprevisto
                 console.error(`Error en la posicion de: ${key}: ${error.message}`);
             }
@@ -723,4 +728,16 @@ async function draw_firmas(
 
     // Se regresa el PDF serealizado ya editado con todas las firmas
     return pdfBytesActualizado;
+}
+
+
+// Función para convertir un ArrayBuffer a una cadena Base64
+function arrayBufferToBase64(buffer) {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
 }
