@@ -650,10 +650,13 @@ async function configurar_pdf_firma(row) {
                 // Despues tengo que ejecutar la función para poner las N firmas en el PDF
                 let $pdf_firmado = await draw_firmas(pdfBytes, $FIRMAS, $ID);
 
-                // Se convierte el PDF a tipo Blob para que pueda ser guardado
-                let blob = new Blob([$pdf_firmado], {
-                    type: 'application/pdf'
-                });
+                // Convierte el PDF a formato Base64
+                const pdfBase64 = arrayBufferToBase64($pdf_firmado);
+
+                // // Se convierte el PDF a tipo Blob para que pueda ser guardado
+                // let blob = new Blob([$pdf_firmado], {
+                //     type: 'application/pdf'
+                // });
 
                 // const link = document.createElement('a');
                 // link.href = URL.createObjectURL(blob);
@@ -665,9 +668,9 @@ async function configurar_pdf_firma(row) {
                 //La funcion me retorna el PDF ya con las firmas hechas entonces ya se mete en el arreglo para enviarlo a back
                 arreglo_pdf[key] = {
                     id_consentimiento: $ID,
-                    pdf: blob
+                    pdf: pdfBase64
                 }
-            } catch (error) {
+            } catch (error) {   
                 // se manejan los errores por si llega a suceder algo imprevisto
                 console.error(`Error en la posicion de: ${key}: ${error.message}`);
             }
@@ -725,4 +728,16 @@ async function draw_firmas(
 
     // Se regresa el PDF serealizado ya editado con todas las firmas
     return pdfBytesActualizado;
+}
+
+
+// Función para convertir un ArrayBuffer a una cadena Base64
+function arrayBufferToBase64(buffer) {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
 }
