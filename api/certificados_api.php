@@ -18,6 +18,7 @@ $fecha = $_POST['fecha_busqueda'];
 
 # variables para certificado slb
 $turno_id = $_POST['turno_id'];
+$cliente_id = $_POST['cliente_id'];
 
 
 switch($api){
