@@ -192,7 +192,7 @@ switch ($api) {
 
             #GUARDAMOS LOS PDF
             $nombre_pdf = "consentimiento". "-". $id_consentimiento. "-". $turno_id. ".pdf";
-            file_put_contents($destination . $nombre_pdf, $pdf_blob);
+            file_put_contents($destination . $nombre_pdf, base64_decode($pdf_blob));
             
             #GUARDAMOS EL PDF EN LA BD
             $ruta = str_replace('../', $host, $destination);
