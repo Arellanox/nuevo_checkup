@@ -249,3 +249,10 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
     </ul>
   </div>
 <?php endif; ?>
+
+<!-- Certificados Médicos -->
+<?php if ($_SESSION['vista']['CERTIFICADOS_MEDICOS'] == 1) : ?>
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/certificados/#CERTIFICADOS'; ?>">
+  <i class="bi bi-file-earmark-medical"></i> CertificadoS Médico
+  </a>
+<?php endif; ?>
