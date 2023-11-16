@@ -270,6 +270,16 @@ function validar_si_existe_firma() {
 // Function para enivar la firma y recuperar los pdf para acomodar la firma
 let prueba_paciente_arreglo;
 function enviar_firma() {
+    // se manda una alerta al usuario para que sepa que se esta haciendo el proceso para guardar el consentimiento
+    alertMsj({
+        title: 'Por favor espere un momento',
+        text: 'Se esta guardando su consentimiento.',
+        icon: 'info',
+        allowOutsideClick: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        footer: 'Gracias por esperar'
+    })
 
     // Enviar pdf
     // const pdfBlob = pdf
@@ -331,6 +341,7 @@ function enviar_firma() {
                 turno_id: turno_id, // <-- turno del paciente
                 url_final: arreglo_pdf // <-- arreglo de los pdf ya modificados
             }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
+                swal.close(); // <-- se cierra la alerta anterior
                 alertMsj({
                     title: '¡Su firma y consentimiento se han guardado!',
                     text: 'ya puede visualizar su reporte',
@@ -733,11 +744,11 @@ async function draw_firmas(
 
 // Función para convertir un ArrayBuffer a una cadena Base64
 function arrayBufferToBase64(buffer) {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
+    let binary = ''
+    const bytes = new Uint8Array(buffer)
+    const len = bytes.byteLength
     for (let i = 0; i < len; i++) {
-        binary += String.fromCharCode(bytes[i]);
+        binary += String.fromCharCode(bytes[i])
     }
-    return btoa(binary);
+    return btoa(binary)
 }
