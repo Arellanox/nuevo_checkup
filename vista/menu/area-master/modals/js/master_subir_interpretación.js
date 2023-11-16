@@ -343,6 +343,8 @@ $('#modalSubirInterpretacion').on('shown.bs.modal', function () {
             updatePage($prevPage, 'back');
         }
     });
+
+
 });
 
 

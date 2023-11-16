@@ -31,11 +31,13 @@
     <!-- Interrogatorio -->
     <section class="page px-4" style="display: none;">
         <form id="formSubirInterpretacionAudio-1">
-            <div class="rounded p-3 shadow my-2">
-                <h4>Antecedentes</h4>
-                <div class="row" id="div-antecedentes">
-                    <!-- Consumo de tabaco -->
-                    <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+            <!-- <div class=""> -->
+            <h4>Antecedentes</h4>
+            <!-- <div class="row" id="div-antecedentes"> -->
+
+
+            <!-- Consumo de tabaco -->
+            <!-- <div class="mb-4 row d-flex justify-content-center pregunta"
                         style="font-size: 20px;">
                         <div class="col-12 col-lg-8">
                             <label>¿Antecedente de tabaquismo?: </label>
@@ -54,9 +56,9 @@
                             <textarea name="antecedentes[1][comentario]" class="form-control input-form" rows="2"
                                 cols="2" placeholder="Especifique"></textarea>
                         </div>
-                    </div>
-                    <!-- Exposicion ruid -->
-                    <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+                    </div> -->
+            <!-- Exposicion ruid -->
+            <!-- <div class="mb-4 row d-flex justify-content-center pregunta"
                         style="font-size: 20px;">
                         <div class="col-12 col-lg-8">
                             <label>¿Exposición a ruido?: </label>
@@ -76,9 +78,9 @@
                                 cols="2" placeholder="Especifique"></textarea>
                         </div>
                     </div>
-                    <hr class="dropdown-divider m-2">
-                    <!-- Exposicion solventes -->
-                    <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+                    <hr class="mt-2"> -->
+            <!-- Exposicion solventes -->
+            <!-- <div class="mb-4 row d-flex justify-content-center pregunta"
                         style="font-size: 20px;">
                         <div class="col-12 col-lg-8">
                             <label>¿Exposición a solventes?: </label>
@@ -97,9 +99,9 @@
                             <textarea name="antecedentes[3][comentario]" class="form-control input-form" rows="2"
                                 cols="2" placeholder="Especifique"></textarea>
                         </div>
-                    </div>
-                    <!-- Exposicion traumaticos -->
-                    <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+                    </div> -->
+            <!-- Exposicion traumaticos -->
+            <!-- <div class="mb-4 row d-flex justify-content-center pregunta"
                         style="font-size: 20px;">
                         <div class="col-12 col-lg-8">
                             <label>¿Antecedente de traumatismo?: </label>
@@ -118,14 +120,370 @@
                             <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2"
                                 cols="2" placeholder="Especifique"></textarea>
                         </div>
+                    </div> -->
+            <!-- </div> -->
+
+
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="rounded p-3 shadow my-2">
+                        <!-- Antecedente de Sarampión -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de sarampión?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="sarampion_1" name="antecedentes[0][option]"
+                                        value="1">
+                                    <label for="sarampion_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="sarampion_2" name="antecedentes[0][option]"
+                                        value="2">
+                                    <label for="sarampion_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-0 collapse">
+                                <textarea name="antecedentes[0][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Paperas -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de paperas?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="paperas_1" name="antecedentes[1][option]"
+                                        value="1">
+                                    <label for="paperas_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="paperas_2" name="antecedentes[1][option]"
+                                        value="2">
+                                    <label for="paperas_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-1 collapse">
+                                <textarea name="antecedentes[1][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Meningitis -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de meningitis?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="meningitis_1" name="antecedentes[2][option]"
+                                        value="1">
+                                    <label for="meningitis_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="meningitis_2" name="antecedentes[2][option]"
+                                        value="2">
+                                    <label for="meningitis_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-2 collapse">
+                                <textarea name="antecedentes[2][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Hipertensión Arterial -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de hipertensión arterial?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="hipertension_1" name="antecedentes[3][option]"
+                                        value="1">
+                                    <label for="hipertension_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="hipertension_2" name="antecedentes[3][option]"
+                                        value="2">
+                                    <label for="hipertension_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-3 collapse">
+                                <textarea name="antecedentes[3][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Otros Antecedentes Médicos -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Otros antecedentes médicos relevantes?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="otros_antecedentes_1"
+                                        name="antecedentes[4][option]" value="1">
+                                    <label for="otros_antecedentes_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="otros_antecedentes_2"
+                                        name="antecedentes[4][option]" value="2">
+                                    <label for="otros_antecedentes_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-4 collapse">
+                                <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Tinnitus -->
+                        <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+                            style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de tinnitus?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="tinnitus_1" name="antecedentes[5][option]"
+                                        value="1">
+                                    <label for="tinnitus_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="tinnitus_2" name="antecedentes[5][option]"
+                                        value="2">
+                                    <label for="tinnitus_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-5 collapse">
+                                <textarea name="antecedentes[5][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Infecciones Recurrentes del Oído -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de infecciones recurrentes del oído?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="infecciones_oido_1" name="antecedentes[6][option]"
+                                        value="1">
+                                    <label for="infecciones_oido_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="infecciones_oido_2" name="antecedentes[6][option]"
+                                        value="2">
+                                    <label for="infecciones_oido_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-6 collapse">
+                                <textarea name="antecedentes[6][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="rounded p-3 shadow my-2">
+                        <!-- Antecedente de Consumo de Medicamentos Otóxicos -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de consumo de medicamentos otóxicos?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="medicamentos_otoxicos_1"
+                                        name="antecedentes[7][option]" value="1">
+                                    <label for="medicamentos_otoxicos_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="medicamentos_otoxicos_2"
+                                        name="antecedentes[7][option]" value="2">
+                                    <label for="medicamentos_otoxicos_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-7 collapse">
+                                <textarea name="antecedentes[7][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Cirugía de Oído -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de cirugía de oído?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="cirugia_oido_1" name="antecedentes[8][option]"
+                                        value="1">
+                                    <label for="cirugia_oido_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="cirugia_oido_2" name="antecedentes[8][option]"
+                                        value="2">
+                                    <label for="cirugia_oido_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-8 collapse">
+                                <textarea name="antecedentes[8][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Trauma Craneoencefálico -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de trauma craneoencefálico?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="trauma_craneoencefalico_1"
+                                        name="antecedentes[9][option]" value="1">
+                                    <label for="trauma_craneoencefalico_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="trauma_craneoencefalico_2"
+                                        name="antecedentes[9][option]" value="2">
+                                    <label for="trauma_craneoencefalico_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-9 collapse">
+                                <textarea name="antecedentes[9][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Secreciones del Oído -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de secreciones del oído?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="secreciones_oido_1" name="antecedentes[10][option]"
+                                        value="1">
+                                    <label for="secreciones_oido_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="secreciones_oido_2" name="antecedentes[10][option]"
+                                        value="2">
+                                    <label for="secreciones_oido_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-10 collapse">
+                                <textarea name="antecedentes[10][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Acumulación de Cerumen -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de acumulación de cerumen?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="acumulacion_cerumen_1"
+                                        name="antecedentes[11][option]" value="1">
+                                    <label for="acumulacion_cerumen_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="acumulacion_cerumen_2"
+                                        name="antecedentes[11][option]" value="2">
+                                    <label for="acumulacion_cerumen_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-11 collapse">
+                                <textarea name="antecedentes[11][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Tinitos -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de tinitos?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="tinitos_1" name="antecedentes[12][option]"
+                                        value="1">
+                                    <label for="tinitos_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="tinitos_2" name="antecedentes[12][option]"
+                                        value="2">
+                                    <label for="tinitos_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-12 collapse">
+                                <textarea name="antecedentes[12][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Exposición a Ruido Intenso -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de exposición a ruido intenso?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="ruido_intenso_1" name="antecedentes[13][option]"
+                                        value="1">
+                                    <label for="ruido_intenso_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="ruido_intenso_2" name="antecedentes[13][option]"
+                                        value="2">
+                                    <label for="ruido_intenso_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-13 collapse">
+                                <textarea name="antecedentes[13][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <!-- Antecedente de Pasatiempos que Afectan la Audición -->
+                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de pasatiempos que afectan la audición?: </label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="pasatiempos_1" name="antecedentes[14][option]"
+                                        value="1">
+                                    <label for="pasatiempos_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="pasatiempos_2" name="antecedentes[14][option]"
+                                        value="2">
+                                    <label for="pasatiempos_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-14 collapse">
+                                <textarea name="antecedentes[14][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- </div> -->
         </form>
     </section>
 
     <!-- Otoscopia -->
-    <section class="page" style="display: none;">
+    <section class="page px-4" style="display: none;">
         <h2>Otoscopia</h2>
 
         <!-- Aqui va el oido derecho -->
@@ -360,7 +718,7 @@
                         <h4>Antecedentes</h4>
                         <div class="row" id="div-antecedentes"> -->
     <!-- Consumo de tabaco -->
-    <!-- <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+    <!-- <div class="mb-4 row d-flex justify-content-center pregunta"
                                 style="font-size: 20px;">
                                 <div class="col-12 col-lg-8">
                                     <label>¿Antecedente de tabaquismo?: </label>
@@ -383,7 +741,7 @@
                                 </div>
                             </div> -->
     <!-- Exposicion ruid -->
-    <!-- <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+    <!-- <div class="mb-4 row d-flex justify-content-center pregunta"
                                 style="font-size: 20px;">
                                 <div class="col-12 col-lg-8">
                                     <label>¿Exposición a ruido?: </label>
@@ -405,9 +763,9 @@
                                         rows="2" cols="2" placeholder="Especifique"></textarea>
                                 </div> 
                             </div>
-                            <hr class="dropdown-divider m-2">-->
+                            <hr class="mt-2">-->
     <!-- Exposicion solventes -->
-    <!-- <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+    <!-- <div class="mb-4 row d-flex justify-content-center pregunta"
                                 style="font-size: 20px;">
                                 <div class="col-12 col-lg-8">
                                     <label>¿Exposición a solventes?: </label>
@@ -430,7 +788,7 @@
                                 </div>
                             </div> -->
     <!-- Exposicion traumaticos -->
-    <!-- <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
+    <!-- <div class="mb-4 row d-flex justify-content-center pregunta"
                                 style="font-size: 20px;">
                                 <div class="col-12 col-lg-8">
                                     <label>¿Antecedente de traumatismo?: </label>
@@ -630,7 +988,7 @@
 </div>
 
 <!-- <div class="row my-4">
-        <hr class="dropdown-divider m-2">
+        <hr class="mt-2">
         
         <div class="col-12 col-lg-8">
             <div class="rounded p-2 shadow my-2">

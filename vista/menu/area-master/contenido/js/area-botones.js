@@ -293,12 +293,22 @@ $('#reporte_equipo').on('change', function (event) {
   }
 });
 
+
+
+
+
+
+// <---------------------------------------------------------------->
+
+// FUNCIONES DE AUDIOMETRIA
+
+// <---------------------------------------------------------------->
 $('#capture').on('click', function () {
   if (cropper) {
     let canvas = cropper.getCroppedCanvas();
     let croppedImage = canvas.toDataURL('image/png');
 
-    console.log(croppedImage);
+    // console.log(croppedImage);
 
     // Aquí puedes añadir la imagen recortada a la sección de "captures"
 
@@ -319,7 +329,7 @@ $('#capture').on('click', function () {
     });
 
     imageContainer.append(img, deleteButton);
-    $('#captures').append(imageContainer);
+    $('#captures').html(imageContainer);
 
     // Para enviar la imagen a través de AJAX como archivo:
     // let blob = dataURLtoBlob(croppedImage);
