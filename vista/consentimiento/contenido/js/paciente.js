@@ -4,7 +4,7 @@ let url_pdf = '';
 let pdf_consentimiento;
 
 // Una vez cargue todo el contenido de la pagina se empieza a construir
-$(document).ready(async function () {
+$(document).ready(async function() {
     if (!turno_id) {
         CerrarPagina();
         return false;
@@ -15,7 +15,7 @@ $(document).ready(async function () {
 });
 
 // Escucha el boton "Enviar firma"
-$(document).on("click", "#enviar_firma_btn", function () {
+$(document).on("click", "#enviar_firma_btn", function() {
 
     // Valida el canva si esta vacio manda una alerta
     if (!validarFormulario())
@@ -43,7 +43,7 @@ $(document).on("click", "#enviar_firma_btn", function () {
 })
 
 // Escucha los cambios de todos los input de type radio
-$(document).on('change', 'input[type=radio]', function () {
+$(document).on('change', 'input[type=radio]', function() {
     // Se saca el id del input de type radio
     const id = $(this).attr('data_id');
 
@@ -75,7 +75,7 @@ $(document).on('change', 'input[type=radio]', function () {
 
 // Function para construir todo la pagina
 async function ContruirPagina() {
-    return new Promise(async function (resolve, reject) {
+    return new Promise(async function(resolve, reject) {
         // Se inicializa la firma en false, por que no existe
         firma_exist = false;
         await ajaxAwait({
@@ -109,7 +109,7 @@ async function ContruirPagina() {
 
 // Function para rellenar la informacion del paciente en el header
 async function rellenarInformacionPaciente() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
         let header_div = $("#header_paciente");
 
 
@@ -145,7 +145,7 @@ async function rellenarInformacionPaciente() {
 
 // Function para construir el cuerpo de cada consentimiento por area, si es que existe mas de una
 async function construiBodyConsentimiento() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
         let div = $("#texto_consentimiento") // <-- contenedor de todo el cuerpo
         div.html(""); // <-- se borra todo el contenido existente para remplazarlo con el nuevo
 
@@ -308,28 +308,47 @@ function enviar_firma() {
     // Se hace la peticion para guardar los consentimientos del paciente y recuperar todos los PDF para poder acomodar la firma
     ajaxAwait(data_json, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
 
-        // Se guarda el responde en una variable para enviarla a la función para que pueda ser procesada
-        let row = data.response.data[0];
-        let $FIRMA = pdf_consentimiento[0].FIRMA; // <-- Firma del paciente
-        pdf_consentimiento = row;
+        // Si la peticion se realiza correctamente entonces ya se guardaron los consentimientos en la base de datos
+        // despues que se guarden los consentimientos tenemos que recuperar los pdf ya rellenados con la informacion del paciente
+        // y con todas las firmas que se les requiera poner al pdf, para que con la funcion que hizo juan, se pongan la firma y se arme
+        // un arreglo con los pdf ya modificados con sus firmas
+
+        // Se hace la peticion ajax para recuperar el arreglo con los pdf rellenados y las firmas
+        ajaxAwait({
+            api: 3,
+            turno_id: turno_id // <-- turno del paciente
+        }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
+            let row = data.response.data;
+            let arreglo_paciente = row.JSON_UNIDO; // arreglo con los pdf modificados y las firmas
+
+            const arreglo_pdf = await configurar_pdf_firma(arreglo_paciente); // <-- se manda a llamar a la funcion para configurar todos los pdf
+            console.log(arreglo_pdf);
+
+            ajaxAwait({
+                api: 7,
+                turno_id: turno_id, // <-- turno del paciente
+                url_final: arreglo_pdf // <-- arreglo de los pdf ya modificados
+            }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
+                alertMsj({
+                    title: '¡Su firma y consentimiento se han guardado!',
+                    text: 'ya puede visualizar su reporte',
+                    icon: 'success',
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    showConfirmButton: true
+                })
+                limpiarFirma(); // <-- se limpia el canva de la firma
+                ContruirPagina(); // <-- se vuelve a construir toda la pagina con los cambios del paciente realizados
+                // validar_si_existe_firma();
+            })
+
+        })
+
 
         // Se tienen que recuperar todos los PDF de los consentimiento con la informacion del paciente ya relllenada
         // Para poder posicionar la firma en los consentimientos y luego enviarlos
 
-        // Se recorre el array para acceder a la ruta del PDF y su informacións
-        for (const key in row) {
-            if (Object.hasOwnProperty.call(row, key)) {
-                const element = row[key];
-                const $ID = element.SERVICIO_ID; // <-- ID del consentimiento
-                const $PDF = element.PDF_BLANCO; // <-- PDF del consentimiento
-                const $NOMBRE = element.NOMBRE_CONSENTIMIENTO; // <-- NOMBRE del consentimiento
-                const $ACEPTADO = element.ACEPTADO; // <-- bit si es que acepto el consentimiento o no 1 es que si 0 es que no
-
-                // Se ejecuta el metodo para posicionar la firma en cada PDF
-                posicionarFirmas($ID, $PDF, $NOMBRE, $ACEPTADO, $FIRMA);
-            }
-        }
-
+        // configurar_pdf_firma(pdf_consentimiento); // se manda a llamar el metodo para modificar los pdf con las firmas
 
 
         // alertMsj({
@@ -375,11 +394,15 @@ function fadeConsentimiento(firma) {
 
 // Function para cerrar la pagina en caso de que algo falle 
 function CerrarPagina() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
         $('#body-js').html('');
         alertMsj({
-            title: '¡Falta definir Turno!', text: 'No se encontro ningun turno o el turno al que intenta entrar no existe',
-            icon: 'error', allowOutsideClick: false, showCancelButton: false, showConfirmButton: false
+            title: '¡Falta definir Turno!',
+            text: 'No se encontro ningun turno o el turno al que intenta entrar no existe',
+            icon: 'error',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            showConfirmButton: false
         })
 
         resolve(1)
@@ -418,76 +441,6 @@ function validarConsentimientos() {
     // Si todos los checkboxes están marcados, retorna true para permitir que el formulario se envíe
     return true
 }
-
-// Function para posicionar las firmas en los PDF de los consentimientos
-function posicionarFirmas(
-    $ID_SERVICIO, // <-- id del consentimiento
-    $PDF, //  <-- ruta del pdf del consentimiento ya rellenado con la informacón del paciente
-    $NOMBRE, // <-- nombre del consentimiento
-    $ACEPTADO, // <-- bit si es que acepto el consentimiento = 1 si no lo acepto = 0
-    $FIRMA // <-- Firma del paciente
-) {
-    // Esta funcion tiene que recuperar todos los formularios y dependiendo de cual formulario sea
-    // Hay que posicionar la firma en su respectivo lugar
-    // Para que despues se envia a back y me regrese solo la RUTA de la url para si visualizacion
-
-    // Lo recomendable es que haga un switch para ver donde posicionar la firma
-    // Ya que la posición de la firma cambia dependiendo el consentimiento del paciente
-
-    // Switch para evaluar cual PDF es el que se quiere editar para posicionar la firmaa
-    switch ($ID_SERVICIO) {
-        case 1:
-            // Consentimiento Informado para Toma de Muestra Sanguínea
-
-            // Si acepto
-            embedSignature($PDF, $FIRMA, {
-                x: 456,
-                y: 550,
-                width: 100,
-                height: 70,
-            })
-
-
-            // No acepto
-            break;
-        case 2:
-            // Consentimiento Informado Ultrasonido Transrectal Prostática
-
-            // Si acepto
-            embedSignature($PDF, $FIRMA, {
-                x: 456,
-                y: 608,
-                width: 100,
-                height: 70,
-            })
-            break;
-        case 3:
-            // Consentimiento Informado para la toma de citologia anal y virus del papiloma humano
-
-            // Si acepto
-            embedSignature($PDF, $FIRMA, {
-                x: 456,
-                y: 600,
-                width: 100,
-                height: 70,
-            })
-            break;
-        case 4:
-            // Consentimiento Informado para la toma de citologia uretal y virus del papiloma humano
-
-            // Si acepto
-            embedSignature($PDF, $FIRMA, {
-                x: 456,
-                y: 608,
-                width: 100,
-                height: 70,
-            })
-            break;
-        default:
-            break;
-    }
-}
-
 
 // ------------------------------------------------------------------------
 
@@ -599,49 +552,21 @@ function validarFormulario() {
 }
 
 
-/* ==================== Funciones para poner la firma en el PDF =========================================== */
+/* ==================== Funciones para poner la firma en el PDF de prueba =========================================== */
 
-// Modificacion al pdf
-async function embedSignature(url_pdf = [
-    "asdasd",
-    "asdasdsa",
-    "sadsadsa"
-], firmaDataURL, CONFIG) {
-
-    let arreglo_pdf = []; // <-- arreglo donde se guardaran todos los PDF ya modificados con sus firmas
-
-    // Se tiene recorre el arreglo para acceder a los PDF
-    for (const key in url_pdf) {
-        if (Object.hasOwnProperty.call(url_pdf, key)) {
-            const element = url_pdf[key];
-            const ruta_original = element.pdf; // <-- Ruta original del PDF sin modificar la firma
-            const FIRMAS = element.firmas // <-- Arreglo donde estan todas las firmas necesarias para el PDF
+// Estas 2 funciones fueron hechas para poder posicionar la firma, no son las originales solo son de prueba
+async function embedSignature(url_pdf, firmaDataURL, CONFIG) {
 
 
-            // 1. Carga el PDF original
-            const pdfBytes = await fetch(ruta_original).then(res => res.arrayBuffer());
+    // 1. Carga el PDF original
+    const pdfBytes = await fetch(url_pdf).then(res => res.arrayBuffer());
 
-            // Se manda a llamar al metodo para agregar las firmas al PDF
-            const pdfFirmadoBytes = await agregarFirmaAlPDF(
-                pdfBytes, // <-- PDF original
-                FIRMAS // <-- Arreglo de todas las firmas del PDF
-            );
-
-
-            const blob = new Blob([pdfFirmadoBytes], { type: 'application/pdf' });
-
-
-            // for (const key in FIRMAS) {
-            //     if (Object.hasOwnProperty.call(FIRMAS, key)) {
-            //         const element = FIRMAS[key];
-            //         console.log(element)
-            //     }
-            // }
-        }
-    }
-
-
-
+    // Se manda a llamar al metodo para agregar las firmas al PDF
+    const pdfFirmadoBytes = await agregarFirmaAlPDF(
+        pdfBytes, // <-- PDF original
+        firmaDataURL, // <-- Firma codificada en base64
+        CONFIG
+    );
 
     // return pdfFirmadoBytes
     // Convierte los bytes del PDF firmado a un Blob y descárgalo
@@ -655,25 +580,7 @@ async function embedSignature(url_pdf = [
 
 }
 
-async function agregarFirmaAlPDF(pdfBytes, FIRMAS = [
-    {
-        hoja: 1,
-        config: {
-            x: 12,
-            y: 12
-        },
-        firma: "añsldjklasjdolasjdlsqjadlisa",
-        tipo: 1
-
-    }
-]) {
-
-    for (const key in FIRMAS) {
-        if (Object.hasOwnProperty.call(FIRMAS, key)) {
-            const element = FIRMAS[key];
-
-        }
-    }
+async function agregarFirmaAlPDF(pdfBytes, firmaDataURL, CONFIG) {
 
     // Carga el PDF existente
     const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
@@ -685,14 +592,13 @@ async function agregarFirmaAlPDF(pdfBytes, FIRMAS = [
     const firmaImage = await pdfDoc.embedPng(firmaBytes);
 
     // Obtiene la primera página del PDF
-    const pagina = pdfDoc.getPages()[1];
+    const pagina = pdfDoc.getPages()[CONFIG.hoja];
 
     // Define las dimensiones y posición de la firma en la página
     const { width, height } = firmaImage.scale(0.5);
-    console.log(width, height);
-    console.log(pagina.getWidth() / 2 - width / 2);
+    // console.log(width, height);
+    // console.log(pagina.getWidth() / 2 - width / 2);
     pagina.drawImage(firmaImage, CONFIG);
-
 
     // Serializa el PDF a bytes
     const pdfBytesActualizado = await pdfDoc.save();
@@ -704,15 +610,12 @@ async function agregarFirmaAlPDF(pdfBytes, FIRMAS = [
 // Inicializar SignaturePad en el canvas
 // var canvas = document.getElementById('firmaCanvas');
 // var signaturePad = new SignaturePad(canvas);
-
-
 /* ==================== Fin =========================================== */
 
 
-/* -------------------------- funciones para el modal ---   ----------------------------- */
-
-
+/* ==================== Funciones para poner la firma en el PDF =========================================== */
 let array_prueba;
+
 function prueba_firma() {
     ajaxAwait({
         api: 3,
@@ -720,98 +623,104 @@ function prueba_firma() {
     }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
         let row = data.response.data;
         // Se recorre el array para acceder a los datos
-        array_prueba = row[0][0];
+        array_prueba = row;
     })
 }
 
-prueba_firma();
+// prueba_firma();
+let arreglo_final;
+// function para configurar el pdf y ordenar todos los datos para ponerlo dentro del PDF
+async function configurar_pdf_firma(row) {
+    arreglo_pdf = []; // <-- aqui ira los PDF ya modificados 
 
+    // Se recorre todo el arreglo para acceder a su data
+    for (const key in row) {
+        if (Object.hasOwnProperty.call(row, key)) {
+            const element = row[key];
+            // variables por cada PDF que nos serviran mas tarde
+            const $URL_PDF = element.URL_PDF // Ruta del PDF original sin las firmas
+            const $ID = element.SERVICIO_ID // ID del consentimiento
+            const $FIRMAS = element.FIRMAS // Array que contiene todas las firmas que se pondran en el PDF
+            try {
+                // Se debe de obtener el PDF ya que solo me llega la ruta, entonces tengo que sacar el archivo como tal
+                let pdfBytes = await fetch($URL_PDF).then(res => res.arrayBuffer());
 
+                // Despues tengo que ejecutar la función para poner las N firmas en el PDF
+                let $pdf_firmado = await draw_firmas(pdfBytes, $FIRMAS, $ID);
 
+                // Se convierte el PDF a tipo Blob para que pueda ser guardado
+                let blob = new Blob([$pdf_firmado], {
+                    type: 'application/pdf'
+                });
 
-// row = array_prueba;
-// arreglo_pdf = [];
+                // const link = document.createElement('a');
+                // link.href = URL.createObjectURL(blob);
+                // link.download = 'PDF_firmado.pdf';
+                // document.body.appendChild(link);
+                // link.click();
+                // document.body.removeChild(link);
 
-// // Se recorre todo el arreglo para acceder a su data
-// for (const key in row) {
-//     if (Object.hasOwnProperty.call(row, key)) {
-//         const element = row[key];
-//         // variables por cada PDF que nos serviran mas tarde
-//         const $URL_PDF = element.URL_PDF // Ruta del PDF original sin las firmas
-//         const $ID = element.SERVICIO_ID // ID del consentimiento
-//         const $FIRMAS = element.FIRMAS // Array que contiene todas las firmas que se pondran en el PDF
+                //La funcion me retorna el PDF ya con las firmas hechas entonces ya se mete en el arreglo para enviarlo a back
+                arreglo_pdf[key] = {
+                    id_consentimiento: $ID,
+                    pdf: blob
+                }
+            } catch (error) {
+                // se manejan los errores por si llega a suceder algo imprevisto
+                console.error(`Error en la posicion de: ${key}: ${error.message}`);
+            }
+        }
+    }
 
-//         // Se debe de obtener el PDF ya que solo me llega la ruta, entonces tengo que sacar el archivo como tal
-//         const pdfBytes = await fetch($URL_PDF).then(res => res.arrayBuffer());
+    arreglo_final = arreglo_pdf;
 
+    return arreglo_pdf; //<-- retornamos el arreglo de los PDF's ya rellenados con su firma y todo
+}
 
-//         // Despues tengo que ejecutar la función para poner las N firmas en el PDF
-//         let $pdf_firmado = agregarFirmas(pdfBytes, $FIRMAS, $ID);
+// function para poner todas las firmas que se manden en el arreglo, al PDF especificado
+async function draw_firmas(
+    $pdf, // <-- PDF del consentimiento
+    $firmas, // <-- Array que contiene todas las firmas que se pondran en el PDF
+    $id = null, // <-- ID del consentimiento
+) {
+    // Se carga el PDF existente para poder editarlo, y se por cada PDF que se le mande, es decir las veces que se ejecute la     función
+    let pdfDoc = await PDFLib.PDFDocument.load($pdf);
 
-//         // Se convierte el PDF a tipo Blob para que pueda ser guardado
-//         const blob = new Blob([$pdf_firmado], {
-//             type: 'application/pdf'
-//         });
+    // Se recorre el arreglo de firmas para poder acceder a todas las firmas que se pondran en el PDF
+    for (const key in $firmas) {
+        if (Object.hasOwnProperty.call($firmas, key)) {
+            const element = $firmas[key];
+            const $firma = element.FIRMA; // <-- Firmas en base64
 
+            // const $acepto = element.CONSENTIMIENTO; // <-- BIT para saber si acepto el consentimiento o no #ya no se usara o eso creo
+            // const $tipo = element.TIPO; // <-- Tipo de usuario que es la firma es decir paciente o medico # esto tampoco se si se usa
 
-//         // La funcion me retorna el PDF ya con las firmas hechas entonces ya se mete en el arreglo para enviarlo a back
-//         arreglo_pdf[key] = {
-//             pdf: blob
-//         }
+            // Variables para la configuracion de la firma
+            const $config = element.CONFIG; // <-- Configuración de las firmas como la posicion en la que debe estar
+            let $pagina = $config.hoja; // <-- Numero de hoja en la cual se va a poner la firma
 
-//     }
-// }
+            // Decodifica la imagen de la firma desde el DataURL
+            const firmaBytes = Uint8Array.from(atob($firma.split(',')[1]), c => c.charCodeAt(0));
 
+            // Agrega la imagen de la firma al PDF
+            const firmaImage = await pdfDoc.embedPng(firmaBytes);
 
+            // Obtiene la primera página del PDF
+            const pagina = pdfDoc.getPages()[$pagina];
 
-// // Funcion para agregar N cantidad de firmas al PDF que se recibe
-// async function agregarFirmas(
-//     $pdf, // <-- PDF del consentimiento
-//     $firmas, // <-- Array que contiene todas las firmas que se pondran en el PDF
-//     $id, // <-- ID del consentimiento
-// ) {
-//     // Se carga el PDF existente para poder editarlo, y se por cada PDF que se le mande, es decir las veces que se ejecute la 	  función
-//     const pdfDoc = await PDFLib.PDFDocument.load($pdf);
+            // Define las dimensiones y posición de la firma en la página
+            const {
+                width,
+                height
+            } = firmaImage.scale(0.5);
 
-//     // Se recorre el arreglo de firmas para poder acceder a todas las firmas que se pondran en el PDF
-//     for (const key in $firmas) {
-//         if (Object.hasOwnProperty.call($firmas, key)) {
-//             const element = $firmas[key];
-//             const $acepto = element.CONSENTIMIENTO; // <-- BIT para saber si acepto el consentimiento o no
-//             const $firma = element.FIRMA; // <-- Firmas en base64
-//             const $tipo = element.TIPO; // <-- Tipo de usuario que es la firma es decir paciente o medico
+            // Se pone la firma en el PDF con las configuraciones establecidas
+            pagina.drawImage(firmaImage, $config);
+        }
+    }
+    // Serializa el PDF a bytes
+    const pdfBytesActualizado = await pdfDoc.save();
 
-//             // Variables para la configuracion de la firma
-//             const $config = element.CONFIG; // <-- Configuración de las firmas como la posicion en la que debe estar
-//             const $pagina = $config.hoja; // <-- Numero de hoja en la cual se va a poner la firma
-
-
-//             // Decodifica la imagen de la firma desde el DataURL
-//             const firmaBytes = Uint8Array.from(atob($firma.split(',')[1]), c => c.charCodeAt(0));
-
-//             // Agrega la imagen de la firma al PDF
-//             const firmaImage = await pdfDoc.embedPng(firmaBytes);
-
-//             // Obtiene la primera página del PDF
-//             const pagina = pdfDoc.getPages()[$pagina];
-
-//             // Define las dimensiones y posición de la firma en la página
-//             const {
-//                 width,
-//                 height
-//             } = firmaImage.scale(0.5);
-
-//             // Se pone la firma en el PDF con las configuraciones establecidas
-//             pagina.drawImage(firmaImage, $config);
-
-//         }
-//     }
-
-//     // Serializa el PDF a bytes
-//     const pdfBytesActualizado = await pdfDoc.save();
-
-//     // Se regresa el PDF serealizado ya editado con todas las firmas
-//     return pdfBytesActualizado;
-
-
-// }
+    // Se regresa el PDF serealizado ya editado con todas las firmas
+    return pdfBytesActualizado;
+}
