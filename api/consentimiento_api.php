@@ -27,6 +27,8 @@ $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup
 #DATOS PARA MANDAR EL QUIMICO, MEDICO, TOMADOR DE MUETRA, ETC.
 $data_consentimiento_g = $_POST['data_consentimiento'];
 
+#RECIBIMOS LAS URL FINALES YA CON LA FIRMA Y LA INFORMACION DEL PACIENTE INCRUSTADA EN EL PDF
+$url_final = $_POST['url_final'];
 
 
 $data_firma_g = array(
@@ -172,8 +174,37 @@ switch ($api) {
 
         break;
     case 6:
-        #RECUPERAR LOS CONSENTIMIENTOS DEL PACIENTE, PARA SU HISTORIAL
+        #RECUPERAR LOS CONSENTIMIENTOS DEL PACIENTE, PARA SU HISTORIAL O PARA VERLOS DESPUES DE FIRMAR
         $response = $master->getByProcedure('sp_consentimiento_b', [$turno_id]);
+
+        break;
+    case 7:
+
+        #CREAMOS EL DIRECTORIO EN DONDE VAMOS ALMACENAR LOS PDF
+        $destination = "../archivos/sistema/temp/qr/Consentimiento/consentimiento". "-" .$turno_id."/";
+        $r = $master->createDir($destination);
+
+
+        foreach ($url_final as $archivo ){
+            #RECUPERAMOS LOS PDF
+            $id_consentimiento = $consentimiento['id_consentimiento'];
+            $pdf_blob = $consentimiento['pdf'];
+
+            #GUARDAMOS LOS PDF
+            $nombre_pdf = "consentimiento". "-". $id_consentimiento. "-". $turno_id. ".pdf";
+            file_put_contents($destination . $nombre_pdf, $pdf_blob);
+            
+            #GUARDAMOS EL PDF EN LA BD
+            $ruta = str_replace('../', $host, $destination);
+            $ruta_final = $ruta . $nombre_pdf;
+
+            $response2 = $master->updateByProcedure('sp_actualizar_ruta_consentimientos_g', [$turno_id, $id_consentimiento, $ruta_final]);
+            
+        }
+
+
+        $response = $master->getByProcedure('sp_consentimiento_b', [$turno_id]);
+        
 
         break;
     default:
@@ -181,3 +212,5 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
+
+ 
