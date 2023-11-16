@@ -93,7 +93,7 @@ async function ContruirPagina() {
 
             // Se construye el header con la informacion del paciente
             await rellenarInformacionPaciente();
-
+                
             // Se construye los cuerpos de los consentimiento por cadas area si es que manda mas de una
             await construiBodyConsentimiento();
 
@@ -268,6 +268,7 @@ function validar_si_existe_firma() {
 }
 
 // Function para enivar la firma y recuperar los pdf para acomodar la firma
+let prueba_paciente_arreglo;
 function enviar_firma() {
 
     // Enviar pdf
@@ -322,6 +323,7 @@ function enviar_firma() {
             let arreglo_paciente = row.JSON_UNIDO; // arreglo con los pdf modificados y las firmas
 
             const arreglo_pdf = await configurar_pdf_firma(arreglo_paciente); // <-- se manda a llamar a la funcion para configurar todos los pdf
+            prueba_paciente_arreglo = arreglo_pdf;
             console.log(arreglo_pdf);
 
             ajaxAwait({
@@ -334,7 +336,7 @@ function enviar_firma() {
                     text: 'ya puede visualizar su reporte',
                     icon: 'success',
                     allowOutsideClick: false,
-                    showCancelButton: false,
+                    showCancelButton: false,    
                     showConfirmButton: true
                 })
                 limpiarFirma(); // <-- se limpia el canva de la firma
@@ -627,7 +629,7 @@ function prueba_firma() {
     })
 }
 
-// prueba_firma();
+//prueba_firma();
 let arreglo_final;
 // function para configurar el pdf y ordenar todos los datos para ponerlo dentro del PDF
 async function configurar_pdf_firma(row) {
