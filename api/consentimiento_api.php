@@ -187,8 +187,10 @@ switch ($api) {
 
         foreach ($url_final as $archivo ){
             #RECUPERAMOS LOS PDF
-            $id_consentimiento = $consentimiento['id_consentimiento'];
-            $pdf_blob = $consentimiento['pdf'];
+            $id_consentimiento = $archivo['id_consentimiento'];
+            $pdf_blob = $archivo['pdf'];
+
+          
 
             #GUARDAMOS LOS PDF
             $nombre_pdf = "consentimiento". "-". $id_consentimiento. "-". $turno_id. ".pdf";
