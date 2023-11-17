@@ -93,7 +93,7 @@ async function ContruirPagina() {
 
             // Se construye el header con la informacion del paciente
             await rellenarInformacionPaciente();
-                
+
             // Se construye los cuerpos de los consentimiento por cadas area si es que manda mas de una
             await construiBodyConsentimiento();
 
@@ -269,6 +269,7 @@ function validar_si_existe_firma() {
 
 // Function para enivar la firma y recuperar los pdf para acomodar la firma
 let prueba_paciente_arreglo;
+
 function enviar_firma() {
     // se manda una alerta al usuario para que sepa que se esta haciendo el proceso para guardar el consentimiento
     alertMsj({
@@ -317,66 +318,63 @@ function enviar_firma() {
     }
 
     // Se hace la peticion para guardar los consentimientos del paciente y recuperar todos los PDF para poder acomodar la firma
-    ajaxAwait(data_json, 'consentimiento_api', { callbackAfter: true }, false, (data) => {
-
+    ajaxAwait(data_json, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
         // Si la peticion se realiza correctamente entonces ya se guardaron los consentimientos en la base de datos
         // despues que se guarden los consentimientos tenemos que recuperar los pdf ya rellenados con la informacion del paciente
         // y con todas las firmas que se les requiera poner al pdf, para que con la funcion que hizo juan, se pongan la firma y se arme
         // un arreglo con los pdf ya modificados con sus firmas
 
-        // Se hace la peticion ajax para recuperar el arreglo con los pdf rellenados y las firmas
-        ajaxAwait({
-            api: 3,
-            turno_id: turno_id // <-- turno del paciente
-        }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
-            let row = data.response.data;
-            let arreglo_paciente = row.JSON_UNIDO; // arreglo con los pdf modificados y las firmas
+        // 1. Se recuperan el arreglo que contiene las firmas y PDFs
+        const arreglo_paciente = await recuperar_arreglo_firmas(turno_id); // <-- se manda a llamar al metodo para recuperar los arreglos
 
-            const arreglo_pdf = await configurar_pdf_firma(arreglo_paciente); // <-- se manda a llamar a la funcion para configurar todos los pdf
-            prueba_paciente_arreglo = arreglo_pdf;
-            console.log(arreglo_pdf);
+        // 2. Se manda el arreglo al metodo para poner las firmas en los PDFs
+        const arreglo_pdf = await configurar_pdf_firma(arreglo_paciente); // <-- se manda a llamar a la funcion para configurar todos los pdf
+        prueba_paciente_arreglo = arreglo_pdf;
 
-            ajaxAwait({
-                api: 7,
-                turno_id: turno_id, // <-- turno del paciente
-                url_final: arreglo_pdf // <-- arreglo de los pdf ya modificados
-            }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
-                swal.close(); // <-- se cierra la alerta anterior
-                alertMsj({
-                    title: '¡Su firma y consentimiento se han guardado!',
-                    text: 'ya puede visualizar su reporte',
-                    icon: 'success',
-                    allowOutsideClick: false,
-                    showCancelButton: false,    
-                    showConfirmButton: true
-                })
-                limpiarFirma(); // <-- se limpia el canva de la firma
-                ContruirPagina(); // <-- se vuelve a construir toda la pagina con los cambios del paciente realizados
-                // validar_si_existe_firma();
-            })
+        // 3. Se envian a la base de datos los PDFs ya modificados para que se guarden
+        enviarPDFs(turno_id,arreglo_pdf); //<-- enviamos los PDF ya modificados a la base de datos
+    })
+}
 
+
+// function para recuperar el arreglo que se necesita para poner las firmas en los pdf
+async function recuperar_arreglo_firmas(turno_id) {
+    let res; // <-- variable donde se va a guardar la respuesta de la peticion
+    // Se hace la peticion ajax para recuperar el arreglo con los pdf rellenados y las firmas
+    await ajaxAwait({
+        api: 3,
+        turno_id: turno_id // <-- turno del paciente
+    }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
+        let row = data.response.data;
+        res = row.JSON_UNIDO; // arreglo con los pdf modificados y las firmas  
+    })
+
+    return res; //<-- regresamos el arreglo que contiene las firmas y los pdf a modificar 
+}
+
+// function para mandar los PDF ya modificado con la informacion del paciente y los pdf ya con sus firmas
+async function enviarPDFs(turno_id, arreglo_pdf) {
+    // se hace la peticion a la api 7 para guardar los PDF finales con su firma y datos del paciente
+    await ajaxAwait({
+        api: 7,
+        turno_id: turno_id, // <-- turno del paciente
+        url_final: arreglo_pdf // <-- arreglo de los pdf ya modificados
+    }, 'consentimiento_api', { callbackAfter: true }, false, async (data) => {
+        swal.close(); // <-- se cierra la alerta anterior
+        alertMsj({
+            title: '¡Su firma y consentimiento se han guardado!',
+            text: 'ya puede visualizar su reporte',
+            icon: 'success',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            showConfirmButton: true
         })
-
-
-        // Se tienen que recuperar todos los PDF de los consentimiento con la informacion del paciente ya relllenada
-        // Para poder posicionar la firma en los consentimientos y luego enviarlos
-
-        // configurar_pdf_firma(pdf_consentimiento); // se manda a llamar el metodo para modificar los pdf con las firmas
-
-
-        // alertMsj({
-        //     title: '¡Su firma y consentimiento se han guardado!',
-        //     text: 'ya puede visualizar su reporte',
-        //     icon: 'success',
-        //     allowOutsideClick: false,
-        //     showCancelButton: false,
-        //     showConfirmButton: true
-        // })
-        // limpiarFirma();
-        // ContruirPagina();
+        limpiarFirma(); // <-- se limpia el canva de la firma
+        ContruirPagina(); // <-- se vuelve a construir toda la pagina con los cambios del paciente realizados
         // validar_si_existe_firma();
     })
 }
+
 
 // Function para limpiar la firma en caso de que se haya enviado con exito
 function limpiarFirma() {
@@ -384,6 +382,7 @@ function limpiarFirma() {
     $("#firma").val("");
 }
 
+// function fade para los consentimientos
 function fadeConsentimiento(firma) {
     let firma_div = $("#firma_div"); // <-- contenedor del canvas para la firma
     let aviso_div = $("#aviso_reporte"); // <-- contenedor del boton para visualizar el pdf
@@ -431,7 +430,7 @@ function validarConsentimientos() {
     // Se saca todos los consentimiento que tenga el paciente
     let row = paciente_data.FORMATO
 
-    // Se recorren todos los consentimientos
+    // Se recorren todos los consentimientos para detectar si falta alguno por seleccionar
     for (const key in row) {
         if (Object.hasOwnProperty.call(row, key)) {
             const element = row[key];
@@ -681,7 +680,7 @@ async function configurar_pdf_firma(row) {
                     id_consentimiento: $ID,
                     pdf: pdfBase64
                 }
-            } catch (error) {   
+            } catch (error) {
                 // se manejan los errores por si llega a suceder algo imprevisto
                 console.error(`Error en la posicion de: ${key}: ${error.message}`);
             }
