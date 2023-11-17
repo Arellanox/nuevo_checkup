@@ -135,7 +135,7 @@ HTML;
 }
 
 // Inicio del HTML del formulario
-$html = '<div class="row">';
+$html = '<div class="row" id="antecedentes-preguntas">';
 
 // Generar HTML para cada columna
 foreach ([1 => 10, 11 => count($antecedentes)] as $inicio => $fin) {

@@ -388,7 +388,7 @@ async function obtenerServicios(area, turno) {
                 data['api'] = 2
                 break;
             case 4:
-                data['api'] = 2;
+                data['api'] = 6;
                 break;
             default:
                 data['api'] = 3
@@ -1007,51 +1007,53 @@ async function obtenerResultadosElectro(data) {
 }
 
 async function obtenerResultadosAudio(data) {
-    console.log(formulario)
+
     document.getElementById(formulario).reset()
 
     let row = data.array[0]
 
+    // ----------------------------------------------------------------
 
-    // Apartado de cometarios
-    $('#audio-comenConclucion').val(ifnull(row, false, ['COMENTARIOS']) ? row.COMENTARIOS : '');
-    $('#comentario_oido_derecho').val(ifnull(row, false, ['COMENTARIOS_OD']) ? row.COMENTARIOS_OD : '')
-    $('#comentario_oido_izquierdo').val(ifnull(row, false, ['COMENTARIOS_OI']) ? row.COMENTARIOS_OI : '')
+    //  PRIMARA PAGINA
+    if (ifnull(row, false, ['ANTECEDENTES'])) {
 
-    //Apartado de otoscopia
-    $('#textArea-otoscopia').val(ifnull(row, false, ['OTOSCOPIA']) ? row.OTOSCOPIA : '')
+        // Antecedentes de audio
+        $(`#${'antecedentes-preguntas'} input[type="radio"]`).prop('checked', false);
+        $(`#${'antecedentes-preguntas'} div.collapse, div.collapse.show`).collapse('hide');
+
+        // Antecedentes del paciente
+        const ante = row.ANTECEDENTES;
+        $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
+
+            const $element = $(this);
+
+            respuesta = ante[key]['ID_RESPUESTA'];
+
+            let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`);
+
+            $input.prop('checked', true)
+            if (respuesta === 1)
+                $element.find('div.collapse').show();
+
+            $input.val(ifnull(ante, '', { key: ['COMENTARIO'] }))
+        })
+
+    }
+
+    // ----------------------------------------------------------------
+
+    // SEGUNDA PAGINA
 
     //Apartado de audiometria
-    $('#audiometria_oido_derecho').val(ifnull(row, false, ['RESULTADO_OD']) ? row.RESULTADO_OD : '')
-    $('#audiometria_oido_izquierdo').val(ifnull(row, false, ['RESULTADO_OI']) ? row.RESULTADO_OI : '')
+    $('#audiometria_oido_derecho').val(ifnull(row, '', ['RESULTADO_OD']))
+    $('#audiometria_oido_izquierdo').val(ifnull(row, '', ['RESULTADO_OI']))
 
-    //Apartado de recomendaciones
-    $('#textArea-recomendaciones').val(ifnull(row, false, ['RECOMENDACIONES']) ? row.RECOMENDACIONES : '')
+    //Apartado de otoscopia
+    $('#textArea-otoscopia').val(ifnull(row, '', ['OTOSCOPIA']))
 
+    // ----------------------------------------------------------------
 
-
-    // $('#div-antecedentes')
-    // Antecedentes de audio
-    $('#div-antecedentes input[type="radio"]').prop('checked', false);
-    $('#div-antecedentes div.collapse, div.collapse.show').collapse('hide');
-    // console.log(row, row['ANTECEDENTES']);
-    if (ifnull(row, false, ['ANTECEDENTES'])) {
-        const antecedentes = row['ANTECEDENTES'];
-        for (const key in antecedentes) {
-            const val = antecedentes[key];
-            $(`#div-antecedentes input[name="antecedentes[${val.ID_ANTECEDENTE}][option]"][value="${val.ID_RESPUESTA}"][type="radio"]`).prop('checked', true);
-
-            if (ifnull(val, false, ['ID_RESPUESTA']) === 1) {
-                console.log("SI collapse")
-                $(`#div-antecedentes textarea[name="antecedentes[${val.ID_ANTECEDENTE}][comentario]"]`).val(val.COMENTARIO);
-                // console.log($(`#div-antecedentes div.target-${val.ID_ANTECEDENTE}.collapse`))
-                $(`#div-antecedentes div.target-${val.ID_ANTECEDENTE}.collapse`).collapse('show');
-                // console.log(div);
-                // if (div.attr('data-id-target') == ifnull(val, 0, ['ID_RESPUESTA']))
-                //     div.collapse('show');
-            }
-        }
-    }
+    //  TERCERA PAGINA  
 
     // HZ del paciente
     if (ifnull(row, false, ['AUDIOMETRIA'])) {
@@ -1065,7 +1067,14 @@ async function obtenerResultadosAudio(data) {
         }
     }
 
+    // Apartado de cometarios
+    $('#audio-comenConclucion').val(ifnull(row, '', ['COMENTARIOS']));
+    $('#comentario_oido_derecho').val(ifnull(row, '', ['COMENTARIOS_OD']))
+    $('#comentario_oido_izquierdo').val(ifnull(row, '', ['COMENTARIOS_OI']))
 
+    //Apartado de recomendaciones
+    $('#textArea-recomendaciones').val(ifnull(row, '', ['RECOMENDACIONES']))
+    // ----------------------------------------------------------------
 
 
 }
