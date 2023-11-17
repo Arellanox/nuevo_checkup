@@ -25,6 +25,136 @@
 <p class="text-center">Cargue y mueva el recuadro de la imagen para capturar la tabla del reporte.</p>
 
 <!-- <form id="formSubirInterpretacionPRUEBA"> -->
+<?php
+// Asumiendo que $antecedentes es tu arreglo de preguntas
+$antecedentes = [
+    1 => [
+        'descripcion' => 'sarampion',
+        'pregunta' => '¿Ha tenido sarampión alguna vez en su vida?'
+    ],
+    2 => [
+        'descripcion' => 'paperas',
+        'pregunta' => '¿Ha padecido de paperas?'
+    ],
+    3 => [
+        'descripcion' => 'meningitis',
+        'pregunta' => '¿Alguna vez le han diagnosticado con meningitis?'
+    ],
+    4 => [
+        'descripcion' => 'escarlatina',
+        'pregunta' => '¿Ha tenido escarlatina?'
+    ],
+    5 => [
+        'descripcion' => 'hipertension_arterial',
+        'pregunta' => '¿Sufre de hipertensión arterial?'
+    ],
+    6 => [
+        'descripcion' => 'otras',
+        'pregunta' => '¿Algún otro antecedente?'
+    ],
+    7 => [
+        'descripcion' => 'tinnitus',
+        'pregunta' => '¿Ha experimentado tinnitus (zumbidos en los oídos)?'
+    ],
+    8 => [
+        'descripcion' => 'infecciones_recurrentes_del_oido',
+        'pregunta' => '¿Ha tenido infecciones recurrentes del oído?'
+    ],
+    9 => [
+        'descripcion' => 'garcimina',
+        'pregunta' => '¿Ha utilizado garcinia para algún tratamiento?'
+    ],
+    10 => [
+        'descripcion' => 'quinina',
+        'pregunta' => '¿Ha sido tratado alguna vez con quinina?'
+    ],
+    11 => [
+        'descripcion' => 'estreptomicina',
+        'pregunta' => '¿Le han prescrito estreptomicina para algún tratamiento?'
+    ],
+    12 => [
+        'descripcion' => 'kanamicina',
+        'pregunta' => '¿Ha usado kanamicina para tratar alguna afección?'
+    ],
+    13 => [
+        'descripcion' => 'cirugia_de_oido',
+        'pregunta' => '¿Ha tenido alguna cirugía de oído?'
+    ],
+    14 => [
+        'descripcion' => 'trauma_craneoencefalico',
+        'pregunta' => '¿Ha sufrido un trauma craneoencefálico?'
+    ],
+    15 => [
+        'descripcion' => 'secreciones_de_oido',
+        'pregunta' => '¿Padece de secreciones en el oído?'
+    ],
+    16 => [
+        'descripcion' => 'acumulacion_de_cerumen',
+        'pregunta' => '¿Tiene o ha tenido acumulación de cerumen?'
+    ],
+    17 => [
+        'descripcion' => 'tinitos',
+        'pregunta' => '¿Sufre de tinitos?'
+    ],
+    18 => [
+        'descripcion' => 'ruido_intenso',
+        'pregunta' => '¿Ha estado expuesto a ruido intenso de manera regular o prolongada?'
+    ],
+    19 => [
+        'descripcion' => 'pasatiempos',
+        'pregunta' => '¿Cuáles son sus pasatiempos, y cree que alguno de ellos podría afectar su salud auditiva?'
+    ],
+];
+
+
+// Función para generar el HTML de una pregunta
+function generarHTMLPregunta($id, $descripcion, $pregunta)
+{
+    return <<<HTML
+                        <!-- Antecedente de $descripcion -->
+                        <div class="m-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>{$pregunta}:</label>
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="{$descripcion}_1" name="antecedentes[$id][option]" value="1">
+                                    <label for="{$descripcion}_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="{$descripcion}_2" name="antecedentes[$id][option]" value="2">
+                                    <label for="{$descripcion}_2">No</label>
+                                </div>
+                            </div>
+                            <div class="target-{$id} collapse">
+                                <textarea name="antecedentes[$id][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+                        <hr>
+HTML;
+}
+
+// Inicio del HTML del formulario
+$html = '<div class="row">';
+
+// Generar HTML para cada columna
+foreach ([1 => 10, 11 => count($antecedentes)] as $inicio => $fin) {
+    $html .= '<div class="col-12 col-lg-6">';
+    $html .= '<div class="rounded p-3 shadow my-2">';
+    for ($i = $inicio; $i <= $fin; $i++) {
+        if (isset($antecedentes[$i])) {
+            $descripcion = str_replace(' ', '_', $antecedentes[$i]['descripcion']);
+            $pregunta = $antecedentes[$i]['pregunta'];
+            $html .= generarHTMLPregunta($i, $descripcion, $pregunta);
+        }
+    }
+    $html .= '</div>';
+    $html .= '</div>';
+}
+
+$html .= '</div>'; // Fin del HTML del formulario
+
+?>
 
 <!-- <form></form> -->
 <div class="row container-pages">
@@ -123,361 +253,11 @@
                     </div> -->
             <!-- </div> -->
 
+            <?php
+            // Formulario completo
+            echo $html;
+            ?>
 
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <div class="rounded p-3 shadow my-2">
-                        <!-- Antecedente de Sarampión -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de sarampión?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="sarampion_1" name="antecedentes[0][option]"
-                                        value="1">
-                                    <label for="sarampion_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="sarampion_2" name="antecedentes[0][option]"
-                                        value="2">
-                                    <label for="sarampion_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-0 collapse">
-                                <textarea name="antecedentes[0][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Paperas -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de paperas?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="paperas_1" name="antecedentes[1][option]"
-                                        value="1">
-                                    <label for="paperas_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="paperas_2" name="antecedentes[1][option]"
-                                        value="2">
-                                    <label for="paperas_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-1 collapse">
-                                <textarea name="antecedentes[1][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Meningitis -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de meningitis?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="meningitis_1" name="antecedentes[2][option]"
-                                        value="1">
-                                    <label for="meningitis_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="meningitis_2" name="antecedentes[2][option]"
-                                        value="2">
-                                    <label for="meningitis_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-2 collapse">
-                                <textarea name="antecedentes[2][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Hipertensión Arterial -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de hipertensión arterial?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="hipertension_1" name="antecedentes[3][option]"
-                                        value="1">
-                                    <label for="hipertension_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="hipertension_2" name="antecedentes[3][option]"
-                                        value="2">
-                                    <label for="hipertension_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-3 collapse">
-                                <textarea name="antecedentes[3][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Otros Antecedentes Médicos -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Otros antecedentes médicos relevantes?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="otros_antecedentes_1"
-                                        name="antecedentes[4][option]" value="1">
-                                    <label for="otros_antecedentes_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="otros_antecedentes_2"
-                                        name="antecedentes[4][option]" value="2">
-                                    <label for="otros_antecedentes_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-4 collapse">
-                                <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Tinnitus -->
-                        <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta"
-                            style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de tinnitus?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="tinnitus_1" name="antecedentes[5][option]"
-                                        value="1">
-                                    <label for="tinnitus_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="tinnitus_2" name="antecedentes[5][option]"
-                                        value="2">
-                                    <label for="tinnitus_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-5 collapse">
-                                <textarea name="antecedentes[5][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Infecciones Recurrentes del Oído -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de infecciones recurrentes del oído?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="infecciones_oido_1" name="antecedentes[6][option]"
-                                        value="1">
-                                    <label for="infecciones_oido_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="infecciones_oido_2" name="antecedentes[6][option]"
-                                        value="2">
-                                    <label for="infecciones_oido_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-6 collapse">
-                                <textarea name="antecedentes[6][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="rounded p-3 shadow my-2">
-                        <!-- Antecedente de Consumo de Medicamentos Otóxicos -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de consumo de medicamentos otóxicos?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="medicamentos_otoxicos_1"
-                                        name="antecedentes[7][option]" value="1">
-                                    <label for="medicamentos_otoxicos_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="medicamentos_otoxicos_2"
-                                        name="antecedentes[7][option]" value="2">
-                                    <label for="medicamentos_otoxicos_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-7 collapse">
-                                <textarea name="antecedentes[7][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Cirugía de Oído -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de cirugía de oído?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="cirugia_oido_1" name="antecedentes[8][option]"
-                                        value="1">
-                                    <label for="cirugia_oido_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="cirugia_oido_2" name="antecedentes[8][option]"
-                                        value="2">
-                                    <label for="cirugia_oido_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-8 collapse">
-                                <textarea name="antecedentes[8][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Trauma Craneoencefálico -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de trauma craneoencefálico?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="trauma_craneoencefalico_1"
-                                        name="antecedentes[9][option]" value="1">
-                                    <label for="trauma_craneoencefalico_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="trauma_craneoencefalico_2"
-                                        name="antecedentes[9][option]" value="2">
-                                    <label for="trauma_craneoencefalico_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-9 collapse">
-                                <textarea name="antecedentes[9][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Secreciones del Oído -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de secreciones del oído?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="secreciones_oido_1" name="antecedentes[10][option]"
-                                        value="1">
-                                    <label for="secreciones_oido_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="secreciones_oido_2" name="antecedentes[10][option]"
-                                        value="2">
-                                    <label for="secreciones_oido_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-10 collapse">
-                                <textarea name="antecedentes[10][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Acumulación de Cerumen -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de acumulación de cerumen?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="acumulacion_cerumen_1"
-                                        name="antecedentes[11][option]" value="1">
-                                    <label for="acumulacion_cerumen_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="acumulacion_cerumen_2"
-                                        name="antecedentes[11][option]" value="2">
-                                    <label for="acumulacion_cerumen_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-11 collapse">
-                                <textarea name="antecedentes[11][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Tinitos -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de tinitos?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="tinitos_1" name="antecedentes[12][option]"
-                                        value="1">
-                                    <label for="tinitos_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="tinitos_2" name="antecedentes[12][option]"
-                                        value="2">
-                                    <label for="tinitos_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-12 collapse">
-                                <textarea name="antecedentes[12][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Exposición a Ruido Intenso -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de exposición a ruido intenso?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="ruido_intenso_1" name="antecedentes[13][option]"
-                                        value="1">
-                                    <label for="ruido_intenso_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="ruido_intenso_2" name="antecedentes[13][option]"
-                                        value="2">
-                                    <label for="ruido_intenso_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-13 collapse">
-                                <textarea name="antecedentes[13][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
-                        <!-- Antecedente de Pasatiempos que Afectan la Audición -->
-                        <div class="mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                            <div class="col-12 col-lg-8">
-                                <label>¿Antecedente de pasatiempos que afectan la audición?: </label>
-                            </div>
-                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                <div class="col-auto">
-                                    <input type="radio" required id="pasatiempos_1" name="antecedentes[14][option]"
-                                        value="1">
-                                    <label for="pasatiempos_1">Sí</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="radio" required id="pasatiempos_2" name="antecedentes[14][option]"
-                                        value="2">
-                                    <label for="pasatiempos_2">No</label>
-                                </div>
-                            </div>
-                            <div class="target-14 collapse">
-                                <textarea name="antecedentes[14][comentario]" class="form-control input-form" rows="2"
-                                    cols="2" placeholder="Especifique"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- </div> -->
         </form>
     </section>
@@ -493,25 +273,20 @@
                     <h5>Subir captura de Oído izquierdo</h5>
                     <form id="subirCapturaOidoIzquierdo" class="d-flex flex-column align-items-center">
                         <div id="dropOidoIzquierdo" class="drop-zone mx-2">
-                            <label for="file-captura-oido-izquierdo" style="cursor: pointer;"
-                                class="label-captura-oido">Sube
+                            <label for="file-captura-oido-izquierdo" style="cursor: pointer;" class="label-captura-oido">Sube
                                 tu
                                 archivo
                                 arrastrándolo
                                 aquí</label>
 
-                            <input type="file" id="file-captura-oido-izquierdo" name="file-captura-oido-izquierdo[]"
-                                style="display: none;">
+                            <input type="file" id="file-captura-oido-izquierdo" name="file-captura-oido-izquierdo[]" style="display: none;">
                             <br>
-                            <div class="spinner-border text-primary carga-captura-oido" role="status"
-                                style="display: none;">
+                            <div class="spinner-border text-primary carga-captura-oido" role="status" style="display: none;">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
                     </form>
-                    <textarea name="audiometria_oido_izquierdo" class="form-textarea-content"
-                        style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..."
-                        id="audiometria_oido_izquierdo"></textarea>
+                    <textarea name="audiometria_oido_izquierdo" class="form-textarea-content" style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..." id="audiometria_oido_izquierdo"></textarea>
 
                 </div>
                 <div class="col-6">
@@ -528,25 +303,20 @@
                     <h5>Subir captura de Oído derecho</h5>
                     <form id="subirCapturaOidoDerecho" class="d-flex flex-column align-items-center">
                         <div id="dropOidoDerecho" class="drop-zone mx-2">
-                            <label for="file-captura-oido-derecho" style="cursor: pointer;"
-                                class="label-captura-oido">Sube
+                            <label for="file-captura-oido-derecho" style="cursor: pointer;" class="label-captura-oido">Sube
                                 tu
                                 archivo
                                 arrastrándolo
                                 aquí</label>
 
-                            <input type="file" id="file-captura-oido-derecho" name="file-captura-oido-derecho[]"
-                                style="display: none;">
+                            <input type="file" id="file-captura-oido-derecho" name="file-captura-oido-derecho[]" style="display: none;">
                             <br>
-                            <div class="spinner-border text-primary carga-captura-oido" role="status"
-                                style="display: none;">
+                            <div class="spinner-border text-primary carga-captura-oido" role="status" style="display: none;">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
                     </form>
-                    <textarea name="audiometria_oido_derecho" class="form-textarea-content"
-                        style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..."
-                        id="audiometria_oido_derecho"></textarea>
+                    <textarea name="audiometria_oido_derecho" class="form-textarea-content" style="width: 100%;margin: 0px;" placeholder="Conducto auditivo externo..." id="audiometria_oido_derecho"></textarea>
                 </div>
 
                 <div class="col-6">
@@ -562,8 +332,7 @@
             <!-- <h4>Otoscopía</h4> -->
             <p>Ambos pabellones:</p>
             <div class="p-4">
-                <textarea name="otoscopia" rows="10" cols="90" class="form-textarea-content" placeholder="Análisis"
-                    id="textArea-otoscopia" style="width: 100%;margin: 0px !important;"></textarea>
+                <textarea name="otoscopia" rows="10" cols="90" class="form-textarea-content" placeholder="Análisis" id="textArea-otoscopia" style="width: 100%;margin: 0px !important;"></textarea>
             </div>
         </div>
     </section>
@@ -609,50 +378,36 @@
                                 <tbody>
                                     <tr>
                                         <td>OD</td>
-                                        <td><input type="number" name="values[OD][500hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OD][500hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OD][1000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OD][1000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OD][2000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OD][2000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OD][3000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OD][3000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OD][4000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OD][4000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OD][6000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OD][6000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OD][8000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OD][8000hz]" class="form-control input-form text-center">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>OI</td>
-                                        <td><input type="number" name="values[OI][500hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OI][500hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OI][1000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OI][1000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OI][2000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OI][2000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OI][3000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OI][3000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OI][4000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OI][4000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OI][6000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OI][6000hz]" class="form-control input-form text-center">
                                         </td>
-                                        <td><input type="number" name="values[OI][8000hz]"
-                                                class="form-control input-form text-center">
+                                        <td><input type="number" name="values[OI][8000hz]" class="form-control input-form text-center">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -669,20 +424,16 @@
                         <h4>Comentarios</h4>
                         <!-- <p></p> -->
                         <div class="p-4">
-                            <textarea name="comentario" rows="10" cols="90" class="form-textarea-content"
-                                placeholder="Conclusiones" id="audio-comenConclucion"
-                                style="width: 100%;margin: 0px !important;"></textarea>
+                            <textarea name="comentario" rows="10" cols="90" class="form-textarea-content" placeholder="Conclusiones" id="audio-comenConclucion" style="width: 100%;margin: 0px !important;"></textarea>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <label for="comentario_oido_derecho" class="form-label">Oído Derecho:</label>
-                                <input type="text" class="form-control input-form" name="comentario_oido_derecho"
-                                    placeholder="" id="comentario_oido_derecho">
+                                <input type="text" class="form-control input-form" name="comentario_oido_derecho" placeholder="" id="comentario_oido_derecho">
                             </div>
                             <div class="col-12">
                                 <label for="comentario_oido_izquierdo" class="form-label">Oído Izquierdo:</label>
-                                <input type="text" class="form-control input-form" name="comentario_oido_izquierdo"
-                                    placeholder="" id="comentario_oido_izquierdo">
+                                <input type="text" class="form-control input-form" name="comentario_oido_izquierdo" placeholder="" id="comentario_oido_izquierdo">
                             </div>
                         </div>
                     </div>
@@ -694,9 +445,7 @@
                         <h4>Recomendaciones</h4>
                         <!-- <p></p> -->
                         <div class="p-4">
-                            <textarea name="recomendaciones" rows="10" cols="90" class="form-textarea-content"
-                                placeholder="Uso de protección..." id="textArea-recomendaciones"
-                                style="width: 100%;margin: 0px !important;"></textarea>
+                            <textarea name="recomendaciones" rows="10" cols="90" class="form-textarea-content" placeholder="Uso de protección..." id="textArea-recomendaciones" style="width: 100%;margin: 0px !important;"></textarea>
                         </div>
                     </div>
                 </div>
@@ -1058,7 +807,7 @@
 </style>
 
 <script>
-    $(document).on("change keyup", "input[type='radio']", function () {
+    $(document).on("change keyup", "input[type='radio']", function() {
         const parentElement = $(this).closest(".row.d-flex.justify-content-center.pregunta");
         // console.log(parentElement)
         let collapID = parentElement.children(".collapse");
@@ -1066,22 +815,29 @@
         if (!collapID) return; // Si no hay ID, no hacer nada
 
         if (this.value == true) {
-            $(collapID).collapse("show")//.find(':textarea').prop('required', true);
+            $(collapID).collapse("show") //.find(':textarea').prop('required', true);
         } else {
-            $(collapID).collapse("hide")//.find(':textarea').val('').prop('required', false);
+            $(collapID).collapse("hide") //.find(':textarea').val('').prop('required', false);
         }
     });
 
 
 
     $('#tableAudioOido').DataTable({
-        language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        },
         lengthChange: false,
         info: false,
         paging: false,
-        columnDefs: [
-            { width: "5%", targets: 0 },
-            { width: "10%", targets: [1, 2, 3, 4, 5, 6, 7] },
+        columnDefs: [{
+                width: "5%",
+                targets: 0
+            },
+            {
+                width: "10%",
+                targets: [1, 2, 3, 4, 5, 6, 7]
+            },
         ],
         ordering: false,
         searching: false,
@@ -1089,16 +845,17 @@
 
 
     $('#oidosDescripcion').DataTable({
-        language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        },
         lengthChange: false,
         info: false,
         paging: false,
-        columnDefs: [
-            { width: "50%", targets: [0, 1] },
-        ],
+        columnDefs: [{
+            width: "50%",
+            targets: [0, 1]
+        }, ],
         ordering: false,
         searching: false,
     })
-
-
 </script>
