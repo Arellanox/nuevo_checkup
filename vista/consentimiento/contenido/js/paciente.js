@@ -167,10 +167,10 @@ async function construiBodyConsentimiento() {
 
                 const $ACEPTADO_CONSENTIMIENTO = element.ACEPTADO; // <-- INT para saber si el consentimiento fue aceptado o no
 
-                let $badge = "";
+                let $badge = ""; // <-- badge para mostrar si el consentimiento fue aceptado o no
 
                 // Se evalua si el consentimiento es aceptado
-                if ($ACEPTADO_CONSENTIMIENTO === 1) /* El consentimiento esta aceptado */ {
+                if ($ACEPTADO_CONSENTIMIENTO === 1) /* El consentimiento fue aceptado */ {
                     $badge = `<h5 class="text-success fw-bold">
                     <i class="bi bi-check-circle-fill"></i> Aceptado
                     </h5>`;
