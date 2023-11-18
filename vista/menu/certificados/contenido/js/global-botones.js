@@ -1,17 +1,13 @@
 
 $('#fechaListadoAreaMaster').change(function () {
-    console.log('primero')
     recargarVistaLab();
   })
   
   $('#checkDiaAnalisis').click(function () {
-    console.log('segundo')
     if ($(this).is(':checked')) {
-      console.log('dentro del if')
       recargarVistaLab(0)
       $('#fechaListadoAreaMaster').prop('disabled', true)
     } else {
-      console.log('dentro del else')
       recargarVistaLab();
       $('#fechaListadoAreaMaster').prop('disabled', false)
     }
@@ -42,7 +38,6 @@ $('#fechaListadoAreaMaster').change(function () {
       $(".btn-ocultar").hide(); //oculta todos los btn antes
 
     const btnSeleccion = btnProcedencia[procedencia] //Entra en el mapeto y busca lo que se trae desde la funcion
-    console.log(btnSeleccion)
       if(btnSeleccion){
         $(btnSeleccion).show()
       }
