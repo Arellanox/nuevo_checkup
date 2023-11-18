@@ -14,7 +14,7 @@ $master = new Master();
 $api = $_POST['api'];
 
 # variables para lista de trabajo.
-$fecha = $_POST['fecha_busqueda'];
+$fecha = isset($_POST['fecha_busqueda']) ? $_POST['fecha_busqueda'] : null;
 
 # variables para certificado slb
 $turno_id = $_POST['turno_id'];

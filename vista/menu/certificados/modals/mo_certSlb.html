@@ -1,0 +1,56 @@
+<div class="modal fade" id="MoldaCertificadoSLB" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header header-modal">
+        <h5 class="modal-title" id="filtrador">Subir Certificado <strong>(SLB)</strong>:</h5>
+        <button type="button" class="btn-close  " data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
+          Cancelar</button>
+        <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-confirmar-subir">
+          <i class="bi bi-person-plus"></i> Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+  $(document).ready(function () {
+    // Escuchar el cambio en los radio buttons del lado izquierdo
+    $('input[name^="medicamente"]').change(function () {
+      // Ocultar todos los textarea en el contenedor izquierdo con class 'target-1'
+      $('#lado-izquierdo .target-1').collapse('hide');
+
+      // Obtener el textarea correspondiente dentro del contenedor izquierdo
+      var textarea = $('#lado-izquierdo .target-1 textarea');
+
+      // Mostrar el textarea solo si el radio button con id 'apto-con' está seleccionado
+      if ($('#apto-con').is(':checked')) {
+        $('#lado-izquierdo .target-1').collapse('show');
+      } else {
+        // Si cambias la opción, borra el contenido del textarea y oculta
+        textarea.val("");
+        $('#lado-izquierdo .target-1').collapse('hide');
+      }
+    });
+
+    // Escuchar el cambio en los radio buttons del lado derecho
+    $('input[name^="add"]').change(function () {
+      // Aquí puedes realizar acciones específicas para el lado derecho si es necesario
+    });
+  });
+
+
+
+
+</script>
