@@ -20,6 +20,34 @@ $fecha = $_POST['fecha_busqueda'];
 $turno_id = $_POST['turno_id'];
 $cliente_id = $_POST['cliente_id'];
 
+# datos para guardar el certificado de slb
+$nombre_medico = $_POST['nombre_medico'];
+$cedula_medico = $_POST['cedula_medico'];
+$nombre_paciente = $_POST['nombre_paciente'];
+$fecha_nacimiento_paciente = $_POST['fecha_nacimiento_paciente'];
+$segmento = $_POST['segmento'];
+$categoria = $_POST['categoria'];
+$apto = $_POST['apto'];
+$comentarios_apto = $_POST['apto_comentarios'];
+$antidoping = $_POST['antidoping'];
+$grupo_sangre = $_POST['grupo_sangre'];
+$add = $_POST['add'];
+$tipo = $_POST['tipo_certificado'];
+
+$certificado_slb = array(
+    "nombre_medico" => $nombre_medico,
+    "cedula_medico" => $cedula_medico,
+    "nombre_paciente" => $nombre_paciente,
+    "fecha_nacimiento_paciente" => $fecha_nacimiento_paciente,
+    "segmento" => $segmento,
+    "categoria" => $categoria,
+    "apto" => $apto,
+    "comentarios_apto" => $comentarios_apto,
+    "antidoping" => $antidoping,
+    "grupo_sangre" => $grupo_sangre,
+    "add" => $add
+);
+
 
 switch($api){
     case 1:
