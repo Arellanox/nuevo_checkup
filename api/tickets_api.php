@@ -31,10 +31,14 @@ $regimen_fiscal = $_POST['regimen_fiscal'];
 $rfc = $_POST['rfc'];
 $uso = $_POST['uso'];
 $metodo_pago = $_POST['metodo_pago'];
+$formas_pagos_ticket = $_POST['formas_pagos_ticket'];
 
 
 
-$params = $master->setToNull(array(
+
+
+
+$params = array(
     $id_ticket,
     $turno_id,
     $descuento_porcentaje,
@@ -52,12 +56,11 @@ $params = $master->setToNull(array(
     $rfc,
     $uso,
     $metodo_pago,
-    $_SESSION['id']
-));
-# datos de factura
+    $_SESSION['id'],
+    $formas_pagos_ticket
 
-//  print_r($params);
-//  exit;
+);
+# datos de factura
 
 
 

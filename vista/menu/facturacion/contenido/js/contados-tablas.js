@@ -35,6 +35,12 @@ tablaContados = $('#TablaContados').DataTable({
         { data: 'NOMBRE_COMPLETO' },
         { data: 'PREFOLIO' },
         {
+            data: 'NUM_ESTADO_CUENTA', render: function (data) {
+                let html = `<div class="d-flex justify-content-center detalleCuenta" style="width: 40px"> ${ifnull(data, '0000')} </div>`
+                return html
+            }
+        },
+        {
             data: 'FECHA_IMPRESION', render: function (data) {
                 return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
             }
@@ -67,13 +73,14 @@ tablaContados = $('#TablaContados').DataTable({
         { target: 0, title: '#', className: 'all' },
         { target: 1, title: 'Nombre', className: 'all' },
         { target: 2, title: 'Prefolio', className: 'all' },
-        { target: 3, title: 'Finalizado', className: 'all' },
-        { target: 4, title: 'Factura', className: 'all' },
-        { target: 5, title: 'Fecha', className: 'all' },
-        { target: 6, title: 'Turno', className: 'none' },
-        { target: 7, title: 'Genero', className: 'none' },
-        { target: 8, visible: false, searchable: true }, // <-- ocultarlo pero buscable para los facturados
-        { target: 9, title: 'Facturar', className: 'all', width: '' },
+        { target: 3, title: 'Cuenta', className: 'all' },
+        { target: 4, title: 'Finalizado', className: 'all' },
+        { target: 5, title: 'Factura', className: 'all' },
+        { target: 6, title: 'Fecha', className: 'all' },
+        { target: 7, title: 'Turno', className: 'none' },
+        { target: 8, title: 'Genero', className: 'none' },
+        { target: 9, visible: false, searchable: true }, // <-- ocultarlo pero buscable para los facturados
+        { target: 10, title: 'Facturar', className: 'all', width: '' },
 
     ],
 
@@ -100,85 +107,38 @@ tablaContados = $('#TablaContados').DataTable({
                 }
             }
         }
-        // {
-        //     extend: 'copyHtml5',
-        //     text: '<i class="fa fa-files-o"></i>',
-        //     titleAttr: 'Copy'
-        // },
-        // {
-        //     extend: 'excelHtml5',
-        //     text: '<i class="fa fa-file-excel-o"></i>',
-        //     titleAttr: 'Excel'
-        // },
-        // {
-        //     extend: 'csvHtml5',
-        //     text: '<i class="fa fa-file-text-o"></i>',
-        //     titleAttr: 'CSV'
-        // },
-        // {
-        //     extend: 'pdfHtml5',
-        //     text: '<i class="fa fa-file-pdf-o"></i>',
-        //     titleAttr: 'PDF'
-        // }
     ]
 
-    //UNA IDEA de funcion
-    // initComplete: function () {
-    //     var api = this.api();
-
-    //     // For each column
-    //     api
-    //         .columns()
-    //         .eq(0)
-    //         .each(function (colIdx) {
-    //             // Set the header cell to contain the input element
-    //             var cell = $('.filters th').eq(
-    //                 $(api.column(colIdx).header()).index()
-    //             );
-    //             var title = $(cell).text();
-    //             $(cell).html('<input type="text" style="width: 100%" placeholder="' + title + '" />');
-
-    //             // On every keypress in this input
-    //             $(
-    //                 'input',
-    //                 $('.filters th').eq($(api.column(colIdx).header()).index())
-    //             )
-    //                 .off('keyup change')
-    //                 .on('change', function (e) {
-    //                     // Get the search value
-    //                     $(this).attr('title', $(this).val());
-    //                     var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-    //                     var cursorPosition = this.selectionStart;
-    //                     // Search the column for that value
-    //                     api
-    //                         .column(colIdx)
-    //                         .search(
-    //                             this.value != ''
-    //                                 ? regexr.replace('{search}', '(((' + this.value + ')))')
-    //                                 : '',
-    //                             this.value != '',
-    //                             this.value == ''
-    //                         )
-    //                         .draw();
-    //                 })
-    //                 .on('keyup', function (e) {
-    //                     e.stopPropagation();
-
-    //                     $(this).trigger('change');
-    //                     $(this)
-    //                         .focus()[0]
-    //                         .setSelectionRange(cursorPosition, cursorPosition);
-    //                 });
-    //         });
-    // },
 })
 
 
-
-
-
-selectDatatable("TablaContados", tablaContados, 0, 0, 0, 0, async function (select, data) {
+selectTable('#TablaContados', tablaContados, {
+    OnlyData: false,
+    ClickClass: [
+        {
+            class: 'detalleCuenta',
+            callback: function (data) {
+                let px = data['NOMBRE_COMPLETO']
+                getInfoEstadoCuenta(px, data['TURNO_ID']);
+                BuildFormasPago(data['TURNO_ID']);
+            }
+        }
+    ],
+    // Configuracion Movil
+    movil: true, "tab-default": 'Información', divPadre: '#ListaPacientesContados', reload: ['col-xl-9'],
+    tabs: [
+        {
+            title: 'Lista',
+            element: '#tab-pacientes_contados',
+            class: 'active',
+        },
+        {
+            title: 'Información',
+            element: '#tab-informacion_paciente',
+            class: 'disabled tab-select'
+        },
+    ],
+}, async (select, data, callback) => {
     selectTicket = data;
     if (select) {
         selectCuenta = new GuardarArreglo({
@@ -187,7 +147,9 @@ selectDatatable("TablaContados", tablaContados, 0, 0, 0, 0, async function (sele
             id: data['TURNO_ID']
         })
         await obtenerPanelInformacion(data['TURNO_ID'], 'tickets_api', 'PanelTickets', '#InformacionTickets')
+        callback('In')
     } else {
+        callback('Out')
         selectTicket = null;
         selectCuenta = false
         await obtenerPanelInformacion(0, 'tickets_api', 'PanelTickets', '#InformacionTickets')

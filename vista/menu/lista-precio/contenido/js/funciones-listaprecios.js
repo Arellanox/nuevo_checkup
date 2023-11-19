@@ -120,7 +120,7 @@ function obtenerColumnasTabla(tipo) {
           data: 'COSTO',
           render: function (data, type, full, meta) {
             numero = getRandomInt(300);
-            rturn = `<label class="form-check-label" for="costo${numero}"> <div class="form-check"> <div class="costo text-center">$${ifnull(parseFloat(data).toFixed(2), 0)}<input class="form-check-input" type="checkbox" value="" id="costo${numero}" checked></div> </div> </label>`;
+            rturn = `<label class="form-check-label" for="costo${numero}"> <div class="form-check"> <div class="costo text-center">$${ifnull(parseFloat(data).toFixed(2), 'number')}<input class="form-check-input" type="checkbox" value="" id="costo${numero}" checked></div> </div> </label>`;
 
             return rturn;
           },
@@ -134,7 +134,7 @@ function obtenerColumnasTabla(tipo) {
               utilidadInput = (full['PRECIO_VENTA'] - full['COSTO']) / full['COSTO'] * 100;
             }
 
-            rturn = `<div class="input-group"><input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" value="${ifnull(parseFloat(utilidadInput).toFixed(2), 0)}"><span class="input-span">%</span></div>`;
+            rturn = `<div class="input-group"><input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" value="${ifnull(parseFloat(utilidadInput).toFixed(2), 'number')}"><span class="input-span">%</span></div>`;
 
             return rturn;
           },
@@ -142,7 +142,7 @@ function obtenerColumnasTabla(tipo) {
         {
           data: 'PRECIO_VENTA',
           render: function (data, type, full, meta) {
-            rturn = `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="total" placeholder="" value="${ifnull(parseFloat(data).toFixed(2), 0)}"></div>`;
+            rturn = `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="total" placeholder="" value="${ifnull(parseFloat(data).toFixed(2), 'number')}"></div>`;
 
             return rturn;
           },
@@ -165,7 +165,7 @@ function obtenerColumnasTabla(tipo) {
         {
           data: 'COSTO',
           render: function (data, type, full, meta) {
-            rturn = `<div class="costo text-center">$${ifnull(parseFloat(data).toFixed(2), 0)}</div>`;
+            rturn = `<div class="costo text-center">$${ifnull(parseFloat(data).toFixed(2), 'number')}</div>`;
             return rturn;
           },
         },
@@ -177,7 +177,7 @@ function obtenerColumnasTabla(tipo) {
             if (full['COSTO'] && full['PRECIO_VENTA']) {
               utilidadInput = (full['PRECIO_VENTA'] - full['COSTO']) / full['COSTO'] * 100;
             }
-            rturn = `<div class="input-group"><input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" value="${ifnull(parseFloat(utilidadInput).toFixed(2), 0)}"><span class="input-span">%</span></div>`;
+            rturn = `<div class="input-group"><input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" value="${ifnull(parseFloat(utilidadInput).toFixed(2), 'number')}"><span class="input-span">%</span></div>`;
 
             return rturn;
           },
@@ -185,7 +185,7 @@ function obtenerColumnasTabla(tipo) {
         {
           data: 'PRECIO_VENTA',
           render: function (data, type, full, meta) {
-            rturn = `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="total" placeholder="" value="${ifnull(parseFloat(data).toFixed(2), 0)}"></div>`;
+            rturn = `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="total" placeholder="" value="${ifnull(parseFloat(data).toFixed(2), 'number')}"></div>`;
 
             return rturn;
           },

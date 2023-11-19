@@ -216,7 +216,7 @@ class Correo
 
             # send email
             $mail->send();
-            if(isset($id_turno)){
+            if (isset($id_turno)) {
 
                 $response = $master->insertByProcedure("sp_correos_g", [
                     $id_turno,
@@ -232,7 +232,7 @@ class Correo
             return true;
         } catch (Exception $e) {
 
-            if(isset($id_turno)){
+            if (isset($id_turno)) {
 
                 $response = $master->insertByProcedure("sp_correos_g", [
                     $id_turno,

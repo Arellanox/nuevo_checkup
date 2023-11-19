@@ -9,6 +9,7 @@ if (!$tokenValido) {
     // exit;
 }
 
+$master = new Master();
 #api
 $api = $_POST['api'];
 
@@ -57,9 +58,24 @@ $parametros = array(
     $cfdi
 );
 
+# variables para el descuento de los clientes
+$descuento_general = $_POST['descuento_general'];
+$descuento_area = $_POST['descuento_area'];
+$area_id = $_POST['area_id'];
+$descuento = $_POST['descuento']; //<- sirve para decirdir en que case entra en el sp
+
+
+$descuentos = $master->setToNull(array(
+    $id_cliente,
+    $descuento_general,
+    $descuento_area,
+    $area_id,
+    $descuento
+));
+
 $response = "";
 
-$master = new Master();
+
 switch ($api) {
     case 1:
         $response = $master->insertByProcedure("sp_clientes_g", $parametros);
@@ -105,6 +121,28 @@ switch ($api) {
         $url = $master->generarQRURL("cliente", $qr, $nombreCliente, QR_ECLEVEL_H, 10);
         echo json_encode(array("url" => $url, "url_qr" => $qr, "nombre" => $nombreCliente));
         exit;
+    case 6:
+        #agregar descuentos para el cliente.
+        $response = $master->updateByProcedure("sp_cliente_asignar_descuento", $descuentos);
+
+        break;
+    case 7:
+        # buscar los descuentos del cliente.
+        $response = $master->getByProcedure("sp_clientes_recuperar_descuentos", [$id_cliente]);
+        // $h = $master->setToNull($response);
+        $g = $master->checkArray($response);
+        // print_r($response);
+
+        if (empty($g)) {
+            echo json_encode([]);
+            exit;
+        }
+        // $response = $master->decodeJsonRecursively($response);
+        break;
+    case 8:
+        # eliminar descuento
+        $response = $master->deleteByProcedure("sp_clientes_eliminar_descuentos", [$id_cliente, $area_id]);
+        break;
 
     default:
         $response = "api no reconocida";
