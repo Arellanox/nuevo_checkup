@@ -142,6 +142,8 @@ async function configurarModal() {
     LimpiarModal()
     const NOMBRE_MEDICO = SelectedMedicosTratantes['NOMBRE_MEDICO'];
     const EMAIL_MEDICO = SelectedMedicosTratantes['EMAIL'];
+    const TELEFONO_MEDICO = SelectedMedicosTratantes['TELEFONO'];
+    const ESPECIALIDAD_MEDICO = SelectedMedicosTratantes['ESPECIALIDAD'];
     const ID_MEDICO = SelectedMedicosTratantes['ID_MEDICO'];
 
     $('#usuarioMedicoTitle').html(`Modificar información del médico: <b>${NOMBRE_MEDICO}</b>`)
@@ -149,6 +151,8 @@ async function configurarModal() {
 
     $('#nombre-medicoTrarante-a').val(NOMBRE_MEDICO)
     $('#email-medicoTratante-a').val(ifnull(EMAIL_MEDICO, 'Sin correo'))
+    $('#telefono-medicoTratante-a').val(ifnull(TELEFONO_MEDICO, 'Sin telefono'))
+    $('#especialidad-medicoTratante-a').val(ifnull(ESPECIALIDAD_MEDICO, 'Sin especialidad'))
 
     await rellenarSelect("#usuarios_medicos", "usuarios_api", 2, "ID_USUARIO", "nombrecompleto");
     ObtenerUsuario()

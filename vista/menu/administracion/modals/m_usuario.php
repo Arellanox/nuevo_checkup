@@ -19,6 +19,14 @@
                                     <label>Correo:</label>
                                     <input type="email" name="email" class="form-control input-form" id="email-medicoTratante-a">
                                 </div>
+                                <div class="col-12 mb-3">
+                                    <label>Teléfono:</label>
+                                    <input type="text" name="telefono" class="form-control input-form" id="telefono-medicoTratante-a">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label>Especialidad:</label>
+                                    <input type="text" name="especialidad" class="form-control input-form" id="especialidad-medicoTratante-a">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 mb-3">
