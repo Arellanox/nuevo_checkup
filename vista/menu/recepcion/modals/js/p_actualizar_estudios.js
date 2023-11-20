@@ -36,26 +36,46 @@ async function getDataEstudiosFirst() {
     alertToast('Obteniendo datos del servidor...', 'info', 4000)
 
     //Pruebas
-    rellenarSelect("#select-edit-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-        id_area: 6,
-        cliente_id: array_selected['CLIENTE_ID']
+    rellenarSelect("#select-edit-lab", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+        cliente_id: array_selected['CLIENTE_ID'],
+        area_id: 6
     });
-    rellenarSelect("#select-edit-labbio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-        id_area: 12,
-        cliente_id: array_selected['CLIENTE_ID']
+    rellenarSelect("#select-edit-labbio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+        cliente_id: array_selected['CLIENTE_ID'],
+        area_id: 12
     });
-    rellenarSelect('#select-edit-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-        id_area: 11,
-        cliente_id: array_selected['CLIENTE_ID']
+    rellenarSelect('#select-edit-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+        cliente_id: array_selected['CLIENTE_ID'],
+        area_id: 11
     });
-    rellenarSelect('#select-edit-rx', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-        id_area: 8,
-        cliente_id: array_selected['CLIENTE_ID']
+    rellenarSelect('#select-edit-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+        cliente_id: array_selected['CLIENTE_ID'],
+        area_id: 8
     });
-    rellenarSelect('#select-edit-otros', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
-        id_area: 0,
-        cliente_id: array_selected['CLIENTE_ID']
+    rellenarSelect('#select-edit-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+        cliente_id: array_selected['CLIENTE_ID'],
+        area_id: 0
     });
+    // rellenarSelect("#select-edit-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    //     id_area: 6,
+    //     cliente_id: array_selected['CLIENTE_ID']
+    // });
+    // rellenarSelect("#select-edit-labbio", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    //     id_area: 12,
+    //     cliente_id: array_selected['CLIENTE_ID']
+    // });
+    // rellenarSelect('#select-edit-us', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    //     id_area: 11,
+    //     cliente_id: array_selected['CLIENTE_ID']
+    // });
+    // rellenarSelect('#select-edit-rx', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    //     id_area: 8,
+    //     cliente_id: array_selected['CLIENTE_ID']
+    // });
+    // rellenarSelect('#select-edit-otros', "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
+    //     id_area: 0,
+    //     cliente_id: array_selected['CLIENTE_ID']
+    // });
 
     await setTables();
 

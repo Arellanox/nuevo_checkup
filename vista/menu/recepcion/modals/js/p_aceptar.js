@@ -51,37 +51,37 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
 
   //Pruebas
   await rellenarSelect("#select-lab", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    cliente_id: array_selected['CLIENTE_ID'],
     area_id: 6,
-    cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     estudiosLab = data;
   });
 
 
   await rellenarSelect("#select-labbio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    cliente_id: array_selected['CLIENTE_ID'],
     area_id: 12,
-    cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosLabBio = data;
   });
   await rellenarSelect('#select-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    cliente_id: array_selected['CLIENTE_ID'],
     area_id: 11,
-    cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosUltra = data;
   });
   await rellenarSelect('#select-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    cliente_id: array_selected['CLIENTE_ID'],
     area_id: 8,
-    cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosRX = data;
   });
   await rellenarSelect('#select-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-    area_id: 0,
     cliente_id: array_selected['CLIENTE_ID'],
+    area_id: 0,
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosOtros = data;
