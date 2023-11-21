@@ -65,12 +65,12 @@ $fecha_reagenda = $_POST['fecha_reagenda'];
 
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
-if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
-    $servicios = explode(",", $_POST['servicios']); //array
-} else {
-    $servicios = null;
-}
-
+// if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
+//     $servicios = explode(",", $_POST['servicios']); //array
+// } else {
+//     $servicios = null;
+// }
+$servicios = explode(",", $_POST['servicios']);
 #ordenes medicas
 $orden_laboratorio = $_FILES['orden-medica-laboratorio'];
 $orden_rayos_x = $_FILES['orden-medica-rx'];
