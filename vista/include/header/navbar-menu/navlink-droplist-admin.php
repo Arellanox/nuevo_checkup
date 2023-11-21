@@ -7,6 +7,12 @@ date_default_timezone_set('America/Mexico_City');
     </a>
 <?php endif; ?>
 
+<?php if ($_SESSION['vista']['MEDICOS_TRATANTES'] == 1) : ?>
+    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
+        <i class="bi bi-person-hearts"></i> Médicos
+    </a>
+<?php endif; ?>
+
 <?php if ($_SESSION['vista']['CLIENTES'] == 1) : ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/clientes/'; ?>">
         <i class="bi bi-people-fill"></i> Clientes
