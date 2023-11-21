@@ -65,12 +65,13 @@ $fecha_reagenda = $_POST['fecha_reagenda'];
 
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
-// if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
-//     $servicios = explode(",", $_POST['servicios']); //array
-// } else {
-//     $servicios = null;
-// }
-$servicios = explode(",", $_POST['servicios']);
+if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
+    $servicios = explode(",", $_POST['servicios']); //array
+} else {
+    $servicios = null;
+}
+
+
 #ordenes medicas
 $orden_laboratorio = $_FILES['orden-medica-laboratorio'];
 $orden_rayos_x = $_FILES['orden-medica-rx'];
@@ -169,7 +170,6 @@ switch ($api) {
             if (count($servicios) > 0) {
                 # si hay algo en el arreglo lo insertamos
                 foreach ($servicios as $key => $value) {
-                    // print_r($servicios);
                     $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, $_SESSION['id']));
                 }
 
