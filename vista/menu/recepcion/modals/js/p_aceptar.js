@@ -254,14 +254,10 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     ajaxAwaitFormData(dataJson, 'recepcion_api', 'formAceptarPacienteRecepcion', { callbackAfter: true, callbackBefore: true }, () => {
       alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
     }, (data) => {
-
-
-      let resultado = data.response.data.find(objeto => objeto.TURNO === valorBuscado);
-
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Turno: ' + resultado,
+        title: 'Turno: ' + data.response.data[1]['TURNO'],
         text: '¡Paciente aceptado! Recuerda generar sus documentos.',
         showCloseButton: false,
       })
