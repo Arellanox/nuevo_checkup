@@ -156,7 +156,7 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaCompletados, 1, 0, 0,
       $('#contenedor-btn-cerrar-paciente').html(`
         <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
             data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Finaliza el proceso del paciente">
-            <i class="bi bi-person-check"></i> Finalizar Paciente
+            <i class="bi bi-person-check"></i> Cobrar
         </button>
     `)
       $('#btn-agregar_eliminar-estudios').prop('disabled', false)
