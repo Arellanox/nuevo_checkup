@@ -288,6 +288,54 @@
             height: auto;
         }
 
+                .table {
+            margin-top: 1px !important;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            margin: auto;
+            white-space: normal;
+            word-break: break-all;
+        }
+
+        .table>tr,
+        .table>tr>td {
+            text-align: left;
+            padding: 5px !important;
+            border-bottom: 1px solid #ddd;
+
+        }
+
+        .table>tr {
+            background-color: #f2f2f2;
+        }
+
+        .pregunta-row {
+            /* background-color: #f2f2f2; */
+            font-weight: bold;
+            padding: 3px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .respuesta-row,
+        .comentario-row {
+            background-color: #fff;
+            padding: 2px;
+            /* border-bottom: 1px solid #ddd; */
+            /* border-top: 1px solid #ddd; */
+            font-size: 10px;
+        }
+
+        .respuesta2-row {
+            background-color: #fff;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            font-size: 11px;
+        }
+
+
         /* Fin de estilos de audiometria */
     </style>
 </head>
@@ -335,8 +383,8 @@ $encode_firma = base64_encode($ruta_firma);
     <!-- body -->
     <div class="invoice-content">
         <!-- ANTECEDENTES  -->
-        <h2 style="padding-bottom: 6px; padding-top: 6px;">ANTECEDENTES </h2>
-        <table class="table-ant">
+        <h2 style="padding-bottom: 6px; padding-top: 6px;">ANTECEDENTES</h2>
+        <!-- <table class="table-ant">
             <tr>
                 <th class="th"><?php echo $resultados->ANTECEDENTES[0]->ANTECEDENTE;  ?></th>
                 <th class="th"><?php echo $resultados->ANTECEDENTES[1]->ANTECEDENTE;  ?></th>
@@ -353,7 +401,52 @@ $encode_firma = base64_encode($ruta_firma);
                 <td class="td"><?php echo imprimirAntecedentes($resultados->ANTECEDENTES[2]); ?></td>
                 <td class="td"><?php echo imprimirAntecedentes($resultados->ANTECEDENTES[3]); ?></td>
             </tr>
+        </table> -->
+                <?php
+        $antecedentes = json_encode($resultados->ANTECEDENTES, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+        // echo $antecedentes;
+
+        // Decodifica el JSON en un array asociativo
+        $array_data = json_decode($antecedentes, true);
+
+        // Recorre cada elemento del array
+        foreach ($array_data as $element) {
+            // Accede a las propiedades de cada elemento
+            $id_antecedente = $element['ID_ANTECEDENTE']; //<--- no se ocupara
+            $antecedente = $element['ANTECEDENTE']; //<-- titulo o pregunta
+            $id_respuesta = $element['ID_RESPUESTA']; //<--- no se ocupara
+            $respuesta = $element['RESPUESTA']; //<--- Respuesta
+            $comentario = $element['COMENTARIO']; // <--- Comentario
+            ?>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="pregunta-row" style="border-bottom: none;" ><?php echo $antecedente ?></th>
+                        <th class="pregunta-row" style="border-bottom: none; padding-left: 100px !important;" ><?php echo $respuesta ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($comentario)): ?>
+                        <tr>
+                        <td class="comentario-row">Comentario: <?php echo $comentario ?></td>
+                        </tr>
+                    <?php endif; ?>
+                        <tr>
+
+                    <!-- <tr>    
+                        <td class="comentario-row" style="border-bottom: none;"> <?php echo $comentario ?>  </td>
+                        <td class="comentario-row" style="border-bottom: none;"></td>
+                    </tr> -->
+             </tbody>
         </table>
+        <hr style="border-width: 0.1px; border-color: #ddd">
+        <?php
+        }
+        
+        ?>
 
         <!-- TABLA DE AUDIOMETRIA TONAL -->
         <div class="tonal">
