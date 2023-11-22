@@ -150,9 +150,9 @@ async function configurarModal() {
 
 
     $('#nombre-medicoTrarante-a').val(NOMBRE_MEDICO)
-    $('#email-medicoTratante-a').val(ifnull(EMAIL_MEDICO, 'Sin correo'))
-    $('#telefono-medicoTratante-a').val(ifnull(TELEFONO_MEDICO, 'Sin telefono'))
-    $('#especialidad-medicoTratante-a').val(ifnull(ESPECIALIDAD_MEDICO, 'Sin especialidad'))
+    $('#email-medicoTratante-a').val(ifnull(EMAIL_MEDICO, ''))
+    $('#telefono-medicoTratante-a').val(ifnull(TELEFONO_MEDICO, ''))
+    $('#especialidad-medicoTratante-a').val(ifnull(ESPECIALIDAD_MEDICO, ''))
 
     await rellenarSelect("#usuarios_medicos", "usuarios_api", 2, "ID_USUARIO", "nombrecompleto");
     ObtenerUsuario()
