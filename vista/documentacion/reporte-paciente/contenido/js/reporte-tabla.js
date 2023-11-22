@@ -79,16 +79,8 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'URES' },
     { data: 'DIAGNOSTICO' },
     { data: 'SERVICIOS_ABREVIATURA' },
-    {
-      data: null, render: function (data) {
-        return '';
-      }
-    },
-    {
-      data: null, render: function (data) {
-        return '';
-      }
-    },
+    { data: 'FORMA_PAGO' },
+    { data: 'METODO_DE_PAGO' },
     { data: 'FACTURA' },
   ],
   columnDefs: [
