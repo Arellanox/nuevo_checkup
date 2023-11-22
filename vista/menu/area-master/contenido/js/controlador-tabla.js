@@ -1007,38 +1007,10 @@ async function obtenerResultadosElectro(data) {
 }
 
 async function obtenerResultadosAudio(data) {
-
     document.getElementById(formulario).reset()
 
     let row = data.array[0]
 
-    // ----------------------------------------------------------------
-
-    //  PRIMARA PAGINA
-    if (ifnull(row, false, ['ANTECEDENTES'])) {
-
-        // Antecedentes de audio
-        $(`#${'antecedentes-preguntas'} input[type="radio"]`).prop('checked', false);
-        $(`#${'antecedentes-preguntas'} div.collapse, div.collapse.show`).collapse('hide');
-
-        // Antecedentes del paciente
-        const ante = row.ANTECEDENTES;
-        $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
-
-            const $element = $(this);
-
-            respuesta = ante[key]['ID_RESPUESTA'];
-
-            let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`);
-
-            $input.prop('checked', true)
-            if (respuesta === 1)
-                $element.find('div.collapse').show();
-
-            $input.val(ifnull(ante, '', { key: ['COMENTARIO'] }))
-        })
-
-    }
 
     // ----------------------------------------------------------------
 
@@ -1074,10 +1046,34 @@ async function obtenerResultadosAudio(data) {
 
     //Apartado de recomendaciones
     $('#textArea-recomendaciones').val(ifnull(row, '', ['RECOMENDACIONES']))
+
+
     // ----------------------------------------------------------------
 
+    // Antecedentes de audio
+    $(`#${'antecedentes-preguntas'} input[type="radio"]`).prop('checked', false);
+    $(`#${'antecedentes-preguntas'} div.collapse, div.collapse.show`).collapse('hide');
 
+    // Antecedentes del paciente
+    const ante = row.ANTECEDENTES;
+    $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
+
+        const $element = $(this);
+
+        respuesta = ante[key]['ID_RESPUESTA'];
+
+        let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`);
+
+        $input.prop('checked', true)
+        if (respuesta === 1)
+            $element.find('div.collapse').show();
+        console.log(key, $element.find('textarea'));
+        const $textarea = $element.find('textarea');
+        $textarea.val(ante[key]['COMENTARIO']);
+    })
 }
+
+
 
 function mostrarElectroInterpretacion(url) {
     // console.log(url)
