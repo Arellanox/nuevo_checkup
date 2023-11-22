@@ -89,11 +89,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         return '';
       }
     },
-    {
-      data: null, render: function (data) {
-        return '';
-      }
-    },
+    { data: 'FACTURA' },
   ],
   columnDefs: [
     { target: 0, className: 'all', title: 'No. Sistema', width: '7%', visible: false },
