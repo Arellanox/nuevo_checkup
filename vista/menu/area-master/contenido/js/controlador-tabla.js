@@ -1057,19 +1057,20 @@ async function obtenerResultadosAudio(data) {
     // Antecedentes del paciente
     const ante = row.ANTECEDENTES;
     $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
+        if (ifnull(ante, false, [key])) {
+            const $element = $(this);
 
-        const $element = $(this);
+            respuesta = ante[key]['ID_RESPUESTA'];
 
-        respuesta = ante[key]['ID_RESPUESTA'];
+            let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`);
 
-        let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`);
-
-        $input.prop('checked', true)
-        if (respuesta === 1)
-            $element.find('div.collapse').show();
-        console.log(key, $element.find('textarea'));
-        const $textarea = $element.find('textarea');
-        $textarea.val(ante[key]['COMENTARIO']);
+            $input.prop('checked', true)
+            if (respuesta === 1)
+                $element.find('div.collapse').show();
+            console.log(key, $element.find('textarea'));
+            const $textarea = $element.find('textarea');
+            $textarea.val(ante[key]['COMENTARIO']);
+        }
     })
 }
 
