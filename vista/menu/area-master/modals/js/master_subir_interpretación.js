@@ -351,4 +351,14 @@ $('#modalSubirInterpretacion').on('shown.bs.modal', function () {
 
 
 // Inicializamos mostrando la primera página
-updatePage($('.page').first());
+// updatePage($('.page').first());
+function restartPages() {
+    // Ocultar todas las páginas
+    $('.page').hide();
+
+    // Mostrar la primera página sin animación
+    $('.page').first().show();
+}
+
+// Llamar a esta función para reiniciar
+restartPages();

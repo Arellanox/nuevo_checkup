@@ -148,12 +148,13 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 getFormOidosAudiometria(datalist);
 
                 // Recupera la info del reporte:
-                console.log(selectEstudio.array);
-                if (ifnull(selectEstudio, false, ['array']))
+                document.getElementById(formulario).reset()
+                if (ifnull(selectEstudio, false, ['array'], (data) => { return data.length ? true : false }))
                     await obtenerResultadosAudio(selectEstudio);
 
                 // Inicializamos mostrando la primera página
-                updatePage($('.page').first());
+                // updatePage($('.page').first());
+                restartPages();
 
                 if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
                 break;
@@ -1007,10 +1008,7 @@ async function obtenerResultadosElectro(data) {
 }
 
 async function obtenerResultadosAudio(data) {
-    document.getElementById(formulario).reset()
-
     let row = data.array[0]
-
 
     // ----------------------------------------------------------------
 
@@ -1056,22 +1054,65 @@ async function obtenerResultadosAudio(data) {
 
     // Antecedentes del paciente
     const ante = row.ANTECEDENTES;
-    $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
-        if (ifnull(ante, false, [key])) {
-            const $element = $(this);
+    console.log(ante)
+    if (ifnull(ante, false)) { // verifica que no sea nulo
+        console.log(1)
+        $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
+            // console.log(ante[key], key);
+            if (Object.hasOwnProperty.call(ante, key)) { // verifica cada pregunta si existe una previamente guardada
+                const $element = $(this);
+                console.log(2)
 
-            respuesta = ante[key]['ID_RESPUESTA'];
+                respuesta = ante[key]['ID_RESPUESTA']; // Busca la ID de la pregunta
 
-            let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`);
+                let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`); // Busca el campo seleccionado
 
-            $input.prop('checked', true)
-            if (respuesta === 1)
-                $element.find('div.collapse').show();
-            console.log(key, $element.find('textarea'));
-            const $textarea = $element.find('textarea');
-            $textarea.val(ante[key]['COMENTARIO']);
-        }
-    })
+                $input.prop('checked', true) // chequea de los 2 checkbox, el guardado previamente
+
+                if (respuesta === 1)
+                    $element.find('div.collapse').show(); // abre o cierra el collapse del input de comentario por el valor de la respuesto
+
+                // console.log(key, $element.find('textarea')); 
+
+                const $textarea = $element.find('textarea'); // Busca el textarea de comentario
+                $textarea.val(ante[key]['COMENTARIO']); // Agrega el valor del textarea
+            }
+        })
+    }
+
+
+
+    // Captura de la tabla de HZ
+    if (Object.hasOwnProperty.call(row, 'GRAFICA')) {
+        let imageContainer = $('<div>', { class: 'position-relative d-inline-block m-2' });
+
+        base64Image = await ajaxAwait(null, null,
+            {
+                dataType: 'text',
+                response: false,
+                alertErrorAJAX: false,
+                url: row.GRAFICA
+            }
+        );
+
+        let img = $('<img>', {
+            src: `data:image/png;base64,${base64Image}`,
+            class: 'img-thumbnail lightbox-image'  // Estilo de Bootstrap
+        });
+
+        let deleteButton = $('<button>', {
+            class: 'btn btn-danger btn-sm position-absolute top-0 end-0',
+            style: 'translate(48%, -21%);',  // Posicionar en la esquina superior derecha
+            html: '<i class="bi-trash"></i>',  // Icono de Bootstrap Icons
+            click: function () {
+                $(this).closest('div').remove();  // Borrar el contenedor de la imagen
+            }
+        });
+
+        imageContainer.append(img, deleteButton);
+        $('#captures').html(imageContainer);
+    }
+
 }
 
 

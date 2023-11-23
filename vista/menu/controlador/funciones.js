@@ -150,7 +150,8 @@ function avisoArea(tip = 0) {
 //Ajax Async (NO FORM DATA SUPPORT)
 async function ajaxAwait(dataJson, apiURL,
   config = {
-    alertBefore: false
+    alertBefore: false,
+    dataType: 'json',
   },
   //Callback
   callbackBefore = function (data) {
@@ -172,9 +173,9 @@ async function ajaxAwait(dataJson, apiURL,
 
 
     $.ajax({
-      url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
+      url: config.url ? config.url : `${http}${servidor}/${appname}/api/${apiURL}.php`, // por defecto a apis del sistema
       data: dataJson,
-      dataType: 'json',
+      dataType: config.dataType, // por defecto es JSON, puedes cambiarlo por texto plano (text) u otro
       type: 'POST',
       beforeSend: function () {
         config.callbackBefore ? callbackBefore() : 1;
@@ -182,13 +183,17 @@ async function ajaxAwait(dataJson, apiURL,
       success: function (data) {
         let row = data;
         try {
-          if (config.response) {
+          if (config.response) { // Si necesitas que valide los mensajes
             if (mensajeAjax(row)) {
+              // Si necesitas trabajar los datos 
               config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? row.response.data : row) : 1;
+              // Si necesitas devolver los datos
               config.returnData ? resolve(config.WithoutResponseData ? row.response.data : row) : resolve(1)
             }
           } else {
+            // Si necesitas trabajar los datos 
             config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? row.response.data : row) : 1;
+            // Si necesitas devolver los datos
             config.returnData ? resolve(config.WithoutResponseData ? row.response.data : row) : resolve(1)
           }
         } catch (error) {
@@ -198,7 +203,10 @@ async function ajaxAwait(dataJson, apiURL,
 
       },
       error: function (jqXHR, exception, data) {
-        alertErrorAJAX(jqXHR, exception, data)
+        config.alertErrorAJAX ?
+          alertErrorAJAX(jqXHR, exception, data)
+          :
+          resolve(1);
         // console.log('Error')
       },
     })
@@ -218,7 +226,10 @@ function configAjaxAwait(config) {
     resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
     ajaxComplete: () => { }, //Mete una funcion para cuando se complete
     ajaxError: () => { }, //Mete una funcion para cuando de error
-    formulariosExtras: [], // Agrega nuevos fomrularios para enviar a formData
+    formulariosExtras: [], // Agrega nuevos fomrularios para enviar a formData,
+    dataType: 'json', // Configura el tipo de output del servidor
+    url: false, // Ingresa una nueva url a consultar
+    alertErrorAJAX: true, // Activar los mensajes de errores
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -398,19 +409,20 @@ function checkNumber(x, transform = 0) {
 }
 
 
-function ifnull(data, siNull = '', values = [
-  'option1',
-  {
-    'option2': [
-      'suboption1',
-      {
-        'suboption2': ['valor']
-      }
-    ],
-    'option3': 'suboption1'
-  },
-  'option4',
-]) {
+function ifnull(data, siNull = '', values =
+  [
+    'option1',
+    {
+      'option2': [
+        'suboption1',
+        {
+          'suboption2': ['valor']
+        }
+      ],
+      'option3': 'suboption1'
+    },
+    'option4',
+  ], callback = (bool) => { return bool }) {
 
   values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
     ? [values]
@@ -420,9 +432,9 @@ function ifnull(data, siNull = '', values = [
   if (!data || typeof data !== 'object') {
     if (data === undefined || data === null || data === 'NaN' || data === '' || data === NaN) {
       switch (siNull) {
-        case 'number': return 0
-        case 'boolean': return data ? true : false;
-        default: return siNull;
+        case 'number': return callback(0)
+        case 'boolean': return callback(data ? true : false)
+        default: return callback(siNull)
       }
     } else {
 
@@ -432,29 +444,29 @@ function ifnull(data, siNull = '', values = [
         case 'number':
           // No hará modificaciones
           break;
-        case 'boolean': return ifnull(data, false) ? true : false;
+        case 'boolean': return callback(ifnull(data, false) ? true : false)
         default:
           //Agregará las modificaciones nuevas
           data = data_modificado
           break;
       }
 
-      return data;
+      return callback(data)
     }
   }
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
-      return data[key] || siNull;
+      return callback(data[key] || siNull)
     } else if (typeof key === 'object') {
       for (const nestedKey in key) {
         const result = ifnull(data[nestedKey], siNull, key[nestedKey]);
-        if (result) return ifnull(result, siNull);
+        if (result) return callback(ifnull(result, siNull))
       }
     }
   }
 
-  return siNull;
+  return callback(siNull)
 }
 
 

@@ -118,11 +118,11 @@ function generarHTMLPregunta($id, $descripcion, $pregunta)
                             </div>
                             <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
                                 <div class="col-auto">
-                                    <input type="radio" required id="{$descripcion}_1" name="antecedentes[$id][option]" value="1">
+                                    <input type="radio" id="{$descripcion}_1" name="antecedentes[$id][option]" value="1">
                                     <label for="{$descripcion}_1">Sí</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="radio" required id="{$descripcion}_2" name="antecedentes[$id][option]" value="2">
+                                    <input type="radio" id="{$descripcion}_2" name="antecedentes[$id][option]" value="2">
                                     <label for="{$descripcion}_2">No</label>
                                 </div>
                             </div>
