@@ -164,6 +164,8 @@ async function configurarModal() {
 
     // En caso contrario que el checkbox no este activo es decir que "#AdjuntarUsuario" esta desactivado. el input estara activo y el usuario podra ingresar el nombre del medico tratante
     AlertaUsuarioMedico = true;
+    // $('#collapseConfirmacion_edit').collapse('hide');
+    reset_email_inputs_medicos();
     $('#UsuarioMedicoTratante').modal('show');
 }
 

@@ -67,6 +67,21 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
 }
 
 
+// Reinicia los collapse para medicos tratantes
+function reset_email_inputs_medicos() {
+  // Ocultar solo los collapses de confirmación de correo
+  $('.email-collapse').collapse('hide');
+
+  // Vaciar todos los inputs de correo y confirmación
+  $('.email-medicoTratante').val('');
+
+  // Ocultar mensajes de error asociados a los collapses de correo
+  $('.email-collapse').find('.error-message').hide();
+
+  // Desbloquear todos los botones asociados a los collapses de correo
+  $('.btn_confirmar_correo').prop('disabled', false);
+}
+
 
 function calcularEdad(fecha) {
   var hoy = new Date(), cumpleanos = new Date(fecha);

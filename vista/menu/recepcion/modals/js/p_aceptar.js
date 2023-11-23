@@ -20,6 +20,10 @@ select2('#select-recepcion-medicos-tratantes', 'modalPacienteAceptar', 'Seleccio
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
   limpiarFormAceptar();
+
+  reset_email_inputs_medicos();
+
+
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
 
 

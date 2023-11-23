@@ -327,9 +327,29 @@
                               <div id="suggestionsList"></div>
                             </div>
 
-                            <input type="text" name="medico_correo" placeholder="Correo del médico tratante"
+                            <!-- <input type="text" name="medico_correo" placeholder="Correo del médico tratante"
                               autocomplete="off" class="input-new-medico form-control input-form"
-                              id="medico-correo-aceptar">
+                              id="medico-correo-aceptar"> -->
+
+                            <!-- <div class="col-12"> -->
+                            <!-- <label>Correo:</label> -->
+                            <input type="email" class="form-control input-form email-medicoTratante"
+                              placeholder="Correo del médico tratante" data-collapse-name="collapseConfirmacion_edit"
+                              data-pair-id="input_actualizar_edit" data-email-order="1" name="medico_correo"
+                              id="email-medicoTratante-a">
+                            <!-- </div> -->
+
+                            <div class="collapse email-collapse" id="collapseConfirmacion_edit">
+                              <!-- <div class="col-12 mb-3"> -->
+                              <!-- <label>Confirma el correo:</label> -->
+                              <input type="email" class="form-control input-form email-medicoTratante"
+                                placeholder="Confirma el correo" data-pair-id="input_actualizar_edit"
+                                data-email-order="2">
+                              <small class="error-message" style="color: red; display: none;">Los correos no
+                                coinciden</small>
+                              <!-- </div> -->
+                            </div>
+
 
                             <input type="number" name="medico_telefono" placeholder="Teléfono del médico tratante"
                               autocomplete="off" class="input-new-medico form-control input-form"
@@ -420,8 +440,8 @@
           nextPage="SecondPage-aceptar">
           <i class="bi bi-arrow-right-circle"></i> Siguiente</button>
 
-        <button type="submit" form="formAceptarPacienteRecepcion" class="btn btn-confirmar SecondPage-aceptar"
-          id="btn-confirmar-paciente">
+        <button type="submit" form="formAceptarPacienteRecepcion" data-pair-id="input_actualizar_edit"
+          class="btn btn-confirmar SecondPage-aceptar btn_confirmar_correo" id="btn-confirmar-paciente">
           <i class="bi bi-check2-square"></i> Aceptar paciente
         </button>
       </div>
@@ -444,3 +464,46 @@
     /* background-color: #ddd; */
   }
 </style>
+
+
+<script>
+  $('.email-medicoTratante').on('input', function (event) {
+    event.preventDefault();
+    // Obtiene el ID del collapse asociado desde el atributo data-collapse-name
+    var collapseId = $(this).data('collapse-name');
+    var collapseElement = $('#' + collapseId);
+    var inputConfirmacion = collapseElement.find('input[type=email]');
+
+    if ($(this).val() !== '') {
+      collapseElement.collapse('show');
+      inputConfirmacion.prop('required', true);
+    } else {
+      collapseElement.collapse('hide');
+      inputConfirmacion.prop('required', false);
+    }
+
+
+    // Comparar los correos en tiempo real y mostrar mensaje de error si no coinciden
+    var pairId = $(this).data('pair-id');
+    var emailOrder = $(this).data('email-order');
+
+    if (emailOrder === 1) {
+      var collapseId = $(this).data('collapse-name');
+      $('#' + collapseId).collapse('show');
+    }
+
+    var primaryEmail = $('[data-pair-id="' + pairId + '"][data-email-order="1"]').val();
+    var confirmationEmail = $('[data-pair-id="' + pairId + '"][data-email-order="2"]').val();
+    var errorMessage = $('[data-pair-id="' + pairId + '"][data-email-order="2"]').siblings('.error-message');
+    var confirmButton = $('.btn_confirmar_correo[data-pair-id="' + pairId + '"]');
+
+
+    if ((primaryEmail !== '' && confirmationEmail !== '') && (primaryEmail == confirmationEmail)) {
+      errorMessage.hide();
+      confirmButton.prop('disabled', false);
+    } else {
+      errorMessage.show();
+      confirmButton.prop('disabled', true);
+    }
+  });
+</script>
