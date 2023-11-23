@@ -35,7 +35,7 @@ $(`#${formulario}`).submit(function (event) {
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
 
-    if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
+    if (confirmado != 1 || session.permisos['ActuaReportIm'] == 1) {
 
         let jsonData = {}
         jsonData['id_turno'] = dataSelect.array['turno'];

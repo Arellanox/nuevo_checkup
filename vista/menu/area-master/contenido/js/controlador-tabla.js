@@ -156,7 +156,7 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 // updatePage($('.page').first());
                 restartPages();
 
-                if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+                if (datalist.CONFIRMADO_AUDIO == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
                 break;
             case 5:
                 $('#btn-inter-areas').fadeIn(0);
@@ -1054,8 +1054,8 @@ async function obtenerResultadosAudio(data) {
 
     // Antecedentes del paciente
     const ante = row.ANTECEDENTES;
-    console.log(ante)
-    if (ifnull(ante, false)) { // verifica que no sea nulo
+
+    if (typeof ante === 'object' && ante !== null && ante !== 'null') { // verifica que no sea nulo
         console.log(1)
         $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
             // console.log(ante[key], key);
