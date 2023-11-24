@@ -215,7 +215,7 @@ class Correo
             }
 
             # send email
-            // $mail->send();
+            $mail->send();
             // if (isset($id_turno)) {
 
             //     $response = $master->insertByProcedure("sp_correos_g", [
