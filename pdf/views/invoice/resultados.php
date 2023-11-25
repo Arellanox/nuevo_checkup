@@ -331,7 +331,7 @@
                             <?php } ?>
                         </p>
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
-                            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
+                            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 13px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
                         </p>
                         <hr style="text-align: center; border-style: solid none solid none; width: 100%; ">
                     </div>
