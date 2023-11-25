@@ -57,6 +57,27 @@ function obtenerContenidoPrecios() {
       $.getScript("contenido/js/calculos-listaprecios.js");
       // Botones
       $.getScript("contenido/js/precio-botones.js");
+
+      $('#check-Precios').click();
+      setTimeout(() => {
+        columnsDefinidas = obtenerColumnasTabla('2.1')
+        columnasData = obtenerColumnasTabla('2.2')
+        $('.vista_estudios-precios').fadeIn(100)
+        $('#divSeleccionCliente').fadeIn(100)
+        tablaPrecio.destroy();
+        $('#TablaListaPrecios').empty();
+        tablaPrecio = $("#TablaListaPrecios").DataTable({
+          language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+          },
+          // lengthChange: false,
+          // info: false,
+          // paging: false,
+          columnDefs: columnsDefinidas
+        });
+        inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
+        $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+      }, 200);
     })
 
   });
