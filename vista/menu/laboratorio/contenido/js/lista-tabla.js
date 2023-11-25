@@ -346,6 +346,9 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5: {
+                  'descripcion': 'GLANDE, URETRA Y PREPUCIO'
                 }
               }
               break;
