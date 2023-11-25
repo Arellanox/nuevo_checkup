@@ -41,7 +41,12 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 
 
-<?php if ($_SESSION['vista']['FACTURACIÓN'] == 1 || $_SESSION['vista']['FACTURACION_EXCEL'] == 1) : ?>
+<?php if (
+    $_SESSION['vista']['FACTURACIÓN'] == 1 ||
+    $_SESSION['vista']['FACTURACION_EXCEL'] ==
+    1 ||
+    $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1
+) : ?>
     <!-- Facturacion -->
     <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
         <i class="bi bi-calculator"></i> Facturación
@@ -85,6 +90,14 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
                     </ul>
                 </div>
             <?php endif; ?>
+
+            <?php if ($_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#COTIZACIONES_ESTUDIOS'; ?>">
+                        <i class="bi bi-dot"></i> Cotizaciones
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
     </div>
 <?php endif; ?>
@@ -92,8 +105,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 <?php if (
     $_SESSION['vista']['LISTA_PRECIOS'] == 1 ||
-    $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1 ||
-    $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1
+    $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1
 ) : ?>
     <!-- Contaduria -->
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
@@ -112,13 +124,6 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#PAQUETES_ESTUDIOS'; ?>">
                         <i class="bi bi-dot"></i> Paquetes
-                    </a>
-                </li>
-            <?php endif; ?>
-            <?php if ($_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1) : ?>
-                <li>
-                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#COTIZACIONES_ESTUDIOS'; ?>">
-                        <i class="bi bi-dot"></i> Cotizaciones
                     </a>
                 </li>
             <?php endif; ?>
