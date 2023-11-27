@@ -73,7 +73,7 @@
 
       <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
         <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
-          <i class="bi bi-filetype-exe"></i> Costo/Utilidad
+          <i class="bi bi-eye"></i> Ver/Ocultar
         </button>
       </span>
 
