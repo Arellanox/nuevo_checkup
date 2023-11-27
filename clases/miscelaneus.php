@@ -1993,6 +1993,7 @@ class Miscelaneus
         $total_general = 0;
         $resumen_credito = 0;
         $resumen_contado = 0;
+        $resumen_cortesia = 0;
 
         // Datos de todos los pacientes que entraron en el cierre de caja
         $array_prefolios = array();
@@ -2029,7 +2030,8 @@ class Miscelaneus
                 $total_general += $total;
 
                 $resumen_contado += in_array($e['CLIENTE_ID'],[1,16]) ? $total :  0;
-                $resumen_credito += !in_array($e['CLIENTE_ID'], [1,16]) ? $total :  0;
+                $resumen_credito += !in_array($e['CLIENTE_ID'], [1,16,17]) ? $total :  0;
+                $resumen_cortesia += in_array($e['CLIENTE_ID'], [17]) ? $total : 0;
             }
 
 
@@ -2065,7 +2067,7 @@ class Miscelaneus
 
 
         $response = [];
-        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador, $tipos_precio, $nombre_caja];
+        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador, $tipos_precio, $nombre_caja, $resumen_cortesia];
         // foreach($response as $i){
         //     print_r($i);
         //     echo "<br>";
