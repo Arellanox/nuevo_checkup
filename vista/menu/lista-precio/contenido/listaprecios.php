@@ -69,6 +69,15 @@
           <i class="bi bi-filetype-exe"></i> Excel (Vista previa)
         </button>
       </span>
+
+
+      <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
+        <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
+          <i class="bi bi-filetype-exe"></i> Costo/Utilidad
+        </button>
+      </span>
+
+      <!-- <a href="" class="toggle-vis" data-column="4">Laboratorio</a> -->
     </div>
 
     <div class="" style="margin-left: 30px; margin-right: 30px;">

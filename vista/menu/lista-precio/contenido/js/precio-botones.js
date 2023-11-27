@@ -447,3 +447,28 @@ function setTablaPreciosExcel(listaPreciosExelModal) {
   }
 }
 
+
+
+
+$(document).on('click', 'button.toggle-vis', function (e) {
+  e.preventDefault();
+  // Get the column API object
+  var column_costo = tablaPrecio.column(3);
+  var column_utilidad = tablaPrecio.column(4);
+
+
+  // Toggle the visibility
+  column_costo.visible(!column_costo.visible());
+  column_utilidad.visible(!column_utilidad.visible());
+  // tablaMenuPrincipal.ajax.reload();
+  $.fn.dataTable
+    .tables({
+      visible: true,
+      api: true
+    })
+    .columns.adjust();
+
+  $(this).removeClass('span-info');
+  if (column_costo.visible())
+    $(this).addClass('span-info');
+});
