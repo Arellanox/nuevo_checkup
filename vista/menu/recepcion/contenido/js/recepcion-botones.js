@@ -79,7 +79,7 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
       icon: 'warning'
     }, function () {
 
-      if (array_selected['CLIENTE_ID'] == 1 && array_selected['CLIENTE_ID'] == 16) {
+      if (array_selected['CLIENTE_ID'] == 1 && array_selected['CLIENTE_ID'] == '16') {
 
         //Abrir el modal de estudios, precios y detalle
         configurarModal(array_selected);
