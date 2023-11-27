@@ -2028,8 +2028,8 @@ class Miscelaneus
                 $iva_general += $iva;
                 $total_general += $total;
 
-                $resumen_contado += $e['CLIENTE_ID'] == 1 ? $total :  0;
-                $resumen_credito += $e['CLIENTE_ID'] != 1 ? $total :  0;
+                $resumen_contado += in_array($e['CLIENTE_ID'],[1,16]) ? $total :  0;
+                $resumen_credito += !in_array($e['CLIENTE_ID'], [1,16]) ? $total :  0;
             }
 
 
