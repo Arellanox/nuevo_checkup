@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <h5 class="modal-title">Detalle del paciente: <strong id="nombre-paciente-contado"></strong></h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
@@ -18,6 +18,7 @@
                                         <tr>
                                             <th scope="d-flex justify-content-center" class="col-6">Ultrasonido (Estudios)</th>
                                             <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                            <th scope="d-flex justify-content-center" class="col-2">Descuento</th>
                                             <!-- subtotal sin descuento -->
                                             <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
                                             <!-- <th scope="d-flex justify-content-center" class="col-2">Descuento</th> -->
@@ -34,6 +35,7 @@
                                         <tr>
                                             <th scope="d-flex justify-content-center" class="col-6">Rayos X (Estudios)</th>
                                             <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                            <th scope="d-flex justify-content-center" class="col-2">Descuento</th>
                                             <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
                                         </tr>
                                     </thead>
@@ -46,6 +48,7 @@
                                         <tr>
                                             <th scope="d-flex justify-content-center" class="col-6">Laboratorio Clinico (Estudios)</th>
                                             <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                            <th scope="d-flex justify-content-center" class="col-2">Descuento</th>
                                             <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
                                         </tr>
                                     </thead>
@@ -58,6 +61,7 @@
                                         <tr>
                                             <th scope="d-flex justify-content-center" class="col-6">Laboratorio Biomolecular (Estudios)</th>
                                             <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                            <th scope="d-flex justify-content-center" class="col-2">Descuento</th>
                                             <!-- subtotal sin descuento -->
                                             <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
                                             <!-- <th scope="d-flex justify-content-center" class="col-2">Descuento</th> -->
@@ -74,6 +78,7 @@
                                         <tr>
                                             <th scope="d-flex justify-content-center" class="col-6">Otros Estudios</th>
                                             <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
+                                            <th scope="d-flex justify-content-center" class="col-2">Descuento</th>
                                             <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
                                         </tr>
                                     </thead>

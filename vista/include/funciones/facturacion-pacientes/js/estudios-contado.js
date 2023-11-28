@@ -222,6 +222,12 @@ function configurarModal(data) {
                 let html = `<tr>
                                 <th>${element['SERVICIOS']}</th> 
                                 <td>${parseFloat(ifnull(element, 0, ['CANTIDAD'])).toFixed(2)}</td>
+                                <td> 
+                                <div class="input-group">
+                                    <input type="number" class="form-control input-form descuento_concepto text-center" placeholder="0%" style="margin: 0;padding: 0;height: 35px;">
+                                    <span class="input-group-text input-span"2>%</span>
+                                </div>
+                                </td>
                                 <td>$${parseFloat(ifnull(element, 0, ['TOTAL'])).toFixed(2)}</td>
                             </tr>`
 
