@@ -114,7 +114,7 @@
         var confirmButton = $('.btn_confirmar_correo[data-pair-id="' + pairId + '"]');
 
 
-        if (primaryEmail !== '' && confirmationEmail !== '' && primaryEmail !== confirmationEmail) {
+        if ((primaryEmail !== '' && confirmationEmail !== '') && (primaryEmail == confirmationEmail)) {
             errorMessage.hide();
             confirmButton.prop('disabled', false);
         } else {
