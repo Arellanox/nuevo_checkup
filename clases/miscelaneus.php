@@ -1994,6 +1994,7 @@ class Miscelaneus
         $resumen_credito = 0;
         $resumen_contado = 0;
         $resumen_cortesia = 0;
+        $resumen_BIMO =  0; # CONCEPTO BIMO  
 
         // Datos de todos los pacientes que entraron en el cierre de caja
         $array_prefolios = array();
@@ -2032,6 +2033,7 @@ class Miscelaneus
                 $resumen_contado += in_array($e['CLIENTE_ID'], [1, 16, 31]) ? $total :  0;
                 $resumen_credito += !in_array($e['CLIENTE_ID'], [1, 16, 17, 31]) ? $total :  0;
                 $resumen_cortesia += in_array($e['CLIENTE_ID'], [17]) ? $total : 0;
+                $resumen_BIMO += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
             }
 
 
@@ -2080,7 +2082,8 @@ class Miscelaneus
             $cortador,
             $tipos_precio,
             $nombre_caja,
-            $resumen_cortesia
+            $resumen_cortesia,
+            $resumen_BIMO
         ];
         // foreach($response as $i){
         //     print_r($i);

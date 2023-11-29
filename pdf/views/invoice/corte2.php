@@ -588,6 +588,10 @@ $array = convertirObjetoAArray($resultados);
                         <td class="total" style="text-align:center;">$<?php echo number_format($array[5], 2) ?></td>
                     </tr>
                     <tr>
+                        <td>Bimo:</td>
+                        <td class="total" style="text-align:center;">$<?php echo number_format($array[13], 2) ?></td>
+                    </tr>
+                    <tr>
                         <td>Bimo cortesia:</td>
                         <td class="total" style="text-align:center;">$<?php echo number_format($array[12], 2) ?></td>
                     </tr>
