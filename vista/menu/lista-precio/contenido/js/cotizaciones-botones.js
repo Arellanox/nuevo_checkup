@@ -194,32 +194,6 @@ $('input[type=radio][name=selectChecko]').change(function () {
 
 $('#guardar-contenido-paquete').on('click', function () {
 
-
-  // Muestra la columna de precio pa calcular
-  // Obtener el objeto API de la columna
-  var column_costo = tablaContenidoPaquete.column(3);
-  var column_utilidad = tablaContenidoPaquete.column(4);
-
-  // Establecer la visibilidad a true
-  column_costo.visible(true);
-  column_utilidad.visible(true);
-
-  // Ajustar las columnas si es necesario
-  $.fn.dataTable
-    .tables({
-      visible: true,
-      api: true
-    })
-    .columns.adjust();
-
-  // Actualizar clases si es necesario
-  $(this).removeClass('span-info');
-  if (column_costo.visible()) {
-    $(this).addClass('span-info');
-  }
-
-  // alertToast('')
-
   let data = calcularFilasTR();
   // console.log(data);
   let dataAjax = data[0];
