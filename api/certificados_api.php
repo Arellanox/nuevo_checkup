@@ -50,8 +50,8 @@ $certificado_slb = array(
 
 
 $cuerpo = $_POST['cuerpo'];
-$ruta_reporte = $_POST['ruta_reporte'];
-$confirmado = $_POST['confirmado'];
+$ruta_reporte = isset($_POST['ruta_reporte']) ? $_POST['ruta_reporte'] : null;
+$confirmado = isset($_POST['confirmado']) ? $_POST['confirmado'] : null;
 
 
 switch($api){
