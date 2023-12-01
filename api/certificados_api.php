@@ -57,7 +57,7 @@ switch($api){
         break;
     case 2:
         # recuperar los datos del certificado
-        $respose = $master->getByProcedure("sp_certificados_b",[$cliente_id, $turno_id, $_SESSION['id']]);
+        $response = $master->getByProcedure("sp_certificados_b",[$cliente_id, $turno_id, $_SESSION['id']]);
         break;
     default:
         $response = "API no definida.";

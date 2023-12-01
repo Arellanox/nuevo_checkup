@@ -3,6 +3,6 @@ $.post("modals/a_modals.php", function (html) {
   }).done(() => {
     
     // Modal para certificado SLB
-    $.getScript("modals/js/mo_certSlb.js");
+    $.getScript("modals/js/mo_btn_global.js");
   
   });

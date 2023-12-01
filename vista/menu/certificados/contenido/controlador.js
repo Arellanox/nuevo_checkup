@@ -2,7 +2,9 @@
 //==========================================VARIABLES==============================================================//
 var TablaContenidoPaciCertificados
 var dataListaPaciente
-let datalist
+var dataJson //<-- Guarda el arreglo de cada formulario
+let datalist,
+    datPaciente //<-- guarda lo que llega de informacion del paciente
 
 //================================================================================================================//
 
@@ -26,4 +28,8 @@ async function contenidoCertificados() {
       //Botones generales
       $.getScript('contenido/js/global-botones.js')
     })
+}
+
+function reiniciarForm() {
+  
 }
