@@ -56,7 +56,7 @@
                   </div>
                   <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-end">
                     <div class="col-auto">
-                      <input type="radio" required id="apto-sin" name="medicamente" value="1">
+                      <input type="radio" required id="apto-sin" name="cuerpo[1][option]" value="1">
                     </div>
                   </div>
                 </div>
@@ -69,11 +69,11 @@
                   </div>
                   <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-end">
                     <div class="col-auto">
-                      <input type="radio" required id="apto-con" name="medicamente" value="2">
+                      <input type="radio" required id="apto-con" name="cuerpo[1][option]" value="2">
                     </div>
                   </div>
                   <div class="target-1 collapse">
-                    <textarea name="medicamente[comentario]" class="form-control input-form" rows="2" cols="2"
+                    <textarea name="cuerpo[1][comentario]" class="form-control input-form" rows="2" cols="2"
                       placeholder="Especifique"></textarea>
                   </div>
                 </div>
@@ -86,7 +86,7 @@
                   </div>
                   <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-end">
                     <div class="col-auto">
-                      <input type="radio" required id="no-apto" name="medicamente" value="3">
+                      <input type="radio" required id="no-apto" name="cuerpo[1][option]" value="3">
                     </div>
                   </div>
                 </div>
@@ -109,7 +109,7 @@
                   </div>
                   <div class="col-12 col-lg-4 d-flex align-items-start justify-content-end">
                     <div class="col-auto">
-                      <input type="radio" required id="add-1" name="add" value="1">
+                      <input type="radio" required id="add-1" name="cuerpo[2][option]" value="1">
                     </div>
                   </div>
                 </div>
@@ -127,7 +127,7 @@
                   </div>
                   <div class="col-12 col-lg-4 d-flex align-items-start justify-content-end">
                     <div class="col-auto">
-                      <input type="radio" required id="add-2" name="add" value="2">
+                      <input type="radio" required id="add-2" name="cuerpo[2][option]" value="2">
                     </div>
                   </div>
                 </div>
@@ -156,7 +156,7 @@
 <script>
   $(document).ready(function () {
     // Escuchar el cambio en los radio buttons del lado izquierdo
-    $('input[name^="medicamente"]').change(function () {
+    $('input[name^="cuerpo[1][option]"]').change(function () {
       // Ocultar todos los textarea en el contenedor izquierdo con class 'target-1'
       $('#lado-izquierdo .target-1').collapse('hide');
 
@@ -172,10 +172,7 @@
         $('#lado-izquierdo .target-1').collapse('hide');
       }
     });
-
-    // Escuchar el cambio en los radio buttons del lado derecho
-    $('input[name^="add"]').change(function () {
-      // Aquí puedes realizar acciones específicas para el lado derecho si es necesario
-    });
   });
+
+
 </script>

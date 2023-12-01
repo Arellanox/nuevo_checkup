@@ -28,20 +28,17 @@ function datosPaciente(data) {
 // })
 
 
-$('#btn-subirCertificadoSLB').on('click', function () {
-    // Crear un objeto para almacenar los valores del formulario
-    var formData = {};
+$('#btn-subirCertificadoSLB').on('click', function (e) {
+    e.preventDefault();
 
-    // Obtener los valores de los campos del formulario
-    formData['medicamente'] = $("input[name='medicamente']:checked").val();
-    // Obtener el comentario si existe
-    formData['comentario'] = $("textarea[name='medicamente[comentario]']").val();
+    alertMensajeConfirm({
+        title: '¿Esta seguro de guardar los datos?',
+        text: 'No podra modificarlos',
+        icon: 'warning',
+    }, () => {
+        ajaxAwaitFormData({ api: 3 }, 'certificados_api', 'formSubirCertificadoSLB', { callbackAfter: true }, false, () => {
+            alertToast('Se han guardado los datos corretamente!', 'success', 4000)
+        })
+    },1)
     
-    formData['add'] = $("input[name='add']:checked").val();
-
-
-    // Imprimir el objeto JSON en la consola
-    console.log(JSON.stringify(formData));
-
-    // Aquí puedes enviar formData a tu servidor usando AJAX o realizar otras acciones necesarias
 });
