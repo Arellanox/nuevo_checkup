@@ -49,9 +49,7 @@ $certificado_slb = array(
 );
 
 
-$cuerpo = $_POST['cuerpo'];
-$ruta_reporte = isset($_POST['ruta_reporte']) ? $_POST['ruta_reporte'] : null;
-$confirmado = isset($_POST['confirmado']) ? $_POST['confirmado'] : null;
+$cuerpo = json_encode($_POST['cuerpo']);
 
 
 switch($api){
@@ -66,7 +64,7 @@ switch($api){
         break;
     case 3:
 
-        $response = $master->getByProcedure("sp_certificados_g", [$cuerpo, $ruta_reporte, $confirmado]);
+        $response = $master->getByProcedure("sp_certificados_g", [$cuerpo]);
 
         break;
     default:
