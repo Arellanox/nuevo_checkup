@@ -49,6 +49,11 @@ $certificado_slb = array(
 );
 
 
+$cuerpo = $_POST['cuerpo'];
+$ruta_reporte = $_POST['ruta_reporte'];
+$confirmado = $_POST['confirmado'];
+
+
 switch($api){
     case 1:
         # lista de trabajo para certificados.
@@ -58,6 +63,11 @@ switch($api){
     case 2:
         # recuperar los datos del certificado
         $response = $master->getByProcedure("sp_certificados_b",[$cliente_id, $turno_id, $_SESSION['id']]);
+        break;
+    case 3:
+
+        $response = $master->getByProcedure("sp_certificados_g", [$cuerpo, $ruta_reporte, $confirmado]);
+
         break;
     default:
         $response = "API no definida.";
