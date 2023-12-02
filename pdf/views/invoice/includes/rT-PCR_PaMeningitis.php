@@ -46,27 +46,20 @@
         }
     }
     ?>
-    <tr>
-        <td><br></td>
-    </tr>
-</table>
 
-<br>
-<br>
-<br>
+</table>
 
 <!-- Comentario -->
 <p style=" text-align: justify;">
     <strong>Comentarios:</strong>
-    Los Kit Allplex Meningitis-V1, Meningitis-V2 y Meningitis-B son ensayos PCR Multiplex en tiempo real que permiten la 
-    amplificación simultánea y la detección de secuencias diana de Herpes simplex virus 1 (HSV1), Herpes simplex virus 2 
-    (HSV2), Varicella zoster virus (VZV), Epstein-Barr virus (EBV), Cytomegalovirus (CMV), Human herpes virus 6 (HHV6), Human 
-    herpes virus 7 (HHV7), Parvovirus B19 (B19V), Human adenovirus (AdV), Mumps virus (MV), Human enterovirus (HEV), Human parechovirus 
-    (HPeV), Haemophilus influenzae (HI), Neisseria meningitidis (NM), Streptococcus pneumoniae (SP), Streptococcus agalactiae Grupo B 
-    (GBS) ,Listeria monocytogenes (LM), Escherichia coli K1 (EC K1). Y el Médico tratante es quien realiza la interpretación de este 
+    Los Kit Allplex Meningitis-V1, Meningitis-V2 y Meningitis-B son ensayos PCR Multiplex en tiempo real que permiten la
+    amplificación simultánea y la detección de secuencias diana de Herpes simplex virus 1 (HSV1), Herpes simplex virus 2
+    (HSV2), Varicella zoster virus (VZV), Epstein-Barr virus (EBV), Cytomegalovirus (CMV), Human herpes virus 6 (HHV6), Human
+    herpes virus 7 (HHV7), Parvovirus B19 (B19V), Human adenovirus (AdV), Mumps virus (MV), Human enterovirus (HEV), Human parechovirus
+    (HPeV), Haemophilus influenzae (HI), Neisseria meningitidis (NM), Streptococcus pneumoniae (SP), Streptococcus agalactiae Grupo B
+    (GBS) ,Listeria monocytogenes (LM), Escherichia coli K1 (EC K1). Y el Médico tratante es quien realiza la interpretación de este
     resultado de acuerdo a los datos clínicos que el paciente presente.
 </p>
-<br>
 <br>
 
 <!-- Tabla con la información del equipo utilzado, kit de diagnostico y lote -->
