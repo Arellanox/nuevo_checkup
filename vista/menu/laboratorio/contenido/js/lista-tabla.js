@@ -408,9 +408,13 @@ function generarFormularioPaciente(id) {
 
               break;
 
-              case '1353':
+            case '1353':
 
               break
+
+            case '1390':
+
+              break;
 
             //Laboratorio Clinico
             case '1':
@@ -493,7 +497,10 @@ function generarFormularioPaciente(id) {
                 case '1106': case '1111': case '1115': case '1120': case '1125': case '1129':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                 case '1146': case '1150': case '1147': case '1152': case '1164':
+                // rT-PCR Panel Meningitis
+                case '1391': case '1399': case '1405':
                   onlyLabel = true; break;
+
 
                 //FTD KIT DIAGNOSTICO
                 case '1082': anotherValue = 'TF22-64-09R'; break;
