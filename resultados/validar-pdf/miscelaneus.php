@@ -1295,9 +1295,7 @@ class Miscelaneus
         $attachment = array_merge($reporte, $imagenes);
         $attachment = array_unique($attachment);
 
-        $mails = $this->getEmailMedico($master,$turno_id);
-
-        return [$attachment, /*$response[array_key_first($response)]['CORREO']*/$mails, array_map(function ($obj) {
+        return [$attachment, $response[array_key_first($response)]['CORREO'], array_map(function ($obj) {
             return $obj['TURNO_ID'];
         }, $response), array_map(function ($obj) {
             return $obj['NOMBRE_ARCHIVO'];
