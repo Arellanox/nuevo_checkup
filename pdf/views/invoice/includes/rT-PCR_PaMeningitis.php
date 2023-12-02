@@ -13,6 +13,7 @@
 </style>
 
 <br>
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px">LCR</strong> </p>
 
 <table style="width: 100%;">
     <tr style="background-color: darkgrey;">
