@@ -13,8 +13,6 @@
 </style>
 
 <br>
-<br>
-<br>
 
 <table style="width: 100%;">
     <tr style="background-color: darkgrey;">
