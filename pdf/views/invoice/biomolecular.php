@@ -344,7 +344,8 @@ function passdata($indice)
         "PANEL RESPIRATORIO 22" => 'PANEL22',
         "PCR PARA MYCOBACTERIUM TUBERCULOSIS MDR Y XDR" => 'mycobacte_tuberculosis',
         "Prueba rT-PCR TICK BORNE DISEASES" => 'rt-PCR_TICK',
-        "rT-PCR Panel Meningitis" => 'rT-PCR_PaMeningitis'
+        "rT-PCR Panel Meningitis" => 'rT-PCR_PaMeningitis',
+        "PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA" => 'rT-PCR_pylari_claritromicina'
     ];
 
     // echo $indice;
