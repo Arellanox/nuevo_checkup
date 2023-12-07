@@ -416,6 +416,10 @@ function generarFormularioPaciente(id) {
 
               break;
 
+            case "1420":
+              // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
+              break;
+
             //Laboratorio Clinico
             case '1':
               Tipo = '_BH'
@@ -499,6 +503,8 @@ function generarFormularioPaciente(id) {
                 case '1146': case '1150': case '1147': case '1152': case '1164':
                 // rT-PCR Panel Meningitis
                 case '1391': case '1399': case '1405':
+                // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
+                case '1436': case '1432':
                   onlyLabel = true; break;
 
 
