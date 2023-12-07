@@ -421,6 +421,23 @@ function generarFormularioPaciente(id) {
 
             case "1420":
               // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
+
+              kitDiag = {
+                0: {
+                  'descripcion': 'Allplex™ H.pylori & ClariR Assay',
+                  'clave': 'N/A'
+                }
+              }
+              classSelect = 'selectTipoMuestraPCRHeliPylori';
+              muestras = {
+                0: {
+                  'descripcion': 'HECES',
+                },
+                1: {
+                  'descripcion': 'BIOPSIA',
+                }
+              }
+
               break;
 
             //Laboratorio Clinico
