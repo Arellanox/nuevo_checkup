@@ -558,6 +558,7 @@ function generarFormularioPaciente(id) {
                 case '1135':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                 case '1142':
+                  console.log(row[k]['ID_SERVICIO'])
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
                 //Laboratorio Clinico:
