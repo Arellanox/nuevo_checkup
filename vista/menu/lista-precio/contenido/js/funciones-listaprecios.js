@@ -106,8 +106,8 @@ function obtenerColumnasTabla(tipo) {
         { width: "5%", title: "#", targets: 0 },
         { width: "8%", title: "AB", targets: 1 },
         { width: "38%", title: "Nombre", targets: 2 },
-        { title: "Costo", targets: 3 },
-        { width: "20%", title: "Utilidad", targets: 4, orderable: false },
+        { title: "Costo", visible: false, targets: 3 },
+        { width: "20%", title: "Utilidad", visible: false, targets: 4, orderable: false },
         { width: "20%", title: "Precio Venta", targets: 5, orderable: false }
       ]
       break;
@@ -153,8 +153,8 @@ function obtenerColumnasTabla(tipo) {
       return value = [
         { width: "5%", title: "#", targets: 0 },
         { title: "Paquete", targets: 1 },
-        { width: "10%", title: "Costo", targets: 2 },
-        { width: "18%", title: "Utilidad", targets: 3, orderable: false },
+        { width: "10%", title: "Costo", visible: false, targets: 2 },
+        { width: "18%", title: "Utilidad", visible: false, targets: 3, orderable: false },
         { width: "18%", title: "Precio Venta", targets: 4, orderable: false }
       ]
       break;

@@ -16,7 +16,7 @@ async function mantenimientoPaquete() {
 
 
   $('#seleccion-paquete').prop('disabled', false);
-  $("#selectDisabled").removeClass("disable-element");
+  $(".selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
   $("#formPaqueteSelectEstudio").addClass("disable-element");
   $("#informacionPaquete").addClass("disable-element");
@@ -24,6 +24,19 @@ async function mantenimientoPaquete() {
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   $("#seleccion-estudio").find('option').remove().end()
   // $('.listaPresupuestos').show();
+
+
+
+  //borrar el div para que se vuelva a abrir
+  // datosUsuarioCotizacion.empty()
+  $('#nombreCotizacionCliente').html('')
+  $('#correoCotizacionCliente').html('')
+  $('#fiscalCotizacionCliente').html('')
+  $('#observacionesCotizacionCliente').html('')
+
+
+  tablaContenido(true)
+
 
   loader("Out");
 }

@@ -85,9 +85,12 @@ switch ($api) {
             # enviar el correo con el reporte y las imagenes capturadas
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
 
+            $mails = $master->getEmailMedico($master, $turno_id);
+            $mails[] = $attachment[1];
+
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1, null, $turno_id, 11, $master)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido',$mails, null, $attachment[0], 1, null, $turno_id, 11, $master)) {
                     $master->setLog("Correo enviado.", "ultrasonido");
                 }
             }

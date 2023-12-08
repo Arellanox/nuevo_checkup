@@ -346,6 +346,9 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5: {
+                  'descripcion': 'GLANDE, URETRA Y PREPUCIO'
                 }
               }
               break;
@@ -375,6 +378,9 @@ function generarFormularioPaciente(id) {
                 3: {
                   'descripcion': 'Lavado Bronquial',
                 },
+                4: {
+                  'descripcion': 'Orina'
+                }
                 // 4: {
                 //   'descripcion': 'Lavado Bronquial'
                 // }
@@ -403,10 +409,43 @@ function generarFormularioPaciente(id) {
                 }
               }
 
+              break;
+
+            case '1353':
+
+              break
+
+            case '1390':
+
+              break;
+
+            case "1420":
+              // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
+
+              kitDiag = {
+                0: {
+                  'descripcion': 'Allplex™ H.pylori & ClariR Assay',
+                  'clave': 'N/A'
+                }
+              }
+              classSelect = 'selectTipoMuestraPCRHeliPylori';
+              muestras = {
+                0: {
+                  'descripcion': 'HECES',
+                },
+                1: {
+                  'descripcion': 'BIOPSIA',
+                }
+              }
+
+              break;
+
             //Laboratorio Clinico
             case '1':
               Tipo = '_BH'
               break;
+
+
             default: input = null;
               if (areaActiva == 12) {
                 alert('El paciente no tiene estudios compatibles, hay un problema con la compatibilidad de los estudios con biomolecular, presente el error con el area de TI para solucionar este problema con el  paciente');
@@ -482,7 +521,12 @@ function generarFormularioPaciente(id) {
                 case '1106': case '1111': case '1115': case '1120': case '1125': case '1129':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                 case '1146': case '1150': case '1147': case '1152': case '1164':
+                // rT-PCR Panel Meningitis
+                case '1391': case '1399': case '1405':
+                // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
+                case '1436': case '1432':
                   onlyLabel = true; break;
+
 
                 //FTD KIT DIAGNOSTICO
                 case '1082': anotherValue = 'TF22-64-09R'; break;
@@ -514,6 +558,7 @@ function generarFormularioPaciente(id) {
                 case '1135':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                 case '1142':
+                  console.log(row[k]['ID_SERVICIO'])
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
                 //Laboratorio Clinico:

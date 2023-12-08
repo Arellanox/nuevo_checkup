@@ -19,7 +19,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
     lengthChange: false,
     info: false,
     paging: true,
-    scrollY: '35vh',
+    scrollY: '37vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -50,14 +50,18 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
         },
         {
             data: 'FECHA', render: function (data) {
-                return formatoFecha2(data, [0, 1, 3, 1])
+                return formatoFecha(data)
+                // return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
-        { data: 'NOMBRE_COMPLETO' },
+        { data: 'NOMBRE' },
+        { data: 'APELIIDOS' },
+        { data:  'PROCEDENCIA'},
 
         {
             data: 'NACIMIENTO', render: function (data) {
-                return formatoFecha2(data, [0, 1, 3, 1])
+                return formatoFecha(data)
+                // return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
         {
@@ -71,14 +75,14 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
         { data: 'CELULAR' },
         {
             data: 'FECHA_CONFIRMADO', render: function (data) {
-                return formatoFecha2(data, [0, 1, 3, 1])
+                return formatoFechaSinHora(data)
             }
         },
         { data: 'SERVICIO' },
         { data: 'RESULTADO_GLOBAL' },
         {
             data: 'PATOGENOS', render: function (data) {
-                return ifnull(data, 'N/A')
+                return ifnull(formatearArreglo(data),'N/A')
             }
         },
         {
@@ -88,7 +92,8 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
         },
         {
             data: 'FECHA_RESULTADO', render: function (data) {
-                return formatoFecha2(data, [0, 1, 3, 1])
+                return formatoFechaSinHora(data)
+                // return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
 
@@ -100,19 +105,22 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
         { target: 2, title: 'Folio', className: 'none' },
         { target: 3, title: 'Fecha recepción', className: 'all' },
         { target: 4, title: 'Nombre', className: 'all' },
-        { target: 5, title: 'Fecha de Nacimiento', className: 'none' },
-        { target: 6, title: 'Edad', className: 'none' },
-        { target: 7, title: 'Sexo', className: 'none' },
-        { target: 8, title: 'Municipio', className: 'none' },
-        { target: 9, title: 'Domicilio', className: 'none' },
-        { target: 10, title: 'Celular', className: 'none' },
-        { target: 11, title: 'Fecha confirmado', className: 'all' },
-        { target: 12, title: 'Servicio', className: 'all' },
-        { target: 13, title: 'Resultado', className: 'all' },
-        { target: 14, title: 'Patogenos', className: 'all' },
-        { target: 15, title: 'Laboratorio', className: 'all' },
-        { target: 16, title: 'Fecha resultado', className: 'all' },
-
+        { target: 5, title: 'Apellidos', className: 'all' },
+        { target: 6, title: 'Procedencia', className: 'all' },
+        { target: 7, title: 'Fecha de Nacimiento', className: 'none' },
+        { target: 8, title: 'Edad', className: 'none' },
+        { target: 9, title: 'Sexo', className: 'none' },
+        { target: 10, title: 'Municipio', className: 'none' },
+        { target: 11, title: 'Domicilio', className: 'none' },
+        { target: 12, title: 'Celular', className: 'none' },
+        { target: 13, title: 'Fecha confirmado', className: 'all' },
+        { target: 14, title: 'Servicio', className: 'all' },
+        { target: 15, title: 'Resultado', className: 'all' },
+        { target: 16, title: 'Patogenos', className: 'all' },
+        { target: 17, title: 'Laboratorio', className: 'all' },
+        { target: 18, title: 'Fecha resultado', className: 'all' },
+        
+        
         // {
         //     targets: 10,
         //     title: '#',
@@ -139,7 +147,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
             },
             exportOptions: {
                 // Especifica las columnas que deseas exportar
-                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
             }
 
         }
@@ -169,6 +177,31 @@ inputBusquedaTable('TablaTablaReporteEpidemiologico', TablaTablaReporteEpidemiol
 // ###################### FUNCIONES #############################################
 
 // ==============================================================================
+//Formatea el arreglo a una forma mas legible ejemplo: ["Influenza A (IAV):POSITIVO","Influenza A H1N1:POSITIVO"]
+function formatearArreglo(texto) {
+    if (texto) {
+        const arrayResultados = JSON.parse(texto.replace(/'/g, '"'));
+        const resultadosLegibles = arrayResultados.map(item => {
+            const [nombre, resultado] = item.split(':');
+            return `${nombre}: ${resultado}`;
+        });
+        return resultadosLegibles.join(', ');
+    }
+
+    return '';
+}
+
+//Quita la hora de la fecha que trae de la base de datos
+function formatoFechaSinHora(texto) {
+    if (texto) {
+        const partes = texto.split(' ');
+        const fechaSinHora = partes[0]; // Obtener solo la parte de la fecha
+        const [anio, mes, dia] = fechaSinHora.split('-');
+        return `${dia}/${mes}/${anio}`;
+    }
+
+    return '';
+}
 
 // function para configurar el modal
 // function configurarModal(data) {

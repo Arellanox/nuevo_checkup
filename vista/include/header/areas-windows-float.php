@@ -133,7 +133,9 @@ if (
     $_SESSION['vista']['FACTURACIÓN'] == 1 ||
     $_SESSION['vista']['LISTA_PRECIOS'] == 1 || $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1 || $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1 ||
     $_SESSION['vista']['CURSOS BIMO'] == 1 ||
-    $_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1
+    $_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1 ||
+    $_SESSION['vista']['MEDICOS_TRATANTES'] == 1 ||
+    $_SESSION['vista']['CAJA'] == 1
 ) : ?>
     <li class="nav-item Recepción">
         <div class="dropdown ">
@@ -160,6 +162,37 @@ if (
         </div>
     </li>
 <?php endif; ?>
+
+
+<?php if ($_SESSION['vista']['ESTUDIOS_CALIDAD_EXCEL'] == 1) : ?>
+    <li class="nav-item Recepción">
+        <div class="dropdown ">
+            <!-- <a class="dropdown-toggle" id="dropTI" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+             </a> -->
+
+            <a class="dropdown-toggle align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-menu-calidad" aria-expanded="false">
+                <i class="bi bi-suit-heart"></i> Calidad
+            </a>
+
+            <!-- Estos botones se cargan en el servidor desde el archivo del include -->
+            <!-- <ul style="padding-left: 15px;" class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropTI"> -->
+            <div class="collapse" id="board-menu-calidad">
+                <ul style="padding-left: 15px;" class="btn-toggle-nav text-black list-unstyled fw-normal pb-1 small shadow">
+
+                    <?php if ($_SESSION['vista']['ESTUDIOS_CALIDAD_EXCEL'] == 1) : ?>
+                        <a class="dropdown-a text-white align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-epidemiologico/'; ?>">
+                            <i class="bi bi-journal-text"></i> Reporte epidemiológico
+                        </a>
+
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <!-- </ul> -->
+        </div>
+    </li>
+<?php endif; ?>
+
 
 <?php if ($_SESSION['perfil'] == 1) : ?>
     <li class="nav-item Recepción">

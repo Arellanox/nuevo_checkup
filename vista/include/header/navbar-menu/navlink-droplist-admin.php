@@ -7,6 +7,12 @@ date_default_timezone_set('America/Mexico_City');
     </a>
 <?php endif; ?>
 
+<?php if ($_SESSION['vista']['MEDICOS_TRATANTES'] == 1) : ?>
+    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
+        <i class="bi bi-person-hearts"></i> Médicos
+    </a>
+<?php endif; ?>
+
 <?php if ($_SESSION['vista']['CLIENTES'] == 1) : ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/clientes/'; ?>">
         <i class="bi bi-people-fill"></i> Clientes
@@ -35,7 +41,12 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 
 
-<?php if ($_SESSION['vista']['FACTURACIÓN'] == 1 || $_SESSION['vista']['FACTURACION_EXCEL'] == 1) : ?>
+<?php if (
+    $_SESSION['vista']['FACTURACIÓN'] == 1 ||
+    $_SESSION['vista']['FACTURACION_EXCEL'] ==
+    1 ||
+    $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1
+) : ?>
     <!-- Facturacion -->
     <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
         <i class="bi bi-calculator"></i> Facturación
@@ -79,6 +90,14 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
                     </ul>
                 </div>
             <?php endif; ?>
+
+            <?php if ($_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#COTIZACIONES_ESTUDIOS'; ?>">
+                        <i class="bi bi-dot"></i> Cotizaciones
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
     </div>
 <?php endif; ?>
@@ -86,8 +105,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 <?php if (
     $_SESSION['vista']['LISTA_PRECIOS'] == 1 ||
-    $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1 ||
-    $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1
+    $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1
 ) : ?>
     <!-- Contaduria -->
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
@@ -109,13 +127,6 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1) : ?>
-                <li>
-                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#COTIZACIONES_ESTUDIOS'; ?>">
-                        <i class="bi bi-dot"></i> Cotizaciones
-                    </a>
-                </li>
-            <?php endif; ?>
             <hr class="dropdown-divider">
         </ul>
     </div>
@@ -123,29 +134,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 <?php endif; ?>
 
 
-<?php if ($_SESSION['vista']['ESTUDIOS_CALIDAD_EXCEL'] == 1) : ?>
-    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-calidad" aria-expanded="false">
-        <i class="bi bi-suit-heart"></i> Calidad
-    </a>
-    <div class="collapse" id="board-calidad">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <?php if ($_SESSION['vista']['ESTUDIOS_CALIDAD_EXCEL'] == 1) : ?>
-                <li>
-                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-calidad/'; ?>" class="dropdown-a" type="button">
-                        <i class="bi bi-file-earmark-spreadsheet"></i> Estudios
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-epidemiologico/'; ?>" class="dropdown-a" type="button">
-                        <i class="bi bi-journal-text"></i> Reporte epidemiológico
-                    </a>
-                </li>
-            <?php endif; ?>
-            <hr class="dropdown-divider">
-        </ul>
-    </div>
 
-<?php endif; ?>
 
 <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-TALENTOHUMANO" aria-expanded="false">

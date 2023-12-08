@@ -31,6 +31,7 @@ $('#btn-subir-medico-tratante').on('click', function () {
 
 
         ajaxAwaitFormData(dataJson_insertMedicos, 'medicos_tratantes_api', 'form-medicoTratante', { callbackAfter: true }, false, function (data) {
+            reset_email_inputs_medicos();
             VolverConstruirPagina(1)
             //Metemos lo que trae data en una variable en este caso lo que nos recupera es el arreglo
             // const row = data.response.data;

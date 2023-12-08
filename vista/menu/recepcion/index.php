@@ -17,6 +17,7 @@ $menu = "Recepción";
   registroAgendaRecepcion = 1;
   nombreCliente = null;
   language = '';
+  let clienteRegistro = 0; //<-- Oculta los segmentos de registro de paciente.
 
 
   ant = false; // registro

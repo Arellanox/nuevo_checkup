@@ -112,6 +112,7 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
         ajaxAwaitFormData(dataJson, 'tickets_api', 'formularioPacienteFactura', { callbackAfter: true }, false, function (data) {
             finalizarProcesoRecepcion(dataPaciente)
             // FinalizarPago()
+            document.getElementById('formularioPacienteFactura').reset();
             alertTicket(data, 'Factura y ticket guardado')
         })
     }, 1)

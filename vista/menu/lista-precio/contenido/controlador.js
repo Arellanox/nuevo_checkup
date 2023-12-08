@@ -57,6 +57,27 @@ function obtenerContenidoPrecios() {
       $.getScript("contenido/js/calculos-listaprecios.js");
       // Botones
       $.getScript("contenido/js/precio-botones.js");
+
+      $('#check-Precios').click();
+      setTimeout(() => {
+        columnsDefinidas = obtenerColumnasTabla('2.1')
+        columnasData = obtenerColumnasTabla('2.2')
+        $('.vista_estudios-precios').fadeIn(100)
+        $('#divSeleccionCliente').fadeIn(100)
+        tablaPrecio.destroy();
+        $('#TablaListaPrecios').empty();
+        tablaPrecio = $("#TablaListaPrecios").DataTable({
+          language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+          },
+          // lengthChange: false,
+          // info: false,
+          // paging: false,
+          columnDefs: columnsDefinidas
+        });
+        inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
+        $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
+      }, 200);
     })
 
   });
@@ -133,6 +154,25 @@ function obtenerContenidoPaquetes(tabla) {
 
 //Vacia la tabla, para el poder rellenar en paquetes
 function tablaContenido(descuento = false) {
+
+
+  var hash = window.location.hash.substring(1);
+
+  columns_visible = {
+    costo: true,
+    costo_total: true
+  }
+
+  switch (hash) {
+    case "COTIZACIONES_ESTUDIOS":
+      columns_visible['costo'] = false;
+      columns_visible['costo_total'] = false;
+      break;
+
+    default:
+      break;
+  }
+
   tablaContenidoPaquete.destroy();
   $('#TablaListaPaquetes').empty();
   dataEliminados = new Array()
@@ -146,8 +186,8 @@ function tablaContenido(descuento = false) {
       { className: 'all', width: "213.266px", title: "Descripción", targets: 0 },
       { className: 'desktop', width: "80.75px", title: "CVE", targets: 1 },
       { className: 'min-tablet', width: "90.516px", title: "Cantidad", targets: 2, orderable: false },
-      { className: 'all', width: "80.8438px", title: "Costo", targets: 3 },
-      { className: 'desktop', width: "102.484px", title: "Costo Total", targets: 4 },
+      { className: 'all', width: "80.8438px", title: "Costo", targets: 3, visible: columns_visible['costo'] },
+      { className: 'desktop', width: "102.484px", title: "Costo Total", targets: 4, visible: columns_visible['costo_total'] },
       { className: 'min-tablet', width: "90.516px", title: "Descuento", targets: 5, orderable: false, visible: descuento },
       { className: 'desktop', width: "99.344px", title: "Precio Venta", targets: 6 },
       { className: 'all', width: "64.75px", title: "Subtotal", targets: 7 },
@@ -338,3 +378,51 @@ function hasLocation() {
 
   }
 }
+
+
+
+$(document).on('click', 'button.toggle-vis', function (e) {
+  e.preventDefault();
+  // Get the column API object
+
+  var hash = window.location.hash.substring(1);
+
+  switch (hash) {
+    case "LISTA_PRECIOS":
+      var column_costo = tablaPrecio.column(3);
+      var column_utilidad = tablaPrecio.column(4);
+
+
+      // Toggle the visibility
+      column_costo.visible(!column_costo.visible());
+      column_utilidad.visible(!column_utilidad.visible());
+      break;
+    case "PAQUETES_ESTUDIOS":
+      break;
+
+    case "COTIZACIONES_ESTUDIOS":
+      // Get the column API object
+      var column_costo = tablaContenidoPaquete.column(3);
+      var column_utilidad = tablaContenidoPaquete.column(4);
+
+
+      // Toggle the visibility
+      column_costo.visible(!column_costo.visible());
+      column_utilidad.visible(!column_utilidad.visible());
+      break;
+    default:
+      break;
+  }
+
+  // tablaMenuPrincipal.ajax.reload();
+  $.fn.dataTable
+    .tables({
+      visible: true,
+      api: true
+    })
+    .columns.adjust();
+
+  $(this).removeClass('span-info');
+  if (column_costo.visible())
+    $(this).addClass('span-info');
+});

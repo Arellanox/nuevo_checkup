@@ -211,7 +211,7 @@ session_start();
 </div>
 
 
-<div class="modal fade" id="modalSubirInterpretacion" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
+<div class="modal fade" id="modalSubirInterpretacion" data-bs-keyboard="false" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
@@ -272,12 +272,14 @@ session_start();
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cerrar</button>
 
                 <!-- Paginacion del formulario -->
-                <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="back">
-                    <i class="bi bi-arrow-left"></i>
-                    Regresar</button>
-                <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="next">
-                    <i class="bi bi-arrow-right"></i>
-                    Siguiente</button>
+                <div id="panel-paginacion" style="display: none;">
+                    <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="back">
+                        <i class="bi bi-arrow-left"></i>
+                        Regresar</button>
+                    <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="next">
+                        <i class="bi bi-arrow-right"></i>
+                        Siguiente</button>
+                </div>
                 <!-- /////// -->
 
                 <!-- <button type="button" class="btn btn-cancelar" id="siguienteForm"><i class="bi bi-arrow-right-circle"></i> Siguiente</button> -->
@@ -446,3 +448,31 @@ session_start();
 
     // });
 </script>
+
+
+<style>
+    .f-carousel__slide {
+        height: 100%;
+        /* Puedes ajustar esta altura según tus necesidades */
+        display: flex;
+        align-items: center;
+        /* Centrar verticalmente */
+        justify-content: center;
+        /* Centrar horizontalmente */
+    }
+
+    .f-carousel__slide img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    div.modal-backdrop.fade.show {
+        z-index: 99;
+    }
+
+    #modalSubirInterpretacion {
+        z-index: 100;
+    }
+</style>

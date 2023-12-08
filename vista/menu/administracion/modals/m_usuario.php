@@ -15,9 +15,29 @@
                                     <label>Nombre:</label>
                                     <input type="text" name="nombre_medico" class="form-control input-form" id="nombre-medicoTrarante-a">
                                 </div>
+
+
                                 <div class="col-12 mb-3">
                                     <label>Correo:</label>
-                                    <input type="email" name="email" class="form-control input-form" id="email-medicoTratante-a">
+                                    <input type="email" class="form-control input-form email-medicoTratante" data-collapse-name="collapseConfirmacion_edit" data-pair-id="input_actualizar_edit" data-email-order="1" name="email" id="email-medicoTratante-a">
+                                </div>
+
+                                <div class="collapse email-collapse" id="collapseConfirmacion_edit">
+                                    <div class="col-12 mb-3">
+                                        <label>Confirma el correo:</label>
+                                        <input type="email" class="form-control input-form email-medicoTratante" data-pair-id="input_actualizar_edit" data-email-order="2">
+                                        <small class="error-message" style="color: red; display: none;">Los correos no coinciden</small>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 mb-3">
+                                    <label>Teléfono:</label>
+                                    <input type="text" name="telefono" class="form-control input-form" id="telefono-medicoTratante-a">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label>Especialidad:</label>
+                                    <input type="text" name="especialidad" class="form-control input-form" id="especialidad-medicoTratante-a">
                                 </div>
                             </div>
                             <div class="row">
@@ -40,7 +60,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
                     Cancelar</button>
-                <button type="submit" form="form_medicos_tratantes_a" class="btn btn-confirmar" id="btn--medicoTratante--a">
+                <button type="submit" form="form_medicos_tratantes_a" class="btn btn-confirmar btn_confirmar_correo" data-pair-id="input_actualizar_edit" id="btn--medicoTratante--a">
                     <i class="bi bi-arrow-up-square"></i> Guardar
                 </button>
             </div>

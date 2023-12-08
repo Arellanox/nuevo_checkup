@@ -67,6 +67,21 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
 }
 
 
+// Reinicia los collapse para medicos tratantes
+function reset_email_inputs_medicos() {
+  // Ocultar solo los collapses de confirmación de correo
+  $('.email-collapse').collapse('hide');
+
+  // Vaciar todos los inputs de correo y confirmación
+  $('.email-medicoTratante').val('');
+
+  // Ocultar mensajes de error asociados a los collapses de correo
+  $('.email-collapse').find('.error-message').hide();
+
+  // Desbloquear todos los botones asociados a los collapses de correo
+  $('.btn_confirmar_correo').prop('disabled', false);
+}
+
 
 function calcularEdad(fecha) {
   var hoy = new Date(), cumpleanos = new Date(fecha);
@@ -499,8 +514,8 @@ function escapeHtmlEntities(input) {
     '<': '&lt;',
     '>': '&gt;',
     "'": '&apos;',
-    '-': '&ndash;',
-    '—': '&mdash;',
+    // '-': '&ndash;',
+    // '—': '&mdash;',
     // '\u00A0': '&nbsp;',
     // '\u2013': '&ndash;',
     // '\u2014': '&mdash;',
@@ -1618,7 +1633,7 @@ function alertPassConfirm(alert = {
     //   autocomplete: false
     // },
     // input: 'password',
-    html: '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder="Ingrese su contraseña para confirmar"></form>',
+    html: `<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder="${alert['placeholder'] ? alert['placeholder'] : 'Ingrese su contraseña para confirmar'}"></form>`,
     // confirmButtonText: 'Sign in',
     focusConfirm: false,
     didOpen: () => {
@@ -1627,7 +1642,20 @@ function alertPassConfirm(alert = {
     },
     preConfirm: () => {
       const password = Swal.getPopup().querySelector('#password-confirmar').value;
-      return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
+
+
+      switch (alert['fetch']) {
+        case 'turnero':
+          url_fetch = `${http}${servidor}/${appname}/api/turnero_api.php?api=8&clave_secreta=${password}`
+          break;
+
+        default:
+          url_fetch = `${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`
+          break;
+      }
+
+
+      return fetch(url_fetch)
         .then(response => {
           if (!response.ok) {
             throw new Error(response.statusText)
@@ -1646,7 +1674,7 @@ function alertPassConfirm(alert = {
       if (result.value.status == 1) {
         callback();
       } else {
-        alertSelectTable('¡Contraseña incorrecta!', 'error')
+        alertSelectTable('¡Está incorrecto!', 'error')
       }
     }
 
@@ -2858,9 +2886,11 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#edad-persona').html(formatoEdad(row.EDAD))
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                       $('#info-paquete_cargado').html(ifnull(row, '', ['PAQUETE_CARGADO']))
+                      $('#info-vendedor').html(ifnull(row, '', ['VENDEDOR']))
                       $('#info-paci-alergias').html(row.ALERGIAS);
                       $('#info-paci-procedencia').html(row.PROCEDENCIA)
                       $('#info-paci-curp').html(row.CURP);
+                      $('#info-paci-naciondalidad').html(row.NACIONALIDAD)
                       $('#info-paci-telefono').html(row.CELULAR);
                       $('#info-paci-correo').html(row.CORREO);
                       $('#info-paci-sexo').html(row.GENERO);
