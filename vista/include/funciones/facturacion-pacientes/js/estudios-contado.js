@@ -226,7 +226,7 @@ function configurarModal(data) {
 
                 //Crea la fila de la tabla, Nombre del servicio, cantidad, y precio antes de iva
                 let html = `<tr class="tr_concepto">
-                                <th data-bs-id-servicio="${element['ID_SERVICO']}">${element['SERVICIOS']}</th>
+                                <th data-bs-id-servicio="${element['ID_SERVICIO']}">${element['SERVICIOS']}</th>
                                 <td>
                                     <div class="input-group flex-nowrap">
                                         <input type="number" placeholder="0" class="form-control input-form text-end setDescuentoConcepto px-1" value="">
