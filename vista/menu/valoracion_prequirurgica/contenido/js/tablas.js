@@ -93,9 +93,18 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
     unSelect: true, dblClick: true, reload: ['col-xl-9']
 }, async function (select, data, callback) {
     if (select) {
+    }
+})
 
-    } else {
+// evento change del checkbox para aparecer a todos los pacientes
+$(document).on('change', '#checkDiaAnalisis', function () {
 
+    let btn = $(this).is(':checked');
 
+    // se valida si el checkbox esta chekeado
+    if (btn) {
+        DataPrequirurgico.fecha_busqueda = "";
+        console.log(DataPrequirurgico)
+        TablaPacientesPrequirurgica.ajax.reload()
     }
 })
