@@ -156,6 +156,14 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
     <i class="bi bi-eye"></i> Oftalmología
   </a>
 <?php endif; ?>
+
+
+<!-- Modulo de valoracion prequirurgica -->
+<a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/valoracion_prequirurgica'; ?>">
+  <i class="bi bi-file-earmark-medical-fill"></i> valoracion prequirúrgica
+</a>
+
+
 <!-- Otras Areas -->
 <?php if ($_SESSION['vista']['NUTRICION'] == 1 || $_SESSION['vista']['NUTRICION_CAPTURAS'] == 1) : ?>
   <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-nutricion" aria-expanded="false">
