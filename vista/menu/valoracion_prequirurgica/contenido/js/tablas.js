@@ -7,44 +7,35 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
     sorting: false,
     scrollY: '75vh',
     scrollCollapse: true,
-    // ajax: {
-    //     dataType: 'json',
-    //     data: function (d) {
-    //         return $.extend(d, DataEquipo);
-    //     },
-    //     // data: { api: 2, equipo: id_equipos },
-    //     method: 'POST',
-    //     url: '../../../api/temperatura_api.php',
-    //     beforeSend: function () {
-    //         fadeRegistro('Out')
-    //         loader("In")
-    //         selectTableFolio = false
-    //         tablaTemperaturaFolio.clear().draw();
-    //     },
-    //     complete: function () {
-    //         //Para ocultar segunda columna
-    //         loader("Out", 'bottom')
-    //         reloadSelectTable()
-    //         fadeRegistro('In')
-    //         $.fn.dataTable
-    //             .tables({
-    //                 visible: true,
-    //                 api: true
-    //             })
-    //             .columns.adjust();
-    //         // $("#lista-meses-temperatura").fadeIn('fast');
-
-    //         // Hacer clic en la primera fila
-    //         var firstRow = tablaTemperaturaFolio.row(0).node(); // La fila 0 es la primera fila
-    //         $(firstRow).click(); // Simula un clic en la fila
-    //         $("#loader-TablaTemperaturasFolio").fadeOut('fast');
-
-    //     },
-    //     // error: function (jqXHR, textStatus, errorThrown) {
-    //     //     alertErrorAJAX(jqXHR, textStatus, errorThrown);
-    //     // },
-    //     dataSrc: 'response.data'
-    // },
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return $.extend(d, DataPrequirurgico);
+        },
+        // data: { api: 2, equipo: id_equipos },
+        method: 'POST',
+        url: '../../../api/prequirurgico_api.php',
+        beforeSend: function () {
+            // fadeRegistro('Out')
+            loader("In")
+            // selectTableFolio = false
+        },
+        complete: function () {
+            //Para ocultar segunda columna
+            loader("Out", 'bottom')
+            // reloadSelectTable()
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+        },
+        // error: function (jqXHR, textStatus, errorThrown) {
+        //     alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        // },
+        dataSrc: 'response.data'
+    },
     // columns: [
     //     { data: 'FOLIO' },
     //     {
@@ -87,7 +78,7 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
     // ]
 })
 
-
+// Input de busqueda
 inputBusquedaTable("TablaPacientesPrequirurgica", TablaPacientesPrequirurgica, [{
     msj: 'Tabla de los pacientes para valoracion prequirurgica  ',
     place: 'top'
@@ -95,3 +86,16 @@ inputBusquedaTable("TablaPacientesPrequirurgica", TablaPacientesPrequirurgica, [
     msj: "Filtre los resultados por el folio que escriba",
     place: 'top'
 }, "col-12")
+
+
+// Select para la tabla
+selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
+    unSelect: true, dblClick: true, reload: ['col-xl-9']
+}, async function (select, data, callback) {
+    if (select) {
+
+    } else {
+
+
+    }
+})
