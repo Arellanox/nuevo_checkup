@@ -103,7 +103,12 @@ $(document).on('change', '#checkDiaAnalisis', function () {
 
     // se valida si el checkbox esta chekeado
     if (btn) {
-        DataPrequirurgico.fecha_busqueda = "";
+        // variable a enviar para que la tabla recupere los datos
+        DataPrequirurgico = {
+            api: 1,
+            area_id: 1,
+            cliente_id: 31
+        }
         console.log(DataPrequirurgico)
         TablaPacientesPrequirurgica.ajax.reload()
     }
