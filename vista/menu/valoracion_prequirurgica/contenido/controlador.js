@@ -12,7 +12,8 @@ $(window).on("hashchange", function (e) {
 });
 
 // Variables Globales
-let DataPrequirurgico; // varibale para la tabla de TablaPacientesPrequirurgica
+let DataPrequirurgico, TablaPacientesPrequirurgica; // varibale para la tabla de TablaPacientesPrequirurgica
+let estado
 
 async function ObtenerBody() {
     await obtenerTitulo('Valoración prequirúrgica'); //Aqui mandar el nombre de la area
@@ -32,7 +33,7 @@ async function ObtenerBody() {
             area_id: area,
             cliente_id: cliente
         }
-
+        estadoFormulario(estado)
         // Datatable
         $.getScript("contenido/js/tablas.js");
     });
@@ -53,3 +54,33 @@ function hasLocation() {
             break;
     }
 }
+
+
+
+function estadoFormulario(estado){
+    switch(estado){
+        case 1:
+            $('#btn-vistaPrevia').fadeIn()
+            $('#btn-confirmarReporte').fadeIn()
+            $('#btn-guardarInterpretacion').fadeIn()
+            break;
+            
+        case 2:
+            $('#btn-confirmarReporte').fadeOut()
+            $('#btn-guardarInterpretacion').fadeOut()
+            // $('#formInterpretacion').prop('disabled', true);
+            break;   
+
+        default:
+            $('#btn-vistaPrevia').fadeOut()
+            $('#btn-confirmarReporte').fadeOut()
+            break;
+    }
+}
+
+function limpiarForm(form){
+
+    form.filter("input[type='checkbox']").prop("checked", false);
+    form.filter("textarea").val('');
+}
+

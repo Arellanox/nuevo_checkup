@@ -339,9 +339,20 @@
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i> Cancelar
                 </button>
-                <button type="submit" form="formInterpretacion" class="btn btn-confirmar">
-                    <i class="bi bi-send-plus"></i> Cargar
+
+                <button type="button" class="btn btn-borrar" id="btn-vistaPrevia">
+                    <i class="bi bi-file-earmark-pdf"></i> Vista previa
+
                 </button>
+
+                <button type="button" class="btn btn-confirmar" id="btn-guardarInterpretacion">
+                    <i class="bi bi-clipboard2-plus"></i> Guardar interpretación
+                </button>
+
+                <button type="button" class="btn btn-confirmar" id="btn-confirmarReporte">
+                    <i class="bi bi-clipboard2-plus"></i> Confirmar reporte
+                </button>
+
             </div>
         </div>
     </div>

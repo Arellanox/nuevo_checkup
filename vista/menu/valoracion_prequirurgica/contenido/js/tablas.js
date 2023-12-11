@@ -108,3 +108,5 @@ function reloadTable(fecha = false) {
 
     TablaPacientesPrequirurgica.ajax.reload()
 }
+
+console.log(TablaPacientesPrequirurgica)
