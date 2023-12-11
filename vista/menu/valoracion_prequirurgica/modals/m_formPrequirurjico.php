@@ -6,168 +6,168 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-
                 <form id="formSubirInterpretacionPRUEBA">
-                    <div class="row container-pages">
+                    <div class="row container-pages m-2">
                         <!-- Interrogatorio -->
-                        <div class="rounded p-3 shadow my-2">
-                            <h4>Antecedentes</h4>
-                            <div class="row" id="div-antecedentes">
+                        <section>
+                            <div class="rounded p-3 shadow my-2">
+                                <h4>Antecedentes</h4>
+                                <div class="row">
 
-                                <!-- Siguió Objetos -->
-                                <div class="col-12 m-1 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                                    <div class="col-12">
-                                        <label>Antecedente Personales Patológicos</label>
-                                        <input type="hidden" name="antecedentes[1][id]" value="1">
+                                    <!-- Siguió Objetos -->
+                                    <div class="col-12 m-1 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12">
+                                            <label>Antecedente Personales Patológicos</label>
+                                            <input type="hidden" name="antecedentes[1][id]" value="1">
+                                        </div>
+                                        <div class="col-12 target-1">
+                                            <textarea name="antecedentes[1][comentario]" class="form-control input-form" placeholder="" type="text" rows="2" cols="2"></textarea>
+                                        </div>
                                     </div>
-                                    <div class="col-12 target-1">
-                                        <textarea name="antecedentes[1][comentario]" class="form-control input-form" placeholder="" type="text" rows="2" cols="2"></textarea>
-                                    </div>
-                                </div>
 
-                                <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                                    <div class="col-12 col-lg-8">
-                                        <label>Antecedente Quirúrgicos: </label>
-                                    </div>
-                                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                        <div class="col-auto">
-                                            <input type="radio" required id="tabaco_1" name="antecedentes[1][option]" value="1">
-                                            <label for="tabaco_1">Sí</label>
-                                        </div>
-                                        <div class="col-auto">
-                                            <input type="radio" required id="tabaco_2" name="antecedentes[1][option]" value="2">
-                                            <label for="tabaco_2">No</label>
-                                        </div>
-                                    </div>
-                                    <div class="target-1 collapse">
-                                        <textarea name="antecedentes[1][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuáles"></textarea>
-                                    </div>
-                                </div>
 
-                                <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                                    <div class="col-12 col-lg-8">
-                                        <label>Antecedente de fracturas: </label>
-                                    </div>
-                                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                        <div class="col-auto">
-                                            <input type="radio" required id="ruido_1" name="antecedentes[2][option]" value="1">
-                                            <label for="ruido_1">Sí</label>
+                                    <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12 col-lg-8">
+                                            <label>Antecedente Quirúrgicos: </label>
                                         </div>
-                                        <div class="col-auto">
-                                            <input type="radio" required id="ruido_2" name="antecedentes[2][option]" value="2">
-                                            <label for="ruido_2">No</label>
+                                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                            <div class="col-auto">
+                                                <input type="radio" required id="tabaco_1" name="antecedentes[1][option]" value="1">
+                                                <label for="tabaco_1">Sí</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="radio" required id="tabaco_2" name="antecedentes[1][option]" value="2">
+                                                <label for="tabaco_2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="target-1 collapse">
+                                            <textarea name="antecedentes[1][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuáles"></textarea>
                                         </div>
                                     </div>
-                                    <div class="target-2 collapse">
-                                        <textarea name="antecedentes[2][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuáles"></textarea>
-                                    </div>
-                                </div>
-                                <hr class="dropdown-divider m-2">
 
-                                <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                                    <div class="col-12 col-lg-8">
-                                        <label>Hospitalizaciones previas: </label>
-                                    </div>
-                                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                        <div class="col-auto">
-                                            <input type="radio" required id="solventes_1" name="antecedentes[3][option]" value="1">
-                                            <label for="solventes_1">Sí</label>
+                                    <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12 col-lg-8">
+                                            <label>Antecedente de fracturas: </label>
                                         </div>
-                                        <div class="col-auto">
-                                            <input type="radio" required id="solventes_2" name="antecedentes[3][option]" value="2">
-                                            <label for="solventes_2">No</label>
+                                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                            <div class="col-auto">
+                                                <input type="radio" required id="ruido_1" name="antecedentes[2][option]" value="1">
+                                                <label for="ruido_1">Sí</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="radio" required id="ruido_2" name="antecedentes[2][option]" value="2">
+                                                <label for="ruido_2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="target-2 collapse">
+                                            <textarea name="antecedentes[2][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuáles"></textarea>
                                         </div>
                                     </div>
-                                    <div class="target-3 collapse">
-                                        <textarea name="antecedentes[3][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuáles"></textarea>
-                                    </div>
-                                </div>
+                                    <hr class="dropdown-divider m-2">
 
-                                <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                                    <div class="col-12 col-lg-8">
-                                        <label>Alergias: </label>
-                                    </div>
-                                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                        <div class="col-auto">
-                                            <input type="radio" required id="solventes_1" name="antecedentes[3][option]" value="1">
-                                            <label for="solventes_1">Sí</label>
+                                    <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12 col-lg-8">
+                                            <label>Hospitalizaciones previas: </label>
                                         </div>
-                                        <div class="col-auto">
-                                            <input type="radio" required id="solventes_2" name="antecedentes[3][option]" value="2">
-                                            <label for="solventes_2">No</label>
+                                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                            <div class="col-auto">
+                                                <input type="radio" required id="solventes_1" name="antecedentes[3][option]" value="1">
+                                                <label for="solventes_1">Sí</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="radio" required id="solventes_2" name="antecedentes[3][option]" value="2">
+                                                <label for="solventes_2">No</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="target-3 collapse">
-                                        <textarea name="antecedentes[3][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuáles"></textarea>
-                                    </div>
-                                </div>
-                                <!-- Exposicion traumaticos -->
-                                <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                                    <div class="col-12 col-lg-8">
-                                        <label>Tabaquimo: </label>
-                                    </div>
-                                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                        <div class="col-auto">
-                                            <input type="radio" required id="traumas_1" name="antecedentes[4][option]" value="1">
-                                            <label for="traumas_1">Sí</label>
-                                        </div>
-                                        <div class="col-auto">
-                                            <input type="radio" required id="traumas_2" name="antecedentes[4][option]" value="2">
-                                            <label for="traumas_2">No</label>
+                                        <div class="target-3 collapse">
+                                            <textarea name="antecedentes[3][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuáles"></textarea>
                                         </div>
                                     </div>
-                                    <div class="target-4 collapse">
-                                        <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cantidad"></textarea>
-                                    </div>
-                                </div>
 
-                                <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                                    <div class="col-12 col-lg-8">
-                                        <label>¿Alcoholismo?: </label>
-                                    </div>
-                                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                        <div class="col-auto">
-                                            <input type="radio" required id="traumas_1" name="antecedentes[4][option]" value="1">
-                                            <label for="traumas_1">Sí</label>
+                                    <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12 col-lg-8">
+                                            <label>Alergias: </label>
                                         </div>
-                                        <div class="col-auto">
-                                            <input type="radio" required id="traumas_2" name="antecedentes[4][option]" value="2">
-                                            <label for="traumas_2">No</label>
+                                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                            <div class="col-auto">
+                                                <input type="radio" required id="solventes_1" name="antecedentes[3][option]" value="1">
+                                                <label for="solventes_1">Sí</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="radio" required id="solventes_2" name="antecedentes[3][option]" value="2">
+                                                <label for="solventes_2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="target-3 collapse">
+                                            <textarea name="antecedentes[3][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuáles"></textarea>
                                         </div>
                                     </div>
-                                    <div class="target-4 collapse">
-                                        <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cantidad y Frecuencia"></textarea>
+                                    <!-- Exposicion traumaticos -->
+                                    <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12 col-lg-8">
+                                            <label>Tabaquimo: </label>
+                                        </div>
+                                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                            <div class="col-auto">
+                                                <input type="radio" required id="traumas_1" name="antecedentes[4][option]" value="1">
+                                                <label for="traumas_1">Sí</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="radio" required id="traumas_2" name="antecedentes[4][option]" value="2">
+                                                <label for="traumas_2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="target-4 collapse">
+                                            <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cantidad"></textarea>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-12 col-md-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
-                                    <div class="col-12 col-lg-8">
-                                        <label>¿Toxicomanias?: </label>
-                                    </div>
-                                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
-                                        <div class="col-auto">
-                                            <input type="radio" required id="traumas_1" name="antecedentes[4][option]" value="1">
-                                            <label for="traumas_1">Sí</label>
+                                    <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12 col-lg-8">
+                                            <label>¿Alcoholismo?: </label>
                                         </div>
-                                        <div class="col-auto">
-                                            <input type="radio" required id="traumas_2" name="antecedentes[4][option]" value="2">
-                                            <label for="traumas_2">No</label>
+                                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                            <div class="col-auto">
+                                                <input type="radio" required id="traumas_1" name="antecedentes[4][option]" value="1">
+                                                <label for="traumas_1">Sí</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="radio" required id="traumas_2" name="antecedentes[4][option]" value="2">
+                                                <label for="traumas_2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="target-4 collapse">
+                                            <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cantidad y Frecuencia"></textarea>
                                         </div>
                                     </div>
-                                    <div class="target-4 collapse">
-                                        <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuál y Frecuencia"></textarea>
+
+                                    <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12 col-lg-8">
+                                            <label>¿Toxicomanias?: </label>
+                                        </div>
+                                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                            <div class="col-auto">
+                                                <input type="radio" required id="traumas_1" name="antecedentes[4][option]" value="1">
+                                                <label for="traumas_1">Sí</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="radio" required id="traumas_2" name="antecedentes[4][option]" value="2">
+                                                <label for="traumas_2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="target-4 collapse">
+                                            <textarea name="antecedentes[4][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuál y Frecuencia"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="rounded p-3 shadow my-2">
-                            <h4>Antecedentes</h4>
-                            <div class="row" id="div-antecedentes">
+                            <div class="rounded p-3 shadow my-2">
+                                <h4>Antecedentes</h4>
+                                <div class="row" id="div-antecedentes">
 
+                                </div>
                             </div>
-                        </div>
 
                     </div>
 
