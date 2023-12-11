@@ -19,7 +19,11 @@
                 <tbody>
                 </tbody>
             </table>
+
         </div>
+
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-interpretacionPrequi">
+                        <i class="bi bi-clipboard2-plus"></i> Subir interpretación
     </div>
     <div class="col-12 col-xl-4 informacion-paciente" style="margin-right: -5px !important;display:none">
         <div class="rounded p-3 shadow my-2" id="panel-informacion"> </div>
@@ -38,15 +42,15 @@
                     <p class="none-p"></p>
                 </div>
                 <div class="text-center" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
-                    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-analisis-pdf">
-                        <i class="bi bi-clipboard2-plus"></i> Subir interpretación
-                    </button>
+                    <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-interpretacionPrequi">
+                        <i class="bi bi-clipboard2-plus"></i> Subir interpretación -->
+                    <!-- </button>
                     <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-capturas-pdf">
                         <i class="bi bi-clipboard2-plus"></i> Guardar capturas
                     </button>
                     <button type="submit" form="formSubirInterpretacionOftalmo" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-analisis-oftalmo">
                         <i class="bi bi-clipboard2-plus"></i> Guardar reporte
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>
