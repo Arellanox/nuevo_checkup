@@ -222,8 +222,23 @@
                             <section>
                                 <div class="rounded p-3 shadow my-2">
                                     <h4>Laboratorios</h4>
-                                    <div>
+                                    <div class="row">
+                                        <div class = "col-12 col-lg-4">
 
+                                        </div>
+
+                                        <div class = "col-12 col-lg-8">
+                                        <div class="col-12 col-lg-12">
+                                            <label>Electrocardiograma 12 derivaciones: </label>
+                                            <textarea name="exploracion_fisica" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                        </div>
+
+                                        <div class="col-12 col-lg-12">
+                                            <label>Radiografía de torax: </label>
+                                            <textarea name="exploracion_fisica" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                        </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </section>
