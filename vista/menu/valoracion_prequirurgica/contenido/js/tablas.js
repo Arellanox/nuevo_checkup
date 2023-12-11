@@ -97,19 +97,27 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
 })
 
 // evento change del checkbox para aparecer a todos los pacientes
-$(document).on('change', '#checkDiaAnalisis', function () {
 
-    let btn = $(this).is(':checked');
-
-    // se valida si el checkbox esta chekeado
-    if (btn) {
-        // variable a enviar para que la tabla recupere los datos
-        DataPrequirurgico = {
-            api: 1,
-            area_id: 1,
-            cliente_id: 31
-        }
-        console.log(DataPrequirurgico)
-        TablaPacientesPrequirurgica.ajax.reload()
+$('#checkDiaAnalisis').click(function () {
+    console.log(1)
+    if ($(this).is(':checked')) {
+        reloadTable(false)
+        $('#fechaListadoAreaMaster').prop('disabled', true)
+    } else {
+        reloadTable(true);
+        $('#fechaListadoAreaMaster').prop('disabled', false)
     }
 })
+
+
+function reloadTable(fecha = false) {
+    DataPrequirurgico = {
+        api: 1,
+        area_id: 1,
+        cliente_id: 31
+    }
+
+    if (fecha) DataPrequirurgico['fecha_busqueda'] = $(`#${'fechaListadoAreaMaster'}`).val();
+
+    TablaPacientesPrequirurgica.ajax.reload()
+}
