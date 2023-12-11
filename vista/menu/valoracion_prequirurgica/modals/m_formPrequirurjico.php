@@ -180,6 +180,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </section>
 
                             <section>
                                 <div class="rounded p-3 shadow my-2">
@@ -230,12 +231,12 @@
                                         <div class = "col-12 col-lg-8">
                                         <div class="col-12 col-lg-12">
                                             <label>Electrocardiograma 12 derivaciones: </label>
-                                            <textarea name="exploracion_fisica" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                            <textarea name="electro_derivaciones" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
                                         </div>
 
                                         <div class="col-12 col-lg-12">
                                             <label>Radiografía de torax: </label>
-                                            <textarea name="exploracion_fisica" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                            <textarea name="dariografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
                                         </div>
 
                                         </div>
@@ -251,7 +252,8 @@
                                                 <div class = "p-2">
                                                     <div>
                                                         <label>ASA: </label>
-                                                        <select name="" id="select-asa" class ="form-control">
+                                                        <input type="hidden" name="riesgo[1][id]" value="1">
+                                                        <select name="riesgo[1][valor]" id="select-asa" class ="form-control">
                                                             <option value="">1</option>
                                                             <option value="">2</option>
                                                             <option value="">3</option>
@@ -261,7 +263,8 @@
 
                                                     <div>
                                                         <label>GOLDMAN: </label>
-                                                        <select name="" id="select-goldman" class ="form-control">
+                                                        <input type="hidden" name="riesgo[2][id]" value="2">
+                                                        <select name="riesgo[2][valor]" id="select-goldman" class ="form-control">
                                                             <option value="">1</option>
                                                             <option value="">2</option>
                                                             <option value="">3</option>
@@ -271,17 +274,20 @@
 
                                                     <div>
                                                         <label>GENEVA: </label>
-                                                        <input type="text" class="form-control input-form">
+                                                        <input type="hidden" name="riesgo[3][id]" value="3">
+                                                        <input type="text" class="form-control input-form" name = "riesgo[3][valor]">
                                                     </div>
 
                                                     <div>
                                                         <label>CAPRINI: </label>
-                                                        <input type="text" class="form-control input-form">
+                                                        <input type="hidden" name="riesgo[4][id]" value="4">
+                                                        <input type="text" class="form-control input-form" name="riesgo[4][valor]">
                                                     </div>
 
                                                     <div>
                                                         <label>STOP-BAN: </label>
-                                                        <input type="text" class="form-control input-form">
+                                                        <input type="hidden" name="riesgo[5][id]" value="5">
+                                                        <input type="text" class="form-control input-form" name="riesgo[5][valor]">
                                                     </div>
                                                 </div>
 
@@ -291,15 +297,18 @@
                                                 <div class="p-2">
                                                     <div>
                                                         <label>GUPTA RESPIRATORIO: </label>
-                                                        <textarea name="exploracion_fisica" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                        <input type="hidden" name="riesgo[6][id]" value="6">
+                                                        <textarea name="riesgo[6][valor]" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
                                                     </div>
                                                     <div>
                                                         <label>GUPTA NEUMONIA: </label>
-                                                        <textarea name="exploracion_fisica" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                        <input type="hidden" name="riesgo[7][id]" value="7">
+                                                        <textarea name="riesgo[7][valor]" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
                                                     </div>
                                                     <div>
                                                         <label>GUPTA CARDIOVASCULAR: </label>
-                                                        <textarea name="exploracion_fisica" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                        <input type="hidden" name="riesgo[8][id]" value="8">
+                                                        <textarea name="riesgo[8][valor]" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
