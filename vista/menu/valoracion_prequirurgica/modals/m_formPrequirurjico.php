@@ -1,3 +1,15 @@
+<style>
+    .pregunta{
+        margin-top: 20px;
+        font-size: 16px;
+        color: black !important;
+    }
+    .respuesta{
+        font-size: 14px;
+    }
+</style>
+
+
 <div class="modal fade" id="MostrarCapturaPrequirurjico" tabindex="-1" aria-labelledby="formulario_pre" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
@@ -162,12 +174,41 @@
                                 </div>
                             </div>
 
+                        <section>
                             <div class="rounded p-3 shadow my-2">
-                                <h4>Antecedentes</h4>
-                                <div class="row" id="div-antecedentes">
+                                <h4>Exploración</h4>
+                                <div class="row" id="">
+                                    <div class = "col-12 col-lg-4">
 
+                                        <div class = "row">
+                                            <div class = "col-12 col-lg-6">
+                                            <p class = "pregunta">TENSIÓN ARTERIAL</p>
+                                            <p class = "respuesta"><strong>120/83 MMHG</strong></p>
+
+                                            <p class = "pregunta">FRECUENCIA CARDIACA</p>
+                                            <p class = "respuesta"><strong>66 LATIDOS POR MINUTO</strong></p>
+                                        </div>
+                                            
+                                        <div class = "col-12 col-lg-6">
+                                            <p class = "pregunta">FRECUENCIA RESPIRATORIA</p>
+                                            <p class = "respuesta"><strong>20 RESPIRACIONES POR MINUTO</strong></p>
+
+                                            <p class = "pregunta">TEMPERATURA</p>
+                                            <p class = "respuesta"><strong>35.8°C</strong></p>
+                                        </div>
+                                        </div>
+
+                                    <p class = "pregunta">SATURACIÓN DE OXÍEGNO</p>
+                                    <p class = "respuesta"><strong>96 %</strong></p>
+                                    </div>
+
+                                    <div class = "col-12 col-lg-8">
+                                            <textarea name="exploracion_fisica" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
+                                    </div>
                                 </div>
+
                             </div>
+                        </section>
 
                     </div>
 
