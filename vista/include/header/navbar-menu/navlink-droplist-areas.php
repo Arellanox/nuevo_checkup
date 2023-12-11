@@ -159,10 +159,11 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 
 
 <!-- Modulo de valoracion prequirurgica -->
-<a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/valoracion_prequirurgica'; ?>">
-  <i class="bi bi-file-earmark-medical-fill"></i> valoracion prequirúrgica
-</a>
-
+<?php if ($_SESSION['vista']['PREQUIRURJICO'] == 1) : ?>
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/valoracion_prequirurgica'; ?>">
+    <i class="bi bi-file-earmark-medical-fill"></i> Valoración prequirúrgica
+  </a>
+<?php endif; ?>
 
 <!-- Otras Areas -->
 <?php if ($_SESSION['vista']['NUTRICION'] == 1 || $_SESSION['vista']['NUTRICION_CAPTURAS'] == 1) : ?>

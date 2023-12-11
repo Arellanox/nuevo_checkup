@@ -9,7 +9,7 @@ $menu = "valoracion_prequirurgica";
 
 <head>
     <?php include "../../include/head.php"; ?>
-    <title>Valoracion prequirúrgica | Bimo</title>
+    <title>Valoración prequirúrgica | Bimo</title>
 </head>
 
 <body class="" id="body-controlador"> </body>
