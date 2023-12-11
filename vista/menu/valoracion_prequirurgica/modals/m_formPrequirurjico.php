@@ -1,10 +1,11 @@
 <style>
-    .pregunta{
+    .pregunta {
         margin-top: 20px;
         font-size: 16px;
         color: black !important;
     }
-    .respuesta{
+
+    .respuesta {
         font-size: 14px;
     }
 </style>
@@ -36,6 +37,7 @@
                                             <textarea name="antecedentes[1][comentario]" class="form-control input-form" placeholder="" type="text" rows="2" cols="2"></textarea>
                                         </div>
                                     </div>
+
 
 
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
@@ -136,7 +138,7 @@
 
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12 col-lg-8">
-                                            <label>¿Alcoholismo?: </label>
+                                            <label>Alcoholismo: </label>
                                         </div>
                                         <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
                                             <div class="col-auto">
@@ -155,7 +157,7 @@
 
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12 col-lg-8">
-                                            <label>¿Toxicomanias?: </label>
+                                            <label>Toxicomanias: </label>
                                         </div>
                                         <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
                                             <div class="col-auto">
@@ -174,41 +176,49 @@
                                 </div>
                             </div>
 
-                        <section>
-                            <div class="rounded p-3 shadow my-2">
-                                <h4>Exploración</h4>
-                                <div class="row" id="">
-                                    <div class = "col-12 col-lg-4">
+                            <section>
+                                <div class="rounded p-3 shadow my-2">
+                                    <h4>Exploración</h4>
+                                    <div class="row" id="">
+                                        <div class="col-12 col-lg-4">
 
-                                        <div class = "row">
-                                            <div class = "col-12 col-lg-6">
-                                            <p class = "pregunta">TENSIÓN ARTERIAL</p>
-                                            <p class = "respuesta"><strong>120/83 MMHG</strong></p>
+                                            <div class="row">
+                                                <div class="col-12 col-lg-6">
+                                                    <p class="pregunta">TENSIÓN ARTERIAL</p>
+                                                    <p class="respuesta"><strong>120/83 MMHG</strong></p>
 
-                                            <p class = "pregunta">FRECUENCIA CARDIACA</p>
-                                            <p class = "respuesta"><strong>66 LATIDOS POR MINUTO</strong></p>
+                                                    <p class="pregunta">FRECUENCIA CARDIACA</p>
+                                                    <p class="respuesta"><strong>66 LATIDOS POR MINUTO</strong></p>
+                                                </div>
+
+                                                <div class="col-12 col-lg-6">
+                                                    <p class="pregunta">FRECUENCIA RESPIRATORIA</p>
+                                                    <p class="respuesta"><strong>20 RESPIRACIONES POR MINUTO</strong></p>
+
+                                                    <p class="pregunta">TEMPERATURA</p>
+                                                    <p class="respuesta"><strong>35.8°C</strong></p>
+                                                </div>
+                                            </div>
+
+                                            <p class="pregunta">SATURACIÓN DE OXÍEGNO</p>
+                                            <p class="respuesta"><strong>96 %</strong></p>
                                         </div>
-                                            
-                                        <div class = "col-12 col-lg-6">
-                                            <p class = "pregunta">FRECUENCIA RESPIRATORIA</p>
-                                            <p class = "respuesta"><strong>20 RESPIRACIONES POR MINUTO</strong></p>
 
-                                            <p class = "pregunta">TEMPERATURA</p>
-                                            <p class = "respuesta"><strong>35.8°C</strong></p>
-                                        </div>
-                                        </div>
-
-                                    <p class = "pregunta">SATURACIÓN DE OXÍEGNO</p>
-                                    <p class = "respuesta"><strong>96 %</strong></p>
-                                    </div>
-
-                                    <div class = "col-12 col-lg-8">
+                                        <div class="col-12 col-lg-8">
                                             <textarea name="exploracion_fisica" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
+                                        </div>
                                     </div>
+
+                                </div>
+                            </section>
+
+
+                            <section>
+                                <div class="rounded p-3 shadow my-2">
+                                    <h4>Laboratorios</h4>
                                 </div>
 
-                            </div>
-                        </section>
+                            </section>
 
                     </div>
 
