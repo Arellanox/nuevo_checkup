@@ -18,11 +18,11 @@
                 <h5 class="modal-title" id="CapturasPrequirurgica">Formulario Prequirurgico</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-x: hidden;">
                 <form id="formInterpretacion">
                     <div class="row container-pages m-2">
                         <!-- Interrogatorio -->
-                        <section>
+                        <section class="page px-4" style="display: none;">
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Antecedentes</h4>
                                 <div class="row">
@@ -182,7 +182,7 @@
                             </div>
                         </section>
 
-                        <section>
+                        <section class="page px-4" style="display: none;">
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Exploración</h4>
                                 <div class="row" id="">
@@ -227,7 +227,7 @@
                         </section>
 
 
-                        <section>
+                        <section class="page px-4" style="display: none;">
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Laboratorios</h4>
                                 <div class="row">
@@ -251,7 +251,7 @@
                             </div>
                         </section>
 
-                        <section>
+                        <section class="page px-4" style="display: none;">
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Riesgo quirúrco</h4>
                                 <div class="row">
@@ -325,7 +325,7 @@
 
                         </section>
 
-                        <section>
+                        <section class="page px-4" style="display: none;">
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Recomendaciones</h4>
                             </div>
@@ -339,6 +339,15 @@
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i> Cancelar
                 </button>
+
+                <!-- Paginacion del formulario -->
+                <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="back">
+                    <i class="bi bi-arrow-left"></i>
+                    Regresar</button>
+                <button type="button" class="btn control-pagina-interpretacion btn-cancelar" target="next">
+                    <i class="bi bi-arrow-right"></i>
+                    Siguiente</button>
+                <!-- /////// -->
 
                 <button type="button" class="btn btn-borrar" id="btn-vistaPrevia">
                     <i class="bi bi-file-earmark-pdf"></i> Vista previa
@@ -374,3 +383,23 @@
         }
     });
 </script>
+
+
+
+<style>
+    .page.animate__animated {
+        animation-duration: 0.5s;
+        /* Ajusta este valor según lo rápido que quieras que sea */
+    }
+
+    .container-pages {
+        position: relative;
+    }
+
+    .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+</style>

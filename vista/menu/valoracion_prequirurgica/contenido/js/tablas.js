@@ -73,6 +73,10 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
     if (select) {
         // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
         await obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
+
+        // Llamar a esta función para reiniciar
+        restartPages();
+
         //Muestra las columnas
         callback('In')
     } else {
