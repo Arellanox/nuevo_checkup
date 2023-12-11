@@ -259,22 +259,24 @@
                                             <div>
                                                 <label>ASA: </label>
                                                 <input type="hidden" name="riesgo[1][id]" value="1">
-                                                <select name="riesgo[1][valor]" id="select-asa" class="form-control">
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
+                                                <select name="riesgo[1][valor]" id="select-asa" class="input-form form-control">
+                                                    <option value="I">I</option>
+                                                    <option value="II">II</option>
+                                                    <option value="III">III</option>
+                                                    <option value="IV">IV</option>
+                                                    <option value="V">V</option>
+                                                    <option value="VI">VI</option>
                                                 </select>
                                             </div>
 
                                             <div>
                                                 <label>GOLDMAN: </label>
                                                 <input type="hidden" name="riesgo[2][id]" value="2">
-                                                <select name="riesgo[2][valor]" id="select-goldman" class="form-control">
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
+                                                <select name="riesgo[2][valor]" id="select-goldman" class="input-form form-control">
+                                                    <option value="I">I</option>
+                                                    <option value="II">II</option>
+                                                    <option value="III">III</option>
+                                                    <option value="IV">IV</option>
                                                 </select>
                                             </div>
 
@@ -328,46 +330,46 @@
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Recomendaciones</h4>
 
-                                    <div class="row">
-                                        <div class="col-12 col-lg-6">
-                                            <table id= "tabla-listRecomendaciones" style="width: 100%; text-align: center;">
-                                                <thead>
-                                                    <tr>
-                                                      <th>Recomendaciones</th>
-                                                      <th><i class="bi bi-trash3"></i></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <table id="tabla-listRecomendaciones" style="width: 100%; text-align: center;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Recomendaciones</th>
+                                                    <th><i class="bi bi-trash3"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                                 <tr>
                                                     <th scope="row">1</th>
                                                     <td>Mark</td>
-                                                </tr>    
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="col-12 col-lg-6">
-                                            <div>
-                                                <label>Recomendaciones: </label>
-                                                <input type="hidden" name="riesgo[9][id]" value="9">
-                                                <textarea name="riesgo[9][valor]" class="form-control input-form" rows="4" cols="1" placeholder="Especifique"></textarea>
-                                            </div>
-
-                                            <div>
-                                                <label>Lista de recoendaciones: </label>
-                                                <p>Agrega uno por uno las recomendaciones del paciente</p>
-                                                <input type="text" class="form-control input-form" name="riesgo[5][valor]">
-                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                            <button type="button" class="btn btn-confirmar" id="btn-agregarRecomendaciones">
-                                                            <i class="bi bi-clipboard2-plus"></i> Agregar
-                                                        </button>
-                                                    </div>
-                                            </div>
-
-                                        </div>
-
-                                        
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div>
+                                            <label>Recomendaciones: </label>
+                                            <input type="hidden" name="riesgo[9][id]" value="9">
+                                            <textarea name="riesgo[9][valor]" class="form-control input-form" rows="4" cols="1" placeholder="Especifique"></textarea>
+                                        </div>
+
+                                        <div>
+                                            <label>Lista de recoendaciones: </label>
+                                            <p>Agrega uno por uno las recomendaciones del paciente</p>
+                                            <input type="text" class="form-control input-form" name="riesgo[5][valor]">
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                <button type="button" class="btn btn-confirmar" id="btn-agregarRecomendaciones">
+                                                    <i class="bi bi-clipboard2-plus"></i> Agregar
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
                             </div>
                         </section>
                     </div>
