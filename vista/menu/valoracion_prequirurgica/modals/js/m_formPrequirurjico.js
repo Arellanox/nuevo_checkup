@@ -1,6 +1,6 @@
 // Abrir el model de formulario
 $('#btn-interpretacionPrequi').on('click', function () {
-    limpiarForm($('#formInterpretacion'))
+
     $('#MostrarCapturaPrequirurjico').modal('show');
 })
 

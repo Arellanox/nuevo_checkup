@@ -55,33 +55,26 @@ function hasLocation() {
     }
 }
 
-function limpiarForm(form){
-
-    var formElements = form.find(":input");
-
-    // Desmarcar todos los checkboxes
-    form.find(":checkbox").prop("checked", false);
-
-    // Limpiar el contenido de todas las textareas e inputs
-    formElements.filter("textarea, input[type='text']").val('');
-
-    // Establecer valores predeterminados para campos específicos si es necesario
-    formElements.filter("select").val('');
+// Reinicia el formulario de interpretación
+function limpiarForm(form) {
+    document.getElementById(form).reset()
+    $(`#${form} div.collapse`).collapse('hide'); // Oculta de nuevo todos los collapse
 }
 
-function estadoFormulario(estado){
-    switch(estado){
+// Cambia y muestra los botones del formulario
+function estadoFormulario(estado) {
+    switch (estado) {
         case 1:
             $('#btn-vistaPrevia').fadeIn()
             $('#btn-confirmarReporte').fadeIn()
             $('#btn-guardarInterpretacion').fadeIn()
             break;
-            
+
         case 2:
             $('#btn-confirmarReporte').fadeOut()
             $('#btn-guardarInterpretacion').fadeOut()
             // $('#formInterpretacion').prop('disabled', true);
-            break;   
+            break;
 
         default:
             $('#btn-vistaPrevia').fadeOut()
