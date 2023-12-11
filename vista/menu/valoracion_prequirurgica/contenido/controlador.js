@@ -55,7 +55,19 @@ function hasLocation() {
     }
 }
 
+function limpiarForm(form){
 
+    var formElements = form.find(":input");
+
+    // Desmarcar todos los checkboxes
+    form.find(":checkbox").prop("checked", false);
+
+    // Limpiar el contenido de todas las textareas e inputs
+    formElements.filter("textarea, input[type='text']").val('');
+
+    // Establecer valores predeterminados para campos específicos si es necesario
+    formElements.filter("select").val('');
+}
 
 function estadoFormulario(estado){
     switch(estado){
@@ -78,9 +90,4 @@ function estadoFormulario(estado){
     }
 }
 
-function limpiarForm(form){
-
-    form.filter("input[type='checkbox']").prop("checked", false);
-    form.filter("textarea").val('');
-}
 
