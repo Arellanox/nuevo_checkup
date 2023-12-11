@@ -15,7 +15,7 @@ $(window).on("hashchange", function (e) {
 let DataPrequirurgico; // varibale para la tabla de TablaPacientesPrequirurgica
 
 async function ObtenerBody() {
-    await obtenerTitulo('Valoracion Prequirurgica'); //Aqui mandar el nombre de la area
+    await obtenerTitulo('Valoración prequirúrgica'); //Aqui mandar el nombre de la area
     $.post("contenido/contenido.php", function (html) {
         $("#body-js").html(html);
     }).done(async function () {

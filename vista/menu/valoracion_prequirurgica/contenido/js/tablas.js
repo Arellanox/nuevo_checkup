@@ -12,17 +12,18 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
         data: function (d) {
             return $.extend(d, DataPrequirurgico);
         },
-        // data: { api: 2, equipo: id_equipos },
         method: 'POST',
         url: '../../../api/prequirurgico_api.php',
         beforeSend: function () {
-            // fadeRegistro('Out')
             loader("In")
-            // selectTableFolio = false
+
         },
         complete: function () {
-            //Para ocultar segunda columna
             loader("Out", 'bottom')
+
+            //Para ocultar segunda columna
+            reloadSelectTable()
+
             // reloadSelectTable()
             $.fn.dataTable
                 .tables({
@@ -31,32 +32,19 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
                 })
                 .columns.adjust();
         },
-        // error: function (jqXHR, textStatus, errorThrown) {
-        //     alertErrorAJAX(jqXHR, textStatus, errorThrown);
-        // },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        },
         dataSrc: 'response.data'
     },
-    // columns: [
-    //     { data: 'FOLIO' },
-    //     {
-    //         data: 'FECHA_REGISTRO', render: function (data) {
-    //             // Mes
-    //             return formatoFecha2(data, [0, 1, 3, 0]).toUpperCase();
-    //         }
-    //     },
-    //     {
-    //         data: null, render: function (data) {
-    //             let html = `<i class="bi bi-file-earmark-pdf-fill generarPDF" style="cursor: pointer; color: red;font-size: 23px;"></i>`
-    //             return session['permisos']['SupTemp'] == '1' ? html : '';
-    //         }
-    //     },
-    //     {
-    //         data: 'FECHA_REGISTRO', render: function (data) {
-    //             // ANHO
-    //             return formatoFecha2(data, [0, 1, 0, 0]).toUpperCase();
-    //         }
-    //     }
-    // ],
+    columns: [
+        { data: 'COUNT' },
+        { data: 'NOMBRE_COMPLETO' },
+        { data: 'PREFOLIO' },
+        { data: 'CLIENTE' },
+        { data: 'EDAD' },
+        { data: 'GENERO' }
+    ],
     columnDefs: [
         { target: 0, title: '#', className: 'all' },
         { target: 1, title: 'Nombre', className: 'all' },
@@ -66,16 +54,6 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
         { target: 5, title: 'Sexo', className: 'none' }
 
     ],
-    // dom: 'Bfrtip',
-    // buttons: [
-    //     {
-    //         text: '<i class="bi bi-file-earmark-pdf-fill"></i> Generar PDF',
-    //         className: 'btn btn-borrar',
-    //         action: function (data) {
-
-    //         }
-    //     }
-    // ]
 })
 
 // Input de busqueda
@@ -90,14 +68,23 @@ inputBusquedaTable("TablaPacientesPrequirurgica", TablaPacientesPrequirurgica, [
 
 // Select para la tabla
 selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
-    unSelect: true, dblClick: true, reload: ['col-xl-9']
+    unSelect: true, dblClick: true, movil: true, reload: ['col-xl-8']
 }, async function (select, data, callback) {
     if (select) {
+        // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
+        await obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
+        //Muestra las columnas
+        callback('In')
+    } else {
+        // Oculta las columnas una vez deseleccionado
+        callback('Out')
+
     }
 })
 
-// evento change del checkbox para aparecer a todos los pacientes
 
+
+// evento change del checkbox para aparecer a todos los pacientes
 $('#checkDiaAnalisis').click(function () {
     console.log(1)
     if ($(this).is(':checked')) {

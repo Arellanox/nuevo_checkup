@@ -34,6 +34,7 @@
     <div class="rounded p-3 shadow my-2" id="panel-informacion"> </div>
 
   </div>
+
   <div class="col-12 col-xl-6 tab-second" id="tab-reporte" style="margin-right: -5px !important;  display:none !important">
     <div class="rounded p-3 shadow my-2">
       <div class="row">

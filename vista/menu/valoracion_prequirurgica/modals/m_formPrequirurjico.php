@@ -243,7 +243,7 @@
 
                                         <div class="col-12 col-lg-12">
                                             <label>Radiografía de torax: </label>
-                                            <textarea name="dariografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                            <textarea name="radiografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
                                         </div>
 
                                     </div>
@@ -339,7 +339,7 @@
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i> Cancelar
                 </button>
-                <button type="button" id="cargarElectroCaptura" class="btn btn-confirmar">
+                <button type="submit" form="formInterpretacion" class="btn btn-confirmar">
                     <i class="bi bi-send-plus"></i> Cargar
                 </button>
             </div>
