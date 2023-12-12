@@ -87,30 +87,52 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
 })
 
 
-
 // evento change del checkbox para aparecer a todos los pacientes
-$('#checkDiaAnalisis').click(function () {
-    console.log(1)
-    if ($(this).is(':checked')) {
-        reloadTable(false)
-        $('#fechaListadoAreaMaster').prop('disabled', true)
+$(document).on('change', '#checkDiaAnalisis', function () {
+
+
+    // sacamos el boton con el valor si esta checkeado
+    let btn = $(this).is(':checked');
+
+
+    // se valida si el checkbox esta chekeado
+    if (btn) {
+        // se vuelve a crear el JSON para la tabla
+        createJsonObject(2)
+        // Se desaparece las 2 columnas en caso de que esten a la vista del usuario
+        // fadePanelInfoInterpretacion("Out");
+        // se activa el input para cambiar la fecha
+        $('#fechaListadoAreaMaster').prop('disabled', true);
     } else {
-        reloadTable(true);
-        $('#fechaListadoAreaMaster').prop('disabled', false)
+        // se vuelve a crear el JSON para la tablas
+        createJsonObject(1)
+        // Se desaparece las 2 columnas en caso de que esten a la vista del usuario
+        // fadePanelInfoInterpretacion("Out");
+        // se desactiva el input para cambiar la fecha
+        $('#fechaListadoAreaMaster').prop('disabled', false);
     }
 })
 
+// evento change para cuando cambien las fechas del calendario
+$(document).on('change', '#fechaListadoAreaMaster', function () {
+    // se vuelve a crear el JSON para la tabla
+    createJsonObject(1);
+    // Se desaparece las 2 columnas en caso de que esten a la vista del usuario
+    fadePanelInfoInterpretacion("Out");
+})
 
-function reloadTable(fecha = false) {
-    DataPrequirurgico = {
-        api: 1,
-        area_id: 1,
-        cliente_id: 31
-    }
 
-    if (fecha) DataPrequirurgico['fecha_busqueda'] = $(`#${'fechaListadoAreaMaster'}`).val();
+// evento change del checkbox para aparecer a todos los pacientes
+// $('#checkDiaAnalisis').click(function () {
+//     console.log(1)
+//     if ($(this).is(':checked')) {
+//         $('#fechaListadoAreaMaster').prop('disabled', true)
+//     } else {
+//         $('#fechaListadoAreaMaster').prop('disabled', false)
+//     }
+// })
 
-    TablaPacientesPrequirurgica.ajax.reload()
-}
 
-console.log(TablaPacientesPrequirurgica)
+
+
+// console.log(TablaPacientesPrequirurgica)
