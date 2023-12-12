@@ -1,3 +1,7 @@
+//Variables
+let title
+let text
+
 // Abrir el model de formulario
 $('#btn-interpretacionPrequi').on('click', function () {
 
@@ -167,3 +171,62 @@ function restartPages() {
 
 // Llamar a esta función para reiniciar
 restartPages();
+
+
+
+// $('#btn-guardarInterpretacion').on('click', function (e) {
+//     e.preventDefault();
+//     btnInterpretacion(1)
+// })
+
+
+// function btnInterpretacion(bit) {
+//     if (bit === 1) {
+//         alertMensajeConfirm({
+//             tittle: '¿Esta seguro de guardar la valoración prequirúrgica?',
+//             text: 'Se podra modificarlo despues',
+//             icon: 'warning',
+//             confirmButtonText: 'Si, estoy seguro'
+//         }, function () {
+//             console.log(1)
+//         },1)
+//     } else {
+//         console.log(2)
+//     }
+// }
+$(document).on('click','#btn-guardarInterpretacion', function (e) {
+    e.preventDefault();
+    title = '¿Esta seguro de guardar la valoración prequirúrgica?'
+    text = 'Se podra modificarlo despues'
+    btnAlertas(title, text, 1)
+})
+
+$(document).on('click','#btn-confirmarReporte', function (e) {
+    e.preventDefault();
+    title = '¿Esta seguro de confirmar el reporte?'
+    text = 'No se podra modificar despues'
+    btnAlertas(title, text, 2)
+})
+
+
+function btnAlertas(title, text, bit) {
+    alertMensajeConfirm({
+        title: title,
+        text: text,
+        icon: 'warning',
+        confirmButtonText: 'Si, estoy seguro'
+    }, function () {
+        guardarDatos(bit)
+    },1)
+}
+
+
+function guardarDatos(bit) {
+    if (bit == 1) {
+        ajaxAwaitFormData({ api: 2 }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
+            console.log(data)
+        })
+    } else {
+        
+    }
+}
