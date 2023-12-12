@@ -302,7 +302,7 @@ function guardarDatos(bit) {
     recomenList.val(JSON.stringify(Recomendaciones))
     
     if (bit == 1) {
-        ajaxAwaitFormData({ api: 2 }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
+        ajaxAwaitFormData({ api: 2, turno_id: arrayPaciente['ID_TURNO'] }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
             console.log(data)
         })
     } else {

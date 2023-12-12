@@ -14,6 +14,7 @@ $(window).on("hashchange", function (e) {
 // Variables Globales
 let DataPrequirurgico, TablaPacientesPrequirurgica; // varibale para la tabla de TablaPacientesPrequirurgica
 let estado
+let arrayPaciente
 
 // Variables a enviar para la tabla
 const area = 1; // area
