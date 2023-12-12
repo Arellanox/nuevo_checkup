@@ -298,7 +298,7 @@ function btnAlertas(title, text, bit) {
 
 
 function guardarDatos(bit) {
-    var recomenList = $('input[name="recomendacion[10][valor]"]');
+    var recomenList = $('input[name="recomendacion_json"]');
     recomenList.val(JSON.stringify(Recomendaciones))
     
     if (bit == 1) {
