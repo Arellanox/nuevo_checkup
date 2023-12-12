@@ -78,6 +78,12 @@ switch ($api) {
         $response =  $master->getByProcedure('sp_prequirurgico_g', $data_g );
 
         break;
+    case 3:
+        #confimamos el reporte
+        $response = $master->getByProcedure('sp_prequirurgico_pdf_g', [$turno_id, $_SESSION['id'], null, $confirmado]);
+
+
+        break;
 
     default:
         $response = "Api no definida";
