@@ -20,13 +20,46 @@ $electro = $datos[''];
 $cliente_id = $_POST['cliente_id'];
 
 # datos para guardar
-$antecedentes = $_POST['antecedentes'];#array
+$antecedentes = $_POST['antecedentes']; #array
+$cirugia_programada = $_POST['cirugia_programada'];
 $exploracion_fisica = $_POST['exploracion_fisica'];
 $electro_derivaciones = $_POST['electro_derivaciones'];
 $radio = $_POST['radiografia_torax'];
-$riesgo = $_POST['riesgo']; #array
-$recomendacion = $_POST['recomendacio']; #array
+$asa = $_POST['ASA'];
+$golman = $_POST['GOLDMAN'];
+$gupta_respiratorio = $_POST['gupta_respiratorio'];
+$gupta_neumonia = $_POST['gupta_neumonia'];
+$gupta_cardiovascular = $_POST['gupta_cardiovascular'];
+$geneva = $_POST['GENEVA'];
+$caprini = $_POST['CAPRINI'];
+$stop_bang = $_POST['STOP-BAN'];
+$recomendaciones_texto = $_POST['recomendaciones_texto']; 
+$recomendaciones_josn = $_POST['recomendacion_json'];
+$turno_id = $_POST['turno_id'];
+$confirmado = isset($_POST['confirmado']) ? $_POST['confirmado'] : 0;
 
+
+$data_g = array(
+
+    json_encode($antecedentes),
+    $cirugia_programada,
+    $exploracion_fisica,
+    $electro_derivaciones,
+    $radio,
+    $asa,
+    $golman,
+    $gupta_respiratorio,
+    $gupta_neumonia,
+    $gupta_cardiovascular,
+    $geneva,
+    $caprini,
+    $stop_bang,
+    $recomendaciones_texto,
+    json_encode($recomendaciones_josn),
+    $turno_id,
+    $confirmado
+
+);
 
 switch ($api) {
 
@@ -41,8 +74,10 @@ switch ($api) {
         break;
     case 2:
         # guardar los datos.
-        echo json_encode($antecedentes);
-        exit;
+        
+        $response =  $master->getByProcedure('sp_prequirurgico_g', $data_g );
+
+        break;
 
     default:
         $response = "Api no definida";
