@@ -1,6 +1,7 @@
 //Variables
 let title
 let text
+let recomenList;
 
 
 let Recomendaciones = []; // array donde se guardaran las recomendaciones
@@ -223,8 +224,9 @@ $('#MostrarCapturaPrequirurjico').on('shown.bs.modal', function () {
 
 
     // seteamos las variables globales 
-    Recomendaciones = undefined;
-    index = undefined;
+    Recomendaciones = [];
+    index = 0;
+    actualizarRecomendaciones();
 });
 
 
@@ -293,6 +295,9 @@ function btnAlertas(title, text, bit) {
 
 
 function guardarDatos(bit) {
+    var recomenList = $('input[name="recomendacion[10][valor]"]');
+    recomenList.val(JSON.stringify(Recomendaciones))
+    
     if (bit == 1) {
         ajaxAwaitFormData({ api: 2 }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
             console.log(data)

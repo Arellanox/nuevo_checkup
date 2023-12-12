@@ -353,7 +353,9 @@
                                         <div>
                                             <label>Lista de recoendaciones: </label>
                                             <p>Agrega uno por uno las recomendaciones del paciente</p>
-                                            <input type="text" class="form-control input-form" id="recomendaciones_list" name="riesgo[5][valor]">
+                                            <input type="text" class="form-control input-form" id="recomendaciones_list">
+                                            <input type="hidden" name="recomendacion[10][valor]">
+
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                                 <button type="button" class="btn btn-confirmar" id="btn-agregarRecomendaciones">
                                                     <i class="bi bi-clipboard2-plus"></i> Agregar
