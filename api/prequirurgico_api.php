@@ -82,6 +82,9 @@ switch ($api) {
         #confimamos el reporte
         $response = $master->getByProcedure('sp_prequirurgico_pdf_g', [$turno_id, $_SESSION['id'], null, $confirmado]);
 
+        $url = $master->reportador($master, $turno_id,-5,"prequirurgico");
+        $response = $master->updateByProcedure("sp_reportes_actualizar_ruta", ["prequirurgico_pdf","RUTA_REPORTE", $url, $turno_id, null]);
+
 
         break;
 

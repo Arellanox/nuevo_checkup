@@ -540,6 +540,10 @@ class Miscelaneus
                 #Corte de caja
                 $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
                 break;
+            case -5:
+                # certificado prequirugico.
+                $arregloPaciente = $this->getBodyInfoPrequirurgico($master, $turno_id);
+                break;
         }
 
 
@@ -619,6 +623,13 @@ class Miscelaneus
         return $renderpdf;
     }
 
+    private function getBodyInfoPrequirurgico($master, $id_turno){
+        $response = $master->getByProcedure("sp_prequirurgico_pdf_b",[$id_turno]);
+
+        $response = $master->decodeJsonRecursively($response);
+
+        return $response;
+    }
     private function getBodyInfoSoma($master, $id_turno)
     {
         # recuperamos los datos del paciente
