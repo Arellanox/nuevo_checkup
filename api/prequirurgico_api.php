@@ -19,7 +19,13 @@ $electro = $datos[''];
 
 $cliente_id = $_POST['cliente_id'];
 
-
+# datos para guardar
+$antecedentes = $_POST['antecedentes'];#array
+$exploracion_fisica = $_POST['exploracion_fisica'];
+$electro_derivaciones = $_POST['electro_derivaciones'];
+$radio = $_POST['radiografia_torax'];
+$riesgo = $_POST['riesgo']; #array
+$recomendacion = $_POST['recomendacio']; #array
 
 
 switch ($api) {
@@ -35,7 +41,8 @@ switch ($api) {
         break;
     case 2:
         # guardar los datos.
-
+        echo json_encode($antecedentes);
+        exit;
 
     default:
         $response = "Api no definida";
