@@ -302,11 +302,13 @@ function guardarDatos(bit) {
     recomenList.val(JSON.stringify(Recomendaciones))
     
     if (bit == 1) {
-        ajaxAwaitFormData({ api: 2, turno_id: arrayPaciente['ID_TURNO'] }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
-            console.log(data)
+        ajaxAwaitFormData({ api: 2, turno_id: arrayPaciente['ID_TURNO'] , confirmado: 0}, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
+            alertToast('Se han guardado los datos correctamente', 'info', 4000)
         })
     } else {
-
+        ajaxAwaitFormData({ api: 2, turno_id: arrayPaciente['ID_TURNO'] , confirmado: 1}, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
+            alertToast('Se han confirmado los datos correctamente', 'info', 4000)
+        })
     }
 }
 
