@@ -178,6 +178,25 @@
                                             <textarea name="antecedentes[8][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuál y Frecuencia"></textarea>
                                         </div>
                                     </div>
+
+
+                                    <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                                        <div class="col-12 col-lg-4">
+                                            <label>Cirugía programada: </label>
+                                            <!-- <input type="hidden" name="cirugia[8][id]" value="8"> -->
+                                            <!-- <textarea name="radiografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea> -->
+                                            
+                                        </div>
+
+                                        <div class="col-12 col-lg-8 row d-flex align-items-start justify-content-center">
+                                        <input type="text" class="form-control input-form" id="cirugia_programada" name="cirugia_programada">
+                                        </div>
+                                        <!-- <div class="target-4 collapse">
+                                            <textarea name="antecedentes[8][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuál y Frecuencia"></textarea>
+                                        </div> -->
+
+                                    </div>
+
                                 </div>
                             </div>
                         </section>
@@ -258,8 +277,8 @@
                                         <div class="p-2">
                                             <div>
                                                 <label>ASA: </label>
-                                                <input type="hidden" name="riesgo[1][id]" value="1">
-                                                <select name="riesgo[1][valor]" id="select-asa" class="input-form form-control">
+                                                <!-- <input type="hidden" name="riesgo[1][id]" value="1"> -->
+                                                <select name="ASA" id="select-asa" class="input-form form-control">
                                                     <option value="I">I</option>
                                                     <option value="II">II</option>
                                                     <option value="III">III</option>
@@ -271,8 +290,8 @@
 
                                             <div>
                                                 <label>GOLDMAN: </label>
-                                                <input type="hidden" name="riesgo[2][id]" value="2">
-                                                <select name="riesgo[2][valor]" id="select-goldman" class="input-form form-control">
+                                                <!-- <input type="hidden" name="riesgo[2][id]" value="2"> -->
+                                                <select name="GOLDMAN" id="select-goldman" class="input-form form-control">
                                                     <option value="I">I</option>
                                                     <option value="II">II</option>
                                                     <option value="III">III</option>
@@ -282,20 +301,20 @@
 
                                             <div>
                                                 <label>GENEVA: </label>
-                                                <input type="hidden" name="riesgo[3][id]" value="3">
-                                                <input type="text" class="form-control input-form" name="riesgo[3][valor]">
+                                                <!-- <input type="hidden" name="riesgo[3][id]" value="3"> -->
+                                                <input type="text" class="form-control input-form" name="GENEVA">
                                             </div>
 
                                             <div>
                                                 <label>CAPRINI: </label>
-                                                <input type="hidden" name="riesgo[4][id]" value="4">
-                                                <input type="text" class="form-control input-form" name="riesgo[4][valor]">
+                                                <!-- <input type="hidden" name="riesgo[4][id]" value="4"> -->
+                                                <input type="text" class="form-control input-form" name="CAPRINI">
                                             </div>
 
                                             <div>
                                                 <label>STOP-BAN: </label>
-                                                <input type="hidden" name="riesgo[5][id]" value="5">
-                                                <input type="text" class="form-control input-form" name="riesgo[5][valor]">
+                                                <!-- <input type="hidden" name="riesgo[5][id]" value="5"> -->
+                                                <input type="text" class="form-control input-form" name="STOP-BAN">
                                             </div>
                                         </div>
 
@@ -305,18 +324,18 @@
                                         <div class="p-2">
                                             <div>
                                                 <label>GUPTA RESPIRATORIO: </label>
-                                                <input type="hidden" name="riesgo[6][id]" value="6">
-                                                <textarea name="riesgo[6][valor]" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                <!-- <input type="hidden" name="riesgo[6][id]" value="6"> -->
+                                                <textarea name="gupta_respiratorio" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
                                             </div>
                                             <div>
                                                 <label>GUPTA NEUMONIA: </label>
-                                                <input type="hidden" name="riesgo[7][id]" value="7">
-                                                <textarea name="riesgo[7][valor]" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                <!-- <input type="hidden" name="riesgo[7][id]" value="7"> -->
+                                                <textarea name="gupta_neumonia" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
                                             </div>
                                             <div>
                                                 <label>GUPTA CARDIOVASCULAR: </label>
-                                                <input type="hidden" name="riesgo[8][id]" value="8">
-                                                <textarea name="riesgo[8][valor]" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                <!-- <input type="hidden" name="riesgo[8][id]" value="8"> -->
+                                                <textarea name="gupta_cardiovascular" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -347,12 +366,12 @@
                                     <div class="col-12 col-lg-6">
                                         <div>
                                             <label>Recomendaciones: </label>
-                                            <input type="hidden" name="recomendacion[9][id]" value="9">
-                                            <textarea name="recomendacion[9][valor]" class="form-control input-form" rows="4" cols="1" placeholder="Especifique"></textarea>
+                                            <!-- <input type="hidden" name="recomendacion[9][id]" value="9"> -->
+                                            <textarea name="recomendaciones_texto" class="form-control input-form" rows="4" cols="1" placeholder="Especifique"></textarea>
                                         </div>
 
                                         <div>
-                                            <label>Lista de recoendaciones: </label>
+                                            <label>Lista de recomendaciones: </label>
                                             <p>Agrega uno por uno las recomendaciones del paciente</p>
                                             <input type="text" class="form-control input-form" id="recomendaciones_list">
                                             <input type="hidden" name="recomendacion[10][valor]">
@@ -420,9 +439,9 @@
 
         // construimos un arreglo con los inputs que seran casos especiales, como estos que el textarea tiene que aparecer si o si
         const includes = [
-            "antecedentes[3][option]",
-            "antecedentes[5][option]",
-            "antecedentes[7][option]"
+            "antecedentes[6][option]",
+            "antecedentes[7][option]",
+            "antecedentes[8][option]"
         ];
 
         if (this.value == true || includes.includes(name)) {
