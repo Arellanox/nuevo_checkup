@@ -122,7 +122,7 @@
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12 col-lg-8">
                                             <label>Tabaquimo: </label>
-                                            <input type="hidden" name="antecedentes[6][id]" value=6">
+                                            <input type="hidden" name="antecedentes[6][id]" value="6">
                                         </div>
                                         <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
                                             <div class="col-auto">
@@ -416,7 +416,16 @@
         // console.log(collapID);
         if (!collapID) return; // Si no hay ID, no hacer nada
 
-        if (this.value == true) {
+        let name = $(this).attr("name"); // sacamos el nombre para diferenciar el type de check que se esta haciendo click
+
+        // construimos un arreglo con los inputs que seran casos especiales, como estos que el textarea tiene que aparecer si o si
+        const includes = [
+            "antecedentes[3][option]",
+            "antecedentes[5][option]",
+            "antecedentes[7][option]"
+        ];
+
+        if (this.value == true || includes.includes(name)) {
             $(collapID).collapse("show") //.find(':textarea').prop('required', true);
         } else {
             $(collapID).collapse("hide") //.find(':textarea').val('').prop('required', false);
