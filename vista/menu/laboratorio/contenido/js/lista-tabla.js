@@ -380,6 +380,9 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'Orina'
+                },
+                5: {
+                  'descripcion': 'Líquido pleural'
                 }
                 // 4: {
                 //   'descripcion': 'Lavado Bronquial'
