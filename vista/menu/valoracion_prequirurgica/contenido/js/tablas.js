@@ -118,7 +118,7 @@ $(document).on('change', '#fechaListadoAreaMaster', function () {
     // se vuelve a crear el JSON para la tabla
     createJsonObject(1);
     // Se desaparece las 2 columnas en caso de que esten a la vista del usuario
-    fadePanelInfoInterpretacion("Out");
+    // fadePanelInfoInterpretacion("Out");
 })
 
 

@@ -2,6 +2,8 @@
 let title
 let text
 
+
+let Recomendaciones = []; // array donde se guardaran las recomendaciones
 // Abrir el model de formulario
 $('#btn-interpretacionPrequi').on('click', function () {
 
@@ -18,11 +20,6 @@ $('#btn-ver-reporte').click(function () {
 
     window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 })
-
-
-
-
-
 
 
 // Enviar interpretacion a back
@@ -44,14 +41,85 @@ $(`#formInterpretacion`).submit(function (e) {
 
 
 
+// Evento click para agregar una recomendacion a la tabla en forma de lista
+let index = 0; // indice para las recomendaciones que se vayan agregando
+$(document).on('click', '#btn-agregarRecomendaciones', function (e) {
+
+    // Sacamos la recomendacion
+    let recomendacion = $('#recomendaciones_list').val();
+
+    // Agregamos la recomendacion a la variable donde se esta almacenando
+    Recomendaciones.push({
+        recomendacion: recomendacion,
+        index: index
+    })
+
+    // Se llama al metodo para actualizar la recomendacion
+    actualizarRecomendaciones();
+
+    // seteamos el input cada que agregue una nueva recomendacion
+    $('#recomendaciones_list').val('')
+
+    // Incrementamos la variable
+    index++;
+})
+
+// Funcion para agregar un nuevo campo a la tabla de recomendaciones
+function actualizarRecomendaciones() {
+
+    // Sacamos el contenedor padre donde se iran insertando los rows
+    let tbody = $('#tbody_recomendaciones');
+    tbody.html(''); // limpiamos el contenedor padre donde se iran insertando los rows
+
+    let html; // variable donde aqui se iran guardando el esqueleto html
+
+    // recorremos el arreglo de la variable que contiene a todas las recomendaciones
+    for (const key in Recomendaciones) {
+        if (Object.hasOwnProperty.call(Recomendaciones, key)) {
+            const element = Recomendaciones[key];
+
+            // armamos el esqueleto html
+            html = `
+                <tr>
+                    <th scope="row">${element.recomendacion}</th>
+                    <td>
+                        <button data-id='${element.index}' class='btn btn-hover me-2 eliminar_recomendacion'>
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+            // Ponemos el row dentrol tbody
+            tbody.append(html);
+        }
+    }
+}
+
+
+// metodo para eliminar la recomendacion de la tabla
+$(document).on('click', '.eliminar_recomendacion', function () {
+
+    // sacamos la key del row que quiere eliminar
+    key = parseInt($(this).attr('data-id'));
+
+    // Filtramos el array sin tomar en cuenta el que se esta eliminando
+    newArray = Recomendaciones.filter(function (i) { return i.index !== key }); // filtramos
+
+    console.log(newArray);
+
+
+    // remplazamos el antiguo array con el nuevo array
+    Recomendaciones = newArray;
+
+    // actualizamos la tabla
+    actualizarRecomendaciones();
+})
 
 
 
 
-
-
-
-
+// ============ Funciones para  la paginacion del modal by Gera ================================
 
 
 
@@ -154,6 +222,9 @@ $('#MostrarCapturaPrequirurjico').on('shown.bs.modal', function () {
     });
 
 
+    // seteamos las variables globales 
+    Recomendaciones = undefined;
+    index = undefined;
 });
 
 
@@ -194,14 +265,14 @@ restartPages();
 //         console.log(2)
 //     }
 // }
-$(document).on('click','#btn-guardarInterpretacion', function (e) {
+$(document).on('click', '#btn-guardarInterpretacion', function (e) {
     e.preventDefault();
     title = '¿Esta seguro de guardar la valoración prequirúrgica?'
     text = 'Se podra modificarlo despues'
     btnAlertas(title, text, 1)
 })
 
-$(document).on('click','#btn-confirmarReporte', function (e) {
+$(document).on('click', '#btn-confirmarReporte', function (e) {
     e.preventDefault();
     title = '¿Esta seguro de confirmar el reporte?'
     text = 'No se podra modificar despues'
@@ -217,7 +288,7 @@ function btnAlertas(title, text, bit) {
         confirmButtonText: 'Si, estoy seguro'
     }, function () {
         guardarDatos(bit)
-    },1)
+    }, 1)
 }
 
 
@@ -227,6 +298,6 @@ function guardarDatos(bit) {
             console.log(data)
         })
     } else {
-        
+
     }
 }
