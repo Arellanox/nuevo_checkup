@@ -2,7 +2,6 @@
 let title
 let text
 
-
 let Recomendaciones = []; // array donde se guardaran las recomendaciones
 // Abrir el model de formulario
 $('#btn-interpretacionPrequi').on('click', function () {
@@ -78,11 +77,15 @@ function actualizarRecomendaciones() {
         if (Object.hasOwnProperty.call(Recomendaciones, key)) {
             const element = Recomendaciones[key];
 
+            // sacamos la posicion para poder enumerar la lista
+            let posicion = parseInt(key) + 1;
+
             // armamos el esqueleto html
             html = `
                 <tr>
-                    <th scope="row">${element.recomendacion}</th>
-                    <td>
+                    <td class='fw-bold '>${posicion}</td>
+                    <td>${element.recomendacion}</td>
+                    <td class='d-flex justify-content-center'>
                         <button data-id='${element.index}' class='btn btn-hover me-2 eliminar_recomendacion'>
                             <i class="bi bi-trash3"></i>
                         </button>
@@ -107,7 +110,6 @@ $(document).on('click', '.eliminar_recomendacion', function () {
     newArray = Recomendaciones.filter(function (i) { return i.index !== key }); // filtramos
 
     console.log(newArray);
-
 
     // remplazamos el antiguo array con el nuevo array
     Recomendaciones = newArray;
@@ -222,9 +224,10 @@ $('#MostrarCapturaPrequirurjico').on('shown.bs.modal', function () {
     });
 
 
-    // seteamos las variables globales 
-    Recomendaciones = undefined;
-    index = undefined;
+    // seteamos las variables globales y los metodos de la tabla para aplicar los cambios 
+    Recomendaciones = [];
+    index = 0;
+    actualizarRecomendaciones();
 });
 
 
@@ -301,3 +304,42 @@ function guardarDatos(bit) {
 
     }
 }
+
+
+
+let response = [
+    Antecedentes = [
+        {
+            id: 1,
+            valor: 1
+        },
+        {
+            id: 2,
+            valor: 1
+        },
+        {
+            id: 2,
+            valor: 1
+        }
+    ],
+    Recomendaciones = {
+        General: {
+            id: 9,
+            valor: "askldjlaksjdosajodsajldsaj"
+        },
+        lista: [
+            {
+                index: 0,
+                recomendacion: "sadjklasdlkjassd"
+            },
+            {
+                index: 0,
+                recomendacion: "sadjklasdlkjassd"
+            },
+            {
+                index: 0,
+                recomendacion: "sadjklasdlkjassd"
+            }
+        ]
+    }
+];

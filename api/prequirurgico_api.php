@@ -12,10 +12,10 @@ if (!$tokenValido) {
 $master = new Master();
 
 $datos = $_POST['datos'];
-$api = $datos['api'];
+$api = $_POST['api'];
 $antecedentes = $datos['antecedentes'];
 $exploracion = $datos['exploracion_fisica'];
-$electro = $datos['']
+$electro = $datos[''];
 
 $cliente_id = $_POST['cliente_id'];
 
