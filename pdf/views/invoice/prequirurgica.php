@@ -299,6 +299,38 @@
 
 <?php
 
+
+
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        $objeto = (array)$objeto;
+    }
+    if (is_array($objeto)) {
+        return array_map('convertirObjetoAArray', $objeto);
+    }
+    return $objeto;
+}
+
+
+
+function ifnull($variable, $msj = "Sin datos")
+{
+    if ($variable == '') {
+        return $msj;
+    } else {
+        return $variable;
+    }
+}
+
+
+$array = convertirObjetoAArray($resultados);
+
+echo '<pre>';
+var_dump($array);
+echo '</pre>';
+exit;
+
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);

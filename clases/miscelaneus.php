@@ -623,10 +623,16 @@ class Miscelaneus
         return $renderpdf;
     }
 
-    private function getBodyInfoPrequirurgico($master, $id_turno){
-        $response = $master->getByProcedure("sp_prequirurgico_pdf_b",[$id_turno]);
+    private function getBodyInfoPrequirurgico($master, $id_turno)
+    {
+
+        $id_turno = 2478;
+
+        $response = $master->getByProcedure("sp_prequirurgico_pdf_b", [$id_turno]);
 
         $response = $master->decodeJsonRecursively($response);
+
+
 
         return $response;
     }
