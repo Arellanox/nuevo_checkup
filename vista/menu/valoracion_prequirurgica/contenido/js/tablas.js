@@ -84,7 +84,9 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
             // Recupera la información del reporte
 
             // LLenar tabla
-            tablalistRecomendaciones.rows.add(data.response.data[0].RECOMENDACIONES_JSON).draw()
+            if (dataRegistro !== undefined || dataRegistro === "undefined") {
+                tablalistRecomendaciones.rows.add(data.response.data[0].RECOMENDACIONES_JSON).draw()
+            }
 
 
 

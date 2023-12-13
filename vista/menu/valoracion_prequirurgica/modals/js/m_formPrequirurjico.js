@@ -133,14 +133,16 @@ tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
     sorting: false,
     columns: [
         {
-            data: 'COUNT', render: (data) => {
+            data: 'index', render: (data) => {
                 return parseInt(data) + 1;
             }
         },
         { data: 'recomendacion' },
         {
             data: null, render: (data) => {
-                return 'icono'
+                return ` <button data-id='${data}' class='btn btn-hover me-2 eliminar_recomendacion'>
+                            <i class="bi bi-trash3"></i>
+                        </button>`
             }
         }
     ],
@@ -284,7 +286,7 @@ function restartPages() {
 restartPages();
 
 //funcion para traer todos los datos del paciente
-function dataPacientes(data){
+function dataPacientes(data) {
 
 }
 
