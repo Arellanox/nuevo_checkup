@@ -316,7 +316,6 @@ function dataPacientes(data) {
                 $(`#antecedentes_preguntas input[type=radio][name="antecedentes[${pregunta}][option]"][value="${id_respuesta}"]`).prop('checked', true)
 
                 if (comentario) {
-                    alert(1)
                     // $('#antecedentes_preguntas div.collapse').show();
                     let textarea = $(`#antecedentes_preguntas textarea[name="antecedentes[${pregunta}][comentario]"]`)
                     textarea.val(comentario)
@@ -326,27 +325,7 @@ function dataPacientes(data) {
         }
     }
 
-    // $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
-    //     // console.log(ante[key], key);
-    //     if (Object.hasOwnProperty.call(ante, key)) { // verifica cada pregunta si existe una previamente guardada
-    //         const $element = $(this);
-    //         console.log(2)
-
-    //         respuesta = ante[key]['ID_RESPUESTA']; // Busca la ID de la pregunta
-
-    // let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`); // Busca el campo seleccionado
-
-    //         $input.prop('checked', true) // chequea de los 2 checkbox, el guardado previamente
-
-    //         if (respuesta === 1)
-    //             $element.find('div.collapse').show(); // abre o cierra el collapse del input de comentario por el valor de la respuesto
-
-    //         // console.log(key, $element.find('textarea')); 
-
-    //         const $textarea = $element.find('textarea'); // Busca el textarea de comentario
-    //         $textarea.val(ante[key]['COMENTARIO']); // Agrega el valor del textarea
-    //     }
-    // })
+    $('#cirugia_programada').val(data['CIRUGIA_PROGRAMADA'])
 
     //laboratorio
     $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
