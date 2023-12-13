@@ -124,8 +124,10 @@ function estadoFormulario(guardado, confirmado) {
         $('#btn-confirmarReporte').fadeIn()
         $('#btn-guardarInterpretacion').fadeIn()
     } else {
-        $('#btn-confirmarReporte').fadeOut()
-        $('#btn-guardarInterpretacion').fadeOut()
+        $('#btn-confirmarReporte').prop('disabled', true)
+        $('#btn-guardarInterpretacion').prop('disabled', true)
+        // $('#btn-confirmarReporte').fadeOut()
+        // $('#btn-guardarInterpretacion').fadeOut()
     }
 }
 

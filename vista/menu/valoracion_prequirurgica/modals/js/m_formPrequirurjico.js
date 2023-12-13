@@ -309,6 +309,7 @@ function guardarDatos(bit) {
     } else {
         ajaxAwait({ api: 3, turno_id: arrayPaciente['ID_TURNO'] , confirmado: 1}, 'prequirurgico_api', { callbackAfter: true }, false, function (data) {
             alertToast('Se han confirmado los datos correctamente', 'success', 4000)
+            $('#btn-guardarInterpretacion').prop('disabled', true)
         })
     }
 }
