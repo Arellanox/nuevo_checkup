@@ -36,6 +36,7 @@ $stop_bang = $_POST['STOP-BAN'];
 $recomendaciones_texto = $_POST['recomendaciones_texto']; 
 $recomendaciones_josn = $_POST['recomendacion_json'];
 $turno_id = $_POST['turno_id'];
+$signos_vitales = $_POST['signos_vitales'];
 $confirmado = isset($_POST['confirmado']) ? $_POST['confirmado'] : 0;
 
 
@@ -54,6 +55,7 @@ $data_g = array(
     $geneva,
     $caprini,
     $stop_bang,
+    $signos_vitales,
     $recomendaciones_texto,
     $recomendaciones_josn,
     $turno_id,
