@@ -352,14 +352,13 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <table id="tablalistRecomendaciones" style="width: 100%;">
-                                            <!-- <thead>
+                                            <thead>
                                                 <tr>
-                                                    <th class="p-1 fw-bold">#</th>
-                                                    <th class="p-1">Recomendaciones</th>
-                                                    <th class="p-1 text-center"><i class="bi bi-trash3"></i></th>
+                                                    <th class="p-2 fw-bold">#</th>
+                                                    <th class="p-2">Recomendaciones</th>
+                                                    <th class="p-2 text-center"><i class="bi bi-trash3"></i></th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tbody_recomendaciones"></tbody> -->
                                         </table>
                                     </div>
 
@@ -469,5 +468,11 @@
         top: 0;
         left: 0;
         width: 100%;
+    }
+
+
+    #tablalistRecomendaciones tbody td {
+        padding: 5px;
+        font-size: 18px;
     }
 </style>

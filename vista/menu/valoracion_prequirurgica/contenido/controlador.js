@@ -4,7 +4,7 @@ if (validarVista('PREQUIRURGICO')) {
 }
 
 // Variables Globales
-let DataPrequirurgico, TablaPacientesPrequirurgica; // varibale para la tabla de TablaPacientesPrequirurgica
+let DataPrequirurgico, TablaPacientesPrequirurgica, tablalistRecomendaciones; // varibale para la tabla de TablaPacientesPrequirurgica
 let estado
 let arrayPaciente
 

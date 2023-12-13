@@ -79,9 +79,15 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
         // Llamar a esta función para reiniciar
         restartPages();
 
-        await ajaxAwait({ api: 4, ID_TURNO: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
+        await ajaxAwait({ api: 4, turno_id: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
             console.log(data)
             // Recupera la información del reporte
+
+            // LLenar tabla
+            tablalistRecomendaciones.rows.add(data.response.data[0].RECOMENDACIONES_JSON).draw()
+
+
+
 
 
             // Recupera el panel de información de reporte
@@ -98,21 +104,6 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
 })
 
 
-// New table to Datatabl
-tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
-    language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
-    lengthChange: false,
-    info: true,
-    paging: false,
-    sorting: false,
-    scrollY: '75vh',
-    scrollCollapse: true,
-    columnDefs: [
-        { target: 0, title: '#', className: 'all' },
-        { target: 1, title: 'Recomendaciones', className: 'all' },
-        { target: 2, title: '<i class="bi bi-trash3"></i>  ', className: 'all' },
-    ],
-})
 
 
 // evento change del checkbox para aparecer a todos los pacientes

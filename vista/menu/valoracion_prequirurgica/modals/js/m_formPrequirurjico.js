@@ -122,10 +122,35 @@ $(document).on('click', '.eliminar_recomendacion', function () {
     actualizarRecomendaciones();
 })
 
-
+// New table to Datatabl
+tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    lengthChange: false,
+    info: false,
+    paging: false,
+    sorting: false,
+    columns: [
+        {
+            data: 'COUNT', render: (data) => {
+                return parseInt(data) + 1;
+            }
+        },
+        { data: 'recomendacion' },
+        {
+            data: null, render: (data) => {
+                return 'icono'
+            }
+        }
+    ],
+    // scrollY: '75vh',
+    // scrollCollapse: true,
+})
 
 
 // ============ Funciones para  la paginacion del modal by Gera ================================
+
 
 
 
@@ -227,7 +252,15 @@ $('#MostrarCapturaPrequirurjico').on('shown.bs.modal', function () {
         }
     });
 
-
+    setTimeout(() => {
+        // reloadSelectTable()
+        $.fn.dataTable
+            .tables({
+                visible: true,
+                api: true
+            })
+            .columns.adjust();
+    }, 250);
     // seteamos las variables globales 
     Recomendaciones = [];
     index = 0;
