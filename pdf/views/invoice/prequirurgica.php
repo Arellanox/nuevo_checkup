@@ -471,7 +471,7 @@ $encode_firma = base64_encode($ruta_firma);
     <div class="invoice-content">
         <!-- Antecedentes del paciente -->
         <div id="antecedentes">
-            <h2 style="padding:0px !important">Antecedentes</h2>
+            <h2 style="padding:5px !important">Antecedentes</h2>
             <div class="content">
                 <table class="" style="max-width:10px !important; font-size:9;">
                     <tbody class="">
@@ -545,7 +545,8 @@ $encode_firma = base64_encode($ruta_firma);
         </div>
         <!-- Cirugia programada -->
         <div class="cirugia">
-            <h2 style="padding:0px !important;">Cirugía Programada: <?php echo $array1[0]['CIRUGIA_PROGRAMADA'] ?></h2>
+            <p style="padding:5px !important;">Cirugía Programada: <?php echo $array1[0]['CIRUGIA_PROGRAMADA'] ?></p>
+
             <div class="content">
                 <p id="back_cirugia">
                     <?php
@@ -556,7 +557,7 @@ $encode_firma = base64_encode($ruta_firma);
         </div>
         <!-- Exploracion fisiica -->
         <div class="exploracion_fisica">
-            <h2 style="padding:0px !important;">Exploracion Fisica</h2>
+            <h2 style="padding:5px !important;">Exploracion Fisica</h2>
             <p id="exploracion_fisica">
                 <?php echo $array1[0]['EXPLORACION_FISICA'] ?>
             </p>
@@ -564,7 +565,7 @@ $encode_firma = base64_encode($ruta_firma);
         <div class="break"></div>
         <!-- Laboratorios -->
         <div class="laboratorios">
-            <h2 style="padding:0px !important;">Laboratorios</h2>
+            <h2 style="padding:5px !important;">Laboratorios</h2>
             <p>
                 <?php echo $array1[0]['LABORATORIOS_REPORTE'] ?>
             </p>
@@ -599,7 +600,7 @@ $encode_firma = base64_encode($ruta_firma);
         </div>
         <!-- Riesgos quirurgico -->
         <div class="riesgos_quirurgicos">
-            <h2 style="padding:0px !important;">Riesgos Quirúrgico</h2>
+            <h2 style="padding:5px !important;">Riesgos Quirúrgico</h2>
             <div class="content">
                 <div class="content">
                     <table class="" style="max-width:10px !important; font-size:9;">
@@ -689,7 +690,7 @@ $encode_firma = base64_encode($ruta_firma);
         <div class="break"></div>
         <!-- Recomendaciones -->
         <div class="recomendaciones">
-            <h2 style="padding:0px !important;">Recomendaciones</h2>
+            <h2 style="padding:5px !important;">Recomendaciones</h2>
             <div class="content">
                 <div class="recomendacion_general">
                     <p>
