@@ -103,8 +103,13 @@
         }
 
         p {
-            font-size: 12px;
-            line-height: 1;
+            font-size: 12px !important;
+            line-height: 1.5 !important;
+        }
+
+        label {
+            font-size: 12px !important;
+            line-height: 1.5 !important;
         }
 
         strong {
@@ -336,7 +341,7 @@ $encode_firma = base64_encode($ruta_firma);
     <div class="invoice-content">
         <!-- Antecedentes del paciente -->
         <div id="antecedentes">
-            <h2 style="padding:0px !important;">Antecedentes</h2>
+            <h2 style="padding:0px !important">Antecedentes</h2>
             <div class="content">
                 <table class="" style="max-width:10px !important; font-size:9;">
                     <tbody class="">
@@ -412,7 +417,7 @@ $encode_firma = base64_encode($ruta_firma);
         <div class="cirugia">
             <h2 style="padding:0px !important;">Cirugía Programada: LIPOESCULTURA</h2>
             <div class="content">
-                <p id="back_cirugia" style="font-size: 9; line-height:1.2em;">
+                <p id="back_cirugia">
                     TENSIÓN ARTERIAL 120/83 MMHG FRECUENCIA CARDIACA: 66 LATIDOS POR MINUTO FRECUENCIA RESPIRATORIA: 20 RESPIRACIONES POR MINUTO TEMPERATURA 35.8°C SATURACIÓN DE OXÍEGNO 96%
                 </p>
             </div>
@@ -420,7 +425,7 @@ $encode_firma = base64_encode($ruta_firma);
         <!-- Exploracion fisiica -->
         <div class="exploracion_fisica">
             <h2 style="padding:0px !important;">Exploracion Fisica</h2>
-            <p id="exploracion_fisica" style="font-size: 9; line-height:1.2em;">
+            <p id="exploracion_fisica">
                 GLASGOW 15, CONSCIENTE Y ORIENTADA EN SUS TRES ESFERAS NEUROLOGICAS, TIEMPO, ESPACIO Y PERSONA, ADECUADA PIGMENTACION Y ESTADO HIDRICO DE MUCOSAS Y TEGUMENTOS, PUPILAS NORMOREFLEXICAS AL ESTIMULO LUMINOSO, CUELLO SIN ADENOPATIAS PALPABLES, SIN INGURGITACION YUGULAR, TORAX ESTRUCTURALMENTE INTEGRO, CON ADECUADA MECANICA VENTILATORIA, CAMPOS PULMONARES BIEN VENTILADOS, ADECUADA TRANSMISION DE LA VOZ, SIN ALTERACIONES A LA PERCUSION, NO HAY ESTERTORES O AGREGADOS, RUIDOS CARDIACOS DE ADECUADO RITMO, TONO E INTENSIDAD, ABDOMEN GLOBOSO A EXPENSAS DE PANICULO ADIPOSO, BLANDO Y DEPRESIBLE, NO DOLOROSO A LA PALPACION, CON PERISTALSIS PRESENTE, NORMOAUDIBLE, SIN DATOS DE IRRITACION PERITONEAL, EXPLORACION GENITAL DIFERIDA, EXTREMIDADES EUTERMICAS, EUTROFICAS, CON LLENADO CAPILAR DE DOS SEGUNDOS, ROTS ++, DANIELS 5/5.
             </p>
         </div>
@@ -428,7 +433,7 @@ $encode_firma = base64_encode($ruta_firma);
         <!-- Laboratorios -->
         <div class="laboratorios">
             <h2 style="padding:0px !important;">Laboratorios</h2>
-            <p style="font-size: 9; line-height:1.2em;">
+            <p>
                 <strong>FECHA 28/11/2023:</strong> HB 13.9 HTO 41 LEUCOS 7.500 LINFOS 36 NEUTROS 59 PLAQUETAS 215,000 GLUCOSA 78 UREA 17 BUN 7.99 CREAT 0.70 AC URICO 4.2 CT 213 TG 148 SODIO 137 POTASIO 3.6 CLORO 102 CALCIO 9.5 MG 2 FOSFORO 3.19 BT 0.54 BD 0.18 BI 0.36 AST 17 ALT 21 DHL 176 PROTEINAS TOTALE S7 ALBUMINA 3.94 GGT 24 TP 13 INR 0.98 TPT 31 GRUPO Y RH O POSITIVO, VIH NEGATIVO, ANT P24 NEGATIVO <strong>SE PUEDE TOMAR DEL SISTEMA AUTOMÁTICAMENTE.</strong>
             </p>
             <br>
@@ -539,27 +544,27 @@ $encode_firma = base64_encode($ruta_firma);
             <h2 style="padding:0px !important;">Recomendaciones</h2>
             <div class="content">
                 <div class="recomendacion_general">
-                    <p style="font-size: 9; line-height:1.2em;">
+                    <p>
                         PACIENTE SALUDABLE CON ADECUADO ESTADO DE SALUD EN GENERAL, SIN COMORBILIDADES, SUS LABORATORIOS DENTRO DE PARAMETROS NORMALES, SE RECOMIENDA A LA PACIENTE EVITAR INGERIR ASPIRINA Y DERIVADOS UNA SEMANA PREVIA A PROCEDIMIENTOS, LOS SCORES PREDICTORES CON BAJO RIESGO PARA DESARROLLAR COMPLICACIONES TROMBOEMBOLICAS SE RECOMIENDA LA PROFILAXIS MECANICA Y PUEDEN CONSIDERARSE DOSIS BAJAS DE HEPARINA DE BAJO PESO MOLECULAR.
                     </p>
                 </div>
                 <div class="list">
                     <p>
-                        1. AYUNO 8 HRS PREVIAS A LA CIRUGIA
+                        <strong>1.</strong> AYUNO 8 HRS PREVIAS A LA CIRUGIA
                         <br> <br>
-                        2. EVITAR SOBRECARGA HIDRICA, SE RECOMIENDA CANALIZAR CON SOL. HARTMANN DURANTE EL PROCEDIMIENTO, GUIAR REANIMACION POR METAS (MANTENER PAM >65MMHG, DIURESIS > 0.5 A 1.5ML/KG/HRA, BALANCES NEUTROS O DISCRETAMENTE NEGATIVOS.)
+                        <strong>2.</strong> EVITAR SOBRECARGA HIDRICA, SE RECOMIENDA CANALIZAR CON SOL. HARTMANN DURANTE EL PROCEDIMIENTO, GUIAR REANIMACION POR METAS (MANTENER PAM >65MMHG, DIURESIS > 0.5 A 1.5ML/KG/HRA, BALANCES NEUTROS O DISCRETAMENTE NEGATIVOS.)
                         <br> <br>
-                        3. ENOXAPARINA 40MG SC CADA 24 HRS, INICIAR 24 HRS POSTERIOR A LA CIRUGIA
+                        <strong>3.</strong> ENOXAPARINA 40MG SC CADA 24 HRS, INICIAR 24 HRS POSTERIOR A LA CIRUGIA
                         <br> <br>
-                        4. MEDIAS DE COMPRESION INTERMEDIA 20 A 30MMHG
+                        <strong>4.</strong> MEDIAS DE COMPRESION INTERMEDIA 20 A 30MMHG
                         <br> <br>
-                        5. DEAMBULACION TEMPRANA
+                        <strong>5.</strong> DEAMBULACION TEMPRANA
                         <br> <br>
-                        6. MANTENER 1 PG EN RESERVA PARA QUIROFANO
+                        <strong>6.</strong> MANTENER 1 PG EN RESERVA PARA QUIROFANO
                         <br> <br>
-                        7. ANALGESIA DE ACUERDO A LA OMS, INICIAR CON PARACETAMOL 1GR IV CADA 8 HRS
+                        <strong>7.</strong> ANALGESIA DE ACUERDO A LA OMS, INICIAR CON PARACETAMOL 1GR IV CADA 8 HRS
                         <br> <br>
-                        8. GRACIAS
+                        <strong>8.</strong> GRACIAS
                     </p>
                 </div>
             </div>

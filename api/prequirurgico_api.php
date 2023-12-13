@@ -73,18 +73,23 @@ switch ($api) {
 
         break;
     case 2:
-        # guardar los datos.
+        # GUARDAMOS LOS DATOS  DEL CUESTIONARIO
         
         $response =  $master->getByProcedure('sp_prequirurgico_g', $data_g );
 
         break;
     case 3:
-        #confimamos el reporte
-        $response = $master->getByProcedure('sp_prequirurgico_pdf_g', [$turno_id, $_SESSION['id'], null, $confirmado]);
+        #CONFIRMAMOS EL REPORTE Y LO GUARADAMOS
 
         $url = $master->reportador($master, $turno_id,-5,"prequirurgico");
-        $response = $master->updateByProcedure("sp_reportes_actualizar_ruta", ["prequirurgico_pdf","RUTA_REPORTE", $url, $turno_id, null]);
+        $response = $master->getByProcedure('sp_prequirurgico_pdf_g', [$turno_id, $_SESSION['id'], $url, $confirmado]);
 
+        break;
+
+    case 4:
+        
+        #RECUPERAR LOS RESULTADOS 
+        $response = $master->getByProcedure('sp_prequirurgico_pdf_b', [$turno_id]);
 
         break;
 
