@@ -542,7 +542,10 @@ class Miscelaneus
                 break;
             case -5:
                 # certificado prequirugico.
+                $infoPaciente[0]['TITULO'] = 'Valoración Prequirurgica';
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $arregloPaciente = $this->getBodyInfoPrequirurgico($master, $turno_id);
+                $datos_medicos = $this->getMedicalCarrier($info);
                 break;
         }
 
@@ -626,13 +629,11 @@ class Miscelaneus
     private function getBodyInfoPrequirurgico($master, $id_turno)
     {
 
-        $id_turno = 2478;
+        // $id_turno = 2481;
 
         $response = $master->getByProcedure("sp_prequirurgico_pdf_b", [$id_turno]);
 
         $response = $master->decodeJsonRecursively($response);
-
-
 
         return $response;
     }

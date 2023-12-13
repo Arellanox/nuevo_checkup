@@ -4,6 +4,8 @@ let text
 let recomenList;
 
 
+
+
 let Recomendaciones = []; // array donde se guardaran las recomendaciones
 // Abrir el model de formulario
 $('#btn-interpretacionPrequi').on('click', function () {
@@ -300,14 +302,14 @@ function btnAlertas(title, text, bit) {
 function guardarDatos(bit) {
     var recomenList = $('input[name="recomendacion_json"]');
     recomenList.val(JSON.stringify(Recomendaciones))
-    
+
     if (bit == 1) {
-        ajaxAwaitFormData({ api: 2, turno_id: arrayPaciente['ID_TURNO'] , confirmado: 0}, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
+        ajaxAwaitFormData({ api: 2, turno_id: arrayPaciente['ID_TURNO'], confirmado: 0 }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
             alertToast('Se han guardado los datos correctamente', 'success', 4000)
 
         })
     } else {
-        ajaxAwait({ api: 3, turno_id: arrayPaciente['ID_TURNO'] , confirmado: 1}, 'prequirurgico_api', { callbackAfter: true }, false, function (data) {
+        ajaxAwait({ api: 3, turno_id: arrayPaciente['ID_TURNO'], confirmado: 1 }, 'prequirurgico_api', { callbackAfter: true }, false, function (data) {
             alertToast('Se han confirmado los datos correctamente', 'success', 4000)
             $('#btn-guardarInterpretacion').prop('disabled', true)
         })

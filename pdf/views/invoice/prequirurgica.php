@@ -324,12 +324,14 @@ function ifnull($variable, $msj = "Sin datos")
 }
 
 
-$array = convertirObjetoAArray($resultados);
+$array1 = convertirObjetoAArray($resultados);
+// echo '<pre>';
+// var_dump($array1[0]);
+// echo '</pre>';
+// exit;
+$array = $array1[0]['JSON_ANTECENDENTES'];
 
-echo '<pre>';
-var_dump($array);
-echo '</pre>';
-exit;
+
 
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
@@ -349,19 +351,115 @@ $encode_firma = base64_encode($ruta_firma);
 <body>
     <!-- header -->
     <div class="header">
-        <?php
-        $titulo = 'Checkup Clínica y Prevención';
-        $tituloPersonales = 'Información del paciente';
-        $subtitulo = 'Valoración prequirúrgica';
-        $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_AUDIO;
-        include 'includes/header.php';
-        ?>
+        <br><br>
+
+        <table>
+            <tbody>
+                <tr>
+                    <td class="col-der" style="border-bottom: none">
+                        <h4>
+                            DIAGNOSTICO BIOMOLECULAR S.A.de C.V. <br>
+                            Checkup Clínica y Prevención<br>
+                            <?php echo $encabezado->TITULO ?>
+                        </h4>
+                    </td>
+                    <td class="col-izq" style="border-bottom: none; text-align:center;">
+                        <?php
+                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
+                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+                        ?>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td style="text-align: center; border-style: solid none solid none; ">
+                        <h3>
+                            <?php echo $encabezado->SUBTITULO ?>
+                        </h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="col-left" style="border-bottom: none">
+
+                        No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO_IMAGEN; ?>
+                        </strong>
+                    </td>
+                    <td class="col-center" style="border-bottom: none">
+                        Edad: <strong style="font-size: 12px;">
+                            <?php echo $encabezado->EDAD; ?></strong>
+                    </td>
+                    <td class="col-right" style="border-bottom: none">
+                        Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-left" style="border-bottom: none">
+                        Nombre: <strong style="font-size: 12px;"> <?php echo $encabezado->NOMBRE; ?> </strong>
+                    </td>
+                    <td class="col-center" style="border-bottom: none">
+                        Fecha de Nacimiento: <strong style="font-size: 12px;"> <?php echo $encabezado->NACIMIENTO; ?>
+                        </strong>
+                    </td>
+                    <td class="col-right" style="border-bottom: none">
+                        Pasaporte: <strong style='font-size:12px'>
+                            <?php echo (isset($encabezado->PASAPORTE) && !empty($encabezado->PASAPORTE)) ? $encabezado->PASAPORTE : "SD"; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-left" style="border-bottom: none">
+                        Fecha de Resultado: <strong style="font-size: 12px;"><?php echo $encabezado->FECHA_RESULTADO_IMAGEN; ?> </strong>
+                    </td>
+                    <td class="col-center" style="border-bottom: none">
+                    </td>
+                    <td class="col-right" style="border-bottom: none">
+                        <!-- Tipo de Muestra: <strong>Sangre</strong> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-left" style="border-bottom: none">
+
+                    </td>
+                    <td class="col-center" style="border-bottom:none">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
+            <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
+
+            <?php if ($encabezado->PAQUETE_CARGADO) { ?>
+                <span style="margin-left: 20px;">
+                    <!-- Tipo de muestra  -->
+                    <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
+                </span>
+            <?php } ?>
+
+            <?php if ($encabezado->CATEGORIA) { ?>
+                <span style="margin-left: 20px;">
+                    <!-- Tipo de muestra  -->
+                    <?php echo "Categoría: <strong style='font-size: 12px;'> $encabezado->CATEGORIA"; ?> </strong>
+                </span>
+            <?php } ?>
+        </p>
+        <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
+            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'> " . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?>
+            </strong>
+        </p>
+        <!-- <p>Aqui va el encabezado y es el espacio disponible hasta donde llegue el titulo siguiente.</p> -->
     </div>
 
     <!-- Footer 1 chido -->
     <div class="footer">
         <?php
-        $footerDoctor = 'Dra. Leonor Alvarado-Cortés <br>UJAT - Cédula profesional: 584962 
+        $footerDoctor = 'Dra. Elsa Guadalupe Calderón Valencia <br>UJAT - Cédula profesional: 584962 
                         <br>Certified Occupational Hearing Conservationist <br>CAOHC ID NUMBER: 516334';
 
         include 'includes/footer.php';
@@ -381,7 +479,7 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:190px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> ANTECEDENTES PERSONALES PATOLÓGICOS:</label>
-                                    <label class=""> QUISTE SIMPLE DE OVARIO DIAGNOSTICADO HACE 6 MESES, SIN TRATAMIENTO, OBESIDAD GII</label>
+                                    <label class=""> <?php echo $array[0]['comentario'] ?></label>
                                 </div>
                             </td>
                         </tr>
@@ -389,7 +487,7 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> ANTECEDENTES QURÚRGICOS:</label>
-                                    <label class=""> SI CUALES NO </label>
+                                    <label class=""> <?php echo $array[1]['respuesta'] ?> <?php echo $array[1]['comentario'] ?> </label>
                                 </div>
                             </td>
                         </tr>
@@ -397,7 +495,7 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> ANTECEDENTES DE FRACTURAS:</label>
-                                    <label class=""> SI CUALES NO </label>
+                                    <label class=""> <?php echo $array[2]['respuesta'] ?> <?php echo $array[2]['comentario'] ?> </label>
                                 </div>
                             </td>
                         </tr>
@@ -405,7 +503,7 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> HOSPITALIZACIONES PREVIAS:</label>
-                                    <label class=""> SI CUALES NO </label>
+                                    <label class=""> <?php echo $array[3]['respuesta'] ?> <?php echo $array[3]['comentario'] ?></label>
                                 </div>
                             </td>
                         </tr>
@@ -413,7 +511,7 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> ALERGIAS:</label>
-                                    <label class=""> SI CUALES NO </label>
+                                    <label class=""> <?php echo $array[4]['respuesta'] ?> <?php echo $array[4]['comentario'] ?></label>
                                 </div>
                             </td>
                         </tr>
@@ -421,7 +519,7 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> TABAQUISMO:</label>
-                                    <label class=""> SI CANTIDAD NO DESDE CUANDO </label>
+                                    <label class=""> <?php echo $array[5]['respuesta'] ?> <?php echo $array[5]['comentario'] ?> </label>
                                 </div>
                             </td>
                         </tr>
@@ -429,7 +527,7 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> ALCOHOLISMO:</label>
-                                    <label class=""> SI CANTIDAD Y FRECUENCIA NO DESDE CUANDO </label>
+                                    <label class=""> <?php echo $array[6]['respuesta'] ?> <?php echo $array[6]['comentario'] ?> </label>
                                 </div>
                             </td>
                         </tr>
@@ -437,7 +535,7 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> TOXICOMANIAS:</label>
-                                    <label class=""> SI CUAL Y FRECUENCIA NO DESDE CUANDO </label>
+                                    <label class=""> <?php echo $array[7]['respuesta'] ?> <?php echo $array[7]['comentario'] ?> </label>
                                 </div>
                             </td>
                         </tr>
@@ -447,10 +545,12 @@ $encode_firma = base64_encode($ruta_firma);
         </div>
         <!-- Cirugia programada -->
         <div class="cirugia">
-            <h2 style="padding:0px !important;">Cirugía Programada: LIPOESCULTURA</h2>
+            <h2 style="padding:0px !important;">Cirugía Programada: <?php echo $array1[0]['CIRUGIA_PROGRAMADA'] ?></h2>
             <div class="content">
                 <p id="back_cirugia">
-                    TENSIÓN ARTERIAL 120/83 MMHG FRECUENCIA CARDIACA: 66 LATIDOS POR MINUTO FRECUENCIA RESPIRATORIA: 20 RESPIRACIONES POR MINUTO TEMPERATURA 35.8°C SATURACIÓN DE OXÍEGNO 96%
+                    <?php
+                    echo $array1[0]['SIGNOS_VITALES_REPORTE']
+                    ?>
                 </p>
             </div>
         </div>
@@ -458,7 +558,7 @@ $encode_firma = base64_encode($ruta_firma);
         <div class="exploracion_fisica">
             <h2 style="padding:0px !important;">Exploracion Fisica</h2>
             <p id="exploracion_fisica">
-                GLASGOW 15, CONSCIENTE Y ORIENTADA EN SUS TRES ESFERAS NEUROLOGICAS, TIEMPO, ESPACIO Y PERSONA, ADECUADA PIGMENTACION Y ESTADO HIDRICO DE MUCOSAS Y TEGUMENTOS, PUPILAS NORMOREFLEXICAS AL ESTIMULO LUMINOSO, CUELLO SIN ADENOPATIAS PALPABLES, SIN INGURGITACION YUGULAR, TORAX ESTRUCTURALMENTE INTEGRO, CON ADECUADA MECANICA VENTILATORIA, CAMPOS PULMONARES BIEN VENTILADOS, ADECUADA TRANSMISION DE LA VOZ, SIN ALTERACIONES A LA PERCUSION, NO HAY ESTERTORES O AGREGADOS, RUIDOS CARDIACOS DE ADECUADO RITMO, TONO E INTENSIDAD, ABDOMEN GLOBOSO A EXPENSAS DE PANICULO ADIPOSO, BLANDO Y DEPRESIBLE, NO DOLOROSO A LA PALPACION, CON PERISTALSIS PRESENTE, NORMOAUDIBLE, SIN DATOS DE IRRITACION PERITONEAL, EXPLORACION GENITAL DIFERIDA, EXTREMIDADES EUTERMICAS, EUTROFICAS, CON LLENADO CAPILAR DE DOS SEGUNDOS, ROTS ++, DANIELS 5/5.
+                <?php echo $array1[0]['EXPLORACION_FISICA'] ?>
             </p>
         </div>
         <div class="break"></div>
@@ -466,7 +566,7 @@ $encode_firma = base64_encode($ruta_firma);
         <div class="laboratorios">
             <h2 style="padding:0px !important;">Laboratorios</h2>
             <p>
-                <strong>FECHA 28/11/2023:</strong> HB 13.9 HTO 41 LEUCOS 7.500 LINFOS 36 NEUTROS 59 PLAQUETAS 215,000 GLUCOSA 78 UREA 17 BUN 7.99 CREAT 0.70 AC URICO 4.2 CT 213 TG 148 SODIO 137 POTASIO 3.6 CLORO 102 CALCIO 9.5 MG 2 FOSFORO 3.19 BT 0.54 BD 0.18 BI 0.36 AST 17 ALT 21 DHL 176 PROTEINAS TOTALE S7 ALBUMINA 3.94 GGT 24 TP 13 INR 0.98 TPT 31 GRUPO Y RH O POSITIVO, VIH NEGATIVO, ANT P24 NEGATIVO <strong>SE PUEDE TOMAR DEL SISTEMA AUTOMÁTICAMENTE.</strong>
+                <?php echo $array1[0]['LABORATORIOS_REPORTE'] ?>
             </p>
             <br>
             <div class="content">
@@ -476,7 +576,9 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:190px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> ELECTROCARDIOFRAMA 12 DERIVACIONES :</label>
-                                    <label class=""> CON CALIBRACION ESTANDAR RITMO SINUSAL, CON FRECUENCIA CARDIACA DE 60 LPM, CON EJE CARDICO 60° NO SE OBSERVAN BLOQUEOS DE RAMA, QRS 0.08S QTC 360 NO HAY BLOQUEOS DE RAMA, SIN ALTERACIONES EN LA ONDA T, NO HAY DATOS DE ISQUEMIA LESION O NECROSIS, SOKOLOW 17, NO CUMPLE CRITERIOS PARA HVI, EKG NORMAL.</label>
+                                    <label class="">
+                                        <?php echo $array1[0]['ELECTROCARDIOGRAMA_DERIVACIONES'] ?>
+                                    </label>
                                 </div>
                             </td>
                         </tr>
@@ -484,7 +586,9 @@ $encode_firma = base64_encode($ruta_firma);
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> RADIOGRAFÍA DE TORAX:</label>
-                                    <label class=""> TEJIDOS BLANDOS Y OSEOS ESTRUCTURALMENTE INTEGROS, SIN SOLUCIONES DE CONTINUIDAD, SE OBSERVA TRAQUEA CENTRAL CON COLUMNA DE AIRE VISIBLE, CAMPOS PULMONARES SIN INFILTRADOS O CONSOLIDACIONES, SILUETA CARDIACA DE ADECUADO TAMAÑO, SIN ALTERACIONES, SE OBSERVAN AMBOS ANGULOS CARDIOFRENICOS Y COSTODIAFRAGMATICOS. </label>
+                                    <label class="">
+                                        <?php echo  $array1[0]['RADIOGRAFIA_TORAX'] ?>
+                                    </label>
                                 </div>
                             </td>
                         </tr>
@@ -504,7 +608,7 @@ $encode_firma = base64_encode($ruta_firma);
                                 <td class="" style='max-width:190px;'>
                                     <div class="d-flex">
                                         <label class="h7" style="font-weight: bold;">ASA:</label>
-                                        <label class=""> Select.</label>
+                                        <label class=""> <?php echo  $array1[0]['ASA'] ?></label>
                                     </div>
                                 </td>
                             </tr>
@@ -512,7 +616,7 @@ $encode_firma = base64_encode($ruta_firma);
                                 <td class="" style='max-width:190px;'>
                                     <div class="d-flex">
                                         <label class="h7" style="font-weight: bold;">GOLDMAN:</label>
-                                        <label class=""> Select.</label>
+                                        <label class=""> <?php echo  $array1[0]['GOLDMAN'] ?> </label>
                                     </div>
                                 </td>
                             </tr>
@@ -520,7 +624,9 @@ $encode_firma = base64_encode($ruta_firma);
                                 <td class="" style='max-width:190px;'>
                                     <div class="d-flex">
                                         <label class="h7" style="font-weight: bold;">GUPTA RESPIRATORIO :</label>
-                                        <label class=""> 0.2% DE RIESGO PARA REQUERIR VENTILACION MECANICA POR 48HRS POSTERIOR A CIRUGIA, PRACTICAMENTE NULO</label>
+                                        <label class="">
+                                            <?php echo  $array1[0]['GUPTA_RESPIRATORIO'] ?>
+                                        </label>
                                     </div>
                                 </td>
                             </tr>
@@ -528,7 +634,9 @@ $encode_firma = base64_encode($ruta_firma);
                                 <td class="" style='max-width:190px;'>
                                     <div class="d-flex">
                                         <label class="h7" style="font-weight: bold;">GUPTA NEUMONIA:</label>
-                                        <label class=""> 0.2% DE DESARROLLAR NEUMONIA POSTERIOR AL PROCEDIMIENTO</label>
+                                        <label class="">
+                                            <?php echo  $array1[0]['GUPTA_NEUMONIA'] ?>
+                                        </label>
                                     </div>
                                 </td>
                             </tr>
@@ -536,7 +644,9 @@ $encode_firma = base64_encode($ruta_firma);
                                 <td class="" style='max-width:190px;'>
                                     <div class="d-flex">
                                         <label class="h7" style="font-weight: bold;">GUPTA CARDIOVASCULAR:</label>
-                                        <label class="">TIENE UN RIESGO DE 0% DE PRESENTAR IAM DURANTE EL PROCEDIMIENTO O HASTA 30 DIAS POSTERIOR AL MISMO.</label>
+                                        <label class="">
+                                            <?php echo  $array1[0]['GUPTA_CARDIOVASCULAR'] ?>
+                                        </label>
                                     </div>
                                 </td>
                             </tr>
@@ -544,7 +654,9 @@ $encode_firma = base64_encode($ruta_firma);
                                 <td class="" style='max-width:190px;'>
                                     <div class="d-flex">
                                         <label class="h7" style="font-weight: bold;">GENEVA:</label>
-                                        <label class=""> BAJO RIESGO PARA TEV</label>
+                                        <label class="">
+                                            <?php echo  $array1[0]['GEVENA'] ?>
+                                        </label>
                                     </div>
                                 </td>
                             </tr>
@@ -552,7 +664,9 @@ $encode_firma = base64_encode($ruta_firma);
                                 <td class="" style='max-width:190px;'>
                                     <div class="d-flex">
                                         <label class="h7" style="font-weight: bold;">CAPRINI :</label>
-                                        <label class=""> RIESGO MODERADO PARA TEV.</label>
+                                        <label class="">
+                                            <?php echo  $array1[0]['CAPRINI'] ?>
+                                        </label>
                                     </div>
                                 </td>
                             </tr>
@@ -560,7 +674,9 @@ $encode_firma = base64_encode($ruta_firma);
                                 <td class="" style='max-width:190px;'>
                                     <div class="d-flex">
                                         <label class="h7" style="font-weight: bold;">STOP- BANG :</label>
-                                        <label class=""> BAJO RIESGO DE SAOS.</label>
+                                        <label class="">
+                                            <?php echo  $array1[0]['STOP_BANG'] ?>
+                                        </label>
                                     </div>
                                 </td>
                             </tr>
@@ -577,12 +693,24 @@ $encode_firma = base64_encode($ruta_firma);
             <div class="content">
                 <div class="recomendacion_general">
                     <p>
-                        PACIENTE SALUDABLE CON ADECUADO ESTADO DE SALUD EN GENERAL, SIN COMORBILIDADES, SUS LABORATORIOS DENTRO DE PARAMETROS NORMALES, SE RECOMIENDA A LA PACIENTE EVITAR INGERIR ASPIRINA Y DERIVADOS UNA SEMANA PREVIA A PROCEDIMIENTOS, LOS SCORES PREDICTORES CON BAJO RIESGO PARA DESARROLLAR COMPLICACIONES TROMBOEMBOLICAS SE RECOMIENDA LA PROFILAXIS MECANICA Y PUEDEN CONSIDERARSE DOSIS BAJAS DE HEPARINA DE BAJO PESO MOLECULAR.
+                        <?php echo  $array1[0]['RECOMENDACIONES_TEXTO'] ?>
                     </p>
                 </div>
                 <div class="list">
                     <p>
-                        <strong>1.</strong> AYUNO 8 HRS PREVIAS A LA CIRUGIA
+                        <?php
+                        foreach ($array1[0]['RECOMENDACIONES_JSON'] as $key => $e) {
+                            $key = $key + 1;
+                            $i = '<strong>' . $key . '. </strong>';
+                            $recomendacion = $e['recomendacion'];
+
+                            echo $i . $recomendacion;
+                            echo "<br>";
+                            echo "<br>";
+                        }
+
+                        ?>
+                        <!-- <strong>1.</strong> AYUNO 8 HRS PREVIAS A LA CIRUGIA
                         <br> <br>
                         <strong>2.</strong> EVITAR SOBRECARGA HIDRICA, SE RECOMIENDA CANALIZAR CON SOL. HARTMANN DURANTE EL PROCEDIMIENTO, GUIAR REANIMACION POR METAS (MANTENER PAM >65MMHG, DIURESIS > 0.5 A 1.5ML/KG/HRA, BALANCES NEUTROS O DISCRETAMENTE NEGATIVOS.)
                         <br> <br>
@@ -596,7 +724,7 @@ $encode_firma = base64_encode($ruta_firma);
                         <br> <br>
                         <strong>7.</strong> ANALGESIA DE ACUERDO A LA OMS, INICIAR CON PARACETAMOL 1GR IV CADA 8 HRS
                         <br> <br>
-                        <strong>8.</strong> GRACIAS
+                        <strong>8.</strong> GRACIAS -->
                     </p>
                 </div>
             </div>
