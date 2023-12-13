@@ -6,7 +6,8 @@ if (validarVista('PREQUIRURGICO')) {
 // Variables Globales
 let DataPrequirurgico, TablaPacientesPrequirurgica; // varibale para la tabla de TablaPacientesPrequirurgica
 let estado
-let arrayPaciente
+let arrayPaciente // Trae los datos del paciente
+let dataRegistro // Trae la interpretacion que se haya guardado
 
 // Variables a enviar para la tabla
 const area = 1; // area
