@@ -286,6 +286,12 @@ restartPages();
 //funcion para traer todos los datos del paciente
 function dataPacientes(data){
 
+
+    //data de exploracion fisica
+    $('#exploracion_fisica').val(data['EXPLORACION_FISICA'])
+
+    //laboratorio
+    $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
 }
 
 $(document).on('click', '#btn-guardarInterpretacion', function (e) {

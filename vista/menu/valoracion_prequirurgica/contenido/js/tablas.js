@@ -80,15 +80,12 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
         restartPages();
 
         await ajaxAwait({ api: 4, turno_id: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
-            dataRegistro = data.response.data[0] // recupera
-            // Recupera la información del reporte
+            dataRegistro = data.response.data[0] // recupera todos los datos guardados
 
             // LLenar tabla
             tablalistRecomendaciones.rows.add(data.response.data[0].RECOMENDACIONES_JSON).draw()
 
-
-
-
+            dataPacientes(dataRegistro) // Funcion que muestra los datos guardados
 
             // Recupera el panel de información de reporte
 

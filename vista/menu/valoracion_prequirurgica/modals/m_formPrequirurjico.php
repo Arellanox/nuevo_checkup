@@ -238,7 +238,7 @@
 
                                     <div class="col-12 col-lg-8">
                                         <label>Exploración física: </label>
-                                        <textarea name="exploracion_fisica" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                        <textarea name="exploracion_fisica" class="form-control input-form" rows="4" cols="2" placeholder="Especifique" id="exploracion_fisica"></textarea>
                                     </div>
                                 </div>
 
@@ -256,7 +256,7 @@
                                     <div class="col-12 col-lg-8">
                                         <div class="col-12 col-lg-12">
                                             <label>Electrocardiograma 12 derivaciones: </label>
-                                            <textarea name="electro_derivaciones" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                            <textarea name="electro_derivaciones" class="form-control input-form" rows="4" cols="2" placeholder="Especifique" id="electro_derivaciones"></textarea>
                                         </div>
 
                                         <div class="col-12 col-lg-12">
@@ -385,6 +385,30 @@
                                     </div>
 
 
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="page px-4" style="display: none;">
+                            <div class="rounded p-3 shadow my-2">
+                                <h4>Signos vitales</h4>
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+
+                                    </div>
+
+                                    <div class="col-12 col-lg-8">
+                                        <div class="col-12 col-lg-12">
+                                            <label>Electrocardiograma 12 derivaciones: </label>
+                                            <textarea name="electro_derivaciones" class="form-control input-form" rows="4" cols="2" placeholder="Especifique" id="electro_derivaciones"></textarea>
+                                        </div>
+
+                                        <div class="col-12 col-lg-12">
+                                            <label>Radiografía de torax: </label>
+                                            <textarea name="radiografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </section>
