@@ -1,15 +1,7 @@
 
-// if (validarVista('REGISTRO_TEMPERATURA')) {
-//     hasLocation();
-//     $(window).on("hashchange", function (e) {
-//         hasLocation();
-//     });
-// }
-
-hasLocation();
-$(window).on("hashchange", function (e) {
-    hasLocation();
-});
+if (validarVista('PREQUIRURGICO')) {
+    ObtenerBody();
+}
 
 // Variables Globales
 let DataPrequirurgico, TablaPacientesPrequirurgica; // varibale para la tabla de TablaPacientesPrequirurgica
@@ -73,21 +65,6 @@ function createJsonObject(type, tabla = true) {
 }
 
 
-function hasLocation() {
-    var hash = window.location.hash.substring(1);
-    $("a").removeClass("navlinkactive");
-    $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-    switch (hash) {
-
-        case '':
-            ObtenerBody();
-            break;
-        default:
-            // window.location.hash = '#';
-            break;
-    }
-}
-
 // Reinicia el formulario de interpretación
 function limpiarForm(form) {
     document.getElementById(form).reset()
@@ -96,38 +73,25 @@ function limpiarForm(form) {
 
 // Cambia y muestra los botones del formulario
 function estadoFormulario(guardado, confirmado) {
-    // switch (estado) {
-    //     case 1:
-    //         $('#btn-vistaPrevia').fadeIn()
-    //         $('#btn-confirmarReporte').fadeIn()
-    //         $('#btn-guardarInterpretacion').fadeIn()
-    //         break;
+    let $vista_previa = $('#btn-vistaPrevia') // Boton de vista previa de pdf
+    let $confirmar_rept = $('#btn-confirmarReporte') // Boton de confirmar reporte
+    let $guardar_inter = $('#btn-guardarInterpretacion') // Boton de guardar interpretación
 
-    //     case 2:
-    //         $('#btn-confirmarReporte').fadeOut()
-    //         $('#btn-guardarInterpretacion').fadeOut()
-    //         // $('#formInterpretacion').prop('disabled', true);
-    //         break;
-
-    //     default:
-    //         $('#btn-vistaPrevia').fadeOut()
-    //         $('#btn-confirmarReporte').fadeOut()
-    //         break;
-    // }
+    // Resetea los botones para colocar el estado apropiado
+    $('.btn_interpretacion_modal').prop('disabled', false)
 
     if (guardado == 0 && confirmado == 0) {
-        $('#btn-vistaPrevia').fadeOut()
-        $('#btn-confirmarReporte').fadeOut()
-
+        // Estado cuando no tiene nada de datos
+        $vista_previa.fadeOut()
+        $confirmar_rept.fadeOut()
     } else if (guardado == 1 && confirmado == 0) {
-        $('#btn-vistaPrevia').fadeIn()
-        $('#btn-confirmarReporte').fadeIn()
-        $('#btn-guardarInterpretacion').fadeIn()
+        // Estado cuando solo esta guardado
+        $('.btn_interpretacion_modal').fadeIn() // Recupera/Visualiza todo
     } else {
-        $('#btn-confirmarReporte').prop('disabled', true)
-        $('#btn-guardarInterpretacion').prop('disabled', true)
-        // $('#btn-confirmarReporte').fadeOut()
-        // $('#btn-guardarInterpretacion').fadeOut()
+        // Estado cuando Esta confirmado
+        $confirmar_rept.prop('disabled', true)
+        $guardar_inter.prop('disabled', true)
+
     }
 }
 

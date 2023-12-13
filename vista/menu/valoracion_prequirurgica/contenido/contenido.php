@@ -45,6 +45,14 @@
 
 
                 </div>
+
+                <div id="mostrarResultado" style="display: none;">
+
+                    <h5>Resultados del paciente:</h5>
+                    <div class="accordion" id="resultadosServicios-areas">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

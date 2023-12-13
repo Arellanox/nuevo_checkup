@@ -185,11 +185,11 @@
                                             <label>Cirugía programada: </label>
                                             <!-- <input type="hidden" name="cirugia[8][id]" value="8"> -->
                                             <!-- <textarea name="radiografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea> -->
-                                            
+
                                         </div>
 
                                         <div class="col-12 col-lg-8 row d-flex align-items-start justify-content-center">
-                                        <input type="text" class="form-control input-form" id="cirugia_programada" name="cirugia_programada">
+                                            <input type="text" class="form-control input-form" id="cirugia_programada" name="cirugia_programada">
                                         </div>
                                         <!-- <div class="target-4 collapse">
                                             <textarea name="antecedentes[8][comentario]" class="form-control input-form" rows="2" cols="2" placeholder="Cuál y Frecuencia"></textarea>
@@ -408,16 +408,16 @@
                     Siguiente</button>
                 <!-- /////// -->
 
-                <button type="button" class="btn btn-borrar" id="btn-vistaPrevia">
+                <button type="button" class="btn_interpretacion_modal btn btn-borrar" id="btn-vistaPrevia">
                     <i class="bi bi-file-earmark-pdf"></i> Vista previa
 
                 </button>
 
-                <button type="button" class="btn btn-confirmar" id="btn-guardarInterpretacion">
+                <button type="button" class="btn_interpretacion_modal btn btn-confirmar" id="btn-guardarInterpretacion">
                     <i class="bi bi-clipboard2-plus"></i> Guardar interpretación
                 </button>
 
-                <button type="button" class="btn btn-confirmar" id="btn-confirmarReporte">
+                <button type="button" class="btn_interpretacion_modal btn btn-confirmar" id="btn-confirmarReporte">
                     <i class="bi bi-clipboard2-plus"></i> Confirmar reporte
                 </button>
 
