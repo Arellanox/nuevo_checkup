@@ -55,7 +55,7 @@ $data_g = array(
     $caprini,
     $stop_bang,
     $recomendaciones_texto,
-    json_encode($recomendaciones_josn),
+    $recomendaciones_josn,
     $turno_id,
     $confirmado
 
