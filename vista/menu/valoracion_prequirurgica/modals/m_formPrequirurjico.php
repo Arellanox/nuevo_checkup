@@ -352,14 +352,14 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <table id="tablalistRecomendaciones" style="width: 100%;">
-                                            <thead>
+                                            <!-- <thead>
                                                 <tr>
                                                     <th class="p-1 fw-bold">#</th>
                                                     <th class="p-1">Recomendaciones</th>
                                                     <th class="p-1 text-center"><i class="bi bi-trash3"></i></th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tbody_recomendaciones"></tbody>
+                                            <tbody id="tbody_recomendaciones"></tbody> -->
                                         </table>
                                     </div>
 

@@ -98,6 +98,23 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
 })
 
 
+// New table to Datatabl
+tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
+    language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
+    lengthChange: false,
+    info: true,
+    paging: false,
+    sorting: false,
+    scrollY: '75vh',
+    scrollCollapse: true,
+    columnDefs: [
+        { target: 0, title: '#', className: 'all' },
+        { target: 1, title: 'Recomendaciones', className: 'all' },
+        { target: 2, title: '<i class="bi bi-trash3"></i>  ', className: 'all' },
+    ],
+})
+
+
 // evento change del checkbox para aparecer a todos los pacientes
 $(document).on('change', '#checkDiaAnalisis', function () {
 
