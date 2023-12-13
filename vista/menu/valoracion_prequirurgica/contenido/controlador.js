@@ -27,16 +27,17 @@ async function ObtenerBody() {
         $("#body-js").html(html);
     }).done(async function () {
         estadoFormulario(estado)
+        // variable a enviar para que la tabla recupere los datos
+        createJsonObject(1, false);
         // Datatable    
         $.getScript("contenido/js/tablas.js").done(function (data) {
-            // variable a enviar para que la tabla recupere los datos
-            createJsonObject(1);
+
         });
     });
 }
 
 // function para crear el json para la tabla de TablaPacientesPrequirurgica
-function createJsonObject(type) {
+function createJsonObject(type, tabla = true) {
 
     // sacamos la fecha actual de la sesion
     let fecha = $('#fechaListadoAreaMaster').val();  // fecha actual de la sesion
@@ -62,8 +63,10 @@ function createJsonObject(type) {
     // seteamos la variable global DataPrequirurgico con la data
     DataPrequirurgico = data;
 
-    // hacemos un ajax reload a la tabla para aplicar los cambios
-    TablaPacientesPrequirurgica.ajax.reload()
+    if (tabla) {
+        // hacemos un ajax reload a la tabla para aplicar los cambios
+        TablaPacientesPrequirurgica.ajax.reload()
+    }
 
     // regresamos el JSON
     return data;
@@ -119,7 +122,7 @@ function estadoFormulario(guardado, confirmado) {
     } else if (guardado == 1 && confirmado == 0) {
         $('#btn-vistaPrevia').fadeIn()
         $('#btn-confirmarReporte').fadeIn()
-        $('#btn-guardarInterpretacion').fadeIn()   
+        $('#btn-guardarInterpretacion').fadeIn()
     } else {
         $('#btn-confirmarReporte').fadeOut()
         $('#btn-guardarInterpretacion').fadeOut()
