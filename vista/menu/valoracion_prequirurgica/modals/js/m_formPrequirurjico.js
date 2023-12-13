@@ -288,12 +288,52 @@ restartPages();
 //funcion para traer todos los datos del paciente
 function dataPacientes(data) {
 
-
-    //data de exploracion fisica
+    //exploracion fisica
     $('#exploracion_fisica').val(data['EXPLORACION_FISICA'])
+
+    for(i = 0; i < data['SIGNOS_VITALES'].length; i++) {
+        let signo = data['SIGNOS_VITALES'][i]
+        // console.log(signo)
+        let input = $(`#signos_vitales_padre input[name="signos_vitales[${signo['ID']}][valor]"]`)
+        input.val(signo['RESULTADO'])
+    }
+
+    // $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
+    //     // console.log(ante[key], key);
+    //     if (Object.hasOwnProperty.call(ante, key)) { // verifica cada pregunta si existe una previamente guardada
+    //         const $element = $(this);
+    //         console.log(2)
+
+    //         respuesta = ante[key]['ID_RESPUESTA']; // Busca la ID de la pregunta
+
+            // let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`); // Busca el campo seleccionado
+
+    //         $input.prop('checked', true) // chequea de los 2 checkbox, el guardado previamente
+
+    //         if (respuesta === 1)
+    //             $element.find('div.collapse').show(); // abre o cierra el collapse del input de comentario por el valor de la respuesto
+
+    //         // console.log(key, $element.find('textarea')); 
+
+    //         const $textarea = $element.find('textarea'); // Busca el textarea de comentario
+    //         $textarea.val(ante[key]['COMENTARIO']); // Agrega el valor del textarea
+    //     }
+    // })
 
     //laboratorio
     $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
+
+    //Riesgo quirurgico
+    $('#select-asa').val(data['ASA'])
+    $('#select-goldman').val(data['GOLDMAN'])
+    $('#input-geneva').val(data['GEVENA'])
+    $('#input-caprini').val(data['CAPRINI'])
+    $('#input-ban').val(data['STOP_BANG'])
+
+    $('#gupta_respiratorio').val(data['GUPTA_RESPIRATORIO'])
+    $('#gupta_neumonia').val(data['GUPTA_NEUMONIA'])
+    $('#gupta_cardiovascular').val(data['GUPTA_CARDIOVASCULAR'])
+
 }
 
 $(document).on('click', '#btn-guardarInterpretacion', function (e) {

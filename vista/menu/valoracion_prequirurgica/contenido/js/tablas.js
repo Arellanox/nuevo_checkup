@@ -87,7 +87,10 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
                 tablalistRecomendaciones.rows.add(data.response.data[0].RECOMENDACIONES_JSON).draw()
             }
 
-            dataPacientes(dataRegistro) // Funcion que muestra los datos guardados
+            //Verifica que si tenga algo y no llegue en null
+            if (dataRegistro !== undefined || dataRegistro === "undefined") {
+                dataPacientes(dataRegistro) // Funcion que muestra los datos guardados
+            }
 
             // Recupera el panel de información de reporte
 

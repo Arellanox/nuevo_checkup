@@ -205,49 +205,50 @@
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Exploración</h4>
                                 <div class="row" id="">
-                                    <div class="col-12 col-lg-5">
+                                    <div class="col-12 col-lg-5" id="signos_vitales_padre">
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
                                                 <label>TENSIÓN ARTERIAL</label>
+                                                <input type="hidden" name="signos_vitales[1][id]" value="1">
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <input type="text" class="form-control input-form"  id="" name="signos_vitales[1][valor]" placeholder="">
                                                     <span class="input-span">MMHG</span>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
                                                 <label>FRECUENCIA CARDIACA</label>
-                                                <!-- <p class="respuesta"><strong>66 LATIDOS POR MINUTO</strong></p> -->
+                                                <input type="hidden" name="signos_vitales[2][id]" value="2">
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <input type="number" class="form-control input-form" id="" name="signos_vitales[2][valor]" placeholder="">
                                                     <span class="input-span">LPM</span>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
                                                 <label class="pregunta">FRECUENCIA RESPIRATORIA</label>
-                                                <!-- <p class="respuesta"><strong>20 RESPIRACIONES POR MINUTO</strong></p> -->
+                                                <input type="hidden" name="signos_vitales[3][id]" value="3">
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <input type="number" class="form-control input-form" id="" name="signos_vitales[3][valor]" placeholder="">
                                                     <span class="input-span">RPM</span>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
                                                 <label class="pregunta">TEMPERATURA</label>
-                                                <!-- <p class="respuesta"><strong>35.8°C</strong></p> -->
+                                                <input type="hidden" name="signos_vitales[4][id]" value="4">
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <input type="number" class="form-control input-form" id="" name="signos_vitales[4][valor]" placeholder="">
                                                     <span class="input-span">°C</span>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
                                                 <label class="pregunta">SATURACIÓN DE OXÍEGNO</label>
-                                                <!-- <p class="respuesta"><strong>96 %</strong></p> -->
+                                                <input type="hidden" name="signos_vitales[5][id]" value="5">
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <input type="number" class="form-control input-form" id="" name="signos_vitales[5][valor]" placeholder="">
                                                     <span class="input-span">%</span>
                                                 </div>
                                             </div>
@@ -323,19 +324,19 @@
                                             <div>
                                                 <label>GENEVA: </label>
                                                 <!-- <input type="hidden" name="riesgo[3][id]" value="3"> -->
-                                                <input type="text" class="form-control input-form" name="GENEVA">
+                                                <input type="text" class="form-control input-form" name="GENEVA" id="input-geneva">
                                             </div>
 
                                             <div>
                                                 <label>CAPRINI: </label>
                                                 <!-- <input type="hidden" name="riesgo[4][id]" value="4"> -->
-                                                <input type="text" class="form-control input-form" name="CAPRINI">
+                                                <input type="text" class="form-control input-form" name="CAPRINI" id="input-caprini">
                                             </div>
 
                                             <div>
                                                 <label>STOP-BAN: </label>
                                                 <!-- <input type="hidden" name="riesgo[5][id]" value="5"> -->
-                                                <input type="text" class="form-control input-form" name="STOP-BAN">
+                                                <input type="text" class="form-control input-form" name="STOP-BAN" id="input-ban">
                                             </div>
                                         </div>
 
@@ -346,17 +347,17 @@
                                             <div>
                                                 <label>GUPTA RESPIRATORIO: </label>
                                                 <!-- <input type="hidden" name="riesgo[6][id]" value="6"> -->
-                                                <textarea name="gupta_respiratorio" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                <textarea name="gupta_respiratorio" class="form-control input-form" rows="2" cols="1" placeholder="Especifique" id="gupta_respiratorio"></textarea>
                                             </div>
                                             <div>
                                                 <label>GUPTA NEUMONIA: </label>
                                                 <!-- <input type="hidden" name="riesgo[7][id]" value="7"> -->
-                                                <textarea name="gupta_neumonia" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                <textarea name="gupta_neumonia" class="form-control input-form" rows="2" cols="1" placeholder="Especifique" id="gupta_neumonia"></textarea>
                                             </div>
                                             <div>
                                                 <label>GUPTA CARDIOVASCULAR: </label>
                                                 <!-- <input type="hidden" name="riesgo[8][id]" value="8"> -->
-                                                <textarea name="gupta_cardiovascular" class="form-control input-form" rows="2" cols="1" placeholder="Especifique"></textarea>
+                                                <textarea name="gupta_cardiovascular" class="form-control input-form" rows="2" cols="1" placeholder="Especifique" id="gupta_cardiovascular"></textarea>
                                             </div>
                                         </div>
                                     </div>
