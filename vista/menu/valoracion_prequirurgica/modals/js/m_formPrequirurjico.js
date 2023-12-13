@@ -283,28 +283,11 @@ function restartPages() {
 // Llamar a esta función para reiniciar
 restartPages();
 
+//funcion para traer todos los datos del paciente
+function dataPacientes(data){
 
+}
 
-// $('#btn-guardarInterpretacion').on('click', function (e) {
-//     e.preventDefault();
-//     btnInterpretacion(1)
-// })
-
-
-// function btnInterpretacion(bit) {
-//     if (bit === 1) {
-//         alertMensajeConfirm({
-//             tittle: '¿Esta seguro de guardar la valoración prequirúrgica?',
-//             text: 'Se podra modificarlo despues',
-//             icon: 'warning',
-//             confirmButtonText: 'Si, estoy seguro'
-//         }, function () {
-//             console.log(1)
-//         },1)
-//     } else {
-//         console.log(2)
-//     }
-// }
 $(document).on('click', '#btn-guardarInterpretacion', function (e) {
     e.preventDefault();
     title = '¿Esta seguro de guardar la valoración prequirúrgica?'

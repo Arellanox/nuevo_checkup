@@ -80,7 +80,7 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
         restartPages();
 
         await ajaxAwait({ api: 4, turno_id: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
-            console.log(data)
+            dataRegistro = data.response.data[0] // recupera
             // Recupera la información del reporte
 
             // LLenar tabla
