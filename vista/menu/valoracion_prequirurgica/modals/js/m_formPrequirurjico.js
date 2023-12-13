@@ -150,6 +150,7 @@ tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
     // scrollCollapse: true,
 })
 
+inputBusquedaTable('tablalistRecomendaciones', tablalistRecomendaciones, [], [], 'col-12')
 
 // ============ Funciones para  la paginacion del modal by Gera ================================
 
