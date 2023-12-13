@@ -23,7 +23,7 @@
                     <div class="row container-pages m-2">
                         <!-- Interrogatorio -->
                         <section class="page px-4" style="display: none;">
-                            <div class="rounded p-3 shadow my-2">
+                            <div class="rounded p-3 shadow my-2" id="antecedentes_preguntas">
                                 <h4>Antecedentes</h4>
                                 <div class="row">
 
@@ -183,9 +183,6 @@
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12 col-lg-4">
                                             <label>Cirugía programada: </label>
-                                            <!-- <input type="hidden" name="cirugia[8][id]" value="8"> -->
-                                            <!-- <textarea name="radiografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea> -->
-
                                         </div>
 
                                         <div class="col-12 col-lg-8 row d-flex align-items-start justify-content-center">
@@ -212,7 +209,7 @@
                                                 <label>TENSIÓN ARTERIAL</label>
                                                 <input type="hidden" name="signos_vitales[1][id]" value="1">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control input-form"  id="" name="signos_vitales[1][valor]" placeholder="">
+                                                    <input type="text" class="form-control input-form" id="" name="signos_vitales[1][valor]" placeholder="">
                                                     <span class="input-span">MMHG</span>
                                                 </div>
                                             </div>

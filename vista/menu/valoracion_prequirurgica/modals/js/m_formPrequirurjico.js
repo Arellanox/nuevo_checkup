@@ -292,11 +292,38 @@ function dataPacientes(data) {
     //exploracion fisica
     $('#exploracion_fisica').val(data['EXPLORACION_FISICA'])
 
-    for(i = 0; i < data['SIGNOS_VITALES'].length; i++) {
+    for (i = 0; i < data['SIGNOS_VITALES'].length; i++) {
         let signo = data['SIGNOS_VITALES'][i]
         // console.log(signo)
         let input = $(`#signos_vitales_padre input[name="signos_vitales[${signo['ID']}][valor]"]`)
         input.val(signo['RESULTADO'])
+    }
+
+    if (ant = ifnull(data, false, ['JSON_ANTECENDENTES'])) {
+        // antecedentes_preguntas
+
+        for (const key in ant) {
+            if (Object.hasOwnProperty.call(ant, key)) {
+                const element = ant[key];
+
+
+                // indice o pregunta ID
+                let pregunta = ifnull(element, false, ['id_antecedente'])
+
+                let comentario = ifnull(element, '', ['comentario'])
+                let id_respuesta = ifnull(element, false, ['id_respuesta'])
+                console.log(`#antecedentes_preguntas input[type=radio][name="antecedentes[${pregunta}][option]"][value="${id_respuesta}"]`)
+                $(`#antecedentes_preguntas input[type=radio][name="antecedentes[${pregunta}][option]"][value="${id_respuesta}"]`).prop('checked', true)
+
+                if (comentario) {
+                    alert(1)
+                    // $('#antecedentes_preguntas div.collapse').show();
+                    let textarea = $(`#antecedentes_preguntas textarea[name="antecedentes[${pregunta}][comentario]"]`)
+                    textarea.val(comentario)
+                    textarea.closest('div.collapse').show(); //Busca el collapse del comentario para mostrarlo
+                }
+            }
+        }
     }
 
     // $(`#${'antecedentes-preguntas'} div.pregunta`).each(function (key) {
@@ -307,7 +334,7 @@ function dataPacientes(data) {
 
     //         respuesta = ante[key]['ID_RESPUESTA']; // Busca la ID de la pregunta
 
-            // let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`); // Busca el campo seleccionado
+    // let $input = $(`input[type="radio"][name="antecedentes[${parseInt(key) + 1}][option]"][value="${respuesta}"]`); // Busca el campo seleccionado
 
     //         $input.prop('checked', true) // chequea de los 2 checkbox, el guardado previamente
 

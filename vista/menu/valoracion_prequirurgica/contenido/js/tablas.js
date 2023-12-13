@@ -77,7 +77,9 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
 }, async function (select, data, callback) {
     arrayPaciente = data
     estadoFormulario(arrayPaciente['GUARDADO'], arrayPaciente['CONFIRMADO_PREQUIRURGICO'])
+
     if (select) {
+        limpiarForm('formInterpretacion');
         // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
         await obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
 
