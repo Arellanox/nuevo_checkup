@@ -205,38 +205,57 @@
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Exploración</h4>
                                 <div class="row" id="">
-                                    <div class="col-12 col-lg-4">
+                                    <div class="col-12 col-lg-5">
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <p class="pregunta">TENSIÓN ARTERIAL</p>
-                                                <p class="respuesta"><strong>120/83 MMHG</strong></p>
+                                                <label>TENSIÓN ARTERIAL</label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <span class="input-span">MMHG</span>
+                                                </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
-                                                <p class="pregunta">FRECUENCIA CARDIACA</p>
-                                                <p class="respuesta"><strong>66 LATIDOS POR MINUTO</strong></p>
+                                                <label>FRECUENCIA CARDIACA</label>
+                                                <!-- <p class="respuesta"><strong>66 LATIDOS POR MINUTO</strong></p> -->
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <span class="input-span">LPM</span>
+                                                </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
-                                                <p class="pregunta">FRECUENCIA RESPIRATORIA</p>
-                                                <p class="respuesta"><strong>20 RESPIRACIONES POR MINUTO</strong></p>
+                                                <label class="pregunta">FRECUENCIA RESPIRATORIA</label>
+                                                <!-- <p class="respuesta"><strong>20 RESPIRACIONES POR MINUTO</strong></p> -->
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <span class="input-span">RPM</span>
+                                                </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
-                                                <p class="pregunta">TEMPERATURA</p>
-                                                <p class="respuesta"><strong>35.8°C</strong></p>
+                                                <label class="pregunta">TEMPERATURA</label>
+                                                <!-- <p class="respuesta"><strong>35.8°C</strong></p> -->
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <span class="input-span">°C</span>
+                                                </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
-                                                <p class="pregunta">SATURACIÓN DE OXÍEGNO</p>
-                                                <p class="respuesta"><strong>96 %</strong></p>
+                                                <label class="pregunta">SATURACIÓN DE OXÍEGNO</label>
+                                                <!-- <p class="respuesta"><strong>96 %</strong></p> -->
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control input-form" id="" name="" placeholder="">
+                                                    <span class="input-span">%</span>
+                                                </div>
                                             </div>
                                         </div>
 
                                     </div>
 
-                                    <div class="col-12 col-lg-8">
+                                    <div class="col-12 col-lg-7">
                                         <label>Exploración física: </label>
                                         <textarea name="exploracion_fisica" class="form-control input-form" rows="4" cols="2" placeholder="Especifique" id="exploracion_fisica"></textarea>
                                     </div>
@@ -275,28 +294,30 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-4">
                                         <div class="p-2">
-                                            <div>
-                                                <label>ASA: </label>
-                                                <!-- <input type="hidden" name="riesgo[1][id]" value="1"> -->
-                                                <select name="ASA" id="select-asa" class="input-form form-control">
-                                                    <option value="I">I</option>
-                                                    <option value="II">II</option>
-                                                    <option value="III">III</option>
-                                                    <option value="IV">IV</option>
-                                                    <option value="V">V</option>
-                                                    <option value="VI">VI</option>
-                                                </select>
-                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-lg-6">
+                                                    <label>ASA: </label>
+                                                    <!-- <input type="hidden" name="riesgo[1][id]" value="1"> -->
+                                                    <select name="ASA" id="select-asa" class="input-form form-control">
+                                                        <option value="I">I</option>
+                                                        <option value="II">II</option>
+                                                        <option value="III">III</option>
+                                                        <option value="IV">IV</option>
+                                                        <option value="V">V</option>
+                                                        <option value="VI">VI</option>
+                                                    </select>
+                                                </div>
 
-                                            <div>
-                                                <label>GOLDMAN: </label>
-                                                <!-- <input type="hidden" name="riesgo[2][id]" value="2"> -->
-                                                <select name="GOLDMAN" id="select-goldman" class="input-form form-control">
-                                                    <option value="I">I</option>
-                                                    <option value="II">II</option>
-                                                    <option value="III">III</option>
-                                                    <option value="IV">IV</option>
-                                                </select>
+                                                <div class="col-12 col-lg-6">
+                                                    <label>GOLDMAN: </label>
+                                                    <!-- <input type="hidden" name="riesgo[2][id]" value="2"> -->
+                                                    <select name="GOLDMAN" id="select-goldman" class="input-form form-control">
+                                                        <option value="I">I</option>
+                                                        <option value="II">II</option>
+                                                        <option value="III">III</option>
+                                                        <option value="IV">IV</option>
+                                                    </select>
+                                                </div>
                                             </div>
 
                                             <div>
@@ -389,29 +410,6 @@
                             </div>
                         </section>
 
-                        <section class="page px-4" style="display: none;">
-                            <div class="rounded p-3 shadow my-2">
-                                <h4>Signos vitales</h4>
-                                <div class="row">
-                                    <div class="col-12 col-lg-4">
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-8">
-                                        <div class="col-12 col-lg-12">
-                                            <label>Electrocardiograma 12 derivaciones: </label>
-                                            <textarea name="electro_derivaciones" class="form-control input-form" rows="4" cols="2" placeholder="Especifique" id="electro_derivaciones"></textarea>
-                                        </div>
-
-                                        <div class="col-12 col-lg-12">
-                                            <label>Radiografía de torax: </label>
-                                            <textarea name="radiografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
                     </div>
 
                 </form>
