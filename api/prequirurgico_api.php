@@ -90,7 +90,7 @@ switch ($api) {
         
         #RECUPERAR LOS RESULTADOS 
         $response = $master->getByProcedure('sp_prequirurgico_pdf_b', [$turno_id]);
-
+        $response = $master->decodeJsonRecursively($response);
         break;
 
     default:
