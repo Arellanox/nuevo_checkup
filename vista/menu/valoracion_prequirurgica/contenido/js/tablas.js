@@ -37,6 +37,11 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
         },
         dataSrc: 'response.data'
     },
+    createdRow: function (row, data, dataIndex) {
+        if (data.CONFIRMADO_PREQUIRURGICO == 1) {
+            $(row).addClass('bg-success text-white');
+        }
+    },
     columns: [
         { data: 'COUNT' },
         { data: 'NOMBRE_COMPLETO' },
@@ -79,7 +84,10 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
         // Llamar a esta función para reiniciar
         restartPages();
 
+        $('#btn-vistaPrevia').attr('turno_actual', data['ID_TURNO'])
+
         await ajaxAwait({ api: 4, turno_id: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
+
             dataRegistro = data.response.data[0] // recupera todos los datos guardados
 
             // LLenar tabla
@@ -93,6 +101,9 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
             }
 
             // Recupera el panel de información de reporte
+            // Llamada a la función principal
+            actualizarAcordeon(data.response.data);
+
 
         })
 
@@ -143,6 +154,18 @@ $(document).on('change', '#fechaListadoAreaMaster', function () {
 })
 
 
+$('#btn-vistaPrevia').click(function () {
+
+
+    let api = encodeURIComponent(window.btoa('prequirurgica'));
+    let turno = encodeURIComponent(window.btoa($(this).attr('turno_actual')));
+    let area = encodeURIComponent(window.btoa('-5'));
+
+
+    window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+})
+
+
 // evento change del checkbox para aparecer a todos los pacientes
 // $('#checkDiaAnalisis').click(function () {
 //     console.log(1)
@@ -159,117 +182,47 @@ $(document).on('change', '#fechaListadoAreaMaster', function () {
 // console.log(TablaPacientesPrequirurgica)
 
 
-async function panelResultadoPaciente(row, area) {
-
-    let html = '';
-    let itemStart = '<div class="accordion-item bg-acordion">';
-    let itemEnd = '</div>';
-
-    let bodyStart = '<div class="accordion-body"> <div class="row">';
-    let bodyEnd = '</div>  </div>';
-    html += '';
-    let truehtml = false;
+function actualizarAcordeon(row) {
+    let html = row.length ? row.map((dato, indice) => crearItemAcordeon(dato, indice)).join('') : mostrarMensaje('Interpretación del paciente sin cargar');
     $('#resultadosServicios-areas').html(html);
-
-    $('#mostrarResultado').fadeOut()
-
-    if (row[0].length) {
-        // console.log(row[0])
-        for (const i in row) {
-
-            // console.log(row[i]);
-            html += itemStart;
-            html += '<h2 class="accordion-header" id="collap-historial-estudios' + i + '">' +
-                '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio' + i + '-Target" aria-expanded="false" aria-controls="accordionEstudios">' +
-                '<div class="row">' +
-                '<div class="col-12">' +
-                '<i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>' + ifnull(row[i][0]['CARGADO_POR']) + '</strong>' +
-                '</div>' +
-                '<div class="col-12">' +
-                '<i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>' + formatoFecha2(row[i][0]['FECHA_RESULTADO'], [3, 1, 2, 2, 1, 1, 1]) + '</strong> ' + //<strong>12:00 '+i+'</strong>
-                '</div>' +
-                '</div>' +
-                '</button>' +
-                '</h2>' +
-                //Dentro del acordion
-                '<div id="collapse-estudio' + i + '-Target" class="accordion-collapse collapse " aria-labelledby="collap-historial-estudios' + i + '" > '; //overflow-auto style="max-height: 70vh"
-
-            html += bodyStart;
-
-            //Boton de interpretacion
-            if (row[i][0]['PDF']) {
-                html += '<div class="col-12 d-flex justify-content-center">' +
-                    '<a type="button" target="_blank" class="btn btn-borrar me-2" href="' + row[i][0]['PDF'] + '" style="margin-bottom:4px">' +
-                    '<i class="bi bi-file-earmark-pdf"></i> Interpretación' +
-                    '</a>' +
-                    '</div>';
-                //Busca si existe interpretación o imagen
-                truehtml = true;
-            } else if (row[i][0]['CONFIRMADO'] == 0 && row[i][0]['GUARDADO'] == 1) {
-                truehtml = true;
-                html += '<div class="col-12 d-flex justify-content-center">' +
-                    '<div class="alert alert-danger" role="alert"> Reporte sin confirmar </div>' +
-                    '</div>';
-            }
-
-
-            let img = false;
-            for (const im in row[i]) {
-                // console.log(row[i][im]['CAPTURAS'])
-                try {
-                    if (row[i][im]['CAPTURAS'].length) img = true;
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-            if (img) {
-                html += '<div class="col-12 d-flex justify-content-center">' +
-                    '<a type="button" class="btn btn-option me-2" data-bs-toggle="modal" data-bs-target="#CapturasdeArea" style="margin-bottom:4px">' +
-                    '<i class="bi bi-images"></i> Capturas' +
-                    '</a>' +
-                    '</div>';
-                //Busca si existe interpretación o imagen
-                truehtml = true;
-            }
-
-            if (ifnull(row[i][0]['ELECTRO_PDF'])) {
-                html += '<div class="col-12 d-flex justify-content-center">' +
-                    '<a type="button" target="_blank" href="' + row[i][0]['ELECTRO_PDF'] + '" class="btn btn-option me-2" style="margin-bottom:4px">' +
-                    '<i class="bi bi-images"></i> Capturas' +
-                    '</a>' +
-                    '</div>';
-                //Busca si existe interpretación o imagen
-                truehtml = true;
-            }
-
-
-            if (area === 5) {
-
-                if (row[i][0]['RUTA_REPORTES_ESPIRO']) {
-                    html += '<div class="col-12 d-flex justify-content-center">' +
-                        '<a type="button" target="_blank" class="btn btn-borrar me-2" href="' + row[i][0]['RUTA_REPORTES_ESPIRO'] + '" style="margin-bottom:4px">' +
-                        '<i class="bi bi-file-earmark-pdf"></i> Espirometría' +
-                        '</a>' +
-                        '</div>';
-                    //Busca si existe interpretación o imagen
-                    truehtml = true;
-                }
-
-            }
-
-
-            html += bodyEnd + '</div>';
-            html += itemEnd;
-        }
-
-        if (truehtml) {
-            $('#spamResultado').html('')
-            $('#resultadosServicios-areas').html(html)
-            $('#mostrarResultado').fadeIn()
-        } else {
-            $('#spamResultado').html('<div class="alert alert-info" role="alert">Reporte del paciente sin cargar</div > ')
-        }
-    } else {
-        $('#spamResultado').html('<div class="alert alert-info" role="alert">Interpretación del paciente sin cargar</div>')
-    }
+    html ? $('#mostrarResultado').fadeIn() : $('#mostrarResultado').fadeOut();
 }
+
+function crearItemAcordeon(dato, indice) {
+    return `
+        <div class="accordion-item bg-acordion">
+            <h2 class="accordion-header" id="collap-historial-estudios${indice}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estudio${indice}-Target" aria-expanded="false" aria-controls="accordionEstudios">
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="bi bi-box-seam"></i> &nbsp;&nbsp;&nbsp; Cargado: <strong>${ifnull(dato['CARGADO_POR'])}</strong>
+                        </div>
+                        <div class="col-12">
+                            <i class="bi bi-calendar3"></i> &nbsp;&nbsp;&nbsp; Fecha: <strong>${formatoFecha2(dato['FECHA_RESULTADO'], [3, 1, 2, 2, 1, 1, 1])}</strong>
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapse-estudio${indice}-Target" class="accordion-collapse collapse" aria-labelledby="collap-historial-estudios${indice}">
+                <div class="accordion-body">
+                    <div class="row">
+                        ${dato['PDF'] ? crearBotonPDF(dato['PDF']) : dato['CONFIRMADO'] == 0 && dato['GUARDADO'] == 1 ? '<div class="alert alert-danger" role="alert"> Reporte sin confirmar </div>' : ''}
+                    </div>
+                </div>
+            </div>
+        </div>`;
+}
+
+function crearBotonPDF(url) {
+    return `<div class="col-12 d-flex justify-content-center">
+                <a type="button" target="_blank" class="btn btn-borrar me-2" href="${url}" style="margin-bottom:4px">
+                    <i class="bi bi-file-earmark-pdf"></i> Interpretación
+                </a>
+            </div>`;
+}
+
+function mostrarMensaje(mensaje) {
+    return `<div class="alert alert-info" role="alert">${mensaje}</div>`;
+}
+
+
