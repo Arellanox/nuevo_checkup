@@ -79,8 +79,8 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
         // Llamar a esta función para reiniciar
         restartPages();
 
-        await ajaxAwait({ api: 4, ID_TURNO: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, () => {
-
+        await ajaxAwait({ api: 4, ID_TURNO: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
+            console.log(data)
             // Recupera la información del reporte
 
 
