@@ -23,22 +23,22 @@ $('#btn-ver-reporte').click(function () {
 })
 
 
-// Enviar interpretacion a back
-$(`#formInterpretacion`).submit(function (e) {
-    e.preventDefault();
+// // Enviar interpretacion a back
+// $(`#formInterpretacion`).submit(function (e) {
+//     e.preventDefault();
 
-    alertMensajeConfirm({
-        tittle: '¿Estás seguro de guardar la interpretacion',
-        text: 'Los cambios previos serán reemplazados al guardar',
-        icon: 'question'
-    }, function () {
-        ajaxAwaitFormData({
-            api: 2,
-        }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, () => {
-            alert(1);
-        })
-    }, 1)
-})
+//     alertMensajeConfirm({
+//         tittle: '¿Estás seguro de guardar la interpretacion',
+//         text: 'Los cambios previos serán reemplazados al guardar',
+//         icon: 'question'
+//     }, function () {
+//         ajaxAwaitFormData({
+//             api: 2,
+//         }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, () => {
+//             alert(1);
+//         })
+//     }, 1)
+// })
 
 
 
@@ -304,6 +304,7 @@ function guardarDatos(bit) {
     if (bit == 1) {
         ajaxAwaitFormData({ api: 2, turno_id: arrayPaciente['ID_TURNO'] , confirmado: 0}, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
             alertToast('Se han guardado los datos correctamente', 'success', 4000)
+
         })
     } else {
         ajaxAwait({ api: 3, turno_id: arrayPaciente['ID_TURNO'] , confirmado: 1}, 'prequirurgico_api', { callbackAfter: true }, false, function (data) {
@@ -312,41 +313,3 @@ function guardarDatos(bit) {
     }
 }
 
-
-
-let response = [
-    Antecedentes = [
-        {
-            id: 1,
-            valor: 1
-        },
-        {
-            id: 2,
-            valor: 1
-        },
-        {
-            id: 2,
-            valor: 1
-        }
-    ],
-    Recomendaciones = {
-        General: {
-            id: 9,
-            valor: "askldjlaksjdosajodsajldsaj"
-        },
-        lista: [
-            {
-                index: 0,
-                recomendacion: "sadjklasdlkjassd"
-            },
-            {
-                index: 0,
-                recomendacion: "sadjklasdlkjassd"
-            },
-            {
-                index: 0,
-                recomendacion: "sadjklasdlkjassd"
-            }
-        ]
-    }
-];

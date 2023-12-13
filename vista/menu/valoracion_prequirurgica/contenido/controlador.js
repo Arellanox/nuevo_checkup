@@ -92,24 +92,37 @@ function limpiarForm(form) {
 }
 
 // Cambia y muestra los botones del formulario
-function estadoFormulario(estado) {
-    switch (estado) {
-        case 1:
-            $('#btn-vistaPrevia').fadeIn()
-            $('#btn-confirmarReporte').fadeIn()
-            $('#btn-guardarInterpretacion').fadeIn()
-            break;
+function estadoFormulario(guardado, confirmado) {
+    // switch (estado) {
+    //     case 1:
+    //         $('#btn-vistaPrevia').fadeIn()
+    //         $('#btn-confirmarReporte').fadeIn()
+    //         $('#btn-guardarInterpretacion').fadeIn()
+    //         break;
 
-        case 2:
-            $('#btn-confirmarReporte').fadeOut()
-            $('#btn-guardarInterpretacion').fadeOut()
-            // $('#formInterpretacion').prop('disabled', true);
-            break;
+    //     case 2:
+    //         $('#btn-confirmarReporte').fadeOut()
+    //         $('#btn-guardarInterpretacion').fadeOut()
+    //         // $('#formInterpretacion').prop('disabled', true);
+    //         break;
 
-        default:
-            $('#btn-vistaPrevia').fadeOut()
-            $('#btn-confirmarReporte').fadeOut()
-            break;
+    //     default:
+    //         $('#btn-vistaPrevia').fadeOut()
+    //         $('#btn-confirmarReporte').fadeOut()
+    //         break;
+    // }
+
+    if (guardado == 0 && confirmado == 0) {
+        $('#btn-vistaPrevia').fadeOut()
+        $('#btn-confirmarReporte').fadeOut()
+
+    } else if (guardado == 1 && confirmado == 0) {
+        $('#btn-vistaPrevia').fadeIn()
+        $('#btn-confirmarReporte').fadeIn()
+        $('#btn-guardarInterpretacion').fadeIn()   
+    } else {
+        $('#btn-confirmarReporte').fadeOut()
+        $('#btn-guardarInterpretacion').fadeOut()
     }
 }
 
