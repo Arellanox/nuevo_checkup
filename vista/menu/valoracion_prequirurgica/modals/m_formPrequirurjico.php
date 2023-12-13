@@ -293,7 +293,7 @@
                             <div class="rounded p-3 shadow my-2">
                                 <h4>Riesgo quirúrco</h4>
                                 <div class="row">
-                                    <div class="col-12 col-lg-4">
+                                    <div class="col-12 col-lg-3">
                                         <div class="p-2">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6">
@@ -342,7 +342,7 @@
 
                                     </div>
 
-                                    <div class="col-12 col-lg-8">
+                                    <div class="col-12 col-lg-9">
                                         <div class="p-2">
                                             <div>
                                                 <label>GUPTA RESPIRATORIO: </label>
