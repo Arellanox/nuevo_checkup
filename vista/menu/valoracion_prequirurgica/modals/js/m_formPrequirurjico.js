@@ -289,7 +289,7 @@ restartPages();
 function dataPacientes(data) {
 
     //exploracion fisica
-    $('#exploracion_fisica').val(data['EXPLORACION_FISICA'])
+    $('#exploracion_fisica').val(ifnull(data, '', ['EXPLORACION_FISICA']))
 
     if (ifnull(data, false, ['SIGNOS_VITALES'])) {
         for (i = 0; i < data['SIGNOS_VITALES'].length; i++) {
@@ -326,11 +326,22 @@ function dataPacientes(data) {
         }
     }
 
-    $('#cirugia_programada').val(data['CIRUGIA_PROGRAMADA'])
+    $('#cirugia_programada').val(ifnull(data, '', ['CIRUGIA_PROGRAMADA']))
 
     //laboratorio
-    $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
+    $('#electro_derivaciones').val(ifnull(data, '', ['ELECTROCARDIOGRAMA_DERIVACIONES']))
 
+
+    //Riesgo quirurgico
+    $('#select-asa').val(ifnull(data, '', ['ASA']))
+    $('#select-goldman').val(ifnull(data, '', ['GOLDMAN']))
+    $('#input-geneva').val(ifnull(data, '', ['GEVENA']))
+    $('#input-caprini').val(ifnull(data, '', ['CAPRINI']))
+    $('#input-ban').val(ifnull(data, '', ['STOP_BANG']))
+
+    $('#gupta_respiratorio').val(ifnull(data, '', ['GUPTA_RESPIRATORIO']))
+    $('#gupta_neumonia').val(ifnull(data, '', ['GUPTA_NEUMONIA']))
+    $('#gupta_cardiovascular').val(ifnull(data, '', ['GUPTA_CARDIOVASCULAR']))
 
     // Tablas
     if (data !== undefined || data === "undefined") {

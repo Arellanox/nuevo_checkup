@@ -91,7 +91,6 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
         await ajaxAwait({ api: 4, turno_id: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
 
             dataRegistro = data.response.data[0] // recupera todos los datos guardados
-
             dataPacientes(dataRegistro) // Funcion que muestra los datos guardados
 
             // Recupera el panel de información de reporte
