@@ -10,6 +10,10 @@
     .resultados_resp td {
         width: 33.3%;
     }
+
+    .cursive {
+        font-style: italic;
+    }
 </style>
 
 <?php
@@ -38,8 +42,16 @@ $muestra = $body[count($body) - 1];
         if ($value->resultado != 'LABEL_BIOMOLECULAR') {
     ?>
             <tr>
-                <td style="text-align: left;" class=""><?php echo $value->nombre ?></td>
-                <td class="<?php echo $value->resultado == 'DETECTADO' ? "bold" : "";  ?>" style="text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
+                <td style="text-align: left;" class="">
+                    <?php if ($value->nombre == "Klebsiella pneumoniae carbapenemase (KPC)") { ?>
+                        <span class="cursive"><?php echo $value->nombre ?></span>
+                    <?php } else { ?>
+                        <?php echo $value->nombre ?>
+                    <?php } ?>
+                </td>
+                <td class="<?php echo $value->resultado == 'DETECTADO' ? "bold" : "";  ?>" style="text-align:center;">
+                    <?php echo $value->resultado ?>
+                </td>
                 <td style="text-align:center;"><?php if ($value->resultado != 'N/A') echo "NO DETECTADO"; ?></td>
             </tr>
         <?php
@@ -49,7 +61,7 @@ $muestra = $body[count($body) - 1];
                 <td colspan="12">&nbsp;</td>
             </tr>
             <tr class="bold">
-                <td colspan="12" style="text-align: left;">• <?php echo $value->nombre ?></td>
+                <td colspan="12" style="text-align: left;"><?php echo $value->nombre ?></td>
             </tr>
     <?php
         }
