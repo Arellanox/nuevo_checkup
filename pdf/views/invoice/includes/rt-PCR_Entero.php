@@ -39,7 +39,7 @@ $muestra = $body[count($body) - 1];
     ?>
             <tr>
                 <td style="text-align: left;" class=""><?php echo $value->nombre ?></td>
-                <td class="<?php echo $value->resultado == 'POSITIVO' ? "bold rojo" : "bold";  ?>" style="text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
+                <td class="<?php echo $value->resultado == 'DETECTADO' ? "bold" : "";  ?>" style="text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
                 <td style="text-align:center;"><?php if ($value->resultado != 'N/A') echo "NO DETECTADO"; ?></td>
             </tr>
         <?php
