@@ -8,7 +8,7 @@ let recomenList;
 
 let Recomendaciones = []; // array donde se guardaran las recomendaciones
 // Abrir el model de formulario
-$(document).on('click', '#btn-interpretacionPrequi',function () {
+$(document).on('click', '#btn-interpretacionPrequi', function () {
 
     $('#MostrarCapturaPrequirurjico').modal('show');
 })
@@ -45,94 +45,49 @@ $('#btn-ver-reporte').click(function () {
 
 
 // Evento click para agregar una recomendacion a la tabla en forma de lista
-let index = 0; // indice para las recomendaciones que se vayan agregando
 $(document).on('click', '#btn-agregarRecomendaciones', function (e) {
 
     // Sacamos la recomendacion
     let recomendacion = $('#recomendaciones_list').val();
 
+    if (recomendacion === '') {
+        alertToast('El campo esta vacio', 'error', 2000);
+        return false;
+    }
+
     // Agregamos la recomendacion a la variable donde se esta almacenando
     let data = {
-        recomendacion: recomendacion,
-        index: index
+        recomendacion: recomendacion
     }
 
     // Se llama al metodo para actualizar la recomendacion
     createRecommendation(data);
 
     // seteamos el input cada que agregue una nueva recomendacion
-    $('#recomendaciones_list').val('')
-
-    // Incrementamos la variable
-    index++;
+    $('#recomendaciones_list').val('');
 })
-
-// Funcion para agregar un nuevo campo a la tabla de recomendaciones
-function actualizarRecomendaciones() {
-
-    // Sacamos el contenedor padre donde se iran insertando los rows
-    let tbody = $('#tbody_recomendaciones');
-    tbody.html(''); // limpiamos el contenedor padre donde se iran insertando los rows
-
-    let html; // variable donde aqui se iran guardando el esqueleto html
-
-    // recorremos el arreglo de la variable que contiene a todas las recomendaciones
-    for (const key in Recomendaciones) {
-        if (Object.hasOwnProperty.call(Recomendaciones, key)) {
-            const element = Recomendaciones[key];
-
-            // sacamos la posicion para poder enumerar la lista
-            let posicion = parseInt(key) + 1;
-
-            // armamos el esqueleto html
-            html = `
-                <tr>
-                    <td class='fw-bold '>${posicion}</td>
-                    <td>${element.recomendacion}</td>
-                    <td class='d-flex justify-content-center'>
-                        <button data-id='${element.index}' class='btn btn-hover me-2 eliminar_recomendacion'>
-                            <i class="bi bi-trash3"></i>
-                        </button>
-                    </td>
-                </tr>
-            `;
-
-            // Ponemos el row dentrol tbody
-            tbody.append(html);
-        }
-    }
-}
-
 
 // metodo para eliminar la recomendacion de la tabla
 $(document).on('click', '.eliminar_recomendacion', function () {
+    // Obtener la fila que contiene el botón
+    var fila = $(this).closest('tr');
 
-    // sacamos la key del row que quiere eliminar
-    index = $(this).attr('data-id');
+    // Eliminar la fila de la DataTable y actualizar la vista
+    tablalistRecomendaciones.row(fila).remove().draw();
 
-    // le pasamos el index a la funcion para eliminar el row
-    deleteRecommendation(index);
-})
+    // Actualizar el contador después de eliminar una fila
+    tablalistRecomendaciones.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+        cell.innerHTML = i + 1;
+    });
+});
 
-// function to create a new recommendation
+
+// function to create a new recommendation  
 function createRecommendation(data) {
     // to add a new row into datatable
     tablalistRecomendaciones.row.add({
-        "index": data.index,
         "recomendacion": data.recomendacion
     }).draw();
-}
-
-
-// function to delete a recommendation from the list
-function deleteRecommendation(index) {
-    var indexes = tablalistRecomendaciones
-        .rows()
-        .indexes()
-        .filter(function (value) {
-            return index === tablalistRecomendaciones.row(value).data()[0];
-        });
-    tablalistRecomendaciones.row(indexes).remove().draw();
 }
 
 // New table to Datatabl
@@ -146,14 +101,14 @@ tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
     sorting: false,
     columns: [
         {
-            data: 'index', render: (data) => {
-                return parseInt(data) + 1;
+            data: null, render: function (data, type, row, meta) {
+                return meta.row + 1;
             }
         },
         { data: 'recomendacion' },
         {
-            data: null, render: (meta) => {
-                return ` <button data-id='${meta.index}' class='btn btn-hover me-2 eliminar_recomendacion'>
+            data: null, render: () => {
+                return ` <button class='btn btn-hover me-2 eliminar_recomendacion'>
                             <i class="bi bi-trash3"></i>
                         </button>`
             }
@@ -312,7 +267,6 @@ $('#MostrarCapturaPrequirurjico').on('shown.bs.modal', function () {
     // seteamos las variables globales 
     Recomendaciones = [];
     index = 0;
-    actualizarRecomendaciones();
 });
 
 
@@ -379,6 +333,10 @@ function dataPacientes(data) {
 
 
     // Tablas
+    if (data !== undefined || data === "undefined") {
+        tablalistRecomendaciones.rows.add(data.RECOMENDACIONES_JSON).draw()
+        tablaLaboratorios.rows.add(data.LABORATORIOS).draw()
+    }
 
 }
 
