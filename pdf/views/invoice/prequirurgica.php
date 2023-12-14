@@ -545,8 +545,7 @@ $encode_firma = base64_encode($ruta_firma);
         </div>
         <!-- Cirugia programada -->
         <div class="cirugia">
-            <p style="padding:5px !important;">Cirugía Programada: <?php echo $array1[0]['CIRUGIA_PROGRAMADA'] ?></p>
-
+            <h2 style="padding:5px !important;">Cirugía Programada: <?php echo $array1[0]['CIRUGIA_PROGRAMADA'] ?></h2>
             <div class="content">
                 <p id="back_cirugia">
                     <?php
