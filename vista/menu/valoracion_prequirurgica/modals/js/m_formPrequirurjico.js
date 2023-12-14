@@ -77,7 +77,7 @@ $(document).on('click', '.eliminar_recomendacion', function () {
 
 
 
-// New table to Datatabl
+// Tabla de la lista de recomendaciones
 tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
