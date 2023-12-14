@@ -443,6 +443,22 @@ function generarFormularioPaciente(id) {
 
               break;
 
+            case '1452':
+
+              // rT-PCR Entero-DR
+
+              classSelect = 'selectTipoMuestraEnteroDR';
+              muestras = {
+                0: {
+                  'descripcion': 'HECES',
+                },
+                1: {
+                  'descripcion': 'BIOPSIA',
+                }
+              }
+
+              break;
+
             //Laboratorio Clinico
             case '1':
               Tipo = '_BH'
@@ -528,6 +544,9 @@ function generarFormularioPaciente(id) {
                 case '1391': case '1399': case '1405':
                 // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
                 case '1436': case '1432':
+                // rT-PCR Entero-DR
+                case '1421': case '1427': case '1430':
+
                   onlyLabel = true; break;
 
 
