@@ -55,7 +55,7 @@ $data_g = array(
     $geneva,
     $caprini,
     $stop_bang,
-    $signos_vitales,
+    json_encode($signos_vitales),
     $recomendaciones_texto,
     $recomendaciones_josn,
     $turno_id,
