@@ -210,6 +210,7 @@
                                                 <input type="hidden" name="signos_vitales[1][id]" value="1">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control input-form" id="" name="signos_vitales[1][valor]" placeholder="">
+                                                    <input type="hidden" name="signos_vitales[1][titulo]" value="TENSIÓN ARTERIAL">
                                                     <span class="input-span">MMHG</span>
                                                 </div>
                                             </div>
@@ -219,6 +220,7 @@
                                                 <input type="hidden" name="signos_vitales[2][id]" value="2">
                                                 <div class="input-group">
                                                     <input type="number" class="form-control input-form" id="" name="signos_vitales[2][valor]" placeholder="">
+                                                    <input type="hidden" name="signos_vitales[2][titulo]" value="FRECUENCIA CARDIACA">
                                                     <span class="input-span">LPM</span>
                                                 </div>
                                             </div>
@@ -228,6 +230,7 @@
                                                 <input type="hidden" name="signos_vitales[3][id]" value="3">
                                                 <div class="input-group">
                                                     <input type="number" class="form-control input-form" id="" name="signos_vitales[3][valor]" placeholder="">
+                                                    <input type="hidden" name="signos_vitales[3][titulo]" value="FRECUENCIA RESPIRATORIA<">
                                                     <span class="input-span">RPM</span>
                                                 </div>
                                             </div>
@@ -237,6 +240,7 @@
                                                 <input type="hidden" name="signos_vitales[4][id]" value="4">
                                                 <div class="input-group">
                                                     <input type="number" class="form-control input-form" id="" name="signos_vitales[4][valor]" placeholder="">
+                                                    <input type="hidden" name="signos_vitales[4][titulo]" value="TEMPERATURA">
                                                     <span class="input-span">°C</span>
                                                 </div>
                                             </div>
@@ -246,6 +250,7 @@
                                                 <input type="hidden" name="signos_vitales[5][id]" value="5">
                                                 <div class="input-group">
                                                     <input type="number" class="form-control input-form" id="" name="signos_vitales[5][valor]" placeholder="">
+                                                    <input type="hidden" name="signos_vitales[5][titulo]" value="SATURACIÓN DE OXÍEGNO">
                                                     <span class="input-span">%</span>
                                                 </div>
                                             </div>
