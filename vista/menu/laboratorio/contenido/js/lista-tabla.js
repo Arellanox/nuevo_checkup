@@ -450,10 +450,10 @@ function generarFormularioPaciente(id) {
               classSelect = 'selectTipoMuestraEnteroDR';
               muestras = {
                 0: {
-                  'descripcion': 'HECES',
+                  'descripcion': 'EXUDADO RECTAL',
                 },
                 1: {
-                  'descripcion': 'BIOPSIA',
+                  'descripcion': 'CULTIVO',
                 }
               }
 
