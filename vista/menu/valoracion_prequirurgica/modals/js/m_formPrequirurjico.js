@@ -333,21 +333,50 @@ restartPages();
 
 //funcion para traer todos los datos del paciente
 function dataPacientes(data) {
-    try {
-        // LLenar tabla
-        if (data !== undefined || data === "undefined") {
-            tablaLaboratorios.rows.add(data.LABORATORIOS).draw();
-            tablalistRecomendaciones.rows.add(data.RECOMENDACIONES_JSON).draw()
+
+    //exploracion fisica
+    $('#exploracion_fisica').val(data['EXPLORACION_FISICA'])
+
+    if (ifnull(data, false, ['SIGNOS_VITALES'])) {
+        for (i = 0; i < data['SIGNOS_VITALES'].length; i++) {
+            let signo = data['SIGNOS_VITALES'][i]
+            // console.log(signo)
+            let input = $(`#signos_vitales_padre input[name="signos_vitales[${signo['ID']}][valor]"]`)
+            input.val(signo['RESULTADO'])
         }
-
-        //data de exploracion fisica
-        $('#exploracion_fisica').val(data['EXPLORACION_FISICA'])
-
-        //laboratorio
-        $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
-    } catch (error) {
-        console.log(error);
     }
+
+    if (ant = ifnull(data, false, ['JSON_ANTECENDENTES'])) {
+        // antecedentes_preguntas
+
+        for (const key in ant) {
+            if (Object.hasOwnProperty.call(ant, key)) {
+                const element = ant[key];
+
+
+                // indice o pregunta ID
+                let pregunta = ifnull(element, false, ['id_antecedente'])
+
+                let comentario = ifnull(element, '', ['comentario'])
+                let id_respuesta = ifnull(element, false, ['id_respuesta'])
+                console.log(`#antecedentes_preguntas input[type=radio][name="antecedentes[${pregunta}][option]"][value="${id_respuesta}"]`)
+                $(`#antecedentes_preguntas input[type=radio][name="antecedentes[${pregunta}][option]"][value="${id_respuesta}"]`).prop('checked', true)
+
+                if (comentario) {
+                    // $('#antecedentes_preguntas div.collapse').show();
+                    let textarea = $(`#antecedentes_preguntas textarea[name="antecedentes[${pregunta}][comentario]"]`)
+                    textarea.val(comentario)
+                    textarea.closest('div.collapse').show(); //Busca el collapse del comentario para mostrarlo
+                }
+            }
+        }
+    }
+
+    $('#cirugia_programada').val(data['CIRUGIA_PROGRAMADA'])
+
+    //laboratorio
+    $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
+
 }
 
 $(document).on('click', '#btn-guardarInterpretacion', function (e) {
