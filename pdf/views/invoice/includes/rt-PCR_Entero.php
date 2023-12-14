@@ -16,9 +16,9 @@
 
 // $comentario = $body[count($body) - 1];
 // $lote = $body[count($body) - 1];
-$muestra = $body[count($body) - 2];
+$muestra = $body[count($body) - 1];
 // $autorizacion = $body[count($body) - 3];
-$kit = $body[count($body) - 1];
+// $kit = $body[count($body) - 1];
 
 ?>
 
@@ -33,7 +33,7 @@ $kit = $body[count($body) - 1];
     </tr>
     <?php
 
-    $body = array_slice($body, 0, count($body) - 2);
+    $body = array_slice($body, 0, count($body) - 1);
     foreach ($body as $key => $value) {
         if ($value->resultado != 'LABEL_BIOMOLECULAR') {
     ?>
