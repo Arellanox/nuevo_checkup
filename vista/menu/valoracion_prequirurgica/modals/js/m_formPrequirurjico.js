@@ -108,23 +108,14 @@ function actualizarRecomendaciones() {
 $(document).on('click', '.eliminar_recomendacion', function () {
 
     // sacamos la key del row que quiere eliminar
-    key = parseInt($(this).attr('data-id'));
+    index = $(this).attr('data-id');
 
-    // Filtramos el array sin tomar en cuenta el que se esta eliminando
-    newArray = Recomendaciones.filter(function (i) { return i.index !== key }); // filtramos
-
-    console.log(newArray);
-
-    // remplazamos el antiguo array con el nuevo array
-    Recomendaciones = newArray;
-
-    // actualizamos la tabla
-    actualizarRecomendaciones();
+    // le pasamos el index a la funcion para eliminar el row
+    deleteRecommendation(index);
 })
 
 // function to create a new recommendation
 function createRecommendation(data) {
-
     // to add a new row into datatable
     tablalistRecomendaciones.row.add({
         "index": data.index,
@@ -138,10 +129,10 @@ function deleteRecommendation(index) {
     var indexes = tablalistRecomendaciones
         .rows()
         .indexes()
-        .filter(function (value, index) {
-            return 'Ashton Cox' === tablalistRecomendaciones.row(value).data()[0];
+        .filter(function (value) {
+            return index === tablalistRecomendaciones.row(value).data()[0];
         });
-    tablalistRecomendaciones.rows(indexes).remove().draw();
+    tablalistRecomendaciones.row(indexes).remove().draw();
 }
 
 // New table to Datatabl
@@ -161,8 +152,8 @@ tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
         },
         { data: 'recomendacion' },
         {
-            data: null, render: (data) => {
-                return ` <button data-id='${data}' class='btn btn-hover me-2 eliminar_recomendacion'>
+            data: null, render: (meta) => {
+                return ` <button data-id='${meta.index}' class='btn btn-hover me-2 eliminar_recomendacion'>
                             <i class="bi bi-trash3"></i>
                         </button>`
             }
@@ -171,6 +162,39 @@ tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
     // scrollY: '75vh',
     // scrollCollapse: true,
 })
+
+inputBusquedaTable("tablalistRecomendaciones", tablalistRecomendaciones, [], {
+    msj: "Filtre los resultados por la recomendacion que escriba",
+    place: 'top'
+}, "col-12")
+
+// tabla para el modal en la seccion de laboratorios
+tablaLaboratorios = $('#tablaLaboratorios').DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    lengthChange: false,
+    info: false,
+    paging: false,
+    sorting: false,
+    scrollY: '75vh',
+    scrollCollapse: true,
+    columns: [
+        { data: 'ID' },
+        { data: 'SERVICIO' },
+        { data: 'RESULTADO' }
+    ],
+    // scrollY: '75vh',
+    // scrollCollapse: true,
+})
+
+inputBusquedaTable("tablaLaboratorios", tablaLaboratorios, [{
+    msj: 'Tabla de los servicios de laboratorio  ',
+    place: 'top'
+}], {
+    msj: "Filtre los resultados por el servicio que escriba",
+    place: 'top'
+}, "col-12")
 
 
 // ============ Funciones para  la paginacion del modal by Gera ================================
@@ -312,6 +336,7 @@ function dataPacientes(data) {
     try {
         // LLenar tabla
         if (data !== undefined || data === "undefined") {
+            tablaLaboratorios.rows.add(data.LABORATORIOS).draw();
             tablalistRecomendaciones.rows.add(data.RECOMENDACIONES_JSON).draw()
         }
 
