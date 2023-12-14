@@ -578,7 +578,9 @@ $encode_firma = base64_encode($ruta_firma);
                                 <div class="d-flex">
                                     <label class="h7" style="font-weight: bold;"> ELECTROCARDIOFRAMA 12 DERIVACIONES :</label>
                                     <label class="">
-                                        <?php echo $array1[0]['ELECTROCARDIOGRAMA_DERIVACIONES'] ?>
+                                        <?php
+                                        echo $array1[0]['ELECTROCARDIOGRAMA_DERIVACIONES']
+                                        ?>
                                     </label>
                                 </div>
                             </td>
@@ -586,9 +588,22 @@ $encode_firma = base64_encode($ruta_firma);
                         <tr class="">
                             <td class="" style='max-width:180px;'>
                                 <div class="d-flex">
-                                    <label class="h7" style="font-weight: bold;"> RADIOGRAFÍA DE TORAX:</label>
+                                    <label class="h7" style="font-weight: bold;"> RADIOGRAFÍA DE TORAX</label>
+                                </div>
+                                <div class="d-flex" style="margin-top: 5px; margin-bottom:5px;">
+                                    <div class="h7" style="font-weight: bold;"> Hallazgos</div>
+                                    <div class="" style=" font-size: 12px !important; line-height: 1.5 !important;">
+                                        <?php
+                                        echo $array1[0]['RADIOGRAFIA_TORAX']['hallazgo'];
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="h7" style="font-weight: bold;"> Interpretación:</label>
                                     <label class="">
-                                        <?php echo  $array1[0]['RADIOGRAFIA_TORAX'] ?>
+                                        <?php
+                                        echo $array1[0]['RADIOGRAFIA_TORAX']['interpretacion'];
+                                        ?>
                                     </label>
                                 </div>
                             </td>
