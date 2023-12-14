@@ -274,18 +274,25 @@ restartPages();
 
 //funcion para traer todos los datos del paciente
 function dataPacientes(data) {
+    var signosVitales = data['SIGNOS_VITALES'] //Variable para el for de signos vitales
 
     //exploracion fisica
     $('#exploracion_fisica').val(ifnull(data, '', ['EXPLORACION_FISICA']))
 
     if (ifnull(data, false, ['SIGNOS_VITALES'])) {
-        for (i = 0; i < data['SIGNOS_VITALES'].length; i++) {
-            let signo = data['SIGNOS_VITALES'][i]
-            // console.log(signo)
-            let input = $(`#signos_vitales_padre input[name="signos_vitales[${signo['ID']}][valor]"]`)
-            input.val(signo['RESULTADO'])
+
+        for (const key in signosVitales) {
+            if (Object.hasOwnProperty.call(signosVitales, key)) {
+                const element = signosVitales[key];
+
+                // console.log(element['id']);
+                let input = $(`#signos_vitales_padre input[name="signos_vitales[${element['id']}][valor]"]`)
+                input.val(element['valor'])
+
+            }
         }
     }
+
 
     if (ant = ifnull(data, false, ['JSON_ANTECENDENTES'])) {
         // antecedentes_preguntas
