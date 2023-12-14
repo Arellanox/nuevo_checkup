@@ -177,8 +177,8 @@ tablaLaboratorios = $('#tablaLaboratorios').DataTable({
     info: false,
     paging: false,
     sorting: false,
-    scrollY: '75vh',
-    scrollCollapse: true,
+    // scrollY: '75vh',
+    // scrollCollapse: true,
     columns: [
         { data: 'ID' },
         { data: 'SERVICIO' },
@@ -376,6 +376,9 @@ function dataPacientes(data) {
 
     //laboratorio
     $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
+
+
+    // Tablas
 
 }
 
