@@ -50,18 +50,16 @@ $(document).on('click', '#btn-agregarRecomendaciones', function (e) {
     // Sacamos la recomendacion
     let recomendacion = $('#recomendaciones_list').val();
 
+    // se valida si el campo esta vacio
     if (recomendacion === '') {
         alertToast('El campo esta vacio', 'error', 2000);
         return false;
     }
 
-    // Agregamos la recomendacion a la variable donde se esta almacenando
-    let data = {
-        recomendacion: recomendacion
-    }
-
-    // Se llama al metodo para actualizar la recomendacion
-    createRecommendation(data);
+    // Se agrega la recomendacion a la tabla
+    tablalistRecomendaciones.row.add({
+        "recomendacion": recomendacion
+    }).draw();
 
     // seteamos el input cada que agregue una nueva recomendacion
     $('#recomendaciones_list').val('');
@@ -82,13 +80,7 @@ $(document).on('click', '.eliminar_recomendacion', function () {
 });
 
 
-// function to create a new recommendation  
-function createRecommendation(data) {
-    // to add a new row into datatable
-    tablalistRecomendaciones.row.add({
-        "recomendacion": data.recomendacion
-    }).draw();
-}
+
 
 // New table to Datatabl
 tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
@@ -264,9 +256,6 @@ $('#MostrarCapturaPrequirurjico').on('shown.bs.modal', function () {
             })
             .columns.adjust();
     }, 250);
-    // seteamos las variables globales 
-    Recomendaciones = [];
-    index = 0;
 });
 
 
@@ -380,7 +369,7 @@ function btnAlertas(title, text, bit) {
 
 function guardarDatos(bit) {
     var recomenList = $('input[name="recomendacion_json"]');
-    recomenList.val(JSON.stringify(Recomendaciones))
+    recomenList.val(JSON.stringify(tablalistRecomendaciones.rows().data().toArray()))
 
     if (bit == 1) {
         ajaxAwaitFormData({ api: 2, turno_id: arrayPaciente['ID_TURNO'], confirmado: 0 }, 'prequirurgico_api', 'formInterpretacion', { callbackAfter: true }, false, function (data) {
