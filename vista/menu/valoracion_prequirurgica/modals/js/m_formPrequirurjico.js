@@ -3,9 +3,6 @@ let title
 let text
 let recomenList;
 
-
-
-
 let Recomendaciones = []; // array donde se guardaran las recomendaciones
 // Abrir el model de formulario
 $(document).on('click', '#btn-interpretacionPrequi', function () {
@@ -41,8 +38,6 @@ $('#btn-ver-reporte').click(function () {
 //         })
 //     }, 1)
 // })
-
-
 
 // Evento click para agregar una recomendacion a la tabla en forma de lista
 $(document).on('click', '#btn-agregarRecomendaciones', function (e) {
@@ -110,7 +105,10 @@ tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
     // scrollCollapse: true,
 })
 
-inputBusquedaTable("tablalistRecomendaciones", tablalistRecomendaciones, [], {
+inputBusquedaTable("tablalistRecomendaciones", tablalistRecomendaciones, [{
+    msj: 'Tabla de recomendaciones  ',
+    place: 'top'
+}], {
     msj: "Filtre los resultados por la recomendacion que escriba",
     place: 'top'
 }, "col-12")
