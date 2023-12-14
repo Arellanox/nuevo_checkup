@@ -8,7 +8,7 @@ let recomenList;
 
 let Recomendaciones = []; // array donde se guardaran las recomendaciones
 // Abrir el model de formulario
-$('#btn-interpretacionPrequi').on('click', function () {
+$(document).on('click', '#btn-interpretacionPrequi',function () {
 
     $('#MostrarCapturaPrequirurjico').modal('show');
 })
