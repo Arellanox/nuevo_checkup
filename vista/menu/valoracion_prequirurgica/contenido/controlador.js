@@ -70,6 +70,8 @@ function createJsonObject(type, tabla = true) {
 function limpiarForm(form) {
     document.getElementById(form).reset()
     $(`#${form} div.collapse`).collapse('hide'); // Oculta de nuevo todos los collapse
+    tablalistRecomendaciones.clear().draw();
+    tablaLaboratorios.clear().draw();
 }
 
 // Cambia y muestra los botones del formulario

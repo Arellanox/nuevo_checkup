@@ -267,7 +267,15 @@
                                 <h4>Laboratorios</h4>
                                 <div class="row">
                                     <div class="col-12 col-lg-4">
-
+                                         <table id="tablaLaboratorios" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th class="p-2">#</th>
+                                                    <th class="p-2">Servicio</th>
+                                                    <th class="p-2">Resultados</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                     </div>
 
                                     <div class="col-12 col-lg-8">
@@ -373,9 +381,9 @@
                                         <table id="tablalistRecomendaciones" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th class="p-2 fw-bold">#</th>
+                                                    <th class="p-2">#</th>
                                                     <th class="p-2">Recomendaciones</th>
-                                                    <th class="p-2 text-center"><i class="bi bi-trash3"></i></th>
+                                                    <th class="p-2"><i class="bi bi-trash3"></i></th>
                                                 </tr>
                                             </thead>
                                         </table>

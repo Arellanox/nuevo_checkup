@@ -52,13 +52,13 @@ $(document).on('click', '#btn-agregarRecomendaciones', function (e) {
     let recomendacion = $('#recomendaciones_list').val();
 
     // Agregamos la recomendacion a la variable donde se esta almacenando
-    Recomendaciones.push({
+    let data = {
         recomendacion: recomendacion,
         index: index
-    })
+    }
 
     // Se llama al metodo para actualizar la recomendacion
-    actualizarRecomendaciones();
+    createRecommendation(data);
 
     // seteamos el input cada que agregue una nueva recomendacion
     $('#recomendaciones_list').val('')
@@ -122,6 +122,28 @@ $(document).on('click', '.eliminar_recomendacion', function () {
     actualizarRecomendaciones();
 })
 
+// function to create a new recommendation
+function createRecommendation(data) {
+
+    // to add a new row into datatable
+    tablalistRecomendaciones.row.add({
+        "index": data.index,
+        "recomendacion": data.recomendacion
+    }).draw();
+}
+
+
+// function to delete a recommendation from the list
+function deleteRecommendation(index) {
+    var indexes = tablalistRecomendaciones
+        .rows()
+        .indexes()
+        .filter(function (value, index) {
+            return 'Ashton Cox' === tablalistRecomendaciones.row(value).data()[0];
+        });
+    tablalistRecomendaciones.rows(indexes).remove().draw();
+}
+
 // New table to Datatabl
 tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
     language: {
@@ -150,7 +172,6 @@ tablalistRecomendaciones = $('#tablalistRecomendaciones').DataTable({
     // scrollCollapse: true,
 })
 
-inputBusquedaTable('tablalistRecomendaciones', tablalistRecomendaciones, [], [], 'col-12')
 
 // ============ Funciones para  la paginacion del modal by Gera ================================
 
@@ -288,59 +309,20 @@ restartPages();
 
 //funcion para traer todos los datos del paciente
 function dataPacientes(data) {
-
-    //exploracion fisica
-    $('#exploracion_fisica').val(data['EXPLORACION_FISICA'])
-
-    for (i = 0; i < data['SIGNOS_VITALES'].length; i++) {
-        let signo = data['SIGNOS_VITALES'][i]
-        // console.log(signo)
-        let input = $(`#signos_vitales_padre input[name="signos_vitales[${signo['ID']}][valor]"]`)
-        input.val(signo['RESULTADO'])
-    }
-
-    if (ant = ifnull(data, false, ['JSON_ANTECENDENTES'])) {
-        // antecedentes_preguntas
-
-        for (const key in ant) {
-            if (Object.hasOwnProperty.call(ant, key)) {
-                const element = ant[key];
-
-
-                // indice o pregunta ID
-                let pregunta = ifnull(element, false, ['id_antecedente'])
-
-                let comentario = ifnull(element, '', ['comentario'])
-                let id_respuesta = ifnull(element, false, ['id_respuesta'])
-                console.log(`#antecedentes_preguntas input[type=radio][name="antecedentes[${pregunta}][option]"][value="${id_respuesta}"]`)
-                $(`#antecedentes_preguntas input[type=radio][name="antecedentes[${pregunta}][option]"][value="${id_respuesta}"]`).prop('checked', true)
-
-                if (comentario) {
-                    // $('#antecedentes_preguntas div.collapse').show();
-                    let textarea = $(`#antecedentes_preguntas textarea[name="antecedentes[${pregunta}][comentario]"]`)
-                    textarea.val(comentario)
-                    textarea.closest('div.collapse').show(); //Busca el collapse del comentario para mostrarlo
-                }
-            }
+    try {
+        // LLenar tabla
+        if (data !== undefined || data === "undefined") {
+            tablalistRecomendaciones.rows.add(data.RECOMENDACIONES_JSON).draw()
         }
+
+        //data de exploracion fisica
+        $('#exploracion_fisica').val(data['EXPLORACION_FISICA'])
+
+        //laboratorio
+        $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
+    } catch (error) {
+        console.log(error);
     }
-
-    $('#cirugia_programada').val(data['CIRUGIA_PROGRAMADA'])
-
-    //laboratorio
-    $('#electro_derivaciones').val(data['ELECTROCARDIOGRAMA_DERIVACIONES'])
-
-    //Riesgo quirurgico
-    $('#select-asa').val(data['ASA'])
-    $('#select-goldman').val(data['GOLDMAN'])
-    $('#input-geneva').val(data['GEVENA'])
-    $('#input-caprini').val(data['CAPRINI'])
-    $('#input-ban').val(data['STOP_BANG'])
-
-    $('#gupta_respiratorio').val(data['GUPTA_RESPIRATORIO'])
-    $('#gupta_neumonia').val(data['GUPTA_NEUMONIA'])
-    $('#gupta_cardiovascular').val(data['GUPTA_CARDIOVASCULAR'])
-
 }
 
 $(document).on('click', '#btn-guardarInterpretacion', function (e) {
