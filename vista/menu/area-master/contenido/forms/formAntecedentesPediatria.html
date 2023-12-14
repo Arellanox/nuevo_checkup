@@ -1,0 +1,596 @@
+<div class="row" id="div-antecedentes">
+
+    <div class="row container-pages">
+        <!-- ANTECEDENTES HEREDOFAMILIARES -->
+        <section class="page px-4" style="display: none;">
+            <div class="rounded p-3 shadow my-2">
+                <h4>Antecedentes Heredofamiliares</h4>
+                <div class="row">
+                    <div class="col-12 col-lg-6 row">
+                        <p>Padre</p>
+                        <!-- Alcoholismo -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Alcoholismo?: </label>
+                                <input type="hidden" name="antecedentes[1][id]" value="1">
+                                <input type="hidden" name="antecedentes[1][tipo]" value="1">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="alcohol_1" name="antecedentes[1][option]"
+                                        value="1">
+                                    <label for="alcohol_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="alcohol_2" name="antecedentes[1][option]"
+                                        value="2">
+                                    <label for="alcohol_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Tabaquismo -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Tabaquismo?: </label>
+                                <input type="hidden" name="antecedentes[2][id]" value="2">
+                                <input type="hidden" name="antecedentes[2][tipo]" value="1">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="tabaco_1" name="antecedentes[2][option]" value="1">
+                                    <label for="tabaco_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="tabaco_2" name="antecedentes[2][option]" value="2">
+                                    <label for="tabaco_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Droga -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Droga?: </label>
+                                <input type="hidden" name="antecedentes[3][id]" value="3">
+                                <input type="hidden" name="antecedentes[3][tipo]" value="1">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="droga_1" name="antecedentes[3][option]" value="1">
+                                    <label for="droga_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="droga_2" name="antecedentes[3][option]" value="2">
+                                    <label for="droga_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Diebetes Mellitus tipo II -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Diebetes Mellitus tipo II?: </label>
+                                <input type="hidden" name="antecedentes[4][id]" value="4">
+                                <input type="hidden" name="antecedentes[4][tipo]" value="1">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="diabetes_melli_1" name="antecedentes[4][option]"
+                                        value="1">
+                                    <label for="diabetes_melli_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="diabetes_melli_2" name="antecedentes[4][option]"
+                                        value="2">
+                                    <label for="diabetes_melli_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Hipertensión Arterial Sistémica -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Hipertensión Arterial Sistémica?: </label>
+                                <input type="hidden" name="antecedentes[5][id]" value="5">
+                                <input type="hidden" name="antecedentes[5][tipo]" value="1">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="hispertension_arterial_sistematica_1"
+                                        name="antecedentes[5][option]" value="1">
+                                    <label for="hispertension_arterial_sistematica_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="hispertension_arterial_sistematica_2"
+                                        name="antecedentes[5][option]" value="2">
+                                    <label for="hispertension_arterial_sistematica_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--otros -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12">
+                                <label>Otras: </label>
+                                <input type="hidden" name="antecedentes[6][id]" value="6">
+                                <input type="hidden" name="antecedentes[6][tipo]" value="1">
+                            </div>
+                            <div class="target-1">
+                                <textarea name="antecedentes[6][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 col-lg-6 row">
+                        <p>Madre</p>
+                        <!-- Alcoholismo -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Alcoholismo?: </label>
+                                <input type="hidden" name="antecedentes[1][id]" value="1">
+                                <input type="hidden" name="antecedentes[1][tipo]" value="2">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="alcohol_1" name="antecedentes[1][option]"
+                                        value="1">
+                                    <label for="alcohol_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="alcohol_2" name="antecedentes[1][option]"
+                                        value="2">
+                                    <label for="alcohol_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Tabaquismo -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Tabaquismo?: </label>
+                                <input type="hidden" name="antecedentes[2][id]" value="2">
+                                <input type="hidden" name="antecedentes[2][tipo]" value="2">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="tabaco_1" name="antecedentes[2][option]" value="1">
+                                    <label for="tabaco_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="tabaco_2" name="antecedentes[2][option]" value="2">
+                                    <label for="tabaco_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Droga -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Droga?: </label>
+                                <input type="hidden" name="antecedentes[3][id]" value="3">
+                                <input type="hidden" name="antecedentes[3][tipo]" value="2">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="droga_1" name="antecedentes[3][option]" value="1">
+                                    <label for="droga_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="droga_2" name="antecedentes[3][option]" value="2">
+                                    <label for="droga_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Diebetes Mellitus tipo II -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Diebetes Mellitus tipo II?: </label>
+                                <input type="hidden" name="antecedentes[4][id]" value="4">
+                                <input type="hidden" name="antecedentes[4][tipo]" value="2">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="diabetes_melli_1" name="antecedentes[4][option]"
+                                        value="1">
+                                    <label for="diabetes_melli_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="diabetes_melli_2" name="antecedentes[4][option]"
+                                        value="2">
+                                    <label for="diabetes_melli_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Hipertensión Arterial Sistémica -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12 col-lg-8">
+                                <label>¿Antecedente de Hipertensión Arterial Sistémica?: </label>
+                                <input type="hidden" name="antecedentes[5][id]" value="5">
+                                <input type="hidden" name="antecedentes[5][tipo]" value="2">
+                            </div>
+                            <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                                <div class="col-auto">
+                                    <input type="radio" required id="hispertension_arterial_sistematica_1"
+                                        name="antecedentes[5][option]" value="1">
+                                    <label for="hispertension_arterial_sistematica_1">Sí</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" required id="hispertension_arterial_sistematica_2"
+                                        name="antecedentes[5][option]" value="2">
+                                    <label for="hispertension_arterial_sistematica_2">No</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--otros -->
+                        <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                            <div class="col-12">
+                                <label>Otras: </label>
+                                <input type="hidden" name="antecedentes[6][id]" value="6">
+                                <input type="hidden" name="antecedentes[6][tipo]" value="2">
+                            </div>
+                            <div class="target-1">
+                                <textarea name="antecedentes[6][comentario]" class="form-control input-form" rows="2"
+                                    cols="2" placeholder="Especifique"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page px-4" style="display: none;">
+            <div class="rounded p-3 shadow my-2">
+                <h4>Antecedentes Perinatales</h4>
+                <div class="row">
+                    <!--Gesta Numero -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12">
+                            <label>Gesta No.: </label>
+                            <input type="hidden" name="antecedentes[7][id]" value="7">
+                        </div>
+                        <div class="target-1">
+                            <input name="antecedentes[7][comentario]" class="form-control input-form" placeholder="No."
+                                type="text">
+                        </div>
+                    </div>
+
+                    <!-- Complicaciones durante el embarazo  -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Complicaciones durante el embarazo?: </label>
+                            <input type="hidden" name="antecedentes[8][id]" value="8">
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="complicaciones_embarazo_1"
+                                    name="antecedentes[8][option]" value="1">
+                                <label for="complicaciones_embarazo_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="complicaciones_embarazo_2"
+                                    name="antecedentes[8][option]" value="2">
+                                <label for="complicaciones_embarazo_2">No</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Complicaciones durante el embarazo  -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Complicaciones neonatales?: </label>
+                            <input type="hidden" name="antecedentes[9][id]" value="9">
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="complicaciones_neonatales_1"
+                                    name="antecedentes[9][option]" value="1">
+                                <label for="complicaciones_neonatales_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="complicaciones_neonatales_2"
+                                    name="antecedentes[9][option]" value="2">
+                                <label for="complicaciones_neonatales_2">No</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Usó incubadora -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Usó incubadora?: </label>
+                            <input type="hidden" name="antecedentes[10][id]" value="10">
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="uso_incubadora_1" name="antecedentes[10][option]"
+                                    value="1">
+                                <label for="uso_incubadora_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="uso_incubadora_2" name="antecedentes[10][option]"
+                                    value="2">
+                                <label for="uso_incubadora_2">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estuvo en UCIN / Terapia Intensiva -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Estuvo en UCIN / Terapia Intensiva?: </label>
+                            <input type="hidden" name="antecedentes[11][id]" value="11">
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="ucin_terapia_intensiva_1"
+                                    name="antecedentes[11][option]" value="1">
+                                <label for="ucin_terapia_intensiva_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="ucin_terapia_intensiva_2"
+                                    name="antecedentes[11][option]" value="2">
+                                <label for="ucin_terapia_intensiva_2">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tamiz Neonatal -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Se realizó Tamiz Neonatal?: </label>
+                            <input type="hidden" name="antecedentes[12][id]" value="12">
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="tamiz_neonatal_1" name="antecedentes[12][option]"
+                                    value="1">
+                                <label for="tamiz_neonatal_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="tamiz_neonatal_2" name="antecedentes[12][option]"
+                                    value="2">
+                                <label for="tamiz_neonatal_2">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tamiz Auditivo -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Se realizó Tamiz Auditivo?: </label>
+                            <input type="hidden" name="antecedentes[13][id]" value="13">
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="tamiz_auditivo_1" name="antecedentes[13][option]"
+                                    value="1">
+                                <label for="tamiz_auditivo_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="tamiz_auditivo_2" name="antecedentes[13][option]"
+                                    value="2">
+                                <label for="tamiz_auditivo_2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page px-4" style="display: none;">
+            <div class="rounded p-3 shadow my-2">
+                <h4>Alimentación</h4>
+                <div class="row">
+                    <!-- Seno Materno -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Se alimentó con seno materno?: </label>
+                            <input type="hidden" name="antecedentes[14][id]" value="14">
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="seno_materno_1" name="antecedentes[14][option]"
+                                    value="1">
+                                <label for="seno_materno_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="seno_materno_2" name="antecedentes[14][option]"
+                                    value="2">
+                                <label for="seno_materno_2">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lactancia Artificial -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Se alimentó con lactancia artificial?: </label>
+                            <input type="hidden" name="antecedentes[15][id]" value="15">
+                        </div>
+                        <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                            <div class="col-auto">
+                                <input type="radio" required id="lactancia_artificial_1" name="antecedentes[15][option]"
+                                    value="1">
+                                <label for="lactancia_artificial_1">Sí</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="radio" required id="lactancia_artificial_2" name="antecedentes[15][option]"
+                                    value="2">
+                                <label for="lactancia_artificial_2">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alimentación Actual -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Cuál es la alimentación actual?: </label>
+                            <input type="hidden" name="antecedentes[16][id]" value="16">
+                        </div>
+                        <div class="target-1">
+                            <textarea name="antecedentes[16][comentario]" class="form-control input-form"
+                                placeholder="No." type="text"> </textarea>
+                        </div>
+                    </div>
+
+                    <!-- Alimentación Actual -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿Cuál es la alimentación actual?: </label>
+                            <input type="hidden" name="antecedentes[16][id]" value="16">
+                        </div>
+                        <div class="target-1">
+                            <textarea name="antecedentes[16][comentario]" class="form-control input-form"
+                                placeholder="No." type="text"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="page px-4" style="display: none;">
+            <div class="rounded p-3 shadow my-2">
+                <h4>Desarrollo Psicomotor</h4>
+                <div class="row">
+                    <!-- Siguió Objetos -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿A qué edad comenzó a seguir objetos?: </label>
+                            <input type="hidden" name="antecedentes[18][id]" value="18">
+                        </div>
+                        <div class="col-12 col-lg-4 target-1">
+                            <input name="antecedentes[18][comentario]" class="form-control input-form"
+                                placeholder="Indique los meses" type="text">
+                        </div>
+                    </div>
+
+                    <!-- Escuchó Sonidos -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿A qué edad comenzó a escuchar sonidos?: </label>
+                            <input type="hidden" name="antecedentes[19][id]" value="19">
+                        </div>
+                        <div class="col-12 col-lg-4 target-1">
+                            <input name="antecedentes[19][comentario]" class="form-control input-form"
+                                placeholder="Indique los meses" type="text">
+                        </div>
+                    </div>
+
+                    <!-- Sostuvo la Cabeza -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿A qué edad sostuvo la cabeza?: </label>
+                            <input type="hidden" name="antecedentes[20][id]" value="20">
+                        </div>
+                        <div class="col-12 col-lg-4 target-1">
+                            <input type="text" name="antecedentes[20][comentario]" class="form-control input-form"
+                                placeholder="Indique los meses">
+                        </div>
+                    </div>
+
+                    <!-- Se Sentó Solo -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿A qué edad se sentó solo?: </label>
+                            <input type="hidden" name="antecedentes[21][id]" value="21">
+                        </div>
+                        <div class="col-12 col-lg-4 target-1">
+                            <input type="text" name="antecedentes[21][comentario]" class="form-control input-form"
+                                placeholder="Indique los meses">
+                        </div>
+                    </div>
+
+                    <!-- Deambulación -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿A qué edad comenzó la deambulación (caminar)?: </label>
+                            <input type="hidden" name="antecedentes[22][id]" value="22">
+                        </div>
+                        <div class="col-12 col-lg-4 target-1">
+                            <input type="text" name="antecedentes[22][comentario]" class="form-control input-form"
+                                placeholder="Indique los meses">
+                        </div>
+                    </div>
+
+                    <!-- Control de Esfínteres -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿A qué edad logró el control de esfínteres?: </label>
+                            <input type="hidden" name="antecedentes[23][id]" value="23">
+                        </div>
+                        <div class="col-12 col-lg-4 target-1">
+                            <input type="text" name="antecedentes[23][comentario]" class="form-control input-form"
+                                placeholder="Indique los meses">
+                        </div>
+                    </div>
+
+                    <!-- Inicio de Pubertad -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿A qué edad inició la pubertad?: </label>
+                            <input type="hidden" name="antecedentes[24][id]" value="24">
+                        </div>
+                        <div class="col-12 col-lg-4 target-1">
+                            <input type="text" name="antecedentes[24][comentario]" class="form-control input-form"
+                                placeholder="Indique los años">
+                        </div>
+                    </div>
+
+
+                    <!-- Menarca -->
+                    <div class="col-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                        <div class="col-12 col-lg-8">
+                            <label>¿A qué edad ocurrió la menarca?: </label>
+                            <input type="hidden" name="antecedentes[25][id]" value="25">
+                        </div>
+                        <div class="col-12 col-lg-4 target-1">
+                            <input type="text" name="antecedentes[25][comentario]" class="form-control input-form"
+                                placeholder="Indique los años">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+</div>
+
+
+<style>
+    .page.animate__animated {
+        animation-duration: 0.5s;
+        /* Ajusta este valor según lo rápido que quieras que sea */
+    }
+
+    .container-pages {
+        position: relative;
+    }
+
+    .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+</style>

@@ -27,6 +27,7 @@ $(window).on("hashchange", function (e) {
 var control_turnos;
 function hasLocation() {
   hash = window.location.hash.substring(1);
+  console.log(hash)
   // $("a").removeClass("navlinkactive");
   // $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
   if (validarVista(hash) == true) {
@@ -149,6 +150,13 @@ function hasLocation() {
         // api_interpretacion = 1;
         url_api = 'ecocardiograma_api';
         obtenerContenidoVistaMaster(18, 'Resultados de Ecocardiograma', 'contenido_modal.php', 'tomaCapturas');
+        break;
+      case "PEDIATRIA":
+        // control_turnos = 16
+        api_interpretacion = 1;
+        formulario = "formAntecedentesPediatria";
+        url_api = 'pediatria_api';
+        obtenerContenidoVistaMaster(21, 'Historial de Pediatría', 'contenido_modal.php');
         break;
       default: avisoArea(); break;
     }

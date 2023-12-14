@@ -185,6 +185,12 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   </a> -->
 <?php endif; ?>
 
+<?php if ($_SESSION['vista']['PEDIATRIA'] == 1) : ?>
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-master/#PEDIATRIA'; ?>">
+    <i class="bi bi-lungs"></i> Pediatría
+  </a>
+<?php endif; ?>
+
 
 
 

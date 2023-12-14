@@ -261,6 +261,17 @@ session_start();
                                 include 'forms/audiome.html';
                                 // echo '</form>';
                                 break;
+
+                                //<!--Formulario de Audiometria -->
+                            case 'formAntecedentesPediatria':
+                                // echo '<form id="formAntecedentesPediatria">';
+                                include 'forms/formAntecedentesPediatria.html';
+                                // echo '</form>';
+                                break;
+
+                            default:
+                                include "formts/$form";
+                                break;
                         }
 
                         ?>
