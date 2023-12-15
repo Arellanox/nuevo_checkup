@@ -55,8 +55,9 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
             }
         },
         { data: 'NOMBRE' },
-        { data: 'APELIIDOS' },
-        { data:  'PROCEDENCIA'},
+        { data: 'PATERNO' },
+        { data: 'MATERNO' },
+        { data: 'PROCEDENCIA'},
 
         {
             data: 'NACIMIENTO', render: function (data) {
@@ -96,6 +97,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
                 // return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
+        { data: 'CLAVE' },
 
 
     ],
@@ -105,20 +107,22 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
         { target: 2, title: 'Folio', className: 'none' },
         { target: 3, title: 'Fecha recepción', className: 'all' },
         { target: 4, title: 'Nombre', className: 'all' },
-        { target: 5, title: 'Apellidos', className: 'all' },
-        { target: 6, title: 'Procedencia', className: 'all' },
-        { target: 7, title: 'Fecha de Nacimiento', className: 'none' },
-        { target: 8, title: 'Edad', className: 'none' },
-        { target: 9, title: 'Sexo', className: 'none' },
-        { target: 10, title: 'Municipio', className: 'none' },
-        { target: 11, title: 'Domicilio', className: 'none' },
-        { target: 12, title: 'Celular', className: 'none' },
-        { target: 13, title: 'Fecha confirmado', className: 'all' },
-        { target: 14, title: 'Servicio', className: 'all' },
-        { target: 15, title: 'Resultado', className: 'all' },
-        { target: 16, title: 'Patogenos', className: 'all' },
-        { target: 17, title: 'Laboratorio', className: 'all' },
-        { target: 18, title: 'Fecha resultado', className: 'all' },
+        { target: 5, title: 'Apdo. Paterno', className: 'all' },
+        { target: 6, title: 'Apdo. Materno', className: 'all' },
+        { target: 7, title: 'Procedencia', className: 'all' },
+        { target: 8, title: 'Fecha de Nacimiento', className: 'none' },
+        { target: 9, title: 'Edad', className: 'none' },
+        { target: 10, title: 'Sexo', className: 'none' },
+        { target: 11, title: 'Municipio', className: 'none' },
+        { target: 12, title: 'Domicilio', className: 'none' },
+        { target: 13, title: 'Celular', className: 'none' },
+        { target: 14, title: 'Fecha confirmado', className: 'all' },
+        { target: 15, title: 'Servicio', className: 'all' },
+        { target: 16, title: 'Resultado', className: 'all' },
+        { target: 17, title: 'Patogenos', className: 'all' },
+        { target: 18, title: 'Laboratorio', className: 'all' },
+        { target: 19, title: 'Fecha resultado', className: 'all' },
+        { target: 20, title: 'clave', className: 'none' }
         
         
         // {
@@ -147,7 +151,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
             },
             exportOptions: {
                 // Especifica las columnas que deseas exportar
-                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
             }
 
         }
