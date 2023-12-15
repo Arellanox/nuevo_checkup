@@ -8,7 +8,7 @@
             <div class="modal-body">
 
                 <div class="row px-4 pt-2">
-                    <div class="col-12 col-md-8">
+                    <div class="col-12 col-lg-8">
                         <div class="shadow p-3">
                             <h5>Cargos del paciente</h5>
                             <div class="p-2">
@@ -16,13 +16,14 @@
                                 <table class="table table-hover shadow-sm p-4" style="display:none" id="container-estudios-11">
                                     <thead class="">
                                         <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Ultrasonido (Estudios)</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <!-- subtotal sin descuento -->
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
-                                            <!-- <th scope="d-flex justify-content-center" class="col-2">Descuento</th> -->
+                                            <th class="col-6">Ultrasonido (Estudios)</th>
+                                            <th class="col-2">Descuento</th>
+                                            <th class="col-2">Cantidad</th>
+                                            <!-- subtotal s3n descuento -->
+                                            <th class="col-2">Precio de Venta</th>
+                                            <!-- <th class="col-2">Descuento</th> -->
                                             <!-- Subtotal con descuento -->
-                                            <!-- <th scope="d-flex justify-content-center" class="col-4">Precio antes de IVA</th> -->
+                                            <!-- <th class="col-4">Precio antes de IVA</th> -->
                                         </tr>
                                     </thead>
                                     <tbody class="contenido-estudios" id="cargos-estudios-11">
@@ -32,9 +33,10 @@
                                 <table class="table table-hover shadow-sm p-4" style="display:none" id="container-estudios-8">
                                     <thead class="">
                                         <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Rayos X (Estudios)</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
+                                            <th class="col-6">Rayos X (Estudios)</th>
+                                            <th class="col-2">Descuento</th>
+                                            <th class="col-2">Cantidad</th>
+                                            <th class="col-2">Precio de Venta</th>
                                         </tr>
                                     </thead>
                                     <tbody class="contenido-estudios" id="cargos-estudios-8">
@@ -44,9 +46,10 @@
                                 <table class="table table-hover shadow-sm p-4" style="display:none" id="container-estudios-6">
                                     <thead class="">
                                         <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Laboratorio Clinico (Estudios)</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
+                                            <th class="col-6">Laboratorio Clinico (Estudios)</th>
+                                            <th class="col-2">Descuento</th>
+                                            <th class="col-2">Cantidad</th>
+                                            <th class="col-2">Precio de Venta</th>
                                         </tr>
                                     </thead>
                                     <tbody class="contenido-estudios" id="cargos-estudios-6">
@@ -56,13 +59,14 @@
                                 <table class="table table-hover shadow-sm p-4" style="display:none" id="container-estudios-12">
                                     <thead class="">
                                         <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Laboratorio Biomolecular (Estudios)</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <!-- subtotal sin descuento -->
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
-                                            <!-- <th scope="d-flex justify-content-center" class="col-2">Descuento</th> -->
+                                            <th class="col-6">Laboratorio Biomolecular (Estudios)</th>
+                                            <th class="col-2">Descuento</th>
+                                            <th class="col-2">Cantidad</th>
+                                            <!-- subtotal s3n descuento -->
+                                            <th class="col-2">Precio de Venta</th>
+                                            <!-- <th class="col-2">Descuento</th> -->
                                             <!-- Subtotal con descuento -->
-                                            <!-- <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th> -->
+                                            <!-- <th class="col-4">Precio de Venta</th> -->
                                         </tr>
                                     </thead>
                                     <tbody class="contenido-estudios" id="cargos-estudios-12">
@@ -72,9 +76,10 @@
                                 <table class="table table-hover shadow-sm p-4" style="display:none" id="container-estudios-0">
                                     <thead class="">
                                         <tr>
-                                            <th scope="d-flex justify-content-center" class="col-6">Otros Estudios</th>
-                                            <th scope="d-flex justify-content-center" class="col-2">Cantidad</th>
-                                            <th scope="d-flex justify-content-center" class="col-4">Precio de Venta</th>
+                                            <th class="col-6">Otros Estudios</th>
+                                            <th class="col-2">Descuento</th>
+                                            <th class="col-2">Cantidad</th>
+                                            <th class="col-2">Precio de Venta</th>
                                         </tr>
                                     </thead>
                                     <tbody class="contenido-estudios" id="cargos-estudios-0">
@@ -84,7 +89,7 @@
                         </div>
                     </div>
                     <!-- Columna 2 Tipos de pago, referencia, total -->
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-lg-4">
                         <h5 class="px-2">Información de pago</h5>
                         <div class="px-3">
                             <div class="mb-2" id="TipoPago1">

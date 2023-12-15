@@ -10,15 +10,19 @@
     .resultados_resp td {
         width: 33.3%;
     }
+
+    .cursive {
+        font-style: italic;
+    }
 </style>
 
 <?php
 
 // $comentario = $body[count($body) - 1];
 // $lote = $body[count($body) - 1];
-$muestra = $body[count($body) - 2];
+$muestra = $body[count($body) - 1];
 // $autorizacion = $body[count($body) - 3];
-$kit = $body[count($body) - 1];
+// $kit = $body[count($body) - 1];
 
 ?>
 
@@ -27,19 +31,27 @@ $kit = $body[count($body) - 1];
 <br><br><br>
 <table style="width: 100%; font-size: 12px">
     <tr style="background-color: darkgrey;">
-        <td style=" padding:3px;"><strong>rT-PCR H. pylori & ClariR </strong></td>
+        <td style=" padding:3px;"><strong>rT-PCR Entero-DR </strong></td>
         <td style="text-align:center; padding:3px;"><strong>Resultado</strong></td>
         <td style="text-align:center; padding:3px;"><strong>Valor de Normalidad</strong></td>
     </tr>
     <?php
 
-    $body = array_slice($body, 0, count($body) - 2);
+    $body = array_slice($body, 0, count($body) - 1);
     foreach ($body as $key => $value) {
         if ($value->resultado != 'LABEL_BIOMOLECULAR') {
     ?>
             <tr>
-                <td style="text-align: left;" class=""><?php echo $value->nombre ?></td>
-                <td class="<?php echo $value->resultado == 'POSITIVO' ? "bold rojo" : "bold";  ?>" style="text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
+                <td style="text-align: left;" class="">
+                    <?php if ($value->nombre == "Klebsiella pneumoniae carbapenemase (KPC)") { ?>
+                        <span class="cursive"><?php echo $value->nombre ?></span>
+                    <?php } else { ?>
+                        <?php echo $value->nombre ?>
+                    <?php } ?>
+                </td>
+                <td class="<?php echo $value->resultado == 'DETECTADO' ? "bold" : "";  ?>" style="text-align:center;">
+                    <?php echo $value->resultado ?>
+                </td>
                 <td style="text-align:center;"><?php if ($value->resultado != 'N/A') echo "NO DETECTADO"; ?></td>
             </tr>
         <?php
@@ -49,7 +61,7 @@ $kit = $body[count($body) - 1];
                 <td colspan="12">&nbsp;</td>
             </tr>
             <tr class="bold">
-                <td colspan="12" style="text-align: left;">• <?php echo $value->nombre ?></td>
+                <td colspan="12" style="text-align: left;"><?php echo $value->nombre ?></td>
             </tr>
     <?php
         }
@@ -61,11 +73,12 @@ $kit = $body[count($body) - 1];
 <!-- Comentario -->
 <p style=" text-align: justify;">
     <strong>Comentarios:</strong>
-    El Kit Allplex H. pylori & ClariR es un ensayo múltiplex de PCR en tiempo real que permite la
-    amplificación y detección simultáneas de los ácidos nucleicos diana de H. pylori (HP), la
-    mutación puntual de la resistencia a la claritromicina (A2143G, A2142G y A2142C en el 23S rRNA).
-    Y el Médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos
-    clínicos que el paciente presente.
+    El Kit Allplex Entero-DR es una prueba de diagnóstico cualitativa in vitro que utiliza la reacción en cadena de la
+    polimerasa múltiplex en tiempo real (múltiplex PCR en tiempo real).
+    Esta prueba permite la detección única o múltiple de genes carbapenemasas (NDM, KPC, OXA-48, VIM, IMP), gen (CTX-M) de
+    Beta-Lactamasa de espectro extendido (ESBL) y genes de resistencia a la vancomicina (VanA, VanB) en hisopos rectales o
+    colonias bacterianas. Y el Médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos clínicos
+    que el paciente presente.
 </p>
 <br><br>
 
@@ -76,6 +89,6 @@ $kit = $body[count($body) - 1];
         <!-- <td><strong>No. lote: </strong>TBD106L-222923</td> -->
     </tr>
     <tr>
-        <td> <strong>Kit Diagnóstico: </strong><?php echo $kit->resultado ?></td>
+        <td> <strong>Kit Diagnóstico: </strong>Allplex™ Entero-DR Assay</td>
     </tr>
 </table>

@@ -6,11 +6,17 @@
 
 //Variable globales
 var tipo_pago = false, tipo_factura = false
-var dataPaciente, dataPrecios = {};
+var dataPaciente, dataPrecios = {
+    descuento_porcentaje: 0, descuento: 0,
+    total_cargos: 0, subtotal: 0,
+    iva: 0, total: 0
+};
+
 var formasPagos = []; // Array para guardar las formas de pago
 var array_pagos = []; // Array para guardar los pagos generados
 var array_data = [] // Array para guardar la informacion del cliente que viene de cargos_turnos_api
 var total_cliente; // Total que debe pagar el cliente
+var total_cargo; // Total para calcular descuento
 
 // ==============================================================================
 
@@ -85,8 +91,8 @@ $(document).on('submit', '#formularioPacienteFactura', function (event) {
         let dataJson = {
             api: 1, turno_id: dataPaciente['ID_TURNO'],
             requiere_factura: 1, metodo_pago: 1,
-            formas_pagos_ticket: JSON.stringify(array_pagos)
-
+            formas_pagos_ticket: JSON.stringify(array_pagos),
+            conceptos: obtenerDatosServicios()
         }
 
         if (!onlyFactura) {
@@ -219,10 +225,21 @@ function configurarModal(data) {
                 const element = row[key]
 
                 //Crea la fila de la tabla, Nombre del servicio, cantidad, y precio antes de iva
-                let html = `<tr>
-                                <th>${element['SERVICIOS']}</th> 
-                                <td>${parseFloat(ifnull(element, 0, ['CANTIDAD'])).toFixed(2)}</td>
-                                <td>$${parseFloat(ifnull(element, 0, ['TOTAL'])).toFixed(2)}</td>
+                let html = `<tr class="tr_concepto">
+                                <th data-bs-id-servicio="${element['ID_SERVICIO']}">${element['SERVICIOS']}</th>
+                                <td>
+                                    <div class="input-group flex-nowrap">
+                                        <input type="number" placeholder="0" class="form-control input-form text-end setDescuentoConcepto px-1" value="">
+                                        <span class="input-group-text input-span">%</span>
+                                    </div>
+                                </td>
+                                <td><span class="cantidad_concepto">${parseFloat(ifnull(element, 0, ['CANTIDAD'])).toFixed(2)}</span></td>
+                                <td>
+                                    $
+                                    <span class="total_concepto" data-bs-original="${parseFloat(ifnull(element, 0, ['PRECIO_VENTA'])).toFixed(2)}">
+                                        ${parseFloat(ifnull(element, 0, ['PRECIO_VENTA'])).toFixed(2)}
+                                    </span>
+                                </td>
                             </tr>`
 
                 //Adjunta a las tablas la area correspondiente
@@ -237,77 +254,109 @@ function configurarModal(data) {
             }
         }
 
+        total_cargo = data['TOTAL_CARGO']
 
-        let total_cargos = data['TOTAL_CARGO']
+        dataPrecios['sin_mod-total_cargos'] = total_cargo
 
-
-
-        let subtotal = total_cargos
-        $('#precio-subtotal').html(`$${subtotal.toFixed(2)}`)
-
-        let iva = subtotal * 0.16
-        $('#precio-iva').html(`$${iva.toFixed(2)}`)
-
-        let total = subtotal + iva
-        $('#precio-total').html(`$${total.toFixed(2)}`)
-
-        total_cliente = total.toFixed(2);
-
-        dataPrecios = {
-            descuento_porcentaje: 0,
-            descuento: 0,
-            total_cargos: total_cargos,
-            subtotal: subtotal,
-            iva: iva, total: total
-
-        }
-
-
-        $(document).on('change, keyup', '#descuento', function () {
-            let total_cargos = data['TOTAL_CARGO']
-            let porcentaje_descuento = $(this).val()
-            let descuento = porcentaje_descuento / 100 * total_cargos
-
-            $('#precio-descuento').html(`$${descuento.toFixed(2)}`)
-
-            let subtotal = total_cargos - descuento
-            $('#precio-subtotal').html(`$${subtotal.toFixed(2)}`)
-
-            let iva = subtotal * 0.16
-            $('#precio-iva').html(`$${iva.toFixed(2)}`)
-
-            let total = subtotal + iva
-            $('#precio-total').html(`$${total.toFixed(2)}`)
-
-            total_cliente = total.toFixed(2)
-
-            dataPrecios = {
-                descuento_porcentaje: porcentaje_descuento,
-                descuento: descuento,
-                total_cargos: total_cargos,
-                subtotal: subtotal,
-                iva: iva, total: total
-
-            }
-
-
-        })
-
-
-
-        //Lista de precio, total de estudios, detalle fuera
-        $('#precio-total-cargo').html(`$${parseFloat(ifnull(data['TOTAL_CARGO'], 0)).toFixed(2)}`) //CHECAR LA FUNCION ifnull PARA RECIBIR DATOS NUMERICOS :)
-        // $('#precio-descuento').html(`$${ifnull(data['DESCUENTO'])}`)
-        // $('#precio-subtotal').html(`$${ifnull(data['SUBTOTAL'])}`)
-        // $('#precio-iva').html(`$${ifnull(data['IVA'])}`)
-        // $('#precio-total').html(`$${ifnull(data['TOTAL'])}`)
-
+        getPrecioTotal()
 
         $('#modalEstudiosContado').modal('show')
 
     })
 
 
+}
+
+$(document).on('change keyup', '#descuento', function () {
+    // Calcula los precios finales
+    getPrecioTotal()
+})
+
+$(document).on('change keyup', '.setDescuentoConcepto', function () {
+    // Obtener el porcentaje de descuento
+    var descuento = $(this).val();
+
+    // Obtener el precio original
+    var precioOriginal = parseFloat($(this).closest('.tr_concepto').find('.total_concepto').attr('data-bs-original'));
+
+    // Calcular el nuevo precio
+    var precioConDescuento = precioOriginal - (precioOriginal * descuento / 100);
+
+    // Actualizar el precio en la tabla
+    $(this).closest('.tr_concepto').find('.total_concepto').text(precioConDescuento.toFixed(2));
+
+    calcularTotalCargos();
+    getPrecioTotal()
+});
+
+
+function getPrecioTotal() {
+    let porcentaje_descuento = $('#descuento').val()
+    let descuento = porcentaje_descuento / 100 * total_cargo
+
+    $('#precio-descuento').html(`$${descuento.toFixed(2)}`)
+
+    let subtotal = total_cargo - descuento
+    $('#precio-subtotal').html(`$${subtotal.toFixed(2)}`)
+
+    let iva = subtotal * 0.16
+    $('#precio-iva').html(`$${iva.toFixed(2)}`)
+
+    let total = subtotal + iva
+    $('#precio-total').html(`$${total.toFixed(2)}`)
+
+
+    total_cliente = total.toFixed(2);
+    total_cargo = total_cargo
+
+    dataPrecios['descuento_porcentaje'] = 0
+    dataPrecios['descuento'] = 0
+    dataPrecios['total_cargos'] = total_cargo
+    dataPrecios['subtotal'] = subtotal
+    dataPrecios['iva'] = iva
+    dataPrecios['total'] = total
+
+    //Lista de precio, total de estudios, detalle fuera
+    $('#precio-total-cargo').html(`$${parseFloat(ifnull(dataPrecios, 'number', ['total_cargos'])).toFixed(2)}`) //CHECAR LA FUNCION ifnull PARA RECIBIR DATOS NUMERICOS :)
+}
+
+// Calcula cuanto es el cargo total de precio de venta de todos los conceptos
+function calcularTotalCargos() {
+    var sumaTotal = 0;
+
+    // Iterar sobre cada elemento con la clase 'total_concepto'
+    $('tbody.contenido-estudios .total_concepto').each(function () {
+        // Obtener el valor numérico del texto (asumiendo que el formato es '$123.45')
+        var valor = parseFloat($(this).text().replace('$', ''));
+        if (!isNaN(valor)) {
+            sumaTotal += valor;
+        }
+    });
+
+    total_cargo = sumaTotal.toFixed(2);
+}
+
+
+function obtenerDatosServicios() {
+    var descuento_concepto = [];
+
+    $('.tr_concepto').each(function () {
+        var idServicio = $(this).find('th').data('bs-id-servicio');
+        var descuentoPorcentaje = parseFloat($(this).find('.setDescuentoConcepto').val()) || 0;
+        var precioOriginal = parseFloat($(this).find('.total_concepto').data('bs-original')) || 0;
+        var precioConDescuento = parseFloat($(this).find('.total_concepto').text().replace('$', '')) || 0;
+        var descuentoAplicado = precioOriginal - precioConDescuento;
+
+        descuento_concepto.push({
+            id: idServicio,
+            descuento_porcentaje: descuentoPorcentaje,
+            descuento: descuentoAplicado,
+            precio_venta_sin_descuento: precioOriginal,
+            precio_venta_descuento: precioConDescuento
+        });
+    });
+
+    return descuento_concepto;
 }
 
 //Vista de factura (faltan datos)
@@ -341,7 +390,9 @@ function metodo(factura = 0) {
         descuento_porcentaje: dataPrecios['descuento_porcentaje'],
         descuento: dataPrecios['descuento'], total_cargos: dataPrecios['total_cargos'],
         subtotal: dataPrecios['subtotal'], iva: dataPrecios['iva'], total: dataPrecios['total'],
-        pago: $('#contado-tipo-pago').val(), referencia: $('#referencia-contado').val(), formas_pagos_ticket: JSON.stringify(array_pagos), requiere_factura: factura
+        pago: $('#contado-tipo-pago').val(),
+        conceptos: obtenerDatosServicios(),
+        referencia: $('#referencia-contado').val(), formas_pagos_ticket: JSON.stringify(array_pagos), requiere_factura: factura
     }, 'tickets_api', { callbackAfter: false }, function (data) {
         alertTicket(data, 'Ticket guardado')
     })
@@ -354,7 +405,7 @@ function alertTicket(data, textAlert) {
     //     title: textAlert,
     //     text: 'Se ha generado el ticket',
     //     icon: 'success',
-    //     html: ` <p>Se ha generado el ticket, dale click aqui: </p>
+    //     html: ` < p > Se ha generado el ticket, dale click aqui: </ >
     //     <a href="${data['url_ticket']}" type="button" class="btn btn-cancelar" target="_blank">
     //         <i class="bi bi-file-earmark-pdf"></i> Ticket
     //     </a>
