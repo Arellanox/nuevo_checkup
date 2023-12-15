@@ -364,3 +364,5 @@ function insertarSaltosDeLinea(texto, caracteresPorLinea) {
     return resultado;
 }
 
+
+
