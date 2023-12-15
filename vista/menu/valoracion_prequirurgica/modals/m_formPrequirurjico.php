@@ -15,7 +15,7 @@
     <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="CapturasPrequirurgica">Formulario Prequirurgico</h5>
+                <h5 class="modal-title" id="CapturasPrequirurgica">Formulario prequirúrgico: <strong id="name_paciente"></strong></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" style="overflow-x: hidden;">
@@ -30,7 +30,7 @@
                                     <!-- Siguió Objetos -->
                                     <div class="col-12 m-1 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12">
-                                            <label>Antecedente Personales Patológicos</label>
+                                            <label>Antecedentes Personales Patológicos</label>
                                             <input type="hidden" name="antecedentes[1][id]" value="1">
                                         </div>
                                         <div class="col-12 target-1">
@@ -40,7 +40,7 @@
 
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12 col-lg-8">
-                                            <label>Antecedente Quirúrgicos: </label>
+                                            <label>Antecedentes Quirúrgicos: </label>
                                             <input type="hidden" name="antecedentes[2][id]" value="2">
                                         </div>
                                         <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
@@ -60,7 +60,7 @@
 
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12 col-lg-8">
-                                            <label>Antecedente de fracturas: </label>
+                                            <label>Antecedentes de fracturas: </label>
                                             <input type="hidden" name="antecedentes[3][id]" value="3">
                                         </div>
                                         <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
@@ -121,7 +121,7 @@
                                     <!-- Exposicion traumaticos -->
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12 col-lg-8">
-                                            <label>Tabaquimo: </label>
+                                            <label>Tabaquismo: </label>
                                             <input type="hidden" name="antecedentes[6][id]" value="6">
                                         </div>
                                         <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
@@ -161,7 +161,7 @@
 
                                     <div class="col-12 col-lg-6 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
                                         <div class="col-12 col-lg-8">
-                                            <label>Toxicomanias: </label>
+                                            <label>Toxicomanías: </label>
                                             <input type="hidden" name="antecedentes[8][id]" value="8">
                                         </div>
                                         <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
@@ -246,7 +246,7 @@
                                             </div>
 
                                             <div class="col-12 col-lg-6">
-                                                <label class="pregunta">SATURACIÓN DE OXÍEGNO</label>
+                                                <label class="pregunta">SATURACIÓN DE OXÍGENO</label>
                                                 <input type="hidden" name="signos_vitales[5][id]" value="5">
                                                 <div class="input-group">
                                                     <input type="number" class="form-control input-form" id="" name="signos_vitales[5][valor]" placeholder="">
@@ -291,7 +291,12 @@
 
                                         <div class="col-12 col-lg-12">
                                             <label>Radiografía de torax: </label>
-                                            <textarea name="radiografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea>
+                                            <!-- <textarea name="radiografia_torax" class="form-control input-form" rows="4" cols="2" placeholder="Especifique"></textarea> -->
+                                            <p id="hallazgo_lab">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis massa a purus bibendum viverra. Etiam tristique hendrerit lacinia. Proin volutpat iaculis sem vel pellentesque. Praesent rhoncus lorem sit amet iaculis molestie. Sed placerat scelerisque est non bibendum. Vestibulum ac mauris cursus, pellentesque erat sed, eleifend ligula. Aliquam auctor, sem eget vestibulum dignissim, sapien urna convallis ex, efficitur laoreet nunc ex vel felis. Etiam lacinia sem nec magna ullamcorper suscipit. Integer mi augue, gravida non feugiat sed, volutpat id nisl. Praesent lobortis sit amet lacus nec fermentum. Quisque quis nibh sit amet diam condimentum tristique ut et diam. Proin porta, magna sed convallis sodales, massa ipsum tempus lectus, id sagittis neque ligula ac purus. Aenean sagittis enim sed augue consectetur, ut posuere orci semper. Donec lectus turpis, venenatis et dictum ac, posuere eget nulla. Vestibulum vitae enim euismod, aliquet arcu non, dictum turpis.</p>
+                                            <hr>
+                                            <p id="interpretacion_lab">Quisque at nunc eget ante efficitur tempor. Nulla facilisi. Quisque nec porttitor nibh. Duis vulputate leo enim, quis gravida nisl molestie nec. Aliquam sed nibh finibus arcu consectetur mollis ut eu justo. Curabitur luctus placerat gravida. Duis auctor malesuada nisi, in pellentesque arcu luctus non. Aenean sodales velit ligula, quis egestas odio pharetra id.
+
+Duis a consequat diam, sit amet dignissim odio. Donec in dui sed odio convallis volutpat. Proin et lorem id ipsum gravida ultrices. Nulla suscipit est in porta ornare. In hac habitasse platea dictumst. Nulla a eleifend ipsum. Phasellus ut ligula eu arcu rutrum fringilla et ut purus. Maecenas vel ultricies sapien, eu ultrices neque. Fusce rutrum varius varius. Cras ullamcorper risus nisl, ut vestibulum sapien placerat et. Cras in semper sem. Nullam finibus, est vitae placerat finibus, mi magna faucibus neque, vitae suscipit diam risus sed ante. Praesent sit amet pellentesque augue. Praesent aliquam lacus in massa blandit, sed consequat elit ultrices. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
                                         </div>
 
                                     </div>
@@ -301,7 +306,7 @@
 
                         <section class="page px-4" style="display: none;">
                             <div class="rounded p-3 shadow my-2">
-                                <h4>Riesgo quirúrco</h4>
+                                <h4>Riesgo quirúrgico</h4>
                                 <div class="row">
                                     <div class="col-12 col-lg-3">
                                         <div class="p-2">
@@ -360,7 +365,7 @@
                                                 <textarea name="gupta_respiratorio" class="form-control input-form" rows="2" cols="1" placeholder="Especifique" id="gupta_respiratorio"></textarea>
                                             </div>
                                             <div>
-                                                <label>GUPTA NEUMONIA: </label>
+                                                <label>GUPTA NEUMONÍA: </label>
                                                 <!-- <input type="hidden" name="riesgo[7][id]" value="7"> -->
                                                 <textarea name="gupta_neumonia" class="form-control input-form" rows="2" cols="1" placeholder="Especifique" id="gupta_neumonia"></textarea>
                                             </div>

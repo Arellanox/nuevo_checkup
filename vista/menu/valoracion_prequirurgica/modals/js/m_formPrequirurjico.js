@@ -8,6 +8,7 @@ let Recomendaciones = []; // array donde se guardaran las recomendaciones
 $(document).on('click', '#btn-interpretacionPrequi', function () {
 
     $('#MostrarCapturaPrequirurjico').modal('show');
+    $('#name_paciente').html(arrayPaciente['NOMBRE_COMPLETO'])
 })
 
 // Obtener el reporte previo
