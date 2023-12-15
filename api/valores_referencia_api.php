@@ -17,6 +17,7 @@ $operadores_logicos_id = $_POST['select-operador-referencia'];
 $valor_referencia = $_POST['valor_referencia'];
 $checkedCambiarReferencia = $_POST['checkedCambiarReferencia'];
 $valores_normalidad = $_POST['valores_normalidad'];
+$prefolio = $_POST['prefolio'];
 
 $checkedCambiarReferencia == 0 ? $operadores_logicos_id = null : $operadores_logicos_id = $operadores_logicos_id;
 
@@ -54,7 +55,8 @@ switch ($api) {
         break;
 
     case 4:
-        $response = $master;
+        $response = $master->getByProcedure('sp_turno_b', [$prefolio]);
+
         break;
 
     default:
