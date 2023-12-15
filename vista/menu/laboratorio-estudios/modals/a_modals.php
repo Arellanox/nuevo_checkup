@@ -19,4 +19,4 @@ include "modal_metodos.html";
 // include "gp_rellenar_grupo.html";
 
 //Valores de Referencia
-include "modal_referencia.html";
+include "modal_referencia.php";
