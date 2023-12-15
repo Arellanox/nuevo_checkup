@@ -288,7 +288,7 @@
             height: auto;
         }
 
-                .table {
+        .table {
             margin-top: 1px !important;
             border-collapse: collapse;
             width: 100%;
@@ -402,7 +402,7 @@ $encode_firma = base64_encode($ruta_firma);
                 <td class="td"><?php echo imprimirAntecedentes($resultados->ANTECEDENTES[3]); ?></td>
             </tr>
         </table> -->
-                <?php
+        <?php
         $antecedentes = json_encode($resultados->ANTECEDENTES, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
         // echo $antecedentes;
@@ -418,42 +418,43 @@ $encode_firma = base64_encode($ruta_firma);
             $id_respuesta = $element['ID_RESPUESTA']; //<--- no se ocupara
             $respuesta = $element['RESPUESTA']; //<--- Respuesta
             $comentario = $element['COMENTARIO']; // <--- Comentario
-            ?>
-
+        ?>
 
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="pregunta-row" style="border-bottom: none;" ><?php echo $antecedente ?></th>
-                        <th class="pregunta-row" style="border-bottom: none; padding-left: 100px !important;" ><?php echo $respuesta ?></th>
+                        <th class="pregunta-row" style="border-bottom: none;"><?php echo $antecedente ?></th>
+                        <th class="pregunta-row" style="border-bottom: none; padding-left: 100px !important;"><?php echo $respuesta ?></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($comentario)): ?>
+                    <?php if (!empty($comentario)) : ?>
                         <tr>
-                        <td class="comentario-row">Comentario: <?php echo $comentario ?></td>
+                            <td class="comentario-row">Comentario: <?php echo $comentario ?></td>
                         </tr>
                     <?php endif; ?>
-                        <tr>
+                    <tr>
 
-                    <!-- <tr>    
+                        <!-- <tr>    
                         <td class="comentario-row" style="border-bottom: none;"> <?php echo $comentario ?>  </td>
                         <td class="comentario-row" style="border-bottom: none;"></td>
                     </tr> -->
-             </tbody>
-        </table>
-        <hr style="border-width: 0.1px; border-color: #ddd">
+                </tbody>
+            </table>
+            <hr style="border-width: 0.1px; border-color: #ddd">
         <?php
         }
-        
+
         ?>
 
+
+        <div class="break"></div>
         <!-- TABLA DE AUDIOMETRIA TONAL -->
         <div class="tonal">
             <h2 style="padding-bottom: 6px; padding-top: 6px;">AUDIOMETRÍA</h2>
             <p>
                 Se realiza audiometría aérea, con los siguientes datos:
-            </p>
+            </p><br>
             <?php
             $columnas = obtenerColumnas($resultados->AUDIOMETRIA->OD);
             $audiometria = json_decode(json_encode($resultados->AUDIOMETRIA));
@@ -480,6 +481,7 @@ $encode_firma = base64_encode($ruta_firma);
 
             echo '</table>';
             ?>
+            <br>
             <p style="margin: 5px 0px 0px 0px;">*Valores en decibeles (dB)</p>
 
         </div>
@@ -510,6 +512,8 @@ $encode_firma = base64_encode($ruta_firma);
         ?>
 
         <!-- Otoscopía -->
+        <div class="break"></div>
+
         <h2 style="padding-bottom: 6px; padding-top: 6px;">Otoscopía </h2>
         <p> <?php echo $resultados->OTOSCOPIA; ?> </p>
 
@@ -545,8 +549,8 @@ $encode_firma = base64_encode($ruta_firma);
             </tr>
         </table>
 
-        <br>
-
+        <br><br>
+        
         <table style="margin: 0 auto; border-collapse: collapse; border: 1px solid #000; width: 60%;">
             <tr>
                 <td colspan="2" align="center" style="background-color: #e1e6ea; border: 1px solid #000;">
