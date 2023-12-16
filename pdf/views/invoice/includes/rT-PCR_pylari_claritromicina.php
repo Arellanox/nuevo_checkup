@@ -63,7 +63,7 @@ $kit = $body[count($body) - 1];
     <strong>Comentarios:</strong>
     El Kit Allplex H. pylori & ClariR es un ensayo múltiplex de PCR en tiempo real que permite la
     amplificación y detección simultáneas de los ácidos nucleicos diana de H. pylori (HP), la
-    mutación puntual de la resistencia a la claritromicina (A2143G, A2142G y A2142C en el 23S rRNA).
+    mutación puntual de la resistencia a la claritromicina (A2143G, A2142G y A2142C en el gen 23S rRNA).
     Y el Médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos
     clínicos que el paciente presente.
 </p>
