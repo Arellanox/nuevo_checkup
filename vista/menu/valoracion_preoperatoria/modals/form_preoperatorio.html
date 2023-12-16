@@ -1,0 +1,62 @@
+<div class="modal fade" id="MostrarCapturaProperatoria" tabindex="-1" aria-labelledby="formulario_pre"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CapturasPrequirurgica">Formulario Prequirurgico</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="height: 100%;max-height: 100%;  background-color: black;">
+                    <div class="col-12 col-lg-7">
+                        <!-- formulario -->
+                        <form id="valoracionPreoperatoria" class="p-3">
+                            <p class="pb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque nam alias
+                                modi. Amet ab,
+                                eos beatae odio maiores corrupti repellat</p>
+                            <div class="col-12">
+                                <label>Option 1: </label>
+                                <textarea name="exploracion_fisica" class="form-control input-form" rows="2" cols="2"
+                                    placeholder="Especifique" id="exploracion_fisica"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label>Option 2: </label>
+                                <textarea name="exploracion_fisica" class="form-control input-form" rows="8" cols="2"
+                                    placeholder="Especifique" id="exploracion_fisica"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-lg-5">
+                        <div class="p-3">
+                            <!-- Visualización del formulario -->
+                            <div id="pdfviewer" style="height: 93%;">
+                                <div id="adobe-dc-view"></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cancelar
+                </button>
+
+                <button type="button" class="btn_interpretacion_modal btn btn-borrar" id="btn-vistaPrevia">
+                    <i class="bi bi-file-earmark-pdf"></i> Vista previa
+
+                </button>
+
+                <button type="button" class="btn_interpretacion_modal btn btn-confirmar" id="btn-guardarInterpretacion">
+                    <i class="bi bi-clipboard2-plus"></i> Guardar interpretación
+                </button>
+
+                <button type="button" class="btn_interpretacion_modal btn btn-confirmar" id="btn-confirmarReporte">
+                    <i class="bi bi-clipboard2-plus"></i> Confirmar reporte
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

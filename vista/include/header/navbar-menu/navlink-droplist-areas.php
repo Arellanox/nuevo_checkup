@@ -159,9 +159,9 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 
 
 <!-- Modulo de valoracion prequirurgica -->
-<?php if ($_SESSION['vista']['PREQUIRURGICO'] == 1) : ?>
-  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/valoracion_prequirurgica'; ?>">
-    <i class="bi bi-file-earmark-medical-fill"></i> Valoración prequirúrgica
+<?php if ($_SESSION['vista']['VALORACION_PREOPERATORIA'] == 1) : ?>
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/valoracion_preoperatoria'; ?>">
+    <i class="bi bi-file-earmark-medical-fill"></i> Valoración Preoperatoria
   </a>
 <?php endif; ?>
 

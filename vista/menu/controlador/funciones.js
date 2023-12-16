@@ -2133,22 +2133,13 @@ function configSelectTable(config) {
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
   var esTabletaVertical = /iPad/i.test(navigator.userAgent)
-  // && window.innerHeight > window.innerWidth;
+  // window.innerHeight > window.innerWidth;
   var esDispositivoMovil = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || esTabletaVertical;
 
   if (esDispositivoMovil)
     callback(esDispositivoMovil);
   return esDispositivoMovil;
 
-  let width = window.innerWidth;
-  let height = window.innerHeight;
-
-  if ((width <= 768 && height <= 1366) || (height <= 1366 && width <= 1366)) {
-    callback(true);
-    return true;
-  } else {
-    return false;
-  }
 }
 
 //Visualiza los botones de navegacion

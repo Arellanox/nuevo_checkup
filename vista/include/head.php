@@ -159,6 +159,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/carousel/carousel.thumbs.umd.js"></script>
 
 
+<!-- Devices js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/device.js/0.2.7/device.min.js"></script>
+
+
+
 
 <script>
     var traducciones;

@@ -5,7 +5,7 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
     info: true,
     paging: false,
     sorting: false,
-    scrollY: '75vh',
+    scrollY: '50vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -38,9 +38,9 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
         dataSrc: 'response.data'
     },
     createdRow: function (row, data, dataIndex) {
-        if (data.CONFIRMADO_PREQUIRURGICO == 1) {
-            $(row).addClass('bg-success text-white');
-        }
+        // if (data.CONFIRMADO_PREQUIRURGICO == 1) {
+        //     $(row).addClass('bg-success text-white');
+        // }
     },
     columns: [
         { data: 'COUNT' },
@@ -54,9 +54,9 @@ TablaPacientesPrequirurgica = $('#TablaPacientesPrequirurgica').DataTable({
         { target: 0, title: '#', className: 'all' },
         { target: 1, title: 'Nombre', className: 'all' },
         { target: 2, title: 'Prefolio  ', className: 'all' },
-        { target: 3, title: 'Procedencia', className: 'none' },
+        { target: 3, title: 'Procedencia', className: 'tablet' },
         { target: 4, title: 'Edad   ', className: 'none' },
-        { target: 5, title: 'Sexo', className: 'none' }
+        { target: 5, title: 'Sexo', className: 'tablet' }
 
     ],
 })
@@ -76,29 +76,29 @@ selectTable('#TablaPacientesPrequirurgica', TablaPacientesPrequirurgica, {
     unSelect: true, dblClick: true, movil: true, reload: ['col-xl-8']
 }, async function (select, data, callback) {
     arrayPaciente = data
-    estadoFormulario(arrayPaciente['GUARDADO'], arrayPaciente['CONFIRMADO_PREQUIRURGICO'])
+    estadoFormulario(0, 0);
+    // estadoFormulario(arrayPaciente['GUARDADO'], arrayPaciente['CONFIRMADO_PREOPERATORIO'])
 
     if (select) {
-        limpiarForm('formInterpretacion');
+        limpiarForm('valoracionPreoperatoria');
         // getPanel('.informacion-paciente', '#loader-paciente', '#loaderDivPaciente', datalist, 'In', async function (divClass) {
         await obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
 
         // Llamar a esta función para reiniciar
-        restartPages();
+        // restartPages();
 
         $('#btn-vistaPrevia').attr('turno_actual', data['ID_TURNO'])
 
-        await ajaxAwait({ api: 4, turno_id: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
+        // await ajaxAwait({ api: 4, turno_id: data['ID_TURNO'] }, 'prequirurgico_api', { callbackAfter: true }, false, (data) => {
 
-            dataRegistro = data.response.data[0] // recupera todos los datos guardados
-            dataPacientes(dataRegistro) // Funcion que muestra los datos guardados
+        //     dataRegistro = data.response.data[0] // recupera todos los datos guardados
+        //     dataPacientes(dataRegistro) // Funcion que muestra los datos guardados
 
-            // Recupera el panel de información de reporte
-            // Llamada a la función principal
-            actualizarAcordeon(data.response.data);
+        // Recupera el panel de información de reporte
+        // Llamada a la función principal
+        //     actualizarAcordeon(data.response.data);
 
-
-        })
+        // })
 
         //Muestra las columnas
         callback('In')
@@ -145,6 +145,14 @@ $(document).on('change', '#fechaListadoAreaMaster', function () {
     // Se desaparece las 2 columnas en caso de que esten a la vista del usuario
     // fadePanelInfoInterpretacion("Out");
 })
+
+// Abrir el model de formulario
+$(document).on('click', '#btn-interpretacionPreoperatoria', function () {
+    // alert(1)
+    $('#MostrarCapturaProperatoria').modal('show');
+    // $('#name_paciente').html(arrayPaciente['NOMBRE_COMPLETO'])
+})
+
 
 
 $('#btn-vistaPrevia').click(function () {

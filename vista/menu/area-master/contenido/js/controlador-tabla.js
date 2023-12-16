@@ -776,6 +776,7 @@ async function GeenerarReporteImagenologia(data) {
                 ${mainContent}
             </div>`);
 
+        autosize(document.querySelectorAll('textarea'))
         resolve(1);
 
         // Crea la galeria

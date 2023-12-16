@@ -6,5 +6,5 @@ $.post("modals/a_modals.php", function (html) {
     // $.getScript('modals/js/subir-perfil.js');
 }).done(function () {
     // Modal para Actualizar Cliente
-    $.getScript('modals/js/m_formPrequirurjico.js');
+    $.getScript('modals/js/form_preoperatorio.js');
 });

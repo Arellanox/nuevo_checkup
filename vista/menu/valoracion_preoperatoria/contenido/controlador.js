@@ -1,5 +1,5 @@
 
-if (validarVista('PREQUIRURGICO')) {
+if (validarVista('VALORACION_PREOPERATORIA')) {
     ObtenerBody();
 }
 
@@ -15,8 +15,8 @@ const cliente = 31; // cliente
 
 
 async function ObtenerBody() {
-    await obtenerTitulo('Valoración prequirúrgica'); //Aqui mandar el nombre de la area
-    $.post("contenido/contenido.php", function (html) {
+    await obtenerTitulo('Valoración Preoperatoria'); //Aqui mandar el nombre de la area
+    $.post("contenido/contenido.html", function (html) {
         $("#body-js").html(html);
     }).done(async function () {
         estadoFormulario(estado)
@@ -70,8 +70,6 @@ function createJsonObject(type, tabla = true) {
 function limpiarForm(form) {
     document.getElementById(form).reset()
     $(`#${form} div.collapse`).collapse('hide'); // Oculta de nuevo todos los collapse
-    tablalistRecomendaciones.clear().draw();
-    tablaLaboratorios.clear().draw();
 }
 
 // Cambia y muestra los botones del formulario
