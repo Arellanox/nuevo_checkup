@@ -4,7 +4,7 @@ $(document).on('click', '.btn-acciones', async function (event) {
 
     id_servicio_global = $(this).attr('data-bs-id');
 
-    // await getCapturas();
+    await getCapturas();
 
     $('#modalCapturasMicroscopio').modal('show');
 
@@ -13,9 +13,11 @@ $(document).on('click', '.btn-acciones', async function (event) {
 
 async function getCapturas() {
     return new Promise(async function (resolve, reject) {
-        await ajaxAwait({}, 'api', { callbackBefore: true }, false, () => {
+        await ajaxAwait({ api: 2, turno_id: selectListaLab['ID_TURNO'] }, 'laboratorio_api', { callbackAfter: true }, false, (data) => {
+            console.log(data);
+            $('#carrusel_microscopio').html('')
 
-
+            $('#carrusel_microscopio').html(crearHTMLImag(data.response.data))
             activeFancybox();
             // Retorna que esta listo
             resolve(1)
