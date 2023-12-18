@@ -24,41 +24,54 @@ function recargarVistaLab(fecha = 1) {
   TablaContenidoPaciCertificados.ajax.reload()
 }
 
+
+
+
 //Mapeo de la procedencia de los botones
 const btnProcedencia = {
-  'Particular': '#btn-reporteParticular',
-  'SLB': '#btn-reporteSlb',
-  'EXPRO': '#btn-reporteExpro',
-  'VINCO': '#btn-reporteVinco',
-  'POE': '#btn-reportePoe'
+  'Particular': {
+
+    formulario: 'form_particular.html'
+  },
+  'SLB': {
+    MASCULINO: 'slb_masculino', //MASCULINO menor a 40
+    FEMENINO: 'slb_femenino', //FEMENINO menor a 40
+    VEJEZ: 'slb_vejez', //Persona mayor a 40
+    formulario: 'form_slb.html',
+  },
 }
 
 //funcion para llamar a los botones dependiendo de la procedencia
-function btnCertificados(procedencia, genero) {
-  $(".btn-ocultar").hide(); //oculta todos los btn antes
+function btnCertificados(config) {
+  return new Promise(resolve => {
+    let tipo_format = config.EDAD >= 40 ? 'VEJEZ' : config.GENERO;
+    let pdf_format = btnProcedencia[config.cliente][tipo_format];
 
-  const btnSeleccion = btnProcedencia[procedencia] //Entra en el mapeto y busca lo que se trae desde la funcion
-  if (btnSeleccion) {
-    $(btnSeleccion).show()
-  }
+    $(`#${'cuerpo_certificado'}`).html(''); // Limpiar el cuerpo de HTML
+    $.post(`modals/formularios/${btnProcedencia[config.cliente]['formulario']}`, function (html) {
+      $(`#${'cuerpo_certificado'}`).html(html);
+    }).done(() => {
+      // El codigo sigue si se necesita crear mas cosas o validar mas cosas
+      // En cierto caso puede usarse un case
+
+      ajaxAwait(
+        {
+          api: 2,
+          cliente_id: datalist['CLIENTE_ID'],
+          turno_id: datalist['ID_TURNO']
+        }, 'certificados_api', { callbackAfter: true }, false, function (data) {
+          datPaciente = data.response.data[0]
+          datosPaciente(datPaciente, config.cliente)
+
+          resolve(1)
+        })
+
+    });
+  })
 }
 
 //Click para entrar al modal dependiendo del boton
-$('.btn-confirmar').click(function () {
-  const modalId = $(this).data('modal-id');
-
-  //Recupera la informacion del paciente
-  ajaxAwait(
-    {
-      api: 2,
-      cliente_id: datalist['CLIENTE_ID'],
-      turno_id: datalist['ID_TURNO']
-    }, 'certificados_api', { callbackAfter: true }, false, function (data) {
-      datPaciente = data.response.data[0]
-      datosPaciente(datPaciente)
-    })
-    
-  $(modalId).modal('show')
-  
+$(document).on('click', '#btn-carga_certificado', function () {
+  $(`#${'MoldaCertificadoMaster'}`).modal('show')
 })
 

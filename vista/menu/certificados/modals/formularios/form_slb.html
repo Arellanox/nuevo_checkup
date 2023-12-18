@@ -1,0 +1,128 @@
+<div class="row">
+
+    <div class="col-6">
+        <label for="antecedentes_personales" class="form-label">Nombre del medico:</label>
+        <input type="text" class="input-form" disabled id="Nom_medico">
+    </div>
+
+    <div class="col-6">
+        <label for="antecedentes_oftalmologicos" class="form-label">Cedula Profesional:</label>
+        <input type="text" class="input-form" disabled id="cedula">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <label for="padecimiento_actual" class="form-label">Nombre del paciente:</label>
+        <input type="text" class="input-form" disabled id="nom_paciente">
+    </div>
+
+    <div class="col-3">
+        <label for="agudeza_visual" class="form-label">Fecha de nacimiento:</label>
+        <input type="text" class="input-form" disabled id="fech_nacimiento">
+    </div>
+
+    <div class="col-3">
+        <label for="agudeza_visual" class="form-label">Segmento:</label>
+        <input type="text" class="input-form" disabled id="segmento">
+    </div>
+
+    <div class="col-3">
+        <label for="agudeza_visual" class="form-label">Categoria:</label>
+        <input type="text" class="input-form" disabled id="categoria">
+    </div>
+</div>
+
+<form class="" id="formSubirCertificadoSLB">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="rounded p-3 shadow my-2" id="lado-izquierdo">
+                <p class="text-center">El paciente <strong>medicamente esta:</strong></p>
+                <hr class="dropdown-divider m-2">
+
+                <div class="col-12 col-md-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                    <div class="col-12 col-lg-8">
+                        <label for="apto-sin">Apto sin restricciones en la industria de gas y petróleo </label>
+                    </div>
+                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-end">
+                        <div class="col-auto">
+                            <input type="radio" required id="apto-sin" name="cuerpo[1][option]" value="1">
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="col-12 col-md-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                    <div class="col-12 col-lg-8">
+                        <label for="apto-con">Apto con restrincciones para las siguientes actividades</label>
+                    </div>
+                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-end">
+                        <div class="col-auto">
+                            <input type="radio" required id="apto-con" name="cuerpo[1][option]" value="2">
+                        </div>
+                    </div>
+                    <div class="target-1 collapse">
+                        <textarea name="cuerpo[1][comentario]" class="form-control input-form" rows="2" cols="2"
+                            placeholder="Especifique"></textarea>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="col-12 col-md-12 mb-4 row d-flex justify-content-center pregunta" style="font-size: 20px;">
+                    <div class="col-12 col-lg-8">
+                        <label for="no-apto">No apto para trabajar en la industria de gas y petróleo</label>
+                    </div>
+                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-end">
+                        <div class="col-auto">
+                            <input type="radio" required id="no-apto" name="cuerpo[1][option]" value="3">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="rounded p-3 shadow my-2" id="lado-derecho">
+                <p class="text-center"><strong>ADD</strong> a realizar:</p>
+                <hr class="dropdown-divider m-2">
+
+                <div class="pregunta row mb-4">
+                    <div class="col-12 col-lg-8">
+                        <label for="add-1">
+                            Se le realizaron los siguientes estudios médicos: BHC VSG, QS, TGO, TGP, GGT,
+                            perfil de lípidos, antidoping de 5 elementos, EGO, CPS, audiometría, Espirometría,
+                            Rayos X: tele de tórax, AP y lateral de columna lumbar y agudeza visual.
+                        </label>
+                    </div>
+                    <div class="col-12 col-lg-4 d-flex align-items-start justify-content-end">
+                        <div class="col-auto">
+                            <input type="radio" required id="add-1" name="cuerpo[2][option]" value="1">
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="pregunta row mb-1">
+                    <div class="col-12 col-lg-8">
+                        <label for="add-2">
+                            Se le realizaron los siguientes estudios médicos: BHC, VSG, QS, TGO, TGP,
+                            GGT, TSH, perfil de lípidos, Antidoping de 3 elementos, EGO, CPS, Audiometría,
+                            Espirometría, Tele de Tórax, Rx AP y lateral de columna lumbar, Agudeza visual,
+                            USG abdominal, Prueba de esfuerzo y Ecocardiograma.
+                        </label>
+                    </div>
+                    <div class="col-12 col-lg-4 d-flex align-items-start justify-content-end">
+                        <div class="col-auto">
+                            <input type="radio" required id="add-2" name="cuerpo[2][option]" value="2">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

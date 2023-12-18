@@ -1,0 +1,50 @@
+<div class="modal fade" id="MoldaCertificadoMaster" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header header-modal">
+        <h5 class="modal-title" id="filtrador">Subir Certificado <strong>(SLB)</strong>:</h5>
+        <button type="button" class="btn-close  " data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body" id="cuerpo_certificado">
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
+          Cancelar</button>
+
+        <!--form="formSubirCertificadoSLB"-->
+        <button type="button" class="btn btn-confirmar-subir" id="btn-subirCertificadoSLB">
+          <i class="bi bi-person-plus"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function () {
+    // Escuchar el cambio en los radio buttons del lado izquierdo
+    $('input[name^="cuerpo[1][option]"]').change(function () {
+      // Ocultar todos los textarea en el contenedor izquierdo con class 'target-1'
+      $('#lado-izquierdo .target-1').collapse('hide');
+
+      // Obtener el textarea correspondiente dentro del contenedor izquierdo
+      var textarea = $('#lado-izquierdo .target-1 textarea');
+
+      // Mostrar el textarea solo si el radio button con id 'apto-con' está seleccionado
+      if ($('#apto-con').is(':checked')) {
+        $('#lado-izquierdo .target-1').collapse('show');
+      } else {
+        // Si cambias la opción, borra el contenido del textarea y oculta
+        textarea.val("");
+        $('#lado-izquierdo .target-1').collapse('hide');
+      }
+    });
+  });
+
+
+</script>

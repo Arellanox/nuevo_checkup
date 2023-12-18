@@ -1,4 +1,4 @@
 <?php
 
 //Modals de certificados medicos
-include 'mo_certSlb.html'; //<-- Certificado SLB
+include 'modal_certificados_formulario-master.html'; //<-- Certificado SLB

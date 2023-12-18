@@ -1,11 +1,21 @@
 //Recupera y muestra la informacion del paciente
-function datosPaciente(data) {
-    $('#Nom_medico').val(data['MEDICO'])
-    $('#cedula').val(data['CEDULA_MEDICO'])
-    $('#nom_paciente').val(data['NOMBRE_PACIENTE'])
-    $('#fech_nacimiento').val(data['FECHA_NACIMIENTO'])
-    $('#segmento').val(data['SEGMENTO'])
-    $('#categoria').val(data['CATEGORIA'])
+function datosPaciente(data, cliente) {
+
+    switch (cliente) {
+        case 'SLB':
+            $('#Nom_medico').val(data['MEDICO'])
+            $('#cedula').val(data['CEDULA_MEDICO'])
+            $('#nom_paciente').val(data['NOMBRE_PACIENTE'])
+            $('#fech_nacimiento').val(data['FECHA_NACIMIENTO'])
+            $('#segmento').val(data['SEGMENTO'])
+            $('#categoria').val(data['CATEGORIA'])
+            break;
+
+        default:
+            break;
+    }
+
+
 }
 
 // $('#btn-subirCertificadoSLB').on('click', function () {
@@ -39,6 +49,6 @@ $('#btn-subirCertificadoSLB').on('click', function (e) {
         ajaxAwaitFormData({ api: 3 }, 'certificados_api', 'formSubirCertificadoSLB', { callbackAfter: true }, false, () => {
             alertToast('Se han guardado los datos corretamente!', 'success', 4000)
         })
-    },1)
-    
+    }, 1)
+
 });
