@@ -1360,7 +1360,6 @@ class Miscelaneus
 
     public function selectHost($domain)
     {
-
         switch ($domain) {
             case "localhost":
                 $preUrl = "http://localhost/nuevo_checkup/";

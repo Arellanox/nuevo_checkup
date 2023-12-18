@@ -1682,7 +1682,7 @@ class Miscelaneus
 
         switch ($domain) {
             case "localhost":
-                $preUrl = "http://localhost/practicantes/";
+                $preUrl = "http://localhost/nuevo_checkup/";
                 break;
             case "bimo-lab.com":
                 $preUrl = "https://bimo-lab.com/nuevo_checkup/";
