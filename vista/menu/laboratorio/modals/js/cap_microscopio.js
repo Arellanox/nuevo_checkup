@@ -36,7 +36,7 @@ function crearHTMLImag(capturasData) {
             </div>`).join('');
 
         return `
-            <div class="col-12 col-lg-6">
+            <div class="col-12">
                 <div class="f-carousel">
                     ${carouselItems}
                 </div>
