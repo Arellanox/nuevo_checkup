@@ -6,8 +6,8 @@ include "../clases/correo_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 $master = new Master();
@@ -53,7 +53,7 @@ switch($api){
         # recuperar las capturas del turno
         $resultset = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id, 6 /*area id */]);
 
-        $response = $master->decodeJsonRecursively($resulset);
+        $response = $master->decodeJsonRecursively($resultset);
         break;
 
     default:
