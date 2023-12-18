@@ -30,22 +30,34 @@ function recargarVistaLab(fecha = 1) {
 //Mapeo de la procedencia de los botones
 const btnProcedencia = {
   'Particular': {
-
+    AMBOS: 'particular_ambos',
     formulario: 'form_particular.html'
   },
   'SLB': {
     MASCULINO: 'slb_masculino', //MASCULINO menor a 40
     FEMENINO: 'slb_femenino', //FEMENINO menor a 40
     VEJEZ: 'slb_vejez', //Persona mayor a 40
-    formulario: 'form_slb.html',
+    formulario: 'form_slb.html', // Formulario a elegir de SLb
   },
 }
 
 //funcion para llamar a los botones dependiendo de la procedencia
 function btnCertificados(config) {
   return new Promise(resolve => {
-    let tipo_format = config.EDAD >= 40 ? 'VEJEZ' : config.GENERO;
-    let pdf_format = btnProcedencia[config.cliente][tipo_format];
+
+    let tipo_format = config.EDAD >= 40 ? 'VEJEZ' : config.GENERO; // Obtienes el tipo de formato
+    let pdf_format = btnProcedencia[config.cliente] // Obtienes los valores del cliente
+
+    switch (config.cliente) {
+      case 'SLB':
+        pdf_format = pdf_format[tipo_format]; // Obtiene el formato a utilizar de SLB 
+        break;
+
+      default:
+        pdf_format = pdf_format['AMBOS'] // Obtener el formato a utilizar de cualquiera
+        break;
+    }
+
 
     $(`#${'cuerpo_certificado'}`).html(''); // Limpiar el cuerpo de HTML
     $.post(`modals/formularios/${btnProcedencia[config.cliente]['formulario']}`, function (html) {
