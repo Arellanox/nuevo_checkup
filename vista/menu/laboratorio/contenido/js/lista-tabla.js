@@ -496,7 +496,7 @@ function generarFormularioPaciente(id) {
                 <p>${row['CLASIFICACION']}</p> 
               </div>
               <div class="col-1" style="padding:0px;">
-                <i class="fas fa-microscope btn icon-hover" style="font-size: 20px; padding: 0px; margin-right: 14px;" data-bs-id="${row['ID_GRUPO']}"></i>
+                <i class="fas fa-microscope btn icon-hover btn-acciones" style="font-size: 20px; padding: 0px; margin-right: 14px;" data-bs-id="${row['ID_GRUPO']}"></i>
               </div>
             </div>
           </div>
