@@ -39,7 +39,7 @@ switch($api){
         }
 
         # subimos las imagenees en le ruta de guardado con el nombre del paciente
-        $urls = $master->guardarFiles($_FILES,"imagenes",$ruta_guardado, $paciente);
+        $urls = $master->guardarFiles($_FILES,"file-captura-microscopio",$ruta_guardado, $paciente);
 
         # agregamos a cada url de imagen el host en cuestion.
         for ($i = 0; $i < count($urls); $i++) {
