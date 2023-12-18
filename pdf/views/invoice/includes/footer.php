@@ -41,4 +41,4 @@
 </p>
 
 <!-- Paginacion en reportes -->
-<div class="page-number" style="">Página: <span class="page"></span></div>
+<div class="page-number">Página: <span class="page"></span></div>
