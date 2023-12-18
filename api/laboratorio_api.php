@@ -28,6 +28,9 @@ switch($api){
 
         # recuperamos el nombre del paciente por el turno para guardar sus imagenes.
         $paciente = $master->getByPatientNameByTurno($master, $turno_id);
+        #quitamos los acentos
+        $paciente = quitarAcentos($paciente);
+
 
         # creamos el directorio si no existe.
         $r = $master->createDir($ruta_guardado);
@@ -62,5 +65,17 @@ switch($api){
 }
 
 echo $master->returnApi($response);
+
+
+function quitarAcentos($palabra){
+        $acentos = array(
+            'á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u',
+            'Á' => 'A', 'É' => 'E', 'Í' => 'I', 'Ó' => 'O', 'Ú' => 'U',
+            'ñ' => 'n', 'Ñ' => 'N',
+            // Agregar más caracteres acentuados si es necesario
+        );
+    
+        return strtr($palabra, $acentos);
+}
 
 ?>
