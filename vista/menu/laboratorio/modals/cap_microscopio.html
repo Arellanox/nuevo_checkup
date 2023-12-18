@@ -28,42 +28,36 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-12">
-            <!-- Drag and drop -->
+        <div class="rounded p-3 shadow my-2">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <!-- Drag and drop -->
+              <h5 style="text-align: center;">Subir capturas de microscopio</h5>
+              <form id="subirCapturaMicroscopio" class="d-flex flex-column align-items-center">
+                <div id="dropMicroscopio" class="drop-zone mx-2">
+                  <label for="file-captura-microscopio" style="cursor: pointer;" class="label-captura-microscopio">Sube
+                    tu
+                    archivo
+                    arrastrándolo
+                    aquí</label>
 
-            <div class="rounded p-3 shadow my-2">
-              <div class="row">
-                <div class="col-6">
-                  <h5 style="text-align: center;">Subir capturas de microscopio</h5>
-                  <form id="subirCapturaMicroscopio" class="d-flex flex-column align-items-center">
-                    <div id="dropMicroscopio" class="drop-zone mx-2">
-                      <label for="file-captura-microscopio" style="cursor: pointer;" class="label-captura-microscopio">Sube
-                        tu
-                        archivo
-                        arrastrándolo
-                        aquí</label>
-
-                      <input type="file" id="file-captura-microscopio" name="file-captura-microscopio[]"
-                        style="display: none;">
-                      <br>
-                      <div class="spinner-border text-primary carga-captura-microscopio" role="status" style="display: none;">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-6">
-                  <div class="text-center" id="contend-oido-izq">
+                  <input type="file" id="file-captura-microscopio" name="file-captura-microscopio[]"
+                    style="display: none;">
+                  <br>
+                  <div class="spinner-border text-primary carga-captura-microscopio" role="status"
+                    style="display: none;">
+                    <span class="visually-hidden">Loading...</span>
                   </div>
                 </div>
+              </form>
+
+            </div>
+            <div class="col-12 col-lg-6">
+              <!-- Galeria de imagenes -->
+              <div id="carrusel_microscopio">
+
               </div>
             </div>
-
-          </div>
-          <div class="col-12">
-            <!-- Galeria de imagenes -->
-
           </div>
         </div>
       </div>
