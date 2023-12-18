@@ -78,6 +78,12 @@
       border-bottom-left-radius: 10px !important;
       border-bottom-right-radius: 10px !important;
     }
+
+    .btn-acciones:hover,
+    .icon-hover:hover {
+      cursor: pointer;
+      color: rgb(247, 190, 000) !important;
+    }
   </style>
 
 

@@ -485,7 +485,36 @@ function generarFormularioPaciente(id) {
           var count = Object.keys(row).length;
           // console.log(count);
           html += '<ul class = "list-group hover-list info-detalle mt-3" style="padding: 3px;" >';
-          html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
+          if (row['ID_GRUPO']) {
+            html += `<div style = "margin-bottom: 10px; display: block">
+          <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
+            <div class="row">
+              <div class="col-11">
+                <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
+                  ${row['NombreGrupo']}
+                </h4> 
+                <p>${row['CLASIFICACION']}</p> 
+              </div>
+              <div class="col-1" style="padding:0px;">
+                <i class="fas fa-microscope btn icon-hover" style="font-size: 20px; padding: 0px; margin-right: 14px;" data-bs-id="${row['ID_GRUPO']}"></i>
+              </div>
+            </div>
+          </div>
+          </div>`;
+          } else {
+            html += `<div style = "margin-bottom: 10px; display: block">
+          <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
+            <div class="row">
+              <div class="col-12">
+                <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
+                  ${row['NombreGrupo']}
+                </h4> 
+                <p>${row['CLASIFICACION']}</p> 
+              </div>
+            </div>
+          </div>
+          </div>`;
+          }
           for (var k in row) { //Empieza cada estudio del grupo
             // console.log(k, row[k])
             let inputname = getRandomInt(1000000000000);
@@ -601,7 +630,11 @@ function generarFormularioPaciente(id) {
 
               if (!onlyLabel) {
                 html += colStart;
-                html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
+                if (row['ID_GRUPO']) {
+                  html += `<p><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
+                } else {
+                  html += `<p class="btn-acciones" data-bs-id="${row[k]['ID_SERVICIO']}"><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
+                }
                 html += endDiv;
                 html += colreStart;
                 html += '<div class="input-group">';

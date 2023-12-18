@@ -178,21 +178,31 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                         <!-- Laboratorio Clinico -->
                         <hr>
                         <div id="6" style="display: none;" class="row mt-3">
-                            <div class="col-12 col-lg-3">
+                            <div class="col-12">
                                 <div class="row">
-                                    <div class="col-12  text-center mb-4">
+                                    <div class="col-4 text-center mb-4">
                                         <p class="none-p" style="font-size: 16px; ">Fecha de Toma de Muestra / Collected:</p>
                                         <p class="info-detalle-p fw-bold" style="font-size: 18px;"><span class="span-info-paci"><?php echo ifnull($array['FECHA_TOMA_MUESTRA']) ?></span></p>
                                     </div>
 
-                                    <div class="col-12  text-center mb-4">
+                                    <div class="col-4 text-center mb-4">
                                         <p class="none-p" style="font-size: 16px; ">Fecha de Resultado / Reported:</p>
                                         <p class="info-detalle-p fw-bold" style="font-size: 18px;"><span class="span-info-paci"><?php echo ifnull($array['FECHA_RESULTADO']) ?></span></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-9 overflow-auto" style="max-height:65vh;">
+                            <div class="col-12 col-lg-auto overflow-auto" style="max-height:65vh;">
                                 <div id="adobe-dc-view" class="border" width='100%'></div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <!-- galeria de microscopio -->
+                                <?php
+
+
+
+
+
+                                ?>
                             </div>
                         </div>
                     <?php break;
@@ -787,6 +797,48 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                 // width: 'auto'
             });
         }
+
+        function activeFancybox() {
+            // Crea la galeria
+            const carousels = document.querySelectorAll(".f-carousel");
+            const options = {
+                Thumbs: {
+                    type: "classic"
+                }
+            };
+
+            carousels.forEach((carousel) => {
+                new Carousel(carousel, options, {
+                    Thumbs
+                });
+            });
+
+            Fancybox.bind('[data-fancybox]', {
+                Toolbar: {
+                    display: {
+                        left: ["infobar"],
+                        middle: ["zoomIn", "zoomOut", "flipX", "flipY"],
+                        right: ["close"]
+                    }
+                },
+                Images: {
+                    initialSize: "fit"
+                },
+                contentClick: "iterateZoom",
+                Panzoom: {
+                    maxScale: 2
+                },
+                Thumbs: {
+                    type: "classic",
+                },
+                Hash: false,
+                contentClick: "iterateZoom",
+                Panzoom: {
+                    maxScale: 3 // Permite un zoom de hasta 3 veces el tamaño original
+                }
+            });
+        }
+
         // 
 
         $(document).on('click', '#ReportePDF', function(e) {
@@ -877,6 +929,32 @@ function generateCarousel($capturas,   $capturasID)
         '</div> </div>';
     return $html;
 }
+
+function crearHTMLImag($capturasData)
+{
+    try {
+        $capturas = $capturasData[0]['CAPTURAS'][0];
+        $carouselItems = '';
+
+        foreach ($capturas as $index => $element) {
+            $carouselItems .= '
+                <div data-fancybox="galeria-microscopio" class="f-carousel__slide" data-src="' . htmlspecialchars($element['url']) . '" data-thumb-src="' . htmlspecialchars($element['url']) . '">
+                    <img data-lazy-src="' . htmlspecialchars($element['url']) . '" alt="Imagen ' . ($index + 1) . '">
+                </div>';
+        }
+
+        return '
+            <div class="col-12 col-lg-6">
+                <div class="f-carousel">
+                    ' . $carouselItems . '
+                </div>
+            </div>';
+    } catch (Exception $e) {
+        error_log('Error generating carousel section: ' . $e->getMessage());
+        return '';
+    }
+}
+
 ?>
 
 
