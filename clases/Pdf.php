@@ -81,7 +81,7 @@ class Reporte
                 break;
         }
 
-        $host = /* isset($_SERVER['SERVER_NAME']) ? "http://localhost/nuevo_checkup/" : */ "https://bimo-lab.com/nuevo_checkup/";
+        $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
         // $host = 'http://localhost/nuevo_checkup/';
         // Path del dominio
         $path = $archivo['ruta'] . $archivo['nombre_archivo'] . ".pdf";
@@ -97,7 +97,8 @@ class Reporte
             "qr"                    => isset($prueba) ? $prueba : null,
             "barcode"               => isset($barcode) ? $barcode : null,
             "preview"               => $preview,
-            "area"                  => isset($area) ? $area : null
+            "area"                  => isset($area) ? $area : null,
+            "validacion"            => $host . "resultados/validar-pdf/?clave=" . $pie['clave'] . "&modulo=" . $pie['modulo']
         );
 
         // print_r($view_vars['resultados']->ANAMNESIS);
@@ -197,7 +198,7 @@ class Reporte
                 $pdf->setPaper('letter', 'portrait');
                 break;
             case 'corte':
-                $template = render_view('invoice/corte.php', $view_vars);
+                $template = render_view('invoice/corte2.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;

@@ -74,10 +74,10 @@ $kit = $body[count($body) - 4];
 <table style="width: 100%;">
     <tr>
         <td colspan="6" style="width: 15% ;"><strong>Equipo Utilizado:</strong> CFX96™ Real-Time System BIO-RAD </td>
-        <td colspan="6" style="width: 0% ;"><strong>No. Lote:</strong> <?php echo $lote->resultado; ?> </td>
+        <!-- <td colspan="6" style="width: 0% ;"><strong>No. Lote:</strong> <?php echo $lote->resultado; ?> </td> -->
     </tr>
     <tr>
         <td colspan="6" style="width: 15% ;"><strong>Kit Diagnóstico:</strong> <?php echo $kit->resultado ?> </td>
-        <td colspan="6" style="width: 0% ;"><strong>Registro Sanitario:</strong> <?php echo $autorizacion->resultado ?> </td>
+        <!-- <td colspan="6" style="width: 0% ;"><strong>Registro Sanitario:</strong> <?php echo $autorizacion->resultado ?> </td> -->
     </tr>
 </table>

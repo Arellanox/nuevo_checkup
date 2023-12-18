@@ -90,7 +90,7 @@ switch ($api) {
             $response = $last_id;
         }
 
-        echo $master->returnApi($response);
+        echo $master->returnApi($response); 
         break;
     case 2:
         $response = $master->getByProcedure("sp_usuarios_b", [$id_usuario, $correo]);
