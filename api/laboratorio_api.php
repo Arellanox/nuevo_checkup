@@ -59,6 +59,7 @@ switch($api){
         $response = $master->decodeJsonRecursively($resultset);
         break;
     case 3:
+        # validador
         $resultset = $master->getByProcedure("sp_capturas_imagen_b", [$turno_id, 6 /*area id */]);
 
         $response = $master->decodeJsonRecursively($resultset);
