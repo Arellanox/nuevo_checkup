@@ -196,7 +196,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                             <div class="col-12 col-lg overflow-auto" style="max-height:80vh;">
                                 <div id="adobe-dc-view" class="border" width='100%'></div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 col-lg-6 carrusel_microscopio" style="display:none;">
                                 <div class="row" style="max-height: 80vh;">
                                     <!-- galeria de microscopio -->
                                     <?php
@@ -804,6 +804,16 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
         }
 
         function activeFancybox() {
+
+            let div = $('#carrusel_microscopio')
+
+            if ($(`#carrusel_microscopio img`).length == 0) {
+                return ''
+            }
+
+            $('#carrusel_microscopio').fadeIn()
+
+
             // Crea la galeria
             const carousels = document.querySelectorAll(".f-carousel");
             const options = {
