@@ -54,6 +54,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
                 // return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
+        { data: 'CLAVE' },
         { data: 'NOMBRE' },
         { data: 'PATERNO' },
         { data: 'MATERNO' },
@@ -97,7 +98,6 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
                 // return formatoFecha2(data, [0, 1, 3, 1])
             }
         },
-        { data: 'CLAVE' },
 
 
     ],
