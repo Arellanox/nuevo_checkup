@@ -234,6 +234,12 @@ class Reporte
                 $pdf->setPaper('letter', 'portrait');
                 break;
 
+            case 'certificados_medicos':
+                $template = render_view('invoice/certificados.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);

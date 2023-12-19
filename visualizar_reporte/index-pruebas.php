@@ -32,9 +32,9 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "imagenologia";
-$area_id = 11;
-$turno_id = 1834;
+
+$api = "certificados_medicos";
+
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
@@ -95,6 +95,9 @@ switch ($api) {
         break;
     case 'temperatura':
         $r = $master->reportador($master, $turno_id, $area_id, 'temperatura', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'certificados_medicos':
+        $r = $master->reportador($master, 1, '-5', 'certificados_medicos', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

@@ -535,6 +535,18 @@ class Miscelaneus
                 $carpeta_guardado = "solicitud_estudios";
 
                 break;
+
+                // case -4:
+                //     #Corte de caja
+                //     $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
+                //     break;
+
+            case -5:
+                #Certificados médicos
+                $arregloPaciente = [
+                    'certificado' => 'slb_hombre'
+                ];
+                break;
         }
 
 
