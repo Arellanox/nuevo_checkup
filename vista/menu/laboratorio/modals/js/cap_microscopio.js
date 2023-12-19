@@ -97,9 +97,9 @@ InputDragDrop('#dropMicroscopio', (inputArea, salidaInput) => {
         turno_id: selectListaLab['ID_TURNO'], api: 1, servicio_id: id_servicio_global
     }, 'laboratorio_api', 'subirCapturaMicroscopio', { callbackAfter: true }, false, function () {
         //   obtenerPanelInformacion(pacienteActivo.array['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
-
+        getCapturas();
         // Siempre se ejecuta al final del proceso
         salidaInput();
 
     })
-}, {multiple: true})
+}, { multiple: true })
