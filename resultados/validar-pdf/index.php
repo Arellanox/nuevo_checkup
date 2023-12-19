@@ -193,6 +193,9 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-3 columnas_reporte_capturas" style="display:none">
+
+                            </div>
                             <div class="col-12 col-lg overflow-auto" style="max-height:80vh;">
                                 <div id="adobe-dc-view" class="border" width='100%'></div>
                             </div>
@@ -207,6 +210,10 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                                     }
                                     ?>
                                 </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3 columnas_reporte_capturas" style="display:none">
+
                             </div>
                         </div>
                     <?php break;
@@ -808,8 +815,12 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
             let div = $('.carrusel_microscopio')
 
             if ($(`.carrusel_microscopio img`).length == 0) {
+                $('.columnas_reporte_capturas').fadeIn();
                 return ''
             }
+
+
+            $('.columnas_reporte_capturas').fadeOut();
 
             $('.carrusel_microscopio').fadeIn()
 
