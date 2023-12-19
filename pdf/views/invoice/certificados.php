@@ -11,7 +11,11 @@
 
 
 </head>
-
+<style>
+            .footer .page:after {
+            content: counter(page);
+        }
+</style>
 <body>
     <!-- header -->
     <div class="header">
