@@ -25,29 +25,35 @@
     .header {
         position: fixed;
         top: -35px;
-        left: 25px;
-        right: 25px;
+        left: 45px;
+        right: 45px;
         height: 80px;
         margin-top: 0;
-        background-color: pink;
-        padding: 0px;
+        padding-top: 25px;
+        /* background-color: pink; */
     }
 
     .left-image {
         float: left;
         /* width: 50%; */
         /* Adjust the width as needed */
+        /* background-color: black; */
+        margin: 0px;
     }
 
     .right-image {
         float: right;
         /* width: 50%; */
         /* Adjust the width as needed */
+        /* background-color: black; */
+        margin: 0px;
     }
 
     .container_encabezado {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        /* text-align: center; */
+
     }
 </style>
 <?php
@@ -63,8 +69,8 @@ $encode_sos = base64_encode($ruta);
 
 <div class="container_encabezado">
     <?php
-    echo "<img src='data:image/png;base64, " . $encode_sos . "' height='85' alt='Left Image' class='left-image'>";
-    echo "<img src='data:image/png;base64, " . $encode_schlumberger . "' height='85'  alt='Right Image' class='right-image'>";
+    echo "<img src='data:image/png;base64, " . $encode_sos . "' height='50' alt='Left Image' class='left-image'>";
+    echo "<img src='data:image/png;base64, " . $encode_schlumberger . "' height='50'  alt='Right Image' class='right-image'>";
     ?>
 </div>
 

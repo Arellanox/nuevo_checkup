@@ -11,7 +11,7 @@
 
     <style>
         @page {
-            margin: 40px 10px;
+            margin: 40px 10px 10px 10px;
         }
 
         body {
@@ -19,16 +19,20 @@
             margin-top: 60px;
             margin-bottom: 30px;
             font-size: 10px;
-            background-color: gray;
+            /* background-color: gray; */
+        }
+
+        .break {
+            page-break-after: always;
+        }
+
+        .footer .page:after {
+            content: counter(page);
         }
     </style>
 
 </head>
-<style>
-    .footer .page:after {
-        content: counter(page);
-    }
-</style>
+
 
 <body>
     <!-- header -->
