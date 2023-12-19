@@ -1,7 +1,8 @@
 <style>
     .footer-padre {
         margin-top: 100px !important;
-        text-align: center; /* Centra el contenido horizontalmente */
+        text-align: center;
+        /* Centra el contenido horizontalmente */
     }
 
     .parrafo-izquierdo {
@@ -24,7 +25,21 @@
         top: 38px;
         left: 340px;
     }
+
+    .footer {
+        position: fixed;
+        bottom: 0px;
+        left: 25px;
+        right: 25px;
+        height: 220px;
+        background-color: pink;
+    }
 </style>
+
+<?php
+
+
+?>
 
 <div class="footer-padre">
     <p style="color: #054d60; text-align: left !important;"><strong>Diagnostico Biomolecular S.A. de C.V.</strong></p>

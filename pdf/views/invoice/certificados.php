@@ -10,16 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
     <style>
-        @page {
-            margin: 40px 10px 10px 10px;
-        }
-
         body {
             font-family: 'Roboto', sans-serif;
             margin-top: 60px;
             margin-bottom: 30px;
             font-size: 10px;
-            /* background-color: gray; */
+            background-color: gray;
         }
 
         .break {
@@ -39,7 +35,8 @@
     <div class="header">
         <?php
         $encabezado = passdata($resultados->certificado)['encabezado'];
-        include "includes/certificados/encabezados/$encabezado.php";
+        if ($encabezado)
+            include "includes/certificados/encabezados/$encabezado.php";
         ?>
     </div>
 
@@ -82,6 +79,10 @@ function passdata($indice)
         "slb_hombre" => [
             'encabezado' => 'encabezado_slb', // Coloca el nombre del encabezado
             'footer' => false // Indica que no conlleva
+        ],
+        "particular_ambos" => [
+            'encabezado' => false,
+            'footer' => 'footer_certificados',
         ],
     ];
 

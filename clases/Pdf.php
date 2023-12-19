@@ -78,6 +78,7 @@ class Reporte
                 break;
             default:
                 $barcode = null;
+                $prueba = generarQRURL('aujhsbdjhabsd', '2389', '6');
                 break;
         }
 

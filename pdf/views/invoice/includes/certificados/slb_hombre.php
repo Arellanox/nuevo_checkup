@@ -16,6 +16,9 @@ $encode2 = base64_encode($img2);
         text-indent: 0;
     } */
 
+    @page {
+        margin: 40px 10px 10px 10px;
+    }
 
 
     .container {

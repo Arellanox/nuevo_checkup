@@ -544,7 +544,7 @@ class Miscelaneus
             case -5:
                 #Certificados médicos
                 $arregloPaciente = [
-                    'certificado' => 'slb_hombre'
+                    'certificado' => 'particular_ambos'
                 ];
                 break;
         }
