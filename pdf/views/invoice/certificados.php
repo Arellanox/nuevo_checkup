@@ -9,13 +9,27 @@
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
+    <style>
+        @page {
+            margin: 40px 10px;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin-top: 60px;
+            margin-bottom: 30px;
+            font-size: 10px;
+            background-color: gray;
+        }
+    </style>
 
 </head>
 <style>
-            .footer .page:after {
-            content: counter(page);
-        }
+    .footer .page:after {
+        content: counter(page);
+    }
 </style>
+
 <body>
     <!-- header -->
     <div class="header">

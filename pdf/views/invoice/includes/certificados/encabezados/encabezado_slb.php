@@ -21,25 +21,34 @@
     }
 
  */
-    .logo_sos img{
-            position: fixed;
-            top: -10px;
-            left: 50px;
-            right: 25px;
-            height: 80px;
-            margin-top: 0;
-            /* background-color: blue; */
-        }
 
-        .logo_schlumberger img{
-            position: fixed;
-            top: -20px;
-            left: 500px;
-            right: 25px;
-            height: 110px;
-            margin-top: 0;
-            /* background-color: blue; */
-        }
+    .header {
+        position: fixed;
+        top: -35px;
+        left: 25px;
+        right: 25px;
+        height: 80px;
+        margin-top: 0;
+        background-color: pink;
+        padding: 0px;
+    }
+
+    .left-image {
+        float: left;
+        /* width: 50%; */
+        /* Adjust the width as needed */
+    }
+
+    .right-image {
+        float: right;
+        /* width: 50%; */
+        /* Adjust the width as needed */
+    }
+
+    .container_encabezado {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 </style>
 <?php
 //logo schlumberger
@@ -51,23 +60,24 @@ $ruta = file_get_contents('../pdf/public/assets/logo_sos.png');
 $encode_sos = base64_encode($ruta);
 
 ?>
-    <table style="margin: 0 auto;">
-        <tbody>
-            <tr class="col-foot-two">
-                <td colspan="10" style="text-align: center" class="logo_sos">
-                <?php
-                        echo "<img src='data:image/png;base64, " . $encode_sos . "' height='85' >";
-                    ?>
-                </td>
 
-                <td colspan="2" style="text-align: center;" class="logo_schlumberger">
-                    <?php
-                        echo "<img src='data:image/png;base64, " . $encode_schlumberger . "' height='85' >";
-                    ?>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container_encabezado">
+    <?php
+    echo "<img src='data:image/png;base64, " . $encode_sos . "' height='85' alt='Left Image' class='left-image'>";
+    echo "<img src='data:image/png;base64, " . $encode_schlumberger . "' height='85'  alt='Right Image' class='right-image'>";
+    ?>
+</div>
 
+<!-- <table style="margin: 0 auto;">
+    <tbody>
+        <tr class="col-foot-two">
+            <td colspan="6" class="logo_sos">
 
-    
+            </td>
+
+            <td colspan="6" class="logo_schlumberger">
+
+            </td>
+        </tr>
+    </tbody>
+</table> -->
