@@ -20,7 +20,7 @@ $area = isset($_GET['modulo']) ?  $_GET['modulo'] : null;
 // $folio_numero = $explode[1];
 // $master = new Master();
 
-$url1 = "https://bimo-lab.com/nuevo_checkup/api/qr_api.php";
+$url1 = "http://localhost/nuevo_checkup/api/qr_api.php";
 // Los datos de enviados
 $datos = [
     "api" => 1,
@@ -47,9 +47,11 @@ $res = json_decode($json, true);
 
 $array = $res['response']['data'][0];
 
+// print_r($json);
 // echo '<pre>';
 // var_dump($json);
 // echo '</pre>';
+// exit;
 
 // $msj_error = $array[0];
 // var_dump($clave, $area, $array);
@@ -194,15 +196,17 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                             <div class="col-12 col-lg-auto overflow-auto" style="max-height:65vh;">
                                 <div id="adobe-dc-view" class="border" width='100%'></div>
                             </div>
-                            <div class="col-12 col-lg-6">
-                                <!-- galeria de microscopio -->
-                                <?php
+                            <div class="col-12">
+                                <div class="row" style="max-height: 700px;">
+                                    <!-- galeria de microscopio -->
+                                    <?php
 
+                                    foreach ($capturas_lab = $array['info'][0] as $key => $value) {
 
-
-
-
-                                ?>
+                                        echo crearHTMLImag($value);
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     <?php break;
@@ -661,6 +665,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     case 12:
                         // Laboratorio Clinico
                         fade(modulo, 'In');
+                        activeFancybox();
                         break;
                     case 3:
                         // Oftalmologia
@@ -833,9 +838,6 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                 },
                 Hash: false,
                 contentClick: "iterateZoom",
-                Panzoom: {
-                    maxScale: 3 // Permite un zoom de hasta 3 veces el tamaño original
-                }
             });
         }
 
@@ -886,6 +888,24 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
             max-height: 80vh;
         }
     }
+
+
+    .f-carousel__slide {
+    height: 100%;
+    /* Puedes ajustar esta altura según tus necesidades */
+    display: flex;
+    align-items: center;
+    /* Centrar verticalmente */
+    justify-content: center;
+    /* Centrar horizontalmente */
+  }
+
+  .f-carousel__slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
 </style>
 <?php
 function generateCarousel($capturas,   $capturasID)
@@ -933,22 +953,23 @@ function generateCarousel($capturas,   $capturasID)
 function crearHTMLImag($capturasData)
 {
     try {
-        $capturas = $capturasData[0]['CAPTURAS'][0];
         $carouselItems = '';
+        $id_carrusel = str_replace(' ', '_', $capturasData['SERVICIO']);   
+        $servicio = $capturasData['SERVICIO']; 
 
-        foreach ($capturas as $index => $element) {
+        foreach ($capturasData['CAPTURAS'] as $index => $element) {
             $carouselItems .= '
-                <div data-fancybox="galeria-microscopio" class="f-carousel__slide" data-src="' . htmlspecialchars($element['url']) . '" data-thumb-src="' . htmlspecialchars($element['url']) . '">
-                    <img data-lazy-src="' . htmlspecialchars($element['url']) . '" alt="Imagen ' . ($index + 1) . '">
+                <div data-fancybox="galeria-'.$id_carrusel.'" class="f-carousel__slide" data-src="' . htmlspecialchars($element['url']) . '" data-thumb-src="' . htmlspecialchars($element['url']) . '">
+                    <img data-lazy-src="' . htmlspecialchars($element['url']) . '" alt="Imagen ' . ($index + 1) . '" style="max-height: 600px">
                 </div>';
         }
 
-        return '
-            <div class="col-12 col-lg-6">
-                <div class="f-carousel">
-                    ' . $carouselItems . '
+        return "<div class='col-12 col-lg-6'>
+            <h4 class='p-2'>$servicio</h4>
+                <div class='f-carousel p-2'>
+                    $carouselItems
                 </div>
-            </div>';
+            </div>";
     } catch (Exception $e) {
         error_log('Error generating carousel section: ' . $e->getMessage());
         return '';
