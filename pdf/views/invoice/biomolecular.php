@@ -285,7 +285,6 @@ $areas = $resultados->areas[0];
         $estudiosOtros = $areas;
 
 
-
         foreach ($estudiosOtros->estudios as $key => $json) {
             $body = $json->analitos;
             // print_r($body[0]);
@@ -343,7 +342,11 @@ function passdata($indice)
         "rT-PCR-ETS" => 'PCR-ETS',
         "FTD Fiebre Tropical Multiplex" => 'FTDMultiplex',
         "PANEL RESPIRATORIO 22" => 'PANEL22',
-        "PCR PARA MYCOBACTERIUM TUBERCULOSIS MDR Y XDR" => 'mycobacte_tuberculosis'
+        "PCR PARA MYCOBACTERIUM TUBERCULOSIS MDR Y XDR" => 'mycobacte_tuberculosis',
+        "Prueba rT-PCR TICK BORNE DISEASES" => 'rt-PCR_TICK',
+        "rT-PCR Panel Meningitis" => 'rT-PCR_PaMeningitis',
+        "PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA" => 'rT-PCR_pylari_claritromicina',
+        "rT-PCR Entero-DR" => 'rt-PCR_Entero'
     ];
 
     // echo $indice;

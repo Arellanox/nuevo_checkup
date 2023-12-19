@@ -4,8 +4,12 @@ TablaGrupos = $('#TablaGrupos').DataTable({
     },
     lengthChange: false,
     info: false,
-    paging: false,
-    scrollY: '70vh',
+    paging: true,
+    scrollY: '65vh',
+    lengthMenu: [
+        [20, 25, 30, 35, 40, 45, 50, -1],
+        [20, 25, 30, 35, 40, 45, 50, "All"]
+    ],
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -36,7 +40,7 @@ TablaGrupos = $('#TablaGrupos').DataTable({
     columns: [
         { data: 'COUNT' },
         {
-            data: 'FOLIO', render: function (data) {
+            data: 'FOLIO_ETIQUETA', render: function (data) {
                 let html = `<div class="d-flex justify-content-center GrupoInfoCreditoBtn" style="width: 40px">  ${ifnull(data, '')}  </div>`
                 return html
             }
@@ -58,10 +62,10 @@ TablaGrupos = $('#TablaGrupos').DataTable({
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '1%' },
         { target: 1, title: 'Folio', className: 'all', width: '20px' },
-        { target: 2, title: 'Procedencia', className: 'desktop' },
+        { target: 2, title: 'Procedencia', className: 'all' },
         { target: 3, title: 'Creacion', className: 'none' },
-        { target: 4, title: 'Fecha de Factura', className: 'none' },
-        { target: 5, title: 'Factura', className: 'none' }
+        { target: 4, title: 'Fecha de Factura', className: 'tablet' },
+        { target: 5, title: 'Factura', className: 'tablet' }
     ],
 
 })
@@ -94,14 +98,33 @@ selectTable('#TablaGrupos', TablaGrupos, {
             },
             selected: true
         },
-    ]
-}, function (select, data, callback) {
+    ], movil: true, "tab-default": 'Detalle',
+    tabs: [
+        {
+            title: 'Grupos',
+            element: '#tab-gruposCredito',
+            class: 'active',
+        },
+        {
+            title: 'Detalle',
+            element: '#tab-detallesCredito',
+            class: 'disabled tab-select'
+        },
+    ],
+
+}, async function (select, data, callback) {
     // fadeRegistro('Out')
     if (select) {
         // $(".informacion-creditos").fadeIn(0)
         DataGrupo.id_grupo = data['ID_GRUPO']
         SelectedGruposCredito = data
         TablaGrupoDetalle.ajax.reload()
+
+        await getDetalleGrupo(data['ID_GRUPO'])
+        setInfoGeneral(data);
+        // dataDetallePrecio['id_grupo'] = data['ID_GRUPO'];
+        // tablaDetallePrecio.ajax.reload()
+
         //Muestra las columnas
         callback('In')
     } else {
@@ -150,8 +173,8 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
         { data: 'PX' },
         { data: 'PREFOLIO' },
         {
-            data: 'CLIENTE_ID', render: function (data) {
-                let html = `<div class="d-flex justify-content-center ticketDataButton" style="width: 40px"> ${ifnull(data, 'Error')} </div>`
+            data: 'NUM_ESTADO_CUENTA', render: function (data) {
+                let html = `<div class="d-flex justify-content-center ticketDataButton" style="width: 40px"> ${ifnull(data, '0000')} </div>`
                 return html
             }
         },
@@ -203,6 +226,9 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
                 }
 
                 dataFill_edit['id_grupo'] = SelectedGruposCredito['ID_GRUPO'];
+
+                $('#cliente_fill').val(SelectedGruposCredito['CLIENTE_ID'])
+
                 tListPaciGrupo.ajax.reload();
                 //Para modificar el grupo
                 title = '#title-grupo-factura';
@@ -225,54 +251,8 @@ selectTable('#TablaGrupoDetalle', TablaGrupoDetalle, {
         {
             class: 'ticketDataButton',
             callback: function (data) {
-                alertToast('Cargando, espere un momento', 'info', 3000)
                 let px = data['PX']
-                $('#PacienteCreditoColumn').html("");
-                console.log(data)
-                ajaxAwait({
-                    api: 1,
-                    turno_id: data['ID_TURNO']
-                }, "cargos_turnos_api", { callbackAfter: true }, false, function (data) {
-                    $("#paciente").html(px)
-                    dataServicios = data.response.data.estudios
-
-                    let subtotal = 0;
-                    for (const data in dataServicios) {
-                        if (Object.hasOwnProperty.call(dataServicios, data)) {
-                            const element = dataServicios[data];
-
-                            // subtotal += ifnull(parseFloat(element['COSTO']), 0);
-                            subtotal += parseFloat(ifnull(element, 0, ['COSTO']))
-                            totalServicio = ifnull((parseInt(element['CANTIDAD']) * parseFloat(element['COSTO'])).toFixed(2), 0)
-
-                            let html = `
-                                    <tr>
-                                        <td>${element['SERVICIOS']}</td>
-                                        <td>E48 -Unidad de
-                                            servicio
-                                        </td>
-                                        <td>${ifnull(element['COSTO'], 0)}</td>
-                                        <td>${ifnull(element['CANTIDAD'], 1)}</td>
-                                        <td>$${ifnull(totalServicio, 0)}</td>
-                                    </tr>
-                                    `;
-
-                            $('#PacienteCreditoColumn').append(html);
-
-                        }
-                    }
-
-                    let subtotalconiva = parseFloat(subtotal * 0.16).toFixed(2);
-                    console.log(subtotal)
-                    total = parseFloat(subtotal) + parseFloat(subtotalconiva)
-
-                    $("#subtotal").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
-                    $("#Iva").html(`$${(ifnull(subtotalconiva, 0), 0)}`)
-                    $("#total").html(`$${ifnull(total.toFixed(2), 0)}`)
-
-                    $("#ModalTicketCredito").modal('show');
-                })
-
+                getInfoEstadoCuenta(px, data['ID_TURNO']);
             }
         }
     ]
@@ -298,7 +278,29 @@ function fadeRegistro(tipe) {
 
 
 
+function getDetalleGrupo(id) {
+    return new Promise((resolve) => {
+        ajaxAwait({
+            id_grupo: id, api: 6
+        }, 'admon_grupos_api', { callbackAfter: true, WithoutResponseData: true }, false, (row) => {
+            row = row[0]
+            for (const key in detalles_grupo) {
+                const element = detalles_grupo[key];
+                const val = ifnull(row, 0, [element.target])
+                const html = $(`#${element.id}`)
 
+                html.html(`$${parseFloat(ifnull(val, 0)).toFixed(2)}`)
 
+            }
 
+            resolve(1);
+        })
+    })
+}
 
+function setInfoGeneral(data) {
+    $('#info-procedencia').html(`${ifnull(data, 'desconocido', ['PROCEDENCIA'])}`)
+    $('#info-creado').html(`${formatoFecha2(ifnull(data, '', ['FECHA_CREACION']), [0, 1, 3, 1])}`)
+    $('#info-factura').html(`${ifnull(data, 'Sin facturar', ['FACTURA'])}`)
+    $('#info-facturado').html(`${formatoFecha2(ifnull(data, null, ['FECHA_FACTURA']), [0, 1, 3, 1])}`)
+}

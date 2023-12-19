@@ -2,7 +2,7 @@ var arregloResultado = {}
 
 async function metodoConsultaRapida(data) {
     await obtenerInformacionPaciente(data)
-    await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales', '_col3');
+    await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
     await obtenerContenidoConsultaRapida(data)
 
     loader("Out", 'bottom')

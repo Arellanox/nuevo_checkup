@@ -100,6 +100,11 @@
                         <span class="d-none d-xl-inline d-sm-inline">Cotización (Vista previa)</span>
                     </button>
                 </span>
+                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
+                    <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
+                        <i class="bi bi-eye"></i> Ver/Ocultar
+                    </button>
+                </span>
             </div>
 
             <!-- Tabla de paquetes -->
@@ -110,8 +115,8 @@
                             <th class="all">Descripción</th>
                             <th class="min-tablet">CVE</th>
                             <th class="min-tablet">Cantidad</th>
-                            <th class="min-tablet">Costo</th>
-                            <th class="min-tablet">Costo Total</th>
+                            <!-- <th class="min-tablet">Costo</th>
+                            <th class="min-tablet">Costo Total</th> -->
                             <th class="min-tablet">Precio Venta</th>
                             <th class="min-tablet">Descuento</th>
                             <th class="min-tablet">Subtotal</th>

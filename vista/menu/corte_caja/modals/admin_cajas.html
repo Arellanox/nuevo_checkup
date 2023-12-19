@@ -1,0 +1,99 @@
+<div class="modal fade" id="ModalAdministrarCajas" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liberarDiaTitle">Administración de cajas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Crear y visualizar cajas -->
+                        <div class="col-12 col-xxl-4 col-xl-4" id="div_container-cajas">
+                            <div class="row">
+                                <!-- Formulario para crear una nueva caja -->
+                                <div class="col-12">
+                                    <div class="text-start">
+                                        <div class="shadow-sm rounded p-3 card-body">
+                                            <div class="row align-items-end">
+                                                <h5 class="text-dark">Crear una nueva caja</h5>
+                                                <div class="col-12">
+                                                    <form id="formCrearCaja" name="formCrearCaja">
+                                                        <div class="mb-3">
+                                                            <label for="NumeroFactura">Descripción:</label>
+                                                            <input type="text" name="descripcion_caja"
+                                                                class="mt-2 form-control input-form"
+                                                                id="descripcion_caja">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-confirmar"
+                                                        form="formCrearCaja">
+                                                        <i class="bi bi-plus"></i> Crear caja
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tabla de cajas -->
+                                <div class="col-12 mt-2">
+                                    <div class="shadow-sm rounded p-3 ">
+                                        <div class="col-12">
+                                            <h5 class="text-dark">Lista de cajas</h5>
+                                            <table class="table display responsive" id="TablaTotaldeCajas"
+                                                style="width: 100%">
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Agregar Responsables de la caja -->
+                        <div class="col-12 col-xxl-8 col-xl-8">
+                            <div id="form_tabla_responsable" class="text-start" style="width: 100%;">
+                                <div class="card-body">
+                                    <h4 class="card-title">Agregar responsables para la caja : <span class="label-span"
+                                            id="nombreCaja"></span></h4>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12 shadow-sm rounded p-3 total_responsables">
+                                                <select class="my-3" id="select-user" disabled>
+                                                </select>
+
+                                                <button type="button" class="btn btn-confirmar mt-4"
+                                                    id="btnAgregarResponsableCaja" disabled>
+                                                    <i class="bi bi-person-add"></i> Agregar
+                                                </button>
+                                            </div>
+                                            <div class="col-12 shadow-sm rounded p-3 mt-3">
+                                                <table class="table display responsive" id="TablaUsuariosResponsables"
+                                                    style="width: 100%"></table>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <!-- <button type="button" class="btn btn-confirmar" id="guardarResponsablesCaja">
+                    <i class="bi bi-floppy"></i> Guardar cambios de la caja actual
+                </button> -->
+            </div>
+        </div>
+    </div>
+</div>

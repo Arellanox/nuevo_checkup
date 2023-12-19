@@ -448,14 +448,15 @@ $array = convertirObjetoAArray($resultados);
         <div>
             <table style="width: 100%;">
                 <tr>
-                    <td style="width: 50%">
-                        <p>Fecha Inicio:<strong> <?php echo $array[7] ?></strong></p>
-                        <p>Fecha Final:<strong> <?php echo $array[8] ?></strong></p>
-                        <p></p>
+                    <td style="width: 50%;">
+                        <p style="padding: 0px; margin:0px;">Fecha Inicio:<strong> <?php echo $array[7] ?></strong></p>
+                        <p style="padding: 0px; margin:0px;">Fecha Final:<strong> <?php echo $array[8] ?></strong></p>
+                        <p style="padding: 0px; margin:0px;">Caja: <strong><?php echo $array[11] ?></strong></p>
                     </td>
                     <td style="width: 50%;">
-                        <p>Realizado por:<strong> <?php echo $array[9] ?></strong></p>
-                        <p>Folio:<b> <?php echo $array[6] ?> </b></p>
+                        <p style="padding: 0px; margin:0px;">Realizado por:<strong> <?php echo $array[9] ?></strong></p>
+                        <p style="padding: 0px; margin:0px;">Folio:<b> <?php echo $array[6] ?> </b></p>
+                        <p style="padding: 0px; margin:0px;"></p>
                         <p></p>
                     </td>
                 </tr>
@@ -585,6 +586,14 @@ $array = convertirObjetoAArray($resultados);
                     <tr>
                         <td>Contado:</td>
                         <td class="total" style="text-align:center;">$<?php echo number_format($array[5], 2) ?></td>
+                    </tr>
+                    <tr>
+                        <td>Bimo:</td>
+                        <td class="total" style="text-align:center;">$<?php echo number_format($array[13], 2) ?></td>
+                    </tr>
+                    <tr>
+                        <td>Bimo cortesia:</td>
+                        <td class="total" style="text-align:center;">$<?php echo number_format($array[12], 2) ?></td>
                     </tr>
                 </tbody>
             </table>
