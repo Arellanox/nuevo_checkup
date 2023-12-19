@@ -805,13 +805,13 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
 
         function activeFancybox() {
 
-            let div = $('#carrusel_microscopio')
+            let div = $('.carrusel_microscopio')
 
-            if ($(`#carrusel_microscopio img`).length == 0) {
+            if ($(`.carrusel_microscopio img`).length == 0) {
                 return ''
             }
 
-            $('#carrusel_microscopio').fadeIn()
+            $('.carrusel_microscopio').fadeIn()
 
 
             // Crea la galeria
