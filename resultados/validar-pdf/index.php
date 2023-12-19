@@ -193,11 +193,11 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-auto overflow-auto" style="max-height:65vh;">
+                            <div class="col-12 col-lg overflow-auto" style="max-height:80vh;">
                                 <div id="adobe-dc-view" class="border" width='100%'></div>
                             </div>
                             <div class="col-12">
-                                <div class="row" style="max-height: 700px;">
+                                <div class="row" style="max-height: 80vh;">
                                     <!-- galeria de microscopio -->
                                     <?php
 
@@ -891,21 +891,21 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
 
 
     .f-carousel__slide {
-    height: 100%;
-    /* Puedes ajustar esta altura según tus necesidades */
-    display: flex;
-    align-items: center;
-    /* Centrar verticalmente */
-    justify-content: center;
-    /* Centrar horizontalmente */
-  }
+        height: 100%;
+        /* Puedes ajustar esta altura según tus necesidades */
+        display: flex;
+        align-items: center;
+        /* Centrar verticalmente */
+        justify-content: center;
+        /* Centrar horizontalmente */
+    }
 
-  .f-carousel__slide img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-  }
+    .f-carousel__slide img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+    }
 </style>
 <?php
 function generateCarousel($capturas,   $capturasID)
@@ -954,12 +954,12 @@ function crearHTMLImag($capturasData)
 {
     try {
         $carouselItems = '';
-        $id_carrusel = str_replace(' ', '_', $capturasData['SERVICIO']);   
-        $servicio = $capturasData['SERVICIO']; 
+        $id_carrusel = str_replace(' ', '_', $capturasData['SERVICIO']);
+        $servicio = $capturasData['SERVICIO'];
 
         foreach ($capturasData['CAPTURAS'] as $index => $element) {
             $carouselItems .= '
-                <div data-fancybox="galeria-'.$id_carrusel.'" class="f-carousel__slide" data-src="' . htmlspecialchars($element['url']) . '" data-thumb-src="' . htmlspecialchars($element['url']) . '">
+                <div data-fancybox="galeria-' . $id_carrusel . '" class="f-carousel__slide" data-src="' . htmlspecialchars($element['url']) . '" data-thumb-src="' . htmlspecialchars($element['url']) . '">
                     <img data-lazy-src="' . htmlspecialchars($element['url']) . '" alt="Imagen ' . ($index + 1) . '" style="max-height: 600px">
                 </div>';
         }
