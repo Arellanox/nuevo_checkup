@@ -1,3 +1,10 @@
+<style>
+    .page-number {
+    position: center;
+    bottom: 0;
+    text-align: center;
+}
+</style>
 <table>
     <tbody>
         <tr class="col-foot-one">
@@ -32,3 +39,6 @@
         <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
     </small>
 </p>
+
+<!-- Paginacion en reportes -->
+<div class="page-number">Página: <span class="page"></span></div>

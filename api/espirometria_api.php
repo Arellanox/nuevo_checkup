@@ -124,7 +124,7 @@ switch ($api) {
 
                 if (!empty($attachment[0])) {
                     $mail = new Correo();
-                    if ($mail->sendEmail('resultados', '[bimo] Resultados de espirometria', [$attachment[1]], null, [$espiro], 1)) {
+                    if ($mail->sendEmail('resultados', '[bimo] Resultados de espirometria', [$attachment[1]], null, [$espiro], 1,$id_turno, 5, $master)) {
                         $master->setLog("Correo enviado.", "Espirometria resultados");
                     }
                 }

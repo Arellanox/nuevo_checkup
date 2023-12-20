@@ -1,6 +1,7 @@
 $.post("modals/m_recepcion.php", function (html) {
   $("#modals-js").html(html);
 }).done(function () {
+
   // Modal para aceptar
   $.getScript('modals/js/p_aceptar.js').done(function () {
     //  //Modal para vista de servicios
@@ -32,4 +33,7 @@ $.post("modals/m_recepcion.php", function (html) {
   $.getScript(`modals/js/p_actualizar_estudios.js`);
 
   $.getScript(`modals/js/qr-clientes.js`);
+
+  //Modal de reportes no enviados
+  $.getScript('modals/js/reportes-no-enviados.js');
 });

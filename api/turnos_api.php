@@ -246,10 +246,11 @@ switch ($api) {
             $mails[] = $response[0]['CORREO'];
 
             if (!empty($files)) {
-                $r = $mail->sendEmail("resultados", "Resultados de laboratorio", array_unique($mails), null, $files, 1);
+                $r = $mail->sendEmail("resultados", "Resultados de laboratorio", array_unique($mails), null, $files, 1, null, $id_turno, $id_area, $master);
                 if ($r) {
                     $response = 1;
                 } else {
+                    $x = $master->insertByProcedure("sp_correos_g", [$id_turno, $id_area, $mail->getCorreoSeleccionado(),]);
                     $response = "No se envió el resultado.";
                 }
             } else {
@@ -278,18 +279,18 @@ switch ($api) {
 
     case 17:
         //eliminar servicio de un turno
-        $response = $master->deleteByProcedure('sp_recepcion_paciente_detalle_e', [$id_turno, $servicio_id]);
+        $response = $master->deleteByProcedure('sp_recepcion_paciente_detalle_e', [$id_turno, $servicio_id, $paquete_id]);
         break;
     case 18:
         // agregar un estudio a un turno
-        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id]);
+        $response = $master->insertByProcedure("sp_recepcion_detalle_paciente_g", [$id_turno, null, $servicio_id, $_SESSION['id']]);
         break;
     case 19:
         # marcar un turno como completado o marcarlo como incompleto
         # variable ['turno_completado']
         # mandar 1 para completado
         # mandar 0 para mandar incompleto
-        $response = $master->updateByProcedure("sp_turnos_completados_g", [$id_turno, $turno_completado]);
+        $response = $master->updateByProcedure("sp_turnos_completados_g", [$id_turno, $turno_completado, $confirmado_por]);
         break;
     case 20:
         # mostrar la lista de los pacientes/turnos completados

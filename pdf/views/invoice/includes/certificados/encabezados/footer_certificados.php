@@ -1,30 +1,46 @@
 <style>
     .footer-padre {
         margin-top: 100px !important;
-        text-align: center; /* Centra el contenido horizontalmente */
+        text-align: center;
+        /* Centra el contenido horizontalmente */
     }
 
     .parrafo-izquierdo {
         font-size: 11px;
         margin-bottom: -10px;
-        margin-right: -155px !important;
+        margin-right: -99px !important;
         color: #12828f;
     }
 
     .parrafo-derecho {
         font-size: 11px;
         margin-bottom: -10px;
-        margin-left: -78px;
+        margin-left: 410px !important;
         color: #12828f;
     }
 
     .cuadro-intermedio a {
         margin-top: 70px;
         position: absolute;
-        top: 38px;
+        top: 20px;
         left: 340px;
     }
+
+    .footer {
+        position: fixed;
+        bottom: 0px;
+        left: 25px;
+        right: 25px;
+        height: 220px;
+        /* background-color: pink; */
+    }
+    
 </style>
+
+<?php
+
+
+?>
 
 <div class="footer-padre">
     <p style="color: #054d60; text-align: left !important;"><strong>Diagnostico Biomolecular S.A. de C.V.</strong></p>
