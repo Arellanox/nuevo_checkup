@@ -8,21 +8,21 @@
     .parrafo-izquierdo {
         font-size: 11px;
         margin-bottom: -10px;
-        margin-right: -155px !important;
+        margin-right: -99px !important;
         color: #12828f;
     }
 
     .parrafo-derecho {
         font-size: 11px;
         margin-bottom: -10px;
-        margin-left: -78px;
+        margin-left: 410px !important;
         color: #12828f;
     }
 
     .cuadro-intermedio a {
         margin-top: 70px;
         position: absolute;
-        top: 38px;
+        top: 20px;
         left: 340px;
     }
 
@@ -32,8 +32,9 @@
         left: 25px;
         right: 25px;
         height: 220px;
-        background-color: pink;
+        /* background-color: pink; */
     }
+    
 </style>
 
 <?php
