@@ -3,12 +3,12 @@ function datosPaciente(data, cliente) {
 
     switch (cliente) {
         case 'SLB':
-            $('#Nom_medico').val(data['MEDICO'])
-            $('#cedula').val(data['CEDULA_MEDICO'])
-            $('#nom_paciente').val(data['NOMBRE_PACIENTE'])
-            $('#fech_nacimiento').val(data['FECHA_NACIMIENTO'])
-            $('#segmento').val(data['SEGMENTO'])
-            $('#categoria').val(data['CATEGORIA'])
+            $('#Nom_medico').html(data['MEDICO'])
+            $('#cedula').html(data['CEDULA_MEDICO'])
+            $('#nom_paciente').html(data['NOMBRE_PACIENTE'])
+            $('#fech_nacimiento').html(data['FECHA_NACIMIENTO'])
+            $('#segmento').html(data['SEGMENTO'])
+            $('#categoria').html(data['CATEGORIA'])
             break;
 
         default:

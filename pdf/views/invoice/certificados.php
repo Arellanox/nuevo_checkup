@@ -91,6 +91,10 @@ function passdata($indice)
         "vinco_gcs" => [
             'encabezado' => 'encabezado_particular',
             'footer' => 'footer_certificados',
+        ],
+        "expro_ingreso_easp" => [
+            'encabezado' => 'encabezado_particular',
+            'footer' => 'footer_certificados',
         ]
     ];
 

@@ -65,6 +65,7 @@ function btnCertificados(config) {
     }).done(() => {
       // El codigo sigue si se necesita crear mas cosas o validar mas cosas
       // En cierto caso puede usarse un case
+      obtenerPanelInformacion(config.turno, 'consulta_api', 'listado_resultados', '#listado-resultados')
 
       ajaxAwait(
         {

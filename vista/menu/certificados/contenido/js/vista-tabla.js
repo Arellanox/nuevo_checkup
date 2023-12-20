@@ -60,12 +60,12 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
       })
 
       await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab',)
-      await obtenerPanelInformacion(datalist['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
 
       await btnCertificados({
         cliente: datalist['CLIENTE'],
         genero: datalist['GENERO'],
         edad: datalist['EDAD'],
+        turno: datalist['ID_TURNO']
       }) //<- Funcion que alamacena la procedencia del paciente parta ir a global-botones.js
 
 
