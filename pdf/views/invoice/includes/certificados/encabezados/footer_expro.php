@@ -46,7 +46,7 @@
 
     <div class="p">
         <p class="footer-expro-text" style="margin-top: -10px; ">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P.86079</p>
-        <p class="footer-expro-text">Teléfonos: 993 634 0250,993 634 6245 Correo electrónico:resultados@bimo-lab.com</p>
+        <p class="footer-expro-text">Teléfonos: 993 634 0250, 993 634 6245 Correo electrónico:resultados@bimo-lab.com</p>
     </div>
 
     <a target="_blank" href="<?= $qr[0] ?>"> <img src='<?= $qr[1] ?>' alt='QR Code' width='100' height='100'> </a>
