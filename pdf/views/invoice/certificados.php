@@ -15,7 +15,7 @@
             margin-top: 60px;
             margin-bottom: 30px;
             font-size: 10px;
-            background-color: gray;
+            /* background-color: gray; */
         }
 
         .break {
@@ -81,9 +81,12 @@ function passdata($indice)
             'footer' => false // Indica que no conlleva
         ],
         "particular_ambos" => [
-            'encabezado' => false,
+            'encabezado' => 'encabezado_particular',
             'footer' => 'footer_certificados',
         ],
+        "vinco_bimo_gcs" => [
+            ''
+        ]
     ];
 
     // echo $indice;

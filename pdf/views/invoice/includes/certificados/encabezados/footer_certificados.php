@@ -1,6 +1,6 @@
 <style>
     .footer-padre {
-        margin-top: 100px !important;
+        /* margin-top: 100px !important; */
         text-align: center;
         /* Centra el contenido horizontalmente */
     }
@@ -20,21 +20,20 @@
     }
 
     .cuadro-intermedio a {
-        margin-top: 70px;
+        /* margin-top: 70px; */
         position: absolute;
-        top: 20px;
+        top: 0px;
         left: 340px;
     }
 
     .footer {
         position: fixed;
-        bottom: 0px;
+        bottom: -60px;
         left: 25px;
         right: 25px;
-        height: 220px;
+        /* height: 100px; */
         /* background-color: pink; */
     }
-    
 </style>
 
 <?php
