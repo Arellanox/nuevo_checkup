@@ -5,33 +5,33 @@
 </style>
 <!-- Body -->
 <style>
-    .content {
+    .body-certificado {
         padding: 10px 80px 10px 80px;
     }
 
-    p {
+    .body-certificado p {
         font-size: 15px;
     }
 
-    h1 {
+    .body-certificado h1 {
         padding: none !important;
         margin: none !important;
     }
 
-    .none-p {
+    .body-certificado .none-p {
         padding: none !important;
         margin: none !important;
     }
 
-    .center {
+    .body-certificado .center {
         text-align: center !important;
     }
 
-    .justify {
+    .body-certificado .justify {
         text-align: justify !important;
     }
 
-    table {
+    .body-certificado table {
         width: 100%;
         max-width: 100%;
 
@@ -39,35 +39,35 @@
         border-collapse: collapse;
     }
 
-    th,
-    td {
+    .body-certificado th,
+    .body-certificado td {
         border: 1px solid black;
         width: 100%;
         max-width: 100%;
         word-break: break-all;
     }
 
-    .border {
+    .body-certificado .border {
         border: 1px solid black;
     }
 
-    td {
+    .body-certificado td {
         padding: 2px;
         font-size: 15px;
     }
 
-    .res {
+    .body-certificado .res {
         font-size: 13px !important;
     }
 
-    .left {
+    .body-certificado .left {
         padding-left: 30px !important;
     }
 </style>
 
 
 <!-- Contenedor -->
-<div class="content">
+<div class="body-certificado">
     <!-- Certificado Medico -->
     <div class="certificado-medico">
         <h1 style="text-align: center;">Certificado Médico</h1>
@@ -222,6 +222,9 @@
             </tr>
         </table>
     </div>
+
+
+    <div class="break"></div>
     <!-- Conclusiones -->
     <div class="conclusion">
         <p class="justify">
@@ -239,13 +242,11 @@
             </tr>
             <tr>
                 <td class="left">
-                    1.- Acudir al servicio de Dermatología.
-                    2.- Acudir al servicio de Odontología
-                    3.- Continuar
-                    con estilo de vida saludable.
-                    4.- Adoptar medidas de higiene de columna.
-                    5.- Realizar
-                    valoración médica anual
+                    1.- Acudir al servicio de Dermatología. </br>
+                    2.- Acudir al servicio de Odontología </br>
+                    3.- Continuar con estilo de vida saludable. </br>
+                    4.- Adoptar medidas de higiene de columna. </br>
+                    5.- Realizar valoración médica anual </br>
                 </td>
             </tr>
         </table>
