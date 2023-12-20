@@ -545,7 +545,7 @@ class Miscelaneus
             case -5:
                 #Certificados médicos
                 $arregloPaciente = [
-                    'certificado' => 'vinco_gcs'
+                    'certificado' => 'expro_ingreso_easp'
                 ];
                 break;
             case -4:
