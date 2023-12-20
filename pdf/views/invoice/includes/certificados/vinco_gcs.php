@@ -227,13 +227,19 @@
         </tr>
     </table>
     <!-- Tabla 2 -->
+    <!-- Header Tabla 2 -->
     <table style="margin-top: 30px;">
         <tr>
-            <td colspan="4" class="bg-gray center bold italic p" style="color: white;">
+            <td class="bg-gray center bold italic p" style="width: 50%;"></td>
+            <td class="bg-gray center bold italic p" style="color: white; width:90%;">
                 ESTUDIOS Y ANÁLISIS
                 COMPLEMENTARIOS
             </td>
+            <td style="border: none;"></td>
         </tr>
+    </table>
+    <table>
+
         <tr>
             <td class="bg p center bold italic">
                 ESTUDIO
