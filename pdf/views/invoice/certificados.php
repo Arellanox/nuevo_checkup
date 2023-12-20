@@ -93,8 +93,8 @@ function passdata($indice)
             'footer' => 'footer_certificados',
         ],
         "expro_ingreso_easp" => [
-            'encabezado' => 'encabezado_particular',
-            'footer' => 'footer_certificados',
+            'encabezado' => 'encabezado_expro',
+            'footer' => 'footer_expro',
         ]
     ];
 
