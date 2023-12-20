@@ -266,6 +266,9 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5: {
+                  'descripcion': 'SURCO BALANO-PREPUSIAL.'
                 }
               }
               break;
@@ -383,6 +386,12 @@ function generarFormularioPaciente(id) {
                 },
                 5: {
                   'descripcion': 'Líquido pleural'
+                },
+                6: {
+                  'descripcion': 'Biopsia'
+                },
+                7: {
+                  'descripcion': 'Tejido Pleural'
                 }
                 // 4: {
                 //   'descripcion': 'Lavado Bronquial'
