@@ -93,10 +93,24 @@
     .body-certificado .bg-gray {
         background-color: #757070 !important;
     }
+
+    .body-certificado .title {
+        position: absolute;
+        top: -50px;
+    }
 </style>
 
 <!-- Body -->
 <div class="body-certificado">
+    <!-- Header -->
+    <div class="title">
+        <p>
+            CERTIFICADO <strong class="italic">MÉDICO</strong> <br>
+            Resultado de evaluación médica laboral <br>
+            Nombre de la <strong>empresa:</strong> <br>
+            <strong>VINCO ENERGY SERVICES S.A. DE C.V</strong>
+        </p>
+    </div>
     <!-- Tabla 1 -->
     <table>
         <!-- Datos Generales -->
