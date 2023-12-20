@@ -85,7 +85,8 @@ function passdata($indice)
             'footer' => 'footer_certificados',
         ],
         "vinco_bimo_gcs" => [
-            ''
+            'encabezado' => 'encabezado_particular',
+            'footer' => 'footer_certificados',
         ]
     ];
 
