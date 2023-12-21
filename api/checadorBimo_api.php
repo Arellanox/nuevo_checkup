@@ -4,9 +4,9 @@ $master = new Master();
 
 $asistencia = json_decode(file_get_contents('php://input'), true);
 
-$fecha_inicio = $_POST['fecha_inicial'];
-$fecha_final = $_POST['fecha_final'];
-$bimer_id = $_POST['bimer_id'];
+$fecha_inicio = $asistencia['fecha_inicial'];
+$fecha_final = $asistencia['fecha_final'];
+$bimer_id = $asistencia['bimer_id'];
 
 $asistencia['api'] = isset($asistencia['api'])? $asistencia['api'] : $_POST['api'];
 
@@ -40,10 +40,26 @@ if (isset($asistencia['api']) && isset($asistencia['nombre'])) {
             break;
         case 4:
             # recuperar los registros de entradas/salidas
-            $data = $master->getByProcedure("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id]);
-            echo "hola3";
-            print_r($data);
-            exit;
+            # recuperamos la data
+            $data = $master->getByNext("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id]);
+
+            $bimers = $data[1];
+            $records = $data[0];
+            $dates = $data[2];
+
+            $filteredRecords = array();
+            foreach($dates as $date){
+                $fecha = $date['FECHA'];
+
+                $filtered = array_filter($records, function($item) use ($fecha){
+                    return $item["FECHA"] ==$fecha;
+                });
+
+                $filteredRecords[$fecha] = $filtered;
+            }
+
+            $response = $filteredRecords;
+
             break;
         default:
 
@@ -59,26 +75,4 @@ if (isset($asistencia['api']) && isset($asistencia['nombre'])) {
 
     echo $respuesta;
 }
-
-
-# recuperamos la data
-$data = $master->getByNext("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id]);
-
-$bimers = $data[1];
-$records = $data[0];
-$dates = $data[2];
-
-$filteredRecords = array();
-foreach($dates as $date){
-    $fecha = $date['FECHA'];
-
-    $filtered = array_filter($records, function($item) use ($fecha){
-        return $item["FECHA"] ==$fecha;
-    });
-
-    $filteredRecords[$fecha] = $filtered;
-}
-
-
-print_r($filteredRecords);
 
