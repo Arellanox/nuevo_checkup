@@ -5,33 +5,33 @@
 </style>
 <!-- Body -->
 <style>
-    .body-certificado {
+    .vinco_certificado_2 {
         padding: 10px 80px 10px 80px;
     }
 
-    .body-certificado p {
+    .vinco_certificado_2 p {
         font-size: 15px;
     }
 
-    .body-certificado h1 {
+    .vinco_certificado_2 h1 {
         padding: none !important;
         margin: none !important;
     }
 
-    .body-certificado .none-p {
+    .vinco_certificado_2 .none-p {
         padding: none !important;
         margin: none !important;
     }
 
-    .body-certificado .center {
+    .vinco_certificado_2 .center {
         text-align: center !important;
     }
 
-    .body-certificado .justify {
+    .vinco_certificado_2 .justify {
         text-align: justify !important;
     }
 
-    .body-certificado table {
+    .vinco_certificado_2 table {
         width: 100%;
         max-width: 100%;
 
@@ -39,35 +39,35 @@
         border-collapse: collapse;
     }
 
-    .body-certificado th,
-    .body-certificado td {
+    .vinco_certificado_2 th,
+    .vinco_certificado_2 td {
         border: 1px solid black;
         width: 100%;
         max-width: 100%;
         word-break: break-all;
     }
 
-    .body-certificado .border {
+    .vinco_certificado_2 .border {
         border: 1px solid black;
     }
 
-    .body-certificado td {
+    .vinco_certificado_2 td {
         padding: 2px;
         font-size: 15px;
     }
 
-    .body-certificado .res {
+    .vinco_certificado_2 .res {
         font-size: 13px !important;
     }
 
-    .body-certificado .left {
+    .vinco_certificado_2 .left {
         padding-left: 30px !important;
     }
 </style>
 
 
 <!-- Contenedor -->
-<div class="body-certificado">
+<div class="vinco_certificado_2">
     <!-- Certificado Medico -->
     <div class="certificado-medico">
         <h1 style="text-align: center;">Certificado Médico</h1>

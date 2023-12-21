@@ -1,10 +1,14 @@
 <style>
     @page {
-        margin: 80px 70px 94px 70px;
+        margin: 80px 10px 94px 10px;
     }
+
+    /* No modificar el margin */
 
     .body-certificado {
         padding: 10px 30px 10px 30px;
+        margin: 0px 50px;
+
     }
 
     .body-certificado p {
@@ -192,7 +196,7 @@
                 <label class="none-p">Lugar y fecha:</label>
                 <input type="text" value="">
                 <!-- Fotografia y pulgares -->
-                <div class="fotografia_pulgares" style="margin-top: 20px;">
+                <div class="fotografia_pulgares" style="margin-top: 10px;">
                     <table>
                         <tr>
                             <td class="none-p">
@@ -233,7 +237,7 @@
                     </table>
                 </div>
                 <!--  datos del trabajador -->
-                <div class="campos-rellenar" style="margin-top: 30px;">
+                <div class="campos-rellenar" style="margin-top: 4px;">
                     <!-- Inputs para rellenar la informacion -->
                     <div class="inputs">
                         <table>
@@ -272,7 +276,7 @@
                     </div>
                 </div>
                 <!-- edad y sexo -->
-                <div class="campos-rellenar" style="margin-top: 20px;">
+                <div class="campos-rellenar" style="margin-top: 10px;">
                     <!-- Inputs -->
                     <div class="inputs">
                         <table>
@@ -305,7 +309,7 @@
                     </div>
                 </div>
                 <!-- lugar de nacimiento y fecha de nacimiento -->
-                <div class="campos-rellenar" style="margin-top: 20px;">
+                <div class="campos-rellenar" style="margin-top: 3px;">
                     <!-- Inputs -->
                     <div class="inputs">
                         <table>
@@ -334,7 +338,7 @@
                     </div>
                 </div>
                 <!-- RFC Y CURP -->
-                <div class="campos-rellenar" style="margin-top: 20px;">
+                <div class="campos-rellenar" style="margin-top: 7px;">
                     <!-- Inputs -->
                     <table>
                         <tr>
@@ -393,7 +397,7 @@
                     </table>
                 </div>
                 <!-- Escolaridad  maxima -->
-                <div class="campos-rellenar" style="margin-top: 20px;">
+                <div class="campos-rellenar" style="margin-top: 7px;">
                     <!-- Input -->
                     <table>
                         <tr>
@@ -412,7 +416,7 @@
                     </table>
                 </div>
                 <!-- Direccion particular -->
-                <div class="campos-rellenar" style="margin-top: 10px;">
+                <div class="campos-rellenar" style="margin-top: 7px;">
                     <p class="none-p"> Dirección particular:</p>
                     <!-- Inputs para rellenar la informacion -->
                     <div class="inputs" style="margin-top: 10px;">
@@ -452,7 +456,7 @@
                     </div>
                 </div>
                 <!-- Ciudad, Codigo postal, estado, telefono particular -->
-                <div class="campos-rellenar" style="margin-top: 10px;">
+                <div class="campos-rellenar" style="margin-top: 7px;">
                     <!-- Inputs -->
                     <table>
                         <tr>

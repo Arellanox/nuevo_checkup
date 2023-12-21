@@ -5,21 +5,21 @@
         /* Centra el contenido horizontalmente */
     }
 
-    .parrafo-izquierdo {
+    .footer-padre .parrafo-izquierdo {
         font-size: 11px;
         margin-bottom: -10px;
         margin-right: -99px !important;
         color: #12828f;
     }
 
-    .parrafo-derecho {
+    .footer-padre .parrafo-derecho {
         font-size: 11px;
         margin-bottom: -10px;
         margin-left: 410px !important;
         color: #12828f;
     }
 
-    .cuadro-intermedio a {
+    .footer-padre .cuadro-intermedio a {
         /* margin-top: 70px; */
         position: absolute;
         top: 0px;

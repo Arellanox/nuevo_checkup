@@ -251,8 +251,28 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 <?php endif; ?>
 
 <!-- Certificados Médicos -->
-<?php if ($_SESSION['vista']['CERTIFICADOS_MEDICOS'] == 1) : ?>
-  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/certificados/#CERTIFICADOS'; ?>">
-  <i class="bi bi-file-earmark-medical"></i> CertificadoS Médico
+<?php if (
+  $_SESSION['vista']['CERTIFICADOS_MEDICOS'] == 1 ||
+  $_SESSION['vista']['CERTIFICADOS_MEDICOS'] == 1
+) : ?>
+  <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-validacionCorreoLab" aria-expanded="false">
+    <i class="bi bi-file-earmark-medical"></i> Certificados Médico
+  </a>
+  <div class="collapse" id="board-validacionCorreoLab">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small shadow">
+      <?php if ($_SESSION['vista']['CERTIFICADOS_MEDICOS'] == 1) : ?>
+        <li>
+          <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/area-servicios/#ESTUDIOS_ULTRASONIDO'; ?>">
+            <i class="bi bi-dot"></i> Generales
+          </a>
+        </li>
+
+      <?php endif; ?>
+    </ul>
+  </div>
+
+
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/certificados/#CERTIFICADOS_MEDICOS'; ?>">
+    <i class="bi bi-file-earmark-medical"></i> Certificados Médico
   </a>
 <?php endif; ?>
