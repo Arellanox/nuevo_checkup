@@ -64,21 +64,21 @@ if (isset($asistencia['api']) && isset($asistencia['nombre'])) {
 # recuperamos la data
 $data = $master->getByNext("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id]);
 
-# bimers que aparecen en los registros (solo una vez).
-$records = $data[1];
+$bimers = $data[1];
+$records = $data[0];
+$dates = $data[2];
 
-# dataset de los registros de entradas y salidas.
-$data = $data[0];
+$filteredRecords = array();
+foreach($dates as $date){
+    $fecha = $date['FECHA'];
 
-$bimerRecords = array();
-foreach($records as $record){
-    $fecha = $record['FECHA'];
-    $bimers = array_filter($data,function($registro) use($fecha){
-        return $registro['FECHA'] == $fecha;
+    $filtered = array_filter($records, function($item) use ($fecha){
+        return $item["FECHA"] ==$fecha;
     });
-    
 
-    $bimerRecords[$fecha] = $bimers;
+    $filteredRecords[$fecha] = $filtered;
 }
 
-print_r($bimerRecords);
+
+print_r($filteredRecords);
+
