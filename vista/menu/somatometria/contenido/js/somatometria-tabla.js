@@ -84,7 +84,7 @@ async function obtenerResultadosSignos(id) {
                     'masaCorporal': 'ÍNDICE DE MASA CORPORAL',
                     'masaMuscular': 'MASA LIBRE DE GRASA',
                     'porcentajeGrasaVisceral': 'NIVEL DE GRASA VISCERAL',
-                    'huesos': 'MASA DE MÚSCULO ESQUELÉTICO',
+                    'huesos': 'MÚSCULO ESQUELÉTICO',
                     'metabolismo': 'TASA METABÓLICA BASAL',
                     'perimetroCefalico': 'PERIMETRO CEFALICO',
                     'porcentajeProteinas': 'PROTEÍNAS',
