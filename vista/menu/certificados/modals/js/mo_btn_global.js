@@ -52,3 +52,36 @@ $('#btn-subirCertificadoSLB').on('click', function (e) {
     }, 1)
 
 });
+
+
+$(document).on('click', '#listado-resultados div.collapse a[target="_blank"]', (event) => {
+    event.preventDefault()
+    event.stopPropagation()
+
+    let url = $(this).attr('href')
+
+    // Agrega de forma dinamica el reporte en vista
+    console.log($(this).attr('href'))
+
+    // Obtener el texto del enlace de colapso
+    let collapseLinkText = $(this).closest('div.collapse').prev().find('a').text().trim();
+    // Obtener el texto del enlace clickeado
+    let clickedLinkText = $(this).text().trim();
+
+    // Construir el nombre del archivo
+    let filename = `${collapseLinkText} - ${clickedLinkText}`;
+
+    // Destruir la instancia existente de AdobeDC.View
+    // Crear una instancia inicial de AdobeDC.View
+    let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
+
+    // Agregar un parámetro único a la URL para evitar la caché del navegador
+    url += "?timestamp=" + Date.now();
+
+    // Cargar y mostrar el nuevo PDF en el visor
+    adobeDCView.previewFile({
+        content: { location: { url: url } },
+        metaData: { fileName: filename }
+    });
+
+})

@@ -207,14 +207,22 @@
         <tr>
             <td colspan="1" class="center">5</td>
             <td colspan="4" class="center">Audiometría tonal </td>
-            <td colspan="1" class="center">11</td>
-            <td colspan="4" class="center"></td>
+            <td colspan="1" class="center">
+                <!-- 11 Mostrar el siguiente numero si tiene o no -->
+            </td>
+            <td colspan="4" class="center">
+                <!-- Electrocardiograma cuando es ingreso -->
+            </td>
         </tr>
         <tr>
             <td colspan="1" class="center">6</td>
             <td colspan="4" class="center">Biometría hemática completa, Gpo. Y Rh</td>
-            <td colspan="1" class="center"></td>
-            <td colspan="4" class="center"></td>
+            <td colspan="1" class="center">
+                <!-- 12 Mostrar el siguiente numero si tiene o no -->
+            </td>
+            <td colspan="4" class="center">
+                <!-- Inbody cuando es ingreso -->
+            </td>
         </tr>
         <!-- APTITUDES PARA EL TRABAJO -->
         <tr>
@@ -343,10 +351,10 @@
                 Proteinuria
             </td>
             <td class="bold center">
-
+                <!-- Mostrar Electrocardiograma para ingreso -->
             </td>
             <td class="center">
-
+                <!-- Resultado de Electrocardiograma -->
             </td>
         </tr>
         <tr>

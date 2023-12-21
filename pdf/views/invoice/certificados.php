@@ -84,18 +84,22 @@ function passdata($indice)
             'encabezado' => 'encabezado_particular',
             'footer' => 'footer_certificados',
         ],
-        "vinco_bimo_gcs" => [
+        "vinco_bimo" => [
             'encabezado' => 'encabezado_particular',
             'footer' => 'footer_certificados',
         ],
-        "vinco_gcs" => [
+        "vinco_general" => [
             'encabezado' => 'encabezado_particular',
             'footer' => 'footer_certificados',
         ],
-        "expro_ingreso_easp" => [
-            'encabezado' => 'encabezado_expro',
-            'footer' => 'footer_expro',
-        ]
+        "expro_ingreso" => [
+            'encabezado' => 'encabezado_particular',
+            'footer' => 'footer_certificados',
+        ],
+        "poe" => [
+            'encabezado' => 'encabezado_particular',
+            'footer' => 'footer_certificados',
+        ],
     ];
 
     // echo $indice;
