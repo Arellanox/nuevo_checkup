@@ -1,10 +1,11 @@
 <style>
     .footer {
         position: fixed;
-        bottom: -140px;
-        left: -2px;
+        bottom: -60px;
+        left: 25px;
         right: 25px;
-        height: 150px;
+        height: 100px;
+        /* background-color: orange; */
     }
 
     .footer-expro-text {
@@ -13,7 +14,7 @@
         color: #12828f;
     }
 
-    .p {
+    .container-footer-expro .p {
         position: absolute;
         top: 50px;
     }
@@ -23,7 +24,6 @@
         left: 650px;
         top: 0;
         bottom: 0px;
-
     }
 </style>
 
