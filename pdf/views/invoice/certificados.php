@@ -93,7 +93,7 @@ function passdata($indice)
             'footer' => 'footer_certificados',
         ],
         "expro_ingreso" => [
-            'encabezado' => 'encabezado_particular',
+            'encabezado' => 'encabezado_expro',
             'footer' => 'footer_expro',
         ],
         "poe" => [
