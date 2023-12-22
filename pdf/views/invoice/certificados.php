@@ -15,7 +15,7 @@
             margin-top: 60px;
             margin-bottom: 30px;
             font-size: 10px;
-            background-color: gray;
+            /* background-color: gray; */
         }
 
         .break {
