@@ -192,6 +192,8 @@ function generarFormularioPaciente(id) {
             }
           }
 
+          let muestras = []
+
           //Clinico
           let Tipo = '';
 
@@ -234,7 +236,7 @@ function generarFormularioPaciente(id) {
               }
               break;
 
-            case '697': // <-- ANTIGENO -->
+            case '697': // <-- ANTIGENO --> 
               muestras = {
                 0: {
                   'descripcion': 'HISOPADO NASAL',
@@ -466,6 +468,20 @@ function generarFormularioPaciente(id) {
                 }
               }
 
+              break
+
+
+            case '1462':
+
+              // Ag. Virus Respiratorio
+
+              classSelect = 'selectTipoMuestraVirusRespiratorio';
+              muestras = {
+                0: {
+                  'descripcion': 'Hisopado nasal',
+                },
+              }
+
               break;
 
             //Laboratorio Clinico
@@ -570,6 +586,9 @@ function generarFormularioPaciente(id) {
                 case '1130': case '1131': case '1132': case '1126': case '1127': case '1128': case '1121':
                 case '1122': case '1123': case '1124': case '1116': case '1117': case '1118': case '1119':
                 case '1112': case '1113': case '1114': case '1107': case '1108': case '1109': case '1110':
+                // Ag virus respiratorio
+                case '344':
+
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 // Panel 21
@@ -593,6 +612,19 @@ function generarFormularioPaciente(id) {
 
                 case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
                 case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
+
+                case '1039':
+                  switch (row['ID_GRUPO']) {
+                    case '1462':
+                      anotherValue = ifnull(row[k]['No. kit.'], 'RV-135-K')
+                      break;
+                  }; break;
+                case '1040':
+                  switch (row['ID_GRUPO']) {
+                    case '1462':
+                      anotherValue = ifnull(row[k]['No. kit.'], 'RV-135-K')
+                      break;
+                  }; break;
 
                 case '692': case '706': case '734': case '991': case '1083':
                 // Bluefinder 22
@@ -618,6 +650,8 @@ function generarFormularioPaciente(id) {
                 case '1135':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                 case '1142':
+                // Ag. Virus respiratorio
+                case '145':
                   console.log(row[k]['ID_SERVICIO'])
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
