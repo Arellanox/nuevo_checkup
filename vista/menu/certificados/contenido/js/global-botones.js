@@ -39,6 +39,12 @@ const btnProcedencia = {
     VEJEZ: 'slb_vejez', //Persona mayor a 40
     formulario: 'form_slb.html', // Formulario a elegir de SLb
   },
+  'VINCO': {
+    AMBOS: 'vinco_general',
+    formulario: 'form_vinco_general.html'
+  },
+
+
 }
 
 //funcion para llamar a los botones dependiendo de la procedencia

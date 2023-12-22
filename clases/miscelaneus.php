@@ -545,7 +545,7 @@ class Miscelaneus
             case -5:
                 #Certificados médicos
                 $arregloPaciente = [
-                    'certificado' => 'expro_ingreso'
+                    'certificado' => 'poe'
                 ];
                 break;
             case -4:

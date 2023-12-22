@@ -15,7 +15,7 @@
             margin-top: 60px;
             margin-bottom: 30px;
             font-size: 10px;
-            /* background-color: gray; */
+            background-color: gray;
         }
 
         .break {
@@ -84,10 +84,10 @@ function passdata($indice)
             'encabezado' => 'encabezado_particular',
             'footer' => 'footer_certificados',
         ],
-        "vinco_bimo" => [
-            'encabezado' => 'encabezado_particular',
-            'footer' => 'footer_certificados',
-        ],
+        // "vinco_bimo" => [
+        //     'encabezado' => 'encabezado_particular',
+        //     'footer' => 'footer_certificados',
+        // ],
         "vinco_general" => [
             'encabezado' => 'encabezado_particular',
             'footer' => 'footer_certificados',
