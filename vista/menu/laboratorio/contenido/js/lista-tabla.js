@@ -622,7 +622,7 @@ function generarFormularioPaciente(id) {
                 case '1040':
                   switch (row['ID_GRUPO']) {
                     case '1462':
-                      anotherValue = ifnull(row[k]['No. kit.'], 'RV-135-K')
+                      anotherValue = ifnull(row[k]['Descripción kit'], 'CerTest RSV ')
                       break;
                   }; break;
 
