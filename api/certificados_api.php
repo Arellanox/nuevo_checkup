@@ -12,6 +12,7 @@ if (!$tokenValido) {
 
 $master = new Master();
 $api = $_POST['api'];
+$registrado_por = $_SESSION['id'];
 
 # variables para lista de trabajo.
 $fecha = isset($_POST['fecha_busqueda']) ? $_POST['fecha_busqueda'] : null;
@@ -64,7 +65,7 @@ switch($api){
         break;
     case 3:
 
-        $response = $master->getByProcedure("sp_certificados_g", [$cuerpo]);
+        $response = $master->getByProcedure("sp_certificados_g", [$cuerpo, $_SESSION['id']]);
 
         break;
     default:
