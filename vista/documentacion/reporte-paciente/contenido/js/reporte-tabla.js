@@ -114,7 +114,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 26, className: 'none', title: 'Forma de Pago' },
     { target: 27, className: 'none', title: 'Método de Pago' },
     { target: 28, className: 'none', title: 'No. Factura' },
-    { target: 29, className: 'none', title: 'No. Factura' },
+    { target: 29, className: 'none', title: 'Maquilado' },
   ],
 
 
