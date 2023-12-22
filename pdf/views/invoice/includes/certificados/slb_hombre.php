@@ -71,7 +71,12 @@ $encode2 = base64_encode($img2);
             </p class="h1">
         </div>
         <div class="informacion-medico" style="margin-top:30px;">
-            <p class="h1" style="text-align:justify;">El Médico Beatriz Alejandra Ramos González, con cedula profesional 7796595 en el registro de profesiones, certifico que el Sr. Soto Cuellar, Carlos Alfonso con fecha de nacimiento 20/10/1995, Segmento SPS en el puesto PL Job Delivery Lead se sometió a un examen médico apoyado de pruebas de laboratorio y gabinete en la fecha 12/10/2023, es medicamente:</p class="h1">
+            <p class="h1" style="text-align:justify;">
+                <?php
+                # esto no se que es pero tiene informacion del medico 
+                echo  "El Médico Beatriz Alejandra Ramos González, con cedula profesional 7796595 en el registro de profesiones, certifico que el Sr. Soto Cuellar, Carlos Alfonso con fecha de nacimiento 20/10/1995, Segmento SPS en el puesto PL Job Delivery Lead se sometió a un examen médico apoyado de pruebas de laboratorio y gabinete en la fecha 12/10/2023, es medicamente:"
+                ?>
+            </p>
         </div>
         <div class="div_apto_noapto" style="margin-top: 10px">
             <p style="text-indent: 0pt;text-align: left;">
@@ -97,28 +102,46 @@ $encode2 = base64_encode($img2);
         </div>
         <div class="antidoping" style="margin-top: 20px;">
             <p class="h1">ANTIDOPING: <br>
-                NEGATIVO
+                <?php
+                # resultado de antidoping
+                echo "NEGATIVO"
+                ?>
             </p class="h1">
         </div>
         <div class="grupo-sanguineo" style="margin-top: 20px;">
             <p class="h1">
-                GRUPO SANGUINEO: B+
+                GRUPO SANGUINEO:
+                <?php
+                # resultados de grupos sanguineo
+                echo "B+"
+                ?>
             </p class="h1">
         </div>
         <div class="add" style="margin-top: 20px;">
             <p class="h1">
-                ADD: Se le realizaron los siguientes estudios médicos: BHC, VSG, QS, TGO, TGP GGT, perfil de lípidos, antidoping de 5 elementos, EGO, CPS, audiometría espirometría, Rayos X: tele de tórax, AP y lateral de columna lumbar y agudeza visual.
+                ADD:
+                <?php
+                # no se que es ADD pero va algo xd
+                echo "Se le realizaron los siguientes estudios médicos: BHC, VSG, QS, TGO, TGP GGT, perfil de lípidos, antidoping de 5 elementos, EGO, CPS, audiometría espirometría, Rayos X: tele de tórax, AP y lateral de columna lumbar y agudeza visual."
+                ?>
             </p class="h1">
         </div>
         <div class="base">
             <p class="h1">
-                Con base a la evaluación el empleado no cumple con ninguno de los criterios de vulnerabilidad publicados por
-                el IMSS en julio 2020, por lo tanto; no es considerado como personal vulnerable.
+                <?php
+                # no se que es pero dice que no es vulnerable, parece un resultado
+                echo "Con base a la evaluación el empleado no cumple con ninguno de los criterios de vulnerabilidad publicados por
+                el IMSS en julio 2020, por lo tanto; no es considerado como personal vulnerable."
+                ?>
             </p class="h1">
         </div>
         <div class="informacion-medico" style="margin-top: 10px;">
             <p class="h1">
-                Nombre del Medico examinador: Ramos Gonzales, Beatriz Alenjandra.
+                Nombre del Medico examinador:
+                <?php
+                # nombre del medico
+                echo "Ramos Gonzales, Beatriz Alenjandra."
+                ?>
             </p class="h1">
             <p class="h1">
                 Firma del Medico examinador:
