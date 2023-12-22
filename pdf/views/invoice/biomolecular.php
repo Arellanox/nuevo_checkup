@@ -284,7 +284,7 @@ $areas = $resultados->areas[0];
         <?php
         $estudiosOtros = $areas;
 
-
+        $estudios_sincuerpo = [];
         foreach ($estudiosOtros->estudios as $key => $json) {
             $body = $json->analitos;
             // print_r($body[0]);
@@ -295,12 +295,15 @@ $areas = $resultados->areas[0];
                 // })
                 $resultados->areas = eliminarKey($resultados->areas, $key);
                 include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/biomolecular/" . passdata($json->estudio) . ".php";
-            } else {
-                include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/laboratorios_global.php";
-            }
 
-            if (count($estudiosOtros->estudios) - 1 > $key)
-                echo '<div class="break"></div>';
+                if (count($estudiosOtros->estudios) - 1 > $key)
+                    echo '<div class="break"></div>';
+            }
+        }
+
+        if (count($estudiosOtros->estudios)) {
+            echo '<div class="break"></div>';
+            include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/laboratorios_global.php";
         }
 
 
@@ -347,7 +350,7 @@ function passdata($indice)
         "rT-PCR Panel Meningitis" => 'rT-PCR_PaMeningitis',
         "PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA" => 'rT-PCR_pylari_claritromicina',
         "rT-PCR Entero-DR" => 'rt-PCR_Entero',
-        'Ag. Virus Respiratorio' => 'Ag-Virus_Respiratorio'
+        'Ag. Virus Sincitial Respiratorio' => 'Ag-Virus_Respiratorio'
     ];
 
     // echo $indice;
