@@ -65,6 +65,8 @@ switch ($api) {
             $filteredRecords[$fecha] = $filtered;
         }
 
+        $filteredRecords['BIMERS'] = $bimers;
+
         $response = $filteredRecords;
 
 
