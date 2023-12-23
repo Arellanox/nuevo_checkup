@@ -36,21 +36,21 @@
         if ($valor_ct) {
     ?>
             <tr>
-                <td style="font-size: 12px;text-align: left;" class="bold">Valor CT</td>
-                <td class="" style="font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
-                <td style="font-size: 12px;text-align:center;"></td>
+                <td style="padding-bottom: 15px;font-size: 12px;text-align: left;" class="bold">Valor CT</td>
+                <td class="" style="padding-bottom: 15px;font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
+                <td style="padding-bottom: 15px;font-size: 12px;text-align:center;"></td>
             </tr>
         <?php
         } else {
         ?>
             <tr>
-                <td style="padding-bottom: 15px;font-size: 12px;text-align: left;" class="">
+                <td style="font-size: 12px;text-align: left;" class="">
                     <p style="padding: 0px; margin:0px">
                         <?php echo text_bold($value->nombre) ?>
                     </p>
                 </td>
-                <td class="<?php echo $value->resultado == 'POSITIVO' ? "bold" : "";  ?>" style="padding-bottom: 15px;font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
-                <td style="padding-bottom: 15px;font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo "NEGATIVO"; ?></td>
+                <td class="<?php echo $value->resultado == 'POSITIVO' ? "bold" : "";  ?>" style="font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
+                <td style="font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo "NEGATIVO"; ?></td>
             </tr>
     <?php
         }
