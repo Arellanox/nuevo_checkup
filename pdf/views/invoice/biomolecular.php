@@ -301,9 +301,9 @@ $areas = $resultados->areas[0];
                 include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/biomolecular/" . passdata($json->estudio) . ".php";
 
                 // echo $key;s
-                if ($conteo - 1 > $key) {
-                    echo '<div class="break"></div>';
-                }
+                // if ($conteo - 1 > $key) {
+                echo '<div class="break"></div>';
+                // }
             }
         }
 
