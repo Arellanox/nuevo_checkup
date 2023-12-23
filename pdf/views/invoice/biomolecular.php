@@ -283,21 +283,26 @@ $areas = $resultados->areas[0];
     <div class="invoice-content">
         <?php
         $estudiosOtros = $areas;
+        // print_r($estudiosOtros->estudios);
 
         $estudios_sincuerpo = [];
         foreach ($estudiosOtros->estudios as $key => $json) {
             $body = $json->analitos;
-            // print_r($body[0]);
+            // print_r($json);
             $body_html = passdata($json->estudio);
             if (isset($body_html)) {
                 // $areas = array_filter($areas, function($data){
                 //     return $data
                 // })
+                $conteo = count($estudiosOtros->estudios);
+
                 $resultados->areas = eliminarKey($resultados->areas, $key);
                 include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/biomolecular/" . passdata($json->estudio) . ".php";
 
-                if (count($estudiosOtros->estudios) - 1 > $key)
+                // echo $key;s
+                if ($conteo - 1 > $key) {
                     echo '<div class="break"></div>';
+                }
             }
         }
 

@@ -1,6 +1,6 @@
 <style>
     #table_antigeno th {
-        background-color: gray;
+        background-color: #d3d3d3;
         padding: 10px 7px 10px 7px;
         /* text-justify: left; */
         text-align: left;
