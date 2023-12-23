@@ -36,7 +36,7 @@
         if ($valor_ct) {
     ?>
             <tr>
-                <td rowspan="2" style="font-size: 12px;text-align: left;" class="bold">Valor CT</td>
+                <td style="font-size: 12px;text-align: left;" class="bold">Valor CT</td>
                 <td class="" style="font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
                 <td style="font-size: 12px;text-align:center;"></td>
             </tr>
@@ -44,7 +44,7 @@
         } else {
         ?>
             <tr>
-                <td rowspan="2" style="padding-bottom: 15px;font-size: 12px;text-align: left; background-color: red;" class="">
+                <td style="padding-bottom: 15px;font-size: 12px;text-align: left; background-color: red;" class="">
                     <p style="padding: 0px; margin:0px">
                         <?php echo text_bold($value->nombre) ?>
                     </p>
