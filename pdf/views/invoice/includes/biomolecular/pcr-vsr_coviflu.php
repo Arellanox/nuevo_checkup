@@ -44,7 +44,7 @@
         } else {
         ?>
             <tr>
-                <td style="padding-bottom: 15px;font-size: 12px;text-align: left; background-color: red;" class="">
+                <td style="padding-bottom: 15px;font-size: 12px;text-align: left;" class="">
                     <p style="padding: 0px; margin:0px">
                         <?php echo text_bold($value->nombre) ?>
                     </p>
