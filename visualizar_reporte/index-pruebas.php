@@ -23,7 +23,6 @@ $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
-
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
@@ -34,7 +33,7 @@ $usuario_id = $_SESSION['id'];
 
 $api = "biomolecular";
 // $area_id = 11;
-$turno_id = 2745;
+$turno_id = 2743;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;

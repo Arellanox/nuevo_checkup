@@ -289,6 +289,7 @@ $areas = $resultados->areas[0];
         foreach ($estudiosOtros->estudios as $key => $json) {
             $body = $json->analitos;
             // print_r($json);
+            // echo $json->estudio;
             $body_html = passdata($json->estudio);
             if (isset($body_html)) {
                 // $areas = array_filter($areas, function($data){
