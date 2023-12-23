@@ -359,7 +359,8 @@ function passdata($indice)
         "rT-PCR Panel Meningitis" => 'rT-PCR_PaMeningitis',
         "PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA" => 'rT-PCR_pylari_claritromicina',
         "rT-PCR Entero-DR" => 'rt-PCR_Entero',
-        'Ag. Virus Sincitial Respiratorio' => 'Ag-Virus_Respiratorio'
+        'Ag. Virus Sincitial Respiratorio' => 'Ag-Virus_Respiratorio',
+        'Prueba rT-PCR de VSR - CoviFlu' => 'pcr-vsr_coviflu'
     ];
 
     // echo $indice;

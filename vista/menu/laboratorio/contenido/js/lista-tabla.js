@@ -484,6 +484,28 @@ function generarFormularioPaciente(id) {
 
               break;
 
+            case '1463':
+              // PCR Virus Respiratorio
+
+
+              classSelect = 'selectTipoMuestraPCRVirusRespiratorio';
+              muestras = {
+                0: {
+                  'descripcion': 'Hisopado nasal',
+                },
+                1: {
+                  'descripcion': 'Hisopado Nasofaríngeo',
+                },
+                2: {
+                  'descripcion': 'Hisopado orofaríngeo'
+                },
+                3: {
+                  'descripcion': 'Expectoración'
+                }
+              }
+
+              break;
+
             //Laboratorio Clinico
             case '1':
               Tipo = '_BH'
