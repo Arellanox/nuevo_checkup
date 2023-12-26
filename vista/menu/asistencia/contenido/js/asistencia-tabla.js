@@ -42,9 +42,36 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
-        { data: 'COUNT' },
-        { data: 'NOMBRE' },
-        { data: 'AREA' },
+        {
+            data: 'COUNT', render: function (data) {
+                return ifnull(data, '', [data.COUNT])
+            }
+        },
+        {
+            data: 'NOMBRE', render: function (data) {
+                return ifnull(data, '', [data.NOMBRE])
+            }
+        },
+        {
+            data: 'USUARIO', render: function (data) {
+                return ifnull(data, '', [data.USUARIO])
+            }
+        },
+        {
+            data: 'TELEFONO', render: function (data) {
+                return badgeNull(config = { data: data, index: 'data.TELEFONO' }, type = 'TELEFONO');
+            }
+        },
+        {
+            data: 'CORREO', render: function (data) {
+                return badgeNull(config = { data: data, index: 'data.CORREO' }, type = 'CORREO');
+            }
+        },
+        {
+            data: 'AREA', render: function (data) {
+                return badgeNull(config = { data: data, index: 'data.AREA' }, type = 'AREA');
+            }
+        },
         {
             data: null, render: function (data) {
                 // return formatearHora(data);
@@ -52,11 +79,6 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
                 return horario;
             }
         },
-        // {
-        //     data: 'HORARIO_SALIDA', render: function (data) {
-        //         return formatearHora(data);
-        //     }
-        // },
         {
             data: null, render: function (data) {
                 // return formatearHora(data);
@@ -64,20 +86,16 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
                 return registro;
             }
         },
-        // {
-        //     data: 'HORA_SALIDA', render: function (data) {
-        //         return formatearHora(data);
-        //     }
-        // },
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '1px' },
         { target: 1, title: 'Nombre', className: 'all' },
-        { target: 2, title: 'Area', className: 'all' },
-        { target: 3, title: 'Horario', className: 'all' },
-        // { target: 4, title: 'Horario de salida', className: 'all ' },
-        { target: 4, title: 'Registro', className: 'all ' },
-        // { target: 5, title: 'Hora de salida', className: 'all ' },
+        { target: 2, title: 'Usuario', className: 'all' },
+        { target: 3, title: 'Telefono', className: 'all' },
+        { target: 4, title: 'Correo', className: 'all' },
+        { target: 5, title: 'Area', className: 'all' },
+        { target: 6, title: 'Horario', className: 'all' },
+        { target: 7, title: 'Registro', className: 'all ' },
 
     ],
     dom: 'Bfrtip',
@@ -182,18 +200,38 @@ function formatearHora(hora) {
 }
 
 
-function backHora(config = { data: [], hora: null, horario: { entrada: '', salida: '' } }, tip) {
+function backHora(config = { data: [], hora: null, horario: { entrada: '', salida: '' }, msg: '' }, tip) {
     return ifnull(config.data, null, [config.hora], (result) => {
         if (!result) {
             switch (tip) {
                 case 'registro':
-
                     return '<span class="badge rounded-pill bg-danger">Sin registro</span>'; break;
+                    break;
                 default:
                     return 'Sin hora'; break;
             }
         } else {
             return formatearHora(result);
+        }
+    })
+}
+
+function badgeNull(config = { data: [], index: '[]' }, type = '') {
+    return ifnull(config.data, null, [config.index], (result) => {
+        if (!result) {
+            switch (type) {
+                case 'CORREO':
+                    return '<span class="badge rounded-pill bg-danger">Sin Correo</span>'; break;
+                case 'TELEFONO':
+                    return '<span class="badge rounded-pill bg-danger">Sin Telefono</span>'; break;
+                case 'AREA':
+                    return '<span class="badge rounded-pill bg-danger">Sin Area</span>'; break;
+                default:
+                    return '<span class="badge rounded-pill bg-danger">Sin registro</span>';
+                    break;
+            }
+        } else {
+            return result;
         }
     })
 }
