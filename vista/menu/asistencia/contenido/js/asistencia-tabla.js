@@ -1,6 +1,6 @@
 // Tabla de asistencia
 dataAsistencia = {
-    api: 1
+    api: 5
 }
 
 TablaAsistencia = $('#TablaAsistencia').DataTable({
@@ -20,16 +20,12 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
         },
         // data: { api: 2, equipo: id_equipos },
         method: 'POST',
-        url: '../../../api/corte_caja_api.php',
+        url: '../../../api/checadorBimo_api.php',
         beforeSend: function () {
-            // loader("In")
-            // fadeTable('Out')
-            // fadeDetalleTable("Out")
         },
         complete: function () {
             //Para ocultar segunda columna
             // loader("Out", 'bottom')
-            // fadeTable("In")
 
             $.fn.dataTable
                 .tables({
@@ -37,13 +33,6 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
                     api: true
                 })
                 .columns.adjust();
-
-
-            // Hacer clic en la primera fila
-            if (!isMovil()) {
-                var firstRow = TablaHistorialCortes.row(0).node(); // La fila 0 es la primera fila
-                $(firstRow).click(); // Simula un clic en la fila
-            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -95,4 +84,22 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
 
     ],
 
+})
+
+inputBusquedaTable("TablaAsistencia", TablaAsistencia, [{
+    msj: 'Tabla de historial de cortes de caja',
+    place: 'top'
+}], {
+    msj: "Filtre los resultados",
+    place: 'top'
+}, "col-12")
+
+selectTable('#TablaAsistencia', TablaAsistencia, {
+    unSelect: true, dblClick: false,
+}, async function (select, data, callback) {
+    if (select) {
+        callback('In')
+    } else {
+        callback('Out')
+    }
 })
