@@ -91,15 +91,16 @@ $(document).on('change', '#fechaListadoAsistencia', function (e) {
 
 function generarReporteExcel() {
     alertMensajeConfirm({
-        title: 'Desea generar el reporte de asistencia',
-        text: 'confirme para realizar el reporte ',
+        title: '¿Desea generar el reporte de asistencia?',
+        text: 'Confirme para descargar el reporte de asistencia en excel',
         icon: 'info',
-        confirmButtonText: "Si"
+        confirmButtonText: "Si, estoy seguro"
         // denyButtonText: "No",
         // showDenyButton: true
     }, () => {
-        // sacamos la fecha final
+        // sacamos la fecha inicial
         const fecha_inicial = $('#fechaListadoAsistencia').val();
+        // sacamos la fecha final
         const fecha_final = sumarfecha();
         // se hace la peticion a la api para generar el reporte
         ajaxAwait({
