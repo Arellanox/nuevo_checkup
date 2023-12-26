@@ -46,34 +46,38 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
         { data: 'NOMBRE' },
         { data: 'AREA' },
         {
-            data: 'HORARIO_ENTRADA', render: function (data) {
-                return formatearHora(data);
+            data: null, render: function (data) {
+                // return formatearHora(data);
+                let horario = `${formatearHora(ifnull(data, '', ["HORARIO_ENTRADA"]))} - ${formatearHora(ifnull(data, '', ['HORARIO_SALIDA']))}`
+                return horario;
             }
         },
+        // {
+        //     data: 'HORARIO_SALIDA', render: function (data) {
+        //         return formatearHora(data);
+        //     }
+        // },
         {
-            data: 'HORARIO_SALIDA', render: function (data) {
-                return formatearHora(data);
+            data: null, render: function (data) {
+                // return formatearHora(data);
+                let registro = `${backHora({ data: data, hora: 'HORA_ENTRADA' }, 'registro')} - ${backHora({ data: data, hora: 'HORA_SALIDA' }, 'registro')}`;
+                return registro;
             }
         },
-        {
-            data: 'HORA_ENTRADA', render: function (data) {
-                return formatearHora(data);
-            }
-        },
-        {
-            data: 'HORA_SALIDA', render: function (data) {
-                return formatearHora(data);
-            }
-        },
+        // {
+        //     data: 'HORA_SALIDA', render: function (data) {
+        //         return formatearHora(data);
+        //     }
+        // },
     ],
     columnDefs: [
-        { target: 0, title: '#', className: 'all' },
+        { target: 0, title: '#', className: 'all', width: '1px' },
         { target: 1, title: 'Nombre', className: 'all' },
         { target: 2, title: 'Area', className: 'all' },
-        { target: 3, title: 'Horario de entrada', className: 'all' },
-        { target: 4, title: 'Horario de salida', className: 'all ' },
-        { target: 5, title: 'Hora de entrada', className: 'all ' },
-        { target: 6, title: 'Hora de salida', className: 'all ' },
+        { target: 3, title: 'Horario', className: 'all' },
+        // { target: 4, title: 'Horario de salida', className: 'all ' },
+        { target: 4, title: 'Registro', className: 'all ' },
+        // { target: 5, title: 'Hora de salida', className: 'all ' },
 
     ],
     dom: 'Bfrtip',
@@ -175,4 +179,21 @@ function formatearHora(hora) {
         return horaFormateada;
     }
 
+}
+
+
+function backHora(config = { data: [], hora: null, horario: { entrada: '', salida: '' } }, tip) {
+    return ifnull(config.data, null, [config.hora], (result) => {
+        if (!result) {
+            switch (tip) {
+                case 'registro':
+
+                    return '<span class="badge rounded-pill bg-danger">Sin registro</span>'; break;
+                default:
+                    return 'Sin hora'; break;
+            }
+        } else {
+            return formatearHora(result);
+        }
+    })
 }
