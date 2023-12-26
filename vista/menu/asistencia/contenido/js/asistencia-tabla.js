@@ -1,4 +1,8 @@
 // Tabla de asistencia
+dataAsistencia = {
+    api: 1
+}
+
 TablaAsistencia = $('#TablaAsistencia').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -12,7 +16,7 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
     ajax: {
         dataType: 'json',
         data: function (d) {
-            return $.extend(d, dataTablaHistorialCortes);
+            return $.extend(d, dataAsistencia);
         },
         // data: { api: 2, equipo: id_equipos },
         method: 'POST',

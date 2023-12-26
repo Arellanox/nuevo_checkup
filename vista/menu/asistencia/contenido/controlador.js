@@ -10,6 +10,7 @@ async function obtenerVistaAsistencia() {
 
 
 // Variables globales locales
+var dataAsistencia; // var para rellenar la tabla principal
 
 $(window).on("hashchange", function (e) {
     hasLocation();
