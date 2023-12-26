@@ -351,3 +351,24 @@ $menu = $_POST['menu']; ?>
     <i class="bi bi-box-seam"></i> Administrar cajas
   </button>
 <?php endif; ?>
+
+
+
+<?php
+# input de fecha para el modulo de asistencia
+if ($menu == "Asistencia") : ?>
+  <div class="row">
+    <div class="col-auto d-flex align-items-center">
+      <label for="fechaListadoAsistencia" class="form-label">Día de asistencia</label>
+    </div>
+    <div class="col-auto d-flex align-items-center">
+      <input type="date" class="form-control input-form" name="fechaListadoAsistencia" value="<?php echo date('Y-m-d') ?>" required id="fechaListadoAsistencia">
+    </div>
+    <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visualiza toda la lista de asistencia">
+      <input class="form-check-input" type="checkbox" value="" id="checkDiaAsistencia" style="margin: 5px">
+      <label class="form-check-label" for="checkDiaAsistencia">
+        Todos
+      </label>
+    </div>
+  </div>
+<?php endif; ?>
