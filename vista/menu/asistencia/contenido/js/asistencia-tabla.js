@@ -45,10 +45,26 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
         { data: 'COUNT' },
         { data: 'NOMBRE' },
         { data: 'AREA' },
-        { data: 'HORARIO_ENTRADA' },
-        { data: 'HORARIO_SALIDA' },
-        { data: 'HORA_ENTRADA' },
-        { data: 'HORA_SALIDA' },
+        {
+            data: 'HORARIO_ENTRADA', render: function (data) {
+                return formatearHora(data);
+            }
+        },
+        {
+            data: 'HORARIO_SALIDA', render: function (data) {
+                return formatearHora(data);
+            }
+        },
+        {
+            data: 'HORA_ENTRADA', render: function (data) {
+                return formatearHora(data);
+            }
+        },
+        {
+            data: 'HORA_SALIDA', render: function (data) {
+                return formatearHora(data);
+            }
+        },
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all' },
@@ -127,4 +143,36 @@ function sumarfecha() {
     const result = fecha_formatter.getDate() + '/' + (fecha_formatter.getMonth() + 1) + '/' + fecha_formatter.getFullYear();
 
     return result;
+}
+
+// function para formatear hora
+function formatearHora(hora) {
+    if (hora === "" || hora === null) {
+        return hora;
+    } else {
+        // Obtiene la fecha actual
+        var fechaActual = new Date();
+
+        // Divide la cadena de hora en horas, minutos y segundos
+        var partesHora = hora.split(":");
+        var horas = parseInt(partesHora[0]);
+        var minutos = parseInt(partesHora[1]);
+
+        // Crea un nuevo objeto de fecha con la misma fecha pero con la hora de la base de datos
+        var fechaConHoraDesdeBD = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate(), horas, minutos);
+
+        // Obtiene las horas y minutos en formato de 12 horas
+        var horas12 = fechaConHoraDesdeBD.getHours() % 12 || 12; // Si es 0, se convierte a 12
+        var minutosFormateados = ('0' + fechaConHoraDesdeBD.getMinutes()).slice(-2); // Asegura dos dígitos para los minutos
+
+        // Determina si es AM o PM
+        var ampm = fechaConHoraDesdeBD.getHours() < 12 ? 'AM' : 'PM';
+
+        // Construye la hora formateada
+        var horaFormateada = horas12 + ':' + minutosFormateados + ' ' + ampm;
+
+        // se regresa la hora formateada
+        return horaFormateada;
+    }
+
 }
