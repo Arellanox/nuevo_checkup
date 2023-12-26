@@ -365,10 +365,10 @@ if ($menu == "Asistencia") : ?>
       <input type="date" class="form-control input-form" name="fechaListadoAsistencia" value="<?php echo date('Y-m-d') ?>" required id="fechaListadoAsistencia">
     </div>
     <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visualiza toda la lista de asistencia">
-      <input class="form-check-input" type="checkbox" value="" id="checkDiaAsistencia" style="margin: 5px">
+      <!-- <input class="form-check-input" type="checkbox" value="" id="checkDiaAsistencia" style="margin: 5px">
       <label class="form-check-label" for="checkDiaAsistencia">
         Todos
-      </label>
+      </label> -->
     </div>
   </div>
 <?php endif; ?>

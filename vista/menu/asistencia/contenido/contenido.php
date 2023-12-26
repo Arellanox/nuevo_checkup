@@ -1,9 +1,9 @@
 <!-- Contenido del cuerpo -->
 
 <!-- Loader -->
-<!-- <div class="col-12 loader" id="loader"> -->
-<!-- <div class="preloader" id="preloader"> </div> -->
-<!-- </div> -->
+<div class="col-12 loader" id="loader">
+    <div class="preloader" id="preloader"> </div>
+</div>
 
 <!-- Menu Main -->
 <div class="row my-3" id="tabla-asistencia-container">
