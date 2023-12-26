@@ -1,3 +1,10 @@
+if (validarVista('ASISTENCIA')) {
+    hasLocation();
+    $(window).on("hashchange", function (e) {
+        hasLocation();
+    });
+}
+
 async function obtenerVistaAsistencia() {
     obtenerTitulo("Asistencia");
     $.post("contenido/contenido.php", function (html) {
@@ -11,12 +18,6 @@ async function obtenerVistaAsistencia() {
 
 // Variables globales locales
 var dataAsistencia; // var para rellenar la tabla principal
-
-$(window).on("hashchange", function (e) {
-    hasLocation();
-});
-
-hasLocation();
 
 function hasLocation() {
     var hash = window.location.hash.substring(1);

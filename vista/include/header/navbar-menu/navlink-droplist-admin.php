@@ -2,9 +2,11 @@
 date_default_timezone_set('America/Mexico_City');
 ?>
 
-<a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/asistencia'; ?>">
-    <i class="bi bi-calendar-day-fill"></i> Asistencia
-</a>
+<?php if ($_SESSION['vista']['ASISTENCIA']) : ?>
+    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/asistencia'; ?>">
+        <i class="bi bi-calendar-day-fill"></i> Asistencia
+    </a>
+<?php endif; ?>
 
 <?php if ($_SESSION['vista']['CAJA'] == 1) : ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/corte_caja/#CORTECAJA'; ?>">
