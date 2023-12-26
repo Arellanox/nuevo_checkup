@@ -1,22 +1,27 @@
 <?php
+require_once "../clases/master_class.php";
+require_once "../clases/token_auth.php";
 
 
-include_once "../clases/master_class.php";
+$tokenVerification = new TokenVerificacion();
+$tokenValido = $tokenVerification->verificar();
+if (!$tokenValido) {
+    // $tokenVerification->logout();
+    // exit;
+}
+
 $master = new Master();
 
 $fecha_inicio = $_POST['fecha_inicial'];
 $fecha_final = $_POST['fecha_final'];
-$bimer_id = $asistencia['bimer_id'];
+$bimer_id = $_POST['bimer_id'];
 
-// $asistencia = json_decode(file_get_contents('php://input'), true);
+$asistencia = json_decode(file_get_contents('php://input'), true);
 
-
-// $asistencia['api'] = isset($asistencia['api']) ? $asistencia['api'] : $_POST['api'];
 $api = isset($asistencia['api']) ? $asistencia['api'] : $_POST['api'];
 
 
-
-// if (isset($asistencia['api']) && isset($asistencia['nombre'])) {
+if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST['api']))) {
 
 switch ($api) {
 
@@ -53,6 +58,8 @@ switch ($api) {
         $bimers = $data[1];
         $records = $data[0];
         $dates = $data[2];
+        $fechasTotales = $data[3];
+
 
         $filteredRecords = array();
         foreach ($dates as $date) {
@@ -66,11 +73,18 @@ switch ($api) {
         }
 
         $filteredRecords['BIMERS'] = $bimers;
+        $filteredRecords['FECHAS_TOTALES'] = $fechasTotales;
 
         $response = $filteredRecords;
 
 
      
+
+        break;
+    case 5:
+
+            #RECUPERAMOS LA DATA PARA LA VISTA
+            $response = $master->getByProcedure('sp_checador_data',[$fecha_inicio, null, null, 1]);
 
         break;
     default:
@@ -84,5 +98,5 @@ switch ($api) {
         echo $respuesta;
 
 
-// }
+}
 
