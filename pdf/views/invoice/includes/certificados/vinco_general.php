@@ -120,25 +120,50 @@
         <tr>
             <td colspan="5">
                 LUGAR:
-                <strong>Villahermosa, Tabasco.</strong>
+                <strong>
+                    <?php
+                    # lugar supongo que del paciente xd
+                    echo "Villahermosa, Tabasco."
+                    ?>
+                </strong>
             </td>
             <td colspan="5">
                 FECHA:
-                <strong>07 octubre 2023</strong>
+                <strong>
+                    <?php
+                    # sabra dios que fecha se requiere ahi
+                    echo "07 octubre 2023"
+                    ?>
+                </strong>
             </td>
         </tr>
         <tr>
             <td colspan="4">
                 NOMBRE:
-                <strong>Gabriel Chavez Sanchez</strong>
+                <strong>
+                    <?php
+                    # nombre del pacientes 
+                    echo "Gabriel Chavez Sanchez"
+                    ?>
+                </strong>
             </td>
             <td colspan="2">
                 EDAD:
-                <strong>49 años</strong>
+                <strong>
+                    <?php
+                    # edad
+                    echo "49 años"
+                    ?>
+                </strong>
             </td>
             <td colspan="4">
                 NACIONALIDAD:
-                <strong>Mexicana</strong>
+                <strong>
+                    <?php
+                    # nacionalidad
+                    echo "Mexicana"
+                    ?>
+                </strong>
             </td>
         </tr>
         <!-- Examen periodico -->
@@ -161,7 +186,10 @@
             <td colspan="10">
                 QUIEN ES/ SERA CONSIDERADO PERSONAL EN ACTIVO EN LA EMPRESA:
                 <strong>
-                    VINCO
+                    <?php
+                    # procedencia
+                    echo "VINCO"
+                    ?>
                 </strong>
             </td>
         </tr>
@@ -169,7 +197,10 @@
             <td colspan="10">
                 EN LA POSICIÓN DE:
                 <strong>
-                    Ingeniero de campo.
+                    <?php
+                    # no se que es pero es de que trabaja creo xd
+                    echo "Ingeniero de campo."
+                    ?>
                 </strong>
             </td>
         </tr>
@@ -179,7 +210,10 @@
         </tr>
         <tr>
             <td colspan="10" class="center bold italic pb">
-                PITIRIASIS VERSICOLOR EN PIERNA DERECHA
+                <?php
+                # diagnostico
+                echo "PITIRIASIS VERSICOLOR EN PIERNA DERECHA"
+                ?>
             </td>
         </tr>
         <tr>
@@ -187,7 +221,10 @@
         </tr>
         <tr>
             <td colspan="10" class="center bold italic pb">
-                1
+                <?php
+                # no se que es pero tiene un 1
+                echo "1"
+                ?>
             </td>
         </tr>
         <!-- APTITUDES PARA EL TRABAJO -->
@@ -220,10 +257,20 @@
     <table style="width: 60%;" class="tabla2">
         <tr>
             <td style="border-top: none;" class="p  bg center bold italic"> VIGENCIA</td>
-            <td style="border-top: none;" class="p">1 año</td>
+            <td style="border-top: none;" class="p">
+                <?php
+                # vigencia
+                echo "1 año"
+                ?>
+            </td>
             <td style="border-top: none;" class="p  bg center bold italic"> FECHA DE
                 VENCIMIENTO </td>
-            <td style="border-top: none;" class="p">06/10/2024</td>
+            <td style="border-top: none;" class="p">
+                <?php
+                # fecha de vencimiento
+                echo "06/10/2024"
+                ?>
+            </td>
         </tr>
     </table>
     <!-- Tabla 2 -->
@@ -259,13 +306,19 @@
                 Audiometría tonal
             </td>
             <td class="center">
-                Normal
+                <?php
+                # resultado de audiometria tonal
+                echo "Normal"
+                ?>
             </td>
             <td class="bold center">
                 Signos vitales
             </td>
             <td class="center">
-                Normal
+                <?php
+                # resultado de signos vitales
+                echo "Normal"
+                ?>
             </td>
         </tr>
         <tr>
@@ -273,14 +326,20 @@
                 Valoración visual
             </td>
             <td class="center">
-                N/A
+                <?php
+                # resultado de valoración visual
+                echo "N/A"
+                ?>
             </td>
             <td class="bold center">
                 Biometría hemática
                 completa
             </td>
             <td class="center">
-                Normal
+                <?php
+                # resultado de biometria hematica completa
+                echo "Normal"
+                ?>
             </td>
         </tr>
         <tr>
@@ -288,15 +347,22 @@
                 Tele de tórax
             </td>
             <td class="center">
-                De aspecto normal
+                <?php
+                # resultado de tele de torax
+                echo "De aspecto normal"
+                ?>
             </td>
             <td class="bold center">
                 Química sanguínea 6
                 elementos
             </td>
             <td class="center">
-                Normal
+                <?php
+                # resultado de quimica sanguineo 6 elementos
+                echo "Normal"
+                ?>
             </td>
+
         </tr>
         <tr>
             <td class="bold center">
@@ -304,13 +370,20 @@
             </td>
             <td class="center">
                 De aspecto normal
+                <?php
+                # resultado de rx ap y latera de columna
+                echo "De aspecto normal"
+                ?>
             </td>
             <td class="bold center">
                 Perfil de drogas 5
                 elementos
             </td>
             <td class="center">
-                Negativo
+                <?php
+                # resultado de perfil de drog   as 5 elementos
+                echo "Negativo"
+                ?>
             </td>
         </tr>
         <tr>
@@ -318,13 +391,19 @@
                 Electrocardiograma
             </td>
             <td class="center">
-                Sin alteraciones
+                <?php
+                # resultado de electrocardiograma
+                echo "Sin alteraciones"
+                ?>
             </td>
             <td class="bold center">
                 Etanol en sangre
             </td>
             <td class="center">
-                Negativo
+                <?php
+                # resultado de etanol en sangre
+                echo "Negativo"
+                ?>
             </td>
         </tr>
         <tr>
@@ -332,26 +411,41 @@
                 InBody
             </td>
             <td class="center">
-                Sobrepeso
+                <?php
+                # resultado de inbody
+                echo "Sobrepeso "
+                ?>
             </td>
             <td class="bold center">
                 Examen general de orina
             </td>
             <td class="center">
-                Normal
+                <?php
+                # resultado de examen general de orina
+                echo "Normal"
+                ?>
             </td>
         </tr>
     </table>
     <div class="conclusion">
         <div class="medico" style="margin-top: 30px; ">
             <p class="bold none-p center">
-                Dra. Beatriz Alejandra Ramos Gonzáles
+                <?php
+                # nombre de la doctora
+                echo "Dra. Beatriz Alejandra Ramos González"
+                ?>
             </p>
             <p class="bold none-p center">
-                Cédula profesional: 77965955
+                <?php
+                # cedula profesional
+                echo "Cédula profesional: 77965955"
+                ?>
             </p>
             <p class="bold none-p center">
-                Certificación NIOSH SP-000515-23
+                <?php
+                # certificacion de no se que
+                echo "Certificación NIOSH SP-000515-23"
+                ?>
             </p>
         </div>
     </div>
@@ -440,12 +534,18 @@
         <h1 style="text-align: center;">Certificado Médico</h1>
         <div class="body" style="margin-top: 20px;">
             <p class="none-p">
-                La Médico Cirujano que suscribe adscrita a ésta Institución y registrada con Cédula
-                Profesional número 7796595 ante la Dirección General de Profesiones. Certifica que:
+                <?php
+                # texto donde viene la informacion del medico 
+                echo "La Médico Cirujano que suscribe adscrita a ésta Institución y registrada con Cédula
+                Profesional número 7796595 ante la Dirección General de Profesiones. Certifica que:"
+                ?>
             </p>
             <p class="none-p" style="text-align: center;"> Practicó examen médico a:</p>
             <p class="none-p" style="font-weight: bold; text-decoration:underline; text-align:center;">
-                Gabriel Chávez Sánchez
+                <?php
+                # nombre del paciente creo xd
+                echo "Gabriel Chávez Sánchez"
+                ?>
             </p>
         </div>
     </div>
@@ -457,21 +557,30 @@
         <div class="body">
             <div class="informacion-paciente">
                 <p class="justify">
-                    Masculino de 49 años de edad, madre viva con antecedente de cáncer (el paciente refiere
+                    <?php
+                    # supongo que son los hallazgos
+                    echo " Masculino de 49 años de edad, madre viva con antecedente de cáncer (el paciente refiere
                     no saber el tipo), padre falleció por accidente automovilístico, niega alergia a medicamentos
                     o alimentos, niega ser fumador, consume bebidas alcohólicas ocasionalmente sin llegar a
                     la embriaguez; niega consumo de drogas, ni limitaciones funcionales. Refiere buen estilo
-                    de vida, satisfacción personal y laboral con buen ambiente del mismo.
+                    de vida, satisfacción personal y laboral con buen ambiente del mismo."
+                    ?>
                 </p>
             </div>
             <div class="signos-vitales">
                 <p class="justify">
-                    Signos vitales: T.A. 120/78mmHg, FC 64x’, FR 15x´, Temp. 36.4ºC, SpO2: 98%.
+                    <?php
+                    # signos vitales
+                    echo "Signos vitales: T.A. 120/78mmHg, FC 64x’, FR 15x´, Temp. 36.4ºC, SpO2: 98%."
+                    ?>
                 </p>
             </div>
             <div class="exploracion-fisica">
                 <p class="justify">
-                    A la exploración física, presentó un peso de 82.3kg, talla 174cm, IMC: 27.18kg/m2,
+                    <?php
+                    # exploracion fisica
+
+                    echo "  A la exploración física, presentó un peso de 82.3kg, talla 174cm, IMC: 27.18kg/m2,
                     complexión media, cráneo simétrico, con adecuada implantación de cabello, color castaño
                     oscuro, lacio y corto. Cara simétrica, conjuntiva sin alteraciones, pupilas isocóricas y
                     normorefléxicas, ambos pabellones auriculares bien implantados sin lesiones, canales
@@ -483,7 +592,8 @@
                     normoactivas, sin visceromegalias, no tiene tatuajes o cicatrices solos e observas
                     hipopigmentaciones en hipogastrio, Giordano negativo bilateral; extremidades integras,
                     funcionales, normoreflexicas. Las actividades dinámicas de flexión se realizaron sin
-                    problemas y sin datos de interés, su coordinación motora se encuentra normal
+                    problemas y sin datos de interés, su coordinación motora se encuentra normals"
+                    ?>
                 </p>
             </div>
         </div>

@@ -545,7 +545,7 @@ class Miscelaneus
             case -5:
                 #Certificados médicos
                 $arregloPaciente = [
-                    'certificado' => 'slb_hombre'
+                    'certificado' => 'vinco_general'
                 ];
                 break;
             case -4:
