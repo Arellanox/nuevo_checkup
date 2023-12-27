@@ -5,8 +5,8 @@ ini_set('display_errors', 1);
 require_once '../lib/excel/vendor/autoload.php';
 
 
-$fecha_inicial = isset($_GET['fecha_inicial']) ? $_GET['fecha_inicial'] : null;
-$fecha_final = isset($_GET['fecha_final']) ?  $_GET['fecha_final'] : null;
+$fecha_inicial = isset($_POST['fecha_inicial']) ? $_POST['fecha_inicial'] : null;
+$fecha_final = isset($_POST['fecha_final']) ?  $_POST['fecha_final'] : null;
 
 
 #################################  IMPORTACIONES ############################################
@@ -53,7 +53,6 @@ function getData($fecha_inicial, $fecha_final)
 
 
     return $array;
-
 }
 
 
@@ -87,13 +86,12 @@ function centraContenido($sheet, $celdas, $numero)
 }
 
 ## FUNCION PARA BORDEAR UN RANGO DE CELDAS
-function bordearContenido($sheet, $rangoCeldas,$border ,$numero){
+function bordearContenido($sheet, $rangoCeldas, $border, $numero)
+{
 
-    foreach ($rangoCeldas as $celda){
+    foreach ($rangoCeldas as $celda) {
 
-        $sheet->getStyle($celda.$numero)->applyFromArray($border);
-
-
+        $sheet->getStyle($celda . $numero)->applyFromArray($border);
     }
 }
 
@@ -109,9 +107,7 @@ function hacerDias($celdas, $color, $border, $sheet, $fecha_inicial)
         if ($contadorCeldas == 1) {
             $celda1 = $celda . '5';
             $sheet->setCellValue($celda . '6', 'Entrada');
-            $sheet-> getColumnDimension($celda)->setWidth(12);
-
-
+            $sheet->getColumnDimension($celda)->setWidth(12);
         } else {
             $celda2 = $celda . '5';
             $sheet->setCellValue($celda . '6', 'Salida');
@@ -149,9 +145,9 @@ function rellenarExel($sheet, $data, $border)
         $sheet->setCellValue('AL' . $numero, $registro['TOTAL_ASISTENCIAS']);
         $sheet->setCellValue('AM' . $numero, $registro['TOTAL_RETARDOS']);
 
-   
-        bordearContenido($sheet,['A','B','C','D','E','AL','AJ','AK','AM','AN'], $border,$numero);
-        centraContenido($sheet, ['A','D','E','AL','AJ','AK','AM', 'AN'] , $numero);
+
+        bordearContenido($sheet, ['A', 'B', 'C', 'D', 'E', 'AL', 'AJ', 'AK', 'AM', 'AN'], $border, $numero);
+        centraContenido($sheet, ['A', 'D', 'E', 'AL', 'AJ', 'AK', 'AM', 'AN'], $numero);
 
 
         $asistenciasArray = json_decode($registro['ASISTENCIAS'], true);
@@ -174,11 +170,7 @@ function rellenarExel($sheet, $data, $border)
         }
 
         $numero =  $numero + 1;
-
     }
-
-
-
 }
 
 
@@ -290,11 +282,11 @@ $colorAzul = '40E0D0';
 $fecha_inicial = new DateTime($fecha_inicial);
 $fechaModificada = $fecha_inicial->sub(new DateInterval('P1D'));
 hacerDias($celdas, $colorAzul, $borderStyle, $sheet, $fechaModificada); #--> Hacemos los encabezados de las celdas que son las fechas
-pintarCeldas($sheet,$celdas,$colorAzul,5); #--> Pintamos las celas
-pintarCeldas($sheet,$celdas,$colorAzul,6); #--> Pintamos las celas
-centraContenido($sheet, $celdas,5); #--> Centramos las celdas
+pintarCeldas($sheet, $celdas, $colorAzul, 5); #--> Pintamos las celas
+pintarCeldas($sheet, $celdas, $colorAzul, 6); #--> Pintamos las celas
+centraContenido($sheet, $celdas, 5); #--> Centramos las celdas
 centraContenido($sheet, $celdas, 6); #---> Centramos las celdas
-bordearContenido($sheet,$celdas,$borderStyle,5);
+bordearContenido($sheet, $celdas, $borderStyle, 5);
 bordearContenido($sheet, $celdas, $borderStyle, 6);
 
 
@@ -329,9 +321,9 @@ $sheet->setCellValue('AN6', 'Hrs. Extras');
 $sheet->getStyle('AN6')->applyFromArray($borderStyle);
 $sheet->getColumnDimension('AN')->setWidth(15);
 
-$celdasHoras = ['AJ','AK','AL','AM','AN'];
-centraContenido($sheet,$celdasHoras,6);
-centraContenido($sheet,['AJ'],5);
+$celdasHoras = ['AJ', 'AK', 'AL', 'AM', 'AN'];
+centraContenido($sheet, $celdasHoras, 6);
+centraContenido($sheet, ['AJ'], 5);
 
 
 ## EMPEZAMOS A RELLENAR EL EXCEL CON LA INFORMACION DE LOS BIMIERS
@@ -343,5 +335,5 @@ $writer = new Xlsx($workbook);
 $writer->save('hello world.xlsx');
 
 
-echo " El excel fue creado correctamente";
 
+return $writer;
