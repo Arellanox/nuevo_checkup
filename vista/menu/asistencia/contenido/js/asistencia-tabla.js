@@ -153,7 +153,7 @@ $(document).on('change', '#fechaListadoAsistencia', function (e) {
     TablaAsistencia.ajax.reload();
 })
 
-function obtenerReporteExcel() {
+$(document).on('click', '#generReporteExcel', function (e) {
     alertMensajeConfirm({
         title: '¿Desea generar el reporte de asistencia?',
         text: 'Confirme para descargar el reporte de asistencia en excel',
@@ -163,13 +163,22 @@ function obtenerReporteExcel() {
         // showDenyButton: true
     }, () => {
         // sacamos la fecha inicial
-        const fecha_inicial = sumarfecha();
-        const fecha_inicial_buena = formatearFecha2(fecha_inicial.replaceAll("/", "-"))
+        // const fecha_inicial = sumarfecha();
+        // const fecha_inicial_buena = formatearFecha2(fecha_inicial.replaceAll("/", "-"))
         // sacamos la fecha final
-        const fecha_final = $('#fechaListadoAsistencia').val();
+        // const fecha_final = $('#fechaListadoAsistencia').val();
+        const fecha_inicial = $('#FechaInicio').val()
+        const fecha_final = $('#FechaFinal').val()
+
         // se llama al metodo para descargar el archivo
-        descargarReporte(fecha_inicial_buena, fecha_final);
+        descargarReporte(fecha_inicial, fecha_final);
     }, 1)
+})
+
+function obtenerReporteExcel() {
+    $('#FechaInicio').val("")
+    $('#FechaFinal').val("")
+    $('#modalReporteExcel').modal('show');
 }
 
 // function para sumar una quincena a una fecha
