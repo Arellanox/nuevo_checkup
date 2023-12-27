@@ -14,7 +14,7 @@ $master = new Master();
 
 $fecha_inicio = $_POST['fecha_inicial'];
 $fecha_final = $_POST['fecha_final'];
-$bimer_id = $_POST['bimer_id'];
+$bimer_id = isset($_POST['bimer_id']) ? $_POST['bimer_id'] : null;
 
 $asistencia = json_decode(file_get_contents('php://input'), true);
 
@@ -53,29 +53,37 @@ switch ($api) {
         
         # recuperar los registros de entradas/salidas
         # recuperamos la data
-        $data = $master->getByNext("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id]);
+        $data = $master->getByProcedure("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id, 0]);
 
-        $bimers = $data[1];
-        $records = $data[0];
-        $dates = $data[2];
-        $fechasTotales = $data[3];
+        $registros = array();
+        $registros['REGISTROS'] = $data;
+
+        $response = $registros;
 
 
-        $filteredRecords = array();
-        foreach ($dates as $date) {
-            $fecha = $date['FECHA'];
 
-            $filtered = array_filter($records, function ($item) use ($fecha) {
-                return $item["FECHA"] == $fecha;
-            });
 
-            $filteredRecords[$fecha] = $filtered;
-        }
+        // $bimers = $data[1];
+        // $records = $data[0];
+        // $dates = $data[2];
+        // $fechasTotales = $data[3];
 
-        $filteredRecords['BIMERS'] = $bimers;
-        $filteredRecords['FECHAS_TOTALES'] = $fechasTotales;
 
-        $response = $filteredRecords;
+        // $filteredRecords = array();
+        // foreach ($dates as $date) {
+        //     $fecha = $date['FECHA'];
+
+        //     $filtered = array_filter($records, function ($item) use ($fecha) {
+        //         return $item["FECHA"] == $fecha;
+        //     });
+
+        //     $filteredRecords[$fecha] = $filtered;
+        // }
+
+        // $filteredRecords['BIMERS'] = $bimers;
+        // $filteredRecords['FECHAS_TOTALES'] = $fechasTotales;
+
+        // $response = $filteredRecords;
 
 
      

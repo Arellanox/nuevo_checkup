@@ -13,8 +13,7 @@ if (!$tokenValido) {
 
 $master = new Master();
 
-$fecha_inicio = $_POST['fecha_inicial'];
-$fecha_final = $_POST['fecha_final'];
+
 
 $api = $_POST['api'];
 $clave = $_POST['clave'];
@@ -53,32 +52,7 @@ switch ($api) {
         # validar que el pdf no haya sido modificado.
         $response = comparePDFContents($pdf_nube, $pdf_a_comparar);
         break;
-
-    case 4:
-
-        # recuperar los registros de entradas/salidas
-        # recuperamos la data
-        $data = $master->getByNext("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id]);
-
-        $bimers = $data[1];
-        $records = $data[0];
-        $dates = $data[2];
-
-        $filteredRecords = array();
-        foreach ($dates as $date) {
-            $fecha = $date['FECHA'];
-
-            $filtered = array_filter($records, function ($item) use ($fecha) {
-                return $item["FECHA"] == $fecha;
-            });
-
-            $filteredRecords[$fecha] = $filtered;
-        }
-
-        $response = $filteredRecords;
-
-
-        break;
+        
     default:
         $response = "API no definida.";
 }
