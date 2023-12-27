@@ -29,6 +29,7 @@ $(document).on('click', '#actualizar_tabla', function (event) {
 // rellenarSelect('#cliente', 'clientes_api',)
 
 rellenarSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+rellenarSelect('#checkFullArea', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
 
 
 // Establecer los valores de los campos de fecha
