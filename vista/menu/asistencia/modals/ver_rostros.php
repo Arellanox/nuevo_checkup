@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-xl-6 col-lg-6">
-                        <div class="foto_asistencia card shadow"></div>
+                        <div class="foto_asistencia card shadow" id="captura_registro_foto"></div>
                     </div>
                 </div>
             </div>

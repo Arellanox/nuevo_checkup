@@ -348,12 +348,18 @@ function descargarReporte(fecha_inicial, fecha_final) {
 // function para configurar el modal
 function configurarModal() {
     // rellenamos el titulo
-    $('#verRostrosTitle').html(`Rostro del usuario (<b>${usuarioSelected.NOMBRE}</b>)`)
+    $('#verRostrosTitle').html(`Rostro del usuario (<b>${ifnull(usuarioSelected, '', ['NOMBRE'])}</b>)`)
     // ponemos el avatar en el modal}
     let avatar = `
-        <img src="${usuarioSelected.AVATAR}" class='img-fluid' alt="${usuarioSelected.NOMBRE}">
+        <img src="${ifnull(usuarioSelected, '', ['AVATAR'])}" class='img-fluid' alt="${ifnull(usuarioSelected, '', ['NOMBRE'])}">
     `;
+
+    let captura_registro = `
+        <img src="${ifnull(usuarioSelected, '', ['CAPTURA_REGISTRO'])}" class='img-fluid' alt="${ifnull(usuarioSelected, '', ['NOMBRE'])}">
+    `;
+
     $('#avatar').html(avatar);
+    $('#captura_registro_foto').html(captura_registro);
     // abrimos el modal
     $('#modalVerRostros').modal('show');
 }
