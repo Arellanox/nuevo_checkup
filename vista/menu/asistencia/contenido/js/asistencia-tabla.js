@@ -164,7 +164,7 @@ function obtenerReporteExcel() {
     }, () => {
         // sacamos la fecha inicial
         const fecha_inicial = sumarfecha();
-        const fecha_inicial_buena = formatearFecha2(fecha_inicial)
+        const fecha_inicial_buena = formatearFecha2(fecha_inicial.replaceAll("/", "-"))
         // sacamos la fecha final
         const fecha_final = $('#fechaListadoAsistencia').val();
         // se llama al metodo para descargar el archivo
