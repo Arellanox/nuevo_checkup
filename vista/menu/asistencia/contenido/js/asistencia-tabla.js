@@ -164,10 +164,11 @@ function obtenerReporteExcel() {
     }, () => {
         // sacamos la fecha inicial
         const fecha_inicial = sumarfecha();
+        const fecha_inicial_buena = formatearFecha2(fecha_inicial)
         // sacamos la fecha final
         const fecha_final = $('#fechaListadoAsistencia').val();
         // se llama al metodo para descargar el archivo
-        descargarReporte(fecha_inicial, fecha_final);
+        descargarReporte(fecha_inicial_buena, fecha_final);
     }, 1)
 }
 
@@ -218,6 +219,29 @@ function formatearHora(hora) {
     }
 
 }
+
+function formatearFecha2(fecha_mal) {
+    // Fecha en formato "DD-MM-YYYY"
+    var fechaString = fecha_mal;
+
+    // Dividir la cadena en día, mes y año
+    var partesFecha = fechaString.split("-");
+
+    // Crear un objeto Date con las partes de la fecha
+    var fecha = new Date(partesFecha[2], partesFecha[1] - 1, partesFecha[0]);
+
+
+    // Obtener los componentes de la fecha
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1; // Los meses en JavaScript son 0-indexados, por eso sumamos 1
+    var anio = fecha.getFullYear();
+
+    // Formatear la fecha como "YYYY-MM-DD"
+    var fechaFormateada = anio + "-" + (mes < 10 ? "0" : "") + mes + "-" + (dia < 10 ? "0" : "") + dia;
+
+    return fechaFormateada
+}
+
 //  no tiene hora de entrada "",
 // "Sin captura" -> es que no se ha registrado su salida y es el dia de hoy
 // "sin registro" -> es que no se registro su salida y es otro dia 
