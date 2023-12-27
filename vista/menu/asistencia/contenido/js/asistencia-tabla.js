@@ -282,7 +282,8 @@ function descargarReporte(fecha_inicial, fecha_final) {
 
         },
         error: function (error) {
-            console.error('Error al descargar el archivo: ', error);
+            alertErrorAJAX(null, null, error);
+            console.error('  al descargar el archivo: ', error);
         }
     });
 
