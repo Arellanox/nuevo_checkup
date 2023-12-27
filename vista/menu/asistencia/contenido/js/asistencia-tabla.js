@@ -268,7 +268,7 @@ function descargarReporte(fecha_inicial, fecha_final) {
         api: 4,
         fecha_inicial: fecha_inicial,
         fecha_final: fecha_final,
-    }, 'hacerExcel.php', { callbackAfter: true }, false, (data) => {
+    }, 'hacerExcel', { callbackAfter: true }, false, (data) => {
         alertToast('Reporte generado con exito', 'success', 4000)
         // Crear un objeto Blob con la respuesta y generar un enlace para descargar
         var blob = new Blob([data]);
