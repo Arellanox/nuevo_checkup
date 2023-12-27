@@ -264,22 +264,44 @@ function badgeNull(config = { data: [], index: '[]' }, type = '') {
 // function para descargar el reporte de excel
 function descargarReporte(fecha_inicial, fecha_final) {
     // hacermos la peticion al archivo para conseguir el reporte
-    ajaxAwait({
-        api: 4,
-        fecha_inicial: fecha_inicial,
-        fecha_final: fecha_final,
-    }, 'hacerExcel', { callbackAfter: true }, false, (data) => {
-        alertToast('Reporte generado con exito', 'success', 4000)
-        // Crear un objeto Blob con la respuesta y generar un enlace para descargar
-        var blob = new Blob([data]);
-        var link = document.createElement('a');
-        let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xlsx`;
-        link.href = window.URL.createObjectURL(blob);
-        link.download = nombre_archivo;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    })
+    $.ajax({
+        url: `${http + servidor + "/" + appname + "/clases/hacerExcel.php"}`,
+        method: 'POST',
+        data: { fecha_inicial: fecha_inicial, fecha_final: fecha_final },
+        responseType: 'blob',
+        success: function (data) {
+            alertToast('Reporte generado con exito', 'success', 4000)
+            var blob = new Blob([data]);
+            var link = document.createElement('a');
+            let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xlsx`;
+            link.href = window.URL.createObjectURL(blob);
+            link.download = nombre_archivo;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+        },
+        error: function (error) {
+            console.error('Error al descargar el archivo: ', error);
+        }
+    });
+
+
+    // ajaxAwait({
+    //     api: 4,
+    //     fecha_inicial: fecha_inicial,
+    //     fecha_final: fecha_final,
+    // }, 'hacerExcel', { callbackAfter: true }, false, (data) => {
+    //     // Crear un objeto Blob con la respuesta y generar un enlace para descargar
+    //     var blob = new Blob([data]);
+    //     var link = document.createElement('a');
+    //     let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xlsx`;
+    //     link.href = window.URL.createObjectURL(blob);
+    //     link.download = nombre_archivo;
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    // })
 }
 
 // function para configurar el modal
