@@ -31,9 +31,9 @@
 
                     <div class="col-12">
                         <label for="area" class="form-label">Area</label>
-                        <select name="" id="area_list" class="form-select input-form"></select>
+                        <select name="area_id" id="area_list" class="form-select input-form"></select>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="0" id="checkFullArea" name="area_id">
+                            <input class="form-check-input" type="checkbox" value="0" id="checkFullArea" name="full_area">
                             <label class="form-check-label" for="checkFullArea">
                                 Todos
                             </label>
