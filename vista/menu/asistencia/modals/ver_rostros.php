@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalVerRostros" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+<div class="modal fade" id="modalVerRostros" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false" data-bs-keyboard="true" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
 
         <div class="modal-content">
