@@ -68,7 +68,7 @@ function btnCertificados(config) {
 
 
     $(`#${'cuerpo_certificado'}`).html(''); // Limpiar el cuerpo de HTML
-    $.post(`modals/formularios/form_poe_general`, function (html) {
+    $.post(`modals/formularios/form_poe_general.html`, function (html) {
       $(`#${'cuerpo_certificado'}`).html(html);
     }).done(() => {
       // El codigo sigue si se necesita crear mas cosas o validar mas cosas
