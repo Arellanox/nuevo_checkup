@@ -163,9 +163,9 @@ function obtenerReporteExcel() {
         // showDenyButton: true
     }, () => {
         // sacamos la fecha inicial
-        const fecha_inicial = $('#fechaListadoAsistencia').val();
+        const fecha_inicial = sumarfecha();
         // sacamos la fecha final
-        const fecha_final = sumarfecha();
+        const fecha_final = $('#fechaListadoAsistencia').val();
         // se llama al metodo para descargar el archivo
         descargarReporte(fecha_inicial, fecha_final);
     }, 1)
@@ -180,7 +180,7 @@ function sumarfecha() {
     // se declara los dias que se van a sumar es decir una quincena
     const dias = 15;
     // se suman los dias
-    fecha_formatter.setDate(fecha_formatter.getDate() + dias);
+    fecha_formatter.setDate(fecha_formatter.getDate() - dias);
     // se formatea la fecha para enviarla a backs
     const result = fecha_formatter.getDate() + '/' + (fecha_formatter.getMonth() + 1) + '/' + fecha_formatter.getFullYear();
     // se returna ña fecha formateada
