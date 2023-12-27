@@ -55,7 +55,6 @@ function getData($fecha_inicial, $fecha_final)
     return $array;
 }
 
-
 // ##FUNCION PARA PINTAR CELDAS
 function pintarCeldas($sheet, $rangoCeldas, $color, $numero)
 {
@@ -128,7 +127,6 @@ function hacerDias($celdas, $color, $border, $sheet, $fecha_inicial)
     }
 }
 
-
 ## FUNCION PARA RELLENAR LOS DATOS
 function rellenarExel($sheet, $data, $border)
 {
@@ -175,6 +173,9 @@ function rellenarExel($sheet, $data, $border)
 
 
 ##############################  OBTENCION DE DATOS ############################################
+
+// Inicia el búfer de salida
+ob_start();
 
 
 ## OBTENEMOS TODA LA INFORMACION Y LA GUARDAMNOS EN VARIABLES
@@ -333,7 +334,13 @@ rellenarExel($sheet, $data, $borderStyle);
 ## ESCRIBIMOS Y CREAMOS NUESTRA HOJA DE EXCEL
 $writer = new Xlsx($workbook);
 $writer->save('hello world.xlsx');
+$writer->save('php://output');
+$excelData = ob_get_clean();
 
+// Devolver el archivo Excel como un blob al cliente
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment;filename="hello_world.xlsx"');
+header('Cache-Control: max-age=0');
 
-
-return $writer;
+echo $excelData;
+exit;

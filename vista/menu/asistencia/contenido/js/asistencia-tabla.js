@@ -264,28 +264,34 @@ function badgeNull(config = { data: [], index: '[]' }, type = '') {
 // function para descargar el reporte de excel
 function descargarReporte(fecha_inicial, fecha_final) {
     // hacermos la peticion al archivo para conseguir el reporte
-    $.ajax({
-        url: `${http + servidor + "/" + appname + "/clases/hacerExcel.php"}`,
-        method: 'POST',
-        data: { fecha_inicial: fecha_inicial, fecha_final: fecha_final },
-        responseType: 'blob',
-        success: function (data) {
-            alertToast('Reporte generado con exito', 'success', 4000)
-            var blob = new Blob([data]);
-            var link = document.createElement('a');
-            let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xlsx`;
-            link.href = window.URL.createObjectURL(blob);
-            link.download = nombre_archivo;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+  $.ajax({
+    url: `${http + servidor + "/" + appname + "/clases/hacerExcel.php"}`,
+    method: 'POST',
+    data: { fecha_inicial: fecha_inicial, fecha_final: fecha_final },
+    xhrFields: {
+        responseType: 'blob' // Configuración de responseType para manejar blobs
+    },
+    success: function (data) {
+        alertToast('Reporte generado con éxito', 'success', 4000);
 
-        },
-        error: function (error) {
-            alertErrorAJAX(null, null, error);
-            console.error('  al descargar el archivo: ', error);
-        }
-    });
+        // Crear un objeto Blob a partir de los datos recibidos
+        var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+        // Crear un enlace y simular clic para descargar el archivo
+        var link = document.createElement('a');
+        let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xlsx`;
+        link.href = window.URL.createObjectURL(blob);
+        link.download = nombre_archivo;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    },
+    error: function (error) {
+        alertErrorAJAX(null, null, error);
+        console.error('Error al descargar el archivo:', error);
+    }
+});
+
 
 
     // ajaxAwait({
