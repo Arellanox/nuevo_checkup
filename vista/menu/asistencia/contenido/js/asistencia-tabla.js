@@ -164,11 +164,10 @@ function obtenerReporteExcel() {
     }, () => {
         // sacamos la fecha inicial
         const fecha_inicial = sumarfecha();
-        fecha_final = fecha_final.replaceAll("/", "-")
         // sacamos la fecha final
         const fecha_final = $('#fechaListadoAsistencia').val();
         // se llama al metodo para descargar el archivo
-        descargarReporte(fecha_inicial, fecha_final);
+        descargarReporte(fecha_inicial, fecha_final.replaceAll("/", "-"));
     }, 1)
 }
 
