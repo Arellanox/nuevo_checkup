@@ -19,8 +19,8 @@ $num_factura = $_POST['num_factura'];
 #variables para el reporte de la ujat
 $ujat_inicial = $_POST['fecha_inicial'];
 $ujat_final = $_POST['fecha_final'];
-$id_cliente = isset($_POST['full_clientes']) ? 0 : $_POST['id_cliente'];
-$area_id    = isset($_POST['full_area']) ? 0 : $_POST['area_id'];
+$id_cliente = $_POST['id_cliente'];
+$area_id    = $_POST['area_id'];
 
 switch ($api) {
     case 1:

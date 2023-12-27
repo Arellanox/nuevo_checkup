@@ -5,15 +5,15 @@ $(document).on('click', '#actualizar_tabla', function (event) {
     dataList['fecha_final'] = $('#fecha_final').val();
 
     if ($('#checkFullClientes').is(':checked')) {
-        dataList['id_cliente'] = 0;
+        dataList['id_cliente'] = null;
     } else {
         dataList['id_cliente'] = $('#cliente').val();
     }
 
     if ($('#checkFullArea').is(':checked')) {
-        dataList['area_id'] = 0;
+        dataList['area_id'] = null;
     } else {
-        dataList['area_id'] = $('#area_id').val();
+        dataList['area_id'] = $('#area_list').val();
     }
 
 
