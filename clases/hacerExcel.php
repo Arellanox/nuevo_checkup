@@ -9,6 +9,7 @@ $fecha_inicial = isset($_POST['fecha_inicial']) ? $_POST['fecha_inicial'] : null
 $fecha_final = isset($_POST['fecha_final']) ?  $_POST['fecha_final'] : null;
 
 
+
 #################################  IMPORTACIONES ############################################
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -281,8 +282,8 @@ $celdas = ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
 
 $colorAzul = '40E0D0';
 $fecha_inicial = new DateTime($fecha_inicial);
-$fechaModificada = $fecha_inicial->sub(new DateInterval('P1D'));
-hacerDias($celdas, $colorAzul, $borderStyle, $sheet, $fechaModificada); #--> Hacemos los encabezados de las celdas que son las fechas
+// $fechaModificada = $fecha_inicial->sub(new DateInterval('P1D'));
+hacerDias($celdas, $colorAzul, $borderStyle, $sheet, $fecha_inicial); #--> Hacemos los encabezados de las celdas que son las fechas
 pintarCeldas($sheet, $celdas, $colorAzul, 5); #--> Pintamos las celas
 pintarCeldas($sheet, $celdas, $colorAzul, 6); #--> Pintamos las celas
 centraContenido($sheet, $celdas, 5); #--> Centramos las celdas
