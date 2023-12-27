@@ -167,7 +167,7 @@ function obtenerReporteExcel() {
         // sacamos la fecha final
         const fecha_final = $('#fechaListadoAsistencia').val();
         // se llama al metodo para descargar el archivo
-        descargarReporte(fecha_inicial, fecha_final.replaceAll("/", "-"));
+        descargarReporte(fecha_inicial, fecha_final);
     }, 1)
 }
 
@@ -263,11 +263,12 @@ function badgeNull(config = { data: [], index: '[]' }, type = '') {
 
 // function para descargar el reporte de excel
 function descargarReporte(fecha_inicial, fecha_final) {
+    const fecha_formateada = fecha_inicial.replaceAll("/", "-")
     // hacermos la peticion al archivo para conseguir el reporte
     $.ajax({
         url: `${http + servidor + "/" + appname + "/clases/hacerExcel.php"}`,
         method: 'POST',
-        data: { fecha_inicial: fecha_inicial, fecha_final: fecha_final },
+        data: { fecha_inicial: fecha_formateada, fecha_final: fecha_final },
         xhrFields: {
             responseType: 'blob' // Configuración de responseType para manejar blobs
         },
