@@ -163,7 +163,7 @@ function sumarfecha() {
     fecha_formatter.setDate(fecha_formatter.getDate() + dias);
     // se formatea la fecha para enviarla a backs
     const result = fecha_formatter.getDate() + '/' + (fecha_formatter.getMonth() + 1) + '/' + fecha_formatter.getFullYear();
-
+    // se returna ña fecha formateada
     return result;
 }
 
@@ -198,6 +198,9 @@ function formatearHora(hora) {
     }
 
 }
+//  no tiene hora de entrada "",
+// "Sin captura" -> es que no se ha registrado su salida y es el dia de hoy
+// "sin registro" -> es que no se registro su salida y es otro dia 
 
 
 function backHora(config = { data: [], hora: null, horario: { entrada: '', salida: '' }, msg: '' }, tip) {
@@ -205,8 +208,10 @@ function backHora(config = { data: [], hora: null, horario: { entrada: '', salid
         if (!result) {
             switch (tip) {
                 case 'registro':
-                    return '<span class="badge rounded-pill bg-danger">Sin registro</span>'; break;
+                    return '<span class="badge rounded-pill bg-warning">Sin captura</span>'; break;
                     break;
+                case 'salida':
+                    return '<span class="badge rounded-pill bg-danger">Sin registro</span>'; break;
                 default:
                     return 'Sin hora'; break;
             }
@@ -221,13 +226,13 @@ function badgeNull(config = { data: [], index: '[]' }, type = '') {
         if (!result) {
             switch (type) {
                 case 'CORREO':
-                    return '<span class="badge rounded-pill bg-danger">Sin Correo</span>'; break;
+                    return ''; break;
                 case 'TELEFONO':
-                    return '<span class="badge rounded-pill bg-danger">Sin Telefono</span>'; break;
+                    return ''; break;
                 case 'AREA':
-                    return '<span class="badge rounded-pill bg-danger">Sin Area</span>'; break;
+                    return ''; break;
                 default:
-                    return '<span class="badge rounded-pill bg-danger">Sin registro</span>';
+                    return '';
                     break;
             }
         } else {
