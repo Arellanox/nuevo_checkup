@@ -2,20 +2,80 @@
   <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header header-modal">
-        <h5 class="modal-title" id="filtrador">Subir Certificado <strong>(SLB)</strong>:</h5>
-        <button type="button" class="btn-close  " data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="filtrador">Certificación <strong>{empresa}</strong> para
+          <span>{nombre_paciente}</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
-        <div class="row" style="max-height: 100%;">
+        <div class="row" style="max-height: 100%;height: 100%;">
           <!-- Formulario -->
-          <section class="col-12 col-lg" id="cuerpo_certificado">
+          <section class="col-12 col-lg">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button btn-pantone-7541 p-2" style="font-size: 17px;" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseInfoMedico" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseInfoMedico">
+                    Información Médica
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseInfoMedico" class="accordion-collapse collapse show">
+                  <div class="accordion-body">
 
+                    <div class="row">
+                      <!-- Información del médico -->
+                      <div class="col-12 col-lg-6">
+                        <label for="antecedentes_personales" class="form-label m-0">Nombre del médico:</label>
+                        <!-- <input type="text" class="input-form" disabled id="Nom_medico"> -->
+                        <p class="p-0 m-0" style="font-weight: bold;" id="Nom_medico"></p>
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <label for="antecedentes_oftalmologicos" class="form-label m-0">Cédula del médico:</label>
+                        <!-- <input type="text" class="input-form" disabled id="cedula"> -->
+                        <p class="p-0 m-0" style="font-weight: bold;" id="cedula"></p>
+                      </div>
+
+                      <!-- Información del paciente -->
+                      <div class="col-12 col-lg-6">
+                        <label for="padecimiento_actual" class="form-label m-0">Nombre del paciente:</label>
+                        <!-- <input type="text" class="input-form" disabled id="nom_paciente"> -->
+                        <p class="p-0 m-0" style="font-weight: bold;" id="nom_paciente"></p>
+                      </div>
+
+                      <div class="col-12 col-lg-6">
+                        <label for="agudeza_visual" class="form-label m-0">Segmento:</label>
+                        <!-- <input type="text" class="input-form" disabled id="segmento"> -->
+                        <p class="p-0 m-0" style="font-weight: bold;" id="segmento"></p>
+                      </div>
+
+                      <div class="col-12 col-lg-6">
+                        <label for="agudeza_visual" class="form-label m-0">Fecha de nacimiento:</label>
+                        <!-- <input type="text" class="input-form" disabled id="fech_nacimiento"> -->
+                        <p class="p-0 m-0" style="font-weight: bold;" id="fech_nacimiento"></p>
+                      </div>
+
+                      <div class="col-12 col-lg-6">
+                        <label for="agudeza_visual" class="form-label m-0">Categoria:</label>
+                        <!-- <input type="text" class="input-form" disabled id="categoria"> -->
+                        <p class="p-0 m-0" style="font-weight: bold;" id="categoria"></p>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="cuerpo_certificado" class="overflow-auto">
+
+            </div>
           </section>
 
           <!-- Vista de formulario (Escritorio o mas) -->
           <section class="col-12 col-lg-3">
-            <div class="rounded p-3 shadow-sm my-2 position-relative flex-column" id="listado-resultados"></div>
+            <div class="rounded p-2 shadow-sm position-relative flex-column" id="listado-resultados"></div>
           </section>
 
           <!-- Vista de formulario (Escritorio o mas) -->

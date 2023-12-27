@@ -47,7 +47,7 @@ setTimeout(function () {
   }], [], 'col-12')
 }, 250)
 
-selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, { movil: true, reload: ['col-xl-8'] },
+selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, { movil: true, reload: ['col-xl-7'] },
   async function (selectTR, array, callback) {
 
     datalist = array

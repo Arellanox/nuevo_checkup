@@ -43,8 +43,10 @@ const btnProcedencia = {
     AMBOS: 'vinco_general',
     formulario: 'form_vinco_general.html'
   },
-
-
+  "POE": {
+    AMBOS: 'poe_general',
+    formulario: 'form_poe_general.html'
+  }
 }
 
 //funcion para llamar a los botones dependiendo de la procedencia
