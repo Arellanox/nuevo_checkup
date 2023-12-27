@@ -273,7 +273,7 @@ function descargarReporte(fecha_inicial, fecha_final) {
         // Crear un objeto Blob con la respuesta y generar un enlace para descargar
         var blob = new Blob([data]);
         var link = document.createElement('a');
-        let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xls`;
+        let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xlsx`;
         link.href = window.URL.createObjectURL(blob);
         link.download = nombre_archivo;
         document.body.appendChild(link);
