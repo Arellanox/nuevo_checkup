@@ -10,6 +10,13 @@ $(document).on('click', '#actualizar_tabla', function (event) {
         dataList['id_cliente'] = $('#cliente').val();
     }
 
+    if ($('#checkFullArea').is(':checked')) {
+        dataList['area_id'] = 0;
+    } else {
+        dataList['area_id'] = $('#area_id').val();
+    }
+
+
 
     tablaPrincipal.ajax.reload();
 
