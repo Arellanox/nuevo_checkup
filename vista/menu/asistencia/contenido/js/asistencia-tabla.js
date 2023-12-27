@@ -104,7 +104,19 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
             text: '<i class="fa fa-file-excel-o"></i> Excel',
             className: 'btn btn-secondary buttons-excel buttons-html5 btn-success',
             action: function (data) {
-                generarReporteExcel(data);
+                obtenerReporteExcel(data);
+            }
+        },
+        {
+            text: '<i class="bi bi-eye-fill"></i> Verificar Rostro',
+            className: 'btn-',
+            action: function (data) {
+                if (!usuarioSelected) {
+                    alertToast('No hay ningun usuario seleccionado', 'error', 4000)
+                    return false;
+                }
+
+                configurarModal()
             }
         }
     ]
@@ -121,13 +133,27 @@ setTimeout(() => {
     }, "col-12")
 }, 500);
 
+
+// Select para la tabla principals
+selectTable('#TablaAsistencia', TablaAsistencia, {
+    unSelect: true, dblClick: false,
+}, async function (select, data, callback) {
+    if (select) {
+        usuarioSelected = data;
+        callback('In')
+    } else {
+        usuarioSelected = false
+        callback('Out')
+    }
+})
+
 // Evento change cuando cambie el input de type date
 $(document).on('change', '#fechaListadoAsistencia', function (e) {
     dataAsistencia.fecha_inicial = $('#fechaListadoAsistencia').val()
     TablaAsistencia.ajax.reload();
 })
 
-function generarReporteExcel() {
+function obtenerReporteExcel() {
     alertMensajeConfirm({
         title: '¿Desea generar el reporte de asistencia?',
         text: 'Confirme para descargar el reporte de asistencia en excel',
@@ -140,14 +166,8 @@ function generarReporteExcel() {
         const fecha_inicial = $('#fechaListadoAsistencia').val();
         // sacamos la fecha final
         const fecha_final = sumarfecha();
-        // se hace la peticion a la api para generar el reporte
-        ajaxAwait({
-            api: 4,
-            fecha_inicial: fecha_inicial,
-            fecha_final: fecha_final,
-        }, 'checadorBimo_api', { callbackAfter: true }, false, () => {
-            alertToast('Reporte generado con exito', 'success', 4000)
-        })
+        // se llama al metodo para descargar el archivo
+        descargarReporte(fecha_inicial, fecha_final);
     }, 1)
 }
 
@@ -239,4 +259,42 @@ function badgeNull(config = { data: [], index: '[]' }, type = '') {
             return result;
         }
     })
+}
+
+// function para descargar el reporte de excel
+function descargarReporte(fecha_inicial, fecha_final) {
+    // hacermos la peticion al archivo para conseguir el reporte
+    ajaxAwait({
+        api: 4,
+        fecha_inicial: fecha_inicial,
+        fecha_final: fecha_final,
+    }, 'checadorBimo_api', { callbackAfter: true }, false, (data) => {
+        alertToast('Reporte generado con exito', 'success', 4000)
+        // Crear un objeto Blob con la respuesta y generar un enlace para descargar
+        var blob = new Blob([data]);
+        var link = document.createElement('a');
+        let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xls`;
+        link.href = window.URL.createObjectURL(blob);
+        link.download = nombre_archivo;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    })
+}
+
+// function para configurar el modal
+function configurarModal() {
+    // rellenamos el titulo
+    $('#verRostrosTitle').html(`Rostro del usuario (<b>${usuarioSelected.NOMBRE}</b>)`)
+    // ponemos el avatar en el modal}
+    let avatar = `
+        <img src="${usuarioSelected.AVATAR}" class='img-fluid' alt="${usuarioSelected.NOMBRE}">
+    `;
+    $('#avatar').html(avatar);
+    // abrimos el modal
+    $('#modalVerRostros').modal('show');
+}
+
+function limpiarModal() {
+    $('#verRostrosTitle').html()
 }

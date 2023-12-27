@@ -17,7 +17,7 @@ async function obtenerVistaAsistencia() {
 
 
 // Variables globales locales
-var dataAsistencia; // var para rellenar la tabla principal
+var dataAsistencia, usuarioSelected = false; // var para rellenar la tabla principal
 
 function hasLocation() {
     var hash = window.location.hash.substring(1);
