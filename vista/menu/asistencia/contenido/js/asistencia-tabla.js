@@ -158,28 +158,36 @@ $(document).on('click', '#generReporteExcel', function (e) {
     const fecha_input = $('#FechaInicio').val()
     const fecha_input_2 = $('#FechaFinal').val()
 
-    if (fecha_input === "" || fecha_input_2 === "") {
-        alertToast('Los campos de fecha estan vacios', 'error', 4000)
-    } else {
-        alertMensajeConfirm({
-            title: '¿Desea generar el reporte de asistencia?',
-            text: 'Confirme para descargar el reporte de asistencia en excel',
-            icon: 'info',
-            confirmButtonText: "Si, estoy seguro"
-            // denyButtonText: "No",
-            // showDenyButton: true
-        }, () => {
-            // sacamos la fecha inicial
-            // const fecha_inicial = sumarfecha();
-            // const fecha_inicial_buena = formatearFecha2(fecha_inicial.replaceAll("/", "-"))
-            // sacamos la fecha final
-            // const fecha_final = $('#fechaListadoAsistencia').val();
-            const fecha_inicial = $('#FechaInicio').val()
-            const fecha_final = $('#FechaFinal').val()
+    if (fecha_input < fecha_input_2) {
+        console.log(1)
+        if (fecha_input === "" || fecha_input_2 === "") {
+            alertToast('Los campos de fecha estan vacios', 'error', 4000)
+        } else {
+            alertMensajeConfirm({
+                title: '¿Desea generar el reporte de asistencia?',
+                text: 'Confirme para descargar el reporte de asistencia en excel',
+                icon: 'info',
+                confirmButtonText: "Si, estoy seguro"
+                // denyButtonText: "No",
+                // showDenyButton: true
+            }, () => {
+                // sacamos la fecha inicial
+                // const fecha_inicial = sumarfecha();
+                // const fecha_inicial_buena = formatearFecha2(fecha_inicial.replaceAll("/", "-"))
+                // sacamos la fecha final
+                // const fecha_final = $('#fechaListadoAsistencia').val();
+                const fecha_inicial = $('#FechaInicio').val()
+                const fecha_final = $('#FechaFinal').val()
 
-            // se llama al metodo para descargar el archivo
-            descargarReporte(fecha_inicial, fecha_final);
-        }, 1)
+                // se llama al metodo para descargar el archivo
+                descargarReporte(fecha_inicial, fecha_final);
+            }, 1)
+        }
+    } else {
+        
+         alertToast('El rango de las fechas son incorrectos', 'error', 4000)
+        console.log(2)
+
     }
 
 })
@@ -375,4 +383,14 @@ function configurarModal() {
 
 function limpiarModal() {
     $('#verRostrosTitle').html()
+}
+
+function validarfecha(fecha_inicial, fecha_final) { 
+
+    if (fecha_final > fecha_inicial) {
+        return false
+    }
+
+
+    return true
 }
