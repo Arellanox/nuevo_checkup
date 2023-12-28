@@ -66,7 +66,7 @@ $("#formRegistrarEstudio").submit(function (event) {
               timer: 2000,
             });
             document.getElementById("formRegistrarEstudio").reset();
-            $('##div-select-contenedores').empty();
+            $('#div-select-contenedores').empty();
             $("#ModalRegistrarEstudio").modal("hide");
             tablaServicio.ajax.reload();
           }

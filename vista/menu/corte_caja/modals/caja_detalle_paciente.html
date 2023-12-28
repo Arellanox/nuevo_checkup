@@ -1,0 +1,46 @@
+<div class="modal fade" id="modalDetalleCajaPacientes" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liberarDiaTitle">Administración de cajas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="rounded p-3 shadow card my-2">
+                    <h5>Detalles de los pacientes </h5>
+                    <!-- Tabla del detalle del corte -->
+                    <table class="table display responsive" id="TablaPacientesCajaDetalle" style="width: 100%">
+                        <thead style="width: 100%"> </thead>
+                        <tbody> </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="text-align:left"></th>
+                                <th style="text-align:left"></th>
+                                <th style="text-align:left"></th>
+                                <th style="text-align:left"></th>
+                                <th style="text-align:left"></th>
+                                <th style="text-align:left"></th>
+                                <th style="text-align:left"></th>
+                                <th style="text-align:left"></th>
+                                <th style="text-align:left"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <!-- <button type="button" class="btn btn-confirmar" id="guardarResponsablesCaja">
+                    <i class="bi bi-floppy"></i> Guardar cambios de la caja actual
+                </button> -->
+            </div>
+        </div>
+    </div>
+</div>

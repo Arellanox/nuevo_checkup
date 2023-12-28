@@ -1,6 +1,6 @@
-<div class="modal fade" id="ModalTicketCredito" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered" role="document">
+<div class="modal fade" id="ModalTicketCredito" tabindex="-1" data-bs-keyboard="false" role="dialog"
+    aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Estado de Cuenta</h5>
@@ -10,15 +10,25 @@
             <div class="modal-body">
                 <!-- <h5>Estado de Cuenta</h5>
                 <hr> -->
-                <div class="mb-4 rounded p-3 shadow">
+                <div class="mb-4 rounded p-3 shadow-sm">
                     <div class="row">
-                        <div class="col-12 p-2 border fw-bold">Paciente:</div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-4 p-2 border fw-bold">Paciente:</div>
+                                <div class="col-8 p-2 border fw-bold">Forma de pago:</div>
 
-                        <!-- <div class="col-lg-4 p-2 border">Fecha de nacimiento(DD/MM/AA)</div> -->
+                                <!-- <div class="col-lg-4 p-2 border">Fecha de nacimiento(DD/MM/AA)</div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-4 p-2 border" id="paciente"></div>
+                                <div class="col-8 p-2 border">
+                                    <!-- Desglose de los precios por paciente -->
+                                    <div class="row" id="formas_pago"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 p-2 border" id="paciente"></div>
-                    </div>
+
                     <!-- <div class="row">
                         <div class="col-lg-8 p-2 border">Domicilio Fiscal</div>
                         <div class="col-lg-4 p-2 border">Fecha de compra(DD/MM/AA)</div>
@@ -30,16 +40,17 @@
                     </div> -->
                 </div>
 
+
                 <div class="rounded p-3 shadow">
                     <div class="table--producto">
                         <table class="table display responsive" id="TablaTicketCredito" style="width: 100%">
                             <thead class="">
                                 <tr>
                                     <th class="all">Producto</th>
-                                    <th class="none">Unidad de Medida</th>
+                                    <th class="min-tablet">Unidad de Medida</th>
                                     <th class="desktop">Precio unitario
                                     </th>
-                                    <th class="none colum-5">Cantidad</th>
+                                    <th class="desktop colum-5">Cantidad</th>
                                     <th class="all colum-5">Total</th>
                                 </tr>
                             </thead>
@@ -52,7 +63,7 @@
                     <div class="col-12 align-self-end">
                         <div class="row justify-content-between">
                             <div class="col-lg-12 align-self-start ">
-                                <div class="row ">
+                                <!-- <div class="row ">
                                     <div class="col-9 col-lg-10 d-flex justify-content-end ">Subtotal</div>
                                     <div class="col-3 col-lg-2 d-flex justify-content-end" id="subtotal">$1000
                                     </div>
@@ -60,7 +71,7 @@
                                 <div class="row">
                                     <div class="col-9 col-lg-10 d-flex justify-content-end ">IVA (16.00%)</div>
                                     <div class="col-3 col-lg-2 d-flex justify-content-end" id="Iva">$160</div>
-                                </div>
+                                </div> -->
                                 <div class="row ">
                                     <div class="col-9 col-lg-10 d-flex justify-content-end fw-bold ">Total</div>
                                     <div class="col-3 col-lg-2 d-flex justify-content-end fw-bold" id="total">

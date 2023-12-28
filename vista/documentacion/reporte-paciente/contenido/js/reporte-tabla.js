@@ -69,6 +69,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       }
     },
     { data: 'PROCEDENCIA' },
+    { data: 'VENDEDOR' },
     { data: 'EQUIPO' },
     // { data: '' },
 
@@ -78,21 +79,10 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'URES' },
     { data: 'DIAGNOSTICO' },
     { data: 'SERVICIOS_ABREVIATURA' },
-    {
-      data: null, render: function (data) {
-        return '';
-      }
-    },
-    {
-      data: null, render: function (data) {
-        return '';
-      }
-    },
-    {
-      data: null, render: function (data) {
-        return '';
-      }
-    },
+    { data: 'FORMA_PAGO' },
+    { data: 'METODO_DE_PAGO' },
+    { data: 'FACTURA' },
+    { data: 'SE_MAQUILA' }
   ],
   columnDefs: [
     { target: 0, className: 'all', title: 'No. Sistema', width: '7%', visible: false },
@@ -113,16 +103,18 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 15, className: 'all', title: 'Total', width: '7%' },
     { target: 16, className: 'all', title: 'Fecha Recepción', width: '12%' },
     { target: 17, className: 'all', title: 'Procedencia' },
-    { target: 18, className: 'all', title: 'Equipo' },
-    { target: 19, className: 'none beneficiario', title: 'Trabajador', visible: false },
-    { target: 20, className: 'none beneficiario', title: 'Verificacion (url)', visible: false },
-    { target: 21, className: 'none beneficiario', title: 'Categoria', visible: false },
-    { target: 22, className: 'none beneficiario', title: 'Ures', visible: false },
-    { target: 23, className: 'none', title: 'Diagnostico' },
-    { target: 24, className: 'none', title: 'abreviatura', visible: false, searchable: true },
-    { target: 25, className: 'none', title: 'Forma de Pago' },
-    { target: 26, className: 'none', title: 'Método de Pago' },
-    { target: 27, className: 'none', title: 'No. Factura' },
+    { target: 18, className: 'none', title: 'Vendedor' },
+    { target: 19, className: 'all', title: 'Equipo' },
+    { target: 20, className: 'none beneficiario', title: 'Trabajador', visible: false },
+    { target: 21, className: 'none beneficiario', title: 'Verificacion (url)', visible: false },
+    { target: 22, className: 'none beneficiario', title: 'Categoria', visible: false },
+    { target: 23, className: 'none beneficiario', title: 'Ures', visible: false },
+    { target: 24, className: 'none', title: 'Diagnostico' },
+    { target: 25, className: 'none', title: 'abreviatura', visible: false, searchable: true },
+    { target: 26, className: 'none', title: 'Forma de Pago' },
+    { target: 27, className: 'none', title: 'Método de Pago' },
+    { target: 28, className: 'none', title: 'No. Factura' },
+    { target: 29, className: 'none', title: 'Maquilado' },
   ],
 
 

@@ -133,13 +133,13 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
 
         // Mostrar los totales en la fila de pie de página
         // $(api.column(3).footer()).html(`Costo: $${parseFloat(costo).toFixed(2)}`);
-        $(api.column(2).footer()).html(`<p>Subtotal costo: </p>`);
-        $(api.column(3).footer()).html(`$${parseFloat(costo_total).toFixed(2)}`);
+        // $(api.column(2).footer()).html(`<p>Subtotal costo: </p>`);
+        // $(api.column(3).footer()).html(`$${parseFloat(costo_total).toFixed(2)}`);
 
-        $(api.column(4).footer()).html(`<p>Subtotal: </p>`);
+        $(api.column(4).footer()).html(`<p>Subtotal costo: </p>`);
         $(api.column(5).footer()).html(`$${parseFloat(precio_venta).toFixed(2)}`);
 
-        $(api.column(6).footer()).html(`<p>Total: </p>`);
+        $(api.column(6).footer()).html(`<p>Importe: </p>`);
         $(api.column(7).footer()).html(`$${parseFloat(subtotal).toFixed(2)}`);
     },
     dom: 'Bfrtip',
@@ -152,6 +152,10 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             filename: filename,
             title: title,
             footer: true,
+            customize: function (xlsx, row) {
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                $('row c[r^="F"], row c[r^="H"]', sheet).attr('s', 57);
+            }
 
             // customize: function (xlsx) {
 

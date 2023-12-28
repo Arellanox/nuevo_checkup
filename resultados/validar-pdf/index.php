@@ -47,9 +47,11 @@ $res = json_decode($json, true);
 
 $array = $res['response']['data'][0];
 
+// print_r($json);
 // echo '<pre>';
 // var_dump($json);
 // echo '</pre>';
+// exit;
 
 // $msj_error = $array[0];
 // var_dump($clave, $area, $array);
@@ -178,21 +180,40 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                         <!-- Laboratorio Clinico -->
                         <hr>
                         <div id="6" style="display: none;" class="row mt-3">
-                            <div class="col-12 col-lg-3">
+                            <div class="col-12">
                                 <div class="row">
-                                    <div class="col-12  text-center mb-4">
+                                    <div class="col-4 text-center mb-4">
                                         <p class="none-p" style="font-size: 16px; ">Fecha de Toma de Muestra / Collected:</p>
                                         <p class="info-detalle-p fw-bold" style="font-size: 18px;"><span class="span-info-paci"><?php echo ifnull($array['FECHA_TOMA_MUESTRA']) ?></span></p>
                                     </div>
 
-                                    <div class="col-12  text-center mb-4">
+                                    <div class="col-4 text-center mb-4">
                                         <p class="none-p" style="font-size: 16px; ">Fecha de Resultado / Reported:</p>
                                         <p class="info-detalle-p fw-bold" style="font-size: 18px;"><span class="span-info-paci"><?php echo ifnull($array['FECHA_RESULTADO']) ?></span></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-9 overflow-auto" style="max-height:65vh;">
+                            <div class="col-12 col-lg-3 columnas_reporte_capturas" style="display:none">
+
+                            </div>
+                            <div class="col-12 col-lg overflow-auto" style="max-height:80vh;">
                                 <div id="adobe-dc-view" class="border" width='100%'></div>
+                            </div>
+                            <div class="col-12 col-lg-6 carrusel_microscopio" style="display:none;">
+                                <div class="row" style="max-height: 80vh;">
+                                    <!-- galeria de microscopio -->
+                                    <?php
+
+                                    foreach ($capturas_lab = $array['info'][0] as $key => $value) {
+
+                                        echo crearHTMLImag($value);
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3 columnas_reporte_capturas" style="display:none">
+
                             </div>
                         </div>
                     <?php break;
@@ -651,6 +672,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     case 12:
                         // Laboratorio Clinico
                         fade(modulo, 'In');
+                        activeFancybox();
                         break;
                     case 3:
                         // Oftalmologia
@@ -787,6 +809,59 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                 // width: 'auto'
             });
         }
+
+        function activeFancybox() {
+
+            let div = $('.carrusel_microscopio')
+
+            if ($(`.carrusel_microscopio img`).length == 0) {
+                $('.columnas_reporte_capturas').fadeIn();
+                return ''
+            }
+
+
+            $('.columnas_reporte_capturas').fadeOut();
+
+            $('.carrusel_microscopio').fadeIn()
+
+
+            // Crea la galeria
+            const carousels = document.querySelectorAll(".f-carousel");
+            const options = {
+                Thumbs: {
+                    type: "classic"
+                }
+            };
+
+            carousels.forEach((carousel) => {
+                new Carousel(carousel, options, {
+                    Thumbs
+                });
+            });
+
+            Fancybox.bind('[data-fancybox]', {
+                Toolbar: {
+                    display: {
+                        left: ["infobar"],
+                        middle: ["zoomIn", "zoomOut", "flipX", "flipY"],
+                        right: ["close"]
+                    }
+                },
+                Images: {
+                    initialSize: "fit"
+                },
+                contentClick: "iterateZoom",
+                Panzoom: {
+                    maxScale: 2
+                },
+                Thumbs: {
+                    type: "classic",
+                },
+                Hash: false,
+                contentClick: "iterateZoom",
+            });
+        }
+
         // 
 
         $(document).on('click', '#ReportePDF', function(e) {
@@ -834,6 +909,24 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
             max-height: 80vh;
         }
     }
+
+
+    .f-carousel__slide {
+        height: 100%;
+        /* Puedes ajustar esta altura según tus necesidades */
+        display: flex;
+        align-items: center;
+        /* Centrar verticalmente */
+        justify-content: center;
+        /* Centrar horizontalmente */
+    }
+
+    .f-carousel__slide img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+    }
 </style>
 <?php
 function generateCarousel($capturas,   $capturasID)
@@ -877,6 +970,33 @@ function generateCarousel($capturas,   $capturasID)
         '</div> </div>';
     return $html;
 }
+
+function crearHTMLImag($capturasData)
+{
+    try {
+        $carouselItems = '';
+        $id_carrusel = str_replace(' ', '_', $capturasData['SERVICIO']);
+        $servicio = $capturasData['SERVICIO'];
+
+        foreach ($capturasData['CAPTURAS'] as $index => $element) {
+            $carouselItems .= '
+                <div data-fancybox="galeria-' . $id_carrusel . '" class="f-carousel__slide" data-src="' . htmlspecialchars($element['url']) . '" data-thumb-src="' . htmlspecialchars($element['url']) . '">
+                    <img data-lazy-src="' . htmlspecialchars($element['url']) . '" alt="Imagen ' . ($index + 1) . '" style="max-height: 600px">
+                </div>';
+        }
+
+        return "<div class='col-12'>
+            <h4 class='p-2'>$servicio</h4>
+                <div class='f-carousel p-2'>
+                    $carouselItems
+                </div>
+            </div>";
+    } catch (Exception $e) {
+        error_log('Error generating carousel section: ' . $e->getMessage());
+        return '';
+    }
+}
+
 ?>
 
 

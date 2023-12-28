@@ -3,17 +3,17 @@ ModalEditarGrupo.addEventListener("show.bs.modal", (event) => {
   cargarDatosGrupoEdit();
 });
 
-async function cargarDatosGrupoEdit(){
-await rellenarSelect('#edit-clasificacion-grupo','laboratorio_clasificacion_api', 2,0,1);
-await rellenarSelect('#edit-metodos-grupo','laboratorio_metodos_api', 2,0,1);
-await rellenarSelect('#edit-medidas-grupo','laboratorio_medidas_api', 2,0,1);
-await rellenarSelect('#edit-area-grupo','areas_api',2,0,2);
+async function cargarDatosGrupoEdit() {
+  await rellenarSelect('#edit-clasificacion-grupo', 'laboratorio_clasificacion_api', 2, 0, 1);
+  await rellenarSelect('#edit-metodos-grupo', 'laboratorio_metodos_api', 2, 0, 1);
+  await rellenarSelect('#edit-medidas-grupo', 'laboratorio_medidas_api', 2, 0, 1);
+  await rellenarSelect('#edit-area-grupo', 'areas_api', 2, 0, 2);
 
 
-if (await rellenarSelect('#edit-concepto-facturacion-grupo','sat_catalogo_api', 2,0,'COMPLETO')){
-console.log(array_selected)
+  if (await rellenarSelect('#edit-concepto-facturacion-grupo', 'sat_catalogo_api', 2, 0, 'COMPLETO')) {
+    console.log(array_selected)
 
-  $('#edit-clasificacion-grupo').val(null).trigger('change');
+    $('#edit-clasificacion-grupo').val(null).trigger('change');
     $('#edit-nombre-grupo').val(array_selected['DESCRIPCION']);
     $('#edit-cve-grupo').val(array_selected['ABREVIATURA']);
     $('#edit-grupo-grupo').val(array_selected['PADRE']).trigger('change');
@@ -22,19 +22,19 @@ console.log(array_selected)
     $('#edit-medidas-grupo').val(array_selected['ID_MEDIDA']).trigger('change');
     $('#edit-dias-grupo').val(array_selected['DIAS_DE_ENTREGA']);
     $('#edit-concepto-facturacion-grupo').val(array_selected['SAT_ID_CODIGO']).trigger('change');
-      $('#edit-indicaciones-grupo').val(array_selected['INDICACIONES']);
+    $('#edit-indicaciones-grupo').val(array_selected['INDICACIONES']);
 
-     if(array_selected['MUESTRA_VALORES_REFERENCIA'] ==  1){
-       $('#edit-checkValSi-grupo').attr('checked', true);
-     }  else{
-       $('#edit-checkValNo-grupo').attr('checked', true);
-     }
+    if (array_selected['MUESTRA_VALORES_REFERENCIA'] == 1) {
+      $('#edit-checkValSi-grupo').attr('checked', true);
+    } else {
+      $('#edit-checkValNo-grupo').attr('checked', true);
+    }
     // Check Subroga
-     if(array_selected['LOCAL'] == 1){
-       $('#edit-checkRogSi-grupo').attr('checked', true);
-     }  else{
-       $('#edit-checkRogNo-grupo').attr('checked', true);
-     }
+    if (array_selected['LOCAL'] == 1) {
+      $('#edit-checkRogSi-grupo').attr('checked', true);
+    } else {
+      $('#edit-checkRogNo-grupo').attr('checked', true);
+    }
   }
 }
 
@@ -83,7 +83,7 @@ $("#formEditarGrupo").submit(function (event) {
               timer: 2000,
             });
             document.getElementById("formEditarGrupo").reset();
-            $('##div-select-contenedoresGrupoEdit').empty();
+            $('#div-select-contenedoresGrupoEdit').empty();
             $("#ModalEditarGrupo").modal("hide");
             tablaGrupos.ajax.reload();
           }
@@ -95,16 +95,16 @@ $("#formEditarGrupo").submit(function (event) {
 });
 
 // Nuevo contenedores
- $('#nuevo-contenedorGrupoEdit').on('click', function(){
-   numberContenedorGrupo += 1;
-   agregarContenedorMuestra('#div-select-contenedoresGrupoEdit', numberContenedorGrupo, 2);
- })
+$('#nuevo-contenedorGrupoEdit').on('click', function () {
+  numberContenedorGrupo += 1;
+  agregarContenedorMuestra('#div-select-contenedoresGrupoEdit', numberContenedorGrupo, 2);
+})
 
- $(document).on('click', '.eliminarContenerMuestra2', function () {
-   var parent_element = $(this).closest("div[class='row']");
-   // console.log(parent_element)
-   // numberContenedor -= 1;
-   parent_element.remove();
+$(document).on('click', '.eliminarContenerMuestra2', function () {
+  var parent_element = $(this).closest("div[class='row']");
+  // console.log(parent_element)
+  // numberContenedor -= 1;
+  parent_element.remove();
 });
 
 select2("#edit-area-grupo", "ModalEditarGrupo");

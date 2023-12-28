@@ -149,7 +149,7 @@ include "../../variables.php";
   // ontooltip(); // <-- Ejecutar los tooltip en todo momento
   // function ontooltip() {
   var delay = 100,
-    setTimeoutConst;
+    setTimeoutConst = false;
   $(document).on({
     mouseenter: function(e) {
       tool = this;

@@ -37,6 +37,16 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
     if (data.REAGENDADO == 1) {
       $(row).addClass('bg-info');
     }
+
+    // Factura
+    switch (data.COMPLETADO) {
+      case 2: case "2":
+        $(row).addClass('bg-warning');
+        break;
+
+      default:
+        break;
+    }
   },
   columns: [
     { data: 'COUNT' },
@@ -124,7 +134,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         if (servidor == 'drjb.com.mx' && data == 1)
           return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
-        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : '<p class="fw-bold text-warning" style="letter-spacing: normal !important;">En proceso</p>';
+        return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
       }
     },
     { data: null },
@@ -161,26 +171,33 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
-    // {
-    //   text: '<i class="bi bi-receipt-cutoff"></i> Ticket',
-    //   className: 'btn btn-secondary',
-    //   action: function () {
-    //     if (array_selected) {
-    //       alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
+    {
+      text: '<i class="bi bi-receipt"></i> Ticket',
+      className: 'btn btn-secondary',
+      attr: {
+        disabled: true,
+        id: 'btn_recepcionTicket',
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Generar el ticket del paciente particular finalizado"
+      },
+      action: function () {
+        if (array_selected) {
+          alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
 
-    //       api = encodeURIComponent(window.btoa('ticket'));
-    //       turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
-    //       area = encodeURIComponent(window.btoa(16));
+          api = encodeURIComponent(window.btoa('ticket'));
+          turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
+          area = encodeURIComponent(window.btoa(16));
 
 
-    //       window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+          window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 
 
-    //     } else {
-    //       alertToast('Por favor, seleccione un paciente', 'info', 4000)
-    //     }
-    //   }
-    // },
+        } else {
+          alertToast('Por favor, seleccione un paciente', 'info', 4000)
+        }
+      }
+    },
     {
       text: '<i class="bi bi-calendar2-event"></i> Re-agendar paciente',
       className: 'btn btn-pantone-325',
@@ -224,6 +241,59 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
               })
             }, 1)
           } else { alertSelectTable('No ha seleccionado ningún paciente', 'error') }
+        }, 300);
+      }
+    },
+    {
+      text: '<i class="bi bi-arrow-repeat"></i> Actualizar procedencia',
+      className: 'btn btn-pantone-7408',
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Actualice la procedencia de un paciente que esté en proceso."
+      },
+      action: function () {
+        setTimeout(() => {
+
+          if (array_selected.COMPLETADO != 1) {
+            $('#modalActualizarProsedencia').modal('show');
+            select2('#select-cambioProcedencia', 'modalActualizarProsedencia')
+            rellenarSelect('#select-cambioProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+
+            $('#btn-actualizarProcedencia').on('click', function () {
+
+              $('#select-cambioProcedencia').val()
+
+              alertMensajeConfirm({
+                title: '¿Está Seguro que desea cambiar la procedencia de este paciente?',
+                text: "Podra volver a modificarlo despues",
+                icon: 'info',
+              }, () => {
+                ajaxAwait({
+                  api: 13,
+                  id_turno: array_selected['ID_TURNO'],
+                  cliente_id: $('#select-cambioProcedencia').val()
+                },
+                  'recepcion_api', { callbackAfter: true }, false, () => {
+                    alertToast('Se actualizo la procedecia', 'success', 4000)
+                    $('#modalActualizarProsedencia').modal('hide');
+                    try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                    try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                  })
+
+                // ajaxAwait({
+                //   id_turno: array_selected['ID_TURNO'], api: 2,// estado: null
+                // }, 'recepcion_api', { callbackAfter: true }, false, () => {
+                //   alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
+                //   try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                //   try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                // })
+              }, 1)
+            })
+
+          } else {
+            alertSelectTable('No puede actualizar la procedencia a pacientes finalizados.', 'error')
+          }
         }, 300);
       }
     },
@@ -318,6 +388,7 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       {
         class: 'btn-cargar-documentos',
         callback: function (data) {
+          array_selected = data;
           alertMsj({
             icon: '',
             title: 'Documentación del paciente <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Cargue/Guarde la documentación del paciente"></i>',
@@ -353,12 +424,14 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
   async function (select, data, callback) {
     if (select) {
       // return false;
+      $(`#${'buttonBeneficiario'}`).attr('disabled', ifnull(data, false, ['CLIENTE_ID']) == '18' ? false : true)
+      $(`#${'btn_recepcionTicket'}`).attr('disabled', ifnull(data, false, ['COMPLETADO']) == '1' && ifnull(data, false, ['CLIENTE_ID']) == '1' ? false : true)
 
-      if (array_selected['CLIENTE_ID'] == 18) {
-        $('#buttonBeneficiario').attr('disabled', false)
-      } else {
-        $('#buttonBeneficiario').attr('disabled', true);
-      }
+      // if (select['CLIENTE_ID'] == 18) {
+      //   $('#buttonBeneficiario').attr('disabled', false)
+      // } else {
+      //   $('#buttonBeneficiario').attr('disabled', true);
+      // }
 
       obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
       obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
@@ -371,11 +444,18 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
             <i class="bi bi-person-check"></i> Paciente Cerrado
         </button>
         `)
+      } else if (data['COMPLETADO'] == 2) {
+        $('#contenedor-btn-cerrar-paciente').html(`
+        <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-facturar"
+            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Necesita actualizar datos de factura">
+            <i class="bi bi-person-check"></i> Actualizar Factura
+        </button>
+    `)
       } else {
         $('#contenedor-btn-cerrar-paciente').html(`
         <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
             data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Finaliza el proceso del paciente">
-            <i class="bi bi-person-check"></i> Finalizar Paciente
+            <i class="bi bi-person-check"></i> Cobrar
         </button>
     `)
       }
@@ -383,7 +463,8 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       callback('In')
     } else {
       callback('Out')
-      $('#buttonBeneficiario').attr('disabled', true);
+      $(`#${'buttonBeneficiario'}`).attr('disabled', true);
+      $(`#${'btn_recepcionTicket'}`).attr('disabled', true);
       obtenerPanelInformacion(0, 'paciente_api', 'paciente')
       obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
       obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')

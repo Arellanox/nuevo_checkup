@@ -192,6 +192,8 @@ function generarFormularioPaciente(id) {
             }
           }
 
+          let muestras = []
+
           //Clinico
           let Tipo = '';
 
@@ -234,7 +236,7 @@ function generarFormularioPaciente(id) {
               }
               break;
 
-            case '697': // <-- ANTIGENO -->
+            case '697': // <-- ANTIGENO --> 
               muestras = {
                 0: {
                   'descripcion': 'HISOPADO NASAL',
@@ -266,6 +268,9 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5: {
+                  'descripcion': 'SURCO BALANO-PREPUSIAL.'
                 }
               }
               break;
@@ -346,6 +351,9 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5: {
+                  'descripcion': 'GLANDE, URETRA Y PREPUCIO'
                 }
               }
               break;
@@ -375,6 +383,18 @@ function generarFormularioPaciente(id) {
                 3: {
                   'descripcion': 'Lavado Bronquial',
                 },
+                4: {
+                  'descripcion': 'Orina'
+                },
+                5: {
+                  'descripcion': 'Líquido pleural'
+                },
+                6: {
+                  'descripcion': 'Biopsia'
+                },
+                7: {
+                  'descripcion': 'Tejido Pleural'
+                }
                 // 4: {
                 //   'descripcion': 'Lavado Bronquial'
                 // }
@@ -403,10 +423,95 @@ function generarFormularioPaciente(id) {
                 }
               }
 
+              break;
+
+            case '1353':
+
+              break
+
+            case '1390':
+
+              break;
+
+            case "1420":
+              // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
+
+              kitDiag = {
+                0: {
+                  'descripcion': 'Allplex™ H.pylori & ClariR Assay',
+                  'clave': 'N/A'
+                }
+              }
+              classSelect = 'selectTipoMuestraPCRHeliPylori';
+              muestras = {
+                0: {
+                  'descripcion': 'HECES',
+                },
+                1: {
+                  'descripcion': 'BIOPSIA',
+                }
+              }
+
+              break;
+
+            case '1452':
+
+              // rT-PCR Entero-DR
+
+              classSelect = 'selectTipoMuestraEnteroDR';
+              muestras = {
+                0: {
+                  'descripcion': 'EXUDADO RECTAL',
+                },
+                1: {
+                  'descripcion': 'CULTIVO',
+                }
+              }
+
+              break
+
+
+            case '1462':
+
+              // Ag. Virus Respiratorio
+
+              classSelect = 'selectTipoMuestraVirusRespiratorio';
+              muestras = {
+                0: {
+                  'descripcion': 'Hisopado nasal',
+                },
+              }
+
+              break;
+
+            case '1463':
+              // PCR Virus Respiratorio
+
+
+              classSelect = 'selectTipoMuestraPCRVirusRespiratorio';
+              muestras = {
+                0: {
+                  'descripcion': 'Hisopado nasal',
+                },
+                1: {
+                  'descripcion': 'Hisopado Nasofaríngeo',
+                },
+                2: {
+                  'descripcion': 'Hisopado orofaríngeo'
+                },
+                3: {
+                  'descripcion': 'Expectoración'
+                }
+              }
+
+              break;
+
             //Laboratorio Clinico
             case '1':
               Tipo = '_BH'
               break;
+
+
             default: input = null;
               if (areaActiva == 12) {
                 alert('El paciente no tiene estudios compatibles, hay un problema con la compatibilidad de los estudios con biomolecular, presente el error con el area de TI para solucionar este problema con el  paciente');
@@ -427,7 +532,36 @@ function generarFormularioPaciente(id) {
           var count = Object.keys(row).length;
           // console.log(count);
           html += '<ul class = "list-group hover-list info-detalle mt-3" style="padding: 3px;" >';
-          html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
+          if (row['ID_GRUPO']) {
+            html += `<div style = "margin-bottom: 10px; display: block">
+          <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
+            <div class="row">
+              <div class="col-11">
+                <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
+                  ${row['NombreGrupo']}
+                </h4> 
+                <p>${row['CLASIFICACION']}</p> 
+              </div>
+              <div class="col-1" style="padding:0px;">
+                <i class="fas fa-microscope btn icon-hover btn-acciones" style="font-size: 20px; padding: 0px; margin-right: 14px;" data-bs-id="${row['ID_GRUPO']}"></i>
+              </div>
+            </div>
+          </div>
+          </div>`;
+          } else {
+            html += `<div style = "margin-bottom: 10px; display: block">
+          <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
+            <div class="row">
+              <div class="col-12">
+                <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
+                  ${row['NombreGrupo']}
+                </h4> 
+                <p>${row['CLASIFICACION']}</p> 
+              </div>
+            </div>
+          </div>
+          </div>`;
+          }
           for (var k in row) { //Empieza cada estudio del grupo
             // console.log(k, row[k])
             let inputname = getRandomInt(1000000000000);
@@ -474,6 +608,9 @@ function generarFormularioPaciente(id) {
                 case '1130': case '1131': case '1132': case '1126': case '1127': case '1128': case '1121':
                 case '1122': case '1123': case '1124': case '1116': case '1117': case '1118': case '1119':
                 case '1112': case '1113': case '1114': case '1107': case '1108': case '1109': case '1110':
+                // Ag virus respiratorio
+                case '344':
+
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 // Panel 21
@@ -482,13 +619,34 @@ function generarFormularioPaciente(id) {
                 case '1106': case '1111': case '1115': case '1120': case '1125': case '1129':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                 case '1146': case '1150': case '1147': case '1152': case '1164':
+                // rT-PCR Panel Meningitis
+                case '1391': case '1399': case '1405':
+                // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
+                case '1436': case '1432':
+                // rT-PCR Entero-DR
+                case '1421': case '1427': case '1430':
+
                   onlyLabel = true; break;
+
 
                 //FTD KIT DIAGNOSTICO
                 case '1082': anotherValue = 'TF22-64-09R'; break;
 
                 case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
                 case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
+
+                case '1039':
+                  switch (row['ID_GRUPO']) {
+                    case '1462':
+                      anotherValue = ifnull(row[k]['No. kit.'], 'RV-135-K')
+                      break;
+                  }; break;
+                case '1040':
+                  switch (row['ID_GRUPO']) {
+                    case '1462':
+                      anotherValue = ifnull(row[k]['Descripción kit'], 'CerTest RSV ')
+                      break;
+                  }; break;
 
                 case '692': case '706': case '734': case '991': case '1083':
                 // Bluefinder 22
@@ -514,6 +672,9 @@ function generarFormularioPaciente(id) {
                 case '1135':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                 case '1142':
+                // Ag. Virus respiratorio
+                case '145':
+                  console.log(row[k]['ID_SERVICIO'])
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
                 //Laboratorio Clinico:
@@ -534,7 +695,11 @@ function generarFormularioPaciente(id) {
 
               if (!onlyLabel) {
                 html += colStart;
-                html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
+                if (row['ID_GRUPO']) {
+                  html += `<p><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
+                } else {
+                  html += `<p class="btn-acciones" data-bs-id="${row[k]['ID_SERVICIO']}"><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
+                }
                 html += endDiv;
                 html += colreStart;
                 html += '<div class="input-group">';

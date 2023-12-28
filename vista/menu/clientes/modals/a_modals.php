@@ -6,6 +6,7 @@ include "segmento-editar.php";
 //Cliente
 include "cliente-agregar.php";
 include "cliente-editar.php";
+include "modal_descuento_cliente.php";
 //Contacto
 include "contacto-agregar.php";
 include "contacto-editar.php";

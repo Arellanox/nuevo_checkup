@@ -53,7 +53,11 @@ $parametro = $_POST['parametro'];
 $foto_paciente = $_POST['avatar'];
 $medico_tratante = $_POST['medico_tratante'];
 $medico_correo = $_POST['medico_correo'];
-$vendedor_id = $_POST['vendedor'];
+$new_medico = $_POST['nuevo_medico']; # Tipo booleano
+$medico_tratante_id = ($master->setToNull([$_POST['medico_tratante_id']]))[0]; # Usuario
+$medico_telefono = $_POST['medico_telefono'];
+$medico_especialidad = $_POST['medico_especialidadz'];
+$vendedor_id = $master->setToNull([$_POST['vendedor']])[0];
 
 
 # reagendar
@@ -61,9 +65,12 @@ $fecha_reagenda = $_POST['fecha_reagenda'];
 
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
-if (!is_null($_POST['servicios'])) {
+if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
     $servicios = explode(",", $_POST['servicios']); //array
+} else {
+    $servicios = null;
 }
+
 
 #ordenes medicas
 $orden_laboratorio = $_FILES['orden-medica-laboratorio'];
@@ -99,10 +106,24 @@ switch ($api) {
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
         // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
+
+        # Agrega nuevo medico si es requerido
+        if ($new_medico) {
+            $response = $master->insertByProcedure('sp_medicos_tratantes_g', [null, $medico_tratante, $medico_correo, null, $medico_telefono, $medico_especialidad]);
+            $medico_tratante_id = $response;
+        }
         #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, 
-        
-        $medico_tratante, $medico_correo, $vendedor_id)); #<-- la id de segmento manda error si no se le envia algo
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'],$vendedor_id,)); #<-- la id de segmento manda error si no se le envia algo
+        $aleta = $response[0][0][0];
+
+        #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
+        if (
+            $aleta == "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES CONTINUAR CON EL PROCESO" ||
+            $aleta == "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN PROCESO DEL DÍA ANTERIOR"
+        ) {
+            $response = $aleta;
+            break;
+        }
 
         $etiqueta_turno = $response[1];
 
@@ -110,7 +131,7 @@ switch ($api) {
         if ($estado_paciente == 1) {
             # si el paciente es aceptado, cargar los estudios correspondientes
             rename($identificacion, "../../archivos/identificaciones/" . $idTurno . ".png");
-            $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null));
+            $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null, $_SESSION['id']));
             #aqui subir las ordenes medicas si las hay
             #crear la carpeta de tunos dentro de 
 
@@ -149,9 +170,11 @@ switch ($api) {
             if (count($servicios) > 0) {
                 # si hay algo en el arreglo lo insertamos
                 foreach ($servicios as $key => $value) {
-                    // print_r($servicios);
-                    $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value));
+                    $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, $_SESSION['id']));
                 }
+
+                // $response3 = $master->insertByProcedure('sp_corte_caja_iniciar_g', [$idTurno, $_SESSION['id']]);
+                // var_dump($response3);
             }
         }
 
@@ -227,23 +250,24 @@ switch ($api) {
                     }
                 }
 
+                // print_r($archivos_paciente);
                 # enzipamos los archivos correspondientes al zip actual.
                 foreach ($archivos_paciente as $a) {
                     $ruta = explode("nuevo_checkup", $a);
                     $ruta = ".." . $ruta[1];
 
-                    // if ($zip->open("../tmp/".$nombre_zip[0].".zip") === TRUE) {
-                    //     $zip->addFile($ruta, basename($ruta));
-                    //     $zip->close();
-                    // } else {
-                    //     echo 'failed';
-                    // }
                     if ($zip->open("../tmp/" . $nombre_zip[0] . ".zip") === TRUE) {
-                        $zip->addFile("../checkup.sql", basename($ruta));
+                        $zip->addFile($ruta, basename($ruta));
                         $zip->close();
                     } else {
                         echo 'failed';
                     }
+                    // if ($zip->open("../tmp/" . $nombre_zip[0] . ".zip") === TRUE) {
+                    //     $zip->addFile("../checkup.sql", basename($ruta));
+                    //     $zip->close();
+                    // } else {
+                    //     echo 'failed';
+                    // }
                 }
             }
 
@@ -459,7 +483,12 @@ switch ($api) {
         $response = $master->getByProcedure("sp_cuestionarios_b", []);
 
         break;
-        
+
+    case 13:
+        //Actualiza la procedencia en recepcion(aceptados)
+        $response = $master->updateByProcedure("sp_actualizar_procedencia_g", [$idTurno, $cliente_id]);
+        break;
+
     default:
         $response = "Api no definida.";
         break;
