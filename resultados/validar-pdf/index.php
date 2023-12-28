@@ -985,7 +985,7 @@ function crearHTMLImag($capturasData)
                 </div>';
         }
 
-        return "<div class='col-12 col-lg-6'>
+        return "<div class='col-12'>
             <h4 class='p-2'>$servicio</h4>
                 <div class='f-carousel p-2'>
                     $carouselItems

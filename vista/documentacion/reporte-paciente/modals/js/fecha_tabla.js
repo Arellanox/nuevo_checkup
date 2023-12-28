@@ -5,10 +5,17 @@ $(document).on('click', '#actualizar_tabla', function (event) {
     dataList['fecha_final'] = $('#fecha_final').val();
 
     if ($('#checkFullClientes').is(':checked')) {
-        dataList['id_cliente'] = 0;
+        dataList['id_cliente'] = null;
     } else {
         dataList['id_cliente'] = $('#cliente').val();
     }
+
+    if ($('#checkFullArea').is(':checked')) {
+        dataList['area_id'] = null;
+    } else {
+        dataList['area_id'] = $('#area_list').val();
+    }
+
 
 
     tablaPrincipal.ajax.reload();
@@ -29,6 +36,7 @@ $(document).on('click', '#actualizar_tabla', function (event) {
 // rellenarSelect('#cliente', 'clientes_api',)
 
 rellenarSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+rellenarSelect('#area_list', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
 
 
 // Establecer los valores de los campos de fecha

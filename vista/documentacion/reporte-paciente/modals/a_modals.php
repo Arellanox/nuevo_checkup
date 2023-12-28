@@ -28,6 +28,17 @@
                             </label>
                         </div>
                     </div>
+
+                    <div class="col-12">
+                        <label for="area" class="form-label">Area</label>
+                        <select name="area_id" id="area_list" class="form-select input-form"></select>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="0" id="checkFullArea" name="full_area">
+                            <label class="form-check-label" for="checkFullArea">
+                                Todos
+                            </label>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
