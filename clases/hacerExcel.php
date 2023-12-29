@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 require_once '../lib/excel/vendor/autoload.php';
 
-
+# OBTENEMOS EL RANGO DE FECHA PARA HACER LA BUSQUEDA DE LOS DATOS
 $fecha_inicial = isset($_POST['fecha_inicial']) ? $_POST['fecha_inicial'] : null;
 $fecha_final = isset($_POST['fecha_final']) ?  $_POST['fecha_final'] : null;
 
@@ -20,33 +20,33 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 #################################  FUNCIONES ################################################
 
 
-## Funcion para obtener los datos
+## FUNCION PARA OBTENER LOS DATOS
 function getData($fecha_inicial, $fecha_final)
 {
 
     $url1 = "http://localhost/nuevo_checkup/api/checadorBimo_api.php";
-    // Los datos de enviados
+    # DEFINIMOS LA DATA QUE VAMOS A MANDAR
     $datos = [
         "api" => 4,
         "fecha_inicial" => $fecha_inicial,
         "fecha_final" => $fecha_final,
     ];
 
-    // Crear opciones de la petición HTTP
+    # CREAMOS LA PETICION HTTPS
     $opciones = array(
         "http" => array(
             "header" => "Content-type: application/x-www-form-urlencoded\r\n",
             "method" => "POST",
-            "content" => http_build_query($datos), # Agregar el contenido definido antes
+            "content" => http_build_query($datos), #AGREGAMOS EL CONTENIDO DEFINIDO ANTES
         ),
     );
-    # Preparar petición
+
+    # PREPARACION DE LA PETICIONS
     $contexto = stream_context_create($opciones);
-    # Hacerla
+    #HACEMOS LA PETICION
     $json = file_get_contents($url1, false, $contexto);
 
     $res = json_decode($json, true);
-
 
 
     $array = $res['response']['data'];
@@ -56,11 +56,12 @@ function getData($fecha_inicial, $fecha_final)
     return $array;
 }
 
-// ##FUNCION PARA PINTAR CELDAS
+##FUNCION PARA PINTAR CELDAS
 function pintarCeldas($sheet, $rangoCeldas, $color, $numero)
 {
     foreach ($rangoCeldas as $c) {
 
+        #SACAMOS EL ESTILO A LAS CELDAS PARA PODER PINTAR
         $style = $sheet->getStyle($c . $numero);
         $style->getFill()
             ->setFillType(Fill::FILL_SOLID)
@@ -69,16 +70,18 @@ function pintarCeldas($sheet, $rangoCeldas, $color, $numero)
     }
 }
 
-// // ## FUNCION PARA CENTAR EL CONTENIDO DE LAS CELDAS
+## FUNCION PARA CENTAR EL CONTENIDO DE LAS CELDAS
 function centraContenido($sheet, $celdas, $numero)
 {
 
     foreach ($celdas as $c) {
 
+        #CENTRAMOS DE FORMA HORIZONTAL
         $style = $sheet->getStyle($c . $numero);
         $style->getAlignment()
             ->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
+        #CENTRAMOS DE FORMA VERTICAL
         $style1 = $sheet->getStyle($c . $numero);
         $style1->getAlignment()
             ->setVertical(Alignment::VERTICAL_CENTER);
@@ -91,6 +94,7 @@ function bordearContenido($sheet, $rangoCeldas, $border, $numero)
 
     foreach ($rangoCeldas as $celda) {
 
+        #SACAMOS EL ESTILO DE LAS CELDAS
         $sheet->getStyle($celda . $numero)->applyFromArray($border);
     }
 }
@@ -105,6 +109,7 @@ function crearCuerpoFechas($sheet, $data, $border, $colorAzul)
 
     foreach ($data['REGISTROS'] as $registro) {
 
+        #AGREGAMOS LOS DATOS ESTATICOS DE LA INFORMACION DE BIMER
         $sheet->setCellValue('A' . $numero, $registro['COUNT']);
         $sheet->setCellValue('B' . $numero, $registro['NOMBRE']);
         $sheet->setCellValue('C' . $numero, $registro['AREA']);
@@ -113,7 +118,7 @@ function crearCuerpoFechas($sheet, $data, $border, $colorAzul)
         $sheet->setCellValue('H' . $numero, $registro['TOTAL_ASISTENCIAS']);
         $sheet->setCellValue('I' . $numero, $registro['TOTAL_RETARDOS']);
 
-
+        #LE DAMOS ESTILOS A NUESTROS ENCANBEZADOS
         bordearContenido($sheet, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], $border, $numero);
         centraContenido($sheet, ['A', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], $numero);
 
@@ -187,7 +192,7 @@ function crearCuerpoFechas($sheet, $data, $border, $colorAzul)
 
 ##############################  OBTENCION DE DATOS ############################################
 
-// Inicia el búfer de salida
+##INICIAMOS EL BUFER DE  SALIDA
 ob_start();
 
 
@@ -196,21 +201,21 @@ $data = getData($fecha_inicial, $fecha_final);
 
 
 
-###################################  ESQUELETE DEL EXCEL ######################################
+###################################  ESQUELETO  DEL EXCEL ######################################
 
 
-// // #CREAMOS NUESTRA HOJA DE TRABAJO
+#CREAMOS Y ENICIALIZAMOS  NUESTRA HOJA DE TRABAJO
 $workbook = new Spreadsheet();
 $sheet = $workbook->getActiveSheet();
 
 
-// ## DEFINIMOS COLORES
+## DEFINIMOS COLORES
 $colorGris = "C0C0C0";
 $colorAzul = 'FF4F80BD';
 $colorBlanco = 'FFFFFF';
 
 
-// ## DEFINIMOS LOS BORDES
+## DEFINIMOS LOS BORDES
 $borderStyle = [
     'borders' => [
         'allBorders' => [
@@ -222,11 +227,11 @@ $borderStyle = [
 
 $sheet->setTitle('Asistencias');
 
-// Reaalizamos la primera parte de los encabezados
+## REALIZAMOS LA PRIMERA PARTE DE LOS ENCABEZADOS
 $sheet->setCellValue('A1', 'CONSOLIDADO  REGISTRO DE ENTRADAS Y SALIDAS DEL PERSONAL ');
 $style = $sheet->getStyle('A1');
 $font = $style->getFont()->setSize(18)->setBold(true);
-$sheet->getRowDimension(2)->setRowHeight(30);
+$sheet->getRowDimension(2)->setRowHeight(30);    
 $sheet->getColumnDimension('A')->setWidth(15);
 
 
@@ -281,14 +286,14 @@ $style->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()
     ->setARGB($colorGris);
-$style = $sheet->getStyle('E6');
+$style = $sheet->getStyle('E6'); 
 $style->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()
     ->setARGB($colorGris);
 
 
-//Realizamos el encabezado de las informacion de horas trabajadas
+## REALIZAMOS EL DISEÑO Y LOS ENCABEZADOS PARA LA INFORMACION DE LAS HORAS
 $sheet->mergeCells("F5:J5");
 $sheet->setCellValue('F5', 'TOTAL PERIODO');
 $sheet->getStyle('F5:J5')->applyFromArray($borderStyle);
@@ -338,7 +343,7 @@ $writer->save('hello world.xlsx');
 $writer->save('php://output');
 $excelData = ob_get_clean();
 
-// Devolver el archivo Excel como un blob al cliente
+## DEVOLVEMOS EL ARCHIVO DE EXCEL COMO BLOB AL CLIENTE
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="hello_world.xlsx"');
 header('Cache-Control: max-age=0');
