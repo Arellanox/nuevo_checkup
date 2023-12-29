@@ -296,7 +296,7 @@ $areas = $resultados->areas[0];
         {
             $estudios = [
                 "PCR SARS-CoV-2" => 'pcr',
-                "PCR SARS-CoV-2/INFLUENZA A Y B" => 'pcr',
+                "PCR SARS-CoV-2/INFLUENZA A Y B" => 'pcr_influenza',
                 "PANEL RESPIRATORIO POR PCR" => 'PANEL21',
                 "Ag. SARS-CoV-2" => 'antigeno',
                 "VPH" => 'vph',

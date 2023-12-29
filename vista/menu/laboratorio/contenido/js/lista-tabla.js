@@ -611,6 +611,9 @@ function generarFormularioPaciente(id) {
                 // Ag virus respiratorio
                 case '344':
 
+                // PCR SARS-CoV-2/INFLUENZA A Y B
+                case '1470': case '1472': case '1474':
+
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 // Panel 21
