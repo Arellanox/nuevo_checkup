@@ -12,7 +12,7 @@
 
 
 .modal-body label {
-  background-color: #f6fdff;
+  /* background-color: #f6fdff; */
   color: black;
   font-weight: 500;
 }
@@ -42,7 +42,7 @@
 }
 
 .bg-acordion label {
-  background-color: #f6fdff;
+  /* background-color: #f6fdff; */
   color: rgb(000, 078, 089);
   background-color: rgb(0 0 0 / 0);
   padding-left: 5px;

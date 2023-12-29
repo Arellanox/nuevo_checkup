@@ -1,10 +1,13 @@
 
 //==========================================VARIABLES==============================================================//
 var TablaContenidoPaciCertificados
-var dataListaPaciente
+var dataListaPaciente = {
+  api: 1,
+};
 var dataJson //<-- Guarda el arreglo de cada formulario
 let datalist,
   datPaciente //<-- guarda lo que llega de informacion del paciente
+let certificado_tipo = 0;
 
 //================================================================================================================//
 
@@ -20,10 +23,7 @@ async function contenidoCertificados(config = { 'titulo': 'Certificados médicos
     $("#body-js").html(html);
   }).done(function () {
 
-    dataListaPaciente = {
-      api: 1,
-      fecha_busqueda: $('#fechaListadoAreaMaster').val()
-    };
+    dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
 
     //Vista de tabla
     $.getScript('contenido/js/vista-tabla.js')
@@ -46,10 +46,15 @@ function hasLocation() {
     subtipo = false;
     switch (hash) {
       case 'CERTIFICADOS_MEDICOS':
+        dataListaPaciente['tipo_certificado'] = 1; // Es el tipo de certificado que necesita back para traer la lista de pacientes
+        certificado_tipo = { tipo: 1, certificacion: null };
         config.titulo = 'Certificados médicos general'
         break;
 
       case 'CERTIFICADOS_POE':
+        dataListaPaciente['tipo_certificado'] = 2; // Es el tipo de certificado que necesita back para traer la lista de pacientes
+        certificado_tipo = { tipo: 2, certificacion: 'POE' }
+
         config.titulo = 'Certificados Poe'
         break;
 

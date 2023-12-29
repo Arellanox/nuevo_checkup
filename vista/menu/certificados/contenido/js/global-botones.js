@@ -29,23 +29,27 @@ function recargarVistaLab(fecha = 1) {
 
 //Mapeo de la procedencia de los botones
 const btnProcedencia = {
-  'Particular': {
-    AMBOS: 'particular_ambos',
-    formulario: 'form_particular.html'
+  1: {
+    'Particular': {
+      cualquiera: 'particular_ambos',
+      formulario: 'form_particular.html'
+    },
+    'SLB': {
+      MASCULINO: 'slb_masculino', //MASCULINO menor a 40
+      FEMENINO: 'slb_femenino', //FEMENINO menor a 40
+      VEJEZ: 'slb_vejez', //Persona mayor a 40
+      formulario: 'form_slb.html', // Formulario a elegir de SLb
+    },
+    'VINCO': {
+      cualquiera: 'vinco_general',
+      formulario: 'form_vinco_general.html'
+    },
   },
-  'SLB': {
-    MASCULINO: 'slb_masculino', //MASCULINO menor a 40
-    FEMENINO: 'slb_femenino', //FEMENINO menor a 40
-    VEJEZ: 'slb_vejez', //Persona mayor a 40
-    formulario: 'form_slb.html', // Formulario a elegir de SLb
-  },
-  'VINCO': {
-    AMBOS: 'vinco_general',
-    formulario: 'form_vinco_general.html'
-  },
-  "POE": {
-    AMBOS: 'poe_general',
-    formulario: 'form_poe_general.html'
+  2: {
+    "POE": {
+      cualquiera: 'poe_general',
+      formulario: 'form_poe_general.html'
+    }
   }
 }
 
@@ -53,27 +57,33 @@ const btnProcedencia = {
 function btnCertificados(config) {
   return new Promise(resolve => {
 
-    let tipo_format = config.EDAD >= 40 ? 'VEJEZ' : config.GENERO; // Obtienes el tipo de formato
-    let pdf_format = btnProcedencia[config.cliente] // Obtienes los valores del cliente
+    let cliente_certificado = certificado_tipo['certificacion'] ? certificado_tipo['certificacion'] : config.cliente;
 
-    switch (config.cliente) {
+    let tipo_format = config.EDAD >= 40 ? 'VEJEZ' : config.GENERO; // Obtienes el tipo de formato
+    let pdf_format = btnProcedencia[certificado_tipo['tipo']][cliente_certificado] // Obtienes los valores del cliente
+
+    let form_html = btnProcedencia[certificado_tipo['tipo']][cliente_certificado]['formulario'];
+
+    switch (cliente_certificado) {
       case 'SLB':
         pdf_format = pdf_format[tipo_format]; // Obtiene el formato a utilizar de SLB 
         break;
 
       default:
-        pdf_format = pdf_format['AMBOS'] // Obtener el formato a utilizar de cualquiera
+        pdf_format = pdf_format['cualquiera'] // Obtener el formato a utilizar de cualquiera
         break;
     }
 
 
     $(`#${'cuerpo_certificado'}`).html(''); // Limpiar el cuerpo de HTML
-    $.post(`modals/formularios/form_particular.html`, function (html) {
+    $.post(`modals/formularios/${form_html}`, function (html) {
       $(`#${'cuerpo_certificado'}`).html(html);
     }).done(() => {
       // El codigo sigue si se necesita crear mas cosas o validar mas cosas
       // En cierto caso puede usarse un case
-      obtenerPanelInformacion(config.turno, 'consulta_api', 'listado_resultados', '#listado-resultados')
+
+      // Reajusta los textarea para su tamaño si es necesario
+      autosize(document.querySelectorAll('textarea'));
 
       ajaxAwait(
         {
