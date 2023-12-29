@@ -1,6 +1,7 @@
 <?php
 include_once '../clases/master_class.php';
 include_once '../clases/token_auth.php';
+include "../clases/correo_class.php";
 
 $master = new Master();
 $api = $_POST['api'];
