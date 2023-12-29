@@ -271,7 +271,7 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
 
       <?php if ($_SESSION['vista']['CERTIFICADOS_POE'] == 1) : ?>
         <li>
-          <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/certificados/#CERTIFICADOS_POES'; ?>">
+          <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/certificados/#CERTIFICADOS_POE'; ?>">
             <i class="bi bi-dot"></i> Certificado Poe
           </a>
         </li>
