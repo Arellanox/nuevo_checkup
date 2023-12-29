@@ -330,7 +330,7 @@ function descargarReporte(fecha_inicial, fecha_final) {
 
             // Crear un enlace y simular clic para descargar el archivo
             var link = document.createElement('a');
-            let nombre_archivo = `ReporteAsistencia_Quincena_${fecha_inicial}.xlsx`;
+            let nombre_archivo = `ReporteAsistencia_${fecha_inicial}-${fecha_final} .xlsx`;
             link.href = window.URL.createObjectURL(blob);
             link.download = nombre_archivo;
             document.body.appendChild(link);
