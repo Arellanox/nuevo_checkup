@@ -153,6 +153,15 @@ foreach ($areas as $key => $area) {
         <div style="font-size: 12px">
 
             <?php
+            if ($estudio->muestra == '' || $estudio->muestra == null) {
+            } else {
+                echo "<strong style='font-size: 12px'>Muestra: </strong>" . $estudio->muestra;
+            }
+            ?>
+        </div>
+        <div style="font-size: 12px">
+
+            <?php
             if ($estudio->equipo == '' || $estudio->equipo == null) {
             } else {
                 echo "<strong style='font-size: 12px'>Equipo: </strong>" . $estudio->equipo;
