@@ -212,6 +212,9 @@ class Correo
                 case "formularioContacto":
                     $mail->Body = $this->cuerpoFormularioContacto($token);
                     break;
+                case "botOrdenMedica":
+                    $mail->Body = $this->cuerpoOrdenMedica($token);
+                    break;    
             }
 
             # send email
@@ -532,6 +535,59 @@ class Correo
                     </div>
                 </body>
                     </html>';
+
+        return $html;
+    }
+    private function cuerpoOrdenMedica($data)
+    {
+        $html = '<!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Información del Paciente</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    padding: 20px;
+                }
+        
+                h1 {
+                    color: #054d60; /* Azul oscuro para el título */
+                }
+        
+                .patient-info {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    border-radius: 5px;
+                    background-color: #fff;
+                    margin-top: 20px;
+                }
+        
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 5px;
+                }
+        
+                strong {
+                    color: #1699c7; /* Azul claro para los elementos resaltados */
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Información del Paciente</h1>
+        
+            <div class="patient-info">
+                <img src="' . $data['ordenMedica'] . '" alt="Imagen del Paciente">
+                <p><strong>Nombre:</strong> ' . $data['nombrePaciente'] . '</p>
+                <p><strong>Teléfono:</strong> ' . $data['telefono'] . '</p>
+                <p><strong>Fecha de Nacimiento:</strong> ' . $data['fechaNacimiento'] . '</p>
+            </div>
+        </body>
+        </html>
+        ';
 
         return $html;
     }
