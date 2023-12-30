@@ -151,7 +151,7 @@ TablaTablaReporteEpidemiologico = $("#TablaTablaReporteEpidemiologico").DataTabl
             },
             exportOptions: {
                 // Especifica las columnas que deseas exportar
-                columns: [0 ,8, 3, 2, 4, 6, 7, 5, 9, 10, 11, 12, 13, 14, 18, 1, 15, 16, 17, 19, 20]
+                columns: [0 ,1, 8, 3, 2, 4, 6, 7, 5, 9, 10, 11, 12, 13, 14, 16, 15, 17, 18, 19, 20 ]
             }
 
         }
