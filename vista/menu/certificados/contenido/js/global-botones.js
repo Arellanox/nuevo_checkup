@@ -59,7 +59,7 @@ function btnCertificados(config) {
 
     let cliente_certificado = certificado_tipo['certificacion'] ? certificado_tipo['certificacion'] : config.cliente;
 
-    let tipo_format = config.EDAD >= 40 ? 'VEJEZ' : config.GENERO; // Obtienes el tipo de formato
+    let tipo_format = config.edad >= 40 ? 'VEJEZ' : config.genero; // Obtienes el tipo de formato
     pdf_format = ifnull(btnProcedencia[certificado_tipo['tipo']], [], [cliente_certificado]) // Obtienes los valores del cliente
 
     let form_html = ifnull(pdf_format, 'form_particular.html', ['formulario']);
@@ -84,8 +84,6 @@ function btnCertificados(config) {
 
       // Reajusta los textarea para su tamaño si es necesario
       autosize(document.querySelectorAll('textarea'));
-
-
 
       ajaxAwait(
         {
