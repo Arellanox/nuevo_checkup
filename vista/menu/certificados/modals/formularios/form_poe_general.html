@@ -7,8 +7,8 @@
             <div class="col-12 col-xl-12">
                 <div class="mb-2">
                     <label for="">Tipo de Examen Médico Ocupacional:</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="1" cols="2"
-                        placeholder="Especifique"></textarea>
+                    <textarea name="cuerpo[tipo_examen_medico_ocupacional]" class="form-control input-form fs-5"
+                        rows="1" cols="2" placeholder="Especifique"></textarea>
                 </div>
             </div>
             <div class="col-12 col-xl-12">
@@ -20,7 +20,7 @@
             </div>
             <div class="col-12 col-xl-12">
                 <label for="">Informacion detallada:</label>
-                <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="2" cols="2"
+                <textarea name="cuerpo[informacion_detallada]" class="form-control input-form fs-5" rows="2" cols="2"
                     placeholder="Especifique"></textarea>
             </div>
         </div>
@@ -33,50 +33,50 @@
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Antecedentes Personales no Patológicos (APNP):</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="1" cols="2"
-                        placeholder="Especifique"></textarea>
+                    <textarea name="cuerpo[antecedentes_personales_no_patologicos]" class="form-control input-form fs-5"
+                        rows="1" cols="2" placeholder="Especifique"></textarea>
                 </div>
             </div>
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Vacunas Aplicadas:</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="1" cols="2"
+                    <textarea name="cuerpo[vacunas_aplicadas]" class="form-control input-form fs-5" rows="1" cols="2"
                         placeholder="Especifique"></textarea>
                 </div>
             </div>
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Antecedentes Personales Patológicos (APP):</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="1" cols="2"
-                        placeholder="Especifique"></textarea>
+                    <textarea name="cuerpo[antecedentes_personales_patologicos]" class="form-control input-form fs-5"
+                        rows="1" cols="2" placeholder="Especifique"></textarea>
                 </div>
             </div>
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Infecciones Previas:</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="1" cols="2"
+                    <textarea name="cuerpo[infeccion_previas]" class="form-control input-form fs-5" rows="1" cols="2"
                         placeholder="Especifique"></textarea>
                 </div>
             </div>
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Alergias:</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="1" cols="2"
+                    <textarea name="cuerpo[alergias]" class="form-control input-form fs-5" rows="1" cols="2"
                         placeholder="Especifique"></textarea>
                 </div>
             </div>
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Accidentes y Enfermedades de Trabajo:</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="1" cols="2"
-                        placeholder="Especifique"></textarea>
+                    <textarea name="cuerpo[accidentes_enfermedades_trabajo]" class="form-control input-form fs-5"
+                        rows="1" cols="2" placeholder="Especifique"></textarea>
                 </div>
             </div>
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Intervenciones Quirúrgicas:</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="1" cols="2"
-                        placeholder="Especifique"></textarea>
+                    <textarea name="cuerpo[intervenciones_quirurgicas]" class="form-control input-form fs-5" rows="1"
+                        cols="2" placeholder="Especifique"></textarea>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Exploración física:</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="2" cols="2"
+                    <textarea name="cuerpo[exploracion_fisica]" class="form-control input-form fs-5" rows="2" cols="2"
                         placeholder="Especifique"></textarea>
                 </div>
             </div>
@@ -103,7 +103,7 @@
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Interpretación</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="2" cols="2"
+                    <textarea name="cuerpo[interpretacion]" class="form-control input-form fs-5" rows="2" cols="2"
                         placeholder="Especifique"></textarea>
                 </div>
             </div>
@@ -117,7 +117,7 @@
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Conclusiones:</label>
-                    <textarea name="cuerpo[1]" class="form-control input-form fs-5" rows="2" cols="2"
+                    <textarea name="cuerpo[conclusiones]" class="form-control input-form fs-5" rows="2" cols="2"
                         placeholder="Especifique"></textarea>
                 </div>
             </div>
@@ -131,20 +131,21 @@
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Se ha realizado en el examen médico:</label>
-                    <select class="form-select input-form" name="Termometro" id="Termometros_Equipos" required>
-                        <option value="1">De ingreso</option>
-                        <option value="2">Periodico</option>
-                        <option value="3">Especial</option>
-                        <option value="4">Otro examen (especificar)</option>
+                    <select class="form-select input-form" name="cuerpo[realizado_examen_medico]"
+                        id="Termometros_Equipos" required>
+                        <option value="De ingreso">De ingreso</option>
+                        <option value="Periodico">Periodico</option>
+                        <option value="Especial">Especial</option>
+                        <option value="Otro examen (especificar)">Otro examen (especificar)</option>
                     </select>
                 </div>
             </div>
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Quién es / será:</label>
-                    <select class="form-select input-form" name="Termometro" id="Termometros_Equipos" required>
-                        <option value="1">Es</option>
-                        <option value="2">Será</option>
+                    <select class="form-select input-form" name="cuerpo[quien_es]" id="Termometros_Equipos" required>
+                        <option value="Es">Es</option>
+                        <option value="Será">Será</option>
                     </select>
                 </div>
             </div>
@@ -153,10 +154,11 @@
                     <label for="">Con base en la información clínica obtenida y al historial laboral disponible, se
                         califica al
                         interesado como clínicamente:</label>
-                    <select class="form-select input-form" name="Termometro" id="Termometros_Equipos" required>
-                        <option value="1">Apto</option>
-                        <option value="2">No apto</option>
-                        <option value="3">Apto en determinadas condiciones</option>
+                    <select class="form-select input-form" name="cuerpo[calificacion_apto]" id="Termometros_Equipos"
+                        required>
+                        <option value="Apto">Apto</option>
+                        <option value="No apto">No apto</option>
+                        <option value="Apto en determinadas condiciones">Apto en determinadas condiciones</option>
                     </select>
                 </div>
             </div>
