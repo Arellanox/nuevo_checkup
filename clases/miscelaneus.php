@@ -544,17 +544,12 @@ class Miscelaneus
 
             case -5:
                 #Certificados médicos
-                $arregloPaciente = [
-                    'certificado' => 'vinco_general'
-                ];
+                $arregloPaciente = $this->getBodyCertificado($master, $turno_id, $cliente_id);
+                $arregloPaciente['certificado'] = 'vinco_general';
                 break;
             case -4:
                 #Corte de caja
                 $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
-                break;
-            case -6:
-                $arregloPaciente = $this->getBodyCertificados($master, $turno_id, $tipo_certificado =  null);
-
                 break;
         }
 
@@ -1240,6 +1235,13 @@ class Miscelaneus
         }
 
         return $arrayoftalmo[0];
+    }
+
+    private function getBodyCertificado($master, $cliente_id, $turno_id)
+    {
+        $response = $master->getByNext('sp_certificados_b', [$cliente_id, $turno_id, $_SESSION['id']]);
+        $response = $master->decodeJsonRecursively($response);
+        return $response;
     }
 
     private function getBodyInfoLab($master, $id_turno, $area_id)
@@ -2124,11 +2126,5 @@ class Miscelaneus
         $response = $master->insertByProcedure("", []);
 
         return true;
-    }
-
-    # crear una funcion que me regrese el cuerpo del certificado 
-    public function getBodyCertificados($master, $turno_id, $tipo_certificado)
-    {
-        $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
     }
 }

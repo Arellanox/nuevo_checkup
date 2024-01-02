@@ -8,6 +8,7 @@ var dataJson //<-- Guarda el arreglo de cada formulario
 let datalist,
   datPaciente //<-- guarda lo que llega de informacion del paciente
 let certificado_tipo = 0;
+let pdf_format = null;
 
 //================================================================================================================//
 

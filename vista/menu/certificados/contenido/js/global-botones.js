@@ -60,9 +60,9 @@ function btnCertificados(config) {
     let cliente_certificado = certificado_tipo['certificacion'] ? certificado_tipo['certificacion'] : config.cliente;
 
     let tipo_format = config.EDAD >= 40 ? 'VEJEZ' : config.GENERO; // Obtienes el tipo de formato
-    let pdf_format = btnProcedencia[certificado_tipo['tipo']][cliente_certificado] // Obtienes los valores del cliente
+    pdf_format = ifnull(btnProcedencia[certificado_tipo['tipo']], [], [cliente_certificado]) // Obtienes los valores del cliente
 
-    let form_html = btnProcedencia[certificado_tipo['tipo']][cliente_certificado]['formulario'];
+    let form_html = ifnull(pdf_format, 'form_particular.html', ['formulario']);
 
     switch (cliente_certificado) {
       case 'SLB':
@@ -70,14 +70,14 @@ function btnCertificados(config) {
         break;
 
       default:
-        pdf_format = pdf_format['cualquiera'] // Obtener el formato a utilizar de cualquiera
+        pdf_format = ifnull(pdf_format, 'particular_ambos', ['cualquiera']) // Obtener el formato a utilizar de cualquiera
         break;
     }
 
 
-    $(`#${'cuerpo_certificado'}`).html(''); // Limpiar el cuerpo de HTML
+    $(`#${'cuerpo_certificado_form'}`).html(''); // Limpiar el cuerpo de HTML
     $.post(`modals/formularios/${form_html}`, function (html) {
-      $(`#${'cuerpo_certificado'}`).html(html);
+      $(`#${'cuerpo_certificado_form'}`).html(html);
     }).done(() => {
       // El codigo sigue si se necesita crear mas cosas o validar mas cosas
       // En cierto caso puede usarse un case
@@ -85,20 +85,35 @@ function btnCertificados(config) {
       // Reajusta los textarea para su tamaño si es necesario
       autosize(document.querySelectorAll('textarea'));
 
+
+
       ajaxAwait(
         {
           api: 2,
           cliente_id: datalist['CLIENTE_ID'],
           turno_id: datalist['ID_TURNO']
         }, 'certificados_api', { callbackAfter: true }, false, function (data) {
-          datPaciente = data.response.data[0]
-          datosPaciente(datPaciente, config.cliente)
+          dataPaciente = data.response.data
+          console.log(dataPaciente)
+
+          // Valida quien es el medico actual del paciente, ya sea que no hay
+          // guardado o sea el guardado quien esta trantando la interpretación
+          if (true) {
+            $('#Nom_medico').html(`${session['nombre']} ${session['apellidos']}`)
+            $('#cedula').html(session['CEDULA'])
+          } else {
+            $('#Nom_medico').html(`${session['nombre']} ${session['apellidos']}`)
+            $('#cedula').html(session['CEDULA'])
+          }
+
+          // colocar todos los datos faltantes
+          // datosPaciente(datPaciente, config.cliente)
 
           resolve(1)
         })
 
     });
-  })
+  });
 }
 
 //Click para entrar al modal dependiendo del boton
