@@ -32,14 +32,14 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-
+$turno_id = 2207;
 $api = "certificados_medicos";
-
+$area_id = -5;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
 
-$preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
+$preview = "particular_ambos"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 
 switch ($api) {
@@ -97,7 +97,7 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, $area_id, 'temperatura', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'certificados_medicos':
-        $r = $master->reportador($master, 1, '-5', 'certificados_medicos', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        $r = $master->reportador($master, $turno_id, '-5', 'certificados_medicos', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

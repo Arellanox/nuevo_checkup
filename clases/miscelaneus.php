@@ -330,7 +330,7 @@ class Miscelaneus
 
     public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8)
     {
-        #Recupera la información personal del paciente
+        #Recupera la información personal del paciente 
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
 
@@ -544,8 +544,12 @@ class Miscelaneus
 
             case -5:
                 #Certificados médicos
-                $arregloPaciente = $this->getBodyCertificado($master, $turno_id, $cliente_id);
-                $arregloPaciente['certificado'] = 'vinco_general';
+                $arregloPaciente = $this->getBodyCertificado(
+                    $master,
+                    $cliente_id,
+                    $turno_id,
+                    $preview # aqui va el tipo de certificado 
+                );
                 break;
             case -4:
                 #Corte de caja
@@ -1237,9 +1241,10 @@ class Miscelaneus
         return $arrayoftalmo[0];
     }
 
-    private function getBodyCertificado($master, $cliente_id, $turno_id)
+    private function getBodyCertificado($master, $cliente_id, $turno_id, $preview)
     {
-        $response = $master->getByNext('sp_certificados_b', [$cliente_id, $turno_id, $_SESSION['id']]);
+        $response = $master->getByProcedure('sp_certificados_b', [$cliente_id, $turno_id, $_SESSION['id'], $preview]);
+
         $response = $master->decodeJsonRecursively($response);
         return $response;
     }
