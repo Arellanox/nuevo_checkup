@@ -44,7 +44,7 @@ $('#cuerpo_certificado_form').submit(function (e) {
         text: 'No podra modificarlos',
         icon: 'warning',
     }, () => {
-        ajaxAwaitFormData({ api: 3, formato_certificado: pdf_format, turno_id: datalist['ID_TURNO'] }, 'certificados_api', 'cuerpo_certificado_form', { callbackAfter: true }, false, () => {
+        ajaxAwaitFormData({ api: 3, tipo_certificado: pdf_format, turno_id: datalist['ID_TURNO'] }, 'certificados_api', 'cuerpo_certificado_form', { callbackAfter: true }, false, () => {
             alertToast('Se han guardado los datos corretamente!', 'success', 4000)
         })
     }, 1)
