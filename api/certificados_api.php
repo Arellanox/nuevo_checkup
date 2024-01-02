@@ -66,6 +66,7 @@ switch ($api) {
     case 2:
         # recuperar los datos del certificado
         $response = $master->getByProcedure("sp_certificados_b", [$cliente_id, $turno_id, $_SESSION['id']]);
+        $response = $master->decodeJsonRecursively($response);
         break;
     case 3:
 
