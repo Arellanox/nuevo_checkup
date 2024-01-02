@@ -89,7 +89,8 @@ function btnCertificados(config) {
         {
           api: 2,
           cliente_id: datalist['CLIENTE_ID'],
-          turno_id: datalist['ID_TURNO']
+          turno_id: datalist['ID_TURNO'],
+          tipo_certificado: pdf_format
         }, 'certificados_api', { callbackAfter: true }, false, function (data) {
           dataPaciente = data.response.data
           console.log(dataPaciente)
