@@ -81,7 +81,7 @@ switch ($api) {
 
         if ($confirmado == 1) {
             # crear el reporte 
-            $url = "http://";
+            $url = $master->reportador($master, $turno_id, -5, "certificados", 'url', 0);
 
             $response =  $master->updateByProcedure("sp_reportes_actualizar_certificados", [
                 $url,

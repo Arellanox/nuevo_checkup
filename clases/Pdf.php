@@ -59,6 +59,7 @@ class Reporte
                 break;
             case 'resultados':
             case 'biomolecular':
+            case 'certificados': # para certificados 
             case 'oftalmologia':
             case 'ultrasonido':
             case 'rayos': //rayos piu piu
@@ -241,7 +242,6 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;
-
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
