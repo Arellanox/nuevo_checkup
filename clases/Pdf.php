@@ -59,7 +59,7 @@ class Reporte
                 break;
             case 'resultados':
             case 'biomolecular':
-            case 'certificados': # para certificados 
+            case 'certificados_medicos': # para certificados 
             case 'oftalmologia':
             case 'ultrasonido':
             case 'rayos': //rayos piu piu

@@ -550,6 +550,15 @@ class Miscelaneus
                     $turno_id,
                     $preview # aqui va el tipo de certificado 
                 );
+                $folio = 'certificacion';
+                $datos_medicos = $arregloPaciente[0]['datos_medicos'];
+                # Certificados medicos
+                $infoPaciente = [
+                    [
+                        'CLAVE_IMAGEN' => $arregloPaciente[0]['CLAVE_IMAGEN'],
+                    ]
+                ];
+
                 break;
             case -4:
                 #Corte de caja
