@@ -552,6 +552,10 @@ class Miscelaneus
                 #Corte de caja
                 $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
                 break;
+            case -6:
+                $arregloPaciente = $this->getBodyCertificados($master, $turno_id, $tipo_certificado =  null);
+
+                break;
         }
 
 
@@ -2120,5 +2124,11 @@ class Miscelaneus
         $response = $master->insertByProcedure("", []);
 
         return true;
+    }
+
+    # crear una funcion que me regrese el cuerpo del certificado 
+    public function getBodyCertificados($master, $turno_id, $tipo_certificado)
+    {
+        $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
     }
 }

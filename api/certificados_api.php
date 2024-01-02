@@ -50,10 +50,14 @@ $certificado_slb = array(
 );
 
 
+$confirmado = $_POST['confirmado'];
+$tipo_certificado = $_POST['tipo_certificado'];
+
+
 $cuerpo = json_encode($_POST['cuerpo']);
 
 
-switch($api){
+switch ($api) {
     case 1:
         # lista de trabajo para certificados.
         # pacientes que tengan cargado entre sus estudios una historia clinica.
@@ -61,18 +65,34 @@ switch($api){
         break;
     case 2:
         # recuperar los datos del certificado
-        $response = $master->getByProcedure("sp_certificados_b",[$cliente_id, $turno_id, $_SESSION['id']]);
+        $response = $master->getByProcedure("sp_certificados_b", [$cliente_id, $turno_id, $_SESSION['id']]);
         break;
     case 3:
 
-        $response = $master->getByProcedure("sp_certificados_g", [$cuerpo, $_SESSION['id']]);
+        $response = $master->getByProcedure("sp_certificados_g", [
+            $cuerpo,
+            $turno_id,
+            $cliente_id,
+            $_SESSION['id'],
+            $confirmado,
+            $tipo_certificado
+        ]);
+
+        if ($confirmado == 1) {
+            # crear el reporte 
+            $url = "http://";
+
+            $response =  $master->updateByProcedure("sp_reportes_actualizar_certificados", [
+                $url,
+                $turno_id,
+                $tipo_certificado
+            ]);
+        }
 
         break;
     default:
         $response = "API no definida.";
-    break;
-
+        break;
 }
 
 echo $master->returnApi($response);
-?>
