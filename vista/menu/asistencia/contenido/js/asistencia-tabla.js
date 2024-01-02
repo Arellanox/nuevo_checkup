@@ -43,19 +43,13 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
     },
     columns: [
         {
-            data: 'COUNT', render: function (data) {
-                return ifnull(data, '', [data.COUNT])
-            }
+            data: 'COUNT'
         },
         {
-            data: 'NOMBRE', render: function (data) {
-                return ifnull(data, '', [data.NOMBRE])
-            }
+            data: 'NOMBRE'
         },
         {
-            data: 'USUARIO', render: function (data) {
-                return ifnull(data, '', [data.USUARIO])
-            }
+            data: 'USUARIO'
         },
         {
             data: 'TELEFONO', render: function (data) {
