@@ -5,13 +5,15 @@ include_once '../clases/correo_bot_class.php';
 
 $master = new Master();
 
-$api = $_POST['api'];
+$datos = json_decode(file_get_contents('php://input'), true);
+
+$api = $datos['api'];
 
 //Datos a enviar
-$nombre_completo = $_POST['nombre_completo'];
-$fecha_nacimiento = $_POST['fecha_nacimiento'];
-$telefono = $_POST['telefono'];
-$orden_medica = $_POST['orden_medica'];
+$nombre_completo = $datos['nombre_completo'];
+$fecha_nacimiento = $datos['fecha_nacimiento'];
+$telefono = $datos['telefono'];
+$orden_medica = $datos['orden_medica'];
 
 $token = array(
     'ordenMedica' => $orden_medica,

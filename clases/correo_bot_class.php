@@ -1,12 +1,14 @@
 <?php
-include "../clases/correo_class.php";
+include "correo_class_copy.php";
 
-class CorreoBot extends Correo
+class CorreoBot
 {
     private $data;
+    public $correoObj;
     function CorreoBot($data = array())
     {
         $this->data = $data;
+        $this->correoObj = new Correo();
     }
 
     function MandarCorreo(){
@@ -15,7 +17,7 @@ class CorreoBot extends Correo
             // 'isabella.leon@bimo.com.mx'
             'angelpjmy10@gmail.com'
         ];
-
-        parent::sendEmail('botOrdenMedica','Cliente en espera',$correosDestino, $this->data, null, 0, null, null);
+        return $this->correoObj->sendEmail('botOrdenMedica',"Cliente en espera!",$correosDestino, $this->data);
+       # return parent::sendEmail('botOrdenMedica','Cliente en espera',$correosDestino, $this->data);
     }
 }
