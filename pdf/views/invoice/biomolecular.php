@@ -310,7 +310,8 @@ $areas = $resultados->areas[0];
                 "PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA" => 'rT-PCR_pylari_claritromicina',
                 "rT-PCR Entero-DR" => 'rt-PCR_Entero',
                 'Ag. Virus Sincitial Respiratorio' => 'Ag-Virus_Respiratorio',
-                'Prueba rT-PCR de VSR - CoviFlu' => 'pcr-vsr_coviflu'
+                'Prueba rT-PCR de VSR - CoviFlu' => 'pcr-vsr_coviflu',
+                'rT-PCR PneumoBacter' => 'rT-PCR PneumoBacter'
             ];
             return $estudios[$indice] ?? null;
         }
