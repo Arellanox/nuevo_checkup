@@ -1,10 +1,10 @@
 
-class Usuarios{
+class Usuarios {
   id;
   usuario;
   arreglo;
 
-  constructor(values){
+  constructor(values) {
     // if (values != null) {
     //   this.id = values[0];
     //   this.usuario = values['USUARIO']
@@ -14,8 +14,8 @@ class Usuarios{
     this.arreglo = values;
   }
 
-  get arreglo(){ return this._usuario; }
-  set arreglo(value){ this._usuario = value }
+  get arreglo() { return this._usuario; }
+  set arreglo(value) { this._usuario = value }
 
   // get id(){ return this._id; }
   // set id(value){

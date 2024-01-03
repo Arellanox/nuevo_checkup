@@ -67,6 +67,87 @@
     }
 </style>
 
+<?php
+
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        // Opción 1: Utilizar el casting
+        $array_resultante = (array) $objeto;
+
+        // Opción 2: Utilizar get_object_vars
+        // $array_resultante = get_object_vars($objeto);
+
+        return $array_resultante;
+    } else {
+        // Si el argumento no es un objeto, puedes manejarlo de acuerdo a tus necesidades
+        return array();
+    }
+}
+
+# variables donde esta toda la informacion para el certificado de particulares
+$resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
+$cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
+$medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
+$servicios = convertirObjetoAArray($resultado['SERVICIOS']);
+
+// echo "<pre>";
+// var_dump($servicios);
+// echo "</pre>";
+
+# arreglo para rellenar el certificado de particulares
+$particular = array(
+    "Hallazgo" => $cuerpo['hallazgo_encontrados'],
+    "signos_vitales" => $resultados[0]->SIGNOS_VITALES_REPORTE,
+    "exploracion_fisica" => $cuerpo['exploracion_fisica'],
+    "Estudios" => array(
+        "agudeza_visual" => array(
+            "Descripción" => $resultado['OFTALMOLGIA']->AGUDEZA_VISUAL->DESCRIPCION,
+            "OD" => $resultado['OFTALMOLGIA']->AGUDEZA_VISUAL->OD,
+            "OI" => $resultado['OFTALMOLGIA']->AGUDEZA_VISUAL->OI,
+        ),
+        "Jaeger" => array(
+            "Descripcion" => $resultado['OFTALMOLGIA']->JEAGER->DESCRIPCION,
+            "1" => $resultado['OFTALMOLGIA']->JEAGER->jaeger,
+            "vision_cromatica" => "Normal",
+        ),
+        "fondo_ojo" => $cuerpo['fondo_ojo'],
+        "segemento_anterior" => $cuerpo['segemento_anterior'],
+        "segemento_posterior" => $cuerpo['segemento_posterior'],
+        "valoracion_ofatlmolgica" => $resultado['OFTALMOLGIA']->DIAGNOSTICO,
+        "audiometria" => $cuerpo['audiometria'],
+        "espirometria" => $cuerpo['espirometria'],
+        "prueba_esfuerzo" => $cuerpo['prueba_esfuerzo'],
+        "rx_tele_torax" => "Estudio de torax de aspecto normal",
+        "rx_lumbar_anteroposterior" =>  $servicios['COLUMNA LUMBAR ANTEROPOSTERIOR']->INTERPRETACION,
+        "rx_lumbar_lateral" => $servicios['COLUMNA LUMBAR LATERAL']->INTERPRETACION,
+        "ultrasonido_abdominal" => $servicios['ULTRASONIDO DE ABDOMEN COMPLETO']->INTERPRETACION,
+        "ultrasonido_doppler_bilateral" => $servicios['DOPPLER CAROTIDEO BILATERAL']->INTERPRETACION,
+        "mastografia" => $cuerpo['mastrografia'],
+        "citologia_vaginal" => $cuerpo['citologia_vaginal'],
+    ),
+    "Laboratorio" => array(
+        "biometria_hematica" => $cuerpo['biometria_hematica'],
+        "quimica_sanguinea" => $resultado['LABORATORIO']->QUIMICA_SANGUINEA_TEXT,
+        "perfil_tiroideo" => $resultado['LABORATORIO']->PERFIL_TIROIDEO_TEXT,
+        "examen_general_orina" => $cuerpo['examen_general_orina']
+    ),
+    "diagnostico" => $resultado['HISTORIA']->DIAGNOSTICO,
+    "recomendaciones" => $resultado['HISTORIA']->RECOMENDACIONES,
+    "medico" => array(
+        "nombre" => $medico['INFO_UNIVERSIDAD'][0]->NOMBRE_COMPLETO,
+        "profesion" => $medico['INFO_UNIVERSIDAD'][0]->PROFESION,
+        "cedula" => $medico['INFO_UNIVERSIDAD'][0]->CEDULA,
+        "firma" => "",
+        "especialidades" => $medico['INFO_ESPECIALIDAD'][0]->CEDULA
+    ),
+    "paciente" => $resultados[0]->PX
+);
+
+
+
+?>
+
 
 <!-- Contenedor -->
 <div class="body-certificado">
@@ -76,13 +157,13 @@
         <div class="body" style="margin-top: 20px;">
             <p class="none-p">
                 La Médico Cirujano que suscribe adscrita a ésta Institución y registrada con Cédula
-                Profesional número <?php echo "7796595" ?> ante la Dirección General de Profesiones. Certifica que:
+                Profesional número <?php echo $particular['medico']['cedula'] ?> ante la Dirección General de Profesiones. Certifica que:
             </p>
             <p class="none-p" style="text-align: center;"> Practicó examen médico a:</p>
             <p class="none-p" style="font-weight: bold; text-decoration:underline; text-align:center;">
                 <?php
-                # nombre del medico
-                echo "Dora Crystal Olivares Muñóz";
+                # nombre del paciente
+                echo $particular['paciente'];
                 ?>
             </p>
         </div>
@@ -97,36 +178,23 @@
                 <p class="justify">
                     <?php
                     # esto no se que es xd
-                    echo "Femenino de 36 años de edad, madre viva aparentemente sana, su padre falleció por
-                    complicaciones de hipertensión arterial, niega ser alérgica a medicamentos, niega ser
-                    fumador, refiere consumir bebidas alocholicas esporádicamente sin llegar a la embriaguez,
-                    es portadora de estreñimiento; niega transfusiones sanguíneas, consumo de drogas, ni
-                    limitaciones funcionales. Refiere buen estilo de vida, satisfacción personal y laboral con
-                    buen ambiente del mismo.";
+                    echo $particular['Hallazgo'];
                     ?>
                 </p>
             </div>
             <div class="signos-vitales">
                 <p class="justify">
-                    Signos vitales: <?php echo "T.A. 105/73mmHg, FC 69x’, FR 17x´, Temp. 35.7ºC, SpO2: 99%" ?>
+                    Signos vitales:
+                    <span style="font-size: 12px !important;">
+                        <?php echo $particular['signos_vitales'] ?>
+                    </span>
                 </p>
             </div>
             <div class="exploracion-fisica">
                 <p class="justify">
                     <?php
                     # exploracion fisica
-                    echo "A la exploración física, presentó un peso de 62.2kg, talla 158cm, IMC: 26.52kg/m2,
-                    complexión delgada, cráneo simétrico, con adecuada implantación de cabello, teñido a color
-                    beige, lacio y largo. Cara simétrica, sin cicatrices, conjuntiva sin alteraciones, pupilas
-                    isocóricas y normorefléxicas, ambos pabellones auriculares bien implantados sin lesiones,
-                    canales auditivos normales con ambas membranas timpánicas conservadas, cavidad
-                    intraoral: con leve presencia de caries; tórax normolíneo con campos pulmonares ventilados
-                    sin presencia de estertores o sibilancias; ruidos cardiacos rítmicos de buen tono e
-                    intensidad, ambas glándulas mamarias sin lesiones y con buen aspecto de la piel, abdomen
-                    plano y blando con peristalsis aumentada, sin visceromegalias, sin cicatrices, Giordano
-                    negativo bilateral; extremidades integras, funcionales, normoreflexicas. Las actividades
-                    dinámicas de flexión se realizaron sin problemas y sin datos de interés, su coordinación
-                    motora se encuentra normal.";
+                    echo $particular['exploracion_fisica'];
                     ?>
                 </p>
             </div>
@@ -134,32 +202,31 @@
     </div>
     <div class="break"></div>
     <!--   Resultados -->
-    <div class="resultados">
-        <p>Los estudios complementarios presentan los siguientes resultados:</p>
+    <div class="resultados" style="padding:none !important; margin:0 !important;">
+        <p style="padding:none !important; margin:0 !important;">Los estudios complementarios presentan los siguientes resultados:</p>
         <!-- Table One  -->
-        <table>
+        <table style="padding:none !important; margin:0 !important;">
             <tr>
                 <td colspan="4">Valoración oftalmológica</td>
             </tr>
             <tr>
                 <td class="res">
-                    Agudeza visual con
-                    corrección:
+                    Agudeza visual <?php echo $particular['Estudios']['agudeza_visual']['Descripción'] ?>:
                     <br>
-                    OD: 20/20
+                    OD:<?php echo $particular['Estudios']['agudeza_visual']['OD'] ?>
                     <br>
-                    OI: 20/20
+                    OI: <?php echo $particular['Estudios']['agudeza_visual']['OI'] ?>
                 </td>
                 <td class="res">
                     Visión cercana Tarjeta de
-                    Rosenbaum Jaeger sin corrección
+                    Rosenbaum Jaeger <?php echo $particular['Estudios']['Jaeger']['Descripcion'] ?>
                     <br>
-                    1: 20/20
+                    1: <?php echo $particular['Estudios']['Jaeger']['1'] ?>
                     <br>
                     Visión Cromática:
                     <?php
                     # resultado de vision cromatica
-                    echo "Normal"
+                    echo $particular['Estudios']['Jaeger']['vision_cromatica']
                     ?>
                 </td>
                 <td class="res">
@@ -168,20 +235,20 @@
                     <br>
                     <?php
                     # resultado de fondo de ojos
-                    echo "Normal"
+                    echo $particular['Estudios']['fondo_ojo']
                     ?>
                 </td>
                 <td class="res">
                     Segmento Anterior
                     <?php
                     # resultado de segemento anterior
-                    echo "Normal"
+                    echo $particular['Estudios']['segemento_anterior']
                     ?>
                     <br>
                     Segmento Posterior:
                     <?php
                     # resultado de segemento posterior
-                    echo "Normal"
+                    echo $particular['Estudios']['segemento_posterior']
                     ?>
                 </td>
             </tr>
@@ -190,7 +257,7 @@
                     IDx:
                     <?php
                     # resultado de valoracion oftalmologica
-                    echo "Miopia"
+                    echo $particular['Estudios']['valoracion_ofatlmolgica'];
                     ?>
                 </td>
             </tr>
@@ -202,7 +269,7 @@
                     IDx:
                     <?php
                     # resultado de audiometria
-                    echo "Audición bilateral normal"
+                    echo $particular['Estudios']['audiometria'];
                     ?>
                 </td>
             </tr>
@@ -214,7 +281,7 @@
                     IDX:
                     <?php
                     # resultado de espirometria
-                    echo "Espirometría normal."
+                    echo $particular['Estudios']['espirometria'];
                     ?>
                 </td>
             </tr>
@@ -226,8 +293,7 @@
                     -
                     <?php
                     # resultado prueba de esfuerzo
-                    echo "Prueba de esfuerzo máxima por FC y por consumo de oxígeno, negativa para isquemia miocárdica.
-                    Asintomática cardiovascular. Sin arritmias"
+                    echo $particular['Estudios']['prueba_esfuerzo'];
                     ?>
                 </td>
             </tr>
@@ -239,7 +305,7 @@
                     -
                     <?php
                     # resultado rx prueba de tele de torax
-                    echo "Estudio de tórax de aspecto normal."
+                    echo $particular['Estudios']['rx_tele_torax'];
                     ?>
                 </td>
             </tr>
@@ -251,7 +317,9 @@
                     -
                     <?php
                     # resultado rx columna lumbar anteroposterior y lateral
-                    echo "Columna lumbar de aspecto normal.."
+                    echo $particular['Estudios']['rx_lumbar_anteroposterior'];
+                    echo "<br>";
+                    echo '- ' .  $particular['Estudios']['rx_lumbar_lateral'];
                     ?>
                 </td>
             </tr>
@@ -263,7 +331,7 @@
                     -
                     <?php
                     # resultado de ultrasonido abdominal
-                    echo "Ultrasonido abdominal dentro de los parámetros normales."
+                    echo $particular['Estudios']['ultrasonido_abdominal']
                     ?>
                 </td>
             </tr>
@@ -275,7 +343,7 @@
                     -
                     <?php
                     # resultado de ultrasonido doppler
-                    echo "Ultrasonido doppler dentro de los parámetros normales."
+                    echo $particular['Estudios']['ultrasonido_doppler_bilateral']
                     ?>
                 </td>
             </tr>
@@ -286,10 +354,7 @@
                 <td class="res left" colspan="4">
                     <?php
                     # resultado d   e mastografia
-                    echo "- Adenopatías inflamatorias en región axilar derecha. 
-                    <br>
-                     - Categoría Birads 2
-                    "
+                    echo $particular['Estudios']['mastografia'];
                     ?>
                 </td>
             </tr>
@@ -300,14 +365,14 @@
                 <td class="res" colspan="4">
                     <?php
                     # resultado de citologia vaginal
-                    echo "Extendido citológico sin alteraciones en la diferenciación celular."
+                    echo $particular['Estudios']['citologia_vaginal']
                     ?>
                 </td>
             </tr>
         </table>
 
         <!-- Table Two -->
-        <table style="margin-top: 20px;">
+        <table style="margin-top: 10px;">
             <tr>
                 <td colspan="2">
                     Laboratorios
@@ -318,7 +383,7 @@
                 <td class="res justify">
                     <?php
                     # resultado de biometria hematica
-                    echo "Normal.";
+                    echo $particular['Laboratorio']['biometria_hematica']
                     ?>
                 </td>
             </tr>
@@ -327,8 +392,7 @@
                 <td class="res justify">
                     <?php
                     # resultado quimica sanguinea
-                    echo "Glucosa 85mg/dl, Urea 37mg/dl, Bun 19.02mg/dl, Creatinina sérica 0.78
-                    mg/dl, Colesterol total 169mg/dl, Triglicéridos 86mg/dl.";
+                    echo $particular['Laboratorio']['quimica_sanguinea']
                     ?>
                 </td>
             </tr>
@@ -337,8 +401,7 @@
                 <td class="res justify">
                     <?php
                     # resultado de perfil tiroideo
-                    echo "T3 total normal,T3 libre normal, T4 total normal, T4 libre normal, TSH 4.94
-                    uUI/mL.";
+                    echo $particular['Laboratorio']['perfil_tiroideo']
                     ?>
 
                 </td>
@@ -348,7 +411,7 @@
                 <td class="res justify">
                     <?php
                     # resultado de examen general de orina
-                    echo "Normal."
+                    echo $particular['Laboratorio']['examen_general_orina']
                     ?>
                 </td>
             </tr>
@@ -362,8 +425,7 @@
             paciente cuenta con los siguientes diagnósticos: <strong>
                 <?php
                 # diagnostico 
-                echo "SÍNDROME DEL TÚNEL DEL CARPO
-                AMBAS MANOS/ HIPOTIROIDISMO SUBCLÍNICO."
+                echo $particular['diagnostico'];
                 ?>
             </strong>
         </p>
@@ -378,16 +440,7 @@
                 <td class="left">
                     <?php
                     # recomendaciones
-                    echo " 1. Acudir al servicio de Fisioterapia y Rehabilitación.
-                    <br>
-                    2. Acudir al servicio de Endocrinología para realización de estudios de extensión.
-                    <br>
-                    3. Continuar con estilo de vida saludable. Realizar caminata 30 minutos 3 veces a
-                    la semana.
-                    <br>
-                    4. Adoptar medidas de higiene de columna.
-                    <br>
-                    5. Valoración Médica anual"
+                    echo $particular['recomendaciones']
                     ?>
                 </td>
             </tr>
@@ -400,25 +453,28 @@
                 <strong>
                     <?php
                     # nombre de la doctora
-                    echo "Dra. Beatriz Alejandra Ramos Gonzáles"
+                    echo $particular['medico']['nombre'];
                     ?>
                 </strong>
             </p>
             <p class="none-p center">
-                Médico Cirujando
+                <?php
+                # profesion
+                echo $particular['medico']['profesion'];
+                ?>
             </p>
             <p class="none-p center">
                 Cédula profesional:
                 <?php
                 # cedula
-                echo "77965955"
+                echo $particular['medico']['cedula'];
                 ?>
             </p>
             <p class="none-p center">
                 Certificación
                 <?php
                 # certificacion
-                echo "NIOSH SP-000515-23"
+                echo $particular['medico']['especialidad'];
                 ?>
             </p>
         </div>
