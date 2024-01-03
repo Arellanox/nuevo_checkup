@@ -45,7 +45,7 @@
                 <td colspan="12">&nbsp;</td>
             </tr>
             <tr class="bold">
-                <td colspan="12" style="text-align: left;">•<?php echo $value->nombre ?></td>
+                <td colspan="12" style="text-align: left;"><?php echo $value->nombre ?></td>
             </tr>
     <?php
         }
