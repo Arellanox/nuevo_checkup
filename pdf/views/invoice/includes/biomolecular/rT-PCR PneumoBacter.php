@@ -10,6 +10,9 @@
     .resultados_resp td {
         width: 33.3%;
     }
+    .cursive {
+        font-style: italic;
+    }
 </style>
 
 <br>
@@ -36,7 +39,7 @@
             <tr>
                 <td style="text-align: left;" class=""><?php echo $value->nombre ?></td>
                 <td class="<?php echo $value->resultado == 'POSITIVO' ? "bold rojo" : "bold";  ?>" style="text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
-                <td style="text-align:center;"><?php if ($value->resultado != 'N/A') echo "NEGATIVO"; ?></td>
+                <td style="text-align:center;"><?php if ($value->resultado != 'N/A') echo "NO DETECTADO"; ?></td>
             </tr>
         <?php
         } else {
@@ -45,7 +48,7 @@
                 <td colspan="12">&nbsp;</td>
             </tr>
             <tr class="bold">
-                <td colspan="12" style="text-align: left;"><i><?php echo $value->nombre ?></i></td>
+                <td colspan="12" style="text-align: left;" class="cursive"><i><?php echo $value->nombre ?></i></td>
             </tr>
     <?php
         }
