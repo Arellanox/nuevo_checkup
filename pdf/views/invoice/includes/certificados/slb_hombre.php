@@ -7,6 +7,34 @@ $encode = base64_encode($img);
 # logo de bimo
 $img2 = file_get_contents("https://i.ibb.co/hVmkQh6/Image-006.jpg");
 $encode2 = base64_encode($img2);
+
+$medico = array();
+
+# arreglo para rellenar el certificado con la informacion necesaria
+
+$slb_arreglo = array(
+    "medico" => array(
+        "nombre" => "Beatriz Alejandra Ramos González",
+        "profesion" => $medico['INFO_UNIVERSIDAD'][0]->PROFESION,
+        "cedula" => $medico['INFO_UNIVERSIDAD'][0]->CEDULA,
+        "firma" => "",
+        "especialidades" => $medico['INFO_ESPECIALIDAD'][0]->CEDULA
+    ),
+    "paciente" => array(
+        "prefijo" => "Sra",
+        "px" => "Llano Ocampo, Catalina",
+        "fecha_nacimiento" => "09/07/1983",
+        "puesto" => " PROJECT MANAGER",
+        "apto_select" => array(
+            "apto" => "Apto sin restricciones en la industria de gas y petróleo.",
+            "actividades" => null
+        ),
+        "antidopoing" => "NEGATIVO",
+        "grupo_sanguineo" => "AB +",
+        "ADD" => " Se le realizaron los siguientes estudios médicos: BHC, VSG, QS, TGO, TGP, GGT, TSH, perfil de lípidos, Antidoping de 3 elementos, EGO, CPS, Audiometría, Espirometría, Tele de Tórax, Rx AP y lateral de columna lumbar, Agudeza visual, USG abdominal, Prueba de esfuerzo y Ecocardiograma."
+    )
+);
+
 ?>
 
 <style type="text/css">
@@ -72,10 +100,7 @@ $encode2 = base64_encode($img2);
         </div>
         <div class="informacion-medico" style="margin-top:30px;">
             <p class="h1" style="text-align:justify;">
-                <?php
-                # esto no se que es pero tiene informacion del medico 
-                echo  "El Médico Beatriz Alejandra Ramos González, con cedula profesional 7796595 en el registro de profesiones, certifico que el Sr. Soto Cuellar, Carlos Alfonso con fecha de nacimiento 20/10/1995, Segmento SPS en el puesto PL Job Delivery Lead se sometió a un examen médico apoyado de pruebas de laboratorio y gabinete en la fecha 12/10/2023, es medicamente:"
-                ?>
+                El Médico <?php echo $slb_arreglo['medico']['nombre'] ?>, con cedula profesional 7796595 en el registro de profesiones, certifico que el Sr. Soto Cuellar, Carlos Alfonso con fecha de nacimiento 20/10/1995, Segmento SPS en el puesto PL Job Delivery Lead se sometió a un examen médico apoyado de pruebas de laboratorio y gabinete en la fecha 12/10/2023, es medicamente:
             </p>
         </div>
         <div class="div_apto_noapto" style="margin-top: 10px">

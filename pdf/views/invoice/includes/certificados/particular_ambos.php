@@ -143,9 +143,6 @@ $particular = array(
     ),
     "paciente" => $resultados[0]->PX
 );
-
-
-
 ?>
 
 
