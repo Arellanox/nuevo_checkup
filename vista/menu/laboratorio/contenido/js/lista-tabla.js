@@ -397,6 +397,9 @@ function generarFormularioPaciente(id) {
                 },
                 7: {
                   'descripcion': 'Tejido Pleural'
+                },
+                8: {
+                  'descripcion': 'Secreción'
                 }
                 // 4: {
                 //   'descripcion': 'Lavado Bronquial'
