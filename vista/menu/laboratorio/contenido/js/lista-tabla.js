@@ -274,6 +274,9 @@ function generarFormularioPaciente(id) {
                 },
                 5: {
                   'descripcion': 'SURCO BALANO-PREPUSIAL.'
+                },
+                6: {
+                  'descripcion':'HISOPADO GLANDE Y PUBIS'
                 }
               }
               break;
