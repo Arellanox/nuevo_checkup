@@ -91,9 +91,7 @@ $cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
 $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 
-// echo "<pre>";
-// var_dump($servicios);
-// echo "</pre>";
+
 
 # arreglo para rellenar el certificado de particulares
 $particular = array(
@@ -109,11 +107,11 @@ $particular = array(
         "Jaeger" => array(
             "Descripcion" => $resultado['OFTALMOLGIA']->JEAGER->DESCRIPCION,
             "1" => $resultado['OFTALMOLGIA']->JEAGER->jaeger,
-            "vision_cromatica" => "Normal",
+            "vision_cromatica" => $cuerpo['vision_cromatica'],
         ),
         "fondo_ojo" => $cuerpo['fondo_ojo'],
-        "segemento_anterior" => $cuerpo['segemento_anterior'],
-        "segemento_posterior" => $cuerpo['segemento_posterior'],
+        "segemento_anterior" => $cuerpo['segmento_anterior'],
+        "segemento_posterior" => $cuerpo['segmento_posterior'],
         "valoracion_ofatlmolgica" => $resultado['OFTALMOLGIA']->DIAGNOSTICO,
         "audiometria" => $cuerpo['audiometria'],
         "espirometria" => $cuerpo['espirometria'],
@@ -143,6 +141,11 @@ $particular = array(
     ),
     "paciente" => $resultados[0]->PX
 );
+
+// echo "<pre>";
+// var_dump($cuerpo);
+// echo "</pre>";
+
 ?>
 
 

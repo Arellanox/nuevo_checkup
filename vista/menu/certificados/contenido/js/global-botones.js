@@ -94,6 +94,8 @@ function btnCertificados(config) {
         }, 'certificados_api', { callbackAfter: true }, false, function (data) {
           dataPaciente = data.response.data
           console.log(dataPaciente)
+          if (ifnull(dataPaciente[0], false, ['CUERPO']))
+            setFormData('cuerpo_certificado_form', { 'cuerpo': dataPaciente[0]['CUERPO'] })
 
           // Valida quien es el medico actual del paciente, ya sea que no hay
           // guardado o sea el guardado quien esta trantando la interpretación
@@ -120,3 +122,51 @@ $(document).on('click', '#btn-carga_certificado', function () {
   $(`#${'MoldaCertificadoMaster'}`).modal('show')
 })
 
+
+
+// Función para establecer los valores en el formulario
+function setFormData(formId, data, path = '') {
+  const form = document.getElementById(formId);
+  if (!form) {
+    console.error('Formulario no encontrado');
+    return;
+  }
+
+  // Recorre cada entrada de datos
+  Object.entries(data).forEach(([key, value]) => {
+    // Construye el path del input
+    const newPath = path ? `${path}[${key}]` : key;
+
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      // Si es un objeto no nulo y no es un array, continua la recursión
+      setFormData(formId, value, newPath);
+    } else {
+      // Si no es un objeto (es decir, un valor concreto), establece el valor del input
+      const inputName = newPath; // Usa el path construido
+      const input = form.querySelector(`[name='${inputName}']`);
+      console.log(inputName, input, newPath)
+      if (input) {
+        switch (input.type) {
+          case 'textarea':
+          case 'text':
+            // Establece el valor del input
+            input.value = value;
+            break;
+          default:
+
+            if (input.type === 'radio' || input.type === 'checkbox') {
+              // Busca el input específico que tenga el valor correspondiente
+              const specificInput = form.querySelector(`[name='${inputName}'][value='${value}']`);
+              if (specificInput) {
+                specificInput.checked = true;
+              } else {
+                console.error('No se encontró el input de tipo ' + input.type + ' con el valor ' + value);
+              }
+            }
+        }
+      } else {
+        console.error('Input no encontrado con el nombre:', inputName);
+      }
+    }
+  });
+}

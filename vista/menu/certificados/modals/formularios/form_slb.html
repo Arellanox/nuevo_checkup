@@ -1,6 +1,25 @@
-<form class="row">
+<div class="row fs-5">
+
+    <div class="rounded bg-white p-4 my-2 shadow">
+        <div class="ps-3 pe-2 py-1 mb-3 border-1 border-bottom">
+            <p class="text-left">Información personal</p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-2">
+                    <label for="">Dirigido a:</label>
+                    <select name="cuerpo[dirigido_a]" id="">
+                        <option value="Srita">Srita</option>
+                        <option value="Sra">Sra</option>
+                        <option value="Sr">Sr</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Estado del paciente (Apto o no Apto) -->
-    <div class="rounded p-3 shadow my-2" id="lado-izquierdo">
+    <div class="rounded bg-white p-4 my-2 shadow" id="lado-izquierdo">
         <p class="text-center">El paciente <strong>medicamente esta:</strong></p>
         <hr class="dropdown-divider m-2">
 
@@ -46,7 +65,9 @@
         </div>
 
     </div>
-</form>
+
+
+</div>
 
 
 <!-- <form class="" id="formSubirCertificadoSLB">
