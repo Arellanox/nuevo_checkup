@@ -15,7 +15,7 @@
 <br>
 <br>
 <br>
-
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[7]->resultado ?></strong> </p>
 <table style="width: 100%;">
     <tr style="background-color: darkgrey;">
         <td style=" padding:3px;"><strong>rT-PCR PneumoBacter </strong></td>
@@ -29,7 +29,7 @@
     </tr>
     <?php
 
-    # $body = array_slice($body, 0, count($body) - 4);
+    $body = array_slice($body, 0, count($body) - 1);
     foreach ($body as $key => $value) {
         if ($value->resultado != 'LABEL_BIOMOLECULAR') {
     ?>
@@ -45,7 +45,7 @@
                 <td colspan="12">&nbsp;</td>
             </tr>
             <tr class="bold">
-                <td colspan="12" style="text-align: left;"><?php echo $value->nombre ?></td>
+                <td colspan="12" style="text-align: left;"><i><?php echo $value->nombre ?></i></td>
             </tr>
     <?php
         }
