@@ -232,6 +232,9 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5:{
+                  'descripcion': 'EXPECTORACIÓN'
                 }
               }
               break;
