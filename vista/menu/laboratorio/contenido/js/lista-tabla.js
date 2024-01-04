@@ -205,7 +205,7 @@ function generarFormularioPaciente(id) {
 
           //Creo valores por defecto para Biomolecular
           switch (row['ID_GRUPO']) {
-            case '685': case '684': // <-- PCR -->
+            case '685': case '684': case '1486': // <-- PCR -->
               kitDiag = {
                 0: {
                   'descripcion': 'CoviFlu Kit Multiplex',
@@ -503,6 +503,10 @@ function generarFormularioPaciente(id) {
                   'descripcion': 'Expectoración'
                 }
               }
+
+              break;
+            case '':
+              // pneumoBacter
 
               break;
 

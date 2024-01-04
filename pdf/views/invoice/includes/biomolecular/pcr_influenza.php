@@ -15,7 +15,7 @@
 <br>
 <br>
 <br>
-<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[8]->resultado ?></strong> </p>
+<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[10]->resultado ?></strong> </p>
 
 <table style="width: 100%;" cellspacing="0">
     <tr style="background-color: #d3d3d3;">
@@ -29,7 +29,7 @@
         <td style="height: 10px"></td>
     </tr>
     <?php
-    $body = array_slice($body, 0, count($body) - 1);
+    $body = array_slice($body, 0, count($body) - 5);
     foreach ($body as $key => $value) {
         $valor_ct = strpos($value->nombre, 'Valor CT') !== false;
         if ($valor_ct) {
@@ -79,7 +79,7 @@
 <!-- Comentario -->
 <p style=" text-align: justify; font-size:14px">
     <strong style="font-size:14px">Comentarios:</strong>
-    EstapruebaidentificaentiemporeallapresenciadelCoronavirus SARS-CoV-2, Influenza A (incluidos los subtipos A(H3) y A (H1N1), Influenza B (incluidos los linajes Victoria y Yamagata), el resultadonegativodelapruebanosignifica inmunidad y el
+    Esta prueba identifica en tiempo real la presencia del Coronavirus SARS-CoV-2, Influenza A (incluidos los subtipos A(H3) y A (H1N1), Influenza B (incluidos los linajes Victoria y Yamagata), el resultadonegativodelapruebanosignifica inmunidad y el
     médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
 </p>
 <br>
