@@ -66,7 +66,7 @@
 <!-- Comentario -->
 <p style=" text-align: justify;">
     <strong>Comentarios:</strong>
-    El Kit Allplex™ PneumoBacter es un ensayo de PCR multiplex en tiempo real que permite la amplificación simultánea y la detección de ácidos nucléicos de destino de Chlamydophila pneumoniae, Mycoplasma pneumoniae, Legionella pneumophila, Bordetella pertussis, Bordetella parapertussis y Streptococcus pneumoniae. Y el Médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
+    El Kit Allplex™ PneumoBacter es un ensayo de PCR multiplex en tiempo real que permite la amplificación simultánea y la detección de ácidos nucléicos de destino de <em>Chlamydophila pneumoniae, Mycoplasma pneumoniae, Legionella pneumophila, Bordetella pertussis, Bordetella parapertussis y Streptococcus pneumoniae</em>. Y el Médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
 </p>
 <br>
 <br>
