@@ -76,7 +76,7 @@
 function passdata($indice)
 {
     $estudios = [
-        "slb_hombre" => [
+        "slb_masculino" => [
             'encabezado' => 'encabezado_slb', // Coloca el nombre del encabezado
             'footer' => false // Indica que no conlleva
         ],

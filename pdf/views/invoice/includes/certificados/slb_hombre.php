@@ -1,4 +1,19 @@
 <?php
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        // Opción 1: Utilizar el casting
+        $array_resultante = (array) $objeto;
+
+        // Opción 2: Utilizar get_object_vars
+        // $array_resultante = get_object_vars($objeto);
+
+        return $array_resultante;
+    } else {
+        // Si el argumento no es un objeto, puedes manejarlo de acuerdo a tus necesidades
+        return array();
+    }
+}
 
 # firma del medico
 $img = file_get_contents("https://i.ibb.co/GQsJwcZ/Image-005.jpg");
@@ -9,31 +24,38 @@ $img2 = file_get_contents("https://i.ibb.co/hVmkQh6/Image-006.jpg");
 $encode2 = base64_encode($img2);
 
 $medico = array();
+$cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
+// $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
+$medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
+// $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
+
+echo "<pre>";
+var_dump($cuerpo);
+echo "</pre>";
 
 # arreglo para rellenar el certificado con la informacion necesaria
-
-$slb_arreglo = array(
-    "medico" => array(
-        "nombre" => "Beatriz Alejandra Ramos González",
-        "profesion" => $medico['INFO_UNIVERSIDAD'][0]->PROFESION,
-        "cedula" => $medico['INFO_UNIVERSIDAD'][0]->CEDULA,
-        "firma" => "",
-        "especialidades" => $medico['INFO_ESPECIALIDAD'][0]->CEDULA
-    ),
-    "paciente" => array(
-        "prefijo" => "Sra",
-        "px" => "Llano Ocampo, Catalina",
-        "fecha_nacimiento" => "09/07/1983",
-        "puesto" => " PROJECT MANAGER",
-        "apto_select" => array(
-            "apto" => "Apto sin restricciones en la industria de gas y petróleo.",
-            "actividades" => null
-        ),
-        "antidopoing" => "NEGATIVO",
-        "grupo_sanguineo" => "AB +",
-        "ADD" => " Se le realizaron los siguientes estudios médicos: BHC, VSG, QS, TGO, TGP, GGT, TSH, perfil de lípidos, Antidoping de 3 elementos, EGO, CPS, Audiometría, Espirometría, Tele de Tórax, Rx AP y lateral de columna lumbar, Agudeza visual, USG abdominal, Prueba de esfuerzo y Ecocardiograma."
-    )
-);
+// $slb_arreglo = array(
+//     "medico" => array(
+//         "nombre" => "Beatriz Alejandra Ramos González",
+//         "profesion" => $medico['INFO_UNIVERSIDAD'][0]->PROFESION,
+//         "cedula" => $medico['INFO_UNIVERSIDAD'][0]->CEDULA,
+//         "firma" => "",
+//         "especialidades" => $medico['INFO_ESPECIALIDAD'][0]->CEDULA
+//     ),
+//     "paciente" => array(
+//         "prefijo" => "Sra",
+//         "px" => "Llano Ocampo, Catalina",
+//         "fecha_nacimiento" => "09/07/1983",
+//         "puesto" => " PROJECT MANAGER",
+//         "apto_select" => array(
+//             "apto" => "Apto sin restricciones en la industria de gas y petróleo.",
+//             "actividades" => null
+//         ),
+//         "antidopoing" => "NEGATIVO",
+//         "grupo_sanguineo" => "AB +",
+//         "ADD" => " Se le realizaron los siguientes estudios médicos: BHC, VSG, QS, TGO, TGP, GGT, TSH, perfil de lípidos, Antidoping de 3 elementos, EGO, CPS, Audiometría, Espirometría, Tele de Tórax, Rx AP y lateral de columna lumbar, Agudeza visual, USG abdominal, Prueba de esfuerzo y Ecocardiograma."
+//     )
+// );
 
 ?>
 
