@@ -155,7 +155,7 @@ $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
 $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 
-$fecha_original = formatear_fecha($resultados[0]->fecha_nacimiento);
+$fecha_original = formatear_fecha($resultados[0]->fecha_resultado);
 
 // echo "<pre>";
 // var_dump($resultados);
