@@ -130,12 +130,18 @@ function formatear_fecha($fecha)
 
 function obtenerDiferenciaFechas($fechaFinal)
 {
+    // Obtener la fecha actual sin hora, minutos ni segundos
     $fechaActual = new DateTime();
+    $fechaActual->setTime(0, 0, 0);
 
+    // Convertir la fecha final a objeto DateTime y establecer la hora a cero
     $fechaFinalObj = new DateTime($fechaFinal);
+    $fechaFinalObj->setTime(0, 0, 0);
 
+    // Calcular la diferencia entre las fechas
     $diferencia = $fechaActual->diff($fechaFinalObj);
 
+    // Obtener la diferencia en años, meses y días
     $anos = $diferencia->y;
     $meses = $diferencia->m;
     $dias = $diferencia->d;
