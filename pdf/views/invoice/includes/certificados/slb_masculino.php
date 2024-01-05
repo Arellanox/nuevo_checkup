@@ -32,11 +32,11 @@ $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 // echo "</pre>";
 // exit;
 
-
+# se formatean las fechas
 $fecha_nacimiento  = date("d/m/Y", strtotime($resultados[0]->fecha_nacimiento));
 $fecha_recepcion = date("d/m/Y", strtotime($resultados[0]->fecha_recepcion));
-$edad = (int)$resultados[0]->EDAD;
-
+$edad = (int)$resultados[0]->EDAD; # la edad se pasa a tipo INT
+# se valida si es mayor de 40
 if ($edad > 40) {
     $ADD = "Se le realizaron los siguientes estudios médicos: BHC, VSG, QS, TGO, TGP,
             GGT, TSH, perfil de lípidos, Antidoping de 3 elementos, EGO, CPS, Audiometría,
@@ -74,7 +74,6 @@ $slb_arreglo = array(
         "ADD" => $ADD
     )
 );
-
 ?>
 
 <style type="text/css">
