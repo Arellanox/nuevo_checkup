@@ -125,7 +125,7 @@ $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
 $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 
 // echo "<pre>";
-// var_dump($cuerpo);
+// var_dump();
 // echo "</pre>";
 // exit;
 
@@ -188,7 +188,7 @@ $vinco = array(
         "segemento_posterior" => $cuerpo['segmento_posterior'],
         "valoracion_ofatlmolgica" => $resultado['OFTALMOLGIA']->DIAGNOSTICO,
         "audiometria" => $cuerpo['audiometria'],
-        "rx_tele_torax" => "Estudio de torax de aspecto normal",
+        "rx_tele_torax" => $servicios['TELE DE TÓRAX POSTERO ANTERIOR (PA)']->INTERPRETACION,
         "rx_lumbar_anteroposterior" =>  $servicios['COLUMNA LUMBAR ANTEROPOSTERIOR']->INTERPRETACION,
         "rx_lumbar_lateral" => $servicios['COLUMNA LUMBAR LATERAL']->INTERPRETACION,
         "ultrasonido_abdominal" => $servicios['ULTRASONIDO DE ABDOMEN COMPLETO']->INTERPRETACION,
@@ -843,7 +843,7 @@ $vinco = array(
             <strong>
                 <?php
                 # diagnostico 
-                echo $particular['diagnostico'];
+                echo $vinco['diagnostico'];
                 ?>
             </strong>
         </p>
@@ -858,7 +858,7 @@ $vinco = array(
                 <td class="left">
                     <?php
                     # recomendaciones
-                    echo $particular['recomendaciones']
+                    echo $vinco['recomendaciones']
                     ?>
                 </td>
             </tr>
@@ -871,28 +871,28 @@ $vinco = array(
                 <strong>
                     <?php
                     # nombre de la doctora
-                    echo $particular['medico']['nombre'];
+                    echo $vinco['medico']['nombre'];
                     ?>
                 </strong>
             </p>
             <p class="none-p center">
                 <?php
                 # profesion
-                echo $particular['medico']['profesion'];
+                echo $vinco['medico']['profesion'];
                 ?>
             </p>
             <p class="none-p center">
                 Cédula profesional:
                 <?php
                 # cedula
-                echo $particular['medico']['cedula'];
+                echo $vinco['medico']['cedula'];
                 ?>
             </p>
             <p class="none-p center">
                 Certificación
                 <?php
                 # certificacion
-                echo $particular['medico']['especialidad'];
+                echo $vinco['medico']['especialidad'];
                 ?>
             </p>
         </div>
