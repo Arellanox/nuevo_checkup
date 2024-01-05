@@ -74,12 +74,12 @@
           </section>
 
           <!-- Vista de formulario (Escritorio o mas) -->
-          <section class="col-12 col-lg-3">
+          <section class="col-12 col-lg-3 overflow-auto" style="height: 100%;">
             <div id="listado-resultados"></div>
           </section>
 
           <!-- Vista de formulario (Escritorio o mas) -->
-          <section class="col-12 col-lg-4">
+          <section class="col-12 col-lg-4 overflow-auto" style="height: 100%;">
             <div id="pdfviewer" style="height: 100%;">
               <div id="adobe-dc-view"></div>
 
@@ -96,8 +96,22 @@
           Cancelar</button>
 
         <!--form="formSubirCertificadoSLB"-->
-        <button type="submit" form="cuerpo_certificado_form" class="btn btn-confirmar-subir">
+        <!-- <button type="submit" form="cuerpo_certificado_form" class="btn btn-confirmar-subir">
           <i class="bi bi-person-plus"></i> Guardar
+        </button> -->
+
+
+        <button type="button" class="btn_interpretacion_modal btn btn-borrar" id="btn-vistaPrevia">
+          <i class="bi bi-file-earmark-pdf"></i> Vista previa
+
+        </button>
+
+        <button type="button" class="btn_interpretacion_modal btn btn-confirmar" id="btn-guardarInterpretacion">
+          <i class="bi bi-clipboard2-plus"></i> Guardar interpretación
+        </button>
+
+        <button type="button" class="btn_interpretacion_modal btn btn-confirmar" id="btn-confirmarReporte">
+          <i class="bi bi-clipboard2-plus"></i> Confirmar reporte
         </button>
       </div>
     </div>
