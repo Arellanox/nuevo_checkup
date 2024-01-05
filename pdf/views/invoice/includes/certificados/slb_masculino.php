@@ -32,10 +32,11 @@ $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 // echo "</pre>";
 // exit;
 
+# se formatean las fechas
 $fecha_nacimiento  = date("d/m/Y", strtotime($resultados[0]->fecha_nacimiento));
 $fecha_recepcion = date("d/m/Y", strtotime($resultados[0]->fecha_recepcion));
-$edad = (int)$resultados[0]->EDAD;
-
+$edad = (int)$resultados[0]->EDAD; # la edad se pasa a tipo INT
+# se valida si es mayor de 40
 if ($edad > 40) {
     $ADD = "Se le realizaron los siguientes estudios médicos: BHC, VSG, QS, TGO, TGP,
             GGT, TSH, perfil de lípidos, Antidoping de 3 elementos, EGO, CPS, Audiometría,
@@ -69,11 +70,10 @@ $slb_arreglo = array(
             "comentario" => $cuerpo['apto_restricciones']->comentario
         ),
         "antidoping" => $resultados[0]->SLB_JSON->ANTIDOPING,
-        "grupo_sanguineo" => "AB +",
+        "grupo_sanguineo" => $resultados[0]->SLB_JSON->GRUPO_SANGUINEO,
         "ADD" => $ADD
     )
 );
-
 ?>
 
 <style type="text/css">
@@ -213,7 +213,7 @@ $slb_arreglo = array(
                 Nombre del Medico examinador:
                 <?php
                 # nombre del medico
-                echo "Ramos Gonzales, Beatriz Alenjandra."
+                echo $slb_arreglo['medico']['nombre'];
                 ?>
             </p class="h1">
             <p class="h1">
