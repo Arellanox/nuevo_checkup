@@ -68,3 +68,38 @@ function hasLocation() {
   }
 
 }
+
+
+
+
+// Reinicia el formulario de interpretación
+function limpiarForm(form) {
+  document.getElementById(form).reset()
+  $(`#${form} div.collapse`).collapse('hide'); // Oculta de nuevo todos los collapse
+}
+
+// Cambia y muestra los botones del formulario
+function estadoFormulario(guardado, confirmado) {
+  let $vista_previa = $('#btn-vistaPrevia') // Boton de vista previa de pdf
+  let $confirmar_rept = $('#btn-confirmarReporte') // Boton de confirmar reporte
+  let $guardar_inter = $('#btn-guardarInterpretacion') // Boton de guardar interpretación
+
+  // Resetea los botones para colocar el estado apropiado
+  $('.btn_interpretacion_modal').prop('disabled', false)
+
+  if (guardado == 0 && confirmado == 0) {
+    // Estado cuando no tiene nada de datos
+    $vista_previa.fadeOut()
+    $confirmar_rept.fadeOut()
+  } else if (guardado == 1 && confirmado == 0) {
+    // Estado cuando solo esta guardado
+    $('.btn_interpretacion_modal').fadeIn() // Recupera/Visualiza todo
+  } else {
+    // Estado cuando Esta confirmado
+    $confirmar_rept.prop('disabled', true)
+    $guardar_inter.prop('disabled', true)
+
+  }
+}
+
+

@@ -44,13 +44,54 @@ $('#cuerpo_certificado_form').submit(function (e) {
         text: 'No podra modificarlos',
         icon: 'warning',
     }, () => {
-        console.log(pdf_format)
-        ajaxAwaitFormData({ api: 3, tipo_certificado: pdf_format, turno_id: datalist['ID_TURNO'] }, 'certificados_api', 'cuerpo_certificado_form', { callbackAfter: true }, false, () => {
-            alertToast('Se han guardado los datos corretamente!', 'success', 4000)
-        })
+
     }, 1)
 
 });
+
+
+$(document).on('click', '#btn-guardarInterpretacion', function (e) {
+    e.preventDefault();
+    title = '¿Esta seguro de guardar la valoración prequirúrgica?'
+    text = 'Se podra modificarlo despues'
+    btnAlertas(title, text, 0)
+})
+
+$(document).on('click', '#btn-confirmarReporte', function (e) {
+    e.preventDefault();
+    title = '¿Esta seguro de confirmar el reporte?'
+    text = 'No se podra modificar despues'
+    btnAlertas(title, text, 1)
+})
+
+
+function btnAlertas(title, text, bit) {
+    alertMensajeConfirm({
+        title: title,
+        text: text,
+        icon: 'warning',
+        confirmButtonText: 'Si, estoy seguro'
+    }, function () {
+        guardarDatos(bit)
+    }, 1)
+}
+
+
+function guardarDatos(bit) {
+
+    console.log(pdf_format)
+    ajaxAwaitFormData({ api: 3, tipo_certificado: pdf_format, turno_id: datalist['ID_TURNO'], confirmado: bit }, 'certificados_api', 'cuerpo_certificado_form', { callbackAfter: true }, false, () => {
+        alertToast('Se han guardado los datos corretamente!', 'success', 4000)
+
+        estadoFormulario(1, bit);
+    })
+
+}
+
+
+
+
+
 
 
 $(document).on('click', '#listado-resultados div.collapse a[target="_blank"]', (event) => {
@@ -83,4 +124,14 @@ $(document).on('click', '#listado-resultados div.collapse a[target="_blank"]', (
         metaData: { fileName: filename }
     });
 
+})
+
+
+$(document).on('click', '#btn-vistaPrevia', function () {
+
+    let api = encodeURIComponent(window.btoa('certificados_medicos'));
+    let turno = encodeURIComponent(window.btoa($(this).attr('turno_actual')));
+    let area = encodeURIComponent(window.btoa('-5'));
+
+    window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 })

@@ -75,6 +75,7 @@ function btnCertificados(config) {
     }
 
 
+    // Reinicia el formulario cada vez
     $(`#${'cuerpo_certificado_form'}`).html(''); // Limpiar el cuerpo de HTML
     $.post(`modals/formularios/${form_html}`, function (html) {
       $(`#${'cuerpo_certificado_form'}`).html(html);
@@ -94,8 +95,11 @@ function btnCertificados(config) {
         }, 'certificados_api', { callbackAfter: true }, false, function (data) {
           dataPaciente = data.response.data
           console.log(dataPaciente)
-          if (ifnull(dataPaciente[0], false, ['CUERPO']))
+          if (ifnull(dataPaciente[0], false, ['CUERPO'])) {
             setFormData('cuerpo_certificado_form', { 'cuerpo': dataPaciente[0]['CUERPO'] })
+            estadoFormulario(1, 0);
+          }
+          // Cambia el estado del formulario
 
           // Valida quien es el medico actual del paciente, ya sea que no hay
           // guardado o sea el guardado quien esta trantando la interpretación
@@ -131,6 +135,9 @@ function setFormData(formId, data, path = '') {
     console.error('Formulario no encontrado');
     return;
   }
+
+  // Limpia el formulario
+  // limpiarForm(formId);
 
   // Recorre cada entrada de datos
   Object.entries(data).forEach(([key, value]) => {

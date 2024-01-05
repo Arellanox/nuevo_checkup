@@ -52,8 +52,11 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
   async function (selectTR, array, callback) {
 
     datalist = array
+    // Reinicia el formulario
+    estadoFormulario(0, 0)
 
     if (selectTR == 1) {
+
       dataSelect = new GuardarArreglo({
         select: true,
         // nombre_paciente: datalist['NOMBRE_COMPLETO'],
@@ -68,6 +71,7 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
       $("#accordinSignosSomatometria .accordion-button:first").removeClass('collapsed');
       $("#accordinSignosSomatometria .accordion-collapse:first").addClass('show');
 
+      $('#btn-vistaPrevia').attr('turno_actual', datalist['ID_TURNO'])
 
       await btnCertificados({
         cliente: datalist['CLIENTE'],
