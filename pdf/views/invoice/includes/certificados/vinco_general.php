@@ -118,14 +118,47 @@ function convertirObjetoAArray($objeto)
     }
 }
 
+function formatear_fecha($fecha)
+{
+    $timestamp = strtotime($fecha);
+
+    $fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+    $fecha_formateada = $fmt->format($timestamp);
+
+    return $fecha_formateada;
+}
+
+function obtenerDiferenciaFechas($fechaFinal)
+{
+    $fechaActual = new DateTime();
+
+    $fechaFinalObj = new DateTime($fechaFinal);
+
+    $diferencia = $fechaActual->diff($fechaFinalObj);
+
+    $anos = $diferencia->y;
+    $meses = $diferencia->m;
+    $dias = $diferencia->d;
+
+    if ($anos > 0) {
+        return "$anos año" . ($anos > 1 ? 's' : '');
+    } elseif ($meses > 0) {
+        return "$meses mes" . ($meses > 1 ? 'es' : '');
+    } else {
+        return "$dias día" . ($dias > 1 ? 's' : '');
+    }
+}
+
 # aqui se recibe la data
 $cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
 $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
 $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 
+$fecha_original = formatear_fecha($resultados[0]->fecha_nacimiento);
+
 // echo "<pre>";
-// var_dump($cuerpo);
+// var_dump($resultados);
 // echo "</pre>";
 // exit;
 
@@ -133,10 +166,10 @@ $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 $vinco = array(
     "paciente" => array(
         "nombre" => $resultados[0]->PX,
-        "fecha" => "07 octubre 2023",
+        "fecha" => $fecha_original,
         "lugar" => "Villahermosa, Tabasco.",
         "edad" => $resultados[0]->EDAD_L,
-        "nacionalidad" => $resultado[0]->NACIONALIDAD
+        "nacionalidad" => $resultados[0]->NACIONALIDAD
     ),
     "examen_medico" => array(
         "tipo" => $cuerpo['tipo_examen_medico'],
@@ -146,8 +179,8 @@ $vinco = array(
     "diagnostico_tabla" => "PITIRIASIS VERSICOLOR EN PIERNA DERECHA",
     "clasificacion" => $cuerpo['clasificacion_grado_salud'],
     "aptitud_trabajo" => $cuerpo['aptitud'],
-    "vigencia" => $cuerpo['vigencia_certificado'],
-    "fecha_vencimiento" => "06/10/2024",
+    "vigencia" => obtenerDiferenciaFechas($cuerpo['vigencia_certificado']),
+    "fecha_vencimiento" =>  formatear_fecha($cuerpo['vigencia_certificado']),
     "estudios" => array(
         "Audiometria_tonal" => $cuerpo['audiometria_tonal'],
         "valoracion_visual" => $cuerpo['valoracion_visual'],
@@ -156,7 +189,7 @@ $vinco = array(
         "electrocardiograma" => $cuerpo['electrocardiograma_analisis'],
         "inbody" => $cuerpo['inbody'],
         "signos_vitales_1" => $cuerpo['signos_vitales'],
-        "biometria_hematica_completa"  => $cuerpo['biometria_hematica_analisis'],
+        "biometria_hematica_completa" => $cuerpo['biometria_hematica_analisis'],
         "quimica_sanguinea_6" => $cuerpo['quimica_6_elementos'],
         "perfil_droga_5" => $cuerpo['perfil_drogas_5_elementos'],
         "etanol_sangre" => $cuerpo['etanol_sangre'],
@@ -189,7 +222,7 @@ $vinco = array(
         "valoracion_ofatlmolgica" => $resultado['OFTALMOLGIA']->DIAGNOSTICO,
         "audiometria" => $cuerpo['audiometria'],
         "rx_tele_torax" => $servicios['TELE DE TÓRAX POSTERO ANTERIOR (PA)']->INTERPRETACION,
-        "rx_lumbar_anteroposterior" =>  $servicios['COLUMNA LUMBAR ANTEROPOSTERIOR']->INTERPRETACION,
+        "rx_lumbar_anteroposterior" => $servicios['COLUMNA LUMBAR ANTEROPOSTERIOR']->INTERPRETACION,
         "rx_lumbar_lateral" => $servicios['COLUMNA LUMBAR LATERAL']->INTERPRETACION,
         "ultrasonido_abdominal" => $servicios['ULTRASONIDO DE ABDOMEN COMPLETO']->INTERPRETACION,
         "ultrasonido_doppler_bilateral" => $servicios['DOPPLER CAROTIDEO BILATERAL']->INTERPRETACION,
