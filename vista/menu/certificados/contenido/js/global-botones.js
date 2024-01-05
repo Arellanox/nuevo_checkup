@@ -74,6 +74,8 @@ function btnCertificados(config) {
         break;
     }
 
+    // 
+    $(`#${'cliente_certificado'}`).html(pdf_format == 'particular_ambos' ? 'PARTICULAR' : config.cliente);
 
     // Reinicia el formulario cada vez
     $(`#${'cuerpo_certificado_form'}`).html(''); // Limpiar el cuerpo de HTML
