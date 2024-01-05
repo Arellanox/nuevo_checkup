@@ -164,7 +164,7 @@ $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 $fecha_original = formatear_fecha($resultados[0]->fecha_resultado);
 
 // echo "<pre>";
-// var_dump($resultados);
+// var_dump($cuerpo['ap_lateral_columna']);
 // echo "</pre>";
 // exit;
 
@@ -191,7 +191,7 @@ $vinco = array(
         "Audiometria_tonal" => $cuerpo['audiometria_tonal'],
         "valoracion_visual" => $cuerpo['valoracion_visual'],
         "tele_torax" => $cuerpo['tele_torax'],
-        "rx_lateral_columna" => "De aspecto normal",
+        "rx_lateral_columna" => $cuerpo['ap_lateral_columna'],
         "electrocardiograma" => $cuerpo['electrocardiograma_analisis'],
         "inbody" => $cuerpo['inbody'],
         "signos_vitales_1" => $cuerpo['signos_vitales'],
