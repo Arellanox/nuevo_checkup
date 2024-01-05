@@ -32,14 +32,14 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$turno_id = 502;
+$turno_id = 2068;
 $api = "certificados_medicos";
 $area_id = -5;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
 
-$preview = "slb_masculino"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
+$preview = "vinco_general"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 
 switch ($api) {

@@ -100,6 +100,110 @@
     }
 </style>
 
+<?php
+
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        // Opción 1: Utilizar el casting
+        $array_resultante = (array) $objeto;
+
+        // Opción 2: Utilizar get_object_vars
+        // $array_resultante = get_object_vars($objeto);
+
+        return $array_resultante;
+    } else {
+        // Si el argumento no es un objeto, puedes manejarlo de acuerdo a tus necesidades
+        return array();
+    }
+}
+
+# aqui se recibe la data
+$cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
+$medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
+$resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
+$servicios = convertirObjetoAArray($resultado['SERVICIOS']);
+
+// echo "<pre>";
+// var_dump($cuerpo);
+// echo "</pre>";
+// exit;
+
+# arreglo para rellenar el certificado de vinco
+$vinco = array(
+    "paciente" => array(
+        "nombre" => $resultados[0]->PX,
+        "fecha" => "07 octubre 2023",
+        "lugar" => "Villahermosa, Tabasco.",
+        "edad" => $resultados[0]->EDAD_L,
+        "nacionalidad" => $resultado[0]->NACIONALIDAD
+    ),
+    "examen_medico" => array(
+        "tipo" => $cuerpo['tipo_examen_medico'],
+        "procedencia" => "VINCO",
+        "posicion" => $resultados[0]->PROFESION,
+    ),
+    "diagnostico_tabla" => "PITIRIASIS VERSICOLOR EN PIERNA DERECHA",
+    "clasificacion" => $cuerpo['clasificacion_grado_salud'],
+    "aptitud_trabajo" => "1",
+    "vigencia" => $cuerpo['vigencia_certificado'] . " AÑO",
+    "fecha_vencimiento" => "06/10/2024",
+    "estudios" => array(
+        "Audiometria_tonal" => $cuerpo['audiometria_tonal'],
+        "valoracion_visual" => $cuerpo['valoracion_visual'],
+        "tele_torax" => $cuerpo['tele_torax'],
+        "rx_lateral_columna" => "De aspecto normal",
+        "electrocardiograma" => $cuerpo['electrocardiograma_analisis'],
+        "inbody" => $cuerpo['inbody'],
+        "signos_vitales_1" => $cuerpo['signos_vitales'],
+        "biometria_hematica_completa"  => $cuerpo['biometria_hematica_analisis'],
+        "quimica_sanguinea_6" => $cuerpo['quimica_6_elementos'],
+        "perfil_droga_5" => $cuerpo['perfil_drogas_5_elementos'],
+        "etanol_sangre" => $cuerpo['etanol_sangre'],
+        "examen_orina" => $cuerpo['examen_general_orina']
+    ),
+    "medico" => array(
+        "nombre" => $medico['INFO_UNIVERSIDAD'][0]->NOMBRE_COMPLETO,
+        "profesion" => $medico['INFO_UNIVERSIDAD'][0]->PROFESION,
+        "cedula" => $medico['INFO_UNIVERSIDAD'][0]->CEDULA,
+        "firma" => "",
+        "especialidades" => $medico['INFO_ESPECIALIDAD'][0]->CEDULA
+    ),
+    "Hallazgo" => $cuerpo['hallazgo_encontrados'],
+    "signos_vitales" => $resultados[0]->SIGNOS_VITALES_REPORTE,
+    "exploracion_fisica" => $cuerpo['exploracion_fisica'],
+    "Estudios_2" => array(
+        "agudeza_visual" => array(
+            "Descripción" => $resultado['OFTALMOLGIA']->AGUDEZA_VISUAL->DESCRIPCION,
+            "OD" => $resultado['OFTALMOLGIA']->AGUDEZA_VISUAL->OD,
+            "OI" => $resultado['OFTALMOLGIA']->AGUDEZA_VISUAL->OI,
+        ),
+        "Jaeger" => array(
+            "Descripcion" => $resultado['OFTALMOLGIA']->JEAGER->DESCRIPCION,
+            "1" => $resultado['OFTALMOLGIA']->JEAGER->jaeger,
+            "vision_cromatica" => $cuerpo['vision_cromatica'],
+        ),
+        "fondo_ojo" => $cuerpo['fondo_ojo'],
+        "segemento_anterior" => $cuerpo['segmento_anterior'],
+        "segemento_posterior" => $cuerpo['segmento_posterior'],
+        "valoracion_ofatlmolgica" => $resultado['OFTALMOLGIA']->DIAGNOSTICO,
+        "audiometria" => $cuerpo['audiometria'],
+        "rx_tele_torax" => "Estudio de torax de aspecto normal",
+        "rx_lumbar_anteroposterior" =>  $servicios['COLUMNA LUMBAR ANTEROPOSTERIOR']->INTERPRETACION,
+        "rx_lumbar_lateral" => $servicios['COLUMNA LUMBAR LATERAL']->INTERPRETACION,
+        "ultrasonido_abdominal" => $servicios['ULTRASONIDO DE ABDOMEN COMPLETO']->INTERPRETACION,
+        "ultrasonido_doppler_bilateral" => $servicios['DOPPLER CAROTIDEO BILATERAL']->INTERPRETACION,
+        "electrocardiograma" => $cuerpo['electrocardiograma']
+    ),
+    "Laboratorio" => array(
+        "biometria_hematica" => $cuerpo['biometria_hematica'],
+        "quimica_sanguinea" => $resultado['LABORATORIO']->QUIMICA_SANGUINEA_TEXT,
+        "examen_general_orina" => $cuerpo['examen_general_orina']
+    ),
+    "diagnostico" => $resultado['HISTORIA']->DIAGNOSTICO,
+    "recomendaciones" => $resultado['HISTORIA']->RECOMENDACIONES
+);
+?>
 <!-- Body -->
 <div class="body-certificado">
     <!-- Header -->
@@ -123,7 +227,7 @@
                 <strong>
                     <?php
                     # lugar supongo que del paciente xd
-                    echo "Villahermosa, Tabasco."
+                    echo $vinco['paciente']['lugar']
                     ?>
                 </strong>
             </td>
@@ -132,7 +236,7 @@
                 <strong>
                     <?php
                     # sabra dios que fecha se requiere ahi
-                    echo "07 octubre 2023"
+                    echo $vinco['paciente']['fecha']
                     ?>
                 </strong>
             </td>
@@ -143,7 +247,7 @@
                 <strong>
                     <?php
                     # nombre del pacientes 
-                    echo "Gabriel Chavez Sanchez"
+                    echo $vinco['paciente']['nombre'];
                     ?>
                 </strong>
             </td>
@@ -152,7 +256,7 @@
                 <strong>
                     <?php
                     # edad
-                    echo "49 años"
+                    echo $vinco['paciente']['edad'];
                     ?>
                 </strong>
             </td>
@@ -161,7 +265,7 @@
                 <strong>
                     <?php
                     # nacionalidad
-                    echo "Mexicana"
+                    echo $vinco['paciente']['nacionalidad'];
                     ?>
                 </strong>
             </td>
@@ -188,7 +292,7 @@
                 <strong>
                     <?php
                     # procedencia
-                    echo "VINCO"
+                    echo $vinco['examen_medico']['procedencia']
                     ?>
                 </strong>
             </td>
@@ -199,7 +303,7 @@
                 <strong>
                     <?php
                     # no se que es pero es de que trabaja creo xd
-                    echo "Ingeniero de campo."
+                    echo $vinco['examen_medico']['posicion']
                     ?>
                 </strong>
             </td>
@@ -212,7 +316,7 @@
             <td colspan="10" class="center bold italic pb">
                 <?php
                 # diagnostico
-                echo "PITIRIASIS VERSICOLOR EN PIERNA DERECHA"
+                echo $vinco['diagnostico_tabla']
                 ?>
             </td>
         </tr>
@@ -223,7 +327,7 @@
             <td colspan="10" class="center bold italic pb">
                 <?php
                 # no se que es pero tiene un 1
-                echo "1"
+                echo $vinco['clasificacion']
                 ?>
             </td>
         </tr>
@@ -260,7 +364,7 @@
             <td style="border-top: none;" class="p">
                 <?php
                 # vigencia
-                echo "1 año"
+                echo $vinco['vigencia']
                 ?>
             </td>
             <td style="border-top: none;" class="p  bg center bold italic"> FECHA DE
@@ -268,7 +372,7 @@
             <td style="border-top: none;" class="p">
                 <?php
                 # fecha de vencimiento
-                echo "06/10/2024"
+                echo $vinco['fecha_vencimiento']
                 ?>
             </td>
         </tr>
@@ -308,7 +412,7 @@
             <td class="center">
                 <?php
                 # resultado de audiometria tonal
-                echo "Normal"
+                echo $vinco['estudios']['Audiometria_tonal']
                 ?>
             </td>
             <td class="bold center">
@@ -317,7 +421,7 @@
             <td class="center">
                 <?php
                 # resultado de signos vitales
-                echo "Normal"
+                echo $vinco['estudios']['signos_vitales_1']
                 ?>
             </td>
         </tr>
@@ -328,7 +432,7 @@
             <td class="center">
                 <?php
                 # resultado de valoración visual
-                echo "N/A"
+                echo $vinco['estudios']['valoracion_visual']
                 ?>
             </td>
             <td class="bold center">
@@ -338,7 +442,7 @@
             <td class="center">
                 <?php
                 # resultado de biometria hematica completa
-                echo "Normal"
+                echo $vinco['estudios']['biometria_hematica_completa']
                 ?>
             </td>
         </tr>
@@ -349,7 +453,7 @@
             <td class="center">
                 <?php
                 # resultado de tele de torax
-                echo "De aspecto normal"
+                echo $vinco['estudios']['tele_torax']
                 ?>
             </td>
             <td class="bold center">
@@ -359,7 +463,7 @@
             <td class="center">
                 <?php
                 # resultado de quimica sanguineo 6 elementos
-                echo "Normal"
+                echo $vinco['estudios']['quimica_sanguinea_6']
                 ?>
             </td>
 
@@ -369,10 +473,9 @@
                 Rx Ap y latera de columna
             </td>
             <td class="center">
-                De aspecto normal
                 <?php
                 # resultado de rx ap y latera de columna
-                echo "De aspecto normal"
+                echo $vinco['estudios']['rx_lateral_columna']
                 ?>
             </td>
             <td class="bold center">
@@ -381,8 +484,8 @@
             </td>
             <td class="center">
                 <?php
-                # resultado de perfil de drog   as 5 elementos
-                echo "Negativo"
+                # resultado de perfil de drogas 5 elementos
+                echo $vinco['estudios']['perfil_droga_5']
                 ?>
             </td>
         </tr>
@@ -393,7 +496,7 @@
             <td class="center">
                 <?php
                 # resultado de electrocardiograma
-                echo "Sin alteraciones"
+                echo $vinco['estudios']['electrocardiograma']
                 ?>
             </td>
             <td class="bold center">
@@ -402,7 +505,7 @@
             <td class="center">
                 <?php
                 # resultado de etanol en sangre
-                echo "Negativo"
+                echo $vinco['estudios']['etanol_sangre']
                 ?>
             </td>
         </tr>
@@ -413,7 +516,7 @@
             <td class="center">
                 <?php
                 # resultado de inbody
-                echo "Sobrepeso "
+                echo $vinco['estudios']['inbody']
                 ?>
             </td>
             <td class="bold center">
@@ -422,7 +525,7 @@
             <td class="center">
                 <?php
                 # resultado de examen general de orina
-                echo "Normal"
+                echo $vinco['estudios']['examen_orina'];
                 ?>
             </td>
         </tr>
@@ -432,19 +535,21 @@
             <p class="bold none-p center">
                 <?php
                 # nombre de la doctora
-                echo "Dra. Beatriz Alejandra Ramos González"
+                echo $vinco['medico']['nombre']
                 ?>
             </p>
             <p class="bold none-p center">
+                Cédula profesional:
                 <?php
                 # cedula profesional
-                echo "Cédula profesional: 77965955"
+                echo $vinco['medico']['cedula']
                 ?>
             </p>
             <p class="bold none-p center">
+                Certificación
                 <?php
                 # certificacion de no se que
-                echo "Certificación NIOSH SP-000515-23"
+                echo $vinco['medico']['especialidades']
                 ?>
             </p>
         </div>
@@ -534,17 +639,14 @@
         <h1 style="text-align: center;">Certificado Médico</h1>
         <div class="body" style="margin-top: 20px;">
             <p class="none-p">
-                <?php
-                # texto donde viene la informacion del medico 
-                echo "La Médico Cirujano que suscribe adscrita a ésta Institución y registrada con Cédula
-                Profesional número 7796595 ante la Dirección General de Profesiones. Certifica que:"
-                ?>
+                La Médico Cirujano que suscribe adscrita a ésta Institución y registrada con Cédula
+                Profesional número <?php echo $vinco['medico']['cedula'] ?> ante la Dirección General de Profesiones. Certifica que:
             </p>
             <p class="none-p" style="text-align: center;"> Practicó examen médico a:</p>
             <p class="none-p" style="font-weight: bold; text-decoration:underline; text-align:center;">
                 <?php
                 # nombre del paciente creo xd
-                echo "Gabriel Chávez Sánchez"
+                echo $vinco['paciente']['nombre']
                 ?>
             </p>
         </div>
@@ -559,40 +661,23 @@
                 <p class="justify">
                     <?php
                     # supongo que son los hallazgos
-                    echo " Masculino de 49 años de edad, madre viva con antecedente de cáncer (el paciente refiere
-                    no saber el tipo), padre falleció por accidente automovilístico, niega alergia a medicamentos
-                    o alimentos, niega ser fumador, consume bebidas alcohólicas ocasionalmente sin llegar a
-                    la embriaguez; niega consumo de drogas, ni limitaciones funcionales. Refiere buen estilo
-                    de vida, satisfacción personal y laboral con buen ambiente del mismo."
+                    echo $vinco['Hallazgo']
                     ?>
                 </p>
             </div>
             <div class="signos-vitales">
                 <p class="justify">
-                    <?php
-                    # signos vitales
-                    echo "Signos vitales: T.A. 120/78mmHg, FC 64x’, FR 15x´, Temp. 36.4ºC, SpO2: 98%."
-                    ?>
+                    Signos vitales:
+                    <span style="font-size: 12px !important;">
+                        <?php echo $vinco['signos_vitales'] ?>
+                    </span>
                 </p>
             </div>
             <div class="exploracion-fisica">
                 <p class="justify">
                     <?php
                     # exploracion fisica
-
-                    echo "  A la exploración física, presentó un peso de 82.3kg, talla 174cm, IMC: 27.18kg/m2,
-                    complexión media, cráneo simétrico, con adecuada implantación de cabello, color castaño
-                    oscuro, lacio y corto. Cara simétrica, conjuntiva sin alteraciones, pupilas isocóricas y
-                    normorefléxicas, ambos pabellones auriculares bien implantados sin lesiones, canales
-                    auditivos sin alteraciones y membranas timpánicas conservadas, cavidad intraoral: sin
-                    presencia de caries, edentulismo de órgona dental 48 y 38, presencia de amalgamas en
-                    órganos dentales 47, 46, 17, 16 y 26; tórax normolíneo con campos pulmonares ventilados
-                    sin presencia de estertores o sibilancias; ruidos cardiacos rítmicos de buen tono e
-                    intensidad, abdomen semigloboso con leve presencia de panículo adiposo peristalsis
-                    normoactivas, sin visceromegalias, no tiene tatuajes o cicatrices solos e observas
-                    hipopigmentaciones en hipogastrio, Giordano negativo bilateral; extremidades integras,
-                    funcionales, normoreflexicas. Las actividades dinámicas de flexión se realizaron sin
-                    problemas y sin datos de interés, su coordinación motora se encuentra normals"
+                    echo $vinco['exploracion_fisica']
                     ?>
                 </p>
             </div>
@@ -609,50 +694,78 @@
             </tr>
             <tr>
                 <td class="res">
-                    Agudeza visual con
-                    corrección:
+                    Agudeza visual <?php echo $vinco['Estudios_2']['agudeza_visual']['Descripción'] ?>:
                     <br>
-                    OD: N/A
+                    OD:<?php echo $vinco['Estudios_2']['agudeza_visual']['OD'] ?>
                     <br>
-                    OI: N/A
+                    OI: <?php echo $vinco['Estudios_2']['agudeza_visual']['OI'] ?>
                 </td>
                 <td class="res">
                     Visión cercana Tarjeta de
-                    Rosenbaum Jaeger sin corrección
+                    Rosenbaum Jaeger <?php echo $vinco['Estudios_2']['Jaeger']['Descripcion'] ?>
                     <br>
-                    1: N/A
+                    1: <?php echo $vinco['Estudios_2']['Jaeger']['1'] ?>
                     <br>
-                    Visión Cromática: N/A
+                    Visión Cromática:
+                    <?php
+                    # resultado de vision cromatica
+                    echo $vinco['Estudios_2']['Jaeger']['vision_cromatica']
+                    ?>
                 </td>
                 <td class="res">
                     Fondo de
                     Ojo:
                     <br>
-                    N/A
+                    <?php
+                    # resultado de fondo de ojos
+                    echo $vinco['Estudios_2']['fondo_ojo']
+                    ?>
                 </td>
                 <td class="res">
                     Segmento Anterior
-                    N/A
+                    <?php
+                    # resultado de segemento anterior
+                    echo $vinco['Estudios_2']['segemento_anterior']
+                    ?>
                     <br>
                     Segmento Posterior:
-                    N/A
+                    <?php
+                    # resultado de segemento posterior
+                    echo $vinco['Estudios_2']['segemento_posterior']
+                    ?>
                 </td>
             </tr>
             <tr>
-                <td class="res" colspan="4">IDx: N/A</td>
+                <td class="res" colspan="4">
+                    IDx:
+                    <?php
+                    # resultado de valoracion oftalmologica
+                    echo $vinco['Estudios_2']['valoracion_ofatlmolgica'];
+                    ?>
+                </td>
             </tr>
             <tr>
                 <td colspan="4">Audiometría</td>
             </tr>
             <tr>
-                <td class="res" colspan="4">IDx: Audición bilateral normal.</td>
+                <td class="res" colspan="4">
+                    IDx:
+                    <?php
+                    # resultado de audiometria
+                    echo $vinco['Estudios_2']['audiometria'];
+                    ?>
+                </td>
             </tr>
             <tr>
                 <td colspan="4">Rx Tele de tórax</td>
             </tr>
             <tr>
                 <td class="res left" colspan="4">
-                    - Radiografía dentro de los parámetros normales por este método de imagen
+                    -
+                    <?php
+                    # resultado rx prueba de tele de torax
+                    echo $vinco['Estudios_2']['rx_tele_torax'];
+                    ?>
                 </td>
             </tr>
             <tr>
@@ -660,7 +773,13 @@
             </tr>
             <tr>
                 <td class="res left" colspan="4">
-                    - Columna lumbar de aspecto normal.
+                    -
+                    <?php
+                    # resultado rx columna lumbar anteroposterior y lateral
+                    echo $vinco['Estudios_2']['rx_lumbar_anteroposterior'];
+                    echo "<br>";
+                    echo '- ' .  $vinco['Estudios_2']['rx_lumbar_lateral'];
+                    ?>
                 </td>
             </tr>
             <tr>
@@ -668,13 +787,17 @@
             </tr>
             <tr>
                 <td class="res left" colspan="4">
-                    - Normal
+                    -
+                    <?php
+                    # resultado de electrocardiograma
+                    echo $vinco['Estudios_2']['electrocardiograma'];
+                    ?>
                 </td>
             </tr>
         </table>
 
         <!-- Table Two -->
-        <table style="margin-top: 20px;">
+        <table style="margin-top: 10px;">
             <tr>
                 <td colspan="2">
                     Laboratorios
@@ -682,19 +805,29 @@
             </tr>
             <tr>
                 <td class="res" style="width: 50%;">Biometria Hemática</td>
-                <td class="res justify">Normal.</td>
+                <td class="res justify">
+                    <?php
+                    # resultado de biometria hematica
+                    echo $vinco['Laboratorio']['biometria_hematica']
+                    ?>
+                </td>
             </tr>
             <tr>
                 <td class="res" style="width: 50%;">Química sanguínea</td>
                 <td class="res justify">
-                    Glucosa 76mg/dl, Urea 30.1mg/dl, Bun 14.07mg/dl, Creatinina sérica 1.18
-                    mg/dl, Colesterol total 142mg/dl, Triglicéridos 299mg/d
+                    <?php
+                    # resultado quimica sanguinea
+                    echo $vinco['Laboratorio']['quimica_sanguinea']
+                    ?>
                 </td>
             </tr>
             <tr>
                 <td class="res" style="width: 50%;">Examen General de Orina</td>
                 <td class="res justify">
-                    Normal.
+                    <?php
+                    # resultado de examen general de orina
+                    echo $vinco['Laboratorio']['examen_general_orina']
+                    ?>
                 </td>
             </tr>
         </table>
@@ -706,8 +839,12 @@
     <div class="conclusion">
         <p class="justify">
             Por lo que, con los datos encontrados en su exploración y sus estudios, se concluye que el
-            paciente cuenta con los siguientes diagnósticos: <strong>
-                pitiriasis versicolor.
+            paciente cuenta con los siguientes diagnósticos:
+            <strong>
+                <?php
+                # diagnostico 
+                echo $particular['diagnostico'];
+                ?>
             </strong>
         </p>
         <p>
@@ -719,11 +856,10 @@
             </tr>
             <tr>
                 <td class="left">
-                    1.- Acudir al servicio de Dermatología. </br>
-                    2.- Acudir al servicio de Odontología </br>
-                    3.- Continuar con estilo de vida saludable. </br>
-                    4.- Adoptar medidas de higiene de columna. </br>
-                    5.- Realizar valoración médica anual </br>
+                    <?php
+                    # recomendaciones
+                    echo $particular['recomendaciones']
+                    ?>
                 </td>
             </tr>
         </table>
@@ -733,17 +869,31 @@
             </p>
             <p class="none-p center">
                 <strong>
-                    Dra. Beatriz Alejandra Ramos Gonzáles
+                    <?php
+                    # nombre de la doctora
+                    echo $particular['medico']['nombre'];
+                    ?>
                 </strong>
             </p>
             <p class="none-p center">
-                Médico Cirujando
+                <?php
+                # profesion
+                echo $particular['medico']['profesion'];
+                ?>
             </p>
             <p class="none-p center">
-                Cédula profesional: 77965955
+                Cédula profesional:
+                <?php
+                # cedula
+                echo $particular['medico']['cedula'];
+                ?>
             </p>
             <p class="none-p center">
-                Certificación NIOSH SP-000515-23
+                Certificación
+                <?php
+                # certificacion
+                echo $particular['medico']['especialidad'];
+                ?>
             </p>
         </div>
     </div>
