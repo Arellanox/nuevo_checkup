@@ -132,6 +132,7 @@ $(document).on('click', '#btn-vistaPrevia', function () {
     let api = encodeURIComponent(window.btoa('certificados_medicos'));
     let turno = encodeURIComponent(window.btoa($(this).attr('turno_actual')));
     let area = encodeURIComponent(window.btoa('-5'));
+    let preview = encodeURIComponent(window.btoa(pdf_format));
 
-    window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+    window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&preview=${preview}`, "_blank");
 })

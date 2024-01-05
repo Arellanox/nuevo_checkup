@@ -543,6 +543,7 @@ class Miscelaneus
                 //     break;
 
             case -5:
+            case '-5':
                 #Certificados médicos
                 $arregloPaciente = $this->getBodyCertificado(
                     $master,

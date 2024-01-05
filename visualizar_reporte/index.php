@@ -23,6 +23,7 @@ $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $id_cotizacion = mb_convert_encoding(base64_decode(urldecode($_GET['id_cotizacion'])), 'UTF-8');
+$preview = mb_convert_encoding(base64_decode(urldecode($_GET['preview'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
 // $api = 'biomolecular';
@@ -30,7 +31,7 @@ $usuario_id = $_SESSION['id'];
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
 
-$preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
+// $preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 // $api = "audiometria";
 // $area_id = 4;
@@ -92,6 +93,9 @@ switch ($api) {
         break;
     case 'audiometria':
         $r = $master->reportador($master, $turno_id, 4, 'audiometria', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'certificados_medicos':
+        $r = $master->reportador($master, $turno_id, '-5', 'certificados_medicos', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
