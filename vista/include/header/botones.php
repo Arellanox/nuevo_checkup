@@ -220,7 +220,7 @@ $menu = $_POST['menu']; ?>
 
 <?php if (
   $menu == 'Reportes de Laboratorio Clínico' ||
-  $menu == 'Validación y envío de resultados de laboratorio' ||
+  $menu == 'Validación de resultados de laboratorio' ||
   $menu == 'Laboratorio Clínico' ||
   $menu == 'Resultados de Laboratorio Clinico' ||
   $menu == 'Resultados de Laboratorio Biomolecular' ||
