@@ -94,7 +94,7 @@ function btnCertificados(config) {
           tipo_certificado: pdf_format
         }, 'certificados_api', { callbackAfter: true }, false, function (data) {
           dataPaciente = data.response.data
-          console.log(dataPaciente)
+
           if (ifnull(dataPaciente[0], false, ['CUERPO'])) {
             setFormData('cuerpo_certificado_form', { 'cuerpo': dataPaciente[0]['CUERPO'] })
             estadoFormulario(1, 0);
@@ -151,11 +151,13 @@ function setFormData(formId, data, path = '') {
       // Si no es un objeto (es decir, un valor concreto), establece el valor del input
       const inputName = newPath; // Usa el path construido
       const input = form.querySelector(`[name='${inputName}']`);
-      console.log(inputName, input, newPath)
+      console.log(input, input.type)
       if (input) {
         switch (input.type) {
           case 'textarea':
           case 'text':
+          case 'date':
+          case 'select-one':
             // Establece el valor del input
             input.value = value;
             break;

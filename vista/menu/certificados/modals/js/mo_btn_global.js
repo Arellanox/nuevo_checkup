@@ -16,25 +16,6 @@ function datosPaciente(data, cliente) {
 
 }
 
-// $('#btn-subirCertificadoSLB').on('click', function () {
-//     // console.log('Click al btn de slb')
-//     // dataJson = {}
-
-//     // dataJson['']
-//     // dataJson['add'] = $('#add-2').val()
-
-//     // console.log(dataJson)
-
-//     var formulario = document.getElementById('formSubirCertificadoSLB'); // Reemplaza 'tuFormulario' con el ID de tu formulario
-//     var elementos = formulario.elements;
-
-//     for (var i = 0; i < elementos.length; i++) {
-//         console.log("Nombre del elemento:", elementos[i].name);
-//         console.log("Tipo del elemento:", elementos[i].type);
-//         // Puedes agregar más información según tus necesidades
-//     }
-// })
-
 
 $('#cuerpo_certificado_form').submit(function (e) {
     e.preventDefault();
@@ -78,14 +59,11 @@ function btnAlertas(title, text, bit) {
 
 
 function guardarDatos(bit) {
-
-    console.log(pdf_format)
     ajaxAwaitFormData({ api: 3, tipo_certificado: pdf_format, turno_id: datalist['ID_TURNO'], confirmado: bit }, 'certificados_api', 'cuerpo_certificado_form', { callbackAfter: true }, false, () => {
         alertToast('Se han guardado los datos corretamente!', 'success', 4000)
 
         estadoFormulario(1, bit);
     })
-
 }
 
 
@@ -101,7 +79,6 @@ $(document).on('click', '#listado-resultados div.collapse a[target="_blank"]', (
     let url = $(this).attr('href')
 
     // Agrega de forma dinamica el reporte en vista
-    console.log($(this).attr('href'))
 
     // Obtener el texto del enlace de colapso
     let collapseLinkText = $(this).closest('div.collapse').prev().find('a').text().trim();
