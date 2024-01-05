@@ -390,7 +390,7 @@ $vinco = array(
             <td colspan="1"></td>
             <td colspan="1" <?php if ($vinco['aptitud_trabajo'] == "2") : ?> class="bg-black" <?php endif ?> data=""></td>
             <td colspan="8">
-                APTO PARA TRABAJAR
+                APTO PARA TRABAJAR CON RESTRICCIONES
             </td>
         </tr>
         <tr>
