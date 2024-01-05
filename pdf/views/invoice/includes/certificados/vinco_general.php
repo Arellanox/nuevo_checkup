@@ -125,7 +125,7 @@ $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
 $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 
 // echo "<pre>";
-// var_dump();
+// var_dump($cuerpo);
 // echo "</pre>";
 // exit;
 
@@ -145,8 +145,8 @@ $vinco = array(
     ),
     "diagnostico_tabla" => "PITIRIASIS VERSICOLOR EN PIERNA DERECHA",
     "clasificacion" => $cuerpo['clasificacion_grado_salud'],
-    "aptitud_trabajo" => "1",
-    "vigencia" => $cuerpo['vigencia_certificado'] . " AÑO",
+    "aptitud_trabajo" => $cuerpo['aptitud'],
+    "vigencia" => $cuerpo['vigencia_certificado'],
     "fecha_vencimiento" => "06/10/2024",
     "estudios" => array(
         "Audiometria_tonal" => $cuerpo['audiometria_tonal'],
@@ -160,7 +160,7 @@ $vinco = array(
         "quimica_sanguinea_6" => $cuerpo['quimica_6_elementos'],
         "perfil_droga_5" => $cuerpo['perfil_drogas_5_elementos'],
         "etanol_sangre" => $cuerpo['etanol_sangre'],
-        "examen_orina" => $cuerpo['examen_general_orina']
+        "examen_orina" => $cuerpo['examen_general_orina_analisis']
     ),
     "medico" => array(
         "nombre" => $medico['INFO_UNIVERSIDAD'][0]->NOMBRE_COMPLETO,
@@ -203,6 +203,7 @@ $vinco = array(
     "diagnostico" => $resultado['HISTORIA']->DIAGNOSTICO,
     "recomendaciones" => $resultado['HISTORIA']->RECOMENDACIONES
 );
+
 ?>
 <!-- Body -->
 <div class="body-certificado">
@@ -276,15 +277,25 @@ $vinco = array(
         </tr>
         <tr>
             <td>INGRESO</td>
-            <td class="bold center"></td>
+            <td class="bold center">
+                <?php if ($vinco['examen_medico']['tipo'] == "1") : ?> X <?php endif ?>
+            </td>
             <td>PERIODICO</td>
-            <td class="bold center">X</td>
+            <td class="bold center">
+                <?php if ($vinco['examen_medico']['tipo'] == "2") : ?> X <?php endif ?>
+            </td>
             <td>EGRESO</td>
-            <td class="bold center"></td>
+            <td class="bold center">
+                <?php if ($vinco['examen_medico']['tipo'] == "3") : ?> X <?php endif ?>
+            </td>
             <td>ESPECIAL</td>
-            <td class="bold center"></td>
+            <td class="bold center">
+                <?php if ($vinco['examen_medico']['tipo'] == "4") : ?> X <?php endif ?>
+            </td>
             <td>OTRO:</td>
-            <td class="bold center"></td>
+            <td class="bold center">
+                <?php if ($vinco['examen_medico']['tipo'] == "5") : ?> X <?php endif ?>
+            </td>
         </tr>
         <tr>
             <td colspan="10">
@@ -337,21 +348,21 @@ $vinco = array(
         </tr>
         <tr>
             <td colspan="1"></td>
-            <td colspan="1" class="bg-black"></td>
+            <td colspan="1" <?php if ($vinco['aptitud_trabajo'] == "1") : ?> class="bg-black" <?php endif ?> data=""></td>
             <td colspan="8">
                 APTO PARA TRABAJAR
             </td>
         </tr>
         <tr>
             <td colspan="1"></td>
-            <td colspan="1"></td>
+            <td colspan="1" <?php if ($vinco['aptitud_trabajo'] == "2") : ?> class="bg-black" <?php endif ?> data=""></td>
             <td colspan="8">
                 APTO PARA TRABAJAR
             </td>
         </tr>
         <tr>
             <td colspan="1"></td>
-            <td colspan="1"></td>
+            <td colspan="1" <?php if ($vinco['aptitud_trabajo'] == "3") : ?> class="bg-black" <?php endif ?> data=""></td>
             <td colspan="8">
                 NO APTO PARA TRABAJAR
             </td>
