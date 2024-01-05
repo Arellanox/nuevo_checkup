@@ -124,20 +124,20 @@
                 <div class="mb-2">
                     <label for="">Aptitud de trabajo:</label>
                     <select name="cuerpo[tipo_examen_medico]" class="input-form">
-                        <option value="Apto">Apto</option>
-                        <option value="Apto_2">Apto_2</option>
-                        <option value="No_Apto">No_Apto</option>
+                        <option value="1">Apto</option>
+                        <!-- <option value="2">Apto_2</option> -->
+                        <option value="3">No_Apto</option>
                     </select>
                 </div>
             </div>
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Vigencia:</label>
-                    <div class="input-group flex-nowrap">
-                        <input type="number" name="cuerpo[vigencia_certificado]"
-                            class="form-control input-form text-end fs-5" rows="1" cols="2" placeholder="0">
-                        <span class="input-group-text input-span">años</span>
-                    </div>
+                    <!-- <div class="input-group flex-nowrap"> -->
+                    <input type="date" name="cuerpo[vigencia_certificado]" class="form-control input-form text-end fs-5"
+                        rows="1" cols="2" placeholder="0">
+                    <!-- <span class="input-group-text input-span">años</span> -->
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -174,7 +174,7 @@
             <div class="col-12 col-lg-6">
                 <div class="mb-2">
                     <label for="">Rx AP y Lateral de columna:</label>
-                    <textarea name="cuerpo[audiometria_tonal]" class="form-control input-form fs-5" rows="1" cols="2"
+                    <textarea name="cuerpo[ap_lateral_columna]" class="form-control input-form fs-5" rows="1" cols="2"
                         placeholder="Especifique"></textarea>
                 </div>
             </div>
@@ -230,8 +230,8 @@
             <div class="col-12 col-lg-6">
                 <div class="mb-2">
                     <label for="">Examen general de orina:</label>
-                    <textarea name="cuerpo[examen_general_orina]" class="form-control input-form fs-5" rows="1" cols="2"
-                        placeholder="Especifique"></textarea>
+                    <textarea name="cuerpo[examen_general_orina_analisis]" class="form-control input-form fs-5" rows="1"
+                        cols="2" placeholder="Especifique"></textarea>
                 </div>
             </div>
         </div>
