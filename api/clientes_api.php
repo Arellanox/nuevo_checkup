@@ -94,6 +94,9 @@ switch ($api) {
                 $response[0][] = "Sin segmentos";
                 $response[0]['SEGMENTOS'] = "Sin segmentos";
             }
+
+            $response[0]['CUESTIONARIOS'] = $master->decodeJson([$response[0]['CUESTIONARIOS']]);
+            $response[0]['CUESTIONARIOS'] = $response[0]['CUESTIONARIOS'][0];
         }
         break;
     case 3:

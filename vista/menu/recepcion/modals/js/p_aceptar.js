@@ -14,12 +14,19 @@ select2("#select-rx", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-us", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-otros", "modalPacienteAceptar", 'Seleccione un estudio');
 select2('#select-segmento-aceptar', "modalPacienteAceptar", 'Seleccione un segmento');
+select2('#select-vendedor', 'modalPacienteAceptar', 'Selecciona un vendedor') //<-- //Rellena el select de los vendedores
 select2('#select-recepcion-medicos-tratantes', 'modalPacienteAceptar', 'Seleccione un medico tratante')
 
 const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
   limpiarFormAceptar();
+
+  reset_email_inputs_medicos();
+
+
   document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
+
+
   // document.getElementById("btn-confirmar-paciente").disabled = true;
 
   // if (array_selected['CLIENTE_ID'] == 18) {
@@ -48,41 +55,46 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
 
   //Pruebas
   await rellenarSelect("#select-lab", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    cliente_id: array_selected['CLIENTE_ID'],
     area_id: 6,
-    cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     estudiosLab = data;
   });
 
 
   await rellenarSelect("#select-labbio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    cliente_id: array_selected['CLIENTE_ID'],
     area_id: 12,
-    cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosLabBio = data;
   });
   await rellenarSelect('#select-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    cliente_id: array_selected['CLIENTE_ID'],
     area_id: 11,
-    cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosUltra = data;
   });
   await rellenarSelect('#select-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    cliente_id: array_selected['CLIENTE_ID'],
     area_id: 8,
-    cliente_id: array_selected['CLIENTE_ID']
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosRX = data;
   });
   await rellenarSelect('#select-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-    area_id: 0,
     cliente_id: array_selected['CLIENTE_ID'],
+    area_id: 0,
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosOtros = data;
   });
+  rellenarSelect('#select-vendedor', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto', {}, () => {
+    $('#select-vendedor').val(0).trigger("change")
+  })
+
+
 
   rellenarSelect('#select-recepcion-medicos-tratantes', 'medicos_tratantes_api', 2, 'ID_MEDICO', 'NOMBRE_MEDICO', {}, () => {
     $('#select-recepcion-medicos-tratantes').val(0).trigger('change');
@@ -156,7 +168,11 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     diagnostico: $('#diagnostico-aceptar-paciente').val(),
     segmento_id: $('#select-segmento-aceptar').val(),
     servicios: estudiosEnviar,
+    medico_tratante: $('#medico-aceptar-paciente').val(),
+    medico_correo: $('#medico-correo-aceptar').val(),
+    vendedor: $('#select-vendedor').val(),
     nuevo_medico: 0,
+    medico_tratante_id: 0
   }
 
   if ($("#checkBox-NewMedico").is(":checked")) {

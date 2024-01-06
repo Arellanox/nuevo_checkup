@@ -149,4 +149,5 @@ ModalVisualizarEstudiosPaciente.addEventListener('show.bs.modal', event => {
             .columns.adjust();
     }, 210);
 
+    $(`#${'adobe-dc-view'}`).html('');
 })

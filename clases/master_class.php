@@ -140,7 +140,8 @@ class Master extends Miscelaneus
         } else {
             $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
             $this->mis->setLog($error_msj, $nombreProcedimiento);
-            $this->mis->setLog("call ".$nombreProcedimiento."(".implode(",",$parametros).")","[Reproduce el error en la base]");
+            // parent::setLog("Esto recibió","call $nombreProcedimiento(".implode(",",$parametros).")");
+            $this->mis->setLog("call " . $nombreProcedimiento . "(" . implode(",", $parametros) . ")", "[Reproduce el error en la base]");
 
             # return "ERROR. No se pudieron recuperar los datos.";
             $retorno = "Alerta: la consulta al servidor no se realizó correctamente";
@@ -151,7 +152,7 @@ class Master extends Miscelaneus
 
         # cerramos la conexion a la base de datos.
         $conexion = null;
-        
+
         return $retorno;
     }
 

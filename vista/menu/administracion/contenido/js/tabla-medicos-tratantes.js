@@ -140,15 +140,21 @@ function SaveDataMedicoTratante(data = false) {
 // Function para configurar el modal para agregar o actualizar un usuario a un medico tratante
 async function configurarModal() {
     LimpiarModal()
+    reset_email_inputs_medicos();
+
     const NOMBRE_MEDICO = SelectedMedicosTratantes['NOMBRE_MEDICO'];
     const EMAIL_MEDICO = SelectedMedicosTratantes['EMAIL'];
+    const TELEFONO_MEDICO = SelectedMedicosTratantes['TELEFONO'];
+    const ESPECIALIDAD_MEDICO = SelectedMedicosTratantes['ESPECIALIDAD'];
     const ID_MEDICO = SelectedMedicosTratantes['ID_MEDICO'];
 
     $('#usuarioMedicoTitle').html(`Modificar información del médico: <b>${NOMBRE_MEDICO}</b>`)
 
 
     $('#nombre-medicoTrarante-a').val(NOMBRE_MEDICO)
-    $('#email-medicoTratante-a').val(ifnull(EMAIL_MEDICO, 'Sin correo'))
+    $('#email-medicoTratante-a').val(ifnull(EMAIL_MEDICO, ''))
+    $('#telefono-medicoTratante-a').val(ifnull(TELEFONO_MEDICO, ''))
+    $('#especialidad-medicoTratante-a').val(ifnull(ESPECIALIDAD_MEDICO, ''))
 
     await rellenarSelect("#usuarios_medicos", "usuarios_api", 2, "ID_USUARIO", "nombrecompleto");
     ObtenerUsuario()
@@ -160,6 +166,8 @@ async function configurarModal() {
 
     // En caso contrario que el checkbox no este activo es decir que "#AdjuntarUsuario" esta desactivado. el input estara activo y el usuario podra ingresar el nombre del medico tratante
     AlertaUsuarioMedico = true;
+    // $('#collapseConfirmacion_edit').collapse('hide');
+
     $('#UsuarioMedicoTratante').modal('show');
 }
 

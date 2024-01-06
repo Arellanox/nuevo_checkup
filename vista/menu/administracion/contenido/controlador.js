@@ -68,26 +68,28 @@ async function ObtenerContenidoMedicosTratantes() {
 
 
 function hasLocation() {
-  if (validarVista('ADMINISTRACIÓN')) {
-    var hash = window.location.hash.substring(1);
-    $("a").removeClass("navlinkactive");
-    $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-    switch (hash) {
-      case "USUARIOS":
+  // if (validarVista('ADMINISTRACIÓN')) {
+  var hash = window.location.hash.substring(1);
+  $("a").removeClass("navlinkactive");
+  $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+  switch (hash) {
+    case "USUARIOS":
+      if (validarVista('ADMINISTRACIÓN'))
         obtenerContenidoUsuarios("usuario.php", "Usuarios");
-        break;
-      case "MEDICOS":
+      break;
+    case "MEDICOS":
+      if (validarVista('MEDICOS_TRATANTES'))
         ObtenerContenidoMedicosTratantes();
-        break;
-      // case "Servicios":
-      //   obtenerContenidoServicios("servicios.php", "Servicios");
-      //   break;
-      // case "Segmentos":
-      //   obtenerContenidoSegmentos("Segmentos");
-      //   break;
-      default:
-        obtenerContenidoUsuarios("usuario.php", "Usuarios");
-        break;
-    }
+      break;
+    // case "Servicios":
+    //   obtenerContenidoServicios("servicios.php", "Servicios");
+    //   break;
+    // case "Segmentos":
+    //   obtenerContenidoSegmentos("Segmentos");
+    //   break;
+    default:
+      // obtenerContenidoUsuarios("usuario.php", "Usuarios");
+      break;
   }
+  // }
 }

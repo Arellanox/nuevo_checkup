@@ -1,3 +1,11 @@
+  <style>
+    .page-number {
+    position: center;
+    bottom: 0;
+    text-align: center;
+}
+</style>
+
   <table>
       <tbody>
           <tr class="col-foot-one">
@@ -18,7 +26,10 @@
               <td colspan="6" style="text-align: center; width: 50%">
                   <?php
                     if ($preview == 0) {
-                        echo "<a target='_blank' href='" . $validacion . "'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
+                    ?>
+                        <a target="_blank" href="<?= $qr[0] ?>"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
+                    <?php
+                        //echo "<a target='_blank' href='" . $validacion . "'> <img src='" . $qr[1] . "' alt='QR Code' width='110' height='110'> </a>";
                     }
                     ?>
               </td>
@@ -57,3 +68,6 @@
           <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">bimo-lab</strong>
           <strong style="font-size: 11px;color: rgb(000, 078, 089); margin-left: -1.5px; margin-right: -1.5px">.com</strong>
       </small></p>
+
+ <!-- /* Paginacion en reportes */ -->
+<div class="page-number">Página: <span class="page"></span></div>      

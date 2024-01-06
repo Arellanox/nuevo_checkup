@@ -57,7 +57,7 @@ $new_medico = $_POST['nuevo_medico']; # Tipo booleano
 $medico_tratante_id = ($master->setToNull([$_POST['medico_tratante_id']]))[0]; # Usuario
 $medico_telefono = $_POST['medico_telefono'];
 $medico_especialidad = $_POST['medico_especialidadz'];
-
+$vendedor_id = $master->setToNull([$_POST['vendedor']])[0];
 
 
 # reagendar
@@ -70,6 +70,7 @@ if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
 } else {
     $servicios = null;
 }
+
 
 #ordenes medicas
 $orden_laboratorio = $_FILES['orden-medica-laboratorio'];
@@ -112,7 +113,7 @@ switch ($api) {
             $medico_tratante_id = $response;
         }
         #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'])); #<-- la id de segmento manda error si no se le envia algo
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'],$vendedor_id,)); #<-- la id de segmento manda error si no se le envia algo
         $aleta = $response[0][0][0];
 
         #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
@@ -169,7 +170,6 @@ switch ($api) {
             if (count($servicios) > 0) {
                 # si hay algo en el arreglo lo insertamos
                 foreach ($servicios as $key => $value) {
-                    // print_r($servicios);
                     $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, $_SESSION['id']));
                 }
 

@@ -25,6 +25,8 @@ async function buildPageCajas(time, select) {
         //     switchCajasSelect(false)
         // })
 
+        filename = `${$('#cajas option:selected').text()} | bimo`
+        title = `${$('#cajas option:selected').text()} | bimo`
 
         index_caja_id = $("#cajas").val()
 

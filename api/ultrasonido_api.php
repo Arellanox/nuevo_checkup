@@ -19,7 +19,7 @@ $api = $_POST['api'];
 
 # Datos para la interpretacion
 $id_imagen = $_POST['id_imagen'];
-$turno_id = $_POST['turno_id'];
+$turno_id = $_POST['id_turno'];
 $usuario = $_SESSION['id'];
 $area_id = 11; #$_POST['area_id']; # el id 11 es para el area de ultrasonido
 
@@ -85,9 +85,12 @@ switch ($api) {
             # enviar el correo con el reporte y las imagenes capturadas
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
 
+            $mails = $master->getEmailMedico($master, $turno_id);
+            $mails[] = $attachment[1];
+
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido', [$attachment[1]], null, $attachment[0], 1, null, $turno_id, 11, $master)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido',$mails, null, $attachment[0], 1, null, $turno_id, 11, $master)) {
                     $master->setLog("Correo enviado.", "ultrasonido");
                 }
             }
@@ -129,7 +132,9 @@ switch ($api) {
         break;
     case 3:
         # recuperar las capturas
+        $turno_id = $_POST['turno_id'];
         $response = array();
+        $turno_id = $_POST['turno_id'];
         #recupera la interpretacion.
         $area_id = 11; # 11 es el id para ultrasonido.
         $response1 = $master->getByNext('sp_imagenologia_resultados_b', [$id_imagen, $turno_id, $area_id]);
@@ -137,7 +142,7 @@ switch ($api) {
         # recupera la capturas del turno.
         # necesitamos enviarle el area del estudio para hacer el filtro.
         $response2 = $master->getByProcedure('sp_capturas_imagen_b', [$turno_id, $area_id]);
-
+     
         $capturas = [];
         foreach ($response2 as $current) {
             $capturas_child = [];
@@ -147,6 +152,8 @@ switch ($api) {
             $current['CAPTURAS'] = $capturas_child;
             $capturas[] = $current;
         }
+
+        // $capturas = $master->decodeJsonRecursively($response2);
 
         $merge = [];
         for ($i = 0; $i < count($response1[0]); $i++) {

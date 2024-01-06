@@ -213,9 +213,9 @@ function obtenerHistorialConsultas(id) {
   });
 }
 
-function obtenerHistorialConsultaMedica(idTurno) {
+function obtenerHistorialConsultaMedica(turno) {
   console.log("aqui empieza obtener consulta medica")
-  console.log(idTurno);
+  console.log(turno);
 
   return new Promise(resolve => {
     $.ajax({
@@ -236,7 +236,7 @@ function obtenerHistorialConsultaMedica(idTurno) {
           for (var i = 0; i < row.length; i++) {
             if (row[i]['CONSULTA_TERMINADA'] == 1) {
               let fecha = formatoFecha2(row[i]['FECHA_CONSULTA'], [0, 1, 2, 2, 0, 0, 0]);
-              let nombre_medico = row[i]['CREADO_POR'];
+              let nombre_medico = row[i]['NOMBRE_COMPLETO'];
               let motivo = row[i]['MOTIVO_CONSULTA'];
 
 

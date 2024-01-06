@@ -36,21 +36,31 @@ session_start();
 </div>
 <div class="row mt-2">
   <div class="col-12 col-lg-4">
-
-    <div class="info-detalle rounded p-3 shadow-sm my-2" id="panel-informacion"> <!-- Informacion del paciente -->
-    </div>
-    <div class="rounded p-3 shadow-sm my-2 mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
-    <div id="crear-notas" class="rounded p-3 shadow-sm my-2 d-flex flex-column">
-      <h4 class="m-3">Bloc de Notas</h4>
-      <hr class="dropdown-divider m-2">
-      <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas" id="nota-historial-paciente"></textarea>
-      <div class="d-flex justify-content-end p-2">
-        <button type="button" class="btn btn-confirmar m-1" id="agregar-nota-historial">
-          <i class="bi bi-plus"></i> Agregar
-        </button>
+    <div class="row">
+      <div class="col-auto">
+        <div class="info-detalle rounded p-3 shadow-sm my-2" id="panel-informacion"> <!-- Informacion del paciente --></div>
+      </div>
+      <div class="col-auto">
+        <div class="rounded p-3 shadow-sm my-2 mt-2" id="signos-vitales"> <!-- Signos vitales --> </div>
+      </div>
+      <div class="col-auto">
+        <div id="crear-notas" class="rounded p-3 shadow-sm my-2 d-flex flex-column">
+          <h4 class="m-3">Bloc de Notas</h4>
+          <hr class="dropdown-divider m-2">
+          <textarea name="name" rows="10" cols="90" class="form-textarea-content" placeholder="Escriba aqui sus notas" id="nota-historial-paciente"></textarea>
+          <div class="d-flex justify-content-end p-2">
+            <button type="button" class="btn btn-confirmar m-1" id="agregar-nota-historial">
+              <i class="bi bi-plus"></i> Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div id="notas-historial"> <!-- Notas --> </div>
       </div>
     </div>
-    <div id="notas-historial"> <!-- Notas --> </div>
+
+
   </div>
   <div class="col-12 col-lg-4" style="margin-bottom:10px;">
 
@@ -60,14 +70,15 @@ session_start();
     </div>
 
 
-    <!-- Agregar certificado medico -->
+
     <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
 
+      <!-- Agregar certificado medico -->
       <?php if ($_SESSION['permisos']['certificadoMedica'] == 1) : ?>
         <h4>Certificado médico del paciente</h4>
         <form id="subirResultadosCertificadoMedico" class="d-flex flex-column align-items-center">
           <div id="dropCertificadoMedico" class="drop-zone mx-2">
-            <label for=file-certificado-medico" style="cursor: pointer;" class="label-certificado-medico">Sube tu
+            <label for="certificado-medico" style="cursor: pointer;" class="label-certificado-medico">Sube tu
               archivo
               arrastrándolo
               aquí</label>
@@ -86,7 +97,8 @@ session_start();
         <h4>Certificado POE</h4>
         <form id="subirResultadosCertificadoPOE" class="d-flex flex-column align-items-center">
           <div id="dropCertificadoPOE" class="drop-zone mx-2">
-            <label for=file-certificado-POE" style="cursor: pointer;" class="label-certificado-POE">Sube tu
+            <label for="certificado-POE" style="cursor: pointer;" class="label-captura-oido">Sube
+              tu
               archivo
               arrastrándolo
               aquí</label>
@@ -98,6 +110,10 @@ session_start();
             </div>
           </div>
         </form>
+
+
+
+
       <?php endif; ?>
 
       <!-- 
@@ -143,7 +159,7 @@ session_start();
     </div>
 
     <!-- Audiometría -->
-    <!-- <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
+    <!-- <div >
       <h4>Audiometría</h4>
       <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
         data-bs-toggle="modal" data-bs-target="#modalCapturaOidos">
@@ -152,55 +168,62 @@ session_start();
     </div> -->
 
   </div>
-  <div class="col-12 col-lg-4">
-    <div class="rounded p-3 shadow-sm my-2">
+  <?php if (
+    $_SESSION['permisos']['histoClinico'] == 1
+    || $_SESSION['permisos']['consulMedica'] == 1
+    || $_SESSION['permisos']['fastCheckup'] == 1
+    || $_SESSION['permisos']['historialClinicoMedico'] == 1
+  ) : ?>
+    <div class="col-12 col-lg-4">
+      <div class="rounded p-3 shadow-sm my-2">
 
-      <?php if ($_SESSION['permisos']['histoClinico'] == 1) : ?>
-        <div id="btn-ir-consulta" class="medico-coordinador">
-          <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
-            <i class="bi bi-person-plus-fill"></i> Iniciar Historia Clínica
-          </button>
+        <?php if ($_SESSION['permisos']['histoClinico'] == 1) : ?>
+          <div id="btn-ir-consulta" class="medico-coordinador">
+            <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal" data-bs-target="#modalMotivoConsulta">
+              <i class="bi bi-person-plus-fill"></i> Iniciar Historia Clínica
+            </button>
+          </div>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['permisos']['consulMedica'] == 1) : ?>
+          <div id="btn-ir-consulta-medica">
+            <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal" data-bs-target="#modalMotivoConsultaMedica">
+              <i class="bi bi-person-plus-fill"></i> Iniciar Consulta Médica
+            </button>
+          </div>
+        <?php endif; ?>
+
+        <div id="btn-pdf" class="btn-container">
+          <a href="#" class="btn btn-borrar btnResultados" style="display: none;" id="btn-ver-receta-consultorio2" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa de la recetauna vez guardada">
+            <i class="bi bi-file-earmark-pdf"></i> Receta
+          </a>
+          <a href="#" class="btn btn-borrar btnResultados" style="display: none;" id="btn-ver-solicitud-estudios-consultorio2" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa de las solicitud de estudios una vez guardada">
+            <i class="bi bi-file-earmark-pdf"></i> Solicitud de estudios
+          </a>
         </div>
-      <?php endif; ?>
 
-      <?php if ($_SESSION['permisos']['consulMedica'] == 1) : ?>
-        <div id="btn-ir-consulta-medica">
-          <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal" data-bs-target="#modalMotivoConsultaMedica">
-            <i class="bi bi-person-plus-fill"></i> Iniciar Consulta Médica
-          </button>
-        </div>
-      <?php endif; ?>
+        <?php if ($_SESSION['permisos']['fastCheckup'] == 1) : ?>
+          <div class="medico-coordinador">
+            <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" id="btn-ir-consulta-rapida">
+              <i class="bi bi-clipboard-pulse"></i> Fast-Checkup
+            </button>
+          </div>
+        <?php endif; ?>
 
-      <div id="btn-pdf" class="btn-container">
-        <a href="#" class="btn btn-borrar btnResultados" style="display: none;" id="btn-ver-receta-consultorio2" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa de la recetauna vez guardada">
-          <i class="bi bi-file-earmark-pdf"></i> Receta
-        </a>
-        <a href="#" class="btn btn-borrar btnResultados" style="display: none;" id="btn-ver-solicitud-estudios-consultorio2" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa de las solicitud de estudios una vez guardada">
-          <i class="bi bi-file-earmark-pdf"></i> Solicitud de estudios
-        </a>
+        <?php if ($_SESSION['permisos']['historialClinicoMedico'] == 1) : ?>
+          <div class="card m-3 medico-coordinador">
+            <h4 class="m-3">Historial de Historia Clínica</h4>
+            <!-- <hr class="dropdown-divider"> -->
+            <div id="historial-consultas-paciente"> <!-- Valoracion medica --> </div>
+          </div>
+          <div class="card m-3">
+            <h4 class="m-3">Historial de Consulta médica</h4>
+            <!-- <hr class="dropdown-divider"> -->
+            <div id="historial-consultas-medicas"> <!-- Consulta medica --> </div>
+          </div>
+        <?php endif; ?>
       </div>
 
-      <?php if ($_SESSION['permisos']['fastCheckup'] == 1) : ?>
-        <div class="medico-coordinador">
-          <button type="button" class="btn btn-hover me-2" style="margin: 15px 60px 10px 60px !important;font-size: 21px;" id="btn-ir-consulta-rapida">
-            <i class="bi bi-clipboard-pulse"></i> Fast-Checkup
-          </button>
-        </div>
-      <?php endif; ?>
-
-      <?php if ($_SESSION['permisos']['historialClinicoMedico'] == 1) : ?>
-        <div class="card m-3 medico-coordinador">
-          <h4 class="m-3">Historial de Historia Clínica</h4>
-          <!-- <hr class="dropdown-divider"> -->
-          <div id="historial-consultas-paciente"> <!-- Valoracion medica --> </div>
-        </div>
-        <div class="card m-3">
-          <h4 class="m-3">Historial de Consulta médica</h4>
-          <!-- <hr class="dropdown-divider"> -->
-          <div id="historial-consultas-medicas"> <!-- Consulta medica --> </div>
-        </div>
-      <?php endif; ?>
     </div>
-
-  </div>
+  <?php endif; ?>
 </div>

@@ -54,6 +54,9 @@ $segmento_id = $_POST['segmento_id'];
 $area_id = $_POST['area_id'];
 
 
+# nuevos datos
+$categoria_turno = $_POST['categoria_turno'];
+
 
 $parametros = array(
     $id_turno,
@@ -246,19 +249,18 @@ switch ($api) {
                 $r = $mail->sendEmail("resultados", "Resultados de laboratorio", array_unique($mails), null, $files, 1, null, $id_turno, $id_area, $master);
                 if ($r) {
                     $response = 1;
-                    
                 } else {
-                    $x = $master->insertByProcedure("sp_correos_g", [$id_turno, $id_area, $mail->getCorreoSeleccionado(), ]);
+                    $x = $master->insertByProcedure("sp_correos_g", [$id_turno, $id_area, $mail->getCorreoSeleccionado(),]);
                     $response = "No se envió el resultado.";
                 }
             } else {
-                $response = "No hay archivos para enviar.";
+                $response = "Reporte validado. No hay archivos para enviar o paciente de empresa.";
             }
         }
         break;
     case 14:
 
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, $area_id, 1, null, 0]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, $area_id, null, null, 0]);
         $response = $response[count($response) - 1];
         //$response = $master->cleanAttachingFiles($response);
         break;
@@ -295,7 +297,10 @@ switch ($api) {
         # por la fecha de recepcion ['fecha_recepcion'].
         $response = $master->getByProcedure("sp_turnos_completados_b", [$turno_completado, $fecha_recepcion]);
         break;
-
+    case 21:
+        # agregra una categoria al paciente de empresas.
+        $response = $master->insertByProcedure("sp_agregar_categoria_turno", [$id_turno, $categoria_turno]);
+        break;
     default:
         $response = "api no reconocida";
         break;

@@ -110,6 +110,16 @@ switch ($api) {
         $oks = 0;
 
         foreach ($datos as $data) {
+
+            #si el costo y/o la utilidad llegan en cero,
+            # quiere decir que es el mismo anterior.
+            # por lo tanto, enviammos el -999.9 para modificar el sp.
+            if(strtolower($data['costo']) == "nan"){
+                $data['costo'] = -999.9;
+                $data['utilidad'] = -999.9;
+            }
+
+
             $response = $master->insertByProcedure('sp_precios_g', [$cliente_id, $data['id'], $data['utilidad'], $data['total'], $data['costo']]);
             if (is_numeric($response)) {
                 $oks++;

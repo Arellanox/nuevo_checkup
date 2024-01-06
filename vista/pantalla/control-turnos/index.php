@@ -21,7 +21,7 @@ $menu = "TURNERO";
     function vista(menu, url) {
         $.post(url, {
             menu: menu,
-            tipoUrl: 2
+            tipoUrl: 3
         }, function(html) {
             $("#body-controlador").html(html);
         });

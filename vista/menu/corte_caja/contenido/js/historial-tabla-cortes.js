@@ -149,8 +149,10 @@ selectTable('#TablaHistorialCortesCaja', TablaHistorialCortes, {
         id_corte = SelectedHistorialCaja['ID_CORTE']
 
         dataTablePacientesCaja.id_corte = SelectedHistorialCaja['ID_CORTE']
+        dataTablePacientesCajaDetalle.id_corte = SelectedHistorialCaja['ID_CORTE']
 
         TablaPacientesCaja.ajax.reload()
+        TablaPacientesCajaDetalle.ajax.reload()
         callback('In')
     } else {
         callback('Out')

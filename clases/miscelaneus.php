@@ -720,6 +720,10 @@ class Miscelaneus
     private function getBodyInfoConsultorio2($master, $turno_id)
     {
         $response = $master->getByNext('sp_consultorio2', [$turno_id]);
+        $recetas = $master->getByNext('sp_recetas', [$turno_id]);
+
+
+        $response = array_merge($response, $recetas);
 
         return $response;
     }
@@ -1099,15 +1103,15 @@ class Miscelaneus
         // print_r($response2[0]['CAPTURAS']);
 
 
-           
+
 
         for ($i = 0; $i < count($response2); $i++) {
             // print_r($decodedResponse2);
             $decodedResponse2 = $master->decodeJsonRecursively($response2[$i]);
-            array_push($arrayNuevascapturas, $decodedResponse2['CAPTURAS']);
+            array_push($arrayNuevascapturas, $decodedResponse2['CAPTURAS_REPORTE']);
         }
 
-        
+
         // echo "<pre>";
         // var_dump($arrayNuevascapturas);
         // echo "</pre>;";
@@ -1452,7 +1456,8 @@ class Miscelaneus
                     "analitos"       => $analitos,
                     "metodo"         => $metodo_grupo,
                     "equipo"         => $equipo_grupo,
-                    "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null
+                    "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null,
+                    "muestra"        => $id_grupo == 972 ? "Plasma EDTA" : ""
                 );
                 $analitos = array();
             }
@@ -1678,7 +1683,7 @@ class Miscelaneus
 
         switch ($domain) {
             case "localhost":
-                $preUrl = "http://localhost/practicantes/";
+                $preUrl = "http://localhost/nuevo_checkup/";
                 break;
             case "bimo-lab.com":
                 $preUrl = "https://bimo-lab.com/nuevo_checkup/";
@@ -1896,6 +1901,37 @@ class Miscelaneus
         return $response;
     }
 
+    function llamar_api()
+    {
+
+        // Datos que deseas enviar a la API
+        $datos = array(
+            'api' => '1',
+            'user' => 'TurneroUno',
+            'pass' => 'TurneroUno'
+        );
+
+        $url1 = "https://bimo-lab.com/nuevo_checkup/api/login_api.php";
+
+        // Crear opciones de la petición HTTP
+        $opciones = array(
+            "http" => array(
+                "header" => "Content-type: application/x-www-form-urlencoded\r\n",
+                "method" => "POST",
+                "content" => http_build_query($datos), # Agregar el contenido definido antes
+            ),
+        );
+        # Preparar petición
+        $contexto = stream_context_create($opciones);
+        # Hacerla
+        $json = file_get_contents($url1, false, $contexto);
+
+        $res = json_decode($json, true);
+
+
+        return $res;
+    }
+
     public function getLevenshteinDistance($str1, $str2)
     {
         $str1 = strtolower($str1);
@@ -1958,6 +1994,8 @@ class Miscelaneus
         $total_general = 0;
         $resumen_credito = 0;
         $resumen_contado = 0;
+        $resumen_cortesia = 0;
+        $resumen_BIMO =  0; # CONCEPTO BIMO  
 
         // Datos de todos los pacientes que entraron en el cierre de caja
         $array_prefolios = array();
@@ -1972,6 +2010,8 @@ class Miscelaneus
             $factura = $e['FACTURA'];
 
             $monto_tipo_pago = $e['FORMA_PAGO_MONTO']; # Monto por tipo de pago;
+
+            $nombre_caja = $e['NOMBRE_CAJA']; # nombre de la caja
 
             $result[$i] =  array(
                 "PREFOLIO" => $prefolio,
@@ -1991,8 +2031,10 @@ class Miscelaneus
                 $iva_general += $iva;
                 $total_general += $total;
 
-                $resumen_contado += $e['CLIENTE_ID'] == 1 ? $total :  0;
-                $resumen_credito += $e['CLIENTE_ID'] != 1 ? $total :  0;
+                $resumen_contado += in_array($e['CLIENTE_ID'], [1, 16, 31]) ? $total :  0;
+                $resumen_credito += !in_array($e['CLIENTE_ID'], [1, 16, 17, 31, 15]) ? $total :  0;
+                $resumen_cortesia += in_array($e['CLIENTE_ID'], [17]) ? $total : 0;
+                $resumen_BIMO += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
             }
 
 
@@ -2028,7 +2070,22 @@ class Miscelaneus
 
 
         $response = [];
-        $response = [$result, $subtotal_general, $iva_general, $total_general, $resumen_credito, $resumen_contado, $folio, $fecha_inicio, $fecha_final, $cortador, $tipos_precio];
+        $response = [
+            $result,
+            $subtotal_general,
+            $iva_general,
+            $total_general,
+            $resumen_credito,
+            $resumen_contado,
+            $folio,
+            $fecha_inicio,
+            $fecha_final,
+            $cortador,
+            $tipos_precio,
+            $nombre_caja,
+            $resumen_cortesia,
+            $resumen_BIMO
+        ];
         // foreach($response as $i){
         //     print_r($i);
         //     echo "<br>";

@@ -1,9 +1,9 @@
 const ModalRegistrarGrupo = document.getElementById("ModalRegistrarGrupo");
 ModalRegistrarGrupo.addEventListener("show.bs.modal", (event) => {
-  rellenarSelect('#registrar-metodos-grupo','laboratorio_metodos_api', 2,0,1);
-  rellenarSelect("#registrar-clasificacion-grupo","laboratorio_clasificacion_api",2,0,1);
-  rellenarSelect('#registrar-medidas-grupo','laboratorio_medidas_api', 2,0,1);
-  rellenarSelect('#registrar-concepto-facturacion-grupo','sat_catalogo_api', 2,0,'COMPLETO');
+  rellenarSelect('#registrar-metodos-grupo', 'laboratorio_metodos_api', 2, 0, 1);
+  rellenarSelect("#registrar-clasificacion-grupo", "laboratorio_clasificacion_api", 2, 0, 1);
+  rellenarSelect('#registrar-medidas-grupo', 'laboratorio_medidas_api', 2, 0, 1);
+  rellenarSelect('#registrar-concepto-facturacion-grupo', 'sat_catalogo_api', 2, 0, 'COMPLETO');
   rellenarSelect("#registrar-area-grupo", "areas_api", 2, 0, 2);
 });
 
@@ -54,7 +54,7 @@ $("#formRegistrarGrupo").submit(function (event) {
               timer: 2000,
             });
             document.getElementById("formRegistrarGrupo").reset();
-            $('##div-select-contenedoresGrupo').empty();
+            $('#div-select-contenedoresGrupo').empty();
             $("#ModalRegistrarGrupo").modal("hide");
             tablaGrupos.ajax.reload();
           }
@@ -66,16 +66,16 @@ $("#formRegistrarGrupo").submit(function (event) {
 });
 
 // Nuevo contenedores
- $('#nuevo-contenedorGrupo').on('click', function(){
-   numberContenedorGrupo += 1;
-   agregarContenedorMuestra('#div-select-contenedoresGrupo', numberContenedorGrupo, 1);
- })
+$('#nuevo-contenedorGrupo').on('click', function () {
+  numberContenedorGrupo += 1;
+  agregarContenedorMuestra('#div-select-contenedoresGrupo', numberContenedorGrupo, 1);
+})
 
- $(document).on('click', '.eliminarContenerMuestra1', function () {
-   var parent_element = $(this).closest("div[class='row']");
-   // console.log(parent_element)
-   // numberContenedor -= 1;
-   parent_element.remove();
+$(document).on('click', '.eliminarContenerMuestra1', function () {
+  var parent_element = $(this).closest("div[class='row']");
+  // console.log(parent_element)
+  // numberContenedor -= 1;
+  parent_element.remove();
 });
 
 select2("#registrar-area-grupo", "ModalRegistrarGrupo");

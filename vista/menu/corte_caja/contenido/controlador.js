@@ -41,6 +41,8 @@ var dataTablePacientesCaja;
 var id_corte;
 var TablaHistorialCortes; //Tabla
 
+var filename, title
+
 $(window).on("hashchange", function (e) {
     hasLocation();
 });

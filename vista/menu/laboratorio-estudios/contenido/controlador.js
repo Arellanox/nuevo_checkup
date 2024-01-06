@@ -67,6 +67,8 @@ function agregarContenedorMuestra(div, numeroSelect, tipo) {
     '<select name="contenedores[' + numeroSelect + '][contenedor]" id="registrar-contenedor' + numeroSelect + '-estudio" class="input-form" required>' +
     '<option value="1">Frasco</option><option value="2">Tubo azul</option><option value="3">Tubo lila</option><option value="4">Tubo rojo</option>' +
     '<option value="5">Tubo negro</option><option value="6">Tubo verde</option><option value="7">Transcult</option>' +
+    '<option value="10">Papel filtro tamiz</option>' +
+    // '<option value="7">Transcult</option>' +
     '</select>' + endDiv + startDivSelect +
     '<label for="contenedores[' + numeroSelect + '][muestra]" class="form-label select-contenedor">Tipo o muestra</label>' +
     '<select name="contenedores[' + numeroSelect + '][muestra]"  id="registrar-muestraCont' + numeroSelect + '-estudio" class="input-form" required placeholder="Seleccione un contenedor">' +
@@ -78,6 +80,7 @@ function agregarContenedorMuestra(div, numeroSelect, tipo) {
     '<option value="6">SANGRE</option>' +
     '<option value="7">SEMEN</option>' +
     '<option value="8">UÑAS</option>' +
+    '<option value="12">SANGRE CAPILAR</option>' +
     '</select>' + endDiv +
     startDivButton + '<button type="button" class="btn btn-hover eliminarContenerMuestra' + tipo + '" data-bs-contenedor="' + numeroSelect + '" style="margin-top: 20px;"><i class="bi bi-trash"></i></button>' + endDiv + endDiv;
   $(div).append(html);

@@ -275,7 +275,7 @@
                                         No. Identificación: <strong style="font-size: 12px;"> <?php echo $encabezado->FOLIO; ?> </strong>
                                     </td>
                                     <td class="col-center" style="border-bottom: none">
-                                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD < 1 ? ($encabezado->EDAD * 100) . " meses" : $encabezado->EDAD . " años"; ?></strong>
+                                        Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?></strong>
                                     </td>
                                     <td class="col-right" style="border-bottom: none">
                                         Sexo: <strong style="font-size: 12px;"><?php echo $encabezado->SEXO; ?> </strong>
@@ -312,16 +312,26 @@
                                 </tr>
                             </tbody>
                         </table>
+
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px;">
                             <?php echo "Procedencia: <strong style='font-size: 12px;'> $encabezado->PROCEDENCIA"; ?> </strong>
 
-                            <span style="margin-left: 20px;">
-                                <!-- Tipo de muestra  -->
-                                <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
-                            </span>
+                            <?php if ($encabezado->PAQUETE_CARGADO) { ?>
+                                <span style="margin-left: 20px;">
+                                    <!-- Tipo de muestra  -->
+                                    <?php echo "Paquete: <strong style='font-size: 12px;'> $encabezado->PAQUETE_CARGADO"; ?> </strong>
+                                </span>
+                            <?php } ?>
+
+                            <?php if ($encabezado->CATEGORIA) { ?>
+                                <span style="margin-left: 20px;">
+                                    <!-- Tipo de muestra  -->
+                                    <?php echo "Categoría: <strong style='font-size: 12px;'> $encabezado->CATEGORIA"; ?> </strong>
+                                </span>
+                            <?php } ?>
                         </p>
                         <p style="font-size: 12px; padding-left: 3.5px; margin: -1px; margin-top: 5px">
-                            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 10px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
+                            <?php echo (isset($encabezado->MEDICO_TRATANTE) || !empty($encabezado->MEDICO_TRATANTE)) ? "Médico Tratante: <strong style='font-size: 13px;'>" . $encabezado->MEDICO_TRATANTE . "</strong>" : ""; ?> </strong>
                         </p>
                         <hr style="text-align: center; border-style: solid none solid none; width: 100%; ">
                     </div>

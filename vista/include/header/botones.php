@@ -56,6 +56,12 @@ $menu = $_POST['menu']; ?>
 <?php endif; ?>
 
 
+<?php if ($menu == "Reporte epidemiológico") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTablaReporteEpidemio">
+    <i class="bi bi-archive"></i> Filtro
+  </button>
+<?php endif; ?>
+
 <?php if ($menu == "Recepción | Espera" || $menu == "Recepción | Aceptados" || $menu == "Recepción | Rechazados") : ?>
   <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
     <i class="bi bi-pencil-square"></i> Actualizar información del paciente
@@ -214,7 +220,7 @@ $menu = $_POST['menu']; ?>
 
 <?php if (
   $menu == 'Reportes de Laboratorio Clínico' ||
-  $menu == 'Validación y envío de resultados de laboratorio' ||
+  $menu == 'Validación de resultados de laboratorio' ||
   $menu == 'Laboratorio Clínico' ||
   $menu == 'Resultados de Laboratorio Clinico' ||
   $menu == 'Resultados de Laboratorio Biomolecular' ||
