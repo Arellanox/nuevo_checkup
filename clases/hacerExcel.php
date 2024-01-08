@@ -113,18 +113,20 @@ function crearCuerpoFechas($sheet, $data, $border, $colorAzul)
         $sheet->setCellValue('A' . $numero, $registro['COUNT']);
         $sheet->setCellValue('B' . $numero, $registro['NOMBRE']);
         $sheet->setCellValue('C' . $numero, $registro['AREA']);
-        $sheet->setCellValue('D' . $numero, $registro['HORARIO_ENTRADA']);
-        $sheet->setCellValue('E' . $numero, $registro['HORARIO_SALIDA']);
-        $sheet->setCellValue('H' . $numero, $registro['TOTAL_ASISTENCIAS']);
-        $sheet->setCellValue('I' . $numero, $registro['TOTAL_RETARDOS']);
+        $sheet->setCellValue('D' . $numero, $registro['DIAS_LABORALES']);
+        $sheet->setCellValue('E' . $numero, $registro['HORARIO_ENTRADA']);
+        $sheet->setCellValue('F' . $numero, $registro['HORARIO_SALIDA']);
+        $sheet->setCellValue('H' . $numero, $registro['HORAS_ESPERADAS']);
+        $sheet->setCellValue('I' . $numero, $registro['TOTAL_ASISTENCIAS']);
+        $sheet->setCellValue('J' . $numero, $registro['TOTAL_RETARDOS']);
 
         #LE DAMOS ESTILOS A NUESTROS ENCANBEZADOS
-        bordearContenido($sheet, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], $border, $numero);
-        centraContenido($sheet, ['A', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], $numero);
+        bordearContenido($sheet, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'], $border, $numero);
+        centraContenido($sheet, ['A', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'], $numero);
 
         $asistenciasArray = json_decode($registro['ASISTENCIAS'], true);
 
-        $columna = 'K';
+        $columna = 'L';
         foreach ($asistenciasArray as $asistencia) {
 
             $info = json_decode($asistencia, true);
@@ -171,7 +173,7 @@ function crearCuerpoFechas($sheet, $data, $border, $colorAzul)
             centraContenido($sheet, [$columna], 5); #---> Centramos las celdas
             bordearContenido($sheet, [$columna], $border, 5);
 
-            
+
 
             $columna++; ## RELLENAMOS LAS COLUMNAS
 
@@ -181,8 +183,6 @@ function crearCuerpoFechas($sheet, $data, $border, $colorAzul)
             $fechaText = new DateTime($info['FECHA']);
             $fecha = $fechaText->format("d/m/Y");
             $sheet->setCellValue($celda1, $fecha);
-
-          
         }
 
         $numero =  $numero + 1;
@@ -231,7 +231,7 @@ $sheet->setTitle('Asistencias');
 $sheet->setCellValue('A1', 'CONSOLIDADO  REGISTRO DE ENTRADAS Y SALIDAS DEL PERSONAL ');
 $style = $sheet->getStyle('A1');
 $font = $style->getFont()->setSize(18)->setBold(true);
-$sheet->getRowDimension(2)->setRowHeight(30);    
+$sheet->getRowDimension(2)->setRowHeight(30);
 $sheet->getColumnDimension('A')->setWidth(15);
 
 
@@ -259,34 +259,39 @@ $sheet->setCellValue('C5', 'AREA');
 $sheet->getStyle('C5:C6')->applyFromArray($borderStyle);
 $sheet->getColumnDimension('C')->setWidth(25);
 
+$sheet->mergeCells('D5:D6');
+$sheet->setCellValue('D5', 'DÍAS LABORALES');
+$sheet->getStyle('D5:D6')->applyFromArray($borderStyle);
+$sheet->getColumnDimension('D')->setWidth(45);
 
-$sheet->mergeCells('D5:E5');
-$sheet->setCellValue('D5', 'HORARIO');
-$sheet->getStyle('D5:E5')->applyFromArray($borderStyle);
+
+$sheet->mergeCells('E5:F5');
+$sheet->setCellValue('E5', 'HORARIO');
+$sheet->getStyle('E5:F5')->applyFromArray($borderStyle);
 
 ## CENTRAMOS LOS ENCABEZADOS
-$celdasCentradas = ['A', 'B', 'C', 'D'];
+$celdasCentradas = ['A', 'B', 'C', 'D', 'E', 'F'];
 centraContenido($sheet, $celdasCentradas, 5);
 
 ## PINTAMOS LOS ENCABEZADOS 
-$celdasEncabezados = ['A', 'B', 'C', 'D'];
+$celdasEncabezados = ['A', 'B', 'C', 'D', 'E', 'F'];
 pintarCeldas($sheet, $celdasEncabezados, $colorGris, 5);
 
 
-$sheet->setCellValue('D6', 'Entrada');
-$sheet->setCellValue('E6', 'Salida');
-$celdasCentradas2 = ['D', 'E'];
+$sheet->setCellValue('E6', 'Entrada');
+$sheet->setCellValue('F6', 'Salida');
+$celdasCentradas2 = ['E', 'F'];
 centraContenido($sheet, $celdasCentradas2, 6);
-$sheet->getStyle('D6')->applyFromArray($borderStyle);
 $sheet->getStyle('E6')->applyFromArray($borderStyle);
-$sheet->getColumnDimension('D')->setWidth(15);
+$sheet->getStyle('F6')->applyFromArray($borderStyle);
 $sheet->getColumnDimension('E')->setWidth(15);
-$style = $sheet->getStyle('D6');
+$sheet->getColumnDimension('F')->setWidth(15);
+$style = $sheet->getStyle('E6');
 $style->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()
     ->setARGB($colorGris);
-$style = $sheet->getStyle('E6'); 
+$style = $sheet->getStyle('F6');
 $style->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()
@@ -294,38 +299,38 @@ $style->getFill()
 
 
 ## REALIZAMOS EL DISEÑO Y LOS ENCABEZADOS PARA LA INFORMACION DE LAS HORAS
-$sheet->mergeCells("F5:J5");
-$sheet->setCellValue('F5', 'TOTAL PERIODO');
-$sheet->getStyle('F5:J5')->applyFromArray($borderStyle);
+$sheet->mergeCells("G5:K5");
+$sheet->setCellValue('G5', 'TOTAL PERIODO');
+$sheet->getStyle('G5:K5')->applyFromArray($borderStyle);
 
 
-$sheet->setCellValue('F6', 'Hrs. Trabajadas');
-$sheet->getStyle('F6')->applyFromArray($borderStyle);
-$sheet->getColumnDimension('F')->setWidth(15);
-
-
-$sheet->setCellValue('G6', 'Hrs. Esperadas');
+$sheet->setCellValue('G6', 'Hrs. Trabajadas');
 $sheet->getStyle('G6')->applyFromArray($borderStyle);
 $sheet->getColumnDimension('G')->setWidth(15);
 
 
-$sheet->setCellValue('H6', 'Asistencias');
+$sheet->setCellValue('H6', 'Hrs. Esperadas');
 $sheet->getStyle('H6')->applyFromArray($borderStyle);
 $sheet->getColumnDimension('H')->setWidth(15);
 
 
-$sheet->setCellValue('I6', 'Retardos');
+$sheet->setCellValue('I6', 'Asistencias');
 $sheet->getStyle('I6')->applyFromArray($borderStyle);
 $sheet->getColumnDimension('I')->setWidth(15);
 
 
-$sheet->setCellValue('J6', 'Hrs. Extras');
+$sheet->setCellValue('J6', 'Retardos');
 $sheet->getStyle('J6')->applyFromArray($borderStyle);
 $sheet->getColumnDimension('J')->setWidth(15);
 
-$celdasHoras = ['F', 'G', 'H', 'I', 'J'];
+
+$sheet->setCellValue('K6', 'Hrs. Extras');
+$sheet->getStyle('K6')->applyFromArray($borderStyle);
+$sheet->getColumnDimension('K')->setWidth(15);
+
+$celdasHoras = ['G', 'H', 'I', 'J', 'K'];
 centraContenido($sheet, $celdasHoras, 6);
-centraContenido($sheet, ['F'], 5);
+centraContenido($sheet, ['G'], 5);
 pintarCeldas($sheet, $celdasHoras, "FFDB58", 5);
 pintarCeldas($sheet, $celdasHoras, "FFDB58", 6);
 
