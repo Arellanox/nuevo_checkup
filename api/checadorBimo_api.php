@@ -23,88 +23,90 @@ $api = isset($asistencia['api']) ? $asistencia['api'] : $_POST['api'];
 
 if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST['api']))) {
 
-switch ($api) {
+    switch ($api) {
 
-    case 1:
-        #GUARDAMOS LA ASISTENCIA EN LA BASE DE DATOS
-        $nombre =  str_replace(array('"', "'"), '', json_encode($asistencia['nombre']));
+        case 1:
+            #GUARDAMOS LA ASISTENCIA EN LA BASE DE DATOS
+            $nombre =  str_replace(array('"', "'"), '', json_encode($asistencia['nombre']));
 
-        $response = $master->getByProcedure('sp_checardor_bimo_g', [$nombre]);
+            $response = $master->getByProcedure('sp_checardor_bimo_g', [$nombre]);
 
-        break;
+            break;
 
-    case 2:
-        #GUARDAMOS LAS NUEVAS CODIFICACIONES DE ROSTROS
-        $nombre = json_encode($asistencia['nombre']);
-        $codificacion = json_encode($asistencia['codificacion']);
+        case 2:
+            #GUARDAMOS LAS NUEVAS CODIFICACIONES DE ROSTROS
+            $nombre = json_encode($asistencia['nombre']);
+            $codificacion = json_encode($asistencia['codificacion']);
 
-        $response = $master->insertByProcedure('sp_codificar_rostro_g', [$nombre, $codificacion]);
-
-
-        break;
-
-    case 3:
-        #OBTENEMOS TODAS LAS CODIFICACIONES DE ROSTROS QUE TENEMOS ALMACENADA EN LA BASE DE DATOS
-        $response = $master->getByProcedure('sp_codificar_rostro_g', [null, null]);
-
-        break;
-    case 4:
-
-        
-        # recuperar los registros de entradas/salidas
-        # recuperamos la data
-        $data = $master->getByProcedure("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id, 0]);
-
-        $registros = array();
-        $registros['REGISTROS'] = $data;
-
-        $response = $registros;
+            $response = $master->insertByProcedure('sp_codificar_rostro_g', [$nombre, $codificacion]);
 
 
+            break;
+
+        case 3:
+            #OBTENEMOS TODAS LAS CODIFICACIONES DE ROSTROS QUE TENEMOS ALMACENADA EN LA BASE DE DATOS
+            $response = $master->getByProcedure('sp_codificar_rostro_g', [null, null]);
+
+            break;
+        case 4:
 
 
-        // $bimers = $data[1];
-        // $records = $data[0];
-        // $dates = $data[2];
-        // $fechasTotales = $data[3];
+            # recuperar los registros de entradas/salidas
+            # recuperamos la data
+            $data = $master->getByProcedure("sp_checador_data", [$fecha_inicio, $fecha_final, $bimer_id, 0]);
+
+            $registros = array();
+            $registros['REGISTROS'] = $data;
+
+            $response = $registros;
 
 
-        // $filteredRecords = array();
-        // foreach ($dates as $date) {
-        //     $fecha = $date['FECHA'];
-
-        //     $filtered = array_filter($records, function ($item) use ($fecha) {
-        //         return $item["FECHA"] == $fecha;
-        //     });
-
-        //     $filteredRecords[$fecha] = $filtered;
-        // }
-
-        // $filteredRecords['BIMERS'] = $bimers;
-        // $filteredRecords['FECHAS_TOTALES'] = $fechasTotales;
-
-        // $response = $filteredRecords;
 
 
-     
+            // $bimers = $data[1];
+            // $records = $data[0];
+            // $dates = $data[2];
+            // $fechasTotales = $data[3];
 
-        break;
-    case 5:
+
+            // $filteredRecords = array();
+            // foreach ($dates as $date) {
+            //     $fecha = $date['FECHA'];
+
+            //     $filtered = array_filter($records, function ($item) use ($fecha) {
+            //         return $item["FECHA"] == $fecha;
+            //     });
+
+            //     $filteredRecords[$fecha] = $filtered;
+            // }
+
+            // $filteredRecords['BIMERS'] = $bimers;
+            // $filteredRecords['FECHAS_TOTALES'] = $fechasTotales;
+
+            // $response = $filteredRecords;
+
+
+
+
+            break;
+        case 5:
 
             #RECUPERAMOS LA DATA PARA LA VISTA
-            $response = $master->getByProcedure('sp_checador_data',[$fecha_inicio, null, null, 1]);
+            $response = $master->getByProcedure('sp_checador_data', [$fecha_inicio, null, null, 1]);
 
-        break;
-    default:
+            break;
+        case 6:
 
-        $response = "Api no definida";
-        
+            #RECUPERAMOS LA DATA PARA LA VISTA
+            $response = $master->getByProcedure('sp_checador_data', [$fecha_inicio, $fecha_final, $bimer_id, 0]);
+
+            break;
+        default:
+
+            $response = "Api no definida";
     }
 
-        $respuesta = $master->returnApi($response);
+    $respuesta = $master->returnApi($response);
 
-        echo $respuesta;
-
-
+    echo $respuesta;
 }
-
