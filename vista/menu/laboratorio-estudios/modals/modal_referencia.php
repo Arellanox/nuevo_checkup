@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" class="form-control input-form" name="ID_VALORES_REFERENCIA" id="ID_VALORES_REFERENCIA">
+                        <input type="hidden" class="form-control input-form" name="id_valores_referencia" id="ID_VALORES_REFERENCIA">
 
                 </form>
 

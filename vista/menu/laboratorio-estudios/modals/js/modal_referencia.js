@@ -254,8 +254,14 @@ $(document).on('click', '#btn-guardar-referencia', function (e) {
         } else {
             normalidad = 0
         }
+
+        let api = 1;
+        if ($('#ID_VALORES_REFERENCIA').val()) {
+            api = 5;
+        }
+
         ajaxAwaitFormData({
-            api: 1,
+            api: api,
             servicio_id: array_selected['ID_SERVICIO'],
             checkedCambiarReferencia: checkedCambiarReferencia,
             valores_normalidad: normalidad
