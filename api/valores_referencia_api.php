@@ -81,7 +81,7 @@ switch ($api) {
     case 5:
 
         #Editamos los valores de referencia
-        $response = $master->insertByProcedure('sp_valores_referencia_g', $update_data);
+        $response = $master->getByProcedure('sp_valores_referencia_g', $update_data);
         
         break;
     default:
