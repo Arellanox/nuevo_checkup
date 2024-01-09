@@ -102,6 +102,8 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" class="form-control input-form" name="ID_VALORES_REFERENCIA" id="ID_VALORES_REFERENCIA">
+
                 </form>
 
                 <!-- Consultar reporte de paciente -->
@@ -129,6 +131,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-pantone-7541" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-pantone-7541" id="reset_form" data-bs-dismiss="modal"><i class="bi bi-x"></i> Reiniciar</button>
             <!-- <button type="button" form="formGuardarReferencia" class="btn btn-borrar" id="btn-VisualizarPDFReferencia">
                 <i class="bi bi-file-earmark-pdf"></i> Visualizar PDF
             </button> -->

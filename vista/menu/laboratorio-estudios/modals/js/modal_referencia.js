@@ -28,11 +28,9 @@ TablaValoresReferencia = $('#TablaValoresReferencia').DataTable({
         beforeSend: function () {
         },
         complete: function () {
-            // console.log(1)
             TablaValoresReferencia.columns.adjust().draw()
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            // console.log(2)
             alertErrorAJAX(jqXHR, textStatus, errorThrown);
         },
         dataSrc: 'response.data'
@@ -51,7 +49,7 @@ TablaValoresReferencia = $('#TablaValoresReferencia').DataTable({
                 if (meta['PRESENTACION'] == null) {
                     presentacion = ValidarPresentacion(meta)
                 } else {
-                    presentacion = `${ifnull(meta, '', ['PRESENTACION'])} ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} -. ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+                    presentacion = `${ifnull(meta, '', ['PRESENTACION'])} ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
                 }
 
                 return insertarSaltosDeLinea(presentacion, 25);
@@ -69,7 +67,7 @@ TablaValoresReferencia = $('#TablaValoresReferencia').DataTable({
 
 
                 // Calcular si esta llegando el minmo y maximo, si no llega no es un rango es una referencia, operador logico y referencia juntos
-                return `${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} -. ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+                return `${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
             }
         },
         {
@@ -87,10 +85,13 @@ TablaValoresReferencia = $('#TablaValoresReferencia').DataTable({
         },
         {
             data: 'ID_VALORES_REFERENCIA', render: function (data) {
-
-
-                return `<i class="bi bi-trash" data-id = "${data}" style = "cursor: pointer"
-            onclick="desactivarTablaReferencia.call(this)"></i>`;
+                return `
+                    <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
+                        <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
+                            <i class="bi bi-trash btn-editar d-block" data-id = "${data}" style="cursor: pointer; font-size:16px;padding: 2px 4px;" onclick="desactivarTablaReferencia.call(this)"></i>
+                            <i class="bi bi-pencil-square btn-edit-valor_referencia d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+                        </div>
+                    </div>`
 
             }
         }
@@ -124,6 +125,62 @@ TablaValoresReferencia = $('#TablaValoresReferencia').DataTable({
 
 inputBusquedaTable("TablaValoresReferencia", TablaValoresReferencia, [], [], "col-12")
 
+selectTable('#TablaValoresReferencia', TablaValoresReferencia,
+    {
+        OnlyData: true, movil: false,
+        ClickClass: [
+            {
+                class: 'btn-edit-valor_referencia',
+                callback: function (data) {
+                    // Data son los datos de la fila
+                    // Reiniciar el formulario con el ID formGuardarReferencia
+                    const formulario = document.getElementById('formGuardarReferencia');
+                    if (formulario) {
+                        formulario.reset();
+                        ChangeReferencias()
+                    }
+                    // Genero
+                    $('#select-genero-referencia').val(data.DIRIGIDO_A_ID)
+                    // Edades
+                    if (data.EDAD_MAXIMA && data.EDAD_MINIMA) {
+                        $('#edad-minima-referencia').val(data.EDAD_MINIMA);
+                        $('#edad-maxima-referencia').val(data.EDAD_MAXIMA);
+                        $('#SinEdad').prop('checked', false);
+                    } else {
+                        $('#SinEdad').prop('checked', true);
+                    }
+
+                    // Presentacion del valor
+                    $('#presentacion').val(data.PRESENTACION)
+
+                    // Compara que tipo de valor es
+                    if (data.OPERADORES_LOGICOS_ID) {
+                        // Quita el check para el valor de referencia por rango
+                        $('#cambioReferencia').prop('checked', false);
+                        $('#valor_minimo').val(data.VALOR_MINIMO);
+                        $('#valor_maximo').val(data.VALOR_MAXIMO);
+                    } else {
+                        // Agrega el check para el vlor de referencia por referencia
+                        $('#cambioReferencia').prop('checked', true);
+                        $('#select-operador-referencia').val(data.OPERADORES_LOGICOS_ID);
+                        $('#valor_referencia').val(data.VALOR_REFERENCIA)
+                    }
+
+                    // Valor normalidad
+                    if (parseInt(data.VALOR_NORMALIDAD)) {
+                        $('#valorBueno').prop('checked', true)
+                    } else {
+                        $('#valorBueno').prop('checked', false)
+                    }
+
+                    $('#ID_VALORES_REFERENCIA').val(data.ID_VALORES_REFERENCIA);
+
+                },
+                selected: true
+            }
+        ]
+    })
+
 // Detecta si lo que esta escribiendo es negativo si es asi lo manda a la verga
 $(document).ready(function () {
     $(document).on('keydown', '#edad-minima-referencia, #edad-maxima-referencia', function (event) {
@@ -132,6 +189,19 @@ $(document).ready(function () {
         }
     });
 });
+
+// Reinicia el formulario para editar
+$('#reset_form').on('click', function () {
+    // Reiniciar el formulario con el ID formGuardarReferencia
+    const formulario = document.getElementById('formGuardarReferencia');
+    if (formulario) {
+        formulario.reset();
+        ChangeReferencias()
+    }
+    //Reinicia la seleccion:
+    TablaValoresReferencia.$('tr.selected').removeClass('selected');
+    TablaValoresReferencia.$('tr.selected').removeClass(config.anotherClass);
+})
 
 //Desactiva los imput de maximo y minimo de edad
 $('#SinEdad').on('click', function (e) {
@@ -259,7 +329,6 @@ myModal.addEventListener('shown.bs.modal', () => {
         // Reiniciar el formulario con el ID formGuardarReferencia
         const formulario = document.getElementById('formGuardarReferencia');
         if (formulario) {
-            console.log(1)
             formulario.reset();
             ChangeReferencias()
         }
@@ -338,15 +407,15 @@ function ValidarPresentacion(meta) {
     // Entra al case donde evalua cada opcion que tiene para mostrar la presentación
     if (sexo !== "AMBOS") {
         if (edad !== null) {
-            res = `${ifnull(meta, 'null ', ['DESCRIPCION_DIRIGIDO_A'])} ${ifnull(meta, '0', ['EDAD_MINIMA'])} a ${ifnull(meta, '+100', ['EDAD_MAXIMA'])} AÑOS ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} -. ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+            res = `${ifnull(meta, 'null ', ['DESCRIPCION_DIRIGIDO_A'])} ${ifnull(meta, '0', ['EDAD_MINIMA'])} a ${ifnull(meta, '+100', ['EDAD_MAXIMA'])} AÑOS ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
         } else {
-            res = `${ifnull(meta, '', ['DESCRIPCION_DIRIGIDO_A'])} ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} -. ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+            res = `${ifnull(meta, '', ['DESCRIPCION_DIRIGIDO_A'])} ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
         }
     } else {
         if (edad !== null) {
-            res = `${ifnull(meta, '0', ['EDAD_MINIMA'])} a ${ifnull(meta, '+100', ['EDAD_MAXIMA'])} AÑOS ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} -. ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+            res = `${ifnull(meta, '0', ['EDAD_MINIMA'])} a ${ifnull(meta, '+100', ['EDAD_MAXIMA'])} AÑOS ${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
         } else {
-            res = `${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} -. ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
+            res = `${ifnull(meta, 'Indefinido', ['VALOR_MINIMO', 'CODIGO'])} - ${ifnull(meta, 'Indefinido', ['VALOR_MAXIMO', 'VALOR_REFERENCIA'])}`
         }
     }
 
