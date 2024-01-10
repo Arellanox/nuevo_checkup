@@ -16,6 +16,18 @@ $fecha_inicio = $_POST['fecha_inicial'];
 $fecha_final = $_POST['fecha_final'];
 $bimer_id = isset($_POST['bimer_id']) ? $_POST['bimer_id'] : null;
 
+
+$vacaciones = isset($_POST['vacaciones']) ? $_POST['vacaciones'] : 0;
+$permisosCGS = isset($_POST['permisosCGS']) ? $_POST['permisosCGS']: 0;
+$incapacidad = isset($_POST['incapacidad']) ? $_POST['incapacidad'] : 0;
+$faltaInjustificada = isset($_POST['faltaInjustificada']) ? $_POST['faltaInjustificada'] : 0;
+$hrsExtras = isset($_POST['hrsExtras']) ? $_POST['hrsExtras'] : 0;
+$permisoSGS = isset($_POST['permisoSGS']) ? $_POST['permisoSGS'] : 0;
+
+$creado_por  = $_SESSION['id'];
+
+
+
 $asistencia = json_decode(file_get_contents('php://input'), true);
 
 $api = isset($asistencia['api']) ? $asistencia['api'] : $_POST['api'];
@@ -99,6 +111,29 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
 
             #RECUPERAMOS LA DATA PARA LA VISTA
             $response = $master->getByProcedure('sp_checador_data', [$fecha_inicio, $fecha_final, $bimer_id, 0]);
+
+            break;
+        case 7:
+            #Guardamos los datos del reporte personal
+
+            $preview = ['FECHA_INICIO' => $fecha_inicio, 'FECHA_FINAL' => $fecha_final];
+            $url = $master->reportador($master, $bimer_id, -6, "asistencia", 'url', $preview);
+            
+
+            $data = array(
+                $bimer_id,
+                $vacaciones, 
+                $permisosCGS,
+                $incapacidad,
+                $faltaInjustificada,
+                $hrsExtras,
+                $permisoSGS,
+                $creado_por,
+                $url
+            );
+
+            $response = $master->getByProcedure('sp_reporte_checadorBimo_g', [$data]);
+
 
             break;
         default:
