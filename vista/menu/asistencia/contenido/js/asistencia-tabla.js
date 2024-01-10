@@ -101,16 +101,28 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
                 obtenerReporteExcel(data);
             }
         },
+        // {
+        //     text: '<i class="bi bi-eye-fill"></i> Verificar Rostro',
+        //     className: 'btn-',
+        //     action: function (data) {
+        //         if (!usuarioSelected) {
+        //             alertToast('No hay ningun usuario seleccionado', 'error', 4000)
+        //             return false;
+        //         }
+
+        //         configurarModal()
+        //     }
+        // },
         {
-            text: '<i class="bi bi-eye-fill"></i> Verificar Rostro',
+            text: '<i class="bi bi-calendar-check-fill"></i> Reporte personal',
             className: 'btn-',
             action: function (data) {
                 if (!usuarioSelected) {
-                    alertToast('No hay ningun usuario seleccionado', 'error', 4000)
+                    alertToast('No hay ningun usuario seleccionado, para realizar esta acciòn', 'error', 4000)
                     return false;
                 }
 
-                configurarModal()
+                obtenerReportePersonal()
             }
         }
     ]
@@ -186,11 +198,58 @@ $(document).on('click', '#generReporteExcel', function (e) {
 
 })
 
+
+$(document).on('click', '#generReportePdf', function (e) {
+
+    const fecha_input = $('#FechaInicioPdf').val()
+    const fecha_input_2 = $('#FechaFinalPdf').val()
+
+    if (fecha_input < fecha_input_2) {
+        if (fecha_input === "" || fecha_input_2 === "") {
+            alertToast('Los campos de fecha estan vacios', 'error', 4000)
+        } else {
+            alertMensajeConfirm({
+                title: '¿Desea generar el reporte de asistencia?',
+                text: 'Confirme para descargar el reporte de asistencia en Pdf',
+                icon: 'info',
+                confirmButtonText: "Si, estoy seguro"
+                // denyButtonText: "No",
+                // showDenyButton: true
+            }, () => {
+                // sacamos la fecha inicial
+                // const fecha_inicial = sumarfecha();
+                // const fecha_inicial_buena = formatearFecha2(fecha_inicial.replaceAll("/", "-"))
+                // sacamos la fecha final
+                // const fecha_final = $('#fechaListadoAsistencia').val();
+                const fecha_inicial = $('#FechaInicioPdf').val()
+                const fecha_final = $('#FechaFinalPdf').val()
+
+                // se llama al metodo para descargar el archivo
+                descargarReportePdf(fecha_inicial, fecha_final);
+            }, 1)
+        }
+    } else {
+        
+         alertToast('El rango de las fechas son incorrectos', 'error', 4000)
+        console.log(2)
+
+    }
+
+})
+
 function obtenerReporteExcel() {
     $('#FechaInicio').val("")
     $('#FechaFinal').val("")
     $('#modalReporteExcel').modal('show');
 }
+
+function obtenerReportePersonal() {
+    $('#FechaInicio').val("")
+    $('#FechaFinal').val("")
+    $('#modalReportePersonal').modal('show');
+}
+
+
 
 // function para sumar una quincena a una fecha
 function sumarfecha() {
@@ -355,6 +414,45 @@ function descargarReporte(fecha_inicial, fecha_final) {
     //     document.body.removeChild(link);
     // })
 }
+
+
+//Funcion para descargar el reporte de PDF
+function descargarReportePdf(fecha_inicial, fecha_final) {
+    const fecha_formateada = fecha_inicial.replaceAll("/", "-")
+    // hacermos la peticion al archivo para conseguir el reporte
+
+    // $.ajax({
+    //     url: `${http + servidor + "/" + appname + "/clases/hacerExcel.php"}`,
+    //     method: 'POST',
+    //     data: { fecha_inicial: fecha_formateada, fecha_final: fecha_final },
+    //     xhrFields: {
+    //         responseType: 'blob' // Configuración de responseType para manejar blobs
+    //     },
+    //     success: function (data) {
+            alertToast('Reporte generado con éxito', 'success', 4000);
+
+    //         // Crear un objeto Blob a partir de los datos recibidos
+    //         var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    //         // Crear un enlace y simular clic para descargar el archivo
+    //         var link = document.createElement('a');
+    //         let nombre_archivo = `ReporteAsistencia_${fecha_inicial}-${fecha_final} .xlsx`;
+    //         link.href = window.URL.createObjectURL(blob);
+    //         link.download = nombre_archivo;
+    //         document.body.appendChild(link);
+    //         link.click();
+    //         document.body.removeChild(link);
+    //     },
+    //     error: function (error) {
+    //         alertErrorAJAX(null, null, error);
+    //         console.error('Error al descargar el archivo:', error);
+    //     }
+    // });
+
+
+}
+
+
 
 // function para configurar el modal
 function configurarModal() {
