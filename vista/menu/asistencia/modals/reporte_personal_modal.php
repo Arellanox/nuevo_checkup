@@ -76,7 +76,7 @@
                     <!-- Vista de formulario (Escritorio o mas) -->
                     <section class="col-12 col-lg-3 overflow-auto" style="height: 100%;">
                         <div class="rounded p-3 shadow my-2">
-                            <table class="table table-hover display responsive" id=""></table>
+                            <table class="table table-hover display responsive" id="reportes_anteriores_personal"></table>
                         </div>
                     </section>
                     <!-- Vista de formulario (Escritorio o mas) -->

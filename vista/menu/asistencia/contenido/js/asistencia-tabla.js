@@ -245,6 +245,14 @@ function obtenerReportePersonal() {
     $('#FechaInicio').val("")
     $('#FechaFinal').val("")
     $('#modalReportePersonal').modal('show');
+    setTimeout(() => {
+        $.fn.dataTable
+            .tables({
+                visible: true,
+                api: true
+            })
+            .columns.adjust();
+    }, 230);
 }
 
 
