@@ -23,6 +23,10 @@ $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $id_cotizacion = mb_convert_encoding(base64_decode(urldecode($_GET['id_cotizacion'])), 'UTF-8');
+
+$fecha_inicio = mb_convert_encoding(base64_decode(urldecode($_GET['fecha_inicio'])), 'UTF-8');
+$fecha_final = mb_convert_encoding(base64_decode(urldecode($_GET['fecha_final'])), 'UTF-8');
+
 $usuario_id = $_SESSION['id'];
 
 
@@ -92,6 +96,10 @@ switch ($api) {
         break;
     case 'audiometria':
         $r = $master->reportador($master, $turno_id, 4, 'audiometria', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'asistencia':
+        # $turno_id = id_bimer
+        $r = $master->reportador($master, $turno_id, $area_id, 'asistencia', 'mostrar', ['FECHA_INICIO' => $fecha_inicio, 'FECHA_FINAL' => $fecha_final], 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
