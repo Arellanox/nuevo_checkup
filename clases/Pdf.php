@@ -73,6 +73,7 @@ class Reporte
             case 'consultorio2': //<--Consultorio2 (Creado Angel) 
             case 'receta': //<--Receta (Creado Angel) 
             case 'solicitud_estudios': //<-- (Creado Angel)
+            case 'asistencia':
             case 'audiometria':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
@@ -231,6 +232,11 @@ class Reporte
                 break;
             case 'audiometria':
                 $template = render_view('invoice/audio.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+            case 'asistencia':
+                $template = render_view('invoice/reporte_asistencia.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;

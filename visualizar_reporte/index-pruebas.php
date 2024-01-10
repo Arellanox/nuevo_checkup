@@ -22,6 +22,8 @@ $master = new Master();
 $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
+$fecha_inicio = mb_convert_encoding(base64_decode(urldecode($_GET['fecha_inicio'])), 'UTF-8');
+$fecha_final = mb_convert_encoding(base64_decode(urldecode($_GET['fecha_final'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
@@ -32,14 +34,14 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "biomolecular";
-// $area_id = 11;
-$turno_id = 2649;
+$api = "asistencia";
+$area_id = -6;
+$turno_id = 5;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
 
-$preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
+$preview = 1; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 
 switch ($api) {
@@ -95,6 +97,11 @@ switch ($api) {
         break;
     case 'temperatura':
         $r = $master->reportador($master, $turno_id, $area_id, 'temperatura', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'asistencia':
+
+        # $turno_id = id_bimer
+        $r = $master->reportador($master, $turno_id, $area_id, 'asistencia', 'mostrar', ['FECHA_INICIO' => '2024-01-01', 'FECHA_FINAL' => '2024-01-05'], 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

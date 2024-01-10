@@ -540,6 +540,12 @@ class Miscelaneus
                 #Corte de caja
                 $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
                 break;
+
+            case -6:
+                #ASISTENCIA
+                $arregloPaciente = $this->getBodyAsistencia($master, $preview['FECHA_INICIO'], $preview['FECHA_FINAL'], $turno_id );
+              
+                break;
         }
 
 
@@ -741,6 +747,11 @@ class Miscelaneus
         return $response;
     }
 
+    private function getBodyAsistencia($master,$fecha_inicio, $fecha_final, $turno_id)
+    {
+        $response = $master->getByProcedure('sp_checador_data', [$fecha_inicio, $fecha_final, $turno_id, 0]);
+        return $response;
+    }
 
 
     private function getBodyInfoTicket($master, $id_turno)
