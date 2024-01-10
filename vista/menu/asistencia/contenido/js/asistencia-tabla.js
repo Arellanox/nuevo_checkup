@@ -490,6 +490,7 @@ function validarfecha(fecha_inicial, fecha_final) {
 
 $(document).on('click', '#btnReporteEntradasSalidas', () => {
     const fecha_input = $('#FechaInicioPdf').val()
+    const fecha_formateada = fecha_input.replaceAll("/", "-")
     const fecha_input_2 = $('#FechaFinalPdf').val()
 
     if (fecha_input < fecha_input_2) {
@@ -500,7 +501,7 @@ $(document).on('click', '#btnReporteEntradasSalidas', () => {
             area = encodeURIComponent(window.btoa(-6));
             turno = encodeURIComponent(window.btoa(usuarioSelected.ID_BIMER));
 
-            var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&fecha_inicio=${fecha_input}&fecha_final=${fecha_input_2}`, '_blank')
+            var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&fecha_inicio=${fecha_formateada}&fecha_final=${fecha_input_2}`, '_blank')
 
             win.focus();
         }
