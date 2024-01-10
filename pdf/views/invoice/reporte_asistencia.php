@@ -1,4 +1,8 @@
 <?php
+// para el path del logo 
+$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
+$encode = base64_encode($ruta);
+
 
 function convertirObjetoAArray($objeto)
 {
@@ -16,6 +20,15 @@ function convertirObjetoAArray($objeto)
     }
 }
 
+function formatear_fecha($fecha)
+{
+
+    $fmt = new DateTime($fecha);
+    $fecha_formateada = $fmt->format("d/m/Y");
+
+    return $fecha_formateada;
+}
+
 $resultado = convertirObjetoAArray($resultados[0]);
 
 // echo "<pre>";
@@ -30,14 +43,14 @@ $asistencia = array(
         "px" => $resultado['NOMBRE'],
         "area" => $resultado['AREA'],
         "dias_trabajados" => $resultado['DIAS_TRABAJADOS'],
-        "Hrs_extras" => "",
-        "vacaciones" => "",
-        "permiso_cgs_1" => "",
-        "permiso_cgs_2" => "",
-        "permiso_sgs" => "",
-        "incapacidad" => "",
-        "retardos" => "",
-        "faltas_injustificadas" => "",
+        "Hrs_extras" => $resultado['hrs_extras'],
+        "vacaciones" => $resultado['vacaciones'],
+        "permiso_cgs_1" => $resultado['permiso_cgs_1'],
+        "permiso_cgs_2" => $resultado['permiso_cgs_2'],
+        "permiso_sgs" => $resultado['permiso_sgs'],
+        "incapacidad" => $resultado['incapacidad'],
+        "retardos" => $resultado['retardos'],
+        "faltas_injustificadas" => $resultado['faltas_injustificadas'],
     ),
     "periodo" => array(
         "inicio" => $resultado['FECHA_INICIO'],
@@ -217,16 +230,17 @@ $asistencia = array(
             <!-- Tabla de informacion del bimer -->
             <table>
                 <tr>
-                    <td colspan="4" class="center">
+                    <td colspan="4" class="center border-none">
                         <span class="margin:20px 0px 20px 0px;">
                             REPORTE DE ENTRADAS Y SALIDAS <br>
                             DIAGNÓSTICO BIOMOLECULAR S.A DE C.V.
                         </span>
                     </td>
-                    <td colspan="1">
-                        <span>
-                            logo
-                        </span>
+                    <td colspan="1" class="border-none">
+                        <?php
+                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
+                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
+                        ?>
                     </td>
                 </tr>
                 <!-- Espacio -->
@@ -252,10 +266,10 @@ $asistencia = array(
                     <td><?php echo $asistencia['periodo']['final'] ?></td>
                 </tr>
                 <!-- No quincena -->
-                <tr>
-                    <td colspan="1" class="border-none">No. quincena</td>
-                    <td colspan="4" class=""> QO1</td>
-                </tr>
+                <!-- <tr>
+                        <td colspan="1" class="border-none">No. quincena</td>
+                        <td colspan="4" class=""> QO1</td>
+                    </tr> -->
                 <!-- Espacio -->
                 <tr>
                     <td style="border: none !important; height:20px !important;" colspan="5"></td>
@@ -266,17 +280,17 @@ $asistencia = array(
             <table>
                 <tr>
                     <td class="center bold p-blue">Fecha</td>
-                    <td class="center bold p-blue">Fe</td>
+                    <td class="center bold p-blue">Entrada</td>
                     <td class="center bold p-blue">Salida</td>
                     <td class="center bold p-blue">Observaciones</td>
                 </tr>
                 <?php foreach ($asistencia['fechas'] as $key => $value) : ?>
                     <?php $e = json_decode($value) ?>
                     <tr>
-                        <td class="center"> <?php echo $e->FECHA ?> </td>
-                        <td></td>
-                        <td> <?php echo $e->HORA_SALIDA ?></td>
-                        <td></td>
+                        <td class="center"> <?php echo formatear_fecha($e->FECHA) ?> </td>
+                        <td class="center"><?php echo $e->HORA_ENTRADA ?></td>
+                        <td class="center"> <?php echo $e->HORA_SALIDA ?></td>
+                        <td> </td>
                     </tr>
                 <?php endforeach ?>
                 <!-- <tr>
@@ -301,11 +315,21 @@ $asistencia = array(
                     <td class="center bg-gray">Permisos CGS</td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        <?php echo $asistencia['colaborador']['dias_trabajados'] ?>
+                    </td>
+                    <td>
+                        <?php echo $asistencia['colaborador']['hrs_extras'] ?>
+                    </td>
+                    <td>
+                        <?php echo $asistencia['colaborador']['vacaciones'] ?>
+                    </td>
+                    <td>
+                        <?php echo $asistencia['colaborador']['permiso_cgs_1'] ?>
+                    </td>
+                    <td>
+                        <?php echo $asistencia['colaborador']['permiso_cgs_2'] ?>
+                    </td>
                 </tr>
                 <!-- Espacio -->
                 <tr>
@@ -323,9 +347,15 @@ $asistencia = array(
                     <td class="border-none"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        <?php echo $asistencia['colaborador']['permiso_sgs'] ?>
+                    </td>
+                    <td>
+                        <?php echo $asistencia['colaborador']['incapacidad'] ?>
+                    </td>
+                    <td>
+                        <?php echo $asistencia['colaborador']['faltas_injustificadas'] ?>
+                    </td>
                     <td></td>
                     <td class="border-none"></td>
                 </tr>
@@ -349,7 +379,7 @@ $asistencia = array(
                     </td>
                     <td class="border-none" style="width: 40%;"></td>
                     <td class="border-none" style="width: 50%;">
-                        Fecha_firma
+                        Fecha
                     </td>
                     <td class="border-none" style="border-bottom: 1px solid black !important;">
 
@@ -368,7 +398,7 @@ $asistencia = array(
                         Nombre
                     </td>
                     <td class="border-none" style="border-bottom: 1px solid black !important;">
-
+                        <?php echo $asistencia['colaborador']['px'] ?>
                     </td>
                 </tr>
             </table>
