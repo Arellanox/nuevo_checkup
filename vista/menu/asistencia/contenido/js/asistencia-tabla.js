@@ -414,44 +414,6 @@ function descargarReporte(fecha_inicial, fecha_final) {
 }
 
 
-//Funcion para descargar el reporte de PDF
-function descargarReportePdf(fecha_inicial, fecha_final) {
-    const fecha_formateada = fecha_inicial.replaceAll("/", "-")
-    // hacermos la peticion al archivo para conseguir el reporte
-
-    // $.ajax({
-    //     url: `${http + servidor + "/" + appname + "/clases/hacerExcel.php"}`,
-    //     method: 'POST',
-    //     data: { fecha_inicial: fecha_formateada, fecha_final: fecha_final },
-    //     xhrFields: {
-    //         responseType: 'blob' // Configuración de responseType para manejar blobs
-    //     },
-    //     success: function (data) {
-    alertToast('Reporte generado con éxito', 'success', 4000);
-
-    //         // Crear un objeto Blob a partir de los datos recibidos
-    //         var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-    //         // Crear un enlace y simular clic para descargar el archivo
-    //         var link = document.createElement('a');
-    //         let nombre_archivo = `ReporteAsistencia_${fecha_inicial}-${fecha_final} .xlsx`;
-    //         link.href = window.URL.createObjectURL(blob);
-    //         link.download = nombre_archivo;
-    //         document.body.appendChild(link);
-    //         link.click();
-    //         document.body.removeChild(link);
-    //     },
-    //     error: function (error) {
-    //         alertErrorAJAX(null, null, error);
-    //         console.error('Error al descargar el archivo:', error);
-    //     }
-    // });
-
-
-}
-
-
-
 // function para configurar el modal
 function configurarModal() {
     // rellenamos el titulo
@@ -475,35 +437,45 @@ function limpiarModal() {
     $('#verRostrosTitle').html()
 }
 
-function validarfecha(fecha_inicial, fecha_final) {
-
-    if (fecha_final > fecha_inicial) {
-        return false
-    }
-
-
-    return true
-}
-
-
-
 
 $(document).on('click', '#btnReporteEntradasSalidas', () => {
     const fecha_input = $('#FechaInicioPdf').val()
-    const fecha_formateada = fecha_input.replaceAll("/", "-")
     const fecha_input_2 = $('#FechaFinalPdf').val()
 
     if (fecha_input < fecha_input_2) {
-        if (fecha_input === "" || fecha_input_2 === "") {
-            alertToast('Los campos de fecha estan vacios', 'error', 4000)
-        } else {
-            api = encodeURIComponent(window.btoa('asistencia'));
-            area = encodeURIComponent(window.btoa(-6));
-            turno = encodeURIComponent(window.btoa(usuarioSelected.ID_BIMER));
 
-            var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&fecha_inicio=${fecha_formateada}&fecha_final=${fecha_input_2}`, '_blank')
-
-            win.focus();
-        }
+    } else {
+        alertToast('Las fechas no coinciden con el formato', 'error', 2000);
     }
 })
+
+
+// Evento para el formualrio FormReporteIndividual
+$(document).on('submit', '#FormReporteIndividual', (e) => {
+    e.preventDefault();
+
+    alertMensajeConfirm({
+        title: `¿Desea realizar la accion?`,
+        text: "Se guardara en la base de datos",
+        icon: "info"
+    }, function () {
+        enviarFormularioReporteIndividual()
+    }, 1)
+})
+
+
+
+// function para enviar los datos para hacer el reporte inidivudal
+let enviarFormularioReporteIndividual = (config = {}) => {
+    return new Promise((resolve, reject) => {
+        ajaxAwaitFormData({
+            api: 7,
+            bimer_id: usuarioSelected.ID_BIMER
+        }, 'checadorBimo_api', 'FormReporteIndividual', { callbackAfter: true }, false, (data) => {
+            alertToast('Reporte generado con éxito', 'success', 4000);
+            $('#FormReporteIndividual').trigger("reset");
+        })
+
+        resolve(1);
+    })
+}
