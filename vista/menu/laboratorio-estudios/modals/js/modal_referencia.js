@@ -108,7 +108,7 @@ TablaValoresReferencia = $('#TablaValoresReferencia').DataTable({
         // { target: 8, title: 'Operador Lógico', className: 'none' },
         { target: 5, title: 'Referencia', className: 'min-tablet' },
         { target: 6, title: 'Val nor', className: 'min-tablet' },
-        { target: 7, title: '<i class="bi bi-trash"></i>', className: 'all' }
+        { target: 7, title: '#', className: 'all' }
 
     ],
     // dom: 'Blfrtip',
