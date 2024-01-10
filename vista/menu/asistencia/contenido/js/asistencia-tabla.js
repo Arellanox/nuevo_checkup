@@ -496,11 +496,11 @@ $(document).on('click', '#btnReporteEntradasSalidas', () => {
         if (fecha_input === "" || fecha_input_2 === "") {
             alertToast('Los campos de fecha estan vacios', 'error', 4000)
         } else {
-            api = encodeURIComponent(window.btoa(''));
-            area = encodeURIComponent(window.btoa(-1));
-            turno = encodeURIComponent(window.btoa());
+            api = encodeURIComponent(window.btoa('asistencia'));
+            area = encodeURIComponent(window.btoa(-6));
+            turno = encodeURIComponent(window.btoa(usuarioSelected.ID_BIMER));
 
-            var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank')
+            var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&fecha_inicio=${fecha_input}&fecha_final=${fecha_input_2}`, '_blank')
 
             win.focus();
         }
