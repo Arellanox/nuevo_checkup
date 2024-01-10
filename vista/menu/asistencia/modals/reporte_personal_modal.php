@@ -10,7 +10,7 @@
                 <div class="row" style="max-height: 100%;height: 100%;">
                     <!-- Formulario -->
                     <section class="col-12 col-lg overflow-auto" style="height: 100%;">
-                        <div class="rounded p-3 shadow my-2">
+                        <div class=" rounded p-3 shadow my-2">
                             <div class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="mb-3">
@@ -64,6 +64,12 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary  buttons-html5 btn-danger" id="btnReporteEntradasSalidas">
+                                    <i class="bi bi-filetype-pdf"></i> Generar Reporte
+                                </button>
+                            </div>
                         </div>
                     </section>
 
@@ -87,9 +93,7 @@
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
                     Cancelar
                 </button>
-                <button type="button" class="btn btn-secondary  buttons-html5 btn-danger" id="btnReporteEntradasSalidas">
-                    <i class="bi bi-filetype-pdf"></i> Generar Reporte
-                </button>
+
             </div>
         </div>
     </div>
