@@ -17,13 +17,13 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="mb-3">
                                             <label for="FechaInicioPdf">Fecha de Inicio:</label>
-                                            <input type="date" name="FechaInicioPdf" value="" class="form-control input-form" required id="FechaInicioPdf">
+                                            <input type="date" name="fecha_inicial" value="" class="form-control input-form" required id="FechaInicioPdf">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="mb-3">
                                             <label for="FechaFinalPdf">Fecha Final:</label>
-                                            <input type="date" name="FechaFinalPdf" value="" class="form-control input-form" required id="FechaFinalPdf">
+                                            <input type="date" name="fecha_final" value="" class="form-control input-form" required id="FechaFinalPdf">
                                         </div>
                                     </div>
                                 </div>
