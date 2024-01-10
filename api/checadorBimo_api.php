@@ -132,7 +132,7 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
                 $url
             );
 
-            $response = $master->getByProcedure('sp_reporte_checadorBimo_g', [$data]);
+            $response = $master->getByProcedure('sp_reporte_checadorBimo_g', $data);
 
 
             break;
