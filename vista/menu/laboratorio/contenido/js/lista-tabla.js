@@ -524,6 +524,16 @@ function generarFormularioPaciente(id) {
               Tipo = '_BH'
               break;
 
+            case '1516':
+              // rT-PCR Thrombosis SNP
+              classSelect = 'selectTipoMuestraThrombosisSNP';
+              muestras = {
+                0: {
+                  'descripcion': 'Sangre Total con EDTA',
+                },
+              }
+              break;
+
 
             default: input = null;
               if (areaActiva == 12) {
@@ -627,6 +637,9 @@ function generarFormularioPaciente(id) {
                 // PCR SARS-CoV-2/INFLUENZA A Y B
                 case '1470': case '1472': case '1474':
 
+                // rT-PCR Thrombosis SNP
+                case '':
+
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 // Panel 21
@@ -641,6 +654,8 @@ function generarFormularioPaciente(id) {
                 case '1436': case '1432':
                 // rT-PCR Entero-DR
                 case '1421': case '1427': case '1430':
+                // rT-PCR Thrombosis SNP
+                case '1517':
 
                   onlyLabel = true; break;
 
