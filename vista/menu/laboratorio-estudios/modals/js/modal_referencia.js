@@ -133,6 +133,7 @@ selectTable('#TablaValoresReferencia', TablaValoresReferencia,
                 class: 'btn-edit-valor_referencia',
                 callback: function (data) {
                     // Data son los datos de la fila
+                    console.log(data);
                     // Reiniciar el formulario con el ID formGuardarReferencia
                     const formulario = document.getElementById('formGuardarReferencia');
                     if (formulario) {
@@ -156,15 +157,18 @@ selectTable('#TablaValoresReferencia', TablaValoresReferencia,
                     // Compara que tipo de valor es
                     if (data.OPERADORES_LOGICOS_ID) {
                         // Quita el check para el valor de referencia por rango
-                        $('#cambioReferencia').prop('checked', false);
-                        $('#valor_minimo').val(data.VALOR_MINIMO);
-                        $('#valor_maximo').val(data.VALOR_MAXIMO);
-                    } else {
-                        // Agrega el check para el vlor de referencia por referencia
                         $('#cambioReferencia').prop('checked', true);
                         $('#select-operador-referencia').val(data.OPERADORES_LOGICOS_ID);
                         $('#valor_referencia').val(data.VALOR_REFERENCIA)
+                    } else {
+                        console.log(data.OPERADORES_LOGICOS_ID, data.VALOR_MAXIMO, data.VALOR_MINIMO);
+                        // Agrega el check para el vlor de referencia por referencia
+                        $('#cambioReferencia').prop('checked', false);
+                        $('#valor_minimo').val(data.VALOR_MINIMO);
+                        $('#valor_maximo').val(data.VALOR_MAXIMO);
                     }
+
+                    ChangeReferencias();
 
                     // Valor normalidad
                     if (parseInt(data.VALOR_NORMALIDAD)) {
@@ -200,7 +204,6 @@ $('#reset_form').on('click', function () {
     }
     //Reinicia la seleccion:
     TablaValoresReferencia.$('tr.selected').removeClass('selected');
-    TablaValoresReferencia.$('tr.selected').removeClass(config.anotherClass);
 })
 
 //Desactiva los imput de maximo y minimo de edad

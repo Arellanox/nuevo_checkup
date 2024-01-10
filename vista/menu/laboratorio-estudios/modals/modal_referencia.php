@@ -131,7 +131,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-pantone-7541" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-pantone-7541" id="reset_form" data-bs-dismiss="modal"><i class="bi bi-x"></i> Reiniciar</button>
+            <button type="button" class="btn btn-pantone-7541" id="reset_form"><i class="bi bi-x"></i> Reiniciar</button>
             <!-- <button type="button" form="formGuardarReferencia" class="btn btn-borrar" id="btn-VisualizarPDFReferencia">
                 <i class="bi bi-file-earmark-pdf"></i> Visualizar PDF
             </button> -->
