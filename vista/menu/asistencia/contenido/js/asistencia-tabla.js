@@ -190,8 +190,8 @@ $(document).on('click', '#generReporteExcel', function (e) {
             }, 1)
         }
     } else {
-        
-         alertToast('El rango de las fechas son incorrectos', 'error', 4000)
+
+        alertToast('El rango de las fechas son incorrectos', 'error', 4000)
         console.log(2)
 
     }
@@ -229,10 +229,8 @@ $(document).on('click', '#generReportePdf', function (e) {
             }, 1)
         }
     } else {
-        
-         alertToast('El rango de las fechas son incorrectos', 'error', 4000)
+        alertToast('El rango de las fechas son incorrectos', 'error', 4000)
         console.log(2)
-
     }
 
 })
@@ -429,7 +427,7 @@ function descargarReportePdf(fecha_inicial, fecha_final) {
     //         responseType: 'blob' // Configuración de responseType para manejar blobs
     //     },
     //     success: function (data) {
-            alertToast('Reporte generado con éxito', 'success', 4000);
+    alertToast('Reporte generado con éxito', 'success', 4000);
 
     //         // Crear un objeto Blob a partir de los datos recibidos
     //         var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -477,7 +475,7 @@ function limpiarModal() {
     $('#verRostrosTitle').html()
 }
 
-function validarfecha(fecha_inicial, fecha_final) { 
+function validarfecha(fecha_inicial, fecha_final) {
 
     if (fecha_final > fecha_inicial) {
         return false
@@ -486,3 +484,25 @@ function validarfecha(fecha_inicial, fecha_final) {
 
     return true
 }
+
+
+
+
+$(document).on('click', '#btnReporteEntradasSalidas', () => {
+    const fecha_input = $('#FechaInicioPdf').val()
+    const fecha_input_2 = $('#FechaFinalPdf').val()
+
+    if (fecha_input < fecha_input_2) {
+        if (fecha_input === "" || fecha_input_2 === "") {
+            alertToast('Los campos de fecha estan vacios', 'error', 4000)
+        } else {
+            api = encodeURIComponent(window.btoa(''));
+            area = encodeURIComponent(window.btoa(-1));
+            turno = encodeURIComponent(window.btoa());
+
+            var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank')
+
+            win.focus();
+        }
+    }
+})
