@@ -1,3 +1,56 @@
+<?php
+
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        // Opción 1: Utilizar el casting
+        $array_resultante = (array) $objeto;
+
+        // Opción 2: Utilizar get_object_vars
+        // $array_resultante = get_object_vars($objeto);
+
+        return $array_resultante;
+    } else {
+        // Si el argumento no es un objeto, puedes manejarlo de acuerdo a tus necesidades
+        return array();
+    }
+}
+
+$resultado = convertirObjetoAArray($resultados[0]);
+
+// echo "<pre>";
+// var_dump();
+// echo "</pre>";
+// exit;
+
+
+
+$asistencia = array(
+    "colaborador" => array(
+        "px" => $resultado['NOMBRE'],
+        "area" => $resultado['AREA'],
+        "dias_trabajados" => $resultado['DIAS_TRABAJADOS'],
+        "Hrs_extras" => "",
+        "vacaciones" => "",
+        "permiso_cgs_1" => "",
+        "permiso_cgs_2" => "",
+        "permiso_sgs" => "",
+        "incapacidad" => "",
+        "retardos" => "",
+        "faltas_injustificadas" => "",
+    ),
+    "periodo" => array(
+        "inicio" => $resultado['FECHA_INICIO'],
+        "final" => $resultado['FECHA_FINAL'],
+    ),
+    "no_quincenca" => 12,
+    "fechas" => json_decode($resultado['ASISTENCIAS']),
+);
+
+
+?>
+
+
 <html>
 
 <head>
@@ -182,20 +235,20 @@
                 <!-- Colabor -->
                 <tr>
                     <td colspan="1" class="border-none">Colaborador</td>
-                    <td colspan="4" class="border-none center">Juan Daniel Hernandez Garcia</td>
+                    <td colspan="4" class="border-none center"><?php echo $asistencia['colaborador']['px'] ?></td>
                 </tr>
                 <!-- Area -->
                 <tr>
                     <td colspan="1" class="border-none">Area</td>
-                    <td colspan="4" class="center">TI</td>
+                    <td colspan="4" class="center"><?php echo $asistencia['colaborador']['area'] ?></td>
                 </tr>
                 <!-- Periodo -->
                 <tr>
                     <td class="border-none">Periodo</td>
                     <td class="bg-gray">De</td>
-                    <td class="left">01/01/2024</td>
+                    <td class="left"><?php echo $asistencia['periodo']['inicio'] ?></td>
                     <td class="bg-gray">A</td>
-                    <td>15/01/2024</td>
+                    <td><?php echo $asistencia['periodo']['final'] ?></td>
                 </tr>
                 <!-- No quincena -->
                 <tr>
@@ -216,36 +269,21 @@
                     <td class="center bold p-blue">Salida</td>
                     <td class="center bold p-blue">Observaciones</td>
                 </tr>
-                <tr>
+                <?php foreach ($asistencia['fechas'] as $key => $value) : ?>
+                    <?php $e = json_decode($value) ?>
+                    <tr>
+                        <td class="center"> <?php echo $e->FECHA ?> </td>
+                        <td></td>
+                        <td> <?php echo $e->HORA_SALIDA ?></td>
+                        <td></td>
+                    </tr>
+                <?php endforeach ?>
+                <!-- <tr>
                     <td class="center">01/01/2024</td>
                     <td></td>
                     <td></td>
                     <td></td>
-                </tr>
-                <tr>
-                    <td class="center">01/01/2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="center">01/01/2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="center">01/01/2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="center">01/01/2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                </tr> -->
                 <!-- Espacio -->
                 <tr>
                     <td style="border: none !important; height:20px !important;" colspan="4"></td>
