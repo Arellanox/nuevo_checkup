@@ -217,12 +217,13 @@ $asistencia = array(
             <!-- Tabla de informacion del bimer -->
             <table>
                 <tr>
-                    <td colspan="3" class="center">
+                    <td colspan="4" class="center">
                         <span class="margin:20px 0px 20px 0px;">
-                            REPORTE DE ENTRADAS Y SALIDAS DIAGNÓSTICO BIOMOLECULAR S.A DE C.V.
+                            REPORTE DE ENTRADAS Y SALIDAS <br>
+                            DIAGNÓSTICO BIOMOLECULAR S.A DE C.V.
                         </span>
                     </td>
-                    <td colspan="2" style="width: 40%;">
+                    <td colspan="1">
                         <span>
                             logo
                         </span>
