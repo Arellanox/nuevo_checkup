@@ -65,7 +65,7 @@
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
                     Cancelar
                 </button>
-                <button type="button" class="btn btn-secondary  buttons-html5 btn-danger" id="generReportePdf">
+                <button type="button" class="btn btn-secondary  buttons-html5 btn-danger" id="btnReporteEntradasSalidas">
                     <i class="bi bi-filetype-pdf"></i> Generar Reporte
                 </button>
             </div>
