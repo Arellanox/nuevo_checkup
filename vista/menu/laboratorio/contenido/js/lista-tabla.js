@@ -532,6 +532,15 @@ function generarFormularioPaciente(id) {
                   'descripcion': 'Sangre Total con EDTA',
                 },
               }
+
+              resultado = {
+                0: {
+                  'descripcion': 'Homocigoto',
+                },
+                1: {
+                  'descripcion': 'Heterocitogo',
+                }
+              }
               break;
 
 
@@ -635,10 +644,10 @@ function generarFormularioPaciente(id) {
                 case '344':
 
                 // PCR SARS-CoV-2/INFLUENZA A Y B
-                case '1470': case '1472': case '1474':
+                case '1470': case '1472': case '1474': case '1523': case '1526': case '1529': case '1531':
 
                 // rT-PCR Thrombosis SNP
-                case '':
+                case '1519': case '1521':
 
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
@@ -655,7 +664,7 @@ function generarFormularioPaciente(id) {
                 // rT-PCR Entero-DR
                 case '1421': case '1427': case '1430':
                 // rT-PCR Thrombosis SNP
-                case '1517':
+                case '1517': case '1524': case '1527':
 
                   onlyLabel = true; break;
 
