@@ -53,7 +53,7 @@
                 <td style="height: 10px"></td>
             </tr>
             <tr class="bold">
-                <td style="font-size: 12px;text-align: left;" class=""><i><?php echo $value->nombre ?></i></td>
+                <td style="font-size: 12px;text-align: left;" class=""><?php echo $value->nombre ?></td>
                 <td style="height: 10px"></td>
                 <td style="height: 10px"></td>
                 <td style="height: 10px"></td>
@@ -66,7 +66,7 @@
                     <td style="font-size: 12px;text-align: left;" class="">
                         <p style="padding: 0px; margin:0px">
                             <?php
-                            echo $value->nombre
+                            echo text_cursive_result($value->nombre)
                             ?>
                         </p>
                     </td>
@@ -87,7 +87,19 @@
         return stripos($string, 'Alelo') !== false;
     }
 
+    function text_cursive_result($string)
+    {
+        $nombre_bold = ['G20210A', 'A1298C'];
 
+        foreach ($nombre_bold as $string_search) {
+            $valor = stripos($string, $string_search) !== false;
+            if ($valor) {
+                return str_replace($string_search, "<i style='font-size: 12px;'>$string</i>", $string);
+            }
+        }
+
+        return $string;
+    }
 
     ?>
     <tr>
