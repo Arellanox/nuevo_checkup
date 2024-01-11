@@ -91,8 +91,18 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
         {
             text: '<i class="fa fa-file-excel-o"></i> Excel',
             className: 'btn btn-secondary buttons-excel buttons-html5 btn-success',
-            action: function (data) {
+            action: async function (data) {
+
                 obtenerReporteExcel(data);
+
+                setTimeout(() => {
+                    $.fn.dataTable
+                        .tables({
+                            visible: true,
+                            api: true
+                        })
+                        .columns.adjust();
+                }, 200);
             }
         },
         // {
@@ -473,3 +483,6 @@ let enviarFormularioReporteIndividual = (config = {}) => {
 function limpiarAdobe() {
     $('#adobe-dc-view').html("")
 }
+
+
+// HACER UNA TABLA DE 25 FILAS CONTANDO LOS ENCABEZADOS
