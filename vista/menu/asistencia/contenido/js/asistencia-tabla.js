@@ -52,19 +52,13 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
             data: 'USUARIO'
         },
         {
-            data: 'TELEFONO', render: function (data) {
-                return badgeNull(config = { data: data, index: 'data.TELEFONO' }, type = 'TELEFONO');
-            }
+            data: 'TELEFONO'
         },
         {
-            data: 'CORREO', render: function (data) {
-                return badgeNull(config = { data: data, index: 'data.CORREO' }, type = 'CORREO');
-            }
+            data: 'CORREO'
         },
         {
-            data: 'AREA', render: function (data) {
-                return badgeNull(config = { data: data, index: 'data.AREA' }, type = 'AREA');
-            }
+            data: 'AREA'
         },
         {
             data: null, render: function (data) {
@@ -353,25 +347,6 @@ function backHora(config = { data: [], hora: null, horario: { entrada: '', salid
     })
 }
 
-function badgeNull(config = { data: [], index: '[]' }, type = '') {
-    return ifnull(config.data, null, [config.index], (result) => {
-        if (!result) {
-            switch (type) {
-                case 'CORREO':
-                    return ''; break;
-                case 'TELEFONO':
-                    return ''; break;
-                case 'AREA':
-                    return ''; break;
-                default:
-                    return '';
-                    break;
-            }
-        } else {
-            return result;
-        }
-    })
-}
 
 // function para descargar el reporte de excel
 function descargarReporte(fecha_inicial, fecha_final) {
@@ -494,7 +469,7 @@ let enviarFormularioReporteIndividual = (config = {}) => {
 }
 
 
-
+// function para limpiar el adobe
 function limpiarAdobe() {
     $('#adobe-dc-view').html("")
 }
