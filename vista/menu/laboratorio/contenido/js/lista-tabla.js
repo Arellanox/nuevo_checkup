@@ -900,39 +900,39 @@ $(document).on('click', '.selectMolecular', function () {
 
 
 
-$(document).on('click', '.linearEstudiosLabs', function (event) {
-  event.stopPropagation();
-  event.preventDefault();
+// $(document).on('click', '.linearEstudiosLabs', function (event) {
+//   event.stopPropagation();
+//   event.preventDefault();
 
-  let id = $(this).attr('data-id_servicio');
-  let grupo = $(this).attr('data-id_grupo');
-  let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+//   let id = $(this).attr('data-id_servicio');
+//   let grupo = $(this).attr('data-id_grupo');
+//   let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
 
-  // Oculta todos los otros elementos de collapse
-  $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+//   // Oculta todos los otros elementos de collapse
+//   $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
 
-  // Verifica si el contenido ya ha sido cargado
-  if ($element.find('.valores-referencia').length === 0) {
-    // Si no existe, realiza la llamada AJAX y carga el contenido
-    reloadValoresRef($element, id);
-  } else {
-    $element.find('.valores-referencia').collapse('show');
-  }
-});
+//   // Verifica si el contenido ya ha sido cargado
+//   if ($element.find('.valores-referencia').length === 0) {
+//     // Si no existe, realiza la llamada AJAX y carga el contenido
+//     reloadValoresRef($element, id);
+//   } else {
+//     $element.find('.valores-referencia').collapse('show');
+//   }
+// });
 
-// Evento de clic para el botón de recarga
-$(document).on('click', '.reload-button', function (event) {
-  event.stopPropagation();
-  let id = $(this).closest('.linearEstudiosLabs').attr('data-id_servicio');
-  let grupo = $(this).closest('.linearEstudiosLabs').attr('data-id_grupo');
-  let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+// // Evento de clic para el botón de recarga
+// $(document).on('click', '.reload-button', function (event) {
+//   event.stopPropagation();
+//   let id = $(this).closest('.linearEstudiosLabs').attr('data-id_servicio');
+//   let grupo = $(this).closest('.linearEstudiosLabs').attr('data-id_grupo');
+//   let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
 
-  // Oculta todos los otros elementos de collapse
-  $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+//   // Oculta todos los otros elementos de collapse
+//   $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
 
-  // Recarga el contenido del collapse actual
-  reloadValoresRef($element, id);
-});
+//   // Recarga el contenido del collapse actual
+//   reloadValoresRef($element, id);
+// });
 
 function reloadValoresRef($element, id) {
   ajaxAwait({
