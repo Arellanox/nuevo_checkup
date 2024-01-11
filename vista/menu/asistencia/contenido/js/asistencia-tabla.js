@@ -146,6 +146,8 @@ selectTable('#TablaAsistencia', TablaAsistencia, {
 }, async function (select, data, callback) {
     if (select) {
         usuarioSelected = data;
+        dataAjax.bimer_id = usuarioSelected.ID_BIMER
+        reportes_anteriores_personal.ajax.reload()
         callback('In')
     } else {
         usuarioSelected = false
