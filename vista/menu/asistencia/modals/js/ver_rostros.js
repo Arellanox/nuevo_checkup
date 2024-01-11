@@ -116,6 +116,15 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out' }) {
         if (config.type === 'In') {
             div.fadeIn();
             horarios.fadeIn();
+
+            setTimeout(() => {
+                $.fn.dataTable
+                    .tables({
+                        visible: true,
+                        api: true
+                    })
+                    .columns.adjust();
+            }, 300);
         } else if (config.type === 'Out') {
             div.fadeOut();
             horarios.fadeOut();
