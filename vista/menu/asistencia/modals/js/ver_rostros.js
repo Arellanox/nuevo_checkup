@@ -8,6 +8,43 @@ tablaUsuariosFiltro = $('#tablaUsuariosFiltro').DataTable({
     sorting: false,
     scrollY: '68vh',
     scrollCollapse: true,
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return $.extend(d, {
+                api: 9
+            });
+        },
+        // data: { api: 2, equipo: id_equipos },
+        method: 'POST',
+        url: '../../../api/checadorBimo_api.php',
+        beforeSend: function () {
+            // loader("In", 'bottom')
+        },
+        complete: function () {
+            // //Para ocultar segunda columna
+            // loader("Out", 'bottom')
+
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        },
+        dataSrc: 'response.data'
+    },
+    columns: [
+        {
+            data: 'COUNT'
+        },
+        {
+            data: 'NOMBRE'
+        }
+    ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '1px' },
         { target: 1, title: 'Nombre', className: 'all' },
@@ -23,6 +60,21 @@ setTimeout(() => {
         place: 'top'
     }, "col-12")
 }, 300);
+
+// Select para la tabla principals
+selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
+    unSelect: true, dblClick: false,
+}, async function (select, data, callback) {
+    if (select) {
+        fadeTableAsistencia({ type: 'In' })
+    } else {
+        fadeTableAsistencia({ type: 'Out' })
+    }
+})
+
+
+
+// ==============================================================
 
 tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
     language: {
@@ -52,3 +104,24 @@ setTimeout(() => {
         place: 'top'
     }, "col-12")
 }, 300);
+
+
+
+function fadeTableAsistencia(config = { type: 'In' || 'Out' }) {
+    return new Promise((resolve, reject) => {
+
+        let div = $('#divtablaReporteAsistencias');
+        let horarios = $('#divHorarios');
+
+        if (config.type === 'In') {
+            div.fadeIn();
+            horarios.fadeIn();
+        } else if (config.type === 'Out') {
+            div.fadeOut();
+            horarios.fadeOut();
+        }
+
+        resolve(1)
+    })
+
+}

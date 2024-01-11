@@ -45,7 +45,7 @@
                     <div class="col-9">
                         <div class="row">
                             <div class="col-12">
-                                <div class="rounded p-3 shadow border">
+                                <div class="rounded p-3 shadow border" id="divHorarios" style="display: none;">
                                     <div class="d-flex justify-content-center gap-4">
                                         <div class="d-flex">
                                             <h5 class=" ">
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="rounded p-3 shadow border mt-2">
+                                <div class="rounded p-3 shadow border mt-2" id="divtablaReporteAsistencias" style="display: none;">
                                     <h5>Asistencias</h5>
                                     <table id="tablaReporteAsistencias" class="table table-hover display responsive"></table>
                                 </div>
