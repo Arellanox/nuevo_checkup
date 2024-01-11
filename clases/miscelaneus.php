@@ -543,8 +543,15 @@ class Miscelaneus
 
             case -6:
                 #ASISTENCIA
+
+                #turno_id = id_bimer
                 $arregloPaciente = $this->getBodyAsistencia($master, $preview['FECHA_INICIO'], $preview['FECHA_FINAL'], $turno_id );
-              
+
+                $carpeta_guardado = "checadorBimo";
+                $fecha_resultado = date('Ymd');
+                $nombre_paciente = $turno_id.'_'.uniqid();
+
+    
                 break;
         }
 
