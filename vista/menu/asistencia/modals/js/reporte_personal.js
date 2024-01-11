@@ -23,11 +23,19 @@ reportes_anteriores_personal = $('#reportes_anteriores_personal').DataTable({
     columns: [
         { data: 'COUNT' },
         { data: 'FECHA_RANGO' },
+        {
+            data: 'RUTA_REEPORTE', render: function (data) {
+                return `
+                    <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
+                `;
+            }
+        }
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
         { "width": "10px", "targets": 0, title: '#', className: 'all' },
-        { targets: 1, title: 'FECHA', className: 'all' }
+        { targets: 1, title: 'FECHA', className: 'all' },
+        { targets: 2, title: 'PDF', className: 'all' }
     ],
 
 })
