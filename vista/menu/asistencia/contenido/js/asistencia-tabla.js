@@ -484,6 +484,7 @@ let enviarFormularioReporteIndividual = (config = {}) => {
         }, 'checadorBimo_api', 'FormReporteIndividual', { callbackAfter: true }, false, (data) => {
             alertToast('Reporte generado con éxito', 'success', 4000);
             $('#FormReporteIndividual').trigger("reset");
+            reportes_anteriores_personal.ajax.reload()
         })
 
         resolve(1);
