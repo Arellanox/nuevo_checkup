@@ -83,7 +83,7 @@ function btnCertificados(config) {
     }
 
     // 
-    $(`#${'cliente_certificado'}`).html(pdf_format == 'particular_ambos' ? 'PARTICULAR' : config.cliente);
+    $(`#${'cliente_certificado'}`).html(pdf_format == 'particular_ambos' ? 'PARTICULAR' : config.cliente_label);
 
     // Reinicia el formulario cada vez
     $(`#${'cuerpo_certificado_form'}`).html(''); // Limpiar el cuerpo de HTML

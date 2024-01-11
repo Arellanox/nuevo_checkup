@@ -76,6 +76,7 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
 
       await btnCertificados({
         cliente: datalist['CLIENTE_ID'],
+        cliente_label: datalist['CLIENTE'],
         genero: datalist['GENERO'],
         edad: datalist['EDAD'],
         turno: datalist['ID_TURNO'],
