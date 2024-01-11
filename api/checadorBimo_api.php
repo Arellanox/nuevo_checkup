@@ -111,7 +111,6 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
         case 8:
             
             #Mostrar todos los reporte que tiene el bimer_id
-
             $response = $master->getByProcedure('sp_reporte_checadorBimo_b', [$bimer_id]);
 
 
@@ -119,6 +118,12 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
         case 9:
 
             $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_b", [null, null, null, 1]);
+
+            break;
+        
+        case 10:
+
+            $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_b", [$bimer_id, $fecha_inicio, $fecha_final, 0]);
 
             break;
         default:

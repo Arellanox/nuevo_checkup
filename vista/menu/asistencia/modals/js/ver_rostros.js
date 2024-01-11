@@ -3,10 +3,10 @@ tablaUsuariosFiltro = $('#tablaUsuariosFiltro').DataTable({
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
     lengthChange: false,
-    info: true,
+    info: false,
     paging: false,
     sorting: false,
-    scrollY: '68vh',
+    scrollY: '40vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
