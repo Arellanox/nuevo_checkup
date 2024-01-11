@@ -72,34 +72,6 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
 
             $response = $registros;
 
-
-
-
-            // $bimers = $data[1];
-            // $records = $data[0];
-            // $dates = $data[2];
-            // $fechasTotales = $data[3];
-
-
-            // $filteredRecords = array();
-            // foreach ($dates as $date) {
-            //     $fecha = $date['FECHA'];
-
-            //     $filtered = array_filter($records, function ($item) use ($fecha) {
-            //         return $item["FECHA"] == $fecha;
-            //     });
-
-            //     $filteredRecords[$fecha] = $filtered;
-            // }
-
-            // $filteredRecords['BIMERS'] = $bimers;
-            // $filteredRecords['FECHAS_TOTALES'] = $fechasTotales;
-
-            // $response = $filteredRecords;
-
-
-
-
             break;
         case 5:
 
@@ -133,6 +105,14 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
             );
 
             $response = $master->getByProcedure('sp_reporte_checadorBimo_g', $data);
+
+
+            break;
+        case 8:
+            
+            #Mostrar todos los reporte que tiene el bimer_id
+
+            $response = $master->getByProcedure('sp_reporte_checadorBimo_b', [$bimer_id]);
 
 
             break;
