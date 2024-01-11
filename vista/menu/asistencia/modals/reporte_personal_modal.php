@@ -86,8 +86,6 @@
                     <section class="col-12 col-lg-4 overflow-auto" style="height: 100%;">
                         <div id="pdfviewer" style="height: 100%;">
                             <div id="adobe-dc-view"></div>
-
-
                         </div>
                     </section>
                 </div>

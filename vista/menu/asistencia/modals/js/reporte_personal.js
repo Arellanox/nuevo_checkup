@@ -46,9 +46,31 @@ selectTable('#reportes_anteriores_personal', reportes_anteriores_personal, { unS
     if (selectTR == 1) {
         // Aqui llamarias al reporte
         // Ejemplo: data.REPORTE_PERSONAL
+        const nombre = `Reporte: ${selectTR.FECHA_RANGO}-${usuarioSelected.USUARIO}`;
+        const ruta = selectTR.RUTA_REPORTE;
+        getNewView(ruta, nombre);
         callback('In')
     } else {
+        $('#adobe-dc-view').html("")
         callback('Out')
     }
 })
 
+
+// Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
+function getNewView(url, filename) {
+    // Destruir la instancia existente de AdobeDC.View
+    // Crear una instancia inicial de AdobeDC.View
+    let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
+
+    var nuevaURL = url;
+
+    // Agregar un parámetro único a la URL para evitar la caché del navegador
+    nuevaURL += "?timestamp=" + Date.now();
+
+    // Cargar y mostrar el nuevo PDF en el visor
+    adobeDCView.previewFile({
+        content: { location: { url: nuevaURL } },
+        metaData: { fileName: filename }
+    });
+}
