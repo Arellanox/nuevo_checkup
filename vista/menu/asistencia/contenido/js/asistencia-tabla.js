@@ -70,7 +70,7 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
         {
             data: null, render: function (data) {
                 // return formatearHora(data);
-                let registro = `${backHora({ data: data, hora: 'HORA_ENTRADA' }, 'registro')} - ${backHora({ data: data, hora: 'HORA_SALIDA' }, 'registro')}`;
+                let registro = `${backHora({ data: data, hora: 'HORA_ENTRADA' }, 'salida')} - ${backHora({ data: data, hora: 'HORA_SALIDA' }, 'salida')}`;
                 return registro;
             }
         },
