@@ -641,6 +641,11 @@ function generarFormularioPaciente(id) {
                 case '1436': case '1432':
                 // rT-PCR Entero-DR
                 case '1421': case '1427': case '1430':
+                // trombosis
+                case '1517':
+                case '1521':
+                case '1523':
+                case '':
 
                   onlyLabel = true; break;
 
