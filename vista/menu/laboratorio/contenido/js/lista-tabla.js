@@ -643,9 +643,8 @@ function generarFormularioPaciente(id) {
                 case '1421': case '1427': case '1430':
                 // trombosis
                 case '1517':
-                case '1521':
-                case '1523':
-                case '':
+                case '1524':
+                case '1527':
 
                   onlyLabel = true; break;
 
