@@ -51,7 +51,7 @@ selectTable('#reportes_anteriores_personal', reportes_anteriores_personal, { unS
         getNewView(ruta, nombre);
         callback('In')
     } else {
-        $('#adobe-dc-view').html("")
+        limpiarAdobe();
         callback('Out')
     }
 })

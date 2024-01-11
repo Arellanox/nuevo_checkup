@@ -244,6 +244,7 @@ function obtenerReporteExcel() {
 }
 
 function obtenerReportePersonal() {
+    limpiarAdobe();
     $('#FechaInicio').val("")
     $('#FechaFinal').val("")
     $('#modalReportePersonal').modal('show');
@@ -485,8 +486,15 @@ let enviarFormularioReporteIndividual = (config = {}) => {
             alertToast('Reporte generado con éxito', 'success', 4000);
             $('#FormReporteIndividual').trigger("reset");
             reportes_anteriores_personal.ajax.reload()
+            limpiarAdobe()
         })
 
         resolve(1);
     })
+}
+
+
+
+function limpiarAdobe() {
+    $('#adobe-dc-view').html("")
 }
