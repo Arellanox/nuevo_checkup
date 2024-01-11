@@ -443,6 +443,19 @@ function generarFormularioPaciente(id) {
               break;
             case '1516':
               // trombosis
+              kitDiag = {
+                0: {
+                  'descripcion': 'Anyplex™ Thrombosis SNP Panel Assays',
+                  'clave': ''
+                }
+              }
+              classSelect = 'selectTipoMuestraEnteroDR';
+              muestras = {
+                0: {
+                  'descripcion': 'Sangre Total con EDTA',
+                }
+              }
+
               break;
 
             case "1420":
