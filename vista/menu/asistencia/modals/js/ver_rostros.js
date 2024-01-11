@@ -148,11 +148,12 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
         const div = $('#divtablaReporteAsistencias');
         const horarios = $('#divHorarios');
         const element = config.data
+        console.log(element)
 
         const fecha_incio = $('#FechaInicio').val();
         const fecha_final = $('#FechaFinal').val();
 
-        const horario = divHorarios(element)
+        // const horario = divHorarios(element)
 
         const divHorarios = $('#divHorarios');
 
@@ -162,16 +163,16 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
                 horarios.fadeIn();
 
                 divHorarios.html("");
-                divHorarios.html(horario);
+                // divHorarios.html(horario);
 
                 dataReporteAsistencia = {
                     api: 10,
-                    id_bimer: element.ID_BIMBER,
-                    fecha_inicio: fecha_incio,
+                    bimer_id: element.ID_BIMER,
+                    fecha_inicial: fecha_incio,
                     fecha_final: fecha_final
                 }
 
-                dataReporteAsistencia.ajax.reload();
+                tablaReporteAsistencias.ajax.reload();
 
                 setTimeout(() => {
                     $.fn.dataTable
