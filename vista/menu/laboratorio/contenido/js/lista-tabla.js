@@ -441,6 +441,9 @@ function generarFormularioPaciente(id) {
             case '1390':
 
               break;
+            case '1516':
+              // trombosis
+              break;
 
             case "1420":
               // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
