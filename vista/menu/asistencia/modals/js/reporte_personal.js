@@ -1,5 +1,5 @@
 dataAjax = {
-    api: 1,
+    api: 8,
     // 
 }
 reportes_anteriores_personal = $('#reportes_anteriores_personal').DataTable({
@@ -17,7 +17,7 @@ reportes_anteriores_personal = $('#reportes_anteriores_personal').DataTable({
             return $.extend(d, dataAjax);
         },
         method: 'POST',
-        url: '../../../api/**.php',
+        url: '../../../api/checadorBimo_api.php',
         dataSrc: 'response.data'
     },
     columns: [
