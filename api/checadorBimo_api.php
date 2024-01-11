@@ -116,6 +116,11 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
 
 
             break;
+        case 9:
+
+            $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_b", [null, null, null, 1]);
+
+            break;
         default:
 
             $response = "Api no definida";
