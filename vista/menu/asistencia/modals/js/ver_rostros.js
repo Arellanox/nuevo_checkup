@@ -66,9 +66,9 @@ selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
     unSelect: true, dblClick: false,
 }, async function (select, data, callback) {
     if (select) {
-        fadeTableAsistencia({ type: 'In' })
+        fadeTableAsistencia({ type: 'In', data: data })
     } else {
-        fadeTableAsistencia({ type: 'Out' })
+        fadeTableAsistencia({ type: 'Out', data: null })
     }
 })
 
@@ -86,6 +86,41 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
     sorting: false,
     scrollY: '68vh',
     scrollCollapse: true,
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return $.extend(d, dataReporteAsistencia);
+        },
+        // data: { api: 2, equipo: id_equipos },
+        method: 'POST',
+        url: '../../../api/checadorBimo_api.php',
+        beforeSend: function () {
+            // loader("In", 'bottom')
+        },
+        complete: function () {
+            // //Para ocultar segunda columna
+            // loader("Out", 'bottom')
+
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        },
+        dataSrc: 'response.data'
+    },
+    columns: [
+        {
+            data: 'COUNT'
+        },
+        {
+            data: 'NOMBRE'
+        }
+    ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '1px' },
         { target: 1, title: 'Fecha', className: 'all' },
@@ -107,30 +142,76 @@ setTimeout(() => {
 
 
 
-function fadeTableAsistencia(config = { type: 'In' || 'Out' }) {
+function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
     return new Promise((resolve, reject) => {
 
-        let div = $('#divtablaReporteAsistencias');
-        let horarios = $('#divHorarios');
+        const div = $('#divtablaReporteAsistencias');
+        const horarios = $('#divHorarios');
+        const element = config.data
 
-        if (config.type === 'In') {
-            div.fadeIn();
-            horarios.fadeIn();
+        const fecha_incio = $('#FechaInicio').val();
+        const fecha_final = $('#FechaFinal').val();
 
-            setTimeout(() => {
-                $.fn.dataTable
-                    .tables({
-                        visible: true,
-                        api: true
-                    })
-                    .columns.adjust();
-            }, 300);
-        } else if (config.type === 'Out') {
-            div.fadeOut();
-            horarios.fadeOut();
+        const horario = divHorarios(element)
+
+        const divHorarios = $('#divHorarios');
+
+        switch (config.type) {
+            case 'In':
+                div.fadeIn();
+                horarios.fadeIn();
+
+                divHorarios.html("");
+                divHorarios.html(horario);
+
+                dataReporteAsistencia = {
+                    api: 10,
+                    id_bimer: element.ID_BIMBER,
+                    fecha_inicio: fecha_incio,
+                    fecha_final: fecha_final
+                }
+
+                dataReporteAsistencia.ajax.reload();
+
+                setTimeout(() => {
+                    $.fn.dataTable
+                        .tables({
+                            visible: true,
+                            api: true
+                        })
+                        .columns.adjust();
+                }, 300);
+                break;
+            case 'Out':
+                div.fadeOut();
+                horarios.fadeOut();
+                break;
+            default:
+                break;
         }
+
 
         resolve(1)
     })
 
+}
+
+
+function divHorarios(config = { data: data }) {
+    let data = config.data
+    return `
+    <div class="d-flex justify-content-center gap-4">
+            <div class="d-flex">
+                <h5 class=" ">
+                    Horario de entrada:
+                    <strong>${data.HORA_ENTRADA}</strong>
+                </h5>
+            </div>
+            <div class="d-flex">
+                <h5 class=" ">Horario de salida:
+                    <strong>${data.HORA_SALIDA}</strong>
+                </h5>
+            </div>
+        </div>
+    `
 }
