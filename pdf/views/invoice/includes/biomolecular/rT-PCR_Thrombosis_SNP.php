@@ -39,7 +39,7 @@
         <td style="height: 10px"></td>
     </tr>
     <?php
-    $Kit_diag = $body[5]->resultado;
+    $Kit_diag = $body[15]->resultado;
     $body = array_slice($body, 0, count($body) - 3);
     foreach ($body as $key => $value) {
         $valor_ct = strpos($value->nombre, 'Valor CT') !== false;
