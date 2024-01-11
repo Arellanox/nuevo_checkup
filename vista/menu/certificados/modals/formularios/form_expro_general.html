@@ -1,0 +1,87 @@
+<div class="row fs-5">
+    <!-- <h3 class="p-2"></h3> -->
+
+    <div class="rounded bg-white p-4 my-2 shadow">
+        <div class="ps-3 pe-2 py-1 mb-3 border-1 border-bottom">
+            <p class="text-left">Examen médico</p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-2">
+                    <label for="">Tipo de examen médico:</label>
+                    <select name="cuerpo[tipo_examen_medico]" class="input-form">
+                        <option value="1">INGRESO</option>
+                        <option value="2">PERIODICO</option>
+                        <option value="3">EGRESO</option>
+                        <option value="4">ESPECIAL</option>
+                        <option value="5">OTRO</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-2">
+                    <label for="">Aptitud de trabajo:</label>
+                    <select name="cuerpo[aptitud]" class="input-form">
+                        <option value="1">Apto</option>
+                        <option value="2">No Apto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-2">
+                    <label for="">Vigencia:</label>
+                    <!-- <div class="input-group flex-nowrap"> -->
+                    <input type="date" name="cuerpo[vigencia_certificado]" class="form-control input-form text-end fs-5"
+                        rows="1" cols="2" placeholder="0">
+                    <!-- <span class="input-group-text input-span">años</span> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="p-2">Estudio y análisis complementarios</h3>
+
+    <div class="rounded bg-white p-4 my-2 shadow">
+        <div class="ps-3 pe-2 py-1 mb-3 border-1 border-bottom">
+            <p class="text-left">Examen médico</p>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="mb-2">
+                    <label for="">Examen general de orina (EGO):</label>
+                    <textarea name="cuerpo[examen_general_orina_analisis]" class="form-control input-form fs-5" rows="1"
+                        cols="2" placeholder="Especifique"></textarea>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="mb-2">
+                    <label for="">Espirometria:</label>
+                    <textarea name="cuerpo[espirometria_analisis]" class="form-control input-form fs-5" rows="1"
+                        cols="2" placeholder="Especifique"></textarea>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="mb-2">
+                    <label for="">Audiometria:</label>
+                    <textarea name="cuerpo[audiometria_analisis]" class="form-control input-form fs-5" rows="1" cols="2"
+                        placeholder="Especifique"></textarea>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="mb-2">
+                    <label for="">Radiografías:</label>
+                    <textarea name="cuerpo[radiografias_analisis]" class="form-control input-form fs-5" rows="1"
+                        cols="2" placeholder="Especifique"></textarea>
+                </div>
+            </div>
+            <!-- <div class="col-12 col-lg-6">
+                <div class="mb-2">
+                    <label for="">Etanol:</label>
+                    <textarea name="cuerpo[Etanol_analisis]" class="form-control input-form fs-5" rows="1" cols="2"
+                        placeholder="Especifique"></textarea>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

@@ -30,20 +30,28 @@ function recargarVistaLab(fecha = 1) {
 //Mapeo de la procedencia de los botones
 const btnProcedencia = {
   1: {
-    'Particular': {
+    // ID de particular
+    1: {
       cualquiera: 'particular_ambos',
       formulario: 'form_particular.html'
     },
-    'SLB': {
+    // ID de SLB
+    16: {
       MASCULINO: 'slb_masculino', //MASCULINO menor a 40
       FEMENINO: 'slb_femenino', //FEMENINO menor a 40
       VEJEZ: 'slb_vejez', //Persona mayor a 40
       formulario: 'form_slb.html', // Formulario a elegir de SLb
     },
-    'VINCO': {
+    // ID de VINCO
+    27: {
       cualquiera: 'vinco_general',
       formulario: 'form_vinco_general.html'
     },
+    // ID de Expro
+    22: {
+      cualquiera: 'expro_general',
+      formulario: 'form_expro_general.html'
+    }
   },
   2: {
     "POE": {
@@ -61,7 +69,7 @@ function btnCertificados(config) {
 
     let tipo_format = config.edad >= 40 ? 'VEJEZ' : config.genero; // Obtienes el tipo de formato
     pdf_format = ifnull(btnProcedencia[certificado_tipo['tipo']], [], [cliente_certificado]) // Obtienes los valores del cliente
-
+    console.log(pdf_format, cliente_certificado, config.cliente);
     let form_html = ifnull(pdf_format, 'form_particular.html', ['formulario']);
 
     switch (cliente_certificado) {
@@ -141,11 +149,11 @@ function setFormData(formId, data, path = '') {
   // Limpia el formulario
   // limpiarForm(formId);
 
+  let log_error = false;
   // Recorre cada entrada de datos
   Object.entries(data).forEach(([key, value]) => {
     // Construye el path del input
     const newPath = path ? `${path}[${key}]` : key;
-
     if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       // Si es un objeto no nulo y no es un array, continua la recursión
       setFormData(formId, value, newPath);
@@ -153,7 +161,6 @@ function setFormData(formId, data, path = '') {
       // Si no es un objeto (es decir, un valor concreto), establece el valor del input
       const inputName = newPath; // Usa el path construido
       const input = form.querySelector(`[name='${inputName}']`);
-      console.log(input, input.type)
       if (input) {
         switch (input.type) {
           case 'textarea':
@@ -177,7 +184,11 @@ function setFormData(formId, data, path = '') {
         }
       } else {
         console.error('Input no encontrado con el nombre:', inputName);
+        log_error = true
       }
     }
   });
+
+  if (log_error)
+    alertToast('Algunos campos no fueron encontrados', 'info', 4000);
 }

@@ -22,6 +22,8 @@ $master = new Master();
 $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
+$preview = mb_convert_encoding(base64_decode(urldecode($_GET['preview'])), 'UTF-8');
+$id_cotizacion = mb_convert_encoding(base64_decode(urldecode($_GET['id_cotizacion'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
@@ -32,14 +34,14 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$turno_id = 2068;
-$api = "certificados_medicos";
-$area_id = -5;
+// $turno_id = 2211;
+// $api = "certificados_medicos";
+// $area_id = -5;
 
-//$cliente_id = 19;
-// $id_cotizacion = 7;
+// //$cliente_id = 19;
+// // $id_cotizacion = 7;
 
-$preview = "vinco_general"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
+// $preview = "expro_general"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 
 switch ($api) {

@@ -75,7 +75,7 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
       $('#btn-vistaPrevia').attr('turno_actual', datalist['ID_TURNO'])
 
       await btnCertificados({
-        cliente: datalist['CLIENTE'],
+        cliente: datalist['CLIENTE_ID'],
         genero: datalist['GENERO'],
         edad: datalist['EDAD'],
         turno: datalist['ID_TURNO'],
