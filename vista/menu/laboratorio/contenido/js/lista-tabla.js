@@ -542,11 +542,14 @@ function generarFormularioPaciente(id) {
 
               resultado = {
                 0: {
-                  'descripcion': 'Homocigoto',
+                  'descripcion': '-'
                 },
                 1: {
+                  'descripcion': 'Homocigoto',
+                },
+                2: {
                   'descripcion': 'Heterocitogo',
-                }
+                },
               }
               break;
 
