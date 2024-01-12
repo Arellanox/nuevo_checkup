@@ -219,6 +219,7 @@ function fadeTablaUsuarios(config = { type: 'In' || 'Out' }) {
             break;
         case 'Out':
             divTablaUsuarios.fadeOut();
+            tablaUsuariosFiltro.ajax.reload()
             break;
         default:
             fadeTablaUsuarios({ type: 'Out' });
@@ -249,7 +250,6 @@ function buldHorarios(config = { data: '' }) {
 $(document).on('click', '#consultarInformacion', (e) => {
     fadeTablaUsuarios({ type: 'Out' });
     fadeTableAsistencia({ type: 'Out' });
-
 
     const inicio = $('#FechaInicio').val()
     const final = $('#FechaFinal').val()
