@@ -65,6 +65,7 @@ setTimeout(() => {
 selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
     unSelect: true, dblClick: false,
 }, async function (select, data, callback) {
+    fadeTableAsistencia({ type: 'Out' });
     if (select) {
         fadeTableAsistencia({ type: 'In', data: data })
     } else {
