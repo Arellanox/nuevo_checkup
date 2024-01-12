@@ -654,10 +654,9 @@ function generarFormularioPaciente(id) {
                 case '344':
 
                 // PCR SARS-CoV-2/INFLUENZA A Y B
-                case '1470': case '1472': case '1474': case '1523': case '1526': case '1529': case '1531':
+                case '1470': case '1472': case '1474':
 
-                // rT-PCR Thrombosis SNP
-                case '1519': case '1521':
+                
 
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
