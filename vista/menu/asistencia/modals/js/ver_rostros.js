@@ -139,7 +139,7 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
             data: null, render: function (meta) {
 
                 return `
-                    <div data-name='HORA_ENTRADA' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
+                    <div class="columns_edit" data-name='HORA_ENTRADA' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                         ${meta.HORA_ENTRADA}
                     </div>
                 `
@@ -149,7 +149,7 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
             data: null, render: function (meta) {
 
                 return `
-                    <div data-name='HORA_SALIDA' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
+                    <div class="columns_edit" data-name='HORA_SALIDA' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                         ${meta.HORA_SALIDA}
                     </div>
                 `
@@ -321,12 +321,50 @@ $(document).on('click', '#consultarInformacion', (e) => {
 
 // Botones para la modificacion de las asistenciias
 
-$(document).on('click', '.editarAsistencia', () => {
-    fadeBotones({ type: 'Out' })
-})
+$(document).on('click', '.editarAsistencia', function () {
+    fadeBotones({ type: 'Out' });
+
+    // Obten todas las columnas desde tr
+    let tr = $(this).closest('tr');
+
+    // Obten las 2 columnas de tiempo
+    let columnas_horas = tr.find(`div.columns_edit`);
+
+    // Crear un objeto para almacenar los datos de las columnas
+    let columnas = {};
+
+    // Iterar sobre cada columna
+    columnas_horas.each(function () {
+        // Obten el nombre del elemento (data-name)
+        let nombre = $(this).data('name');
+
+        // Obten el texto del div
+        let texto = $(this).text().trim().replace(/[\n\r]+|[\s]{2,}/g, ' ');
+
+        // Almacena estos valores en el objeto columnas
+        columnas[nombre] = texto;
+
+        // Cambias a un input el div con el valor de texto
+        let div = $(this)
+        div.html(`<input type="datetime" value="${texto}" class="new_hours_registros form-control input-form" data-value-column="${texto}">`) // <-- el input debe tener el valor anterior por si cancelar dejar como estaba las horas
+    });
+
+    console.log(columnas);
+
+    // Html cambie el valor los div 
+});
 
 $(document).on('click', '.guardarAsistencia', () => {
     fadeBotones({ type: 'In' })
+
+    // Obtener de nuevo el tr
+    // Obtener los inputs
+    // Crear una iteración para poder obtener los inputs
+    // EN la iteración cambiar input por textos, como es guardado, debe ser el nuevo valor
+    // En caso contrario de cancelar, debe ser los anteriores del atributo del input
+
+
+    // En caso de guardar, debe regresar el ID de registro para reemplazarlos en los botones de las columnas data-id en los botones (esto para que ahora actualice y no guarde)
 
 })
 $(document).on('click', '.cancelarAsistencia', () => {
