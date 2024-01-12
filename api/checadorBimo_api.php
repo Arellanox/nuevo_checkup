@@ -123,7 +123,12 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
         
         case 10:
 
-            $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_b", [$bimer_id, $fecha_inicio, $fecha_final, 0]);
+            $response1 = $master->getByProcedure("sp_reporte_checadorBimo_excel_b", [$bimer_id, $fecha_inicio, $fecha_final, 0]);
+            
+            $response = json_decode($response1[0]["ASISTENCIAS"]);
+
+            // print_r($response);
+            // exit;
 
             break;
         default:
