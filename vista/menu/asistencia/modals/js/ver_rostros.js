@@ -147,9 +147,9 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
             defaultContent: `
                 <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
                     <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
-                        <i class="editarAsistencia bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none;"></i>
-                        <i class="guardarAsistencia bi bi-card-heading btn-cargar-documentos" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
-                        <i class="cancelarAsistencia bi bi-info-circle btn-offcanva" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
+                        <i class="editarAsistencia bi bi-pencil-square btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none;"></i>
+                        <i class="guardarAsistencia bi bi-check-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
+                        <i class="cancelarAsistencia bi bi-x-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
                     </div>
                 </div>
             `
