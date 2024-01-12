@@ -72,10 +72,7 @@ selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
     }
 })
 
-
-
 // ==============================================================
-
 tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -140,8 +137,6 @@ setTimeout(() => {
     }, "col-12")
 }, 300);
 
-
-
 function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
     return new Promise((resolve, reject) => {
 
@@ -150,10 +145,10 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
         const element = config.data
         console.log(element)
 
+        // const horario = divHorarios(element)
+
         const fecha_incio = $('#FechaInicio').val();
         const fecha_final = $('#FechaFinal').val();
-
-        // const horario = divHorarios(element)
 
         const divHorarios = $('#divHorarios');
 
@@ -197,6 +192,32 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
 
 }
 
+function fadeTablaUsuarios(config = { type: 'In' || 'Out' }) {
+    const divTablaUsuarios = $('#divTablaUsuarios');
+
+    switch (config.type) {
+        case 'In':
+
+            divTablaUsuarios.fadeIn();
+
+            setTimeout(() => {
+                $.fn.dataTable
+                    .tables({
+                        visible: true,
+                        api: true
+                    })
+                    .columns.adjust();
+            }, 250);
+            break;
+        case 'Out':
+
+
+            divTablaUsuarios.fadeOut();
+            break;
+        default:
+            break;
+    }
+}
 
 function divHorarios(config = { data: data }) {
     let data = config.data
@@ -216,3 +237,19 @@ function divHorarios(config = { data: data }) {
         </div>
     `
 }
+
+
+$(document).on('click', '#consultarInformacion', (e) => {
+
+    const inicio = $('#FechaInicioPdf').val()
+    const final = $('#FechaFinalPdf').val()
+
+    if (inicio === "" || final === "") {
+        alertToast('Las fechas estan vacias', 'error', 2000);
+        return false;
+    } else {
+        fadeTablaUsuarios({
+            type: 'In'
+        });
+    }
+})

@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="col-12 col-xl-2">
                                     <div class="mb-2 mt-4">
-                                        <button type="button" class="btn btn-secondary buttons-excel buttons-html5 btn-success" id="generTablaReporte">
+                                        <button type="button" class="btn btn-secondary buttons-excel buttons-html5 btn-success" id="consultarInformacion">
                                             <i class="bi bi-search"></i> Consultar Información
                                         </button>
                                     </div>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="row mt-2 ">
                     <div class="col-3">
-                        <div class="rounded p-3 shadow border">
+                        <div class="rounded p-3 shadow border" id="divTablaUsuarios" style="display: none;">
                             <h5>Tabla usuarios</h5>
                             <table id="tablaUsuariosFiltro" class="table table-hover display responsive"></table>
                         </div>
