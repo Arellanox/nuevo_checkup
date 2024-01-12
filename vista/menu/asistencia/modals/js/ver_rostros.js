@@ -59,7 +59,7 @@ setTimeout(() => {
         msj: "Filtre los resultados de la lista de asistencia",
         place: 'top'
     }, "col-12")
-}, 500);
+}, 1000);
 
 // Select para la tabla principals
 selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
@@ -67,7 +67,7 @@ selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
 }, async function (select, data, callback) {
     fadeTableAsistencia({ type: 'Out' });
     if (select) {
-        fadeTableAsistencia({ type: 'In', data: data })
+        await fadeTableAsistencia({ type: 'In', data: data })
     } else {
         fadeTableAsistencia({ type: 'Out', data: null })
     }
@@ -105,6 +105,8 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
                     api: true
                 })
                 .columns.adjust();
+
+            fadeBotones({ type: 'In' })
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -126,6 +128,9 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
         },
         {
             data: 'HORA_SALIDA'
+        },
+        {
+            data: null
         }
     ],
     columnDefs: [
@@ -133,6 +138,22 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
         { target: 1, title: 'Fecha', className: 'all' },
         { target: 2, title: 'Entrada', className: 'all' },
         { target: 3, title: 'Salida', className: 'all' },
+        {
+            target: 4,
+            title: '#',
+            className: 'all actions',
+            width: '1%',
+            data: null,
+            defaultContent: `
+                <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
+                    <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
+                        <i class="editarAsistencia bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none;"></i>
+                        <i class="guardarAsistencia bi bi-card-heading btn-cargar-documentos" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
+                        <i class="cancelarAsistencia bi bi-info-circle btn-offcanva" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
+                    </div>
+                </div>
+            `
+        },
     ]
 
 })
@@ -145,8 +166,7 @@ setTimeout(() => {
         msj: "Filtre los resultados de la lista de asistencia",
         place: 'top'
     }, "col-12")
-
-}, 500);
+}, 1000);
 
 function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
     return new Promise((resolve, reject) => {
@@ -187,6 +207,8 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
                         })
                         .columns.adjust();
                 }, 300);
+
+
                 break;
             case 'Out':
                 div.fadeOut();
@@ -246,7 +268,7 @@ function buldHorarios(config = { data: '' }) {
             </div>
         </div>
     `;
-}
+};
 
 
 $(document).on('click', '#consultarInformacion', (e) => {
@@ -264,6 +286,43 @@ $(document).on('click', '#consultarInformacion', (e) => {
             type: 'In'
         });
     }
+})
 
+
+// Botones para la modificacion de las asistenciias
+
+$(document).on('click', '.editarAsistencia', () => {
+    fadeBotones({ type: 'Out' })
+})
+
+$(document).on('click', '.guardarAsistencia', () => {
+    fadeBotones({ type: 'In' })
 
 })
+$(document).on('click', '.cancelarAsistencia', () => {
+    fadeBotones({ type: 'In' })
+
+})
+
+
+function fadeBotones(config = { type: 'In' || 'Out' }) {
+    const btnEditar = $('.editarAsistencia');
+    const btnGuardar = $('.guardarAsistencia');
+    const btnCancelar = $('.cancelarAsistencia');
+
+    switch (config.type) {
+        case 'In':
+            btnEditar.fadeIn();
+            btnGuardar.fadeOut();
+            btnCancelar.fadeOut();
+            break;
+        case 'Out':
+            btnEditar.fadeOut();
+            btnGuardar.fadeIn();
+            btnCancelar.fadeIn();
+            break;
+        default:
+            fadeBotones({ type: 'In' })
+            break;
+    }
+}
