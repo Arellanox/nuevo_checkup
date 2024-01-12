@@ -354,31 +354,37 @@ $(document).on('click', '.editarAsistencia', function () {
     // Html cambie el valor los div 
 });
 
-$(document).on('click', '.guardarAsistencia', () => {
-    fadeBotones({ type: 'In' })
+$(document).on('click', '.guardarAsistencia', function () {
+    // Obtener de nuevo el tr
+    let tr = $(this).closest('tr');
+    // Obtener los inputs
+    let inputs = tr.find('input.new_hours_registros');
 
-    // // Obtener de nuevo el tr
-    // let tr = $(this).closest('tr');
-    // // Obtener los inputs
-    // let inputs = tr.find(`input.new_hours_registros`)
-    // // Crear una iteración para poder obtener los inputs
-    // inputs.each(function () {
-    //     let input = $(this);
-    //     let valor_anterior = input.attr('data-value-column');
-    //     // EN la iteración cambiar input por textos, como es guardado, debe ser el nuevo valor
-    //     //  Cambias a in div el input con el valor anterior
-    //     let div = $(this)   
-    //     // En caso contrario de cancelar, debe ser los anteriores del atributo del input
-    //     div.html(valor_anterior);
-    // })
+    // Crear una iteración para poder obtener los inputs
+    inputs.each(function () {
+        // Se obtiene el input
+        let input = $(this);
+        let valor_nuevo = input.val();
 
-    // En caso de guardar, debe regresar el ID de registro para reemplazarlos en los botones de las columnas data-id en los botones (esto para que ahora actualice y no guarde)
+        // Obtener el elemento div que envuelve al input
+        let div = input.parent('div');  // Puedes ajustar el selector según la estructura HTML específica
+
+        // En caso contrario de cancelar, debe ser los anteriores del atributo del input
+        div.html(valor_nuevo);
+    })
+
+
     // En caso de guardar y no tener id, reemplaza el valor del atributo de las id de esta forma
     // let botones = tr.find(`i.boton_edit_registro`);
     // botones.each(function () {
     //     $(this).attr('data-id', 'nuevo_valor')
     // })
+
+    fadeBotones({ type: 'In' });
+
+
 })
+
 $(document).on('click', '.cancelarAsistencia', function () {
     // Obtener de nuevo el tr
     let tr = $(this).closest('tr');
