@@ -51,6 +51,16 @@ tablaUsuariosFiltro = $('#tablaUsuariosFiltro').DataTable({
     ]
 })
 
+setTimeout(() => {
+    inputBusquedaTable("tablaUsuariosFiltro", tablaUsuariosFiltro, [{
+        msj: 'Lista de asistencia ',
+        place: 'top'
+    }], {
+        msj: "Filtre los resultados de la lista de asistencia",
+        place: 'top'
+    }, "col-12")
+}, 500);
+
 // Select para la tabla principals
 selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
     unSelect: true, dblClick: false,
@@ -117,15 +127,23 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
 
 })
 
+setTimeout(() => {
+    inputBusquedaTable("tablaReporteAsistencias", tablaReporteAsistencias, [{
+        msj: 'Lista de asistencia ',
+        place: 'top'
+    }], {
+        msj: "Filtre los resultados de la lista de asistencia",
+        place: 'top'
+    }, "col-12")
+
+}, 500);
+
 function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
     return new Promise((resolve, reject) => {
 
         const div = $('#divtablaReporteAsistencias');
         const horarios = $('#divHorarios');
         const element = config.data
-        console.log(element)
-
-        // const horario = divHorarios(element)
 
         const fecha_incio = $('#FechaInicio').val();
         const fecha_final = $('#FechaFinal').val();
@@ -138,7 +156,9 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
                 horarios.fadeIn();
 
                 divHorarios.html("");
-                // divHorarios.html(horario);
+                divHorarios.html(
+                    buldHorarios({ data: element })
+                );
 
                 dataReporteAsistencia = {
                     api: 10,
@@ -150,15 +170,6 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
                 tablaReporteAsistencias.ajax.reload();
 
                 setTimeout(() => {
-
-                    inputBusquedaTable("tablaReporteAsistencias", tablaReporteAsistencias, [{
-                        msj: 'Lista de asistencia ',
-                        place: 'top'
-                    }], {
-                        msj: "Filtre los resultados de la lista de asistencia",
-                        place: 'top'
-                    }, "col-12")
-
 
                     $.fn.dataTable
                         .tables({
@@ -192,15 +203,6 @@ function fadeTablaUsuarios(config = { type: 'In' || 'Out' }) {
             divTablaUsuarios.fadeIn();
 
             setTimeout(() => {
-                inputBusquedaTable("tablaUsuariosFiltro", tablaUsuariosFiltro, [{
-                    msj: 'Lista de asistencia ',
-                    place: 'top'
-                }], {
-                    msj: "Filtre los resultados de la lista de asistencia",
-                    place: 'top'
-                }, "col-12")
-
-
                 $.fn.dataTable
                     .tables({
                         visible: true,
@@ -218,37 +220,39 @@ function fadeTablaUsuarios(config = { type: 'In' || 'Out' }) {
     }
 }
 
-function divHorarios(config = { data: data }) {
+function buldHorarios(config = { data: '' }) {
     let data = config.data
     return `
     <div class="d-flex justify-content-center gap-4">
             <div class="d-flex">
                 <h5 class=" ">
                     Horario de entrada:
-                    <strong>${data.HORA_ENTRADA}</strong>
+                    <strong>${data.HORARIO_ENTRADA}</strong>
                 </h5>
             </div>
             <div class="d-flex">
                 <h5 class=" ">Horario de salida:
-                    <strong>${data.HORA_SALIDA}</strong>
+                    <strong>${data.HORARIO_SALIDA}</strong>
                 </h5>
             </div>
         </div>
-    `
+    `;
 }
 
 
 $(document).on('click', '#consultarInformacion', (e) => {
 
-    const inicio = $('#FechaInicio').val()
-    const final = $('#FechaFinal').val()
+    // const inicio = $('#FechaInicio').val()
+    // const final = $('#FechaFinal').val()
 
-    if (inicio === "" || final === "") {
-        alertToast('Las fechas estan vacias', 'error', 2000);
-        return false;
-    } else {
-        fadeTablaUsuarios({
-            type: 'In'
-        });
-    }
+    // if (inicio === "" || final === "") {
+    //     alertToast('Las fechas estan vacias', 'error', 2000);
+    //     return false;
+    // } else {
+
+    // }
+
+    fadeTablaUsuarios({
+        type: 'In'
+    });
 })
