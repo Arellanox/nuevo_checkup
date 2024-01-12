@@ -241,8 +241,8 @@ function divHorarios(config = { data: data }) {
 
 $(document).on('click', '#consultarInformacion', (e) => {
 
-    const inicio = $('#FechaInicioPdf').val()
-    const final = $('#FechaFinalPdf').val()
+    const inicio = $('#FechaInicio').val()
+    const final = $('#FechaFinal').val()
 
     if (inicio === "" || final === "") {
         alertToast('Las fechas estan vacias', 'error', 2000);
