@@ -115,7 +115,13 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
             data: 'COUNT'
         },
         {
-            data: 'NOMBRE'
+            data: 'FECHA'
+        }
+        , {
+            data: 'HORA_ENTRADA'
+        },
+        {
+            data: 'HORA_SALIDA'
         }
     ],
     columnDefs: [
