@@ -33,7 +33,7 @@
         </th>
     </tr>
     <tr style="padding-bottom: 0px;margin-bottom:0px">
-        <td style="font-size: 12px;text-align: left; margin-top: 10px; margin-bottom: 0px; padding-bottom: 0px">rT-PCR Thrombosis SNP</td>
+        <td style="font-size: 12px;text-align: left; margin-top: 10px; margin-bottom: 0px; padding-bottom: 0px" class="bold">rT-PCR Thrombosis SNP</td>
         <td style="height: 10px"></td>
         <td style="height: 10px"></td>
         <td style="height: 10px"></td>
