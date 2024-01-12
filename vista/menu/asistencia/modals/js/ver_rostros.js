@@ -116,7 +116,10 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
             data: 'COUNT'
         },
         {
-            data: 'FECHA'
+            data: 'FECHA', render: function (data) {
+
+                return formatoFecha2(data, [2, 1, 3, 2, 0, 0, 0])
+            }
         }
         , {
             data: 'HORA_ENTRADA'
@@ -205,7 +208,6 @@ function fadeTablaUsuarios(config = { type: 'In' || 'Out' }) {
 
     switch (config.type) {
         case 'In':
-
             divTablaUsuarios.fadeIn();
 
             setTimeout(() => {
