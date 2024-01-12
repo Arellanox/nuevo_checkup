@@ -373,7 +373,11 @@ $(document).on('click', '.guardarAsistencia', () => {
     // })
 
     // En caso de guardar, debe regresar el ID de registro para reemplazarlos en los botones de las columnas data-id en los botones (esto para que ahora actualice y no guarde)
-
+    // En caso de guardar y no tener id, reemplaza el valor del atributo de las id de esta forma
+    // let botones = tr.find(`i.boton_edit_registro`);
+    // botones.each(function () {
+    //     $(this).attr('data-id', 'nuevo_valor')
+    // })
 })
 $(document).on('click', '.cancelarAsistencia', function () {
     // Obtener de nuevo el tr
