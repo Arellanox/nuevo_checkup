@@ -358,19 +358,32 @@ $(document).on('click', '.guardarAsistencia', function () {
     // Obtener de nuevo el tr
     let tr = $(this).closest('tr');
     // Obtener los inputs
-    let inputs = tr.find('input.new_hours_registros');
+    let columnas_inputs = tr.find('input.new_hours_registros');
+
+    // Crear un objeto para almacenar los datos de las columnas
+    let inputs = {};
 
     // Crear una iteración para poder obtener los inputs
-    inputs.each(function () {
+    columnas_inputs.each(function () {
         // Se obtiene el input
         let input = $(this);
+
+        // Obten el nombre del elemento (data-name)
+        let nombre = div.data('name');
+
+        // Se obtiene el nuevo valor
         let valor_nuevo = input.val();
 
         // Obtener el elemento div que envuelve al input
-        let div = input.parent('div');  // Puedes ajustar el selector según la estructura HTML específica
+        let div = input.parent('div');
+
+        // Almacena estos valores en el objeto columnas
+        inputs[nombre] = valor_nuevo;
 
         // En caso contrario de cancelar, debe ser los anteriores del atributo del input
         div.html(valor_nuevo);
+
+        console.log(input)
     })
 
 
@@ -398,7 +411,7 @@ $(document).on('click', '.cancelarAsistencia', function () {
         let valor_anterior = input.attr('data-value-column');
 
         // Obtener el elemento div que envuelve al input
-        let div = input.parent('div');  // Puedes ajustar el selector según la estructura HTML específica
+        let div = input.parent('div');
 
         // En caso contrario de cancelar, debe ser los anteriores del atributo del input
         div.html(valor_anterior);
