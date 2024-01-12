@@ -116,8 +116,9 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
     columns: [
         {
             data: null, render: function (meta) {
+
                 return `
-                    <div data-id='${meta.ID_ASISTENCIA}'>
+                    <div data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                         ${meta.COUNT}
                     </div>
                 `
@@ -126,8 +127,9 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
         {
             data: null, render: function (meta) {
 
+
                 return `
-                <div data-id='${meta.ID_ASISTENCIA}'>
+                <div data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                     ${formatoFecha2(meta.FECHA, [2, 1, 3, 2, 0, 0, 0])}
                 </div>
                 `
@@ -135,8 +137,9 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
         }
         , {
             data: null, render: function (meta) {
+
                 return `
-                    <div data-id='${meta.ID_ASISTENCIA}'>
+                    <div data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                         ${meta.HORA_ENTRADA}
                     </div>
                 `
@@ -144,8 +147,9 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
         },
         {
             data: null, render: function (meta) {
+
                 return `
-                    <div data-id='${meta.ID_ASISTENCIA}'>
+                    <div data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                         ${meta.HORA_SALIDA}
                     </div>
                 `
@@ -153,12 +157,13 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
         },
         {
             data: null, render: function (meta) {
+
                 return `
                 <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
                     <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
-                        <i data-id='${meta.ID_ASISTENCIA}' class="editarAsistencia bi bi-pencil-square btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none;"></i>
-                        <i data-id='${meta.ID_ASISTENCIA}' class="guardarAsistencia bi bi-check-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
-                        <i data-id='${meta.ID_ASISTENCIA}' class="cancelarAsistencia bi bi-x-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
+                        <i data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="editarAsistencia bi bi-pencil-square btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none;"></i>
+                        <i data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="guardarAsistencia bi bi-check-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
+                        <i data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="cancelarAsistencia bi bi-x-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
                     </div>
                 </div>
                 `
