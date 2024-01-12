@@ -51,15 +51,6 @@ tablaUsuariosFiltro = $('#tablaUsuariosFiltro').DataTable({
     ]
 })
 
-setTimeout(() => {
-    inputBusquedaTable("tablaUsuariosFiltro", tablaUsuariosFiltro, [{
-        msj: 'Lista de asistencia ',
-        place: 'top'
-    }], {
-        msj: "Filtre los resultados de la lista de asistencia",
-        place: 'top'
-    }, "col-12")
-}, 300);
 
 // Select para la tabla principals
 selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
@@ -127,16 +118,6 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
 
 })
 
-setTimeout(() => {
-    inputBusquedaTable("tablaReporteAsistencias", tablaReporteAsistencias, [{
-        msj: 'Lista de asistencia ',
-        place: 'top'
-    }], {
-        msj: "Filtre los resultados de la lista de asistencia",
-        place: 'top'
-    }, "col-12")
-}, 300);
-
 function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
     return new Promise((resolve, reject) => {
 
@@ -170,6 +151,16 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
                 tablaReporteAsistencias.ajax.reload();
 
                 setTimeout(() => {
+
+                    inputBusquedaTable("tablaReporteAsistencias", tablaReporteAsistencias, [{
+                        msj: 'Lista de asistencia ',
+                        place: 'top'
+                    }], {
+                        msj: "Filtre los resultados de la lista de asistencia",
+                        place: 'top'
+                    }, "col-12")
+
+
                     $.fn.dataTable
                         .tables({
                             visible: true,
@@ -201,6 +192,15 @@ function fadeTablaUsuarios(config = { type: 'In' || 'Out' }) {
             divTablaUsuarios.fadeIn();
 
             setTimeout(() => {
+                inputBusquedaTable("tablaUsuariosFiltro", tablaUsuariosFiltro, [{
+                    msj: 'Lista de asistencia ',
+                    place: 'top'
+                }], {
+                    msj: "Filtre los resultados de la lista de asistencia",
+                    place: 'top'
+                }, "col-12")
+
+
                 $.fn.dataTable
                     .tables({
                         visible: true,
