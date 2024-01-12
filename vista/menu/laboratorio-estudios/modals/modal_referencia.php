@@ -11,9 +11,11 @@
                     <div class="row">
                         <div class="col-12 col-lg-9 ">
                             <!-- Aqui va a ir la tabla -->
-                            <table class="table table-hover display responsive p-3" id="TablaValoresReferencia" style="width: 100%">
+                            <div class="p-3">
+                                <table class="table table-hover display responsive " id="TablaValoresReferencia" style="width: 100%">
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
 
                         <div class="col-12 col-lg">

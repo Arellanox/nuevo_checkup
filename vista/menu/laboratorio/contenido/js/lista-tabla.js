@@ -904,6 +904,9 @@ $(document).on('click', '.linearEstudiosLabs', function (event) {
   event.stopPropagation();
   event.preventDefault();
 
+  if (areaActiva == 12)
+    return false;
+
   let id = $(this).attr('data-id_servicio');
   let grupo = $(this).attr('data-id_grupo');
   let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
@@ -923,6 +926,11 @@ $(document).on('click', '.linearEstudiosLabs', function (event) {
 // Evento de clic para el botón de recarga
 $(document).on('click', '.reload-button', function (event) {
   event.stopPropagation();
+
+  // Desactiva la secuencia para biomolecular
+  if (areaActiva == 12)
+    return false;
+
   let id = $(this).closest('.linearEstudiosLabs').attr('data-id_servicio');
   let grupo = $(this).closest('.linearEstudiosLabs').attr('data-id_grupo');
   let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
@@ -935,6 +943,11 @@ $(document).on('click', '.reload-button', function (event) {
 });
 
 function reloadValoresRef($element, id) {
+
+  // Desactiva la secuencia para biomolecular
+  if (areaActiva == 12)
+    return false;
+
   ajaxAwait({
     id_servicio: id,
     genero: selectListaLab.GENERO,
