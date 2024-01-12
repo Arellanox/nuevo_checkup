@@ -177,7 +177,6 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
                 tablaReporteAsistencias.ajax.reload();
 
                 setTimeout(() => {
-
                     $.fn.dataTable
                         .tables({
                             visible: true,
@@ -248,18 +247,21 @@ function buldHorarios(config = { data: '' }) {
 
 
 $(document).on('click', '#consultarInformacion', (e) => {
+    fadeTablaUsuarios({ type: 'Out' });
+    fadeTableAsistencia({ type: 'Out' });
 
-    // const inicio = $('#FechaInicio').val()
-    // const final = $('#FechaFinal').val()
 
-    // if (inicio === "" || final === "") {
-    //     alertToast('Las fechas estan vacias', 'error', 2000);
-    //     return false;
-    // } else {
+    const inicio = $('#FechaInicio').val()
+    const final = $('#FechaFinal').val()
 
-    // }
+    if (inicio === "" || final === "") {
+        alertToast('Las fechas estan vacias', 'error', 2000);
+        return false;
+    } else {
+        fadeTablaUsuarios({
+            type: 'In'
+        });
+    }
 
-    fadeTablaUsuarios({
-        type: 'In'
-    });
+
 })
