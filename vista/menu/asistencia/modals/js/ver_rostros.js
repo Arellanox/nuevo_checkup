@@ -51,7 +51,6 @@ tablaUsuariosFiltro = $('#tablaUsuariosFiltro').DataTable({
     ]
 })
 
-
 // Select para la tabla principals
 selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
     unSelect: true, dblClick: false,
@@ -174,6 +173,7 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
                 horarios.fadeOut();
                 break;
             default:
+                fadeTableAsistencia({ type: 'Out' });
                 break;
         }
 
@@ -210,11 +210,10 @@ function fadeTablaUsuarios(config = { type: 'In' || 'Out' }) {
             }, 250);
             break;
         case 'Out':
-
-
             divTablaUsuarios.fadeOut();
             break;
         default:
+            fadeTablaUsuarios({ type: 'Out' });
             break;
     }
 }
