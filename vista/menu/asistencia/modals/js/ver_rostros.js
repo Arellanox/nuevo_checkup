@@ -348,10 +348,6 @@ $(document).on('click', '.editarAsistencia', function () {
         let div = $(this)
         div.html(`<input type="datetime" value="${texto}" class="new_hours_registros form-control input-form" data-value-column="${texto}">`) // <-- el input debe tener el valor anterior por si cancelar dejar como estaba las horas
     });
-
-    console.log(columnas);
-
-    // Html cambie el valor los div 
 });
 
 $(document).on('click', '.guardarAsistencia', function () {
@@ -368,14 +364,14 @@ $(document).on('click', '.guardarAsistencia', function () {
         // Se obtiene el input
         let input = $(this);
 
+        // Obtener el elemento div que envuelve al input
+        let div = input.parent('div');
+
         // Obten el nombre del elemento (data-name)
         let nombre = div.data('name');
 
         // Se obtiene el nuevo valor
         let valor_nuevo = input.val();
-
-        // Obtener el elemento div que envuelve al input
-        let div = input.parent('div');
 
         // Almacena estos valores en el objeto columnas
         inputs[nombre] = valor_nuevo;
@@ -383,8 +379,9 @@ $(document).on('click', '.guardarAsistencia', function () {
         // En caso contrario de cancelar, debe ser los anteriores del atributo del input
         div.html(valor_nuevo);
 
-        console.log(input)
     })
+
+    console.log(inputs)
 
 
     // En caso de guardar y no tener id, reemplaza el valor del atributo de las id de esta forma
