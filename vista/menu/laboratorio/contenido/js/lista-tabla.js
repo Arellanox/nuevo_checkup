@@ -540,17 +540,17 @@ function generarFormularioPaciente(id) {
                 }
               }
 
-              resultado = {
-                0: {
-                  'descripcion': '-'
-                },
-                1: {
-                  'descripcion': 'Homocigoto',
-                },
-                2: {
-                  'descripcion': 'Heterocitogo',
-                },
-              }
+              // resultado = {
+              //   0: {
+              //     'descripcion': '-'
+              //   },
+              //   1: {
+              //     'descripcion': 'Homocigoto',
+              //   },
+              //   2: {
+              //     'descripcion': 'Heterocitogo',
+              //   },
+              // }
               break;
 
 
