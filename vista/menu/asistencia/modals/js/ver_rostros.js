@@ -381,6 +381,32 @@ $(document).on('click', '.guardarAsistencia', function () {
 
     })
 
+    // Una vez hace el primer each para recuperar y armar el array se hace un  AjaxAwait
+    // ajaxAwait(function () {
+    // Dentro del ajax await se hace otro each para remplazar ahora si los inputs a los html con los nuevos valores
+
+    // columnas_inputs.each(function () {
+    //     // Se obtiene el input
+    //     let input = $(this);
+
+    //     // Obtener el elemento div que envuelve al input
+    //     let div = input.parent('div');
+
+    //     // Obten el nombre del elemento (data-name)
+    //     let nombre = div.data('name');
+
+    //     // Se obtiene el nuevo valor
+    //     let valor_nuevo = input.val();
+
+    //     // Almacena estos valores en el objeto columnas
+    //     inputs[nombre] = valor_nuevo;
+
+    //     // En caso contrario de cancelar, debe ser los anteriores del atributo del input
+    //     div.html(valor_nuevo);
+
+    // })
+    // });
+
     console.log(inputs)
 
 
