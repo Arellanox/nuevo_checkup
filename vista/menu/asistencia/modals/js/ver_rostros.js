@@ -357,20 +357,46 @@ $(document).on('click', '.editarAsistencia', function () {
 $(document).on('click', '.guardarAsistencia', () => {
     fadeBotones({ type: 'In' })
 
-    // Obtener de nuevo el tr
-    // Obtener los inputs
-    // Crear una iteración para poder obtener los inputs
-    // EN la iteración cambiar input por textos, como es guardado, debe ser el nuevo valor
-    // En caso contrario de cancelar, debe ser los anteriores del atributo del input
-
+    // // Obtener de nuevo el tr
+    // let tr = $(this).closest('tr');
+    // // Obtener los inputs
+    // let inputs = tr.find(`input.new_hours_registros`)
+    // // Crear una iteración para poder obtener los inputs
+    // inputs.each(function () {
+    //     let input = $(this);
+    //     let valor_anterior = input.attr('data-value-column');
+    //     // EN la iteración cambiar input por textos, como es guardado, debe ser el nuevo valor
+    //     //  Cambias a in div el input con el valor anterior
+    //     let div = $(this)   
+    //     // En caso contrario de cancelar, debe ser los anteriores del atributo del input
+    //     div.html(valor_anterior);
+    // })
 
     // En caso de guardar, debe regresar el ID de registro para reemplazarlos en los botones de las columnas data-id en los botones (esto para que ahora actualice y no guarde)
 
 })
-$(document).on('click', '.cancelarAsistencia', () => {
-    fadeBotones({ type: 'In' })
+$(document).on('click', '.cancelarAsistencia', function () {
+    // Obtener de nuevo el tr
+    let tr = $(this).closest('tr');
+    // Obtener los inputs
+    let inputs = tr.find('input.new_hours_registros');
 
-})
+    // Crear una iteración para poder obtener los inputs
+    inputs.each(function () {
+        // Se obtiene el input
+        let input = $(this);
+        let valor_anterior = input.attr('data-value-column');
+
+        // Obtener el elemento div que envuelve al input
+        let div = input.parent('div');  // Puedes ajustar el selector según la estructura HTML específica
+
+        // En caso contrario de cancelar, debe ser los anteriores del atributo del input
+        div.html(valor_anterior);
+    })
+
+    fadeBotones({ type: 'In' });
+});
+
 
 
 function fadeBotones(config = { type: 'In' || 'Out' }) {
