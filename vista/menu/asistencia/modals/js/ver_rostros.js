@@ -254,17 +254,20 @@ function fadeTablaUsuarios(config = { type: 'In' || 'Out' }) {
 function buldHorarios(config = { data: '' }) {
     let data = config.data
     return `
-    <div class="d-flex justify-content-center gap-4">
-            <div class="d-flex">
-                <h5 class=" ">
-                    Horario de entrada:
-                    <strong>${data.HORARIO_ENTRADA}</strong>
-                </h5>
-            </div>
-            <div class="d-flex">
-                <h5 class=" ">Horario de salida:
-                    <strong>${data.HORARIO_SALIDA}</strong>
-                </h5>
+        <div>
+            <h5 class='text-center'>Horario de trabajo</h5>
+            <div class="d-flex justify-content-center gap-4">
+                <div class="d-flex">
+                    <h5 class="text-dark">
+                        Horario de entrada:
+                        <strong>${data.HORARIO_ENTRADA}</strong>
+                    </h5>
+                </div>
+                <div class="d-flex">
+                    <h5 class="text-dark">Horario de salida:
+                        <strong>${data.HORARIO_SALIDA}</strong>
+                    </h5>
+                </div>
             </div>
         </div>
     `;
