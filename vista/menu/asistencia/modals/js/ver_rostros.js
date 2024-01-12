@@ -118,7 +118,7 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
             data: null, render: function (meta) {
 
                 return `
-                    <div data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
+                    <div data-name='ASISTENCIA' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                         ${meta.COUNT}
                     </div>
                 `
@@ -129,7 +129,7 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
 
 
                 return `
-                <div data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
+                <div data-name='FECHA' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                     ${formatoFecha2(meta.FECHA, [2, 1, 3, 2, 0, 0, 0])}
                 </div>
                 `
@@ -139,7 +139,7 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
             data: null, render: function (meta) {
 
                 return `
-                    <div data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
+                    <div data-name='HORA_ENTRADA' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                         ${meta.HORA_ENTRADA}
                     </div>
                 `
@@ -149,7 +149,7 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
             data: null, render: function (meta) {
 
                 return `
-                    <div data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
+                    <div data-name='HORA_SALIDA' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}'>
                         ${meta.HORA_SALIDA}
                     </div>
                 `
