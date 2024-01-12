@@ -116,16 +116,21 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
 
             break;
         case 9:
-
+            #Mostrar la lista de usuarios
             $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_b", [null, null, null, 1]);
 
             break;
         
         case 10:
-
+            #Mostrar la lista de asistencias correspondientes a un usuario
             $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_b", [$bimer_id, $fecha_inicio, $fecha_final, 0]);
         
 
+            break;
+        case 11:
+            #Guardar o actualizar los registros de asistencias
+            $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_g", [$bimer_id, $fecha, $hora_entrada, $hora_salida, $id_asistencia]);
+            
             break;
         default:
 
