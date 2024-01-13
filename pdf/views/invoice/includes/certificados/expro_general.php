@@ -186,7 +186,7 @@ $expro = array(
         "COLESTEROL" => $servicios['COLESTEROL TOTAL']->RESULTADO,
         "TRIGLICERIDOS" => $servicios['TRIGLICÉRIDOS']->RESULTADO,
         "CREATININA" => $servicios['CREATININA SÉRICA']->RESULTADO,
-        "EGO" => $cuerpo['ego'],
+        "EGO" => $cuerpo['examen_general_orina_analisis'],
         "ANTIDOPING" => $estudios['antidoping'],
         "ESPIROMETRIA" => $cuerpo['espirometria_analisis'],
         "AUDIOMETRIA" => $cuerpo['audiometria_analisis'],
@@ -213,6 +213,11 @@ $expro = array(
     "diagnostico" => $resultado['HISTORIA']->DIAGNOSTICO,
     "recomendaciones" => $resultado['HISTORIA']->RECOMENDACIONES
 );
+
+
+$tipo_expro = $expro['examen_medico']['tipo'];
+
+
 ?>
 <!-- Body -->
 <div class="body-certificado">
@@ -367,22 +372,50 @@ $expro = array(
         <tr>
             <td colspan="1" class="center">5</td>
             <td colspan="4" class="center">Audiometría tonal </td>
-            <td colspan="1" class="center">
-                <!-- 11 Mostrar el siguiente numero si tiene o no -->
-            </td>
-            <td colspan="4" class="center">
-                <!-- Electrocardiograma cuando es ingreso -->
-            </td>
+            <?php if ($tipo_expro === "1") : ?>
+                <td colspan="1" class="center">
+                    <!-- 11 Mostrar el siguiente numero si tiene o no -->
+                    11
+                </td>
+                <td colspan="4" class="center">
+                    <!-- Electrocardiograma cuando es ingreso -->
+                    Electrocardiograma
+                </td>
+            <?php endif; ?>
+            <?php if ($tipo_expro === "2") : ?>
+                <td colspan="1" class="center">
+                    <!-- 11 Mostrar el siguiente numero si tiene o no -->
+
+                </td>
+                <td colspan="4" class="center">
+                    <!-- Electrocardiograma cuando es ingreso -->
+
+                </td>
+            <?php endif; ?>
         </tr>
         <tr>
             <td colspan="1" class="center">6</td>
             <td colspan="4" class="center">Biometría hemática completa, Gpo. Y Rh</td>
-            <td colspan="1" class="center">
-                <!-- 12 Mostrar el siguiente numero si tiene o no -->
-            </td>
-            <td colspan="4" class="center">
-                <!-- Inbody cuando es ingreso -->
-            </td>
+            <?php if ($tipo_expro === "1") : ?>
+                <td colspan="1" class="center">
+                    <!-- 12 Mostrar el siguiente numero si tiene o no -->
+                    12
+                </td>
+                <td colspan="4" class="center">
+                    <!-- Inbody cuando es ingreso -->
+                    InBody
+                </td>
+            <?php endif; ?>
+            <?php if ($tipo_expro === "2") : ?>
+                <td colspan="1" class="center">
+                    <!-- 12 Mostrar el siguiente numero si tiene o no -->
+
+                </td>
+                <td colspan="4" class="center">
+                    <!-- Inbody cuando es ingreso -->
+
+                </td>
+            <?php endif; ?>
         </tr>
         <!-- APTITUDES PARA EL TRABAJO -->
         <tr>
@@ -401,15 +434,6 @@ $expro = array(
             <td colspan="1"></td>
             <td colspan="1" <?php if ($expro['aptitud_trabajo'] == "2") : ?> class="bg-black center" <?php endif ?> data="">
                 <?php if ($expro['aptitud_trabajo'] == "2") : ?> X <?php endif ?>
-            </td>
-            <td colspan="8">
-                APTO PARA TRABAJAR CON RESTRICCIONES
-            </td>
-        </tr>
-        <tr>
-            <td colspan="1"></td>
-            <td colspan="1" <?php if ($expro['aptitud_trabajo'] == "3") : ?> class="bg-black center" <?php endif ?> data="">
-                <?php if ($expro['aptitud_trabajo'] == "3") : ?> X <?php endif ?>
             </td>
             <td colspan="8">
                 NO APTO PARA TRABAJAR
@@ -553,17 +577,28 @@ $expro = array(
                 echo $expro['estudios']['EGO'];
                 ?>
             </td>
-            <td class="bold center">
-                <!-- Mostrar Electrocardiograma para ingreso -->
-                ELECTROCARDIOGRAMA
-            </td>
-            <td class="center">
-                <!-- Resultado de ELECTROCARDIOGRAMA -->
-                <?php
-                # resultado de ELECTROCARDIOGRAMA
-                echo $expro['estudios']['ELECTROCARDIOGRAMA'];
-                ?>
-            </td>
+            <?php if ($tipo_expro === "1") : ?>
+                <td class="bold center">
+                    <!-- Mostrar Electrocardiograma para ingreso -->
+                    ELECTROCARDIOGRAMA
+                </td>
+                <td class="center">
+                    <!-- Resultado de ELECTROCARDIOGRAMA -->
+                    <?php
+                    # resultado de ELECTROCARDIOGRAMA
+                    echo $expro['estudios']['ELECTROCARDIOGRAMA'];
+                    ?>
+                </td>
+            <?php endif; ?>
+            <?php if ($tipo_expro === "2") : ?>
+                <td class="bold center">
+                    <!-- Mostrar Electrocardiograma para ingreso -->
+
+                </td>
+                <td class="center">
+                    <!-- Resultado de ELECTROCARDIOGRAMA -->
+                </td>
+            <?php endif; ?>
         </tr>
         <tr>
             <td class="bold center">
