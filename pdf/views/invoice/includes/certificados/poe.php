@@ -181,6 +181,68 @@
 </style>
 
 <?php
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        // Opción 1: Utilizar el casting
+        $array_resultante = (array) $objeto;
+
+        // Opción 2: Utilizar get_object_vars
+        // $array_resultante = get_object_vars($objeto);
+
+        return $array_resultante;
+    } else {
+        // Si el argumento no es un objeto, puedes manejarlo de acuerdo a tus necesidades
+        return array();
+    }
+}
+
+function formatear_fecha($fecha)
+{
+    $timestamp = strtotime($fecha);
+
+    $fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+    $fecha_formateada = $fmt->format($timestamp);
+
+    return $fecha_formateada;
+}
+
+function obtenerDiferenciaFechas($fechaFinal)
+{
+    // Obtener la fecha actual sin hora, minutos ni segundos
+    $fechaActual = new DateTime();
+    $fechaActual->setTime(0, 0, 0);
+
+    // Convertir la fecha final a objeto DateTime y establecer la hora a cero
+    $fechaFinalObj = new DateTime($fechaFinal);
+    $fechaFinalObj->setTime(0, 0, 0);
+
+    // Calcular la diferencia entre las fechas
+    $diferencia = $fechaActual->diff($fechaFinalObj);
+
+    // Obtener la diferencia en años, meses y días
+    $anos = $diferencia->y;
+    $meses = $diferencia->m;
+    $dias = $diferencia->d;
+
+    if ($anos > 0) {
+        return "$anos año" . ($anos > 1 ? 's' : '');
+    } elseif ($meses > 0) {
+        return "$meses mes" . ($meses > 1 ? 'es' : '');
+    } else {
+        return "$dias día" . ($dias > 1 ? 's' : '');
+    }
+}
+
+# aqui se recibe la data
+$cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
+$medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
+$resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
+
+// echo "<pre>";
+// var_dump($cuerpo);
+// echo "</pre>";
+// exit;
 
 // Arreglo para rellenar el PDF para el certificado de poe
 $poe = array(
