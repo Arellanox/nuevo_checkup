@@ -244,53 +244,78 @@ $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
 // echo "</pre>";
 // exit;
 
+
 // Arreglo para rellenar el PDF para el certificado de poe
 $poe = array(
     "paciente" => array(
         // Nombre completoss
-        "px" => "nombre_completo",
+        "px" => "Lázaro Francisco Santiago Delgado",
         // Nombre por partes
         "nombre" => array(
-            "nombres" => "",
-            "materno" => "",
-            "paterno" => "",
+            "nombres" => "Lázaro Francisco",
+            "materno" => "Delgado",
+            "paterno" => "Santiago",
         ),
-        "curp" => array(),
-        "puesto" => "",
-        "tipo_examen" => "",
-        "lugar" => "",
-        "fecha" => "",
-        "procedencia" => "",
-        "es_sera" => "",
-        "apto" => "",
+        "curp" =>  ['S', 'A', 'D', 'L', '6', '4', '1', '0', '0', '5', 'H', 'V', 'Z', 'N', 'L', 'Z', '0', '9'],
+        "puesto" => "Técnico en disparos",
+        "edad" => "59 años",
+        "sexo" => "1",
+        "tipo_examen" => "1",
+        "tipo_examen_text" => "de Ingreso",
+        "lugar" => "Villahermosa, Tabasco, México",
+        "fecha" => "09 de Octubre de 2023",
+        "procedencia" => "VINCO",
+        "es_sera" => "1",
+        "apto" => "1",
     ),
-    "informe_detallado" => "",
+    "informe_detallado" => "Me complace comunicarme con ustedes en relación con el candidato Lázaro Francisco Delgado
+    Santiago, quien ha sido sometido recientemente a un examen médico ocupacional, como parte
+    del proceso de selección de su empresa. Como médico a cargo de la evaluación, deseo
+    proporcionarles un informe detallado sobre los resultados de dicha evaluación, de acuerdo con
+    los requisitos médicos y en cumplimiento a lo establecido al apéndice normativo B de la NOM-
+    026-NUCL-2011, Vigilancia Médica del Personal Ocupacionalmente Expuesto a Radiaciones
+    Ionizantes y/o la normatividad aplicable de salud en el trabajo.",
     "resultados" => array(
-        "APNP" => "",
-        "vacunas_aplicadas" => "",
-        "APP" => "",
-        "infeccion_previa" => "",
-        "alergias" => "",
-        "accidentes_enfermedades" => "",
-        "interveciones_quirurgica" => "",
+        "APNP" => "Historia de tabaquismo desde hace 30 años.
+        Consumo 7 cigarrillos diariamente. Consumo ocasional de alcohol. Realiza ejercicio aeróbico
+        durante alrededor 40 minutos 6 días a la semana (caminata)",
+        "vacunas_aplicadas" => "El candidato presenta un historial de vacunación completo de acuerdo con
+        las recomendaciones de salu d pública",
+        "APP" => "Niega alergias a medicamentos, alimentos o
+        condiciones medioambientales. Historia de fractura nasal hace 35 años, no refiere secuelas.
+        Convive don diabetes mellitus tipo II con diagnóstico desde hace 26 años, actualmente bajo
+        tratamiento con medidas higiénico-dietéticas y farmacológico con Metformina y Glibenclamida",
+        "infeccion_previa" => "El candidato no refiere haber tenido episodios previos de infecciones en el
+        año en curso.",
+        "alergias" => "El trabajador no reporta alergias a medicamentos, alimentos y/o condiciones medioambientales",
+        "accidentes_enfermedades" => "El candidato no refiere antecedentes de accidentes o enfermedades profesional.",
+        "interveciones_quirurgica" => "El candidato no refiere haberse sometido a intervenciones quirúrgicas",
     ),
     "signos_vitales" => array(
-        "talla" => "",
-        "peso" => "",
-        "tension_arterial" => "",
-        "frecuencia_respiratoria" => "",
-        "temperatura" => "",
-        "pulso" => "",
-        "exploracion_fisica" => ""
+        "talla" => "168 cm",
+        "peso" => "55.4 kg",
+        "tension_arterial" => "12/80 mmHg",
+        "frecuencia_respiratoria" => "16 respiraciones por minuto",
+        "temperatura" => "36.5 °C",
+        "pulso" => "81 latidos por minuto",
+        "exploracion_fisica" => "En la exploración física por aparatos y sistemas, no hay hallazgos de significancia médico-ocupacional."
     ),
     "examenes_laboratorio" => array(
-        "serie_roja" => "",
-        "serie_blanca" => "",
-        "serie_trombocitaria" => "",
-        "pruebas_bioquimicas" => ""
+        "serie_roja" => "Sin hallazgos de significancia médico-ocupacional",
+        "serie_blanca" => "Sin hallazgos de significancia médico-ocupacional",
+        "serie_trombocitaria" => "Sin hallazgos de significancia médico-ocupacional",
+        "pruebas_bioquimicas" => "Glucosa 218mg/dl, Urea 30.5mg/dl, Bun 14.25mg/dl, Creatinina sérica 0.50 mg/dl, Colesterol
+        total 136mg/dl, Triglicéridos 79mg/dl"
     ),
-    "normalidad_psiquica_fisica" => "",
-    "conclusiones" => "",
+    "normalidad_psiquica_fisica" => "El candidato Lázaro Francisco Santiago Delgado ha demostrado normalidad psíquica y física.
+    Presenta agudeza en los sentidos y facilidad de expresión, lo que le permite comunicarse de
+    manera efectiva. Su capacidad física es adecuada para las funciones requeridas en el puesto, con
+    destreza de movimientos necesaria para llevar a cabo sus tareas de manera eficiente.",
+    "conclusiones" => "Basado en los resultados de la evaluación médica y el historial médico del candidato Lázaro
+    Francisco Santiago Delgado, considero que se encuentra apto y en condiciones de salud
+    adecuadas para ocupar el puesto de Técnico en Disparos en su VINCO. No existen
+    contraindicaciones médicas significativas que limiten su capacidad para desempeñar las
+    funciones requeridas.",
     "encabezado" => "Espacio para el nombre del Servicio Médico o del Médico encargado de la vigilancia médica.
         Dirección completa y teléfono de contacto // Edgar David Vázquez Paz, Boulevard Adolfo Ruiz
         Cortines 1344, Piso 2 Suite 245. Col. Tabasco 2000, C.P. 86035 Villahermosa, Centro, Tabasco.
@@ -359,14 +384,29 @@ $poe = array(
                         <table>
                             <tr>
                                 <td class="none-p">
-                                    <p class="none-p">Juan</p>
+                                    <p class="none-p">
+                                        <?php
+                                        # apellido paterno
+                                        echo $poe['paciente']['nombre']['paterno']
+                                        ?>
+                                    </p>
                                 </td>
                                 <td class="none-p">
-                                    <p class="none-p center">Juan</p>
+                                    <p class="none-p center">
+                                        <?php
+                                        # apellido materno
+                                        echo $poe['paciente']['nombre']['materno'];
+                                        ?>
+                                    </p>
 
                                 </td>
                                 <td class="none-p">
-                                    <p class="none-p center">Juan</p>
+                                    <p class="none-p center">
+                                        <?php
+                                        # nombres
+                                        echo $poe['paciente']['nombre']['nombres']
+                                        ?>
+                                    </p>
                                 </td>
                             </tr>
                         </table>
@@ -398,12 +438,22 @@ $poe = array(
                         <table>
                             <tr>
                                 <td class="none-p" style="display: flex;">
-                                    <p class="none-p  center" style=" width:60px;">59 años </p>
+                                    <p class="none-p  center" style=" width:60px;">
+                                        <?php
+                                        # edad
+                                        echo $poe['paciente']['edad'];
+                                        ?>
+                                    </p>
                                 </td>
                                 <td class="none-p" style="width: 30%;">
                                     <p class="none-p center">
+                                        <?php if ($poe['paciente']['sexo'] === "1") : ?>
+                                            <strong>(X)</strong>
+                                        <?php endif; ?>
                                         <span style="margin-right: 30px;">Femenino</span>
-                                        <strong>(X)</strong>
+                                        <?php if ($poe['paciente']['sexo'] === "2") : ?>
+                                            <strong>(X)</strong>
+                                        <?php endif; ?>
                                         <span>Masculino</span>
                                     </p>
                                 </td>
@@ -702,28 +752,40 @@ $poe = array(
                 <div class="body-examen">
                     <div class="input-label" style="margin-bottom: 15px;">
                         <label class="bold">Nombre del candidato:</label>
-                        <label>Lázaro Francisco Santiago Delgado</label>
+                        <label>
+                            <?php
+                            # nombre del candidato
+                            echo $poe['paciente']['px'];
+                            ?>
+                        </label>
                     </div>
                     <div class="input-label" style="margin-bottom: 15px;">
                         <label class="bold">Tipo de Examen Médico Ocupacional:</label>
-                        <label>de Ingreso</label>
+                        <label>
+                            <?php
+                            # tipo de examen
+                            echo $poe['paciente']['tipo_examen_text'];
+                            ?>
+                        </label>
                     </div>
                     <div class="input-label">
                         <label class="bold">Puesto:</label>
-                        <label>Técnico en disparos</label>
+                        <label>
+                            <?php
+                            # puesto del candidato
+                            echo $poe['paciente']['puesto'];
+                            ?>
+                        </label>
                     </div>
                     <div class="label">
                         <p>A quien corresponda,</p>
                     </div>
                     <div class="text">
                         <p class="justify" style="line-height: 20px;">
-                            Me complace comunicarme con ustedes en relación con el candidato <strong>Lázaro Francisco Delgado</strong>
-                            Santiago, quien ha sido sometido recientemente a un examen médico ocupacional, como parte
-                            del proceso de selección de su empresa. Como médico a cargo de la evaluación, deseo
-                            proporcionarles un informe detallado sobre los resultados de dicha evaluación, de acuerdo con
-                            los requisitos médicos y en cumplimiento a lo establecido al apéndice normativo B de la NOM-
-                            026-NUCL-2011, Vigilancia Médica del Personal Ocupacionalmente Expuesto a Radiaciones
-                            Ionizantes y/o la normatividad aplicable de salud en el trabajo
+                            <?php
+                            # informe detallado
+                            echo $poe['informe_detallado'];
+                            ?>
                         </p>
                     </div>
                     <!-- Resultados del examen de medico ocupacional -->
@@ -734,53 +796,64 @@ $poe = array(
                         <div class="input-label" style="margin-bottom: 20px;">
                             <label class="bold">Antecedentes Personales no Patológicos (APNP):</label>
                             <label class="justify" style="line-height: 20px;">
-                                Historia de tabaquismo desde hace 30 años.
-                                Consumo 7 cigarrillos diariamente. Consumo ocasional de alcohol. Realiza ejercicio aeróbico
-                                durante alrededor 40 minutos 6 días a la semana (caminata)
+                                <?php
+                                # resultado de ANPN
+                                echo $poe['resultados']['APNP'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 20px;">
                             <label class="bold">Vacunas Aplicadas:</label>
                             <label class="justify" style="line-height: 20px;">
-                                El candidato presenta un historial de vacunación completo de acuerdo con
-                                las recomendaciones de salud pública.
+                                <?php
+                                # resultado de vacunas_aplicadas
+                                echo $poe['resultados']['vacunas_aplicadas'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 20px;">
                             <label class="bold">Antecedentes Personales Patológicos (APP):</label>
                             <label class="justify" style="line-height: 20px;">
-                                Niega alergias a medicamentos, alimentos o
-                                condiciones medioambientales. Historia de fractura nasal hace 35 años, no refiere secuelas.
-                                Convive don diabetes mellitus tipo II con diagnóstico desde hace 26 años, actualmente bajo
-                                tratamiento con medidas higiénico-dietéticas y farmacológico con Metformina y Glibenclamida.
+                                <?php
+                                # resultado de APP
+                                echo $poe['resultados']['APP'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 20px;">
                             <label class="bold">Infecciones Previas:</label>
                             <label class="justify" style="line-height: 20px;">
-                                El candidato no refiere haber tenido episodios previos de infecciones en el
-                                año en curso.
+                                <?php
+                                # resultado de infeccion_previa
+                                echo $poe['resultados']['infeccion_previa'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 20px;">
                             <label class="bold">Alergias:</label>
                             <label class="justify" style="line-height: 20px;">
-                                El trabajador no reporta alergias a medicamentos, alimentos y/o condiciones
-                                medioambientales.
+                                <?php
+                                # resultado de alergias
+                                echo $poe['resultados']['alergias'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 20px;">
                             <label class="bold">Accidentes y Enfermedades de Trabajo:</label>
                             <label class="justify" style="line-height: 20px;">
-                                El candidato no refiere antecedentes de accidentes o
-                                enfermedades profesional.
+                                <?php
+                                # resultado de accidentes_enfermedades
+                                echo $poe['resultados']['accidentes_enfermedades']
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 20px;">
                             <label class="bold">Intervenciones Quirúrgicas:</label>
                             <label class="justify" style="line-height: 20px;">
-                                El candidato no refiere haberse sometido a intervenciones
-                                quirúrgicas
+                                <?php
+                                # resultado de interveciones_quirurgica
+                                echo $poe['resultados']['interveciones_quirurgica']
+                                ?>
                             </label>
                         </div>
                     </div>
@@ -792,44 +865,64 @@ $poe = array(
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Talla:</label>
                             <label class="justify" style="line-height: 20px;">
-                                168cm
+                                <?php
+                                # talla
+                                echo $poe['signos_vitales']['talla'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Peso:</label>
                             <label class="justify" style="line-height: 20px;">
-                                55.4kg
+                                <?php
+                                # peso
+                                echo $poe['signos_vitales']['peso'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Tensión Arterial (TA):</label>
                             <label class="justify" style="line-height: 20px;">
-                                12/80 mmHg
+                                <?php
+                                # tension_arterial
+                                echo $poe['signos_vitales']['tension_arterial'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Frecuencia Respiratoria (FR):</label>
                             <label class="justify" style="line-height: 20px;">
-                                16 respiraciones por minuto
+                                <?php
+                                # frecuencia_respiratoria
+                                echo $poe['signos_vitales']['frecuencia_respiratoria'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Temperatura: </label>
                             <label class="justify" style="line-height: 20px;">
-                                36.5 °C
+                                <?php
+                                # temperatura
+                                echo $poe['signos_vitales']['temperatura'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Pulso: </label>
                             <label class="justify" style="line-height: 20px;">
-                                81 latidos por minuto
+                                <?php
+                                # pulso
+                                echo $poe['signos_vitales']['pulso'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Exploración física: </label>
                             <label class="justify" style="line-height: 20px;">
-                                En la exploración física por aparatos y sistemas, no hay hallazgos de
-                                significancia médico-ocupacional.
+                                <?php
+                                # exploracion_fisica
+                                echo $poe['signos_vitales']['exploracion_fisica'];
+                                ?>
                             </label>
                         </div>
                     </div>
@@ -841,26 +934,37 @@ $poe = array(
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Serie Roja:</label>
                             <label class="justify" style="line-height: 20px;">
-                                Sin hallazgos de significancia médico-ocupacional
+                                <?php
+                                # serie_roja
+                                echo $poe['examenes_laboratorio']['serie_roja'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Serie Blanca:</label>
                             <label class="justify" style="line-height: 20px;">
-                                Sin hallazgos de significancia médico-ocupacional
+                                <?php
+                                # serie_blanca
+                                echo $poe['examenes_laboratorio']['serie_blanca'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Serie Trombocitaria:</label>
                             <label class="justify" style="line-height: 20px;">
-                                Sin hallazgos de significancia médico-ocupacional
+                                <?php
+                                # serie_trombocitaria
+                                echo $poe['examenes_laboratorio']['serie_trombocitaria'];
+                                ?>
                             </label>
                         </div>
                         <div class="input-label" style="margin-bottom: 0px;">
                             <label class="bold">Pruebas Bioquímicas:</label>
                             <label class="justify" style="line-height: 20px;">
-                                Glucosa 218mg/dl, Urea 30.5mg/dl, Bun 14.25mg/dl, Creatinina sérica 0.50 mg/dl, Colesterol
-                                total 136mg/dl, Triglicéridos 79mg/dl
+                                <?php
+                                # pruebas_bioquimicas
+                                echo $poe['examenes_laboratorio']['pruebas_bioquimicas'];
+                                ?>
                             </label>
                         </div>
                     </div>
@@ -870,10 +974,10 @@ $poe = array(
                             Normalidad Psíquica y Física:
                         </p>
                         <p class="justify" style="line-height: 20px;">
-                            El candidato <strong>Lázaro Francisco Santiago Delgado</strong> ha demostrado normalidad psíquica y física.
-                            Presenta agudeza en los sentidos y facilidad de expresión, lo que le permite comunicarse de
-                            manera efectiva. Su capacidad física es adecuada para las funciones requeridas en el puesto, con
-                            destreza de movimientos necesaria para llevar a cabo sus tareas de manera eficiente.
+                            <?php
+                            # normalidad_psiquica_fisica
+                            echo $poe['normalidad_psiquica_fisica'];
+                            ?>
                         </p>
                     </div>
                 </div>
@@ -886,11 +990,10 @@ $poe = array(
                 Conclusiones:
             </p>
             <p class="justify" style="line-height: 20px;">
-                Basado en los resultados de la evaluación médica y el historial médico del candidato Lázaro
-                Francisco Santiago Delgado, considero que se encuentra apto y en condiciones de salud
-                adecuadas para ocupar el puesto de Técnico en Disparos en su VINCO. No existen
-                contraindicaciones médicas significativas que limiten su capacidad para desempeñar las
-                funciones requeridas.
+                <?php
+                # conclusiones
+                echo $poe['conclusiones'];
+                ?>
                 <br>
                 <br>
 
@@ -949,12 +1052,20 @@ $poe = array(
                 <tr>
                     <td colspan="2">
                         <p class="none-p justify">
-                            <strong>Lugar:</strong> Villahermosa, Tabasco, México
+                            <strong>Lugar:</strong>
+                            <?php
+                            # lugar
+                            echo $poe['paciente']['lugar']
+                            ?>
                         </p>
                     </td>
                     <td colspan="2">
                         <p class="none-p justify">
-                            <strong>Fecha:</strong> 09 de Octubre de 2023
+                            <strong>Fecha:</strong>
+                            <?php
+                            # fecha
+                            echo $poe['paciente']['fecha']
+                            ?>
                         </p>
                     </td>
                 </tr>
@@ -977,13 +1088,28 @@ $poe = array(
                         <p class="none-p">Nombre:</p>
                     </td>
                     <td style="border: none;">
-                        <p class=" none-p bold center">Santiago</p>
+                        <p class=" none-p bold center">
+                            <?php
+                            # paterno
+                            echo $poe['paciente']['nombre']['paterno']
+                            ?>
+                        </p>
                     </td>
                     <td style="border: none;">
-                        <p class=" none-p bold center">Delgado</p>
+                        <p class=" none-p bold center">
+                            <?php
+                            # materno
+                            echo $poe['paciente']['nombre']['materno']
+                            ?>
+                        </p>
                     </td>
                     <td style="border: none; border-right:1px solid black;">
-                        <p class=" none-p bold center">Lázaro Francisco</p>
+                        <p class=" none-p bold center">
+                            <?php
+                            # nombres
+                            echo $poe['paciente']['nombre']['nombres']
+                            ?>
+                        </p>
                     </td>
                 </tr>
                 <tr>
@@ -992,23 +1118,40 @@ $poe = array(
                             Se le ha realizado el examen médico:
                             <br>
                             <br>
-                            De ingreso <strong>(X)</strong>
+                            De ingreso
+                            <?php if ($poe['paciente']['tipo_examen'] === "1") : ?>
+                                <strong>(X)</strong>
+                            <?php endif; ?>
                             <br>
                             <br>
                             Periódico
+                            <?php if ($poe['paciente']['tipo_examen'] === "2") : ?>
+                                <strong>(X)</strong>
+                            <?php endif; ?>
                             <br>
                             <br>
                             Especial
+                            <?php if ($poe['paciente']['tipo_examen'] === "3") : ?>
+                                <strong>(X)</strong>
+                            <?php endif; ?>
                             <br>
                             <br>
                             Otro examen (especificar):
+                            <?php if ($poe['paciente']['tipo_examen'] === "4") : ?>
+                                <strong>(X)</strong>
+                            <?php endif; ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="4">
                         <p>Quién es / será considerado personal ocupacionalmente expuesto a radiaciones ionizantes
-                            en la empresa o compañía: <strong>VINCO</strong>
+                            en la empresa o compañía: <strong>
+                                <?php
+                                # procedencia
+                                echo $poe['paciente']['procedencia'];
+                                ?>
+                            </strong>
                         </p>
                         <p class="none-p center">
                             (Nombre o denominación social del titular de la licencia, autorización o permiso)
@@ -1022,13 +1165,22 @@ $poe = array(
                             interesado como clínicamente:
                             <br>
                             <br>
-                            <span style="color: green;">Apto</span> <strong>(X)</strong>
+                            <span style="color: green;">Apto</span>
+                            <?php if ($poe['paciente']['apto'] === "1") : ?>
+                                <strong>(X)</strong>
+                            <?php endif; ?>
                             <br>
                             <br>
                             No apto
+                            <?php if ($poe['paciente']['apto'] === "2") : ?>
+                                <strong>(X)</strong>
+                            <?php endif; ?>
                             <br>
                             <br>
                             Apto en determinadas condiciones
+                            <?php if ($poe['paciente']['apto'] === "3") : ?>
+                                <strong>(X)</strong>
+                            <?php endif; ?>
                         </p>
                     </td>
                 </tr>

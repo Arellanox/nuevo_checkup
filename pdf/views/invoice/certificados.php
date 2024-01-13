@@ -34,7 +34,7 @@
     <!-- header -->
     <div class="header">
         <?php
-        $encabezado = passdata($resultados[0]->certificado)['encabezado'];
+        $encabezado = passdata('poe')['encabezado'];
         if ($encabezado)
             include "includes/certificados/encabezados/$encabezado.php";
         ?>
@@ -43,7 +43,7 @@
     <!-- Footer 1 chido -->
     <div class="footer">
         <?php
-        $footer = passdata($resultados[0]->certificado)['footer'];
+        $footer = passdata('poe')['footer'];
         if ($footer)
             include "includes/certificados/encabezados/$footer.php";
         ?>
@@ -57,7 +57,7 @@
         // $estudiosOtros = $areas;
 
         // print_r($resultados);
-        include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/certificados/" . $resultados[0]->certificado . ".php";
+        include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/certificados/" . 'poe' . ".php";
 
         ?>
 
