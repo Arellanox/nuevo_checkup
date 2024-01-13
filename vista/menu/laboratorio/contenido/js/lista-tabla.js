@@ -533,24 +533,14 @@ function generarFormularioPaciente(id) {
                 },
               }
 
-              kitDiag = {
+              resultado = {
                 0: {
-                  'descripcion': 'Anyplex™ Thrombosis SNP Panel Assays',
-                  'clave': ''
+                  'descripcion': 'Homocigoto',
+                },
+                1: {
+                  'descripcion': 'Heterocitogo',
                 }
               }
-
-              // resultado = {
-              //   0: {
-              //     'descripcion': '-'
-              //   },
-              //   1: {
-              //     'descripcion': 'Homocigoto',
-              //   },
-              //   2: {
-              //     'descripcion': 'Heterocitogo',
-              //   },
-              // }
               break;
 
 
@@ -654,9 +644,10 @@ function generarFormularioPaciente(id) {
                 case '344':
 
                 // PCR SARS-CoV-2/INFLUENZA A Y B
-                case '1470': case '1472': case '1474':
+                case '1470': case '1472': case '1474': case '1523': case '1526': case '1529': case '1531':
 
-                
+                // rT-PCR Thrombosis SNP
+                case '1519': case '1521':
 
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
@@ -909,41 +900,54 @@ $(document).on('click', '.selectMolecular', function () {
 
 
 
-// $(document).on('click', '.linearEstudiosLabs', function (event) {
-//   event.stopPropagation();
-//   event.preventDefault();
+$(document).on('click', '.linearEstudiosLabs', function (event) {
+  event.stopPropagation();
+  event.preventDefault();
 
-//   let id = $(this).attr('data-id_servicio');
-//   let grupo = $(this).attr('data-id_grupo');
-//   let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+  if (areaActiva == 12)
+    return false;
 
-//   // Oculta todos los otros elementos de collapse
-//   $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+  let id = $(this).attr('data-id_servicio');
+  let grupo = $(this).attr('data-id_grupo');
+  let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
 
-//   // Verifica si el contenido ya ha sido cargado
-//   if ($element.find('.valores-referencia').length === 0) {
-//     // Si no existe, realiza la llamada AJAX y carga el contenido
-//     reloadValoresRef($element, id);
-//   } else {
-//     $element.find('.valores-referencia').collapse('show');
-//   }
-// });
+  // Oculta todos los otros elementos de collapse
+  $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
 
-// // Evento de clic para el botón de recarga
-// $(document).on('click', '.reload-button', function (event) {
-//   event.stopPropagation();
-//   let id = $(this).closest('.linearEstudiosLabs').attr('data-id_servicio');
-//   let grupo = $(this).closest('.linearEstudiosLabs').attr('data-id_grupo');
-//   let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+  // Verifica si el contenido ya ha sido cargado
+  if ($element.find('.valores-referencia').length === 0) {
+    // Si no existe, realiza la llamada AJAX y carga el contenido
+    reloadValoresRef($element, id);
+  } else {
+    $element.find('.valores-referencia').collapse('show');
+  }
+});
 
-//   // Oculta todos los otros elementos de collapse
-//   $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+// Evento de clic para el botón de recarga
+$(document).on('click', '.reload-button', function (event) {
+  event.stopPropagation();
 
-//   // Recarga el contenido del collapse actual
-//   reloadValoresRef($element, id);
-// });
+  // Desactiva la secuencia para biomolecular
+  if (areaActiva == 12)
+    return false;
+
+  let id = $(this).closest('.linearEstudiosLabs').attr('data-id_servicio');
+  let grupo = $(this).closest('.linearEstudiosLabs').attr('data-id_grupo');
+  let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+
+  // Oculta todos los otros elementos de collapse
+  $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+
+  // Recarga el contenido del collapse actual
+  reloadValoresRef($element, id);
+});
 
 function reloadValoresRef($element, id) {
+
+  // Desactiva la secuencia para biomolecular
+  if (areaActiva == 12)
+    return false;
+
   ajaxAwait({
     id_servicio: id,
     genero: selectListaLab.GENERO,
