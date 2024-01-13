@@ -240,9 +240,10 @@ $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
 
 $curp_array = str_split('SADL641005HVZNLZ09');
+$rfc_array = str_split('LOGJ580812RH7');
 
 // echo "<pre>";
-// var_dump($cuerpo);
+// var_dump($resultados[0]);
 // echo "</pre>";
 // exit;
 
@@ -259,6 +260,7 @@ $poe = array(
             "paterno" => "Santiago",
         ),
         "curp" => $curp_array,
+        "rfc" => $rfc_array,
         "puesto" => "Técnico en disparos",
         "edad" => "59 años",
         "sexo" => "1",
@@ -510,24 +512,16 @@ $poe = array(
                     <!-- Inputs -->
                     <table>
                         <tr>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
-                            <td class="rfc"></td>
+                            <!-- Rfc del paciente -->
+                            <?php foreach ($poe['paciente']['rfc'] as $key => $value) : ?>
+                                <td class="rfc"><?php echo $value ?></td>
+                            <?php endforeach; ?>
                             <td class="border-b"></td>
                             <td class="border-b"></td>
                             <td class="border-b"></td>
                             <td class="border-b"></td>
                             <td class="border-b"></td>
+                            <!-- Curp del paciente -->
                             <?php foreach ($poe['paciente']['curp'] as $key => $value) : ?>
                                 <td class="curp"><?php echo $value ?></td>
                             <?php endforeach; ?>
