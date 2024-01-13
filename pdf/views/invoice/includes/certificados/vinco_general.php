@@ -182,6 +182,7 @@ $vinco = array(
         "procedencia" => "VINCO",
         "posicion" => $resultados[0]->PROFESION,
     ),
+    // Poner el diagnostico bien que no se como llega de cuerpo
     "diagnostico_tabla" => "PITIRIASIS VERSICOLOR EN PIERNA DERECHA",
     "clasificacion" => $cuerpo['clasificacion_grado_salud'],
     "aptitud_trabajo" => $cuerpo['aptitud'],

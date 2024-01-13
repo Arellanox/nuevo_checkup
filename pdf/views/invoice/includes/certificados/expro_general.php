@@ -102,15 +102,119 @@
     }
 </style>
 
+<?php
+
+function convertirObjetoAArray($objeto)
+{
+    if (is_object($objeto)) {
+        // Opción 1: Utilizar el casting
+        $array_resultante = (array) $objeto;
+
+        // Opción 2: Utilizar get_object_vars
+        // $array_resultante = get_object_vars($objeto);
+
+        return $array_resultante;
+    } else {
+        // Si el argumento no es un objeto, puedes manejarlo de acuerdo a tus necesidades
+        return array();
+    }
+}
+
+function formatear_fecha($fecha)
+{
+    $timestamp = strtotime($fecha);
+
+    $fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+    $fecha_formateada = $fmt->format($timestamp);
+
+    return $fecha_formateada;
+}
+
+function obtenerDiferenciaFechas($fechaFinal)
+{
+    // Obtener la fecha actual sin hora, minutos ni segundos
+    $fechaActual = new DateTime();
+    $fechaActual->setTime(0, 0, 0);
+
+    // Convertir la fecha final a objeto DateTime y establecer la hora a cero
+    $fechaFinalObj = new DateTime($fechaFinal);
+    $fechaFinalObj->setTime(0, 0, 0);
+
+    // Calcular la diferencia entre las fechas
+    $diferencia = $fechaActual->diff($fechaFinalObj);
+
+    // Obtener la diferencia en años, meses y días
+    $anos = $diferencia->y;
+    $meses = $diferencia->m;
+    $dias = $diferencia->d;
+
+    if ($anos > 0) {
+        return "$anos año" . ($anos > 1 ? 's' : '');
+    } elseif ($meses > 0) {
+        return "$meses mes" . ($meses > 1 ? 'es' : '');
+    } else {
+        return "$dias día" . ($dias > 1 ? 's' : '');
+    }
+}
+
+# aqui se recibe la data
+$cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
+$medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
+$resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
+$servicios = convertirObjetoAArray($resultado['SERVICIOS']);
+
+$fecha_original = formatear_fecha($resultados[0]->fecha_resultado);
+
+// echo "<pre>";
+// var_dump($cuerpo['ap_lateral_columna']);
+// echo "</pre>";
+// exit;
+
+# arreglo para rellenar el certificado de vinco
+$expro = array(
+    "paciente" => array(
+        "nombre" => $resultados[0]->PX,
+        "fecha" => $fecha_original,
+        "lugar" => "Villahermosa, Tabasco.",
+        "edad" => $resultados[0]->EDAD_L,
+        "nacionalidad" => $resultados[0]->NACIONALIDAD
+    ),
+    "examen_medico" => array(
+        "tipo" => $cuerpo['tipo_examen_medico'],
+        "procedencia" => "EXPRO",
+        "posicion" => $resultados[0]->PROFESION,
+    ),
+    "clasificacion" => $cuerpo['clasificacion_grado_salud'],
+    "aptitud_trabajo" => $cuerpo['aptitud'],
+    "vigencia" => obtenerDiferenciaFechas($cuerpo['vigencia_certificado']),
+    "fecha_vencimiento" =>  formatear_fecha($cuerpo['vigencia_certificado']),
+    "medico" => array(
+        "nombre" => $medico['INFO_UNIVERSIDAD'][0]->NOMBRE_COMPLETO,
+        "profesion" => $medico['INFO_UNIVERSIDAD'][0]->PROFESION,
+        "cedula" => $medico['INFO_UNIVERSIDAD'][0]->CEDULA,
+        "firma" => "",
+        "especialidades" => $medico['INFO_ESPECIALIDAD'][0]->CEDULA
+    ),
+    "diagnostico" => $resultado['HISTORIA']->DIAGNOSTICO,
+    "recomendaciones" => $resultado['HISTORIA']->RECOMENDACIONES
+);
+?>
 <!-- Body -->
 <div class="body-certificado">
     <!-- Tablas  1 -->
     <table>
         <tr>
             <td style="border-bottom: none;">
-                <strong>Dra. Beatriz Alejandra Ramos Gonzáles</strong> <br>
+                <strong>
+                    <?php
+                    # nombre del medico
+                    echo $expro['medico']['nombre'];
+                    ?>
+                </strong> <br>
                 <span class="margin:20px 0px 20px 0px;">
-                    Médico Cirujano, Ced. Prof. 7796595, Certificación NIOSH SP-000515-23
+                    <?php echo $expro['medico']['profesion'] ?>,
+                    Ced. Prof. <?php echo $expro['medico']['cedula'] ?>,
+                    Certificación <?php echo $expro['medico']['especialidades'] ?>
                 </span>
             </td>
         </tr>
@@ -123,25 +227,50 @@
         <tr>
             <td colspan="5">
                 LUGAR:
-                <strong>Villahermosa, Tabasco.</strong>
+                <strong style="font-size: 14px;">
+                    <?php
+                    # lugar del usuario 
+                    echo $expro['paciente']['lugar']
+                    ?>
+                </strong>
             </td>
             <td colspan="5">
                 FECHA:
-                <strong>07 octubre 2023</strong>
+                <strong style="font-size: 14px;">
+                    <?php
+                    # fecha del paciente 
+                    echo $expro['paciente']['fecha']
+                    ?>
+                </strong>
             </td>
         </tr>
         <tr>
             <td colspan="4">
                 NOMBRE:
-                <strong>Gabriel Chavez Sanchez</strong>
+                <strong style="font-size: 13px;">
+                    <?php
+                    # nombre del paciente
+                    echo $expro['paciente']['nombre'];
+                    ?>
+                </strong>
             </td>
             <td colspan="2">
                 EDAD:
-                <strong>49 años</strong>
+                <strong style="font-size: 14px;">
+                    <?php
+                    # edad del paciente
+                    echo $expro['paciente']['edad'];
+                    ?>
+                </strong>
             </td>
             <td colspan="4">
                 NACIONALIDAD:
-                <strong>Mexicana</strong>
+                <strong style="font-size: 14px;">
+                    <?php
+                    # nacionalidad del paciente
+                    echo $expro['paciente']['nacionalidad']
+                    ?>
+                </strong>
             </td>
         </tr>
         <!-- Examen periodico -->
@@ -150,21 +279,34 @@
         </tr>
         <tr>
             <td>INGRESO</td>
-            <td class="bold center"></td>
+            <td class="bold center">
+                <?php if ($expro['examen_medico']['tipo'] == "1") : ?> X <?php endif ?>
+            </td>
             <td>PERIODICO</td>
-            <td class="bold center">X</td>
+            <td class="bold center">
+                <?php if ($expro['examen_medico']['tipo'] == "2") : ?> X <?php endif ?>
+            </td>
             <td>EGRESO</td>
-            <td class="bold center"></td>
+            <td class="bold center">
+                <?php if ($expro['examen_medico']['tipo'] == "3") : ?> X <?php endif ?>
+            </td>
             <td>ESPECIAL</td>
-            <td class="bold center"></td>
+            <td class="bold center">
+                <?php if ($expro['examen_medico']['tipo'] == "4") : ?> X <?php endif ?>
+            </td>
             <td>OTRO:</td>
-            <td class="bold center"></td>
+            <td class="bold center">
+                <?php if ($expro['examen_medico']['tipo'] == "5") : ?> X <?php endif ?>
+            </td>
         </tr>
         <tr>
             <td colspan="10">
                 QUIEN ES/ SERA CONSIDERADO PERSONAL EN ACTIVO EN LA EMPRESA:
                 <strong>
-                    EXPRO
+                    <?php
+                    # procedencia
+                    echo $expro['examen_medico']['procedencia']
+                    ?>
                 </strong>
             </td>
         </tr>
@@ -172,7 +314,10 @@
             <td colspan="10">
                 EN LA POSICIÓN DE:
                 <strong>
-                    Operador.
+                    <?php
+                    # no se que es pero es de que trabaja creo xd
+                    echo $expro['examen_medico']['posicion']
+                    ?>
                 </strong>
             </td>
         </tr>
@@ -230,33 +375,50 @@
         </tr>
         <tr>
             <td colspan="1"></td>
-            <td colspan="1" class="bg-black center">X</td>
+            <td colspan="1" <?php if ($expro['aptitud_trabajo'] == "1") : ?> class="bg-black center" <?php endif ?> data="">
+                <?php if ($expro['aptitud_trabajo'] == "1") : ?> X <?php endif ?>
+            </td>
             <td colspan="8">
                 APTO PARA TRABAJAR
             </td>
         </tr>
         <tr>
             <td colspan="1"></td>
-            <td colspan="1"></td>
+            <td colspan="1" <?php if ($expro['aptitud_trabajo'] == "2") : ?> class="bg-black center" <?php endif ?> data="">
+                <?php if ($expro['aptitud_trabajo'] == "2") : ?> X <?php endif ?>
+            </td>
             <td colspan="8">
-                APTO PARA TRABAJAR
+                APTO PARA TRABAJAR CON RESTRICCIONES
             </td>
         </tr>
         <tr>
             <td colspan="1"></td>
-            <td colspan="1"></td>
+            <td colspan="1" <?php if ($expro['aptitud_trabajo'] == "3") : ?> class="bg-black center" <?php endif ?> data="">
+                <?php if ($expro['aptitud_trabajo'] == "3") : ?> X <?php endif ?>
+            </td>
             <td colspan="8">
                 NO APTO PARA TRABAJAR
             </td>
         </tr>
     </table>
+    </table>
     <table style="width: 60%;" class="tabla2">
         <tr>
             <td style="border-top: none;" class="p  bg center bold italic"> VIGENCIA</td>
-            <td style="border-top: none;" class="p">3 MESES</td>
+            <td style="border-top: none;" class="p">
+                <?php
+                # vigencia
+                echo $expro['vigencia']
+                ?>
+            </td>
             <td style="border-top: none;" class="p  bg center bold italic"> FECHA DE
                 VENCIMIENTO </td>
-            <td style="border-top: none;" class="p">06/10/2024</td>
+            <td style="border-top: none;" class="p">
+                <?php
+                # fecha de vencimiento
+                echo $expro['fecha_vencimiento']
+                ?>
+            </td>
         </tr>
     </table>
     <!-- Salto de pagina -->
@@ -384,8 +546,10 @@
     <table>
         <tr>
             <td class="left  ">
-                1.- CKD POR CKD EPI CREATININA GRADO II 2.- DISLIPIDEMIA MIXTA 3.- ROBABLE HIPERTENSIÓN ARTERIAL 4.-
-                HIPOACUSIA LEVE BILATERAL 4.- OTITIS MEDIA BILATERAL 5.- PTERIGIÓN BILATERAL GRADO I 6.- HIPERURICEMIA
+                <?php
+                # diagnostico del paciente
+                echo $expro['diagnostico'];
+                ?>
             </td>
         </tr>
     </table>
@@ -401,9 +565,10 @@
     <table>
         <tr>
             <td class="  ">
-                1.- ACUDIR AL SERVICIO DE MEDICINA INTERNA 2.- SE SUGIERE ULTRASONIDO DE HÍGADO Y VÍAS BILIARES 3.-MANTENER
-                PROTOCOLO DE HIGIENE Y SEGURIDAD LABORAL. 4.- UTILIZAR PROTECTORES AUDITIVOS EN CASO DE EXPOSICIÓN
-                DIRECTA AL RUIDO. 5.- ADOPTAR ESTILO DE VIDA SALUDABLE 6.- REALIZAR EXAMEN MÉDICO EN 3 MESES.
+                <?php
+                # recomendaciones
+                echo $expro['recomendaciones'];
+                ?>
             </td>
         </tr>
     </table>
