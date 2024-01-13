@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Tipo de examen médico:</label>
-                    <select name="cuerpo[tipo_examen_medico]" class="input-form">
+                    <select name="cuerpo[tipo_examen_medico]" class="input-form" id="tipo_examen_medico_expro">
                         <option value="1">INGRESO</option>
                         <option value="2">PERIODICO</option>
                         <option value="3">EGRESO</option>
@@ -21,7 +21,7 @@
             <div class="col-12">
                 <div class="mb-2">
                     <label for="">Aptitud de trabajo:</label>
-                    <select name="cuerpo[aptitud]" class="input-form">
+                    <select name="cuerpo[aptitud]" class="input-form" id="aptitud_trabajo_expro">
                         <option value="1">Apto</option>
                         <option value="2">No Apto</option>
                     </select>
@@ -75,13 +75,24 @@
                         cols="2" placeholder="Especifique"></textarea>
                 </div>
             </div>
-            <!-- <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-6" id="electrocardiograma_analisis">
                 <div class="mb-2">
-                    <label for="">Etanol:</label>
-                    <textarea name="cuerpo[Etanol_analisis]" class="form-control input-form fs-5" rows="1" cols="2"
-                        placeholder="Especifique"></textarea>
+                    <label for="">Electrocardiograma:</label>
+                    <textarea name="cuerpo[electrocardiograma_analisis]" class="form-control input-form fs-5" rows="1"
+                        cols="2" placeholder="Especifique"></textarea>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    // $('#electrocardiograma_analisis').fadeIn('fast');
+    // $('#tipo_examen_medico_expro').on('change', function () {
+    //     if ($(this).val() != 2) {
+    //         $('#electrocardiograma_analisis').fadeOut('fast');
+    //     } else {
+    //         $('#electrocardiograma_analisis').fadeIn('fast');
+    //     }
+    // })
+</script>
