@@ -180,6 +180,61 @@
     }
 </style>
 
+<?php
+
+// Arreglo para rellenar el PDF para el certificado de poe
+$poe = array(
+    "paciente" => array(
+        // Nombre completoss
+        "px" => "nombre_completo",
+        // Nombre por partes
+        "nombre" => array(
+            "nombres" => "",
+            "materno" => "",
+            "paterno" => "",
+        ),
+        "curp" => array(),
+        "puesto" => "",
+        "tipo_examen" => "",
+        "lugar" => "",
+        "fecha" => "",
+        "procedencia" => "",
+        "es_sera" => "",
+        "apto" => "",
+    ),
+    "informe_detallado" => "",
+    "resultados" => array(
+        "APNP" => "",
+        "vacunas_aplicadas" => "",
+        "APP" => "",
+        "infeccion_previa" => "",
+        "alergias" => "",
+        "accidentes_enfermedades" => "",
+        "interveciones_quirurgica" => "",
+    ),
+    "signos_vitales" => array(
+        "talla" => "",
+        "peso" => "",
+        "tension_arterial" => "",
+        "frecuencia_respiratoria" => "",
+        "temperatura" => "",
+        "pulso" => "",
+        "exploracion_fisica" => ""
+    ),
+    "examenes_laboratorio" => array(
+        "serie_roja" => "",
+        "serie_blanca" => "",
+        "serie_trombocitaria" => "",
+        "pruebas_bioquimicas" => ""
+    ),
+    "normalidad_psiquica_fisica" => "",
+    "conclusiones" => "",
+    "encabezado" => "Espacio para el nombre del Servicio Médico o del Médico encargado de la vigilancia médica.
+        Dirección completa y teléfono de contacto // Edgar David Vázquez Paz, Boulevard Adolfo Ruiz
+        Cortines 1344, Piso 2 Suite 245. Col. Tabasco 2000, C.P. 86035 Villahermosa, Centro, Tabasco.
+        Tel. 993 500029",
+);
+?>
 
 <!-- Body -->
 <div class="body-certificado">

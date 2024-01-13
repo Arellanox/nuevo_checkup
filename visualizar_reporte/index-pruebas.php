@@ -41,7 +41,7 @@ $area_id = -5;
 // //$cliente_id = 19;
 // // $id_cotizacion = 7;
 
-$preview = "vinco_general"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
+$preview = "poe"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 
 switch ($api) {
