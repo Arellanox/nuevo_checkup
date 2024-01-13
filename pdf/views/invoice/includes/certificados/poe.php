@@ -239,6 +239,8 @@ $cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
 $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
 
+$curp_array = str_split('SADL641005HVZNLZ09');
+
 // echo "<pre>";
 // var_dump($cuerpo);
 // echo "</pre>";
@@ -256,7 +258,7 @@ $poe = array(
             "materno" => "Delgado",
             "paterno" => "Santiago",
         ),
-        "curp" =>  ['S', 'A', 'D', 'L', '6', '4', '1', '0', '0', '5', 'H', 'V', 'Z', 'N', 'L', 'Z', '0', '9'],
+        "curp" => $curp_array,
         "puesto" => "Técnico en disparos",
         "edad" => "59 años",
         "sexo" => "1",
@@ -526,24 +528,9 @@ $poe = array(
                             <td class="border-b"></td>
                             <td class="border-b"></td>
                             <td class="border-b"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
-                            <td class="curp"></td>
+                            <?php foreach ($poe['paciente']['curp'] as $key => $value) : ?>
+                                <td class="curp"><?php echo $value ?></td>
+                            <?php endforeach; ?>
                         </tr>
                     </table>
                     <!-- Labels -->
