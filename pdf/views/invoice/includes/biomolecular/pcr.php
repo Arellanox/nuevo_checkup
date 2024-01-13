@@ -21,31 +21,32 @@
         <td><strong>rT-PCR-SARS-CoV2 (Coronavirus)</strong></td>
         <td>
             <strong>
-                <?php if ($body[0]->resultados == "NEGATIVO" && $body[2]->resultado == "NEGATIVO" && $body[3]->resultado == "NEGATIVO") {
+                <?php if ($body[0]->resultado == "NEGATIVO" && $body[1]->resultado == "NEGATIVO" && $body[2]->resultado == "NEGATIVO") {
                     echo 'NEGATIVO';
                 } else {
                     echo 'POSITIVO';
                 } ?>
             </strong>
         </td>
-        <td><strong>Negativo</strong></td>
+        <td><strong>NEGATIVO</strong></td>
     </tr>
     <tr>
         <td><br></td>
     </tr>
     <tr>
-        <td><strong>Valor CT N1: </strong> <?php
-                                            if ($body[0]->resultado != 'NEGATIVO')
-                                                echo $body[0]->resultado; ?>
+        <td><strong>Valor CT N2: </strong> 
+        <?php
+                                            if ($body[1]->resultado != 'NEGATIVO')
+                                                echo $body[1]->resultado; ?>
         </td>
-        <td><strong>N2: </strong> <?php
-                                    if ($body[2]->resultado != 'NEGATIVO')
-                                        echo $body[2]->resultado; ?>
+        <!-- <td><strong>N2: </strong> <?php
+                                    if ($body[1]->resultado != 'NEGATIVO')
+                                        echo $body[1]->resultado; ?>
         </td>
         <td><strong>N3: </strong><?php
-                                    if ($body[3]->resultado != 'NEGATIVO')
-                                        echo $body[3]->resultado; ?>
-        </td>
+                                    if ($body[2]->resultado != 'NEGATIVO')
+                                        echo $body[2]->resultado; ?>
+        </td> -->
     </tr>
 </table>
 <br>
