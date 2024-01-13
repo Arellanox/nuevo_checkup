@@ -7,7 +7,7 @@ if (validarVista('ASISTENCIA')) {
 
 let dataReporteAsistencia = {
     api: 10, bimer_id: 0,
-}, select_data;
+}, select_data, tablaReporteAsistencias;
 
 async function obtenerVistaAsistencia() {
     obtenerTitulo("Asistencia");

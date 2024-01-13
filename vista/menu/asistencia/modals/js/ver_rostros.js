@@ -89,6 +89,7 @@ selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
     ], reload: ['col-12 col-lg-9'], visibleColumns: true
 }, async function (select, data, callback) {
     fadeTableAsistencia({ type: 'Out' });
+    tablaReporteAsistencias.clear().draw();
     select_data = data;
 
     const divHorarios = $('#divHorarios');
@@ -279,8 +280,8 @@ function fadeTableAsistencia(config = {}) {
                 break;
             case 'Out':
                 div.fadeOut();
-                horarios.fadeOut();
                 tablaReporteAsistencias.clear().draw();
+
                 break;
             default:
                 fadeTableAsistencia({ type: 'Out' });
