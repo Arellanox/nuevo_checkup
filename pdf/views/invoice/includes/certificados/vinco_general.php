@@ -163,10 +163,10 @@ $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 
 $fecha_original = formatear_fecha($resultados[0]->fecha_resultado);
 
-// echo "<pre>";
-// var_dump($cuerpo['ap_lateral_columna']);
-// echo "</pre>";
-// exit;
+echo "<pre>";
+var_dump();
+echo "</pre>";
+exit;
 
 # arreglo para rellenar el certificado de vinco
 $vinco = array(
@@ -182,8 +182,8 @@ $vinco = array(
         "procedencia" => "VINCO",
         "posicion" => $resultados[0]->PROFESION,
     ),
-    // Poner el diagnostico bien que no se como llega de cuerpo
-    "diagnostico_tabla" => "PITIRIASIS VERSICOLOR EN PIERNA DERECHA",
+    // Poner el diagnostico bien que no se como llega de cuerpo 
+    "diagnostico_tabla" => $resultado['HISTORIA']->DIAGNOSTICO,
     "clasificacion" => $cuerpo['clasificacion_grado_salud'],
     "aptitud_trabajo" => $cuerpo['aptitud'],
     "vigencia" => obtenerDiferenciaFechas($cuerpo['vigencia_certificado']),
