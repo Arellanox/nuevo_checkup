@@ -163,10 +163,10 @@ $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
 
 $fecha_original = formatear_fecha($resultados[0]->fecha_resultado);
 
-echo "<pre>";
-var_dump();
-echo "</pre>";
-exit;
+// echo "<pre>";
+// var_dump();
+// echo "</pre>";
+// exit;
 
 # arreglo para rellenar el certificado de vinco
 $vinco = array(
