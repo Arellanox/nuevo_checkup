@@ -255,6 +255,8 @@ switch ($api) {
                 }
             } else {
                 $response = "Reporte validado. No hay archivos para enviar o paciente de empresa.";
+                echo $master->returnApi($response, 3);
+                exit;
             }
         }
         break;
