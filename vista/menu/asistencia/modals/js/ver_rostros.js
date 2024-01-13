@@ -5,8 +5,7 @@ tablaUsuariosFiltro = $('#tablaUsuariosFiltro').DataTable({
     lengthChange: false,
     info: false,
     paging: false,
-    sorting: false,
-    scrollY: '40vh',
+    scrollY: '54vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -62,13 +61,58 @@ setTimeout(() => {
 }, 1000);
 
 // Select para la tabla principals
+isMovil(() => {
+    $('#tab-informacion').fadeOut();
+})
 selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
     unSelect: true, dblClick: false,
+    movil: true, 'tab-default': 'Información', // Envia a la configuración de fechas
+    tabs: [
+        {
+            title: 'Usuarios',
+            element: '#tab-usuarios',
+            class: 'active',
+        },
+        {
+            title: 'Información',
+            element: '#tab-informacion',
+            class: 'disabled tab-select'
+        },
+        {
+            title: 'Reporte',
+            element: '#tab-reporte',
+            callback: function () {
+                let boton_click = 'consultarInformacion';
+            },
+            class: 'disabled tab-select'
+        },
+    ], reload: ['col-12 col-lg-9'], visibleColumns: true
 }, async function (select, data, callback) {
     fadeTableAsistencia({ type: 'Out' });
+    select_data = data;
+
+    const divHorarios = $('#divHorarios');
+
     if (select) {
-        await fadeTableAsistencia({ type: 'In', data: data })
+
+        divHorarios.html("");
+        divHorarios.html(
+            buldHorarios({ data: data })
+        );
+
+        divHorarios.fadeIn();
+
+        fadeTableAsistencia({ type: 'In', data: data })
+
+        //Muestra las columnas
+        callback('In')
     } else {
+
+        divHorarios.fadeOut('200');
+        setTimeout(() => {
+            $
+        }, 220);
+        callback('Out')
         fadeTableAsistencia({ type: 'Out', data: null })
     }
 })
@@ -77,12 +121,16 @@ selectTable('#tablaUsuariosFiltro', tablaUsuariosFiltro, {
 tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+        emptyTable: 'No hay registros disponibles aún.'
     },
     lengthChange: false,
-    info: true,
-    paging: false,
-    sorting: false,
-    scrollY: '68vh',
+    lengthMenu: [
+        [15, 30, 45, -1],
+        [15, 30, 45, "All"]
+    ],
+    info: false,
+    paging: true,
+    scrollY: '50vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -195,27 +243,19 @@ setTimeout(() => {
     }, "col-12")
 }, 1000);
 
-function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
+function fadeTableAsistencia(config = {}) {
+    // data = { type: 'In' || 'Out', data: null }
     return new Promise((resolve, reject) => {
 
         const div = $('#divtablaReporteAsistencias');
-        const horarios = $('#divHorarios');
         const element = config.data
 
         const fecha_incio = $('#FechaInicio').val();
         const fecha_final = $('#FechaFinal').val();
 
-        const divHorarios = $('#divHorarios');
-
         switch (config.type) {
             case 'In':
                 div.fadeIn();
-                horarios.fadeIn();
-
-                divHorarios.html("");
-                divHorarios.html(
-                    buldHorarios({ data: element })
-                );
 
                 dataReporteAsistencia = {
                     api: 10,
@@ -240,6 +280,7 @@ function fadeTableAsistencia(config = { type: 'In' || 'Out', data: null }) {
             case 'Out':
                 div.fadeOut();
                 horarios.fadeOut();
+                tablaReporteAsistencias.clear().draw();
                 break;
             default:
                 fadeTableAsistencia({ type: 'Out' });
@@ -301,8 +342,7 @@ function buldHorarios(config = { data: '' }) {
 };
 
 
-$(document).on('click', '#consultarInformacion', (e) => {
-    fadeTablaUsuarios({ type: 'Out' });
+$(document).on('click', '#consultarInformacion', async (e) => {
     fadeTableAsistencia({ type: 'Out' });
 
     const inicio = $('#FechaInicio').val()
@@ -312,9 +352,7 @@ $(document).on('click', '#consultarInformacion', (e) => {
         alertToast('Las fechas estan vacias', 'error', 2000);
         return false;
     } else {
-        fadeTablaUsuarios({
-            type: 'In'
-        });
+        await fadeTableAsistencia({ type: 'In', data: select_data })
     }
 })
 

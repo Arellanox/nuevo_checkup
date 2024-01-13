@@ -66,6 +66,37 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
   return date.toLocaleDateString('es-MX', options)
 }
 
+function calcularQuincena() {
+  var fechaActual = new Date();
+  var añoActual = fechaActual.getFullYear();
+  var mesActual = fechaActual.getMonth(); // Enero es 0 en JavaScript
+  var primerDiaMes = new Date(añoActual, mesActual, 1);
+  var ultimoDiaMes = new Date(añoActual, mesActual + 1, 0); // El día 0 es el último día del mes anterior
+  var mitadDelMes = new Date(añoActual, mesActual, 15);
+
+  var inicioQuincena, finQuincena;
+  if (fechaActual.getDate() <= 15) {
+    inicioQuincena = primerDiaMes;
+    finQuincena = mitadDelMes;
+  } else {
+    inicioQuincena = new Date(añoActual, mesActual, 16);
+    finQuincena = ultimoDiaMes;
+  }
+
+  // Formatear fechas para yyyy-mm-dd
+  function formatearFecha(fecha) {
+    var año = fecha.getFullYear();
+    var mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
+    var dia = ('0' + fecha.getDate()).slice(-2);
+    return año + '-' + mes + '-' + dia;
+  }
+
+  return {
+    fechaInicio: formatearFecha(inicioQuincena),
+    fechaFinal: formatearFecha(finQuincena)
+  };
+}
+
 
 // Reinicia los collapse para medicos tratantes
 function reset_email_inputs_medicos() {
@@ -2130,6 +2161,7 @@ function configSelectTable(config) {
       }
     ],
     divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
+    visibleColumns: false, // Mantiene activo los DIV en modo escritorio
   }
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -2375,7 +2407,12 @@ function selectTable(tablename, datatable,
   let callback = (type = 'Out' || 'In') => {
     if (type === 'In') {
       if (!isMovil() || !config.movil) {
-        $('.tab-second').fadeIn(200)
+        $('.tab-second').each(function (i) {
+          var $item = $(this);
+          setTimeout(function () {
+            $item.fadeIn(200); // O cualquier otro efecto que desees
+          }, 200 * i); // Aumenta el retraso para cada elemento
+        });
       }
 
       $.fn.dataTable
@@ -2524,10 +2561,11 @@ function selectTable(tablename, datatable,
 
   function selectTable_cargarVista() {
     if (config.divPadre) {
-      console.log('Hola');
-      $(`${config.divPadre} .tab-second`).fadeOut()
+      if (!config.visibleColumns)
+        $(`${config.divPadre} .tab-second`).fadeOut()
     } else {
-      $('.tab-second').fadeOut()
+      if (!config.visibleColumns)
+        $('.tab-second').fadeOut()
     }
 
     // console.log($(loader_selectTable))

@@ -6,4 +6,11 @@ $.post("modals/a_modal.php", function (html) {
 }).done(function () {
     $.getScript('modals/js/ver_rostros.js');
     $.getScript('modals/js/reporte_personal.js');
+
+    // Usar la función y mostrar las fechas
+    var quincena = calcularQuincena();
+
+    $('#FechaInicio').val(quincena.fechaInicio)
+    $('#FechaFinal').val(quincena.fechaFinal)
+
 });

@@ -5,6 +5,10 @@ if (validarVista('ASISTENCIA')) {
     });
 }
 
+let dataReporteAsistencia = {
+    api: 10, bimer_id: 0,
+}, select_data;
+
 async function obtenerVistaAsistencia() {
     obtenerTitulo("Asistencia");
     $.post("contenido/contenido.php", function (html) {

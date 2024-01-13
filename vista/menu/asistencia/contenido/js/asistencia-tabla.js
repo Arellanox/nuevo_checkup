@@ -242,14 +242,16 @@ $(document).on('click', '#generReportePdf', function (e) {
 })
 
 function obtenerReporteExcel() {
-    fadeTablaUsuarios({
-        type: 'Out'
-    });
+    // fadeTablaUsuarios({
+    //     type: 'in'
+    // });
     fadeTableAsistencia({
         type: 'Out'
     })
-    $('#FechaInicio').val("")
-    $('#FechaFinal').val("")
+    // $('#FechaInicio').val("")
+    // $('#FechaFinal').val("")
+
+
     $('#modalReporteExcel').modal('show');
 }
 
