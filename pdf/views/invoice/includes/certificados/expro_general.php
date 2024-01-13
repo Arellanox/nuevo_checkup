@@ -161,12 +161,14 @@ function obtenerDiferenciaFechas($fechaFinal)
 $cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
 $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
-$servicios = convertirObjetoAArray($resultado['SERVICIOS']);
+$estudios = convertirObjetoAArray($resultados[0]->EXPRO_PERIODICO);
+$servicios = convertirObjetoAArray($estudios['servicios']);
+
 
 $fecha_original = formatear_fecha($resultados[0]->fecha_resultado);
 
 // echo "<pre>";
-// var_dump($cuerpo['ap_lateral_columna']);
+// var_dump($cuerpo);
 // echo "</pre>";
 // exit;
 
@@ -178,6 +180,19 @@ $expro = array(
         "lugar" => "Villahermosa, Tabasco.",
         "edad" => $resultados[0]->EDAD_L,
         "nacionalidad" => $resultados[0]->NACIONALIDAD
+    ),
+    "estudios" => array(
+        "GLUCOSA" => $servicios['GLUCOSA']->RESULTADO,
+        "COLESTEROL" => $servicios['COLESTEROL TOTAL']->RESULTADO,
+        "TRIGLICERIDOS" => $servicios['TRIGLICÉRIDOS']->RESULTADO,
+        "CREATININA" => $servicios['CREATININA SÉRICA']->RESULTADO,
+        "EGO" => $cuerpo['ego'],
+        "ANTIDOPING" => $estudios['antidoping'],
+        "ESPIROMETRIA" => $cuerpo['espirometria_analisis'],
+        "AUDIOMETRIA" => $cuerpo['audiometria_analisis'],
+        "RADIOGRAFÍAS" => $cuerpo['radiografias_analisis'],
+        "ETANOL" => $servicios['ETANOL EN SANGRE']->RESULTADO,
+        "ELECTROCARDIOGRAMA" => $cuerpo['electrocardiograma'],
     ),
     "examen_medico" => array(
         "tipo" => $cuerpo['tipo_examen_medico'],
@@ -453,13 +468,19 @@ $expro = array(
                 GLUCOSA
             </td>
             <td class="center">
-                78 mg/dL
+                <?php
+                # resultado de glucosa
+                echo $expro['estudios']['GLUCOSA'];
+                ?>
             </td>
             <td class="bold center">
                 ESPIROMETRIA
             </td>
             <td class="center">
-                Normal
+                <?php
+                # resultado de ESPIROMETRIA
+                echo $expro['estudios']['ESPIROMETRIA'];
+                ?>
             </td>
         </tr>
         <tr>
@@ -467,13 +488,19 @@ $expro = array(
                 COLESTEROL
             </td>
             <td class="center">
-                299 mg/dL
+                <?php
+                # resultado de colesterol
+                echo $expro['estudios']['COLESTEROL'];
+                ?>
             </td>
             <td class="bold center">
                 AUDIOMETRIA
             </td>
             <td class="center">
-                Hipoacusia leve bilateral
+                <?php
+                # resultado de AUDIOMETRIA
+                echo $expro['estudios']['AUDIOMETRIA'];
+                ?>
             </td>
         </tr>
         <tr>
@@ -481,14 +508,19 @@ $expro = array(
                 TRIGLICERIDOS
             </td>
             <td class="center">
-                784 mg/d
+                <?php
+                # resultado de TRIGLICERIDOS
+                echo $expro['estudios']['TRIGLICERIDOS'];
+                ?>
             </td>
             <td class="bold center">
                 RADIOGRAFÍAS
             </td>
             <td class="center">
-                Tórax de aspecto normal. Columna
-                lumbosacra normal
+                <?php
+                # resultado de RADIOGRAFÍAS
+                echo $expro['estudios']['RADIOGRAFÍAS'];
+                ?>
             </td>
         </tr>
         <tr>
@@ -496,13 +528,19 @@ $expro = array(
                 CREATININA
             </td>
             <td class="center">
-                1.15 mg/dL
+                <?php
+                # resultado de CREATININA
+                echo $expro['estudios']['CREATININA'];
+                ?>
             </td>
             <td class="bold center">
                 ETANOL
             </td>
             <td class="center">
-                Negativo
+                <?php
+                # resultado de ETANOL
+                echo $expro['estudios']['ETANOL'];
+                ?>
             </td>
         </tr>
         <tr>
@@ -510,13 +548,21 @@ $expro = array(
                 EGO
             </td>
             <td class="center">
-                Proteinuria
+                <?php
+                # resultado de EGO
+                echo $expro['estudios']['EGO'];
+                ?>
             </td>
             <td class="bold center">
                 <!-- Mostrar Electrocardiograma para ingreso -->
+                ELECTROCARDIOGRAMA
             </td>
             <td class="center">
-                <!-- Resultado de Electrocardiograma -->
+                <!-- Resultado de ELECTROCARDIOGRAMA -->
+                <?php
+                # resultado de ELECTROCARDIOGRAMA
+                echo $expro['estudios']['ELECTROCARDIOGRAMA'];
+                ?>
             </td>
         </tr>
         <tr>
@@ -524,7 +570,10 @@ $expro = array(
                 ANTIDOPING
             </td>
             <td class="center">
-                Negativo
+                <?php
+                # resultado de ANTIDOPING
+                echo $expro['estudios']['ANTIDOPING'];
+                ?>
             </td>
             <td class="bold center">
 
