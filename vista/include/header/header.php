@@ -212,7 +212,6 @@ switch ($menu) {
             ?>
           </li>
 
-
           <li class="nav-item dropstart flex-grow-1">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
             <a data-bs-toggle="dropdown" type="button" class="">
@@ -221,6 +220,7 @@ switch ($menu) {
                 <div class="overlay-avatar">
                   <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
                 </div>
+                <span class="promociones">%</span>
               </div>
             </a>
 
@@ -232,9 +232,13 @@ switch ($menu) {
                       <p><?php echo "$_SESSION[cargo_descripcion]"; ?></p>
                     </div>
                     <div class="profile-description text-center">Hola, ¡buen día! :)</div>
+
+                    <a href="" class="btn-promociones"><i class="bi bi-tag-fill"></i> Promociones</a>
+
                     <?php if ($menu != 'procedencia') { ?>
                       <div class="profile-description text-center">
                         <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>
+
                       </div>
                     <?php } ?>
                     <div class="row" style="padding-right: 5%; padding-left: 5%;">
@@ -347,5 +351,40 @@ switch ($menu) {
   .profile-card-4:hover img {
     transform: rotate(2deg) scale(1.04, 1.04);
     filter: brightness(60%);
+  }
+
+
+  /* Promociones en la barra de usuario */
+  @keyframes vibrating {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  50% { transform: translateX(1px); }
+  75% { transform: translateX(-1px); }
+}
+
+.promociones {
+  position: absolute;
+  top: 27px;
+  left: -6px;
+  background-color: #ffb400;
+  width: 24px;
+  height: 24px;
+  border-radius: 20px;
+  padding: 2.1px 5.7px;
+  font-weight: bolder;
+  color: black;
+  font-size: 15px;
+  display: inline-block;
+  animation: vibrating 0.5s infinite;
+}
+
+  .btn-promociones {
+    background-color: #ffb400;
+    border-radius: 10px;
+    width: 118px;
+    margin-left: 92px;
+    margin-top: -1px;
+    margin-bottom: -4px;
+    animation: vibrating 0.6s infinite;
   }
 </style>
