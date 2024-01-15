@@ -446,19 +446,14 @@ function ifnull(data, siNull = '', values = [
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
-      const result = ifnull(data[key], false);
-      if (result) {
-        return result;
-      }
-      // return result || siNull;
+      return data[key] || siNull;
     } else if (typeof key === 'object') {
       for (const nestedKey in key) {
-        const result = ifnull(data[nestedKey], siNull, [key[nestedKey]]);
-        if (result) return result
+        const result = ifnull(data[nestedKey], siNull, key[nestedKey]);
+        if (result) return ifnull(result, siNull);
       }
     }
   }
-
 
   return siNull;
 }
