@@ -326,9 +326,9 @@ $poe = array(
         "exploracion_fisica" => $cuerpo['exploracion_fisica']
     ),
     "examenes_laboratorio" => array(
-        "serie_roja" => "Sin hallazgos de significancia médico-ocupacional",
-        "serie_blanca" => "Sin hallazgos de significancia médico-ocupacional",
-        "serie_trombocitaria" => "Sin hallazgos de significancia médico-ocupacional",
+        "serie_roja" => $cuerpo['serie_roja'],
+        "serie_blanca" => $cuerpo['serie_blanca'],
+        "serie_trombocitaria" => $cuerpo['serie_trombocitaria'],
         "pruebas_bioquimicas" => $resultado['LABORATORIO']->QUIMICA_SANGUINEA_TEXT
     ),
     "normalidad_psiquica_fisica" => $cuerpo['interpretacion'],
